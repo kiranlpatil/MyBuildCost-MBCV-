@@ -1,0 +1,58 @@
+@import '../../../css/common';
+
+//Splash Screen
+.page-background {
+  @extend %background-img;
+  background-color: $grey-background;
+  background-position: 0 40px;
+  display: table;
+  height: 100vh;
+  margin: 0 auto;
+  width: 100%;
+
+  .page-header {
+    border: 0;
+    font-family: 'helvlightregular';
+    height: 40px;
+    left: 0;
+    margin: 0;
+    position: fixed;
+    top: 0;
+    width: 100%;
+
+    ul {
+      float: right;
+      list-style: none;
+    }
+
+    ul > li {
+      float: left;
+      margin-right: 35px;
+      padding: 10px 0;
+    }
+
+    ul > li > a {
+      color: $white;
+    }
+  }
+
+  .inner-content {
+    display: table-cell;
+    height: 100vh;
+    vertical-align: middle;
+
+    h4 {
+      color: $white;
+      font-family: 'helveticaneueregular';
+      font-size: 48px;
+      font-weight: 100;
+    }
+
+    p {
+      color: $white;
+      font-family: 'helvlightregular';
+      font-size: 16px;
+      margin-top: 20px;
+    }
+  }
+}

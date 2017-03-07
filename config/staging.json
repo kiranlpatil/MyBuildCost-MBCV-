@@ -1,0 +1,28 @@
+{
+  "TplSeed": {
+    "database": {
+      "host":"127.0.0.1",
+      "name": "tpl-seed-backend"
+    },
+    "mail": {
+      "host":"https://10.192.33.252:1300/",
+      "MAIL_SENDER": "redminestatus@techprimelab.com",
+      "MAIL_SENDER_PASSWORD": "Contactu$@tpl",
+      "ADMIN_MAIL": "admin@techprimelab.com"
+
+    },
+    "facebookIds":{
+      "clientId" : "1000308350087499",
+      "clientSecretId" : "fdd2b77c78273fc8f7dd6b2dd2dcdac9"
+    },
+    "googlePlusIds":{
+      "clientId" : "244363436693-l4fglqbjitj39t9dsg7lkep5esfoe1bq.apps.googleusercontent.com",
+      "clientSecretId" : "OzWBm3F7biB0NUrdTQ5tmdUM"
+    },
+    "messaging": {
+      "authKey": "127339A2fxGvqL57f47902",
+      "senderId": "TPLSID",
+      "routerNumber": "4"
+    }
+  }
+}

@@ -1,0 +1,72 @@
+@import '../../../../css/common';
+
+.contact {
+
+  iframe {
+    border: 1px solid $border-grey;
+    margin-top: 30px;
+    width: 100%;
+  }
+
+  h4 {
+    border-bottom: $border-color 1px solid;
+    margin-bottom: 30px;
+    padding-bottom: 15px;
+  }
+
+  .content-left {
+    p,
+    form {
+      margin-top: 0;
+    }
+  }
+
+  .content-right {
+    background-color: $loader-border;
+    border: $border-color 1px solid;
+    padding: 15px;
+    text-align: left;
+
+    p {
+      font-size: 12px;
+    }
+  }
+
+  form {
+    text-align: left;
+
+    .form-group {
+
+      label {
+        display: block;
+        float: left;
+      }
+
+      .form-control {
+        background: transparent;
+        border-left: $border-grey 1px solid;
+        border-radius: 0;
+        border-right: $border-grey 1px solid;
+        border-top: $border-grey 1px solid;
+        box-shadow: none;
+        color: $text-color;
+        display: block;
+        padding: 6px;
+
+        &:focus {
+          box-shadow: none;
+          outline: 0;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .contact {
+
+    iframe {
+      margin-top: 15px;
+    }
+  }
+}

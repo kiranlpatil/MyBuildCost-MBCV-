@@ -1,0 +1,129 @@
+import { NgModule } from '@angular/core';
+import { AppComponent } from './app.component';
+import { BrowserModule } from '@angular/platform-browser';
+import { APP_BASE_HREF } from '@angular/common';
+import { RouterModule } from '@angular/router';
+import { routes } from './app.routes';
+import { HttpModule, Http, XHRBackend, RequestOptions } from '@angular/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ValidationService } from './framework/shared/customvalidations/validation.service';
+import { ControlMessagesComponent } from './framework/shared/customvalidations/controlmessages.component';
+import { MessageService, AppRequestOptions, CustomHttp,LoaderService } from './framework/shared/index';
+import { LoginComponent } from './framework/login/login.component';
+import { DashboardComponent } from './framework/dashboard/dashboard.component';
+ import { ChangePasswordComponent } from './framework/password/change-password/change-password.component';
+ import { ForgotPasswordComponent } from './framework/password/forgot-password/forgot-password.component';
+ import { DashboardProfileComponent } from './framework/dashboard/dashboard-profile/dashboard-profile.component';
+ import { AboutComponent } from './framework/dashboard/about/about.component';
+ import { ContactComponent } from './framework/dashboard/contact/contact.component';
+ import { SettingsComponent } from './framework/dashboard/settings/settings.component';
+ import { DashboardHomeComponent } from './framework/dashboard/dashboard-home/dashboard-home.component';
+
+ import { FacebookService } from './framework/login/facebook.service';
+ import { CommonService } from './framework/shared/common.service';
+ import { FooterComponent } from './framework/shared/footer/footer.component';
+ import { HeaderComponent } from './framework/shared/header/header.component';
+ import { ChangePasswordService } from './framework/password/change-password/change-password.service';
+ import { NotificationService } from './framework/shared/notification/notification.service';
+ import { NotificationComponent } from './framework/shared/notification/notification.component';
+ import { ForgotPasswordService } from './framework/password/forgot-password/forgot-password.service';
+ import { SocialIconComponent } from './framework/shared/footer/social-icon/social-icon.component';
+ import { RegistrationService } from './framework/registration/registration.service';
+ import { LoaderComponent } from './framework/shared/loader/loader.component';
+ import { ThemeChangeService } from './framework/shared/themechange.service';
+ import { LoginService } from './framework/login/login.service';
+ import { RegistrationComponent } from './framework/registration/registration.component';
+ import { DashboardService } from './framework/dashboard/dashboard.service';
+ import { ProfileService } from './framework/shared/profileservice/profile.service';
+ import { ContactService } from './framework/dashboard/contact/contact.service';
+ import { ActivateUserComponent } from './framework/registration/activate-user/activate-user.component';
+ import { ResetPasswordComponent } from './framework/password/forgot-password/reset-password/reset-password.component';
+ import { ActiveUserService } from './framework/registration/activate-user/activate-user.service';
+ import { ResetPasswordService } from './framework/password/forgot-password/reset-password/reset-password.service';
+ import { VerifyUserComponent } from './framework/registration/verify_user/verify-user.component';
+ import { VerifyUserService } from './framework/registration/verify_user/verify-user.service';
+ import { VerifyPhoneComponent } from './framework/registration/verify_phone/verify-phone.component';
+ import { VerifyPhoneService } from './framework/registration/verify_phone/verify-phone.service';
+ import { ChangeEmailComponent } from './framework/dashboard/settings/change-email/change-email.component';
+ import { ChangeEmailService } from './framework/dashboard/settings/change-email/change-email.service';
+ import { ActivateEmailComponent } from './framework/dashboard/settings/activate-email/activate-email.component';
+ import { ActiveEmailService } from './framework/dashboard/settings/activate-email/activate-email.service';
+ import { ChangeMobileComponent } from './framework/dashboard/settings/change-mobile/change-mobile.component';
+ import { ChangeMobileService } from './framework/dashboard/settings/change-mobile/change-mobile.service';
+import {LandingPageComponent} from './framework/landing-page/landing-page.component';
+
+@NgModule({
+  imports: [
+    BrowserModule,
+    FormsModule,
+    RouterModule.forRoot(routes),
+    HttpModule,
+    ReactiveFormsModule
+  ],
+  declarations: [
+    AppComponent,
+    ControlMessagesComponent,
+    LoaderComponent,
+    LandingPageComponent,
+    LoginComponent,
+    RegistrationComponent,
+    ActivateUserComponent,
+    ActivateEmailComponent,
+    VerifyUserComponent,
+    VerifyPhoneComponent,
+    DashboardComponent,
+    ChangePasswordComponent,
+    ChangeEmailComponent,
+    ChangeMobileComponent,
+    ForgotPasswordComponent,
+    ResetPasswordComponent,
+    DashboardProfileComponent,
+    AboutComponent,
+    ContactComponent,
+    SettingsComponent,
+    DashboardHomeComponent,
+    HeaderComponent,
+    FooterComponent,
+    NotificationComponent,
+    SocialIconComponent
+  ],
+  providers: [
+    {
+      provide: Http,
+      useFactory: (backend:XHRBackend, defaultOptions:RequestOptions, messageService:MessageService,
+                   loaderService:LoaderService) => new CustomHttp(backend, defaultOptions, messageService,loaderService),
+      deps: [XHRBackend, RequestOptions, MessageService,LoaderService]
+    },
+    {provide: RequestOptions, useClass: AppRequestOptions},
+    {
+      provide: APP_BASE_HREF,
+      useValue: '<%= APP_BASE %>'
+    },
+    MessageService,
+    FacebookService,
+    LoginService,
+    LoaderService,
+    CommonService,
+    ValidationService,
+    ChangePasswordService,
+    ChangeEmailService,
+    ChangeMobileService,
+    NotificationService,
+    ForgotPasswordService,
+    ThemeChangeService,
+    RegistrationService,
+    DashboardService,
+    ProfileService,
+    ContactService,
+    ResetPasswordService,
+    ActiveUserService,
+    ActiveEmailService,
+    VerifyUserService,
+    VerifyPhoneService
+
+  ],
+  bootstrap: [AppComponent]
+})
+export class AppModule {
+}
+

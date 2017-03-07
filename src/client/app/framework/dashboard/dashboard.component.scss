@@ -1,0 +1,60 @@
+@import '../../../css/common';
+
+.dashboard {
+  min-height: 100%;
+  padding-bottom: 140px;
+  position: relative;
+  width: 100%;
+
+  main {
+    float: right;
+    width: 100%;
+  }
+
+  // Slide Menu
+  .menu {
+    height: 100%;
+    left: 0;
+    overflow: auto;
+    position: fixed;
+    text-align: left;
+    top: 53px;
+    transition: .6s cubic-bezier(.68, -.55, .265, 1.55);
+    width: 15%;
+    z-index: 101;
+  }
+}
+
+@media (max-width: 960px) {
+  .dashboard {
+    main {
+      width: 100%;
+    }
+
+    // Slide Menu
+    .menu {
+      width: 0;
+    }
+  }
+}
+// Media Queries
+@media only screen and (max-width: 768px) {
+  .dashboard {
+    main {
+      width: 100%;
+    }
+
+    .alert {
+      padding: 10px;
+
+      .error-msg {
+        text-align: left;
+      }
+
+      .error-msg,
+      .close-msg {
+        padding: 0;
+      }
+    }
+  }
+}

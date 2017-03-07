@@ -1,0 +1,17 @@
+@import '../../../../css/common';
+$footer-bg: #f8f8f8;
+
+.home-page-footer {
+  background: $footer-bg;
+  border-top: $border-color 1px solid;
+  bottom: 0;
+  height: 140px;
+  padding: 15px 0;
+  position: absolute;
+  width: 100%;
+
+  p,
+  a {
+    font-size: 12px;
+  }
+}
