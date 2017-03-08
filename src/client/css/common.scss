@@ -1,25 +1,27 @@
 //Common Variables
+$white: #fff;
+$bg-notification-unread: #fafafa;
+$bg-wrapper: #f8f8f8;
+$loader-border: #f3f3f3;
+$header-bg: #e8e8e8;
+$border-color: #e8e8e8;
+$border-grey: #ccc;
+$wrapper-text: #aaa;
+$wrapper-border: #999;
 $text-color: #666;
 $sub-heading: #666;
 $grey-background: #777;
 $error-success: #42a948;
 $error-failure: #a94442;
-$header-bg: #e8e8e8;
-$border-color: #e8e8e8;
-$border-grey: #ccc;
-$wrapper-border: #999;
-$white: #fff;
-$loader-border: #f3f3f3;
-$background-black-alpha5: rgba(0, 0, 0, .5);
 $toaster-error: #f66761;
 $toaster-success: #42a948; // #3ec59d;
-$toaster-message: rgba(102, 102, 102, .35);
-$wrapper-text: #aaa;
-$bg-wrapper: #f8f8f8;
-$bg-content: rgba(255, 255, 255, .1);
 $bg-disabled: #e82c0c;
+$background-black-alpha5: rgba(0, 0, 0, .5);
+$toaster-message: rgba(102, 102, 102, .35);
+$bg-content: rgba(255, 255, 255, .1);
 $modal-bg: rgba(0, 0, 0, .7);
-$bg-notification-unread: #fafafa;
+
+
 //Common Classes
 // Remove important
 .no-border { border: transparent 1px solid; }
@@ -41,6 +43,8 @@ $bg-notification-unread: #fafafa;
   padding-left: 0;
   padding-right: 5px;
 }
+
+:focus { outline: none; }
 
 %background-img {
   background-position: 0 0;
@@ -198,7 +202,7 @@ form {
 
 //Buttons
 .btn {
-  border-radius: 4px;
+  border-radius: 25px;
 
   &:focus {
     box-shadow: none;
@@ -319,6 +323,7 @@ h5 {
 }
 
 .alert {
+  margin: 0 15px;
   padding: 10px;
 
   .error-msg,
@@ -367,11 +372,14 @@ h5 {
   }
 }
 
-
-.wrapper {
+.main-form-wrapper {
   @extend %background-img;
   background-color: $bg-wrapper;
   height: 100vh;
+  left: 0;
+  overflow: auto;
+  position: absolute;
+  top: 0;
   width: 100%;
 
   .content {
@@ -380,6 +388,7 @@ h5 {
     margin-right: -50%;
     padding: 0;
     position: absolute;
+    text-align: left;
     top: 50%;
     transform: translate(-50%, -50%);
 
@@ -388,7 +397,7 @@ h5 {
       font-family: 'helvlightregular';
       font-size: 18px;
       margin: 0;
-      padding: 20px 0;
+      padding: 10px 0 10px 30px;
     }
 
     p {
@@ -398,8 +407,7 @@ h5 {
 
   form {
     margin-top: 0;
-    padding: 30px;
-    text-align: left;
+    padding: 15px;
 
     [type='number'] {
       -moz-appearance: textfield;
@@ -408,27 +416,74 @@ h5 {
       margin: 0;
     }
 
-    .form-group {
-      margin-bottom: 20px;
-      width: 100%;
-    }
-
     .form-control {
-      background: $bg-wrapper;
-      border: 1px solid $border-color;
-      height: 25px;
-      width: 100%;
+      color: $text-color;
     }
   }
 
+  .radio-group {
+    padding: 15px;
+    width: 100%;
+
+    label {
+      margin-right: 30px;
+    }
+  }
+
+  .btn-group {
+    text-align: center;
+    width: 100%;
+
+    .btn {
+      float: none;
+    }
+  }
+
+  .form-group {
+    float: left;
+    margin-bottom: 25px;
+    padding: 0;
+    position: relative;
+    width: 100%;
+
+    label {
+      -moz-transition: top .5s ease-in, font-size .5s ease-in;
+      -webkit-transition: top .5s ease-in, font-size .5s ease-in;
+      color: $wrapper-border;
+      font-size: 14px;
+      font-weight: normal;
+      left: 15px;
+      pointer-events: none;
+      position: absolute;
+      top: 10px;
+      //transition: .2s ease all;
+      transition: top .5s ease-in, font-size .5s ease-in;
+    }
+
+    input {
+      &:focus ~ label,
+      &:valid ~ label {
+        font-size: 12px;
+        top: -10px;
+      }
+    }
+
+    select {
+      &:focus ~ label,
+      &:valid ~ label {
+        font-size: 12px;
+        top: -10px;
+      }
+    }
+  }
 }
 
 control-messages {
   div {
     color: $toaster-error;
-    font-size: 12px;
+    font-size: 10px;
     font-style: italic;
-    margin: 6px 0;
+    margin: 35px 0 6px;
     padding-right: 20px;
     position: absolute;
     right: 0;
@@ -485,11 +540,24 @@ control-messages {
 
   .wrapper {
 
+    form {
+      padding: 0  0 15px;
+    }
+
+    .radio-inline {
+      display: block;
+      margin: 0;
+    }
+
+    form > .form-group {
+      width: 100%;
+    }
+
     control-messages {
       div {
         left: 0;
         margin-top: 35px;
-        padding: 0 0 0 30px;
+        padding: 0 0 0 15px;
         text-align: left;
       }
     }
@@ -530,6 +598,10 @@ control-messages {
         text-align: left;
       }
     }
+  }
+
+  .alert {
+    margin: 15px 15px 0;
   }
 }
 

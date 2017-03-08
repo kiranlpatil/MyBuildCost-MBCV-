@@ -1,4 +1,4 @@
-<section class="wrapper" [ngStyle]="{'background-image': 'url(' + BODY_BACKGROUND + ')'}">
+<section class="main-form-wrapper" [ngStyle]="{'background-image': 'url(' + BODY_BACKGROUND + ')'}">
 
   <div class="col-lg-4 col-sm-8 col-xs-10 content">
 
@@ -15,15 +15,13 @@
 
     <form [formGroup]="userForm" (submit)="onSubmit()">
 
-      <div class="form-group input-group">
+      <div class="form-group">
         <control-messages [control]="userForm.controls.email"></control-messages>
-        <span class="input-group-addon"><img src="{{EMAIL_ICON}}"></span>
         <input type="text" formControlName="email" id="email" placeholder="Email" class="form-control"/>
       </div>
 
-      <div class="form-group input-group">
+      <div class="form-group">
         <control-messages [control]="userForm.controls.password"></control-messages>
-        <span class="input-group-addon"><img src="{{PASSWORD_ICON}}"></span>
         <input type="password" formControlName="password" id="password" placeholder="Password" class="form-control"/>
       </div>
 

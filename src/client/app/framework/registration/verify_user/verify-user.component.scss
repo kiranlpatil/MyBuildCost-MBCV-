@@ -1,6 +1,9 @@
 @import '../../../../css/common';
 
-.wrapper {
+.main-form-wrapper {
+  form {
+    padding: 0 30px;
+  }
 
   .radio-inline {
     color: $wrapper-text;
@@ -10,19 +13,10 @@
       -moz-appearance: none;
     }
   }
-
-  .content {
-
-    h4 {
-      color: $white;
-      font-size: 22px;
-      margin-top: 0;
-    }
-  }
 }
 
 @media only screen and (max-width: 768px) {
-  .wrapper {
+  .main-form-wrapper {
     .radio-inline {
       margin-left: 0;
       width: 100%;
