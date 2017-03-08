@@ -17,17 +17,30 @@
     padding: 0 15px;
     width: 50%;
   }
+
+  .alert {
+    margin: 0 15px;
+  }
 }
+
+@media only screen and (max-width: 768px) {
+  .registration {
+    .form-group {
+      padding: 0;
+      width: 100%;
+    }
+
+    .alert {
+      margin: 0;
+    }
+  }
+}
+
 @media only screen and (max-width: 767px) {
   .registration {
 
     .error-message-registration > p {
      text-align: left;
-    }
-
-    .form-group {
-      padding: 0;
-      width: 100%;
     }
   }
 }
