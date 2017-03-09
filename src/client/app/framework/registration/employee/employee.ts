@@ -3,6 +3,7 @@
  */
 export class Employee {
   id : any;
+  isEmployee :boolean;
   first_name: string;
   last_name : string;
   birth_year :number;

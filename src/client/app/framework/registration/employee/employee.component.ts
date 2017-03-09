@@ -58,6 +58,7 @@ export class EmployeeComponent {
   onSubmit() {
     this.model = this.userForm.value;
     this.model.current_theme = AppSettings.LIGHT_THEM;
+    this.model.isEmployee =true;
     if (!this.makePasswordConfirm()) {
       this.isFormSubmitted = true;
       // this.loaderService.start();

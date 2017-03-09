@@ -3,6 +3,7 @@
  */
 export class Employer {
   id : any;
+  isEmployee :boolean;
   company_name: string;
   company_size : string;
   email : string;
@@ -15,4 +16,5 @@ export class Employer {
   pin:number;
   captcha:string;
   current_theme : string;
+  company_logo:string;
 }

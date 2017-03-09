@@ -88,6 +88,7 @@ export class API {
   public static NOTIFICATION = 'notification';
   public static SEND_MAIL = 'sendmail';
   public static USER_PROFILE = 'users';
+  public static EMPLOYER_PROFILE = 'employers';
   public static LOGIN = 'login';
   public static FB_LOGIN = 'fbLogin';
   public static CHANGE_PASSWORD = 'changepassword';
