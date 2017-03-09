@@ -15,6 +15,7 @@ export class DashboardHomeComponent implements OnInit,OnDestroy {
 
     ngOnInit() {
         document.body.scrollTop = 0;
+      console.log("hello");
       //this.loaderService.stop();
     }
 

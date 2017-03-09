@@ -126,7 +126,7 @@ export class LoginComponent implements OnInit {
     var socialLogin:string = LocalStorageService.getLocalValue(LocalStorage.IS_SOCIAL_LOGIN);
 
     if(socialLogin === AppSettings.IS_SOCIAL_LOGIN_YES) {
-      window.location.reload(); //this will enable access to dropdown option oof profile.
+     //window.location.reload(); //this will enable access to dropdown option oof profile.
     }
   }
 

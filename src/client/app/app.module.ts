@@ -56,6 +56,9 @@ import {EmployerComponent} from "./framework/registration/employer/employer.comp
 import {EmployeeService} from "./framework/registration/employee/employee.service";
 import {EmployerService} from "./framework/registration/employer/employer.service";
 
+//C-NEXT IMPORTS
+import {ProfilePictureComponent} from "./cnext/framework/profile-picture/profile-picture.component";
+
 @NgModule({
   imports: [
     BrowserModule,
@@ -91,7 +94,11 @@ import {EmployerService} from "./framework/registration/employer/employer.servic
     HeaderComponent,
     FooterComponent,
     NotificationComponent,
-    SocialIconComponent
+    SocialIconComponent,
+    
+    //C-NEXT COMPONENT
+
+    ProfilePictureComponent
   ],
   providers: [
     {
