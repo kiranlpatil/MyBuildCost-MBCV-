@@ -288,8 +288,8 @@ h5 {
 
 // Other Links
 .other-links {
-  margin: 15px 0 0;
   font-size: 12px;
+  margin: 15px 0 0;
   text-align: center;
 }
 
@@ -428,8 +428,9 @@ h5 {
     padding: 15px 0;
     width: 100%;
 
-    label {
-      margin-right: 30px;
+    label, .lable-name {
+      width: 120px;
+      margin-right: 15px;
     }
   }
 
@@ -574,6 +575,7 @@ control-messages {
       }
 
       .radio-inline {
+        width: auto;
         display: inline-block;
         margin: 0 20px 0 0;
       }

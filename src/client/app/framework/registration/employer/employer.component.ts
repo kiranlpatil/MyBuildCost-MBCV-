@@ -34,6 +34,7 @@ export class EmployerComponent {
   error_msg: string;
   isShowErrorMessage: boolean = true;
   BODY_BACKGROUND:string;
+  image_path: any;
 
   constructor(private commanService: CommonService, private _router: Router,
               private EmployerService: EmployerService, private messageService: MessageService, private formBuilder: FormBuilder,private loaderService:LoaderService) {
@@ -52,6 +53,7 @@ export class EmployerComponent {
     });
 
     this.BODY_BACKGROUND = ImagePath.BODY_BACKGROUND;
+    this.image_path = ImagePath.PROFILE_IMG_ICON;
   }
 
   onSubmit() {
