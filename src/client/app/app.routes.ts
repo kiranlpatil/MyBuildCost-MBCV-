@@ -18,6 +18,7 @@ import { ChangeMobileRoutes } from './framework/dashboard/settings/change-mobile
 import {LandingPageRoutes} from './framework/landing-page/landing-page.routes';
 import {EmployeeRoutes} from "./framework/registration/employee/employee.routes";
 import {EmployerRoutes} from "./framework/registration/employer/employer.routes";
+import {ProfileCreator} from "./cnext/framework/profile-creator/profile-creator.routes";
 
 
 export const routes: Routes = [
@@ -39,5 +40,6 @@ export const routes: Routes = [
   ...ChangeMobileRoutes,
   ...AboutRoutes,
   ...SettingsRoutes,
+  ...ProfileCreator,
    ...StartRoutes,
 ];

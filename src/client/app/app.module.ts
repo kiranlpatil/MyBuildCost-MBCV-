@@ -58,6 +58,7 @@ import {EmployerService} from "./framework/registration/employer/employer.servic
 
 //C-NEXT IMPORTS
 import {ProfilePictureComponent} from "./cnext/framework/profile-picture/profile-picture.component";
+import {ProfileCreatorComponent} from "./cnext/framework/profile-creator/profile-creator.component";
 
 @NgModule({
   imports: [
@@ -98,7 +99,8 @@ import {ProfilePictureComponent} from "./cnext/framework/profile-picture/profile
     
     //C-NEXT COMPONENT
 
-    ProfilePictureComponent
+    ProfilePictureComponent,
+    ProfileCreatorComponent
   ],
   providers: [
     {
