@@ -1,5 +1,10 @@
 import {Component} from '@angular/core';
 import {Http, Response} from "@angular/http";
+import {FormGroup, FormBuilder} from "@angular/forms";
+import {IndustryService} from "./industryList.service";
+import { industryProfile} from "./industry";
+import {Router} from "@angular/router";
+import {LoaderService} from "../../../framework/shared/loader/loader.service";
 @Component({
   moduleId: module.id,
   selector: 'cn-industry',
@@ -8,7 +13,10 @@ import {Http, Response} from "@angular/http";
 })
 
 export class IndustryComponent {
-
+  storedIndustry:string;
+  storedFunction:string;
+  userForm: FormGroup;
+  model=new industryProfile();
   industries: string[];
   storedRoles=new Array();
   functions: string[];
@@ -25,7 +33,9 @@ export class IndustryComponent {
   rmainingRoles:string[];
   key:number;
 
-  constructor(private http: Http) {
+
+  constructor( private _router:Router,
+               private industryService: IndustryService,private http: Http,private formBuilder: FormBuilder,private loaderService:LoaderService) {
 
   }
 
@@ -33,7 +43,8 @@ export class IndustryComponent {
     this.temproles= new Array(1);
   }
 
-  selectIndustryModel(newVal: any) {
+  selectIndustryModel(newVal: any) {debugger
+    this.storedIndustry=newVal;
     this.industryModel = newVal;
     this.http.get("role").map((res: Response) => res.json())
       .subscribe(
@@ -55,6 +66,7 @@ export class IndustryComponent {
   }
 
   selectFunctionModel(newVal: any) {
+    this.storedFunction=newVal;
     this.functionModel = newVal;
     this.http.get("role").map((res: Response) => res.json())
       .subscribe(
@@ -96,7 +108,7 @@ export class IndustryComponent {
     if (roleType === "industry") {
       this.functionModel="";
       this.isIndustrySelected=true;
-      this.isFunctionSelected=false;
+      this.isFunctionSelected=false;debugger
       if (this.industries === undefined) {
         this.http.get(roleType).map((res: Response) => res.json())
           .subscribe(
@@ -130,6 +142,40 @@ export class IndustryComponent {
       this.temproles.push("null");
     }
   }
+
+
+
+
+
+
+
+  createAndSave()
+  {
+
+   // this.model = this.userForm.value;
+    // this.model.current_theme = AppSettings.LIGHT_THEM;
+    // this.loaderService.start();
+   this.model.industryName=this.storedIndustry;
+   this.model.functionname=this.storedFunction;
+   this.model.roleFirst=this.storedRoles[0];
+    this.model.roleSecond=this.storedRoles[1];
+    this.model.roleThird=this.storedRoles[2];
+
+
+    this.industryService.addIndustryProfile(this.model).subscribe(
+      user => {
+        debugger
+      },
+      error => {
+debugger
+      });
+  };
+
+
+
+
+
+
 }
 
 

@@ -811,6 +811,18 @@ export function getRole (req:express.Request, res:express.Response) {
     res.status(403).send({message: e.message});
   }
 }
+export function  getProficiency (req:express.Request, res:express.Response) {
+  __dirname = './';
+  var filepath="proficiency.json";
+  try {
+    res.sendFile(filepath,{root: __dirname});
+  }
+  catch (e) {
+    res.status(403).send({message: e.message});
+  }
+}
+
+
 
 export function getCapability (req:express.Request, res:express.Response) {
   __dirname = './';
@@ -983,6 +995,21 @@ export function updatePicture(req:express.Request, res:express.Response, next:an
 
   });
 }
+export  function profilecreate(req:express.Request, res:express.Response)
+{
+  try {
+
+    console.log("123344555667789987654398765432765455687858787687");
+  }
+  catch (e) {
+    res.status(403).send({message: e.message});
+  }
+
+
+
+
+}
+
 
 export function changeTheme(req: express.Request, res: express.Response, next: any): void {
   try {
@@ -1008,4 +1035,6 @@ export function changeTheme(req: express.Request, res: express.Response, next: a
   catch (e) {
     res.status(403).send({message: e.message});
   }
+
+
 }

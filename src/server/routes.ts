@@ -25,9 +25,11 @@ export function init(app: express.Application) {
     app.get("/api/notification/:id", this.authInterceptor.requiresAuth, userController.notifications);
     app.put("/api/notification/:id", this.authInterceptor.requiresAuth, userController.pushNotifications);
     //app.put("/api/updatenotification/:id", this.authInterceptor.requiresAuth, userController.updateNotifications);
+  app.post("/api/industryprofile", userController.profilecreate);
   app.get("/api/fblogin", this.authInterceptor.facebookAuth, userController.fblogin);
   app.get("/api/industry",  userController.getIndustry);
   app.get("/api/function",  userController.getFunction);
+  app.get("/api/proficiency",  userController.getProficiency);
   app.get("/api/role",  userController.getRole);
   app.get("/api/capability",  userController.getCapability);
   app.get("/api/complexity",  userController.getComplexity);

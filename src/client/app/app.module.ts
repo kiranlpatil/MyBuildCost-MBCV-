@@ -63,6 +63,7 @@ import { DashboardComponent } from './framework/dashboard/dashboard.component';
 import {ProfilePictureComponent} from "./cnext/framework/profile-picture/profile-picture.component";
 import {ProfileCreatorComponent} from "./cnext/framework/profile-creator/profile-creator.component";
 import {CapabilityListComponent} from "./cnext/framework/capability-list/capability-list.component";
+import {proficiencyDomainComponent} from "./cnext/framework/proficiency-domains/proficiency-domain.component";
 import {ComplexityListComponent} from "./cnext/framework/complexity-list/complexity-list.component";
 
 @NgModule({
@@ -108,6 +109,7 @@ import {ComplexityListComponent} from "./cnext/framework/complexity-list/complex
     ProfilePictureComponent,
     ProfileCreatorComponent,
     CapabilityListComponent,
+    proficiencyDomainComponent,
     ComplexityListComponent,
     IndustryComponent
   ],
