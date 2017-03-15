@@ -4,8 +4,8 @@ $dark-theme-hover: #a44537;
 $dark-theme-btn-primary: #ff5024;
 $dark-theme-btn-primary-hover: #d44b24;
 $dark-theme-background: #6f3025;
-$dark-theme-gradient-light: #0082c0;
-$dark-theme-gradient-dark: #424f85;
+$dark-theme-gradient-light: #1c75bd;
+$dark-theme-gradient-dark: #284598;
 $white: #fff;
 
 //Dark Theme common classes
@@ -101,9 +101,6 @@ $white: #fff;
 
   // Side Menu Bar
   .dashboard {
-
-    .profile-header { @extend %dark-theme-gradient; }
-
     .menu-container { @extend %dark-theme-gradient; }
 
     nav {
@@ -121,10 +118,16 @@ $white: #fff;
     }
   }
 
-  //profile-wrapper
+  //create profile
+  .profile-header { @extend %dark-theme-gradient; }
+
   .profile-wrapper {
     .heading {
       @extend %dark-theme-gradient;
+    }
+
+    .btn {
+      border: 1px solid $dark-theme-color;
     }
   }
 

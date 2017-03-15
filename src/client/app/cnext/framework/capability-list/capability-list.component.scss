@@ -1,0 +1,100 @@
+$text-color: #666;
+$white: #fff;
+$option-border-color: #f8f8f8;
+$option-theme-color: #00aed5;
+
+p {
+  margin: 0;
+}
+
+.capability-type {
+  padding-left: 45px;
+
+  .instructions {
+    margin-top: -5px;
+  }
+
+  .select-option {
+    display: inline-block;
+    margin: 5px 20px 5px 0;
+    text-align: left;
+    text-transform: capitalize;
+  }
+}
+
+.select-option > label {
+  margin: 0;
+  padding: 10px 0;
+
+  & > input {
+    display: none;
+
+    & + span {
+      border: 1px solid $option-theme-color;
+      border-radius: 25px;
+      color: $text-color;
+      cursor: pointer;
+      font-weight: 100;
+      padding: 6px 10px;
+
+      &:hover {
+        border: 1px solid $option-theme-color;
+      }
+    }
+
+    &:checked {
+      & + span {
+        background-color: $option-theme-color;
+        border: 1px solid $option-theme-color;
+        color: $white;
+      }
+    }
+  }
+
+  &:hover {
+    & > input {
+      & + span {
+        border: 1px solid $option-theme-color;
+        cursor: pointer;
+      }
+
+      &:checked {
+        & + span {
+          background-color: $option-theme-color;
+          border: 1px solid $option-theme-color;
+          color: $white;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1099px) {
+  .select-option > label {
+    & > input {
+      & + span {
+        &:hover {
+          border: 1px solid $option-theme-color;
+        }
+      }
+    }
+
+    &:hover {
+      & > input {
+        & + span {
+          border: 1px solid $option-theme-color;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 980px) {
+  .capability-type {
+    padding-left: 0;
+
+    .select-option {
+      margin: 0 20px 0 0;
+    }
+  }
+}

@@ -1,15 +1,15 @@
-@import '../../../../css/common';
-
 $profile-background: #f2f2f2;
 $process-color: #224879;
 $active-color: #fff;
 $active-text-color: #224879;
 $active-progress-line: #8eb4d9;
 $bubble-background: #35567e;
+$white: #fff;
 
 .create-profile {
   background: $profile-background;
   clear: both;
+  padding-bottom: 50px;
 }
 
 .bar-container {
@@ -112,25 +112,6 @@ $bubble-background: #35567e;
   .col-sm-9 {
     width: 75%;
   }
-
-  .section-container {
-    -webkit-box-shadow: 3px 3px 3px 0 rgba(204,204,204,1);
-    -moz-box-shadow: 3px 3px 3px 0 rgba(204,204,204,1);
-    box-shadow: 3px 3px 3px 0 rgba(204,204,204,1);
-  }
-
-  .heading {
-    color: $white;
-    font-size: 14px;
-    padding: 10px 15px;
-    text-align: left;
-  }
-
-  .main-content {
-    padding: 15px;
-    background: $white;
-    text-align: left;
-  }
 }
 
 
@@ -138,6 +119,7 @@ $bubble-background: #35567e;
   .profile-wrapper {
     margin: 0 auto;
     width: 100%;
+    display: inline-block;
   }
 }
 
@@ -168,6 +150,10 @@ $bubble-background: #35567e;
     .col-sm-3 {
       margin: 0 auto;
       width: 200px;
+    }
+
+    .col-sm-9 {
+      width:  100%;
     }
   }
 }

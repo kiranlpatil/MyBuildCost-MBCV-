@@ -153,48 +153,46 @@ a {
 }
 
 //Forms
-form {
-  .form-group {
+.form-group {
 
-    label {
-      color: $text-color;
-      display: block;
-      float: left;
-      font-size: 14px;
-      font-weight: 100;
-    }
-
-    .form-control {
-      background: transparent;
-      border-left: transparent 1px solid;
-      border-radius: 0;
-      border-right: transparent 1px solid;
-      border-top: transparent 1px solid;
-      box-shadow: none;
-      color: $text-color;
-      display: block;
-      padding: 6px 0;
-
-      &:focus {
-        box-shadow: none;
-        outline: 0;
-      }
-    }
+  label {
+    color: $text-color;
+    display: block;
+    float: left;
+    font-size: 14px;
+    font-weight: 100;
   }
 
-  [type='number'] {
+  .form-control {
+    background: transparent;
+    border-left: transparent 1px solid;
+    border-radius: 0;
+    border-right: transparent 1px solid;
+    border-top: transparent 1px solid;
+    box-shadow: none;
+    color: $text-color;
+    display: block;
+    padding: 6px 0;
+
+    &:focus {
+      box-shadow: none;
+      outline: 0;
+    }
+  }
+}
+
+[type='number'] {
+  -moz-appearance: textfield;
+  -webkit-appearance: none;
+  appearance: none;
+  margin: 0;
+
+  &::-webkit-inner-spin-button,
+  &::-webkit-outer-spin-button {
     -moz-appearance: textfield;
     -webkit-appearance: none;
     appearance: none;
     margin: 0;
-
-    &::-webkit-inner-spin-button,
-    &::-webkit-outer-spin-button {
-      -moz-appearance: textfield;
-      -webkit-appearance: none;
-      appearance: none;
-      margin: 0;
-    }
   }
 }
 
@@ -202,11 +200,6 @@ form {
 .btn {
   border-radius: 25px;
   padding: 6px 25px;
-
-  &:focus {
-    box-shadow: none;
-    outline: none;
-  }
 }
 
 .btn,
@@ -217,7 +210,7 @@ form {
   &:active,
   &:hover {
     box-shadow: none;
-    outline: none;
+    outline: 0;
   }
 }
 
@@ -316,12 +309,12 @@ h5 {
 
 .toaster-error {
   background: $toaster-error;
-  z-index: 1;
+  z-index: 5;
 }
 
 .toaster-success {
   background: $toaster-success;
-  z-index: 2;
+  z-index: 6;
 }
 
 .alert {
