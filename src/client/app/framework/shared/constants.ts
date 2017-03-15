@@ -1,5 +1,5 @@
 export class AppSettings {
-  public static IP = 'http://localhost:8086';
+  public static IP = 'http://localhost:8081';
 // public static IP = 'http://ee802b7f.ngrok.io';
 
     public static get API_ENDPOINT():string {
@@ -66,6 +66,8 @@ export class NavigationRoutes {
   public static ACTIVATE_USER: string = '/activate_user';
   public static VERIFY_PHONE: string = '/verify_phone';
   public static APP_CHANGEEMAIL:string = '/change_email';
+  public static APP_CREATEPROFILE:string = '/createprofile';
+
 }
 
 export class LocalStorage {
@@ -111,6 +113,8 @@ export class API {
   public static CHANGE_THEME = 'changetheme';
   public static RESET_PASSWORD = 'resetpassword';
   public static GOOGLE_LOGIN = 'googlelogin';
+  public static INDUSTRY_PROFILE = 'industryprofile';
+
 }
 
 export class ImagePath {

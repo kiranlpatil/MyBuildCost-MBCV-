@@ -33,9 +33,9 @@ export class AppComponent implements OnInit {
                 private messageService:MessageService,
                 private commonService:CommonService,
                 protected loaderService:LoaderService) {
-        this.appTheme = AppSettings.INITIAL_THEM;
+        this.appTheme = AppSettings.INITIAL_THEM;debugger
         if (parseInt(LocalStorageService.getLocalValue(LocalStorage.IS_LOGED_IN)) === 1) {
-            this._router.navigate(['/dashboard']);
+            this._router.navigate(['/createprofile']);
         } else {
             LocalStorageService.setLocalValue(LocalStorage.IS_LOGED_IN, 0);
         }
@@ -65,7 +65,7 @@ export class AppComponent implements OnInit {
         if (LocalStorageService.getLocalValue(LocalStorage.ACCESS_TOKEN) === null) {
             this._router.navigate([NavigationRoutes.APP_START]);
         } else {
-            this._router.navigate([NavigationRoutes.APP_DASHBOARD]);
+            this._router.navigate([NavigationRoutes.APP_CREATEPROFILE]);
         }
     }
 
