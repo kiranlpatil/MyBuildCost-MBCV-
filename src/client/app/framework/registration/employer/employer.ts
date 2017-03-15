@@ -4,6 +4,7 @@
 export class Employer {
   id : any;
   isEmployee :boolean;
+  isRecruitingForself :boolean;
   company_name: string;
   company_size : string;
   email : string;

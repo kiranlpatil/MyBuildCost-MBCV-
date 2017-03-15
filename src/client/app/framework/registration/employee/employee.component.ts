@@ -46,16 +46,16 @@ export class EmployeeComponent {
       'password': ['', [Validators.required, Validators.minLength(8)]],
       'conform_password': ['', [Validators.required, Validators.minLength(8)]],
       'birth_year':['', Validators.required],
-      'country':['', Validators.required],
-      'state':['', Validators.required],
-      'city':['', Validators.required],
+      'country':[''],
+      'state':[''],
+      'city':[''],
       'pin':['', Validators.required]
     });
 
     this.BODY_BACKGROUND = ImagePath.BODY_BACKGROUND;
   }
 
-  onSubmit() {
+  onSubmit() {debugger
     this.model = this.userForm.value;
     this.model.current_theme = AppSettings.LIGHT_THEM;
     this.model.isEmployee =true;

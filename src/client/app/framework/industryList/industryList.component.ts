@@ -65,7 +65,7 @@ export class IndustryComponent {
         () => console.log()
       );
   }
-  selectRolesModel(newVal: any) {debugger
+  selectRolesModel(newVal: any) {
     this.storedRoles.push(newVal);
     this.deleteSelectedRole(newVal);
     this.isRoleSelected=true;
@@ -77,7 +77,7 @@ export class IndustryComponent {
 
   }
 
-  deleteSelectedRole(newVal: any){debugger
+  deleteSelectedRole(newVal: any){
     for (let  i = 0; i < this.roles.length; i++)
     {
       if (this.roles[i]===newVal)

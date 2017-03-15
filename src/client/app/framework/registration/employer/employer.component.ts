@@ -35,20 +35,21 @@ export class EmployerComponent {
   isShowErrorMessage: boolean = true;
   BODY_BACKGROUND:string;
   image_path: any;
+  isRecruitingForself:boolean = true;
 
   constructor(private commanService: CommonService, private _router: Router,
               private EmployerService: EmployerService, private messageService: MessageService, private formBuilder: FormBuilder,private loaderService:LoaderService) {
 
     this.userForm = this.formBuilder.group({
       'company_name': ['', Validators.required],
-      'company_size': ['', Validators.required],
+      'company_size': [''],
       'mobile_number': ['', [Validators.required, ValidationService.mobileNumberValidator]],
       'email': ['', [Validators.required, ValidationService.emailValidator]],
       'password': ['', [Validators.required, Validators.minLength(8)]],
       'conform_password': ['', [Validators.required, Validators.minLength(8)]],
-      'country':['', Validators.required],
-      'state':['', Validators.required],
-      'city':['', Validators.required],
+      'country':[''],
+      'state':[''],
+      'city':[''],
       'pin':['', Validators.required]
     });
 
@@ -60,6 +61,7 @@ export class EmployerComponent {
     this.model = this.userForm.value;
     this.model.current_theme = AppSettings.LIGHT_THEM;
     this.model.isEmployee =false;
+    this.model.isRecruitingForself =this.isRecruitingForself;
     if (!this.makePasswordConfirm()) {
       this.isFormSubmitted = true;
       // this.loaderService.start();
@@ -112,4 +114,17 @@ export class EmployerComponent {
     this.isShowErrorMessage = true;
   }
 
+
+
+  recruitmentFor(event:any) {debugger
+    var roleType: string;
+    roleType = event.target.id;
+    if (roleType === "self") {
+       this.isRecruitingForself =true;
+
+    }
+    else if(roleType === "others"){
+       this.isRecruitingForself =false;
+    }
+  }
 }

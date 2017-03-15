@@ -18,7 +18,7 @@ export class CapabilityListComponent {
   private capabilities: string[];
   private selectedCapabilities =new Array();
   private showAlert: boolean=false;
-  constructor(private _router:Router, private http:Http, private activatedRoute:ActivatedRoute) {debugger
+  constructor(private _router:Router, private http:Http, private activatedRoute:ActivatedRoute) {
 
     this.http.get("capability").map((res: Response) => res.json())
       .subscribe(
@@ -32,7 +32,7 @@ export class CapabilityListComponent {
   }
 
 
-  selectOption(newVal:any){debugger
+  selectOption(newVal:any){
     if(!newVal.target.checked){
       this.showAlert=false;
       for (let i = 0; i < this.selectedCapabilities.length; i++) {
@@ -44,10 +44,10 @@ export class CapabilityListComponent {
         }
       }
     }
-    
-    
-    
-    
+
+
+
+
 if(this.selectedCapabilities.length < VALUE_CONSTANT.MAX_CAPABILITIES) {
   if (newVal.target.checked) {
     this.showAlert=false;

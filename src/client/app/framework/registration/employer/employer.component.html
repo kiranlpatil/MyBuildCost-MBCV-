@@ -12,34 +12,34 @@
   <div class="col-sm-6 col-sm-offset-6 registartion-btn-radio text-left clearfix">
     <label class="lable-name">Recruiting For</label>
     <label for="self" class="radio-inline">
-      <input type="radio" id="self" name="recruiting_for" value="self" checked/>
+      <input type="radio" id="self" name="recruiting_for" value="self" (change)="recruitmentFor($event)" checked/>
       Self
     </label>
 
     <label for="others" class="radio-inline">
-      <input type="radio" id="others" name="recruiting_for" value="others" />
+      <input type="radio" id="others" name="recruiting_for" value="others" (change)="recruitmentFor($event)" />
       Others
     </label>
   </div>
 
   <div class="row clearfix">
-    <div class="col-sm-6 add-logo">
+    <!--<div class="col-sm-6 add-logo">
 
       <div class="profile">
         <div class="avtar">
-          <!--<img src={{image_path}} alt="Profile Picture">-->
+          &lt;!&ndash;<img src={{image_path}} alt="Profile Picture">&ndash;&gt;
         </div>
         <form>
           <div class="form-group">
             <label for="file-upload" class="custom-file-upload">
               Add Company Logo
             </label>
-            <!--<input id="file-upload" type="file"/>-->
+            &lt;!&ndash;<input id="file-upload" type="file"/>&ndash;&gt;
             <input id="file-upload" type="file" placeholder="Add Logo"/>
           </div>
         </form>
       </div>
-    </div>
+    </div>-->
 
     <div class="col-sm-6 main-info">
       <div class="form-group">
@@ -56,7 +56,7 @@
           <option>100 - 500</option>
           <option>above 500</option>
         </select>
-        <label for="city">City</label>
+        <label for="company_size">Company Size</label>
       </div>
 
       <div class="form-group">

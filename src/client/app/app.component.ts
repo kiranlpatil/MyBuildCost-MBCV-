@@ -33,7 +33,7 @@ export class AppComponent implements OnInit {
                 private messageService:MessageService,
                 private commonService:CommonService,
                 protected loaderService:LoaderService) {
-        this.appTheme = AppSettings.INITIAL_THEM;debugger
+        this.appTheme = AppSettings.INITIAL_THEM;
         if (parseInt(LocalStorageService.getLocalValue(LocalStorage.IS_LOGED_IN)) === 1) {
             this._router.navigate(['/createprofile']);
         } else {
