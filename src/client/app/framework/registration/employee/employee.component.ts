@@ -17,6 +17,7 @@ import {
 import { ImagePath, LocalStorage, ProjectAsset } from '../../shared/constants';
 import { LocalStorageService } from '../../shared/localstorage.service';
 import {LoaderService} from "../../shared/loader/loader.service";
+import {Location} from "../location";
 
 
 @Component({
@@ -55,10 +56,15 @@ export class EmployeeComponent {
     this.BODY_BACKGROUND = ImagePath.BODY_BACKGROUND;
   }
 
-  onSubmit() {debugger
+  onSubmit() {
     this.model = this.userForm.value;
+    this.model.location=new Location();
+    this.model.location.city=this.userForm.value.city;
+    this.model.location.state=this.userForm.value.state;
+    this.model.location.country=this.userForm.value.country;
+    this.model.location.pincode=this.userForm.value.pin;
     this.model.current_theme = AppSettings.LIGHT_THEM;
-    this.model.isEmployee =true;
+    this.model.isCandidate =true;
     if (!this.makePasswordConfirm()) {
       this.isFormSubmitted = true;
       // this.loaderService.start();

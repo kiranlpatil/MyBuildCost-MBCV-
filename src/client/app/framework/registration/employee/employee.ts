@@ -1,9 +1,7 @@
-/**
- * Created by techprimelab on 3/9/2017.
- */
+import {Location} from "../location";
 export class Employee {
   id : any;
-  isEmployee :boolean;
+  isCandidate :boolean;
   first_name: string;
   last_name : string;
   birth_year :number;
@@ -11,10 +9,11 @@ export class Employee {
   mobile_number : string;
   password : string;
   conform_password : string;
-  country:string;
-  state:string;
-  city:string;
-  pin:number;
+  //country:string;
+  //state:string;
+  //city:string;
+  //pin:number;
+  location :Location;
 
   current_theme : string;
 }

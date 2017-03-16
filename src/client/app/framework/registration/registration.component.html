@@ -32,12 +32,12 @@
         </label>
       </div>
 
-      <div class="Employee_form" [hidden]="isEmployee">
+      <div class="Employee_form" [hidden]="isCandidate">
         <cn-EmployeeRegistration></cn-EmployeeRegistration>
 
       </div>
 
-      <div class="Employer_form" [hidden]="!isEmployee">
+      <div class="Employer_form" [hidden]="!isCandidate">
         <cn-EmployerRegistration></cn-EmployerRegistration>
       </div>
 

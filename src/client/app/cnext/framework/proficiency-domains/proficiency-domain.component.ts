@@ -65,7 +65,7 @@ export class proficiencyDomainComponent implements OnInit {
   deleteItem(newVal: any) {
     this.showAlert=false;
     for (let i = 0; i < this.storedProficiency.length; i++) {
-      if (this.storedProficiency[i] === newVal.currentTarget.innerText) {
+      if (this.storedProficiency[i] === newVal.currentTarget.innerText.trim()) {
         if (i > -1) {
           this.storedProficiency.splice(i, 1);
         }

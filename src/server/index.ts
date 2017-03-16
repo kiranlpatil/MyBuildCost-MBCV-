@@ -4,6 +4,7 @@ import * as bodyParser from 'body-parser';
 import * as path from 'path';
 import * as compression from 'compression';
 import * as routes from './routes';
+import * as cnextRoutes from './cnext-routes'
 import * as methodOverride  from 'method-override';
 import * as cors from 'cors';
 import * as fs from 'fs';
@@ -23,7 +24,7 @@ export function init(port: number, mode: string,protocol: string) {
   app.use(methodOverride("X-HTTP-Method"));
   app.use(methodOverride("X-HTTP-Method-Override"));
   app.use(methodOverride("X-Method-Override"));
-  app.use(methodOverride("_method"))
+  app.use(methodOverride("_method"));
   app.use(express.static('src/'));
 
 
@@ -39,6 +40,7 @@ export function init(port: number, mode: string,protocol: string) {
     });
 
     routes.init(app);
+    cnextRoutes.cnextInit(app);
 
     let root = path.resolve(process.cwd());
     let clientRoot = path.resolve(process.cwd(), './dist/dev/client');
@@ -62,6 +64,7 @@ export function init(port: number, mode: string,protocol: string) {
      * Api Routes for `Production`.
      */
     routes.init(app);
+    cnextRoutes.cnextInit(app);
     /**
      * Static.
      */

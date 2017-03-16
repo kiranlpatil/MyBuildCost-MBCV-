@@ -60,7 +60,7 @@ export class EmployerComponent {
   onSubmit() {
     this.model = this.userForm.value;
     this.model.current_theme = AppSettings.LIGHT_THEM;
-    this.model.isEmployee =false;
+    this.model.isCandidate =false;
     this.model.isRecruitingForself =this.isRecruitingForself;
     if (!this.makePasswordConfirm()) {
       this.isFormSubmitted = true;
@@ -116,7 +116,7 @@ export class EmployerComponent {
 
 
 
-  recruitmentFor(event:any) {debugger
+  recruitmentFor(event:any) {
     var roleType: string;
     roleType = event.target.id;
     if (roleType === "self") {

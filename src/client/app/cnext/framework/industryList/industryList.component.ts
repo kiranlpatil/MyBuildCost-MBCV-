@@ -47,7 +47,7 @@ export class IndustryComponent {
     }
   }
 
-  selectIndustryModel(newVal: any) {debugger
+  selectIndustryModel(newVal: any) {
     this.storedIndustry=newVal;
     this.industryModel = newVal;
     this.http.get("role")
@@ -61,7 +61,7 @@ export class IndustryComponent {
       );
   }
 
-  
+
   selectRolesModel(newVal: any) {
     this.storedRoles.push(newVal);
     this.deleteSelectedRole(newVal);
@@ -104,7 +104,7 @@ export class IndustryComponent {
           );
       }
       //this.industries =this.industryService.getIndustries(roleType);
-    } 
+    }
   }*/
 
   addNewRole(){
@@ -123,10 +123,10 @@ export class IndustryComponent {
   {
     this.industryService.addIndustryProfile(this.model).subscribe(
       user => {
-        debugger
+
       },
       error => {
-debugger
+
       });
   };
 

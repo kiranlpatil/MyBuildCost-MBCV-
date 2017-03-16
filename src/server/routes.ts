@@ -1,5 +1,6 @@
 import * as express from 'express';
 import * as userController from './app/framework/controllers/user.controller';
+import * as candidateController from './app/framework/controllers/candidate.controller';
 import * as sharedService from './app/framework/shared/shared.service';
 import * as userInterceptor from './app/framework/interceptor/user.interceptor';
 var AuthInterceptor = require("./app/framework/interceptor/auth.interceptor");
@@ -11,7 +12,7 @@ export function init(app: express.Application) {
     app.post("/api/login", userInterceptor.login,userController.login);
     app.post("/api/forgotpassword", userInterceptor.forgotPassword, userController.forgotPassword);
     app.put("/api/resetpassword/:id", this.authInterceptor.requiresAuth, userController.resetPassword);
-    app.post("/api/users", userInterceptor.create, userController.create);
+    app.post("/api/users", userInterceptor.create, candidateController.create);
     app.put("/api/users/:id", this.authInterceptor.requiresAuth, userController.updateDetails);
     app.get("/api/users/:id", userInterceptor.retrieve, this.authInterceptor.requiresAuth, userController.retrieve);
     app.post("/api/sendverificationmail/:id", this.authInterceptor.requiresAuth,userController.verificationMail);
@@ -27,13 +28,7 @@ export function init(app: express.Application) {
     //app.put("/api/updatenotification/:id", this.authInterceptor.requiresAuth, userController.updateNotifications);
   app.post("/api/industryprofile", userController.profilecreate);
   app.get("/api/fblogin", this.authInterceptor.facebookAuth, userController.fblogin);
-  app.get("/api/industry",  userController.getIndustry);
-  app.get("/api/function",  userController.getFunction);
-  app.get("/api/proficiency",  userController.getProficiency);
-  app.get("/api/domain",  userController.getDomain);
-  app.get("/api/role",  userController.getRole);
-  app.get("/api/capability",  userController.getCapability);
-  app.get("/api/complexity",  userController.getComplexity);
+
   app.post("/api/googlelogin", this.authInterceptor.googleAuth, userController.googlelogin);
     //app.get("/auth/google/callback", this.authInterceptor.googleAuthCallback, userController.googlelogin);
     //app.get("/auth/google/success", userController.googlelogin);

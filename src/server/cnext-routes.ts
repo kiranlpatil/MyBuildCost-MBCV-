@@ -1,0 +1,21 @@
+import * as express from 'express';
+import * as userController from './app/framework/controllers/user.controller';
+import * as sharedService from './app/framework/shared/shared.service';
+import * as userInterceptor from './app/framework/interceptor/user.interceptor';
+var AuthInterceptor = require("./app/framework/interceptor/auth.interceptor");
+this.authInterceptor = new AuthInterceptor();
+
+
+export function cnextInit(app: express.Application) {
+  app.get("/api/industry",  userController.getIndustry);
+  app.get("/api/function",  userController.getFunction);
+  app.get("/api/proficiency",  userController.getProficiency);
+  app.get("/api/domain",  userController.getDomain);
+  app.get("/api/role",  userController.getRole);
+  app.get("/api/capability",  userController.getCapability);
+  app.get("/api/complexity",  userController.getComplexity);
+  app.get("/api/:id/role",  userController.getRole);
+  app.get("/api/:id/role/capability",  userController.getRole);
+
+ // app.get("/api/:id/role/capability",  userController.getRole);
+}

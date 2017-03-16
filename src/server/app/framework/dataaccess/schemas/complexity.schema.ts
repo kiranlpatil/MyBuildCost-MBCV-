@@ -1,0 +1,21 @@
+import DataAccess = require("../dataaccess");
+import IComplexity = require("../mongoose/complexity");
+import IScenario = require("../mongoose/scenario");
+
+var mongoose = DataAccess.mongooseInstance;
+var mongooseConnection = DataAccess.mongooseConnection;
+
+class ComplexitySchema {
+    static get schema() {
+        var schema = mongoose.Schema({
+          scenarios : [{
+            type: mongoose.Schema.Types.ObjectId, ref:'IScenario'
+          }],
+
+        },{ versionKey: false });
+
+        return schema;
+    }
+}
+var schema = mongooseConnection.model<IComplexity>("Complexity", ComplexitySchema.schema);
+export = schema;

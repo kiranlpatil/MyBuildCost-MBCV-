@@ -25,7 +25,7 @@ export class IndustryComponent {
  static count:number=-1;
   roles : string[];
   key:number;
- 
+
 
 
   constructor(private http: Http) {
@@ -34,12 +34,12 @@ export class IndustryComponent {
 
   ngOnInit(){
     this.temproles= new Array(1);
-    
-    
+
+
   }
-  
-  
-  
+
+
+
   selectIndustryModel(newVal: any) {
     this.industryModel = newVal;
     this.http.get("role").map((res: Response) => res.json())
@@ -53,7 +53,7 @@ export class IndustryComponent {
   }
 
 
-  eventHandler(event :any) {debugger
+  eventHandler(event :any) {
     console.log(event, event.keyCode, event.keyIdentifier);
   }
   selectFunctionModel(newVal: any) {
@@ -68,7 +68,7 @@ export class IndustryComponent {
         () => console.log()
       );
   }
-  selectRolesModel(newVal: any) {debugger
+  selectRolesModel(newVal: any) {
     this.storedRoles.push(newVal);
     this.deleteSelectedRole(newVal);
     this.isRoleSelected=true;

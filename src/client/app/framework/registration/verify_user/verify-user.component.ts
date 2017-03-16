@@ -45,6 +45,12 @@ export class VerifyUserComponent implements OnInit {
         this.model.email=LocalStorageService.getLocalValue(LocalStorage.EMAIL_ID);
     }
 
+
+  navigateTo(navigateTo: string) {
+    if (navigateTo !== undefined ) {
+      this._router.navigate([navigateTo]);
+    }
+  }
     navigateTo() {
         this._router.navigate([NavigationRoutes.APP_LOGIN]);
     }

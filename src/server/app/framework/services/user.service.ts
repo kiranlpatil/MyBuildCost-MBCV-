@@ -60,7 +60,7 @@ class UserService {
       if (err) {
         console.log("err genrtotp retriv",err);
       }
-      else if (res.length > 0 && (res[0]._id)! === field._id) {
+      else if (res.length > 0 && (res[0]._id)!== field._id) {
         callback(new Error(Messages.MSG_ERROR_REGISTRATION_MOBILE_NUMBER), null);
       }
       else if (res.length === 0 ){

@@ -5,6 +5,9 @@
   <div class="col-lg-4 col-sm-6 col-xs-10 content">
 
     <h5>Verify your account</h5>
+    <button type="button" (click)="navigateTo('/landing')">
+      <span class="glyphicon glyphicon-remove" ></span>
+    </button>
 
     <form [formGroup]="userForm" (submit)="onSubmit()">
 

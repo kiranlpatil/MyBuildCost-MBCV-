@@ -29,7 +29,7 @@ export class RegistrationComponent {
   isFormSubmitted = false;
   userForm: FormGroup;
   error_msg: string;
-  isEmployee:boolean =false;
+  isCandidate:boolean =false;
   isShowErrorMessage: boolean = true;
   BODY_BACKGROUND:string;
 
@@ -105,7 +105,7 @@ export class RegistrationComponent {
   }
 
   showHideEmployee() {
-    this.isEmployee =!this.isEmployee;
+    this.isCandidate =!this.isCandidate;
   }
 
   closeErrorMessage() {
