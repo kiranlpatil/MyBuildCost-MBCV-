@@ -30,6 +30,7 @@ export function init(app: express.Application) {
   app.get("/api/industry",  userController.getIndustry);
   app.get("/api/function",  userController.getFunction);
   app.get("/api/proficiency",  userController.getProficiency);
+  app.get("/api/domain",  userController.getDomain);
   app.get("/api/role",  userController.getRole);
   app.get("/api/capability",  userController.getCapability);
   app.get("/api/complexity",  userController.getComplexity);

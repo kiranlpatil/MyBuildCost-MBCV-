@@ -822,6 +822,17 @@ export function  getProficiency (req:express.Request, res:express.Response) {
   }
 }
 
+export function  getDomain(req:express.Request, res:express.Response) {
+  __dirname = './';
+  var filepath="domain.json";
+  try {
+    res.sendFile(filepath,{root: __dirname});
+  }
+  catch (e) {
+    res.status(403).send({message: e.message});
+  }
+}
+
 
 
 export function getCapability (req:express.Request, res:express.Response) {

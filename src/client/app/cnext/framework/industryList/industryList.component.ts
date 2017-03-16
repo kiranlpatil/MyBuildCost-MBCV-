@@ -14,32 +14,37 @@ import {LoaderService} from "../../../framework/shared/loader/loader.service";
 
 export class IndustryComponent {
   storedIndustry:string;
-  storedFunction:string;
   userForm: FormGroup;
   model=new industryProfile();
   industries: string[];
   storedRoles=new Array();
-  functions: string[];
   industryModel = "";
-  functionModel = "";
   roleModel = "";
   isIndustrySelected : boolean= false;
-  isFunctionSelected : boolean= false;
   isRoleSelected : boolean= false;
   temproles : string[];
   maxRoles : number =3;
- static count:number=-1;
   roles : string[];
   key:number;
 
 
-  constructor( private _router:Router,
-               private industryService: IndustryService,private http: Http,private formBuilder: FormBuilder,private loaderService:LoaderService) {
+  constructor(private industryService: IndustryService,private http: Http) {
 
   }
 
   ngOnInit(){
     this.temproles= new Array(1);
+    if (this.industries === undefined) {
+      this.http.get("industry")
+        .map((res: Response) => res.json())
+        .subscribe(
+          data => {
+            this.industries = data.industry;
+          },
+          err => console.error(err),
+          () => console.log()
+        );
+    }
   }
 
   selectIndustryModel(newVal: any) {debugger
@@ -56,19 +61,7 @@ export class IndustryComponent {
       );
   }
 
-  selectFunctionModel(newVal: any) {
-    this.storedFunction=newVal;
-    this.functionModel = newVal;
-    this.http.get("role")
-      .map((res: Response) => res.json())
-      .subscribe(
-        data => {
-          this.roles = data.roles;
-        },
-        err => console.error(err),
-        () => console.log()
-      );
-  }
+  
   selectRolesModel(newVal: any) {
     this.storedRoles.push(newVal);
     this.deleteSelectedRole(newVal);
@@ -94,13 +87,11 @@ export class IndustryComponent {
     }
   }
 
-    toggleRoll(event: any) {
+    /*toggleRoll(event: any) {
     var roleType: string;
     roleType = event.target.id;
     if (roleType === "industry") {
-      this.functionModel="";
       this.isIndustrySelected=true;
-      this.isFunctionSelected=false;debugger
       if (this.industries === undefined) {
         this.http.get(roleType)
           .map((res: Response) => res.json())
@@ -113,23 +104,8 @@ export class IndustryComponent {
           );
       }
       //this.industries =this.industryService.getIndustries(roleType);
-    } else {
-      this.industryModel="";
-      this.isIndustrySelected=false;
-      this.isFunctionSelected=true;
-      if (this.functions === undefined) {
-        this.http.get(roleType)
-          .map((res: Response) => res.json())
-          .subscribe(
-            data => {
-              this.functions = data.function;
-            },
-            err => console.error(err),
-            () => console.log()
-          );
-      }
-    }
-  }
+    } 
+  }*/
 
   addNewRole(){
     if(this.temproles.length<this.maxRoles){
@@ -145,17 +121,6 @@ export class IndustryComponent {
 
   createAndSave()
   {
-
-   // this.model = this.userForm.value;
-    // this.model.current_theme = AppSettings.LIGHT_THEM;
-    // this.loaderService.start();
-   this.model.industryName=this.storedIndustry;
-   this.model.functionname=this.storedFunction;
-   this.model.roleFirst=this.storedRoles[0];
-    this.model.roleSecond=this.storedRoles[1];
-    this.model.roleThird=this.storedRoles[2];
-
-
     this.industryService.addIndustryProfile(this.model).subscribe(
       user => {
         debugger

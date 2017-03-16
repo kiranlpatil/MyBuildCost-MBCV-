@@ -1,7 +1,6 @@
 <p class="instructions" *ngIf="showAlert">You can select maximum 10 capability</p>
 
 <div class="list">
-  <!--<input type="text" name="proficiency" id="cn-proficiency" (click)="getproficiency($event)">-->
   <div class="list" >
     <div ng2-auto-complete
          [source]="proficiencies"
@@ -24,12 +23,4 @@
 
 
 
-<!--<div *ngFor="let item of proficiencies;let i= index">-->
-<!--<div id="{item}+i" ng2-auto-complete-->
-<!--[source]="proficiencies"-->
-<!--(ngModelChange)="selectproficiencyModel($event)"-->
-<!--placeholder="eg. java,oracle,angular">-->
-<!--<input   [ngModel]="proficiencyModel"  [ngModelOptions]="{standalone: true}"/>-->
-<!--</div>-->
-<!--</div>-->
-<!--<input type="button" id="more_fields" (click)="addNewRole()" value="Add More" />-->
+

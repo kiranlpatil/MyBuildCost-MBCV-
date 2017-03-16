@@ -34,11 +34,11 @@ export class proficiencyDomainComponent implements OnInit {
     }
   }
     if(this.type==="domain"){
-      this.http.get("proficiency")
+      this.http.get("domain")
         .map((res: Response) => res.json())
         .subscribe(
           data => {
-            this.proficiencies = data.proficiency;
+            this.proficiencies = data.domain;
           },
           err => console.error(err),
           () => console.log()
