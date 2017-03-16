@@ -7,7 +7,7 @@
          [source]="proficiencies"
          (ngModelChange)="selectproficiencyModel($event)"
          placeholder="eg. java,oracle,angular">
-      <input  [(ngModel)]="proficiencyModel" id="test" />
+      <input  [(ngModel)]="proficiencyModel" id={{type}} />
     </div>
   </div>
 

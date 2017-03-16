@@ -77,6 +77,8 @@ export class LocalStorage {
     public static IS_LOGED_IN = 'is_user_loged_in';
     public static USER_ID = 'user_id';
     public static MOBILE_NUMBER = 'mobile_number';
+    public static FIRST_NAME = 'first_name';
+    public static LAST_NAME = 'last_name';
     public static TEMP_MOBILE = 'temp_mobile';
     public static TEMP_EMAIL = 'temp_email';
     public static EMAIL_ID = 'email_id';

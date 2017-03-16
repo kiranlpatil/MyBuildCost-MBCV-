@@ -9,17 +9,21 @@ import {VALUE_CONSTANT} from "../../../framework/shared/constants";
 })
 
 export class proficiencyDomainComponent implements OnInit {
-  /* @Input() data : Data = new Data();*/
+  @Input('type') type : string;
   proficiencies: string[];
   storedProficiency = new Array();
   proficiencyModel: string = "";
   private showAlert: boolean=false;
   constructor(private http: Http) {
+
+
   }
 
   ngOnInit() {
+    if(this.type==="profeciency"){
     if (this.proficiencies === undefined) {
-      this.http.get("proficiency").map((res: Response) => res.json())
+      this.http.get("proficiency")
+        .map((res: Response) => res.json())
         .subscribe(
           data => {
             this.proficiencies = data.proficiency;
@@ -29,6 +33,20 @@ export class proficiencyDomainComponent implements OnInit {
         );
     }
   }
+    if(this.type==="domain"){
+      this.http.get("proficiency")
+        .map((res: Response) => res.json())
+        .subscribe(
+          data => {
+            this.proficiencies = data.proficiency;
+          },
+          err => console.error(err),
+          () => console.log()
+        );
+    }
+
+  }
+
 
 
   selectproficiencyModel(newVal: any) {
@@ -41,7 +59,7 @@ export class proficiencyDomainComponent implements OnInit {
     else{
       this.showAlert=true;
     }
-    document.getElementById("test").value = "";
+    document.getElementById(this.type).value = "";
   }
 
   deleteItem(newVal: any) {

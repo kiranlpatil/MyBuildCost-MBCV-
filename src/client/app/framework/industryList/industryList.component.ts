@@ -1,5 +1,7 @@
 import {Component} from '@angular/core';
 import {Http, Response} from "@angular/http";
+import {LocalStorageService} from "../shared/localstorage.service";
+import {LocalStorage, NavigationRoutes} from "../shared/constants";
 @Component({
   moduleId: module.id,
   selector: 'cn-industry',
@@ -22,8 +24,9 @@ export class IndustryComponent {
   maxRoles : number =3;
  static count:number=-1;
   roles : string[];
-  rmainingRoles:string[];
   key:number;
+ 
+
 
   constructor(private http: Http) {
 
@@ -31,32 +34,32 @@ export class IndustryComponent {
 
   ngOnInit(){
     this.temproles= new Array(1);
+    
+    
   }
-
+  
+  
+  
   selectIndustryModel(newVal: any) {
     this.industryModel = newVal;
     this.http.get("role").map((res: Response) => res.json())
       .subscribe(
         data => {
           this.roles = data.roles;
-
-       /*   this.rmainingRoles= data.roles;
-          this.key=this.rmainingRoles.length;
-         IndustryComponent.count=IndustryComponent.count+1;
-         var k=this.key-IndustryComponent.count;
-          if(k>0) {
-            delete this.rmainingRoles[k];
-            this.roles = this.rmainingRoles;
-          }*/
         },
         err => console.error(err),
         () => console.log()
       );
   }
 
+
+  eventHandler(event :any) {debugger
+    console.log(event, event.keyCode, event.keyIdentifier);
+  }
   selectFunctionModel(newVal: any) {
     this.functionModel = newVal;
-    this.http.get("role").map((res: Response) => res.json())
+    this.http.get("role")
+      .map((res: Response) => res.json())
       .subscribe(
         data => {
           this.roles = data.roles;
@@ -65,7 +68,7 @@ export class IndustryComponent {
         () => console.log()
       );
   }
-  selectRolesModel(newVal: any) {
+  selectRolesModel(newVal: any) {debugger
     this.storedRoles.push(newVal);
     this.deleteSelectedRole(newVal);
     this.isRoleSelected=true;

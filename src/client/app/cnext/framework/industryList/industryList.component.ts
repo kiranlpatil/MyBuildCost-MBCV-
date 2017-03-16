@@ -30,7 +30,6 @@ export class IndustryComponent {
   maxRoles : number =3;
  static count:number=-1;
   roles : string[];
-  rmainingRoles:string[];
   key:number;
 
 
@@ -46,19 +45,11 @@ export class IndustryComponent {
   selectIndustryModel(newVal: any) {debugger
     this.storedIndustry=newVal;
     this.industryModel = newVal;
-    this.http.get("role").map((res: Response) => res.json())
+    this.http.get("role")
+      .map((res: Response) => res.json())
       .subscribe(
         data => {
           this.roles = data.roles;
-
-       /*   this.rmainingRoles= data.roles;
-          this.key=this.rmainingRoles.length;
-         IndustryComponent.count=IndustryComponent.count+1;
-         var k=this.key-IndustryComponent.count;
-          if(k>0) {
-            delete this.rmainingRoles[k];
-            this.roles = this.rmainingRoles;
-          }*/
         },
         err => console.error(err),
         () => console.log()
@@ -68,7 +59,8 @@ export class IndustryComponent {
   selectFunctionModel(newVal: any) {
     this.storedFunction=newVal;
     this.functionModel = newVal;
-    this.http.get("role").map((res: Response) => res.json())
+    this.http.get("role")
+      .map((res: Response) => res.json())
       .subscribe(
         data => {
           this.roles = data.roles;
@@ -110,7 +102,8 @@ export class IndustryComponent {
       this.isIndustrySelected=true;
       this.isFunctionSelected=false;debugger
       if (this.industries === undefined) {
-        this.http.get(roleType).map((res: Response) => res.json())
+        this.http.get(roleType)
+          .map((res: Response) => res.json())
           .subscribe(
             data => {
               this.industries = data.industry;
@@ -125,7 +118,8 @@ export class IndustryComponent {
       this.isIndustrySelected=false;
       this.isFunctionSelected=true;
       if (this.functions === undefined) {
-        this.http.get(roleType).map((res: Response) => res.json())
+        this.http.get(roleType)
+          .map((res: Response) => res.json())
           .subscribe(
             data => {
               this.functions = data.function;

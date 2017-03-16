@@ -14,6 +14,7 @@
   <div class="profile-wrapper">
     <div class="col-sm-3">
       <cn-profile-picture></cn-profile-picture>
+      <span>{{fullName}}</span>
     </div>
 
     <div class="col-sm-9">
@@ -38,6 +39,20 @@
 
         <div class="main-content max-height">
           <cn-complexity-list></cn-complexity-list>
+        </div>
+      </div>
+
+      <div class="section-container">
+        <h4 class="heading">Choose Profeciensies</h4>
+        <div class="main-content max-height">
+          <cn-proficiencydoamin [type]="'profeciency'"></cn-proficiencydoamin>
+        </div>
+      </div>
+
+      <div class="section-container">
+        <h4 class="heading">Choose Domains</h4>
+        <div class="main-content max-height">
+          <cn-proficiencydoamin [type]="'domain'"></cn-proficiencydoamin>
         </div>
       </div>
 
