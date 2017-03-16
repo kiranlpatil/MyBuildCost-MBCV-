@@ -50,7 +50,8 @@ export class EmployerComponent {
       'country':[''],
       'state':[''],
       'city':[''],
-      'pin':['', Validators.required]
+      'pin':['',  [Validators.required,ValidationService.pinValidator]]
+
     });
 
     this.BODY_BACKGROUND = ImagePath.BODY_BACKGROUND;

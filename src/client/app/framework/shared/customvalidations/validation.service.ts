@@ -8,7 +8,11 @@ export class ValidationService {
       'invalidPassword': 'Invalid password. Password must be at least 8 characters long, and contain a number.',
       'maxlength': `Maximum ${validatorValue.requiredLength} charcters`,
       'minlength': `Minimum ${validatorValue.requiredLength} charcters`,
-      'invalidMobile': 'Maximum 10 numbers ',
+      'invalidMobile': 'Mobile number should be of 10 digit ',
+      'invalidBirthYear': 'Birth year should be of 4 digit ',
+      'invalidPin': 'Pin should be of 6 digit ',
+
+
     };
     return config[validatorName];
   }
@@ -40,10 +44,40 @@ export class ValidationService {
       mobileNumber = (mobileNumber / 10);
       count += 1;
     }
-    if (count <= 10) {
+    if (count == 10) {
+      return null;
+    }
+    else {
+      return {'invalidMobile': true};
+    }
+  }
+  static birthYearValidator(control:any) {
+    var birthYear = control.value;
+    var count = 0;
+
+    while (birthYear > 1) {
+      birthYear = (birthYear / 10);
+      count += 1;
+    }
+    if (count == 4) {
+      return null;
+    }
+    else {
+      return {'invalidBirthYear': true};
+    }
+  }
+  static pinValidator(control:any) {
+    var pin = control.value;
+    var count = 0;
+
+    while (pin > 1) {
+      pin = (pin / 10);
+      count += 1;
+    }
+    if (count == 6) {
       return null;
     } else {
-      return {'invalidMobile': true};
+      return {'invalidPin': true};
     }
   }
 }

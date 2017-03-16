@@ -28,6 +28,8 @@ export function init(app: express.Application) {
   app.post("/api/industryprofile", userController.profilecreate);
   app.get("/api/fblogin", this.authInterceptor.facebookAuth, userController.fblogin);
   app.get("/api/industry",  userController.getIndustry);
+  app.get("/api/country",  userController.getCountries);
+  app.get("/api/indiastates",  userController.getIndiaStates);
   app.get("/api/function",  userController.getFunction);
   app.get("/api/proficiency",  userController.getProficiency);
   app.get("/api/domain",  userController.getDomain);
@@ -41,8 +43,10 @@ export function init(app: express.Application) {
      app.put("/api/updatepicture/:id", this.authInterceptor.requiresAuth, userController.updatePicture);
      app.put("/api/changetheme/:id", this.authInterceptor.requiresAuth, userController.changeTheme);
      app.all("/updatepicture/:id", this.authInterceptor.requiresAuth, userController.updatePicture);
+  app.post("/api/sendrecruitermail/:id", this.authInterceptor.requiresAuth,userController.recruiterVerificationMail);
 
-     app.use(sharedService.logHandler);
+
+  app.use(sharedService.logHandler);
      app.use(sharedService.errorHandler);
      app.use(sharedService.clientHandler);
 }

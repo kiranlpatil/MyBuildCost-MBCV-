@@ -3,6 +3,7 @@
  */
 import {  Component } from '@angular/core';
 import { Router } from '@angular/router';
+import {Http, Response} from "@angular/http";
 import { EmployeeService } from './employee.service';
 import { Employee } from './employee';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -28,6 +29,10 @@ import {LoaderService} from "../../shared/loader/loader.service";
 
 export class EmployeeComponent {
   model = new Employee();
+  countries:string[];
+  states:string[];
+  storedCountry:string;
+  countryModel:string;
   isPasswordConfirm: boolean;
   isFormSubmitted = false;
   userForm: FormGroup;
@@ -35,7 +40,7 @@ export class EmployeeComponent {
   isShowErrorMessage: boolean = true;
   BODY_BACKGROUND:string;
 
-  constructor(private commanService: CommonService, private _router: Router,
+  constructor(private commanService: CommonService, private _router: Router,private http: Http,
               private employeeService: EmployeeService, private messageService: MessageService, private formBuilder: FormBuilder,private loaderService:LoaderService) {
 
     this.userForm = this.formBuilder.group({
@@ -45,14 +50,50 @@ export class EmployeeComponent {
       'email': ['', [Validators.required, ValidationService.emailValidator]],
       'password': ['', [Validators.required, Validators.minLength(8)]],
       'conform_password': ['', [Validators.required, Validators.minLength(8)]],
-      'birth_year':['', Validators.required],
+      'birth_year':['', [Validators.required,ValidationService.birthYearValidator]],
       'country':[''],
       'state':[''],
       'city':[''],
-      'pin':['', Validators.required]
+      'pin':['',  [Validators.required,ValidationService.pinValidator]]
     });
 
     this.BODY_BACKGROUND = ImagePath.BODY_BACKGROUND;
+  }
+  ngOnInit(){
+
+    if (this.countries === undefined) {
+      this.http.get("country").map((res: Response) => res.json())
+        .subscribe(
+          data => {
+            this.countries = data.country;
+          },
+          err => console.error(err),
+          () => console.log()
+        );
+    }
+  }
+
+  selectCountryModel(newVal: any) {debugger
+    this.storedCountry=newVal;
+    this.countryModel = newVal;
+    if(this.storedCountry==="India")
+    this.http.get("india").map((res: Response) => res.json())
+      .subscribe(
+        data => {
+          this.states = data.indiaStates;
+
+          /*   this.rmainingRoles= data.roles;
+           this.key=this.rmainingRoles.length;
+           IndustryComponent.count=IndustryComponent.count+1;
+           var k=this.key-IndustryComponent.count;
+           if(k>0) {
+           delete this.rmainingRoles[k];
+           this.roles = this.rmainingRoles;
+           }*/
+        },
+        err => console.error(err),
+        () => console.log()
+      );
   }
 
   onSubmit() {debugger
