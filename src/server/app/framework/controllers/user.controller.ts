@@ -149,6 +149,32 @@ export function verificationMail(req: express.Request, res: express.Response, ne
 
   }
 };
+export function recruiterVerificationMail(req: express.Request, res: express.Response, next: any) {
+  try {
+    var userService = new UserService();
+    var user = req.user;
+    var params = req.body;
+    userService.sendRecruiterVerificationMail(params, (error, result) => {
+      if (error) {
+        next({
+          reason: Messages.MSG_ERROR_RSN_WHILE_CONTACTING,
+          message: Messages.MSG_ERROR_WHILE_CONTACTING,
+          code: 403
+        });
+      }
+      else {
+        res.status(200).send({
+          "status": Messages.STATUS_SUCCESS,
+          "data": {"message": Messages.MSG_SUCCESS_EMAIL_REGISTRATION}
+        });
+      }
+    });
+  }
+  catch (e) {
+    res.status(403).send({message: e.message});
+
+  }
+};
 
 export function mail(req: express.Request, res: express.Response, next: any) {
   try {
@@ -784,6 +810,26 @@ console.log("Changemailverification hit");
 export function getIndustry (req:express.Request, res:express.Response) {
   __dirname = './';
   var filepath="industry.json";
+  try {
+    res.sendFile(filepath,{root: __dirname});
+  }
+  catch (e) {
+    res.status(403).send({message: e.message});
+  }
+}
+export function getCountries (req:express.Request, res:express.Response) {
+  __dirname = './';
+  var filepath="country.json";
+  try {
+    res.sendFile(filepath,{root: __dirname});
+  }
+  catch (e) {
+    res.status(403).send({message: e.message});
+  }
+}
+export function getIndiaStates (req:express.Request, res:express.Response) {
+  __dirname = './';
+  var filepath="indiaStates.json";
   try {
     res.sendFile(filepath,{root: __dirname});
   }

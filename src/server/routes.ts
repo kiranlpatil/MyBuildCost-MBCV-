@@ -30,12 +30,15 @@ export function init(app: express.Application) {
   app.get("/api/fblogin", this.authInterceptor.facebookAuth, userController.fblogin);
 
   app.post("/api/googlelogin", this.authInterceptor.googleAuth, userController.googlelogin);
-    //app.get("/auth/google/callback", this.authInterceptor.googleAuthCallback, userController.googlelogin);
+  app.get("/api/indiastates",  userController.getIndiaStates);
+  //app.get("/auth/google/callback", this.authInterceptor.googleAuthCallback, userController.googlelogin);
     //app.get("/auth/google/success", userController.googlelogin);
     //app.post("/api/googletoken", userController.getGoogleToken);
      app.put("/api/updatepicture/:id", this.authInterceptor.requiresAuth, userController.updatePicture);
      app.put("/api/changetheme/:id", this.authInterceptor.requiresAuth, userController.changeTheme);
      app.all("/updatepicture/:id", this.authInterceptor.requiresAuth, userController.updatePicture);
+  app.post("/api/sendrecruitermail/:id", this.authInterceptor.requiresAuth,userController.recruiterVerificationMail);
+
 
      app.use(sharedService.logHandler);
      app.use(sharedService.errorHandler);
