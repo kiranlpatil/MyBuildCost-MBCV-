@@ -85,12 +85,9 @@ $white: #fff;
   header {  @extend %dark-theme-gradient; }
 
   //splash screen header
-
-  .page-background {
     .page-header {
       background: $dark-theme-color;
     }
-  }
 
   //wrapper heading
   .main-form-wrapper {

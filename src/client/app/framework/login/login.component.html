@@ -1,14 +1,11 @@
 <section class="main-form-wrapper login" [ngStyle]="{'background-image': 'url(' + BODY_BACKGROUND + ')'}">
+  <main-header></main-header>
 
   <app-loader></app-loader>
 
   <div class="col-lg-3 col-md-4 col-sm-6 col-xs-10 content">
 
-    <h5>Login</h5>
-
-      <button type="button" (click)="navigateTo('/landing')">
-        <span class="glyphicon glyphicon-remove" ></span>
-      </button>
+    <h5>Login <span class="glyphicon glyphicon-remove" (click)="navigateTo('/landing')"></span></h5>
 
     <form [formGroup]="userForm" (submit)="onSubmit()">
 

@@ -1,13 +1,12 @@
 <section class="main-form-wrapper registration" [ngStyle]="{'background-image': 'url(' + BODY_BACKGROUND + ')'}">
+  <main-header></main-header>
 
   <app-loader></app-loader>
 
   <div class="content">
 
-    <h5>Register</h5>
-    <button type="button" (click)="navigateTo('/landing')">
-      <span class="glyphicon glyphicon-remove" ></span>
-    </button>
+    <h5>Register <span class="glyphicon glyphicon-remove" (click)="navigateTo('/landing')"></span></h5>
+
     <!--<form [formGroup]="userForm" (submit)="onSubmit()">-->
     <form>
       <div class="alert alert-danger clearfix" [hidden]="isShowErrorMessage">

@@ -65,6 +65,7 @@ import {ProfileCreatorComponent} from "./cnext/framework/profile-creator/profile
 import {CapabilityListComponent} from "./cnext/framework/capability-list/capability-list.component";
 import {proficiencyDomainComponent} from "./cnext/framework/proficiency-domains/proficiency-domain.component";
 import {ComplexityListComponent} from "./cnext/framework/complexity-list/complexity-list.component";
+import {MainHeaderComponent} from "./framework/main-header/main-header.component";
 
 @NgModule({
   imports: [
@@ -80,6 +81,7 @@ import {ComplexityListComponent} from "./cnext/framework/complexity-list/complex
     ControlMessagesComponent,
     LoaderComponent,
     LandingPageComponent,
+    MainHeaderComponent,
     LoginComponent,
     RegistrationComponent,
     EmployeeComponent,

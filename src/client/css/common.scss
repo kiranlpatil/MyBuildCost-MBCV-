@@ -395,6 +395,12 @@ h5 {
       padding: 10px 0 10px 30px;
     }
 
+    h5 > .glyphicon-remove {
+      float: right;
+      font-size: 14px;
+      margin-right: 25px;
+    }
+
     p {
       text-align: justify;
     }
