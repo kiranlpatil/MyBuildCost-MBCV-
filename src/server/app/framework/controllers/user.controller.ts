@@ -262,7 +262,7 @@ export function forgotPassword(req: express.Request, res: express.Response, next
     var params = req.body;   //email
 
    /* var linkq =req.url;
-    var fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
+    var fullUrl = app.get("/api/address",  userController.getAddress);req.protocol + '://' + req.get('host') + req.originalUrl;
     console.log(fullUrl);*/
     userService.forgotPassword(params, (error, result) => {
 
@@ -817,6 +817,19 @@ export function getIndustry (req:express.Request, res:express.Response) {
     res.status(403).send({message: e.message});
   }
 }
+
+export function getAddress (req:express.Request, res:express.Response) {
+  __dirname = './';
+  var filepath="address.json";
+  try {
+    res.sendFile(filepath,{root: __dirname});
+  }
+  catch (e) {
+    res.status(403).send({message: e.message});
+  }
+}
+
+
 export function getCountries (req:express.Request, res:express.Response) {
   __dirname = './';
   var filepath="country.json";
@@ -868,7 +881,7 @@ export function  getProficiency (req:express.Request, res:express.Response) {
   }
 }
 
-export function  getDomain(req:express.Request, res:express.Response) {
+export function  getDomain (req:express.Request, res:express.Response) {
   __dirname = './';
   var filepath="domain.json";
   try {
@@ -878,7 +891,6 @@ export function  getDomain(req:express.Request, res:express.Response) {
     res.status(403).send({message: e.message});
   }
 }
-
 
 
 export function getCapability (req:express.Request, res:express.Response) {

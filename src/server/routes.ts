@@ -29,7 +29,7 @@ export function init(app: express.Application) {
     //app.put("/api/updatenotification/:id", this.authInterceptor.requiresAuth, userController.updateNotifications);
   app.post("/api/industryprofile", userController.profilecreate);
   app.get("/api/fblogin", this.authInterceptor.facebookAuth, userController.fblogin);
-
+  app.get("/api/address",  userController.getAddress);
   app.post("/api/googlelogin", this.authInterceptor.googleAuth, userController.googlelogin);
   app.get("/api/indiastates",  userController.getIndiaStates);
   //app.get("/auth/google/callback", this.authInterceptor.googleAuthCallback, userController.googlelogin);

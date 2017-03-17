@@ -1,0 +1,13 @@
+{
+  "address":
+[ { "country":"India",
+  "states":
+  [ { "name": "AndhraPradesh", "cities":["Guntur","kadapa"] },
+    { "name": "Maharashtra", "cities":["Mumbai","pune"] } ]},
+  { "country":"USA",
+    "states":
+    [ { "name": "Florida", "cities":["Miami","Tampa"] },
+      { "name": "California", "cities":["Losangeles","Hawaii"] }
+    ] }
+]
+}

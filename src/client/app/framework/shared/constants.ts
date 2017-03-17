@@ -90,8 +90,8 @@ export class LocalStorage {
 
 export class VALUE_CONSTANT{
   public static MAX_CAPABILITIES :number=10;
-  public static MAX_PROFECIENCES :number=2;
-  public static MAX_DOMAINS :number=2;
+  public static MAX_PROFECIENCES :number=10;
+  public static MAX_DOMAINS :number=10;
 }
 
 
