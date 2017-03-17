@@ -1,0 +1,167 @@
+// Dark Theme Variables /
+$cn-theme-color: #3695d1;
+$cn-theme-hover: #3491CB;
+$cn-theme-btn-danger: #ff5024;
+$cn-theme-btn-danger-hover: #d44b24;
+$cn-theme-background: #6f3025;
+$cn-theme-gradient-light: #1c75bd;
+$cn-theme-gradient-dark: #284598;
+$white: #fff;
+
+//Dark Theme common classes
+// Gradient Background
+%cn-theme-gradient {
+  background: linear-gradient(141deg, $cn-theme-gradient-light  0%, $cn-theme-gradient-dark 100%);
+}
+
+.cn-theme {
+
+  // Loader
+  .loader-container {
+
+    .inner-loader { border-top: 5px solid $cn-theme-color; }
+  }
+  // Heading
+  h3 { color: $cn-theme-color; }
+
+  // Buttons
+  .btn-primary {
+    background: $cn-theme-color;
+    border: $cn-theme-color 1px solid;
+    color: $white;
+
+    &:hover,
+    &:active,
+    &:focus {
+      background: $cn-theme-hover;
+      border: $cn-theme-hover 1px solid;
+      color: $white;
+    }
+
+    &:disabled  {
+      background: $cn-theme-color;
+      border: $cn-theme-color 1px solid;
+    }
+  }
+
+  // Buttons
+  .btn-danger {
+    background: $cn-theme-btn-danger;
+    border: $cn-theme-btn-danger 1px solid;
+    color: $white;
+
+    &:hover,
+    &:active,
+    &:focus {
+      background: $cn-theme-btn-danger-hover;
+      border: $cn-theme-btn-danger-hover 1px solid;
+      color: $white;
+    }
+
+    &:disabled  {
+      background: $cn-theme-btn-danger;
+      border: $cn-theme-btn-danger 1px solid;
+    }
+  }
+
+  // Other Links
+  .other-links {
+
+    a { color: $cn-theme-color; }
+  }
+
+  // Forms
+  form {
+
+    .form-control {
+
+      &:focus,
+      &:active {
+        border-bottom: $cn-theme-color 1px solid;
+      }
+    }
+  }
+  // Header
+  header {  @extend %cn-theme-gradient; }
+
+  //splash screen header
+  .page-header {
+    background: $cn-theme-color;
+  }
+
+  //wrapper heading
+  .main-form-wrapper {
+    h5 {
+      background: $cn-theme-color;
+    }
+  }
+
+  // Side Menu Bar
+  .dashboard {
+    .menu-container { @extend %cn-theme-gradient; }
+
+    nav {
+      .profile { background: $cn-theme-background; }
+    }
+
+    nav > ul > li {
+      border-bottom: 1px solid $cn-theme-hover;
+
+      a {
+        &:hover {
+          background: $cn-theme-hover;
+        }
+      }
+    }
+  }
+
+  //create profile
+  .profile-header { @extend %cn-theme-gradient; }
+
+  .profile-wrapper {
+    .heading {
+      @extend %cn-theme-gradient;
+    }
+
+    .btn-create-profile {
+      border: 1px solid $cn-theme-color;
+    }
+  }
+
+  // Settings, About , Notification
+  .settings,
+  .about,
+  .notification {
+
+    ul > li {
+
+      h5 {
+        color: $cn-theme-color;
+      }
+
+      .read {
+        background: $cn-theme-color;
+      }
+    }
+
+    ul > li > a {
+
+      &:hover,
+      &:focus {
+        color: $cn-theme-color;
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 1024px) {
+  .cn-theme {
+    // Buttons
+    .btn-default {
+
+      &:disabled  {
+        opacity: .3;
+      }
+    }
+  }
+}

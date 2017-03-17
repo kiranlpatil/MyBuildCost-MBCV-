@@ -7,19 +7,19 @@
     <div class="form-group">
       <div ng2-auto-complete
            [source]="proficiencies"
-           (ngModelChange)="selectproficiencyModel($event)"
-      >
+           (ngModelChange)="selectproficiencyModel($event)">
         <input  class="form-control" [(ngModel)]="proficiencyModel" id={{type}} placeholder="{{placeHolderName}}" />
       </div>
     </div>
 
-
-    <div class="btn-container" *ngFor="let item of storedProficiency; let i = index">
-      <p (click)="deleteItem($event)">
-        <button type="button" class="btn btn-create-profile" >
-          {{item}} <span class="glyphicon glyphicon-remove" ></span>
-        </button>
-      </p>
+    <div class="btn-container">
+      <div *ngFor="let item of storedProficiency; let i = index">
+        <p (click)="deleteItem($event)">
+          <button type="button" class="btn btn-create-profile" >
+            {{item}} <span class="glyphicon glyphicon-remove" ></span>
+          </button>
+        </p>
+      </div>
     </div>
   </div>
 </div>
