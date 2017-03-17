@@ -1,5 +1,6 @@
 import * as express from 'express';
 import * as userController from './app/framework/controllers/user.controller';
+import * as industryController from './app/framework/controllers/industry.controller';
 import * as sharedService from './app/framework/shared/shared.service';
 import * as userInterceptor from './app/framework/interceptor/user.interceptor';
 var AuthInterceptor = require("./app/framework/interceptor/auth.interceptor");
@@ -7,6 +8,7 @@ this.authInterceptor = new AuthInterceptor();
 
 
 export function cnextInit(app: express.Application) {
+  //app.get("/api/industry", industryController.retrieve);
   app.get("/api/industry",  userController.getIndustry);
   app.get("/api/function",  userController.getFunction);
   app.get("/api/proficiency",  userController.getProficiency);

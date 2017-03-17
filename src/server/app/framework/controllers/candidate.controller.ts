@@ -46,7 +46,7 @@ export function create(req: express.Request, res: express.Response, next: any) {
           "status": Messages.STATUS_SUCCESS,
           "data": {
             "reason": Messages.MSG_SUCCESS_REGISTRATION,
-            "_id": result._id,
+            "_id": result.userId,
           },
           access_token: token
         });
