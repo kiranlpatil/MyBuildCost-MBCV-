@@ -59,7 +59,7 @@ export class NavigationRoutes {
   public static APP_REGISTRATION: string = '/registration';
   public static APP_FORGOTPASSWORD: string = '/forgotpassword';
   public static APP_DASHBOARD: string = '/dashboard';
-  public static APP_LOGIN: string = '/login';
+  public static APP_LOGIN: string = '/reset_password';
   public static APP_START: string = '/';
   public static APP_LANDING: string = '/landing';
   public static VERIFY_USER: string = '/verify_user';
@@ -99,7 +99,8 @@ export class API {
   public static NOTIFICATION = 'notification';
   public static SEND_MAIL = 'sendmail';
   public static USER_PROFILE = 'users';
-  public static EMPLOYER_PROFILE = 'employers';
+  public static CANDIDATE_PROFILE = 'candidate';
+  public static EMPLOYER_PROFILE = 'recruiter';
   public static LOGIN = 'login';
   public static FB_LOGIN = 'fbLogin';
   public static CHANGE_PASSWORD = 'changepassword';
