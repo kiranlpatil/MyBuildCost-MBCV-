@@ -1,0 +1,21 @@
+@import '../../../../css/common';
+$btn-color : #3695d1;
+.proefficiency-container  {
+  p {
+    span {
+      color: $text-color;
+      padding-left: 0;
+    }
+  }
+
+  .btn-container {
+    border: 1px solid $border-color;
+    padding: 15px;
+
+    span {
+      color:  $btn-color;
+      font-size: 12px;
+      padding-left: 20px;
+    }
+  }
+}

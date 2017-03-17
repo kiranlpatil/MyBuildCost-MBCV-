@@ -309,12 +309,12 @@ h5 {
 
 .toaster-error {
   background: $toaster-error;
-  z-index: 5;
+  z-index: 100;
 }
 
 .toaster-success {
   background: $toaster-success;
-  z-index: 6;
+  z-index: 101;
 }
 
 .alert {

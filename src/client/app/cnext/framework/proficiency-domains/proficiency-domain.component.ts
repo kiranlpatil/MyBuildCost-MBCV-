@@ -5,7 +5,7 @@ import {VALUE_CONSTANT} from "../../../framework/shared/constants";
   moduleId: module.id,
   selector: 'cn-proficiencydoamin',
   templateUrl: 'proficiency-domain.component.html',
-  styleUrls: ['']
+  styleUrls: ['proficiency-domain.component.css']
 })
 
 export class proficiencyDomainComponent implements OnInit {

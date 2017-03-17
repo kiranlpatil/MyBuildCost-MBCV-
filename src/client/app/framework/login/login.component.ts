@@ -89,7 +89,7 @@ export class LoginComponent implements OnInit {
     //this.onSignIn;
     this._facebookService.loadAndInitFBSDK();
     if (parseInt(LocalStorageService.getLocalValue(LocalStorage.IS_LOGED_IN)) === 1) {
-      this._router.navigate(['/dashboard']);
+      this._router.navigate(['/createprofile']);
     }
   }
 
