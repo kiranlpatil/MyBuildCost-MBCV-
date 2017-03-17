@@ -12,7 +12,8 @@ export function init(app: express.Application) {
     app.post("/api/login", userInterceptor.login,userController.login);
     app.post("/api/forgotpassword", userInterceptor.forgotPassword, userController.forgotPassword);
     app.put("/api/resetpassword/:id", this.authInterceptor.requiresAuth, userController.resetPassword);
-    app.post("/api/users", userInterceptor.create, candidateController.create);
+    app.post("/api/candidate", userInterceptor.create, candidateController.create);
+    app.post("/api/recruiter", userInterceptor.create, candidateController.create);
     app.put("/api/users/:id", this.authInterceptor.requiresAuth, userController.updateDetails);
     app.get("/api/users/:id", userInterceptor.retrieve, this.authInterceptor.requiresAuth, userController.retrieve);
     app.post("/api/sendverificationmail/:id", this.authInterceptor.requiresAuth,userController.verificationMail);
