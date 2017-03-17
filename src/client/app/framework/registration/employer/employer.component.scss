@@ -18,8 +18,12 @@
 
   .main-info {
     .form-group {
-      padding: 0;
-      width: 100%;
+      width: 50%;
+      padding: 0 15px;
+
+      label {
+        left: 15px;
+      }
     }
   }
 

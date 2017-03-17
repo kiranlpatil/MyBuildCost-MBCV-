@@ -74,7 +74,7 @@ export class EmployeeComponent {
       this.http.get("address")
         .map((res: Response) => res.json())
         .subscribe(
-          data => {debugger
+          data => {
             this.locationDetails=data.address;
             for(var  i = 0; i <data.address.length; i++){
               this.countries.push(data.address[i].country);
@@ -89,7 +89,7 @@ export class EmployeeComponent {
 
 
   }
-  selectCountryModel(newval:any) {debugger
+  selectCountryModel(newval:any) {
     for(let item of this.locationDetails){
       if(item.country===newval){
           let tempStates: string[]= new Array(0);
@@ -101,7 +101,7 @@ export class EmployeeComponent {
     }
     this.storedcountry=newval;
   }
-  selectStateModel(newval:any) {debugger
+  selectStateModel(newval:any) {
     for(let item of this.locationDetails){
       if(item.country===this.storedcountry){
         for(let state of item.states){
@@ -129,7 +129,7 @@ export class EmployeeComponent {
 
 
 
-  onSubmit() {debugger
+  onSubmit() {
     this.model = this.userForm.value;
     this.model.current_theme = AppSettings.LIGHT_THEM;
     this.model.isCandidate =true;
