@@ -68,6 +68,7 @@ import {ComplexityListComponent} from "./cnext/framework/complexity-list/complex
 import {MainHeaderComponent} from "./framework/main-header/main-header.component";
 import {TestService} from "./cnext/framework/test.service";
 import {ComplexityService} from "./cnext/framework/complexity.service";
+import {ProficiencyService} from "./cnext/framework/proficience.service";
 
 @NgModule({
   imports: [
@@ -137,6 +138,7 @@ import {ComplexityService} from "./cnext/framework/complexity.service";
     CommonService,
     ValidationService,
     ComplexityService,
+    ProficiencyService,
     ChangePasswordService,
     ChangeEmailService,
     ChangeMobileService,

@@ -1,6 +1,7 @@
 import {Component, OnInit, Input} from '@angular/core';
 import {Http,Response} from "@angular/http";
 import {VALUE_CONSTANT} from "../../../framework/shared/constants";
+import {ProficiencyService} from "../proficience.service";
 @Component({
   moduleId: module.id,
   selector: 'cn-proficiencydoamin',
@@ -17,10 +18,15 @@ export class proficiencyDomainComponent implements OnInit {
   private proficiencyType: boolean=false;
   private domainType: boolean=false;
   private placeHolderName:string;
+  private isProficiencyShow:boolean =false;
 
-  constructor(private http: Http) {
+  constructor(private http: Http,private proficiencyService: ProficiencyService) {
 
-
+    proficiencyService.showTest$.subscribe(
+      data=>{
+        this.isProficiencyShow=data;
+      }
+    );
   }
 
   ngOnInit() {

@@ -2,6 +2,7 @@ import {Response, Http} from '@angular/http';
 import {Component} from '@angular/core';
 import {Complexity} from "../model/complexity";
 import {ComplexityService} from "../complexity.service";
+import {ProficiencyService} from "../proficience.service";
 
 
 
@@ -18,7 +19,8 @@ export class ComplexityListComponent {
   private isComplexityShow : boolean =false;
 
   constructor( private http:Http,
-                private complexityService: ComplexityService) {
+                private complexityService: ComplexityService,
+               private proficiencyService: ProficiencyService) {
     complexityService.showTest$.subscribe(
       data=>{
           this.isComplexityShow=data;
@@ -50,6 +52,9 @@ export class ComplexityListComponent {
       if(newVal.target.value !== "none") {
         this.selectedComplexity.push(currentComplexity);
       }
+    }
+    if(this.selectedComplexity.length>1){
+      this.proficiencyService.change(true);
     }
   }
 }
