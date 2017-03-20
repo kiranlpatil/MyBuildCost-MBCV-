@@ -15,11 +15,11 @@ $border-color: #e8e8e8;
 
 .bar-container {
   height: 90px;
+  left: 0;
   margin: 0 auto;
   padding-top: 20px;
   position: fixed;
   top: 0;
-  left: 0;
   width: 100%;
   z-index: 99;
 }
@@ -144,8 +144,8 @@ $border-color: #e8e8e8;
 
 @media only screen and (max-width: 1280px) {
   .profile-wrapper {
-    width: 100%;
     display: inline-block;
+    width: 100%;
   }
 }
 

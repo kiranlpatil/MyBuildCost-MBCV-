@@ -10,32 +10,6 @@
   margin: 0 auto;
   width: 100%;
 
-  .page-header {
-    border: 0;
-    font-family: 'helvlightregular';
-    height: 40px;
-    left: 0;
-    margin: 0;
-    position: fixed;
-    top: 0;
-    width: 100%;
-
-    ul {
-      float: right;
-      list-style: none;
-    }
-
-    ul > li {
-      float: left;
-      margin-right: 35px;
-      padding: 10px 0;
-    }
-
-    ul > li > a {
-      color: $white;
-    }
-  }
-
   .inner-content {
     display: table-cell;
     height: 100vh;

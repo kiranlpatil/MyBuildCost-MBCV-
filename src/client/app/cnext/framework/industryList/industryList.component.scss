@@ -1,7 +1,6 @@
 $text-color: #666;
 $white: #fff;
 $modal-bg: #f2f2f2;
-$instruction: #3695d1;
 $btn-instruction: #ccc;
 
 .select-role {
@@ -14,9 +13,9 @@ $btn-instruction: #ccc;
     padding-right: 10px;
 
     [type='radio'] {
-      position: relative;
-      margin-left: -20px;
       float: left;
+      margin-left: -20px;
+      position: relative;
     }
 
     .list {
@@ -25,10 +24,10 @@ $btn-instruction: #ccc;
       margin-top: -5px;
 
       input {
-        padding: 6px;
         background: url('assets/framework/images/form/drop-down.png') no-repeat;
         background-position: 95% 50%;
         border-radius: 0;
+        padding: 6px;
       }
     }
   }
@@ -42,7 +41,7 @@ $btn-instruction: #ccc;
 
     .form-group {
       float: left;
-      margin-right: 15px;
+      margin-right: 0;
     }
   }
 
@@ -60,11 +59,20 @@ $btn-instruction: #ccc;
     color: $btn-instruction;
     padding: 5px 0 0;
   }
+
+  .btn-primary {
+    float: right;
+
+    &:focus,
+    &:active {
+      outline: none;
+    }
+  }
 }
 
 .modal-dialog {
-  text-align: center;
   border-radius: 25px;
+  text-align: center;
 
   .modal-body {
     padding: 30px;
@@ -101,7 +109,7 @@ $btn-instruction: #ccc;
     .radio > .radio-inline {
       margin: 0;
       min-height: 40px;
-      padding: 0 10px 0 20px;
+      padding: 0 10px 0 0;
     }
 
     .role-type {
@@ -115,6 +123,14 @@ $btn-instruction: #ccc;
         float: none;
         margin-left: 0;
       }
+
+      .form-control:first-child {
+        margin-left: 10px;
+      }
+
+      span {
+        padding: 0;
+      }
     }
 
     .btn-create-profile {
@@ -124,6 +140,10 @@ $btn-instruction: #ccc;
 
     .btn-instructions {
       padding: 0;
+    }
+
+    .btn-primary {
+      float: none;
     }
   }
 }
@@ -147,7 +167,7 @@ $btn-instruction: #ccc;
     .radio > .radio-inline {
       display: block;
       min-height: 70px;
-      padding: 0 20px;
+      padding: 0;
 
       input {
         margin: 4px 0 0;

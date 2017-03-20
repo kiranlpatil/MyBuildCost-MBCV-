@@ -1,7 +1,7 @@
 <div class="select-role">
   <div class="radio">
     <label class="radio-inline">Industry :&nbsp;
-      <!--<input type="radio" name="roles" id="industry" (change)="toggleRoll($event)">-->
+
       <div class="list" >
         <div ng2-auto-complete
            [source]="industries"
@@ -20,12 +20,12 @@
       <div class="form-group" *ngFor="let item of temproles;let i= index">
         <div  id="{item}+i" ng2-auto-complete
               [source]="roles"
-              (ngModelChange)="selectRolesModel($event)"
-              placeholder="enter text">
-          <!--<span *ngIf="i>0" class="pull-left">&amp;</span>-->
+              (ngModelChange)="selectRolesModel($event)">
+          <span *ngIf="i>0" class="pull-left">&amp;</span>
           <input class="form-control" [ngModel]="roleModel" [disabled]="disbleRole" />
         </div>
       </div>
+
       <div class="clear">
         <button type="button" id="more_fields" (click)="addNewRole()" class="btn btn-create-profile" [disabled]="disbleRole" >
           Add Another Role <span>+</span>
@@ -35,13 +35,13 @@
     </div>
   </div>
 
-  <div class="clearfix">
+  <div class="button-group clearfix">
     <button class="btn btn-primary" (click)="showHideModal()" [disabled]="disbleRole">Cofirm &amp; Save</button>
   </div>
   <p class="instructions">Once you confirm and save your roles. You can not change them for 3 months.</p>
 </div>
 
-<div class="modal modal-email" [style.display]="getStyleModal()">
+<div class="modal" [style.display]="getStyleModal()">
   <div class="modal-bg">
     <div class="modal-dialog modal-md">
       <div class="modal-content">

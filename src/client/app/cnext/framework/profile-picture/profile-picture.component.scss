@@ -3,8 +3,8 @@
 $process-color: #224879;
 
 .profile {
-  position: relative;
   padding: 15px 0;
+  position: relative;
   text-align: center;
   width: 100%;
 
@@ -22,8 +22,8 @@ $process-color: #224879;
   }
 
   .avtar >  img {
-    width: 100%;
     border-radius: 50%;
+    width: 100%;
   }
 
   [type='file'] {
@@ -76,5 +76,3 @@ $process-color: #224879;
     padding: 15px 0 0;
   }
 }
-
-
