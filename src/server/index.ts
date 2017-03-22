@@ -95,7 +95,7 @@ export function init(port: number, mode: string,protocol: string) {
    */
   //HTTP START:
   if(protocol == 'http') {
-    return new Promise<http.Server>((resolve, reject) => {
+    return new Promise<http.Server>((resolve:any, reject:any) => {
       let server = app.listen(port, () => {
         var port = server.address().port;
         console.log('App is listening on port:' + port);

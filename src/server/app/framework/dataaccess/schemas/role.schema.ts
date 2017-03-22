@@ -8,12 +8,12 @@ var mongooseConnection = DataAccess.mongooseConnection;
 class RoleSchema {
     static get schema() {
         var schema = mongoose.Schema({
-          role : {
+          name : {
             type :  String
           },
-          capabilities : {
+          capabilities : [{
             type : mongoose.Schema.Types.ObjectId, ref :'ICapability'
-          }
+          }]
 
         },{ versionKey: false });
 

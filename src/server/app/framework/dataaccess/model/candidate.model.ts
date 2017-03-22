@@ -9,7 +9,7 @@ import User = require("../mongoose/user");
 import * as mongoose from "mongoose";
 
 interface CandidateModel {
-  isVisibleProfile : boolean;
+  isVisible : boolean;
   isCandidate: boolean;
   userId :  {type:mongoose.Schema.Types.ObjectId, ref:'User'};
   location: {type:mongoose.Schema.Types.ObjectId, ref:'ILocation'}

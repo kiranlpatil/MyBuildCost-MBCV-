@@ -58,6 +58,8 @@ class Messages {
   public static MSG_ERROR_WHILE_CONTACTING: string = 'Something went wrong.Try again';
   public static MSG_ERROR_CONNECTION_TIMEOUT: string = 'Connection timeout.Try again';
 
+  //
+
   // Error Reason
   // public static MSG_ERROR_RSN_MESSAGE_NOT_SENT:string = 'message could not send';
   public static MSG_ERROR_RSN_USER_NOT_FOUND: string = 'User not found';

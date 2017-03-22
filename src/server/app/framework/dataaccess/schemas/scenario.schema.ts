@@ -7,7 +7,7 @@ var mongooseConnection = DataAccess.mongooseConnection;
 class ScenarioSchema {
     static get schema() {
         var schema = mongoose.Schema({
-          scenario : {
+          name : {
             type : String
           }
 

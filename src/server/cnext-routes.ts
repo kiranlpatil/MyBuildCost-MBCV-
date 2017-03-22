@@ -8,8 +8,9 @@ this.authInterceptor = new AuthInterceptor();
 
 
 export function cnextInit(app: express.Application) {
-//  app.get("/api/industry", industryController.retrieve);
-  app.get("/api/industry",  userController.getIndustry);
+  app.get("/api/industry", industryController.retrieve);
+  app.post("/api/industry",industryController.create);
+ // app.get("/api/industry",  userController.getIndustry);
   app.get("/api/function",  userController.getFunction);
   app.get("/api/proficiency",  userController.getProficiency);
   app.get("/api/domain",  userController.getDomain);

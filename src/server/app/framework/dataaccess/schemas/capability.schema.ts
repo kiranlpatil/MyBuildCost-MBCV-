@@ -8,6 +8,9 @@ var mongooseConnection = DataAccess.mongooseConnection;
 class CapabilitySchema {
     static get schema() {
         var schema = mongoose.Schema({
+         name:{
+           type:String
+         },
           complexities : [{
             type:mongoose.Schema.Types.ObjectId, ref:'IComplexity'
           }],

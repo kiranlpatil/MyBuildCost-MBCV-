@@ -1,4 +1,4 @@
 interface ScenarioModel {
-    names: string;
+    name: string;
 }
 export = ScenarioModel;
