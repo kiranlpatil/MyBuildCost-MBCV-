@@ -1,15 +1,15 @@
 <div *ngIf="isComplexityShow">
-<div class="select-complexity clearfix" *ngFor="let item of complexities;let i = index" (click)="selectOption($event)" >
-  <div class="col-sm-3 complexity-name">
-    <p id ="complexity">{{item.name}}</p>
-  </div>
-  <div class="col-sm-9 scenarios">
-    <div class="select-option"  *ngFor="let subitem of item.scenario">
-      <label>
-        <input type="radio" name="{{item.name}}"  id="{{i}}" value="{{subitem}}" >
-        <div><span>{{subitem}}</span></div>
-      </label>
+  <div class="select-complexity clearfix" *ngFor="let item of complexities;let i = index" (click)="selectOption($event)" >
+    <div class="complexity-name">
+      <p id ="complexity">{{item.name}}</p>
+    </div>
+    <div class="scenarios">
+      <div class="select-option"  *ngFor="let subitem of item.scenario">
+        <label>
+          <input type="radio" name="{{item.name}}"  id="{{i}}" value="{{subitem}}" >
+          <span>{{subitem}}</span>
+        </label>
+      </div>
     </div>
   </div>
-</div>
 </div>

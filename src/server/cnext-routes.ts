@@ -12,7 +12,7 @@ export function cnextInit(app: express.Application) {//todo add interceptor to a
   //app.get("/api/industry",industryController.retrieve);
   app.post("/api/industry",industryController.create);
   app.get("/api/industry",  userController.getIndustry);
- // app.get("/api/industry/:id/role", roleController.retrieve );
+  //app.get("/api/industry/:id/role", roleController.retrieve );
   app.get("/api/function",  userController.getFunction);
   app.get("/api/proficiency",  userController.getProficiency);
   app.get("/api/domain",  userController.getDomain);

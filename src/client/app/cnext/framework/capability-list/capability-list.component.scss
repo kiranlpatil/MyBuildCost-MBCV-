@@ -180,7 +180,8 @@ p {
 
 @media screen and (max-width: 980px) {
   .btn-primary {
-    float: right;
+    float: none;
+    margin-top: 15px;
   }
 
   .capability-type {

@@ -11,12 +11,23 @@ $btn-color: #3695d1;
 
   .btn-container {
     border: 1px solid $border-color;
+    height: 240px;
+    overflow: auto;
     padding: 15px;
+
+    div {
+      float: left;
+      margin: 0 10px 10px 0;
+    }
 
     span {
       color:  $btn-color;
       font-size: 12px;
       padding-left: 20px;
     }
+
+
   }
 }
+
+

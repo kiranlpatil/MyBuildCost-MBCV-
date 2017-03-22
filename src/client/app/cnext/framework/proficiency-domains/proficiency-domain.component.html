@@ -14,11 +14,9 @@
 
     <div class="btn-container">
       <div *ngFor="let item of storedProficiency; let i = index">
-        <p (click)="deleteItem($event)">
-          <button type="button" class="btn btn-create-profile" >
-            {{item}} <span class="glyphicon glyphicon-remove" ></span>
-          </button>
-        </p>
+        <button type="button" class="btn btn-create-profile" (click)="deleteItem($event)">
+          {{item}} <span class="glyphicon glyphicon-remove" ></span>
+        </button>
       </div>
     </div>
   </div>

@@ -89,11 +89,11 @@ export class LoginComponent implements OnInit {
     //this.onSignIn;
     this._facebookService.loadAndInitFBSDK();
     if (parseInt(LocalStorageService.getLocalValue(LocalStorage.IS_LOGED_IN)) === 1) {
-      this._router.navigate(['/dashboard']);
+      this._router.navigate(['/createprofile']);
     }
   }
 
-  onSubmit() {debugger
+  onSubmit() {
   //  this.loaderService.start();
 
     this.model = this.userForm.value;
@@ -104,7 +104,7 @@ export class LoginComponent implements OnInit {
         error => (this.loginFail(error)));
   }
 
-  loginSuccess(res:any) {debugger
+  loginSuccess(res:any) {
   // this.loaderService.stop();
     this.userForm.reset();
     if (res.data.current_theme) {
@@ -128,7 +128,7 @@ export class LoginComponent implements OnInit {
 
   successRedirect() {
     LocalStorageService.setLocalValue(LocalStorage.IS_LOGED_IN, 1);
-    this._router.navigate([NavigationRoutes.APP_DASHBOARD]);
+    this._router.navigate([NavigationRoutes.APP_CREATEPROFILE]);
     var socialLogin:string = LocalStorageService.getLocalValue(LocalStorage.IS_SOCIAL_LOGIN);
 
     if(socialLogin === AppSettings.IS_SOCIAL_LOGIN_YES) {
