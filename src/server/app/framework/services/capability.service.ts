@@ -31,6 +31,10 @@ class CapabilityService {
     this.capabilityRepository.retrieveByMultiIds(item,{  _id: 0,'complexities':0  }, callback);
   }
 
+  retrieveByMultiidsWithComplexity(item:any,names:any, callback:(error:any, result:any) => void) {
+    this.capabilityRepository.retrieveByMultiIdsAndNames(item,names,{  _id: 0  }, callback);
+  }
+
 }
 
 Object.seal(CapabilityService);

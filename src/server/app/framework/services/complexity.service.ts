@@ -27,6 +27,11 @@ class ComplexityService {
     });
   }
 
+  retrieveByMultiIds(item:any, callback:(error:any, result:any) => void) {
+    this.complexityRepository.retrieveByMultiIds(item,{  _id: 0 }, callback);
+  }
+
+
 
 }
 
