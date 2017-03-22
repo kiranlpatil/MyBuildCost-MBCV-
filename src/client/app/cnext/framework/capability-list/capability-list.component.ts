@@ -17,10 +17,13 @@ import {ComplexityService} from "../complexity.service";
 })
 
 export class CapabilityListComponent {
-  private capabilities: string[];
-  private selectedCapabilities =new Array();
-  private showAlert: boolean=false;
+  private capabilities : string[];
+  private primaryCapabilities=new Array();
+  private secondaryCapabilities=new Array();
   private isShowCapability :boolean=false;
+  private isSelected: boolean = false ;
+  private isPrimary: boolean = false ;
+
   constructor(private _router:Router, private http:Http,
               private activatedRoute:ActivatedRoute,
               private testService : TestService,
@@ -44,57 +47,45 @@ export class CapabilityListComponent {
 
 
   selectOption(newVal:any){
-    if(!newVal.target.checked){
-      this.showAlert=false;
-      for (let i = 0; i < this.selectedCapabilities.length; i++) {
-        if (this.selectedCapabilities[i] === newVal.target.value) {
-          if (i > -1) {
-            this.selectedCapabilities.splice(i, 1);
-            console.log("removed");
-          }
-        }
+    if (newVal.target.checked) {
+      this.isSelected=true;
+      if(this.primaryCapabilities.length < VALUE_CONSTANT.MAX_CAPABILITIES) {
+        this.isPrimary=true;
+        this.primaryCapabilities.push(newVal.target.value);
+        console.log("added to primary");
+      }
+      else{
+        this.isPrimary=false;
+        this.secondaryCapabilities.push(newVal.target.value);
       }
     }
-
-
-
-
-if(this.selectedCapabilities.length < VALUE_CONSTANT.MAX_CAPABILITIES) {
-  if (newVal.target.checked) {
-    this.showAlert=false;
-    this.selectedCapabilities.push(newVal.target.value);
-    console.log("added")
-  }
-  else {
-    for (let i = 0; i < this.selectedCapabilities.length; i++) {
-      if (this.selectedCapabilities[i] === newVal.target.value) {
-        if (i > -1) {
-          this.selectedCapabilities.splice(i, 1);
-          console.log("removed");
-        }
-      }
-    }
-  }
-}
     else{
-  this.showAlert=true;
-  newVal.target.checked=false;
-}
-    if(this.selectedCapabilities.length>1){
-        this.complexityService.change(true);
+      this.isSelected=false;
+      for(let capability of this.primaryCapabilities){
+        if(capability===newVal.target.value){
+          this.isPrimary=false;
+          this.primaryCapabilities.splice(this.primaryCapabilities.indexOf(capability), 1);
+        }
+      }
+
+      for(let capability of this.secondaryCapabilities){
+        if(capability===newVal.target.value){
+          this.isPrimary=false;
+          this.secondaryCapabilities.splice(this.secondaryCapabilities.indexOf(capability), 1);
+        }
+      }
     }
 
-    console.log(this.selectedCapabilities);
+    if(this.primaryCapabilities.length>1){
+      this.complexityService.change(true);
+    }
 
-    /*if(this.selectedCapabilities.length<=10)
-    this.selectedCapabilities.push(newVal.currentTarget.innerText);*/
+    console.log("primaryCapabilities",this.primaryCapabilities);
+    console.log("secondaryCapabilities",this.secondaryCapabilities);
+
+
   }
-  /*navigateTo(navigateTo: string, fileName: string, filepath : string) {
-    if (navigateTo !== undefined && fileName !== undefined) {
-      this._router.navigate([navigateTo + '/' + fileName]);
-    }
-    LocalStorageService.setLocalValue(QELocalStorage.FILE_PATH, filepath);
-  }*/
+
 
 
 

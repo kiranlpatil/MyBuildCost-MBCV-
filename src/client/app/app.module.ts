@@ -77,6 +77,9 @@ import {CertificationAccreditationComponent} from "./cnext/framework/certificati
 import {AwardsComponent} from "./cnext/framework/awards/awards.component";
 import {MoreAboutMyselfComponent} from "./cnext/framework/more-about-myself/more-about-myself.component";
 import {ProficiencyService} from "./cnext/framework/proficience.service";
+import {JobPosterComponent} from "./cnext/framework/job-poster/job-poster.component";
+import {JobInformationComponent} from "./cnext/framework/job-information/job-information.component";
+import {JobRequirementComponent} from "./cnext/framework/job-requirement/job-requirement.component";
 
 @NgModule({
   imports: [
@@ -124,6 +127,10 @@ import {ProficiencyService} from "./cnext/framework/proficience.service";
     CapabilityListComponent,
     proficiencyDomainComponent,
     ComplexityListComponent,
+    IndustryComponent,
+    JobPosterComponent,
+    JobInformationComponent,
+    JobRequirementComponent
     IndustryComponent,
     ProfessionalDataComponent,
     EmploymentHistoryComponent,
