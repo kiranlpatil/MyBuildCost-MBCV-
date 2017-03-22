@@ -31,6 +31,19 @@
         </label>
       </div>
 
+      <div class="col-sm-6 col-sm-offset-6 registartion-btn-radio text-left clearfix">
+        <label class="lable-name">Recruiting For</label>
+        <label for="self" class="radio-inline">
+          <input type="radio" id="self" name="recruiting_for" value="self" (change)="recruitmentFor($event)" checked/>
+          Self
+        </label>
+
+        <label for="others" class="radio-inline">
+          <input type="radio" id="others" name="recruiting_for" value="others" (change)="recruitmentFor($event)" />
+          Others
+        </label>
+      </div>
+
       <div class="Employee_form" [hidden]="isCandidate">
         <cn-EmployeeRegistration></cn-EmployeeRegistration>
 

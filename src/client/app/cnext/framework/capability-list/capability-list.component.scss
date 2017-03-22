@@ -7,9 +7,16 @@ p {
   margin: 0;
 }
 
-.capability-type {
-  padding-left: 45px;
+.btn-primary {
+  float: right;
 
+  &:focus,
+  &:active {
+    outline: none;
+  }
+}
+
+.capability-type {
   .instructions {
     margin-top: -5px;
   }
@@ -90,9 +97,11 @@ p {
 }
 
 @media screen and (max-width: 980px) {
-  .capability-type {
-    padding-left: 0;
+  .btn-primary {
+    float: right;
+  }
 
+  .capability-type {
     .select-option {
       margin: 0 20px 0 0;
     }

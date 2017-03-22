@@ -508,14 +508,17 @@ control-messages {
 }
 
 .registration {
+  .alert {
+    margin: 15px;
+  }
+}
+
+.employee-form,
+.employer-form {
   control-messages {
     div {
       padding: 0 15px 0 0;
     }
-  }
-
-  .alert {
-    margin: 15px;
   }
 }
 
@@ -556,6 +559,18 @@ control-messages {
   select,
   textarea {
     font-size: 14px;
+  }
+
+  .main-form-wrapper {
+    .content {
+      .employee-form {
+        padding: 0;
+      }
+
+      .employer-form {
+        padding: 15px;
+      }
+    }
   }
 }
 
@@ -659,5 +674,12 @@ control-messages {
     }
   }
 
+  .employer-form {
+    control-messages {
+      div {
+        padding: 0 0 0 15px;
+      }
+    }
+  }
 }
 

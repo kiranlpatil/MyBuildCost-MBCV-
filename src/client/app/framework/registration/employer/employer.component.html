@@ -9,116 +9,83 @@
 
 <form [formGroup]="userForm" (submit)="onSubmit()" class="employer-form">
 
-  <div class="col-sm-6 col-sm-offset-6 registartion-btn-radio text-left clearfix">
-    <label class="lable-name">Recruiting For</label>
-    <label for="self" class="radio-inline">
-      <input type="radio" id="self" name="recruiting_for" value="self" (change)="recruitmentFor($event)" checked/>
-      Self
-    </label>
-
-    <label for="others" class="radio-inline">
-      <input type="radio" id="others" name="recruiting_for" value="others" (change)="recruitmentFor($event)" />
-      Others
-    </label>
-  </div>
-
   <div class="row clearfix">
-    <!--<div class="col-sm-6 add-logo">
+    <div class="form-group">
+      <control-messages [control]="userForm.controls.company_name"></control-messages>
+      <input type="text" formControlName="company_name" id="company_name" class="form-control" required/>
+      <label>Company Name</label>
+    </div>
 
-      <div class="profile">
-        <div class="avtar">
-          &lt;!&ndash;<img src={{image_path}} alt="Profile Picture">&ndash;&gt;
-        </div>
-        <form>
-          <div class="form-group">
-            <label for="file-upload" class="custom-file-upload">
-              Add Company Logo
-            </label>
-            &lt;!&ndash;<input id="file-upload" type="file"/>&ndash;&gt;
-            <input id="file-upload" type="file" placeholder="Add Logo"/>
-          </div>
-        </form>
-      </div>
-    </div>-->
+    <div class="form-group" >
+      <select class="form-control" id="company_size" required>
+        <option selected>Company Size</option>
+        <option>below 50</option>
+        <option>50 - 100</option>
+        <option>100 - 500</option>
+        <option>above 500</option>
+      </select>
+      <label for="company_size">Company Size</label>
+    </div>
 
-    <div class="main-info">
-      <div class="form-group">
-        <control-messages [control]="userForm.controls.company_name"></control-messages>
-        <input type="text" formControlName="company_name" id="company_name" class="form-control" required/>
-        <label>Company Name</label>
-      </div>
+    <div class="form-group">
+      <control-messages [control]="userForm.controls.email"></control-messages>
+      <input type="email" formControlName="email" id="email" class="form-control" required/>
+      <label>Email</label>
+    </div>
 
-      <div class="form-group" >
-        <select class="form-control" id="company_size" required>
-          <option selected>Company Size</option>
-          <option>below 50</option>
-          <option>50 - 100</option>
-          <option>100 - 500</option>
-          <option>above 500</option>
-        </select>
-        <label for="company_size">Company Size</label>
-      </div>
+    <div class="form-group">
+      <control-messages [control]="userForm.controls.password"></control-messages>
+      <input type="password" formControlName="password" id="password" class="form-control" required/>
+      <label>Password</label>
+    </div>
 
-      <div class="form-group">
-        <control-messages [control]="userForm.controls.email"></control-messages>
-        <input type="email" formControlName="email" id="email" class="form-control" required/>
-        <label>Email</label>
+    <div class="form-group">
+      <control-messages [control]="userForm.controls.conform_password"></control-messages>
+      <input type="password" formControlName="conform_password" id="conform_password"
+             (blur)="makePasswordConfirm()" class="form-control" required/>
+      <label>Confirm Password</label>
+      <div class="error-message-registration" *ngIf="isPasswordConfirm == true">
+        <p>Passwords does not match.</p>
       </div>
+    </div>
 
-      <div class="form-group">
-        <control-messages [control]="userForm.controls.password"></control-messages>
-        <input type="password" formControlName="password" id="password" class="form-control" required/>
-        <label>Password</label>
-      </div>
+    <div class="form-group">
+      <control-messages [control]="userForm.controls.mobile_number"></control-messages>
+      <input type="number" formControlName="mobile_number" id="mobile_number" class="form-control" required/>
+      <label>Mobile</label>
+    </div>
 
-      <div class="form-group">
-        <control-messages [control]="userForm.controls.conform_password"></control-messages>
-        <input type="password" formControlName="conform_password" id="conform_password"
-               (blur)="makePasswordConfirm()" class="form-control" required/>
-        <label>Confirm Password</label>
-        <div class="error-message-registration" *ngIf="isPasswordConfirm == true">
-          <p>Passwords does not match.</p>
-        </div>
+    <div class="form-group">
+      <div ng2-auto-complete
+           [source]="countries"
+           (ngModelChange)="selectCountryModel($event)"
+      >
+        <input class="form-control" [ngModel]="countryModel" [ngModelOptions]="{standalone: true}" placeholder="Select Country"/>
       </div>
+    </div>
 
-      <div class="form-group">
-        <control-messages [control]="userForm.controls.mobile_number"></control-messages>
-        <input type="number" formControlName="mobile_number" id="mobile_number" class="form-control" required/>
-        <label>Mobile</label>
+    <div class="form-group">
+      <div ng2-auto-complete
+           [source]="states"
+           (ngModelChange)="selectStateModel($event)"
+      >
+        <input class="form-control" [ngModel]="stateModel" [ngModelOptions]="{standalone: true}" placeholder="Select State"/>
       </div>
+    </div>
 
-      <div class="form-group">
-        <div ng2-auto-complete
-             [source]="countries"
-             (ngModelChange)="selectCountryModel($event)"
-        >
-          <input class="form-control" [ngModel]="countryModel" [ngModelOptions]="{standalone: true}" placeholder="Select Country"/>
-        </div>
+    <div class="form-group">
+      <div ng2-auto-complete
+           [source]="cities"
+           (ngModelChange)="selectCityModel($event)"
+      >
+        <input class="form-control" [ngModel]="cityModel" [ngModelOptions]="{standalone: true}" placeholder="Select City"/>
       </div>
+    </div>
 
-      <div class="form-group">
-        <div ng2-auto-complete
-             [source]="states"
-             (ngModelChange)="selectStateModel($event)"
-        >
-          <input class="form-control" [ngModel]="stateModel" [ngModelOptions]="{standalone: true}" placeholder="Select State"/>
-        </div>
-      </div>
-
-      <div class="form-group">
-        <div ng2-auto-complete
-             [source]="cities"
-             (ngModelChange)="selectCityModel($event)"
-        >
-          <input class="form-control" [ngModel]="cityModel" [ngModelOptions]="{standalone: true}" placeholder="Select City"/>
-        </div>
-      </div>
-
-      <div class="form-group" >
-        <control-messages [control]="userForm.controls.pin"></control-messages>
-        <input type="number" formControlName="pin" id="pin" class="form-control" required/>
-        <label>PIN</label>
-      </div>
+    <div class="form-group" >
+      <control-messages [control]="userForm.controls.pin"></control-messages>
+      <input type="number" formControlName="pin" id="pin" class="form-control" required/>
+      <label>PIN</label>
     </div>
   </div>
 

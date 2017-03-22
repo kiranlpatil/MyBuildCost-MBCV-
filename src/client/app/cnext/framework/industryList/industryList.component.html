@@ -1,15 +1,13 @@
 <div class="select-role">
   <div class="radio">
-    <label class="radio-inline">Industry :&nbsp;
-
-      <div class="list" >
-        <div ng2-auto-complete
-           [source]="industries"
-           (ngModelChange)="selectIndustryModel($event)">
-          <input class="form-control" [ngModel]="industryModel"  placeholder="Select Industry" disabled="{{disbleRole}}"/>
-        </div>
+    Industry :&nbsp;
+    <div class="list" >
+      <div ng2-auto-complete
+         [source]="industries"
+         (ngModelChange)="selectIndustryModel($event)">
+        <input class="form-control" [ngModel]="industryModel"  placeholder="Select Industry" disabled="{{disbleRole}}"/>
       </div>
-    </label>
+    </div>
   </div>
 
   <div class="role-type clearfix">
@@ -21,7 +19,7 @@
         <div  id="{item}+i" ng2-auto-complete
               [source]="roles"
               (ngModelChange)="selectRolesModel($event)">
-          <span *ngIf="i>0" class="pull-left">&amp;</span>
+          <span *ngIf="i>0" class="add-role">&amp;</span>
           <input class="form-control" [ngModel]="roleModel" [disabled]="disbleRole" />
         </div>
       </div>

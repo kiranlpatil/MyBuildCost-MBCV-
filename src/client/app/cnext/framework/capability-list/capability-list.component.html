@@ -1,12 +1,17 @@
 <div class="clearfix">
-  <p>I can</p>
-  <p class="instructions" *ngIf="showAlert">You can select maximum 10 capability</p>
-  <div class="capability-type" *ngIf="isShowCapability">
-    <div class="select-option"  *ngFor="let item of capabilities;let i = index">
-      <label>
-        <input type="checkbox" name="checkbox" (click)="selectOption($event)" id="{{item}}" value="{{item}}" >
-        <span>{{item}}</span>
-      </label>
+  <div class="col-md-1 col-sm-12 no-padding"><p>I can</p></div>
+  <div class="col-sm-11 col-sm-12 no-padding">
+    <div class="capability-type" *ngIf="isShowCapability">
+      <div class="select-option"  *ngFor="let item of capabilities;let i = index">
+        <label>
+          <input type="checkbox" name="checkbox" (click)="selectOption($event)" id="{{item}}" value="{{item}}" >
+          <span>{{item}}</span>
+        </label>
+      </div>
+    </div>
+    <!--<p class="instructions" *ngIf="showAlert">You can select maximum 10 capability</p>-->
+    <div class="button-group clearfix">
+      <button class="btn btn-primary" (click)="showHideModal()" [disabled]="disbleRole">Cofirm &amp; Save</button>
     </div>
   </div>
 </div>

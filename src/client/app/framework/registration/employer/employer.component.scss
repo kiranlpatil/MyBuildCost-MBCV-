@@ -1,81 +1,47 @@
 @import '../../../../css/common';
 
+.alert {
+  margin: 0 15px 20px;
+}
+
 .employer-form {
   .radio-group {
     padding: 0 0 15px;
   }
 
-  .main-info {
-    .form-group {
-      padding: 0 15px;
-      width: 50%;
+  .form-group {
+    padding: 0 15px;
+    width: 50%;
 
-      label {
-        left: 15px;
-      }
+    label {
+      left: 15px;
     }
   }
+}
 
-  .add-logo {
-    float: right;
-  }
-
-  .profile {
-    padding: 30px 0 0;
-    text-align: center;
-
-    .avtar {
-      background-color: $white;
-      background-position: center center;
-      background-repeat: no-repeat;
-      background-size: cover;
-      border: 1px solid $border-color;
-      border-radius: 0;
-      height: 150px;
-      margin: 0 auto;
-      width: 150px;
-
-    }
-
-    [type='file'] {
-      display: none;
-    }
-
-    .custom-file-upload {
-      background: $border-color;
-      border: 1px solid $border-color;
-      cursor: pointer;
-      display: inline-block;
-      float: none;
-      font-size: 12px;
-      left: 0;
-      padding: 6px 12px;
-      position: relative;
-      top: 0;
-      width: 150px;
+@media only screen and (max-width: 1280px) {
+  .employer-form {
+    .button-group {
+      padding: 0 0 15px 0;
     }
   }
-
-  .registartion-btn-radio {
-    margin-top: -40px;
-  }
-
 }
 
 @media only screen and (max-width: 767px) {
+  .alert {
+    margin: 0 0 20px;
+  }
+
   .employer-form {
     .add-logo {
       float: none;
     }
 
-    .main-info {
-      .form-group {
-        width: 100%;
-      }
+    .form-group {
+      width: 100%;
     }
 
-    .registartion-btn-radio {
-      margin-top: 0;
+    .button-group {
       padding: 0;
     }
   }
