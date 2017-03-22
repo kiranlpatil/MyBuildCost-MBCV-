@@ -1,12 +1,9 @@
-/**
- * Created by techprimelab on 3/9/2017.
- */
+
 import {  Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import {Http,Response} from "@angular/http";
+import { FormBuilder} from '@angular/forms';
+import {Http} from "@angular/http";
 import {LoaderService} from "../../../framework/shared/loader/loader.service";
-import {split} from "ts-node/dist";
 
 @Component({
   moduleId: module.id,
@@ -16,8 +13,6 @@ import {split} from "ts-node/dist";
 })
 
 export class MoreAboutMyselfComponent {
-  userForm: FormGroup;
-  error_msg: string;
   tempfield: string[];
   status:string;
   newstringOne:string[];
@@ -26,16 +21,10 @@ export class MoreAboutMyselfComponent {
   length:number;
   condition:number;
   maxword:number;
-
-  private year: any;
-
-
+  
   constructor(private _router: Router, private http: Http,
               private formBuilder: FormBuilder, private loaderService: LoaderService) {
     this.tempfield = new Array(1);
-
-
-
   }
 
 
@@ -50,10 +39,9 @@ export class MoreAboutMyselfComponent {
   this.condition+=this.newstringTwo.length;
   this.condition+=this.newstringThree.length;
   console.log(this.condition);
-  if (this.condition-3>=250)
+  if (this.condition-2>=250)
   {this. maxword=this.status.length;
     this.length=this. maxword;
-
   }
   }
 
