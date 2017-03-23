@@ -11,7 +11,8 @@ import {academicdetails} from "./academic-details";
 @Component({
   moduleId: module.id,
   selector: 'cn-academic-details',
-  templateUrl: 'academic-details.component.html'
+  templateUrl: 'academic-details.component.html',
+  styleUrls: ['academic-details.component.css']
 })
 
 export class AcademicDetailComponent {

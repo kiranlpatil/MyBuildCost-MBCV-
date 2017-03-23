@@ -1,0 +1,24 @@
+.academic-details {
+  .form-control {
+    border-radius: 0;
+    margin: 0 0 15px 0;
+  }
+
+  textarea {
+    height: 100px;
+    resize: vertical;
+    width: 100%;
+  }
+}
+
+@media only screen and (max-width: 980px) {
+  .academic-details {
+    .col-sm-4 {
+      width: 50%;
+    }
+
+    .col-sm-10 {
+      width: 100%;
+    }
+  }
+}

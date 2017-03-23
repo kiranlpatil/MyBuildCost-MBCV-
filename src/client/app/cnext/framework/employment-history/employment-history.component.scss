@@ -47,6 +47,17 @@
 
     textarea {
       margin-top: 5px;
+      height: 100px;
+      width: 83%;
+    }
+  }
+}
+
+@media only screen and (max-width: 987px) {
+  .left-content,
+  .right-content{
+    textarea {
+      width: 100%;
     }
   }
 }

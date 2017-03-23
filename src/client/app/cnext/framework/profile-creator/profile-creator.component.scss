@@ -6,6 +6,8 @@ $active-progress-line: #8eb4d9;
 $bubble-background: #35567e;
 $white: #fff;
 $border-color: #e8e8e8;
+$light-blue: #00aed5;
+$label: #888;
 
 .create-profile {
   background: $profile-background;
@@ -137,7 +139,7 @@ $border-color: #e8e8e8;
   }
 
   .profile-name-first, .profile-name-last {
-    color: #00aed5;
+    color: $light-blue;
     font-family: 'helvlightregular';
     font-size: 20px;
     font-weight: 600;
@@ -150,11 +152,52 @@ $border-color: #e8e8e8;
   }
 }
 
+.profile-configurations {
+  label {
+    padding-left: 0;
+    color: $label;
+    font-weight: 600;
+    width: 150px;
+  }
+
+  .radio-inline {
+    font-weight: 100;
+    width: 70px;
+  }
+
+  .info > p {
+    color: $light-blue;
+    font-size: 12px;
+    font-style: italic;
+  }
+
+  img {
+    margin-left: 15px;
+  }
+
+  .btn {
+    &:focus, &:active {
+      outline: none;
+    }
+  }
+}
 
 @media only screen and (max-width: 1280px) {
   .profile-wrapper {
     display: inline-block;
     width: 100%;
+  }
+
+  .profile-configurations {
+    .col-sm-8, .col-sm-4 {
+      width: 50%;
+    }
+
+    img {
+      width: 30px;
+      height: 30px;
+      margin-left: 5px;
+    }
   }
 }
 
