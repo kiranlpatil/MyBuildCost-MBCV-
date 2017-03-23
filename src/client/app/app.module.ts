@@ -82,6 +82,11 @@ import {JobInformationComponent} from "./cnext/framework/job-information/job-inf
 import {JobRequirementComponent} from "./cnext/framework/job-requirement/job-requirement.component";
 import {JobLocationComponent} from "./cnext/framework/job-location/job-location.component";
 import {DescriptionFieldComponent} from "./cnext/framework/description-field/description-field.component";
+import {MyRoleService} from "./cnext/framework/role-service";
+import {MyIndustryService} from "./cnext/framework/industry-service";
+import {CapabilityListService} from "./cnext/framework/capability-list/capability-list.service";
+import {MyCapabilityService} from "./cnext/framework/capability-service";
+import {ComplexityListService} from "./cnext/framework/complexity-list/complexity-list.service";
 import {CompanyDetailsComponent} from "./framework/registration/company_details/company-details.component";
 import {CompanyDetailsService} from "./framework/registration/company_details/company-details.service";
 
@@ -184,6 +189,11 @@ import {CompanyDetailsService} from "./framework/registration/company_details/co
     VerifyUserService,
     VerifyPhoneService,
     IndustryService,
+    CapabilityListService,
+    ComplexityListService,
+    MyCapabilityService,
+    MyRoleService,
+    MyIndustryService,
     ProfessionalDataService,
     CompanyDetailsService,
     EmploymentHistoryService
