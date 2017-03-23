@@ -9,6 +9,7 @@ import CandidateModel = require("../dataaccess/model/candidate.model");
 import CandidateService = require("../services/candidate.service");
 import EmployeeHistoryService = require("../services/employee-history.service");
 import ProfessionalDetailsService = require("../services/professional-details.service");
+import AcademicService = require("../services/academics.service");
 
 
 export function create(req:express.Request, res:express.Response, next:any) {
@@ -88,16 +89,18 @@ export function updateDetails(req:express.Request, res:express.Response, next:an
     var candidateService = new CandidateService();
     var employeeHistoryService = new EmployeeHistoryService();
     var professionalDetailsService = new ProfessionalDetailsService();
+    var academicsService = new AcademicService();
     let employementids:string[] = new Array(0);
     let professionalids:string[] = new Array(0);
+    let academicsids:string[] = new Array(0);
     let employments:any;
     let professionals:any;
+    let academics:any;
     employeeHistoryService.create(updatedCandidate.employmentHistory, (error, result) => {   // todo handle the exception as like seed project remove setTimeout
       if (error) {
         console.log("crt employement history error", error);
       }
       else {
-        //updatedCandidate.employmentHistory = result;
         employments = result;
       }
     });
@@ -106,8 +109,15 @@ export function updateDetails(req:express.Request, res:express.Response, next:an
         console.log("crt professional details error", error);
       }
       else {
-        //updatedCandidate.employmentHistory = result;
         professionals = result;
+      }
+    });
+    academicsService.create(updatedCandidate.academics, (error, result) => {   // todo handle the exception as like seed project remove setTimeout
+      if (error) {
+        console.log("crt professional details error", error);
+      }
+      else {
+        academics = result;
       }
     });
 
@@ -119,9 +129,12 @@ export function updateDetails(req:express.Request, res:express.Response, next:an
       for(let item of professionals) {
         professionalids.push(item._id);
       }
+      for(let item of academics) {
+        academicsids.push(item._id);
+      }
       updatedCandidate.employmentHistory = employementids;
       updatedCandidate.professionalDetails = employementids;
-      console.log("ids of professionalDetails" + updatedCandidate.professionalDetails);
+      updatedCandidate.academics = academicsids;
       candidateService.update(_id, updatedCandidate, (error, result) => {
         if (error) {
           next(error);

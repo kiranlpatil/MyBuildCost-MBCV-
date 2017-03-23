@@ -14,7 +14,7 @@ class AcademicSchema {
             type : String
           },
           yearOfPassing : {
-            type : Number
+            type : String
           },
           specialization : {
             type : String
@@ -25,5 +25,5 @@ class AcademicSchema {
         return schema;
     }
 }
-var schema = mongooseConnection.model<IAcademic>("Location", AcademicSchema.schema);
+var schema = mongooseConnection.model<IAcademic>("Academic", AcademicSchema.schema);
 export = schema;
