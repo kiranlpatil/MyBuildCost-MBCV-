@@ -91,6 +91,7 @@ import {ComplexityListService} from "./cnext/framework/complexity-list/complexit
 import {CompanyDetailsComponent} from "./framework/registration/company_details/company-details.component";
 import {CompanyDetailsService} from "./framework/registration/company_details/company-details.service";
 import {RecruiterDashboardComponent} from "./cnext/framework/recruiter-dashboard/recruiter-dashboard.component";
+import {JobFilterComponent} from "./cnext/framework/job-filter/job-filter.component";
 
 @NgModule({
   imports: [
@@ -143,6 +144,7 @@ import {RecruiterDashboardComponent} from "./cnext/framework/recruiter-dashboard
     JobInformationComponent,
     JobRequirementComponent,
     JobLocationComponent,
+    JobFilterComponent,
     ProfessionalDataComponent,
     EmploymentHistoryComponent,
     AcademicDetailComponent,

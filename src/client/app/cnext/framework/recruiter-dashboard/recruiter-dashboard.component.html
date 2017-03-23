@@ -1,3 +1,38 @@
-<div>
-  <label>Recruiter Dashboard </label>
+<div class="job-poster clearfix">
+  <div class="bar-container profile-header">
+    <div class="container">
+
+    </div>
+  </div>
+
+  <div class="poster-wrapper container">
+
+    <div class="col-sm-3 padding-right5">
+      <cn-job-filter></cn-job-filter>
+    </div>
+
+    <div class="col-sm-9 padding-left5">
+
+      <ul class="nav nav-tabs">
+        <li class="active">
+          <a data-toggle="tab" href="#posted-job">My post Job</a>
+        </li>
+        <li>
+          <a data-toggle="tab" href="#post-new-job">Post New Job</a>
+        </li>
+      </ul>
+
+      <div class="tab-content">
+        <div id="posted-job" class="tab-pane fade in active">
+          <cn-job-poster></cn-job-poster>
+        </div>
+        <div id="post-new-job" class="tab-pane fade">
+          <p>Post my job<p>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
+
+
+
