@@ -7,6 +7,8 @@ import Messages = require("../shared/messages");
 import ResponseService = require("../shared/response.service");
 import CandidateModel = require("../dataaccess/model/candidate.model");
 import CandidateService = require("../services/candidate.service");
+import EmployeeHistoryService = require("../services/employee-history.service");
+import ProfessionalDetailsService = require("../services/professional-details.service");
 
 
 export function create(req:express.Request, res:express.Response, next:any) {
@@ -76,39 +78,76 @@ export function professionaldata(req:express.Request, res:express.Response, next
 
 export function updateDetails(req:express.Request, res:express.Response, next:any) {
   try {
-    var updatedCandidate :CandidateModel = <CandidateModel>req.body;
+    var updatedCandidate:CandidateModel = <CandidateModel>req.body;
     var params = req.query;
     delete params.access_token;
     //var user = req.params.id;
     var _id:string = req.params.id;//user._id;
-    console.log("candidate" +updatedCandidate);
+    console.log("candidate" + updatedCandidate);
     var auth:AuthInterceptor = new AuthInterceptor();
     var candidateService = new CandidateService();
-    candidateService.update(_id, updatedCandidate, (error, result) => {
+    var employeeHistoryService = new EmployeeHistoryService();
+    var professionalDetailsService = new ProfessionalDetailsService();
+    let employementids:string[] = new Array(0);
+    let professionalids:string[] = new Array(0);
+    let employments:any;
+    let professionals:any;
+    employeeHistoryService.create(updatedCandidate.employmentHistory, (error, result) => {   // todo handle the exception as like seed project remove setTimeout
       if (error) {
-        next(error);
+        console.log("crt employement history error", error);
       }
       else {
-        candidateService.retrieve(result._id, (error, result) => {
-          if (error) {
-            next({
-              reason: Messages.MSG_ERROR_RSN_INVALID_CREDENTIALS,
-              message: Messages.MSG_ERROR_WRONG_TOKEN,
-              code: 401
-            });
-          }
-          else {
-            var token = auth.issueTokenWithUid(updatedCandidate);
-            res.send({
-              "status": "success",
-              "data": {
-              },
-              access_token: token
-            });
-          }
-        });
+        //updatedCandidate.employmentHistory = result;
+        employments = result;
       }
     });
+    professionalDetailsService.create(updatedCandidate.professionalDetails, (error, result) => {   // todo handle the exception as like seed project remove setTimeout
+      if (error) {
+        console.log("crt professional details error", error);
+      }
+      else {
+        //updatedCandidate.employmentHistory = result;
+        professionals = result;
+      }
+    });
+
+
+    setTimeout(function () {
+      for(let item of employments) {
+        employementids.push(item._id);
+      }
+      for(let item of professionals) {
+        professionalids.push(item._id);
+      }
+      updatedCandidate.employmentHistory = employementids;
+      updatedCandidate.professionalDetails = employementids;
+      console.log("ids of professionalDetails" + updatedCandidate.professionalDetails);
+      candidateService.update(_id, updatedCandidate, (error, result) => {
+        if (error) {
+          next(error);
+        }
+        else {
+          candidateService.retrieve(result._id, (error, result) => {
+            if (error) {
+              next({
+                reason: Messages.MSG_ERROR_RSN_INVALID_CREDENTIALS,
+                message: Messages.MSG_ERROR_WRONG_TOKEN,
+                code: 401
+              });
+            }
+            else {
+              var token = auth.issueTokenWithUid(updatedCandidate);
+              res.send({
+                "status": "success",
+                "data": {},
+                access_token: token
+              });
+            }
+          });
+        }
+      });
+
+    }, 2000);
   }
   catch (e) {
     res.status(403).send({message: e.message});

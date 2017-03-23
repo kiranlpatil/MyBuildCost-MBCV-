@@ -1,4 +1,8 @@
 interface AcademicModel {
-    names: string[];
+  schoolName: string;
+  board :string;
+  yearOfPassing : number;
+  specialization : string;
+
 }
 export = AcademicModel;

@@ -3,10 +3,10 @@ import * as mongoose from "mongoose";
 
 interface ProfessionalDetailsModel {
   education : string;
-  experience : number;
-  currentSalary : number;
+  experience : string;
+  currentSalary : string;
   remark : string;
-  location : {type : mongoose.Schema.Types.ObjectId, ref :'ILocation'};
+  relocate : string;
 }
 export = ProfessionalDetailsModel;
 

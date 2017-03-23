@@ -34,7 +34,7 @@ class CandidateSchema {
       complexities :[{type : mongoose.Schema.Types.ObjectId, ref :'IComplexity'}],
       certifications :[{type : mongoose.Schema.Types.ObjectId, ref :'ICertification'}],
       professionalDetails :[{type : mongoose.Schema.Types.ObjectId, ref :'IProfessionalDetails'}],
-      employmentHistories  :[{type : mongoose.Schema.Types.ObjectId, ref :'IEmploymentHistory'}],
+      employmentHistory  :[{type : mongoose.Schema.Types.ObjectId, ref :'IEmploymentHistory'}],
       appliedjobs :[{type : mongoose.Schema.Types.ObjectId, ref :'IJobProfile'}],
       proficiences :[{type : mongoose.Schema.Types.ObjectId, ref :'IProficiency'}]
 

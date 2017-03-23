@@ -13,7 +13,7 @@ class EmploymentHistorySchema {
             type : String
           },
           designation : {
-            type : Number
+            type : String
           },
           from : {
             type : Date

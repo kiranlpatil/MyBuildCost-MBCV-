@@ -5,17 +5,20 @@ import IProfessionalDetails = require("../mongoose/professional-details");
 var mongoose = DataAccess.mongooseInstance;
 var mongooseConnection = DataAccess.mongooseConnection;
 
-class ProfessionalDetailsSchema {
+  class ProfessionalDetailsSchema {
     static get schema() {
         var schema = mongoose.Schema({
-          location : {
-            type : mongoose.Schema.Types.ObjectId, ref :'ILocation'
+          relocate : {
+            type : String
           },
           education : {
             type : String
           },
+          currentSalary : {
+            type : String
+          },
           experience : {
-            type : Number
+            type : String
           },
           specialization : {
             type : String
