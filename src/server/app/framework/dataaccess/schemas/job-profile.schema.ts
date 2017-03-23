@@ -3,7 +3,6 @@ import User = require("../mongoose/user");
 import ICandidate = require("../mongoose/candidate");
 import ICapability = require("../mongoose/capability");
 import IAcademic = require("../mongoose/academics");
-import ICertification = require("../mongoose/certification");
 import IProficiency = require("../mongoose/proficiency");
 import IProfessionalDetails = require("../mongoose/professional-details");
 import IEmploymentHistory = require("../mongoose/employment-history");

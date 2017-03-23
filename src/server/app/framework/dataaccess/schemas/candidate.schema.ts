@@ -4,7 +4,6 @@ import ICandidate = require("../mongoose/candidate");
 import ICapability = require("../mongoose/capability");
 import IComplexity = require("../mongoose/complexity");
 import IAcademic = require("../mongoose/academics");
-import ICertification = require("../mongoose/certification");
 import IProficiency = require("../mongoose/proficiency");
 import IProfessionalDetails = require("../mongoose/professional-details");
 import IEmploymentHistory = require("../mongoose/employment-history");
@@ -26,13 +25,21 @@ class CandidateSchema {
       isVisible :{
         type : Boolean
       },
+      aboutMyself :{
+        type : String
+      },
+      certifications :{
+        type : [String]
+      },
+      awards :{
+        type : [String]
+      },
       capabilities : [{type : mongoose.Schema.Types.ObjectId, ref :'ICapability'}],
       roles : [{type : mongoose.Schema.Types.ObjectId, ref :'IRole'}],
       industry : [{type : mongoose.Schema.Types.ObjectId, ref :'IIndustry'}],
       location : {type : mongoose.Schema.Types.ObjectId, ref :'ILocation'},
       academics :[{type : mongoose.Schema.Types.ObjectId, ref :'IAcademic'}],
       complexities :[{type : mongoose.Schema.Types.ObjectId, ref :'IComplexity'}],
-      certifications :[{type : mongoose.Schema.Types.ObjectId, ref :'ICertification'}],
       professionalDetails :[{type : mongoose.Schema.Types.ObjectId, ref :'IProfessionalDetails'}],
       employmentHistory  :[{type : mongoose.Schema.Types.ObjectId, ref :'IEmploymentHistory'}],
       appliedjobs :[{type : mongoose.Schema.Types.ObjectId, ref :'IJobProfile'}],
