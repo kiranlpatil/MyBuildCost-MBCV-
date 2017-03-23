@@ -8,20 +8,6 @@
 </div>
 
 <form [formGroup]="userForm" (submit)="onSubmit()" class="employer-form">
-
- <!-- <div class="col-sm-6 col-sm-offset-6 registartion-btn-radio text-left clearfix">
-    <label class="lable-name">Recruiting For</label>
-    <label for="self" class="radio-inline">
-      <input type="radio" id="self" name="recruiting_for" value="self" (change)="recruitmentFor($event)" checked/>
-      Self
-    </label>
-
-    <label for="others" class="radio-inline">
-      <input type="radio" id="others" name="recruiting_for" value="others" (change)="recruitmentFor($event)" />
-      Others
-    </label>
-  </div>-->
-
   <div class="row clearfix">
     <div class="form-group">
       <control-messages [control]="userForm.controls.company_name"></control-messages>
@@ -29,13 +15,11 @@
       <label>Company Name</label>
     </div>
 
-      <div class="form-group">
-        <div ng2-auto-complete
-             [source]="companySize"
-             (ngModelChange)="selectCompanySizeModel($event)">
-          <input class="form-control" [ngModel]="storedcompanySize" [ngModelOptions]="{standalone: true}" placeholder="Company Size"/>
-        </div>
+    <div class="form-group">
+      <div ng2-auto-complete [source]="companySize" (ngModelChange)="selectCompanySizeModel($event)">
+        <input class="form-control" [ngModel]="storedcompanySize" [ngModelOptions]="{standalone: true}" placeholder="Company Size"/>
       </div>
+    </div>
 
     <div class="form-group">
       <control-messages [control]="userForm.controls.email"></control-messages>
@@ -43,51 +27,42 @@
       <label>Email</label>
     </div>
 
-      <div class="form-group">
-        <control-messages [control]="userForm.controls.mobile_number"></control-messages>
-        <input type="number" formControlName="mobile_number" id="mobile_number" class="form-control" required/>
-        <label>Mobile</label>
-      </div>
-
-      <div class="form-group">
-        <control-messages [control]="userForm.controls.password"></control-messages>
-        <input type="password" formControlName="password" id="password" class="form-control" required/>
-        <label>Password</label>
-      </div>
-
-      <div class="form-group">
-        <control-messages [control]="userForm.controls.conform_password"></control-messages>
-        <input type="password" formControlName="conform_password" id="conform_password"
-               (blur)="makePasswordConfirm()" class="form-control" required/>
-        <label>Confirm Password</label>
-        <div class="error-message-registration" *ngIf="isPasswordConfirm == true">
-          <p>Passwords does not match.</p>
-        </div>
-      </div>
-
+    <div class="form-group">
+      <control-messages [control]="userForm.controls.mobile_number"></control-messages>
+      <input type="number" formControlName="mobile_number" id="mobile_number" class="form-control" required/>
+      <label>Mobile</label>
+    </div>
 
     <div class="form-group">
-      <div ng2-auto-complete
-           [source]="countries"
-           (ngModelChange)="selectCountryModel($event)">
+      <control-messages [control]="userForm.controls.password"></control-messages>
+      <input type="password" formControlName="password" id="password" class="form-control" required/>
+      <label>Password</label>
+    </div>
+
+    <div class="form-group">
+      <control-messages [control]="userForm.controls.conform_password"></control-messages>
+      <input type="password" formControlName="conform_password" id="conform_password"
+             (blur)="makePasswordConfirm()" class="form-control" required/>
+      <label>Confirm Password</label>
+      <div class="error-message-registration" *ngIf="isPasswordConfirm == true">
+        <p>Passwords does not match.</p>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div ng2-auto-complete [source]="countries" (ngModelChange)="selectCountryModel($event)">
         <input class="form-control" [ngModel]="countryModel" [ngModelOptions]="{standalone: true}" placeholder="Select Country"/>
       </div>
     </div>
 
     <div class="form-group">
-      <div ng2-auto-complete
-           [source]="states"
-           (ngModelChange)="selectStateModel($event)"
-      >
+      <div ng2-auto-complete [source]="states" (ngModelChange)="selectStateModel($event)">
         <input class="form-control" [ngModel]="stateModel" [ngModelOptions]="{standalone: true}" placeholder="Select State"/>
       </div>
     </div>
 
     <div class="form-group">
-      <div ng2-auto-complete
-           [source]="cities"
-           (ngModelChange)="selectCityModel($event)"
-      >
+      <div ng2-auto-complete [source]="cities" (ngModelChange)="selectCityModel($event)">
         <input class="form-control" [ngModel]="cityModel" [ngModelOptions]="{standalone: true}" placeholder="Select City"/>
       </div>
     </div>
@@ -100,7 +75,6 @@
   </div>
 
   <div class="button-group">
-    <!--<button type="submit" class="btn btn-primary" [disabled]="!userForm.valid">Send OTP</button>-->
       <button type="submit" class="btn btn-danger" [disabled]="!userForm.valid">Create an account</button>
   </div>
 </form>

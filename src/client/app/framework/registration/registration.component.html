@@ -1,4 +1,4 @@
-<!--<section class="main-form-wrapper registration" [ngStyle]="{'background-image': 'url(' + BODY_BACKGROUND + ')'}">
+<section class="main-form-wrapper registration" [ngStyle]="{'background-image': 'url(' + BODY_BACKGROUND + ')'}">
   <main-header></main-header>
 
   <app-loader></app-loader>
@@ -7,16 +7,15 @@
 
     <h5>Register <span class="glyphicon glyphicon-remove" (click)="navigateTo('/landing')"></span></h5>
 
-    &lt;!&ndash;<form [formGroup]="userForm" (submit)="onSubmit()">&ndash;&gt;
     <form>
-      <div class="alert alert-danger clearfix" [hidden]="isShowErrorMessage">
+      <!--<div class="alert alert-danger clearfix" [hidden]="isShowErrorMessage">
         <div class="col-sm-1 hidden-xs"><span class="glyphicon glyphicon-warning-sign"></span></div>
         <div class="col-sm-10 col-xs-11 error-msg"><b>{{ error_msg }}</b></div>
         <div class="col-sm-1 col-xs-1 close-msg">
           <button (click)="closeErrorMessage()" class="btn-close"><span class="glyphicon glyphicon-remove"></span>
           </button>
         </div>
-      </div>
+      </div>-->
 
       <div class="radio-group text-left clearfix">
         <label class="lable-name">Register as</label>
@@ -31,7 +30,7 @@
         </label>
       </div>
 
-      <div class="col-sm-6 col-sm-offset-6 registartion-btn-radio text-left clearfix" [hidden]="!isCandidate">
+      <div class="col-sm-6 col-sm-offset-6 registration-btn-radio text-left clearfix" [hidden]="!isCandidate">
         <label class="lable-name">Recruiting For</label>
         <label for="self" class="radio-inline">
           <input type="radio" id="self" name="recruiting_for" value="self" (change)="recruitmentFor($event)" checked/>
@@ -46,17 +45,14 @@
 
       <div class="Employee_form" [hidden]="isCandidate">
         <cn-EmployeeRegistration></cn-EmployeeRegistration>
-
       </div>
 
       <div class="Employer_form" [hidden]="isRecruiter">
         <cn-EmployerRegistration></cn-EmployerRegistration>
       </div>
-
     </form>
-
   </div>
-</section>-->
+</section>
 
-<cn-CompanyDetails></cn-CompanyDetails>
+<!--<cn-CompanyDetails></cn-CompanyDetails>-->
 

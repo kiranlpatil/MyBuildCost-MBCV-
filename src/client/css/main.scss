@@ -35,7 +35,11 @@
 }
 
 @import './common';
-@import './profile-creator';
 @import './framework/light-theme';
 @import './framework/dark-theme';
+
+
+//cn-next
 @import './framework/cn-theme';
+@import './c-next/profile-creator';
+@import './c-next/cn-forms';

@@ -1,6 +1,9 @@
 @import '../../../css/common';
 
 .registration {
+  .content {
+    width: 40%;
+  }
 
   .error-message-registration {
     text-align: left;
@@ -23,46 +26,16 @@
   }
 
   form {
-    padding: 0;
+    padding: 15px;
   }
 
-  .registartion-btn-radio {
+  .registration-btn-radio {
     margin-top: -40px;
     margin-bottom: 15px;
   }
-
 }
 
-@media only screen and (min-width: 769px) {
-  .registration {
-    .content {
-      width: 80%;
-    }
-  }
-}
-
-
-@media only screen and (min-width: 1024px) {
-  .registration {
-    .content {
-      width: 70%;
-    }
-  }
-}
-
-@media only screen and (min-width: 1279px) {
-  .registration {
-    .content {
-      width: 60%;
-    }
-
-    form {
-      padding: 15px;
-    }
-  }
-}
-
-@media only screen and (min-width: 1366px) {
+@media only screen and (max-width: 1366px) {
   .registration {
     .content {
       width: 50%;
@@ -70,19 +43,26 @@
   }
 }
 
-@media only screen and (min-width: 1920px) {
+@media only screen and (max-width: 1280px) {
   .registration {
     .content {
-      width: 40%;
+      width: 60%;
     }
   }
 }
 
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 1024px) {
   .registration {
-
     .content {
-      width: 84%;
+      width: 70%;
+    }
+  }
+}
+
+@media only screen and (max-width: 980px) {
+  .registration {
+    .content {
+      width: 80%;
     }
 
     .form-group {
@@ -94,11 +74,15 @@
 
 @media only screen and (max-width: 767px) {
   .registration {
+    .content {
+      width: 90%;
+    }
+
     .error-message-registration > p {
       text-align: left;
     }
 
-    .registartion-btn-radio {
+    .registration-btn-radio {
       margin-top: 0;
       padding: 0;
     }
