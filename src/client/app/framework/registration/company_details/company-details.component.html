@@ -10,7 +10,7 @@
     <form [formGroup]="companyDetailsForm" (submit)="onSubmit()">
 
       <h4>{{company_name}}</h4>
-
+      <h4>Techprimelab</h4>
       <div class="col-sm-12 no-padding">
         <div class="col-sm-2 no-padding">
           <label>Logo:</label>
@@ -23,14 +23,14 @@
       <div class="col-sm-10 no-padding">
         <div [class.hide-list]="isSocialLogin">
           <div class="col-sm-2 no-padding">
-            <label for="file-upload">Document1:</label>
+            <label for="file-upload1">Document1:</label>
           </div>
           <div class="col-sm-7">
-            <textarea type="text" formControlName="description1" id="description1" class="form-control"></textarea>
+            <textarea type="text" formControlName="description1" id="description1"  placeholder="description1" class="form-control"></textarea>
           </div>
           <div class="col-sm-3 no-padding">
-            <label for="file-upload" class="custom-file-upload">Upload File</label>
-            <input id="file-upload" type="file" (change)="fileChangeEvent($event)" placeholder="Upload file" />
+            <label for="file-upload1" class="custom-file-upload">Upload File</label>
+            <input id="file-upload1" type="file" (change)="fileChangeEvent1($event)" placeholder="Upload file" />
           </div>
         </div>
       </div>
@@ -38,13 +38,13 @@
       <div class="col-sm-10 no-padding">
         <div [class.hide-list]="isSocialLogin">
           <div class="col-sm-2 no-padding">
-            <label for="file-upload">Document2:</label>
+            <label for="file-upload2">Document2:</label>
           </div>
           <div class="col-sm-7">
-            <textarea type="text" formControlName="description2" id="description2" class="form-control"></textarea>
+            <textarea type="text" formControlName="description2" id="description2"  placeholder="description2" class="form-control"></textarea>
           </div>
           <div class="col-sm-3 no-padding">
-            <label for="file-upload" class="custom-file-upload">Upload File</label>
+            <label for="file-upload2" class="custom-file-upload">Upload File</label>
             <input id="file-upload2" type="file" (change)="fileChangeEvent2($event)" placeholder="Upload file"/>
           </div>
         </div>
@@ -53,20 +53,20 @@
       <div class="col-sm-10 no-padding">
         <div [class.hide-list]="isSocialLogin">
           <div class="col-sm-2 no-padding">
-            <label for="file-upload">Document3:</label>
+            <label for="file-upload3">Document3:</label>
           </div>
           <div class="col-sm-7">
-            <textarea type="text" formControlName="description3" id="description3" class="form-control"></textarea>
+            <textarea type="text" formControlName="description3" id="description3"  placeholder="description3" class="form-control"></textarea>
           </div>
           <div class="col-sm-3 no-padding">
-            <label for="file-upload" class="custom-file-upload">Upload File</label>
+            <label for="file-upload3" class="custom-file-upload">Upload File</label>
             <input id="file-upload3" type="file" (change)="fileChangeEvent3($event)" placeholder="Upload file"/>
           </div>
         </div>
       </div>
 
       <div class="button-group">
-        <button type="submit" class="btn btn-primary" [disabled]="!userForm.valid">Submit Documents</button>
+        <button type="submit" class="btn btn-primary" >Submit Documents</button>
       </div>
     </form>
   </div>

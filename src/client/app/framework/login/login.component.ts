@@ -93,7 +93,7 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  onSubmit() {
+  onSubmit() {debugger
   //  this.loaderService.start();
 
     this.model = this.userForm.value;
@@ -137,16 +137,16 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  loginFail(error:any) {
+  loginFail(error:any) {debugger
     //this.loaderService.stop();
     if (error.err_code === 404 || error.err_code === 0) {
       var message = new Message();
-      message.error_msg = error.err_msg;
+      message.error_msg = error.message;
       message.isError = true;
       this.messageService.message(message);
     } else {
       this.isShowErrorMessage = false;
-      this.error_msg = error.err_msg;
+      this.error_msg = error.message;
     }
   }
 

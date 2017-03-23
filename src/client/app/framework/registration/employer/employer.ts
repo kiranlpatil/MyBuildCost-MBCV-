@@ -18,4 +18,5 @@ export class Employer {
   captcha:string;
   current_theme : string;
   company_logo:string;
+  company_headquarter_country:string;
 }

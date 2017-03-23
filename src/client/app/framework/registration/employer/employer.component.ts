@@ -35,6 +35,7 @@ export class EmployerComponent {
   storedcompanySize:any;
   locationDetails : any;
   companySize :any;
+  companyHeadquarter:any;
 
   countries:string[]=new Array(0);
   states:string[]=new Array(0);
@@ -70,7 +71,8 @@ export class EmployerComponent {
           'pin':[''],
         },
         Validators.required],
-      'pin':['',  [Validators.required,ValidationService.pinValidator]]
+      'pin':['',  [Validators.required,ValidationService.pinValidator]],
+      'company_headquarter_country':['']
 
     });
 
@@ -106,6 +108,17 @@ export class EmployerComponent {
         () => console.log()
       );
 
+    /*this.http.get("companyheadquarter")
+      .map((res: Response) => res.json())
+      .subscribe(
+        data => {
+
+          this.companyHeadquarter=data.companyheadquarter;
+        },
+        err => console.error(err),
+        () => console.log()
+      );*/
+
   }
 
   selectCompanySizeModel(newval:any) {
@@ -124,6 +137,12 @@ export class EmployerComponent {
       }
     }
     this.storedcountry=newval;
+  }
+
+  selectCompanyHeadquarterModel(newval : string){debugger
+
+    this.companyHeadquarter=newval;
+    this.model.company_headquarter_country=this.companyHeadquarter;
   }
 
   selectStateModel(newval:any) {
@@ -148,7 +167,10 @@ export class EmployerComponent {
 
   }
 
-  onSubmit() {
+
+
+
+  onSubmit() {debugger
     this.model = this.userForm.value;
     this.model.current_theme = AppSettings.LIGHT_THEM;
     this.model.company_size =this.storedcompanySize;

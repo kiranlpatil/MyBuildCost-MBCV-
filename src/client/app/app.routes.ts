@@ -48,7 +48,7 @@ export const routes: Routes = [
   ...SettingsRoutes,
   ...ProfileCreator,
   ...proficiencydomainRoutes,
-   ...StartRoutes,
-  ...CompanyDetailsRoutes
+  ...CompanyDetailsRoutes,
+  ...StartRoutes,
 
 ];

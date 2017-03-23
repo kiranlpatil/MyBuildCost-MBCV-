@@ -44,7 +44,8 @@ export class CustomHttp extends Http {
                 var errorInstance = new ErrorInstance();
 
                 if (err.status === 401 || err.status === 403) {
-                    var errObj = err.json();
+                  var errObj = err.json();
+                    //var errObj = JSON.parse(err._body);
                     errorInstance.err_msg = errObj.error.message;
                 } else if (err.status === 404) {
                     errorInstance.err_msg = Messages.MSG_ERROR_SERVER_ERROR;
@@ -53,7 +54,8 @@ export class CustomHttp extends Http {
                     errorInstance.err_msg = Messages.MSG_ERROR_SOMETHING_WRONG;
                     errorInstance.err_code = err.status;
                 } else {
-                    var errObj = err.json();
+                  var errObj = err.json();
+                    //var errObj =JSON.parse(err._body);
                     errorInstance.err_msg = errObj.error.message;
                 }
                 return Observable.throw(errorInstance);

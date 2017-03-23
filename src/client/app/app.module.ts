@@ -199,7 +199,7 @@ import {RecruiterDashboardComponent} from "./cnext/framework/recruiter-dashboard
     MyIndustryService,
     ProfessionalDataService,
     EmploymentHistoryService,
-    proficiencyDomainService
+    proficiencyDomainService,
 
     CompanyDetailsService,
     EmploymentHistoryService

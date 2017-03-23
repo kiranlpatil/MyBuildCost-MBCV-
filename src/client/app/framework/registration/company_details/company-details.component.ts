@@ -39,12 +39,12 @@ export class CompanyDetailsComponent {
   isShowErrorMessage: boolean = true;
   BODY_BACKGROUND: string;
   submitted = false;
+  fileName:any;
 
 
   constructor(private commanService: CommonService, private _router: Router, private http: Http,
               private companyDetailsService: CompanyDetailsService,private profileService: ProfileService,
-              private messageService: MessageService, private formBuilder: FormBuilder, private loaderService: LoaderService) {
-
+              private messageService: MessageService, private formBuilder: FormBuilder, private loaderService: LoaderService) {debugger
     this.companyDetailsForm = this.formBuilder.group({
       'description1': [''],
       'description2': [''],
@@ -59,21 +59,23 @@ export class CompanyDetailsComponent {
     }
 
     this.BODY_BACKGROUND = ImagePath.BODY_BACKGROUND;
-  }
-
-  ngOnInit() {
-    //this.model1.company_name = LocalStorageService.getLocalValue(LocalStorage.COMPANY_NAME);
-    this.model1.company_size = LocalStorageService.getLocalValue(LocalStorage.COMPANY_SIZE);
     this.company_name = LocalStorageService.getLocalValue(LocalStorage.EMAIL_ID);
   }
 
+  ngOnInit() {debugger
+    //this.model1.company_name = LocalStorageService.getLocalValue(LocalStorage.COMPANY_NAME);
+    this.model1.company_size = LocalStorageService.getLocalValue(LocalStorage.COMPANY_SIZE);
+   // this.company_name = LocalStorageService.getLocalValue(LocalStorage.EMAIL_ID);
 
-  onSubmit() {
+  }
+
+
+  onSubmit() {debugger
 
     this.submitted = true;
     this.model = this.companyDetailsForm.value;
     this.model.setOfDocuments = this.setOfDocuments;
-    console.log("files to upload in comnydtl", this.filesToUpload);
+    console.log("files to upload in setOfDocuments", this.setOfDocuments);
 
     this.companyDetailsService.companyDetails(this.model)
       .subscribe(
@@ -87,11 +89,13 @@ export class CompanyDetailsComponent {
     this._router.navigate(['/']);
   }
 
-  fileChangeEvent(fileInput: any) {
+  fileChangeEvent1(fileInput: any) {debugger
 
       this.filesToUpload = <Array<File>> fileInput.target.files;
 
     console.log("path of files to upload:", this.filesToUpload);
+    this.fileName=this.filesToUpload[0].name;
+    console.log(this.fileName);
     this.companyDetailsService.makeDocumentUplaod(this.filesToUpload, []).then((result: any) => {
       if (result !== null) {
         //this.model.document1 = result.data.document;
