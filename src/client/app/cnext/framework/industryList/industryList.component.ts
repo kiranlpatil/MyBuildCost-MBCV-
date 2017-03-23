@@ -37,7 +37,7 @@ export class IndustryComponent {
 
   }
 
-  ngOnInit(){debugger
+  ngOnInit(){
 
     this.temproles= new Array(1);
     this.industryService.getIndustries()
@@ -47,12 +47,12 @@ export class IndustryComponent {
 
   }
 
-  onIndustryListSuccess(data:any){debugger
+  onIndustryListSuccess(data:any){
   for(let industry of data){
     this.industries.push(industry.name);
   }
   }
-  onError(error:any){debugger
+  onError(error:any){
     var message = new Message();
     message.error_msg = error.err_msg;
     message.isError = true;
