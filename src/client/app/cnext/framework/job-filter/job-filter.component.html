@@ -1,0 +1,66 @@
+<div class="filter-container">
+  <p>Adjust these filters to get more numbers of candidates</p>
+  <div class="inner col-sm-12">
+    <label>Proficiency:
+      <div ng2-auto-complete
+           [source]="roles"
+           (ngModelChange)="selectRolesModel($event)">
+        <input class="form-control" [ngModel]="roleModel" placeholder="Select"/>
+      </div>
+    </label>
+
+    <label>Domain:
+      <div ng2-auto-complete
+           [source]="roles"
+           (ngModelChange)="selectRolesModel($event)">
+        <input class="form-control" [ngModel]="roleModel" placeholder="Select"/>
+      </div>
+    </label>
+
+    <label>Experience:
+      <div ng2-auto-complete
+           [source]="roles"
+           (ngModelChange)="selectRolesModel($event)">
+        <input class="form-control" [ngModel]="roleModel" placeholder="Select"/>
+      </div>
+    </label>
+
+    <label>Complexity:
+      <div ng2-auto-complete
+           [source]="roles"
+           (ngModelChange)="selectRolesModel($event)">
+        <input class="form-control" [ngModel]="roleModel" placeholder="Select"/>
+      </div>
+    </label>
+
+    <label>Lead Time to Join:
+      <div ng2-auto-complete
+           [source]="roles"
+           (ngModelChange)="selectRolesModel($event)">
+        <input class="form-control" [ngModel]="roleModel" placeholder="Select"/>
+      </div>
+    </label>
+
+    <p>Salary Range:</p>
+    <div class="row">
+      <div class="col-sm-6">
+        <label>
+          <div ng2-auto-complete
+               [source]="roles"
+               (ngModelChange)="selectRolesModel($event)">
+            <input class="form-control" [ngModel]="roleModel" placeholder="Min"/>
+          </div>
+        </label>
+      </div>
+      <div class="col-sm-6">
+        <label>
+          <div ng2-auto-complete
+               [source]="roles"
+               (ngModelChange)="selectRolesModel($event)">
+            <input class="form-control" [ngModel]="roleModel" placeholder="Max"/>
+          </div>
+        </label>
+      </div>
+    </div>
+  </div>
+</div>

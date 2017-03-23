@@ -1,0 +1,56 @@
+$white: #fff;
+$border-color: #ddd;
+$text-color: #333;
+
+.filter-container {
+  text-align: left;
+
+  p {
+    color: $text-color;
+  }
+
+  .inner {
+    border: 1px solid $border-color;
+    padding: 30px;
+
+    p {
+      margin: 0;
+    }
+
+    label {
+      color: $text-color;
+      font-weight: 100;
+      font-size: 14px;
+      margin: 0 0 20px 0;
+      width: 100%;
+
+      &:last-child {
+        margin: 0;
+      }
+    }
+  }
+
+  .form-control {
+    background: url('assets/framework/images/form/drop-down.png') no-repeat;
+    background-color: $white;
+    background-position: 95% 50%;
+    border-radius: 0;
+    box-shadow: none;
+    margin-top: 10px;
+    padding: 6px;
+    width: 100%;
+
+    &:focus,
+    &:active {
+      outline: none;
+    }
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .filter-container {
+    .inner {
+      padding: 10px;
+    }
+  }
+}
