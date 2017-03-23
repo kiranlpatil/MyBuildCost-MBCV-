@@ -10,7 +10,6 @@ import * as mongoose from "mongoose";
 
 interface CandidateModel {
   isVisible : boolean;
-  isCandidate: boolean;
   aboutMyself: string;
   certifications : string[];
   awards : string[];

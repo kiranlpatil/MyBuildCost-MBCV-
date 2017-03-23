@@ -38,6 +38,7 @@ class CandidateService {
           }
           else {
             var locationId=res1._id;
+            item.isCandidate=true;
             this.userRepository.create(item, (err, res) => {
               if (err) {
                 callback(new Error(Messages.MSG_ERROR_REGISTRATION_MOBILE_NUMBER), null);
