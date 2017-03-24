@@ -8,6 +8,7 @@ import {MyIndustryService} from "../industry-service";
 import {MyRoleService} from "../role-service";
 import {ComplexityListService} from "./complexity-list.service";
 import {MessageService} from "../../../framework/shared/message.service";
+import {MyJobRequirementService} from "../jobrequirement-service";
 
 
 
@@ -34,7 +35,8 @@ export class ComplexityListComponent {
                private messageService:MessageService,
                private myCapabilityListService:MyCapabilityService,
                private myIndustryService :MyIndustryService,
-               private roleservice :MyRoleService) {
+               private roleservice :MyRoleService,
+               private myJobrequirementService:MyJobRequirementService) {
     complexityService.showTest$.subscribe(
       data=>{
           this.isComplexityShow=data;
@@ -60,6 +62,16 @@ export class ComplexityListComponent {
          .subscribe(
          complexitylist => this.onComplexityListSuccess(complexitylist.data),
          error => this.onError(error));
+      }
+    );
+
+    myJobrequirementService.showTest$.subscribe(
+      data=>{
+        this.isComplexityShow=true;
+        this.roles=data.roleModel;
+        this.industry=data.industryModel;
+        console.log("role list in capab",this.roles,this.industry);
+        
       }
     );
 
