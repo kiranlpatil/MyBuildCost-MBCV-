@@ -5,7 +5,7 @@ interface ProfessionalDetailsModel {
   education : string;
   experience : string;
   currentSalary : string;
-  remark : string;
+  noticePeriod : string;
   relocate : string;
 }
 export = ProfessionalDetailsModel;

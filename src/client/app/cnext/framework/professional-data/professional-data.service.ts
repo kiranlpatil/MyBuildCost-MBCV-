@@ -5,7 +5,8 @@ import { Observable } from 'rxjs/Observable';
 import {BaseService} from "../../../framework/shared/httpservices/base.service";
 import { Http,Headers, RequestOptions } from '@angular/http';
 import {ProfessionalData} from "../model/professional-data";
-import {API} from "../../../framework/shared/constants";
+import {API, LocalStorage} from "../../../framework/shared/constants";
+import {LocalStorageService} from "../../../framework/shared/localstorage.service";
 
 @Injectable()
 export class ProfessionalDataService extends BaseService {
@@ -17,7 +18,8 @@ export class ProfessionalDataService extends BaseService {
     let headers = new Headers({ 'Content-Type': 'application/json'});
     let options = new RequestOptions({ headers: headers });
     let body = JSON.stringify(professionaldata);
-    return this.http.post(API.PROFESSIONAL_DATA, body,options)
+    let url:string=API.CANDIDATE_PROFILE+'/'+LocalStorageService.getLocalValue(LocalStorage.USER_ID);
+    return this.http.put(url, body,options)
       .map(this.extractData)
       .catch(this.handleError);
   }

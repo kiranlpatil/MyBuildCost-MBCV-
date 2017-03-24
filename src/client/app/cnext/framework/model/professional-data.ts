@@ -1,9 +1,15 @@
 
 export class ProfessionalData{
-  realocatetype:string="";
+  /*realocatetype:string="";
   educationlevel:string="";
   experiencelevel:string="";
   Csalary:string="";
-  notice:string="";
+  notice:string="";*/
+
+  education : string;
+  experience : string;
+  currentSalary : string;
+  noticePeriod : string;
+  relocate : string;
 
 }

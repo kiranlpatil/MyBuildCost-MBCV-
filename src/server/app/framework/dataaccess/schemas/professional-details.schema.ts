@@ -20,10 +20,9 @@ var mongooseConnection = DataAccess.mongooseConnection;
           experience : {
             type : String
           },
-          specialization : {
+          noticePeriod : {
             type : String
           }
-
         },{ versionKey: false });
 
         return schema;

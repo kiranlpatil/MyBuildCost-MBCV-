@@ -1,5 +1,4 @@
 
-
 import {Component} from '@angular/core';
 import {Http, Response, RequestOptions, Headers} from "@angular/http";
 import {FormGroup, FormBuilder} from "@angular/forms";
@@ -18,7 +17,6 @@ import {MessageService} from "../../../framework/shared/message.service";
 })
 
 export class ProfessionalDataComponent extends BaseService {
-  userForm: FormGroup;
   private selectedProfessionalData=new ProfessionalData();
   private  realocationlist=new Array();
   private educationlist=new Array();
@@ -69,38 +67,38 @@ export class ProfessionalDataComponent extends BaseService {
 
   }
   onGetNoticePeriodListSuccess(data:any){
-    for(let k of data.noticeperiod){debugger
+    for(let k of data.noticeperiod){
       this.noticeperiodlist.push(k);
     }
 
   }
 
   onCurrentSalaryListSuccess(data:any){
-    for(let k of data.salary ){debugger
+    for(let k of data.salary ){
       this.salarylist.push(k);
     }
 
   }
 
   onExperienceListSuccess(data:any){
-    for(let k of data.experience){debugger
+    for(let k of data.experience){
       this.experiencelist.push(k);
     }
 
   }
 
   onEducationListSuccess(data:any){
-    for(let k of data.educated){debugger
+    for(let k of data.educated){
       this.educationlist.push(k);
     }
 
   }
-  onRealocationListSuccess(data:any){debugger
-    for(let k of data.realocate ){debugger
+  onRealocationListSuccess(data:any){
+    for(let k of data.realocate ){
       this.realocationlist.push(k);
     }
   }
-  onError(error:any){debugger
+  onError(error:any){
     var message = new Message();
     message.error_msg = error.err_msg;
     message.isError = true;
@@ -110,41 +108,35 @@ export class ProfessionalDataComponent extends BaseService {
 
   selectrealocationModel(newVal: any) {
     this.realocationModel = newVal;
-    this.selectedProfessionalData.realocatetype=this.realocationModel;
+    this.selectedProfessionalData.relocate=this.realocationModel;
 
   }
 
   selecteducationModel(newVal: any) {
     this.educationModel = newVal;
-    this.selectedProfessionalData. educationlevel=this.educationModel;
+    this.selectedProfessionalData.education=this.educationModel;
 
   }
 
   selectexperienceModel(newVal: any) {
     this.experienceModel = newVal;
-    this.selectedProfessionalData.experiencelevel=this.experienceModel;
+    this.selectedProfessionalData.experience=this.experienceModel;
 
   }
 
   selectsalaryModel(newVal: any) {
     this.salaryModel = newVal;
-
-    this.selectedProfessionalData.Csalary=this.salaryModel;
+    this.selectedProfessionalData.currentSalary=this.salaryModel;
   }
 
   selectenoticeperiodModel(newVal: any) {
     this.noticeperiodModel = newVal;
-    this.selectedProfessionalData.notice=this.noticeperiodModel;
+    this.selectedProfessionalData.noticePeriod=this.noticeperiodModel;
 
     this.professionaldataservice.addProfessionalData(this.selectedProfessionalData)
       .subscribe(
         user => console.log(user),
         error => console.log(error));
-
   }
-
-
-
-
 }
 
