@@ -110,6 +110,7 @@ export class HeaderComponent implements OnInit {
         LocalStorageService.removeLocalValue(LocalStorage.IS_THEME_SELECTED);
         LocalStorageService.removeLocalValue(LocalStorage.IS_SOCIAL_LOGIN);
         LocalStorageService.removeLocalValue(LocalStorage.USER_ID);
+        LocalStorageService.removeLocalValue(LocalStorage.IS_CANDIDATE);
         LocalStorageService.setLocalValue(LocalStorage.IS_LOGED_IN, 0);
         this._router.navigate([NavigationRoutes.APP_START]);
     }

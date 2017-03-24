@@ -7,6 +7,7 @@ import {FormGroup} from "@angular/forms";
 import {MessageService} from "../../../framework/shared/message.service";
 import {IndustryService} from "../industryList/industryList.service";
 import {Message} from "../../../framework/shared/message";
+import {MyJobRequirementService} from "../jobrequirement-service";
 
 
 @Component({
@@ -52,7 +53,12 @@ export class JobRequirementComponent {
   private noticeperiodModel: string;
 
 
-  constructor(private industryService: IndustryService, private _router: Router, private http: Http, private messageService: MessageService, private dashboardService: DashboardService) {
+  constructor(private industryService: IndustryService,
+              private _router: Router,
+              private http: Http,
+              private messageService: MessageService,
+              private dashboardService: DashboardService,
+              private myJobrequirementService :MyJobRequirementService) {
   }
 
 
@@ -69,7 +75,13 @@ export class JobRequirementComponent {
     this.industryModel = newVal;
     this.jobRequirement.industryModel = this.industryModel;
 
-    this.http.get("role")
+
+    this.industryService.getRoles(newVal)
+      .subscribe(
+        rolelist => this.onRoleListSuccess(rolelist.data),
+        error => this.onError(error));
+
+    /*this.http.get("role")
       .map((res: Response) => res.json())
       .subscribe(
         data => {
@@ -77,14 +89,28 @@ export class JobRequirementComponent {
         },
         err => console.error(err),
         () => console.log()
-      );
+      );*/
   }
 
+  onError(error:any){
+    var message = new Message();
+    message.error_msg = error.err_msg;
+    message.isError = true;
+    this.messageService.message(message);
+  }
+  
+  onRoleListSuccess(data:any){
+    //this.rolesData=data;
+    for(let role of data){
+      this.roles.push(role.name);
+    }
+  }
   selectRolesModel(newVal: any) {
     this.roleModel =newVal;
     this.storedRoles.push(newVal);
     this.jobRequirement.roleModel = this.roleModel;
 
+    this.myJobrequirementService.change(this.jobRequirement);
 
     this.http.get("education")
       .map((res: Response) => res.json())
@@ -165,7 +191,6 @@ export class JobRequirementComponent {
   }
 
   onError(error: any) {
-    debugger
     var message = new Message();
     message.error_msg = error.err_msg;
     message.isError = true;

@@ -93,7 +93,7 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  onSubmit() {debugger
+  onSubmit() {
   //  this.loaderService.start();
 
     this.model = this.userForm.value;
@@ -105,7 +105,8 @@ export class LoginComponent implements OnInit {
   }
 
   loginSuccess(res:any) {
-  // this.loaderService.stop();
+    LocalStorageService.setLocalValue(LocalStorage.IS_CANDIDATE, res.data.isCandidate);
+    // this.loaderService.stop();
     this.userForm.reset();
     if (res.data.current_theme) {
       LocalStorageService.setLocalValue(LocalStorage.MY_THEME, res.data.current_theme);
@@ -116,7 +117,7 @@ export class LoginComponent implements OnInit {
     } else {
       LocalStorageService.setLocalValue(LocalStorage.IS_SOCIAL_LOGIN, AppSettings.IS_SOCIAL_LOGIN_NO);
     }
-    this.successRedirect();
+    this.successRedirect(res);
   }
 
   navigateTo(navigateTo: string) {
@@ -126,10 +127,14 @@ export class LoginComponent implements OnInit {
   }
 
 
-  successRedirect() {
+  successRedirect(res:any) {
     LocalStorageService.setLocalValue(LocalStorage.IS_LOGED_IN, 1);
-    this._router.navigate([NavigationRoutes.APP_CREATEPROFILE]);
-   // this._router.navigate(['/companydetails']);
+    if(res.data.isCandidate){
+      this._router.navigate([NavigationRoutes.APP_CREATEPROFILE]);
+    }
+    else{
+      this._router.navigate([NavigationRoutes.APP_RECRUITER_DASHBOARD]);
+    }
     var socialLogin:string = LocalStorageService.getLocalValue(LocalStorage.IS_SOCIAL_LOGIN);
 
     if(socialLogin === AppSettings.IS_SOCIAL_LOGIN_YES) {
@@ -137,7 +142,7 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  loginFail(error:any) {debugger
+  loginFail(error:any) {
     //this.loaderService.stop();
     if (error.err_code === 404 || error.err_code === 0) {
       var message = new Message();

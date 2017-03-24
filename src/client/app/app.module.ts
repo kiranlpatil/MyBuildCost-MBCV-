@@ -92,6 +92,7 @@ import {CompanyDetailsComponent} from "./framework/registration/company_details/
 import {CompanyDetailsService} from "./framework/registration/company_details/company-details.service";
 import {RecruiterDashboardComponent} from "./cnext/framework/recruiter-dashboard/recruiter-dashboard.component";
 import {JobFilterComponent} from "./cnext/framework/job-filter/job-filter.component";
+import {MyJobRequirementService} from "./cnext/framework/jobrequirement-service";
 
 @NgModule({
   imports: [
@@ -199,6 +200,7 @@ import {JobFilterComponent} from "./cnext/framework/job-filter/job-filter.compon
     MyCapabilityService,
     MyRoleService,
     MyIndustryService,
+    MyJobRequirementService,
     ProfessionalDataService,
     EmploymentHistoryService,
     proficiencyDomainService,

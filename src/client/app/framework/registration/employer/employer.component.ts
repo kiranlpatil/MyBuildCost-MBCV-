@@ -1,6 +1,4 @@
-/**
- * Created by techprimelab on 3/9/2017.
- */
+
 import {  Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { EmployerService } from './employer.service';
@@ -139,7 +137,7 @@ export class EmployerComponent {
     this.storedcountry=newval;
   }
 
-  selectCompanyHeadquarterModel(newval : string){debugger
+  selectCompanyHeadquarterModel(newval : string){
 
     this.companyHeadquarter=newval;
     this.model.company_headquarter_country=this.companyHeadquarter;
@@ -170,7 +168,7 @@ export class EmployerComponent {
 
 
 
-  onSubmit() {debugger
+  onSubmit() {
     this.model = this.recruiterForm.value;
     this.model.current_theme = AppSettings.LIGHT_THEM;
     this.model.company_size =this.storedcompanySize;

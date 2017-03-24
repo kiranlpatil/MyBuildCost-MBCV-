@@ -53,6 +53,7 @@ export class JobPosterComponent {
   }*/
 
   logOut() {
+    LocalStorageService.removeLocalValue(LocalStorage.IS_CANDIDATE);
     LocalStorageService.removeLocalValue(LocalStorage.ACCESS_TOKEN);
     LocalStorageService.removeLocalValue(LocalStorage.IS_THEME_SELECTED);
     LocalStorageService.removeLocalValue(LocalStorage.IS_SOCIAL_LOGIN);

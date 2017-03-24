@@ -54,11 +54,11 @@ export class ProfileCreatorComponent {
   onUserProfileError(error:any) {
     console.log(error);
   }
-  showProfile(){debugger
+  showProfile(){
     this.showMyprofile=true;
 
   }
-  hideProfile(){debugger
+  hideProfile(){
 
     this.showMyprofile=false;
 
@@ -85,6 +85,7 @@ export class ProfileCreatorComponent {
     LocalStorageService.removeLocalValue(LocalStorage.IS_THEME_SELECTED);
     LocalStorageService.removeLocalValue(LocalStorage.IS_SOCIAL_LOGIN);
     LocalStorageService.removeLocalValue(LocalStorage.USER_ID);
+    LocalStorageService.removeLocalValue(LocalStorage.IS_CANDIDATE);
     LocalStorageService.setLocalValue(LocalStorage.IS_LOGED_IN, 0);
     this._router.navigate([NavigationRoutes.APP_START]);
   }

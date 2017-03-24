@@ -2,7 +2,7 @@
 import {Http} from '@angular/http';
 import {Component} from '@angular/core';
 import {Router, ActivatedRoute} from '@angular/router';
-import {VALUE_CONSTANT} from "../../../framework/shared/constants";
+import {VALUE_CONSTANT, LocalStorage} from "../../../framework/shared/constants";
 import {TestService} from "../test.service";
 import {ComplexityService} from "../complexity.service";
 import {MyIndustryService} from "../industry-service";
@@ -10,6 +10,8 @@ import {MyRoleService} from "../role-service";
 import {MessageService} from "../../../framework/shared/message.service";
 import {CapabilityListService} from "./capability-list.service";
 import {MyCapabilityService} from "../capability-service";
+import {LocalStorageService} from "../../../framework/shared/localstorage.service";
+import {MyJobRequirementService} from "../jobrequirement-service";
 
 
 
@@ -31,6 +33,7 @@ export class CapabilityListComponent {
   private capabilityData:any;
   private capabilityIds=new Array();
   private roles:any;
+  private iscandidate:boolean=false;
   constructor(private _router:Router, private http:Http,
               private activatedRoute:ActivatedRoute,
               private testService : TestService,
@@ -39,7 +42,9 @@ export class CapabilityListComponent {
               private roleservice :MyRoleService,
               private messageService:MessageService,
               private capabilityListServive:CapabilityListService,
-              private myCapabilityListService:MyCapabilityService) {
+              private myCapabilityListService:MyCapabilityService,
+              private myJobrequirementService :MyJobRequirementService) {
+    
     testService.showTest$.subscribe(
       data=>{
         this.isShowCapability=true;
@@ -61,8 +66,24 @@ export class CapabilityListComponent {
             error => this.onError(error));
       }
     );
+    myJobrequirementService.showTest$.subscribe(
+      data=>{
+        this.isShowCapability=true;
+        this.roles=data.roleModel;
+        this.industry=data.industryModel;
+        console.log("role list in capab",this.roles,this.industry);
+        this.capabilityListServive.getCapability(this.industry,this.roles)
+          .subscribe(
+            capabilitylist => this.onCapabilityListSuccess(capabilitylist.data),
+            error => this.onError(error));
+      }
+    );
   }
 
+  ngOnInit(){
+    this.iscandidate= !(LocalStorageService.getLocalValue(LocalStorage.IS_CANDIDATE));
+    console.log("capability",LocalStorageService.getLocalValue(LocalStorage.IS_CANDIDATE));
+  }
 
   onCapabilityListSuccess(data:any){
     this.capabilityData=data;
@@ -118,9 +139,9 @@ export class CapabilityListComponent {
 
   }
 
-  
-  
-  
+
+
+
   searchCapabilityId(capabilityName:any){
     for(let capability of this.capabilityData){
       if(capability.name===capabilityName){
@@ -133,7 +154,7 @@ export class CapabilityListComponent {
     for(let capability of this.capabilityData){
       if(capability.name===capabilityName){
         this.capabilityIds.splice(this.capabilityIds.indexOf(capability._id), 1);
-        
+
       }
     }
   }

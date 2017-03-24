@@ -60,6 +60,7 @@ export class NavigationRoutes {
   public static APP_REGISTRATION: string = '/registration';
   public static APP_FORGOTPASSWORD: string = '/forgotpassword';
   public static APP_DASHBOARD: string = '/dashboard';
+  public static APP_RECRUITER_DASHBOARD: string = '/recruiterdashboard';
   public static APP_LOGIN: string = '/login';
   public static APP_START: string = '/';
   public static APP_LANDING: string = '/landing';
@@ -79,6 +80,7 @@ export class LocalStorage {
     public static IS_SOCIAL_LOGIN = 'is_social_login';
     public static IS_LOGED_IN = 'is_user_loged_in';
     public static USER_ID = 'user_id';
+    public static IS_CANDIDATE = 'is_candidate';
     public static MOBILE_NUMBER = 'mobile_number';
     public static COMPANY_NAME = 'company_name';
     public static COMPANY_SIZE = 'company_size';
