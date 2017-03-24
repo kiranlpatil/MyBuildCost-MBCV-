@@ -1,6 +1,7 @@
 <div class="clearfix">
   <div class="col-md-1 col-sm-12 no-padding"><p>I can</p></div>
   <div class="col-sm-11 col-sm-12 no-padding">
+    <p class="text-right">Primary Skills: <span class="primary-color"></span> Secondary Skills: <span class="secondary-color"></span></p>
     <div class="capability-type" *ngIf="isShowCapability|| iscandidate">
       <div class="select-option" [class.primary]="isPrimary[i]" [class.secondary]="isSecondary[i]" *ngFor="let item of capabilities;let i = index">
         <label>

@@ -4,6 +4,21 @@ $option-border-color: #999;
 $primary-option: #1c75bd;
 $secondary-option: #00aed5;
 
+.primary-color {
+  width: 10px;
+  height: 10px;
+  background: $primary-option;
+  margin: 0 15px 0 5px;
+  border-radius: 25px;
+}
+.secondary-color {
+  width: 10px;
+  height: 10px;
+  margin: 0 0 0 5px;
+  background: $secondary-option;
+  border-radius: 25px;
+}
+
 .btn-primary {
   float: right;
 
