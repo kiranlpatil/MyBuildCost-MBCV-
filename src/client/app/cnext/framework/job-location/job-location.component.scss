@@ -29,12 +29,15 @@ $border-color: #e8e8e8;
 
   .col-sm-6 {
     margin-bottom: 15px;
+
+    .list {
+      display: inline-block;
+    }
   }
 
   label {
     width: 130px;
     font-weight: 100;
-    float: left;
     font-size: 16px;
   }
 }

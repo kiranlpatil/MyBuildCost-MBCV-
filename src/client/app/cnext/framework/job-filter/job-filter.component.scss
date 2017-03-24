@@ -1,6 +1,8 @@
 $white: #fff;
 $border-color: #ddd;
 $text-color: #333;
+$bg-tab-content: #f9f9f9;
+$profile-section-shadow: rgba(204, 204, 204, 1);
 
 .filter-container {
   text-align: left;
@@ -11,6 +13,10 @@ $text-color: #333;
 
   .inner {
     border: 1px solid $border-color;
+    background: $bg-tab-content;
+    -moz-box-shadow: 0 0 1px 0 $profile-section-shadow;
+    -webkit-box-shadow: 0 0 1px 0 $profile-section-shadow;
+    box-shadow: 0 0 1px 0 $profile-section-shadow;
     padding: 30px;
 
     p {
