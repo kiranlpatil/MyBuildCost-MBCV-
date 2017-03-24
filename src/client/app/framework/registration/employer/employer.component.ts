@@ -107,15 +107,15 @@ export class EmployerComponent {
       );
 
     /*this.http.get("companyheadquarter")
-      .map((res: Response) => res.json())
-      .subscribe(
-        data => {
+     .map((res: Response) => res.json())
+     .subscribe(
+     data => {
 
-          this.companyHeadquarter=data.companyheadquarter;
-        },
-        err => console.error(err),
-        () => console.log()
-      );*/
+     this.companyHeadquarter=data.companyheadquarter;
+     },
+     err => console.error(err),
+     () => console.log()
+     );*/
 
   }
 
@@ -196,7 +196,7 @@ export class EmployerComponent {
     LocalStorageService.setLocalValue(LocalStorage.CHANGE_MAIL_VALUE, 'from_registration');
     this.recruiterForm.reset();
     this._router.navigate([NavigationRoutes.APP_COMPANYDETAILS]);
-   // this._router.navigate([NavigationRoutes.VERIFY_USER]);
+    // this._router.navigate([NavigationRoutes.VERIFY_USER]);
   }
 
   onRegistrationError(error: any) {
@@ -233,15 +233,23 @@ export class EmployerComponent {
 
 
 
-  recruitmentFor(event:any) {
+  /*recruitmentFor(event:any) {
     var roleType: string;
     roleType = event.target.id;
     if (roleType === "self") {
-       this.isRecruitingForself = true;
+      this.isRecruitingForself = true;
 
     }
     else {
-       this.isRecruitingForself = false;
+      this.isRecruitingForself = false;
     }
+  }*/
+  recruitmentForSelf() {debugger
+    this.isRecruitingForself = true;
   }
+
+  recruitmentForOthers() {debugger
+    this.isRecruitingForself = false;
+  }
+
 }
