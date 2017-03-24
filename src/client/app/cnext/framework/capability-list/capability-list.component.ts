@@ -44,7 +44,7 @@ export class CapabilityListComponent {
               private capabilityListServive:CapabilityListService,
               private myCapabilityListService:MyCapabilityService,
               private myJobrequirementService :MyJobRequirementService) {
-    
+
     testService.showTest$.subscribe(
       data=>{
         this.isShowCapability=true;

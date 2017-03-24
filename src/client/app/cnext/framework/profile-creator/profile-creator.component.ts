@@ -3,6 +3,9 @@ import {LocalStorageService} from "../../../framework/shared/localstorage.servic
 import {LocalStorage, NavigationRoutes} from "../../../framework/shared/constants";
 import {Router} from "@angular/router";
 import {DashboardService} from "../../../framework/dashboard/dashboard.service";
+import {TestService} from "../test.service";
+import {ComplexityService} from "../complexity.service";
+import {ProficiencyService} from "../proficience.service";
 
 
 @Component({
@@ -20,7 +23,26 @@ export class ProfileCreatorComponent {
   private  chkCertification:boolean=false;
   private  chkAboutMyself:boolean=false;
   private  chkAwards:boolean=false;
-  constructor(private _router:Router, private dashboardService:DashboardService) {
+  private  whichStepsVisible : boolean[]=new Array(7);
+  constructor(private _router:Router, private dashboardService:DashboardService,
+              private testService : TestService,
+              private proficiencyService : ProficiencyService,
+              private complexityService : ComplexityService) {
+      testService.showTest$.subscribe(
+        data=>{
+            this.whichStepsVisible[1]=true;
+        }
+      );
+      complexityService.showTest$.subscribe(
+        data=>{
+          this.whichStepsVisible[2]=true;
+        }
+      );
+      proficiencyService.showTest$.subscribe(
+        data=>{
+          this.whichStepsVisible[3]=true;
+        }
+      );
   }
 
 

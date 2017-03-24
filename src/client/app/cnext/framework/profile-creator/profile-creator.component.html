@@ -2,12 +2,12 @@
   <div class="bar-container profile-header">
     <ul class="bar" id="bar">
       <li class="active"><p>Enter Roles</p></li>
-      <li><p>Describe Roles</p></li>
-      <li><p>Proefficiency Level</p></li>
-      <li><p>My Skills</p></li>
-      <li><p>Professional Details</p></li>
-      <li><p>Academic Details</p></li>
-      <li><p>Awards</p></li>
+      <li [class.active]="whichStepsVisible[1]"><p>Describe Roles</p></li>
+      <li [class.active]="whichStepsVisible[2]"> <p>Proficiency Level</p></li>
+      <li [class.active]="whichStepsVisible[3]"><p>My Skills</p></li>
+      <li [class.active]="whichStepsVisible[4]"><p>Professional Details</p></li>
+      <li [class.active]="whichStepsVisible[5]"><p>Academic Details</p></li>
+      <li [class.active]="whichStepsVisible[6]"><p>Awards</p></li>
     </ul>
   </div>
 
