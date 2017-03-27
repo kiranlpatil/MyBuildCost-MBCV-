@@ -3,7 +3,7 @@ import { Observable } from 'rxjs/Observable';
 import { Http,Headers, RequestOptions } from '@angular/http';
 import {BaseService} from "../../../framework/shared/httpservices/base.service";
 import {API} from "../../../framework/shared/constants";
-import {EmployementHistory} from "./employment-history";
+import {EmployementHistory} from "../model/employment-history";
 
 @Injectable()
 export class EmploymentHistoryService extends BaseService {

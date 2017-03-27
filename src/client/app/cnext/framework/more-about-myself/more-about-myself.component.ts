@@ -15,42 +15,39 @@ import {MoreAboutMyself} from "./more-about-myself";
 
 export class MoreAboutMyselfComponent {
 
-   maxLength :number=250;
-  tempfield: string[];
-  aboutMyself:string;
-  newstringOne:string[];
-  newstringTwo:string[];
-  newstringThree:string[];
-  length:number;
-  condition:number;
-  remaining:number;
-  maxword:number;
+  private  maxLength :number=250;
+  private  reSize: string[];
+  private aboutMyself:string;
+  private newstringOne:string[];
+  private newstringTwo:string[];
+  private newstringThree:string[];
+  private wordsTillNow:number;
+  private remainingWords:number;
+  private maxword:number;
   model=new MoreAboutMyself();
   selectedMoreaboutMyself:MoreAboutMyself[]=new Array();
 
 
   constructor(private _router: Router, private http: Http,
               private formBuilder: FormBuilder, private loaderService: LoaderService) {
-    this.tempfield = new Array(1);
+    this.reSize = new Array(1);
 
 
 
   }
   ngOnInit(){
-    this.remaining=this.maxLength;
+    this.remainingWords=this.maxLength;
   }
 
 
 
-  wordcount(event:any){
-
-    console.log(this. aboutMyself,event);
-  this.newstringOne= this. aboutMyself.split(" ");
+  wordCount(event:any){
+   this.newstringOne= this. aboutMyself.split(" ");
     this.newstringTwo= this. aboutMyself.split(".");
     this.newstringThree= this. aboutMyself.split(",");
-    this.condition=this.newstringOne.length+this.newstringTwo.length+this.newstringThree.length;
-    this.remaining=this.maxLength-(this.condition-3);
-    if (this.condition-3>=this.maxLength) {
+    this.wordsTillNow=this.newstringOne.length+this.newstringTwo.length+this.newstringThree.length;
+    this.remainingWords=this.maxLength-(this.wordsTillNow-3);
+    if (this.wordsTillNow-3>=this.maxLength) {
       this. maxword=this.aboutMyself.length;
     }
   }
@@ -60,7 +57,7 @@ export class MoreAboutMyselfComponent {
 
   addAnother() {
 
-    this.tempfield.push("null");
+    this.reSize.push("null");
 
   }
 }

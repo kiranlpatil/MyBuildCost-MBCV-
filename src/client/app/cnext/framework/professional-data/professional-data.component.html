@@ -3,7 +3,7 @@
     <label >Ready To Realocate?
       <div ng2-auto-complete
            [source]="realocationlist"
-           (ngModelChange)="selectrealocationModel($event)">
+           (ngModelChange)="selectedRealocationModel($event)">
         <input class="form-control" [ngModel]="realocationModel"  placeholder="ready to realocation" />
       </div>
     </label>
@@ -13,7 +13,7 @@
     <label >Education:&nbsp;
       <div ng2-auto-complete
            [source]="educationlist"
-           (ngModelChange)="selecteducationModel($event)">
+           (ngModelChange)="selectedEducationModel($event)">
         <input class="form-control" [ngModel]="educationModel"  placeholder="Select Education" />
       </div>
     </label>
@@ -23,7 +23,7 @@
     <label >Experience:&nbsp;
       <div ng2-auto-complete
            [source]="experiencelist"
-           (ngModelChange)="selectexperienceModel($event)">
+           (ngModelChange)="selectedExperienceModel($event)">
         <input class="form-control" [ngModel]="experienceModel"  placeholder="Select Education" />
       </div>
     </label>
@@ -33,7 +33,7 @@
     <label >Current Salary:&nbsp;
       <div ng2-auto-complete
            [source]="salarylist"
-           (ngModelChange)="selectsalaryModel($event)">
+           (ngModelChange)="selectedSalaryModel($event)">
         <input class="form-control" [ngModel]="salaryModel"  placeholder="Select Education" />
       </div>
     </label>
@@ -43,7 +43,7 @@
     <label >Notice Period:&nbsp;
       <div ng2-auto-complete
            [source]="noticeperiodlist"
-           (ngModelChange)="selectenoticeperiodModel($event)">
+           (ngModelChange)="selectedNoticeperiodModel($event)">
         <input class="form-control" [ngModel]="noticeperiodModel"  placeholder="Select Education" />
       </div>
     </label>

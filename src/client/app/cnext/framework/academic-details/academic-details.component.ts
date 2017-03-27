@@ -1,6 +1,3 @@
-/**
- * Created by techprimelab on 3/9/2017.
- */
 import {  Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -19,23 +16,18 @@ import {VALUE_CONSTANT} from "../../../framework/shared/constants";
 export class AcademicDetailComponent {
   userForm: FormGroup;
 
- private  error_msg: string;
  private  tempfield: string[];
- private schoolName:string;
- private universityName:string;
- private passingyear:string;
- private specialization:string;
-  private year: any;
-  private currentDate: any;
-  private yearList = new Array();
+ private year: any;
+ private currentDate: any;
+ private yearList = new Array();
  private selectedacademic= new academicdetails();
  private selectedacademicsdeatils:academicdetails[]=new Array();
 
 
   constructor(private _router: Router, private http: Http,
               private formBuilder: FormBuilder, private loaderService: LoaderService) {
-    this.tempfield = new Array(1);
 
+    this.tempfield = new Array(1);
     this.currentDate = new Date();
     this.year = this.currentDate.getUTCFullYear();
     this.createYearList(this.year);
@@ -48,28 +40,21 @@ export class AcademicDetailComponent {
       this.yearList.push(year--);
     }
   }
-  SChoolName(event:string){
-    console.log(event);
-this.selectedacademic.schoolName=event;
+  selectedSchoolName(schoolname:string){
+this.selectedacademic.schoolName=schoolname;
 
   }
 
-  UniversityName(event:string){
-    console.log(event);
-    this.selectedacademic.universityName=event;
+  selectedeUniversityName(universityname:string){
+    this.selectedacademic.universityName=universityname;
 
   };
-  selectYearModel(newval: any){
-    this.selectedacademic.passingyear=newval;
-  }
-  PassingYear(event:string){
-    console.log(event);
-    this.selectedacademic.passingyear=event;
+  selectedPassingYear(passingyear:string){
+    this.selectedacademic.passingyear=passingyear;
   };
 
-  Specializationfunc(event:string){
-    console.log(event);
-    this.selectedacademic.specialization=event;
+  selectedSpecialization(remark:string){
+    this.selectedacademic.specialization=remark;
   };
 
 

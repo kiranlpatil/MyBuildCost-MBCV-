@@ -16,32 +16,24 @@ import {certifications} from "../model/certification-accreditation";
 })
 
 export class CertificationAccreditationComponent {
-  userForm: FormGroup;
 
+  private tempfield: string[];
+  private selectedcertificate=new certifications();
+  private selectedcertificates:certifications[]=new Array();
   error_msg: string;
-  tempfield: string[];
   certificate:string;
-  selectedcertificate=new certifications();
-  selectedcertificates:certifications[]=new Array();
 
 
 
   constructor(private _router: Router, private http: Http,
               private formBuilder: FormBuilder, private loaderService: LoaderService) {
+
     this.tempfield = new Array(1);
-
-
-
-  }
-  deletecomponent(event:any){
-
-
-
   }
 
-  certifications(event:any){
-    console.log(event);
-    this.selectedcertificate.certificationdetails=event;
+
+  addedCertification(certificate:any){
+    this.selectedcertificate.certificationdetails=certificate;
 
   }
 

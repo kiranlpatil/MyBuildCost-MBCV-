@@ -1,5 +1,5 @@
 <div>
-      <textarea class="form-control" [(ngModel)]="status"  maxlength={{maxword}} (ngModelChange)="wordcount($event)" placeholder="Describe your {{type}}"></textarea>
+      <textarea class="form-control" [(ngModel)]="description"  maxlength={{maxword}} (ngModelChange)="wordCount($event)" placeholder="Describe your {{type}}"></textarea>
       <p>{{remaining}} words are remaining</p>
 </div>
 

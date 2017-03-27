@@ -2,7 +2,7 @@
 
 export class EmployementHistory {
 
-  companyname:string;
+  companyName:string;
   designation:string;
   workedFromMonth:string;
   workedFromYear:string;

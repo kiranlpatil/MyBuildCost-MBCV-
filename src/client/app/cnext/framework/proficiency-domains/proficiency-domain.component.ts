@@ -1,5 +1,4 @@
 import {Component, OnInit, Input} from '@angular/core';
-import {Http,Response} from "@angular/http";
 import {VALUE_CONSTANT} from "../../../framework/shared/constants";
 import {ProficiencyService} from "../proficience.service";
 import {MessageService} from "../../../framework/shared/message.service";
@@ -15,16 +14,16 @@ import {proficiencyDomainService} from "./proficiency-domain.service";
 
 export class proficiencyDomainComponent implements OnInit {
   @Input('type') type : string;
-  selectedproficiencies=new Array();
-  storedProficiency = new Array();
-  proficiencyModel: string = "";
+  private selectedproficiencies=new Array();
+  private storedProficiency = new Array();
+  private proficiencyModel: string = "";
   private showAlert: boolean=false;
   private proficiencyType: boolean=false;
   private domainType: boolean=false;
   private placeHolderName:string;
   private isProficiencyShow:boolean =false;
 
-  constructor(private http: Http,private proficiencyService: ProficiencyService,
+  constructor(private proficiencyService: ProficiencyService,
               private proficiencydoaminService: proficiencyDomainService,
               private messageService:MessageService) {
 
@@ -79,7 +78,7 @@ export class proficiencyDomainComponent implements OnInit {
     this.messageService.message(message);
   }
 
-  selectproficiencyModel(newVal: any) {
+  selectedproficiencyModel(newVal: any) {
     if(this.storedProficiency.length < VALUE_CONSTANT.MAX_PROFECIENCES) {
       this.showAlert=false;
       this.storedProficiency.push(newVal);

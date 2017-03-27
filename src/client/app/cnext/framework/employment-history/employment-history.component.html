@@ -20,14 +20,14 @@
       <div class="col-sm-6 no-padding">
         <div id="monthf" ng2-auto-complete
              [source]="monthList"
-             (ngModelChange)="selectworkfromMonthModel($event)">
+             (ngModelChange)="selectedworkfromMonthModel($event)">
           <input class="form-control" [ngModel]="fromMonthModel" [disabled]="disbleRole"  placeholder="MONTH" />
         </div>
       </div>
       <div class="col-sm-6 no-padding">
         <div id="yearf" ng2-auto-complete
              [source]="yearList"
-             (ngModelChange)="selectworkfromYearModel($event)">
+             (ngModelChange)="selectedworkfromYearModel($event)">
 
           <input class="form-control" [ngModel]="fromYearModel" [disabled]="disbleRole"  placeholder="YYYY" />
         </div>
@@ -38,13 +38,13 @@
       <label>worked To</label>
       <div class="col-sm-6 no-padding" id="montht" ng2-auto-complete
             [source]="monthList"
-            (ngModelChange)="selectworktoMonthModel($event)">
+            (ngModelChange)="selectedworktoMonthModel($event)">
 
         <input class="form-control" [ngModel]="toMonthModel" [disabled]="disbleRole"  placeholder="MONTH" />
       </div>
       <div class="col-sm-6 no-padding" id="yeart" ng2-auto-complete
             [source]="yearList"
-            (ngModelChange)="selectworktoYearModel($event)">
+            (ngModelChange)="selectedworktoYearModel($event)">
 
         <input class="form-control" [ngModel]="toYearModel" [disabled]="disbleRole"  placeholder="YYYY" />
       </div>

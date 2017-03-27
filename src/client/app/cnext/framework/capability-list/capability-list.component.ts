@@ -12,6 +12,7 @@ import {CapabilityListService} from "./capability-list.service";
 import {MyCapabilityService} from "../capability-service";
 import {LocalStorageService} from "../../../framework/shared/localstorage.service";
 import {MyJobRequirementService} from "../jobrequirement-service";
+import {Message} from "../../../framework/shared/message";
 
 
 
@@ -102,31 +103,31 @@ export class CapabilityListComponent {
     this.messageService.message(message);
   }
 
-  selectOption(newVal:any){
-    if (newVal.target.checked) {
-      this.searchCapabilityId(newVal.target.value);
+  selectedOption(selectedCapability:any){
+    if (selectedCapability.target.checked) {
+      this.searchCapabilityId(selectedCapability.target.value);
       if(this.primaryCapabilities.length < VALUE_CONSTANT.MAX_CAPABILITIES) {
-        this.primaryCapabilities.push(newVal.target.value);
-        this.isPrimary[this.capabilities.indexOf(newVal.target.value)]=true;
+        this.primaryCapabilities.push(selectedCapability.target.value);
+        this.isPrimary[this.capabilities.indexOf(selectedCapability.target.value)]=true;
 
       }
       else{
-        this.secondaryCapabilities.push(newVal.target.value);
-        this.isSecondary[this.capabilities.indexOf(newVal.target.value)]=true;
+        this.secondaryCapabilities.push(selectedCapability.target.value);
+        this.isSecondary[this.capabilities.indexOf(selectedCapability.target.value)]=true;
       }
     }
     else{
-      this.deleteCapabilityById(newVal.target.value);
+      this.deleteCapabilityById(selectedCapability.target.value);
       for(let capability of this.primaryCapabilities){
-        if(capability===newVal.target.value){
-          this.isPrimary[this.capabilities.indexOf(newVal.target.value)]=false;
+        if(capability===selectedCapability.target.value){
+          this.isPrimary[this.capabilities.indexOf(selectedCapability.target.value)]=false;
           this.primaryCapabilities.splice(this.primaryCapabilities.indexOf(capability), 1);
         }
       }
 
       for(let capability of this.secondaryCapabilities){
-        if(capability===newVal.target.value){
-          this.isSecondary[this.capabilities.indexOf(newVal.target.value)]=false;
+        if(capability===selectedCapability.target.value){
+          this.isSecondary[this.capabilities.indexOf(selectedCapability.target.value)]=false;
           this.secondaryCapabilities.splice(this.secondaryCapabilities.indexOf(capability), 1);
         }
       }
