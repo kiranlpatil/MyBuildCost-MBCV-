@@ -16,13 +16,11 @@ import {awards} from "../model/awards";
 })
 
 export class AwardsComponent {
-  userForm: FormGroup;
 
   error_msg: string;
-  tempfield: string[];
-  award:string;
-  selectedaward=new awards();
-  selectedawards: awards[]=new Array();
+  private tempfield: string[];
+  private selectedaward=new awards();
+  private selectedawards: awards[]=new Array();
 
 
 
@@ -34,9 +32,8 @@ export class AwardsComponent {
 
   }
 
-  Awards(event:string){
-    console.log(event);
-    this.selectedaward.awardsdetails=event;
+  selectedAward(award:string){
+    this.selectedaward.awardsdetails=award;
 
 
   }

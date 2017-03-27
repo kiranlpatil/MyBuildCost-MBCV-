@@ -68,7 +68,7 @@
 
         </h4>
         <div class="main-content" >
-          <cn-EmploymentHistory></cn-EmploymentHistory>
+          <cn-Employment-History></cn-Employment-History>
         </div>
       </div>
 
@@ -116,10 +116,10 @@
           <div class="radio">
             <label>Profile Visibility:</label>
             <label class="radio-inline">
-              <input type="radio" name="profile-visibility" id="optionsRadios2"  (click)="showProfile()" value="option2"> show
+              <input type="radio" name="profile-visibility" id="optionsRadios2"  [ngModel]="selectedvalue1" (ngModelChange)="showorhide($event)" value="option2"> show
             </label>
             <label class="radio-inline">
-              <input type="radio" name="profile-visibility" id="optionsRadios3"  (click)="hideProfile()" value="option3" > hide
+              <input type="radio" name="profile-visibility" id="optionsRadios3"  [ngModel]="selectedvalue2" (ngModelChange)="showorhide($event)" value="option3" > hide
             </label>
           </div>
           <div class="info"><p>In case you 'Hide' your profile visibility, Recruiters can not see your profile.<br />You can change it later.</p></div>

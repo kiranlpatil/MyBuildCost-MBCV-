@@ -5,13 +5,13 @@ import { Subject } from 'rxjs/Subject';
 export class MyIndustryService {
 
   // Observable string sources
-  private _showIndustrySource = new Subject<String>();
+  private _showIndustrySource = new Subject<string>();
 
   // Observable string streams
   showTest$ = this._showIndustrySource.asObservable();
 
   // Service message commands
-  change(value: String) {
+  change(value: string) {
     this._showIndustrySource.next(value);
   }
 

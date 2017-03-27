@@ -1,8 +1,5 @@
 import {Component, Input} from '@angular/core';
-import { Router } from '@angular/router';
-import { FormBuilder} from '@angular/forms';
-import {Http} from "@angular/http";
-import {LoaderService} from "../../../framework/shared/loader/loader.service";
+
 
 @Component({
   moduleId: module.id,
@@ -15,31 +12,30 @@ export class DescriptionFieldComponent {
   @Input('type') type : string;
   @Input('maxLength') maxLength :number;
 
-  status:string;
-  newstringOne:string[];
-  newstringTwo:string[];
-  newstringThree:string[];
-  condition:number;
-  maxword:number;
-  remaining:number;
+ private description:string;
+ private newstringOne:string[];
+ private newstringTwo:string[];
+ private newstringThree:string[];
+ private condition:number;
+ private maxword:number;
+ private remainingWords:number;
 
-  constructor(private _router: Router, private http: Http,
-              private formBuilder: FormBuilder, private loaderService: LoaderService) {
+  constructor() {
 
   }
 
   ngOnInit(){
-    this.remaining=this.maxLength;
+    this.remainingWords=this.maxLength;
   }
 
-  wordcount(event:any){
-    this.newstringOne= this.status.split(" ");
-    this.newstringTwo= this.status.split(".");
-    this.newstringThree= this.status.split(",");
+  wordCount(event:any){
+    this.newstringOne= this.description.split(" ");
+    this.newstringTwo= this.description.split(".");
+    this.newstringThree= this.description.split(",");
     this.condition=this.newstringOne.length+this.newstringTwo.length+this.newstringThree.length;
-    this.remaining=this.maxLength-(this.condition-3);
+    this.remainingWords=this.maxLength-(this.condition-3);
       if (this.condition-3>=this.maxLength) {
-        this. maxword=this.status.length;
+        this. maxword=this.description.length;
       }
   }
 }

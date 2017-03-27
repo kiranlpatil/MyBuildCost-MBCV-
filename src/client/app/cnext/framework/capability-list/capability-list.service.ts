@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import {Http,Headers, RequestOptions} from '@angular/http';
-import {industryProfile} from './industry';
 import { Observable } from 'rxjs/Observable';
 import {BaseService} from "../../../framework/shared/httpservices/base.service";
 import {API, LocalStorage} from "../../../framework/shared/constants";
@@ -28,7 +27,7 @@ export class CapabilityListService extends BaseService {
       .catch(this.handleError);
   }
 
-  getCapability(industry:string,roles:Array<any>):Observable<any> {
+  getCapability(industry:string,roles:Array<string>):Observable<any> {
     var url = API.INDUSTRY_LIST+'/'+industry+'/'+API.ROLE_LIST+'/'+API.CAPABILITY_LIST+'?roles='+JSON.stringify(roles);
     console.log(url);
     return this.http.get(url)
@@ -37,6 +36,6 @@ export class CapabilityListService extends BaseService {
   }
 
 
- 
+
 
 }

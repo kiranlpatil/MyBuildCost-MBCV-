@@ -9,6 +9,7 @@ import {MyRoleService} from "../role-service";
 import {ComplexityListService} from "./complexity-list.service";
 import {MessageService} from "../../../framework/shared/message.service";
 import {MyJobRequirementService} from "../jobrequirement-service";
+import {Message} from "../../../framework/shared/message";
 
 
 
@@ -29,7 +30,7 @@ export class ComplexityListComponent {
   private industry:any;
 
   constructor( private http:Http,
-                private complexityService: ComplexityService,
+               private complexityService: ComplexityService,
                private proficiencyService: ProficiencyService,
                private complexityListServive:ComplexityListService,
                private messageService:MessageService,
@@ -71,7 +72,7 @@ export class ComplexityListComponent {
         this.roles=data.roleModel;
         this.industry=data.industryModel;
         console.log("role list in capab",this.roles,this.industry);
-        
+
       }
     );
 
@@ -94,19 +95,19 @@ export class ComplexityListComponent {
 
 
 
-  selectOption(newVal:any){
-    if (newVal.target.checked) {
+  selectOption(selectedComplexity:any){
+    if (selectedComplexity.target.checked) {
       for (let i = 0; i < this.selectedComplexity.length; i++) {
-        if (this.selectedComplexity[i].name === newVal.currentTarget.children[0].innerHTML) {
+        if (this.selectedComplexity[i].name === selectedComplexity.currentTarget.children[0].innerHTML) {
           if (i > -1) {
             this.selectedComplexity.splice(i, 1);
           }
         }
       }
       let currentComplexity=new Complexity();
-      currentComplexity.name=newVal.currentTarget.children[0].innerHTML;
-      currentComplexity.scenario=newVal.target.value
-      if(newVal.target.value !== "none") {
+      currentComplexity.name=selectedComplexity.currentTarget.children[0].innerHTML;
+      currentComplexity.scenario=selectedComplexity.target.value
+      if(selectedComplexity.target.value !== "none") {
         this.selectedComplexity.push(currentComplexity);
       }
     }

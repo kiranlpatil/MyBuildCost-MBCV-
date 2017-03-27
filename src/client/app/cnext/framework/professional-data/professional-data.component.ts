@@ -1,9 +1,5 @@
 
 import {Component} from '@angular/core';
-import {Http, Response, RequestOptions, Headers} from "@angular/http";
-import {FormGroup, FormBuilder} from "@angular/forms";
-import {TestService} from "../test.service";
-import {Observable} from "rxjs";
 import {BaseService} from "../../../framework/shared/httpservices/base.service";
 import {ProfessionalData} from "../model/professional-data";
 import {ProfessionalDataService } from "./professional-data.service"
@@ -18,20 +14,20 @@ import {MessageService} from "../../../framework/shared/message.service";
 
 export class ProfessionalDataComponent extends BaseService {
   private selectedProfessionalData=new ProfessionalData();
-  private  realocationlist=new Array();
+  private realocationlist=new Array();
   private educationlist=new Array();
   private experiencelist=new Array();
   private salarylist=new Array();
-  private  noticeperiodlist=new Array();
+  private noticeperiodlist=new Array();
   private realocationModel:string;
-  private  educationModel:string;
+  private educationModel:string;
   private experienceModel:string;
   private salaryModel:string;
-  private  noticeperiodModel:string;
+  private noticeperiodModel:string;
 
 
 
-  constructor(private http: Http, private testService: TestService,private professionaldataservice:ProfessionalDataService, private messageService:MessageService) {
+  constructor(private professionaldataservice:ProfessionalDataService, private messageService:MessageService) {
     super();
   }
 
@@ -106,30 +102,30 @@ export class ProfessionalDataComponent extends BaseService {
   }
 
 
-  selectrealocationModel(newVal: any) {
+  selectedRealocationModel(newVal: any) {
     this.realocationModel = newVal;
     this.selectedProfessionalData.relocate=this.realocationModel;
 
   }
 
-  selecteducationModel(newVal: any) {
+  selectedEducationModel(newVal: any) {
     this.educationModel = newVal;
     this.selectedProfessionalData.education=this.educationModel;
 
   }
 
-  selectexperienceModel(newVal: any) {
+  selectedExperienceModel(newVal: any) {
     this.experienceModel = newVal;
     this.selectedProfessionalData.experience=this.experienceModel;
 
   }
 
-  selectsalaryModel(newVal: any) {
+  selectedSalaryModel(newVal: any) {
     this.salaryModel = newVal;
     this.selectedProfessionalData.currentSalary=this.salaryModel;
   }
 
-  selectenoticeperiodModel(newVal: any) {
+  selectedNoticeperiodModel(newVal: any) {
     this.noticeperiodModel = newVal;
     this.selectedProfessionalData.noticePeriod=this.noticeperiodModel;
 
