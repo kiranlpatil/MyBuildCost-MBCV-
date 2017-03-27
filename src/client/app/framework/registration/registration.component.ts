@@ -33,6 +33,7 @@ export class RegistrationComponent {
   //isCandidate:boolean = true;
   isRecruiter:boolean = true;
   isShowErrorMessage: boolean = true;
+  isRecruitingForself:boolean = true;
   BODY_BACKGROUND:string;
 
   constructor(private commanService: CommonService, private _router: Router,
@@ -106,9 +107,6 @@ export class RegistrationComponent {
     }
   }
 
-  showHideEmployee() {
-    this.isCandidate =!this.isCandidate;
-  }
 
   showHideCandidate() {
     this.isCandidate = false;
@@ -122,6 +120,14 @@ export class RegistrationComponent {
 
   closeErrorMessage() {
     this.isShowErrorMessage = true;
+  }
+
+  recruitmentForSelf() {
+    this.isRecruitingForself = true;
+  }
+
+  recruitmentForOthers() {
+    this.isRecruitingForself = false;
   }
 
 }

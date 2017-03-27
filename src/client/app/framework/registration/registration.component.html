@@ -32,7 +32,7 @@
 
         </div>
 
-        <div class="registration-btn-radio text-left clearfix" [hidden]="!isCandidate">
+        <div class="registration-btn-radio text-left clearfix" [hidden]="isRecruiter">
           <label class="lable-name">Recruiting For</label>
           <label for="self" class="radio-inline">
             <input type="radio" id="self" name="recruiting_for" value="self" (click)="recruitmentForSelf()" checked/>

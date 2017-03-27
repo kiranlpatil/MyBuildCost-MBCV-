@@ -10,6 +10,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {
   Message,
   MessageService,
+  NavigationRoutes,
   ProfileService,
   CommonService,
   Messages,
@@ -42,7 +43,7 @@ export class CompanyDetailsComponent {
   fileName1:string;
   fileName2:string;
   fileName3:string;
-  buttonId:any;
+  buttonId:string;
 
 
   constructor(private commanService: CommonService, private _router: Router, private http: Http,
@@ -68,7 +69,7 @@ export class CompanyDetailsComponent {
   ngOnInit() {
     //this.model1.company_name = LocalStorageService.getLocalValue(LocalStorage.COMPANY_NAME);
     this.model1.company_size = LocalStorageService.getLocalValue(LocalStorage.COMPANY_SIZE);
-   // this.company_name = LocalStorageService.getLocalValue(LocalStorage.EMAIL_ID);
+    this.company_name = LocalStorageService.getLocalValue(LocalStorage.COMPANY_NAME);
 
   }
 
@@ -92,68 +93,56 @@ export class CompanyDetailsComponent {
     this._router.navigate(['/']);
   }
 
-  fileChangeEvent1(fileInput: any) {
+  fileChangeEvent(fileInput: any) {
 
     this.filesToUpload = <Array<File>> fileInput.target.files;
-    this.buttonId=event.target.id;
-    console.log("buttonid is:",this.buttonId);
-    console.log("path of files to upload:", this.filesToUpload);
-    this.fileName1=this.filesToUpload[0].name;
-    console.log(this.fileName1);
-    this.companyDetailsService.makeDocumentUplaod(this.filesToUpload, []).then((result: any) => {
-      if (result !== null) {
-        //this.model.document1 = result.data.document;
-       this.setOfDocuments[0]=result.data.document;
-        console.log("setOfDocuments is:",this.setOfDocuments);
+    this.buttonId = event.target.id;
+    if(this.buttonId =="file-upload1"){debugger
 
-        this.fileChangeSucess(result);
-      }
-    }, (error:any) => {
-      this.fileChangeFail("Error in document uploading", error);
-    });
+      this.fileName1=this.filesToUpload[0].name;
+      this.companyDetailsService.makeDocumentUplaod(this.filesToUpload, []).then((result: any) => {
+        if (result !== null) {
+          //this.model.document1 = result.data.document;
+          this.setOfDocuments[0]=result.data.document;
+          console.log("setOfDocuments is:",this.setOfDocuments);
 
-  }
-  fileChangeEvent2(fileInput: any) {
+          this.fileChangeSucess(result);
+        }
+      }, (error:any) => {
+        this.fileChangeFail(error);
+      });
+    }
+    else if(this.buttonId =="file-upload2"){debugger
+      this.fileName2=this.filesToUpload[0].name;
+      this.companyDetailsService.makeDocumentUplaod(this.filesToUpload, []).then((result: any) => {
+        if (result !== null) {
+          //this.model.document1 = result.data.document;
+          this.setOfDocuments[1]=result.data.document;
+          console.log("setOfDocuments is:",this.setOfDocuments);
 
-      this.filesToUpload = <Array<File>> fileInput.target.files;
+          this.fileChangeSucess(result);
+        }
+      }, (error:any) => {
+        this.fileChangeFail(error);
+      });
+    }
+    else{
+      this.fileName3=this.filesToUpload[0].name;
+      this.companyDetailsService.makeDocumentUplaod(this.filesToUpload, []).then((result: any) => {
+        if (result !== null) {
+          //this.model.document1 = result.data.document;
+          this.setOfDocuments[2]=result.data.document;
+          console.log("setOfDocuments is:",this.setOfDocuments);
 
-    console.log("path of files to upload:", this.filesToUpload);
-    this.fileName2=this.filesToUpload[0].name;
-    console.log(this.fileName2);
-    this.companyDetailsService.makeDocumentUplaod(this.filesToUpload, []).then((result: any) => {
-      if (result !== null) {
-        //this.model.document1 = result.data.document;
-        this.setOfDocuments[1]=result.data.document;
-
-        console.log("setOfDocuments is:",this.setOfDocuments);
-
-        this.fileChangeSucess(result);
-      }
-    }, (error) => {
-      this.fileChangeFail("Error in document uploading", error);
-    });
-
-  }
-  fileChangeEvent3(fileInput: any) {
-
-      this.filesToUpload = <Array<File>> fileInput.target.files;
-
-    console.log("path of files to upload:", this.filesToUpload);
-    this.fileName2=this.filesToUpload[0].name;
-    console.log(this.fileName2);
-    this.companyDetailsService.makeDocumentUplaod(this.filesToUpload, []).then((result: any) => {
-      if (result !== null) {
-
-        this.setOfDocuments[2]=result.data.document;
-
-        console.log("setOfDocuments is:",this.setOfDocuments);
-        this.fileChangeSucess(result);
-      }
-    }, (error) => {
-      this.fileChangeFail("Error in document uploading", error);
-    });
+          this.fileChangeSucess(result);
+        }
+      }, (error:any) => {
+        this.fileChangeFail(error);
+      });
+    }
 
   }
+
 
   fileChangeSucess(result: any) {
     this.model = result.data;
@@ -187,6 +176,26 @@ export class CompanyDetailsComponent {
 
   closeErrorMessage() {
     this.isShowErrorMessage = true;
+  }
+
+  onCompanyDetailsSuccess(success: any) {
+    //this.loaderService.stop();
+
+    this.companyDetailsForm.reset();
+    this._router.navigate([NavigationRoutes.APP_RECRUITER_DASHBOARD]);
+  }
+
+  onCompanyDetailsError(error: any) {
+    // this.loaderService.stop();
+    if (error.err_code === 404 || error.err_code === 0) {
+      var message = new Message();
+      message.error_msg = error.message;
+      message.isError = true;
+      this.messageService.message(message);
+    } else {
+      this.isShowErrorMessage = false;
+      this.error_msg = error.message;
+    }
   }
 
 }

@@ -192,7 +192,8 @@ export class EmployerComponent {
     //this.loaderService.stop();
     LocalStorageService.setLocalValue(LocalStorage.USER_ID, user.data._id);
     LocalStorageService.setLocalValue(LocalStorage.EMAIL_ID,this.recruiterForm.value.email);
-    LocalStorageService.setLocalValue(LocalStorage.MOBILE_NUMBER, this.recruiterForm.value.mobile_number);
+    LocalStorageService.setLocalValue(LocalStorage.EMAIL_ID,this.recruiterForm.value.email);
+    LocalStorageService.setLocalValue(LocalStorage.COMPANY_NAME, this.recruiterForm.value.company_name);
     LocalStorageService.setLocalValue(LocalStorage.CHANGE_MAIL_VALUE, 'from_registration');
     this.recruiterForm.reset();
     this._router.navigate([NavigationRoutes.APP_COMPANYDETAILS]);
@@ -244,12 +245,12 @@ export class EmployerComponent {
       this.isRecruitingForself = false;
     }
   }*/
-  recruitmentForSelf() {debugger
+ /* recruitmentForSelf() {debugger
     this.isRecruitingForself = true;
   }
 
   recruitmentForOthers() {debugger
     this.isRecruitingForself = false;
-  }
+  }*/
 
 }

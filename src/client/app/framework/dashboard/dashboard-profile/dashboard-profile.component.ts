@@ -181,7 +181,7 @@ export class DashboardProfileComponent implements OnInit,OnDestroy {
           if (result !== null) {
             this.fileChangeSucess(result);
           }
-        }, (error) => {
+        }, (error:any) => {
           this.fileChangeFail(error);
         });
       } else {
