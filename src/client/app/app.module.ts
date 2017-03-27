@@ -52,9 +52,9 @@ import { DashboardComponent } from './framework/dashboard/dashboard.component';
  import { ChangeMobileService } from './framework/dashboard/settings/change-mobile/change-mobile.service';
  import {LandingPageComponent} from './framework/landing-page/landing-page.component';
  import {Ng2AutoCompleteModule} from "ng2-auto-complete/dist/ng2-auto-complete.module";
- import {EmployeeComponent} from "./framework/registration/employee/employee.component";
+ import {CandidateComponent} from "./framework/registration/candidate/candidate.component";
  import {EmployerComponent} from "./framework/registration/employer/employer.component";
- import {EmployeeService} from "./framework/registration/employee/employee.service";
+ import {CandidateService} from "./framework/registration/candidate/candidate.service";
  import {EmployerService} from "./framework/registration/employer/employer.service";
 
 //C-NEXT IMPORTS
@@ -111,7 +111,7 @@ import {IndustryListService} from "./cnext/framework/industry-list/industry-list
     MainHeaderComponent,
     LoginComponent,
     RegistrationComponent,
-    EmployeeComponent,
+    CandidateComponent,
     EmployerComponent,
     ActivateUserComponent,
     ActivateEmailComponent,
@@ -184,7 +184,7 @@ import {IndustryListService} from "./cnext/framework/industry-list/industry-list
     ForgotPasswordService,
     ThemeChangeService,
     RegistrationService,
-    EmployeeService,
+    CandidateService,
     EmployerService,
     DashboardService,
     ProfileService,

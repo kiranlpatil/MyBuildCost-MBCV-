@@ -1,5 +1,5 @@
 import {Location} from "../location";
-export class Employee {
+export class Candidate {
   id : any;
   isCandidate :boolean;
   first_name: string;

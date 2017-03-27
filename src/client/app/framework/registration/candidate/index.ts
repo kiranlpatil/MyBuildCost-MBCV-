@@ -5,6 +5,6 @@
  * This barrel file provides the export for the lazy loaded AboutComponent.
  */
 export * from '../../shared/customvalidations/validation.service';
-export * from './employee.component';
-export * from './employee.routes';
+export * from './candidate.component';
+export * from './candidate.routes';
 

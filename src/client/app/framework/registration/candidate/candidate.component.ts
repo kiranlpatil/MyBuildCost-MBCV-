@@ -3,8 +3,8 @@
  */
 import {  Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { EmployeeService } from './employee.service';
-import { Employee } from './employee';
+import { CandidateService } from './candidate.service';
+import { Candidate } from './candidate';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ValidationService } from '../../shared/customvalidations/validation.service';
 import {
@@ -23,12 +23,12 @@ import {Location} from "../location";
 @Component({
   moduleId: module.id,
   selector: 'cn-EmployeeRegistration',
-  templateUrl: 'employee.component.html',
-  styleUrls: ['employee.component.css'],
+  templateUrl: 'candidate.component.html',
+  styleUrls: ['candidate.component.css'],
 })
 
-export class EmployeeComponent {
-  model = new Employee();
+export class CandidateComponent {
+  model = new Candidate();
   storedcountry:string;
   storedstate:string;
   storedcity:string;
@@ -50,8 +50,8 @@ export class EmployeeComponent {
   private yearList = new Array();
   passingyear:string;
 
-  constructor(private commanService: CommonService, private _router: Router,private http: Http,
-              private employeeService: EmployeeService, private messageService: MessageService, private formBuilder: FormBuilder,private loaderService:LoaderService) {
+  constructor(private commanService: CommonService, private _router: Router, private http: Http,
+              private candidateService: CandidateService, private messageService: MessageService, private formBuilder: FormBuilder, private loaderService:LoaderService) {
 
     this.userForm = this.formBuilder.group({
       'first_name': ['', Validators.required],
@@ -160,7 +160,7 @@ export class EmployeeComponent {
 
       this.isFormSubmitted = true;
       // this.loaderService.start();
-      this.employeeService.addEmployee(this.model)
+      this.candidateService.addCandidate(this.model)
         .subscribe(
           user => this.onRegistrationSuccess(user),
           error => this.onRegistrationError(error));
