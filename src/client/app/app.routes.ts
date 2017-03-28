@@ -17,7 +17,7 @@ import { ActivateEmailRoutes } from './framework/dashboard/settings/activate-ema
 import { ChangeMobileRoutes } from './framework/dashboard/settings/change-mobile/change-mobile.routes';
 import {LandingPageRoutes} from './framework/landing-page/landing-page.routes';
 import {CandidateRoutes} from "./framework/registration/candidate/candidate.routes";
-import {EmployerRoutes} from "./framework/registration/employer/employer.routes";
+import {RecruiterRoutes} from "./framework/registration/recruiter/recruiter.routes";
 import {ProfileCreator} from "./cnext/framework/profile-creator/profile-creator.routes";
 import {CompanyDetailsRoutes} from "./framework/registration/company_details/company-details.routes";
 import {RecruiterDashboard} from "./cnext/framework/recruiter-dashboard/recruiter-dashboard.routes";
@@ -28,7 +28,7 @@ export const routes: Routes = [
   ...LoginRoutes,
   ...RegistrationRoutes,
   ...CandidateRoutes,
-  ...EmployerRoutes,
+  ...RecruiterRoutes,
   ...ActivateUserRoutes,
   ...ActivateEmailRoutes,
   ...VerifyUserRoutes,

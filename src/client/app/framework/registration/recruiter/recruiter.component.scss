@@ -1,0 +1,48 @@
+@import '../../../../css/common';
+
+.alert {
+  margin: 0 15px 20px;
+}
+
+.employer-form {
+  .radio-group {
+    padding: 0 0 15px;
+  }
+
+  .form-group {
+    padding: 0 15px;
+    width: 50%;
+
+    label {
+      left: 15px;
+    }
+  }
+}
+
+@media only screen and (max-width: 1280px) {
+  .employer-form {
+    .button-group {
+      padding: 0 0 15px 0;
+    }
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .alert {
+    margin: 0 0 20px;
+  }
+
+  .employer-form {
+    .add-logo {
+      float: none;
+    }
+
+    .form-group {
+      width: 100%;
+    }
+
+    .button-group {
+      padding: 0;
+    }
+  }
+}

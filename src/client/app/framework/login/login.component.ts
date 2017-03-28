@@ -130,6 +130,7 @@ export class LoginComponent implements OnInit {
   successRedirect(res:any) {
     LocalStorageService.setLocalValue(LocalStorage.IS_LOGED_IN, 1);
     if(res.data.isCandidate){
+
       this._router.navigate([NavigationRoutes.APP_CREATEPROFILE]);
     }
     else{

@@ -53,9 +53,12 @@ import { DashboardComponent } from './framework/dashboard/dashboard.component';
  import {LandingPageComponent} from './framework/landing-page/landing-page.component';
  import {Ng2AutoCompleteModule} from "ng2-auto-complete/dist/ng2-auto-complete.module";
  import {CandidateComponent} from "./framework/registration/candidate/candidate.component";
- import {EmployerComponent} from "./framework/registration/employer/employer.component";
+ import {RecruiterComponent} from "./framework/registration/recruiter/recruiter.component";
  import {CandidateService} from "./framework/registration/candidate/candidate.service";
- import {EmployerService} from "./framework/registration/employer/employer.service";
+ import {RecruiterService} from "./framework/registration/recruiter/recruiter.service";
+import {TestService} from "./cnext/framework/test.service";
+import {RecruitingService} from "./framework/shared/recruiting.service";
+
 
 //C-NEXT IMPORTS
 import {ProfilePictureComponent} from "./cnext/framework/profile-picture/profile-picture.component";
@@ -64,7 +67,6 @@ import {CapabilityListComponent} from "./cnext/framework/capability-list/capabil
 import {proficiencyDomainComponent} from "./cnext/framework/proficiency-domains/proficiency-domain.component";
 import {ComplexityListComponent} from "./cnext/framework/complexity-list/complexity-list.component";
 import {MainHeaderComponent} from "./framework/main-header/main-header.component";
-import {TestService} from "./cnext/framework/test.service";
 import {ComplexityService} from "./cnext/framework/complexity.service";
 import {ProfessionalDataComponent} from "./cnext/framework/professional-data/professional-data.component";
 import {ProfessionalDataService} from "./cnext/framework/professional-data/professional-data.service";
@@ -112,7 +114,7 @@ import {IndustryListService} from "./cnext/framework/industry-list/industry-list
     LoginComponent,
     RegistrationComponent,
     CandidateComponent,
-    EmployerComponent,
+    RecruiterComponent,
     ActivateUserComponent,
     ActivateEmailComponent,
     VerifyUserComponent,
@@ -170,6 +172,7 @@ import {IndustryListService} from "./cnext/framework/industry-list/industry-list
     },
     MessageService,
     TestService,
+    RecruitingService,
     FacebookService,
     LoginService,
     LoaderService,
@@ -185,7 +188,7 @@ import {IndustryListService} from "./cnext/framework/industry-list/industry-list
     ThemeChangeService,
     RegistrationService,
     CandidateService,
-    EmployerService,
+    RecruiterService,
     DashboardService,
     ProfileService,
     ContactService,

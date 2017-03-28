@@ -45,7 +45,7 @@ export class ProfilePictureComponent  {
       if (this.filesToUpload[0].size <= 5000000) {
         this.dashboardService.makePictureUplaod(this.filesToUpload, []).then((result: any) => {
           if (result !== null) {
-            this.fileChangeSucess(result);
+            this.fileChangeSuccess(result);
           }
         }, (error:any) => {
           this.fileChangeFail(error);
@@ -64,7 +64,7 @@ export class ProfilePictureComponent  {
     }
   }
 
-  fileChangeSucess(result: any) {
+  fileChangeSuccess(result: any) {
     this.model = result.data;
     var socialLogin:string = LocalStorageService.getLocalValue(LocalStorage.IS_SOCIAL_LOGIN);
     if (!this.model.picture || this.model.picture === undefined) {

@@ -5,7 +5,7 @@ import {Component} from "@angular/core";
 import {Router} from "@angular/router";
 import {CompanyDetailsService} from "./company-details.service";
 import {CompanyDetails} from "./company-details";
-import {Employer} from "./../employer/employer";
+import {Recruiter} from "../recruiter/recruiter";
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {
   Message,
@@ -29,21 +29,21 @@ import {Http} from "@angular/http";
 })
 
 export class CompanyDetailsComponent {
-  model = new CompanyDetails();
-  model1 = new Employer();
-  companyDetailsForm: FormGroup;
-  company_name: any;
-  filesToUpload: Array<File>;
-  setOfDocuments:string[]=new Array();
-  image_path: any;
-  error_msg: string;
-  isShowErrorMessage: boolean = true;
-  BODY_BACKGROUND: string;
-  submitted = false;
-  fileName1:string;
-  fileName2:string;
-  fileName3:string;
-  buttonId:string;
+  private model = new CompanyDetails();
+  private model1 = new Recruiter();
+  private companyDetailsForm: FormGroup;
+  private company_name: any;
+  private filesToUpload: Array<File>;
+  private setOfDocuments:string[]=new Array();
+  private image_path: any;
+  private error_msg: string;
+  private isShowErrorMessage: boolean = true;
+  private BODY_BACKGROUND: string;
+  private submitted = false;
+  private fileName1:string;
+  private fileName2:string;
+  private fileName3:string;
+  private buttonId:string;
 
 
   constructor(private commanService: CommonService, private _router: Router, private http: Http,
@@ -93,58 +93,44 @@ export class CompanyDetailsComponent {
     this._router.navigate(['/']);
   }
 
-  fileChangeEvent(fileInput: any) {
+  fileChangeEvent(fileInput: any) {debugger
 
     this.filesToUpload = <Array<File>> fileInput.target.files;
-    this.buttonId = event.target.id;
+    this.buttonId = fileInput.target.id;
     if(this.buttonId =="file-upload1"){debugger
-
       this.fileName1=this.filesToUpload[0].name;
-      this.companyDetailsService.makeDocumentUplaod(this.filesToUpload, []).then((result: any) => {
-        if (result !== null) {
-          //this.model.document1 = result.data.document;
-          this.setOfDocuments[0]=result.data.document;
-          console.log("setOfDocuments is:",this.setOfDocuments);
-
-          this.fileChangeSucess(result);
-        }
-      }, (error:any) => {
-        this.fileChangeFail(error);
-      });
     }
-    else if(this.buttonId =="file-upload2"){debugger
+    else if(this.buttonId =="file-upload2"){
       this.fileName2=this.filesToUpload[0].name;
-      this.companyDetailsService.makeDocumentUplaod(this.filesToUpload, []).then((result: any) => {
-        if (result !== null) {
-          //this.model.document1 = result.data.document;
-          this.setOfDocuments[1]=result.data.document;
-          console.log("setOfDocuments is:",this.setOfDocuments);
-
-          this.fileChangeSucess(result);
-        }
-      }, (error:any) => {
-        this.fileChangeFail(error);
-      });
     }
-    else{
+    else {
       this.fileName3=this.filesToUpload[0].name;
+    }
+
       this.companyDetailsService.makeDocumentUplaod(this.filesToUpload, []).then((result: any) => {
         if (result !== null) {
-          //this.model.document1 = result.data.document;
-          this.setOfDocuments[2]=result.data.document;
+          if(this.buttonId =="file-upload1"){
+            this.setOfDocuments[0]=result.data.document;
+          }
+          else if(this.buttonId =="file-upload2"){
+            this.setOfDocuments[1]=result.data.document;
+          }
+          else{
+            this.setOfDocuments[2]=result.data.document;
+          }
+
           console.log("setOfDocuments is:",this.setOfDocuments);
 
-          this.fileChangeSucess(result);
+          this.fileChangeSuccess(result);
         }
       }, (error:any) => {
         this.fileChangeFail(error);
       });
-    }
 
   }
 
 
-  fileChangeSucess(result: any) {
+  fileChangeSuccess(result: any) {
     this.model = result.data;
     var socialLogin: string = LocalStorageService.getLocalValue(LocalStorage.IS_SOCIAL_LOGIN);
     if (!this.model.picture || this.model.picture === undefined) {

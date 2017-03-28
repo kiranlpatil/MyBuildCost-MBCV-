@@ -14,6 +14,7 @@ import {
 import { ImagePath, LocalStorage, ProjectAsset } from '../shared/constants';
 import { LocalStorageService } from '../shared/localstorage.service';
 import {LoaderService} from "../shared/loader/loader.service";
+import {RecruitingService} from "../shared/recruiting.service";
 
 
 @Component({
@@ -37,7 +38,7 @@ export class RegistrationComponent {
   BODY_BACKGROUND:string;
 
   constructor(private commanService: CommonService, private _router: Router,
-              private registrationService: RegistrationService, private messageService: MessageService, private formBuilder: FormBuilder,private loaderService:LoaderService) {
+              private registrationService: RegistrationService, private messageService: MessageService,private recruitingService: RecruitingService, private formBuilder: FormBuilder,private loaderService:LoaderService) {
 
     /*this.userForm = this.formBuilder.group({
       'first_name': ['', Validators.required],
@@ -124,10 +125,14 @@ export class RegistrationComponent {
 
   recruitmentForSelf() {
     this.isRecruitingForself = true;
+    this.recruitingService.change(this.isRecruitingForself);
+
   }
 
   recruitmentForOthers() {
     this.isRecruitingForself = false;
+    this.recruitingService.change(this.isRecruitingForself);
+
   }
 
 }
