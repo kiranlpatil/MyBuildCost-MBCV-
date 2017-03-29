@@ -51,6 +51,8 @@ export class RecruiterComponent {
   private BODY_BACKGROUND:string;
   private image_path: string;
   private isRecruitingForself:boolean = true;
+  private isShowMessage:boolean=false;
+  private myPassword:string="";
 
 
   constructor(private commanService: CommonService, private _router: Router, private http: Http,
@@ -69,7 +71,7 @@ export class RecruiterComponent {
       'mobile_number': ['', [Validators.required, ValidationService.mobileNumberValidator]],
       'email': ['', [Validators.required, ValidationService.emailValidator]],
       'password': ['', [Validators.required,ValidationService.passwordValidator]],
-      'conform_password': ['', [Validators.required,ValidationService.passwordValidator]],
+      'conform_password': ['', [Validators.required]],
       'location':[
         {
           'country':['',Validators.required],
@@ -230,4 +232,14 @@ export class RecruiterComponent {
     this.isShowErrorMessage = true;
   }
 
+  showMessage() {
+    this.isShowMessage =true
+  }
+
+  selectPassword(newval:any) {
+    if (this.myPassword.match(/(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/)) {debugger
+
+      this.isShowMessage=false;
+    }
+  }
 }

@@ -47,7 +47,7 @@ export class CandidateComponent {
   private yearList:string[]=this.dateservice.yearList;
   private passingyear:string;
   private myPassword:string="";
- private isShowMessage:boolean=false;
+  private isShowMessage:boolean=false;
 
   constructor(private commanService: CommonService, private _router: Router, private http: Http,private dateservice:DateService,
               private candidateService: CandidateService, private messageService: MessageService, private formBuilder: FormBuilder, private loaderService:LoaderService) {
@@ -180,8 +180,8 @@ export class CandidateComponent {
   }
 
   showMessage() {
-    this.isShowMessage =true
-  }
+  this.isShowMessage =true
+}
   goBack() {
     this.commanService.goBack();
     this._router.navigate(['/']);
@@ -202,7 +202,7 @@ export class CandidateComponent {
   }
 
 
-  selectPassword(newval:string) {
+  selectPassword(newval:any) {
      if (this.myPassword.match(/(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/)) {debugger
 
         this.isShowMessage=false;
