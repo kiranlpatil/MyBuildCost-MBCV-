@@ -46,6 +46,8 @@ export class CandidateComponent {
   private currentDate: any;
   private yearList = new Array();
   private passingyear:string;
+  private myPassword:string="";
+ private isShowMessage:boolean=false;
 
   constructor(private commanService: CommonService, private _router: Router, private http: Http,
               private candidateService: CandidateService, private messageService: MessageService, private formBuilder: FormBuilder, private loaderService:LoaderService) {
@@ -55,8 +57,8 @@ export class CandidateComponent {
       'last_name': ['', Validators.required],
       'mobile_number': ['', [Validators.required, ValidationService.mobileNumberValidator]],
       'email': ['', [Validators.required, ValidationService.emailValidator]],
-      'password': ['', [Validators.required, Validators.minLength(8)]],
-      'conform_password': ['', [Validators.required, Validators.minLength(8)]],
+      'password': ['', [Validators.required,ValidationService.passwordValidator]],
+      'conform_password': ['', Validators.required],
       'birth_year':['', [Validators.required,ValidationService.birthYearValidator]],
       'location':[
         {
@@ -72,10 +74,8 @@ export class CandidateComponent {
     this.currentDate = new Date();
     this.year = this.currentDate.getUTCFullYear();
     this.createYearList(this.year);
-
-
-
     this.BODY_BACKGROUND = ImagePath.BODY_BACKGROUND;
+
   }
 
   ngOnInit()
@@ -143,7 +143,7 @@ export class CandidateComponent {
 
   }
 
-  onSubmit() {
+  onSubmit() {debugger
     this.model = this.userForm.value;
     this.model.location.country
     this.model.current_theme = AppSettings.LIGHT_THEM;
@@ -187,6 +187,10 @@ export class CandidateComponent {
     }
   }
 
+  showMessage()
+  {
+    this.isShowMessage =true
+  }
   goBack() {
     this.commanService.goBack();
     this._router.navigate(['/']);
@@ -205,5 +209,15 @@ export class CandidateComponent {
   closeErrorMessage() {
     this.isShowErrorMessage = true;
   }
+
+
+  selectPassword(newval:any) {debugger
+     if (this.myPassword.match(/(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/)) {debugger
+
+        this.isShowMessage=false;
+     }
+  }
+
+
 
 }

@@ -35,19 +35,19 @@ import {isBoolean} from "util";
 
 
 export class LoginComponent implements OnInit {
-  model = new Login();
-  googleModel = new GoogleToken();
-  userForm:FormGroup;
-  error_msg:string;
-  isShowErrorMessage:boolean = true;
-  status:boolean;
-  MY_LOGO_PATH:string;
-  EMAIL_ICON:string;
-  PASSWORD_ICON:string;
-  APP_NAME:string;
-  MY_TAG_LINE:string;
-  UNDER_LICENCE:string;
-  BODY_BACKGROUND:string;
+  private model = new Login();
+  private googleModel = new GoogleToken();
+  private userForm:FormGroup;
+  private error_msg:string;
+  private isShowErrorMessage:boolean = true;
+  private status:boolean;
+  private MY_LOGO_PATH:string;
+  private EMAIL_ICON:string;
+  private PASSWORD_ICON:string;
+  private APP_NAME:string;
+  private MY_TAG_LINE:string;
+  private UNDER_LICENCE:string;
+  private BODY_BACKGROUND:string;
 
 
   constructor(private _router:Router, private loginService:LoginService, private themeChangeService:ThemeChangeService,
@@ -144,7 +144,7 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  loginFail(error:any) {
+  loginFail(error:any) {debugger
     //this.loaderService.stop();
     if (error.err_code === 404 || error.err_code === 0) {
       var message = new Message();
@@ -153,7 +153,7 @@ export class LoginComponent implements OnInit {
       this.messageService.message(message);
     } else {
       this.isShowErrorMessage = false;
-      this.error_msg = error.message;
+      this.error_msg = error.err_msg;
     }
   }
 
@@ -237,7 +237,7 @@ export class LoginComponent implements OnInit {
     this._router.navigate([NavigationRoutes.APP_FORGOTPASSWORD]);
   }
 
-  closeErrorMessage() {
+  closeErrorMessage() {debugger
     this.isShowErrorMessage = true;
   }
   setGoogleToken(googleToken:any) {

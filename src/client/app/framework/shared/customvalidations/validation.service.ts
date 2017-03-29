@@ -1,11 +1,12 @@
 
 export class ValidationService {
+
   static getValidatorErrorMessage(validatorName:string, validatorValue?:any) {
     let config:any = {
       'required': 'Required',
       'requiredname': 'Name is required',
       'invalidEmailAddress': 'Email is invalid ',
-      'invalidPassword': 'Invalid password. Password must be at least 8 characters long, and contain a number.',
+      'invalidPassword': 'Password must contain at least one digit/lowercase/uppercase letter and be at least eight characters long.',
       'maxlength': `Maximum ${validatorValue.requiredLength} charcters`,
       'minlength': `Minimum ${validatorValue.requiredLength} charcters`,
       'invalidMobile': 'Mobile number should be of 10 digit ',
@@ -29,13 +30,19 @@ export class ValidationService {
     return null;
   }
 
-  static passwordValidator(control:any) {
-    if (control.value.match(/^(?=.*[0-9])[a-zA-Z0-9!@#$%^&*]{6,100}$/)) {
+
+  static passwordValidator(control:any) {debugger
+    if (control.value.match(/(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/)) {debugger
+
       return null;
+
     } else {
+
       return {'invalidPassword': true};
     }
   }
+
+
   static mobileNumberValidator(control:any) {
     var mobileNumber = control.value;
     var count = 0;

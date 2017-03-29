@@ -67,8 +67,8 @@ export class RecruiterComponent {
       'company_size': [''],
       'mobile_number': ['', [Validators.required, ValidationService.mobileNumberValidator]],
       'email': ['', [Validators.required, ValidationService.emailValidator]],
-      'password': ['', [Validators.required, Validators.minLength(8)]],
-      'conform_password': ['', [Validators.required, Validators.minLength(8)]],
+      'password': ['', [Validators.required,ValidationService.passwordValidator]],
+      'conform_password': ['', [Validators.required,ValidationService.passwordValidator]],
       'location':[
         {
           'country':['',Validators.required],
