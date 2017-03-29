@@ -19,6 +19,7 @@ import { LocalStorageService } from '../../shared/localstorage.service';
 import {LoaderService} from "../../shared/loader/loader.service";
 import {Http,Response} from "@angular/http";
 import {Location} from "../location";
+import {DateService} from "../../../cnext/framework/date.service";
 
 @Component({
   moduleId: module.id,
@@ -39,17 +40,16 @@ export class CandidateComponent {
   private isPasswordConfirm: boolean;
   private isFormSubmitted = false;
   private userForm: FormGroup;
+  private formValue: FormGroup;
   private error_msg: string;
   private isShowErrorMessage: boolean = true;
   private BODY_BACKGROUND:string;
-  private year: any;
-  private currentDate: any;
-  private yearList = new Array();
+  private yearList:string[]=this.dateservice.yearList;
   private passingyear:string;
   private myPassword:string="";
  private isShowMessage:boolean=false;
 
-  constructor(private commanService: CommonService, private _router: Router, private http: Http,
+  constructor(private commanService: CommonService, private _router: Router, private http: Http,private dateservice:DateService,
               private candidateService: CandidateService, private messageService: MessageService, private formBuilder: FormBuilder, private loaderService:LoaderService) {
 
     this.userForm = this.formBuilder.group({
@@ -71,15 +71,12 @@ export class CandidateComponent {
       'pin':['',[Validators.required,ValidationService.pinValidator]]
     });
 
-    this.currentDate = new Date();
-    this.year = this.currentDate.getUTCFullYear();
-    this.createYearList(this.year);
+
     this.BODY_BACKGROUND = ImagePath.BODY_BACKGROUND;
 
   }
 
-  ngOnInit()
-  {
+  ngOnInit() {
 
       this.http.get("address")
         .map((res: Response) => res.json())
@@ -95,21 +92,14 @@ export class CandidateComponent {
           err => console.error(err),
           () => console.log()
         );
-
-
-
   }
+
   selectYearModel(newval: any){
     this.passingyear=newval;
     this.model.birth_year=newval;
   }
 
-  createYearList(year: any) {
-    for (let i = 0; i < VALUE_CONSTANT.MAX_ACADEMIC_YEAR_LIST; i++) {
-      this.yearList.push(year--);
-    }
-  }
-  selectCountryModel(newval:any) {
+  selectCountryModel(newval:string) {
     for(let item of this.locationDetails){
       if(item.country===newval){
           let tempStates: string[]= new Array(0);
@@ -121,7 +111,8 @@ export class CandidateComponent {
     }
     this.storedcountry=newval;
   }
-  selectStateModel(newval:any) {
+
+  selectStateModel(newval:string) {
     for(let item of this.locationDetails){
       if(item.country===this.storedcountry){
         for(let state of item.states){
@@ -138,14 +129,14 @@ export class CandidateComponent {
     this.storedstate=newval;
   }
 
-  selectCityModel(newval : number){
-    this.model.birth_year=newval;
+  selectCityModel(newval : string){
+    this.storedcity=newval;
 
   }
 
   onSubmit() {debugger
+
     this.model = this.userForm.value;
-    this.model.location.country
     this.model.current_theme = AppSettings.LIGHT_THEM;
     this.model.isCandidate =true;
     this.model.location.country =this.storedcountry;
@@ -159,18 +150,19 @@ export class CandidateComponent {
       // this.loaderService.start();
       this.candidateService.addCandidate(this.model)
         .subscribe(
-          user => this.onRegistrationSuccess(user),
+          candidate => this.onRegistrationSuccess(candidate),
           error => this.onRegistrationError(error));
     }
   }
 
-  onRegistrationSuccess(user: any) {
+  onRegistrationSuccess(candidate: any) {debugger
     //this.loaderService.stop();
-    LocalStorageService.setLocalValue(LocalStorage.USER_ID, user.data._id);
+    LocalStorageService.setLocalValue(LocalStorage.USER_ID, candidate.data._id);
     LocalStorageService.setLocalValue(LocalStorage.EMAIL_ID, this.userForm.value.email);
     LocalStorageService.setLocalValue(LocalStorage.MOBILE_NUMBER, this.userForm.value.mobile_number);
     LocalStorageService.setLocalValue(LocalStorage.CHANGE_MAIL_VALUE, 'from_registration');
-    this.userForm.reset();
+
+   // this.userForm.reset();
     this._router.navigate([NavigationRoutes.VERIFY_USER]);
   }
 
@@ -187,8 +179,7 @@ export class CandidateComponent {
     }
   }
 
-  showMessage()
-  {
+  showMessage() {
     this.isShowMessage =true
   }
   goBack() {
@@ -211,13 +202,11 @@ export class CandidateComponent {
   }
 
 
-  selectPassword(newval:any) {debugger
+  selectPassword(newval:string) {
      if (this.myPassword.match(/(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/)) {debugger
 
         this.isShowMessage=false;
      }
   }
-
-
 
 }

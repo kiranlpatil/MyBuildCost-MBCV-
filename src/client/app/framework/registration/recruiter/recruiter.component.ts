@@ -17,6 +17,7 @@ import { LocalStorageService } from '../../shared/localstorage.service';
 import {LoaderService} from "../../shared/loader/loader.service";
 import {Http,Response} from "@angular/http";
 import {RecruitingService} from "../../shared/recruiting.service";
+import {DateService} from "../../../cnext/framework/date.service";
 
 
 @Component({
@@ -48,7 +49,7 @@ export class RecruiterComponent {
   private error_msg: string;
   private isShowErrorMessage: boolean = true;
   private BODY_BACKGROUND:string;
-  private image_path: any;
+  private image_path: string;
   private isRecruitingForself:boolean = true;
 
 
@@ -81,12 +82,12 @@ export class RecruiterComponent {
       'company_headquarter_country':['']
 
     });
-    this.model = this.recruiterForm.value;
     this.BODY_BACKGROUND = ImagePath.BODY_BACKGROUND;
     this.image_path = ImagePath.PROFILE_IMG_ICON;
   }
   ngOnInit()
   {
+    this.model = this.recruiterForm.value;
 
     this.http.get("address")
       .map((res: Response) => res.json())
@@ -116,13 +117,16 @@ export class RecruiterComponent {
 
   }
 
-  selectCompanySizeModel(newval:any) {
+  selectCompanySizeModel(newval:string) {debugger
 
     this.storedcompanySize=newval;
-    this.model.company_size=this.storedcompanySize;
+    this.recruiterForm.value.company_size=this.storedcompanySize;
+    this.model.company_size=this.recruiterForm.value.company_size;
+    console.log("company_size is",this.recruiterForm.value.company_size);
+    console.log("company_size is",this.storedcompanySize);
   }
 
-  selectCountryModel(newval:any) {
+  selectCountryModel(newval:string) {
     for(let item of this.locationDetails){
       if(item.country===newval){
         let tempStates: string[]= new Array(0);
@@ -138,10 +142,10 @@ export class RecruiterComponent {
   selectCompanyHeadquarterModel(newval : string){debugger
 
     this.companyHeadquarter=newval;
-    this.model.company_headquarter_country=this.companyHeadquarter;
+    this.recruiterForm.value.company_headquarter_country=this.companyHeadquarter;
   }
 
-  selectStateModel(newval:any) {
+  selectStateModel(newval:string) {
     for(let item of this.locationDetails){
       if(item.country===this.storedcountry){
         for(let state of item.states){
@@ -163,21 +167,20 @@ export class RecruiterComponent {
 
   }
 
-
-
-
   onSubmit() {debugger
-   // this.model = this.recruiterForm.value;
+    this.model = this.recruiterForm.value;
+    console.log("storedcompanySize value",this.storedcompanySize);
     this.model.current_theme = AppSettings.LIGHT_THEM;
+
     this.model.location.country =this.storedcountry;
     this.model.location.state = this.storedstate;
     this.model.location.city = this.storedcity;
     this.model.location.pin = this.model.pin;
     this.model.isCandidate =false;
+    this.model.company_size=this.storedcompanySize;
     this.model.isRecruitingForself =this.isRecruitingForself;
     if (!this.makePasswordConfirm()) {
       this.isFormSubmitted = true;
-      // this.loaderService.start();
       this.recruiterService.addRecruiter(this.model)
         .subscribe(
           user => this.onRegistrationSuccess(user),
@@ -186,18 +189,16 @@ export class RecruiterComponent {
   }
 
   onRegistrationSuccess(user: any) {
-    //this.loaderService.stop();
     LocalStorageService.setLocalValue(LocalStorage.USER_ID, user.data._id);
     LocalStorageService.setLocalValue(LocalStorage.EMAIL_ID,this.recruiterForm.value.email);
     LocalStorageService.setLocalValue(LocalStorage.EMAIL_ID,this.recruiterForm.value.email);
     LocalStorageService.setLocalValue(LocalStorage.COMPANY_NAME, this.recruiterForm.value.company_name);
     LocalStorageService.setLocalValue(LocalStorage.CHANGE_MAIL_VALUE, 'from_registration');
-    this.recruiterForm.reset();
+   // this.recruiterForm.reset();
     this._router.navigate([NavigationRoutes.APP_COMPANYDETAILS]);
-    // this._router.navigate([NavigationRoutes.VERIFY_USER]);
   }
 
-  onRegistrationError(error: any) {
+  onRegistrationError(error: any) {debugger
     // this.loaderService.stop();
     if (error.err_code === 404 || error.err_code === 0) {
       var message = new Message();
@@ -206,7 +207,7 @@ export class RecruiterComponent {
       this.messageService.message(message);
     } else {
       this.isShowErrorMessage = false;
-      this.error_msg = error.message;
+      this.error_msg = error.err_msg;
     }
   }
 

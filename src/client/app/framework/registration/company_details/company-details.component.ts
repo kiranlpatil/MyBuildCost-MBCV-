@@ -93,6 +93,10 @@ export class CompanyDetailsComponent {
     this._router.navigate(['/']);
   }
 
+  goToLanding() {
+    this._router.navigate(['/landing']);
+  }
+
   fileChangeEvent(fileInput: any) {debugger
 
     this.filesToUpload = <Array<File>> fileInput.target.files;
@@ -180,7 +184,7 @@ export class CompanyDetailsComponent {
       this.messageService.message(message);
     } else {
       this.isShowErrorMessage = false;
-      this.error_msg = error.message;
+      this.error_msg = error.err_msg;
     }
   }
 

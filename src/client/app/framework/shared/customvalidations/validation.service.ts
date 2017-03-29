@@ -36,10 +36,10 @@ export class ValidationService {
 
       return null;
 
-    } else {
+    } /*else {
 
       return {'invalidPassword': true};
-    }
+    }*/
   }
 
 
