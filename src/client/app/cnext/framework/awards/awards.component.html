@@ -1,7 +1,7 @@
 <div *ngFor="let item of tempfield;let i= index">
   <div>
     <label>Title</label>
-    <input type="text"  required  [ngModel]="title" (ngModelChange)="selectedTitle($event)" />
+    <input type="text"  required  [ngModel]="title" (ngModelChange)="selectedTitle($event)"  (focus)="changeValue()"/>
 
   </div>
   <div  id="montht" ng2-auto-complete

@@ -24,7 +24,7 @@
         </div>
       </div>
 
-      <div class="section-container">
+      <div class="section-container" >
         <h4 class="heading">Choose Your Capabilities (Max. 10)</h4>
         <div class="main-content">
           <cn-capibility-list></cn-capibility-list>
@@ -42,13 +42,13 @@
         <div class="col-sm-6 padding-right5">
           <h4 class="heading">Proficiencies (Max. 20)</h4>
           <div class="main-content">
-            <cn-proficiencydoamin [type]="'profeciency'"></cn-proficiencydoamin>
+            <cn-proficiency-doamin [type]="'profeciency'"></cn-proficiency-doamin>
           </div>
         </div>
         <div class="col-sm-6 padding-left5">
           <h4 class="heading">Domains (Max. 20)</h4>
           <div class="main-content">
-            <cn-proficiencydoamin [type]="'domain'"></cn-proficiencydoamin>
+            <cn-proficiency-doamin [type]="'domain'"></cn-proficiency-doamin>
           </div>
         </div>
       </div>
@@ -65,7 +65,6 @@
           <span class="close-dialog">Close this box if not interested
             <span class="glyphicon glyphicon-remove" (click)="hideEmployeeHistory()"></span>
           </span>
-
         </h4>
         <div class="main-content" >
           <cn-Employment-History></cn-Employment-History>

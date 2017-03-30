@@ -2,6 +2,7 @@ import {  Component } from '@angular/core';
 import { FormGroup} from '@angular/forms';
 import {academicdetails} from "./academic-details";
 import {VALUE_CONSTANT} from "../../../framework/shared/constants";
+import {EducationalService} from "../educational-service";
 
 @Component({
   moduleId: module.id,
@@ -20,7 +21,7 @@ export class AcademicDetailComponent {
  private selectedacademicsdeatils:academicdetails[]=new Array();
 
 
-  constructor() {
+  constructor(private educationalService : EducationalService) {
 
     this.tempfield = new Array(1);
     this.currentDate = new Date();
@@ -52,7 +53,10 @@ this.selectedacademic.schoolName=schoolname;
     this.selectedacademic.specialization=remark;
   };
 
+  changeValue(){
+    this.educationalService.change(true);
 
+  }
 
 
   addAnother() {

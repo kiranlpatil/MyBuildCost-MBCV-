@@ -119,7 +119,7 @@ export class RecruiterComponent {
 
   }
 
-  selectCompanySizeModel(newval:string) {debugger
+  selectCompanySizeModel(newval:string) {
 
     this.storedcompanySize=newval;
     this.recruiterForm.value.company_size=this.storedcompanySize;
@@ -141,7 +141,7 @@ export class RecruiterComponent {
     this.storedcountry=newval;
   }
 
-  selectCompanyHeadquarterModel(newval : string){debugger
+  selectCompanyHeadquarterModel(newval : string){
 
     this.companyHeadquarter=newval;
     this.recruiterForm.value.company_headquarter_country=this.companyHeadquarter;
@@ -169,7 +169,7 @@ export class RecruiterComponent {
 
   }
 
-  onSubmit() {debugger
+  onSubmit() {
     this.model = this.recruiterForm.value;
     console.log("storedcompanySize value",this.storedcompanySize);
     this.model.current_theme = AppSettings.LIGHT_THEM;
@@ -200,7 +200,7 @@ export class RecruiterComponent {
     this._router.navigate([NavigationRoutes.APP_COMPANYDETAILS]);
   }
 
-  onRegistrationError(error: any) {debugger
+  onRegistrationError(error: any) {
     // this.loaderService.stop();
     if (error.err_code === 404 || error.err_code === 0) {
       var message = new Message();
@@ -237,7 +237,7 @@ export class RecruiterComponent {
   }
 
   selectPassword(newval:any) {
-    if (this.myPassword.match(/(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/)) {debugger
+    if (this.myPassword.match(/(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/)) {
 
       this.isShowMessage=false;
     }

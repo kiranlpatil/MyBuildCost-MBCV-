@@ -93,7 +93,7 @@ export class JobRequirementComponent {
 
   }
 
-  selecteducationModel(newVal: any) {debugger
+  selecteducationModel(newVal: any) {
     this.educationModel = newVal;
 
     this.jobRequirement.educationModel = this.educationModel;
@@ -113,7 +113,7 @@ export class JobRequirementComponent {
 
   }
 
-  selectexperienceModel(newVal: any) {debugger
+  selectexperienceModel(newVal: any) {
     this.experienceModel = newVal;
 
     this.jobRequirement.experienceModel = this.experienceModel;

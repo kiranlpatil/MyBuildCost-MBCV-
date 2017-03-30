@@ -2,6 +2,7 @@
 import {  Component } from '@angular/core';
 import {EmployementHistory} from "../model/employment-history";
 import {VALUE_CONSTANT} from "../../../framework/shared/constants";
+import {EducationalService} from "../educational-service";
 
 @Component({
   moduleId: module.id,
@@ -51,6 +52,8 @@ export class EmploymentHistoryComponent {
 
   }
 
+  
+  
   reMark(remark:string){
     this.selectedEmploymentHistory.remarks=remark;
   }

@@ -29,7 +29,6 @@ export class CapabilityListService extends BaseService {
 
   getCapability(industry:string,roles:Array<string>):Observable<any> {
     var url = API.INDUSTRY_LIST+'/'+industry+'/'+API.ROLE_LIST+'/'+API.CAPABILITY_LIST+'?roles='+JSON.stringify(roles);
-    console.log(url);
     return this.http.get(url)
       .map(this.extractData)
       .catch(this.handleError);

@@ -97,11 +97,11 @@ export class CompanyDetailsComponent {
     this._router.navigate(['/landing']);
   }
 
-  fileChangeEvent(fileInput: any) {debugger
+  fileChangeEvent(fileInput: any) {
 
     this.filesToUpload = <Array<File>> fileInput.target.files;
     this.buttonId = fileInput.target.id;
-    if(this.buttonId =="file-upload1"){debugger
+    if(this.buttonId =="file-upload1"){
       this.fileName1=this.filesToUpload[0].name;
     }
     else if(this.buttonId =="file-upload2"){

@@ -31,8 +31,8 @@ export class ValidationService {
   }
 
 
-  static passwordValidator(control:any) {debugger
-    if (control.value.match(/(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/)) {debugger
+  static passwordValidator(control:any) {
+    if (control.value.match(/(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/)) {
 
       return null;
 

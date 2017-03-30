@@ -7,7 +7,7 @@ import {proficiencyDomainService} from "./proficiency-domain.service";
 
 @Component({
   moduleId: module.id,
-  selector: 'cn-proficiencydoamin',
+  selector: 'cn-proficiency-doamin',
   templateUrl: 'proficiency-domain.component.html',
   styleUrls: ['proficiency-domain.component.css']
 })

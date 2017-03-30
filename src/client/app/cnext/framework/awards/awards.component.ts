@@ -2,6 +2,7 @@
 import {  Component } from '@angular/core';
 import {awards} from "../model/awards";
 import {DateService} from "../date.service";
+import {AwardService} from "../award-service";
 
 @Component({
   moduleId: module.id,
@@ -20,13 +21,17 @@ export class AwardsComponent {
 
 
 
-  constructor(private dateservice:DateService) {
+  constructor(private dateservice:DateService,private awardService:AwardService) {
     this.tempfield = new Array(1);
 
 
 
   }
 
+  changeValue(){
+    this.awardService.change(true);
+
+  }
   selectedTitle(title:string)
   {
 this.selectedaward.title=title;

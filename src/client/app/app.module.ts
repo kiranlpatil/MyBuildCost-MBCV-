@@ -96,6 +96,9 @@ import {MyJobRequirementService} from "./cnext/framework/jobrequirement-service"
 import {IndustryListComponent} from "./cnext/framework/industry-list/industry-list.component";
 import {IndustryListService} from "./cnext/framework/industry-list/industry-list.service";
 import {DateService} from "./cnext/framework/date.service";
+import {ProfessionalService} from "./cnext/framework/professional-service";
+import {EducationalService} from "./cnext/framework/educational-service";
+import {AwardService} from "./cnext/framework/award-service";
 
 @NgModule({
   imports: [
@@ -205,6 +208,9 @@ import {DateService} from "./cnext/framework/date.service";
     MyRoleService,
     MyIndustryService,
     MyJobRequirementService,
+    AwardService,
+    ProfessionalService,
+    EducationalService,
     ProfessionalDataService,
     EmploymentHistoryService,
     proficiencyDomainService,

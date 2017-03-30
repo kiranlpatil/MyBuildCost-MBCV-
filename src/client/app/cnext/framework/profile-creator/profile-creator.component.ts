@@ -6,6 +6,9 @@ import {DashboardService} from "../../../framework/dashboard/dashboard.service";
 import {TestService} from "../test.service";
 import {ComplexityService} from "../complexity.service";
 import {ProficiencyService} from "../proficience.service";
+import {ProfessionalService} from "../professional-service";
+import {EducationalService} from "../educational-service";
+import {AwardService} from "../award-service";
 
 
 @Component({
@@ -25,27 +28,48 @@ export class ProfileCreatorComponent {
   private  chkCertification:boolean=false;
   private  chkAboutMyself:boolean=false;
   private  chkAwards:boolean=false;
+  private  showcapability:boolean=false;
   private  whichStepsVisible : boolean[]=new Array(7);
 
-  constructor(private _router:Router, private dashboardService:DashboardService,
+  constructor(private _router:Router,
+              private dashboardService:DashboardService,
               private testService : TestService,
               private proficiencyService : ProficiencyService,
-              private complexityService : ComplexityService) {
+              private professionalService : ProfessionalService, 
+              private educationalService : EducationalService,
+              private complexityService : ComplexityService,
+              private awardService: AwardService) {
       testService.showTest$.subscribe(
         data=>{
-            this.whichStepsVisible[1]=true;
+            this.whichStepsVisible[1]=data;
+          this.showcapability=data;
         }
       );
       complexityService.showTest$.subscribe(
         data=>{
-          this.whichStepsVisible[2]=true;
+          this.whichStepsVisible[2]=data;
         }
       );
       proficiencyService.showTest$.subscribe(
         data=>{
-          this.whichStepsVisible[3]=true;
+          this.whichStepsVisible[3]=data;
         }
       );
+    professionalService.showTest$.subscribe(
+        data=>{
+          this.whichStepsVisible[4]=data;
+        }
+      );
+    educationalService.showTest$.subscribe(
+        data=>{
+          this.whichStepsVisible[5]=data;
+        }
+      );
+    awardService.showTest$.subscribe(
+      data=>{
+        this.whichStepsVisible[6]=data;
+      }
+    );
   }
 
 
@@ -79,7 +103,7 @@ export class ProfileCreatorComponent {
   onUserProfileError(error:any) {
     console.log(error);
   }
-  showorhide(event:string){debugger
+  showorhide(event:string){
 
 this.valueOFshowOrHide=event;
 

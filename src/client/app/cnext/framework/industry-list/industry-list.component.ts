@@ -26,7 +26,9 @@ export class IndustryListComponent {
   private maxRoles : number =3;
   private  roleNames:string[] =new Array();
   private showModalStyle: boolean = false;
-  private disbleRole: boolean = false;
+  private disbleRole: boolean = true;
+  private disbleButton: boolean = true;
+  private disableIndustry: boolean = false;
   private industryRoles=new IndustryList();
   private reAdds:string[]=new Array();
   private reAdd:string;
@@ -63,6 +65,7 @@ export class IndustryListComponent {
   }
 
   selectIndustryModel(industry: any) {
+    this.disbleRole=false;
     this.industryModel = industry;
     this.searchIndustryId(industry);
     this.industryService.getRoles(industry)
@@ -88,6 +91,7 @@ export class IndustryListComponent {
       }
     }
   }
+
   onRoleListSuccess(data:any){
     this.rolesData=data;
     for(let role of data){
@@ -96,6 +100,7 @@ export class IndustryListComponent {
   }
 
   selectRolesModel(roleName: any) {
+    this.disbleButton=false;
     this.roleModel=roleName;
     this.storedRoles.push(roleName);
     this.deleteSelectedRole(roleName);
@@ -138,8 +143,6 @@ if(this.roleModel===""){
     }
   }
 
-
-
   addNewRole(){
     if(this.temproles.length<this.maxRoles){
       this.temproles.push("null");
@@ -156,18 +159,19 @@ if(this.roleModel===""){
       });
   };
 
-
   showHideModal() {
     this.showModalStyle = !this.showModalStyle;
   }
 
-
   disableRole(){
-    this.testService.change(true);
-    this.showModalStyle = !this.showModalStyle;
-    this.disbleRole=true;
-    this.createAndSave();
-    this.roleService.change(this.storedRoles);
+      this.testService.change(true);
+      this.showModalStyle = !this.showModalStyle;
+      this.disbleRole = true;
+      this.disbleButton = true;
+      this.disableIndustry = true;
+      this.createAndSave();
+      this.roleService.change(this.storedRoles);
+    
   }
 
   getStyleModal() {

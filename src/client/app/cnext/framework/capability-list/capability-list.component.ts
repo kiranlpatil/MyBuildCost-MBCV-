@@ -22,19 +22,19 @@ import {Message} from "../../../framework/shared/message";
 })
 
 export class CapabilityListComponent {
-  private capabilities =new Array();
-  private primaryCapabilities=new Array();
-  private secondaryCapabilities=new Array();
+  private capabilities:string[] =new Array();
+  private primaryCapabilities:string[]=new Array();
+  private secondaryCapabilities:string[]=new Array();
   private isShowCapability :boolean=false;
   private isPrimary: boolean[] =new Array() ;
   private isSecondary: boolean[] =new Array() ;
   private industry: string;
   private capabilityData:any;
-  private capabilityIds=new Array();
+  private capabilityIds :string[]=new Array();
   private roles:any;
   private iscandidate:boolean=false;
-  constructor(
-              private testService : TestService,
+  
+  constructor(private testService : TestService,
               private complexityService : ComplexityService,
               private myIndustryService :MyIndustryService,
               private roleservice :MyRoleService,
@@ -51,13 +51,12 @@ export class CapabilityListComponent {
     myIndustryService.showTest$.subscribe(
       data=>{
         this.industry=data;
-        console.log("industry list in capab",this.industry);
+        console.log("in capab",this.industry )
       }
     );
     roleservice.showTest$.subscribe(
       data=>{
         this.roles=data;
-        console.log("role list in capab",this.roles);
         this.capabilityListServive.getCapability(this.industry,this.roles)
           .subscribe(
             capabilitylist => this.onCapabilityListSuccess(capabilitylist.data),
@@ -69,7 +68,6 @@ export class CapabilityListComponent {
         this.isShowCapability=true;
         this.roles=data.roleModel;
         this.industry=data.industryModel;
-        console.log("role list in capab",this.roles,this.industry);
         this.capabilityListServive.getCapability(this.industry,this.roles)
           .subscribe(
             capabilitylist => this.onCapabilityListSuccess(capabilitylist.data),
@@ -80,17 +78,18 @@ export class CapabilityListComponent {
 
   ngOnInit(){
     this.iscandidate= !(LocalStorageService.getLocalValue(LocalStorage.IS_CANDIDATE));
-    console.log("capability",LocalStorageService.getLocalValue(LocalStorage.IS_CANDIDATE));
   }
 
   onCapabilityListSuccess(data:any){
     this.capabilityData=data;
+    console.log(this.capabilities);
     if(data != undefined){
       this.isPrimary=new Array(data.length);
       this.isSecondary=new Array(data.length);
       for(let capability of data){
         this.capabilities.push(capability.name);
       }
+      console.log("capbility",this.capabilities);
     }
   }
   onError(error:any){

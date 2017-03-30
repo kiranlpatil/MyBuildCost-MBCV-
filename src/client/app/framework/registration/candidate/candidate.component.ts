@@ -134,7 +134,7 @@ export class CandidateComponent {
 
   }
 
-  onSubmit() {debugger
+  onSubmit() {
 
     this.model = this.userForm.value;
     this.model.current_theme = AppSettings.LIGHT_THEM;
@@ -155,7 +155,7 @@ export class CandidateComponent {
     }
   }
 
-  onRegistrationSuccess(candidate: any) {debugger
+  onRegistrationSuccess(candidate: any) {
     //this.loaderService.stop();
     LocalStorageService.setLocalValue(LocalStorage.USER_ID, candidate.data._id);
     LocalStorageService.setLocalValue(LocalStorage.EMAIL_ID, this.userForm.value.email);
@@ -203,7 +203,7 @@ export class CandidateComponent {
 
 
   selectPassword(newval:any) {
-     if (this.myPassword.match(/(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/)) {debugger
+     if (this.myPassword.match(/(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/)) {
 
         this.isShowMessage=false;
      }

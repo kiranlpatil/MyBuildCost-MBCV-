@@ -5,6 +5,7 @@ import {ProfessionalData} from "../model/professional-data";
 import {ProfessionalDataService } from "./professional-data.service"
 import {Message} from "../../../framework/shared/message";
 import {MessageService} from "../../../framework/shared/message.service";
+import {ProfessionalService} from "../professional-service";
 @Component({
   moduleId: module.id,
   selector: 'cn-professional-data',
@@ -27,7 +28,9 @@ export class ProfessionalDataComponent extends BaseService {
 
 
 
-  constructor(private professionaldataservice:ProfessionalDataService, private messageService:MessageService) {
+  constructor(private professionaldataservice:ProfessionalDataService, 
+              private messageService:MessageService,
+              private professionalService : ProfessionalService) {
     super();
   }
 
@@ -101,7 +104,10 @@ export class ProfessionalDataComponent extends BaseService {
     this.messageService.message(message);
   }
 
-
+  changeValue(){
+    this.professionalService.change(true);
+    
+  }
   selectedRealocationModel(newVal: any) {
     this.realocationModel = newVal;
     this.selectedProfessionalData.relocate=this.realocationModel;

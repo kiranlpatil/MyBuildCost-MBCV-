@@ -38,7 +38,7 @@ export class CustomHttp extends Http {
     this.loaderService.start();
     return observable.do(()=>this.loaderService.stop())
       .catch((err, source) => {
-        debugger
+        
         this.loaderService.stop();
         var message = new Message();
         message.isError = true;
@@ -63,7 +63,6 @@ export class CustomHttp extends Http {
           return Observable.throw(errorInstance);
         }
         else if (err.err_msg) {
-          debugger
           errorInstance.err_msg = err.err_msg;
           return Observable.throw(errorInstance);
           console.log("errorInstance is:", errorInstance);

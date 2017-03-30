@@ -93,7 +93,7 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  onSubmit() {debugger
+  onSubmit() {
   //  this.loaderService.start();
 
     this.model = this.userForm.value;
@@ -104,7 +104,7 @@ export class LoginComponent implements OnInit {
         error => (this.loginFail(error)));
   }
 
-  loginSuccess(res:any) {debugger
+  loginSuccess(res:any) {
     LocalStorageService.setLocalValue(LocalStorage.IS_CANDIDATE, res.data.isCandidate);
     // this.loaderService.stop();
     this.userForm.reset();
@@ -144,7 +144,7 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  loginFail(error:any) {debugger
+  loginFail(error:any) {
     //this.loaderService.stop();
     if (error.err_code === 404 || error.err_code === 0) {
       var message = new Message();
@@ -237,7 +237,7 @@ export class LoginComponent implements OnInit {
     this._router.navigate([NavigationRoutes.APP_FORGOTPASSWORD]);
   }
 
-  closeErrorMessage() {debugger
+  closeErrorMessage() {
     this.isShowErrorMessage = true;
   }
   setGoogleToken(googleToken:any) {
