@@ -134,8 +134,8 @@ export class LoginComponent implements OnInit {
       this._router.navigate([NavigationRoutes.APP_CREATEPROFILE]);
     }
     else{
-     // this._router.navigate([NavigationRoutes.APP_RECRUITER_DASHBOARD]);
-      this._router.navigate([NavigationRoutes.APP_COMPANYDETAILS]);
+      this._router.navigate([NavigationRoutes.APP_RECRUITER_DASHBOARD]);
+     // this._router.navigate([NavigationRoutes.APP_COMPANYDETAILS]);
     }
     var socialLogin:string = LocalStorageService.getLocalValue(LocalStorage.IS_SOCIAL_LOGIN);
 

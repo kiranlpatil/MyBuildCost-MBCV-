@@ -24,21 +24,21 @@
         </div>
       </div>
 
-      <div class="section-container" >
+      <div class="section-container" [hidden]="!showCapability">
         <h4 class="heading">Choose Your Capabilities (Max. 10)</h4>
         <div class="main-content">
           <cn-capibility-list></cn-capibility-list>
         </div>
       </div>
 
-      <div class="section-container">
+      <div class="section-container" [hidden]="!showComplexity">
         <h4 class="heading">Choose Complexities</h4>
         <div class="main-content min-height">
           <cn-complexity-list></cn-complexity-list>
         </div>
       </div>
 
-      <div class="section-container clearfix profeiciency-domain">
+      <div class="section-container clearfix profeiciency-domain" [hidden]="!showProfeciency">
         <div class="col-sm-6 padding-right5">
           <h4 class="heading">Proficiencies (Max. 20)</h4>
           <div class="main-content">
@@ -46,21 +46,21 @@
           </div>
         </div>
         <div class="col-sm-6 padding-left5">
-          <h4 class="heading">Domains (Max. 20)</h4>
+          <h4 class="heading">Industries (Max. 20)</h4>
           <div class="main-content">
             <cn-proficiency-doamin [type]="'domain'"></cn-proficiency-doamin>
           </div>
         </div>
       </div>
 
-      <div class="section-container">
+      <div class="section-container" [hidden]="!showProfeciency">
         <h4 class="heading">Professional data</h4>
         <div class="main-content">
           <cn-professional-data></cn-professional-data>
         </div>
       </div>
 
-      <div class="section-container" [hidden]="chkEmployeeHistory">
+      <div class="section-container" [hidden]="chkEmployeeHistory" [hidden]="!showProfeciency">
         <h4 class="heading">Employment Histroy
           <span class="close-dialog">Close this box if not interested
             <span class="glyphicon glyphicon-remove" (click)="hideEmployeeHistory()"></span>
@@ -71,14 +71,14 @@
         </div>
       </div>
 
-      <div class="section-container">
+      <div class="section-container" [hidden]="!showProfeciency">
         <h4 class="heading">Academic Details</h4>
         <div class="main-content">
           <cn-academic-details></cn-academic-details>
         </div>
       </div>
 
-      <div class="section-container" [hidden]="chkCertification">
+      <div class="section-container" [hidden]="chkCertification" [hidden]="!showProfeciency">
         <h4 class="heading">Certification/Accreditation
           <span class="close-dialog">Close this box if not interested
             <span class="glyphicon glyphicon-remove" (click)="hideCertification()"></span>
@@ -89,7 +89,7 @@
         </div>
       </div>
 
-      <div class="section-container"  [hidden]="chkAwards">
+      <div class="section-container"  [hidden]="chkAwards" [hidden]="!showProfeciency">
         <h4 class="heading">Awards
           <span class="close-dialog">Close this box if not interested
             <span class="glyphicon glyphicon-remove" (click)="hideAwards()"></span>
@@ -100,7 +100,7 @@
         </div>
       </div>
 
-      <div class="section-container" [hidden]="chkAboutMyself">
+      <div class="section-container" [hidden]="chkAboutMyself" [hidden]="!showProfeciency">
         <h4 class="heading">More About Myself(Max 250)
           <span class="close-dialog">Close this box if not interested
             <span class="glyphicon glyphicon-remove" (click)="hideAboutMyself()"></span>
@@ -110,7 +110,7 @@
           <cn-more-about-myself></cn-more-about-myself>
         </div>
       </div>
-      <div class="section-container profile-configurations">
+      <div class="section-container profile-configurations" [hidden]="!showProfeciency">
         <div class="col-sm-8 no-padding text-left">
           <div class="radio">
             <label>Profile Visibility:</label>

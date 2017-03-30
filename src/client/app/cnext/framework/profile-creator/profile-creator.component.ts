@@ -28,7 +28,9 @@ export class ProfileCreatorComponent {
   private  chkCertification:boolean=false;
   private  chkAboutMyself:boolean=false;
   private  chkAwards:boolean=false;
-  private  showcapability:boolean=false;
+  private  showCapability:boolean=false;
+  private  showComplexity:boolean=false;
+  private  showProfeciency:boolean=false;
   private  whichStepsVisible : boolean[]=new Array(7);
 
   constructor(private _router:Router,
@@ -42,17 +44,19 @@ export class ProfileCreatorComponent {
       testService.showTest$.subscribe(
         data=>{
             this.whichStepsVisible[1]=data;
-          this.showcapability=data;
+          this.showCapability=data;
         }
       );
       complexityService.showTest$.subscribe(
         data=>{
           this.whichStepsVisible[2]=data;
+          this.showComplexity=data;
         }
       );
       proficiencyService.showTest$.subscribe(
         data=>{
           this.whichStepsVisible[3]=data;
+          this.showProfeciency=data;
         }
       );
     professionalService.showTest$.subscribe(
