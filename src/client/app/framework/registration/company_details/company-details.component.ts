@@ -30,7 +30,6 @@ import {Http} from "@angular/http";
 
 export class CompanyDetailsComponent {
   private model = new CompanyDetails();
-  private model1 = new Recruiter();
   private companyDetailsForm: FormGroup;
   private company_name: any;
   private filesToUpload: Array<File>;
@@ -67,8 +66,6 @@ export class CompanyDetailsComponent {
   }
 
   ngOnInit() {
-    //this.model1.company_name = LocalStorageService.getLocalValue(LocalStorage.COMPANY_NAME);
-    this.model1.company_size = LocalStorageService.getLocalValue(LocalStorage.COMPANY_SIZE);
     this.company_name = LocalStorageService.getLocalValue(LocalStorage.COMPANY_NAME);
 
   }
