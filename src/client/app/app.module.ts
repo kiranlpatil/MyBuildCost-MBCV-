@@ -191,6 +191,7 @@ import {JobLocationService} from "./cnext/framework/job-location/job-location.se
     ChangeEmailService,
     ChangeMobileService,
     NotificationService,
+      JobLocationService,
     ForgotPasswordService,
     ThemeChangeService,
     RegistrationService,

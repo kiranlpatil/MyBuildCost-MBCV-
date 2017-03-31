@@ -1,3 +1,5 @@
+$border-color: #ccc;
+
 .btn {
   &:focus,
   &:active {
@@ -5,16 +7,34 @@
   }
 }
 
-.form-control {
-  border-radius: 0;
-  height: 100px;
-  margin: 0 0 15px 0;
-  resize: vertical;
-  width: 100%;
+.academic-details {
+  margin: 10px 0 20px;
+  border-top: 1px solid $border-color;
+
+  &:first-child {
+    border: 0;
+  }
+
+  .form-control {
+    border-radius: 0;
+    margin: 0 0 15px 0;
+  }
+
+  textarea {
+    height: 100px;
+    resize: vertical;
+    width: 100%;
+  }
 }
 
 @media only screen and (max-width: 980px) {
-  .col-sm-10 {
-    width: 100%;
+  .academic-details {
+    .col-sm-4 {
+      width: 50%;
+    }
+
+    .col-sm-10 {
+      width: 100%;
+    }
   }
 }
