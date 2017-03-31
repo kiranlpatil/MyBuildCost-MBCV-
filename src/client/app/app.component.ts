@@ -98,9 +98,9 @@ export class AppComponent implements OnInit {
         this.isShowSuccessMessage = false;
         console.log("Success message",message);
         this.customMessage = message.custom_message;
-        /*setTimeout(function () {
+        setTimeout(function () {
             this.isShowSuccessMessage = true;
-        }.bind(this), 4000);*/
+        }.bind(this), 4000);
     };
 
     closeErrorMessage() {

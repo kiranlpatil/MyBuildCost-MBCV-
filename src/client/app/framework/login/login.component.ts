@@ -127,20 +127,21 @@ export class LoginComponent implements OnInit {
   }
 
 
-  successRedirect(res:any) {
+  successRedirect(res:any) {debugger
     LocalStorageService.setLocalValue(LocalStorage.IS_LOGED_IN, 1);
+    LocalStorageService.setLocalValue(LocalStorage.PROFILE_PICTURE,res.data.picture);
     if(res.data.isCandidate){
 
       this._router.navigate([NavigationRoutes.APP_CREATEPROFILE]);
     }
     else{
-      this._router.navigate([NavigationRoutes.APP_RECRUITER_DASHBOARD]);
-     // this._router.navigate([NavigationRoutes.APP_COMPANYDETAILS]);
+    //  this._router.navigate([NavigationRoutes.APP_RECRUITER_DASHBOARD]);
+      this._router.navigate([NavigationRoutes.APP_COMPANYDETAILS]);
     }
     var socialLogin:string = LocalStorageService.getLocalValue(LocalStorage.IS_SOCIAL_LOGIN);
 
     if(socialLogin === AppSettings.IS_SOCIAL_LOGIN_YES) {
-     //window.location.reload(); //this will enable access to dropdown option oof profile.
+      //window.location.reload(); //this will enable access to dropdown option oof profile.
     }
   }
 

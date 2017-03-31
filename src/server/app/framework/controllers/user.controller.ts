@@ -32,7 +32,8 @@ export function login(req: express.Request, res: express.Response, next: any) {
               "mobile_number": result[0].mobile_number,
               "_id": result[0]._id,
               "isCandidate":result[0].isCandidate,
-              "current_theme": result[0].current_theme
+              "current_theme": result[0].current_theme,
+              "picture": result[0].picture
             },
             access_token: token
           });
