@@ -18,23 +18,14 @@ import {constants} from "fs";
 export class IndustryListComponent {
   private industryNames :string[]=new Array();
   private storedRoles :string[] =new Array();
-  private industryModel:string = "";
   private industryData:any;
   private rolesData:any;
-  private roleModel:string= "";
-  private isRoleSelected : boolean= false;
-  private temproles : string[];
-  private maxRoles : number =3;
-  private  roleNames:string[] =new Array();
+  private roleNames:string[] =new Array();
   private showModalStyle: boolean = false;
   private disbleRole: boolean = true;
   private disbleButton: boolean = true;
   private disableIndustry: boolean = false;
   private industryRoles=new IndustryList();
-  private reAdds:string[]=new Array();
-  private reAdd:string;
-  private notAdd=true;
-
 
 
 
@@ -44,7 +35,6 @@ export class IndustryListComponent {
   }
 
   ngOnInit(){
-    this.temproles= new Array(1);
     this.industryService.getIndustries()
       .subscribe(
         industrylist => this.onIndustryListSuccess(industrylist.data),
@@ -62,19 +52,18 @@ export class IndustryListComponent {
   onError(error:any){
     var message = new Message();
     message.error_msg = error.err_msg;
-    message.isError = true;this.reAdd
+    message.isError = true;
     this.messageService.message(message);
   }
 
-  selectIndustryModel(industry: any) {
+  selectIndustryModel(industry: string) {
     this.disbleRole=false;
-    this.industryModel = industry;
     this.searchIndustryId(industry);
     this.industryService.getRoles(industry)
       .subscribe(
         rolelist => this.onRoleListSuccess(rolelist.data),
         error => this.onError(error));
-    this.myindustryService.change(this.industryModel);
+    this.myindustryService.change(industry);
   }
 
   searchIndustryId(industryName:string){
@@ -89,7 +78,6 @@ export class IndustryListComponent {
     for(let role of this.rolesData){
       if(role.name===roleName){
         this.industryRoles.roles.push(role._id);
-
       }
     }
   }
@@ -101,70 +89,19 @@ export class IndustryListComponent {
     }
   }
 
-  selectRolesModel(roleName: any) {
-    this.disbleButton=false;
-    this.roleModel=roleName;
-    this.storedRoles.push(roleName);
-    this.deleteSelectedRole(roleName);
-    this.searchRolesId(roleName);
-    this.isRoleSelected=true;
-    if(this.isRoleSelected===true)
-      this.roleModel="";
-    else
-      this.roleModel=roleName;
-  }
-  updatelist(newval:any) {debugger
-
-      // console.log("uodate", this.roleModel);
-      // console.log("newval", newval);
-      // console.log(newval.indexOf("Test"));
-      for (let item of this.storedRoles) {
-        if (item.indexOf(newval)) {
-
-          this.roleNames.push(item);
-
-        }
-      }
-
-/*if(this.roleModel==="
-
-  for (let  i = 0; i < this.roleNames.length; i++) {
-    if (this.roleNames[i] === this.reAdd) {
-      for (let  j= 0; j < 3; j++){
-        if(this.storedRoles[j]===this.reAdd){
-        this.notAdd = false;}
-      }
+  selectRolesModel(roleName: string) {debugger
+    if(roleName === "u can select max "){
+      console.log("u can select max ");
     }
-  }
-  if(this.notAdd===true){
-  this.roleNames.push(this.reAdd);
-
-  }
-  this.notAdd=true;
-  }*/
-  }
-
-  deleteSelectedRole(roleName: any){
-    this.reAdd=roleName;
-
-
-    for (let  i = 0; i < this.roleNames.length; i++)
-    {
-      if (this.roleNames[i]===roleName)
-      {
-        if (i > -1) {
-          this.roleNames.splice(i, 1);
-        }
-      }
-
+    else {
+      this.disbleButton = false;
+      this.storedRoles.push(roleName);
+      this.searchRolesId(roleName);
     }
   }
 
-  addNewRole(){
-    if(this.temproles.length<this.maxRoles){
-      this.temproles.push("null");
-    }
-  }
+
+
 
   createAndSave() {
     this.industryService.addIndustryProfile(this.industryRoles).subscribe(
@@ -188,7 +125,7 @@ export class IndustryListComponent {
       this.disableIndustry = true;
       this.createAndSave();
       this.roleService.change(this.storedRoles);
-    
+
   }
 
   getStyleModal() {

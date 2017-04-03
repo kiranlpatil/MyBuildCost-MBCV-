@@ -17,6 +17,11 @@
       <span class="profile-name-first">{{firstName}}</span><span class="profile-name-last">{{lastName}}</span>
     </div>
     <div class="col-sm-9">
+      <div class="main-content">
+        <label>Enter Your Job Title: </label>
+        <input type="text" name="jobTitle" value="jobTitle" placeholder="jobTitle" />
+      </div>
+
       <div class="roles section-container">
         <h4 class="heading">Enter Your Roles</h4>
         <div class="main-content">
@@ -45,13 +50,13 @@
             <cn-proficiency-doamin [type]="'profeciency'"></cn-proficiency-doamin>
           </div>
         </div>
-        <div class="col-sm-6 padding-left5">
+       <!-- <div class="col-sm-6 padding-left5">
           <h4 class="heading">Industries (Max. 20)</h4>
           <div class="main-content">
             <cn-proficiency-doamin [type]="'domain'"></cn-proficiency-doamin>
           </div>
         </div>
-      </div>
+      </div>-->
 
       <div class="section-container" [hidden]="!showProfeciency">
         <h4 class="heading">Professional data</h4>

@@ -1,4 +1,3 @@
-
 import {Component} from '@angular/core';
 import {VALUE_CONSTANT, LocalStorage} from "../../../framework/shared/constants";
 import {TestService} from "../test.service";
@@ -12,8 +11,6 @@ import {LocalStorageService} from "../../../framework/shared/localstorage.servic
 import {MyJobRequirementService} from "../jobrequirement-service";
 import {Message} from "../../../framework/shared/message";
 import {myJobPostcapabilityService} from "../jobpost-capabilities.service";
-
-
 
 @Component({
   moduleId: module.id,
@@ -56,7 +53,6 @@ export class CapabilityListComponent {
     myIndustryService.showTest$.subscribe(
       data=>{
         this.industry=data;
-        console.log("in capab",this.industry )
       }
     );
     roleservice.showTest$.subscribe(
@@ -87,14 +83,12 @@ export class CapabilityListComponent {
 
   onCapabilityListSuccess(data:any){
     this.capabilityData=data;
-    console.log(this.capabilities);
     if(data != undefined){
       this.isPrimary=new Array(data.length);
       this.isSecondary=new Array(data.length);
       for(let capability of data){
         this.capabilities.push(capability.name);
       }
-      console.log("capbility",this.capabilities);
     }
   }
   onError(error:any){

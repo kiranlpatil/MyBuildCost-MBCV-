@@ -25,7 +25,8 @@ export class JobRequirementComponent {
   private storedRoles = new Array();
   private industryModel = "";
   private roleModel = "";
-
+private showIndustry:boolean=false;
+private showRole:boolean=false;
   private educationlist=new Array();
   private experiencelist=new Array();
   private salarylist=new Array()
@@ -72,9 +73,11 @@ export class JobRequirementComponent {
 
   onRoleListSuccess(data:any){
     //this.rolesData=data;
+    
     for(let role of data){
       this.roles.push(role.name);
     }
+    this.showRole=true;
   }
   selectRolesModel(role: any) {debugger
     this.roleModel =role;
@@ -158,7 +161,7 @@ export class JobRequirementComponent {
      this.noticeperiodModel = noticeperiod;
     this.jobRequirement.noticeperiod= this.noticeperiodModel;
     this.jobrequirement.change(this.jobRequirement);
-
+    
     this.industryService.getIndustries()
       .subscribe(
         industrylist => this.onIndustryListSuccess(industrylist.data),
@@ -169,10 +172,10 @@ export class JobRequirementComponent {
 
 
   onIndustryListSuccess(data: any) {
-
     for (let industry of data) {
       this.industries.push(industry.name);
     }
+    this.showIndustry=true;
   }
 
   onError(error:any){

@@ -70,17 +70,16 @@ export class ComplexityListComponent {
         this.isComplexityShow=true;
         this.roles=data.role;
         this.industry=data.industry;
-        //console.log("role list in capab",this.roles,this.industry);
-
       }
     );
 
   }
 
-  onComplexityListSuccess(data:any){
-    setTimeout(()=>{
+  onComplexityListSuccess(data:any){debugger
+   
       this.complexities=data.data;
-    },1000);
+    console.log("complex",this.data);
+    
 
 
   }

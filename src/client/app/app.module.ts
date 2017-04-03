@@ -101,6 +101,8 @@ import {ProfessionalService} from "./cnext/framework/professional-service";
 import {EducationalService} from "./cnext/framework/educational-service";
 import {AwardService} from "./cnext/framework/award-service";
 import {JobLocationService} from "./cnext/framework/job-location/job-location.service";
+import {SingleSelectListComponent} from "./cnext/framework/single-select-list/single-select-list.component";
+import {MultiSelectListComponent} from "./cnext/framework/multi-select-list/multi-select-list.component";
 import {MyJobInformationService} from "./cnext/framework/job-information/job-information.service";
 import {JobRequirementService} from "./cnext/framework/job-requirement/job-requirement.service";
 import {myJobLocationService} from "./cnext/framework/myjob-location.service";
@@ -157,6 +159,8 @@ import {JonPostDescriptionService} from "./cnext/framework/job-post-description.
     IndustryListComponent,
     ComplexityListComponent,
     JobPosterComponent,
+    SingleSelectListComponent,
+    MultiSelectListComponent,
     JobInformationComponent,
     JobRequirementComponent,
     JobLocationComponent,
