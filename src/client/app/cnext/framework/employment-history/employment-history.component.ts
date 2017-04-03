@@ -13,11 +13,15 @@ import {EducationalService} from "../educational-service";
 
 export class EmploymentHistoryComponent {
 
- private toMonthModel:string;
+ private tempCompanyName:string="";
  private toYearModel:string;
  private isShowYearMessage:boolean=false;
- private fromMonthModel:string;
- private fromYearModel:string;
+ private tempDesignation:string="";
+ private tempWorkedToMonth:string="";
+  private tempWorkedToYear:string="";
+  private tempWorkedFromMonth:string="";
+  private tempWorkedFromYear:string="";
+  private tempRemarks:string="";
  private disbleButton:boolean=false;
  private tempfield: string[];
  private selectedEmploymentHistory = new EmployementHistory();
@@ -45,35 +49,40 @@ export class EmploymentHistoryComponent {
   }
 
   comPanyName(companyname:string) {
-    this.selectedEmploymentHistory.companyName=companyname;
+    this.tempCompanyName=companyname;
+    this.selectedEmploymentHistory.companyName=this.tempCompanyName;
 
   }
 
   deSignation(designation:string) {
-    this.selectedEmploymentHistory.designation=designation;
+    this.tempDesignation=designation;
+    this.selectedEmploymentHistory.designation=this.tempDesignation;
 
   }
 
 
 
   reMark(remark:string){
-    this.selectedEmploymentHistory.remarks=remark;
+    this.tempRemarks=remark;
+    this.selectedEmploymentHistory.remarks=this.tempRemarks;
 
 
   }
 
   selectedworkfromMonthModel(newval: any){
-    this.selectedEmploymentHistory.workedFromMonth=newval;
+    this.tempWorkedFromMonth=newval;
+    this.selectedEmploymentHistory.workedFromMonth=this.tempWorkedFromMonth;
 
   }
 
   selectedworkfromYearModel(newval: any){
-
-    this.selectedEmploymentHistory.workedFromYear=newval;
+    this.tempWorkedFromYear=newval;
+    this.selectedEmploymentHistory.workedFromYear=this.tempWorkedFromYear;
 }
 
   selectedworktoMonthModel(newval: any) {
-    this.selectedEmploymentHistory.workedToMonth=newval;
+    this.tempWorkedToMonth=newval;
+    this.selectedEmploymentHistory.workedToMonth=this.tempWorkedToMonth;
 
   }
 
@@ -88,7 +97,8 @@ export class EmploymentHistoryComponent {
     }
     else {
       this.isShowYearMessage=false;
-      this.selectedEmploymentHistory.workedToYear = newval;
+      this.tempWorkedToYear=newval;
+
     }
 
   }
@@ -98,10 +108,10 @@ export class EmploymentHistoryComponent {
 
   addAnother() {debugger
 
-    if(this.selectedEmploymentHistory.companyName==="" || this.selectedEmploymentHistory.designation==="" ||
-      this.selectedEmploymentHistory.workedToMonth==="" || this.selectedEmploymentHistory.workedToYear==="" ||
-      this.selectedEmploymentHistory.workedFromMonth==="" || this.selectedEmploymentHistory.workedFromYear==="" ||
-      this.selectedEmploymentHistory.remarks==="" )
+    if(this.tempCompanyName==="" || this.tempDesignation==="" ||
+      this.tempWorkedToMonth==="" || this.tempWorkedToYear==="" ||
+      this.tempWorkedFromMonth==="" || this.tempWorkedFromYear==="" ||
+      this.tempRemarks==="" )
     {
 
       this.disbleButton=true;
@@ -109,12 +119,26 @@ export class EmploymentHistoryComponent {
     else {
       this.disbleButton = false;
 
+     let temp= new EmployementHistory();
+     temp.companyName=this.tempCompanyName;
+     temp.designation=this.tempDesignation;
+     temp.remarks=this.tempRemarks;
+     temp.workedFromMonth=this.tempWorkedFromMonth;
+     temp.workedFromYear=this.tempWorkedFromYear;
+     temp.workedToMonth=this.tempWorkedFromMonth;
+     temp.workedToYear=this.tempRemarks;
 
-
-
-      this.selectedEmploysHistory.push(this.selectedEmploymentHistory);
+      this.selectedEmploysHistory.push(temp);
       console.log(this.selectedEmploysHistory);
       this.tempfield.push("null");}
+    this.tempCompanyName="";
+   this.tempDesignation="" ;
+    this.tempWorkedToMonth="";
+    this.tempWorkedToYear="";
+    this.tempWorkedFromMonth="";
+    this.tempWorkedFromYear="" ;
+    this.tempRemarks="";
+
 
   }
 }

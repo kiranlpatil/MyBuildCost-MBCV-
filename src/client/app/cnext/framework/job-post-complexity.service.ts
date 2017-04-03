@@ -1,21 +1,20 @@
 
-
 import {  Injectable } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
 
 
 @Injectable()
-export class myJobPostcapabilityService  {
+export class JobPostComplexityService  {
 
   // Observable string sources
-  private _showJobCpabilitiesSource = new Subject<any>();
+  private _showJobComplexitySource = new Subject<any>();
 
   // Observable string streams
-  showTestCapability$ = this._showJobCpabilitiesSource.asObservable();
+  showTestComplexity$ = this._showJobComplexitySource.asObservable();
 
   // Service message commands
   change(value:any) {
-    this._showJobCpabilitiesSource.next(value);
+    this._showJobComplexitySource.next(value);
   }
 
 }

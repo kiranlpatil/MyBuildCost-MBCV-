@@ -12,6 +12,7 @@ import {JobLocation} from "../model/job-location";
 import {myJobLocationService} from "../myjob-location.service";
 import {myJobPostcapabilityService} from "../jobpost-capabilities.service";
 import {JonPostDescriptionService} from "../job-post-description.service";
+import {JobPostComplexityService} from "../job-post-complexity.service";
 
 
 @Component({
@@ -27,13 +28,15 @@ export class JobPosterComponent {
   private jobRequirement=new JobRequirement();
   private jobLocation=new JobLocation();
   private capabilityIds :string[]=new Array();
+  private complexities :string[]=new Array();
   private description:string;
   constructor(private _router:Router,
               private jobinformation:MyJobInformationService,
               private jobrequirement:JobRequirementService,
               private myjoblocationService:myJobLocationService,
               private jobpostcapability:myJobPostcapabilityService,
-              private jobPostDescription:JonPostDescriptionService   ) {
+              private jobPostDescription:JonPostDescriptionService ,
+              private jobPostComplexiyservice:JobPostComplexityService ) {
     this.jobinformation.showTestInformation$.subscribe(
       data=>{
         this.jobInformation=data;
@@ -64,6 +67,12 @@ export class JobPosterComponent {
 
       }
     );
+    this.jobPostComplexiyservice.showTestComplexity$.subscribe(
+      data=>{
+        this.complexities=data;
+
+      }
+    );
   }
 
 
@@ -77,6 +86,7 @@ export class JobPosterComponent {
     console.log(this.jobRequirement);
     console.log(this.jobLocation);
     console.log("capabilities ids",this.capabilityIds);
+    console.log(this.complexities);
     console.log(this.description);
 
   }

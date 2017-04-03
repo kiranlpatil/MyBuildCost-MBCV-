@@ -14,11 +14,15 @@ import {AwardService} from "../award-service";
 export class AwardsComponent {
 
   private tempfield: string[];
-  private selectedaward=new awards();
+  private temptitle:string="";
+  private tempmonth:string="";
+  private tempyear:string="";
+  private tempremark:string="";
   private selectedawards: awards[]=new Array();
   private monthList:string[]=this.dateservice.monthList;
   private yearList:string[]=this.dateservice.yearList;
   private disbleButton:boolean=false;
+
 
 
 
@@ -35,20 +39,23 @@ export class AwardsComponent {
   }
   selectedTitle(title:string)
   {
-this.selectedaward.title=title;
+
+this.temptitle=title;
   }
   selectedMonthModel(month:string)
+
   {
-this.selectedaward.month=month;
+    this.tempmonth=month;
 
   }
   selectedYearModel(year:string)
   {
 
-this.selectedaward.year=year;
+this.tempyear=year;
   }
+
   selectedAward(award:string){
-    this.selectedaward.awardsdetails=award;
+this.tempremark=award;
 
 
   }
@@ -58,17 +65,31 @@ this.selectedaward.year=year;
 
 
   addAnother() {
-    if(this.selectedaward.title==="" || this.selectedaward.month==="" ||
-      this.selectedaward.year==="" || this.selectedaward.awardsdetails==="" )
-    {
 
-      this.disbleButton=true;
+
+    if (this.temptitle!="" && this.tempmonth!="" &&
+      this.tempyear!="" && this.tempremark!="") {
+      let temp=new awards();
+      temp.title=this.temptitle;
+      temp.month=this.tempmonth;
+      temp.year=this.tempyear;
+      temp.awardsdetails=this.tempremark;
+      this.selectedawards.push(temp);
+      console.log(this.selectedawards);
+      this.disbleButton = false;
+      this.tempfield.push("null");
+      this.temptitle="" ;
+      this.tempmonth ="" ;
+      this.tempremark ="" ;this.tempyear="";
     }
     else {
-      this.disbleButton = false;
-      this.selectedawards.push(this.selectedaward);
-    console.log(this.selectedawards);
-    this.tempfield.push("null");}
+
+      this.disbleButton = true;
+
+
+    }
+
+
 
   }
 }

@@ -108,6 +108,7 @@ import {JobRequirementService} from "./cnext/framework/job-requirement/job-requi
 import {myJobLocationService} from "./cnext/framework/myjob-location.service";
 import {myJobPostcapabilityService} from "./cnext/framework/jobpost-capabilities.service";
 import {JonPostDescriptionService} from "./cnext/framework/job-post-description.service";
+import {JobPostComplexityService} from "./cnext/framework/job-post-complexity.service";
 
 
 @NgModule({
@@ -236,7 +237,9 @@ import {JonPostDescriptionService} from "./cnext/framework/job-post-description.
     JobRequirementService,
     myJobLocationService,
     myJobPostcapabilityService,
-    JonPostDescriptionService
+    JonPostDescriptionService,
+    JobPostComplexityService
+
 
 
 

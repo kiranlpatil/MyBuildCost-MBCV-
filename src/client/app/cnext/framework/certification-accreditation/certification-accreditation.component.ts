@@ -13,7 +13,10 @@ import {DateService} from "../date.service";
 export class CertificationAccreditationComponent {
 
   private tempfield: string[];
-  private selectedcertificate=new certifications();
+  private tempCertificateName:string="";
+  private tempCompanyName:string="";
+  private tempYear:string="";
+  private tempdetails:string="";
   private selectedcertificates:certifications[]=new Array();
   private yearList:string[]=this.dateservice.yearList;
   private disbleButton:boolean=false;
@@ -26,21 +29,21 @@ export class CertificationAccreditationComponent {
   }
   selectedCertificate(certificatename:string)
   {
-this.selectedcertificate.certificateName=certificatename;
+this.tempCertificateName=certificatename;
   }
   selectedCompanyName(companyname:string)
   {
-this.selectedcertificate.compaName=companyname;
+this.tempCompanyName=companyname;
   }
 
 
   selectedYearModel(year:string)
   {
-    this.selectedcertificate.yearOfCertification=year;
+    this.tempYear=year;
   }
 
   addedCertification(certificate:any){
-    this.selectedcertificate.certificationdetails=certificate;
+    this.tempdetails=certificate;
 
   }
 
@@ -50,17 +53,29 @@ this.selectedcertificate.compaName=companyname;
 
   addAnother() {
 
-    if(this.selectedcertificate.certificateName==="" || this.selectedcertificate.compaName==="" ||
-      this.selectedcertificate.yearOfCertification===""|| this.selectedcertificate.certificationdetails==="")
+    if(this.tempCertificateName==="" || this.tempCompanyName==="" ||
+      this.tempYear===""|| this.tempdetails==="")
     {
 
       this.disbleButton=true;
     }
     else {
       this.disbleButton = false;
-      this.selectedcertificates.push(this.selectedcertificate);
+      let temp=new certifications();
+      temp.certificateName=this.tempCertificateName;
+      temp.compaName=this.tempCompanyName;
+      temp.yearOfCertification=this.tempYear;
+      temp.certificationdetails=this.tempdetails;
+      this.selectedcertificates.push(temp);
       console.log(this.selectedcertificates);
       this.tempfield.push("null");
+
+      this.tempCertificateName=="";
+      this.tempCompanyName=="" ;
+      this.tempYear=="";
+      this.tempdetails=="";
+
+
     }
   }
 }

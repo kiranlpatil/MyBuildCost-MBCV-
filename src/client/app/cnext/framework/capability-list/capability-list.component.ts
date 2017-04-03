@@ -163,7 +163,7 @@ export class CapabilityListComponent {
       error => {
         console.log(error);
       });
-    this.jobpostcapability.change(this.capabilityIds);
+    this.jobpostcapability.change(this.primaryCapabilities);
   }
 
 

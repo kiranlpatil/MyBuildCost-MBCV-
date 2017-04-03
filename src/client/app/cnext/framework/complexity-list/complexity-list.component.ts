@@ -9,6 +9,7 @@ import {ComplexityListService} from "./complexity-list.service";
 import {MessageService} from "../../../framework/shared/message.service";
 import {MyJobRequirementService} from "../jobrequirement-service";
 import {Message} from "../../../framework/shared/message";
+import {JobPostComplexityService} from "../job-post-complexity.service";
 
 
 
@@ -36,7 +37,8 @@ export class ComplexityListComponent {
                private myCapabilityListService:MyCapabilityService,
                private myIndustryService :MyIndustryService,
                private roleservice :MyRoleService,
-               private myJobrequirementService:MyJobRequirementService) {
+               private myJobrequirementService:MyJobRequirementService,
+               private jobPostComplexiyservice:JobPostComplexityService) {
     complexityService.showTest$.subscribe(
       data=>{
           this.isComplexityShow=data;
@@ -107,6 +109,7 @@ export class ComplexityListComponent {
       currentComplexity.scenario=selectedComplexity.target.value
       if(selectedComplexity.target.value !== "none") {
         this.selectedComplexity.push(currentComplexity);
+        this.jobPostComplexiyservice.change(this.selectedComplexity);
       }
     }
     if(this.selectedComplexity.length>1){

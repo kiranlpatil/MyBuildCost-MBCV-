@@ -17,11 +17,12 @@ export class AcademicDetailComponent {
  private year: any;
  private currentDate: any;
  private yearList = new Array();
- private selectedacademic= new academicdetails();
  private selectedacademicsdeatils:academicdetails[]=new Array();
   private disbleButton:boolean=false;
-
-
+  private tempSchoolName:string="";
+  private tempUnivercityName:string="";
+private tempPassingYear:string="";
+private  tempSpecialization:string="";
   constructor(private educationalService : EducationalService) {
 
     this.tempfield = new Array(1);
@@ -38,20 +39,20 @@ export class AcademicDetailComponent {
     }
   }
   selectedSchoolName(schoolname:string){
-this.selectedacademic.schoolName=schoolname;
+this.tempSchoolName=schoolname;
 
   }
 
   selectedeUniversityName(universityname:string){
-    this.selectedacademic.universityName=universityname;
+    this.tempUnivercityName=universityname;
 
   };
   selectedPassingYear(passingyear:string){
-    this.selectedacademic.passingyear=passingyear;
+    this.tempPassingYear=passingyear;
   };
 
   selectedSpecialization(remark:string){
-    this.selectedacademic.specialization=remark;
+    this.tempSpecialization=remark;
   };
 
   changeValue(){
@@ -62,16 +63,27 @@ this.selectedacademic.schoolName=schoolname;
 
   addAnother() {
 
-      if(this.selectedacademic.schoolName==="" || this.selectedacademic.universityName==="" ||
-        this.selectedacademic.passingyear==="" || this.selectedacademic.specialization==="" )
+      if(this.tempSchoolName==="" || this.tempUnivercityName==="" ||
+        this.tempPassingYear==="" || this.tempSpecialization==="" )
       {
 
         this.disbleButton=true;
       }
       else {
         this.disbleButton = false;
-        this.selectedacademicsdeatils.push(this.selectedacademic);
+        let temp=new academicdetails();
+        temp.schoolName=this.tempSchoolName;
+        temp.universityName=this.tempUnivercityName;
+        temp.passingyear=this.tempPassingYear;
+        temp.specialization=this.tempSpecialization;
+        this.selectedacademicsdeatils.push(temp);
+
+        console.log(this.selectedacademicsdeatils);
         this.tempfield.push("null");
+
+        this.tempSchoolName="";
+        this.tempUnivercityName="";
+        this.tempPassingYear="";this.tempSpecialization=""
       }
   }
 }

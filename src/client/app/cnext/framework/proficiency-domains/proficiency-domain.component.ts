@@ -87,7 +87,8 @@ export class proficiencyDomainComponent implements OnInit {
     else{
       this.showAlert=true;
     }
-    document.getElementById(this.type).value="";
+    let typeTemp:any=document.getElementById(this.type);
+    typeTemp.value="";
 
 
   }
