@@ -22,7 +22,7 @@
         <input type="text" name="jobTitle" value="jobTitle" placeholder="jobTitle" />
       </div>
 
-      <div class="roles section-container">
+      <div class="roles section-container" [attr.disabled]="showfield" >
         <h4 class="heading">Enter Your Roles</h4>
         <div class="main-content">
           <cn-industry-list></cn-industry-list>
@@ -59,7 +59,7 @@
       </div>
 
       <div class="section-container clearfix profeiciency-domain" [hidden]="!showProfeciency">
-        <h4 class="heading">Proficiencies (Max. 20)</h4>
+        <h4 class="heading">Proficiencies (Max. 25)</h4>
         <div class="main-content">
           <cn-proficiency-doamin [type]="'profeciency'"></cn-proficiency-doamin>
         </div>

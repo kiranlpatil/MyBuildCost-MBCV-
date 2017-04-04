@@ -128,9 +128,6 @@ export class CapabilityListComponent {
       }
     }
 
-    if(this.primaryCapabilities.length>1){
-      this.complexityService.change(true);
-    }
     this.myCapabilityListService.change(this.primaryCapabilities);
 
   }
@@ -156,6 +153,8 @@ export class CapabilityListComponent {
   }
 
   createAndSave() {
+    this.complexityService.change(true);
+
     this.capabilityListServive.addCapability(this.capabilityIds).subscribe(
       user => {
         console.log(user);

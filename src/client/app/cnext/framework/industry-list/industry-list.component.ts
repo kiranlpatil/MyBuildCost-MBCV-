@@ -8,6 +8,7 @@ import {MessageService} from '../../../framework/shared/message.service';
 import {IndustryList} from '../model/industryList';
 import {constants} from 'fs';
 import {myRoleListTestService} from "../myRolelist.service";
+import {DisableTestService} from "../disable-service";
 
 @Component({
   moduleId: module.id,
@@ -27,11 +28,11 @@ export class IndustryListComponent {
   private disbleButton: boolean = true;
   private disableIndustry: boolean = false;
   private industryRoles=new IndustryList();
+  private storedindustry:string;
 
 
-
-  constructor(private industryService: IndustryListService, private myindustryService : MyIndustryService,
-              private roleService : MyRoleService, private messageService:MessageService , private testService : TestService) {
+  constructor(private industryService: IndustryListService, private myindustryService : MyIndustryService,private myRolelist:myRoleListTestService,
+              private roleService : MyRoleService, private messageService:MessageService , private testService : TestService,private disableService:DisableTestService) {
 
   }
 
@@ -65,7 +66,7 @@ export class IndustryListComponent {
       .subscribe(
         rolelist => this.onRoleListSuccess(rolelist.data),
         error => this.onError(error));
-    this.myindustryService.change(industry);
+    this.storedindustry=industry;
   }
 
   searchIndustryId(industryName:string){
@@ -120,6 +121,9 @@ export class IndustryListComponent {
   }
 
   disableRole(){
+    this.myindustryService.change(this.storedindustry);
+
+    this.disableService.change(true);
        this.myRolelist.change(true);
      // this.testService.change(true);
       this.showModalStyle = !this.showModalStyle;

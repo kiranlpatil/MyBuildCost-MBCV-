@@ -12,6 +12,7 @@ import {AwardService} from '../award-service';
 import {myRoleListTestService} from "../myRolelist.service";
 import {MyRoleService} from '../role-service';
 import {myRoTypeTestService} from '../myRole-Type.service';
+import {DisableTestService} from "../disable-service";
 
 
 @Component({
@@ -36,6 +37,7 @@ export class ProfileCreatorComponent {
   private  showProfeciency:boolean=false;
   private  whichStepsVisible : boolean[]=new Array(7);
   private isRolesShow:boolean=false;
+  private showfield:boolean=false;
   private isRoleTypeShow:boolean=false;
 
   constructor(private _router:Router,
@@ -46,13 +48,19 @@ export class ProfileCreatorComponent {
               private educationalService : EducationalService,
               private complexityService : ComplexityService,
               private myRoleType:myRoTypeTestService,
-              private awardService: AwardService,private myRolelist :myRoleListTestService,) {
+              private awardService: AwardService,private myRolelist :myRoleListTestService,private disableService:DisableTestService) {
 
     this.myRolelist.showTestRolelist$.subscribe(
       data=>{
         this.isRolesShow=data;
 
 
+      }
+    );
+
+    disableService.showTestDisable$.subscribe(
+      data=>{
+        this.showfield=data;
       }
     );
     this.myRoleType.showTestRoleType$.subscribe(

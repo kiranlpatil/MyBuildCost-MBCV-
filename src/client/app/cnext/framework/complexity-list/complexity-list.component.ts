@@ -112,7 +112,7 @@ export class ComplexityListComponent {
         this.jobPostComplexiyservice.change(this.selectedComplexity);
       }
     }
-    if(this.selectedComplexity.length>1){
+    if(this.selectedComplexity.length===this.complexities.length){
       this.proficiencyService.change(true);
     }
   }
