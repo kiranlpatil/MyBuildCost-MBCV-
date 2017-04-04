@@ -51,7 +51,7 @@ export class AppComponent implements OnInit {
             });
 
         this.subscription = messageService.messageObservable$.subscribe(
-            (message:Message) => {debugger
+            (message:Message) => {
                 if (message.isError == true) {
                 let err = message.error_msg.error;
                   if(err == "Could not attach click handler to the element. Reason: element not found."){
@@ -99,7 +99,7 @@ export class AppComponent implements OnInit {
         this.customMessage = message.custom_message;
         setTimeout(function () {
             this.isShowSuccessMessage = true;
-        }.bind(this), 4000);
+        }.bind(this), 5555);
     };
 
     closeErrorMessage() {

@@ -134,7 +134,7 @@ export class CandidateComponent {
 
   }
 
-  onSubmit() {debugger
+  onSubmit() {
 
     this.model = this.userForm.value;
     this.model.current_theme = AppSettings.LIGHT_THEM;

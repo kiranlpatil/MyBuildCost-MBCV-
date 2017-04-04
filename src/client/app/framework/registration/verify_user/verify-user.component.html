@@ -10,7 +10,7 @@
 
     <form [formGroup]="userForm" (submit)="onSubmit()">
 
-      <p>You are almost done! We just need to verify your account before you can start using it.</p>
+      <p><b>You are almost done! We just need to verify your account before you can start using it.</b></p>
 
       <div class="form-group" id="inputMobile" [hidden]="chkMobile"  >
         <control-messages [control]="userForm.controls.mobile_number"></control-messages>
@@ -19,9 +19,15 @@
 
       </div>
 
-      <div class="form-group" id="inputEmail" [hidden]="chkEmail">
+      <div class="button-group" [hidden]="chkMobile">
+        <button type="submit" class="btn btn-primary">Verify MobileNumber</button>
+      </div>
+      </form>
+
+    <form [formGroup]="userForm" (submit)="onSubmit()" [hidden]="chkEmail">
+      <div class="form-group" id="inputEmail" >
         <control-messages [control]="userForm.controls.email"></control-messages>
-       <p>Verification link will be emailed on the following mailId.</p>
+       <p>Verification link will be emailed on the following email address.</p>
         <input type="email" [(ngModel)]="model.email" formControlName="email" id="email" class="form-control" readonly />
 
       </div>

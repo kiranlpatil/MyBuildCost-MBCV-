@@ -73,13 +73,13 @@ private showRole:boolean=false;
 
   onRoleListSuccess(data:any){
     //this.rolesData=data;
-    
+
     for(let role of data){
       this.roles.push(role.name);
     }
     this.showRole=true;
   }
-  selectRolesModel(role: any) {debugger
+  selectRolesModel(role: any) {
     this.roleModel =role;
     this.storedRoles.push(role);
     this.jobRequirement.role = this.roleModel;
@@ -161,7 +161,7 @@ private showRole:boolean=false;
      this.noticeperiodModel = noticeperiod;
     this.jobRequirement.noticeperiod= this.noticeperiodModel;
     this.jobrequirement.change(this.jobRequirement);
-    
+
     this.industryService.getIndustries()
       .subscribe(
         industrylist => this.onIndustryListSuccess(industrylist.data),

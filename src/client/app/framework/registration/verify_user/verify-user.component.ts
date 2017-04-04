@@ -42,7 +42,7 @@ export class VerifyUserComponent implements OnInit {
         this.UNDER_LICENCE = ProjectAsset.UNDER_LICENECE;
         this.BODY_BACKGROUND = ImagePath.BODY_BACKGROUND;
     }
-    ngOnInit() {debugger
+    ngOnInit() {
         this.model.mobile_number=LocalStorageService.getLocalValue(LocalStorage.MOBILE_NUMBER);
         this.model.email=LocalStorageService.getLocalValue(LocalStorage.EMAIL_ID);
         let val=LocalStorageService.getLocalValue(LocalStorage.FROM_CANDIDATE_REGISTRATION);

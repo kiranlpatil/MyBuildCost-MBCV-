@@ -13,7 +13,7 @@ export class ComplexityListService extends BaseService {
   constructor(private http: Http) {
     super()
   }
-  getComplexity(industry:string,roles:Array<any>,capabilities:Array<any>):Observable<any> {debugger
+  getComplexity(industry:string,roles:Array<any>,capabilities:Array<any>):Observable<any> {
     /*industry/IT/roles/capability?roles=*/
     var url = API.INDUSTRY_LIST+'/'+industry+'/'+API.ROLE_LIST+'/'+API.CAPABILITY_LIST+'/complexity?roles='+JSON.stringify(roles)+'&capability='+JSON.stringify(capabilities);
     console.log(url);

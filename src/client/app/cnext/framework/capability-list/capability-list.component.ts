@@ -65,7 +65,7 @@ export class CapabilityListComponent {
       }
     );
     myJobrequirementService.showTest$.subscribe(
-      data=>{debugger
+      data=>{
         this.isShowCapability=true;
         this.roles=data.role;
         this.industry=data.industry;

@@ -191,7 +191,7 @@ export class RecruiterComponent {
     }
   }
 
-  onRegistrationSuccess(user: any) {debugger
+  onRegistrationSuccess(user: any) {
     LocalStorageService.setLocalValue(LocalStorage.USER_ID, user.data._id);
     LocalStorageService.setLocalValue(LocalStorage.EMAIL_ID,this.recruiterForm.value.email);
     LocalStorageService.setLocalValue(LocalStorage.COMPANY_NAME, this.recruiterForm.value.company_name);
