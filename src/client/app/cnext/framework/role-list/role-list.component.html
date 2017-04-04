@@ -1,0 +1,28 @@
+
+
+<cn-multi-select-list [checkBoxData]="roleNames"  [maxInput]="'3'" (selectedData)="selectRolesModel($event)"></cn-multi-select-list>
+<div class="button-group clearfix">
+  <button class="btn btn-primary" (click)="showHideModal()" [disabled]="disbleButton">Cofirm &amp; Save</button>
+</div>
+
+
+<div class="modal" [style.display]="getStyleModal()">
+  <div class="modal-bg">
+    <div class="modal-dialog modal-md">
+      <div class="modal-content">
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-sm-12">
+              <p>Are you sure you want to save your Role(s)?</p>
+              <p>Once you save your Role(s), You can't change it for 3 months.</p>
+              <div class="button-group">
+                <button class="btn btn-default" (click)="showHideModal()">No</button>
+                <button class="btn btn-primary" (click)="disableRolelist()">Yes</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

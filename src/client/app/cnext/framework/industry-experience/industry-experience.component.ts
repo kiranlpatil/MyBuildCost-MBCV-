@@ -1,22 +1,22 @@
 import {Component} from '@angular/core';
-import {IndustryListService} from './industry-list.service';
-import {TestService} from '../test.service';
-import {MyIndustryService} from '../industry-service';
-import {MyRoleService} from '../role-service';
-import {Message} from '../../../framework/shared/message';
-import {MessageService} from '../../../framework/shared/message.service';
-import {IndustryList} from '../model/industryList';
-import {constants} from 'fs';
+import {TestService} from "../test.service";
+import {MyIndustryService} from "../industry-service";
+import {MyRoleService} from "../role-service";
+import {Message} from "../../../framework/shared/message";
+import {MessageService} from "../../../framework/shared/message.service";
+import {IndustryList} from "../model/industryList";
+import {constants} from "fs";
 import {myRoleListTestService} from "../myRolelist.service";
+import {IndustryExperienceService} from "./industry-experience.service";
 
 @Component({
   moduleId: module.id,
-  selector: 'cn-industry-list',
-  templateUrl: 'industry-list.component.html',
-  styleUrls: ['industry-list.component.css']
+  selector: 'cn-industry-experience-list',
+  templateUrl: 'industry-experience.component.html',
+  styleUrls: ['industry-experience.component.css']
 })
 
-export class IndustryListComponent {
+export class IndustryExperienceListComponent {
   private industryNames :string[]=new Array();
   private storedRoles :string[] =new Array();
   private industryData:any;
@@ -30,8 +30,9 @@ export class IndustryListComponent {
 
 
 
-  constructor(private industryService: IndustryListService, private myindustryService : MyIndustryService,
-              private roleService : MyRoleService, private messageService:MessageService , private testService : TestService) {
+  constructor(private industryService: IndustryExperienceService, private myindustryService : MyIndustryService,
+              private roleService : MyRoleService, private messageService:MessageService , private testService : TestService,
+              private myRolelist :myRoleListTestService) {
 
   }
 
@@ -61,11 +62,7 @@ export class IndustryListComponent {
     this.disbleButton=false;
     //this.disbleRole=false;
     this.searchIndustryId(industry);
-    this.industryService.getRoles(industry)
-      .subscribe(
-        rolelist => this.onRoleListSuccess(rolelist.data),
-        error => this.onError(error));
-    this.myindustryService.change(industry);
+
   }
 
   searchIndustryId(industryName:string){
@@ -91,9 +88,9 @@ export class IndustryListComponent {
     }
   }
 
-  selectRolesModel(roleName: string) {debugger
-    if(roleName === 'u can select max '){
-      console.log('u can select max ');
+  selectRolesModel(roleName: string) {
+    if(roleName === "u can select max "){
+      console.log("u can select max ");
     }
     else {
       this.disbleButton = false;
@@ -120,14 +117,14 @@ export class IndustryListComponent {
   }
 
   disableRole(){
-       this.myRolelist.change(true);
-     // this.testService.change(true);
-      this.showModalStyle = !this.showModalStyle;
-      this.disbleRole = true;
-      this.disbleButton = true;
-      this.disableIndustry = true;
-      this.createAndSave();
-      this.roleService.change(this.storedRoles);
+    this.myRolelist.change(true);
+    // this.testService.change(true);
+    this.showModalStyle = !this.showModalStyle;
+    this.disbleRole = true;
+    this.disbleButton = true;
+    this.disableIndustry = true;
+    this.createAndSave();
+    this.roleService.change(this.storedRoles);
 
   }
 

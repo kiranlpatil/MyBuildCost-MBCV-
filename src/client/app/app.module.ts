@@ -109,6 +109,14 @@ import {myJobLocationService} from "./cnext/framework/myjob-location.service";
 import {myJobPostcapabilityService} from "./cnext/framework/jobpost-capabilities.service";
 import {JonPostDescriptionService} from "./cnext/framework/job-post-description.service";
 import {JobPostComplexityService} from "./cnext/framework/job-post-complexity.service";
+import {JobPostProficiencyService} from "./cnext/framework/jobPostProficiency.service";
+import {myRoleListTestService} from "./cnext/framework/myRolelist.service";
+import {RoleListComponent} from "./cnext/framework/role-list/role-list.component";
+import {RoleTypetListComponent} from "./cnext/framework/role-type/role-type.component";
+import {myRoTypeTestService} from "./cnext/framework/myRole-Type.service";
+import {RoleTypeService} from "./cnext/framework/role-type/role-type.service";
+import {IndustryExperienceListComponent} from "./cnext/framework/industry-experience/industry-experience.component";
+import {IndustryExperienceService} from "./cnext/framework/industry-experience/industry-experience.service";
 
 
 @NgModule({
@@ -174,7 +182,11 @@ import {JobPostComplexityService} from "./cnext/framework/job-post-complexity.se
     DescriptionFieldComponent,
     CompanyDetailsComponent,
     MoreAboutMyselfComponent,
-    RecruiterDashboardComponent
+    RecruiterDashboardComponent,
+    RoleListComponent,
+    RoleTypetListComponent,
+    IndustryExperienceListComponent
+
   ],
   providers: [
     {
@@ -238,7 +250,12 @@ import {JobPostComplexityService} from "./cnext/framework/job-post-complexity.se
     myJobLocationService,
     myJobPostcapabilityService,
     JonPostDescriptionService,
-    JobPostComplexityService
+    JobPostComplexityService,
+    JobPostProficiencyService,
+    myRoleListTestService,
+    myRoTypeTestService,
+    RoleTypeService,
+    IndustryExperienceService
 
 
 

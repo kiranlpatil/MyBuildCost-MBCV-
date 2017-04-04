@@ -100,7 +100,7 @@ export class LocalStorage {
 
 export class VALUE_CONSTANT{
   public static MAX_CAPABILITIES :number=2;
-  public static MAX_PROFECIENCES :number=10;
+  public static MAX_PROFECIENCES :number=25;
   public static MAX_DOMAINS :number=10;
   public static MAX_YEAR_LIST :number=30;
   public static MAX_ACADEMIC_YEAR_LIST :number=50;
@@ -148,6 +148,8 @@ export class API {
   public static ROLE_LIST = 'roles';
   public static COMPANY_DETAILS:string = 'companydetails';
   public static ADDRESS = 'address';
+  public static ROLE_TYPE= 'roletype';
+
 
 }
 

@@ -1,5 +1,6 @@
 import {Component, Input} from '@angular/core';
 import {JonPostDescriptionService} from '../job-post-description.service';
+import {description} from "../model/description";
 
 
 @Component({
@@ -19,7 +20,12 @@ export class DescriptionFieldComponent {
  private newstringThree:string[];
  private condition:number;
  private maxword:number;
+ private tempType:string;
+ private tempdetail:string;
+ private model=new description();
+
  private remainingWords:number;
+
 
   constructor(private jobPostDescription:JonPostDescriptionService) {
 
@@ -38,6 +44,14 @@ export class DescriptionFieldComponent {
       if (this.condition-3>=this.maxLength) {
         this. maxword=this.description.length;
       }
-      this.jobPostDescription.change(event);
+         this.tempType=this.type;
+         this.tempdetail = event;
+        this.model.detail =  this.tempdetail;
+        this.model.selectedType = this.tempType;
+
+
+
+
+        this.jobPostDescription.change(this.model);
   }
 }

@@ -9,6 +9,9 @@ import {ProficiencyService} from '../proficience.service';
 import {ProfessionalService} from '../professional-service';
 import {EducationalService} from '../educational-service';
 import {AwardService} from '../award-service';
+import {myRoleListTestService} from "../myRolelist.service";
+import {MyRoleService} from '../role-service';
+import {myRoTypeTestService} from '../myRole-Type.service';
 
 
 @Component({
@@ -32,6 +35,8 @@ export class ProfileCreatorComponent {
   private  showComplexity:boolean=false;
   private  showProfeciency:boolean=false;
   private  whichStepsVisible : boolean[]=new Array(7);
+  private isRolesShow:boolean=false;
+  private isRoleTypeShow:boolean=false;
 
   constructor(private _router:Router,
               private dashboardService:DashboardService,
@@ -40,8 +45,26 @@ export class ProfileCreatorComponent {
               private professionalService : ProfessionalService,
               private educationalService : EducationalService,
               private complexityService : ComplexityService,
-              private awardService: AwardService) {
-      testService.showTest$.subscribe(
+              private myRoleType:myRoTypeTestService,
+              private awardService: AwardService,private myRolelist :myRoleListTestService,) {
+
+    this.myRolelist.showTestRolelist$.subscribe(
+      data=>{
+        this.isRolesShow=data;
+
+
+      }
+    );
+    this.myRoleType.showTestRoleType$.subscribe(
+      data=>{
+        this.isRoleTypeShow=data;
+
+
+      }
+    );
+
+
+    testService.showTest$.subscribe(
         data=>{
             this.whichStepsVisible[1]=data;
           this.showCapability=data;

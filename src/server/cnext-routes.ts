@@ -13,6 +13,7 @@ this.authInterceptor = new AuthInterceptor();
 
 export function cnextInit(app: express.Application) {//todo add interceptor to authenticate
   app.get("/api/industry",industryController.retrieve);
+  app.get("/api/roletype",userController.getRoleTypes);
   app.post("/api/industry",industryController.create);
   app.get("/api/industry/:id/role", roleController.retrieve );
   app.post("/api/candidate", userInterceptor.create, candidateController.create);

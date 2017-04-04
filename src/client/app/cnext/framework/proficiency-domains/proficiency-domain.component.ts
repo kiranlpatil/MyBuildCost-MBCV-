@@ -4,6 +4,7 @@ import {ProficiencyService} from '../proficience.service';
 import {MessageService} from '../../../framework/shared/message.service';
 import {Message} from '../../../framework/shared/message';
 import {proficiencyDomainService} from './proficiency-domain.service';
+import {JobPostProficiencyService} from '../jobPostProficiency.service';
 
 @Component({
   moduleId: module.id,
@@ -24,7 +25,8 @@ export class proficiencyDomainComponent implements OnInit {
 
   constructor(private proficiencyService: ProficiencyService,
               private proficiencydoaminService: proficiencyDomainService,
-              private messageService:MessageService) {
+              private messageService:MessageService,
+              private JobPostProficiency:JobPostProficiencyService) {
 
     proficiencyService.showTest$.subscribe(
       data=>{
@@ -83,10 +85,12 @@ export class proficiencyDomainComponent implements OnInit {
       this.storedProficiency.push(newVal);
       this.deleteSelectedProfeciency(newVal);
       console.log(this.storedProficiency);
+      this.JobPostProficiency.change(this.storedProficiency);
     }
     else{
       this.showAlert=true;
     }
+
     let typeTemp:any=document.getElementById(this.type);
     typeTemp.value='';
 

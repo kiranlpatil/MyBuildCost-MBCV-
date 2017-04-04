@@ -16,10 +16,12 @@ export class MultiSelectListComponent {
  private selectedOptions:string[]=new Array();
 
   constructor() {
+
+
   }
   selectOption(newVal:any) {debugger
     var option=newVal.target.value;
-    
+
     if (newVal.target.checked) {debugger
       if ((this.selectedOptions.length < parseInt(this.maxInput)) && option !== undefined) {
         this.selectedOptions.push(option);

@@ -29,6 +29,21 @@
         </div>
       </div>
 
+      <div class="section-container" [hidden]="!isRolesShow">
+        <h4 class="heading">Select Area of Work(3)</h4>
+        <div class="main-content">
+          <cn-role-list> ></cn-role-list>
+        </div>
+      </div>
+
+      <div class="section-container" [hidden]="!isRoleTypeShow">
+        <h4 class="heading">Select role Type</h4>
+        <div class="main-content">
+          <cn-role-type-list></cn-role-type-list>
+        </div>
+      </div>
+
+
       <div class="section-container" [hidden]="!showCapability">
         <h4 class="heading">Choose Your Capabilities (Max. 10)</h4>
         <div class="main-content">
@@ -47,6 +62,13 @@
         <h4 class="heading">Proficiencies (Max. 20)</h4>
         <div class="main-content">
           <cn-proficiency-doamin [type]="'profeciency'"></cn-proficiency-doamin>
+        </div>
+      </div>
+      <div class="section-container clearfix profeiciency-domain" [hidden]="!showProfeciency">
+      <div class="col-sm-6 padding-right5">
+        <h4 class="heading">select Industry in which you have experience</h4>
+        <div class="main-content">
+          <cn-industry-experience-list></cn-industry-experience-list>
         </div>
       </div>
        <!-- <div class="col-sm-6 padding-left5">

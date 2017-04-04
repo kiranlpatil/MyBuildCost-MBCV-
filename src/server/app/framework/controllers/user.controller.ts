@@ -923,6 +923,19 @@ export function getIndiaStates (req:express.Request, res:express.Response) {
     res.status(403).send({message: e.message});
   }
 }
+getRoleTypes
+
+export function getRoleTypes (req:express.Request, res:express.Response) {
+  __dirname = './';
+  var filepath="roltype.json";
+  try {
+    res.sendFile(filepath,{root: __dirname});
+  }
+  catch (e) {
+    res.status(403).send({message: e.message});
+  }
+}
+
 export function getFunction (req:express.Request, res:express.Response) {
   __dirname = './';
   var filepath="function.json";
