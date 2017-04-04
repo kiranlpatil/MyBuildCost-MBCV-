@@ -1,5 +1,5 @@
 export class Message {
-  error_msg:string;
+  error_msg:any; //string
   custom_message:string;
   isError:boolean;
 }

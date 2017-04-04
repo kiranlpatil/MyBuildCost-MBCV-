@@ -16,7 +16,7 @@ export class Messages {
   public static MSG_SUCCESS_LOGIN: string = 'You are successfully logged in';
   public static MSG_SUCCESS_REGISTRATION: string = 'Kindly verify your account';
   public static MSG_SUCCESS_CHANGE_MOBILE_NUMBER: string = 'Mobile number changed successgully.';
-  public static MSG_SUCCESS_RESEND_VERIFICATION_CODE: string = 'New verification code sent on your mobile number.';
+  public static MSG_SUCCESS_RESEND_VERIFICATION_CODE: string = 'New One Time Password (OTP) sent on your mobile number.';
   public static MSG_SUCCESS_MAIL_VERIFICATION: string = 'Email has been sent successfully on your email.Kindly verify your account';
   public static MSG_SUCCESS_NEWREGISTRATION: string = 'Registration successful with Mobile Number verification.Kindly login';
   public static MSG_SUCCESS_RESET_PASSWORD: string = 'Your password reset successfully';

@@ -143,7 +143,7 @@ export class LoginComponent implements OnInit {
   }
 
   loginFail(error:any) {
-    //this.loaderService.stop();
+
     if (error.err_code === 404 || error.err_code === 0) {
       var message = new Message();
       message.error_msg = error.message;

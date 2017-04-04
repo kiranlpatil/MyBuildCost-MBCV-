@@ -37,7 +37,7 @@ export class ProfileCreatorComponent {
               private dashboardService:DashboardService,
               private testService : TestService,
               private proficiencyService : ProficiencyService,
-              private professionalService : ProfessionalService, 
+              private professionalService : ProfessionalService,
               private educationalService : EducationalService,
               private complexityService : ComplexityService,
               private awardService: AwardService) {
@@ -107,9 +107,10 @@ export class ProfileCreatorComponent {
   onUserProfileError(error:any) {
     console.log(error);
   }
+
   showorhide(event:string){
 
-this.valueOFshowOrHide=event;
+    this.valueOFshowOrHide=event;
 
   }
 

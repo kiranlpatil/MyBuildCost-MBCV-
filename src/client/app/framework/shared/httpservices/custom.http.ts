@@ -38,7 +38,7 @@ export class CustomHttp extends Http {
     this.loaderService.start();
     return observable.do(()=>this.loaderService.stop())
       .catch((err, source) => {
-        
+
         this.loaderService.stop();
         var message = new Message();
         message.isError = true;
@@ -46,13 +46,11 @@ export class CustomHttp extends Http {
          if(err.err_msg && err.err_code){debugger
            errorInstance.err_msg = err.err_msg;
            errorInstance.err_code = err.err_code;
-          return Observable.throw(errorInstance);
-           console.log("Errorr instance is",errorInstance);
+          //return Observable.throw(errorInstance);
         }
          else if (err.status) {
           if (err.status === 401 || err.status === 403) {
-            // var errObj = err.json();
-            //var errObj = JSON.parse(err._body);
+            errorInstance.err_code = err.status;
             errorInstance.err_msg = JSON.parse(err._body).error.message;
           } else if (err.status === 404) {
             errorInstance.err_msg = Messages.MSG_ERROR_SERVER_ERROR;
@@ -60,19 +58,14 @@ export class CustomHttp extends Http {
           } else if (err.status === 0) {
             errorInstance.err_msg = Messages.MSG_ERROR_SOMETHING_WRONG;
             errorInstance.err_code = err.status;
-          } else if (err.status) {
-            // var errObj = err.json();
-            //var errObj =JSON.parse(err._body);
+          } else  {
+
             errorInstance.err_msg = JSON.parse(err._body).error.message;
-            console.log("errstatus  error in customhttp", err);
           }
-          return Observable.throw(errorInstance);
+         // return Observable.throw(errorInstance);
         }
-        else if (err.err_msg) {
-          errorInstance.err_msg = err.err_msg;
-          return Observable.throw(errorInstance);
-          console.log("errorInstance is:", errorInstance);
-        }
+        return Observable.throw(errorInstance);
+
       });
 
   }

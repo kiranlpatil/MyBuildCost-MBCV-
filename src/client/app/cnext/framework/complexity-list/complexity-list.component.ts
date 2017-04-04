@@ -78,10 +78,10 @@ export class ComplexityListComponent {
   }
 
   onComplexityListSuccess(data:any){debugger
-   
+
       this.complexities=data.data;
-    console.log("complex",this.data);
-    
+   // console.log("complex",this.data);
+
 
 
   }

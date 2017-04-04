@@ -84,19 +84,21 @@ export class VerifyPhoneComponent {
   }
 
   verifyFail(error: any) {
+
     if (error.err_code === 404 || error.err_code === 0) {
       var message = new Message();
-      message.error_msg = error.err_msg;
+      message.error_msg = error.message;
       message.isError = true;
       this.messageService.message(message);
     } else {
-      var message = new Message();
       this.isShowErrorMessage = false;
       this.error_msg = error.err_msg;
-      message.error_msg = error.err_msg;
-      message.isError = true;
-      this.messageService.message(message);
     }
+
+  }
+
+  closeErrorMessage() {
+    this.isShowErrorMessage = true;
   }
 
   resendChangeMobileOtpSuccess(res: any) {
