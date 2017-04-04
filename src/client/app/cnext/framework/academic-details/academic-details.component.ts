@@ -83,7 +83,7 @@ this.tempSchoolName=schoolname;
 
         this.tempSchoolName="";
         this.tempUnivercityName="";
-        this.tempPassingYear="";this.tempSpecialization=""
+        this.tempPassingYear="";this.tempSpecialization="";
       }
   }
 }
