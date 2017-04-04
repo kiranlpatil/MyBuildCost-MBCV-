@@ -1,24 +1,39 @@
 <div class="select-role">
-  <div class="radio">
-    <label class="radio-inline">Industry:
-      <cn-single-select-list [radioData]="industryNames"  (selectedData)="selectIndustryModel($event)"></cn-single-select-list>
-    </label>
+  <div>
+      <div class="radio">
+        <label class="radio-inline">Industry:
+        <cn-single-select-list [radioData]="industryNames"  (selectedData)="selectIndustryModel($event)"></cn-single-select-list>
+        </label>
+      </div>
+      <div class="button-group clearfix">
+        <button class="btn btn-primary" >Cofirm &amp; Save</button>
+      </div>
   </div>
 
-  <div class="role-type clearfix">
-    <div class="col-sm-12 col-xs-12 no-padding">
-      <div>
-        <cn-multi-select-list [checkBoxData]="roleNames"  [maxInput]="'3'" (selectedData)="selectRolesModel($event)"></cn-multi-select-list>
+  <div>
+      <div class="role-type clearfix">
+        <div class="col-sm-12 col-xs-12 no-padding">
+          <div>
+            <cn-multi-select-list [checkBoxData]="roleNames"  [maxInput]="'3'" (selectedData)="selectRolesModel($event)"></cn-multi-select-list>
+          </div>
+        </div>
       </div>
 
-
-    </div>
+      <div class="button-group clearfix">
+        <button class="btn btn-primary" (click)="showHideModal()" [disabled]="disbleButton">Cofirm &amp; Save</button>
+      </div>
   </div>
 
-  <div class="button-group clearfix">
-    <button class="btn btn-primary" (click)="showHideModal()" [disabled]="disbleButton">Cofirm &amp; Save</button>
+  <div>
+      <div class="radio">
+        <label class="radio-inline">Industry:
+          <cn-single-select-list [radioData]="industryNames"  (selectedData)="selectIndustryModel($event)"></cn-single-select-list>
+        </label>
+      </div>
+      <div class="button-group clearfix">
+        <button class="btn btn-primary" >Cofirm &amp; Save</button>
+      </div>
   </div>
-  <p class="instructions">Once you confirm and save your roles. You can not change them for 3 months.</p>
 </div>
 
 <div class="modal" [style.display]="getStyleModal()">
