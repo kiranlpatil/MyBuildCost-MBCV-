@@ -1,9 +1,9 @@
 import {Component, OnInit, Input} from '@angular/core';
-import {VALUE_CONSTANT} from "../../../framework/shared/constants";
-import {ProficiencyService} from "../proficience.service";
-import {MessageService} from "../../../framework/shared/message.service";
-import {Message} from "../../../framework/shared/message";
-import {proficiencyDomainService} from "./proficiency-domain.service";
+import {VALUE_CONSTANT} from '../../../framework/shared/constants';
+import {ProficiencyService} from '../proficience.service';
+import {MessageService} from '../../../framework/shared/message.service';
+import {Message} from '../../../framework/shared/message';
+import {proficiencyDomainService} from './proficiency-domain.service';
 
 @Component({
   moduleId: module.id,
@@ -34,9 +34,9 @@ export class proficiencyDomainComponent implements OnInit {
   }
 
   ngOnInit() {
-    if(this.type==="profeciency"){
+    if(this.type==='profeciency'){
       this.proficiencyType=true;
-      this.placeHolderName="proficiency"
+      this.placeHolderName='proficiency'
 
       this.proficiencydoaminService.getProficiency()
         .subscribe(
@@ -45,9 +45,9 @@ export class proficiencyDomainComponent implements OnInit {
 
 
   }
-    if(this.type==="domain"){
+    if(this.type==='domain'){
       this.domainType=true;
-      this.placeHolderName="domain"
+      this.placeHolderName='domain'
 
       this.proficiencydoaminService.getDomain()
         .subscribe(
@@ -88,7 +88,7 @@ export class proficiencyDomainComponent implements OnInit {
       this.showAlert=true;
     }
     let typeTemp:any=document.getElementById(this.type);
-    typeTemp.value="";
+    typeTemp.value='';
 
 
   }

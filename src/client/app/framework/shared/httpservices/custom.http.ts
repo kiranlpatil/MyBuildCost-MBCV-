@@ -1,8 +1,8 @@
-import {Injectable} from "@angular/core";
-import {Observable} from "rxjs/Rx";
-import {Response, Http, ConnectionBackend, Request, RequestOptions, RequestOptionsArgs} from "@angular/http";
-import {Message, Messages, MessageService, ErrorInstance} from "../../shared/index";
-import {LoaderService} from "../loader/loader.service";
+import {Injectable} from '@angular/core';
+import {Observable} from 'rxjs/Rx';
+import {Response, Http, ConnectionBackend, Request, RequestOptions, RequestOptionsArgs} from '@angular/http';
+import {Message, Messages, MessageService, ErrorInstance} from '../../shared/index';
+import {LoaderService} from '../loader/loader.service';
 
 @Injectable()
 export class CustomHttp extends Http {

@@ -1,12 +1,12 @@
 import {Component} from '@angular/core';
-import {IndustryListService} from "./industry-list.service";
-import {TestService} from "../test.service";
-import {MyIndustryService} from "../industry-service";
-import {MyRoleService} from "../role-service";
-import {Message} from "../../../framework/shared/message";
-import {MessageService} from "../../../framework/shared/message.service";
-import {IndustryList} from "../model/industryList";
-import {constants} from "fs";
+import {IndustryListService} from './industry-list.service';
+import {TestService} from '../test.service';
+import {MyIndustryService} from '../industry-service';
+import {MyRoleService} from '../role-service';
+import {Message} from '../../../framework/shared/message';
+import {MessageService} from '../../../framework/shared/message.service';
+import {IndustryList} from '../model/industryList';
+import {constants} from 'fs';
 
 @Component({
   moduleId: module.id,
@@ -90,8 +90,8 @@ export class IndustryListComponent {
   }
 
   selectRolesModel(roleName: string) {debugger
-    if(roleName === "u can select max "){
-      console.log("u can select max ");
+    if(roleName === 'u can select max '){
+      console.log('u can select max ');
     }
     else {
       this.disbleButton = false;

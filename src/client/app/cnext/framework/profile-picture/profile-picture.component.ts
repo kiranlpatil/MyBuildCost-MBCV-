@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import {UserProfile} from "../../../framework/dashboard/user";
-import {DashboardService} from "../../../framework/dashboard/dashboard.service";
+import {UserProfile} from '../../../framework/dashboard/user';
+import {DashboardService} from '../../../framework/dashboard/dashboard.service';
 import {
     Message,
     MessageService,
@@ -32,7 +32,7 @@ export class ProfilePictureComponent  {
               private messageService: MessageService, private profileService: ProfileService) {debugger
     this.filesToUpload = [];
     /*this.image_path = JSON.parse(LocalStorageService.getLocalValue(LocalStorage.PROFILE_PICTURE)); //TODO:Get it from get user call.
-    console.log("Profile Picture",this.image_path);*/
+    console.log('Profile Picture',this.image_path);*/
 
     if (this.image_path === undefined) {
       this.image_path = ImagePath.PROFILE_IMG_ICON;

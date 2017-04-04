@@ -1,7 +1,7 @@
 
 import {  Component } from '@angular/core';
-import {certifications} from "../model/certification-accreditation";
-import {DateService} from "../date.service";
+import {certifications} from '../model/certification-accreditation';
+import {DateService} from '../date.service';
 
 @Component({
   moduleId: module.id,
@@ -13,10 +13,10 @@ import {DateService} from "../date.service";
 export class CertificationAccreditationComponent {
 
   private tempfield: string[];
-  private tempCertificateName:string="";
-  private tempCompanyName:string="";
-  private tempYear:string="";
-  private tempdetails:string="";
+  private tempCertificateName:string='';
+  private tempCompanyName:string='';
+  private tempYear:string='';
+  private tempdetails:string='';
   private selectedcertificates:certifications[]=new Array();
   private yearList:string[]=this.dateservice.yearList;
   private disbleButton:boolean=false;
@@ -53,8 +53,8 @@ this.tempCompanyName=companyname;
 
   addAnother() {
 
-    if(this.tempCertificateName==="" || this.tempCompanyName==="" ||
-      this.tempYear===""|| this.tempdetails==="")
+    if(this.tempCertificateName==='' || this.tempCompanyName==='' ||
+      this.tempYear===''|| this.tempdetails==='')
     {
 
       this.disbleButton=true;
@@ -68,12 +68,12 @@ this.tempCompanyName=companyname;
       temp.certificationdetails=this.tempdetails;
       this.selectedcertificates.push(temp);
       console.log(this.selectedcertificates);
-      this.tempfield.push("null");
+      this.tempfield.push('null');
 
-      this.tempCertificateName="";
-      this.tempCompanyName="" ;
-      this.tempYear="";
-      this.tempdetails="";
+      this.tempCertificateName='';
+      this.tempCompanyName='' ;
+      this.tempYear='';
+      this.tempdetails='';
 
 
     }

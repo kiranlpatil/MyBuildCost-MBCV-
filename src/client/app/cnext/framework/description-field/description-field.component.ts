@@ -1,5 +1,5 @@
 import {Component, Input} from '@angular/core';
-import {JonPostDescriptionService} from "../job-post-description.service";
+import {JonPostDescriptionService} from '../job-post-description.service';
 
 
 @Component({
@@ -30,9 +30,9 @@ export class DescriptionFieldComponent {
   }
 
   wordCount(event:any){
-    this.newstringOne= this.description.split(" ");
-    this.newstringTwo= this.description.split(".");
-    this.newstringThree= this.description.split(",");
+    this.newstringOne= this.description.split(' ');
+    this.newstringTwo= this.description.split('.');
+    this.newstringThree= this.description.split(',');
     this.condition=this.newstringOne.length+this.newstringTwo.length+this.newstringThree.length;
     this.remainingWords=this.maxLength-(this.condition-3);
       if (this.condition-3>=this.maxLength) {

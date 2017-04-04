@@ -6,7 +6,7 @@ import { NavigationRoutes,Message, Messages, MessageService, CommonService} from
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ValidationService } from '../../shared/customvalidations/validation.service';
 import { ImagePath, ProjectAsset } from '../../shared/constants';
-import {LoaderService} from "../../shared/loader/loader.service";
+import {LoaderService} from '../../shared/loader/loader.service';
 
 
 

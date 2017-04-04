@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import {LoaderService} from "../../shared/loader/loader.service";
+import {LoaderService} from '../../shared/loader/loader.service';
 
 @Component({
     moduleId: module.id,
@@ -15,7 +15,7 @@ export class DashboardHomeComponent implements OnInit,OnDestroy {
 
     ngOnInit() {
         document.body.scrollTop = 0;
-      console.log("hello");
+      console.log('hello');
       //this.loaderService.stop();
     }
 

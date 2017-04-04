@@ -1,3 +1,3 @@
-export class MoreAboutMyself{
+export class MoreAboutMyself {
  moreaboutmyself:string;
 }

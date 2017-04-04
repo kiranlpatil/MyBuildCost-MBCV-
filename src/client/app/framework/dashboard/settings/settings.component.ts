@@ -13,7 +13,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { SettingsService } from './settings.service';
 import { UserProfile } from './../user';
 import { ProjectAsset } from '../../shared/constants';
-import {LoaderService} from "../../shared/loader/loader.service";
+import {LoaderService} from '../../shared/loader/loader.service';
 
 @Component({
   moduleId: module.id,

@@ -1,4 +1,4 @@
 
-export class SingleSelectList{
+export class SingleSelectList {
   data: any[];
 }

@@ -1,11 +1,11 @@
 
 import {Component} from '@angular/core';
-import {BaseService} from "../../../framework/shared/httpservices/base.service";
-import {ProfessionalData} from "../model/professional-data";
-import {ProfessionalDataService } from "./professional-data.service"
-import {Message} from "../../../framework/shared/message";
-import {MessageService} from "../../../framework/shared/message.service";
-import {ProfessionalService} from "../professional-service";
+import {BaseService} from '../../../framework/shared/httpservices/base.service';
+import {ProfessionalData} from '../model/professional-data';
+import {ProfessionalDataService } from './professional-data.service'
+import {Message} from '../../../framework/shared/message';
+import {MessageService} from '../../../framework/shared/message.service';
+import {ProfessionalService} from '../professional-service';
 @Component({
   moduleId: module.id,
   selector: 'cn-professional-data',

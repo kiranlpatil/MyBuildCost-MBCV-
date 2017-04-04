@@ -21,7 +21,7 @@ export class VerifyPhoneService extends BaseService {
     }
 
   resendVerificationCode () {
-  //  console.log("resend otp");
+  //  console.log('resend otp');
     var url=API.GENERATE_OTP +'/'+LocalStorageService.getLocalValue(LocalStorage.USER_ID);
     var mobile = LocalStorageService.getLocalValue(LocalStorage.MOBILE_NUMBER);
     var body = {'mobile_number': mobile };

@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import {Http,Headers, RequestOptions} from '@angular/http';
-import {BaseService} from "../../framework/shared/httpservices/base.service";
-import {VALUE_CONSTANT} from "../../framework/shared/constants";
+import {BaseService} from '../../framework/shared/httpservices/base.service';
+import {VALUE_CONSTANT} from '../../framework/shared/constants';
 @Injectable()
 export class DateService extends BaseService {
   private year: any;
   private currentDate: any;
   public yearList = new Array();
-  public monthList = new Array("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December");
+  public monthList = new Array('January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December');
   error_msg: string;
 
 

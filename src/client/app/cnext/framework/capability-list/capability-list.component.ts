@@ -1,16 +1,16 @@
 import {Component} from '@angular/core';
-import {VALUE_CONSTANT, LocalStorage} from "../../../framework/shared/constants";
-import {TestService} from "../test.service";
-import {ComplexityService} from "../complexity.service";
-import {MyIndustryService} from "../industry-service";
-import {MyRoleService} from "../role-service";
-import {MessageService} from "../../../framework/shared/message.service";
-import {CapabilityListService} from "./capability-list.service";
-import {MyCapabilityService} from "../capability-service";
-import {LocalStorageService} from "../../../framework/shared/localstorage.service";
-import {MyJobRequirementService} from "../jobrequirement-service";
-import {Message} from "../../../framework/shared/message";
-import {myJobPostcapabilityService} from "../jobpost-capabilities.service";
+import {VALUE_CONSTANT, LocalStorage} from '../../../framework/shared/constants';
+import {TestService} from '../test.service';
+import {ComplexityService} from '../complexity.service';
+import {MyIndustryService} from '../industry-service';
+import {MyRoleService} from '../role-service';
+import {MessageService} from '../../../framework/shared/message.service';
+import {CapabilityListService} from './capability-list.service';
+import {MyCapabilityService} from '../capability-service';
+import {LocalStorageService} from '../../../framework/shared/localstorage.service';
+import {MyJobRequirementService} from '../jobrequirement-service';
+import {Message} from '../../../framework/shared/message';
+import {myJobPostcapabilityService} from '../jobpost-capabilities.service';
 
 @Component({
   moduleId: module.id,
@@ -142,7 +142,7 @@ export class CapabilityListComponent {
     for(let capability of this.capabilityData){
       if(capability.name===capabilityName){
         this.capabilityIds.push(capability._id);
-        console.log("add",this.capabilityIds);
+        console.log('add',this.capabilityIds);
       }
     }
   }

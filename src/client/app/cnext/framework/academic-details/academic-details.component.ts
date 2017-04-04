@@ -1,8 +1,8 @@
 import {  Component } from '@angular/core';
 import { FormGroup} from '@angular/forms';
-import {academicdetails} from "./academic-details";
-import {VALUE_CONSTANT} from "../../../framework/shared/constants";
-import {EducationalService} from "../educational-service";
+import {academicdetails} from './academic-details';
+import {VALUE_CONSTANT} from '../../../framework/shared/constants';
+import {EducationalService} from '../educational-service';
 
 @Component({
   moduleId: module.id,
@@ -19,10 +19,10 @@ export class AcademicDetailComponent {
  private yearList = new Array();
  private selectedacademicsdeatils:academicdetails[]=new Array();
   private disbleButton:boolean=false;
-  private tempSchoolName:string="";
-  private tempUnivercityName:string="";
-private tempPassingYear:string="";
-private  tempSpecialization:string="";
+  private tempSchoolName:string='';
+  private tempUnivercityName:string='';
+private tempPassingYear:string='';
+private  tempSpecialization:string='';
   constructor(private educationalService : EducationalService) {
 
     this.tempfield = new Array(1);
@@ -63,8 +63,8 @@ this.tempSchoolName=schoolname;
 
   addAnother() {
 
-      if(this.tempSchoolName==="" || this.tempUnivercityName==="" ||
-        this.tempPassingYear==="" || this.tempSpecialization==="" )
+      if(this.tempSchoolName==='' || this.tempUnivercityName==='' ||
+        this.tempPassingYear==='' || this.tempSpecialization==='' )
       {
 
         this.disbleButton=true;
@@ -79,11 +79,11 @@ this.tempSchoolName=schoolname;
         this.selectedacademicsdeatils.push(temp);
 
         console.log(this.selectedacademicsdeatils);
-        this.tempfield.push("null");
+        this.tempfield.push('null');
 
-        this.tempSchoolName="";
-        this.tempUnivercityName="";
-        this.tempPassingYear="";this.tempSpecialization="";
+        this.tempSchoolName='';
+        this.tempUnivercityName='';
+        this.tempPassingYear='';this.tempSpecialization='';
       }
   }
 }

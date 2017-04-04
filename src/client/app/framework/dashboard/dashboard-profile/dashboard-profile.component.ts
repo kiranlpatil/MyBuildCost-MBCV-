@@ -17,7 +17,7 @@ import {
     LocalStorageService
 } from '../../shared/index';
 import { NavigationRoutes } from '../../shared/constants';
-import {LoaderService} from "../../shared/loader/loader.service";
+import {LoaderService} from '../../shared/loader/loader.service';
 
 
 @Component({

@@ -1,3 +1,3 @@
-export class Data{
-  data:string[]=["abc","avg"]
+export class Data {
+  data:string[]=['abc','avg']
 }

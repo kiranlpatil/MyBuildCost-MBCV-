@@ -13,8 +13,8 @@ import {
  } from '../shared/index';
 import { ImagePath, LocalStorage, ProjectAsset } from '../shared/constants';
 import { LocalStorageService } from '../shared/localstorage.service';
-import {LoaderService} from "../shared/loader/loader.service";
-import {RecruitingService} from "../shared/recruiting.service";
+import {LoaderService} from '../shared/loader/loader.service';
+import {RecruitingService} from '../shared/recruiting.service';
 
 
 @Component({

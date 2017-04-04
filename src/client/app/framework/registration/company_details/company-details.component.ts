@@ -1,11 +1,11 @@
 /**
  * Created by techprimelab on 3/9/2017.
  */
-import {Component} from "@angular/core";
-import {Router} from "@angular/router";
-import {CompanyDetailsService} from "./company-details.service";
-import {CompanyDetails} from "./company-details";
-import {Recruiter} from "../recruiter/recruiter";
+import {Component} from '@angular/core';
+import {Router} from '@angular/router';
+import {CompanyDetailsService} from './company-details.service';
+import {CompanyDetails} from './company-details';
+import {Recruiter} from '../recruiter/recruiter';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {
   Message,
@@ -15,11 +15,11 @@ import {
   CommonService,
   Messages,
   AppSettings
-} from "../../shared/index";
-import {ImagePath, LocalStorage} from "../../shared/constants";
-import {LocalStorageService} from "../../shared/localstorage.service";
-import {LoaderService} from "../../shared/loader/loader.service";
-import {Http} from "@angular/http";
+} from '../../shared/index';
+import {ImagePath, LocalStorage} from '../../shared/constants';
+import {LocalStorageService} from '../../shared/localstorage.service';
+import {LoaderService} from '../../shared/loader/loader.service';
+import {Http} from '@angular/http';
 
 @Component({
   moduleId: module.id,
@@ -76,7 +76,7 @@ export class CompanyDetailsComponent {
     this.submitted = true;
     this.model = this.companyDetailsForm.value;
     this.model.setOfDocuments = this.setOfDocuments;
-    console.log("files to upload in setOfDocuments", this.setOfDocuments);
+    console.log('files to upload in setOfDocuments', this.setOfDocuments);
 
     this.companyDetailsService.companyDetails(this.model)
       .subscribe(
@@ -98,10 +98,10 @@ export class CompanyDetailsComponent {
 
     this.filesToUpload = <Array<File>> fileInput.target.files;
     this.buttonId = fileInput.target.id;
-    if(this.buttonId =="file-upload1"){
+    if(this.buttonId =='file-upload1'){
       this.fileName1=this.filesToUpload[0].name;
     }
-    else if(this.buttonId =="file-upload2"){
+    else if(this.buttonId =='file-upload2'){
       this.fileName2=this.filesToUpload[0].name;
     }
     else {
@@ -110,17 +110,17 @@ export class CompanyDetailsComponent {
 
       this.companyDetailsService.makeDocumentUplaod(this.filesToUpload, []).then((result: any) => {
         if (result !== null) {
-          if(this.buttonId =="file-upload1"){
+          if(this.buttonId =='file-upload1'){
             this.setOfDocuments[0]=result.data.document;
           }
-          else if(this.buttonId =="file-upload2"){
+          else if(this.buttonId =='file-upload2'){
             this.setOfDocuments[1]=result.data.document;
           }
           else{
             this.setOfDocuments[2]=result.data.document;
           }
 
-          console.log("setOfDocuments is:",this.setOfDocuments);
+          console.log('setOfDocuments is:',this.setOfDocuments);
 
           this.fileChangeSuccess(result);
         }

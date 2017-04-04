@@ -1,10 +1,10 @@
 
 import {Component} from '@angular/core';
-import {JobLocation} from "../model/job-location";
-import {JobLocationService} from "./job-location.service";
-import {Message} from "../../../framework/shared/message";
-import {MessageService} from "../../../framework/shared/message.service";
-import {myJobLocationService} from "../myjob-location.service";
+import {JobLocation} from '../model/job-location';
+import {JobLocationService} from './job-location.service';
+import {Message} from '../../../framework/shared/message';
+import {MessageService} from '../../../framework/shared/message.service';
+import {myJobLocationService} from '../myjob-location.service';
 
 @Component({
   moduleId: module.id,

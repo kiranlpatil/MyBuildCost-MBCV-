@@ -14,10 +14,10 @@ import {
 } from '../../shared/index';
 import { ImagePath, LocalStorage, ProjectAsset } from '../../shared/constants';
 import { LocalStorageService } from '../../shared/localstorage.service';
-import {LoaderService} from "../../shared/loader/loader.service";
-import {Http,Response} from "@angular/http";
-import {RecruitingService} from "../../shared/recruiting.service";
-import {DateService} from "../../../cnext/framework/date.service";
+import {LoaderService} from '../../shared/loader/loader.service';
+import {Http,Response} from '@angular/http';
+import {RecruitingService} from '../../shared/recruiting.service';
+import {DateService} from '../../../cnext/framework/date.service';
 
 
 @Component({
@@ -52,7 +52,7 @@ export class RecruiterComponent {
   private image_path: string;
   private isRecruitingForself:boolean = true;
   private isShowMessage:boolean=false;
-  private myPassword:string="";
+  private myPassword:string='';
 
 
   constructor(private commanService: CommonService, private _router: Router, private http: Http,
@@ -61,7 +61,7 @@ export class RecruiterComponent {
     recruitmentForService.showRecruitmentFor$.subscribe(
       data=>{
         this.isRecruitingForself=data;
-        console.log("Recruiting for:",this.isRecruitingForself);
+        console.log('Recruiting for:',this.isRecruitingForself);
       }
     );
 
@@ -92,7 +92,7 @@ export class RecruiterComponent {
   {
     this.model = this.recruiterForm.value;
 
-    this.http.get("address")
+    this.http.get('address')
       .map((res: Response) => res.json())
       .subscribe(
         data => {
@@ -107,7 +107,7 @@ export class RecruiterComponent {
         () => console.log()
       );
 
-    this.http.get("companysize")
+    this.http.get('companysize')
       .map((res: Response) => res.json())
       .subscribe(
         data => {
@@ -125,8 +125,8 @@ export class RecruiterComponent {
     this.storedcompanySize=newval;
     this.recruiterForm.value.company_size=this.storedcompanySize;
     this.model.company_size=this.recruiterForm.value.company_size;
-    console.log("company_size is",this.recruiterForm.value.company_size);
-    console.log("company_size is",this.storedcompanySize);
+    console.log('company_size is',this.recruiterForm.value.company_size);
+    console.log('company_size is',this.storedcompanySize);
   }
 
   selectCountryModel(newval:string) {
@@ -172,7 +172,7 @@ export class RecruiterComponent {
 
   onSubmit() {
     this.model = this.recruiterForm.value;
-    console.log("storedcompanySize value",this.storedcompanySize);
+    console.log('storedcompanySize value',this.storedcompanySize);
     this.model.current_theme = AppSettings.LIGHT_THEM;
 
     this.model.location.country =this.storedcountry;

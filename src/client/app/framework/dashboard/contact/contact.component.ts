@@ -5,7 +5,7 @@ import { ContactService } from './contact.service';
 import { Message, Messages, MessageService, CommonService } from '../../shared/index';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ValidationService } from '../../shared/customvalidations/validation.service';
-import {LoaderService} from "../../shared/loader/loader.service";
+import {LoaderService} from '../../shared/loader/loader.service';
 
 @Component({
     moduleId: module.id,

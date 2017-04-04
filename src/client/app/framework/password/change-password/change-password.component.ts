@@ -12,7 +12,7 @@ import {
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { LocalStorageService } from '../../shared/localstorage.service';
 import { LocalStorage } from '../../shared/constants';
-import {LoaderService} from "../../shared/loader/loader.service";
+import {LoaderService} from '../../shared/loader/loader.service';
 
 @Component({
     moduleId: module.id,

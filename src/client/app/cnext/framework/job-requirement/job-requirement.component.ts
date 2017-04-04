@@ -1,13 +1,12 @@
-import {Component} from "@angular/core";
-import {Http} from "@angular/http";
-import {JobRequirement} from "../model/job-requirement";
-import {FormGroup} from "@angular/forms";
-import {MessageService} from "../../../framework/shared/message.service";
-import {IndustryListService} from "../industry-list/industry-list.service";
-import {Message} from "../../../framework/shared/message";
-import {MyJobRequirementService} from "../jobrequirement-service";
-import {ProfessionalDataService} from "../professional-data/professional-data.service";
-import {JobRequirementService} from "./job-requirement.service";
+import { Component } from '@angular/core';
+import { Http } from '@angular/http';
+import { JobRequirement } from '../model/job-requirement';
+import { MessageService } from '../../../framework/shared/message.service';
+import { IndustryListService } from '../industry-list/industry-list.service';
+import { Message } from '../../../framework/shared/message';
+import { MyJobRequirementService } from '../jobrequirement-service';
+import { ProfessionalDataService } from '../professional-data/professional-data.service';
+import { JobRequirementService } from './job-requirement.service';
 
 
 @Component({
@@ -23,13 +22,13 @@ export class JobRequirementComponent {
   private industries = new Array();
   private roles = new Array();
   private storedRoles = new Array();
-  private industryModel = "";
-  private roleModel = "";
-private showIndustry:boolean=false;
-private showRole:boolean=false;
+  private industryModel = '';
+  private roleModel = '';
+  private showIndustry:boolean=false;
+  private showRole:boolean=false;
   private educationlist=new Array();
   private experiencelist=new Array();
-  private salarylist=new Array()
+  private salarylist=new Array();
   private noticeperiodlist=new Array();
   private educationModel: string;
   private experienceModel: string;
@@ -39,7 +38,6 @@ private showRole:boolean=false;
 
   constructor(private industryService: IndustryListService,
               private professionaldataservice:ProfessionalDataService,
-              private http: Http,
               private messageService: MessageService,
               private myJobrequirementService :MyJobRequirementService,
               private jobrequirement:JobRequirementService ) {
@@ -71,9 +69,7 @@ private showRole:boolean=false;
 
 
 
-  onRoleListSuccess(data:any){
-    //this.rolesData=data;
-
+  onRoleListSuccess(data:any) {
     for(let role of data){
       this.roles.push(role.name);
     }
@@ -90,7 +86,7 @@ private showRole:boolean=false;
 
 
   }
-  onEducationListSuccess(data:any){
+  onEducationListSuccess(data:any) {
     for(let k of data.educated){
       this.educationlist.push(k);
     }
@@ -110,7 +106,7 @@ private showRole:boolean=false;
         error =>{ this.onError(error);});
 
   }
-  onExperienceListSuccess(data:any){
+  onExperienceListSuccess(data:any) {
     for(let k of data.experience){
       this.experiencelist.push(k);
     }
@@ -132,7 +128,7 @@ private showRole:boolean=false;
   }
 
 
-  onCurrentSalaryListSuccess(data:any){
+  onCurrentSalaryListSuccess(data:any) {
     for(let k of data.salary ){
       this.salarylist.push(k);
     }
@@ -150,7 +146,7 @@ private showRole:boolean=false;
   }
 
 
-  onGetNoticePeriodListSuccess(data:any){
+  onGetNoticePeriodListSuccess(data:any) {
     for(let k of data.noticeperiod){
       this.noticeperiodlist.push(k);
     }
@@ -178,11 +174,10 @@ private showRole:boolean=false;
     this.showIndustry=true;
   }
 
-  onError(error:any){
+  onError(error:any) {
     var message = new Message();
     message.error_msg = error.err_msg;
     message.isError = true;
     this.messageService.message(message);
   }
-
 }

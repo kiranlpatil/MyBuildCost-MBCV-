@@ -1,14 +1,14 @@
 import {Component} from '@angular/core';
-import {LocalStorageService} from "../../../framework/shared/localstorage.service";
-import {LocalStorage, NavigationRoutes} from "../../../framework/shared/constants";
-import {Router} from "@angular/router";
-import {DashboardService} from "../../../framework/dashboard/dashboard.service";
-import {TestService} from "../test.service";
-import {ComplexityService} from "../complexity.service";
-import {ProficiencyService} from "../proficience.service";
-import {ProfessionalService} from "../professional-service";
-import {EducationalService} from "../educational-service";
-import {AwardService} from "../award-service";
+import {LocalStorageService} from '../../../framework/shared/localstorage.service';
+import {LocalStorage, NavigationRoutes} from '../../../framework/shared/constants';
+import {Router} from '@angular/router';
+import {DashboardService} from '../../../framework/dashboard/dashboard.service';
+import {TestService} from '../test.service';
+import {ComplexityService} from '../complexity.service';
+import {ProficiencyService} from '../proficience.service';
+import {ProfessionalService} from '../professional-service';
+import {EducationalService} from '../educational-service';
+import {AwardService} from '../award-service';
 
 
 @Component({

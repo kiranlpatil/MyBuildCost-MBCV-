@@ -10,7 +10,7 @@ import {
   LocalStorage,
   ProfileService
 } from '../shared/index';
-import {LoaderService} from "../shared/loader/loader.service";
+import {LoaderService} from '../shared/loader/loader.service';
 
 
 @Component({

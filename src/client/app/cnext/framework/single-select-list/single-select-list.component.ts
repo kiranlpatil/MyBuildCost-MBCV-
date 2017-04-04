@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
-import {SingleSelectList} from "../model/single-select-list";
+import {SingleSelectList} from '../model/single-select-list';
 
 @Component({
   moduleId: module.id,

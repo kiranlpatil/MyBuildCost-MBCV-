@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
-import {SingleSelectList} from "../model/single-select-list";
+import {SingleSelectList} from '../model/single-select-list';
 
 @Component({
   moduleId: module.id,
@@ -27,11 +27,11 @@ export class MultiSelectListComponent {
       }
       else {
         if(option !== undefined){
-          this.selectedData.emit("u can select max ");
+          this.selectedData.emit('u can select max ');
           newVal.target.checked=false;
         }
         else
-          console.log("in elsae else");
+          console.log('in elsae else');
       }
     }
     else{debugger

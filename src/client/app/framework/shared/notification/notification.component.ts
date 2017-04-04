@@ -10,7 +10,7 @@ import {
 import { Subscription } from 'rxjs/Subscription';
 import { NavigationRoutes, LocalStorage } from '../../shared/constants';
 import { LocalStorageService } from '../../shared/localstorage.service';
-import {LoaderService} from "../loader/loader.service";
+import {LoaderService} from '../loader/loader.service';
 
 @Component({
     moduleId: module.id,

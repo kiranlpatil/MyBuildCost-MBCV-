@@ -1,15 +1,15 @@
 import {Component} from '@angular/core';
-import {Complexity} from "../model/complexity";
-import {ComplexityService} from "../complexity.service";
-import {ProficiencyService} from "../proficience.service";
-import {MyCapabilityService} from "../capability-service";
-import {MyIndustryService} from "../industry-service";
-import {MyRoleService} from "../role-service";
-import {ComplexityListService} from "./complexity-list.service";
-import {MessageService} from "../../../framework/shared/message.service";
-import {MyJobRequirementService} from "../jobrequirement-service";
-import {Message} from "../../../framework/shared/message";
-import {JobPostComplexityService} from "../job-post-complexity.service";
+import {Complexity} from '../model/complexity';
+import {ComplexityService} from '../complexity.service';
+import {ProficiencyService} from '../proficience.service';
+import {MyCapabilityService} from '../capability-service';
+import {MyIndustryService} from '../industry-service';
+import {MyRoleService} from '../role-service';
+import {ComplexityListService} from './complexity-list.service';
+import {MessageService} from '../../../framework/shared/message.service';
+import {MyJobRequirementService} from '../jobrequirement-service';
+import {Message} from '../../../framework/shared/message';
+import {JobPostComplexityService} from '../job-post-complexity.service';
 
 
 
@@ -58,7 +58,7 @@ export class ComplexityListComponent {
     myCapabilityListService.showTest$.subscribe(
       data=>{debugger
         this.capabilities=data;
-        console.log("from complex capab",this.capabilities);
+        console.log('from complex capab',this.capabilities);
 
         this.complexityListServive.getComplexity(this.industry,this.roles,this.capabilities)
          .subscribe(
@@ -80,7 +80,7 @@ export class ComplexityListComponent {
   onComplexityListSuccess(data:any){debugger
 
       this.complexities=data.data;
-   // console.log("complex",this.data);
+   // console.log('complex',this.data);
 
 
 
@@ -107,7 +107,7 @@ export class ComplexityListComponent {
       let currentComplexity=new Complexity();
       currentComplexity.name=selectedComplexity.currentTarget.children[0].innerHTML;
       currentComplexity.scenario=selectedComplexity.target.value
-      if(selectedComplexity.target.value !== "none") {
+      if(selectedComplexity.target.value !== 'none') {
         this.selectedComplexity.push(currentComplexity);
         this.jobPostComplexiyservice.change(this.selectedComplexity);
       }

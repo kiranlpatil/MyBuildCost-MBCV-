@@ -2,7 +2,7 @@
 
 import {  Injectable } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
-import {JobLocation} from "./model/job-location";
+import {JobLocation} from './model/job-location';
 
 @Injectable()
 export class myJobLocationService  {

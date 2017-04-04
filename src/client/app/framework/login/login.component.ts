@@ -21,7 +21,7 @@ import { ValidationService } from '../shared/customvalidations/validation.servic
 import { FBToken } from './fbtoken';
 import { GoogleToken } from './googletoken';
 import { ProjectAsset } from '../shared/constants';
-import {isBoolean} from "util";
+import {isBoolean} from 'util';
 
 /// <reference path='../../../../../typings/globals/fbsdk/index.d.ts'/>
 /// <reference path='../../../../../tools/manual_typings/project/googleplus.d.ts'/>

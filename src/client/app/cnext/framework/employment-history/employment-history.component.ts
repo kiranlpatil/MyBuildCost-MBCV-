@@ -1,8 +1,8 @@
 
 import {  Component } from '@angular/core';
-import {EmployementHistory} from "../model/employment-history";
-import {VALUE_CONSTANT} from "../../../framework/shared/constants";
-import {EducationalService} from "../educational-service";
+import {EmployementHistory} from '../model/employment-history';
+import {VALUE_CONSTANT} from '../../../framework/shared/constants';
+import {EducationalService} from '../educational-service';
 
 @Component({
   moduleId: module.id,
@@ -13,15 +13,15 @@ import {EducationalService} from "../educational-service";
 
 export class EmploymentHistoryComponent {
 
- private tempCompanyName:string="";
+ private tempCompanyName:string='';
  private toYearModel:string;
  private isShowYearMessage:boolean=false;
- private tempDesignation:string="";
- private tempWorkedToMonth:string="";
-  private tempWorkedToYear:string="";
-  private tempWorkedFromMonth:string="";
-  private tempWorkedFromYear:string="";
-  private tempRemarks:string="";
+ private tempDesignation:string='';
+ private tempWorkedToMonth:string='';
+  private tempWorkedToYear:string='';
+  private tempWorkedFromMonth:string='';
+  private tempWorkedFromYear:string='';
+  private tempRemarks:string='';
  private disbleButton:boolean=false;
  private tempfield: string[];
  private selectedEmploymentHistory = new EmployementHistory();
@@ -29,7 +29,7 @@ export class EmploymentHistoryComponent {
  private year: any;
  private currentDate: any;
  private yearList = new Array();
- private monthList = new Array("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December");
+ private monthList = new Array('January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December');
  error_msg: string;
 
   constructor() {
@@ -93,7 +93,7 @@ export class EmploymentHistoryComponent {
       newval===this.selectedEmploymentHistory.workedFromYear))
     {
       this.isShowYearMessage=true;
-      this.toYearModel="";
+      this.toYearModel='';
     }
     else {
       this.isShowYearMessage=false;
@@ -108,10 +108,10 @@ export class EmploymentHistoryComponent {
 
   addAnother() {debugger
 
-    if(this.tempCompanyName==="" || this.tempDesignation==="" ||
-      this.tempWorkedToMonth==="" || this.tempWorkedToYear==="" ||
-      this.tempWorkedFromMonth==="" || this.tempWorkedFromYear==="" ||
-      this.tempRemarks==="" )
+    if(this.tempCompanyName==='' || this.tempDesignation==='' ||
+      this.tempWorkedToMonth==='' || this.tempWorkedToYear==='' ||
+      this.tempWorkedFromMonth==='' || this.tempWorkedFromYear==='' ||
+      this.tempRemarks==='' )
     {
 
       this.disbleButton=true;
@@ -130,14 +130,14 @@ export class EmploymentHistoryComponent {
 
       this.selectedEmploysHistory.push(temp);
       console.log(this.selectedEmploysHistory);
-      this.tempfield.push("null");}
-    this.tempCompanyName="";
-   this.tempDesignation="" ;
-    this.tempWorkedToMonth="";
-    this.tempWorkedToYear="";
-    this.tempWorkedFromMonth="";
-    this.tempWorkedFromYear="" ;
-    this.tempRemarks="";
+      this.tempfield.push('null');}
+    this.tempCompanyName='';
+   this.tempDesignation='' ;
+    this.tempWorkedToMonth='';
+    this.tempWorkedToYear='';
+    this.tempWorkedFromMonth='';
+    this.tempWorkedFromYear='' ;
+    this.tempRemarks='';
 
 
   }

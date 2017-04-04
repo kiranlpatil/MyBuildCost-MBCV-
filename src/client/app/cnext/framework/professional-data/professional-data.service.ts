@@ -2,11 +2,11 @@
 
 import {  Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import {BaseService} from "../../../framework/shared/httpservices/base.service";
+import {BaseService} from '../../../framework/shared/httpservices/base.service';
 import { Http,Headers, RequestOptions } from '@angular/http';
-import {ProfessionalData} from "../model/professional-data";
-import {API, LocalStorage} from "../../../framework/shared/constants";
-import {LocalStorageService} from "../../../framework/shared/localstorage.service";
+import {ProfessionalData} from '../model/professional-data';
+import {API, LocalStorage} from '../../../framework/shared/constants';
+import {LocalStorageService} from '../../../framework/shared/localstorage.service';
 
 @Injectable()
 export class ProfessionalDataService extends BaseService {
