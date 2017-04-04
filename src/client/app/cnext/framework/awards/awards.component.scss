@@ -35,12 +35,13 @@ $border-color: #ccc;
 
     .col-sm-10 {
       width: 100%;
+      clear: both;
     }
   }
 }
 
 @media only screen and (max-width: 767px) {
-  .academic-details {
+  .awards {
     .col-sm-4,
     .form-control {
       margin: 0;

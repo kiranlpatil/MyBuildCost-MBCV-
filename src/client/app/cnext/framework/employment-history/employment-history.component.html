@@ -47,7 +47,7 @@
             (ngModelChange)="selectedworktoYearModel($event)">
 
         <input class="form-control" [ngModel]="toYearModel" [disabled]="disbleRole"  placeholder="YYYY" />
-        <span *ngIf="isShowYearMessage"><h6><font color="red">Year can not be same or lesser.Fill again......</font></h6></span>
+        <div class="error-messages" *ngIf="isShowYearMessage"><p>Year can not be same or lesser please fill again.</p></div>
 
       </div>
     </div>
@@ -62,14 +62,10 @@
 
 
 <div class="clear">
-  <button type="button" id="more_fields" (click)="addAnother()"   class="btn btn-create-profile"  >
+  <button type="button" id="more_fields" (click)="addAnother()" class="btn btn-create-profile"  >
     Add Another <span>+</span>
   </button>
-  <span *ngIf="disbleButton"><h6><font color="red">Fields should not be empty......</font></h6></span>
-
-
-
-
+  <div class="error-messages" *ngIf="disbleButton"><p>Fields should not be empty.</p></div>
 </div>
 
 

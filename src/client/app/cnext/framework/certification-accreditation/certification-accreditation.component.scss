@@ -16,11 +16,7 @@ $border-color: #ccc;
   }
 }
 
-.left-content {
-  float: left;
-  padding-right: 15px;
-  width: 50%;
-
+.certification {
   .worked-from,
   .worked-to {
     label {
@@ -38,40 +34,33 @@ $border-color: #ccc;
       padding: 6px;
     }
   }
-}
-
-.right-content {
-  float: left;
-  padding-left: 15px;
-  width: 50%;
-
   textarea {
     border-radius: 0;
-    height: 150px;
+    height: 100px;
     margin-top: 15px;
     resize: vertical;;
     width: 100%;
   }
 }
 
-@media only screen and (max-width: 1024px) {
-  .left-content,
-  .right-content {
-    padding: 0;
-    width: 100%;
+@media only screen and (max-width: 980px) {
+  .certification {
+    .col-sm-4 {
+      width: 50%;
+    }
 
-    textarea {
-      height: 100px;
-      margin-top: 5px;
-      width: 83%;
+    .col-sm-10 {
+      clear: both;
+      width: 100%;
     }
   }
 }
 
-@media only screen and (max-width: 987px) {
-  .left-content,
-  .right-content {
-    textarea {
+@media only screen and (max-width: 767px) {
+  .certification {
+    .col-sm-4,
+    .form-control {
+      margin: 0;
       width: 100%;
     }
   }

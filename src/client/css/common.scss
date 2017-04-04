@@ -42,6 +42,16 @@ $modal-bg: rgba(0, 0, 0, .7);
   padding-right: 5px;
 }
 
+.padding-left15 {
+  padding-left: 15px;
+  padding-right: 0;
+}
+
+.padding-right15 {
+  padding-left: 0;
+  padding-right: 15px;
+}
+
 :focus { outline: none; }
 
 %background-img {
@@ -431,6 +441,11 @@ control-messages {
 }
 
 @media only screen and (max-width: 767px) {
+
+  .padding-left15, .padding-right15 {
+    padding: 0;
+  }
+
   .toaster-message {
     margin-right: -40%;
     position: fixed;

@@ -67,11 +67,28 @@ $border-color: #ccc;
   }
 }
 
-@media only screen and (max-width: 987px) {
+@media only screen and (max-width: 980px) {
   .left-content,
   .right-content{
     textarea {
       width: 100%;
     }
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .left-content {
+    .form-control {
+      margin: 0;
+      width: 100%;
+    }
+
+    .col-sm-12 {
+      clear: both;
+    }
+  }
+
+  .right-content {
+    margin-bottom: 15px;
   }
 }

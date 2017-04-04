@@ -11,7 +11,7 @@
     </ul>
   </div>
 
-  <div class="profile-wrapper">
+  <div class="profile-wrapper container">
     <div class="col-sm-3">
       <cn-profile-picture></cn-profile-picture>
       <span class="profile-name-first">{{firstName}}</span><span class="profile-name-last">{{lastName}}</span>
@@ -38,18 +38,17 @@
 
       <div class="section-container" [hidden]="!showComplexity">
         <h4 class="heading">Choose Complexities</h4>
-        <div class="main-content min-height">
+        <div class="main-content max-height">
           <cn-complexity-list></cn-complexity-list>
         </div>
       </div>
 
       <div class="section-container clearfix profeiciency-domain" [hidden]="!showProfeciency">
-        <div class="col-sm-6 padding-right5">
-          <h4 class="heading">Proficiencies (Max. 20)</h4>
-          <div class="main-content">
-            <cn-proficiency-doamin [type]="'profeciency'"></cn-proficiency-doamin>
-          </div>
+        <h4 class="heading">Proficiencies (Max. 20)</h4>
+        <div class="main-content">
+          <cn-proficiency-doamin [type]="'profeciency'"></cn-proficiency-doamin>
         </div>
+      </div>
        <!-- <div class="col-sm-6 padding-left5">
           <h4 class="heading">Industries (Max. 20)</h4>
           <div class="main-content">

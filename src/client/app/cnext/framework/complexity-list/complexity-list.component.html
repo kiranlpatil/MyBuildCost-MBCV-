@@ -1,16 +1,15 @@
 <div *ngIf="isComplexityShow">
   <div class="select-complexity clearfix" *ngFor="let item of complexities;let i = index" (click)="selectOption($event)" >
-    <div class="complexity-name">
+    <div class="complexity-name col-sm-2 no-padding">
       <p id ="complexity">{{item.name}}</p>
     </div>
-    <div class="scenarios">
+    <div class="scenarios col-sm-10 padding-left15">
       <div class="select-option"  *ngFor="let subitem of item.scenario">
         <label>
           <input type="radio" name="{{item.name}}"  id="{{i}}" value="{{subitem.name}}" >
           <span>{{subitem.name}}</span>
         </label>
       </div>
-
     </div>
   </div>
 </div>

@@ -19,6 +19,7 @@ $option-theme-color: #1c75bd;
     p {
       margin: 10px 0 5px;
       text-transform: capitalize;
+      font-size: 12px;
     }
   }
 }
@@ -36,6 +37,7 @@ $option-theme-color: #1c75bd;
       border-radius: 25px;
       color: $text-color;
       cursor: pointer;
+      font-size: 12px;
       font-weight: 100;
       padding: 6px 10px;
 
@@ -90,3 +92,29 @@ $option-theme-color: #1c75bd;
     }
   }
 }
+
+@media screen and (max-width: 980px) {
+  .btn-primary {
+    float: none;
+    margin-top: 15px;
+  }
+
+  .scenarios {
+    .select-option {
+      margin: 0 20px 0 0;
+    }
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .select-option > label {
+    padding: 7px 0;
+
+    & > input {
+      & + span {
+        font-size: 10px;
+      }
+    }
+  }
+}
+

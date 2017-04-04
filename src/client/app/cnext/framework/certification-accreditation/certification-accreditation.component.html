@@ -1,14 +1,13 @@
-<div class="form col-sm-12 no-padding" *ngFor="let item of tempfield;let i= index">
+<div class="form col-sm-12 no-padding certification" *ngFor="let item of tempfield;let i= index">
 
-  <div class="left-content">
-    <div class="col-sm-6 no-padding">
+    <div class="col-sm-4 no-padding">
       <div class="form-group">
         <input type="text" class="form-control" [ngModel]="certificateName" (ngModelChange)="selectedCertificate($event)" required />
         <label> Name</label>
       </div>
     </div>
 
-    <div class="col-sm-6 no-padding">
+    <div class="col-sm-4 no-padding">
       <div class="form-group">
         <input type="text" class="form-control"  [ngModel]="companyName" (ngModelChange)="selectedCompanyName($event)" required />
         <label>Company Name</label>
@@ -21,12 +20,12 @@
         <div id="yearf" ng2-auto-complete
              [source]="yearList"
              (ngModelChange)="selectedYearModel($event)">
-          <input class="form-control" type="text" required [ngModel]="fromYearModel"  />
+          <input class="form-control" type="text" [ngModel]="fromYearModel" required />
           <label>Year of Certification</label>
         </div>
       </div>
     </div>
-  </div>
+
 
   <div class="col-sm-10 no-padding">
     <div>
@@ -39,7 +38,7 @@
   <button type="button" id="more_fields" (click)="addAnother()" class="btn btn-create-profile" [disabled]="disbleRole" >
     Add Another <span>+</span>
   </button>
-  <span *ngIf="disbleButton"><h6><font color="red">Fields should not be empty......</font></h6></span>
+  <div class="error-messages" *ngIf="disbleButton"><p>Fields should not be empty.</p></div>
 
 </div>
 

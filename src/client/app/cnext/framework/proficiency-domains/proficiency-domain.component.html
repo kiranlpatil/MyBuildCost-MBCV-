@@ -1,22 +1,28 @@
 <div *ngIf="isProficiencyShow">
-  <div class="proefficiency-container">
-    <p>Add your <span  *ngIf="proficiencyType">proficiencies/tools/technologies</span><span *ngIf="domainType">domains you work</span></p>
-    <p class="instructions" *ngIf="showAlert">You can select maximum 20 <span  *ngIf="proficiencyType">proficiencies</span><span>domains</span></p>
+  <div class="proficiency-container">
+    <!--<p>Add your <span  *ngIf="proficiencyType">proficiencies/tools/technologies</span><span *ngIf="domainType">domains you work</span></p>-->
+    <p class="info">Enter all key words that describe your area of expertise or specialization. These proficiencies will be used for second level of matching post
+     capability matching.<span class="error-messages"><span>You can edit this list anytime.</span></span></p>
 
-    <div class="list">
-      <div class="form-group">
-        <div ng2-auto-complete
-             [source]="selectedproficiencies"
-             (ngModelChange)="selectedProficiencyModel($event)">
-          <input  class="form-control" [(ngModel)]="proficiencyModel" id={{type}} placeholder="{{placeHolderName}}" />
+    <div class="list clearfix">
+      <div class="col-sm-4 no-padding">
+        <div class="form-group">
+          <div ng2-auto-complete
+               [source]="selectedproficiencies"
+               (ngModelChange)="selectedProficiencyModel($event)">
+            <input  class="form-control" [(ngModel)]="proficiencyModel" id={{type}} placeholder="{{placeHolderName}}" />
+          </div>
         </div>
+        <p class="instructions" *ngIf="showAlert">You can select maximum 20 proficiencies.</p>
       </div>
 
-      <div class="btn-container">
-        <div *ngFor="let item of storedProficiency; let i = index">
-          <button type="button" class="btn btn-create-profile" (click)="deleteItem($event)">
-            {{item}} <span class="glyphicon glyphicon-remove" ></span>
-          </button>
+      <div class="col-sm-8 padding-left15">
+        <div class="btn-container clearfix">
+          <div *ngFor="let item of storedProficiency; let i = index">
+            <button type="button" class="btn btn-create-profile" (click)="deleteItem($event)">
+              {{item}} <span class="glyphicon glyphicon-remove" ></span>
+            </button>
+          </div>
         </div>
       </div>
     </div>
