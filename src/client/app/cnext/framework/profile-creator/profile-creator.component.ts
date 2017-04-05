@@ -12,7 +12,10 @@ import { AwardService } from '../award-service';
 import { myRoleListTestService } from '../myRolelist.service';
 //import { MyRoleService } from '../role-service';
 import { myRoTypeTestService } from '../myRole-Type.service';
-import { DisableTestService } from '../disable-service';
+import { DisableTestService } from "../disable-service";
+import {JobTitle} from "../model/jobTitle";
+import {MYJobTitleService} from "../myJobTitle.service";
+
 
 @Component({
   moduleId: module.id,
@@ -36,6 +39,9 @@ export class ProfileCreatorComponent implements OnInit {
   private isRolesShow:boolean=false;
   private showfield:boolean=false;
   private isRoleTypeShow:boolean=false;
+  private title:string="";
+  private jobTitle=new JobTitle();
+
   protected  selectedvalue1:string;
   protected selectedvalue2:string;
 
@@ -47,6 +53,7 @@ export class ProfileCreatorComponent implements OnInit {
               private educationalService : EducationalService,
               private complexityService : ComplexityService,
               private myRoleType:myRoTypeTestService,
+              private jobtitleservice:MYJobTitleService,
               private awardService: AwardService,private myRolelist :myRoleListTestService,private disableService:DisableTestService) {
 
     this.myRolelist.showTestRolelist$.subscribe(
@@ -168,4 +175,16 @@ export class ProfileCreatorComponent implements OnInit {
     LocalStorageService.setLocalValue(LocalStorage.IS_LOGED_IN, 0);
     this._router.navigate([NavigationRoutes.APP_START]);
   }
+  onSubmit(){
+
+
+  }
+
+  selectedtitle(title:string){
+     this.title=title;
+     this.jobTitle.title=this.title;
+this.jobtitleservice.change( this.jobTitle.title);
+
+  }
+
 }

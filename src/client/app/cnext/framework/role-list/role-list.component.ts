@@ -1,12 +1,12 @@
-import { Component } from '@angular/core';
-import { myRoleListTestService } from "../myRolelist.service";
-import { MyIndustryService } from "../industry-service";
-import { IndustryListService } from "../industry-list/industry-list.service";
-import { Message } from "../../../framework/shared/message";
-import { MessageService } from "../../../framework/shared/message.service";
-import { IndustryList } from "../model/industryList";
-import { MyRoleService } from "../role-service";
-import { myRoTypeTestService } from "../myRole-Type.service";
+import {Component} from '@angular/core';
+import {myRoleListTestService} from "../myRolelist.service";
+import {MyIndustryService} from "../industry-service";
+import {IndustryListService} from "../industry-list/industry-list.service";
+import {Message} from "../../../framework/shared/message";
+import {MessageService} from "../../../framework/shared/message.service";
+import {IndustryList} from "../model/industryList";
+import {MyRoleService} from "../role-service";
+import {myRoTypeTestService} from "../myRole-Type.service";
 
 @Component({
   moduleId: module.id,
@@ -25,6 +25,7 @@ export class RoleListComponent {
   private disbleButton: boolean = true;
   private disableIndustry: boolean = false;
   private industryRoles=new IndustryList();
+  private  isnewindustry:boolean=false;
 
 
   constructor(private messageService:MessageService ,
@@ -45,17 +46,27 @@ export class RoleListComponent {
 
 
   }
-  onError(error:any) {
+  onError(error:any){
     var message = new Message();
     message.error_msg = error.err_msg;
     message.isError = true;
     this.messageService.message(message);
   }
 
-  onRoleListSuccess(data:any) {
+  onRoleListSuccess(data:any){
+
     this.rolesData=data;
-    for(let role of data) {
-      this.roleNames.push(role.name);
+    if(!this.isnewindustry) {
+      for (let role of data) {
+        this.roleNames.push(role.name);
+      }
+      this.isnewindustry=true;
+    }else {
+      this.roleNames.splice(0);
+      for (let role of data) {
+        this.roleNames.push(role.name);
+      }
+
     }
   }
   selectRolesModel(roleName: string) {

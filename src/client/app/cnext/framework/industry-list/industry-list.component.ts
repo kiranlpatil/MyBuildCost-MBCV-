@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { IndustryListService } from './industry-list.service';
+import { TestService } from '../test.service';
 import { MyIndustryService } from '../industry-service';
 import { MyRoleService } from '../role-service';
 import { Message } from '../../../framework/shared/message';
@@ -7,6 +8,7 @@ import { MessageService } from '../../../framework/shared/message.service';
 import { IndustryList } from '../model/industryList';
 import { myRoleListTestService } from '../myRolelist.service';
 import { DisableTestService } from '../disable-service';
+import {MYJobTitleService} from "../myJobTitle.service";
 
 @Component({
   moduleId: module.id,
@@ -27,10 +29,15 @@ export class IndustryListComponent implements OnInit{
   private disableIndustry: boolean = false;
   private industryRoles=new IndustryList();
   private storedindustry:string;
+  private isTitleFilled:boolean=true;
+  private isShowRequired:boolean=true;
+  private title:string="";
 
 
   constructor(private industryService: IndustryListService, private myindustryService : MyIndustryService,private myRolelist:myRoleListTestService,
-              private roleService : MyRoleService, private messageService:MessageService , private disableService:DisableTestService) {
+              private roleService : MyRoleService, private messageService:MessageService , private disableService:DisableTestService,
+              private jobtitleservice:MYJobTitleService,
+              ) {
 
   }
 
@@ -40,6 +47,13 @@ export class IndustryListComponent implements OnInit{
         industrylist => this.onIndustryListSuccess(industrylist.data),
         error => this.onError(error));
 
+
+    this.jobtitleservice.showTestTitle$.subscribe(
+      data=>{
+        this.title=data;
+
+      }
+    );
   }
 
   onIndustryListSuccess(data:any) {
@@ -112,10 +126,18 @@ export class IndustryListComponent implements OnInit{
   };
 
   showHideModal() {
-    this.showModalStyle = !this.showModalStyle;
+    if(this.title===""){
+      this.isTitleFilled=false;
+    }else{
+      this.isShowRequired=false;
+      this.isTitleFilled=true;
+
+
+      this.showModalStyle = !this.showModalStyle;
+    }
   }
 
-  disableRole(){
+  disableIndustrires(){
     this.myindustryService.change(this.storedindustry);
 
     this.disableService.change(true);

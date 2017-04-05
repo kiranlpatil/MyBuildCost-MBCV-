@@ -5,7 +5,7 @@ import {  IndustryListService  } from '../industry-list/industry-list.service';
 import {  Message  } from '../../../framework/shared/message';
 import {  MyJobRequirementService  } from '../jobrequirement-service';
 import {  ProfessionalDataService  } from '../professional-data/professional-data.service';
-import {  JobRequirementService  } from './job-requirement.service';
+import {JobRequirementService} from "../myJobRequirement.service";
 
 
 @Component({

@@ -103,8 +103,6 @@ import { AwardService } from './cnext/framework/award-service';
 import { JobLocationService } from './cnext/framework/job-location/job-location.service';
 import { SingleSelectListComponent } from './cnext/framework/single-select-list/single-select-list.component';
 import { MultiSelectListComponent } from './cnext/framework/multi-select-list/multi-select-list.component';
-import { MyJobInformationService } from './cnext/framework/job-information/job-information.service';
-import { JobRequirementService } from './cnext/framework/job-requirement/job-requirement.service';
 import { myJobLocationService } from './cnext/framework/myjob-location.service';
 import { myJobPostcapabilityService } from './cnext/framework/jobpost-capabilities.service';
 import { JonPostDescriptionService } from './cnext/framework/job-post-description.service';
@@ -118,6 +116,9 @@ import { RoleTypeService } from './cnext/framework/role-type/role-type.service';
 import { IndustryExperienceListComponent } from './cnext/framework/industry-experience/industry-experience.component';
 import { IndustryExperienceService } from './cnext/framework/industry-experience/industry-experience.service';
 import { DisableTestService } from './cnext/framework/disable-service';
+import {MyJobInformationService} from "./cnext/framework/myJobInformation.service";
+import {JobRequirementService} from "./cnext/framework/myJobRequirement.service";
+import {MYJobTitleService} from "./cnext/framework/myJobTitle.service";
 
 
 @NgModule({
@@ -257,7 +258,8 @@ import { DisableTestService } from './cnext/framework/disable-service';
     myRoTypeTestService,
     RoleTypeService,
     IndustryExperienceService,
-    DisableTestService
+    DisableTestService,
+    MYJobTitleService
 
 
 

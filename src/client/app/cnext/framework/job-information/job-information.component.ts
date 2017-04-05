@@ -1,7 +1,8 @@
 
 import {  Component  } from '@angular/core';
 import {  JobInformation  } from '../model/job-information';
-import {  MyJobInformationService  } from './job-information.service';
+import {MyJobInformationService} from "../myJobInformation.service";
+
 
 
 @Component({

@@ -8,7 +8,7 @@
 
     <div class="button-group clearfix">
       <button class="btn btn-primary" (click)="showHideModal()" [disabled]="disbleButton">Cofirm &amp; Save</button>
-    </div>
+    </div>  <div class="error-messages" *ngIf="!isTitleFilled"><p>Title should not be empty.</p></div>
   </div>
 
   <!--<div>-->
@@ -45,7 +45,7 @@
               <p>Once you save your Role(s), You can't change it for 3 months.</p>
               <div class="button-group">
                 <button class="btn btn-default" (click)="showHideModal()">No</button>
-                <button class="btn btn-primary" (click)="disableRole()">Yes</button>
+                <button class="btn btn-primary" (click)="disableIndustrires()">Yes</button>
               </div>
             </div>
           </div>

@@ -26,7 +26,7 @@ export class IndustryExperienceListComponent implements OnInit{
   private disbleButton: boolean = true;
   private disableIndustry: boolean = false;
   private industryRoles=new IndustryList();
-  
+
   constructor(private industryService: IndustryExperienceService, private myindustryService : MyIndustryService,
               private roleService : MyRoleService, private messageService:MessageService , private testService : TestService,
               private myRolelist :myRoleListTestService) {
@@ -42,12 +42,12 @@ export class IndustryExperienceListComponent implements OnInit{
 
   onIndustryListSuccess(data:any) {
     this.industryData=data;
-    for(let industry of data) {
+    for(let industry of data){
       this.industryNames.push(industry.name);
     }
   }
 
-  onError(error:any) {
+  onError(error:any){
     var message = new Message();
     message.error_msg = error.err_msg;
     message.isError = true;
@@ -61,25 +61,25 @@ export class IndustryExperienceListComponent implements OnInit{
 
   }
 
-  searchIndustryId(industryName:string) {
-    for(let industry of this.industryData) {
-      if(industry.name===industryName) {
+  searchIndustryId(industryName:string){
+    for(let industry of this.industryData){
+      if(industry.name===industryName){
         this.industryRoles.industry=industry._id;
       }
     }
   }
 
-  searchRolesId(roleName:any) {
-    for(let role of this.rolesData) {
-      if(role.name===roleName) {
+  searchRolesId(roleName:any){
+    for(let role of this.rolesData){
+      if(role.name===roleName){
         this.industryRoles.roles.push(role._id);
       }
     }
   }
 
-  onRoleListSuccess(data:any) {
+  onRoleListSuccess(data:any){
     this.rolesData=data;
-    for(let role of data) {
+    for(let role of data){
       this.roleNames.push(role.name);
     }
   }
