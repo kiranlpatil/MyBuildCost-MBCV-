@@ -26,7 +26,7 @@ export function retrieve(req:express.Request, res:express.Response, next:any) {
         res.status(403).send({message: "No records in Industry"});
       }
       else {
-        let ids:string[] = new Array(0);
+        let ids:any[] = new Array(0);
         for (let role of result[0].roles) {
           ids.push(new mongoose.Types.ObjectId(role));
         }

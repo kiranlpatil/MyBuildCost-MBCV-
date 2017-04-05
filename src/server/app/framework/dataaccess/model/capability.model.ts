@@ -2,7 +2,7 @@ import IComplexity = require("../mongoose/complexity");
 import * as mongoose from "mongoose";
 
 interface CapabilityModel {
-    complexities:  [{type:mongoose.Schema.Types.ObjectId, ref:'IComplexity'}];
+    complexities:  any[];
     name : string;
 }
 export = CapabilityModel;

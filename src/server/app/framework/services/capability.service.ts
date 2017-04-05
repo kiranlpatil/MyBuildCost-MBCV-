@@ -13,7 +13,7 @@ class CapabilityService {
   }
 
   retrieve(field:any, callback:(error:any, result:any) => void) {
-    this.capabilityRepository.retrieveAll(field, callback);
+    this.capabilityRepository.retrieveAll(field,{}, callback);
   }
 
   create(item:any, callback:(error:any, result:any) => void) {

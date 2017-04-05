@@ -3,7 +3,7 @@ import IScenario = require("../mongoose/scenario");
 interface ComplexityModel {
     name: string;
     industryCode : string;
-    scenarios : [{type:mongoose.Schema.Types.ObjectId, ref:'IScenario'}];
+    scenarios : any[];
 
 }
 export = ComplexityModel;

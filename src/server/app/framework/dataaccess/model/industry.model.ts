@@ -3,7 +3,7 @@ import IRole = require("../mongoose/role");
 interface IndustryModel {
     code_name: string;
     name : string;
-    roles : [{type:mongoose.Schema.Types.ObjectId, ref:'IRole'}];
+    roles : any[];
 
 
 }

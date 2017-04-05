@@ -49,7 +49,8 @@ export function retrieve(req:express.Request, res:express.Response, next:any) {
 export function create(req:express.Request, res:express.Response, next:any) { //todo code should be review be Sudhakar
   try {
     let newIndustry:IndustryModel = <IndustryModel>req.body;
-    let newRole:RoleModel = <RoleModel>req.body.roles;
+    let newRole:any[] = new Array(0);
+    newRole = <any>req.body.roles;
     let scenarioService:ScenarioService = new ScenarioService();
     let complexityService:ComplexityService = new ComplexityService();
     let capabilityService:CapabilityService = new CapabilityService();

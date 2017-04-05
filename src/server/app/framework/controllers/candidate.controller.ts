@@ -10,6 +10,7 @@ import CandidateService = require("../services/candidate.service");
 import EmployeeHistoryService = require("../services/employee-history.service");
 import ProfessionalDetailsService = require("../services/professional-details.service");
 import AcademicService = require("../services/academics.service");
+import * as mongoose from "mongoose";
 
 
 export function create(req:express.Request, res:express.Response, next:any) {
@@ -117,7 +118,7 @@ export function updateDetails(req:express.Request, res:express.Response, next:an
       for(let item of academics) {
         academicsids.push(item._id);
       }
-      updatedCandidate.employmentHistory = employementids;
+      updatedCandidate.employmentHistory =employementids;
       updatedCandidate.professionalDetails = professionalids;
       updatedCandidate.academics = academicsids;
       candidateService.update(_id, updatedCandidate, (error, result) => {

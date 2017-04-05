@@ -35,7 +35,7 @@ export function retrieve(req:express.Request, res:express.Response, next:any) { 
         res.status(403).send({message: "No records in Industry"});
       }
       else {
-        let ids:string[] = new Array(0);
+        let ids:any[] = new Array(0);
         for (let role of result[0].roles) {
           ids.push(new mongoose.Types.ObjectId(role));
         }
@@ -51,7 +51,7 @@ export function retrieve(req:express.Request, res:express.Response, next:any) { 
           else {
 
             console.log("result " + result);
-            let ids:string[] = new Array(0);
+            let ids:any[] = new Array(0);
             for (let role of result) {
               for (let capability of role.capabilities) {
                 ids.push(new mongoose.Types.ObjectId(capability));
@@ -66,7 +66,7 @@ export function retrieve(req:express.Request, res:express.Response, next:any) { 
                 });
               }
               else {
-                let ids:string[] = new Array(0);
+                let ids:any[] = new Array(0);
                 for (let capability of result) {
                   for (let complexity of capability.complexities) {
                     ids.push(new mongoose.Types.ObjectId(complexity));

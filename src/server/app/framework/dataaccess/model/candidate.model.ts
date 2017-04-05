@@ -13,13 +13,13 @@ interface CandidateModel {
   aboutMyself: string;
   certifications : string[];
   awards : string[];
-  userId :  {type:mongoose.Schema.Types.ObjectId, ref:'User'};
-  location: {type:mongoose.Schema.Types.ObjectId, ref:'ILocation'}
-  capabilities :  [{type:mongoose.Schema.Types.ObjectId, ref:'ICapability'}];
-  complexities :  [{type:mongoose.Schema.Types.ObjectId, ref:'IComplexity'}];
-  academics :  [{type:mongoose.Schema.Types.ObjectId, ref:'IAcademic'}];
-  professionalDetails :  [{type:mongoose.Schema.Types.ObjectId, ref:'IProfessionalDetails'}];
-  employmentHistory : [{type:mongoose.Schema.Types.ObjectId, ref:'IEmploymentHistory'}];
-  proficiencies : [{type:mongoose.Schema.Types.ObjectId, ref:'IProficiency'}];
+  userId :  any;
+  location: any;
+  capabilities :  any[];
+  complexities :  any[];
+  academics :  any[];
+  professionalDetails :  any[];
+  employmentHistory : any[];
+  proficiencies : any[];
 }
 export = CandidateModel;
