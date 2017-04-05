@@ -24,7 +24,7 @@ export function retrieve(req:express.Request, res:express.Response, next:any) {
   try {
     var industryService = new IndustryService();
     var params = {};
-    industryService.retrieveAllIndustries(params, (error, result) => {
+    industryService.retrieveAll(params, (error, result) => {
       if (error) {
         next({
           reason: 'Error In Retriving',//Messages.MSG_ERROR_RSN_INVALID_CREDENTIALS,
@@ -50,7 +50,6 @@ export function create(req:express.Request, res:express.Response, next:any) { //
   try {
     let newIndustry:IndustryModel = <IndustryModel>req.body;
     let industryService = new IndustryService();
-    let rolesId: string[]=new Array(0);
       console.log("Industry Data"+JSON.stringify(newIndustry));
       industryService.create(newIndustry, (error, result) => {
         if (error) {
