@@ -69,9 +69,8 @@ export class NavigationRoutes {
   public static ACTIVATE_USER: string = '/activate_user';
   public static VERIFY_PHONE: string = '/verify_phone';
   public static APP_CHANGEEMAIL:string = '/change_email';
-  public static APP_CREATEPROFILE:string = '/createprofile';
+  public static APP_CREATEPROFILE:string = '/create_profile';
   public static APP_COMPANYDETAILS:string = '/company_details';
-
 
 }
 
