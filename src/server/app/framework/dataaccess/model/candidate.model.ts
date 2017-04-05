@@ -7,6 +7,13 @@ import IEmploymentHistory = require("../mongoose/employment-history");
 import ILocation = require("../mongoose/location");
 import User = require("../mongoose/user");
 import * as mongoose from "mongoose";
+import LocationModel = require("./location.model");
+import AcademicModel = require("./academic.model");
+import ProfessionalDetailsModel = require("./professional-details.model");
+import EmployeeHistoryModel = require("./employee-history.model");
+import ProficiencyModel = require("./proficiency.model");
+import CapabilityModel = require("./capability.model");
+import RoleModel = require("./role.model");
 
 interface CandidateModel {
   isVisible : boolean;
@@ -14,12 +21,11 @@ interface CandidateModel {
   certifications : string[];
   awards : string[];
   userId :  {type:mongoose.Schema.Types.ObjectId, ref:'User'};
-  location: {type:mongoose.Schema.Types.ObjectId, ref:'ILocation'}
-  capabilities :  [{type:mongoose.Schema.Types.ObjectId, ref:'ICapability'}];
-  complexities :  [{type:mongoose.Schema.Types.ObjectId, ref:'IComplexity'}];
-  academics :  [{type:mongoose.Schema.Types.ObjectId, ref:'IAcademic'}];
-  professionalDetails :  [{type:mongoose.Schema.Types.ObjectId, ref:'IProfessionalDetails'}];
-  employmentHistory : [{type:mongoose.Schema.Types.ObjectId, ref:'IEmploymentHistory'}];
-  proficiencies : [{type:mongoose.Schema.Types.ObjectId, ref:'IProficiency'}];
+  location: LocationModel;
+  roles: RoleModel;
+  academics :  AcademicModel[];
+  professionalDetails :  ProfessionalDetailsModel[];
+  employmentHistory : EmployeeHistoryModel[];
+  proficiencies : ProficiencyModel[];
 }
 export = CandidateModel;

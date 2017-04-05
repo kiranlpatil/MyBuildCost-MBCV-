@@ -1,9 +1,9 @@
 import * as mongoose from "mongoose";
 import IScenario = require("../mongoose/scenario");
+import ScenarioModel = require("./scenario.model");
 interface ComplexityModel {
     name: string;
-    industryCode : string;
-    scenarios : [{type:mongoose.Schema.Types.ObjectId, ref:'IScenario'}];
+    scenarios : ScenarioModel[];
 
 }
 export = ComplexityModel;

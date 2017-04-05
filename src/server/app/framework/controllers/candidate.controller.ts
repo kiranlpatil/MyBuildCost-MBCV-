@@ -67,60 +67,11 @@ export function updateDetails(req:express.Request, res:express.Response, next:an
     var updatedCandidate:CandidateModel = <CandidateModel>req.body;
     var params = req.query;
     delete params.access_token;
-    //var user = req.params.id;
-    var _id:string = req.params.id;//user._id;
+    var userId:string = req.params.id;
     console.log("candidate" + updatedCandidate);
     var auth:AuthInterceptor = new AuthInterceptor();
     var candidateService = new CandidateService();
-    var employeeHistoryService = new EmployeeHistoryService();
-    var professionalDetailsService = new ProfessionalDetailsService();
-    var academicsService = new AcademicService();
-    let employementids:string[] = new Array(0);
-    let professionalids:string[] = new Array(0);
-    let academicsids:string[] = new Array(0);
-    let employments:any;
-    let professionals:any;
-    let academics:any;
-    employeeHistoryService.create(updatedCandidate.employmentHistory, (error, result) => {   // todo handle the exception as like seed project remove setTimeout
-      if (error) {
-        console.log("crt employement history error", error);
-      }
-      else {
-        employments = result;
-      }
-    });
-    professionalDetailsService.create(updatedCandidate.professionalDetails, (error, result) => {   // todo handle the exception as like seed project remove setTimeout
-      if (error) {
-        console.log("crt professional details error", error);
-      }
-      else {
-        professionals = result;
-      }
-    });
-    academicsService.create(updatedCandidate.academics, (error, result) => {   // todo handle the exception as like seed project remove setTimeout
-      if (error) {
-        console.log("crt professional details error", error);
-      }
-      else {
-        academics = result;
-      }
-    });
-
-
-    setTimeout(function () {
-      for(let item of employments) {
-        employementids.push(item._id);
-      }
-      for(let item of professionals) {
-        professionalids.push(item._id);
-      }
-      for(let item of academics) {
-        academicsids.push(item._id);
-      }
-      updatedCandidate.employmentHistory = employementids;
-      updatedCandidate.professionalDetails = professionalids;
-      updatedCandidate.academics = academicsids;
-      candidateService.update(_id, updatedCandidate, (error, result) => {
+    candidateService.update(userId, updatedCandidate, (error, result) => {
         if (error) {
           next(error);
         }
@@ -144,8 +95,6 @@ export function updateDetails(req:express.Request, res:express.Response, next:an
           });
         }
       });
-
-    }, 2000);
   }
   catch (e) {
     res.status(403).send({message: e.message});

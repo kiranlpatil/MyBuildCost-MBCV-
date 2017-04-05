@@ -20,7 +20,6 @@ export function cnextInit(app: express.Application) {//todo add interceptor to a
   app.put("/api/candidate/:id",  candidateController.updateDetails);//todo add auth interceptor as like update profile of user
   app.get("/api/industry/:id/roles/capability", capabilityController.retrieve );
   app.get("/api/industry/:id/roles/capability/complexity", complexityController.retrieve );
- // app.get("/api/industry/:id/role", roleController.retrieve );
   app.get("/api/companysize",  userController.getCompanySize);
   app.get("/api/function",  userController.getFunction);
   app.get("/api/proficiency",  userController.getProficiency);
@@ -30,9 +29,5 @@ export function cnextInit(app: express.Application) {//todo add interceptor to a
   app.get("/api/complexity",  userController.getComplexity);
   app.get("/api/:id/role",  userController.getRole);
   app.get("/api/:id/role/capability",  userController.getRole);
-  // app.get("/api/realocation", userController.getRealocation);
 
-
-
-  // app.get("/api/:id/role/capability",  userController.getRole);
 }
