@@ -166,7 +166,6 @@ class RepositoryBase<T extends mongoose.Document> implements IRead<T>, IWrite<T>
       }
     });
   }
-
 }
 
 export = RepositoryBase;
