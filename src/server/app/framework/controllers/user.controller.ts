@@ -467,7 +467,7 @@ export function retrieve(req: express.Request, res: express.Response, next: any)
             "mobile_number": user.mobile_number,
             "picture": user.picture,
             "social_profile_picture":user.social_profile_picture,
-            "_id": user._id,
+            "_id": user.userId,
             "current_theme":user.current_theme
           },
           access_token: token
