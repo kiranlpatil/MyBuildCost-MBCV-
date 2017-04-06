@@ -5,7 +5,7 @@
       "name": "tpl-seed-backend"
     },
     "mail": {
-      "host":"https://10.192.33.252:1300/",
+      "host":"https://10.192.33.252:1400/",
       "MAIL_SENDER": "redminestatus@techprimelab.com",
       "MAIL_SENDER_PASSWORD": "Contactu$@tpl",
       "ADMIN_MAIL": "admin@techprimelab.com"
@@ -21,7 +21,7 @@
     },
     "messaging": {
       "authKey": "145273Ab98acoHWSxO58cb9291",
-      "senderId": "C-NEXT",
+      "senderId": "CNEXTT",
       "routerNumber": "4"
     }
   }
