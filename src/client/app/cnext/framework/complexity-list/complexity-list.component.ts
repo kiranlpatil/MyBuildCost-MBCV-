@@ -28,6 +28,7 @@ export class ComplexityListComponent {
   private capabilities=new Array();
   private roles=new Array();
   private industry:any;
+  private showfield: boolean = false;
 
   constructor(
                private complexityService: ComplexityService,
@@ -107,6 +108,7 @@ export class ComplexityListComponent {
       }
     }
     if(this.selectedComplexity.length===this.complexities.length) {
+      this.showfield=true;
       this.proficiencyService.change(true);
     }
   }

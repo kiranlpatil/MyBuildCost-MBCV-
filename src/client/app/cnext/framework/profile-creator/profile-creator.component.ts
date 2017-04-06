@@ -120,6 +120,7 @@ export class ProfileCreatorComponent implements OnInit {
     }
 
   }
+
   getUserProfile() {
     this.dashboardService.getUserProfile()
       .subscribe(
@@ -188,6 +189,7 @@ export class ProfileCreatorComponent implements OnInit {
      this.title=title;
      this.jobTitle.title=this.title;
      this.jobtitleservice.change( this.jobTitle.title);
+
   }
 
 }

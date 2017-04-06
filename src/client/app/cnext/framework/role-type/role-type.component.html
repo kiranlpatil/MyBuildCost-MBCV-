@@ -1,5 +1,13 @@
 <div class="select-role">
+<!--
   <cn-single-select-list [radioData]="roleTypes"  (selectedData)="selectIndustryModel($event)"></cn-single-select-list>
+-->
+  <div class="select-option"  *ngFor="let choice of roleTypes;let i = index">
+    <label >
+      <input type="radio"  name="choices" id="{{choice}}" value="{{choice}}" [disabled]="showfield" (click)="selectOption($event.target.value)"  >
+      <span>{{choice}}</span>
+    </label>
+  </div>
 
   <div class="button-group clearfix">
     <button class="btn btn-primary" (click)="showHideModal()" [disabled]="disbleButton">Cofirm &amp; Save</button>

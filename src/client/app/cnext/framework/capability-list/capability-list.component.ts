@@ -30,7 +30,9 @@ export class CapabilityListComponent implements OnInit  {
   private capabilityData:any;
   private capabilityIds :string[]=new Array();
   private roles:any;
+  private disablebutton:boolean=true;
   private iscandidate:boolean=false;
+  private showfield: boolean = false;
 
   constructor(private testService : TestService,
               private complexityService : ComplexityService,
@@ -101,6 +103,7 @@ export class CapabilityListComponent implements OnInit  {
   }
 
   selectedOption(selectedCapability:any) {
+     this.disablebutton=false;
     if (selectedCapability.target.checked) {
       this.searchCapabilityId(selectedCapability.target.value);
       if(this.primaryCapabilities.length < ValueConstant.MAX_CAPABILITIES) {
@@ -145,6 +148,8 @@ export class CapabilityListComponent implements OnInit  {
     }
   }
   createAndSave() {
+    this.showfield=true;
+    this.disablebutton=true;
     this.complexityService.change(true);
     this.capabilityListServive.addCapability(this.capabilityIds).subscribe(
       user => {

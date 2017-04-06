@@ -6,7 +6,7 @@
     <div class="scenarios col-sm-10 padding-left15">
       <div class="select-option"  *ngFor="let subitem of item.scenarios">
         <label>
-          <input type="radio" name="{{item.name}}"  id="{{i}}" value="{{subitem.name}}" >
+          <input type="radio" name="{{item.name}}"  id="{{i}}" value="{{subitem.name}}" [disabled]="showfield" >
           <span>{{subitem.name}}</span>
         </label>
       </div>

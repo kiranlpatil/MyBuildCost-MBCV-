@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { IndustryListService } from './industry-list.service';
 import { MyIndustryService } from '../industry-service';
 import { MyRoleService } from '../role-service';
@@ -8,6 +8,7 @@ import { IndustryList } from '../model/industryList';
 import { MyRoleListTestService } from '../myRolelist.service';
 import { DisableTestService } from '../disable-service';
 import { MYJobTitleService } from '../myJobTitle.service';
+import { SingleSelectList } from '../model/single-select-list';
 
 @Component({
   moduleId: module.id,
@@ -17,6 +18,8 @@ import { MYJobTitleService } from '../myJobTitle.service';
 })
 
 export class IndustryListComponent implements OnInit {
+  @Input() radioData:SingleSelectList;
+  @Output() selectedData = new EventEmitter<string>();
   private industryNames :string[]=new Array();
   private storedRoles :string[] =new Array();
   private industryData:any;
@@ -29,6 +32,11 @@ export class IndustryListComponent implements OnInit {
   private industryRoles=new IndustryList();
   private storedindustry:string;
   private title:string='';
+  private abcd:string;
+  private showfield: boolean = false;
+
+
+
 
 
   constructor(private industryService: IndustryListService, private myindustryService : MyIndustryService,private myRolelist:MyRoleListTestService,
@@ -49,7 +57,13 @@ export class IndustryListComponent implements OnInit {
       }
     );
   }
+  selectOption(option:string) {
 
+    if(option !== undefined)
+      this.abcd=option;
+    this.disbleButton=false;
+
+  }
   onIndustryListSuccess(data:any) {
     this.industryData=data;
     for(let industry of data) {
@@ -65,7 +79,7 @@ export class IndustryListComponent implements OnInit {
   }
 
   selectIndustryModel(industry: string) {
-    this.disbleButton=false;
+
     //this.disbleRole=false;
     this.searchIndustryId(industry);
     this.industryService.getRoles(industry)
@@ -108,7 +122,6 @@ export class IndustryListComponent implements OnInit {
 
 
 
-
   createAndSave() {
     this.industryService.addIndustryProfile(this.industryRoles).subscribe(
       user => {
@@ -120,12 +133,14 @@ export class IndustryListComponent implements OnInit {
   };
 
   showHideModal() {
-
+    this.selectIndustryModel(this.abcd);
 
       this.showModalStyle = !this.showModalStyle;
 
   }
   disableIndustrires() {
+
+
     this.myindustryService.change(this.storedindustry);
 
     this.disableService.change(true);

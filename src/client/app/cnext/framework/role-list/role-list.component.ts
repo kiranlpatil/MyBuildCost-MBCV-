@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { MyRoleListTestService } from '../myRolelist.service';
 import { MyIndustryService } from '../industry-service';
 import { IndustryListService } from '../industry-list/industry-list.service';
 import { Message } from '../../../framework/shared/message';
@@ -26,11 +25,13 @@ export class RoleListComponent {
   private disableIndustry: boolean = false;
   private industryRoles=new IndustryList();
   private  isnewindustry:boolean=false;
+  private selectedOptions:string[]=new Array();
+  private showfield: boolean = false;
+  private alert:boolean=false;
 
 
   constructor(private messageService:MessageService ,
               private industryService: IndustryListService,
-              private myRolelist :MyRoleListTestService,
               private roleService : MyRoleService,
               private myIndustryService :MyIndustryService,
               private myRoleType:MyRoTypeTestService ) {
@@ -45,6 +46,30 @@ export class RoleListComponent {
     );
 
 
+  }
+  selectOption(newVal:any) {
+    var option=newVal.target.value;
+    if (newVal.target.checked) {
+      if ((this.selectedOptions.length < 3) && option !== undefined) {
+        this.selectedOptions.push(option);
+        this.selectRolesModel(option);
+
+      } else {
+        if(option !== undefined) {
+          this.alert=true;
+          newVal.target.checked=false;
+        } else
+          console.log('in elsae else');
+      }
+    } else {
+      if(option !== undefined) {
+        for(let data of this.selectedOptions) {
+          if(data === option) {
+            this.selectedOptions.splice(this.selectedOptions.indexOf(data), 1);
+          }
+        }
+      }
+    }
   }
   onError(error:any) {
     var message = new Message();
@@ -69,9 +94,9 @@ export class RoleListComponent {
     }
   }
   selectRolesModel(roleName: string) {
-    if(roleName === 'u can select max ') {
+     if(roleName === 'u can select max ') {
       console.log('u can select max ');
-    } else {
+} else {
       this.disbleButton = false;
       this.storedRoles.push(roleName);
       this.searchRolesId(roleName);
@@ -85,12 +110,14 @@ export class RoleListComponent {
     }
   }
   showHideModal() {
+
     this.showModalStyle = !this.showModalStyle;
   }
   disableRolelist() {
     //this.myRolelist.change(true);
     // this.testService.change(true);
     this.myRoleType.change(true);
+    this.showfield=true;
     this.showModalStyle = !this.showModalStyle;
     this.disbleRole = true;
     this.disbleButton = true;

@@ -9,14 +9,14 @@
     <div class="capability-type" *ngIf="isShowCapability|| iscandidate">
       <div class="select-option" [class.primary]="isPrimary[i]" [class.secondary]="isSecondary[i]" *ngFor="let item of capabilities;let i = index">
         <label>
-          <input type="checkbox" name="checkbox" (click)="selectedOption($event)" id="{{item}}" value="{{item}}" >
+          <input type="checkbox" name="checkbox" (click)="selectedOption($event)" id="{{item}}" value="{{item}}"  [disabled]="showfield">
           <span>{{item}}</span>
         </label>
       </div>
     </div>
     <!--<p class="instructions" *ngIf="showAlert">You can select maximum 10 capability</p>-->
     <div class="button-group clearfix">
-      <button class="btn btn-primary" (click)="createAndSave()" [disabled]="disbleRole">Cofirm &amp; Save</button>
+      <button class="btn btn-primary" (click)="createAndSave()" [disabled]="disablebutton">Cofirm &amp; Save</button>
     </div>
   </div>
 </div>

@@ -18,6 +18,8 @@ export class RoleTypetListComponent implements OnInit {
   private disbleButton: boolean = false;
   private disableIndustry: boolean = false;
   private roleTypes:string[]=new Array();
+  private role:string;
+  private showfield: boolean = false;
   constructor(private roleTypeService: RoleTypeService, private messageService:MessageService , private testService : TestService) {
   }
 
@@ -26,6 +28,14 @@ export class RoleTypetListComponent implements OnInit {
       .subscribe(
         data=> this.onRoleTypesSuccess(data),
         error => this.onError(error));
+
+  }
+
+  selectOption(option:string) {
+
+    if(option !== undefined)
+      this.role=option;
+    this.disbleButton=false;
 
   }
   onRoleTypesSuccess(data:any) {
@@ -43,6 +53,7 @@ export class RoleTypetListComponent implements OnInit {
     this.showModalStyle = !this.showModalStyle;
   }
   disableRoleltype() {
+    this.showfield=true;
     this.testService.change(true);
     this.showModalStyle = !this.showModalStyle;
     this.disbleRole = true;

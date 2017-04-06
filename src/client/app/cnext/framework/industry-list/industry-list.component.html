@@ -1,6 +1,16 @@
-<div class="select-industry">
+<div class="select-industry" >
+  <div>
+    <div class="select-option"  *ngFor="let choice of industryNames;let i = index">
+      <label >
+        <input type="radio"  name="choice" id="{{choice}}" value="{{choice}}" [disabled]="disableIndustry" (click)="selectOption($event.target.value)"  >
+        <span>{{choice}}</span>
+      </label>
+    </div>
+  </div>
 
-  <cn-single-select-list [radioData]="industryNames"  (selectedData)="selectIndustryModel($event)"></cn-single-select-list>
+
+  <!--<cn-single-select-list [radioData]="industryNames"  (selectedData)="selectIndustryModel($event)" ></cn-single-select-list>-->
+
 
   <div class="button-group clearfix">
     <button class="btn btn-primary" (click)="showHideModal()" [disabled]="disbleButton">Cofirm &amp; Save</button>
