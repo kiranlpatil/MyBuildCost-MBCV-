@@ -15,9 +15,6 @@ export function init(app: express.Application) {
     app.put("/api/resetpassword/:id", this.authInterceptor.requiresAuth, userController.resetPassword);
     app.post("/api/candidate",  candidateController.create);
     app.post("/api/recruiter",  recruiterController.create);
-    //app.post("/api/candidate", userInterceptor.create, candidateController.create);
-   // app.post("/api/recruiter", userInterceptor.create, candidateController.create);
-    //app.post("/api/professionaldata",  candidateController.professionaldata);
     app.put("/api/users/:id", this.authInterceptor.requiresAuth, userController.updateDetails);
     app.get("/api/users/:id", userInterceptor.retrieve, this.authInterceptor.requiresAuth, userController.retrieve);
     app.post("/api/sendverificationmail/:id", this.authInterceptor.requiresAuth,userController.verificationMail);
@@ -30,7 +27,6 @@ export function init(app: express.Application) {
     app.post("/api/sendmail", userInterceptor.mail, userController.mail);
     app.get("/api/notification/:id", this.authInterceptor.requiresAuth, userController.notifications);
     app.put("/api/notification/:id", this.authInterceptor.requiresAuth, userController.pushNotifications);
-    //app.put("/api/updatenotification/:id", this.authInterceptor.requiresAuth, userController.updateNotifications);
     app.post("/api/industryprofile", userController.profilecreate);
     //api calling fo professional data-lucky
     app.get("/api/realocation", userController.getRealocation);
