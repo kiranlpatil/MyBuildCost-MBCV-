@@ -12,27 +12,17 @@ this.authInterceptor = new AuthInterceptor();
 
 
 export function cnextInit(app: express.Application) {//todo add interceptor to authenticate
-  app.get("/api/industry",industryController.retrieve);
-  app.get("/api/roletype",userController.getRoleTypes);
-  app.post("/api/industry",industryController.create);
-  app.get("/api/industry/:id/role", roleController.retrieve );
-  app.post("/api/candidate", userInterceptor.create, candidateController.create);
+  app.get("/api/industry",industryController.retrieve); //todo done
+  app.get("/api/roletype",userController.getRoleTypes); //todo remove
+  app.post("/api/industry",industryController.create); //todo done
+  app.get("/api/industry/:id/role", roleController.retrieve );  //todo done
+  app.post("/api/candidate", userInterceptor.create, candidateController.create);  //todo done
   app.put("/api/candidate/:id",  candidateController.updateDetails);//todo add auth interceptor as like update profile of user
-  app.get("/api/industry/:id/roles/capability", capabilityController.retrieve );
-  app.get("/api/industry/:id/roles/capability/complexity", complexityController.retrieve );
- // app.get("/api/industry/:id/role", roleController.retrieve );
-  app.get("/api/companysize",  userController.getCompanySize);
-  app.get("/api/function",  userController.getFunction);
-  app.get("/api/proficiency",  userController.getProficiency);
+  app.get("/api/candidate/:id",candidateController.retrieve);
+  app.get("/api/industry/:id/roles/capability", capabilityController.retrieve ); //todo done
+  app.get("/api/industry/:id/roles/capability/complexity", complexityController.retrieve ); //todo done
+  app.get("/api/companysize",  userController.getCompanySize); //todo done
+  app.get("/api/function",  userController.getFunction);  //todo remove
+  app.get("/api/proficiency",  userController.getProficiency);  //todo remaining
   app.get("/api/domain",  userController.getDomain);
-  app.get("/api/role",  userController.getRole);
-  app.get("/api/capability",  userController.getCapability);
-  app.get("/api/complexity",  userController.getComplexity);
-  app.get("/api/:id/role",  userController.getRole);
-  app.get("/api/:id/role/capability",  userController.getRole);
-  // app.get("/api/realocation", userController.getRealocation);
-
-
-
-  // app.get("/api/:id/role/capability",  userController.getRole);
 }

@@ -15,7 +15,18 @@ class IndustrySchema {
           name : {
             type: String
           },
-          roles : [{type : mongoose.Schema.Types.ObjectId, ref :'IRole'}]
+          roles : [{
+            name:String,
+            capabilities : [{
+              complexities:[{
+                scenarios:[{
+                  name:String
+                }],
+                name: String
+              }],
+              name : String
+            }]
+          }]
 
         },{ versionKey: false });
 

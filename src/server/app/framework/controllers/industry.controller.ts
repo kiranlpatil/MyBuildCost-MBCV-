@@ -17,6 +17,7 @@ import ScenarioService = require("../services/scenario.service");
 import ComplexityService = require("../services/complexity.service");
 import CapabilityService = require("../services/capability.service");
 import RoleService = require("../services/role.service");
+import CNextMessages = require("../shared/cnext-messages");
 
 
 export function retrieve(req:express.Request, res:express.Response, next:any) {
@@ -27,7 +28,7 @@ export function retrieve(req:express.Request, res:express.Response, next:any) {
       if (error) {
         next({
           reason: 'Error In Retriving',//Messages.MSG_ERROR_RSN_INVALID_CREDENTIALS,
-          message: Messages.MSG_ERROR_WRONG_TOKEN,
+          message: CNextMessages.MSG_NOT_FOUND_ANY_RECORD_OF_INDUSTRY,
           code: 401
         });
       }
@@ -38,7 +39,6 @@ export function retrieve(req:express.Request, res:express.Response, next:any) {
           "status": "success",
           "data": result
         });
-
       }
     });
   }
@@ -49,71 +49,8 @@ export function retrieve(req:express.Request, res:express.Response, next:any) {
 export function create(req:express.Request, res:express.Response, next:any) { //todo code should be review be Sudhakar
   try {
     let newIndustry:IndustryModel = <IndustryModel>req.body;
-    let newRole:any[] = new Array(0);
-    newRole = <any>req.body.roles;
-    let scenarioService:ScenarioService = new ScenarioService();
-    let complexityService:ComplexityService = new ComplexityService();
-    let capabilityService:CapabilityService = new CapabilityService();
-    let roleService:RoleService = new RoleService();
     let industryService = new IndustryService();
-    let rolesId: string[]=new Array(0);
-    for (let index1 = 0; index1 < newRole.length; index1++) {
-      let capabilityIds:string[] = new Array(0);
-      for (let index2 = 0; index2 < newRole[index1].capabilities.length; index2++) {
-        let complexityIds:string[] = new Array(0);
-        for (let index = 0; index < newRole[index1].capabilities[index2].complexities.length; index++) {
-          let ids:string[] = new Array(0);
-          for (let i = 0; i < newRole[index1].capabilities[index2].complexities[index].scenarios.length; i++) {
-            scenarioService.create(newRole[index1].capabilities[index2].complexities[index].scenarios[i], (error, result) => {
-              if (error) {
-                console.log("crt complexity error", error);
-              }
-              else {
-                ids.push(result._id);
-              }
-            });
-          }
-          setTimeout(function () {
-            newRole[index1].capabilities[index2].complexities[index].scenarios = ids;
-            complexityService.create(newRole[index1].capabilities[index2].complexities[index], (error, result) => {
-              if (error) {
-                console.log("crt complexity error", error);
-              }
-              else {
-                complexityIds.push(result._id);
-              }
-            });
-          }, 200);
-        }
-        setTimeout(function () {
-          newRole[index1].capabilities[index2].complexities = complexityIds;
-          console.log("----------------------------------------------------");
-          console.log("cap" + complexityIds);
-          capabilityService.create(newRole[index1].capabilities[index2], (error, result) => {
-            if (error) {
-              console.log("crt complexity error", error);
-            }
-            else {
-              capabilityIds.push(result._id);
-            }
-          });
-        }, 300);
-      }
-      setTimeout(function () {
-        newRole[index1].capabilities = capabilityIds;
-        roleService.create(newRole[index1], (error, result) => {
-          if (error) {
-            console.log("crt role error", error);
-          }
-          else {
-            rolesId.push(result._id);
-          }
-        });
-      }, 400);
-    }
-    setTimeout(function () {
-      newIndustry.roles = rolesId;
-      console.log("Roles",rolesId);
+      console.log("Industry Data"+JSON.stringify(newIndustry));
       industryService.create(newIndustry, (error, result) => {
         if (error) {
           console.log("crt role error", error);
@@ -135,7 +72,6 @@ export function create(req:express.Request, res:express.Response, next:any) { //
           console.log("industry inserted");
         }
       });
-    }, 4000);
   }
   catch (e) {
     res.status(403).send({"status": Messages.STATUS_ERROR, "error_message": e.message});

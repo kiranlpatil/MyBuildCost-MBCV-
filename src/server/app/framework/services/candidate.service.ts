@@ -67,7 +67,11 @@ class CandidateService {
   }
 
   retrieve(field: any, callback: (error: any, result: any) => void) {
-    this.userRepository.retrieve(field, callback);
+    this.candidateRepository.retrieve(field, callback);
+  }
+
+  findById(id: any, callback: (error: any, result: any) => void) {
+    this.candidateRepository.findById(id, callback);
   }
 
   update(_id: string, item: any, callback: (error: any, result: any) => void) { //Todo change with candidate_id now it is a user_id operation

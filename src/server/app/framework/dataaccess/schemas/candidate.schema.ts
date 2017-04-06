@@ -11,6 +11,7 @@ import IJobProfile = require("../mongoose/job-profile");
 import ILocation = require("../mongoose/location");
 import IRole = require("../mongoose/role");
 import IIndustry = require("../mongoose/industry");
+import CapabilityModel = require("../model/capability.model");
 var mongoose1 = DataAccess.mongooseInstance;
 var mongooseConnection = DataAccess.mongooseConnection;
 var mongoose = require('mongoose');
@@ -19,33 +20,71 @@ class CandidateSchema {
   static get schema() {
     var schema = mongoose1.Schema({
 
-     userId :{
-       type : mongoose.Schema.Types.ObjectId, ref :'User'
-     },
-      isVisible :{
-        type : Boolean
+      userId: {
+        type: mongoose.Schema.Types.ObjectId, ref: 'User'
       },
-      aboutMyself :{
-        type : String
+      isVisible: {
+        type: Boolean
       },
-      certifications :{
-        type : [String]
+      aboutMyself: {
+        type: String
       },
-      awards :{
-        type : [String]
+      certifications: {
+        type: [String]
       },
-      capabilities : [{type : mongoose.Schema.Types.ObjectId, ref :'ICapability'}],
-      roles : [{type : mongoose.Schema.Types.ObjectId, ref :'IRole'}],
-      industry : [{type : mongoose.Schema.Types.ObjectId, ref :'IIndustry'}],
-      location : {type : mongoose.Schema.Types.ObjectId, ref :'ILocation'},
-      academics :[{type : mongoose.Schema.Types.ObjectId, ref :'IAcademic'}],
-      complexities :[{type : mongoose.Schema.Types.ObjectId, ref :'IComplexity'}],
-      professionalDetails :[{type : mongoose.Schema.Types.ObjectId, ref :'IProfessionalDetails'}],
-      employmentHistory  :[{type : mongoose.Schema.Types.ObjectId, ref :'IEmploymentHistory'}],
-      appliedjobs :[{type : mongoose.Schema.Types.ObjectId, ref :'IJobProfile'}],
-      proficiences :[{type : mongoose.Schema.Types.ObjectId, ref :'IProficiency'}]
+      awards: {
+        type: [String]
+      },
+      roles: [{
+        name: String,
+        capabilities: [{
+          complexities: [{
+            scenarios: {
+              name: String
+            },
+            name: String
+          }],
+          name: String
+        }]
+      }],
+      industry: [{type: mongoose.Schema.Types.ObjectId, ref: 'IIndustry'}],
+      location: {
+        cityName: String,
+        state: String,
+        country: String,
+        pin: Number
+      },
+      academics: [{
+        schoolName: String,
+        board: String,
+        yearOfPassing: Number,
+        specialization: String
+      }],
+      professionalDetails: [{
+        education: String,
+        experience: String,
+        currentSalary: String,
+        noticePeriod: String,
+        relocate: String
+      }],
+      employmentHistory: [{
+        companyName: String,
+        designation: String,
+        from: {
+          month: String,
+          year: String
+        },
+        to: {
+          month: String,
+          year: String
+        },
+        remarks: String
+      }],
+      proficiences: [{
+          name:[String]
+      }]
 
-    },{ versionKey: false });
+    }, {versionKey: false});
 
     return schema;
   }

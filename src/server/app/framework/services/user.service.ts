@@ -265,6 +265,10 @@ class UserService {
 
   }
 
+  findById(id: any, callback: (error: any, result: any) => void) {
+    this.userRepository.findById(id, callback);
+  }
+
   retrieve(field: any, callback: (error: any, result: any) => void) {
     this.userRepository.retrieve(field, callback);
   }
