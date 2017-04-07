@@ -13,7 +13,7 @@ export class RoleTypeService extends BaseService {
     super();
   }
 
-  addToProfile(industryprofile:any):Observable<any> {debugger
+  addToProfile(industryprofile:any):Observable<any> {
     let headers = new Headers({ 'Content-Type': 'application/json'});
     let options = new RequestOptions({ headers: headers });
     let body = JSON.stringify({"roleType":industryprofile});

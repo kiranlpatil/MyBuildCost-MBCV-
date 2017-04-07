@@ -29,6 +29,7 @@ export class ComplexityListComponent {
   private industry:any;
   private showfield: boolean = false;
   private complexityData:any;
+  private count:number=0;
   private industryRoles:IndustryList=new IndustryList();
   constructor(
                private complexityService: ComplexityService,
@@ -78,14 +79,12 @@ export class ComplexityListComponent {
 
   }
 
-  onComplexityListSuccess(data:any) {debugger
+  onComplexityListSuccess(data:any) {
     this.complexityData=data;
     this.complexities=new Array(0);
     for(let role of data) {
       for(let capability of role.capabilities){
         for(let complexity of capability.complexities){
-          /*var complex=new complexity();
-          complex.name=com*/
           this.complexities.push(complexity);
         }
       }
@@ -98,7 +97,7 @@ export class ComplexityListComponent {
     this.messageService.message(message);
   }
   selectOption(selectedComplexity:any) {
-    if (selectedComplexity.target.checked) {debugger
+    if (selectedComplexity.target.checked) {
       let currentComplexity = new Complexity();
       currentComplexity.name = (selectedComplexity.currentTarget.children[0].innerText).trim();
       let scenario = new Scenario();
@@ -106,62 +105,25 @@ export class ComplexityListComponent {
       currentComplexity.scenarios.push(scenario);
       this.searchSelectedComplexity(currentComplexity);
 
-      /*      for (let i = 0; i < this.selectedComplexity.length; i++) {
-       if (this.selectedComplexity[i].name === selectedComplexity.currentTarget.children[0].innerHTML) {
-       if (i > -1) {
-       this.selectedComplexity.splice(i, 1);
-       }
-       }
-       }
-       let currentComplexity=new Complexity();
-       currentComplexity.name=selectedComplexity.currentTarget.children[0].innerHTML;
-       currentComplexity.scenario=selectedComplexity.target.value;
-       if(selectedComplexity.target.value !== 'none') {
-       this.selectedComplexity.push(currentComplexity);
-       this.jobPostComplexiyservice.change(this.selectedComplexity);
-       }
-       }
-       if(this.selectedComplexity.length===this.complexities.length) {
-       this.showfield=true;
-       this.proficiencyService.change(true);
-       }*/
-      console.log(this.selectedComplexity);
+      if(this.count>=this.complexities.length) {
+        this.showfield=true;
+        this.proficiencyService.change(true);
+      }
     }
+    
   }
 
-  searchSelectedComplexity(selectComplexity:Complexity){debugger
-    for(let role of this.complexityData){
-      for(let capability of role.capabilities){
-        for (let complexity of capability.complexities ){
-          if(complexity.name===selectComplexity.name){
-            complexity=selectComplexity;
-            /*            var roleNotFound = true;
-            if(this.industryRoles.roles.length>0){
-              for(let storedRole of this.industryRoles.roles){
-                if(storedRole.name===role.name){
-                  var capabilityNotFound=true;
-                  if(storedRole.capabilities.length > 0){
-                    for(let storedCapability of storedRole.capabilities){
-                      if(storedCapability.name===capability.name){
-                        var complex:Complexity = new Complexity();
-                        complex.name = selectComplexity.name;
-                        var scenar:Scenario =new Scenario();
-                        scenar.name=selectComplexity.scenarios[0].name;
-                        complex.scenarios.push(scenar);
-                        storedCapability.complexities.push(complex);
-                        capabilityNotFound = false;
-                        break;
-                      }
-                    }
-                  }
-                }
-              }
-            }*/
+  searchSelectedComplexity(selectComplexity:Complexity){
+    for(let i=0;i<this.complexityData.length;i++){
+      for(let j=0;j<this.complexityData[i].capabilities.length;j++){
+        for (let k=0;k<this.complexityData[i].capabilities[j].complexities.length;k++){
+          if(this.complexityData[i].capabilities[j].complexities[k].name===selectComplexity.name){
+            this.complexityData[i].capabilities[j].complexities[k]=selectComplexity;
+            this.count++;
           }
         }
       }
-    }debugger
-
+    }
   }
 
 }

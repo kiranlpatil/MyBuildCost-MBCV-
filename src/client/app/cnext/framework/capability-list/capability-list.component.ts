@@ -150,7 +150,7 @@ export class CapabilityListComponent implements OnInit  {
     }
   }*/
 
-  searchCapabilityData(capabilityName:string){debugger
+  searchCapabilityData(capabilityName:string){
     for(let item of this.capabilityData) {
       for (let subitem of item.capabilities) {
         if (capabilityName === subitem.name) {

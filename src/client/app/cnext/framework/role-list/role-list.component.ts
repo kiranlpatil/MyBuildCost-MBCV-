@@ -95,7 +95,7 @@ export class RoleListComponent {
 
     }
   }
-  selectRolesModel(roleName: string) {debugger
+  selectRolesModel(roleName: string) {
      if(roleName === 'u can select max ') {
       console.log('u can select max ');
 } else {

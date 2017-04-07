@@ -69,7 +69,7 @@ export class CandidateComponent implements OnInit {
   }
 
   ngOnInit() {
-    debugger
+    
 
     this.http.get('address')
       .map((res: Response) => res.json())
@@ -107,7 +107,7 @@ export class CandidateComponent implements OnInit {
   }
 
   selectStateModel(newval: string) {
-    debugger
+    
     for (let item of this.locationDetails) {
       if (item.country === this.storedcountry) {
         for (let state of item.states) {
@@ -126,7 +126,7 @@ export class CandidateComponent implements OnInit {
   }
 
   selectCityModel(newval: string) {
-    debugger
+    
     this.storedcity = newval;
     console.log("city is", newval);
     console.log("storedcity city is", this.storedcity);

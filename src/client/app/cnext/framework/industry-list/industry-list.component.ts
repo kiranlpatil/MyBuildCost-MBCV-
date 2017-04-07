@@ -121,7 +121,7 @@ export class IndustryListComponent implements OnInit {
 
 
 
-  createAndSave() {debugger
+  createAndSave() {
     this.industryService.addIndustryProfile(this.industryRoles).subscribe(
       user => {
         console.log(user);

@@ -150,7 +150,7 @@ export class RecruiterComponent implements OnInit {
     this.recruiterForm.value.company_headquarter_country=this.companyHeadquarter;
   }
 
-  selectStateModel(newval:string) {debugger
+  selectStateModel(newval:string) {
     for(let item of this.locationDetails) {
       if(item.country===this.storedcountry) {
         for(let state of item.states) {
@@ -229,7 +229,7 @@ export class RecruiterComponent implements OnInit {
     }
   }
 
-  selectCountryMessage() {debugger
+  selectCountryMessage() {
 
     if (this.storedcountry) {
       console.log("stord state is:", this.storedstate);

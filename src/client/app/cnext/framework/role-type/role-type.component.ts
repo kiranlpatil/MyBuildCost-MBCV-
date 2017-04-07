@@ -52,7 +52,7 @@ export class RoleTypetListComponent implements OnInit {
   showHideModal() {
     this.showModalStyle = !this.showModalStyle;
   }
-  disableRoleltype() {debugger
+  disableRoleltype() {
     this.showfield=true;
     this.testService.change(true);
     this.showModalStyle = !this.showModalStyle;
@@ -75,7 +75,7 @@ console.log('event');
 
   }
 
-  createAndSave() {debugger
+  createAndSave() {
     this.roleTypeService.addToProfile(this.role).subscribe(
       user => {
         console.log(user);

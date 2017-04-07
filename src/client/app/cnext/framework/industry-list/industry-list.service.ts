@@ -13,7 +13,7 @@ export class IndustryListService extends BaseService {
   constructor(private http: Http) {
     super();
   }
-  addIndustryProfile(industryprofile:IndustryList):Observable<IndustryList> {debugger
+  addIndustryProfile(industryprofile:IndustryList):Observable<IndustryList> {
     let headers = new Headers({ 'Content-Type': 'application/json'});
     let options = new RequestOptions({ headers: headers });
     let body = JSON.stringify({"industry":industryprofile});
