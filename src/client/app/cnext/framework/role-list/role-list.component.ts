@@ -6,6 +6,7 @@ import { MessageService } from '../../../framework/shared/message.service';
 import { IndustryList } from '../model/industryList';
 import { MyRoleService } from '../role-service';
 import { MyRoTypeTestService } from '../myRole-Type.service';
+import {Role} from "../model/role";
 
 @Component({
   moduleId: module.id,
@@ -38,6 +39,7 @@ export class RoleListComponent {
     myIndustryService.showTest$.subscribe(
       data => {
         this.industry=data;
+        this.industryRoles.name=data;
         this.industryService.getRoles(this.industry)
           .subscribe(
             rolelist => this.onRoleListSuccess(rolelist.data),
@@ -93,13 +95,16 @@ export class RoleListComponent {
 
     }
   }
-  selectRolesModel(roleName: string) {
+  selectRolesModel(roleName: string) {debugger
      if(roleName === 'u can select max ') {
       console.log('u can select max ');
 } else {
       this.disbleButton = false;
       this.storedRoles.push(roleName);
-      this.searchRolesId(roleName);
+       var r:Role=new Role();
+       r.name=roleName;
+       this.industryRoles.roles.push(r);
+      
     }
   }
   searchRolesId(roleName:any) {
@@ -110,12 +115,9 @@ export class RoleListComponent {
     }
   }
   showHideModal() {
-
     this.showModalStyle = !this.showModalStyle;
   }
   disableRolelist() {
-    //this.myRolelist.change(true);
-    // this.testService.change(true);
     this.myRoleType.change(true);
     this.showfield=true;
     this.showModalStyle = !this.showModalStyle;
@@ -124,7 +126,6 @@ export class RoleListComponent {
     this.disableIndustry = true;
     this.createAndSave();
     this.roleService.change(this.storedRoles);
-
   }
 
   createAndSave() {

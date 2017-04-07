@@ -1,5 +1,5 @@
  import { Capability } from './capability';
 export class Role {
-  name: string;
-  capability: Capability[]= new Array();
+  name: string='';
+  capabilities: Capability[]= new Array(0);
 }

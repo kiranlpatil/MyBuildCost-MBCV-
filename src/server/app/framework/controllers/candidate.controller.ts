@@ -71,7 +71,7 @@ export function updateDetails(req:express.Request, res:express.Response, next:an
     var params = req.query;
     delete params.access_token;
     var userId:string = req.params.id;
-    console.log("candidate" + updatedCandidate);
+    console.log("candidate" + userId);
     var auth:AuthInterceptor = new AuthInterceptor();
     var candidateService = new CandidateService();
     candidateService.update(userId, updatedCandidate, (error, result) => {
@@ -88,6 +88,7 @@ export function updateDetails(req:express.Request, res:express.Response, next:an
             });
           }
           else {
+            console.log("--------------------------------------------",JSON.stringify(result));
             var token = auth.issueTokenWithUid(updatedCandidate);
             res.send({
               "status": "success",

@@ -11,6 +11,11 @@ import { LocalStorageService } from '../../../framework/shared/localstorage.serv
 import { MyJobRequirementService } from '../jobrequirement-service';
 import { Message } from '../../../framework/shared/message';
 import { MyJobPostcapabilityService } from '../jobpost-capabilities.service';
+import {Industry} from "../model/industry";
+import {IndustryList} from "../model/industryList";
+import {IndustryListService} from "../industry-list/industry-list.service";
+import {Role} from "../model/role";
+import {Capability} from "../model/capability";
 
 @Component({
   moduleId: module.id,
@@ -32,9 +37,12 @@ export class CapabilityListComponent implements OnInit  {
   private roles:any;
   private disablebutton:boolean=true;
   private iscandidate:boolean=false;
+  private break1:boolean=false;
   private showfield: boolean = false;
+  private industryRoles:IndustryList=new IndustryList();
 
   constructor(private testService : TestService,
+              private industryService:IndustryListService,
               private complexityService : ComplexityService,
               private myIndustryService :MyIndustryService,
               private roleservice :MyRoleService,
@@ -55,6 +63,7 @@ export class CapabilityListComponent implements OnInit  {
     myIndustryService.showTest$.subscribe(
       data => {
         this.industry=data;
+        this.industryRoles.name=data;
       }
     );
     roleservice.showTest$.subscribe(
@@ -85,6 +94,7 @@ export class CapabilityListComponent implements OnInit  {
 
   onCapabilityListSuccess(data:any) {
     this.capabilityData=data;
+    console.log(this.capabilityData);
     if(data !== undefined && data.length > 0) {
       for(let role of data) {
         this.isPrimary = new Array(role.capabilities.length);
@@ -105,7 +115,7 @@ export class CapabilityListComponent implements OnInit  {
   selectedOption(selectedCapability:any) {
      this.disablebutton=false;
     if (selectedCapability.target.checked) {
-      this.searchCapabilityId(selectedCapability.target.value);
+      this.searchCapabilityData(selectedCapability.target.value);
       if(this.primaryCapabilities.length < ValueConstant.MAX_CAPABILITIES) {
         this.primaryCapabilities.push(selectedCapability.target.value);
         this.isPrimary[this.capabilities.indexOf(selectedCapability.target.value)]=true;
@@ -131,11 +141,41 @@ export class CapabilityListComponent implements OnInit  {
     }
     this.myCapabilityListService.change(this.primaryCapabilities);
   }
-  searchCapabilityId(capabilityName:string) {
+ /* searchCapabilityId(capabilityName:string) {
     for(let capability of this.capabilityData) {
       if(capability.name===capabilityName) {
         this.capabilityIds.push(capability._id);
         console.log('add',this.capabilityIds);
+      }
+    }
+  }*/
+
+  searchCapabilityData(capabilityName:string){debugger
+    for(let item of this.capabilityData) {
+      for (let subitem of item.capabilities) {
+        if (capabilityName === subitem.name) {
+          var roleNotFound = true;
+          if (this.industryRoles.roles.length > 0) {
+            for (let role of this.industryRoles.roles) {
+              if (role.name === subitem.roleName) {
+                var capab:Capability = new Capability();
+                capab.name = subitem.name;
+                role.capabilities.push(capab);
+                roleNotFound = false;
+                break;
+              }
+            }
+          }
+
+          if (roleNotFound) {
+            var role1:Role = new Role();
+            role1.name = subitem.roleName;
+            var capab1:Capability = new Capability();
+            capab1.name = subitem.name;
+            role1.capabilities.push(capab1);
+            this.industryRoles.roles.push(role1);
+          }
+        }
       }
     }
   }
@@ -151,13 +191,22 @@ export class CapabilityListComponent implements OnInit  {
     this.showfield=true;
     this.disablebutton=true;
     this.complexityService.change(true);
-    this.capabilityListServive.addCapability(this.capabilityIds).subscribe(
+    /*this.capabilityListServive.addCapability(this.capabilityIds).subscribe(
+      user => {
+        console.log(user);
+      },
+      error => {
+        console.log(error);
+      });*/
+
+    this.industryService.addIndustryProfile(this.industryRoles).subscribe(
       user => {
         console.log(user);
       },
       error => {
         console.log(error);
       });
+
     this.jobpostcapability.change(this.primaryCapabilities);
   }
 }

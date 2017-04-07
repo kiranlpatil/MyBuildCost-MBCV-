@@ -1,4 +1,5 @@
 import * as fs from 'fs';
+import * as mongoose from "mongoose";
 var config = require('config');
 import Messages = require("../shared/messages");
 import ProjectAsset = require("../shared/projectasset");
@@ -76,17 +77,17 @@ class CandidateService {
 
   update(_id: string, item: any, callback: (error: any, result: any) => void) { //Todo change with candidate_id now it is a user_id operation
 
-    this.candidateRepository.retrieve({"userId":_id}, (err, res) => {
+    this.candidateRepository.retrieve({"userId":new mongoose.Types.ObjectId(_id)}, (err, res) => {
 
       if (err) {
         callback(err, res);
       }
       else {
-        this.candidateRepository.findOneAndUpdate(res._id, item, {new: true}, callback);
+        console.log("rs id 22 "+res[0]._id);
+        this.candidateRepository.findOneAndUpdate({'_id':res[0]._id}, item, {new: true}, callback);
       }
     });
   }
-
 }
 
 Object.seal(CandidateService);

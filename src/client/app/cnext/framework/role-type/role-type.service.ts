@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+import {Http, Headers, RequestOptions} from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { BaseService } from '../../../framework/shared/httpservices/base.service';
-import { API } from '../../../framework/shared/constants';
+import {API, LocalStorage} from '../../../framework/shared/constants';
+import {LocalStorageService} from "../../../framework/shared/localstorage.service";
 
 
 @Injectable()
@@ -12,6 +13,16 @@ export class RoleTypeService extends BaseService {
     super();
   }
 
+  addToProfile(industryprofile:any):Observable<any> {debugger
+    let headers = new Headers({ 'Content-Type': 'application/json'});
+    let options = new RequestOptions({ headers: headers });
+    let body = JSON.stringify({"roleType":industryprofile});
+    let url:string=API.CANDIDATE_PROFILE+'/'+LocalStorageService.getLocalValue(LocalStorage.USER_ID);
+    return this.http.put(url, body,options)
+      .map(this.extractData)
+      .catch(this.handleError);
+  }
+  
   getRoleTypes():Observable<any> {
     var url = API.ROLE_TYPE;
     return this.http.get(url)

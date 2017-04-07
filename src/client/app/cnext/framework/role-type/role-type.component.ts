@@ -52,13 +52,14 @@ export class RoleTypetListComponent implements OnInit {
   showHideModal() {
     this.showModalStyle = !this.showModalStyle;
   }
-  disableRoleltype() {
+  disableRoleltype() {debugger
     this.showfield=true;
     this.testService.change(true);
     this.showModalStyle = !this.showModalStyle;
     this.disbleRole = true;
     this.disbleButton = true;
     this.disableIndustry = true;
+    this.createAndSave();
 
   }
 
@@ -73,4 +74,14 @@ export class RoleTypetListComponent implements OnInit {
 console.log('event');
 
   }
+
+  createAndSave() {debugger
+    this.roleTypeService.addToProfile(this.role).subscribe(
+      user => {
+        console.log(user);
+      },
+      error => {
+        console.log(error);
+      });
+  };
 }

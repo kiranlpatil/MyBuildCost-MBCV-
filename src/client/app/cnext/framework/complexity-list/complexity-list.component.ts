@@ -10,9 +10,8 @@ import { MessageService } from '../../../framework/shared/message.service';
 import { MyJobRequirementService } from '../jobrequirement-service';
 import { Message } from '../../../framework/shared/message';
 import { JobPostComplexityService } from '../job-post-complexity.service';
-
-
-
+import {IndustryList} from "../model/industryList";
+import {Scenario} from "../model/scenario";
 
 @Component({
   moduleId: module.id,
@@ -29,7 +28,8 @@ export class ComplexityListComponent {
   private roles=new Array();
   private industry:any;
   private showfield: boolean = false;
-
+  private complexityData:any;
+  private industryRoles:IndustryList=new IndustryList();
   constructor(
                private complexityService: ComplexityService,
                private proficiencyService: ProficiencyService,
@@ -48,6 +48,7 @@ export class ComplexityListComponent {
     myIndustryService.showTest$.subscribe(
       data => {
         this.industry=data;
+        this.industryRoles.name=data;
       }
     );
     roleservice.showTest$.subscribe(
@@ -60,7 +61,6 @@ export class ComplexityListComponent {
       data => {
         this.capabilities=data;
         console.log('from complex capab',this.capabilities);
-
         this.complexityListServive.getComplexity(this.industry,this.roles,this.capabilities)
          .subscribe(
          complexitylist => this.onComplexityListSuccess(complexitylist.data),
@@ -78,10 +78,17 @@ export class ComplexityListComponent {
 
   }
 
-  onComplexityListSuccess(data:any) {
+  onComplexityListSuccess(data:any) {debugger
+    this.complexityData=data;
     this.complexities=new Array(0);
-    for(let complexity of data) {
-      this.complexities.push(complexity);
+    for(let role of data) {
+      for(let capability of role.capabilities){
+        for(let complexity of capability.complexities){
+          /*var complex=new complexity();
+          complex.name=com*/
+          this.complexities.push(complexity);
+        }
+      }
     }
   }
   onError(error:any) {
@@ -91,25 +98,70 @@ export class ComplexityListComponent {
     this.messageService.message(message);
   }
   selectOption(selectedComplexity:any) {
-    if (selectedComplexity.target.checked) {
-      for (let i = 0; i < this.selectedComplexity.length; i++) {
-        if (this.selectedComplexity[i].name === selectedComplexity.currentTarget.children[0].innerHTML) {
-          if (i > -1) {
-            this.selectedComplexity.splice(i, 1);
+    if (selectedComplexity.target.checked) {debugger
+      let currentComplexity = new Complexity();
+      currentComplexity.name = (selectedComplexity.currentTarget.children[0].innerText).trim();
+      let scenario = new Scenario();
+      scenario.name = selectedComplexity.target.value
+      currentComplexity.scenarios.push(scenario);
+      this.searchSelectedComplexity(currentComplexity);
+
+      /*      for (let i = 0; i < this.selectedComplexity.length; i++) {
+       if (this.selectedComplexity[i].name === selectedComplexity.currentTarget.children[0].innerHTML) {
+       if (i > -1) {
+       this.selectedComplexity.splice(i, 1);
+       }
+       }
+       }
+       let currentComplexity=new Complexity();
+       currentComplexity.name=selectedComplexity.currentTarget.children[0].innerHTML;
+       currentComplexity.scenario=selectedComplexity.target.value;
+       if(selectedComplexity.target.value !== 'none') {
+       this.selectedComplexity.push(currentComplexity);
+       this.jobPostComplexiyservice.change(this.selectedComplexity);
+       }
+       }
+       if(this.selectedComplexity.length===this.complexities.length) {
+       this.showfield=true;
+       this.proficiencyService.change(true);
+       }*/
+      console.log(this.selectedComplexity);
+    }
+  }
+
+  searchSelectedComplexity(selectComplexity:Complexity){debugger
+    for(let role of this.complexityData){
+      for(let capability of role.capabilities){
+        for (let complexity of capability.complexities ){
+          if(complexity.name===selectComplexity.name){
+            complexity=selectComplexity;
+            /*            var roleNotFound = true;
+            if(this.industryRoles.roles.length>0){
+              for(let storedRole of this.industryRoles.roles){
+                if(storedRole.name===role.name){
+                  var capabilityNotFound=true;
+                  if(storedRole.capabilities.length > 0){
+                    for(let storedCapability of storedRole.capabilities){
+                      if(storedCapability.name===capability.name){
+                        var complex:Complexity = new Complexity();
+                        complex.name = selectComplexity.name;
+                        var scenar:Scenario =new Scenario();
+                        scenar.name=selectComplexity.scenarios[0].name;
+                        complex.scenarios.push(scenar);
+                        storedCapability.complexities.push(complex);
+                        capabilityNotFound = false;
+                        break;
+                      }
+                    }
+                  }
+                }
+              }
+            }*/
           }
         }
       }
-      let currentComplexity=new Complexity();
-      currentComplexity.name=selectedComplexity.currentTarget.children[0].innerHTML;
-      currentComplexity.scenario=selectedComplexity.target.value;
-      if(selectedComplexity.target.value !== 'none') {
-        this.selectedComplexity.push(currentComplexity);
-        this.jobPostComplexiyservice.change(this.selectedComplexity);
-      }
-    }
-    if(this.selectedComplexity.length===this.complexities.length) {
-      this.showfield=true;
-      this.proficiencyService.change(true);
-    }
+    }debugger
+
   }
+
 }

@@ -80,7 +80,7 @@ export class IndustryListComponent implements OnInit {
   selectIndustryModel(industry: string) {
 
     //this.disbleRole=false;
-    this.searchIndustryId(industry);
+   this.industryRoles.name=industry;
     this.industryService.getRoles(industry)
       .subscribe(
         rolelist => this.onRoleListSuccess(rolelist.data),
@@ -88,13 +88,13 @@ export class IndustryListComponent implements OnInit {
     this.storedindustry=industry;
   }
 
-  searchIndustryId(industryName:string) {
+  /*searchIndustryId(industryName:string) {
     for(let industry of this.industryData) {
       if(industry.name===industryName) {
         this.industryRoles.industry=industry._id;
       }
     }
-  }
+  }*/
 
   searchRolesId(roleName:any) {
     for(let role of this.rolesData) {
@@ -121,7 +121,7 @@ export class IndustryListComponent implements OnInit {
 
 
 
-  createAndSave() {
+  createAndSave() {debugger
     this.industryService.addIndustryProfile(this.industryRoles).subscribe(
       user => {
         console.log(user);
