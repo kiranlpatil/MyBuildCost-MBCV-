@@ -1,5 +1,13 @@
 @import '../../../../css/common';
 
+.error-messages {
+  color: $bg-disabled;
+  font-size: 10px;
+  line-height: 10px;
+  font-style: italic;
+  margin: 0 0 0 15px;
+}
+
 .alert {
   margin: 0 15px 20px;
 }

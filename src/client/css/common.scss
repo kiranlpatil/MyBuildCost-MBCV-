@@ -326,7 +326,7 @@ h4 {
 }
 
 .alert {
-  margin: 0;
+  margin: 15px 15px 0;
   padding: 10px;
 
   .error-msg,
@@ -388,7 +388,7 @@ control-messages {
     margin: 35px 0 6px;
     padding-right: 0;
     position: absolute;
-    right: 0;
+    left: 0;
   }
 }
 
@@ -402,7 +402,7 @@ control-messages {
 
 .registration {
   .alert {
-    margin: 15px;
+    margin: 0 15px 0;
   }
 }
 
@@ -410,7 +410,7 @@ control-messages {
 .employer-form {
   control-messages {
     div {
-      padding: 0 15px 0 0;
+      padding: 0 0 0 15px;
     }
   }
 }
@@ -488,5 +488,9 @@ control-messages {
         text-align: left;
       }
     }
+  }
+
+  .alert {
+    margin: 15px 15px 0;
   }
 }

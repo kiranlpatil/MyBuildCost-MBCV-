@@ -39,7 +39,7 @@
       <control-messages [control]="recruiterForm.controls.password"></control-messages>
       <input type="password" formControlName="password" id="password" class="form-control" (focus)="showMessage()" [(ngModel)]="myPassword" (ngModelChange)="selectPassword($event)" required/>
       <label>Password</label>
-      <span *ngIf="isShowMessage"><h6><font color="red">Password must be of minimum 8digit with minimum 1 uppercase,lowercase,number.</font></h6></span>
+      <span class="error-messages" *ngIf="isShowMessage">Password must be of minimum 8digit with minimum 1 uppercase,lowercase,number.</span>
     </div>
 
     <div class="form-group">
@@ -47,9 +47,7 @@
       <input type="password" formControlName="conform_password" id="conform_password"
              (blur)="makePasswordConfirm()" class="form-control" required/>
       <label>Confirm Password</label>
-      <div class="error-message-registration" *ngIf="isPasswordConfirm == true">
-        <p>Passwords does not match.</p>
-      </div>
+      <div class="error-message" *ngIf="isPasswordConfirm == true">Passwords does not match.</div>
     </div>
 
     <div class="form-group">
@@ -77,26 +75,24 @@
       <input type="number" formControlName="pin" id="pin" class="form-control" required/>
       <label>PIN</label>
     </div>
-  </div>
 
-  <div class="form-group">
-    <div ng2-auto-complete
-         [source]="countries"
-         (ngModelChange)="selectCompanyHeadquarterModel($event)">
-      <input class="form-control" [ngModel]="company_headquarter_country" [ngModelOptions]="{standalone: true}" required/>
-      <label class="select-label">Company Headquarter(Country)</label>
+    <div class="form-group">
+      <div ng2-auto-complete
+           [source]="countries"
+           (ngModelChange)="selectCompanyHeadquarterModel($event)">
+        <input class="form-control" [ngModel]="company_headquarter_country" [ngModelOptions]="{standalone: true}"  placeholder="Company Headquarter(Country)" required/>
+      </div>
+    </div>
+
+    <div class="form-group" >
+      <recaptcha
+              [(ngModel)]="recruiterForm.captcha"
+              formControlName="captcha"
+              siteKey="6LdEDRkUAAAAAKCCqc0EIlMY8FLxSdH4GxrYSI6A" required></recaptcha>
     </div>
   </div>
 
-  <div class="form-group" >
-    <recaptcha
-      [(ngModel)]="recruiterForm.captcha"
-      formControlName="captcha"
-      siteKey="6LdEDRkUAAAAAKCCqc0EIlMY8FLxSdH4GxrYSI6A" required></recaptcha>
-  </div>
-
   <div class="button-group">
-    <!--<button type="submit" class="btn btn-primary" [disabled]="!recruiterForm.valid">Send OTP</button>-->
-      <button type="submit" class="btn btn-primary" [disabled]="!recruiterForm.valid">Create an account</button>
+    <button type="submit" class="btn btn-primary" [disabled]="!recruiterForm.valid">Create an account</button>
   </div>
 </form>
