@@ -132,8 +132,8 @@ export class LoginComponent implements OnInit {
     } else {
       LocalStorageService.setLocalValue(LocalStorage.COMPANY_NAME,res.data.company_name);
 
-      // this._router.navigate([NavigationRoutes.APP_RECRUITER_DASHBOARD]);
-     this._router.navigate([NavigationRoutes.APP_COMPANYDETAILS]);
+       this._router.navigate([NavigationRoutes.APP_RECRUITER_DASHBOARD]);
+    // this._router.navigate([NavigationRoutes.APP_COMPANYDETAILS]);
     }
     var socialLogin:string = LocalStorageService.getLocalValue(LocalStorage.IS_SOCIAL_LOGIN);
 
