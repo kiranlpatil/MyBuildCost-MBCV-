@@ -52,7 +52,8 @@ export class RecruiterComponent implements OnInit {
   private isRecruitingForself:boolean = true;
   private isShowMessage:boolean=false;
   private myPassword:string='';
-
+  private isStateSelected:boolean=false;
+  private isCountrySelected:boolean=false;
 
   constructor(private commanService: CommonService, private _router: Router, private http: Http,
               private recruiterService: RecruiterService, private recruitmentForService: RecruitingService,
@@ -140,6 +141,7 @@ export class RecruiterComponent implements OnInit {
       }
     }
     this.storedcountry=newval;
+    this.isCountrySelected=false;
   }
 
   selectCompanyHeadquarterModel(newval : string) {
@@ -148,7 +150,7 @@ export class RecruiterComponent implements OnInit {
     this.recruiterForm.value.company_headquarter_country=this.companyHeadquarter;
   }
 
-  selectStateModel(newval:string) {
+  selectStateModel(newval:string) {debugger
     for(let item of this.locationDetails) {
       if(item.country===this.storedcountry) {
         for(let state of item.states) {
@@ -163,6 +165,7 @@ export class RecruiterComponent implements OnInit {
       }
     }
     this.storedstate=newval;
+    this.isStateSelected=false;
   }
 
   selectCityModel(newval : string) {
@@ -213,6 +216,26 @@ export class RecruiterComponent implements OnInit {
     } else {
       this.isShowErrorMessage = false;
       this.error_msg = error.err_msg;
+    }
+  }
+
+  selectStateMessage() {
+
+    if (this.storedstate) {
+      console.log("stord state is:", this.storedstate);
+    } else {
+      this.isStateSelected = true;
+
+    }
+  }
+
+  selectCountryMessage() {debugger
+
+    if (this.storedcountry) {
+      console.log("stord state is:", this.storedstate);
+    } else {
+      this.isCountrySelected = true;
+
     }
   }
 

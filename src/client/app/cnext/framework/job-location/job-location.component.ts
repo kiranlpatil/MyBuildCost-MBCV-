@@ -23,6 +23,8 @@ export class JobLocationComponent implements OnInit {
   private countries:string[]=new Array();
   private  states:string[]=new Array();
   private cities:string[]=new Array();
+  private isStateSelected: boolean = false;
+  private isCountrySelected: boolean = false;
 
   constructor(private joblocationService:JobLocationService,
               private myjoblocationService:MyJobLocationService,
@@ -56,6 +58,7 @@ export class JobLocationComponent implements OnInit {
       }
     }
     this.storedcountry=country;
+    this.isCountrySelected = false;
     this.jobLocationtion.country=this.storedcountry;
   }
   selectStateModel(selectedstate:any) {
@@ -73,6 +76,7 @@ export class JobLocationComponent implements OnInit {
       }
     }
     this.storedstate=selectedstate;
+    this.isStateSelected = false;
     this.jobLocationtion.state=this.storedstate;
   }
 
@@ -87,6 +91,27 @@ export class JobLocationComponent implements OnInit {
     this.myjoblocationService.change(this.jobLocationtion);
 
   }
+
+  selectStateMessage() {
+
+    if (this.storedstate) {
+      this.isStateSelected = false;
+    } else {
+      this.isStateSelected = true;
+
+    }
+  }
+
+  selectCountryMessage() {
+
+    if (this.storedcountry) {
+      this.isCountrySelected = false;
+    } else {
+      this.isCountrySelected = true;
+
+    }
+  }
+
   onError(error:any) {
     var message = new Message();
     message.error_msg = error.err_msg;

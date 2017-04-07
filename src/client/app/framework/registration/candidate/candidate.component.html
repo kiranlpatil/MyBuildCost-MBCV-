@@ -72,8 +72,9 @@
     <div ng2-auto-complete
          [source]="states"
          (ngModelChange)="selectStateModel($event)">
-      <input class="form-control" [ngModel]="stateModel" [ngModelOptions]="{standalone: true}" required/>
+      <input class="form-control" [ngModel]="stateModel" [ngModelOptions]="{standalone: true}" (click)="selectCountryMessage()" required/>
       <label class="select-label">Select State</label>
+      <span *ngIf="isCountrySelected"><h6><font color="red">Please select Country first.</font></h6></span>
     </div>
   </div>
 
@@ -81,8 +82,9 @@
     <div ng2-auto-complete
          [source]="cities"
          (ngModelChange)="selectCityModel($event)">
-      <input class="form-control" [ngModel]="cityModel" [ngModelOptions]="{standalone: true}" required/>
+      <input class="form-control" [ngModel]="cityModel" [ngModelOptions]="{standalone: true}"  (click)="selectStateMessage()" required/>
       <label class="select-label">Select City</label>
+      <span *ngIf="isStateSelected"><h6><font color="red">Please select Country and State first.</font></h6></span>
     </div>
   </div>
 

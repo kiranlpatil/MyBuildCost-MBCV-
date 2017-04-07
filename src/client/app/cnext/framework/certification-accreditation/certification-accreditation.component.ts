@@ -31,7 +31,6 @@ export class CertificationAccreditationComponent {
     this.year = this.currentDate.getUTCFullYear();
     this.createYearList(this.year);
 
-
   }
 
   createYearList(year: number) {

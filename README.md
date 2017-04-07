@@ -14,17 +14,17 @@ steps: 1.npm install    //npm install --unsafe -perm
        3.start mongodb:  1. ~mongod
        4.For Development Environment:
                             1. ~npm start
-                            2. ~node app.server.dev.js --NODE_ENV=development  //Default. for backend configuration which is use http protocol. 
+                            2. ~node app.server.dev.js --NODE_ENV=development  //Default. for backend configuration (ubuntu) which is using http protocol. 
                                                          OR 
                                                        for http2
-                                ~node app.server.dev.http2.js --NODE_ENV=development //Default. for backend configuration which is use http2 protocol.
+                                ~node app.server.dev.http2.js --NODE_ENV=development //Default. for backend configuration (ubuntu) which is using http2 protocol.
                                  .
        5.For Production Environment:
                             1. ~gulp build.prod or ~npm run build.prod
-                            2. ~node app.server.prod.js --NODE_ENV=production //for backend configurations(ubuntuntu)which is use http protocol. 
+                            2. ~node app.server.prod.js --NODE_ENV=production //for backend configurations(ubuntu)which is using http protocol. 
                                                          OR
                                                        for http2
-                               ~node app.server.prod.js --NODE_ENV=production //for backend configurations(ubuntuntu)which is use http2 protocol
+                               ~node app.server.prod.js --NODE_ENV=production //for backend configurations(ubuntu)which is using http2 protocol
          
         
 

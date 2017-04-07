@@ -25,17 +25,21 @@ export class ProfilePictureComponent  {
   private model = new UserProfile();
   private filesToUpload: Array<File>;
   private   image_path: string;
+  private   uploaded_image_path: string;
   private isShowErrorMessage: boolean = true;
 
 
   constructor(private dashboardService: DashboardService,
               private messageService: MessageService, private profileService: ProfileService) {
     this.filesToUpload = [];
-    /*this.image_path = JSON.parse(LocalStorageService.getLocalValue(LocalStorage.PROFILE_PICTURE)); //TODO:Get it from get user call.
-    console.log('Profile Picture',this.image_path);*/
+    this.uploaded_image_path = LocalStorageService.getLocalValue(LocalStorage.PROFILE_PICTURE); //TODO:Get it from get user call.
+    console.log('Profile Picture image_path',this.image_path);
+    console.log('Profile Picture image_path',this.uploaded_image_path);
 
-    if (this.image_path === undefined) {
+    if (this.image_path === undefined || this.image_path === '' || this.uploaded_image_path === '') {
       this.image_path = ImagePath.PROFILE_IMG_ICON;
+    } else {
+      this.image_path = this.uploaded_image_path;
     }
 
   }

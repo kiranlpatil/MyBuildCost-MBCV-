@@ -16,7 +16,8 @@
       <div ng2-auto-complete
            [source]="states"
            (ngModelChange)="selectStateModel($event)">
-        <input [ngModel]="stateModel" class="form-control" />
+        <input [ngModel]="stateModel" class="form-control" (click)="selectCountryMessage()"/>
+        <span *ngIf="isCountrySelected"><h6><font color="red">Please select Country first.</font></h6></span>
       </div>
     </div>
   </div>
@@ -27,7 +28,8 @@
       <div ng2-auto-complete
            [source]="cities"
            (ngModelChange)="selectCityModel($event)">
-        <input  [ngModel]="cityModel" class="form-control" />
+        <input  [ngModel]="cityModel" class="form-control" (click)="selectStateMessage()" />
+        <span *ngIf="isStateSelected"><h6><font color="red">Please select Country and State first.</font></h6></span>
       </div>
     </div>
   </div>
