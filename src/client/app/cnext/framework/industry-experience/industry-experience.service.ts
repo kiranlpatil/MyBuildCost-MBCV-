@@ -11,10 +11,10 @@ export class IndustryExperienceService extends BaseService {
   constructor(private http: Http) {
     super();
   }
-  addIndustryProfile(industryprofile:any):Observable<any> {
+  addIndustryExperience(industryprofile:any):Observable<any> {
     let headers = new Headers({ 'Content-Type': 'application/json'});
     let options = new RequestOptions({ headers: headers });
-    let body = JSON.stringify(industryprofile);
+    let body = JSON.stringify({"intrestedIndustries":industryprofile});
     let url:string=API.CANDIDATE_PROFILE+'/'+LocalStorageService.getLocalValue(LocalStorage.USER_ID);
     return this.http.put(url, body,options)
       .map(this.extractData)

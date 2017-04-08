@@ -2,6 +2,7 @@
 import {   Component  } from '@angular/core';
 import { EmployementHistory } from '../model/employment-history';
 import { ValueConstant } from '../../../framework/shared/constants';
+import {EmploymentHistoryService} from "./employment-history.service";
 
 @Component({
   moduleId: module.id,
@@ -31,7 +32,7 @@ export class EmploymentHistoryComponent {
   private yearList = new Array();
 
 
-  constructor() {
+  constructor(private employmentHistroyservice:EmploymentHistoryService) {
     this.tempfield = new Array(1);
     this.currentDate = new Date();
     this.year = this.currentDate.getUTCFullYear();
@@ -124,6 +125,12 @@ export class EmploymentHistoryComponent {
         this.tempWorkedFromMonth = '';
         this.tempWorkedFromYear = '';
         this.tempRemarks = '';
+
+        this.employmentHistroyservice.addEmploymentHistroy(this.selectedEmploysHistory)
+          .subscribe(
+            user => console.log(user),
+            error => console.log(error));
+
       }
     }
 

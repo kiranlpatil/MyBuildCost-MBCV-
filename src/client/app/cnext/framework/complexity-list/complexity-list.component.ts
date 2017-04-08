@@ -96,13 +96,14 @@ export class ComplexityListComponent {
     message.isError = true;
     this.messageService.message(message);
   }
-  selectOption(selectedComplexity:any) {
+  selectOption(selectedComplexity:any) {debugger
     if (selectedComplexity.target.checked) {
       let currentComplexity = new Complexity();
       currentComplexity.name = (selectedComplexity.currentTarget.children[0].innerText).trim();
       let scenario = new Scenario();
       scenario.name = selectedComplexity.target.value
       currentComplexity.scenarios.push(scenario);
+      this.count++;
       this.searchSelectedComplexity(currentComplexity);
 
       if(this.count>=this.complexities.length) {
@@ -110,7 +111,7 @@ export class ComplexityListComponent {
         this.proficiencyService.change(true);
       }
     }
-    
+
   }
 
   searchSelectedComplexity(selectComplexity:Complexity){
@@ -119,7 +120,7 @@ export class ComplexityListComponent {
         for (let k=0;k<this.complexityData[i].capabilities[j].complexities.length;k++){
           if(this.complexityData[i].capabilities[j].complexities[k].name===selectComplexity.name){
             this.complexityData[i].capabilities[j].complexities[k]=selectComplexity;
-            this.count++;
+
           }
         }
       }

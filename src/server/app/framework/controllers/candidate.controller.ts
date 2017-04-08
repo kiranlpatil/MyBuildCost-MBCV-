@@ -72,6 +72,7 @@ export function updateDetails(req:express.Request, res:express.Response, next:an
     delete params.access_token;
     var userId:string = req.params.id;
     console.log("candidate" + userId);
+    console.log("updated candidate" + JSON.stringify(updatedCandidate));
     var auth:AuthInterceptor = new AuthInterceptor();
     var candidateService = new CandidateService();
     candidateService.update(userId, updatedCandidate, (error, result) => {

@@ -1,8 +1,9 @@
 import {  Injectable  } from '@angular/core';
-import { Http } from '@angular/http';
+import {Http, Headers, RequestOptions} from '@angular/http';
 import {  Observable  } from 'rxjs/Observable';
 import { BaseService } from '../../../framework/shared/httpservices/base.service';
-import { API } from '../../../framework/shared/constants';
+import {API, LocalStorage} from '../../../framework/shared/constants';
+import {LocalStorageService} from "../../../framework/shared/localstorage.service";
 
 @Injectable()
 export class ProficiencyDomainService extends BaseService {
@@ -13,18 +14,23 @@ export class ProficiencyDomainService extends BaseService {
 
   getProficiency():Observable<any> {
     var url = API.PROFICIENCYLIST;
-    return this.http.get(url)
-      .map(this.extractData)
-      .catch(this.handleError);
-  }
-  getDomain():Observable<any> {
-    var url = API.DOMAINLIST;
-    return this.http.get(url)
+    var industry="IT";
+    var tempurl='industry/'+industry+'/proficiency';
+    return this.http.get(tempurl)
       .map(this.extractData)
       .catch(this.handleError);
   }
 
 
+addCandidateProficiency(candidateproficiency:string[]):Observable<string[]>{debugger
+  let headers=new Headers({'Content-Type':'application/json'});
+  let options=new RequestOptions({headers:headers});
+  let body=JSON.stringify({"proficiencies":candidateproficiency})
+  let url:string=API.CANDIDATE_PROFILE+'/'+LocalStorageService.getLocalValue(LocalStorage.USER_ID);
+  return this.http.put(url, body,options)
+    .map(this.extractData)
+    .catch(this.handleError);
+}
 
 
 }

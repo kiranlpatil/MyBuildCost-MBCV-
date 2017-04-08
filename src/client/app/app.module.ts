@@ -121,6 +121,9 @@ import { JobRequirementService } from './cnext/framework/myJobRequirement.servic
 import { MYJobTitleService } from './cnext/framework/myJobTitle.service';
 import { JobIndustryShowService } from './cnext/framework/myJobIndustryShow.service';
 import { ShowJobFilterService } from './cnext/framework/showJobFilter.service';
+import {CandidateAwardService} from "./cnext/framework/awards/awards.service";
+import {AboutCandidateService} from "./cnext/framework/more-about-myself/more-about-myself.service";
+import {CandidateAcadmyDetailService} from "./cnext/framework/academic-details/academic-details.service";
 
 @NgModule({
   imports: [
@@ -262,7 +265,10 @@ import { ShowJobFilterService } from './cnext/framework/showJobFilter.service';
     DisableTestService,
     MYJobTitleService,
     JobIndustryShowService,
-    ShowJobFilterService
+    ShowJobFilterService,
+    CandidateAwardService,
+    AboutCandidateService,
+    CandidateAcadmyDetailService
 
 
 

@@ -17,7 +17,7 @@ export class ProfessionalDataService extends BaseService {
   addProfessionalData(professionaldata:any):Observable<any> {
     let headers = new Headers({ 'Content-Type': 'application/json'});
     let options = new RequestOptions({ headers: headers });
-    let body = JSON.stringify(professionaldata);
+    let body = JSON.stringify({"professionalDetails":professionaldata});
     let url:string=API.CANDIDATE_PROFILE+'/'+LocalStorageService.getLocalValue(LocalStorage.USER_ID);
     return this.http.put(url, body,options)
       .map(this.extractData)
@@ -55,6 +55,14 @@ export class ProfessionalDataService extends BaseService {
       .map(this.extractData)
       .catch(this.handleError);
   }
-
+  addCandidateProfessionalData(candidateproficiency:string[]):Observable<string[]>{debugger
+    let headers=new Headers({'Content-Type':'application/json'});
+    let options=new RequestOptions({headers:headers});
+    let body=JSON.stringify({"proficiencies":candidateproficiency})
+    let url:string=API.CANDIDATE_PROFILE+'/'+LocalStorageService.getLocalValue(LocalStorage.USER_ID);
+    return this.http.put(url, body,options)
+      .map(this.extractData)
+      .catch(this.handleError);
+  }
 
 }

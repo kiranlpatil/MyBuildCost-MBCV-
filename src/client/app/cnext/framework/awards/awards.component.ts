@@ -3,6 +3,7 @@ import {   Component  } from '@angular/core';
 import {  Awards  } from '../model/awards';
 import { AwardService } from '../award-service';
 import { ValueConstant } from '../../../framework/shared/constants';
+import {CandidateAwardService} from "./awards.service";
 
 @Component({
   moduleId: module.id,
@@ -24,7 +25,7 @@ export class AwardsComponent {
   private currentDate: any;
   private yearList = new Array();
 
-  constructor( private awardService:AwardService ) {
+  constructor( private awardService:AwardService ,private candidateAward:CandidateAwardService) {
     this.tempfield = new Array(1);
     this.currentDate = new Date();
     this.year = this.currentDate.getUTCFullYear();
@@ -65,6 +66,11 @@ export class AwardsComponent {
       this.temptitle='' ;
       this.tempmonth ='' ;
       this.tempremark ='' ;this.tempyear='';
+      this.candidateAward.addCandidateAward(this.selectedawards)
+        .subscribe(
+          user => console.log(user),
+          error => console.log(error))
+
     } else {
       this.disbleButton = true;
     }

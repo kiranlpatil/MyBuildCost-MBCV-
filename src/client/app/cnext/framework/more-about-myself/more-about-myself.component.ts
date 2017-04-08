@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {AboutCandidateService} from "./more-about-myself.service";
 
 @Component({
   moduleId: module.id,
@@ -18,7 +19,7 @@ export class MoreAboutMyselfComponent implements OnInit {
   private wordsTillNow:number;
   private remainingWords:number;
   private maxword:number;
-  constructor() {
+  constructor(private aboutMyselfservice:AboutCandidateService) {
     this.reSize = new Array(1);
   }
   ngOnInit() {
@@ -33,6 +34,10 @@ export class MoreAboutMyselfComponent implements OnInit {
     if (this.wordsTillNow-3>=this.maxLength) {
       this. maxword=this.aboutMyself.length;
     }
+    this.aboutMyselfservice.addAboutCandidate(this.newstringOne)
+      .subscribe(
+        user => console.log(user),
+        error => console.log(error))
   }
   addAnother() {
     this.reSize.push('null');

@@ -2,6 +2,7 @@ import {   Component  } from '@angular/core';
 import {  Academicdetails  } from './academic-details';
 import {  ValueConstant  } from '../../../framework/shared/constants';
 import {  EducationalService  } from '../educational-service';
+import {CandidateAcadmyDetailService} from "./academic-details.service";
 
 @Component({
   moduleId: module.id,
@@ -22,7 +23,7 @@ export class AcademicDetailComponent {
   private tempUnivercityName:string='';
   private tempPassingYear:string='';
   private  tempSpecialization:string='';
-  constructor(private educationalService : EducationalService) {
+  constructor(private educationalService : EducationalService,private acadmicDetailsService:CandidateAcadmyDetailService) {
 
     this.tempfield = new Array(1);
     this.currentDate = new Date();
@@ -78,6 +79,10 @@ export class AcademicDetailComponent {
       this.tempUnivercityName='';
       this.tempPassingYear='';
       this.tempSpecialization='';
+      this.acadmicDetailsService.addCandidateAcademyDetails(this.selectedacademicsdeatils)
+        .subscribe(
+          user => console.log(user),
+          error => console.log(error))
     }
   }
 }

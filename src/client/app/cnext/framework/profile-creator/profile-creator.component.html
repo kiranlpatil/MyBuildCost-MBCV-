@@ -83,7 +83,7 @@
         </div>
       </div>
 
-      <div class="section-container" [hidden]="!showProfeciency">
+      <div class="section-container"  [hidden]="!showProfeciency">
         <h4 class="heading">Professional data</h4>
         <div class="main-content">
           <cn-professional-data></cn-professional-data>
@@ -96,7 +96,7 @@
             <span class="glyphicon glyphicon-remove" (click)="hideEmployeeHistory()"></span>
           </span>
         </h4>
-        <div class="main-content clearfix" >
+        <div class="main-content clearfix"  >
           <cn-employment-history></cn-employment-history>
         </div>
       </div>
@@ -114,12 +114,12 @@
             <span class="glyphicon glyphicon-remove" (click)="hideCertification()"></span>
           </span>
         </h4>
-        <div class="main-content clearfix">
+        <div class="main-content clearfix" >
           <cn-certification-accreditation></cn-certification-accreditation>
         </div>
       </div>
 
-      <div class="section-container"  [hidden]="chkAwards" [hidden]="!showProfeciency">
+      <div class="section-container"  [hidden]="chkAwards"  [hidden]="!showProfeciency">
         <h4 class="heading">Awards
           <span class="close-dialog">Close this box if not interested
             <span class="glyphicon glyphicon-remove" (click)="hideAwards()"></span>
@@ -130,7 +130,7 @@
         </div>
       </div>
 
-      <div class="section-container" [hidden]="chkAboutMyself" [hidden]="!showProfeciency">
+      <div class="section-container" [hidden]="chkAboutMyself" [hidden]="!showProfeciency" >
         <h4 class="heading">More About Myself(Max 250)
           <span class="close-dialog">Close this box if not interested
             <span class="glyphicon glyphicon-remove" (click)="hideAboutMyself()"></span>

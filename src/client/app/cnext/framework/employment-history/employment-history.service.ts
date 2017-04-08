@@ -24,16 +24,11 @@ export class EmploymentHistoryService extends BaseService {
   addEmploymentHistroy(employmenthistory:EmployementHistory[] ):Observable<EmployementHistory> {
     let headers = new Headers({ 'Content-Type': 'application/json'});
     let options = new RequestOptions({ headers: headers });
-    let body = JSON.stringify(employmenthistory);
+    let body = JSON.stringify({"employmentHistory":employmenthistory});
     let url:string=API.CANDIDATE_PROFILE+'/'+LocalStorageService.getLocalValue(LocalStorage.USER_ID);
     return this.http.put(url, body,options)
       .map(this.extractData)
       .catch(this.handleError);
   }
-
-
-
-
-
 
 }

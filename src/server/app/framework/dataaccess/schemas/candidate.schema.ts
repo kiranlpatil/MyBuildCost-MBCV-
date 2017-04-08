@@ -35,21 +35,21 @@ class CandidateSchema {
       aboutMyself: {
         type: String
       },
-      certifications: {
+      certifications: [{
         name: String,
         year : String,
         issuedBy : String,
         remark : String
-      },
+      }],
       intrestedIndustries : {
         type: [String]
       },
-      awards: {
+      awards: [{
         name: String,
         year : String,
         issuedBy : String,
         remark : String
-      },
+      }],
       industry:{
         name:String,
         roles: [{
@@ -97,14 +97,14 @@ class CandidateSchema {
         },
         remarks: String
       }],
-      proficiences: [{
-          name:[String]
-      }]
+      proficiencies: {
+        type: [String]
+      }
 
     }, {versionKey: false});
 
     return schema;
-  }
+   }
 }
 var schema = mongooseConnection.model<ICandidate>("Candidate", CandidateSchema.schema);
 export = schema;

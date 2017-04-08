@@ -1,7 +1,7 @@
-<div *ngIf="isProficiencyShow">
+<div >
   <div class="proficiency-container">
     <!--<p>Add your <span  *ngIf="proficiencyType">proficiencies/tools/technologies</span><span *ngIf="domainType">domains you work</span></p>-->
-    <p class="info">Enter all key words that describe your area of expertise or specialization. These proficiencies will be used for second level of matching post
+    <p class="info">Enterall key words that describe your area of expertise or specialization. These proficiencies will be used for second level of matching post
      capability matching.<span class="error-messages">You can edit this list anytime.</span></p>
 
     <div class="list clearfix">
@@ -11,7 +11,13 @@
                [source]="selectedproficiencies"
                (ngModelChange)="selectedProficiencyModel($event)">
             <input  class="form-control" [(ngModel)]="proficiencyModel" id={{type}} placeholder="{{placeHolderName}}" />
-          </div>
+           <br/> <br/> <br/> <br/>
+            <button type="button"  class="btn btn-create-profile"  value="Add Other"  (click)="onSelect()" >Add Other</button>
+            <div [hidden]="isShow">
+            <input  class="form-control" [(ngModel)]="proficiencyother" (ngModelChange)="enterProficiency($event)" id={{addOther}} placeholder="other Proficiency" />
+              <button type="button"  class="btn btn-create-profile"  value="AddProficiency"  (click)="selectedProficiency()">AddProficiency</button>
+            </div>
+            </div>
         </div>
         <p class="instructions" *ngIf="showAlert">You can select maximum 25 proficiencies.</p>
       </div>
