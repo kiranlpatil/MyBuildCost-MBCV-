@@ -69,23 +69,27 @@ export class EmploymentHistoryComponent {
   }
 
   selectedworkfromMonthModel(newval: any) {
+    this.isShowYearMessage=false;
     this.tempWorkedFromMonth=newval;
     this.selectedEmploymentHistory.from.month=this.tempWorkedFromMonth;
 
   }
 
   selectedworkfromYearModel(newval: any) {
+    this.isShowYearMessage=false;
     this.tempWorkedFromYear=newval;
     this.selectedEmploymentHistory.from.year=this.tempWorkedFromYear;
   }
 
   selectedworktoMonthModel(newval: any) {
+    this.isShowYearMessage=false;
     this.tempWorkedToMonth=newval;
     this.selectedEmploymentHistory.to.month=this.tempWorkedToMonth;
 
   }
 
   selectedworktoYearModel(newval: any) {
+    this.isShowYearMessage=false;
        this.tempWorkedToYear=newval;
        this.selectedEmploymentHistory.to.year=this.tempWorkedToYear;
   }
@@ -99,8 +103,8 @@ export class EmploymentHistoryComponent {
       if(this.tempWorkedToYear<this.selectedEmploymentHistory.from.year||
         (this.selectedEmploymentHistory.from.month===this.selectedEmploymentHistory.to.month
         &&
-        (this.tempWorkedToYear===this.selectedEmploymentHistory.from.year))||this.tempWorkedToYear===this.selectedEmploymentHistory.from.year&&
-        (this.monthList.indexOf(this.tempWorkedToMonth)<this.monthList.indexOf(this.tempWorkedFromMonth) )) {
+        (this.tempWorkedToYear===this.selectedEmploymentHistory.from.year))||(this.tempWorkedToYear===this.selectedEmploymentHistory.from.year&&
+        (this.monthList.indexOf(this.tempWorkedToMonth)<this.monthList.indexOf(this.tempWorkedFromMonth) ))) {
         this.isShowYearMessage=true;
         this.toYearModel='';
 

@@ -47,7 +47,7 @@
             (ngModelChange)="selectedworktoYearModel($event)">
 
         <input class="form-control" [ngModel]="toYearModel" [disabled]="disbleRole"  placeholder="YYYY" />
-        <div class="error-messages" *ngIf="isShowYearMessage"><p>Please fill valid month or year.</p></div>
+
 
       </div>
     </div>
@@ -65,6 +65,7 @@
   <button type="button" id="more_fields" (click)="addAnother()" class="btn btn-create-profile"  >
     Add Another <span>+</span>
   </button>
+  <div class="error-messages" *ngIf="isShowYearMessage"><p>Please fill valid month or year.</p></div>
   <div class="error-messages" *ngIf="disbleButton"><p>Fields should not be empty.</p></div>
 </div>
 
