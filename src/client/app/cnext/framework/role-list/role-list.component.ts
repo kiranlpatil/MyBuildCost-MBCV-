@@ -3,11 +3,13 @@ import { MyIndustryService } from '../industry-service';
 import { IndustryListService } from '../industry-list/industry-list.service';
 import { Message } from '../../../framework/shared/message';
 import { MessageService } from '../../../framework/shared/message.service';
-import { Industry } from '../model/industry';
 import { MyRoleService } from '../role-service';
 import { MyRoTypeTestService } from '../myRole-Type.service';
 import {Role} from "../model/role";
 import {ProfileCreatorService} from "../profile-creator/profile-creator.service";
+import {Industry} from "../model/industry";
+import {LocalStorageService} from "../../../framework/shared/localstorage.service";
+import {LocalStorage} from "../../../framework/shared/constants";
 
 @Component({
   moduleId: module.id,
@@ -53,10 +55,13 @@ export class RoleListComponent {
   }
 
   ngOnInit(){
-    this.profileCreatorService.getCandidateDetails()
-      .subscribe(
-        candidateData => this.OnCandidateDataSuccess(candidateData),
-        error => this.onError(error));
+    if(LocalStorageService.getLocalValue(LocalStorage.IS_CANDIDATE)==="true"){
+      this.profileCreatorService.getCandidateDetails()
+        .subscribe(
+          candidateData => this.OnCandidateDataSuccess(candidateData),
+          error => this.onError(error));
+
+    }
   }
 
   OnCandidateDataSuccess(candidateData:any){
@@ -168,15 +173,16 @@ export class RoleListComponent {
     }
   }
 
-  isChecked(choice:any):boolean{
+  isChecked(choice:any):boolean {
     for(let role of this.roles){
       if(role.name===choice){
         return true;
       }
       else{
         return false;
-      }
     }
-  }
 
-}
+  }
+    return false;
+
+}}

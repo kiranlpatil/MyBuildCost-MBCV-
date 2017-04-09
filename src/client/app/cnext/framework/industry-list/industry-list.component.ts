@@ -3,13 +3,13 @@ import { IndustryListService } from './industry-list.service';
 import { MyIndustryService } from '../industry-service';
 import { Message } from '../../../framework/shared/message';
 import { MessageService } from '../../../framework/shared/message.service';
-import { Industry } from '../model/industry';
 import { MyRoleListTestService } from '../myRolelist.service';
 import { DisableTestService } from '../disable-service';
 import {LocalStorageService} from "../../../framework/shared/localstorage.service";
 import {LocalStorage} from "../../../framework/shared/constants";
 import {ProfileCreatorService} from "../profile-creator/profile-creator.service";
 import {Candidate} from "../model/candidate";
+import {Industry} from "../model/industry";
 
 @Component({
   moduleId: module.id,
@@ -30,7 +30,7 @@ export class IndustryListComponent implements OnInit {
   private industry=new Industry();
   private isCandidate : boolean = true;
   private candidate:Candidate=new Candidate();
-  
+
   constructor(private industryService: IndustryListService,
               private myindustryService : MyIndustryService,
               private myRolelist:MyRoleListTestService,
@@ -40,11 +40,13 @@ export class IndustryListComponent implements OnInit {
   }
 
   ngOnInit() {
-
+    if(LocalStorageService.getLocalValue(LocalStorage.IS_CANDIDATE)==="true"){
       this.profileCreatorService.getCandidateDetails()
         .subscribe(
           candidateData => this.OnCandidateDataSuccess(candidateData),
           error => this.onError(error));
+
+    }
 
     this.industryService.getIndustries()
       .subscribe(
@@ -57,6 +59,7 @@ export class IndustryListComponent implements OnInit {
   }
 
   OnCandidateDataSuccess(candidateData:any){
+
     this.industry=candidateData.data[0].industry;
     if(this.industry.name !== undefined){
       this.disableIndustry=true;
@@ -64,8 +67,13 @@ export class IndustryListComponent implements OnInit {
     }
   }
   selectOption(industry:string) {
+
     if(industry !== undefined){
-      this.candidate.industry.name=industry;
+      this.storedindustry=industry;
+      if(LocalStorageService.getLocalValue(LocalStorage.IS_CANDIDATE)==="true"){
+        this.candidate.industry.name=industry;
+
+      }
       if(LocalStorageService.getLocalValue(LocalStorage.IS_CANDIDATE)==="false"){
         this.isCandidate=false;
         this.disableIndustrires();

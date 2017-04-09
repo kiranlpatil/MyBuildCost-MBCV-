@@ -89,23 +89,26 @@ export class CapabilityListComponent implements OnInit  {
   }
 
   ngOnInit() {
-    this.profileCreatorService.getCandidateDetails()
-      .subscribe(
-        candidateData => this.OnCandidateDataSuccess(candidateData),
-        error => this.onError(error));
-    
+    if(LocalStorageService.getLocalValue(LocalStorage.IS_CANDIDATE)==="true"){
+      this.profileCreatorService.getCandidateDetails()
+        .subscribe(
+          candidateData => this.OnCandidateDataSuccess(candidateData),
+          error => this.onError(error));
+
+    }
+
   }
 
   OnCandidateDataSuccess(candidateData:any){
-    
-    
+
+
       for(let role of candidateData.data[0].industry.roles){
         for(let capability of role.capabilities){
           this.savedCapabilities.push(capability);
         }
       }
-    
-    
+
+
     console.log(this.savedCapabilities);
    /* for(let role of this.roles){
       this.storedRoles.push(role.name);
@@ -240,5 +243,5 @@ export class CapabilityListComponent implements OnInit  {
     }
     return false;
   }
-  
+
 }

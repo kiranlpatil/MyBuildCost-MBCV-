@@ -39,7 +39,7 @@ export class JobLocationComponent implements OnInit {
         data=> { this.onAddressSuccess(data);},
         error => { this.onError(error);});
   }
-  onAddressSuccess(data:any) {
+  onAddressSuccess(data:any) {debugger
     this.locationDetails=data.address;
     for(var  i = 0; i <data.address.length; i++) {
       this.countries.push(data.address[i].country);
@@ -47,7 +47,7 @@ export class JobLocationComponent implements OnInit {
     }
   }
 
-  selectCountryModel(country:any) {
+  selectCountryModel(country:any) {debugger
     for(let item of this.locationDetails) {
       if(item.country===country) {
         let tempStates: string[]= new Array(0);
@@ -84,7 +84,7 @@ export class JobLocationComponent implements OnInit {
 
   selectCityModel(city : string) {
     this.storedcity=city;
-    this.jobLocationtion.city=city;
+    this.jobLocationtion.cityName=city;
   }
   isPinSelected(pin:any) {
     this.jobLocationtion.pin=pin;

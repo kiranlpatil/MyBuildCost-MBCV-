@@ -21,6 +21,9 @@ import { ProficiencyService } from '../proficience.service';
 import { TestService } from '../test.service';
 import { MyRoTypeTestService } from '../myRole-Type.service';
 import { ShowJobFilterService } from '../showJobFilter.service';
+import {JobPosterModel} from "../model/jobPoster";
+import {Industry} from "../model/industry";
+import {JobPosterService} from "./job-poster.service";
 
 
 @Component({
@@ -42,10 +45,11 @@ export class JobPosterComponent {
   private isShowCapability:boolean=false;
   private isShowProficiency:boolean=false;
   private roletype :string;
-  private complexities :string[]=new Array();
+  private complexities :Industry=new Industry();
   private proficiency :string[]=new Array();
   private competensies=new Description();
   private responsibilities=new Description();
+  private jobPosterModel=new JobPosterModel();
   constructor(private _router:Router,
               private complexityService: ComplexityService,
               private jobinformation:MyJobInformationService,
@@ -60,7 +64,8 @@ export class JobPosterComponent {
               private proficiencyService : ProficiencyService,
               private jobPostIndustryShow:JobIndustryShowService,
               private disableService:DisableTestService,
-              private showJobFilter:ShowJobFilterService) {
+              private showJobFilter:ShowJobFilterService,
+              private jobPostService:JobPosterService) {
 
     this.myRoleType.showTestRoleType$.subscribe(
       data=> {
@@ -122,9 +127,9 @@ export class JobPosterComponent {
     this.jobPostDescription.showTestJobPostDesc$.subscribe(
       data=> {
         if(data.type==="competensies")
-        this.competensies=data.data;
+        this.competensies.detail=(data.data.toString()).replace (/,/g, " ");
         if(data.type==="responsibilities")
-        this.responsibilities=data.data;
+        this.responsibilities.detail=(data.data.toString()).replace (/,/g, " ");
       }
     );
     this.jobPostComplexiyservice.showTestComplexity$.subscribe(
@@ -143,13 +148,31 @@ export class JobPosterComponent {
 
 
   postjob() {
-    console.log(this.jobInformation);
-    console.log(this.jobRequirement);
-    console.log(this.jobLocation);
-    console.log(this.roletype);
-    console.log(this.complexities);
-    console.log(this.competensies);
-    console.log(this.responsibilities);
+    this.jobPosterModel.jobTitle=this.jobInformation.jobTitle;
+    this.jobPosterModel.competencies=this.competensies.detail;
+    this.jobPosterModel.education=this.jobRequirement.education;
+    this.jobPosterModel.experience==this.jobRequirement.experience;
+    this.jobPosterModel.hiringManager=this.jobInformation.hiringManager;
+    this.jobPosterModel.joiningPeriod=this.jobRequirement.noticeperiod;
+    this.jobPosterModel.profiences=this.proficiency;
+    this.jobPosterModel.salary=this.jobRequirement.salary;
+    this.jobPosterModel.responsibility=this.responsibilities.detail;
+    this.jobPosterModel.department=this.jobInformation.department;
+    this.jobPosterModel.industry=this.complexities;
+    this.jobPosterModel.location=this.jobLocation;
+    this.jobPosterModel.postingDate= new Date();
+
+
+    console.log(this.jobPosterModel);
+    console.log(this.responsibilities.detail);
+
+    this.jobPostService.postJob(this.jobPosterModel).subscribe(
+      user => {
+        console.log(user);
+      },
+      error => {
+        console.log(error);
+      });
   }
   mockupSearch() {
     this.showJobFilter.change(true);

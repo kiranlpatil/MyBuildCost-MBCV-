@@ -78,6 +78,7 @@ export function updateDetails(req:express.Request, res:express.Response, next:an
 export function postJob(req:express.Request, res:express.Response, next:any) {
   try {
     var newJob:JobProfileModel = <JobProfileModel>req.body;
+    console.log(newJob);
     var recruiterService = new RecruiterService();
     var userId = req.params.id;
     recruiterService.update(userId,newJob, (err, result)=> {

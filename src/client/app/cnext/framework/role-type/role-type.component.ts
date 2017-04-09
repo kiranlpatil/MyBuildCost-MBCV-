@@ -6,6 +6,8 @@ import { TestService } from '../test.service';
 import {MyJobPostRoleTypeService} from "../jobpost-roletype.service";
 import {Candidate} from "../model/candidate";
 import {ProfileCreatorService} from "../profile-creator/profile-creator.service";
+import {LocalStorageService} from "../../../framework/shared/localstorage.service";
+import {LocalStorage} from "../../../framework/shared/constants";
 
 @Component({
   moduleId: module.id,
@@ -27,11 +29,13 @@ export class RoleTypetListComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.profileCreatorService.getCandidateDetails()
-      .subscribe(
-        candidateData => this.OnCandidateDataSuccess(candidateData),
-        error => this.onError(error));
-    
+    if(LocalStorageService.getLocalValue(LocalStorage.IS_CANDIDATE)==="true"){
+      this.profileCreatorService.getCandidateDetails()
+        .subscribe(
+          candidateData => this.OnCandidateDataSuccess(candidateData),
+          error => this.onError(error));
+
+    }
     this.roleTypeService.getRoleTypes()
       .subscribe(
         data=> this.onRoleTypesSuccess(data),
