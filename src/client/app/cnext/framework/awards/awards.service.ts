@@ -5,7 +5,7 @@ import { BaseService } from '../../../framework/shared/httpservices/base.service
 import {  API, LocalStorage  } from '../../../framework/shared/constants';
 import {  LocalStorageService  } from '../../../framework/shared/localstorage.service';
 import { EmployementHistory } from '../model/employment-history';
-import {Awards} from "../model/awards";
+import {Award} from "../model/award";
 
 @Injectable()
 export class CandidateAwardService extends BaseService {
@@ -15,7 +15,7 @@ export class CandidateAwardService extends BaseService {
 
 
 
-  addCandidateAward(candidateaward:Awards[] ):Observable<any> {
+  addCandidateAward(candidateaward:Award[] ):Observable<any> {
     let headers = new Headers({ 'Content-Type': 'application/json'});
     let options = new RequestOptions({ headers: headers });
     let body = JSON.stringify({"awards":candidateaward});

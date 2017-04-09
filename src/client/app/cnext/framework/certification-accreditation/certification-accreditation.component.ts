@@ -63,17 +63,9 @@ this.tempCompanyName=companyname;
   addAnother() {
     if(this.tempCertificateName==='' || this.tempCompanyName==='' ||
       this.tempYear===''|| this.tempdetails==='') {
-
       this.disbleButton=true;
     } else {
       this.disbleButton = false;
-      let temp=new Certifications();
-      temp.certificateName=this.tempCertificateName;
-      temp.compaName=this.tempCompanyName;
-      temp.yearOfCertification=this.tempYear;
-      temp.certificationdetails=this.tempdetails;
-      this.selectedcertificates.push(temp);
-      console.log(this.selectedcertificates);
       this.tempfield.push('null');
       this.tempCertificateName='';
       this.tempCompanyName='' ;

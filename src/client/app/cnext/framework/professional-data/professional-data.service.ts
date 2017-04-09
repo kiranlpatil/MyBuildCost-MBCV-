@@ -55,7 +55,7 @@ export class ProfessionalDataService extends BaseService {
       .map(this.extractData)
       .catch(this.handleError);
   }
-  addCandidateProfessionalData(candidateproficiency:string[]):Observable<string[]>{debugger
+  addCandidateProfessionalData(candidateproficiency:string[]):Observable<string[]>{
     let headers=new Headers({'Content-Type':'application/json'});
     let options=new RequestOptions({headers:headers});
     let body=JSON.stringify({"proficiencies":candidateproficiency})

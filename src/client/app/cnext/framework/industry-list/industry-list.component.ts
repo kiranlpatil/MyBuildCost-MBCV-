@@ -1,16 +1,15 @@
-import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { IndustryListService } from './industry-list.service';
 import { MyIndustryService } from '../industry-service';
-import { MyRoleService } from '../role-service';
 import { Message } from '../../../framework/shared/message';
 import { MessageService } from '../../../framework/shared/message.service';
-import { IndustryList } from '../model/industryList';
+import { Industry } from '../model/industry';
 import { MyRoleListTestService } from '../myRolelist.service';
 import { DisableTestService } from '../disable-service';
-import { MYJobTitleService } from '../myJobTitle.service';
-import { SingleSelectList } from '../model/single-select-list';
 import {LocalStorageService} from "../../../framework/shared/localstorage.service";
 import {LocalStorage} from "../../../framework/shared/constants";
+import {ProfileCreatorService} from "../profile-creator/profile-creator.service";
+import {Candidate} from "../model/candidate";
 
 @Component({
   moduleId: module.id,
@@ -20,66 +19,59 @@ import {LocalStorage} from "../../../framework/shared/constants";
 })
 
 export class IndustryListComponent implements OnInit {
-  @Input() radioData:SingleSelectList;
-  @Output() selectedData = new EventEmitter<string>();
+
   private industryNames :string[]=new Array();
-  private storedRoles :string[] =new Array();
   private industryData:any;
-  private rolesData:any;
-  private roleNames:string[] =new Array();
   private showModalStyle: boolean = false;
   private disbleRole: boolean = true;
   private disbleButton: boolean = true;
   private disableIndustry: boolean = false;
-  private industryRoles=new IndustryList();
   private storedindustry:string;
-  private title:string='';
-  private abcd:string;
+  private industry=new Industry();
   private isCandidate : boolean = true;
-
-
-
-
-
-  constructor(private industryService: IndustryListService, private myindustryService : MyIndustryService,private myRolelist:MyRoleListTestService,
-              private roleService : MyRoleService, private jobtitleservice:MYJobTitleService,private messageService:MessageService , private disableService:DisableTestService) {
-
+  private candidate:Candidate=new Candidate();
+  
+  constructor(private industryService: IndustryListService,
+              private myindustryService : MyIndustryService,
+              private myRolelist:MyRoleListTestService,
+              private messageService:MessageService ,
+              private disableService:DisableTestService,
+              private profileCreatorService:ProfileCreatorService) {
   }
 
   ngOnInit() {
+
+      this.profileCreatorService.getCandidateDetails()
+        .subscribe(
+          candidateData => this.OnCandidateDataSuccess(candidateData),
+          error => this.onError(error));
+
     this.industryService.getIndustries()
       .subscribe(
         industrylist => this.onIndustryListSuccess(industrylist.data),
         error => this.onError(error));
 
-
-    this.jobtitleservice.showTestTitle$.subscribe(
-      data => {
-        this.title=data;
-      }
-    );
-
     if(LocalStorageService.getLocalValue(LocalStorage.IS_CANDIDATE)==="false"){
       this.isCandidate=false;
     }
   }
-  selectOption(option:string) {
-      
-    
 
-    if(option !== undefined){
-
-      this.abcd=option;
-      this.storedindustry=option;
+  OnCandidateDataSuccess(candidateData:any){
+    this.industry=candidateData.data[0].industry;
+    if(this.industry.name !== undefined){
+      this.disableIndustry=true;
+      this.disbleButton=true;
+    }
+  }
+  selectOption(industry:string) {
+    if(industry !== undefined){
+      this.candidate.industry.name=industry;
       if(LocalStorageService.getLocalValue(LocalStorage.IS_CANDIDATE)==="false"){
         this.isCandidate=false;
         this.disableIndustrires();
       }
-      this.abcd=option;
-      this.storedindustry=option;
     }
     this.disbleButton=false;
-
   }
   onIndustryListSuccess(data:any) {
     this.industryData=data;
@@ -96,46 +88,12 @@ export class IndustryListComponent implements OnInit {
   }
 
   selectIndustryModel(industry: string) {
-   this.industryRoles.name=industry;
-    if(LocalStorageService.getLocalValue(LocalStorage.IS_CANDIDATE)==="false"){
-      this.isCandidate=false;
-      this.disableIndustrires();
-
-    }
-    this.industryService.getRoles(industry)
-      .subscribe(
-        rolelist => this.onRoleListSuccess(rolelist.data),
-        error => this.onError(error));
     this.storedindustry=industry;
   }
 
-  searchRolesId(roleName:any) {
-    for(let role of this.rolesData) {
-      if(role.name===roleName) {
-        this.industryRoles.roles.push(role._id);
-      }
-    }
-  }
-
-  onRoleListSuccess(data:any) {
-    this.rolesData=data;
-    for(let role of data) {
-      this.roleNames.push(role.name);
-    }
-  }
-
-  selectRolesModel(roleName: string) {
-    if(roleName === 'u can select max ') {
-      console.log('u can select max ');
-    } else {
-      this.disbleButton = false;
-      this.storedRoles.push(roleName);
-      this.searchRolesId(roleName);
-    }
-  }
 
   createAndSave() {
-    this.industryService.addIndustryProfile(this.industryRoles).subscribe(
+    this.profileCreatorService.addProfileDetail(this.candidate).subscribe(
       user => {
         console.log(user);
       },
@@ -145,29 +103,22 @@ export class IndustryListComponent implements OnInit {
   }
 
   showHideModal() {
-    this.selectIndustryModel(this.abcd);
-
-      this.showModalStyle = !this.showModalStyle;
-
+    this.showModalStyle = !this.showModalStyle;
   }
   disableIndustrires() {
-
-
     this.myindustryService.change(this.storedindustry);
 
     this.disableService.change(true);
        this.myRolelist.change(true);
-     // this.testService.change(true);
-    
+
       this.disbleRole = true;
       this.disbleButton = true;
-      
+
     if(LocalStorageService.getLocalValue(LocalStorage.IS_CANDIDATE)==="true"){
       this.createAndSave();
       this.showModalStyle = !this.showModalStyle;
       this.disableIndustry = true;
     }
-      //this.roleService.change(this.storedRoles);
   }
 
   getStyleModal() {

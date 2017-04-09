@@ -2,7 +2,7 @@
   <div>
     <div class="select-option"  *ngFor="let choice of industryNames;let i = index">
       <label >
-        <input type="radio"  name="choice" id="{{choice}}" value="{{choice}}" [disabled]="disableIndustry" (click)="selectOption($event.target.value)"  >
+        <input type="radio"  name="choice" id="{{choice}}" value="{{choice}}" [disabled]="disableIndustry" (click)="selectOption($event.target.value)" [checked]="choice===industry.name"  >
         <span>{{choice}}</span>
       </label>
     </div>

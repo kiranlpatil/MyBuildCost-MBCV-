@@ -10,12 +10,11 @@ import { MyCapabilityService } from '../capability-service';
 import { LocalStorageService } from '../../../framework/shared/localstorage.service';
 import { MyJobRequirementService } from '../jobrequirement-service';
 import { Message } from '../../../framework/shared/message';
-import { MyJobPostRoleTypeService } from '../jobpost-roletype.service';
 import {Industry} from "../model/industry";
-import {IndustryList} from "../model/industryList";
 import {IndustryListService} from "../industry-list/industry-list.service";
 import {Role} from "../model/role";
 import {Capability} from "../model/capability";
+import {ProfileCreatorService} from "../profile-creator/profile-creator.service";
 
 @Component({
   moduleId: module.id,
@@ -39,7 +38,8 @@ export class CapabilityListComponent implements OnInit  {
   private iscandidate:boolean=false;
   private break1:boolean=false;
   private showfield: boolean = false;
-  private industryRoles:IndustryList=new IndustryList();
+  private industryRoles:Industry=new Industry();
+  private savedCapabilities:Capability[]=new Array();
 
   constructor(private testService : TestService,
               private industryService:IndustryListService,
@@ -49,7 +49,8 @@ export class CapabilityListComponent implements OnInit  {
               private messageService:MessageService,
               private capabilityListServive:CapabilityListService,
               private myCapabilityListService:MyCapabilityService,
-              private myJobrequirementService :MyJobRequirementService
+              private myJobrequirementService :MyJobRequirementService,
+              private profileCreatorService:ProfileCreatorService
   ) {
 
     testService.showTest$.subscribe(
@@ -88,7 +89,30 @@ export class CapabilityListComponent implements OnInit  {
   }
 
   ngOnInit() {
-    this.iscandidate= !(LocalStorageService.getLocalValue(LocalStorage.IS_CANDIDATE));
+    this.profileCreatorService.getCandidateDetails()
+      .subscribe(
+        candidateData => this.OnCandidateDataSuccess(candidateData),
+        error => this.onError(error));
+    
+  }
+
+  OnCandidateDataSuccess(candidateData:any){
+    
+    
+      for(let role of candidateData.data[0].industry.roles){
+        for(let capability of role.capabilities){
+          this.savedCapabilities.push(capability);
+        }
+      }
+    
+    
+    console.log(this.savedCapabilities);
+   /* for(let role of this.roles){
+      this.storedRoles.push(role.name);
+    }*/
+   /* this.myRoleType.change(true);
+    this.myIndustryService.change(candidateData.data[0].industry.name);
+    this.roleService.change(this.storedRoles);*/
   }
 
   onCapabilityListSuccess(data:any) {
@@ -206,4 +230,15 @@ export class CapabilityListComponent implements OnInit  {
         console.log(error);
       });
   }
+
+
+  isChecked(choice:any):boolean{
+    for(let capability of this.savedCapabilities){
+      if(capability.name===choice){
+        return true;
+      }
+    }
+    return false;
+  }
+  
 }

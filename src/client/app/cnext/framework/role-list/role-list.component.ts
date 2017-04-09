@@ -3,10 +3,11 @@ import { MyIndustryService } from '../industry-service';
 import { IndustryListService } from '../industry-list/industry-list.service';
 import { Message } from '../../../framework/shared/message';
 import { MessageService } from '../../../framework/shared/message.service';
-import { IndustryList } from '../model/industryList';
+import { Industry } from '../model/industry';
 import { MyRoleService } from '../role-service';
 import { MyRoTypeTestService } from '../myRole-Type.service';
 import {Role} from "../model/role";
+import {ProfileCreatorService} from "../profile-creator/profile-creator.service";
 
 @Component({
   moduleId: module.id,
@@ -24,21 +25,21 @@ export class RoleListComponent {
   private disbleRole: boolean = true;
   private disbleButton: boolean = true;
   private disableIndustry: boolean = false;
-  private industryRoles=new IndustryList();
+  private industryRoles=new Industry();
   private  isnewindustry:boolean=false;
   private selectedOptions:string[]=new Array();
   private showfield: boolean = false;
   private alert:boolean=false;
+  private roles=new Array();
 
 
   constructor(private messageService:MessageService ,
               private industryService: IndustryListService,
               private roleService : MyRoleService,
               private myIndustryService :MyIndustryService,
-              private myRoleType:MyRoTypeTestService ) {
+              private myRoleType:MyRoTypeTestService, private profileCreatorService:ProfileCreatorService ) {
     myIndustryService.showTest$.subscribe(
       data => {
-
         this.industry=data;
         this.industryRoles.name=data;
         this.industryService.getRoles(this.industry)
@@ -50,6 +51,26 @@ export class RoleListComponent {
 
 
   }
+
+  ngOnInit(){
+    this.profileCreatorService.getCandidateDetails()
+      .subscribe(
+        candidateData => this.OnCandidateDataSuccess(candidateData),
+        error => this.onError(error));
+  }
+
+  OnCandidateDataSuccess(candidateData:any){
+    this.roles.push(candidateData.data[0].industry.roles[0]);
+    for(let role of this.roles){
+      this.storedRoles.push(role.name);
+    }
+    this.myRoleType.change(true);
+    this.myIndustryService.change(candidateData.data[0].industry.name);
+    this.roleService.change(this.storedRoles);
+
+
+  }
+
   selectOption(newVal:any) {
     var option=newVal.target.value;
     if (newVal.target.checked) {
@@ -147,5 +168,15 @@ export class RoleListComponent {
     }
   }
 
+  isChecked(choice:any):boolean{
+    for(let role of this.roles){
+      if(role.name===choice){
+        return true;
+      }
+      else{
+        return false;
+      }
+    }
+  }
 
 }

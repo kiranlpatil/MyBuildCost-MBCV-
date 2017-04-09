@@ -1,4 +1,6 @@
+import { Role}  from './role';
 export class Industry {
-  name:string;
-  code_name:number;
+  name: string='';
+  roles: Role[]= new Array();
+  industry:any;
 }

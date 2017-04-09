@@ -120,7 +120,7 @@ export class JobPosterComponent {
       }
     );
     this.jobPostDescription.showTestJobPostDesc$.subscribe(
-      data=> {debugger
+      data=> {
         if(data.type==="competensies")
         this.competensies=data.data;
         if(data.type==="responsibilities")

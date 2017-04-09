@@ -22,7 +22,7 @@ export class ProficiencyDomainService extends BaseService {
   }
 
 
-addCandidateProficiency(candidateproficiency:string[]):Observable<string[]>{debugger
+addCandidateProficiency(candidateproficiency:string[]):Observable<string[]>{
   let headers=new Headers({'Content-Type':'application/json'});
   let options=new RequestOptions({headers:headers});
   let body=JSON.stringify({"proficiencies":candidateproficiency})

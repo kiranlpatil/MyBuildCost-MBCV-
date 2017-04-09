@@ -5,8 +5,8 @@ import { BaseService } from '../../../framework/shared/httpservices/base.service
 import {  API, LocalStorage  } from '../../../framework/shared/constants';
 import {  LocalStorageService  } from '../../../framework/shared/localstorage.service';
 import { EmployementHistory } from '../model/employment-history';
-import {Awards} from "../model/awards";
-import {Academicdetails} from "./academic-details";
+import {Award} from "../model/award";
+import {Academicdetails} from "../model/academic-details";
 
 @Injectable()
 export class CandidateAcadmyDetailService extends BaseService {

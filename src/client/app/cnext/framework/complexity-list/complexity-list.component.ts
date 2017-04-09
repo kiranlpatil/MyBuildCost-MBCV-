@@ -10,7 +10,7 @@ import { MessageService } from '../../../framework/shared/message.service';
 import { MyJobRequirementService } from '../jobrequirement-service';
 import { Message } from '../../../framework/shared/message';
 import { JobPostComplexityService } from '../job-post-complexity.service';
-import {IndustryList} from "../model/industryList";
+import {Industry} from "../model/industry";
 import {Scenario} from "../model/scenario";
 import {IndustryListService} from "../industry-list/industry-list.service";
 
@@ -31,7 +31,7 @@ export class ComplexityListComponent {
   private showfield: boolean = false;
   private complexityData:any;
   private count:number=0;
-  private industryRoles:IndustryList=new IndustryList();
+  private industryRoles:Industry=new Industry();
   constructor(
                private complexityService: ComplexityService,
                private industryService: IndustryListService,
@@ -108,7 +108,7 @@ export class ComplexityListComponent {
       this.count++;
       this.searchSelectedComplexity(currentComplexity);
 
-      if(this.count>=this.complexities.length) {debugger
+      if(this.count>=this.complexities.length) {
         for(let data of this.complexityData) {
             this.industryRoles.roles.push(data);
         }

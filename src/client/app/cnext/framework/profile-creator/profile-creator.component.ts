@@ -14,6 +14,11 @@ import { MyRoTypeTestService } from '../myRole-Type.service';
 import { DisableTestService } from '../disable-service';
 import { JobTitle } from '../model/jobTitle';
 import { MYJobTitleService } from '../myJobTitle.service';
+import {Candidate} from "../model/candidate";
+import {ProfileCreatorService} from "./profile-creator.service";
+import {MessageService} from "../../../framework/shared/message.service";
+import {Message} from "../../../framework/shared/message";
+import {MyIndustryService} from "../industry-service";
 
 @Component({
   moduleId: module.id,
@@ -46,15 +51,24 @@ export class ProfileCreatorComponent implements OnInit {
   private jobTitle=new JobTitle();
   private isTitleFilled:boolean=true;
   private isShowRequired:boolean=true;
+  private disableTitle:boolean=false;
+  private candidate:Candidate=new Candidate();
+
   constructor(private _router:Router,
               private dashboardService:DashboardService,
               private testService : TestService,
+              private myindustryService : MyIndustryService,
               private proficiencyService : ProficiencyService,
               private professionalService : ProfessionalService,
               private educationalService : EducationalService,
               private complexityService : ComplexityService,
               private myRoleType:MyRoTypeTestService,
-              private awardService: AwardService, private myRolelist : MyRoleListTestService, private disableService: DisableTestService, private jobtitleservice: MYJobTitleService ) {
+              private messageService:MessageService ,
+              private awardService: AwardService,
+              private myRolelist : MyRoleListTestService,
+              private disableService: DisableTestService,
+              private jobtitleservice: MYJobTitleService,
+              private profileCreatorService:ProfileCreatorService) {
 
     this.myRolelist.showTestRolelist$.subscribe(
       data => {
@@ -112,6 +126,8 @@ export class ProfileCreatorComponent implements OnInit {
 
 
   ngOnInit() {
+
+
     this.newUser = parseInt(LocalStorageService.getLocalValue(LocalStorage.IS_LOGED_IN));
     if (this.newUser === 0) {
       this._router.navigate([NavigationRoutes.APP_START]);
@@ -119,6 +135,33 @@ export class ProfileCreatorComponent implements OnInit {
       this.getUserProfile();
     }
 
+  }
+
+  getCandidateProfile(){
+    this.profileCreatorService.getCandidateDetails()
+      .subscribe(
+        candidateData => this.OnCandidateDataSuccess(candidateData),
+        error => this.onError(error));
+  }
+
+  OnCandidateDataSuccess(candidateData:any){
+    this.candidate=candidateData.data[0];
+    if(this.candidate.jobTitle !== undefined){
+      this.title=this.candidate.jobTitle;
+      this.disableTitle=true;
+    }
+    if(this.candidate.roleType !== undefined){
+      this.isRoleTypeShow=true;
+    }
+    if(this.candidate.industry.roles.length>0){
+      this.isRolesShow=true;
+      this.myindustryService.change(this.candidate.industry.name);
+
+
+    }
+    if(this.candidate.industry.roles[0].capabilities.length>0){
+      this.showCapability=true;
+    }
   }
 
   getUserProfile() {
@@ -137,10 +180,18 @@ export class ProfileCreatorComponent implements OnInit {
     this.fullName=result.data.first_name + result.data.last_name;
     this.firstName=result.data.first_name;
     this.lastName=result.data.last_name;
+    this.getCandidateProfile();
   }
 
   onUserProfileError(error:any) {
     console.log(error);
+  }
+
+  onError(error:any) {
+    var message = new Message();
+    message.error_msg = error.err_msg;
+    message.isError = true;
+    this.messageService.message(message);
   }
 
   showorhide(event:string) {
@@ -181,14 +232,19 @@ export class ProfileCreatorComponent implements OnInit {
     } else {
       this.isShowRequired=false;
       this.isTitleFilled=true;
-
     }
-
   }
   selectedtitle(title:string) {
-     this.title=title;
-     this.jobTitle.title=this.title;
-     this.jobtitleservice.change( this.jobTitle.title);
+     this.candidate.jobTitle=title;
+   //  this.jobtitleservice.change( this.jobTitle.title);
+    this.profileCreatorService.addProfileDetail(this.candidate).subscribe(
+      user => {
+        console.log(user);
+      },
+      error => {
+        console.log(error);
+      });
+
 
   }
 

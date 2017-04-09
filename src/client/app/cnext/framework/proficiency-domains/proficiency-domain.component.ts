@@ -39,7 +39,7 @@ export class ProficiencyDomainComponent implements OnInit {
   }
 
   ngOnInit() {
-    debugger
+    
     this.proficiencyType = true;
     this.placeHolderName = 'proficiency';
 
@@ -50,8 +50,8 @@ export class ProficiencyDomainComponent implements OnInit {
 
   }
 
-  onProficiencySuccess(data: any) {debugger
-    debugger
+  onProficiencySuccess(data: any) {
+    
     for (let proficiency of data.data.names) {
       this.selectedproficiencies.push(proficiency);
       this.masterDataproficiency.push(proficiency);
@@ -67,7 +67,7 @@ export class ProficiencyDomainComponent implements OnInit {
     this.messageService.message(message);
   }
 
-  selectedProficiencyModel(newVal: any) {debugger
+  selectedProficiencyModel(newVal: any) {
 
       if (this.storedProficiency.length < ValueConstant.MAX_PROFECIENCES) {
         this.storedProficiency.push(newVal);
@@ -127,10 +127,10 @@ export class ProficiencyDomainComponent implements OnInit {
   onSelect() {
     this.isShow=false;
   }
-  enterProficiency(newVal:string){debugger
+  enterProficiency(newVal:string){
     this.addProficiency=newVal;
   }
-  selectedProficiency() {debugger
+  selectedProficiency() {
     this.selectedProficiencyModel(this.addProficiency);
     let typeTemp: any = document.getElementById(this.addOther);
     typeTemp.value = '';

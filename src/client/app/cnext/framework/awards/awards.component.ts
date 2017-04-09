@@ -1,6 +1,6 @@
 
 import {   Component  } from '@angular/core';
-import {  Awards  } from '../model/awards';
+import {  Award  } from '../model/award';
 import { AwardService } from '../award-service';
 import { ValueConstant } from '../../../framework/shared/constants';
 import {CandidateAwardService} from "./awards.service";
@@ -19,7 +19,7 @@ export class AwardsComponent {
   private tempmonth:string='';
   private tempyear:string='';
   private tempremark:string='';
-  private selectedawards: Awards[]=new Array();
+  private selectedawards: Award[]=new Array();
   private disbleButton:boolean=false;
   private year: any;
   private currentDate: any;
@@ -54,12 +54,6 @@ export class AwardsComponent {
   addAnother() {
     if (this.temptitle!=='' && this.tempmonth!=='' &&
       this.tempyear!=='' && this.tempremark!=='') {
-      let temp=new Awards();
-      temp.title=this.temptitle;
-      temp.month=this.tempmonth;
-      temp.year=this.tempyear;
-      temp.awardsdetails=this.tempremark;
-      this.selectedawards.push(temp);
       console.log(this.selectedawards);
       this.disbleButton = false;
       this.tempfield.push('null');

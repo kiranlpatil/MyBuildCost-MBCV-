@@ -1,5 +1,5 @@
 import {   Component  } from '@angular/core';
-import {  Academicdetails  } from './academic-details';
+import {  Academicdetails  } from '../model/academic-details';
 import {  ValueConstant  } from '../../../framework/shared/constants';
 import {  EducationalService  } from '../educational-service';
 import {CandidateAcadmyDetailService} from "./academic-details.service";
@@ -23,6 +23,7 @@ export class AcademicDetailComponent {
   private tempUnivercityName:string='';
   private tempPassingYear:string='';
   private  tempSpecialization:string='';
+  private newAcademicDetails=new Academicdetails();
   constructor(private educationalService : EducationalService,private acadmicDetailsService:CandidateAcadmyDetailService) {
 
     this.tempfield = new Array(1);
@@ -39,25 +40,32 @@ export class AcademicDetailComponent {
     }
   }
   selectedSchoolName(schoolname:string) {
-    this.tempSchoolName=schoolname;
-
+   /* this.tempSchoolName=schoolname;*/
+    this.newAcademicDetails.schoolName=schoolname;
+    this.selectedacademicsdeatils.push(this.newAcademicDetails);
+    this.postAcademicDetails();
   }
 
-  selectedeUniversityName(universityname:string) {
-    this.tempUnivercityName=universityname;
-
+  selectedeUniversityName(board:string) {
+    /*this.tempUnivercityName=board;*/
+    this.newAcademicDetails.board=board;
+    this.selectedacademicsdeatils.push(this.newAcademicDetails);
+    this.postAcademicDetails();
   };
-  selectedPassingYear(passingyear:string) {
-    this.tempPassingYear=passingyear;
+  selectedPassingYear(yearOfPassing:string) {
+    this.newAcademicDetails.yearOfPassing=yearOfPassing;
+    this.selectedacademicsdeatils.push(this.newAcademicDetails);
+    this.postAcademicDetails();
   };
 
-  selectedSpecialization(remark:string) {
-    this.tempSpecialization=remark;
+  selectedSpecialization(specialization:string) {
+    this.newAcademicDetails.specialization=specialization;
+    this.selectedacademicsdeatils.push(this.newAcademicDetails);
+    this.postAcademicDetails();
   };
 
   changeValue() {
-    this.educationalService.change(true);
-
+    this.educationalService.change(true);   //to change the value of upper bubbles
   }
 
 
@@ -79,10 +87,14 @@ export class AcademicDetailComponent {
       this.tempUnivercityName='';
       this.tempPassingYear='';
       this.tempSpecialization='';
-      this.acadmicDetailsService.addCandidateAcademyDetails(this.selectedacademicsdeatils)
-        .subscribe(
-          user => console.log(user),
-          error => console.log(error))
+
     }
+  }
+
+  postAcademicDetails(){
+    this.acadmicDetailsService.addCandidateAcademyDetails(this.selectedacademicsdeatils)
+      .subscribe(
+        user => console.log(user),
+        error => console.log(error));
   }
 }

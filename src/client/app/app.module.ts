@@ -124,6 +124,7 @@ import { ShowJobFilterService } from './cnext/framework/showJobFilter.service';
 import {CandidateAwardService} from "./cnext/framework/awards/awards.service";
 import {AboutCandidateService} from "./cnext/framework/more-about-myself/more-about-myself.service";
 import {CandidateAcadmyDetailService} from "./cnext/framework/academic-details/academic-details.service";
+import {ProfileCreatorService} from "./cnext/framework/profile-creator/profile-creator.service";
 
 @NgModule({
   imports: [
@@ -268,7 +269,8 @@ import {CandidateAcadmyDetailService} from "./cnext/framework/academic-details/a
     ShowJobFilterService,
     CandidateAwardService,
     AboutCandidateService,
-    CandidateAcadmyDetailService
+    CandidateAcadmyDetailService,
+    ProfileCreatorService
 
 
 

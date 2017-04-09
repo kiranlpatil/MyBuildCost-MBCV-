@@ -4,6 +4,8 @@ import { MessageService } from '../../../framework/shared/message.service';
 import { RoleTypeService } from './role-type.service';
 import { TestService } from '../test.service';
 import {MyJobPostRoleTypeService} from "../jobpost-roletype.service";
+import {Candidate} from "../model/candidate";
+import {ProfileCreatorService} from "../profile-creator/profile-creator.service";
 
 @Component({
   moduleId: module.id,
@@ -17,19 +19,32 @@ export class RoleTypetListComponent implements OnInit {
   private showModalStyle: boolean = false;
   private disbleRole: boolean = true;
   private disbleButton: boolean = false;
-  private disableIndustry: boolean = false;
   private roleTypes:string[]=new Array();
   private role:string;
   private showfield: boolean = false;
-  constructor(private roleTypeService: RoleTypeService, private messageService:MessageService , private testService : TestService,   private jobpostroletype:MyJobPostRoleTypeService) {
+  private candidate:Candidate=new Candidate();
+  constructor(private roleTypeService: RoleTypeService, private profileCreatorService:ProfileCreatorService, private messageService:MessageService , private testService : TestService,   private jobpostroletype:MyJobPostRoleTypeService) {
   }
 
   ngOnInit() {
+    this.profileCreatorService.getCandidateDetails()
+      .subscribe(
+        candidateData => this.OnCandidateDataSuccess(candidateData),
+        error => this.onError(error));
+    
     this.roleTypeService.getRoleTypes()
       .subscribe(
         data=> this.onRoleTypesSuccess(data),
         error => this.onError(error));
 
+  }
+
+  OnCandidateDataSuccess(candidateData:any){
+    this.candidate=candidateData.data[0];
+    if(this.candidate.roleType !== undefined){
+      this.showfield=true;
+      this.disbleButton=true;
+    }
   }
 
   selectOption(option:string) {

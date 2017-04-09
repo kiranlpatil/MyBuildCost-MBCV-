@@ -4,7 +4,7 @@ import { MyIndustryService } from '../industry-service';
 import { MyRoleService } from '../role-service';
 import { Message } from '../../../framework/shared/message';
 import { MessageService } from '../../../framework/shared/message.service';
-import { IndustryList } from '../model/industryList';
+import { Industry } from '../model/industry';
 import { MyRoleListTestService } from '../myRolelist.service';
 import { IndustryExperienceService } from './industry-experience.service';
 
@@ -25,7 +25,7 @@ export class IndustryExperienceListComponent implements OnInit {
   private disbleRole: boolean = true;
   private disbleButton: boolean = true;
   private disableIndustry: boolean = false;
-  private industryRoles=new IndustryList();
+  private industryRoles=new Industry();
   private industries:string[] =new Array();
   constructor(private industryService: IndustryExperienceService, private myindustryService : MyIndustryService,
               private roleService : MyRoleService, private messageService:MessageService , private testService : TestService,

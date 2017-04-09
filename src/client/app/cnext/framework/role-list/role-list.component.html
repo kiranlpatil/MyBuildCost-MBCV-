@@ -4,13 +4,12 @@
     areas only after 3 months.</p>
   <div class="select-option"  *ngFor="let choice of roleNames;let i = index">
     <label>
-      <input type="checkbox"   name="choices" id="{{choice}}" [disabled]="showfield" value="{{choice}}" (click)="selectOption($event)">
+      <input type="checkbox"   name="choices" id="{{choice}}" [disabled]="showfield || isChecked(choice)" value="{{choice}}" (click)="selectOption($event)" [checked]="isChecked(choice)" />
       <span>{{choice}}</span>
     </label>
     <div class="error-messages" *ngIf="alert"><p>You have selected maximum work areas</p></div>
   </div>
 
-  <!--<cn-multi-select-list [checkBoxData]="roleNames"  [maxInput]="'3'" (selectedData)="selectRolesModel($event)"></cn-multi-select-list>-->
 
   <div class="button-group clearfix">
     <button class="btn btn-primary" (click)="showHideModal()" [disabled]="disbleButton">Cofirm &amp; Save</button>
