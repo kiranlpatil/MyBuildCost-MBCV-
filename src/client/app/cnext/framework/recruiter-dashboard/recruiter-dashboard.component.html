@@ -1,7 +1,13 @@
 <div class="job-poster clearfix">
   <div class="bar-container profile-header">
     <div class="container">
-      <h1>{{company_name}}</h1>
+      <div class="user-info col-sm-8 no-padding">
+        <img src="assets/framework/images/dashboard/profile.png" alt="User Profile Picture"/>
+        <h4>{{company_name}}</h4>
+      </div>
+      <div class="user-info col-sm-4 no-padding text-right">
+        <button type="submit" class="btn btn-default" (click)="logOut()">Logout</button>
+      </div>
     </div>
   </div>
 
@@ -26,7 +32,7 @@
       <div class="tab-content">
         <div id="posted-job" class="tab-pane fade">
           <div>
-            <p>Posted jobs</p>
+            <span>Posted jobs</span>
           </div>
         </div>
         <div id="post-new-job" class="tab-pane fade in active">

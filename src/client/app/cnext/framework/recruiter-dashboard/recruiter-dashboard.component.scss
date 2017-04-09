@@ -18,11 +18,28 @@ $profile-section-shadow: rgba(204, 204, 204, 1);
   height: 90px;
   left: 0;
   margin: 0 auto;
-  padding-top: 20px;
+  padding-top: 15px;
   position: fixed;
   top: 0;
   width: 100%;
   z-index: 99;
+  text-align: left;
+
+  .user-info {
+    img {
+      width: 60px;
+      border-radius: 50%;
+      margin: 0 15px;
+      float: left;
+    }
+
+    h4 {
+      margin: 0;
+      width: auto;
+      color: $white;
+      text-transform: capitalize;
+    }
+  }
 }
 
 .poster-wrapper {
@@ -84,7 +101,6 @@ $profile-section-shadow: rgba(204, 204, 204, 1);
 @media only screen and (max-width: 1280px) {
   .poster-wrapper {
     display: inline-block;
-    width: 100%;
   }
 }
 

@@ -47,6 +47,9 @@ $primary-option: #1c75bd;
       font-size: 12px;
       font-weight: 100;
       padding: 6px 10px;
+      min-width: 100px;
+      display: inline-block;
+      text-align: center;
 
       &:hover {
         border: 1px solid $option-border-color;

@@ -151,11 +151,9 @@ $label: #888;
     color: #1B75BC;
   }
 
-  textarea.form-control {
+  .job-title {
     border-radius: 0;
-    height: 100px;
-    resize: vertical;
-    width: 100%;
+    width: 400px;
   }
 }
 
@@ -258,6 +256,10 @@ $label: #888;
       .glyphicon-remove {
         display: block;
       }
+    }
+
+    .job-title {
+      width: 100%;
     }
   }
 }
