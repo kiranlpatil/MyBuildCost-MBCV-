@@ -2,14 +2,14 @@
 
     <div class="col-sm-4 no-padding">
       <div class="form-group">
-        <input type="text" class="form-control" [ngModel]="certificateName" (ngModelChange)="selectedCertificate($event)" required />
+        <input type="text" class="form-control" [ngModel]="certificateName" (change)="selectedCertificate($event.target.value)" required />
         <label> Name</label>
       </div>
     </div>
 
     <div class="col-sm-4 no-padding">
       <div class="form-group">
-        <input type="text" class="form-control"  [ngModel]="companyName" (ngModelChange)="selectedCompanyName($event)" required />
+        <input type="text" class="form-control"  [ngModel]="companyName" (change)="selectedCompanyName($event.target.value)" required />
         <label>Company Name</label>
       </div>
     </div>
@@ -29,7 +29,7 @@
 
   <div class="col-sm-10 no-padding">
     <div>
-      <textarea class="form-control" [ngModel]="certificate" (ngModelChange)="addedCertification($event)" Placeholder="Certification/Accreditation"></textarea>
+      <textarea class="form-control" [ngModel]="certificate" (change)="addedCertification($event.target.value)" Placeholder="Certification/Accreditation"></textarea>
     </div>
   </div>
 </div>

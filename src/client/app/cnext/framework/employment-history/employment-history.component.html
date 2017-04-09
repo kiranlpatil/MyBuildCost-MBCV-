@@ -3,14 +3,14 @@
   <div class="left-content">
     <div class="col-sm-6 no-padding">
       <div class="form-group">
-        <input type="text" class="form-control" [ngModel]="company" (ngModelChange)="comPanyName($event)"   required />
+        <input type="text" class="form-control" [ngModel]="company" (change)="comPanyName($event.target.value)"   required />
         <label>Company Name</label>
       </div>
     </div>
 
     <div class="col-sm-6 no-padding">
       <div class="form-group">
-        <input type="text" class="form-control" name="designation" [ngModel]="design" (ngModelChange)="deSignation($event)" required />
+        <input type="text" class="form-control" name="designation" [ngModel]="design" (change)="deSignation($event.target.value)" required />
         <label>Designation</label>
       </div>
     </div>
@@ -55,7 +55,7 @@
 
   <div class="right-content">
       <div>
-        <textarea class="form-control" [ngModel]="remark" (ngModelChange)="reMark($event)" Placeholder="Remark"></textarea>
+        <textarea class="form-control" [ngModel]="remark" (change)="reMark($event.target.value)" Placeholder="Remark"></textarea>
       </div>
   </div>
 </div>

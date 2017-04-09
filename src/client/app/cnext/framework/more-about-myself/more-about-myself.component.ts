@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import {AboutCandidateService} from "./more-about-myself.service";
+import {MessageService} from "../../../framework/shared/message.service";
+import {ProfileCreatorService} from "../profile-creator/profile-creator.service";
+import {LocalStorageService} from "../../../framework/shared/localstorage.service";
+import {LocalStorage} from "../../../framework/shared/constants";
+import {Message} from "../../../framework/shared/message";
 
 @Component({
   moduleId: module.id,
@@ -19,11 +24,28 @@ export class MoreAboutMyselfComponent implements OnInit {
   private wordsTillNow:number;
   private remainingWords:number;
   private maxword:number;
-  constructor(private aboutMyselfservice:AboutCandidateService) {
+  constructor(private aboutMyselfservice:AboutCandidateService,private messageService:MessageService,
+              private profileCreatorService:ProfileCreatorService) {
     this.reSize = new Array(1);
   }
   ngOnInit() {
     this.remainingWords=this.maxLength;
+      if(LocalStorageService.getLocalValue(LocalStorage.IS_CANDIDATE)==="true"){
+        this.profileCreatorService.getCandidateDetails()
+          .subscribe(
+            candidateData => this.OnCandidateDataSuccess(candidateData),
+            error => this.onError(error));
+
+      }
+    
+  }
+
+  OnCandidateDataSuccess(candidateData:any){}
+  onError(error: any) {
+    var message = new Message();
+    message.error_msg = error.err_msg;
+    message.isError = true;
+    this.messageService.message(message);
   }
   wordCount(event:any) {
    this.newstringOne= this. aboutMyself.split(' ');

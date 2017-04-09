@@ -1,10 +1,12 @@
 import {Component, OnInit, Input} from '@angular/core';
-import {ValueConstant} from '../../../framework/shared/constants';
+import {ValueConstant, LocalStorage} from '../../../framework/shared/constants';
 import {ProficiencyService} from '../proficience.service';
 import {MessageService} from '../../../framework/shared/message.service';
 import {Message} from '../../../framework/shared/message';
 import {ProficiencyDomainService} from './proficiency-domain.service';
 import {JobPostProficiencyService} from '../jobPostProficiency.service';
+import {ProfileCreatorService} from "../profile-creator/profile-creator.service";
+import {LocalStorageService} from "../../../framework/shared/localstorage.service";
 
 @Component({
   moduleId: module.id,
@@ -29,7 +31,8 @@ export class ProficiencyDomainComponent implements OnInit {
   constructor(private proficiencyService: ProficiencyService,
               private proficiencydoaminService: ProficiencyDomainService,
               private messageService: MessageService,
-              private JobPostProficiency: JobPostProficiencyService) {
+              private JobPostProficiency: JobPostProficiencyService,
+              private profileCreatorService:ProfileCreatorService) {
 
     proficiencyService.showTest$.subscribe(
       data => {
@@ -48,7 +51,20 @@ export class ProficiencyDomainComponent implements OnInit {
         data => this.onProficiencySuccess(data),
         error => this.onError(error));
 
+    
+      if(LocalStorageService.getLocalValue(LocalStorage.IS_CANDIDATE)==="true"){
+        this.profileCreatorService.getCandidateDetails()
+          .subscribe(
+            candidateData => this.OnCandidateDataSuccess(candidateData),
+            error => this.onError(error));
+
+      
+    }
+
   }
+
+
+  OnCandidateDataSuccess(candidateData:any){}
 
   onProficiencySuccess(data: any) {
     

@@ -1,8 +1,13 @@
 
 import {   Component  } from '@angular/core';
 import { EmployementHistory } from '../model/employment-history';
-import { ValueConstant } from '../../../framework/shared/constants';
+import {ValueConstant, LocalStorage} from '../../../framework/shared/constants';
 import {EmploymentHistoryService} from "./employment-history.service";
+import {MessageService} from "../../../framework/shared/message.service";
+import {ProfileCreatorService} from "../profile-creator/profile-creator.service";
+import {LocalStorageService} from "../../../framework/shared/localstorage.service";
+import {Message} from "../../../framework/shared/message";
+import {Candidate} from "../model/candidate";
 
 @Component({
   moduleId: module.id,
@@ -30,9 +35,12 @@ export class EmploymentHistoryComponent {
   private year: any;
   private currentDate: any;
   private yearList = new Array();
+  private candidate:Candidate=new Candidate();
 
 
-  constructor(private employmentHistroyservice:EmploymentHistoryService) {
+  constructor(private employmentHistroyservice:EmploymentHistoryService,
+              private messageService:MessageService,
+              private profileCreatorService:ProfileCreatorService) {
     this.tempfield = new Array(1);
     this.currentDate = new Date();
     this.year = this.currentDate.getUTCFullYear();
@@ -40,6 +48,24 @@ export class EmploymentHistoryComponent {
 
   }
 
+  ngOnInit(){
+    if(LocalStorageService.getLocalValue(LocalStorage.IS_CANDIDATE)==="true"){
+      this.profileCreatorService.getCandidateDetails()
+        .subscribe(
+          candidateData => this.OnCandidateDataSuccess(candidateData),
+          error => this.onError(error));
+
+    }
+  }
+
+  OnCandidateDataSuccess(candidateData:any){}
+
+  onError(error: any) {
+    var message = new Message();
+    message.error_msg = error.err_msg;
+    message.isError = true;
+    this.messageService.message(message);
+  }
   createYearList(year: any) {
     for (let i = 0; i < ValueConstant.MAX_YEAR_LIST; i++) {
       this.yearList.push(year--);
@@ -50,12 +76,13 @@ export class EmploymentHistoryComponent {
   comPanyName(companyname:string) {
     this.tempCompanyName=companyname;
     this.selectedEmploymentHistory.companyName=this.tempCompanyName;
-
+    this.postEmploymentHistoy();
   }
 
   deSignation(designation:string) {
     this.tempDesignation=designation;
     this.selectedEmploymentHistory.designation=this.tempDesignation;
+    this.postEmploymentHistoy();
 
   }
 
@@ -64,7 +91,7 @@ export class EmploymentHistoryComponent {
   reMark(remark:string) {
     this.tempRemarks=remark;
     this.selectedEmploymentHistory.remarks=this.tempRemarks;
-
+    this.postEmploymentHistoy();
 
   }
 
@@ -72,6 +99,7 @@ export class EmploymentHistoryComponent {
     this.isShowYearMessage=false;
     this.tempWorkedFromMonth=newval;
     this.selectedEmploymentHistory.from.month=this.tempWorkedFromMonth;
+    this.postEmploymentHistoy();
 
   }
 
@@ -79,12 +107,16 @@ export class EmploymentHistoryComponent {
     this.isShowYearMessage=false;
     this.tempWorkedFromYear=newval;
     this.selectedEmploymentHistory.from.year=this.tempWorkedFromYear;
+    this.postEmploymentHistoy();
+
   }
 
   selectedworktoMonthModel(newval: any) {
     this.isShowYearMessage=false;
     this.tempWorkedToMonth=newval;
     this.selectedEmploymentHistory.to.month=this.tempWorkedToMonth;
+    this.postEmploymentHistoy();
+
 
   }
 
@@ -92,9 +124,11 @@ export class EmploymentHistoryComponent {
     this.isShowYearMessage=false;
        this.tempWorkedToYear=newval;
        this.selectedEmploymentHistory.to.year=this.tempWorkedToYear;
+        this.postEmploymentHistoy();
+
   }
   addAnother() {
-    if(this.tempCompanyName==='' || this.tempDesignation==='' ||
+    /*if(this.tempCompanyName==='' || this.tempDesignation==='' ||
       this.tempWorkedToMonth==='' || this.tempWorkedToYear==='' ||
       this.tempWorkedFromMonth===''||this.tempWorkedFromYear===''||
       this.tempRemarks==='' ) {
@@ -108,8 +142,8 @@ export class EmploymentHistoryComponent {
         this.isShowYearMessage=true;
         this.toYearModel='';
 
-    } else {
-        this.disbleButton = false;
+    } else {*/
+        /*this.disbleButton = false;
         this.isShowYearMessage=false;
         let temp = new EmployementHistory();
         temp.companyName = this.tempCompanyName;
@@ -121,22 +155,33 @@ export class EmploymentHistoryComponent {
         temp.to.year = this.tempWorkedToYear;
         this.selectedEmploysHistory.push(temp);
         console.log(this.selectedEmploysHistory);
-        this.tempfield.push('null');
+       
         this.tempCompanyName = '';
         this.tempDesignation = '';
         this.tempWorkedToMonth = '';
         this.tempWorkedToYear = '';
         this.tempWorkedFromMonth = '';
         this.tempWorkedFromYear = '';
-        this.tempRemarks = '';
-
-        this.employmentHistroyservice.addEmploymentHistroy(this.selectedEmploysHistory)
-          .subscribe(
-            user => console.log(user),
-            error => console.log(error));
-
-      }
+        this.tempRemarks = '';*/
+        this.tempfield.push('null');
+       this.selectedEmploymentHistory=new EmployementHistory()
+  }
+  postEmploymentHistoy(){debugger
+    if(this.selectedEmploymentHistory.companyName!=='' && this.selectedEmploymentHistory.designation!=='' &&
+      this.selectedEmploymentHistory.from.month!=='' &&  this.selectedEmploymentHistory.from.year!==''&& 
+      this.selectedEmploymentHistory.to.month!==''&& this.selectedEmploymentHistory.to.year!==''&&this.selectedEmploymentHistory.remarks!==''){
+      this.candidate.employmentHistory.push(this.selectedEmploymentHistory);
+      this.profileCreatorService.addProfileDetail(this.candidate).subscribe(
+        user => {
+          console.log(user);
+        },
+        error => {
+          console.log(error);
+        });
     }
+  }
 
-  }}
+
+
+}
 

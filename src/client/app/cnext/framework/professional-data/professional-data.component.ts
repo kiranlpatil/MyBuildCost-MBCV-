@@ -6,6 +6,9 @@ import { ProfessionalDataService } from './professional-data.service';
 import { Message } from '../../../framework/shared/message';
 import { MessageService } from '../../../framework/shared/message.service';
 import { ProfessionalService } from '../professional-service';
+import {ProfileCreatorService} from "../profile-creator/profile-creator.service";
+import {LocalStorageService} from "../../../framework/shared/localstorage.service";
+import {LocalStorage} from "../../../framework/shared/constants";
 @Component({
   moduleId: module.id,
   selector: 'cn-professional-data',
@@ -30,7 +33,8 @@ export class ProfessionalDataComponent extends BaseService implements OnInit {
 
   constructor(private professionaldataservice:ProfessionalDataService,
               private messageService:MessageService,
-              private professionalService : ProfessionalService) {
+              private professionalService : ProfessionalService,
+              private profileCreatorService:ProfileCreatorService) {
     super();
   }
 
@@ -64,7 +68,17 @@ export class ProfessionalDataComponent extends BaseService implements OnInit {
         error => { this.onError(error);});
 
 
+      if(LocalStorageService.getLocalValue(LocalStorage.IS_CANDIDATE)==="true"){
+        this.profileCreatorService.getCandidateDetails()
+          .subscribe(
+            candidateData => this.OnCandidateDataSuccess(candidateData),
+            error => this.onError(error));
+
+      }
   }
+
+  OnCandidateDataSuccess(candidateData:any){}
+
   onGetNoticePeriodListSuccess(data:any) {
     for(let k of data.noticeperiod) {
       this.noticeperiodlist.push(k);

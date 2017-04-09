@@ -46,10 +46,10 @@ export class CapabilityListComponent implements OnInit  {
               private complexityService : ComplexityService,
               private myIndustryService :MyIndustryService,
               private roleservice :MyRoleService,
-              private messageService:MessageService,
               private capabilityListServive:CapabilityListService,
               private myCapabilityListService:MyCapabilityService,
               private myJobrequirementService :MyJobRequirementService,
+              private messageService:MessageService,
               private profileCreatorService:ProfileCreatorService
   ) {
 

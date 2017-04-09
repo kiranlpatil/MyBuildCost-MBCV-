@@ -1,8 +1,13 @@
 import {   Component  } from '@angular/core';
 import {  Academicdetails  } from '../model/academic-details';
-import {  ValueConstant  } from '../../../framework/shared/constants';
+import {ValueConstant, LocalStorage} from '../../../framework/shared/constants';
 import {  EducationalService  } from '../educational-service';
 import {CandidateAcadmyDetailService} from "./academic-details.service";
+import {ProfileCreatorService} from "../profile-creator/profile-creator.service";
+import {MessageService} from "../../../framework/shared/message.service";
+import {Message} from "../../../framework/shared/message";
+import {LocalStorageService} from "../../../framework/shared/localstorage.service";
+import {Candidate} from "../model/candidate";
 
 @Component({
   moduleId: module.id,
@@ -17,14 +22,20 @@ export class AcademicDetailComponent {
   private year: any;
   private currentDate: any;
   private yearList = new Array();
-  private selectedacademicsdeatils:Academicdetails[]=new Array();
+  private selectedacademicsdeatils:Academicdetails=new Academicdetails() ;
   private disbleButton:boolean=false;
   private tempSchoolName:string='';
   private tempUnivercityName:string='';
   private tempPassingYear:string='';
   private  tempSpecialization:string='';
+  private candidate:Candidate=new Candidate();
+
+
   private newAcademicDetails=new Academicdetails();
-  constructor(private educationalService : EducationalService,private acadmicDetailsService:CandidateAcadmyDetailService) {
+  constructor(private educationalService : EducationalService,
+              private acadmicDetailsService:CandidateAcadmyDetailService,
+              private messageService:MessageService,
+              private profileCreatorService:ProfileCreatorService) {
 
     this.tempfield = new Array(1);
     this.currentDate = new Date();
@@ -32,6 +43,26 @@ export class AcademicDetailComponent {
     this.createYearList(this.year);
 
 
+
+  }
+
+  ngOnInit(){
+    if(LocalStorageService.getLocalValue(LocalStorage.IS_CANDIDATE)==="true"){
+      this.profileCreatorService.getCandidateDetails()
+        .subscribe(
+          candidateData => this.OnCandidateDataSuccess(candidateData),
+          error => this.onError(error));
+
+    }
+  }
+
+  OnCandidateDataSuccess(candidateData:any){}
+
+  onError(error: any) {
+    var message = new Message();
+    message.error_msg = error.err_msg;
+    message.isError = true;
+    this.messageService.message(message);
   }
 
   createYearList(year: number) {
@@ -40,27 +71,25 @@ export class AcademicDetailComponent {
     }
   }
   selectedSchoolName(schoolname:string) {
-   /* this.tempSchoolName=schoolname;*/
+   this.tempSchoolName=schoolname;
     this.newAcademicDetails.schoolName=schoolname;
-    this.selectedacademicsdeatils.push(this.newAcademicDetails);
     this.postAcademicDetails();
   }
 
   selectedeUniversityName(board:string) {
-    /*this.tempUnivercityName=board;*/
+    this.tempUnivercityName=board;
     this.newAcademicDetails.board=board;
-    this.selectedacademicsdeatils.push(this.newAcademicDetails);
     this.postAcademicDetails();
   };
   selectedPassingYear(yearOfPassing:string) {
+    this.tempPassingYear=yearOfPassing;
     this.newAcademicDetails.yearOfPassing=yearOfPassing;
-    this.selectedacademicsdeatils.push(this.newAcademicDetails);
     this.postAcademicDetails();
   };
 
   selectedSpecialization(specialization:string) {
+    this.tempSpecialization=specialization;
     this.newAcademicDetails.specialization=specialization;
-    this.selectedacademicsdeatils.push(this.newAcademicDetails);
     this.postAcademicDetails();
   };
 
@@ -69,8 +98,8 @@ export class AcademicDetailComponent {
   }
 
 
-  addAnother() {
-    if(this.tempSchoolName==='' || this.tempUnivercityName==='' ||
+  addAnother() {debugger
+    /*if(this.tempSchoolName==='' || this.tempUnivercityName==='' ||
       this.tempPassingYear==='' || this.tempSpecialization==='' ) {
       this.disbleButton=true;
     } else {
@@ -80,21 +109,31 @@ export class AcademicDetailComponent {
       temp.board=this.tempUnivercityName;
       temp.yearOfPassing=this.tempPassingYear;
       temp.specialization=this.tempSpecialization;
-      this.selectedacademicsdeatils.push(temp);
+      //this.selectedacademicsdeatils.push(temp);
       console.log(this.selectedacademicsdeatils);
       this.tempfield.push('null');
       this.tempSchoolName='';
       this.tempUnivercityName='';
       this.tempPassingYear='';
       this.tempSpecialization='';
+*/
 
-    }
+    this.tempfield.push('null');
+    this.newAcademicDetails=new Academicdetails();
+    
   }
 
-  postAcademicDetails(){
-    this.acadmicDetailsService.addCandidateAcademyDetails(this.selectedacademicsdeatils)
-      .subscribe(
-        user => console.log(user),
-        error => console.log(error));
+  postAcademicDetails(){debugger
+    if(this.newAcademicDetails.board!=='' && this.newAcademicDetails.schoolName!=='' &&
+        this.newAcademicDetails.yearOfPassing!=='' && this.newAcademicDetails.specialization!==''){
+      this.candidate.academics.push(this.newAcademicDetails);
+      this.profileCreatorService.addProfileDetail(this.candidate).subscribe(
+      user => {
+        console.log(user);
+      },
+      error => {
+        console.log(error);
+      });
+  }
   }
 }

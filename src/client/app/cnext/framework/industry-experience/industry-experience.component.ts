@@ -7,6 +7,9 @@ import { MessageService } from '../../../framework/shared/message.service';
 import { Industry } from '../model/industry';
 import { MyRoleListTestService } from '../myRolelist.service';
 import { IndustryExperienceService } from './industry-experience.service';
+import {ProfileCreatorService} from "../profile-creator/profile-creator.service";
+import {LocalStorageService} from "../../../framework/shared/localstorage.service";
+import {LocalStorage} from "../../../framework/shared/constants";
 
 @Component({
   moduleId: module.id,
@@ -29,7 +32,8 @@ export class IndustryExperienceListComponent implements OnInit {
   private industries:string[] =new Array();
   constructor(private industryService: IndustryExperienceService, private myindustryService : MyIndustryService,
               private roleService : MyRoleService, private messageService:MessageService , private testService : TestService,
-              private myRolelist :MyRoleListTestService) {
+              private myRolelist :MyRoleListTestService,
+              private profileCreatorService:ProfileCreatorService) {
 
   }
 
@@ -38,8 +42,20 @@ export class IndustryExperienceListComponent implements OnInit {
       .subscribe(
         industrylist => this.onIndustryListSuccess(industrylist.data),
         error => this.onError(error));
+
+      if(LocalStorageService.getLocalValue(LocalStorage.IS_CANDIDATE)==="true"){
+        this.profileCreatorService.getCandidateDetails()
+          .subscribe(
+            candidateData => this.OnCandidateDataSuccess(candidateData),
+            error => this.onError(error));
+
+      }
+    
   }
 
+  OnCandidateDataSuccess(candidateData:any){}
+
+  
   onIndustryListSuccess(data:any) {
     this.industryData=data;
     for(let industry of data) {

@@ -8,13 +8,13 @@ export class Candidate {
   jobTitle : string;
   isVisible : boolean;
   aboutMyself: string;
-  certifications : Certifications[];
-  awards : Award;
+  certifications : Certifications[]=new Array();
+  awards : Award[]=new Array();
   industry : Industry;
   intrestedIndustries : string[];
   roleType: string;
-  academics :  Academicdetails[];
+  academics :  Academicdetails[]=new Array();
   professionalDetails :  ProfessionalData[];
-  employmentHistory : EmployementHistory[];
+  employmentHistory : EmployementHistory[]=new Array();
   proficiencies : string[];
 }

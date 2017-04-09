@@ -2,7 +2,7 @@
 
   <div class="col-sm-4 no-padding">
     <div class="form-group">
-      <input type="text" class="form-control" [ngModel]="title" (ngModelChange)="selectedTitle($event)"  (focus)="changeValue()" required />
+      <input type="text" class="form-control" [ngModel]="title" (change)="selectedTitle($event.target.value)"  (focus)="changeValue()" required />
       <label>Title</label>
     </div>
   </div>
@@ -32,7 +32,7 @@
   </div>
 
   <div class="col-sm-10 no-padding">
-    <textarea class="form-control" [ngModel]="specialization" (ngModelChange)="selectedAward($event)" placeholder="Enter Awards Details" class="form-control"></textarea>
+    <textarea class="form-control" [ngModel]="specialization" (change)="selectedAward($event.target.value)" placeholder="Enter Awards Details" class="form-control"></textarea>
   </div>
 </div>
 
