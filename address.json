@@ -2,8 +2,8 @@
   "address":
 [ { "country":"India",
   "states":
-  [ { "name": "AndhraPradesh", "cities":["Guntur","kadapa"] },
-    { "name": "Maharashtra", "cities":["Mumbai","pune"] } ]},
+  [ { "name": "Andhrapradesh", "cities":["Guntur","Kadapa"] },
+    { "name": "Maharashtra", "cities":["Mumbai","Pune"] } ]},
   { "country":"USA",
     "states":
     [ { "name": "Florida", "cities":["Miami","Tampa"] },

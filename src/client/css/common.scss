@@ -73,9 +73,10 @@ $modal-bg: rgba(0, 0, 0, .7);
 body,
 html {
   background: #f2f2f2;
-  font-family: Arial, sans-serif;
+  font-family:  Arial, sans-serif;
   height: 100%;
   text-align: center;
+  letter-spacing: -0.015em;
 
   //Container
   .container-fluid {

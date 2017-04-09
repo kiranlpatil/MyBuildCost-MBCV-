@@ -12,7 +12,7 @@
 
 
   <div class="button-group clearfix">
-    <button class="btn btn-primary" (click)="showHideModal()" [disabled]="disbleButton">Cofirm &amp; Save</button>
+    <button class="btn btn-primary" (click)="showHideModal()" [disabled]="disbleButton">Confirm &amp; Save</button>
   </div>
 </div>
 
@@ -23,11 +23,11 @@
         <div class="modal-body">
           <div class="row">
             <div class="col-sm-12">
-              <p>Are you sure you want to save your Role(s)?</p>
-              <p>Once you save your Role(s), You can't change it for 3 months.</p>
+              <p>Saving area of work details. Once saved, you can not change it for 3 months.</p>
+
               <div class="button-group">
-                <button class="btn btn-default" (click)="showHideModal()">No</button>
-                <button class="btn btn-primary" (click)="disableRolelist()">Yes</button>
+                <button class="btn btn-default" (click)="showHideModal()">Cancel</button>
+                <button class="btn btn-primary" (click)="disableRolelist()">Save</button>
               </div>
             </div>
           </div>

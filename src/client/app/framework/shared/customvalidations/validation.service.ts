@@ -6,12 +6,12 @@ export class ValidationService {
       'required': 'Required',
       'requiredname': 'Name is required',
       'invalidEmailAddress': 'Email is invalid.',
-      'invalidPassword': 'Password must be of minimum 8digit with minimum 1 uppercase,lowercase,number and one special character($@$!%*?&).',
-      'maxlength': `Maximum ${validatorValue.requiredLength} charcters`,
-      'minlength': `Minimum ${validatorValue.requiredLength} charcters`,
-      'invalidMobile': 'Mobile number should be of 10 digit ',
-      'invalidBirthYear': 'Birth year should be of 4 digit ',
-      'invalidPin': 'Pin should be of 6 digit ',
+      'invalidPassword': 'Passwords must contain at least 8 characters, including uppercase, lowercase letters, numbers and one special character($@$!%*?&).',
+      'maxlength': `Maximum ${validatorValue.requiredLength} characters`,
+      'minlength': `Minimum ${validatorValue.requiredLength} characters`,
+      'invalidMobile': 'Mobile number should be of 10 digits ',
+      'invalidBirthYear': 'Birth year should be of 4 digits ',
+      'invalidPin': 'Pin should be of 6 digits ',
 
     };
     return config[validatorName];

@@ -17,25 +17,25 @@ export class AppSettings {
 }
 
 export class Messages {
-  public static MSG_SUCCESS_LOGIN: string = 'You are successfully logged in';
-  public static MSG_SUCCESS_REGISTRATION: string = 'Kindly verify your account';
+  public static MSG_SUCCESS_LOGIN: string = 'You are successfully logged in.';
+  public static MSG_SUCCESS_REGISTRATION: string = 'Kindly verify your account.';
   public static MSG_SUCCESS_CHANGE_MOBILE_NUMBER: string = 'Mobile number changed successfully.';
   public static MSG_SUCCESS_RESEND_VERIFICATION_CODE: string = 'New One Time Password (OTP) sent on your mobile number.';
-  public static MSG_SUCCESS_MAIL_VERIFICATION: string = 'Email has been sent successfully on your email.Kindly verify your account';
-  public static MSG_SUCCESS_NEWREGISTRATION: string = 'Registration successful with Mobile Number verification.Kindly login';
-  public static MSG_SUCCESS_RESET_PASSWORD: string = 'Your password reset successfully';
+  public static MSG_SUCCESS_MAIL_VERIFICATION: string = 'Verification email sent successfully on your email account. Kindly verify your account.';
+  public static MSG_SUCCESS_NEWREGISTRATION: string = 'Registration successful. Mobile number verified. Kindly login';
+  public static MSG_SUCCESS_RESET_PASSWORD: string = 'Your password is reset successfully';
   public static MSG_SUCCESS_CHANGE_PASSWORD: string = 'Your password has been changed successfully';
-  public static MSG_SUCCESS_CHANGE_EMAIL: string = 'Kindly click on the link sent on your new email to activate your account';
-  public static MSG_SUCCESS_CHANGE_MOBILE: string = 'Verify your new mobile number by entering OTP sent on your number';
+  public static MSG_SUCCESS_CHANGE_EMAIL: string = 'Kindly click on the link sent to your new email for email verification';
+  public static MSG_SUCCESS_CHANGE_MOBILE: string = 'Verify your new mobile number by entering OTP sent on your mobile number';
   public static MSG_SUCCESS_FORGOT_PASSWORD: string = 'Email has been sent successfully on your registered email to reset password';
-  public static MSG_SUCCESS_DASHBOARD_PROFILE: string = 'Your Profile Updated Successfully';
+  public static MSG_SUCCESS_DASHBOARD_PROFILE: string = 'Your profile updated successfully';
   public static MSG_SUCCESS_DASHBOARD_PROFILE_PIC: string = 'Your profile picture updated successfully.';
   public static MSG_SUCCESS_UPLOAD_DOCUMENT: string = 'Your document uploaded successfully.';
   public static MSG_SUCCESS_CONTACT: string = 'Email sent successfully.';
   public static MSG_SUCCESS_CHANGE_THEME: string = 'Theme changed successfully.';
-  public static MSG_SUCCESS_MAIL_VERIFICATION_RESULT_STATUS: string ='Congratulations';
+  public static MSG_SUCCESS_MAIL_VERIFICATION_RESULT_STATUS: string ='Congratulations!';
   public static MSG_SUCCESS_MAIL_VERIFICATION_BODY: string = 'Your account verified successfully.' +
-    'You may start using it immediatly right now.Click on Login!';
+    'You may start using it immediately right now.Click on Login!';
     public static MSG_ERROR_MAIL_VERIFICATION_BODY: string = 'Your account verification failed due to invalid access token!';
     public static MSG_ERROR_MAIL_VERIFICATION_RESULT_STATUS: string ='Sorry';
     public static MSG_ERROR_LOGIN:string = 'Failed to login';
@@ -44,18 +44,18 @@ export class Messages {
     public static MSG_ERROR_CHANGE_PASSWORD:string = 'Failed to change password';
     public static MSG_ERROR_CHANGE_EMAIL:string = 'Failed to change email';
     public static MSG_ERROR_FORGOT_PASSWORD:string = 'Failed to reset password';
-    public static MSG_ERROR_DASHBOARD_PROFILE:string = 'Failed to Update Profile ';
-    public static MSG_ERROR_CONTACT:string = 'Failed to send mail';
-    public static MSG_ERROR_DASHBOARD_PROFILE_PIC:string = 'Failed to Change Profile Picture';
+    public static MSG_ERROR_DASHBOARD_PROFILE:string = 'Failed to update Profile';
+    public static MSG_ERROR_CONTACT:string = 'Failed to send email';
+    public static MSG_ERROR_DASHBOARD_PROFILE_PIC:string = 'Failed to change Profile Picture';
     public static MSG_ERROR_UPLOAD_DOCUMENT:string = 'Failed to Upload Document';
     public static MSG_ERROR_CHANGE_THEME:string = 'Failed to Change Theme';
 
-    public static MSG_ERROR_TOKEN_SESSION:string = 'Session has been Expired.';
+    public static MSG_ERROR_TOKEN_SESSION:string = 'Session has been expired.';
     public static MSG_ERROR_NETWORK:string = 'Please check your internet connection.';
     public static MSG_ERROR_SERVER_ERROR:string = 'Server error.';
     public static MSG_ERROR_SOMETHING_WRONG:string = 'Check your internet connection and Try again.';
 
-    public static MSG_ERROR_IMAGE_TYPE:string = 'Please select valid image type';
+    public static MSG_ERROR_IMAGE_TYPE:string = 'Please select valid image type.';
     public static MSG_ERROR_IMAGE_SIZE:string = 'Make sure image size is less than 500kb';
     public static MSG_ERROR_FB_AUTH:string = 'User cancelled login or did not fully authorize';
     public static MSG_ERROR_FB_domain_error:string = 'The domain of this URL isn not included in the app domains';
@@ -194,5 +194,5 @@ export class ImagePath {
 export class ProjectAsset {
     public static APP_NAME = 'C-NEXT';
     public static TAG_LINE = 'The Awesome Web Experience';
-    public static UNDER_LICENECE = '� 2016 Techprimelab Software Pvt. Ltd.';
+    public static UNDER_LICENECE = '&#169; 2016 Techprimelab Software Pvt. Ltd.';
 }

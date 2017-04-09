@@ -80,7 +80,7 @@
          [source]="cities"
          (ngModelChange)="selectCityModel($event)">
       <input class="form-control" [ngModel]="cityModel" [ngModelOptions]="{standalone: true}"  placeholder="Select City"  (click)="selectStateMessage()" required/>
-      <!--<label class="select-label">Select City</label>-->
+
       <span *ngIf="isStateSelected" class="error-messages">Please select Country and State first.</span>
     </div>
   </div>

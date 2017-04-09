@@ -1,5 +1,5 @@
 <section class="main-form-wrapper company-details" [ngStyle]="{'background-image': 'url(' + BODY_BACKGROUND + ')'}">
-  <main-header></main-header>
+ <!-- <main-header></main-header>-->
 
   <app-loader></app-loader>
 
@@ -32,26 +32,30 @@
       <div class="form-group">
         <control-messages [control]="companyDetailsForm.controls.about_company"></control-messages>
         <!--<label>About Company</label>-->
+        <div class="col-sm-2 no-padding">
+          <label for="about_company">About Company:</label>
+        </div>
+        <div class="col-sm-7">
         <textarea type="text" formControlName="about_company" id="about_company"  placeholder="About Company" class="form-control" required></textarea>
-
+        </div>
       </div>
 
       <div class="col-sm-10 no-padding">
         <div [class.hide-list]="isSocialLogin">
           <div class="col-sm-2 no-padding">
-            <label for="file-upload1">Document1:</label>
+            <label for="file-upload1">Document:</label>
           </div>
           <div class="col-sm-7">
-            <textarea type="text" formControlName="description1" id="description1"  placeholder="description1" class="form-control" required></textarea>
+            <textarea type="text" formControlName="description1" id="description1"  placeholder="description" class="form-control" required></textarea>
           </div>
           <div class="col-sm-3 no-padding">
             <label for="file-upload1" class="custom-file-upload">Upload File</label>
             <p>{{fileName1}}</p>
-            <input id="file-upload1" type="file" [disabled]="!companyDetailsForm.value.description1" (change)="fileChangeEvent($event)" placeholder="Upload file" />
-            <div class="error-message-registration" *ngIf="!companyDetailsForm.value.description1">
+            <input id="file-upload1" type="file"  (change)="fileChangeEvent($event)" placeholder="Upload file" />
+           <!-- <div class="error-message-registration" *ngIf="isDescriptionEntered">
               <span><h6><font color="red">Please enter description first.</font></h6></span>
-            </div>
-            <span *ngIf="!setOfDocuments[0] && companyDetailsForm.value.description1"><h6><font color="red">please select file to upload.</font></h6></span>
+            </div>-->
+            <span *ngIf="!setOfDocuments[0] &&  companyDetailsForm.value.description1 && isDocumentUploaded && companyDetailsForm.value.description2"><h6><font color="red">Please select file to upload.</font></h6></span>
           </div>
         </div>
       </div>
@@ -59,20 +63,20 @@
       <div class="col-sm-10 no-padding">
         <div [class.hide-list]="isSocialLogin">
           <div class="col-sm-2 no-padding">
-            <label for="file-upload2">Document2:</label>
+            <label for="file-upload2">Document:</label>
           </div>
           <div class="col-sm-7">
-            <textarea type="text" formControlName="description2" id="description2"  placeholder="description2" class="form-control" value="description2" required></textarea>
+            <textarea type="text" formControlName="description2" id="description2"  placeholder="description" class="form-control" value="description2" required></textarea>
           </div>
           <div class="col-sm-3 no-padding">
             <label for="file-upload2" class="custom-file-upload">Upload File</label>
             <p>{{fileName2}}</p>
             <input id="file-upload2" type="file" [disabled]="!companyDetailsForm.value.description2" (change)="fileChangeEvent($event)" placeholder="Upload file"/>
 
-            <div class="error-message-registration" *ngIf="!companyDetailsForm.value.description2">
+          <!--  <div class="error-message-registration" *ngIf="!companyDetailsForm.value.description2">
               <span><h6><font color="red">Please enter description first.</font></h6></span>
-            </div>
-            <span *ngIf="!setOfDocuments[1] && companyDetailsForm.value.description2"><h6><font color="red">please select file to upload.</font></h6></span>
+            </div>-->
+            <span *ngIf="!setOfDocuments[1] && companyDetailsForm.value.description2 && isDocumentUploaded && companyDetailsForm.value.description3"><h6><font color="red">Please select file to upload.</font></h6></span>
 
           </div>
         </div>
@@ -81,26 +85,31 @@
       <div class="col-sm-10 no-padding">
         <div [class.hide-list]="isSocialLogin">
           <div class="col-sm-2 no-padding">
-            <label for="file-upload3">Document3:</label>
+            <label for="file-upload3">Document:</label>
           </div>
           <div class="col-sm-7">
-            <textarea type="text" formControlName="description3" id="description3"  placeholder="description3" class="form-control" required></textarea>
+            <textarea type="text" formControlName="description3" id="description3"  placeholder="description" class="form-control" required></textarea>
           </div>
           <div class="col-sm-3 no-padding">
             <label for="file-upload3" class="custom-file-upload">Upload File</label>
             <p>{{fileName3}}</p>
             <input id="file-upload3" type="file" [disabled]="!companyDetailsForm.value.description3" (change)="fileChangeEvent($event)" placeholder="Upload file"/>
-            <div class="error-message-registration" *ngIf="!companyDetailsForm.value.description3">
+           <!-- <div class="error-message-registration" *ngIf="!companyDetailsForm.value.description3">
               <span><h6><font color="red">Please enter description first.</font></h6></span>
-            </div>
-            <span *ngIf="!setOfDocuments[2] && companyDetailsForm.value.description3"><h6><font color="red">please select file to upload.</font></h6></span>
+            </div>-->
+            <span *ngIf="!setOfDocuments[2] && companyDetailsForm.value.description3 && isDocumentUploaded "><h6><font color="red">Please select file to upload.</font></h6></span>
 
           </div>
         </div>
       </div>
 
+      <!--<div class="error-message-registration" *ngIf="isDescriptionEntered">
+        <span><h6><font color="red">Document description can not be empty.</font></h6></span>
+      </div>-->
+
       <div class="button-group">
-        <button type="submit" class="btn btn-primary" [disabled]="!companyDetailsForm.valid" >Submit Documents</button>
+       <!-- <button type="submit" class="btn btn-primary" [disabled]="!companyDetailsForm.valid" >Submit Documents</button>-->
+        <button type="submit" class="btn btn-primary" >Submit Documents</button>
       </div>
     </form>
   </div>

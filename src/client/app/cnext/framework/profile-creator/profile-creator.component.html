@@ -77,14 +77,14 @@
       </div>
 
       <div class="section-container clearfix profeiciency-domain" [hidden]="!showProfeciency">
-        <h4 class="heading">select Industry in which you have work exposure / experience</h4>
+        <h4 class="heading">Select Industry In Which You Have work Exposure / Experience</h4>
         <div class="main-content">
           <cn-industry-experience-list></cn-industry-experience-list>
         </div>
       </div>
 
       <div class="section-container"  [hidden]="!showProfeciency">
-        <h4 class="heading">Professional data</h4>
+        <h4 class="heading">Professional Data</h4>
         <div class="main-content">
           <cn-professional-data></cn-professional-data>
         </div>
@@ -92,7 +92,7 @@
 
       <div class="section-container" [hidden]="chkEmployeeHistory" [hidden]="!showProfeciency">
         <h4 class="heading">Employment Histroy
-          <span class="close-dialog">Close this box if not interested
+          <span class="close-dialog">Close this section if not needed
             <span class="glyphicon glyphicon-remove" (click)="hideEmployeeHistory()"></span>
           </span>
         </h4>
@@ -110,7 +110,7 @@
 
       <div class="section-container" [hidden]="chkCertification" [hidden]="!showProfeciency">
         <h4 class="heading">Certification/Accreditation
-          <span class="close-dialog">Close this box if not interested
+          <span class="close-dialog">Close this section if not needed
             <span class="glyphicon glyphicon-remove" (click)="hideCertification()"></span>
           </span>
         </h4>
@@ -121,7 +121,7 @@
 
       <div class="section-container"  [hidden]="chkAwards"  [hidden]="!showProfeciency">
         <h4 class="heading">Awards
-          <span class="close-dialog">Close this box if not interested
+          <span class="close-dialog">Close this section if not needed
             <span class="glyphicon glyphicon-remove" (click)="hideAwards()"></span>
           </span>
         </h4>
@@ -132,7 +132,7 @@
 
       <div class="section-container" [hidden]="chkAboutMyself" [hidden]="!showProfeciency" >
         <h4 class="heading">More About Myself(Max 250)
-          <span class="close-dialog">Close this box if not interested
+          <span class="close-dialog">Close this section if not needed
             <span class="glyphicon glyphicon-remove" (click)="hideAboutMyself()"></span>
           </span>
         </h4>
@@ -151,7 +151,7 @@
               <input type="radio" name="profile-visibility" id="optionsRadios3"  [ngModel]="selectedvalue2" (ngModelChange)="showorhide($event)" value="option3" > hide
             </label>
           </div>
-          <div class="info"><p>In case you 'Hide' your profile visibility, Recruiters can not see your profile.<br />You can change it later.</p></div>
+          <div class="info"><p>In case you wish to hide your profile visibility from recruiters, select hide option above.<br />You can also choose to show your profile later.</p></div>
           <div class="button-group">
             <button class="btn btn-primary"(click)="onSubmit()" >Submit</button>
             <button class="btn btn-default">Cancel</button>

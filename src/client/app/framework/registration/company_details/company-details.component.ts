@@ -30,10 +30,12 @@ export class CompanyDetailsComponent implements OnInit {
   private model = new CompanyDetails();
   private companyDetailsForm: FormGroup;
   private filesToUpload: Array<File>;
-  private setOfDocuments:string[]=new Array();
+  private setOfDocuments:string[]=new Array(3);
   private image_path: any;
   private error_msg: string;
   private isShowErrorMessage: boolean = true;
+  private isDescriptionEntered: boolean = false;
+  private isDocumentUploaded: boolean = true;
   private BODY_BACKGROUND: string;
   private submitted = false;
   private fileName1:string;
@@ -49,7 +51,8 @@ export class CompanyDetailsComponent implements OnInit {
       'about_company':['',Validators.required],
       'description1': ['',Validators.required],
       'description2': ['',Validators.required],
-      'description3': ['',Validators.required],
+      'description3': ['',Validators.required]
+
     });
 
     //this.filesToUpload = [];
@@ -67,17 +70,25 @@ export class CompanyDetailsComponent implements OnInit {
   }
 
 
-  onSubmit() {
+  onSubmit() {debugger
+// this.companyDetailsForm.value.description1==='' || this.companyDetailsForm.value.description2==='' ||this.companyDetailsForm.value.description3==='' ||
+    if( this.setOfDocuments[0] ===undefined || this.setOfDocuments[1]===undefined|| this.setOfDocuments[2]===undefined){
+    //  this.isDescriptionEntered=true;
+      this.isDocumentUploaded=false;
+    }
+    else{debugger
+      this.isDocumentUploaded =true;
+      this.submitted = true;
+      this.model = this.companyDetailsForm.value;
+      this.model.setOfDocuments = this.setOfDocuments;
+      console.log('files to upload in setOfDocuments', this.setOfDocuments);
 
-    this.submitted = true;
-    this.model = this.companyDetailsForm.value;
-    this.model.setOfDocuments = this.setOfDocuments;
-    console.log('files to upload in setOfDocuments', this.setOfDocuments);
+      this.companyDetailsService.companyDetails(this.model)
+        .subscribe(
+          success => this.onCompanyDetailsSuccess(success),
+          error => this.onCompanyDetailsError(error));
+    }
 
-    this.companyDetailsService.companyDetails(this.model)
-      .subscribe(
-        success => this.onCompanyDetailsSuccess(success),
-        error => this.onCompanyDetailsError(error));
   }
 
 
@@ -90,17 +101,18 @@ export class CompanyDetailsComponent implements OnInit {
     this._router.navigate(['/landing']);
   }
 
-  fileChangeEvent(fileInput: any) {
+  fileChangeEvent(fileInput: any) {debugger
+    this.buttonId = fileInput.target.id;
 
     this.filesToUpload = <Array<File>> fileInput.target.files;
-    this.buttonId = fileInput.target.id;
-    if(this.buttonId ==='file-upload1') {
-      this.fileName1=this.filesToUpload[0].name;
-    } else if(this.buttonId ==='file-upload2') {
-      this.fileName2=this.filesToUpload[0].name;
-    } else {
-      this.fileName3=this.filesToUpload[0].name;
-    }
+
+      if(this.buttonId ==='file-upload1') {
+        this.fileName1=this.filesToUpload[0].name;
+      } else if(this.buttonId ==='file-upload2') {
+        this.fileName2=this.filesToUpload[0].name;
+      } else {
+        this.fileName3=this.filesToUpload[0].name;
+      }
 
       this.companyDetailsService.makeDocumentUplaod(this.filesToUpload, []).then((result: any) => {
         if (result !== null) {
@@ -119,6 +131,7 @@ export class CompanyDetailsComponent implements OnInit {
       }, (error:any) => {
         this.fileChangeFail(error);
       });
+
 
   }
 
