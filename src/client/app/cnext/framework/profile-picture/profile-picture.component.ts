@@ -36,7 +36,7 @@ export class ProfilePictureComponent  {
     console.log('Profile Picture image_path1',this.image_path);
     console.log('Profile Picture image_path2',this.uploaded_image_path);
 
-    if ( this.uploaded_image_path === undefined) {
+    if ( this.uploaded_image_path === "undefined") {
       this.image_path = ImagePath.PROFILE_IMG_ICON;
       console.log('Profile Picture to upload image_path5',this.image_path);
     } else {debugger

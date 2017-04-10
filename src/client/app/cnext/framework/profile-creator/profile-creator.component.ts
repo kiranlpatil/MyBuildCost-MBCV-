@@ -176,14 +176,10 @@ export class ProfileCreatorComponent implements OnInit {
   }
 
 
-  onUserProfileSuccess(result:any) {
-    LocalStorageService.setLocalValue(LocalStorage.EMAIL_ID, result.data.email);
-    LocalStorageService.setLocalValue(LocalStorage.MOBILE_NUMBER, result.data.mobile_number);
-    LocalStorageService.setLocalValue(LocalStorage.FIRST_NAME, result.data.first_name);
-    LocalStorageService.setLocalValue(LocalStorage.LAST_NAME, result.data.last_name);
-    this.fullName=result.data.first_name + result.data.last_name;
-    this.firstName=result.data.first_name;
-    this.lastName=result.data.last_name;
+  onUserProfileSuccess(result:any) { 
+   
+    this.firstName= LocalStorageService.getLocalValue(LocalStorage.FIRST_NAME);
+    this.lastName=LocalStorageService.getLocalValue(LocalStorage.LAST_NAME);
     this.getCandidateProfile();
   }
 

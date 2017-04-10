@@ -101,8 +101,12 @@ export class LoginComponent implements OnInit {
         error => (this.loginFail(error)));
   }
 
-  loginSuccess(res:any) {
+  loginSuccess(res:any) {debugger
     LocalStorageService.setLocalValue(LocalStorage.IS_CANDIDATE, res.data.isCandidate);
+    LocalStorageService.setLocalValue(LocalStorage.EMAIL_ID, res.data.email);
+    LocalStorageService.setLocalValue(LocalStorage.MOBILE_NUMBER, res.data.mobile_number);
+    LocalStorageService.setLocalValue(LocalStorage.FIRST_NAME, res.data.first_name);
+    LocalStorageService.setLocalValue(LocalStorage.LAST_NAME, res.data.last_name);
     this.userForm.reset();
     if (res.data.current_theme) {
       LocalStorageService.setLocalValue(LocalStorage.MY_THEME, res.data.current_theme);
