@@ -66,27 +66,27 @@ export class CertificationAccreditationComponent {
 
   }
 
-  selectedCertificate(certificatename:string) {debugger
+  selectedCertificate(certificatename:string) {
 this.tempCertificateName=certificatename;
     this.newCertificate.name=certificatename;
     this. postCertificates();
-    
+
   }
-  selectedCompanyName(companyname:string) {debugger
+  selectedCompanyName(companyname:string) {
 this.tempCompanyName=companyname;
     this.newCertificate.issuedby=companyname;
    this.postCertificates();
   }
 
 
-  selectedYearModel(year:string) {debugger
+  selectedYearModel(year:string) {
     this.tempYear=year;
     this.newCertificate.year=year;
     this.postCertificates();
-    
+
   }
 
-  addedCertification(certificate:any) {debugger
+  addedCertification(certificate:any) {
     this.tempdetails=certificate;
     this.newCertificate.remark=certificate;
     this.postCertificates();
@@ -96,22 +96,22 @@ this.tempCompanyName=companyname;
 
 
 
-  addAnother() {debugger
-    /*if(this.tempCertificateName==='' || this.tempCompanyName==='' ||
+  addAnother() {
+    if(this.tempCertificateName==='' || this.tempCompanyName==='' ||
       this.tempYear===''|| this.tempdetails==='') {
       this.disbleButton=true;
     } else {
       this.disbleButton = false;
-      this.tempfield.push('null');
+    /*  this.tempfield.push('null');*/
       this.tempCertificateName='';
       this.tempCompanyName='' ;
       this.tempYear='';
       this.tempdetails='';
-    }*/
+    }
     this.tempfield.push('null');
     this.newCertificate=new Certifications();
   }
-  postCertificates(){debugger
+  postCertificates(){
     if(this.newCertificate.remark!=='' && this.newCertificate.year!=='' &&
       this.newCertificate.issuedby!=='' &&  this.newCertificate.name!==''){
       this.candidate.certifications.push(this.newCertificate);

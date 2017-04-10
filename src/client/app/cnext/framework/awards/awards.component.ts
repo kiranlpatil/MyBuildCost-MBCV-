@@ -111,7 +111,7 @@ export class AwardsComponent {
     }
     this.newAward=new Award();
   }
-  postAwardDetails(){debugger
+  postAwardDetails(){
     if(this.newAward.remark!=='' &&this.newAward.issuedBy!=='' &&
       this.newAward.names!=='' &&this.newAward.year!==''){
       this.candidate.awards.push(this.newAward);

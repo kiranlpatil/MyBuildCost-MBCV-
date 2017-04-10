@@ -65,15 +65,16 @@ export class RoleListComponent {
   }
 
   OnCandidateDataSuccess(candidateData:any){
-    this.roles.push(candidateData.data[0].industry.roles[0]);
-    for(let role of this.roles){
-      this.storedRoles.push(role.name);
+    if(candidateData.data[0].industry.roles.length > 0) {
+      this.roles.push(candidateData.data[0].industry.roles[0]);
+      for (let role of this.roles) {
+        this.storedRoles.push(role.name);
+      }
+      this.myRoleType.change(true);
+      this.myIndustryService.change(candidateData.data[0].industry.name);
+      this.roleService.change(this.storedRoles);
+
     }
-    this.myRoleType.change(true);
-    this.myIndustryService.change(candidateData.data[0].industry.name);
-    this.roleService.change(this.storedRoles);
-
-
   }
 
   selectOption(newVal:any) {

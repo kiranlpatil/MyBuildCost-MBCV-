@@ -84,8 +84,8 @@ export class ComplexityListComponent {
     );
 
   }
-  
-  
+
+
   ngOnInit(){
     if(LocalStorageService.getLocalValue(LocalStorage.IS_CANDIDATE)==="true"){
       this.profileCreatorService.getCandidateDetails()
@@ -93,24 +93,25 @@ export class ComplexityListComponent {
           candidateData => this.OnCandidateDataSuccess(candidateData),
           error => this.onError(error));
     }
-    
+
   }
 
   OnCandidateDataSuccess(candidateData:any){
+    if(candidateData.data[0].industry.roles.length > 0) {
 
-
-    for(let role of candidateData.data[0].industry.roles){
-      for(let capability of role.capabilities){
-        for(let complexity of capability.complexities) {
-          this.savedComplexities.push(complexity);
+      for (let role of candidateData.data[0].industry.roles) {
+        for (let capability of role.capabilities) {
+          for (let complexity of capability.complexities) {
+            this.savedComplexities.push(complexity);
+          }
         }
       }
+      console.log(this.savedComplexities);
+      /*this.showfield=true;
+       this.myCapabilityListService.change(this.primaryCapabilities);
+
+       this.complexityService.change(true);*/
     }
-    console.log(this.savedComplexities);
-    /*this.showfield=true;
-    this.myCapabilityListService.change(this.primaryCapabilities);
-    
-    this.complexityService.change(true);*/
   }
 
   onComplexityListSuccess(data:any) {

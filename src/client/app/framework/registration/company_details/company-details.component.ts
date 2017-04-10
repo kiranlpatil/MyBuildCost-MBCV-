@@ -76,7 +76,7 @@ export class CompanyDetailsComponent implements OnInit {
     //  this.isDescriptionEntered=true;
       this.isDocumentUploaded=false;
     }
-    else{debugger
+    else{
       this.isDocumentUploaded =true;
       this.submitted = true;
       this.model = this.companyDetailsForm.value;

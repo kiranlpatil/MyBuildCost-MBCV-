@@ -98,8 +98,8 @@ export class AcademicDetailComponent {
   }
 
 
-  addAnother() {debugger
-    /*if(this.tempSchoolName==='' || this.tempUnivercityName==='' ||
+  addAnother() {
+    if(this.tempSchoolName==='' || this.tempUnivercityName==='' ||
       this.tempPassingYear==='' || this.tempSpecialization==='' ) {
       this.disbleButton=true;
     } else {
@@ -111,19 +111,18 @@ export class AcademicDetailComponent {
       temp.specialization=this.tempSpecialization;
       //this.selectedacademicsdeatils.push(temp);
       console.log(this.selectedacademicsdeatils);
-      this.tempfield.push('null');
+     /* this.tempfield.push('null');*/
       this.tempSchoolName='';
       this.tempUnivercityName='';
       this.tempPassingYear='';
       this.tempSpecialization='';
-*/
 
     this.tempfield.push('null');
     this.newAcademicDetails=new Academicdetails();
-    
-  }
 
-  postAcademicDetails(){debugger
+  }}
+
+  postAcademicDetails(){
     if(this.newAcademicDetails.board!=='' && this.newAcademicDetails.schoolName!=='' &&
         this.newAcademicDetails.yearOfPassing!=='' && this.newAcademicDetails.specialization!==''){
       this.candidate.academics.push(this.newAcademicDetails);

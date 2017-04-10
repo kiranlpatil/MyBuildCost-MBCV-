@@ -14,7 +14,7 @@ export class CompanyDetailsService extends BaseService {
     super();
   }
 
-  companyDetails(companyDetails:CompanyDetails):Observable<CompanyDetails> {debugger
+  companyDetails(companyDetails:CompanyDetails):Observable<CompanyDetails> {
     let headers = new Headers({ 'Content-Type': 'application/json'});
     let options = new RequestOptions({ headers: headers });
     let body = JSON.stringify(companyDetails);

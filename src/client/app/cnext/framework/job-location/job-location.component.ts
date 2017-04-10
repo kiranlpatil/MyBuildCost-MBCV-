@@ -39,7 +39,7 @@ export class JobLocationComponent implements OnInit {
         data=> { this.onAddressSuccess(data);},
         error => { this.onError(error);});
   }
-  onAddressSuccess(data:any) {debugger
+  onAddressSuccess(data:any) {
     this.locationDetails=data.address;
     for(var  i = 0; i <data.address.length; i++) {
       this.countries.push(data.address[i].country);
@@ -47,7 +47,7 @@ export class JobLocationComponent implements OnInit {
     }
   }
 
-  selectCountryModel(country:any) {debugger
+  selectCountryModel(country:any) {
     for(let item of this.locationDetails) {
       if(item.country===country) {
         let tempStates: string[]= new Array(0);

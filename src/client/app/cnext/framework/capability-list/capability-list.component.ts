@@ -99,18 +99,21 @@ export class CapabilityListComponent implements OnInit  {
   }
 
   OnCandidateDataSuccess(candidateData:any){
-    
-    
-      for(let role of candidateData.data[0].industry.roles){
-        for(let capability of role.capabilities){
-          this.savedCapabilities.push(capability);
-          this.primaryCapabilities.push(capability.name);
+
+    if(candidateData.data[0].industry.roles.length > 0) {
+      for (let role of candidateData.data[0].industry.roles) {
+        if(role.capabilities > 0) {
+          for (let capability of role.capabilities) {
+            this.savedCapabilities.push(capability);
+            this.primaryCapabilities.push(capability.name);
+          }
         }
       }
-    this.showfield=true;
-    this.myCapabilityListService.change(this.primaryCapabilities);
-    console.log(this.savedCapabilities);
-    this.complexityService.change(true);
+      this.showfield = true;
+      this.myCapabilityListService.change(this.primaryCapabilities);
+      console.log(this.savedCapabilities);
+      this.complexityService.change(true);
+    }
   }
 
   onCapabilityListSuccess(data:any) {

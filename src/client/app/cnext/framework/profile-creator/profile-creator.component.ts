@@ -156,17 +156,13 @@ export class ProfileCreatorComponent implements OnInit {
     if(this.candidate.industry.roles.length>0){
       this.isRolesShow=true;
       this.myindustryService.change(this.candidate.industry.name);
-
-
+      if(this.candidate.industry.roles[0].capabilities.length>0){
+        this.showCapability=true;
+      }
+      if(this.candidate.industry.roles[0].capabilities[0].complexities.length>0){
+        this.showComplexity=true;
+      }
     }
-    if(this.candidate.industry.roles[0].capabilities.length>0){
-      this.showCapability=true;
-    }
-
-    if(this.candidate.industry.roles[0].capabilities[0].complexities.length>0){
-      this.showComplexity=true;
-    }
-
 
     if(this.candidate.professionalDetails.length>0){
       this.showProfeciency=true;

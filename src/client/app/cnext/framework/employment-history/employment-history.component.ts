@@ -128,60 +128,63 @@ export class EmploymentHistoryComponent {
 
   }
   addAnother() {
-    /*if(this.tempCompanyName==='' || this.tempDesignation==='' ||
+    if(this.tempCompanyName==='' || this.tempDesignation==='' ||
       this.tempWorkedToMonth==='' || this.tempWorkedToYear==='' ||
       this.tempWorkedFromMonth===''||this.tempWorkedFromYear===''||
       this.tempRemarks==='' ) {
       this.disbleButton=true;
     } else {
-      if(this.tempWorkedToYear<this.selectedEmploymentHistory.from.year||
-        (this.selectedEmploymentHistory.from.month===this.selectedEmploymentHistory.to.month
+      if (this.tempWorkedToYear < this.selectedEmploymentHistory.from.year ||
+        (this.selectedEmploymentHistory.from.month === this.selectedEmploymentHistory.to.month
         &&
-        (this.tempWorkedToYear===this.selectedEmploymentHistory.from.year))||(this.tempWorkedToYear===this.selectedEmploymentHistory.from.year&&
-        (this.monthList.indexOf(this.tempWorkedToMonth)<this.monthList.indexOf(this.tempWorkedFromMonth) ))) {
-        this.isShowYearMessage=true;
-        this.toYearModel='';
+        (this.tempWorkedToYear === this.selectedEmploymentHistory.from.year)) || (this.tempWorkedToYear === this.selectedEmploymentHistory.from.year &&
+        (this.monthList.indexOf(this.tempWorkedToMonth) < this.monthList.indexOf(this.tempWorkedFromMonth) ))) {
+        this.isShowYearMessage = true;
+        this.toYearModel = '';
 
-    } else {*/
-        /*this.disbleButton = false;
-        this.isShowYearMessage=false;
+      } else {
+        this.disbleButton = false;
+        this.isShowYearMessage = false;
         let temp = new EmployementHistory();
         temp.companyName = this.tempCompanyName;
         temp.designation = this.tempDesignation;
         temp.remarks = this.tempRemarks;
         temp.from.month = this.tempWorkedFromMonth;
         temp.from.year = this.tempWorkedFromYear;
-        temp.to.month= this.tempWorkedToMonth;
+        temp.to.month = this.tempWorkedToMonth;
         temp.to.year = this.tempWorkedToYear;
         this.selectedEmploysHistory.push(temp);
         console.log(this.selectedEmploysHistory);
-       
+
         this.tempCompanyName = '';
         this.tempDesignation = '';
         this.tempWorkedToMonth = '';
         this.tempWorkedToYear = '';
         this.tempWorkedFromMonth = '';
         this.tempWorkedFromYear = '';
-        this.tempRemarks = '';*/
+        this.tempRemarks = '';
         this.tempfield.push('null');
-       this.selectedEmploymentHistory=new EmployementHistory()
-  }
-  postEmploymentHistoy(){debugger
-    if(this.selectedEmploymentHistory.companyName!=='' && this.selectedEmploymentHistory.designation!=='' &&
-      this.selectedEmploymentHistory.from.month!=='' &&  this.selectedEmploymentHistory.from.year!==''&& 
-      this.selectedEmploymentHistory.to.month!==''&& this.selectedEmploymentHistory.to.year!==''&&this.selectedEmploymentHistory.remarks!==''){
-      this.candidate.employmentHistory.push(this.selectedEmploymentHistory);
-      this.profileCreatorService.addProfileDetail(this.candidate).subscribe(
-        user => {
-          console.log(user);
-        },
-        error => {
-          console.log(error);
-        });
+        this.selectedEmploymentHistory = new EmployementHistory()
+
+      }}}
+      postEmploymentHistoy()
+      {
+
+        if (this.selectedEmploymentHistory.companyName !== '' && this.selectedEmploymentHistory.designation !== '' &&
+          this.selectedEmploymentHistory.from.month !== '' && this.selectedEmploymentHistory.from.year !== '' &&
+          this.selectedEmploymentHistory.to.month !== '' && this.selectedEmploymentHistory.to.year !== '' && this.selectedEmploymentHistory.remarks !== '') {
+          this.candidate.employmentHistory.push(this.selectedEmploymentHistory);
+          this.profileCreatorService.addProfileDetail(this.candidate).subscribe(
+            user => {
+              console.log(user);
+            },
+            error => {
+              console.log(error);
+            });
+        }
+      }
+
     }
-  }
 
 
-
-}
 
