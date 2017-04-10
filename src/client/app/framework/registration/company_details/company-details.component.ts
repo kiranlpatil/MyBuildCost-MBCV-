@@ -70,7 +70,7 @@ export class CompanyDetailsComponent implements OnInit {
   }
 
 
-  onSubmit() {debugger
+  onSubmit() {
 // this.companyDetailsForm.value.description1==='' || this.companyDetailsForm.value.description2==='' ||this.companyDetailsForm.value.description3==='' ||
     if( this.setOfDocuments[0] ===undefined || this.setOfDocuments[1]===undefined|| this.setOfDocuments[2]===undefined){
     //  this.isDescriptionEntered=true;
@@ -101,7 +101,7 @@ export class CompanyDetailsComponent implements OnInit {
     this._router.navigate(['/landing']);
   }
 
-  fileChangeEvent(fileInput: any) {debugger
+  fileChangeEvent(fileInput: any) {
     this.buttonId = fileInput.target.id;
 
     this.filesToUpload = <Array<File>> fileInput.target.files;

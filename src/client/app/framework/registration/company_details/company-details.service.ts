@@ -1,6 +1,3 @@
-/**
- * Created by techprimelab on 3/9/2017.
- */
 import {    Injectable  } from '@angular/core';
 import {  Observable  } from 'rxjs/Observable';
 import {  BaseService, API  } from '../../shared/index';
@@ -17,11 +14,12 @@ export class CompanyDetailsService extends BaseService {
     super();
   }
 
-  companyDetails(companyDetails:CompanyDetails):Observable<CompanyDetails> {
+  companyDetails(companyDetails:CompanyDetails):Observable<CompanyDetails> {debugger
     let headers = new Headers({ 'Content-Type': 'application/json'});
     let options = new RequestOptions({ headers: headers });
     let body = JSON.stringify(companyDetails);
-    return this.http.post(API.COMPANY_DETAILS, body,options)
+    let url =API.RECRUITER_PROFILE+"/"+LocalStorageService.getLocalValue(LocalStorage.USER_ID);
+    return this.http.post(url, body,options)
       .map(this.extractData)
       .catch(this.handleError);
   }

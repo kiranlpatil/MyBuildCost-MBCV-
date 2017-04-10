@@ -1,5 +1,7 @@
 import * as fs from 'fs';
 var config = require('config');
+import * as mongoose from "mongoose";
+
 import Messages = require("../shared/messages");
 import ProjectAsset = require("../shared/projectasset");
 import UserRepository = require("../dataaccess/repository/user.repository");
@@ -78,12 +80,25 @@ class RecruiterService {
 
   update(_id: string, item: any, callback: (error: any, result: any) => void) { //Todo change with candidate_id now it is a user_id operation
 
-    this.recruiterRepository.retrieve({"userId":_id}, (err, res) => {
+    this.recruiterRepository.retrieve({"userId":new mongoose.Types.ObjectId(_id)}, (err, res) => {
       if (err) {
         callback(err, res);
       }
       else {
         this.recruiterRepository.pushInJobpost(res[0]._id, item, callback);
+      }
+    });
+  }
+
+  updateDetails(_id: string, item: any, callback: (error: any, result: any) => void) {
+
+    this.recruiterRepository.retrieve({"userId":new mongoose.Types.ObjectId(_id)}, (err, res) => {
+
+      if (err) {
+        callback(err, res);
+      }
+      else {
+        this.recruiterRepository.findOneAndUpdate({'_id':res[0]._id}, item, {new: true}, callback);
       }
     });
   }

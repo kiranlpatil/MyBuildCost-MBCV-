@@ -75,7 +75,7 @@ class CandidateService {
     this.candidateRepository.findById(id, callback);
   }
 
-  update(_id: string, item: any, callback: (error: any, result: any) => void) { //Todo change with candidate_id now it is a user_id operation
+  update(_id: string, item: any, callback: (error: any, result: any) => void) {
 
     this.candidateRepository.retrieve({"userId":new mongoose.Types.ObjectId(_id)}, (err, res) => {
 
@@ -83,7 +83,6 @@ class CandidateService {
         callback(err, res);
       }
       else {
-        console.log("rs id 22 "+res[0]._id);
         this.candidateRepository.findOneAndUpdate({'_id':res[0]._id}, item, {new: true}, callback);
       }
     });
