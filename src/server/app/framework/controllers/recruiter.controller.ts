@@ -66,15 +66,6 @@ export function create(req:express.Request, res:express.Response, next:any) {
 }
 
 
-export function updateDetails(req:express.Request, res:express.Response, next:any) {
-  try {
-
-  }
-  catch (e) {
-    res.status(403).send({message: e.message});
-  }
-}
-
 export function postJob(req:express.Request, res:express.Response, next:any) {
   try {
     var newJob:JobProfileModel = <JobProfileModel>req.body;
@@ -102,3 +93,32 @@ export function postJob(req:express.Request, res:express.Response, next:any) {
     res.status(403).send({message: e.message});
   }
 }
+
+export function updateDetails(req:express.Request, res:express.Response, next:any) {
+  try {
+    var newRecruiter:RecruiterModel = <RecruiterModel>req.body;
+    var params = req.query;
+    delete params.access_token;
+    var userId:string = req.params.id;
+    console.log("updated recruiter" + JSON.stringify(newRecruiter));
+    var auth:AuthInterceptor = new AuthInterceptor();
+    var recruiterService = new RecruiterService();
+    recruiterService.updateDetails(userId, newRecruiter, (error, result) => {
+      if (error) {
+        next(error);
+      }
+      else {
+            var token = auth.issueTokenWithUid(newRecruiter);
+            res.send({
+              "status": "success",
+              "data": result,
+              access_token: token
+            });
+          }
+    });
+  }
+  catch (e) {
+    res.status(403).send({message: e.message});
+  }
+}
+

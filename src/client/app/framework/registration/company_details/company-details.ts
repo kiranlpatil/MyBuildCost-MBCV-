@@ -7,5 +7,4 @@ export class CompanyDetails {
   description2:string;
   description3:string;
   setOfDocuments:any;
-
 }

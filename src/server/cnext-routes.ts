@@ -15,7 +15,7 @@ this.authInterceptor = new AuthInterceptor();
 
 export function cnextInit(app: express.Application) {//todo add interceptor to authenticate
   app.get("/api/industry",industryController.retrieve); //todo done
-  app.get("/api/roletype",userController.getRoleTypes); //todo remove
+  app.get("/api/roletype",userController.getRoleTypes); //todo
   app.post("/api/industry",industryController.create); //todo done
   app.put("/api/recruiter/:id/job",recruiterController.postJob); //todo done
   app.get("/api/industry/:id/role", roleController.retrieve );  //todo done
@@ -28,6 +28,5 @@ export function cnextInit(app: express.Application) {//todo add interceptor to a
   app.get("/api/industry/:id/roles/capability/complexity", complexityController.retrieve ); //todo done
   app.get("/api/companysize",  userController.getCompanySize); //todo done
   app.get("/api/function",  userController.getFunction);  //todo remove
-  app.get("/api/proficiency",  userController.getProficiency);  //todo remaining
-  app.get("/api/domain",  userController.getDomain);
+  app.put("/api/recruiter/:id",recruiterController.updateDetails); //todo done
 }

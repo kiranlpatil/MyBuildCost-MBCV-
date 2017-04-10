@@ -11,7 +11,7 @@ class RecruiterSchema {
           userId : {
             type : mongoose.Schema.Types.ObjectId, ref :'User'
           },
-          "comapny_name":{
+          "company_name":{
             type:String
           },
           "company_size":{
@@ -22,6 +22,9 @@ class RecruiterSchema {
           },
           "company_headquarter_country":{
             type:String
+          },
+          setOfDocuments:{
+            type: [String]
           },
           postedJobs:[{
             jobTitle :{
