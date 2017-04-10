@@ -56,9 +56,9 @@ class CandidateSchema {
           name: String,
           capabilities: [{
             complexities: [{
-              scenarios: {
+              scenarios: [{
                 name: String
-              },
+              }],
               name: String
             }],
             name: String
