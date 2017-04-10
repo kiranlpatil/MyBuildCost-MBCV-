@@ -26,6 +26,7 @@ export class ForgotPasswordComponent {
   UNDER_LICENCE:string;
   EMAIL_ICON:string;
   BODY_BACKGROUND:string;
+  forgotPasswordButtonLabel:string;
 
   constructor(private commanService:CommonService, private _router:Router,
               private forgotPasswordService:ForgotPasswordService, private messageService:MessageService,
@@ -39,6 +40,7 @@ export class ForgotPasswordComponent {
     this.MY_TAG_LINE = ProjectAsset.TAG_LINE;
     this.EMAIL_ICON = ImagePath.EMAIL_ICON;
     this.BODY_BACKGROUND = ImagePath.BODY_BACKGROUND;
+    this.forgotPasswordButtonLabel = 'Send Email';
   }
 
   onSubmit() {
@@ -53,10 +55,11 @@ export class ForgotPasswordComponent {
   forgotPasswordSuccess(body:ForgotPassword) {
     var message = new Message();
     //this.loaderService.stop();
-    this.userForm.reset();
+    //this.userForm.reset();
     message.isError = false;
     message.custom_message = Messages.MSG_SUCCESS_FORGOT_PASSWORD;
     this.messageService.message(message);
+    this.forgotPasswordButtonLabel = 'Resend Email';
   }
 
   forgotPasswordFail(error:any) {
