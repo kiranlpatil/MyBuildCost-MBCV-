@@ -46,7 +46,7 @@ export function login(req: express.Request, res: express.Response, next: any) {
                     "company_size":recruiter[0].company_size,
                     "isRecruitingForself":recruiter[0].isRecruitingForself,
                     "mobile_number":result[0].mobile_number,
-                    "isCandidate":result[0].iscandidate
+                    "isCandidate":result[0].isCandidate
                   },
                   access_token: token
                 });
@@ -69,7 +69,7 @@ export function login(req: express.Request, res: express.Response, next: any) {
                 "company_name":result[0].company_name,
                 "isRecruitingForself":result[0].isRecruitingForself,
                 "mobile_number":result[0].mobile_number,
-                "isCandidate":result[0].iscandidate
+                "isCandidate":result[0].isCandidate
               },
               access_token: token
             });

@@ -61,10 +61,13 @@ export class IndustryListComponent implements OnInit {
 
   OnCandidateDataSuccess(candidateData:any){
     if(candidateData.data[0].industry.name !== undefined) {
-        this.industry = candidateData.data[0].industry;
-          this.disableIndustry = true;
-          this.disbleButton = true;
-      }
+      this.industry = candidateData.data[0].industry;
+      this.disableIndustry = true;
+      this.disbleButton = true;
+      this.myindustryService.change(this.industry.name);
+      this.disableService.change(true);
+      this.myRolelist.change(true);
+    }
   }
   selectOption(industry:string) {
 
