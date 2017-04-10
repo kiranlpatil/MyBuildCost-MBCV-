@@ -150,24 +150,21 @@ export class ProfileCreatorComponent implements OnInit {
       this.title=this.candidate.jobTitle;
       this.disableTitle=true;
     }
+    if(this.candidate.industry.name !== undefined){
+      this.isRolesShow=true;
+    }
     if(this.candidate.roleType !== undefined){
-      this.isRoleTypeShow=true;
+      this.showCapability=true;
     }
     if(this.candidate.industry.roles.length>0){
-      this.isRolesShow=true;
-      this.myindustryService.change(this.candidate.industry.name);
+     this.isRoleTypeShow=true;
       if(this.candidate.industry.roles[0].capabilities.length>0){
-        this.showCapability=true;
-      }
-      if(this.candidate.industry.roles[0].capabilities[0].complexities.length>0){
         this.showComplexity=true;
       }
+      if(this.candidate.industry.roles[0].capabilities[0].complexities.length>0){
+        this.showProfeciency=true;
+      }
     }
-
-    if(this.candidate.professionalDetails !== undefined){
-      this.showProfeciency=true;
-    }
-
   }
 
   getUserProfile() {
