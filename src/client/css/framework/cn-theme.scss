@@ -138,6 +138,13 @@ $white: #fff;
     }
   }
 
+  .verify-mobile-modal {
+    .modal-body {
+      h5 {
+        @extend %cn-theme-gradient;
+      }
+    }
+  }
   //cn-create profile
   .profile-header { @extend %cn-theme-gradient; }
 
