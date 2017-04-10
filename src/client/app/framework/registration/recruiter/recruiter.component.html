@@ -47,9 +47,6 @@
       <input type="password" formControlName="conform_password" id="conform_password"
              (blur)="makePasswordConfirm()" class="form-control" required/>
       <label>Confirm Password</label>
-      <div class="error-message" *ngIf="isPasswordConfirm == true">
-        Password does not match.
-      </div>
       <span class="error-messages" *ngIf="isPasswordConfirm == true">Passwords does not match.</span>
     </div>
 
@@ -69,7 +66,7 @@
     <div class="form-group">
       <div ng2-auto-complete [source]="cities" (ngModelChange)="selectCityModel($event)">
         <input class="form-control" [ngModel]="cityModel" [ngModelOptions]="{standalone: true}" placeholder="Select City" (click)="selectStateMessage()" required/>
-        <span *ngIf="isStateSelected"><h6><font color="red">Please select Country and State first.</font></h6></span>
+        <span class="error-messages" *ngIf="isStateSelected">Please select Country and State first.</span>
       </div>
     </div>
 
