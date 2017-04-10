@@ -7,10 +7,7 @@ $bubble-background: #35567e;
 $white: #fff;
 $border-color: #e8e8e8;
 
-.wrapper {
-  border-bottom: 1px solid $border-color;
-  padding-bottom: 15px;
-  text-align: left;
+
 
   .form-control {
     background-color: $white;
@@ -18,7 +15,7 @@ $border-color: #e8e8e8;
     display: inline-block;
     box-shadow: none;
     padding: 6px;
-    width: auto;
+    width: 70%;
     font-size: 12px;
 
     &:focus,
@@ -36,9 +33,9 @@ $border-color: #e8e8e8;
     }
   }
 
-  label {
-    width: 130px;
-    font-weight: 100;
-    font-size: 16px;
-  }
+label {
+  width: 30%;
+  font-weight: 100;
+  font-size: 14px;
+  float:left;
 }

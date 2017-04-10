@@ -7,18 +7,13 @@ $bubble-background: #35567e;
 $white: #fff;
 $border-color: #ddd;
 
-.wrapper {
-  border-bottom: 1px solid $border-color;
-  padding: 20px 0 15px;
-  text-align: left;
-
   .form-control {
     background-color: $white;
     border-radius: 0;
     display: inline-block;
     box-shadow: none;
     padding: 6px;
-    width: auto;
+    width: 70%;
     font-size: 12px;
 
     &:focus,
@@ -31,9 +26,9 @@ $border-color: #ddd;
     margin-bottom: 15px;
   }
 
-  label {
-    width: 130px;
-    font-weight: 100;
-    font-size: 16px;
-  }
+label {
+  width: 30%;
+  font-weight: 100;
+  font-size: 14px;
+  float:left;
 }

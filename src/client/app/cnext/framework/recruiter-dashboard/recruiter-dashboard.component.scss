@@ -69,7 +69,7 @@ $profile-section-shadow: rgba(204, 204, 204, 1);
     a {
       border: 1px solid $nav-tab;
       border-radius: 0;
-      padding: 20px 15px;
+      padding: 13px 15px;
       background: $nav-tab;
       color: $white;
       margin-bottom: -0.5px;
@@ -95,6 +95,11 @@ $profile-section-shadow: rgba(204, 204, 204, 1);
   -moz-box-shadow: 0 0 1px 0 $profile-section-shadow;
   -webkit-box-shadow: 0 0 1px 0 $profile-section-shadow;
   box-shadow: 0 0 1px 0 $profile-section-shadow;
+
+  .posted-job {
+    padding: 30px;
+    display: block;
+  }
 }
 
 

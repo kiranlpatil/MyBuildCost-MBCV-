@@ -1,34 +1,33 @@
 <div class="clearfix">
-  <div class="section-container">
+  <div class="section-container clearfix">
     <cn-job-information></cn-job-information>
-  </div>
 
-  <div class="section-container">
     <cn-job-location></cn-job-location>
-  </div>
 
-  <div class="section-container">
-    <h4 class="heading">Choose Job Requirement</h4>
     <cn-job-requirement></cn-job-requirement>
   </div>
 
   <div class="roles section-container"  [hidden]="!isShowIndustry">
-    <h4 class="heading">Select Industry (Any one value from the list below) </h4>
     <div class="main-content">
+      <h4 class="heading">Select Industry</h4>
+      <p class="info">Default value set to your own industry. Select a different value if you wish to hire from a different industry background</p>
       <cn-industry-list></cn-industry-list>
     </div>
   </div>
 
   <div class="section-container" [hidden]="!isShowRoleList">
-    <h4 class="heading">Select Area of Work (Max 3)</h4>
     <div class="main-content">
+      <h4 class="heading">Select Area of Work (Max 3)</h4>
+      <p class="info">Select those areas of work which describe what you are best at or where you would like to position your career. Normally, an individual works
+        across maximum 2 to 3 work areas in parallel. You can select upto maximum 3 work areas. One selected, you would be able to change the work
+        areas only after 3 months.</p>
       <cn-role-list> ></cn-role-list>
     </div>
   </div>
 
   <div class="section-container" [hidden]="!isShowRoletype">
-    <h4 class="heading">Select Role Type (Any one of the following)</h4>
     <div class="main-content">
+      <h4 class="heading">Select Role Type (Any one of the following)</h4>
       <cn-role-type-list></cn-role-type-list>
     </div>
   </div>
@@ -36,23 +35,24 @@
 
   <div class="section-container"  [hidden]="!isShowCapability">
 
-  <h4 class="heading"> Select Capabilities (Max. 10)</h4>
     <div class="main-content">
-      <p></p>
+      <h4 class="heading"> Select Capabilities (Max. 10)</h4>
+      <p class="info">Select those capabilities which are most critical for this job profile. Selecting too many capabilities would dilute the matching and alignment with the best candidate. Hence you should select maximum 10 primary
+        capabilities. You may additionally select upto 10 secondary capabilities. Please note that marking the right capabilities is the key to this hiring solution. Capabilities once selected can’t be changed for a job profile</p>
       <cn-capibility-list></cn-capibility-list>
     </div>
   </div>
 
   <div class="section-container"  [hidden]="!isShowComplexity" >
-    <h4 class="heading">Choose Complexities</h4>
     <div class="main-content max-height">
+      <h4 class="heading">Choose Complexities</h4>
       <cn-complexity-list></cn-complexity-list>
     </div>
   </div>
 
   <div class="section-container clearfix profeiciency-domain"  [hidden]="!isShowProficiency">
-    <h4 class="heading">Enter Proficiencies (Max. 25)</h4>
     <div class="main-content clearfix">
+      <h4 class="heading">Enter Proficiencies (Max. 25)</h4>
       <cn-proficiency-doamin [type]="'profeciency'"></cn-proficiency-doamin>
     </div>
   </div>
@@ -66,15 +66,15 @@
   </div>-->
 
   <div class="section-container col-sm-6" [hidden]="!isShowProficiency">
-    <h4 class="heading">Compentencies (500 Words):</h4>
     <div class="max-height">
+      <h4 class="heading">Compentencies (500 Words):</h4>
       <cn-description-field [type]="'competensies'" [maxLength]=" '500'" ></cn-description-field>
     </div>
   </div>
 
   <div class="section-container col-sm-6" [hidden]="!isShowProficiency">
-    <h4 class="heading">Responsibilities and Derivables (500 Words):</h4>
     <div class="max-height">
+      <h4 class="heading">Responsibilities and Derivables (500 Words):</h4>
       <cn-description-field [type]="'responsibilities'" [maxLength]=" '500'" ></cn-description-field>
     </div>
   </div>

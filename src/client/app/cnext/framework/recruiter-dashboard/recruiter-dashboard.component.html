@@ -13,11 +13,11 @@
 
   <div class="poster-wrapper container">
 
-    <div class="col-sm-3 padding-right5">
+   <!-- <div class="col-sm-3 padding-right5">
       <cn-job-filter></cn-job-filter>
-    </div>
+    </div>-->
 
-    <div class="col-sm-9 padding-left5">
+    <div class="col-sm-12 padding-left5">
 
       <ul class="nav nav-tabs">
         <li >
@@ -32,12 +32,18 @@
       <div class="tab-content">
         <div id="posted-job" class="tab-pane fade">
           <div>
-            <span>Posted jobs</span>
+            <span class="posted-job"><b>Posted jobs</b></span>
           </div>
         </div>
         <div id="post-new-job" class="tab-pane fade in active">
           <cn-job-poster></cn-job-poster>
         </div>
+      </div>
+    </div>
+
+    <div class="col-sm-12">
+      <div class="col-sm-3 padding-right5">
+        <cn-job-filter></cn-job-filter>
       </div>
     </div>
   </div>
