@@ -39,7 +39,7 @@ export class ProfileCreatorService extends BaseService {
   }
 
 //why it is here
-  getRoles(industry:string):Observable<any> {
+  getRoles(industry:string):Observable<string> {
     var url = 'industry/'+industry+'/role';
     return this.http.get(url)
       .map(this.extractData)

@@ -20,6 +20,7 @@ import {MessageService} from "../../../framework/shared/message.service";
 import {Message} from "../../../framework/shared/message";
 import {MyIndustryService} from "../industry-service";
 import {Industry} from "../model/industry";
+import {Role} from "../model/role";
 
 @Component({
   moduleId: module.id,
@@ -31,6 +32,7 @@ import {Industry} from "../model/industry";
 export class ProfileCreatorComponent implements OnInit {
 
   private industries: Industry[]=new Array(0);
+  private roles: Role[]=new Array(0);
 
 
 
@@ -144,14 +146,19 @@ export class ProfileCreatorComponent implements OnInit {
     }
 
     this.getIndustry();
-
-
   }
 
 
 
-  selectIndustry(industry:Industry){debugger
+  selectIndustry(industry:Industry){
     this.candidate.industry=industry;
+    this.saveCandidateDetails();
+    this.getRoles();
+  }
+
+
+  selectRole(role:Role){
+    this.candidate.industry.roles=role;
     this.saveCandidateDetails();
   }
 
@@ -159,6 +166,13 @@ export class ProfileCreatorComponent implements OnInit {
     this.profileCreatorService.getIndustries()
       .subscribe(
         industrylist => this.industries=industrylist.data,
+        error => this.onError(error));
+  }
+
+  getRoles(){
+    this.profileCreatorService.getRoles(this.candidate.industry.name)
+      .subscribe(
+        rolelist => this.roles=rolelist.data,
         error => this.onError(error));
   }
 
@@ -176,6 +190,8 @@ export class ProfileCreatorComponent implements OnInit {
     }
     if(this.candidate.industry.name !== undefined){
       this.isRolesShow=true;
+      this.getRoles();
+
     }
     if(this.candidate.roleType !== undefined){
       this.showCapability=true;
