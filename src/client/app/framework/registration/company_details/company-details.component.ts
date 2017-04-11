@@ -148,7 +148,7 @@ export class CompanyDetailsComponent implements OnInit {
     }
     var message = new Message();
     message.isError = false;
-    message.custom_message = Messages.MSG_SUCCESS_UPLOAD_DOCUMENT;
+    message.custom_message = Messages.MSG_SUCCESS_ATTACH_DOCUMENT;
     this.messageService.message(message);
     this.profileService.onProfileUpdate(result);
   }
@@ -160,7 +160,7 @@ export class CompanyDetailsComponent implements OnInit {
       message.error_msg = error.err_msg;
       this.messageService.message(message);
     } else {
-      message.error_msg = Messages.MSG_ERROR_UPLOAD_DOCUMENT;
+      message.error_msg = Messages.MSG_ERROR_ATTACH_DOCUMENT;
       this.messageService.message(message);
     }
 

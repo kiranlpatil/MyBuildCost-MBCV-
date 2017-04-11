@@ -30,7 +30,7 @@ export class Messages {
   public static MSG_SUCCESS_FORGOT_PASSWORD: string = 'Email has been sent successfully on your registered email to reset password';
   public static MSG_SUCCESS_DASHBOARD_PROFILE: string = 'Your profile updated successfully';
   public static MSG_SUCCESS_DASHBOARD_PROFILE_PIC: string = 'Your profile picture updated successfully.';
-  public static MSG_SUCCESS_UPLOAD_DOCUMENT: string = 'Your document uploaded successfully.';
+  public static MSG_SUCCESS_ATTACH_DOCUMENT: string = 'Your document attached successfully.';
   public static MSG_SUCCESS_CONTACT: string = 'Email sent successfully.';
   public static MSG_SUCCESS_CHANGE_THEME: string = 'Theme changed successfully.';
   public static MSG_SUCCESS_MAIL_VERIFICATION_RESULT_STATUS: string ='Congratulations!';
@@ -47,7 +47,7 @@ export class Messages {
     public static MSG_ERROR_DASHBOARD_PROFILE:string = 'Failed to update Profile';
     public static MSG_ERROR_CONTACT:string = 'Failed to send email';
     public static MSG_ERROR_DASHBOARD_PROFILE_PIC:string = 'Failed to change Profile Picture';
-    public static MSG_ERROR_UPLOAD_DOCUMENT:string = 'Failed to Upload Document';
+    public static MSG_ERROR_ATTACH_DOCUMENT:string = 'Failed to attach Document';
     public static MSG_ERROR_CHANGE_THEME:string = 'Failed to Change Theme';
 
     public static MSG_ERROR_TOKEN_SESSION:string = 'Session has been expired.';

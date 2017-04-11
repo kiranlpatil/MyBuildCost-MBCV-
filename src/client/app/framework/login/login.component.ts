@@ -35,7 +35,6 @@ import {  ProjectAsset  } from '../shared/constants';
 
 export class LoginComponent implements OnInit {
   private model = new Login();
-  private googleModel = new GoogleToken();
   private userForm:FormGroup;
   private error_msg:string;
   private isShowErrorMessage:boolean = true;
@@ -68,25 +67,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     window.history.forward();
-    /*gapi.load('auth2',() => {
-      var auth2 = gapi.auth2.init({
-        client_id: '244363436693-l4fglqbjitj39t9dsg7lkep5esfoe1bq.apps.googleusercontent.com',
-        cookiepolicy: 'single_host_origin',
-        scope: 'profile email'
-      });
-      auth2.attachClickHandler(document.getElementById('googleSignInButton'), {},
-        (googleUser:any)=> {
-         // var profile = googleUser.getBasicProfile();
-          var googleToken = googleUser.Zi.id_token;
-          this.setGoogleToken(googleToken);
-         },
-        (error:any)=> {
-          this.googleError(error);
-        }
-      );
-    });
-    this._facebookService.loadAndInitFBSDK();
-   */ if (parseInt(LocalStorageService.getLocalValue(LocalStorage.IS_LOGED_IN)) === 1) {
+    if (parseInt(LocalStorageService.getLocalValue(LocalStorage.IS_LOGED_IN)) === 1) {
       this._router.navigate(['/create_profile']);
     }
   }
