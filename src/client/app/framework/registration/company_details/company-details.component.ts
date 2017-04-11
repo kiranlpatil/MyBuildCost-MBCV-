@@ -56,16 +56,16 @@ export class CompanyDetailsComponent implements OnInit {
 
     });
 
-    //this.filesToUpload = [];
-    if (this.image_path === undefined) {
 
-      this.image_path = ImagePath.PROFILE_IMG_ICON;
-    }
 
     this.BODY_BACKGROUND = ImagePath.BODY_BACKGROUND;
   }
 
   ngOnInit() {
+
+    /*if (this.image_path === 'undefined') {
+      this.image_path = ImagePath.PROFILE_IMG_ICON;
+    }*/
     this.company_name = LocalStorageService.getLocalValue(LocalStorage.COMPANY_NAME);
 
       this.activatedRoute.queryParams.subscribe((params: Params) => {

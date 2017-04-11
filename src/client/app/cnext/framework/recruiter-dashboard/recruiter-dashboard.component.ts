@@ -2,7 +2,7 @@
 import {  Component,OnInit  } from '@angular/core';
 import { Router } from '@angular/router';
 import { LocalStorageService } from '../../../framework/shared/localstorage.service';
-import { LocalStorage } from '../../../framework/shared/constants';
+import {LocalStorage, ImagePath} from '../../../framework/shared/constants';
 import { NavigationRoutes } from '../../../framework/shared/constants';
 @Component({
   moduleId: module.id,
@@ -13,14 +13,19 @@ import { NavigationRoutes } from '../../../framework/shared/constants';
 
 export class RecruiterDashboardComponent implements  OnInit {
   company_name:string;
-  image_path:string;
+  uploaded_image_path:string;
 
     constructor(private _router:Router) {
   }
   ngOnInit() {
     this.company_name = LocalStorageService.getLocalValue(LocalStorage.COMPANY_NAME);
-    this.image_path = LocalStorageService.getLocalValue(LocalStorage.PROFILE_PICTURE);
-    console.log("Company logo",this.image_path);
+    this.uploaded_image_path = LocalStorageService.getLocalValue(LocalStorage.PROFILE_PICTURE); //TODO:Get it from get user call.
+
+    if ( this.uploaded_image_path === "undefined") {
+      this.uploaded_image_path = ImagePath.PROFILE_IMG_ICON;
+    } else {
+      this.uploaded_image_path = JSON.parse(this.uploaded_image_path);
+    }
   }
 
   logOut() {
