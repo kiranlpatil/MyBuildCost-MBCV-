@@ -1,4 +1,4 @@
- import { Capability } from './capability';
+ import {Capability, SecondaryCapability} from './capability';
 export class Role {
   name: string='';
   capabilities: Capability[]= new Array(0);

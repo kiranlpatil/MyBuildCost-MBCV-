@@ -97,7 +97,6 @@ export class CapabilityListComponent implements OnInit {
   }
 
   OnCandidateDataSuccess(candidateData:Candidate) {
-    debugger
 
     setTimeout(()=> {
       if (candidateData.industry.roles.length > 0) {
@@ -105,7 +104,7 @@ export class CapabilityListComponent implements OnInit {
           if (role.capabilities.length > 0) {
             for (let capability of role.capabilities) {
               this.isPrimary[this.capabilities.length] = true;
-              this.capabilities.push(secondary);
+              //this.capabilities.push(secondary);
 //              this.savedCapabilities.push(capability);
               this.primaryCapabilities.push(capability.name);
             }
