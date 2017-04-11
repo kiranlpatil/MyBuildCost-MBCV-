@@ -9,6 +9,7 @@ import { ProfessionalService } from '../professional-service';
 import {ProfileCreatorService} from "../profile-creator/profile-creator.service";
 import {LocalStorageService} from "../../../framework/shared/localstorage.service";
 import {LocalStorage} from "../../../framework/shared/constants";
+import {Candidate} from "../model/candidate";
 @Component({
   moduleId: module.id,
   selector: 'cn-professional-data',
@@ -17,7 +18,7 @@ import {LocalStorage} from "../../../framework/shared/constants";
 })
 
 export class ProfessionalDataComponent extends BaseService implements OnInit {
-  @Input() professionalDetails:ProfessionalData;
+  @Input() candidate:Candidate;
 
   private realocationlist=new Array();
   private educationlist=new Array();
@@ -30,6 +31,12 @@ export class ProfessionalDataComponent extends BaseService implements OnInit {
               private professionalService : ProfessionalService,
               private profileCreatorService:ProfileCreatorService) {
     super();
+  }
+
+  ngOnChanges(changes :any){
+        if(this.candidate.professionalDetails==undefined){
+          this.candidate.professionalDetails=new ProfessionalData();
+        }
   }
 
   ngOnInit() {
@@ -118,10 +125,13 @@ export class ProfessionalDataComponent extends BaseService implements OnInit {
   }
 
   saveProfessionalData() {
-    this.professionaldataservice.addProfessionalData(this.professionalDetails)
-      .subscribe(
-        user => console.log(user),
-        error => console.log(error));
+    this.profileCreatorService.addProfileDetail(this.candidate).subscribe(
+      user => {
+        console.log(user);
+      },
+      error => {
+        console.log(error);
+      });
   }
 }
 
