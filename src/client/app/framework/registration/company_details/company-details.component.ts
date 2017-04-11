@@ -1,6 +1,5 @@
 
 import { Component ,OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { CompanyDetailsService } from './company-details.service';
 import { CompanyDetails } from './company-details';
 import {  FormBuilder, FormGroup, Validators  } from '@angular/forms';
@@ -76,6 +75,10 @@ export class CompanyDetailsComponent implements OnInit {
         console.log("access token in comp details",access_token);
         console.log("access token in comp details",id);
         LocalStorageService.setLocalValue(LocalStorage.USER_ID, id);
+        this.companyDetailsService.activateAccount()
+          .subscribe(
+            res => (this.newRegistrationSuccess(res)),
+            error => (this.newRegistrationFail(error)));
       });
 
   }
@@ -196,6 +199,19 @@ export class CompanyDetailsComponent implements OnInit {
       this.isShowErrorMessage = false;
       this.error_msg = error.err_msg;
     }
+  }
+
+  newRegistrationSuccess(res:any) {
+
+   /* this.USER_ACTIVATION_STATUS = Messages.MSG_SUCCESS_MAIL_VERIFICATION_RESULT_STATUS;
+    this.USER_ACTIVATION_MESSAGE = Messages.MSG_SUCCESS_MAIL_VERIFICATION_BODY ;*/
+
+  }
+
+  newRegistrationFail(error:any) {
+    console.log("Error user is Inactive",error);
+    /*this.USER_ACTIVATION_STATUS = Messages.MSG_ERROR_MAIL_VERIFICATION_RESULT_STATUS;
+    this.USER_ACTIVATION_MESSAGE = Messages.MSG_ERROR_MAIL_VERIFICATION_BODY;*/
   }
 
 }

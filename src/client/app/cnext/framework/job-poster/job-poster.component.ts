@@ -148,7 +148,7 @@ export class JobPosterComponent {
   }
 
 
-  postjob() {debugger
+  postjob() {
     this.jobPosterModel.jobTitle=this.jobInformation.jobTitle;
     this.jobPosterModel.competencies=this.competensies.detail;
     this.jobPosterModel.education=this.jobRequirement.education;
@@ -176,7 +176,7 @@ export class JobPosterComponent {
         console.log(error);
       });
   }
-  showHideModal() {debugger
+  showHideModal() {
     this.showModalStyle = !this.showModalStyle;
     this.postjob();
   }

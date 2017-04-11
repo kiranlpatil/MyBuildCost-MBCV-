@@ -9,7 +9,7 @@ import { LocalStorageService } from '../../shared/localstorage.service';
 
 
 @Injectable()
-export class CompanyDetailsService extends BaseService implements OnInit{
+export class CompanyDetailsService extends BaseService {
   model = new CompanyDetails();
 
   constructor(private http:Http ) {
@@ -51,6 +51,18 @@ export class CompanyDetailsService extends BaseService implements OnInit{
       xhr.send(formData);
     });
   }
+
+  activateAccount(): Observable<any> {
+
+    var url = API.VERIFY_USER + '/' + LocalStorageService.getLocalValue(LocalStorage.USER_ID);
+    var newData = {'isActivated': true }; //JSON.stringify();
+    return this.http.put(url, newData)
+      .map(this.extractData)
+      .catch(this.handleError);
+
+  }
+
+
 
 
 }

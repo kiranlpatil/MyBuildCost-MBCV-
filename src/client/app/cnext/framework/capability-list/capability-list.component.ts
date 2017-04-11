@@ -124,7 +124,7 @@ export class CapabilityListComponent implements OnInit {
   }
 
   onCapabilityListSuccess(data:any) {
-    debugger
+
     this.capabilityData = data;
     console.log(this.capabilityData);
     if (data !== undefined && data.length > 0) {

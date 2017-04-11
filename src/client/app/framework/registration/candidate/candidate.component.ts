@@ -72,7 +72,7 @@ export class CandidateComponent implements OnInit {
     this.year = this.currentDate.getUTCFullYear() - 18;
   }
 
-  ngOnInit() {debugger
+  ngOnInit() {
     this.validBirthYearList = this.dateservice.createBirthYearList(this.year);
     this.http.get('address')
       .map((res: Response) => res.json())

@@ -39,7 +39,7 @@ export class ProfilePictureComponent  {
     if ( this.uploaded_image_path === "undefined") {
       this.image_path = ImagePath.PROFILE_IMG_ICON;
       console.log('Profile Picture to upload image_path5',this.image_path);
-    } else {debugger
+    } else {
       this.image_path = JSON.parse(this.uploaded_image_path);
       console.log('Profile Picture to upload image_path3',this.uploaded_image_path);
       console.log('Profile Picture to upload image_path4',this.image_path);

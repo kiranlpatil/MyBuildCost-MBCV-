@@ -99,7 +99,7 @@ export class JobRequirementComponent implements OnInit {
   }*/
 
 
-  onExperienceListSuccess(data:any) {debugger
+  onExperienceListSuccess(data:any) {
     for(let k of data.experience) {
       this.experiencelist.push(k);
     }
@@ -129,7 +129,7 @@ export class JobRequirementComponent implements OnInit {
     }
   }
 
-  selectenoticeperiodModel(noticeperiod: any) {debugger
+  selectenoticeperiodModel(noticeperiod: any) {
     this.jobrequirement.change(this.jobRequirement);
 
     this.industryService.getIndustries()

@@ -82,7 +82,7 @@ export class LoginComponent implements OnInit {
         error => (this.loginFail(error)));
   }
 
-  loginSuccess(res:any) {debugger
+  loginSuccess(res:any) {
     LocalStorageService.setLocalValue(LocalStorage.IS_CANDIDATE, res.data.isCandidate);
     LocalStorageService.setLocalValue(LocalStorage.EMAIL_ID, res.data.email);
     LocalStorageService.setLocalValue(LocalStorage.MOBILE_NUMBER, res.data.mobile_number);
@@ -108,7 +108,7 @@ export class LoginComponent implements OnInit {
   }
 
 
-  successRedirect(res:any) {debugger
+  successRedirect(res:any) {
     LocalStorageService.setLocalValue(LocalStorage.IS_LOGED_IN, 1);
     LocalStorageService.setLocalValue(LocalStorage.PROFILE_PICTURE,res.data.picture);
     if(res.data.isCandidate === true) {
@@ -140,39 +140,7 @@ export class LoginComponent implements OnInit {
     }
   }
 
- /* connectFacebook() {
-    var self = this;
-    FB.login((response:any) => {
-     if (response.authResponse) {
-     self._ngZone.run(() => {
-     var fb = new FBToken();
-     fb.token = response.authResponse.accessToken;
-     this.setFBToken(fb.token);
 
-     });
-     } else {
-     var message = new Message();
-     message.isError = true;
-     message.error_msg = Messages.MSG_ERROR_FB_AUTH;
-     this.messageService.message(message);
-     }
-     }, {scope: 'public_profile, email', auth_type: 'rerequest'});
-  }
-
-  onFacebookLoginClick():void {
-    var fb = new FBToken();
-     FB.getLoginStatus(function (response:any) {
-     if (response.status === 'connected') {
-     fb.token = response.authResponse.accessToken;
-     this.setFBToken(fb.token);
-     } else {
-     this.connectFacebook();
-     }
-     }.bind(this));
-  }
-
-
-*/
   onSignUp() {
     this._router.navigate([NavigationRoutes.APP_REGISTRATION]);
   }
@@ -184,20 +152,7 @@ export class LoginComponent implements OnInit {
   closeErrorMessage() {
     this.isShowErrorMessage = true;
   }
- /* setGoogleToken(googleToken:any) {
-    this.googleModel.googleToken = googleToken;
-    this.loginService.setGoogleToken(this.googleModel)
-      .subscribe(
-        res => (this.loginSuccess(res)),
-        error => (this.loginFail(error)));
-  }
 
-  googleError(error:any) {
-    var message = new Message();
-    message.error_msg = error;
-    message.isError = true;
-    this.messageService.message(message);
-  }*/
 
   onFailure(error:any) {
   console.log(error);
