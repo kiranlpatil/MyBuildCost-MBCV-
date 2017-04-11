@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { LocalStorageService } from '../../../framework/shared/localstorage.service';
 import {LocalStorage, ImagePath, AppSettings} from '../../../framework/shared/constants';
 import { NavigationRoutes } from '../../../framework/shared/constants';
+import {Message,MessageService,Messages} from "../../../framework/shared/index";
 @Component({
   moduleId: module.id,
   selector: 'cn-recruiter-dashboard',
@@ -15,9 +16,17 @@ export class RecruiterDashboardComponent implements  OnInit {
   company_name:string;
   uploaded_image_path:string;
 
-    constructor(private _router:Router) {
+    constructor(private _router:Router,private messageService: MessageService) {
+
   }
   ngOnInit() {
+
+    var message = new Message();
+    message.isError = false;
+    message.custom_message = Messages.MSG_SUCCESS_UPLOADED_DOCUMENT;
+    this.messageService.message(message);
+
+
     this.company_name = LocalStorageService.getLocalValue(LocalStorage.COMPANY_NAME);
     this.uploaded_image_path = LocalStorageService.getLocalValue(LocalStorage.PROFILE_PICTURE); //TODO:Get it from get user call.
 

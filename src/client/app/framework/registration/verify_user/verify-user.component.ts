@@ -71,9 +71,9 @@ export class VerifyUserComponent implements OnInit {
                 .subscribe(
                     res => (this.verifySuccess(res)),
                     error => (this.verifyFail(error)));
-        } else {
+        } else {debugger
             this.model.email=LocalStorageService.getLocalValue(LocalStorage.EMAIL_ID);
-            this.isMailSent=true;
+            //this.isMailSent=true;
             this.verifyUserService.verifyUserByMail(this.model)
                 .subscribe(
                     res => (this.verifySuccess(res)),
@@ -87,6 +87,7 @@ export class VerifyUserComponent implements OnInit {
             this._router.navigate([NavigationRoutes.VERIFY_PHONE]);
 
         } else {
+          this.isMailSent=true;
           LocalStorageService.setLocalValue(LocalStorage.CHANGE_MAIL_VALUE,'from_registration');
           var message = new Message();
             message.isError = false;
