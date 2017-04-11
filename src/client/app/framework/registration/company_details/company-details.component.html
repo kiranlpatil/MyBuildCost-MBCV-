@@ -1,11 +1,11 @@
-<section class="main-form-wrapper company-details" [ngStyle]="{'background-image': 'url(' + BODY_BACKGROUND + ')'}">
- <!-- <main-header></main-header>-->
+<section class="main-form-wrapper company-details">
+  <main-header></main-header>
 
   <app-loader></app-loader>
 
-  <div class="content">
+  <div class="content clearfix">
 
-    <h5>Upload Documents <span class="glyphicon glyphicon-remove" (click)="goToLanding()"></span></h5>
+    <h5>Upload Documents <!--<span class="glyphicon glyphicon-remove" (click)="goToLanding()"></span>--></h5>
 
     <div class="alert alert-danger clearfix" [hidden]="isShowErrorMessage">
       <div class="col-sm-1 hidden-xs"><span class="glyphicon glyphicon-warning-sign"></span></div>
@@ -18,94 +18,88 @@
 
     <form [formGroup]="companyDetailsForm" (submit)="onSubmit()">
 
-      <h4>{{company_name}}</h4>
+      <h4>{{company_name}} Company</h4>
 
-      <div class="col-sm-12 no-padding">
-        <div class="col-sm-2 no-padding">
-          <label>Company Logo:</label>
-        </div>
-        <div id="company-logo" class="col-sm-7 no-padding">
+      <div class="col-sm-3 no-padding">
+        <div id="company-logo" >
           <cn-profile-picture></cn-profile-picture>
         </div>
+        <!--<div>
+          <label>Company Logo</label>
+        </div>-->
       </div>
 
-      <div class="col-sm-12 no-padding">
+      <div class="col-sm-9 no-padding">
         <!--<label>About Company</label>-->
-        <div class="col-sm-2 no-padding">
+        <div>
           <label for="about_company">About Company:</label>
         </div>
-        <div class="col-sm-5">
+        <div>
           <control-messages [control]="companyDetailsForm.controls.about_company"></control-messages>
-          <textarea formControlName="about_company" id="about_company"  placeholder="About company" class="form-control" required></textarea>
+          <textarea formControlName="about_company" id="about_company"  placeholder="About company" class="form-control about-company" required></textarea>
         </div>
       </div>
 
-
-      <div class="col-sm-12 no-padding">
-        <div [class.hide-list]="isSocialLogin">
-          <div class="col-sm-2 no-padding">
-            <label for="file-upload1">Document:</label>
-          </div>
-          <div class="col-sm-5">
-            <textarea type="text" formControlName="description1" id="description1"  placeholder="Description" class="form-control" required></textarea>
-          </div>
-          <div class="col-sm-5 no-padding">
-            <div  class="clearfix">
-              <label for="file-upload1" class="custom-file-upload">Upload File</label>
-              <p class="file-name">{{fileName1}}</p>
-              <input id="file-upload1" type="file"  (change)="fileChangeEvent($event)" placeholder="Upload file" />
+      <div class="col-sm-9 col-sm-offset-3 col-xs-12 col-xs-offset-0 upload-documents">
+        <label>Upload Document:</label>
+        <div class="col-sm-12 no-padding">
+          <div [class.hide-list]="isSocialLogin">
+            <div class="col-sm-5 no-padding">
+              <input type="text" formControlName="description1" id="description1"  placeholder="Description" class="form-control" required />
+              <span *ngIf="!setOfDocuments[0] &&  companyDetailsForm.value.description1 && isDocumentUploaded && companyDetailsForm.value.description2" class="error-messages">Please select file to upload.</span>
             </div>
-           <!-- <div class="error-message-registration" *ngIf="isDescriptionEntered">
-              <span><h6><font color="red">Please enter description first.</font></h6></span>
-            </div>-->
-            <span *ngIf="!setOfDocuments[0] &&  companyDetailsForm.value.description1 && isDocumentUploaded && companyDetailsForm.value.description2" class="error-messages">Please select file to upload.</span>
-          </div>
-        </div>
-      </div>
+            <div class="col-sm-5 ">
+              <div  class="clearfix">
+                <label for="file-upload1" class="custom-file-upload">Upload File</label>
+                <p class="file-name">{{fileName1}}</p>
+                <input id="file-upload1" type="file"  (change)="fileChangeEvent($event)" placeholder="Upload file" />
+              </div>
+             <!-- <div class="error-message-registration" *ngIf="isDescriptionEntered">
+                <span><h6><font color="red">Please enter description first.</font></h6></span>
+              </div>-->
 
-      <div class="col-sm-12 no-padding">
-        <div [class.hide-list]="isSocialLogin">
-          <div class="col-sm-2 no-padding">
-            <label for="file-upload2">Document:</label>
-          </div>
-          <div class="col-sm-5">
-            <textarea type="text" formControlName="description2" id="description2"  placeholder="Description" class="form-control" value="description2" required></textarea>
-          </div>
-          <div class="col-sm-5 no-padding">
-            <div class="clearfix">
-              <label for="file-upload2" class="custom-file-upload">Upload File</label>
-              <p class="file-name">{{fileName2}}</p>
-              <input id="file-upload2" type="file"  (change)="fileChangeEvent($event)" placeholder="Upload file"/>
             </div>
-
-          <!--  <div class="error-message-registration" *ngIf="!companyDetailsForm.value.description2">
-              <span><h6><font color="red">Please enter description first.</font></h6></span>
-            </div>-->
-            <span *ngIf="!setOfDocuments[1] && companyDetailsForm.value.description2 && isDocumentUploaded && companyDetailsForm.value.description3" class="error-messages">Please select file to upload.</span>
-
           </div>
         </div>
-      </div>
 
-      <div class="col-sm-12 no-padding">
-        <div [class.hide-list]="isSocialLogin">
-          <div class="col-sm-2 no-padding">
-            <label for="file-upload3">Document:</label>
-          </div>
-          <div class="col-sm-5">
-            <textarea type="text" formControlName="description3" id="description3"  placeholder="Description" class="form-control" required></textarea>
-          </div>
-          <div class="col-sm-5 no-padding">
-           <div class="clearfix">
-             <label for="file-upload3" class="custom-file-upload">Upload File</label>
-             <p class="file-name">{{fileName3}}</p>
-             <input id="file-upload3" type="file" (change)="fileChangeEvent($event)" placeholder="Upload file"/>
-           </div>
-           <!-- <div class="error-message-registration" *ngIf="!companyDetailsForm.value.description3">
-              <span><h6><font color="red">Please enter description first.</font></h6></span>
-            </div>-->
-            <span *ngIf="!setOfDocuments[2] && companyDetailsForm.value.description3 && isDocumentUploaded " class="error-messages">Please select file to upload.</span>
+        <div class="col-sm-12 no-padding">
+          <div [class.hide-list]="isSocialLogin">
+            <div class="col-sm-5 no-padding">
+              <input type="text" formControlName="description2" id="description2"  placeholder="Description" class="form-control" value="description2" required />
+              <span *ngIf="!setOfDocuments[1] && companyDetailsForm.value.description2 && isDocumentUploaded && companyDetailsForm.value.description3" class="error-messages">Please select file to upload.</span>
+            </div>
+            <div class="col-sm-5 ">
+              <div class="clearfix">
+                <label for="file-upload2" class="custom-file-upload">Upload File</label>
+                <p class="file-name">{{fileName2}}</p>
+                <input id="file-upload2" type="file"  (change)="fileChangeEvent($event)" placeholder="Upload file"/>
+              </div>
 
+            <!--  <div class="error-message-registration" *ngIf="!companyDetailsForm.value.description2">
+                <span><h6><font color="red">Please enter description first.</font></h6></span>
+              </div>-->
+
+
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm-12 no-padding">
+          <div [class.hide-list]="isSocialLogin">
+            <div class="col-sm-5 no-padding">
+              <input type="text" formControlName="description3" id="description3"  placeholder="Description" class="form-control" required />
+              <span *ngIf="!setOfDocuments[2] && companyDetailsForm.value.description3 && isDocumentUploaded " class="error-messages">Please select file to upload.</span>
+            </div>
+            <div class="col-sm-5 ">
+             <div class="clearfix">
+               <label for="file-upload3" class="custom-file-upload">Upload File</label>
+               <p class="file-name">{{fileName3}}</p>
+               <input id="file-upload3" type="file" (change)="fileChangeEvent($event)" placeholder="Upload file"/>
+             </div>
+             <!-- <div class="error-message-registration" *ngIf="!companyDetailsForm.value.description3">
+                <span><h6><font color="red">Please enter description first.</font></h6></span>
+              </div>-->
+            </div>
           </div>
         </div>
       </div>
@@ -113,7 +107,7 @@
       <!--<div class="error-message-registration" *ngIf="isDescriptionEntered">
         <span><h6><font color="red">Document description can not be empty.</font></h6></span>
       </div>-->
-      <div class="clearfix">&nbsp;</div>
+
       <div class="button-group">
        <!-- <button type="submit" class="btn btn-primary" [disabled]="!companyDetailsForm.valid" >Submit Documents</button>-->
         <button type="submit" class="btn btn-primary" >Submit Documents</button>

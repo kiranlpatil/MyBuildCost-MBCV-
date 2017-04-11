@@ -436,9 +436,70 @@ control-messages {
 .company-details {
   control-messages {
     div {
-      margin: 55px 15px 0;
+      margin: 120px 0 0;
     }
   }
+}
+
+//company upload page
+#company-logo {
+  margin-top: 30px;
+
+  .profile {
+    width: 120px;
+    padding: 0;
+    text-align: left;
+    margin: 0;
+
+    .avtar {
+      width: 100%;
+    }
+
+    .avtar > img {
+      border-radius: 0;
+      border: 1px solid $border-color;
+      width: 100%;
+      float: left;
+      margin: 0;
+    }
+
+    form {
+      bottom: -2px;
+      position: absolute;
+      right: 0;
+      text-align: right;
+      padding: 0;
+    }
+
+    form > label {
+      margin-bottom: 0;
+      width: 40px;
+    }
+
+    form > label {
+      /*border: 1px solid #1c75bd;*/
+      /*border-radius: 25px;*/
+      cursor: pointer;
+      display: inline-block;
+      /*padding: 5px 10px;*/
+      float: left;
+      /*margin: 0 10px 0 0;*/
+      /*font-size: 12px;
+      color: #666;
+      font-weight: 100;*/
+    }
+  }
+  /*.custom-file-upload {
+    width: auto;
+  }*/
+
+  /*.custom-file-upload > img {
+    display: none;
+  }
+
+  .custom-file-upload > span {
+    display: block;
+  }*/
 }
 
 // Media Queries
@@ -517,57 +578,17 @@ control-messages {
       width: 100% !important;
     }
   }
-}
 
-#company-logo {
-  .profile {
-    width: 100%;
-    padding: 0;
-    text-align: left;
-
-    .avtar {
-      width: 100%;
-    }
-
-    .avtar > img {
-      border-radius: 0;
-      border: 1px solid $border-color;
-      width: 120px;
-      float: left;
-      margin: 0 15px 0;
-    }
-
-    form {
-      position: relative;
-      bottom: 0 ;
-      right: 0 ;
-      text-align: left ;
-      padding: 0;
-    }
-
-    form > label {
-      border: 1px solid #1c75bd;
-      border-radius: 25px;
-      cursor: pointer;
-      display: inline-block;
-      padding: 5px 10px;
-      float: left;
-      margin: 0 10px 0 0;
-      font-size: 12px;
-      color: #666;
-      font-weight: 100;
-    }
-  }
-  .custom-file-upload {
-    width: auto;
+  #company-logo {
+    margin-top: 0;
   }
 
-  .custom-file-upload > img {
-    display: none;
-  }
-
-  .custom-file-upload > span {
-    display: block;
+  .company-details {
+    control-messages {
+      div {
+        margin: 120px 0 0;
+      }
+    }
   }
 }
 
