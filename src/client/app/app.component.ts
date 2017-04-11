@@ -77,14 +77,14 @@ export class AppComponent implements OnInit {
     }
 
     ngOnInit() {
-        if (LocalStorageService.getLocalValue(LocalStorage.ACCESS_TOKEN) === null) {
+       /* if (LocalStorageService.getLocalValue(LocalStorage.ACCESS_TOKEN) === null) {
            // this._router.navigate([NavigationRoutes.APP_COMPANYDETAILS]);
           this._router.navigate([NavigationRoutes.APP_CREATEPROFILE]);
         } else {
            // this._router.navigate([NavigationRoutes.APP_DASHBOARD]);
           // this._router.navigate([NavigationRoutes.APP_COMPANYDETAILS]);
 
-        }
+        }*/
     }
 
     showError(message:Message) {

@@ -274,9 +274,6 @@ import {JobPosterService} from "./cnext/framework/job-poster/job-poster.service"
     CandidateAcadmyDetailService,
     ProfileCreatorService
 
-
-
-
   ],
   bootstrap: [AppComponent]
 })

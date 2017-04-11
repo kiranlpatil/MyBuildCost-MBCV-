@@ -1,4 +1,4 @@
-import {    Injectable  } from '@angular/core';
+import {   OnInit, Injectable  } from '@angular/core';
 import {  Observable  } from 'rxjs/Observable';
 import {  BaseService, API  } from '../../shared/index';
 import {  Http,Headers, RequestOptions  } from '@angular/http';
@@ -6,13 +6,18 @@ import { CompanyDetails } from './company-details';
 import { AppSettings, LocalStorage } from '../../shared/constants';
 import { LocalStorageService } from '../../shared/localstorage.service';
 
+
+
 @Injectable()
-export class CompanyDetailsService extends BaseService {
+export class CompanyDetailsService extends BaseService implements OnInit{
   model = new CompanyDetails();
 
-  constructor(private http:Http) {
+  constructor(private http:Http ) {
+
     super();
   }
+
+
 
   companyDetails(companyDetails:CompanyDetails):Observable<CompanyDetails> {
     let headers = new Headers({ 'Content-Type': 'application/json'});

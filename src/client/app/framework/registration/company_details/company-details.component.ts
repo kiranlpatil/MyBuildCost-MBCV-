@@ -17,6 +17,8 @@ import { ImagePath, LocalStorage } from '../../shared/constants';
 import { LocalStorageService } from '../../shared/localstorage.service';
 import { LoaderService } from '../../shared/loader/loader.service';
 import { Http } from '@angular/http';
+import {Router, ActivatedRoute, Params} from '@angular/router';
+
 
 @Component({
   moduleId: module.id,
@@ -46,7 +48,7 @@ export class CompanyDetailsComponent implements OnInit {
 
   constructor(private commanService: CommonService, private _router: Router, private http: Http,
               private companyDetailsService: CompanyDetailsService,private profileService: ProfileService,
-              private messageService: MessageService, private formBuilder: FormBuilder, private loaderService: LoaderService) {
+              private messageService: MessageService, private formBuilder: FormBuilder, private loaderService: LoaderService,private activatedRoute:ActivatedRoute) {
     this.companyDetailsForm = this.formBuilder.group({
       'about_company':['',Validators.required],
       'description1': ['',Validators.required],
@@ -66,6 +68,15 @@ export class CompanyDetailsComponent implements OnInit {
 
   ngOnInit() {
     this.company_name = LocalStorageService.getLocalValue(LocalStorage.COMPANY_NAME);
+
+      this.activatedRoute.queryParams.subscribe((params: Params) => {
+        let access_token = params['access_token'];
+        let id = params['_id'];
+        LocalStorageService.setLocalValue(LocalStorage.ACCESS_TOKEN, access_token);
+        console.log("access token in comp details",access_token);
+        console.log("access token in comp details",id);
+        LocalStorageService.setLocalValue(LocalStorage.USER_ID, id);
+      });
 
   }
 
@@ -171,14 +182,11 @@ export class CompanyDetailsComponent implements OnInit {
   }
 
   onCompanyDetailsSuccess(success: any) {
-    //this.loaderService.stop();
-
     this.companyDetailsForm.reset();
     this._router.navigate([NavigationRoutes.APP_RECRUITER_DASHBOARD]);
   }
 
   onCompanyDetailsError(error: any) {
-    // this.loaderService.stop();
     if (error.err_code === 404 || error.err_code === 0) {
       var message = new Message();
       message.error_msg = error.err_msg;
