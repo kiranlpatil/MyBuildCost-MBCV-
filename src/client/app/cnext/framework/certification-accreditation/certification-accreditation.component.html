@@ -1,35 +1,33 @@
-<div class="form col-sm-12 no-padding certification" *ngFor="let item of tempfield;let i= index">
+<div class="form col-sm-12 no-padding certification" *ngFor="let item of candidate.certifications;let i= index">
 
     <div class="col-sm-4 no-padding">
       <div class="form-group">
-        <input type="text" class="form-control" [ngModel]="certificateName" (change)="selectedCertificate($event.target.value)" required />
+        <input type="text" class="form-control" [(ngModel)]="item.name"  (change)="postCertificates()" required />
         <label> Name</label>
       </div>
     </div>
 
     <div class="col-sm-4 no-padding">
       <div class="form-group">
-        <input type="text" class="form-control"  [ngModel]="companyName" (change)="selectedCompanyName($event.target.value)" required />
-        <label>Company Name</label>
+        <input type="text" class="form-control" [(ngModel)]="item.issuedBy"  (change)="postCertificates()" required />
+        <label>Issued By</label>
       </div>
     </div>
 
 
     <div class="col-sm-4 no-padding">
       <div class="form-group">
-        <div id="yearf" ng2-auto-complete
-             [source]="yearList"
-             (ngModelChange)="selectedYearModel($event)">
-          <input class="form-control" type="text" [ngModel]="fromYearModel" required />
+          <select class="form-control" [(ngModel)]="item.year" (change)="postCertificates()">
+            <option *ngFor="let c of yearList" [ngValue]="c">{{c}}</option>
+          </select>
           <label>Year of Certification</label>
-        </div>
       </div>
     </div>
 
 
   <div class="col-sm-10 no-padding">
     <div>
-      <textarea class="form-control" [ngModel]="certificate" (change)="addedCertification($event.target.value)" Placeholder="Certification/Accreditation"></textarea>
+      <textarea class="form-control" [(ngModel)]="item.remark" (change)="postCertificates()" Placeholder="Certification/Accreditation"></textarea>
     </div>
   </div>
 </div>

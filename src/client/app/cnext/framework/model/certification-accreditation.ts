@@ -1,7 +1,6 @@
 export class Certifications {
-   name:string='';
-   issuedby:string='';
+  name:string='';
+  issuedBy:string='';
   year:string='';
   remark:string='';
-
 }

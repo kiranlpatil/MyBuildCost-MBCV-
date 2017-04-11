@@ -1,5 +1,5 @@
 
-import {   Component  } from '@angular/core';
+import {Component, Input} from '@angular/core';
 import { Certifications } from '../model/certification-accreditation';
 import {ValueConstant, LocalStorage} from '../../../framework/shared/constants';
 import {MessageService} from "../../../framework/shared/message.service";
@@ -16,6 +16,7 @@ import {Candidate} from "../model/candidate";
 })
 
 export class CertificationAccreditationComponent {
+  @Input() candidate:Candidate;
 
   private tempfield: string[];
   private tempCertificateName:string='';
@@ -28,7 +29,6 @@ export class CertificationAccreditationComponent {
   private year: any;
   private currentDate: any;
   private yearList = new Array();
-  private candidate:Candidate=new Candidate();
 
 
   constructor(private messageService:MessageService,
@@ -39,6 +39,12 @@ export class CertificationAccreditationComponent {
     this.year = this.currentDate.getUTCFullYear();
     this.createYearList(this.year);
 
+  }
+
+  ngOnChanges(changes :any){
+    if(this.candidate.certifications.length == 0){
+      this.candidate.certifications.push(new Certifications());
+    }
   }
 
   ngOnInit(){
@@ -66,25 +72,6 @@ export class CertificationAccreditationComponent {
 
   }
 
-  selectedCertificate(certificatename:string) {
-this.tempCertificateName=certificatename;
-    this.newCertificate.name=certificatename;
-    this. postCertificates();
-
-  }
-  selectedCompanyName(companyname:string) {
-this.tempCompanyName=companyname;
-    this.newCertificate.issuedby=companyname;
-   this.postCertificates();
-  }
-
-
-  selectedYearModel(year:string) {
-    this.tempYear=year;
-    this.newCertificate.year=year;
-    this.postCertificates();
-
-  }
 
   addedCertification(certificate:any) {
     this.tempdetails=certificate;
@@ -97,24 +84,26 @@ this.tempCompanyName=companyname;
 
 
   addAnother() {
-    if(this.tempCertificateName==='' || this.tempCompanyName==='' ||
+    /*if(this.tempCertificateName==='' || this.tempCompanyName==='' ||
       this.tempYear===''|| this.tempdetails==='') {
       this.disbleButton=true;
     } else {
       this.disbleButton = false;
-    /*  this.tempfield.push('null');*/
+    /!*  this.tempfield.push('null');*!/
       this.tempCertificateName='';
       this.tempCompanyName='' ;
       this.tempYear='';
       this.tempdetails='';
     }
     this.tempfield.push('null');
-    this.newCertificate=new Certifications();
+    this.newCertificate=new Certifications();*/
+    this.candidate.certifications.push(new Certifications());
   }
-  postCertificates(){
-    if(this.newCertificate.remark!=='' && this.newCertificate.year!=='' &&
+
+  postCertificates(){debugger
+   /* if(this.newCertificate.remark!=='' && this.newCertificate.year!=='' &&
       this.newCertificate.issuedby!=='' &&  this.newCertificate.name!==''){
-      this.candidate.certifications.push(this.newCertificate);
+      this.candidate.certifications.push(this.newCertificate);*/
       this.profileCreatorService.addProfileDetail(this.candidate).subscribe(
         user => {
           console.log(user);
@@ -122,6 +111,6 @@ this.tempCompanyName=companyname;
         error => {
           console.log(error);
         });
-    }
+    /*}*/
   }
 }
