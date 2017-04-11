@@ -49,7 +49,7 @@
 
   <div class="form-group">
     <div id="yearf" ng2-auto-complete
-         [source]="yearList"
+         [source]="validBirthYearList"
          (ngModelChange)="selectYearModel($event)">
       <input  formControlName="birth_year" [ngModel]="passingyear" id="birth_year" class="form-control" placeholder="Year of Birth" required/>
       <!--<label class="select-label">Year of Birth</label>-->

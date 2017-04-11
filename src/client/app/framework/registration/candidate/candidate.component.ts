@@ -5,7 +5,7 @@ import {Candidate} from "./candidate";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {ValidationService} from "../../shared/customvalidations/validation.service";
 import {Message, MessageService, CommonService, NavigationRoutes, AppSettings} from "../../shared/index";
-import {ImagePath, LocalStorage} from "../../shared/constants";
+import {ImagePath, LocalStorage, ValueConstant} from "../../shared/constants";
 import {LocalStorageService} from "../../shared/localstorage.service";
 import {LoaderService} from "../../shared/loader/loader.service";
 import {Http, Response} from "@angular/http";
@@ -19,7 +19,6 @@ import {DateService} from "../../../cnext/framework/date.service";
 })
 
 export class CandidateComponent implements OnInit {
-  yearList: string[] = this.dateservice.yearList;
   countries: string[] = new Array(0);
   states: string[] = new Array(0);
   cities: string[] = new Array(0);
@@ -39,6 +38,10 @@ export class CandidateComponent implements OnInit {
   private isShowMessage: boolean = false;
   private isStateSelected: boolean = false;
   private isCountrySelected: boolean = false;
+  private validBirthYearList = new Array();
+  private year: any;
+  private currentDate: any;
+
 
   constructor(private commanService: CommonService, private _router: Router, private http: Http, private dateservice: DateService,
               private candidateService: CandidateService, private messageService: MessageService, private formBuilder: FormBuilder, private loaderService: LoaderService) {
@@ -65,12 +68,12 @@ export class CandidateComponent implements OnInit {
 
 
     this.BODY_BACKGROUND = ImagePath.BODY_BACKGROUND;
-
+    this.currentDate = new Date();
+    this.year = this.currentDate.getUTCFullYear() - 18;
   }
 
-  ngOnInit() {
-
-
+  ngOnInit() {debugger
+    this.validBirthYearList = this.dateservice.createBirthYearList(this.year);
     this.http.get('address')
       .map((res: Response) => res.json())
       .subscribe(
@@ -85,7 +88,9 @@ export class CandidateComponent implements OnInit {
         err => console.error(err),
         () => console.log()
       );
+
   }
+
 
   selectYearModel(newval: any) {
     this.passingyear = newval;

@@ -21,4 +21,12 @@ export class DateService extends BaseService {
     }
   }
 
+  createBirthYearList(year: any) {
+    let validbirthYearList = new Array();
+    for (let i = 0; i < ValueConstant.MAX_YEAR_LIST; i++) {
+      validbirthYearList.push(year--);
+    }
+    return validbirthYearList;
+  }
+
 }
