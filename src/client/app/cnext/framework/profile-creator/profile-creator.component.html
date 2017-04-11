@@ -104,7 +104,7 @@
       <div class="section-container" [hidden]="!showProfeciency">
         <h4 class="heading">Academic Details</h4>
         <div class="main-content">
-          <cn-academic-details></cn-academic-details>
+          <cn-academic-details [candidate]="candidate" ></cn-academic-details>
         </div>
       </div>
 
@@ -126,7 +126,7 @@
           </span>
         </h4>
         <div class="main-content">
-          <cn-awards></cn-awards>
+          <cn-awards [candidate]="candidate"></cn-awards>
         </div>
       </div>
 
@@ -137,7 +137,7 @@
           </span>
         </h4>
         <div class="main-content">
-          <cn-more-about-myself></cn-more-about-myself>
+          <cn-more-about-myself [candidate]="candidate"></cn-more-about-myself>
         </div>
       </div>
       <div class="section-container profile-configurations" [hidden]="!showProfeciency">

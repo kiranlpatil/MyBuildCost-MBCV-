@@ -25,23 +25,26 @@ export class ProficiencyDomainComponent implements OnInit {
   private proficiencyType: boolean = false;
   private placeHolderName: string;
   private isProficiencyShow: boolean = false;
-  private isShow: boolean =true;
-  private addProficiency:string="";
-  private addOther:string="addId";
+  private isShow: boolean = true;
+  private addProficiency: string = "";
+  private addOther: string = "addId";
   private selectedIndustry: string;
   private proficiencyother: string;
+  private present: boolean = false;
+  private presentInStored: boolean = false;
+  private presentAlreadyInList: boolean = false;
 
 
   constructor(private proficiencyService: ProficiencyService,
               private proficiencydoaminService: ProficiencyDomainService,
               private messageService: MessageService,
-              private myindustryService : MyIndustryService,
+              private myindustryService: MyIndustryService,
               private JobPostProficiency: JobPostProficiencyService,
-              private profileCreatorService:ProfileCreatorService) {
+              private profileCreatorService: ProfileCreatorService) {
     myindustryService.showTest$.subscribe(
-      data=>{
-         this.selectedIndustry=data;
-        this.proficiencydoaminService.getProficiency( this.selectedIndustry)
+      data => {
+        this.selectedIndustry = data;
+        this.proficiencydoaminService.getProficiency(this.selectedIndustry)
           .subscribe(
             data => this.onProficiencySuccess(data),
             error => this.onError(error));
@@ -59,11 +62,11 @@ export class ProficiencyDomainComponent implements OnInit {
 
     this.proficiencyType = true;
     this.placeHolderName = 'proficiency';
-      if(LocalStorageService.getLocalValue(LocalStorage.IS_CANDIDATE)==="true"){
-        this.profileCreatorService.getCandidateDetails()
-          .subscribe(
-            candidateData => this.OnCandidateDataSuccess(candidateData),
-            error => this.onError(error));
+    if (LocalStorageService.getLocalValue(LocalStorage.IS_CANDIDATE) === "true") {
+      this.profileCreatorService.getCandidateDetails()
+        .subscribe(
+          candidateData => this.OnCandidateDataSuccess(candidateData),
+          error => this.onError(error));
 
 
     }
@@ -71,7 +74,8 @@ export class ProficiencyDomainComponent implements OnInit {
   }
 
 
-  OnCandidateDataSuccess(candidateData:any){}
+  OnCandidateDataSuccess(candidateData: any) {
+  }
 
   onProficiencySuccess(data: any) {
 
@@ -92,26 +96,39 @@ export class ProficiencyDomainComponent implements OnInit {
 
   selectedProficiencyModel(newVal: any) {
 
-      if (this.storedProficiency.length < ValueConstant.MAX_PROFECIENCES) {
-        this.storedProficiency.push(newVal);
-        this.deleteSelectedProfeciency(newVal);
-        this.proficiencydoaminService.addCandidateProficiency(this.storedProficiency).subscribe(
-          data => {
-            console.log(data);
-          },
-          error => {
-            console.log(error);
-          });
-        console.log(this.storedProficiency);
 
-        this.JobPostProficiency.change(this.storedProficiency);
-      } else {
-        this.showAlert = true;
+    if (this.storedProficiency.length < ValueConstant.MAX_PROFECIENCES) {
+      for (let i = 0; i < this.storedProficiency.length; i++) {
+        if (this.storedProficiency[i] === newVal) {
+          this.presentInStored = true;
+        }
       }
+      if (this.presentInStored === false) {
+        this.storedProficiency.push(newVal);
+      }
+      this.deleteSelectedProfeciency(newVal);
 
+
+      this.proficiencydoaminService.addCandidateProficiency(this.storedProficiency).subscribe(
+        data => {
+          console.log(data);
+        },
+        error => {
+          console.log(error);
+        });
+      console.log(this.storedProficiency);
+
+      this.JobPostProficiency.change(this.storedProficiency);
+
+    } else {
+      this.showAlert = true;
+    }
+
+    this.presentInStored = false;
     let typeTemp: any = document.getElementById(this.type);
     typeTemp.value = '';
 
+    this.presentAlreadyInList = false;
   }
 
   deleteItem(newVal: any) {
@@ -120,13 +137,20 @@ export class ProficiencyDomainComponent implements OnInit {
       if (this.storedProficiency[i] === newVal.currentTarget.innerText.trim()) {
         if (i > -1) {
           this.storedProficiency.splice(i, 1);
+          for (let i = 0; i < this.selectedproficiencies.length; i++) {
+            if (this.selectedproficiencies[i] === newVal.currentTarget.innerText.trim()) {
+              this.present = true;
 
-              this.selectedproficiencies.push(newVal.currentTarget.innerText.trim());
-
+            }
+          }
+          if (this.present === false) {
+            this.selectedproficiencies.push(newVal.currentTarget.innerText.trim());
+          }
         }
       }
 
     }
+    this.present = false;
     this.proficiencydoaminService.addCandidateProficiency(this.storedProficiency).subscribe(
       data => {
         console.log(data);
@@ -145,29 +169,43 @@ export class ProficiencyDomainComponent implements OnInit {
       }
     }
   }
+
   onSelect() {
-    this.isShow=false;
+    this.isShow = false;
   }
-  enterProficiency(newVal:string){
-    this.addProficiency=newVal;
+
+  enterProficiency(newVal: string) {
+    this.addProficiency = newVal;
   }
+
   selectedProficiency() {
-    this.selectedProficiencyModel(this.addProficiency);
-    let typeTemp: any = document.getElementById(this.addOther);
-    typeTemp.value = '';
+    for (let i = 0; i < this.selectedproficiencies.length; i++) {
+      if (this.selectedproficiencies[i] === this.addProficiency) {
+        this.presentAlreadyInList = true;
+
+      }
+    }
+    if (this.presentAlreadyInList === false) {
+      this.selectedProficiencyModel(this.addProficiency);
+      let typeTemp: any = document.getElementById(this.addOther);
+      typeTemp.value = '';
+    }
+    this.presentAlreadyInList =false;
 
   }
+  addProficiencyToMasterData() {
 
-  addProficiencyToMasterData(){
-    this.proficiencydoaminService.addProficiencyToMasterData(this.proficiencyother,this.selectedIndustry).subscribe(
-      data => {
-        console.log(data);
-      },
-      error => {
-        console.log(error);
-      });
-    this.selectedProficiencyModel(this.proficiencyother);
+
+      this.proficiencydoaminService.addProficiencyToMasterData(this.proficiencyother, this.selectedIndustry).subscribe(
+        data => {
+          console.log(data);
+        },
+        error => {
+          console.log(error);
+        });
+      this.selectedProficiencyModel(this.proficiencyother);
+
+
 
   }
-
 }

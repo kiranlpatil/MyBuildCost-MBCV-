@@ -7,7 +7,7 @@ import {EmployementHistory} from "./employment-history";
 export class Candidate {
   jobTitle : string;
   isVisible : boolean;
-  aboutMyself: string;
+  aboutMyself: string='';
   certifications : Certifications[]=new Array();
   awards : Award[]=new Array();
   industry : Industry=new Industry();

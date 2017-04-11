@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, Input} from '@angular/core';
 import {AboutCandidateService} from "./more-about-myself.service";
 import {MessageService} from "../../../framework/shared/message.service";
 import {ProfileCreatorService} from "../profile-creator/profile-creator.service";
 import {LocalStorageService} from "../../../framework/shared/localstorage.service";
 import {LocalStorage} from "../../../framework/shared/constants";
 import {Message} from "../../../framework/shared/message";
+import {Candidate} from "../model/candidate";
 
 @Component({
   moduleId: module.id,
@@ -14,7 +15,7 @@ import {Message} from "../../../framework/shared/message";
 })
 
 export class MoreAboutMyselfComponent implements OnInit {
-
+  @Input() candidate:Candidate;
   private  maxLength :number=250;
   private  reSize: string[];
   private aboutMyself:string;
@@ -29,15 +30,18 @@ export class MoreAboutMyselfComponent implements OnInit {
     this.reSize = new Array(1);
   }
   ngOnInit() {
-    this.remainingWords=this.maxLength;
-      if(LocalStorageService.getLocalValue(LocalStorage.IS_CANDIDATE)==="true"){
+    this.remainingWords=this.maxLength-this.candidate.aboutMyself.length;
+     /* if(LocalStorageService.getLocalValue(LocalStorage.IS_CANDIDATE)==="true"){
         this.profileCreatorService.getCandidateDetails()
           .subscribe(
             candidateData => this.OnCandidateDataSuccess(candidateData),
             error => this.onError(error));
 
-      }
-    
+      }*/
+
+  }
+  ngOnChanges(changes :any){
+    this.remainingWords=this.maxLength-this.candidate.aboutMyself.length;
   }
 
   OnCandidateDataSuccess(candidateData:any){}
@@ -47,21 +51,22 @@ export class MoreAboutMyselfComponent implements OnInit {
     message.isError = true;
     this.messageService.message(message);
   }
-  wordCount(event:any) {
-   this.newstringOne= this. aboutMyself.split(' ');
-    this.newstringTwo= this. aboutMyself.split('.');
-    this.newstringThree= this. aboutMyself.split(',');
+  addAboutMyself() {
+   this.newstringOne= this.candidate.aboutMyself.split(' ');
+    this.newstringTwo= this.candidate.aboutMyself.split('.');
+    this.newstringThree= this.candidate.aboutMyself.split(',');
     this.wordsTillNow=this.newstringOne.length+this.newstringTwo.length+this.newstringThree.length;
     this.remainingWords=this.maxLength-(this.wordsTillNow-3);
     if (this.wordsTillNow-3>=this.maxLength) {
-      this. maxword=this.aboutMyself.length;
+      this. maxword=this.candidate.aboutMyself.length;
     }
-    this.aboutMyselfservice.addAboutCandidate(this.newstringOne)
-      .subscribe(
-        user => console.log(user),
-        error => console.log(error))
+    this.profileCreatorService.addProfileDetail(this.candidate).subscribe(
+      user => {
+        console.log(user);
+      },
+      error => {
+        console.log(error);
+      });
   }
-  addAnother() {
-    this.reSize.push('null');
-  }
+
 }

@@ -1,13 +1,13 @@
-<div *ngFor="let item of tempfield;let i= index" class="awards clearfix">
+<div *ngFor="let item of candidate.awards;let i= index" class="awards clearfix">
 
   <div class="col-sm-4 no-padding">
     <div class="form-group">
-      <input type="text" class="form-control" [ngModel]="title" (change)="selectedTitle($event.target.value)"  (focus)="changeValue()" required />
+      <input type="text" class="form-control" [(ngModel)]="item.name"(change)="postAwardDetails()"  (focus)="changeValue()" required />
       <label>Title</label>
     </div>
   </div>
 
-  <div class="col-sm-4 no-padding">
+ <!-- <div class="col-sm-4 no-padding">
     <div class="form-group">
       <div  id="montht" ng2-auto-complete
             [source]="monthList"
@@ -17,9 +17,23 @@
         <label>Month</label>
       </div>
     </div>
+  </div>-->
+  <div class="col-sm-4 no-padding">
+    <div class="form-group">
+      <input type="text" class="form-control" [(ngModel)]="item.issuedBy" (change) = "postAwardDetails()"  (focus)="changeValue()" required />
+      <label>Issued By</label>
+    </div>
   </div>
 
   <div class="col-sm-4 no-padding">
+    <label >Year
+      <select class="form-control" [(ngModel)]="item.year"  (change) = "postAwardDetails()">
+        <option *ngFor="let c of yearList" [ngValue]="c">{{c}}</option>
+      </select>
+    </label>
+  </div>
+
+  <!--<div class="col-sm-4 no-padding">
     <div class="form-group">
       <div  id="yeart" ng2-auto-complete
             [source]="yearList"
@@ -29,10 +43,10 @@
         <label>Year</label>
       </div>
     </div>
-  </div>
+  </div>-->
 
   <div class="col-sm-10 no-padding">
-    <textarea class="form-control" [ngModel]="specialization" (change)="selectedAward($event.target.value)" placeholder="Enter Awards Details" class="form-control"></textarea>
+    <textarea class="form-control" [(ngModel)]="item.remark"(change)="postAwardDetails()" placeholder="Enter Awards Details" class="form-control"></textarea>
   </div>
 </div>
 

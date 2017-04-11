@@ -1,5 +1,5 @@
 
-import {   Component  } from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {  Award  } from '../model/award';
 import { AwardService } from '../award-service';
 import {ValueConstant, LocalStorage} from '../../../framework/shared/constants';
@@ -9,6 +9,7 @@ import {MessageService} from "../../../framework/shared/message.service";
 import {LocalStorageService} from "../../../framework/shared/localstorage.service";
 import {Message} from "../../../framework/shared/message";
 import {Candidate} from "../model/candidate";
+import {ProfessionalData} from "../model/professional-data";
 
 
 @Component({
@@ -19,6 +20,7 @@ import {Candidate} from "../model/candidate";
 })
 
 export class AwardsComponent {
+  @Input() candidate:Candidate;
   public monthList = new Array('January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December');
   private tempfield: string[];
   private temptitle:string='';
@@ -27,11 +29,10 @@ export class AwardsComponent {
   private tempremark:string='';
   private selectedawards: Award[]=new Array();
   private disbleButton:boolean=false;
-  private newAward=new Award();
   private year: any;
   private currentDate: any;
   private yearList = new Array();
-  private candidate:Candidate=new Candidate();
+
 
   constructor( private awardService:AwardService ,
                private candidateAward:CandidateAwardService,
@@ -69,33 +70,20 @@ export class AwardsComponent {
   changeValue() {
     this.awardService.change(true);
   }
-  selectedTitle(title:string) {
-    this.temptitle=title;
-    this.newAward.names=title;
-    this.postAwardDetails();
+  ngOnChanges(changes :any){
+  if(this.candidate.awards.length===0){
+    this.candidate.awards.push(new Award());
+  }
+}
 
-  }
-  selectedMonthModel(month:string) {
-    this.tempmonth=month;
-    this.newAward.issuedBy=month;
-    this.postAwardDetails();
 
-  }
-  selectedYearModel(year:string) {
-    this.tempyear=year;
-    this.newAward.year=year;
-    this.postAwardDetails();
 
-  }
-  selectedAward(award:string) {
-    this.tempremark=award;
-    this.newAward.remark=award;
-    this.postAwardDetails();
-  }
+
   addAnother() {
-    if (this.temptitle!=='' && this.tempmonth!=='' &&
+    /*if (this.temptitle!=='' && this.tempmonth!=='' &&
       this.tempyear!=='' && this.tempremark!=='') {
       console.log(this.selectedawards);
+
       this.disbleButton = false;
       this.tempfield.push('null');
       this.temptitle='' ;
@@ -108,13 +96,18 @@ export class AwardsComponent {
 
     } else {
       this.disbleButton = true;
-    }
+    }*/
+
+/*
     this.newAward=new Award();
+*/
+
+this.candidate.awards.push(new  Award());
   }
   postAwardDetails(){
-    if(this.newAward.remark!=='' &&this.newAward.issuedBy!=='' &&
+ /*  if(this.newAward.remark!=='' &&this.newAward.issuedBy!=='' &&
       this.newAward.names!=='' &&this.newAward.year!==''){
-      this.candidate.awards.push(this.newAward);
+      this.candidate.awards.push(this.newAward);*!/*/
       this.profileCreatorService.addProfileDetail(this.candidate).subscribe(
         user => {
           console.log(user);
@@ -122,6 +115,8 @@ export class AwardsComponent {
         error => {
           console.log(error);
         });
+/*
     }
+*/
   }
 }

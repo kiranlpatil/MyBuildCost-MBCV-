@@ -1,4 +1,4 @@
-import {   Component  } from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {  Academicdetails  } from '../model/academic-details';
 import {ValueConstant, LocalStorage} from '../../../framework/shared/constants';
 import {  EducationalService  } from '../educational-service';
@@ -17,6 +17,7 @@ import {Candidate} from "../model/candidate";
 })
 
 export class AcademicDetailComponent {
+  @Input() candidate:Candidate;
 
   private  tempfield: string[];
   private year: any;
@@ -28,7 +29,7 @@ export class AcademicDetailComponent {
   private tempUnivercityName:string='';
   private tempPassingYear:string='';
   private  tempSpecialization:string='';
-  private candidate:Candidate=new Candidate();
+
 
 
   private newAcademicDetails=new Academicdetails();
@@ -96,10 +97,15 @@ export class AcademicDetailComponent {
   changeValue() {
     this.educationalService.change(true);   //to change the value of upper bubbles
   }
+  ngOnChanges(changes :any){
+    if(this.candidate.academics.length===0){
+      this.candidate.academics.push(new Academicdetails());
+    }
+  }
 
 
   addAnother() {
-    if(this.tempSchoolName==='' || this.tempUnivercityName==='' ||
+   /* if(this.tempSchoolName==='' || this.tempUnivercityName==='' ||
       this.tempPassingYear==='' || this.tempSpecialization==='' ) {
       this.disbleButton=true;
     } else {
@@ -111,7 +117,7 @@ export class AcademicDetailComponent {
       temp.specialization=this.tempSpecialization;
       //this.selectedacademicsdeatils.push(temp);
       console.log(this.selectedacademicsdeatils);
-     /* this.tempfield.push('null');*/
+     /!* this.tempfield.push('null');*!/
       this.tempSchoolName='';
       this.tempUnivercityName='';
       this.tempPassingYear='';
@@ -119,13 +125,14 @@ export class AcademicDetailComponent {
 
     this.tempfield.push('null');
     this.newAcademicDetails=new Academicdetails();
-
-  }}
+    }*/
+    this.candidate.academics.push(new Academicdetails());
+  }
 
   postAcademicDetails(){
-    if(this.newAcademicDetails.board!=='' && this.newAcademicDetails.schoolName!=='' &&
+   /* if(this.newAcademicDetails.board!=='' && this.newAcademicDetails.schoolName!=='' &&
         this.newAcademicDetails.yearOfPassing!=='' && this.newAcademicDetails.specialization!==''){
-      this.candidate.academics.push(this.newAcademicDetails);
+      this.candidate.academics.push(this.newAcademicDetails);*/
       this.profileCreatorService.addProfileDetail(this.candidate).subscribe(
       user => {
         console.log(user);
@@ -133,6 +140,6 @@ export class AcademicDetailComponent {
       error => {
         console.log(error);
       });
-  }
+  /*}*/
   }
 }

@@ -1,9 +1,13 @@
 <div class="clearfix">
-  <div class="col-sm-10 no-padding">
+  <!--<div class="col-sm-10 no-padding">
     <textarea class="form-control" [(ngModel)]=" aboutMyself"  maxlength={{maxword}}
               (ngModelChange)="wordCount($event)"
-              placeholder="Enter More Details About Yourself"></textarea>
+              placeholder="Enter More Details About Yourself"></textarea>-->
+
+  <div class="col-sm-10 no-padding">
+      <textarea class="form-control" [(ngModel)]="candidate.aboutMyself"  (ngModelChange)="addAboutMyself()" Placeholder="Certification/Accreditation"></textarea>
   </div>
+
   <h5>Remaining words are:{{remainingWords}}</h5>
 </div>
 
