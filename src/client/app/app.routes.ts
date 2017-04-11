@@ -24,7 +24,7 @@ import {  RecruiterDashboard  } from './cnext/framework/recruiter-dashboard/recr
 
 
 export const routes: Routes = [
-
+  ...LandingPageRoutes,
   ...LoginRoutes,
   ...RegistrationRoutes,
   ...CandidateRoutes,
@@ -45,7 +45,6 @@ export const routes: Routes = [
   ...SettingsRoutes,
   ...ProfileCreator,
   ...CompanyDetailsRoutes,
-  ...LandingPageRoutes,
-  //...StartRoutes,
+  ...StartRoutes,
 
 ];
