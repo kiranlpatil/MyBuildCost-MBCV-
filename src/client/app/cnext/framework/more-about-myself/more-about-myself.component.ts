@@ -41,7 +41,9 @@ export class MoreAboutMyselfComponent implements OnInit {
 
   }
   ngOnChanges(changes :any){
-    this.remainingWords=this.maxLength-this.candidate.aboutMyself.length;
+    if(this.candidate.aboutMyself == undefined){
+      this.candidate.aboutMyself = '';
+    }
   }
 
   OnCandidateDataSuccess(candidateData:any){}
