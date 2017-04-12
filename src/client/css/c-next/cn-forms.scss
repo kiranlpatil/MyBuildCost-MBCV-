@@ -29,7 +29,7 @@ $text-color: #666;
       font-weight: bold;
       margin: 0;
       padding: 10px 0 10px 15px;
-      background: $bg-wrapper;
+      background: $bg-wrapper !important;
       border-bottom: 1px solid $border-color;
     }
 
