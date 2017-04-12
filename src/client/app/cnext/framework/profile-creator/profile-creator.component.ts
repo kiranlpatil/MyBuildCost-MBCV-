@@ -1,19 +1,19 @@
-import { Component ,OnInit } from '@angular/core';
-import { LocalStorageService } from '../../../framework/shared/localstorage.service';
-import { LocalStorage, NavigationRoutes } from '../../../framework/shared/constants';
-import { Router } from '@angular/router';
-import { DashboardService } from '../../../framework/dashboard/dashboard.service';
-import { TestService } from '../test.service';
-import { ComplexityService } from '../complexity.service';
-import { ProficiencyService } from '../proficience.service';
-import { ProfessionalService } from '../professional-service';
-import { EducationalService } from '../educational-service';
-import { AwardService } from '../award-service';
-import { MyRoleListTestService } from '../myRolelist.service';
-import { MyRoTypeTestService } from '../myRole-Type.service';
-import { DisableTestService } from '../disable-service';
-import { JobTitle } from '../model/jobTitle';
-import { MYJobTitleService } from '../myJobTitle.service';
+import {Component, OnInit} from "@angular/core";
+import {LocalStorageService} from "../../../framework/shared/localstorage.service";
+import {LocalStorage, NavigationRoutes} from "../../../framework/shared/constants";
+import {Router} from "@angular/router";
+import {DashboardService} from "../../../framework/dashboard/dashboard.service";
+import {TestService} from "../test.service";
+import {ComplexityService} from "../complexity.service";
+import {ProficiencyService} from "../proficience.service";
+import {ProfessionalService} from "../professional-service";
+import {EducationalService} from "../educational-service";
+import {AwardService} from "../award-service";
+import {MyRoleListTestService} from "../myRolelist.service";
+import {MyRoTypeTestService} from "../myRole-Type.service";
+import {DisableTestService} from "../disable-service";
+import {JobTitle} from "../model/jobTitle";
+import {MYJobTitleService} from "../myJobTitle.service";
 import {Candidate} from "../model/candidate";
 import {ProfileCreatorService} from "./profile-creator.service";
 import {MessageService} from "../../../framework/shared/message.service";
@@ -31,106 +31,103 @@ import {Role} from "../model/role";
 
 export class ProfileCreatorComponent implements OnInit {
 
-  private industries: Industry[]=new Array(0);
-  private roles: Role[]=new Array(0);
-  private roleTypes: string[]=new Array(0);
-  private roleList:string[]=new Array()
+  private industries:Industry[] = new Array(0);
+  private roles:Role[] = new Array(0);
+  private roleTypes:string[] = new Array(0);
+  private roleList:string[] = new Array()
 
 
-
-
-
-  whichStepsVisible : boolean[]=new Array(7);
-  firstName: string;
-  lastName: string;
-  protected  selectedvalue1:string;
+  whichStepsVisible:boolean[] = new Array(7);
+  firstName:string;
+  lastName:string;
+  protected selectedvalue1:string;
   protected selectedvalue2:string;
-  private fullName: string;
-  private   newUser:number;
-  private  chkEmployeeHistory:boolean=false;
+  private fullName:string;
+  private newUser:number;
+  private chkEmployeeHistory:boolean = false;
   private valueOFshowOrHide:string;
-  private  chkCertification:boolean=false;
-  private  chkAboutMyself:boolean=false;
-  private  chkAwards:boolean=false;
-  private  showCapability:boolean=false;
-  private  showComplexity:boolean=false;
-  private  showProfeciency:boolean=false;
-  private isRolesShow:boolean=false;
-  private showfield:boolean=false;
-  private isRoleTypeShow:boolean=false;
-  private title:string='';
-  private jobTitle=new JobTitle();
-  private isTitleFilled:boolean=true;
-  private isShowRequired:boolean=true;
-  private disableTitle:boolean=false;
-  private candidate:Candidate=new Candidate();
+  private chkCertification:boolean = false;
+  private chkAboutMyself:boolean = false;
+  private chkAwards:boolean = false;
+  private showCapability:boolean = false;
+  private showComplexity:boolean = false;
+  private showProfeciency:boolean = false;
+  private isRolesShow:boolean = false;
+  private showfield:boolean = false;
+  private isRoleTypeShow:boolean = false;
+  private title:string = '';
+  private jobTitle = new JobTitle();
+  private isTitleFilled:boolean = true;
+  private isShowRequired:boolean = true;
+  private disableTitle:boolean = false;
+  private candidate:Candidate = new Candidate();
 
   constructor(private _router:Router,
               private dashboardService:DashboardService,
-              private testService : TestService,
-              private myindustryService : MyIndustryService,
-              private proficiencyService : ProficiencyService,
-              private professionalService : ProfessionalService,
-              private educationalService : EducationalService,
-              private complexityService : ComplexityService,
+              private testService:TestService,
+              private myindustryService:MyIndustryService,
+              private proficiencyService:ProficiencyService,
+              private professionalService:ProfessionalService,
+              private educationalService:EducationalService,
+              private complexityService:ComplexityService,
               private myRoleType:MyRoTypeTestService,
-              private messageService:MessageService ,
-              private awardService: AwardService,
-              private myRolelist : MyRoleListTestService,
-              private disableService: DisableTestService,
-              private jobtitleservice: MYJobTitleService,
+              private messageService:MessageService,
+              private awardService:AwardService,
+              private myRolelist:MyRoleListTestService,
+              private disableService:DisableTestService,
+              private jobtitleservice:MYJobTitleService,
               private profileCreatorService:ProfileCreatorService) {
 
     this.myRolelist.showTestRolelist$.subscribe(
       data => {
-        this.isRolesShow=data;
+        this.isRolesShow = data;
       }
     );
 
     disableService.showTestDisable$.subscribe(
       data=> {
-        this.showfield=data;
+        this.showfield = data;
       }
     );
     this.myRoleType.showTestRoleType$.subscribe(
       data=> {
-        this.isRoleTypeShow=data;
+        this.isRoleTypeShow = data;
 
       }
     );
 
 
     testService.showTest$.subscribe(
-        data=> {
-            this.whichStepsVisible[1]=data;
-          this.showCapability=data;
-        }
-      );
-      complexityService.showTest$.subscribe(
-        data=> {
-          this.whichStepsVisible[2]= data;
-          this.showComplexity= data;
-        }
-      );
-      proficiencyService.showTest$.subscribe(
-        data=> {
-          this.whichStepsVisible[3]=data;
-          this.showProfeciency=data;
-        }
-      );
+      data=> {
+        this.whichStepsVisible[1] = data;
+        this.showCapability = data;
+      }
+    );
+    complexityService.showTest$.subscribe(
+      data=> {
+        this.whichStepsVisible[2] = data;
+        this.showComplexity = data;
+      }
+    );
+    proficiencyService.showTest$.subscribe(
+      data=> {
+        this.whichStepsVisible[3] = data;
+        this.showProfeciency = data;
+      }
+    );
     professionalService.showTest$.subscribe(
-        data=> {
-          this.whichStepsVisible[4]=data;
-        }
-      );
+      data=> {
+        this.whichStepsVisible[4] = data;
+      }
+    );
     educationalService.showTest$.subscribe(
-        data=> {
-          this.whichStepsVisible[5]=data;
-        }
-      );
+      data=> {
+        this.whichStepsVisible[5] = data;
+      }
+    );
     awardService.showTest$.subscribe(
       data=> {
-        this.whichStepsVisible[6]=data;
+        this.whichStepsVisible[6] = data;
       }
     );
   }
@@ -150,11 +147,11 @@ export class ProfileCreatorComponent implements OnInit {
   }
 
 
-
-  selectIndustry(industry:Industry){
-    this.candidate.industry=industry;
+  selectIndustry(industry:Industry) {
+    this.candidate.industry = industry;
     this.saveCandidateDetails();
     this.getRoles();
+    this.isRolesShow = true;
   }
 
   selectExperiencedIndustry(experiencedindustry:string[]){
@@ -163,77 +160,85 @@ export class ProfileCreatorComponent implements OnInit {
   }
 
 
-  selectRole(roles:Role[]){
-    this.candidate.industry.roles=roles;
+  selectRole(roles:Role[]) {
+    this.candidate.industry.roles = roles;
     this.saveCandidateDetails();
     this.getRoleType();
+    this.isRoleTypeShow = true;
+
   }
 
-  selectRoleType(roleType:string){
-    this.candidate.roleType=roleType;
+  selectRoleType(roleType:string) {
+    this.candidate.roleType = roleType;
     this.saveCandidateDetails();
-      this.getCapability();
+    this.getCapability();
+    this.showCapability = true;
+
   }
 
-  getIndustry(){debugger
+  getIndustry() {
+    debugger
     this.profileCreatorService.getIndustries()
       .subscribe(
-        industrylist => this.industries=industrylist.data,
+        industrylist => this.industries = industrylist.data,
         error => this.onError(error));
   }
 
-  getRoles(){
+  getRoles() {
     this.profileCreatorService.getRoles(this.candidate.industry.name)
       .subscribe(
-        rolelist => this.roles=rolelist.data,
+        rolelist => this.roles = rolelist.data,
         error => this.onError(error));
   }
 
 
-  getCapability(){
-    for(let role of this.candidate.industry.roles){
+  getCapability() {
+    for (let role of this.candidate.industry.roles) {
       this.roleList.push(role.name);
     }
-    this.profileCreatorService.getCapability(this.candidate.industry.name,this.roleList)
+    if(this.candidate.industry.name!=undefined&&this.roleList!=undefined){
+      this.profileCreatorService.getCapability(this.candidate.industry.name, this.roleList)
+        .subscribe(
+          rolelist => this.roles = rolelist.data,
+          error => this.onError(error));
+    }
+  }
+
+  getRoleType() {
+    this.profileCreatorService.getRoleTypes()
       .subscribe(
-        rolelist => this.roles=rolelist.data,
+        data=> this.roleTypes = data.roleTypes,
         error => this.onError(error));
   }
 
-  getRoleType(){
-    this.profileCreatorService.getRoleTypes()
-      .subscribe(
-        data=> this.roleTypes=data.roleTypes,
-        error => this.onError(error));
-  }
-  getCandidateProfile(){
+  getCandidateProfile() {
     this.profileCreatorService.getCandidateDetails()
       .subscribe(
         candidateData => this.OnCandidateDataSuccess(candidateData),
         error => this.onError(error));
   }
 
-  OnCandidateDataSuccess(candidateData:any){debugger
-    this.candidate=candidateData.data[0];
-    if(this.candidate.jobTitle !== undefined){
-      this.disableTitle=true;
+  OnCandidateDataSuccess(candidateData:any) {
+    this.candidate = candidateData.data[0];
+    if (this.candidate.jobTitle !== undefined) {
+      this.disableTitle = true;
     }
-    if(this.candidate.industry.name !== undefined){
-      this.isRolesShow=true;
+    if (this.candidate.industry.name !== undefined) {
+      this.isRolesShow = true;
       this.getRoles();
 
     }
-    if(this.candidate.roleType !== undefined){
-      this.showCapability=true;
+    if (this.candidate.roleType !== undefined) {
+      this.showCapability = true;
       this.getCapability();
     }
-    if(this.candidate.industry.roles.length>0){
+    if (this.candidate.industry.roles.length > 0) {
       this.getRoleType();
-      this.isRoleTypeShow=true;
-      if(this.candidate.industry.roles[0].capabilities.length>=1){
-        this.showComplexity=true;
-        if(this.candidate.industry.roles[0].capabilities[0].complexities.length>0){
-          this.showProfeciency=true;
+      this.isRoleTypeShow = true;
+      if (this.candidate.industry.roles[0].capabilities.length >= 1) {
+        this.showComplexity = true;
+        if (this.candidate.industry.roles[0].capabilities[0].complexities.length > 0) {
+          this.showProfeciency = true;
         }
       }
 
@@ -250,8 +255,8 @@ export class ProfileCreatorComponent implements OnInit {
 
   onUserProfileSuccess(result:any) {
 
-    this.firstName= LocalStorageService.getLocalValue(LocalStorage.FIRST_NAME);
-    this.lastName=LocalStorageService.getLocalValue(LocalStorage.LAST_NAME);
+    this.firstName = LocalStorageService.getLocalValue(LocalStorage.FIRST_NAME);
+    this.lastName = LocalStorageService.getLocalValue(LocalStorage.LAST_NAME);
     this.getCandidateProfile();
   }
 
@@ -268,24 +273,24 @@ export class ProfileCreatorComponent implements OnInit {
 
   showorhide(event:string) {
 
-    this.valueOFshowOrHide=event;
+    this.valueOFshowOrHide = event;
 
   }
 
   hideEmployeeHistory() {
-    this.chkEmployeeHistory =!this.chkEmployeeHistory ;
+    this.chkEmployeeHistory = !this.chkEmployeeHistory;
   }
 
   hideCertification() {
-    this.chkCertification =!this.chkCertification ;
+    this.chkCertification = !this.chkCertification;
   }
 
   hideAboutMyself() {
-    this.chkAboutMyself =!this.chkAboutMyself ;
+    this.chkAboutMyself = !this.chkAboutMyself;
   }
 
   hideAwards() {
-    this.chkAwards =!this.chkAwards ;
+    this.chkAwards = !this.chkAwards;
   }
 
   logOut() {

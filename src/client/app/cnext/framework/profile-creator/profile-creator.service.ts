@@ -57,9 +57,7 @@ export class ProfileCreatorService extends BaseService {
   }
 
   getCapability(industry:string,roles:Array<string>):Observable<any> {
-    if(industry == undefined||roles == undefined){
-        return null;
-    }
+ 
     var url = API.INDUSTRY_LIST+'/'+industry+'/'+API.ROLE_LIST+'/'+API.CAPABILITY_LIST+'?roles='+JSON.stringify(roles);
     return this.http.get(url)
       .map(this.extractData)
