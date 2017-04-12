@@ -4,7 +4,7 @@
     areas only after 3 months.</p>
   <div class="select-option"  *ngFor="let choice of roles;let i = index">
     <label>
-      <input type="checkbox"   name="choices" id="{{choice.name}}" [disabled]="candidateRoles.length>0" value="{{choice.name}}" (click)="selectOption(choice,$event)" [checked]="candidateRolesList.indexOf(choice.name)!=-1" />
+      <input type="checkbox"   name="choices"  [disabled]="candidateRoles.length>0" value="{{choice.name}}" (click)="selectOption(choice,$event)" [checked]="candidateRolesList.indexOf(choice.name)!=-1" />
       <span>{{choice.name}}</span>
     </label>
    <div class="error-messages" *ngIf="alert">You have selected maximum work areas.</div>
@@ -13,7 +13,7 @@
 
 
   <div class="button-group clearfix">
-    <button class="btn btn-primary" (click)="showHideModal()" [disabled]="candidateRoles.length>0">Confirm &amp; Save</button>
+    <button class="btn btn-primary" (click)="showHideModal()" [disabled]="candidateRoles?(candidateRoles.length>0?true:false):false">Confirm &amp; Save</button>
   </div>
 </div>
 

@@ -13,19 +13,19 @@
     <div class="capability-type">
       <div *ngFor="let role of roles">
         <div class="select-option"
-             *ngFor="let item of role.capabilities;let i = index" [class.primary]="item.isPrimary"
-             [class.secondary]="item.isSecondary">
+             *ngFor="let item of role.capabilities;let i = index" [class.primary]="item.isPrimary || primaryNames.indexOf(item.name)!=-1"
+             [class.secondary]="item.isSecondary || secondaryNames.indexOf(item.name)!=-1" >
           <label>
             <input type="checkbox" name="checkbox" (click)="selectedCapability(role,item,$event)" id="{{item.name}}"
                    value="{{item.name}}"
-                   [disabled]="false" [checked]="false">
+                   [disabled]="primaryNames.length>0" [checked]="secondaryNames.indexOf(item.name)!=-1||primaryNames.indexOf(item.name)!=-1">
             <span>{{item.name}}</span>
           </label>
         </div>
       </div>
     </div>
     <div class="button-group clearfix">
-      <button class="btn btn-primary" (click)="disableCapability()" [disabled]="false">Confirm &amp; Save</button>
+      <button class="btn btn-primary" (click)="disableCapability()" [disabled]="primaryNames.length>0">Confirm &amp; Save</button>
     </div>
   </div>
 </div>

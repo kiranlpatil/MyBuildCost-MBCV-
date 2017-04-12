@@ -17,12 +17,17 @@ export class RoleListComponent {
   private showModalStyle:boolean = false;
   private candidateRolesList :string[]= new Array(0);
 
-  ngOnChanges(changes:any) {
+  ngOnChanges(changes:any) {debugger
     if(changes.candidateRoles){
       if(changes.candidateRoles.currentValue){
         for(let role of changes.candidateRoles.currentValue){
           this.candidateRolesList.push(role.name);
         }
+      }
+    }
+    if(changes.roles){
+      if(changes.roles.currentValue.length>0){
+        this.roles=changes.roles.currentValue;
       }
     }
   }
