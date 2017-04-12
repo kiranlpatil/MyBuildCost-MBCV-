@@ -26,9 +26,9 @@
   </div>
 
   <div class="col-sm-4 padding-left15">
-    <!--<label >Year</label>-->
+    <label >Year</label>
     <select class="form-control" [(ngModel)]="item.year"  (change) = "postAwardDetails()">
-      <option *ngFor="let c of yearList" [ngValue]="c">{{c}}</option>
+      <option *ngFor="let c of yearList" [selected]="true" [ngValue]="c">{{c}}</option>
     </select>
   </div>
 

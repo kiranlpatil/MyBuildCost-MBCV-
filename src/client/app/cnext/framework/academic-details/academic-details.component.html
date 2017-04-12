@@ -1,12 +1,12 @@
 <div class="academic-details clearfix" *ngFor="let item of candidate.academics;let i= index">
-  <div class="col-sm-4 no-padding">
+  <div class="col-sm-4 padding-right15">
     <div class="form-group">
       <input type="text" class="form-control"  [(ngModel)]="item.schoolName" (change)="postAcademicDetails()" (focus)="changeValue()" required />
       <label>School/College Name</label>
     </div>
   </div>
 
-  <div class="col-sm-4 no-padding">
+  <div class="col-sm-4">
     <div class="form-group">
       <input class="form-control" type="text"  [(ngModel)]="item.board" (change)="postAcademicDetails()" required />
       <label>Board/University Name</label>
@@ -23,12 +23,12 @@
       </div>
     </div>
   </div>-->
-  <div class="col-sm-4 no-padding">
-    <label >Year
+  <div class="col-sm-4 padding-left15">
+    <label >Year </label>
       <select class="form-control"  [(ngModel)]="item.yearOfPassing" (change) = "postAcademicDetails()">
-        <option *ngFor="let acadmicyear of yearList" [ngValue]="acadmicyear">{{acadmicyear}}</option>
+        <option *ngFor="let acadmicyear of yearList" [selected]="true" [ngValue]="acadmicyear">{{acadmicyear}}</option>
       </select>
-    </label>
+
   </div>
 
   <div class="col-sm-10 no-padding">
