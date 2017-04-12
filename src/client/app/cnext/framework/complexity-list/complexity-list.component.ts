@@ -1,6 +1,7 @@
 import {Component, EventEmitter, Input, Output} from "@angular/core";
 import {Role} from "../model/role";
 import {Scenario} from "../model/scenario";
+import {Complexity} from "../model/complexity";
 
 @Component({
   moduleId: module.id,
@@ -17,13 +18,14 @@ export class ComplexityListComponent {
   private scenarioNames:string[] = new Array(0);
   private scenaricomplexityNames:string[] = new Array(0);
   private numberOfComplexitySelected:number = 0;
-
-  ngOnChanges(changes:any) {debugger
+  @Input() isComplexityPresent : boolean=false;
+  ngOnChanges(changes:any) {
+    debugger
     if (changes.roles) {
       this.roles = changes.roles.currentValue;
     }
     if (this.candidateRoles) {
-      this.scenarioNames= new Array(0);
+      this.scenarioNames = new Array(0);
       for (let role of this.candidateRoles) {
         if (role.capabilities) {
           for (let primary of role.capabilities) {
@@ -53,10 +55,14 @@ export class ComplexityListComponent {
     }
   }
 
-  selectComplexity(selectedScenario:Scenario, event:any) {
+  selectComplexity(role:Role, complexity:Complexity, selectedScenario:Scenario, event:any) {
+    role.isAPIForComplexity = true;
+    for (let item of complexity.scenarios) {
+      item.isChecked = false;
+    }
     selectedScenario.isChecked = true;
     event.target.checked ? this.numberOfComplexitySelected++ : this.numberOfComplexitySelected--;
-    if (this.numberOfComplexitySelected >= this.scenaricomplexityNames.length) {debugger
+    if (this.numberOfComplexitySelected >= this.scenaricomplexityNames.length) {
       this.selectComplexityWithRole.emit(this.roles);
     }
   }

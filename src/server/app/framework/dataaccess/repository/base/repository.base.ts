@@ -69,25 +69,26 @@ class RepositoryBase<T extends mongoose.Document> implements IRead<T>, IWrite<T>
   }
 
   findOneAndUpdateIndustry(query:any, newData:any, options:any, callback:(err:any, result:any)=>void) {//todo remaining one scenario please check it
-    if(newData.industry.roles){
-      for(let role of newData.industry.roles){
-        role.secondaryCapabilities = new Array(0);
-        let indexOfSecondaryCapability:number[] = new Array(0);
-        if(role.capabilities){
-          for (let capability of role.capabilities) {
-            if (capability.isSecondary) {
-              indexOfSecondaryCapability.push(role.capabilities.indexOf(capability));
-              role.secondaryCapabilities.push(capability);
+    if (newData.industry.roles) {
+      for (let role of newData.industry.roles) {
+          if(role.isAPIForComplexity==undefined){
+          role.secondaryCapabilities = new Array(0);
+          let indexOfSecondaryCapability:number[] = new Array(0);
+          if (role.capabilities) {
+            for (let capability of role.capabilities) {
+              if (capability.isSecondary) {
+                indexOfSecondaryCapability.push(role.capabilities.indexOf(capability));
+                role.secondaryCapabilities.push(capability);
+              }
+              if ((capability.isPrimary == undefined && capability.isSecondary == undefined) || (capability.isPrimary == false && capability.isSecondary == false)) {
+                indexOfSecondaryCapability.push(role.capabilities.indexOf(capability));
+              }
             }
-            if((capability.isPrimary==undefined&&capability.isSecondary==undefined)||(capability.isPrimary==false&&capability.isSecondary==false)){
-              indexOfSecondaryCapability.push(role.capabilities.indexOf(capability));
+            for (let i of indexOfSecondaryCapability) {
+              role.capabilities.splice(i, 1);
             }
-          }
-          for (let i of indexOfSecondaryCapability) {
-            role.capabilities.splice(i, 1);
           }
         }
-
       }
 
     }
@@ -95,7 +96,6 @@ class RepositoryBase<T extends mongoose.Document> implements IRead<T>, IWrite<T>
       callback(err, result);
     });
   }
-
   //custom API created for C-next Roles capabilities and complexities
 
   pushInJobpost(id:string, value:any, callback:(error:any, result:any) => void) {

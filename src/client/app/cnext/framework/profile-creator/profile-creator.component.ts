@@ -33,10 +33,13 @@ export class ProfileCreatorComponent implements OnInit {
 
   private industries:Industry[] = new Array(0);
   private roles:Role[] = new Array(0);
+  private rolesForMain:Role[] = new Array(0);
+  private rolesForCapability:Role[] = new Array(0);
+  private rolesForComplexity:Role[] = new Array(0);
   private roleTypes:string[] = new Array(0);
   private roleList:string[] = new Array()
   private primaryCapability:string[] = new Array()
-
+  private isComplexityPresent : boolean =false;
 
   whichStepsVisible:boolean[] = new Array(7);
   firstName:string;
@@ -62,6 +65,9 @@ export class ProfileCreatorComponent implements OnInit {
   private isShowRequired:boolean = true;
   private disableTitle:boolean = false;
   private candidate:Candidate = new Candidate();
+  private candidateForRole:Role[];
+  private candidateForCapability: Role[];
+  private candidateForComplexity:Role[];
 
   constructor(private _router:Router,
               private dashboardService:DashboardService,
@@ -195,7 +201,7 @@ export class ProfileCreatorComponent implements OnInit {
   getRoles() {
     this.profileCreatorService.getRoles(this.candidate.industry.name)
       .subscribe(
-        rolelist => this.roles = rolelist.data,
+        rolelist => this.rolesForMain = rolelist.data,
         error => this.onError(error));
   }
 
@@ -213,7 +219,10 @@ export class ProfileCreatorComponent implements OnInit {
     if (this.candidate.industry.name != undefined && this.roleList != undefined) {
       this.profileCreatorService.getCapability(this.candidate.industry.name, this.roleList)
         .subscribe(
-          rolelist => this.roles = rolelist.data,
+          rolelist => {
+            this.rolesForCapability = rolelist.data
+            this.getCandidateForCapability();
+          },
           error => this.onError(error));
     }
   }
@@ -227,8 +236,12 @@ export class ProfileCreatorComponent implements OnInit {
     if (this.candidate.industry.name != undefined && this.roleList != undefined) {
       this.profileCreatorService.getComplexity(this.candidate.industry.name, this.roleList, this.primaryCapability)
         .subscribe(
-          rolelist => this.roles = rolelist.data,
-          error => this.onError(error));
+          rolelist => {
+            this.rolesForComplexity = rolelist.data
+            this.getCandidateForComplexity();
+
+          },
+              error => this.onError(error));
     }
   }
 
@@ -239,8 +252,33 @@ export class ProfileCreatorComponent implements OnInit {
         error => this.onError(error));
   }
 
+  getCandidateForCapability() {
+    this.profileCreatorService.getCandidateDetails()
+      .subscribe(
+        candidateData => this.candidateForCapability = candidateData.data[0].industry.roles,
+        error => this.onError(error));
+  }
+
+  getCandidateForComplexity() {
+    this.profileCreatorService.getCandidateDetails()
+      .subscribe(
+        candidateData => {
+          this.candidateForComplexity = candidateData.data[0].industry.roles;
+          if(this.candidateForComplexity[0].capabilities[0].complexities.length>0){
+            //this.candidateForComplexity[0].isForTest=true;
+            this.isComplexityPresent =true;
+          }
+        },
+            error => this.onError(error));
+  }
+
+
+
+
   OnCandidateDataSuccess(candidateData:any) {
     this.candidate = candidateData.data[0];
+    this.candidateForRole = candidateData.data[0].industry.roles;
+
     if (this.candidate.jobTitle !== undefined) {
       this.disableTitle = true;
     }
