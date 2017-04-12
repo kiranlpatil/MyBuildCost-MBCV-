@@ -14,22 +14,26 @@ export class CapabilityListComponent {
   @Input() roles:Role[] = new Array(0);
   @Input() candidateRoles:Role[] = new Array();
   @Output() selectCapabilityWithRole = new EventEmitter()
-  private primaryNames :string[]=new Array(0);
-  private secondaryNames :string[]=new Array(0);
+  private primaryNames:string[] = new Array(0);
+  private secondaryNames:string[] = new Array(0);
   private primaryCapabilitiesNumber:number = 0
 
   ngOnChanges(changes:any) {
-    if(changes.roles){
-      this.roles=changes.roles.currentValue;
+    if (changes.roles) {
+      this.roles = changes.roles.currentValue;
     }
-    if(this.candidateRoles){
-      for(let role of this.candidateRoles){
-        for(let primary of role.capabilities){
-          this.primaryNames.push(primary.name);
+    if (this.candidateRoles) {
+      for (let role of this.candidateRoles) {
+        if (role.capabilities) {
+          for (let primary of role.capabilities) {
+            this.primaryNames.push(primary.name);
+          }
         }
-        if(role.secondaryCapabilities){
-          for(let second of role.secondaryCapabilities){
-            this.secondaryNames.push(second.name);
+        if (role.secondaryCapabilities) {
+          if (role.secondaryCapabilities) {
+            for (let second of role.secondaryCapabilities) {
+              this.secondaryNames.push(second.name);
+            }
           }
         }
       }

@@ -84,7 +84,7 @@ class CandidateService {
         callback(err, res);
       }
       else {
-        this.candidateRepository.findOneAndUpdate({'_id':res[0]._id}, item, {new: true}, callback);
+        this.candidateRepository.findOneAndUpdateIndustry({'_id':res[0]._id}, item, {new: true}, callback);
       }
     });
   }
