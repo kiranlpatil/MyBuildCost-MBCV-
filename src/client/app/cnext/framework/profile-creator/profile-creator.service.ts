@@ -72,4 +72,13 @@ export class ProfileCreatorService extends BaseService {
       .catch(this.handleError);
   }
 
+  getProficiency(industry:string):Observable<any> {
+    var url = API.PROFICIENCYLIST;
+    var url='industry/'+industry+'/proficiency';
+    return this.http.get(url)
+      .map(this.extractData)
+      .catch(this.handleError);
+  }
+
+
 }

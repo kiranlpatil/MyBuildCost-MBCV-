@@ -59,7 +59,7 @@ export class EmploymentHistoryComponent {
     }
   }
 
-  ngOnChanges(changes :any){
+  ngOnChanges(changes :any){debugger
     if(this.candidate.employmentHistory.length == 0){
       this.candidate.employmentHistory.push(new EmployementHistory());
     }

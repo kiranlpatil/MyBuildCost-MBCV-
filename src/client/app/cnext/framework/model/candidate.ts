@@ -16,6 +16,6 @@ export class Candidate {
   academics :  Academicdetails[]=new Array();
   professionalDetails :  ProfessionalData=new ProfessionalData();
   employmentHistory : EmployementHistory[]=new Array();
-  proficiencies : string[]=new Array();
+  proficiencies : string[]=new Array(0);
   secondaryCapability : string[]=new Array();
 }

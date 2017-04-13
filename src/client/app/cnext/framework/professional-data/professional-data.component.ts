@@ -34,7 +34,7 @@ export class ProfessionalDataComponent extends BaseService implements OnInit {
   }
 
   ngOnChanges(changes :any){
-        if(this.candidate.professionalDetails==undefined){
+        if(this.candidate.professionalDetails===undefined){
           this.candidate.professionalDetails=new ProfessionalData();
         }
   }
@@ -133,5 +133,6 @@ export class ProfessionalDataComponent extends BaseService implements OnInit {
         console.log(error);
       });
   }
+
 }
 

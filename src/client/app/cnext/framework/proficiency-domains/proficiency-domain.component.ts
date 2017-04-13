@@ -1,13 +1,9 @@
-import {Component, OnInit, Input} from '@angular/core';
-import {ValueConstant, LocalStorage} from '../../../framework/shared/constants';
-import {ProficiencyService} from '../proficience.service';
-import {MessageService} from '../../../framework/shared/message.service';
-import {Message} from '../../../framework/shared/message';
-import {ProficiencyDomainService} from './proficiency-domain.service';
-import {JobPostProficiencyService} from '../jobPostProficiency.service';
+import {Component, Input} from "@angular/core";
+import {ValueConstant} from "../../../framework/shared/constants";
+import {ProficiencyDomainService} from "./proficiency-domain.service";
 import {ProfileCreatorService} from "../profile-creator/profile-creator.service";
-import {LocalStorageService} from "../../../framework/shared/localstorage.service";
-import {MyIndustryService} from "../industry-service";
+import {Candidate} from "../model/candidate";
+import {Proficiences} from "../model/proficiency";
 
 @Component({
   moduleId: module.id,
@@ -16,144 +12,63 @@ import {MyIndustryService} from "../industry-service";
   styleUrls: ['proficiency-domain.component.css']
 })
 
-export class ProficiencyDomainComponent implements OnInit {
+export class ProficiencyDomainComponent {
   @Input('type') type: string;
+  @Input() candidate: Candidate;
+  @Input() proficiencies: Proficiences=new Proficiences();
+
+
   private selectedproficiencies = new Array();
-  private storedProficiency: string[] = new Array();
-  private masterDataproficiency: string[] = new Array();
+
   private showAlert: boolean = false;
-  private proficiencyType: boolean = false;
-  private placeHolderName: string;
-  private isProficiencyShow: boolean = false;
-  private isShow: boolean = true;
-  private addProficiency: string = "";
-  private addOther: string = "addId";
   private selectedIndustry: string;
   private proficiencyother: string;
-  private present: boolean = false;
-  private presentInStored: boolean = false;
-  private presentAlreadyInList: boolean = false;
 
-
-  constructor(private proficiencyService: ProficiencyService,
-              private proficiencydoaminService: ProficiencyDomainService,
-              private messageService: MessageService,
-              private myindustryService: MyIndustryService,
-              private JobPostProficiency: JobPostProficiencyService,
+  constructor(private proficiencydoaminService: ProficiencyDomainService,
               private profileCreatorService: ProfileCreatorService) {
-    myindustryService.showTest$.subscribe(
-      data => {
-        this.selectedIndustry = data;
-        this.proficiencydoaminService.getProficiency(this.selectedIndustry)
-          .subscribe(
-            data => this.onProficiencySuccess(data),
-            error => this.onError(error));
+  }
+
+  ngOnChanges (changes:any) {
+    if (changes.proficiencies != undefined) {
+      if (changes.proficiencies.currentValue != undefined)
+        this.proficiencies = changes.proficiencies.currentValue;
+      if(this.candidate.proficiencies.length > 0 ) {
+        for (let proficiency of this.candidate.proficiencies) {
+          this.deleteSelectedProfeciency(proficiency);
+        }
       }
-    );
-
-    proficiencyService.showTest$.subscribe(
-      data => {
-        this.isProficiencyShow = data;
-      }
-    );
-  }
-
-  ngOnInit() {
-
-    this.proficiencyType = true;
-    this.placeHolderName = 'proficiency';
-    if (LocalStorageService.getLocalValue(LocalStorage.IS_CANDIDATE) === "true") {
-      this.profileCreatorService.getCandidateDetails()
-        .subscribe(
-          candidateData => this.OnCandidateDataSuccess(candidateData),
-          error => this.onError(error));
-
-
     }
-
-  }
-
-
-  OnCandidateDataSuccess(candidateData: any) {
-  }
-
-  onProficiencySuccess(data: any) {
-
-    for (let proficiency of data.data.names) {
-      this.selectedproficiencies.push(proficiency);
-      this.masterDataproficiency.push(proficiency);
-    }
-
-  }
-
-
-  onError(error: any) {
-    var message = new Message();
-    message.error_msg = error.err_msg;
-    message.isError = true;
-    this.messageService.message(message);
   }
 
   selectedProficiencyModel(newVal: any) {
-
-
-    if (this.storedProficiency.length < ValueConstant.MAX_PROFECIENCES) {
-      for (let i = 0; i < this.storedProficiency.length; i++) {
-        if (this.storedProficiency[i] === newVal) {
-          this.presentInStored = true;
-        }
-      }
-      if (this.presentInStored === false) {
-        this.storedProficiency.push(newVal);
-      }
+    if (this.candidate.proficiencies.length < ValueConstant.MAX_PROFECIENCES) {
+      this.candidate.proficiencies.push(newVal);
       this.deleteSelectedProfeciency(newVal);
-
-
-      this.proficiencydoaminService.addCandidateProficiency(this.storedProficiency).subscribe(
-        data => {
-          console.log(data);
+      this.profileCreatorService.addProfileDetail(this.candidate).subscribe(
+        user => {
+          console.log(user);
         },
         error => {
           console.log(error);
         });
-      console.log(this.storedProficiency);
-
-      this.JobPostProficiency.change(this.storedProficiency);
 
     } else {
       this.showAlert = true;
     }
-
-    this.presentInStored = false;
-    let typeTemp: any = document.getElementById(this.type);
-    typeTemp.value = '';
-
-    this.presentAlreadyInList = false;
   }
 
   deleteItem(newVal: any) {
     this.showAlert = false;
-    for (let i = 0; i < this.storedProficiency.length; i++) {
-      if (this.storedProficiency[i] === newVal.currentTarget.innerText.trim()) {
-        if (i > -1) {
-          this.storedProficiency.splice(i, 1);
-          for (let i = 0; i < this.selectedproficiencies.length; i++) {
-            if (this.selectedproficiencies[i] === newVal.currentTarget.innerText.trim()) {
-              this.present = true;
-
-            }
-          }
-          if (this.present === false) {
-            this.selectedproficiencies.push(newVal.currentTarget.innerText.trim());
-          }
-        }
+    for (let i = 0; i < this.candidate.proficiencies.length; i++) {
+      if (this.candidate.proficiencies[i] === newVal.currentTarget.innerText.trim()) {
+        this.candidate.proficiencies.splice(i, 1);
+        this.selectedproficiencies.push(newVal.currentTarget.innerText.trim());
+        this.proficiencies.names.push(newVal.currentTarget.innerText.trim());
       }
-
     }
-    this.present = false;
-    this.proficiencydoaminService.addCandidateProficiency(this.storedProficiency).subscribe(
-      data => {
-        console.log(data);
+    this.profileCreatorService.addProfileDetail(this.candidate).subscribe(
+      user => {
+        console.log(user);
       },
       error => {
         console.log(error);
@@ -161,51 +76,18 @@ export class ProficiencyDomainComponent implements OnInit {
   }
 
   deleteSelectedProfeciency(newVal: any) {
-    for (let i = 0; i < this.selectedproficiencies.length; i++) {
-      if (this.selectedproficiencies[i] === newVal) {
-        if (i > -1) {
-          this.selectedproficiencies.splice(i, 1);
-        }
-      }
-    }
+    this.proficiencies.names.splice(this.proficiencies.names.indexOf(newVal), 1);
   }
 
-  onSelect() {
-    this.isShow = false;
-  }
 
-  enterProficiency(newVal: string) {
-    this.addProficiency = newVal;
-  }
-
-  selectedProficiency() {
-    for (let i = 0; i < this.selectedproficiencies.length; i++) {
-      if (this.selectedproficiencies[i] === this.addProficiency) {
-        this.presentAlreadyInList = true;
-
-      }
-    }
-    if (this.presentAlreadyInList === false) {
-      this.selectedProficiencyModel(this.addProficiency);
-      let typeTemp: any = document.getElementById(this.addOther);
-      typeTemp.value = '';
-    }
-    this.presentAlreadyInList =false;
-
-  }
-  addProficiencyToMasterData() {
-
-
-      this.proficiencydoaminService.addProficiencyToMasterData(this.proficiencyother, this.selectedIndustry).subscribe(
-        data => {
-          console.log(data);
-        },
-        error => {
-          console.log(error);
-        });
-      this.selectedProficiencyModel(this.proficiencyother);
-
-
-
-  }
+ /* addProficiencyToMasterData() {
+    this.proficiencydoaminService.addProficiencyToMasterData(this.proficiencyother, this.selectedIndustry).subscribe(
+      data => {
+        console.log(data);
+      },
+      error => {
+        console.log(error);
+      });
+    this.selectedProficiencyModel(this.proficiencyother);
+  }*/
 }

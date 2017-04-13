@@ -1,4 +1,4 @@
 export class Proficiences {
-  name:string[]=new Array();
-
+  names:string[]=new Array(0);
+  label:string='';
 }

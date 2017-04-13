@@ -38,6 +38,7 @@ export class ProfileCreatorComponent implements OnInit {
   private roleTypes:string[] = new Array(0);
   private roleList:string[] = new Array()
   private primaryCapability:string[] = new Array()
+  private proficiencies:string[] = new Array()
   private isComplexityPresent : boolean =false;
 
   whichStepsVisible:boolean[] = new Array(7);
@@ -167,7 +168,7 @@ export class ProfileCreatorComponent implements OnInit {
   }
 
 
-  selectRole(roles:Role[]) {debugger
+  selectRole(roles:Role[]) {
     this.candidate.industry.roles = roles;
     this.saveCandidateDetails();
     this.getRoleType();
@@ -178,6 +179,8 @@ export class ProfileCreatorComponent implements OnInit {
           this.getComplexity();
           this.showComplexity = true;
           this.whichStepsVisible[2] = true;
+          this.showProfeciency = true;
+          this.getProficiency();
         }
       }
     }
@@ -275,6 +278,13 @@ export class ProfileCreatorComponent implements OnInit {
             error => this.onError(error));
   }
 
+  getProficiency(){
+    this.profileCreatorService.getProficiency(this.candidate.industry.name)
+      .subscribe(
+        data => this.proficiencies=data.data,
+        error => this.onError(error));
+  }
+
 
 
 
@@ -297,6 +307,7 @@ export class ProfileCreatorComponent implements OnInit {
     }
     if (this.candidate.industry.roles.length > 0) { debugger
       this.getRoleType();
+      this.getProficiency();
       this.isRoleTypeShow = true;
       if (this.candidate.industry.roles[0].capabilities.length >= 1) {
         this.getComplexity();
@@ -305,6 +316,7 @@ export class ProfileCreatorComponent implements OnInit {
         if (this.candidate.industry.roles[0].capabilities[0].complexities.length > 0) {
           this.whichStepsVisible[3] = true;
           this.showProfeciency = true;
+
         }
       }
 

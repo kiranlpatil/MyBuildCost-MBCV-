@@ -9,22 +9,26 @@
       <div class="col-sm-4 no-padding">
         <div class="form-group">
           <div ng2-auto-complete
-               [source]="selectedproficiencies"
+               [source]="proficiencies.names"
                (ngModelChange)="selectedProficiencyModel($event)">
-            <input  class="form-control" [(ngModel)]="proficiencyModel" id={{type}} placeholder="{{placeHolderName}}" />
-           <br/> <br/> <br/> <br/>
+            <input  class="form-control" [(ngModel)]="proficiencyModel" id={{type}} placeholder="{{proficiencies.label}}" />
+           <br/> <br/> <br/>
             </div>
+          <!--<select class="form-control"  (change) = "selectedProficiencyModel($event.target.value)">
+            <option *ngFor="let c of selectedproficiencies" [selected]="true" [ngValue]="c">{{c}}</option>
+          </select>-->
+<!--
           <button type="button"  class="btn btn-create-profile"  value="Add Other"  (click)="onSelect()" >Click to add new proficiency</button>
           <div [hidden]="isShow" class="add-proficiency">
             <input  class="form-control" [(ngModel)]="proficiencyother" (ngModelChange)="enterProficiency($event)" id={{addOther}} placeholder="Other Proficiency" />
             <button type="button"  class="btn btn-create-profile"  value="AddProficiency"  (click)="addProficiencyToMasterData()">Add Proficiency</button>
-          </div>
+          </div>-->
         </div>
       </div>
 
       <div class="col-sm-8 padding-left15">
         <div class="btn-container clearfix">
-          <div *ngFor="let item of storedProficiency; let i = index">
+          <div *ngFor="let item of candidate.proficiencies; let i = index">
             <button type="button" class="btn btn-create-profile" (click)="deleteItem($event)">
               {{item}} <span class="glyphicon glyphicon-remove" ></span>
             </button>
