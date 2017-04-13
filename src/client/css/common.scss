@@ -626,5 +626,11 @@ control-messages {
     height: auto;
     overflow: auto;
   }
+
+  h4 {
+    text-overflow: clip;
+    overflow: auto;
+    white-space: normal;
+  }
 }
 
