@@ -55,11 +55,14 @@ class RecruiterSchema {
                 capabilities: [{
                   complexities: [{
                     scenarios: [{
-                      name: String
+                      name: String,
+                      isChecked : Boolean
                     }],
                     name: String
                   }],
-                  name: String
+                  name: String,
+                  isPrimary : Boolean,
+                  isSecondary : Boolean
                 }]
               }]
             },

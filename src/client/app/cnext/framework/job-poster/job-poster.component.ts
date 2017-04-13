@@ -63,6 +63,9 @@ export class JobPosterComponent {
   private competensies = new Description();
   private responsibilities = new Description();
   private jobPosterModel = new JobPosterModel();
+  private jobForRole:Role[] = new Array(0);
+  private jobForCapability: Role[]=new Array(0);
+  private jobForComplexity:Role[] = new Array(0);
 
   constructor(private _router:Router,
               private profileCreatorService:ProfileCreatorService,
@@ -246,11 +249,14 @@ export class JobPosterComponent {
         if (this.jobPosterModel.industry.roles[0].capabilities.length > 0) {
           this.getComplexity();
           this.isShowComplexity = true;
-
         }
       }
     }
+  }
 
+  selectRoleFromComplexity(roles:Role[]) {
+    this.jobPosterModel.industry.roles = roles;
+    this.jobForComplexity=roles;
   }
 
   selectRoleType(roleType:string) {
@@ -329,7 +335,9 @@ export class JobPosterComponent {
   getComplexity() {
     for (let role of this.jobPosterModel.industry.roles) {
       for (let capability of role.capabilities) {
-        this.primaryCapability.push(capability.name);
+        if(capability.isPrimary){
+          this.primaryCapability.push(capability.name);
+        }
       }
     }
     if (this.jobPosterModel.industry.name != undefined && this.roleList != undefined) {
@@ -337,7 +345,7 @@ export class JobPosterComponent {
         .subscribe(
           rolelist => {
             this.rolesForComplexity = rolelist.data;
-
+            this.jobForComplexity=this.jobPosterModel.industry.roles;
           },
           error => this.onError(error));
     }
