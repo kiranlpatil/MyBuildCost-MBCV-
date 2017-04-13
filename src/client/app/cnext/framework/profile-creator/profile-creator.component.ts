@@ -195,6 +195,11 @@ export class ProfileCreatorComponent implements OnInit {
 
   }
 
+  selectProficiency(proficiency:string[]){
+    this.candidate.proficiencies=proficiency;
+    this.saveCandidateDetails();
+  }
+
   getIndustry() {
     this.profileCreatorService.getIndustries()
       .subscribe(
@@ -305,7 +310,7 @@ export class ProfileCreatorComponent implements OnInit {
       this.getCapability();
       this.whichStepsVisible[1] = true;
     }
-    if (this.candidate.industry.roles.length > 0) { 
+    if (this.candidate.industry.roles.length > 0) {
       this.getRoleType();
       this.getProficiency();
       this.isRoleTypeShow = true;

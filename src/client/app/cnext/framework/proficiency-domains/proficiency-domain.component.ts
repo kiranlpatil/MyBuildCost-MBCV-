@@ -1,7 +1,5 @@
-import {Component, Input} from "@angular/core";
+import {Component, Input, EventEmitter, Output} from "@angular/core";
 import {ValueConstant} from "../../../framework/shared/constants";
-import {ProficiencyDomainService} from "./proficiency-domain.service";
-import {ProfileCreatorService} from "../profile-creator/profile-creator.service";
 import {Candidate} from "../model/candidate";
 import {Proficiences} from "../model/proficiency";
 
@@ -16,63 +14,48 @@ export class ProficiencyDomainComponent {
   @Input('type') type: string;
   @Input() candidate: Candidate;
   @Input() proficiencies: Proficiences=new Proficiences();
+  @Output() selectProficiency=new EventEmitter();
 
 
-  private selectedproficiencies = new Array();
-
+  private selectedProficiencies = new Array();
   private showAlert: boolean = false;
-  private selectedIndustry: string;
-  private proficiencyother: string;
-
-  constructor(private proficiencydoaminService: ProficiencyDomainService,
-              private profileCreatorService: ProfileCreatorService) {
-  }
+  private proficiencyModel: string;
 
   ngOnChanges (changes:any) {
     if (changes.proficiencies != undefined) {
       if (changes.proficiencies.currentValue != undefined)
         this.proficiencies = changes.proficiencies.currentValue;
+      if(this.candidate !== undefined){
       if(this.candidate.proficiencies.length > 0 ) {
+        this.selectedProficiencies = this.candidate.proficiencies;
         for (let proficiency of this.candidate.proficiencies) {
           this.deleteSelectedProfeciency(proficiency);
         }
       }
     }
+    }
   }
 
   selectedProficiencyModel(newVal: any) {
-    if (this.candidate.proficiencies.length < ValueConstant.MAX_PROFECIENCES) {
-      this.candidate.proficiencies.push(newVal);
+    if (this.selectedProficiencies.length < ValueConstant.MAX_PROFECIENCES) {
+      this.selectedProficiencies.push(newVal);
       this.deleteSelectedProfeciency(newVal);
-      this.profileCreatorService.addProfileDetail(this.candidate).subscribe(
-        user => {
-          console.log(user);
-        },
-        error => {
-          console.log(error);
-        });
-
+      this.selectProficiency.emit(this.selectedProficiencies);
     } else {
       this.showAlert = true;
     }
+    this.proficiencyModel = '';
   }
 
   deleteItem(newVal: any) {
     this.showAlert = false;
-    for (let i = 0; i < this.candidate.proficiencies.length; i++) {
-      if (this.candidate.proficiencies[i] === newVal.currentTarget.innerText.trim()) {
-        this.candidate.proficiencies.splice(i, 1);
-        this.selectedproficiencies.push(newVal.currentTarget.innerText.trim());
+    for (let i = 0; i < this.selectedProficiencies.length; i++) {
+      if (this.selectedProficiencies[i] === newVal.currentTarget.innerText.trim()) {
+        this.selectedProficiencies.splice(i, 1);
         this.proficiencies.names.push(newVal.currentTarget.innerText.trim());
       }
     }
-    this.profileCreatorService.addProfileDetail(this.candidate).subscribe(
-      user => {
-        console.log(user);
-      },
-      error => {
-        console.log(error);
-      });
+    this.selectProficiency.emit(this.selectedProficiencies);
   }
 
   deleteSelectedProfeciency(newVal: any) {

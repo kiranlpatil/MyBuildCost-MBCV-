@@ -25,6 +25,7 @@ import {Role} from "../model/role";
 import {ProfileCreatorService} from "../profile-creator/profile-creator.service";
 import {Message} from "../../../framework/shared/message";
 import {MessageService} from "../../../framework/shared/message.service";
+import {Proficiences} from "../model/proficiency";
 
 
 @Component({
@@ -36,10 +37,10 @@ import {MessageService} from "../../../framework/shared/message.service";
 
 export class JobPosterComponent {
   private industries:Industry[] = new Array(0);
-  private roles:Role[] = new Array(0);
   private roleTypes:string[] = new Array(0);
   private roleList:string[] = new Array(0);
   private primaryCapability:string[] = new Array(0);
+  private proficiencies:Proficiences=new Proficiences();
 
   private rolesForMain:Role[] = new Array(0);
   private rolesForCapability:Role[] = new Array(0);
@@ -107,8 +108,6 @@ export class JobPosterComponent {
     this.jobPostIndustryShow.showIndustryt$.subscribe(
       data => {
         this.isShowIndustry = data;
-
-
       }
     );
     disableService.showTestDisable$.subscribe(
@@ -138,6 +137,7 @@ export class JobPosterComponent {
     this.jobpostroletype.showTestCapability$.subscribe(
       data=> {
         this.roletype = data;
+
       }
     );
     this.jobPostDescription.showTestJobPostDesc$.subscribe(
@@ -166,7 +166,7 @@ export class JobPosterComponent {
   postjob() {
     this.jobPosterModel.competencies = this.competensies.detail;
 
-    this.jobPosterModel.profiencies = this.proficiency;
+   // this.jobPosterModel.profiencies = this.proficiency;
     this.jobPosterModel.responsibility = this.responsibilities.detail;
     this.jobPosterModel.postingDate = (new Date()).toISOString();
 
@@ -231,6 +231,7 @@ export class JobPosterComponent {
     this.jobPosterModel.industry = industry;
     //this.savejobPosterModelDetails();
     this.getRoles();
+    this.getProficiency();
     this.isShowRoleList = true;
   }
 
@@ -257,6 +258,13 @@ export class JobPosterComponent {
 //    this.savejobPosterModelDetails();
     this.getCapability();
     this.isShowCapability = true;
+  }
+
+  selectProficiency(proficiency:string[]){debugger
+    this.jobPosterModel.profiencies=proficiency;
+  console.log("proficiency",proficiency);
+    console.log("proficiency",this.jobPosterModel.profiencies);
+
   }
 
   getIndustry() {
@@ -333,5 +341,12 @@ export class JobPosterComponent {
           },
           error => this.onError(error));
     }
+  }
+
+  getProficiency(){
+    this.profileCreatorService.getProficiency(this.jobPosterModel.industry.name)
+      .subscribe(
+        data => this.proficiencies=data.data,
+        error => this.onError(error));
   }
 }
