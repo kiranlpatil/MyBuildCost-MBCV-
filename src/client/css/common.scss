@@ -236,6 +236,12 @@ a {
 .btn {
   border-radius: 25px;
   padding: 6px 25px;
+  box-shadow: 1px 1px 1px 1px rgba(0, 0,0, 0.2);
+
+  &:hover,
+  &:active {
+    box-shadow: 1px 1px 1px 1px rgba(0, 0,0, 0.2);
+  }
 }
 
 .btn-default {

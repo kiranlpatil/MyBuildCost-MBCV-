@@ -168,7 +168,6 @@ export class ProfileCreatorComponent implements OnInit {
 
 
   selectRole(roles:Role[]) {
-    debugger
     this.candidate.industry.roles = roles;
     this.saveCandidateDetails();
     this.getRoleType();
@@ -291,7 +290,7 @@ export class ProfileCreatorComponent implements OnInit {
     if (this.candidate.roleType !== undefined) {
       this.showCapability = true;
       this.getCapability();
-    }debugger
+    }
     if (this.candidate.industry.roles.length > 0) {
       this.getRoleType();
       this.isRoleTypeShow = true;

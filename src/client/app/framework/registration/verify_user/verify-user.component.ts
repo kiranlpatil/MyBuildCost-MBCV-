@@ -62,7 +62,7 @@ export class VerifyUserComponent implements OnInit {
         this._router.navigate([NavigationRoutes.APP_LOGIN]);
     }
 
-    onSubmit() {debugger
+    onSubmit() {
         if(!this.chkMobile) {
           this.model = this.userForm.value;
           LocalStorageService.setLocalValue(LocalStorage.MOBILE_NUMBER, this.model.mobile_number);
@@ -81,7 +81,7 @@ export class VerifyUserComponent implements OnInit {
         }
     }
 
-    verifySuccess(res:any) {debugger
+    verifySuccess(res:any) {
         if(!this.chkMobile) {
             LocalStorageService.setLocalValue(LocalStorage.VERIFY_PHONE_VALUE,'from_registration');
             this._router.navigate([NavigationRoutes.VERIFY_PHONE]);
@@ -96,7 +96,7 @@ export class VerifyUserComponent implements OnInit {
         }
     }
 
-    verifyFail(error:any) {debugger
+    verifyFail(error:any) {
         if (error.err_code === 404 || error.err_code === 0) {
             var message = new Message();
             message.error_msg = error.err_msg;

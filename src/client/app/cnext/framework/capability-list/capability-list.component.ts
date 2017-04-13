@@ -18,7 +18,7 @@ export class CapabilityListComponent {
   private secondaryNames:string[] = new Array(0);
   private primaryCapabilitiesNumber:number = 0
 
-  ngOnChanges(changes:any) {debugger
+  ngOnChanges(changes:any) {
     if (changes.roles) {
       this.roles = changes.roles.currentValue;
     }
@@ -59,7 +59,7 @@ export class CapabilityListComponent {
     }
   }
 
-  disableCapability() {debugger
+  disableCapability() {
     this.selectCapabilityWithRole.emit(this.roles);
   }
 }

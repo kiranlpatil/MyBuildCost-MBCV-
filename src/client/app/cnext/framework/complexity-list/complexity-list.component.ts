@@ -20,7 +20,6 @@ export class ComplexityListComponent {
   private numberOfComplexitySelected:number = 0;
   @Input() isComplexityPresent : boolean=false;
   ngOnChanges(changes:any) {
-    debugger
     if (changes.roles) {
       this.roles = changes.roles.currentValue;
     }

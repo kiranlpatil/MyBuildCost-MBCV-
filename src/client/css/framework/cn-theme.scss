@@ -26,21 +26,26 @@ $white: #fff;
 
   // Buttons
   .btn-primary {
-    background: $cn-theme-color;
+    /*background: $cn-theme-color;
     border: $cn-theme-color 1px solid;
-    color: $white;
+    color: $white;*/
+    background: #67c116;
+    border: #3694d1 0 solid;
+    color: #fff;
+    box-shadow: 1px 1px 1px 1px rgba(0, 0,0, 0.2);
 
     &:hover,
     &:active,
     &:focus {
-      background: $cn-theme-hover;
-      border: $cn-theme-hover 1px solid;
+      background: #58a90f;
+      border: #58a90f 0 solid;
       color: $white;
+      box-shadow: 1px 1px 1px 1px rgba(0, 0,0, 0.2);
     }
 
     &:disabled  {
-      background: $cn-theme-color;
-      border: $cn-theme-color 1px solid;
+      background: #67c116;
+      border: #3694d1 0 solid;
     }
   }
 
