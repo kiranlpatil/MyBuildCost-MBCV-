@@ -79,7 +79,7 @@ export class EmploymentHistoryComponent {
       if ( (item.companyName ==="" || item.designation ==="" || item.from.month ==="" ||
           item.from.year ===""||item.to.month ==="" || item.to.year ==="") ||
 
-        (indexOfFromMonth===indexToMonth && item.from.year >= item.to.year) ||(item.from.year > item.to.year)||
+        (indexOfFromMonth===indexToMonth && item.from.year >= item.to.year) ||(item.from.year >= item.to.year)||
 
         (indexOfFromMonth >= indexToMonth && item.from.year===item.to.year)) {
         this.disableAddAnother=false;
@@ -95,7 +95,7 @@ export class EmploymentHistoryComponent {
 
 
   }
-  postEmploymentHistoy(){
+  postEmploymentHistoy(){debugger
     this.isShowError=false;
     for(let item of this.candidate.employmentHistory) {
       var indexOfFromMonth= this.monthList.indexOf(item.from.month);
@@ -104,7 +104,7 @@ export class EmploymentHistoryComponent {
       if ( (item.companyName ==="" || item.designation ==="" || item.from.month ==="" ||
         item.from.year ===""||item.to.month ==="" || item.to.year ==="") ||
 
-        (indexOfFromMonth===indexToMonth && item.from.year >= item.to.year) ||(item.from.year > item.to.year)||
+        (indexOfFromMonth===indexToMonth && item.from.year >= item.to.year) ||(item.from.year >= item.to.year)||
 
         (indexOfFromMonth >= indexToMonth && item.from.year===item.to.year)) {
         this.sendPostCall=false;
@@ -121,6 +121,7 @@ export class EmploymentHistoryComponent {
           console.log(error);
         });
     }
+
     this.sendPostCall=true;
 
       }
