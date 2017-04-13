@@ -142,16 +142,6 @@ $blue: #3694d1;
     width: 75%;
   }
 
-  .max-height {
-    max-height: 400px;
-    overflow: auto;
-  }
-
-  .min-height {
-    height: 300px;
-    overflow: auto;
-  }
-
   .profeiciency-domain {
 
     .heading > .col-sm-6,
@@ -280,7 +270,8 @@ $blue: #3694d1;
 
 @media only screen and (max-width: 767px) {
   .bar-container {
-    height: 70px;
+    height: 50px;
+    padding-top: 10px;
   }
 
   .bar {

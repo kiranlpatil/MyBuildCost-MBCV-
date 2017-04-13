@@ -8,6 +8,7 @@
 
   .btn-primary {
     float: right;
+    margin-top: 15px;
   }
 }
 
@@ -15,7 +16,6 @@
   .select-industry {
     .btn-primary {
       float: none;
-      margin-top: 15px;
     }
   }
 }
@@ -45,7 +45,7 @@ $primary-option: #1c75bd;
       color: $text-color;
       cursor: pointer;
       font-size: 12px;
-      font-weight: 100;
+      font-weight: 600;
       padding: 4px 10px;
       min-width: 100px;
       display: inline-block;

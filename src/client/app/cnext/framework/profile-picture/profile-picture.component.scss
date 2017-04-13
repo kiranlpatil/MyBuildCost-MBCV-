@@ -61,7 +61,7 @@ $border-color:  #e8e8e8;
     }
   }
 }
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 767px) {
   .profile {
     padding: 0;
     position: relative;
@@ -69,10 +69,9 @@ $border-color:  #e8e8e8;
     width: 100%;
 
     .avtar > form {
-      bottom: 0.5%;
+      bottom: 0;
       position: absolute;
-      right: 11.8%;
-      text-align: right;
+      right: 0;
     }
   }
 }
