@@ -12,6 +12,19 @@
   border-radius: 0;
   height: 100px;
   margin: 0 0 15px 0;
-  resize: vertical;
+  resize: none;
   width: 100%;
+}
+
+.description {
+  padding: 15px;
+}
+
+@media only screen and (max-width: 767px) {
+  .description {
+    margin-bottom: 15px;
+    display: block;
+    float: left;
+    width: 100%;
+  }
 }
