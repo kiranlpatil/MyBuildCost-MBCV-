@@ -20,6 +20,10 @@ $blue: #3694d1;
   line-height: 11px;
 }
 
+.wrapper {
+  border: 1px solid $border-color;
+}
+
 .create-profile {
   background: $profile-background;
   clear: both;
@@ -30,10 +34,11 @@ $blue: #3694d1;
   -webkit-box-shadow: 0px 0px 4px 2px rgba(0, 0, 0, 0.4);
   -moz-box-shadow: 0px 0px 4px 2px rgba(0, 0, 0, 0.4);
   box-shadow: 0px 0px 4px 2px rgba(0, 0, 0, 0.4);
-  height: 90px;
+  box-shadow: 0px 0px 4px 2px rgba(0, 0, 0, 0.4);
+  height: 50px;
   left: 0;
   margin: 0 auto;
-  padding-top: 20px;
+  padding-top: 6px;
   position: fixed;
   top: 0;
   width: 100%;
@@ -42,7 +47,7 @@ $blue: #3694d1;
 
 .bar {
   counter-reset: step;
-  margin: 0;
+  margin: 0 auto;
   padding: 0;
 
   &::before {
@@ -64,24 +69,26 @@ $blue: #3694d1;
     width: 14%;
 
     p {
+      margin: -7px 0;
       color: $white;
       opacity: 0.3;
+      font-size: 12px;
     }
 
     &::before {
-      background-color: $white;
+      background-color: #fff;
       border-radius: 50%;
-      color: $blue;
+      color: #3694d1;
       content: counter(step);
       counter-increment: step;
       display: block;
-      font-size: 14px;
-      height: 25px;
-      line-height: 25px;
+      font-size: 12px;
+      height: 20px;
+      line-height: 20px;
       margin: 0 auto 10px;
       position: relative;
       text-align: center;
-      width: 25px;
+      width: 20px;
       z-index: 2;
       opacity: 0.3;
     }
@@ -125,7 +132,7 @@ $blue: #3694d1;
 }
 
 .profile-wrapper {
-  margin: 90px auto 0;
+  margin: 65px auto 0;
   padding: 0;
 
   .col-sm-3 {
@@ -172,9 +179,9 @@ $blue: #3694d1;
 
     .profile-name-first, .profile-name-last {
       color: $light-blue;
-      font-family: 'helvlightregular';
-      font-size: 20px;
-      font-weight: 600;
+      font-family: 'gothamrnd-light';
+      font-size: 24px;
+      font-weight: 100;
       background: none;
       padding: 0;
       text-transform: capitalize;
@@ -182,6 +189,9 @@ $blue: #3694d1;
 
     .profile-name-last {
       color: #1B75BC;
+      font-family: 'gothamrnd-book';
+      font-weight: 900;
+
     }
   }
 
@@ -220,6 +230,10 @@ $blue: #3694d1;
     &:focus, &:active {
       outline: none;
     }
+  }
+
+  .social-links {
+    margin-top: 15px;
   }
 }
 
@@ -268,6 +282,9 @@ $blue: #3694d1;
   .bar {
     li {
       p {
+        display: none;
+      }
+      &::after {
         display: none;
       }
     }

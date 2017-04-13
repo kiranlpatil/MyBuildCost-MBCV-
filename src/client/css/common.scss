@@ -23,6 +23,18 @@ $modal-bg: rgba(0, 0, 0, .7);
 $btn-color: #1c75bd;
 $input-bg: rgba(255 , 255, 255, .1);
 
+
+.btn-logout {
+  margin-top: 15px;
+  position: fixed;
+  right: 10px;
+  top: -4px;
+  z-index: 1000;
+  padding: 3px 15px !important;
+  background: #266f9e !important;
+  border: #266f9e 1px solid !important;
+}
+
 //Common Classes
 .no-border { border: transparent 1px solid; }
 

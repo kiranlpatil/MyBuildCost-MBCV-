@@ -1,4 +1,4 @@
-$text-color: #999;
+$text-color: #666;
 $white: #fff;
 $instruction: #00aed5;
 $profile-section-shadow: rgba(204, 204, 204, 1);
@@ -8,24 +8,27 @@ $modal-bg: #f2f2f2;
 .profile-wrapper {
 
   .section-container {
-    -moz-box-shadow: 2px 2px 2px 0 $profile-section-shadow;
+/*    -moz-box-shadow: 2px 2px 2px 0 $profile-section-shadow;
     -webkit-box-shadow: 2px 2px 2px 0 $profile-section-shadow;
-    box-shadow: 2px 2px 2px 0 $profile-section-shadow;
-    margin-top: 15px;
+    box-shadow: 2px 2px 2px 0 $profile-section-shadow;*/
+    margin-top: 0;
   }
 
   .heading {
     color: $white;
     font-size: 14px;
-    font-weight: 600;
-    margin: 0;
-    padding: 15px;
+    margin: 0 0 15px;
+    padding: 8px 15px;
     position: relative;
     text-align: left;
+    font-family: 'gothamrnd-book';
+    font-weight: bold;
+    background: #f8f8f8;
+    border-radius: 5px;
 
     span {
       background: transparent;
-      color: #e8e8e8;
+      color: #bbb;
       float: right;
       font-size: 12px;
       font-style: italic;
@@ -37,13 +40,13 @@ $modal-bg: #f2f2f2;
     }
 
     .glyphicon-remove {
-      border: 1px solid #e8e8e8;
+      border: 1px solid #bbb;
       border-radius: 50%;
       font-style: normal;
       padding: 5px;
       position: absolute;
       right: 15px;
-      top: 10px;
+      top: 4px;
     }
   }
 
@@ -56,7 +59,10 @@ $modal-bg: #f2f2f2;
   .info {
     font-size: 12px;
     font-style: italic;
-    margin: 0;
+    /*background-image: url('../../assets/c-next/profile-creator/info-icon.svg');
+    background-repeat: no-repeat;
+    padding-left: 30px;  !* width of the image plus a little extra padding *!
+    display: block;*/
   }
 
   .form-control {
@@ -103,11 +109,14 @@ $modal-bg: #f2f2f2;
         position: absolute;
         top: 10px;
         transition: .2s ease all;
+        z-index: 1;
         //transition: top .2s ease-in, font-size .2s ease-in;
       }
 
       input {
         color: $text-color;
+        position: relative;
+        z-index: 2;
 
         &:focus ~ label,
         &:valid ~ label {

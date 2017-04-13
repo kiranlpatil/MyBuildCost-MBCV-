@@ -14,163 +14,165 @@
   <div class="profile-wrapper container">
     <div class="col-sm-12">
 
-      <div class="section-container">
-        <h4 class="heading">Enter Your Job Title</h4>
-        <div class="main-content clearfix">
-
-          <div class="col-sm-3 text-center">
-            <cn-profile-picture></cn-profile-picture>
-            <div class="user-name">
-              <span class="profile-name-first">{{firstName}}</span><span class="profile-name-last">{{lastName}}</span>
+      <div class="wrapper">
+        <div class="section-container">
+          <div class="main-content clearfix">
+            <h4 class="heading">Enter Your Job Title</h4>
+            <div class="col-sm-3 text-center">
+              <cn-profile-picture></cn-profile-picture>
+              <div class="user-name">
+                <span class="profile-name-first">{{firstName}}</span><span class="profile-name-last">{{lastName}}</span>
+              </div>
+              <!--<div class="button-group">
+                <button class="btn btn-danger" style="margin-top: 15px;" (click)="logOut()">Logout</button>
+              </div>-->
             </div>
-            <!--<div class="button-group">
-              <button class="btn btn-danger" style="margin-top: 15px;" (click)="logOut()">Logout</button>
-            </div>-->
-          </div>
-          <div class="col-sm-9 profile-description">
-            <h4>Enter Your Job Title</h4>
+            <div class="col-sm-9 profile-description">
+              <h4>Enter Your Job Title</h4>
               <input name="jobTitle" placeholder="ex.Software Engineer" class="form-control job-title" [(ngModel)]="candidate.jobTitle" (change)="selectedtitle()" [disabled]="disableTitle">
               <!--<textarea name="jobTitle" placeholder="ex.Software Engineer" class="form-control"[ngModel]="title" (ngModelChange)="selectedtitle($event)" ></textarea>-->
               <div class="error-messages" *ngIf="!isTitleFilled">Job title should not be empty.</div>
               <div class="clearfix">&nbsp;</div>
               <!--<div class="error-messages" *ngIf="isShowRequired"><p>*</p></div>-->
               <h4>Select Industry (Any one value from the list below) </h4>
-            <cn-industry-list [industries]="industries" [candidateIndustry]="candidate.industry" (selectIndustry)="selectIndustry($event)" ></cn-industry-list>
+              <cn-industry-list [industries]="industries" [candidateIndustry]="candidate.industry" (selectIndustry)="selectIndustry($event)" ></cn-industry-list>
 
+            </div>
           </div>
         </div>
-      </div>
 
-      <div class="section-container" [hidden]="!isRolesShow"  id="work-area">
-        <h4 class="heading">Select Area of Work (Max 3)</h4>
-        <div class="main-content">
-          <cn-role-list [roles]="rolesForMain" [candidateRoles]="candidateForRole" (selectRoles)="selectRole($event)"></cn-role-list>
-        </div>
-      </div>
-
-      <div class="section-container" [hidden]="!isRoleTypeShow">
-          <h4 class="heading">Select Role Type (Any one of the following)</h4>
+        <div class="section-container" [hidden]="!isRolesShow"  id="work-area">
           <div class="main-content">
+            <h4 class="heading">Select Area of Work (Max 3)</h4>
+            <cn-role-list [roles]="rolesForMain" [candidateRoles]="candidateForRole" (selectRoles)="selectRole($event)"></cn-role-list>
+          </div>
+        </div>
+
+        <div class="section-container" [hidden]="!isRoleTypeShow">
+          <div class="main-content">
+            <h4 class="heading">Select Role Type (Any one of the following)</h4>
             <cn-role-type-list [roleTypes]="roleTypes" [candidateRoletype]="candidate.roleType" (selectRoleType)="selectRoleType($event)"></cn-role-type-list>
           </div>
         </div>
 
 
-         <div class="section-container" [hidden]="!showCapability">
-          <h4 class="heading">Choose Your Capabilities (Max. 10)</h4>
+        <div class="section-container" [hidden]="!showCapability">
           <div class="main-content">
+            <h4 class="heading">Choose Your Capabilities (Max. 10)</h4>
             <cn-capibility-list [roles]="rolesForCapability" [candidateRoles]="candidateForCapability" (selectCapabilityWithRole)="selectRole($event)"></cn-capibility-list>
           </div>
         </div>
 
-      <div class="section-container" [hidden]="!showComplexity">
-        <h4 class="heading">Choose Complexities</h4>
-        <div class="main-content max-height">
-          <cn-complexity-list [roles]="rolesForComplexity" [candidateRoles]="candidateForComplexity" [isComplexityPresent]="isComplexityPresent"  (selectComplexityWithRole)="selectRole($event)"></cn-complexity-list>
+        <div class="section-container" [hidden]="!showComplexity">
+          <div class="main-content max-height">
+            <h4 class="heading">Choose Complexities</h4>
+            <cn-complexity-list [roles]="rolesForComplexity" [candidateRoles]="candidateForComplexity" [isComplexityPresent]="isComplexityPresent"  (selectComplexityWithRole)="selectRole($event)"></cn-complexity-list>
+          </div>
         </div>
-      </div>
 
-      <div class="section-container clearfix profeiciency-domain" >
-        <h4 class="heading">Proficiencies (Max. 25)</h4>
-        <div class="main-content">
-          <cn-proficiency-doamin [type]="'profeciency'"></cn-proficiency-doamin>
+        <div class="section-container clearfix profeiciency-domain" >
+          <div class="main-content">
+            <h4 class="heading">Proficiencies (Max. 25)</h4>
+            <cn-proficiency-doamin [type]="'profeciency'"></cn-proficiency-doamin>
+          </div>
         </div>
-      </div>
 
-      <div class="section-container clearfix profeiciency-domain">
-        <h4 class="heading">Select Industry In Which You Have work Exposure / Experience</h4>
-        <div class="main-content">
-          <cn-industry-experience-list [industries]="industries" [candidateExperiencedIndustry]="candidate.intrestedIndustries" (selectExperiencedIndustry)="selectExperiencedIndustry($event)"></cn-industry-experience-list>
+        <div class="section-container clearfix profeiciency-domain">
+          <div class="main-content">
+            <h4 class="heading">Select Industry In Which You Have work Exposure / Experience</h4>
+            <cn-industry-experience-list [industries]="industries" [candidateExperiencedIndustry]="candidate.intrestedIndustries" (selectExperiencedIndustry)="selectExperiencedIndustry($event)"></cn-industry-experience-list>
+          </div>
         </div>
-      </div>
 
-      <div class="section-container" >
-        <h4 class="heading">Professional Data</h4>
-        <div class="main-content">
-          <cn-professional-data [candidate]="candidate"></cn-professional-data>
+        <div class="section-container" >
+          <div class="main-content">
+            <h4 class="heading">Professional Data</h4>
+            <cn-professional-data [candidate]="candidate"></cn-professional-data>
+          </div>
         </div>
-      </div>
 
-      <div class="section-container">
-        <h4 class="heading">Employment Histroy
-          <span class="close-dialog">Close this section if not needed
+        <div class="section-container">
+          <div class="main-content clearfix"  >
+            <h4 class="heading">Employment Histroy
+              <span class="close-dialog">Close this section if not needed
             <span class="glyphicon glyphicon-remove" (click)="hideEmployeeHistory()"></span>
           </span>
-        </h4>
-        <div class="main-content clearfix"  >
-          <cn-employment-history [candidate]="candidate"></cn-employment-history>
+            </h4>
+            <cn-employment-history [candidate]="candidate"></cn-employment-history>
+          </div>
         </div>
-      </div>
 
-      <div class="section-container" >
-        <h4 class="heading">Academic Details</h4>
-        <div class="main-content">
-          <cn-academic-details [candidate]="candidate" ></cn-academic-details>
+        <div class="section-container" >
+          <div class="main-content">
+            <h4 class="heading">Academic Details</h4>
+            <cn-academic-details [candidate]="candidate" ></cn-academic-details>
+          </div>
         </div>
-      </div>
 
-      <div class="section-container" >
-        <h4 class="heading">Certification/Accreditation
-          <span class="close-dialog">Close this section if not needed
+        <div class="section-container" >
+          <div class="main-content clearfix" >
+            <h4 class="heading">Certification/Accreditation
+              <span class="close-dialog">Close this section if not needed
             <span class="glyphicon glyphicon-remove" (click)="hideCertification()"></span>
           </span>
-        </h4>
-        <div class="main-content clearfix" >
-          <cn-certification-accreditation [candidate]="candidate"></cn-certification-accreditation>
+            </h4>
+            <cn-certification-accreditation [candidate]="candidate"></cn-certification-accreditation>
+          </div>
         </div>
-      </div>
 
-      <div class="section-container"  >
-        <h4 class="heading">Awards
-          <span class="close-dialog">Close this section if not needed
+        <div class="section-container"  >
+          <div class="main-content">
+            <h4 class="heading">Awards
+              <span class="close-dialog">Close this section if not needed
             <span class="glyphicon glyphicon-remove" (click)="hideAwards()"></span>
           </span>
-        </h4>
-        <div class="main-content">
-          <cn-awards [candidate]="candidate"></cn-awards>
+            </h4>
+            <cn-awards [candidate]="candidate"></cn-awards>
+          </div>
         </div>
-      </div>
 
-      <div class="section-container"  >
-        <h4 class="heading">More About Myself(Max 250)
-          <span class="close-dialog">Close this section if not needed
+        <div class="section-container"  >
+          <div class="main-content">
+            <h4 class="heading">More About Myself(Max 250)
+              <span class="close-dialog">Close this section if not needed
             <span class="glyphicon glyphicon-remove" (click)="hideAboutMyself()"></span>
           </span>
-        </h4>
-        <div class="main-content">
-          <cn-more-about-myself [candidate]="candidate"></cn-more-about-myself>
+            </h4>
+            <cn-more-about-myself [candidate]="candidate"></cn-more-about-myself>
+          </div>
+        </div>
+
+        <div class="section-container profile-configurations" >
+          <div class="col-sm-8 no-padding text-left">
+            <div class="radio">
+              <label>Profile Visibility:</label>
+              <label class="radio-inline">
+                <input type="radio" name="profile-visibility" id="optionsRadios2"  [ngModel]="selectedvalue1" (change)="showorhide($event.target.value)" value="option2"> show
+              </label>
+              <label class="radio-inline">
+                <input type="radio" name="profile-visibility" id="optionsRadios3"  [ngModel]="selectedvalue2" (change)="showorhide($event.target.value)" value="option3" > hide
+              </label>
+            </div>
+            <div class="info"><p>In case you wish to hide your profile visibility from recruiters, select hide option above.<br />You can also choose to show your profile later.</p></div>
+            <div class="button-group">
+              <button class="btn btn-primary"(click)="onSubmit()" >Submit</button>
+              <button class="btn btn-default">Cancel</button>
+            </div>
+          </div>
+          <div class="col-sm-4 no-padding text-right social-links">
+            <div>
+              <label>You Can Share it On:</label>
+              <img src="assets/c-next/profile-creator/fb.png" />
+              <img src="assets/c-next/profile-creator/linked-in.png" />
+              <img src="assets/c-next/profile-creator/twitter.png" />
+            </div>
+            <div class="button-group">
+              <button class="btn btn-danger" style="margin-top: 15px;" (click)="logOut()">Logout</button>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="section-container profile-configurations" >
-        <div class="col-sm-8 no-padding text-left">
-          <div class="radio">
-            <label>Profile Visibility:</label>
-            <label class="radio-inline">
-              <input type="radio" name="profile-visibility" id="optionsRadios2"  [ngModel]="selectedvalue1" (change)="showorhide($event.target.value)" value="option2"> show
-            </label>
-            <label class="radio-inline">
-              <input type="radio" name="profile-visibility" id="optionsRadios3"  [ngModel]="selectedvalue2" (change)="showorhide($event.target.value)" value="option3" > hide
-            </label>
-          </div>
-          <div class="info"><p>In case you wish to hide your profile visibility from recruiters, select hide option above.<br />You can also choose to show your profile later.</p></div>
-          <div class="button-group">
-            <button class="btn btn-primary"(click)="onSubmit()" >Submit</button>
-            <button class="btn btn-default">Cancel</button>
-          </div>
-        </div>
-        <div class="col-sm-4 no-padding text-right">
-          <div>
-            <label>You Can Share it On:</label>
-            <img src="assets/c-next/profile-creator/fb.png" />
-            <img src="assets/c-next/profile-creator/linked-in.png" />
-            <img src="assets/c-next/profile-creator/twitter.png" />
-          </div>
-          <div class="button-group">
-            <button class="btn btn-danger" style="margin-top: 15px;" (click)="logOut()">Logout</button>
-          </div>
-        </div>
       </div>
-    </div>
   </div>
 </div>
 
