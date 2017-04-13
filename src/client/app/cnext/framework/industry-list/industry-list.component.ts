@@ -13,6 +13,7 @@ export class IndustryListComponent {
   private selectedIndustry:Industry = new Industry();
   @Input() candidateIndustry:Industry = new Industry();
   @Output() selectIndustry=new EventEmitter();
+  private disableIndustry : boolean=false;
 
   private showModalStyle:boolean = false;
 
@@ -32,6 +33,7 @@ export class IndustryListComponent {
   }
 
   disableIndustrires() {
+    this.disableIndustry=true;
     this.showModalStyle = !this.showModalStyle;
     this.selectIndustry.emit(this.selectedIndustry); // this.createAndSave();
 
