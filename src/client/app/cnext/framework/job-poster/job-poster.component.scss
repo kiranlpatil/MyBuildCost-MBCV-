@@ -90,8 +90,16 @@ $border-color: #ddd;
   }
 }
 
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 980px) {
   .section-container {
     text-align: left;
+  }
+
+  .job-info {
+    margin: 15px 15px 0;
+  }
+
+  .job-poster {
+    margin: 15px;
   }
 }
