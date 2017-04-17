@@ -10,12 +10,18 @@ import Messages = require("../shared/messages");
 import AuthInterceptor = require("../../framework/interceptor/auth.interceptor");
 import ProjectAsset = require("../shared/projectasset");
 import MailAttachments = require("../shared/sharedarray");
+import RecruiterRepository = require("../dataaccess/repository/recruiter.repository");
+import * as mongoose from "mongoose";
+
 class UserService {
   private userRepository: UserRepository;
+  private recruiterRepository: RecruiterRepository;
   APP_NAME: string;
-
+  company_name :string;
+  mid_content :any;
   constructor() {
     this.userRepository = new UserRepository();
+    this.recruiterRepository = new RecruiterRepository();
     this.APP_NAME = ProjectAsset.APP_NAME;
   }
 
@@ -128,16 +134,39 @@ class UserService {
         var host = config.get('TplSeed.mail.host');
         console.log("frgt pwd host", host);
         var link = host + "reset_password?access_token=" + token + "&_id=" + res[0]._id;
-        var mid_content = content.replace('$link$',link).replace('$first_name$',res[0].first_name).replace('$app_name$',this.APP_NAME);
+        if(res[0].isCandidate === true){
+          this.mid_content = content.replace('$link$',link).replace('$first_name$',res[0].first_name).replace('$app_name$',this.APP_NAME);
+          var mailOptions = {
+            to: field.email,
+            subject: Messages.EMAIL_SUBJECT_FORGOT_PASSWORD,
+            html: header1 + this.mid_content +footer1
+            , attachments: MailAttachments.AttachmentArray
+          };
+          var sendMailService = new SendMailService();
+          sendMailService.sendMail(mailOptions, callback);
 
-        var mailOptions = {
-          to: field.email,
-          subject: Messages.EMAIL_SUBJECT_FORGOT_PASSWORD,
-          html: header1 + mid_content +footer1
-          , attachments: MailAttachments.AttachmentArray
-        };
-        var sendMailService = new SendMailService();
-        sendMailService.sendMail(mailOptions, callback);
+        } else {
+          this.recruiterRepository.retrieve({"userId":new mongoose.Types.ObjectId(res[0]._id)}, (err, recruiter) => {
+            if (err) {
+              callback(err, null);
+            }
+            else {
+              this.company_name = recruiter[0].company_name;
+              console.log("recruiter company  is :",this.company_name);
+              this.mid_content = content.replace('$link$',link).replace('$first_name$',this.company_name).replace('$app_name$',this.APP_NAME);
+
+              var mailOptions = {
+                to: field.email,
+                subject: Messages.EMAIL_SUBJECT_FORGOT_PASSWORD,
+                html: header1 + this.mid_content +footer1
+                , attachments: MailAttachments.AttachmentArray
+              };
+              var sendMailService = new SendMailService();
+              sendMailService.sendMail(mailOptions, callback);
+
+            }
+          });
+        }
       }
 
       else if (res.length > 0 && res[0].isActivated === false) {
