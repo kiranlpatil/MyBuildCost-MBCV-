@@ -2,6 +2,7 @@ import {Component, Input, EventEmitter, Output} from "@angular/core";
 import {ValueConstant} from "../../../framework/shared/constants";
 import {Candidate} from "../model/candidate";
 import {Proficiences} from "../model/proficiency";
+import {ProficiencyDomainService} from "./proficiency-domain.service";
 
 @Component({
   moduleId: module.id,
@@ -18,8 +19,15 @@ export class ProficiencyDomainComponent {
 
 
   private selectedProficiencies = new Array();
+  private masterDataProficiencies = new Array();
   private showAlert: boolean = false;
   private proficiencyModel: string;
+  private alreadyPresent:boolean=false;
+
+
+  constructor(private proficiencydoaminService:ProficiencyDomainService ) {
+  }
+
 
   ngOnChanges (changes:any) {
     if (changes.proficiencies != undefined) {
@@ -28,6 +36,7 @@ export class ProficiencyDomainComponent {
       if(this.candidate !== undefined){
       if(this.candidate.proficiencies.length > 0 ) {
         this.selectedProficiencies = this.candidate.proficiencies;
+        this.masterDataProficiencies = this.candidate.proficiencies;
         for (let proficiency of this.candidate.proficiencies) {
           this.deleteSelectedProfeciency(proficiency);
         }
@@ -36,7 +45,7 @@ export class ProficiencyDomainComponent {
     }
   }
 
-  selectedProficiencyModel(newVal: any) {
+  selectedProficiencyModel(newVal: any) {debugger
     if (this.selectedProficiencies.length < ValueConstant.MAX_PROFECIENCES) {
       this.selectedProficiencies.push(newVal);
       this.deleteSelectedProfeciency(newVal);
@@ -63,14 +72,32 @@ export class ProficiencyDomainComponent {
   }
 
 
- /* addProficiencyToMasterData() {
-    this.proficiencydoaminService.addProficiencyToMasterData(this.proficiencyother, this.selectedIndustry).subscribe(
-      data => {
-        console.log(data);
-      },
-      error => {
-        console.log(error);
-      });
-    this.selectedProficiencyModel(this.proficiencyother);
-  }*/
+  AddProficiency()
+  {
+
+
+
+
+
+  }
+  addProficiencyToMasterData(newVal:any) {debugger
+    if(newVal !=='') {
+      for (let i = 0; i < this.masterDataProficiencies.length; i++) {
+        if (this.masterDataProficiencies[i] === newVal) {
+          this.alreadyPresent = true;
+        }
+      }
+      if (this.alreadyPresent === false) {
+        this.proficiencydoaminService.addProficiencyToMasterData(newVal, this.candidate.industry.name).subscribe(
+          data => {
+            console.log(data);
+          },
+          error => {
+            console.log(error);
+          });
+        this.selectedProficiencyModel(newVal);
+      }
+    }
+    this.alreadyPresent = false;
+  }
 }

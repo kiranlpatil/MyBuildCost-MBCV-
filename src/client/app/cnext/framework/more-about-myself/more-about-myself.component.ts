@@ -20,9 +20,9 @@ export class MoreAboutMyselfComponent implements OnInit {
   private  maxLength :number=250;
   private  reSize: string[];
   private aboutMyself:string;
-  private newstringOne:string[];
-  private newstringTwo:string[];
-  private newstringThree:string[];
+  private spaceSplitedString:string[];
+  private dotSplitedString:string[];
+  private commaSplitedString:string[];
   private wordsTillNow:number;
   private remainingWords:number;
   private maxword:number;
@@ -46,10 +46,10 @@ export class MoreAboutMyselfComponent implements OnInit {
   }
   ngOnChanges(changes :any){
     if(this.candidate.aboutMyself !== undefined) {
-      this.newstringOne = this.candidate.aboutMyself.split(' ');
-      this.newstringTwo = this.candidate.aboutMyself.split('.');
-      this.newstringThree = this.candidate.aboutMyself.split(',');
-      this.wordsTillNow = this.newstringOne.length + this.newstringTwo.length + this.newstringThree.length;
+      this.spaceSplitedString = this.candidate.aboutMyself.split(' ');
+      this.dotSplitedString = this.candidate.aboutMyself.split('.');
+      this.commaSplitedString = this.candidate.aboutMyself.split(',');
+      this.wordsTillNow = this.spaceSplitedString.length + this.dotSplitedString.length + this.commaSplitedString.length;
       this.remainingWords = this.maxLength - (this.wordsTillNow - 3);
     }
     if(this.candidate.aboutMyself == undefined){
@@ -66,10 +66,10 @@ export class MoreAboutMyselfComponent implements OnInit {
   }
   addAboutMyself() {
     this.disableAboutMyselfGlyphiconService.change(true);
-   this.newstringOne= this.candidate.aboutMyself.split(' ');
-    this.newstringTwo= this.candidate.aboutMyself.split('.');
-    this.newstringThree= this.candidate.aboutMyself.split(',');
-    this.wordsTillNow=this.newstringOne.length+this.newstringTwo.length+this.newstringThree.length;
+   this.spaceSplitedString= this.candidate.aboutMyself.split(' ');
+    this.dotSplitedString= this.candidate.aboutMyself.split('.');
+    this.commaSplitedString= this.candidate.aboutMyself.split(',');
+    this.wordsTillNow=this.spaceSplitedString.length+this.dotSplitedString.length+this.commaSplitedString.length;
     this.remainingWords=this.maxLength-(this.wordsTillNow-3);
     if (this.wordsTillNow-3>=this.maxLength) {
       this. maxword=this.candidate.aboutMyself.length;

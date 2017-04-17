@@ -11,8 +11,11 @@
           <div ng2-auto-complete
                [source]="proficiencies.names"
                (ngModelChange)="selectedProficiencyModel($event)">
-            <input  class="form-control" [(ngModel)]="proficiencyModel" id={{type}} placeholder="{{proficiencies.label}}" />
-           <br/> <br/> <br/>
+            <input  class="form-control" [(ngModel)]="proficiencyModel" id={{type}} (keyup.enter)="addProficiencyToMasterData($event.target.value)" placeholder="{{proficiencies.label}}" />
+           <br/>
+            <p class="info">*To add other proficiency which are not in the list, just type and enter</p>
+
+            <br/> <br/>
             </div>
 <!--
           <button type="button"  class="btn btn-create-profile"  value="Add Other"  (click)="onSelect()" >Click to add new proficiency</button>
