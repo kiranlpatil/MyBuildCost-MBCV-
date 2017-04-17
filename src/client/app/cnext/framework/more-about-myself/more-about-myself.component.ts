@@ -45,12 +45,13 @@ export class MoreAboutMyselfComponent implements OnInit {
 
   }
   ngOnChanges(changes :any){
-    this.newstringOne= this.candidate.aboutMyself.split(' ');
-    this.newstringTwo= this.candidate.aboutMyself.split('.');
-    this.newstringThree= this.candidate.aboutMyself.split(',');
-    this.wordsTillNow=this.newstringOne.length+this.newstringTwo.length+this.newstringThree.length;
-    this.remainingWords=this.maxLength-(this.wordsTillNow-3);
-
+    if(this.candidate.aboutMyself !== undefined) {
+      this.newstringOne = this.candidate.aboutMyself.split(' ');
+      this.newstringTwo = this.candidate.aboutMyself.split('.');
+      this.newstringThree = this.candidate.aboutMyself.split(',');
+      this.wordsTillNow = this.newstringOne.length + this.newstringTwo.length + this.newstringThree.length;
+      this.remainingWords = this.maxLength - (this.wordsTillNow - 3);
+    }
     if(this.candidate.aboutMyself == undefined){
       this.candidate.aboutMyself = '';
     }
