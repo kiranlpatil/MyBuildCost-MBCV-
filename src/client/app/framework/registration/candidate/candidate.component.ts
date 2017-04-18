@@ -47,12 +47,12 @@ export class CandidateComponent implements OnInit {
               private candidateService: CandidateService, private messageService: MessageService, private formBuilder: FormBuilder, private loaderService: LoaderService) {
 
     this.userForm = this.formBuilder.group({
-      'first_name': ['', Validators.required],
-      'last_name': ['', Validators.required],
-      'mobile_number': ['', [Validators.required, ValidationService.mobileNumberValidator]],
-      'email': ['', [Validators.required, ValidationService.emailValidator]],
-      'password': ['', [Validators.required, ValidationService.passwordValidator]],
-      'conform_password': ['', Validators.required],
+      'first_name': ['',ValidationService.requireFirstNameValidator],
+      'last_name': ['',ValidationService.requireLastNameValidator],
+      'mobile_number': ['', [ValidationService.requireMobileNumberValidator, ValidationService.mobileNumberValidator]],
+      'email': ['', [ValidationService.requireEmailValidator, ValidationService.emailValidator]],
+      'password': ['', [ValidationService.requirePasswordValidator, ValidationService.passwordValidator]],
+      'conform_password': ['', ValidationService.requireConfirmPasswordValidator],
       'birth_year': ['', [Validators.required, ValidationService.birthYearValidator]],
       'location': [
         {
@@ -62,7 +62,7 @@ export class CandidateComponent implements OnInit {
           'pin': ['']
         }
         , Validators.required],
-      'pin': ['', [Validators.required,ValidationService.pinValidator]],
+      'pin': ['', [ValidationService.requirePinValidator,ValidationService.pinValidator]],
       'captcha': ['', Validators.required]
     });
 

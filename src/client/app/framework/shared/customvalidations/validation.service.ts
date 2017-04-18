@@ -4,9 +4,13 @@ export class ValidationService {
   static getValidatorErrorMessage(validatorName:string, validatorValue?:any) {
     let config:any = {
       'required': 'Required',
-      'requiredEmail': 'Enter login email address',
-      'requiredPassword': 'Enter your password',
-      'requiredname': 'Name is required',
+      'requiredEmail': 'Please enter your email address',
+      'requiredPassword': 'Please enter your password',
+      'requiredConfirmPassword': 'Please enter confirm password',
+      'requiredFirstName': 'Please enter your first name',
+      'requiredLastName': 'Please enter your last name',
+      'requiredMobileNumber': 'Please enter your mobile number',
+      'requiredPin': 'Please enter your pin code',
       'invalidEmailAddress': 'Email incorrect.',
       'invalidPassword': 'Passwords must contain at least 8 characters, including uppercase, lowercase letters, numbers and one special character($@_!%*?&).',
       'maxlength': `Maximum ${validatorValue.requiredLength} characters`,
@@ -40,6 +44,33 @@ export class ValidationService {
     }
   }
 
+  static requireFirstNameValidator(control:any) {
+    if (control.value =="" || control.value == undefined) {
+        return {'requiredFirstName': true};
+    }
+    else {
+      return null;
+    }
+  }
+
+  static requireLastNameValidator(control:any) {
+    if (control.value =="" || control.value == undefined) {
+      return {'requiredLastName': true};
+    }
+    else {
+      return null;
+    }
+  }
+
+  static requireMobileNumberValidator(control:any) {
+    if (control.value =="" || control.value == undefined) {
+      return {'requiredMobileNumber': true};
+    }
+    else {
+      return null;
+    }
+  }
+
 
   static passwordValidator(control:any) {
 
@@ -53,7 +84,7 @@ export class ValidationService {
     }
   }
 
-  static requiredPasswordValidator(control:any){
+  static requirePasswordValidator(control:any){
     if (control.value =="" || control.value == undefined) {
       return {'requiredPassword': true};
     } else {
@@ -61,6 +92,21 @@ export class ValidationService {
     }
   }
 
+  static requireConfirmPasswordValidator(control:any){
+    if (control.value =="" || control.value == undefined) {
+      return {'requiredConfirmPassword': true};
+    } else {
+      return null;
+    }
+  }
+
+  static requirePinValidator(control:any){
+    if (control.value =="" || control.value == undefined) {
+      return {'requiredPin': true};
+    } else {
+      return null;
+    }
+  }
 
   static mobileNumberValidator(control:any) {
     var mobileNumber = control.value;
@@ -92,15 +138,10 @@ export class ValidationService {
     }
   }
 
-  static pinValidator(control:any) {
-    var pin = control.value;
-    var count = 0;
+  static pinValidator(control:any) {debugger
+    var pin = control.value.length;
 
-    while (pin > 1) {
-      pin = (pin / 10);
-      count += 1;
-    }
-    if (count === 20) {
+    if (pin <= 20) {
       return null;
     } else {
       return {'invalidPin': true};
