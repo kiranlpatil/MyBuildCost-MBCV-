@@ -1,0 +1,180 @@
+$text-color: #666;
+$white: #fff;
+$option-border-color: #999;
+$primary-option: #1c75bd;
+$secondary-option: #00aed5;
+
+
+.select-option {
+  display: inline-block;
+  margin: 5px 20px 5px 0;
+  text-align: left;
+  text-transform: capitalize;
+}
+
+.select-option > label {
+  margin: 0;
+  padding: 0;
+
+  & > input {
+    display: none;
+
+    & + span {
+      border: 1px solid $option-border-color;
+      border-radius: 25px;
+      color: $text-color;
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 600;
+      padding: 4px 10px;
+      min-width: 100px;
+      display: inline-block;
+      text-align: center;
+
+      &:hover {
+        border: 1px solid $option-border-color;
+      }
+    }
+
+    &:checked {
+      & + span {
+        color: $white;
+        background-color: $primary-option;
+        border: 1px solid $primary-option;
+      }
+    }
+  }
+
+  &:hover {
+    & > input {
+      & + span {
+        cursor: pointer;
+      }
+
+      &:checked {
+        & + span {
+          color: $white;
+        }
+      }
+    }
+  }
+}
+
+.primary > label {
+  & > input {
+
+    & + span {
+      border: 1px solid $primary-option;
+
+      &:hover {
+        border: 1px solid $primary-option;
+      }
+    }
+
+    &:checked {
+      & + span {
+        background-color: $primary-option;
+        border: 1px solid $primary-option;
+      }
+    }
+  }
+
+  &:hover {
+    & > input {
+      & + span {
+        border: 1px solid $primary-option;
+      }
+
+      &:checked {
+        & + span {
+          background-color: $primary-option;
+          border: 1px solid $primary-option;
+        }
+      }
+    }
+  }
+}
+
+.secondary > label {
+  & > input {
+    display: none;
+
+    & + span {
+      border: 1px solid $secondary-option;
+
+      &:hover {
+        border: 1px solid $secondary-option;
+      }
+    }
+
+    &:checked {
+      & + span {
+        background-color: $secondary-option;
+        border: 1px solid $secondary-option;
+      }
+    }
+  }
+
+  &:hover {
+    & > input {
+      & + span {
+        border: 1px solid $secondary-option;
+      }
+
+      &:checked {
+        & + span {
+          background-color: $secondary-option;
+          border: 1px solid $secondary-option;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1280px) {
+  .primary > label {
+    & > input {
+      & + span {
+        &:hover {
+          border: 1px solid $primary-option;
+        }
+      }
+    }
+
+    &:hover {
+      & > input {
+        & + span {
+          border: 1px solid $primary-option;
+        }
+      }
+    }
+  }
+
+  .secondary > label {
+    & > input {
+      & + span {
+        &:hover {
+          border: 1px solid $secondary-option;
+        }
+      }
+    }
+
+    &:hover {
+      & > input {
+        & + span {
+          border: 1px solid $secondary-option;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .select-option > label {
+    & > input {
+      & + span {
+        font-size: 10px;
+      }
+    }
+  }
+}

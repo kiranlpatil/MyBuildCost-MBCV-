@@ -1,4 +1,4 @@
-<div *ngFor="let item of candidate.awards;let i= index" class="awards col-sm-12">
+<div *ngFor="let item of candidate.awards;let i= index" class="awards col-sm-12 clearfix">
 
   <div class="row">
 
@@ -9,7 +9,7 @@
       </div>
     </div>
 
-    <div class="col-sm-4 ">
+    <div class="col-sm-4">
       <div class="form-group">
         <input type="text" class="form-control" [(ngModel)]="item.issuedBy" (change) = "postAwardDetails()"  (focus)="changeValue()" required />
         <label>Issued By</label>
