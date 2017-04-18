@@ -39,6 +39,16 @@ $btn-color: #3695d1;
       margin: 15px 0;
     }
   }
+
+  .info-message {
+    font-size: 12px;
+    font-style: italic;
+    margin: 0 0 10px;
+  }
+
+  .error-messages {
+    font-size: 10px;
+  }
 }
 
 @media screen and (max-width: 767px) {

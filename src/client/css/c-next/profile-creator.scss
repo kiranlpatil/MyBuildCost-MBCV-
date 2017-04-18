@@ -4,6 +4,7 @@ $instruction: #00aed5;
 $profile-section-shadow: rgba(204, 204, 204, 1);
 $error: #e82c0c;
 $modal-bg: #f2f2f2;
+$border-color: #e8e8e8;
 
 .profile-wrapper {
 
@@ -59,10 +60,15 @@ $modal-bg: #f2f2f2;
   .info {
     font-size: 12px;
     font-style: italic;
-    /*background-image: url('../../assets/c-next/profile-creator/info-icon.svg');
-    background-repeat: no-repeat;
-    padding-left: 30px;  !* width of the image plus a little extra padding *!
-    display: block;*/
+    background: url('../../assets/c-next/profile-creator/info.png')  no-repeat  5px 5px;
+    padding: 5px 5px 5px 25px;
+    display: block;
+    margin: 0 0 10px;
+    border: 1px solid $border-color;
+    border-radius: 4px;
+    -moz-box-shadow: 1px 1px 1px 0 $profile-section-shadow;
+    -webkit-box-shadow: 1px 1px 1px 0 $profile-section-shadow;
+    box-shadow: 1px 1px 1px 0 $profile-section-shadow
   }
 
   .form-control {
@@ -142,6 +148,15 @@ $modal-bg: #f2f2f2;
 
   .btn-primary:disabled {
     display: none;
+  }
+
+  .capabilities {
+    .info {
+      display: none;
+    }
+    .candidate {
+      display: block;
+    }
   }
 }
 

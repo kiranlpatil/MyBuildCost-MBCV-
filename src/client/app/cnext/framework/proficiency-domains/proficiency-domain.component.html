@@ -13,7 +13,7 @@
                (ngModelChange)="selectedProficiencyModel($event)">
             <input  class="form-control" [(ngModel)]="proficiencyModel" id={{type}} (keyup.enter)="addProficiencyToMasterData($event.target.value)" placeholder="{{proficiencies.label}}" />
            <br/>
-            <p class="info">*To add other proficiency which are not in the list, just type and enter</p>
+            <p class="info-message">*To add other proficiency which are not in the list, just type and enter</p>
 
             <br/> <br/>
             </div>

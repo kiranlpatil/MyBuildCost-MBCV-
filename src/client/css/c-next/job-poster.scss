@@ -18,10 +18,22 @@ $error: #e82c0c;
   .btn-primary:disabled {
     display: none;
   }
+
+  .capabilities {
+    .info {
+      display: none;
+    }
+    .recruiter {
+      display: block;
+    }
+  }
 }
 
 .info {
   font-size: 12px;
   font-style: italic;
+  background: url('../../assets/c-next/profile-creator/info.png')  no-repeat  0 0;
+  padding-left: 25px;
+  display: block;
   margin: 0 0 10px;
 }
