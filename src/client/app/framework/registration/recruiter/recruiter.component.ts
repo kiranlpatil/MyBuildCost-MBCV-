@@ -67,12 +67,12 @@ export class RecruiterComponent implements OnInit {
     );
 
     this.recruiterForm = this.formBuilder.group({
-      'company_name': ['', Validators.required],
+      'company_name': ['', ValidationService.requireCompanyNameValidator],
       'company_size': [''],
-      'mobile_number': ['', [Validators.required, ValidationService.mobileNumberValidator]],
-      'email': ['', [Validators.required, ValidationService.emailValidator]],
-      'password': ['', [Validators.required,ValidationService.passwordValidator]],
-      'conform_password': ['', [Validators.required]],
+      'mobile_number': ['',[ValidationService.requireMobileNumberValidator, ValidationService.mobileNumberValidator]],
+      'email': ['',[ValidationService.requireEmailValidator, ValidationService.emailValidator]],
+      'password': ['', [ValidationService.requirePasswordValidator, ValidationService.passwordValidator]],
+      'conform_password': ['', [ ValidationService.requireConfirmPasswordValidator]],
       'location':[
         {
           'country':['',Validators.required],
@@ -81,7 +81,7 @@ export class RecruiterComponent implements OnInit {
           'pin':[''],
         },
         Validators.required],
-      'pin':['',  [Validators.required,ValidationService.pinValidator]],
+      'pin':['',[ValidationService.requirePinValidator,ValidationService.pinValidator]],
       'company_headquarter_country':[''],
       'captcha':['',Validators.required]
 

@@ -11,6 +11,7 @@ export class ValidationService {
       'requiredLastName': 'Please enter your last name',
       'requiredMobileNumber': 'Please enter your mobile number',
       'requiredPin': 'Please enter your pin code',
+      'requiredCompanyName': 'Please enter company name',
       'invalidEmailAddress': 'Email incorrect.',
       'invalidPassword': 'Passwords must contain at least 8 characters, including uppercase, lowercase letters, numbers and one special character($@_!%*?&).',
       'maxlength': `Maximum ${validatorValue.requiredLength} characters`,
@@ -47,6 +48,15 @@ export class ValidationService {
   static requireFirstNameValidator(control:any) {
     if (control.value =="" || control.value == undefined) {
         return {'requiredFirstName': true};
+    }
+    else {
+      return null;
+    }
+  }
+
+  static requireCompanyNameValidator(control:any) {
+    if (control.value =="" || control.value == undefined) {
+      return {'requiredCompanyName': true};
     }
     else {
       return null;
