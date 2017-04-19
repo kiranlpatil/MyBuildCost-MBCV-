@@ -1,10 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-
-</body>
-</html>
+<div>
+  <div *ngIf="type=='employment'">
+    <img src="assets/c-next/icons/employment-icon.png" alt="employment"/>
+    <span>{{type}}</span>
+    <div *ngFor="let item of data;let i = index" >
+      <span>{{item.from.year}} - {{item.to.year}}</span>
+      <span>{{item.designation}}</span>
+      <span>{{item.companyName}}</span>
+    </div>
+  </div>
+  <div *ngIf="type=='education'">
+    <img src="assets/c-next/icons/education-icon.png" alt="education"/>
+    <span>{{type}}</span>
+    <div *ngFor="let item of data;let i = index" >
+      <span>{{item.yearOfPassing}}</span>
+      <span>degree</span>
+      <span>{{item.schoolName}}</span>
+    </div>
+  </div>
+</div>

@@ -1,10 +1,28 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<div>
+  <div>
+    <img src="assets/framework/images/dashboard/profile.png" alt="profile"/>
+    <p>{{candidateDetails.first_name}}</p>
+    <p>{{candidateDetails.last_name}}</p>
+    <p>{{candidateDetails.mobile_number}}</p>
+    <p>{{candidateDetails.email}}</p>
+  </div>
 
-</body>
-</html>
+
+
+  <div>
+    <span>specialisation area :</span>
+    <div  *ngFor="let role of candidate.industry.roles;let i = index">
+      <span> {{role.name}}</span>
+    </div>
+
+    <span>Industry Exposure :</span>
+    <div  *ngFor="let industry of candidate.intrestedIndustries">
+      <span> {{industry}}</span>
+    </div>
+    <span>Experience :</span> <span>{{candidate.professionalDetails.experience}}</span>
+    <span>Current Location :</span><span>Pune</span>
+    <!--<span>{{candidateDetails.location.city}}</span>-->
+    <span>Salary Band: </span><span>Know More</span>
+    <span>Availability: </span><span>Know More</span>
+  </div>
+</div>

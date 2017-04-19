@@ -1,3 +1,4 @@
-/**
- * Created by roshan on 18/4/17.
- */
+
+export * from './candidate-summury.component';
+export * from './candidate-summury.routes';
+

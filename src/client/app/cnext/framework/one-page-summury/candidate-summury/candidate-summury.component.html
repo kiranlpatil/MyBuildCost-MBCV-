@@ -1,10 +1,47 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<div>
+  <div>
+    <div>
+      <img src="assets/c-next/header/cnext-logo-white.png" alt="logo"/>
+    </div>
+    <span>Print Profile :</span><img src="assets/c-next/icons/print-icon.png" alt="print"/>
+    <span>Generate Pdf :</span><img src="assets/c-next/icons/pdf-icon.png" alt="pdf"/>
 
-</body>
-</html>
+  </div>
+
+
+  <div>
+    <div>
+      <cn-candidate-description [candidateDetails]="candidateDetails"
+                                [candidate]="candidate"></cn-candidate-description>
+    </div>
+    <div>
+      <cn-vertical-list-view [data]="candidate.employmentHistory" [type]="'employment'" ></cn-vertical-list-view>
+    </div>
+    <div>
+      <cn-vertical-list-view [data]="candidate.academics" [type]="'education'" ></cn-vertical-list-view>
+    </div>
+    <!-- <div>
+      <cn-contact-details [candidateDetails]="candidateDetails"></cn-contact-details>
+    </div>-->
+  </div>
+
+   <div>
+     <div>
+       <div><span>Core Capabilities</span><span>Complexities Handled</span></div>
+       <cn-tabular-list-view [roles]="candidate.industry.roles"></cn-tabular-list-view>
+     </div>
+     <div>
+       <span>Supplimentry Capabilities</span>
+       <cn-horizontal-list-view [data]="candidate.secondaryCapability"></cn-horizontal-list-view>
+     </div>
+     <div>
+       <span>Proficiency In</span>
+       <cn-horizontal-list-view [data]="candidate.proficiencies"></cn-horizontal-list-view>
+     </div>
+     <div>
+       <span>Additional Information</span>
+       <cn-additional-details [data]="candidate.aboutMyself"></cn-additional-details>
+     </div>
+   </div>
+</div>
+

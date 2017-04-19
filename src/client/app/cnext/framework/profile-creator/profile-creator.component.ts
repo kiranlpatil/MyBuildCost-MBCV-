@@ -460,6 +460,7 @@ export class ProfileCreatorComponent implements OnInit {
       message.isError = false;
       this.messageService.message(message);
    // }
+    this._router.navigate([NavigationRoutes.APP_PROFILESUMMURY]);
 
   }
 

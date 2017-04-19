@@ -129,6 +129,12 @@ import {DisableAwardGlyphiconService} from "./cnext/framework/disableGlyphiconAw
 import {DisableCertificateGlyphiconService} from "./cnext/framework/disableCertificateGlyphicon.service";
 import {DisableAboutMyselfGlyphiconService} from "./cnext/framework/disableAboutMyself.service";
 import {DisableEmployeeHistoryGlyphiconService} from "./cnext/framework/disableEmplyeeHistoryGlyphicon.service";
+import {CandidateSummuryComponent} from "./cnext/framework/one-page-summury/candidate-summury/candidate-summury.component";
+import {CandidateBasicInformationComponent} from "./cnext/framework/one-page-summury/candidate-summury/candidate-basic-information/candidate-basic-information.component";
+import {VericalListViewComponent} from "./cnext/framework/one-page-summury/shared/vertical-list-view/vertical-list-view.component";
+import {TabularListViewComponent} from "./cnext/framework/one-page-summury/shared/tabular-list-view/tabular-list-view.component";
+import {HorizontalListViewComponent} from "./cnext/framework/one-page-summury/shared/horizontal-list-view/horizontal-list-view.component";
+import {AdditionalDetailsComponent} from "./cnext/framework/one-page-summury/shared/additional-details/additional-details.component";
 
 @NgModule({
   imports: [
@@ -173,6 +179,12 @@ import {DisableEmployeeHistoryGlyphiconService} from "./cnext/framework/disableE
     //C-NEXT COMPONENT
 
     ProfilePictureComponent,
+    CandidateSummuryComponent,
+    CandidateBasicInformationComponent,
+    VericalListViewComponent,
+    TabularListViewComponent,
+    AdditionalDetailsComponent,
+    HorizontalListViewComponent,
     ProfileCreatorComponent,
     CapabilityListComponent,
     ProficiencyDomainComponent,

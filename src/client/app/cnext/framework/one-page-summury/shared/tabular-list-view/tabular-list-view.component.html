@@ -1,10 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-
-</body>
-</html>
+<div>
+  <div *ngFor="let role of roles">
+    <div *ngFor="let capability of role.capabilities">
+      <span>{{capability.name}}</span>
+      <div *ngFor="let complexity of capability.complexities">
+        <span>{{complexity.name}}</span>
+        <div *ngFor="let scenario of complexity.scenarios">
+          <span *ngIf="scenario.isChecked">{{scenario.name}}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
