@@ -19,13 +19,8 @@ $error: #e82c0c;
     display: none;
   }
 
-  .capabilities {
-    .info {
-      display: none;
-    }
-    .recruiter {
-      display: block;
-    }
+  .hide-recruiter-info {
+    display: none;
   }
 }
 

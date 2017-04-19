@@ -59,6 +59,7 @@ $blue: #3694d1;
   counter-reset: step;
   margin: 0 auto;
   padding: 0;
+  width: 75%;
 
   &::before {
     clear: both;
@@ -251,12 +252,6 @@ $blue: #3694d1;
 }
 
 @media only screen and (max-width: 1280px) {
-  .bar-container {
-    .cn-logo {
-      display: none;
-    }
-  }
-
   .profile-wrapper {
     display: inline-block;
     width: 100%;
@@ -276,16 +271,23 @@ $blue: #3694d1;
 }
 
 @media only screen and (max-width: 768px) {
+  .bar-container {
+    .cn-logo {
+      display: none;
+    }
+  }
+
   .bar {
     li {
       p {
-        font-size: 10px;
+        font-size: 8px;
       }
     }
   }
 }
 
 @media only screen and (max-width: 767px) {
+
   .bar-container {
     height: 50px;
     padding-top: 16px;
