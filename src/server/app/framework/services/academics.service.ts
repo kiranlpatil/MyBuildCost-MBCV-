@@ -15,7 +15,7 @@ class AcademicService {
   }
 
   retrieve(field:any, callback:(error:any, result:any) => void) {
-    this.academicsRepository.retrieveAll(field,{}, callback);
+    this.academicsRepository.retrieveAll({}, callback);
   }
 
   create(item:any, callback:(error:any, result:any) => void) {

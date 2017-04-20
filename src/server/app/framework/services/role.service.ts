@@ -16,7 +16,7 @@ class RoleService {
   }
 
   retrieve(field:any, callback:(error:any, result:any) => void) {
-    this.roleRepository.retrieveAll(field,{}, callback);
+    this.roleRepository.retrieveAll({}, callback);
   }
 
   create(item:any, callback:(error:any, result:any) => void) {

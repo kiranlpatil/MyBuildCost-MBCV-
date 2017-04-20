@@ -112,10 +112,6 @@ export function retrieve(req: express.Request, res: express.Response, next: any)
     var userService = new UserService();
     var candidateService = new CandidateService();
     let params =req.params.id;
-   // delete params.access_token;
-//    var user = req.user;
-    var auth: AuthInterceptor = new AuthInterceptor();
-
     userService.findById(params, (error, result) => {
       if (error) {
         next({
