@@ -31,6 +31,7 @@ class Messages {
   public static MSG_ERROR_REGISTRATION: string = 'User already present with this email address ';
   public static MSG_ERROR_REGISTRATION_MOBILE_NUMBER: string = 'User already present with this mobile number.';//Dont Change It
   public static MSG_ERROR_USER_NOT_FOUND: string = 'There is no user registered with this email address.';//Dont Change it
+  public static MSG_ERROR_USER_NOT_FOUND_Mail_SEND: string = 'Email has been sent successfully on your registered email to reset password.';//Dont Change it
   public static MSG_ERROR_EMAIL_ACTIVE_NOW: string = 'User already has an account associated with this email address.';//DontChnge It
   public static MSG_ERROR_TOKEN_SESSION: string = 'Your session has expired.';
   public static MSG_ERROR_WRONG_TOKEN: string = 'Invalid access token';

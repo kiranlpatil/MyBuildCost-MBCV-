@@ -16,7 +16,7 @@
       </div>
     </div>
 
-    <form [formGroup]="companyDetailsForm" (submit)="onSubmit()">
+    <form [formGroup]="companyDetailsForm" (submit)="onSubmit()" novalidate>
 
       <h4>{{company_name}} Company</h4>
 
@@ -33,9 +33,9 @@
         <div>
           <label for="about_company">About Company:</label>
         </div>
-        <div>
+        <div class="about-company">
           <control-messages [control]="companyDetailsForm.controls.about_company"></control-messages>
-          <textarea formControlName="about_company" id="about_company"  placeholder="About company" class="form-control about-company" required></textarea>
+          <textarea formControlName="about_company" id="about_company"  placeholder="About company"  class="form-control about-company" autofocus required></textarea>
         </div>
       </div>
 
@@ -44,6 +44,7 @@
         <div class="col-sm-12 no-padding">
           <div [class.hide-list]="isSocialLogin">
             <div class="col-sm-5 no-padding">
+              <control-messages [control]="companyDetailsForm.controls.description1"></control-messages>
               <input type="text" formControlName="description1" id="description1" maxlength="250" placeholder="Description" class="form-control" required />
               <span *ngIf="!setOfDocuments[0] &&  companyDetailsForm.value.description1 && isDocumentUploaded && companyDetailsForm.value.description2" class="error-messages">Please select file to upload.</span>
             </div>
@@ -60,6 +61,7 @@
         <div class="col-sm-12 no-padding">
           <div [class.hide-list]="isSocialLogin">
             <div class="col-sm-5 no-padding">
+              <control-messages [control]="companyDetailsForm.controls.description2"></control-messages>
               <input type="text" formControlName="description2" id="description2"  maxlength="250" placeholder="Description" class="form-control" value="description2" required />
               <span *ngIf="!setOfDocuments[1] && companyDetailsForm.value.description2 && isDocumentUploaded && companyDetailsForm.value.description3" class="error-messages">Please select file to upload.</span>
             </div>
@@ -76,6 +78,7 @@
         <div class="col-sm-12 no-padding">
           <div [class.hide-list]="isSocialLogin">
             <div class="col-sm-5 no-padding">
+              <control-messages [control]="companyDetailsForm.controls.description3"></control-messages>
               <input type="text" formControlName="description3" id="description3"  maxlength="250" placeholder="Description" class="form-control" required />
               <span *ngIf="!setOfDocuments[2] && companyDetailsForm.value.description3 && isDocumentUploaded " class="error-messages">Please select file to upload.</span>
             </div>
@@ -91,8 +94,8 @@
       </div>
 
       <div class="button-group">
-       <!-- <button type="submit" class="btn btn-primary" [disabled]="!companyDetailsForm.valid" >Submit Documents</button>-->
-        <button type="submit" class="btn btn-primary" >Submit Documents</button>
+       <button type="submit" class="btn btn-primary" [disabled]="!companyDetailsForm.valid" >Submit Documents</button>
+        <!--<button type="submit" class="btn btn-primary" >Submit Documents</button>-->
       </div>
     </form>
   </div>

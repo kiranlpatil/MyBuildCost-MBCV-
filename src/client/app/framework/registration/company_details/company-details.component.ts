@@ -83,24 +83,23 @@ export class CompanyDetailsComponent implements OnInit {
 
 
   onSubmit() {
-// this.companyDetailsForm.value.description1==='' || this.companyDetailsForm.value.description2==='' ||this.companyDetailsForm.value.description3==='' ||
-    if( this.setOfDocuments[0] ===undefined || this.setOfDocuments[1]===undefined|| this.setOfDocuments[2]===undefined){
-    //  this.isDescriptionEntered=true;
-      this.isDocumentUploaded=false;
-    }
-    else{
-      this.isDocumentUploaded =true;
-      this.submitted = true;
-      this.model = this.companyDetailsForm.value;
-      this.model.setOfDocuments = this.setOfDocuments;
-      console.log('files to upload in setOfDocuments', this.setOfDocuments);
+   // if(this.companyDetailsForm.value.description1!=='' && this.companyDetailsForm.value.description2 !=='' && this.companyDetailsForm.value.description3 !=='' && this.companyDetailsForm.value.about_company !=='') {
+      if (this.setOfDocuments[0] === undefined || this.setOfDocuments[1] === undefined || this.setOfDocuments[2] === undefined) {
+        this.isDocumentUploaded = true;
+      }
+      else {
+        this.isDocumentUploaded = false;
+        this.submitted = true;
+        this.model = this.companyDetailsForm.value;
+        this.model.setOfDocuments = this.setOfDocuments;
+        console.log('files to upload in setOfDocuments', this.setOfDocuments);
 
-      this.companyDetailsService.companyDetails(this.model)
-        .subscribe(
-          success => this.onCompanyDetailsSuccess(success),
-          error => this.onCompanyDetailsError(error));
-    }
-
+        this.companyDetailsService.companyDetails(this.model)
+          .subscribe(
+            success => this.onCompanyDetailsSuccess(success),
+            error => this.onCompanyDetailsError(error));
+      }
+   // }
   }
 
 

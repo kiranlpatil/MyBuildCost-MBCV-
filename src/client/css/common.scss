@@ -474,8 +474,8 @@ control-messages {
   }
 }
 
-.company-details {
-  control-messages {
+.company-details  {
+  .about-company > control-messages {
     div {
       margin: 120px 0 0;
     }
