@@ -33,12 +33,6 @@ class CandidateService {
         }
       }
       else {
-        this.locationRepository.create(item.location, (err, res1) => {
-          if (err) {
-            callback(new Error(Messages.MSG_ERROR_REGISTRATION_MOBILE_NUMBER), null);
-          }
-          else {
-            var locationId=res1._id;
             item.isCandidate=true;
             this.userRepository.create(item, (err, res) => {
               if (err) {
@@ -47,9 +41,7 @@ class CandidateService {
               else {
                 var userId1 =res._id;
                 var newItem :any={
-                  isVisible :false,
                   userId:userId1,
-                  location: locationId
                 };
                 this.candidateRepository.create(newItem, (err:any, res:any) => {
                   if (err) {
@@ -60,9 +52,6 @@ class CandidateService {
                 });
               }
             });
-          }
-        });
-
       }
     });
   }
