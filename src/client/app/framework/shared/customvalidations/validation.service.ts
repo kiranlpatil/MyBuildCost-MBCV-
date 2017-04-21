@@ -31,7 +31,7 @@ export class ValidationService {
 
   static emailValidator(control:any) {
     if (control.value) {
-     if (control.value.match(
+      if (control.value.match(
           /[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?\.)+[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?/)) {
         return null;
       } else {
@@ -43,7 +43,7 @@ export class ValidationService {
 
   static requireEmailValidator(control:any) {
     if (control.value =="" || control.value == undefined) {
-        return {'requiredEmail': true};
+      return {'requiredEmail': true};
     }
     else {
       return null;
@@ -52,7 +52,7 @@ export class ValidationService {
 
   static requireFirstNameValidator(control:any) {
     if (control.value =="" || control.value == undefined) {
-        return {'requiredFirstName': true};
+      return {'requiredFirstName': true};
     }
     else {
       return null;
@@ -182,12 +182,18 @@ export class ValidationService {
   static birthYearValidator(control:any) {
     var birthYear = control.value;
     var count = 0;
-
+    var isValid:boolean=false;
+    var currentDate = new Date();
+    var year = currentDate.getUTCFullYear() - 18;
+    if(birthYear > year-60 && birthYear<=year) {
+      isValid=true;
+    }
     while (birthYear > 1) {
       birthYear = (birthYear / 10);
       count += 1;
+
     }
-    if (count === 4) {
+    if (count === 4 && isValid===true) {
       return null;
     } else {
       return {'invalidBirthYear': true};
