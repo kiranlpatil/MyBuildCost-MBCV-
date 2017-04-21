@@ -17,6 +17,7 @@ $blue-color: #3694d1;
       margin-right: 15px;
       height: 80px;
       width: 80px;
+      border-radius: 50%;
     }
 
     .name {
@@ -34,11 +35,18 @@ $blue-color: #3694d1;
 
   .details {
     border-bottom: 1px solid $blue-color;
-    margin: 15px 0 30px;
-    padding-bottom:30px;
+    margin: 15px 0;
+    padding-bottom: 15px;
 
     .col-sm-6 {
       min-height: 20px;
+    }
+
+    p {
+      color: $name;
+      font-weight: bold;
+      font-family: 'gothamrnd-book';
+      margin: 5px 0 0 0;
     }
   }
 }
