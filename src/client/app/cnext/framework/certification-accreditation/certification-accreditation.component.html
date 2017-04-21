@@ -27,7 +27,9 @@
   <div class="col-sm-12 no-padding">
       <textarea class="form-control" [(ngModel)]="item.remark" (change)="postCertificates()" Placeholder="Certification/Accreditation"></textarea>
   </div>
+</div>
 
+<div class="form col-sm-12 certification" >
   <div class="clear">
     <button type="button" id="more_fields" (click)="addAnother()" class="btn btn-create-profile" [disabled]="disbleRole" >
       Add Another <span>+</span>
