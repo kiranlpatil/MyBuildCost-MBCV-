@@ -1,20 +1,24 @@
-<div>
+<div class="vertical-view">
   <div *ngIf="type=='employment'">
     <img src="assets/c-next/icons/employment-icon.png" alt="employment"/>
     <span>{{type}}</span>
-    <div *ngFor="let item of data;let i = index" >
-      <span>{{item.from.year}} - {{item.to.year}}</span>
-      <span>{{item.designation}}</span>
-      <span>{{item.companyName}}</span>
-    </div>
+    <ul>
+      <li *ngFor="let item of data;let i = index">
+        <p>{{item.from.year}} - {{item.to.year}}</p>
+        <p>{{item.designation}}</p>
+        <p>{{item.companyName}}</p>
+      </li>
+    </ul>
   </div>
   <div *ngIf="type=='education'">
     <img src="assets/c-next/icons/education-icon.png" alt="education"/>
     <span>{{type}}</span>
-    <div *ngFor="let item of data;let i = index" >
-      <span>{{item.yearOfPassing}}</span>
-      <span>degree</span>
-      <span>{{item.schoolName}}</span>
-    </div>
+    <ul>
+      <li  *ngFor="let item of data;let i = index" >
+        <p>{{item.yearOfPassing}}</p>
+        <p>degree</p>
+        <p>{{item.schoolName}}</p>
+      </li>
+    </ul>
   </div>
 </div>

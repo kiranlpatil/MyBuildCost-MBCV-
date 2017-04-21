@@ -1,11 +1,23 @@
-<div>
-  <div *ngFor="let role of roles">
+<div class="row capability-complexity">
+  <div class="heading clearfix">
+    <div class="col-sm-3 hidden-xs"><h4>Core Capabilities</h4></div>
+    <div class="col-sm-9 hidden-xs"><h4>Complexities Handled</h4></div>
+  </div>
+  <div  *ngFor="let role of roles">
     <div *ngFor="let capability of role.capabilities">
-      <span>{{capability.name}}</span>
-      <div *ngFor="let complexity of capability.complexities">
-        <span>{{complexity.name}}</span>
-        <div *ngFor="let scenario of complexity.scenarios">
-          <span *ngIf="scenario.isChecked">{{scenario.name}}</span>
+      <div class="content clearfix" *ngIf="capability.isPrimary">
+        <div class="col-sm-3">
+          <div class="heading visible-xs"><h4>Core Capabilities</h4></div>
+          <span>{{capability.name}}</span>
+        </div>
+        <div class="col-sm-9">
+          <div class="heading visible-xs"><h4>Complexities Handled</h4></div>
+          <div class="col-md-4 col-sm-6 padding-right15" *ngFor="let complexity of capability.complexities">
+            <span class="complexity-name">{{complexity.name}}</span>
+            <div *ngFor="let scenario of complexity.scenarios">
+              <span *ngIf="scenario.isChecked">{{scenario.name}}</span>
+            </div>
+          </div>
         </div>
       </div>
     </div>

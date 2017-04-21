@@ -1,0 +1,44 @@
+$text-color: #576b7c;
+$name: #666;
+$blue-color: #3694d1;
+
+.candidate-description {
+  text-align: left;
+
+  p, span {
+    color: $text-color;
+    font-size: 12px;
+    word-break: break-all;
+  }
+
+  .basic-info {
+    img {
+      float: left;
+      margin-right: 15px;
+      height: 80px;
+      width: 80px;
+    }
+
+    .name {
+      color: $name;
+      font-family: 'gothamrnd-book';
+      font-weight: bold;
+      text-transform: capitalize;
+    }
+
+    p {
+      color: $text-color;
+      margin: 0 0 5px;
+    }
+  }
+
+  .details {
+    border-bottom: 1px solid $blue-color;
+    margin: 15px 0 30px;
+    padding-bottom:30px;
+
+    .col-sm-6 {
+      min-height: 20px;
+    }
+  }
+}

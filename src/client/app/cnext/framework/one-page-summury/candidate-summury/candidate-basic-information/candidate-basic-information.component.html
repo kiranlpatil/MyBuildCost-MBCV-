@@ -1,28 +1,31 @@
-<div>
-  <div>
+<div class="candidate-description">
+  <div class="basic-info clearfix">
     <img src="assets/framework/images/dashboard/profile.png" alt="profile"/>
-    <p>{{candidateDetails.first_name}}</p>
-    <p>{{candidateDetails.last_name}}</p>
+    <p class="name">{{candidateDetails.first_name}} {{candidateDetails.last_name}}</p>
     <p>{{candidateDetails.mobile_number}}</p>
     <p>{{candidateDetails.email}}</p>
   </div>
 
-
-
-  <div>
-    <span>specialisation area :</span>
-    <div  *ngFor="let role of candidate.industry.roles;let i = index">
-      <span> {{role.name}}</span>
+  <div class="details clearfix">
+    <div class="col-xs-6 padding-right5"><span>Specialisation area:</span></div>
+    <div class="col-xs-6 padding-left5">
+      <div  *ngFor="let role of candidate.industry.roles;let i = index">
+        <span>{{role.name}},</span>
+      </div>
     </div>
-
-    <span>Industry Exposure :</span>
-    <div  *ngFor="let industry of candidate.intrestedIndustries">
-      <span> {{industry}}</span>
+    <div class="col-xs-6 padding-right5"><span>Industry Exposure:</span></div>
+    <div class="col-xs-6 padding-left5">
+      <div  *ngFor="let industry of candidate.intrestedIndustries">
+        <span>{{industry}}</span>
+      </div>
     </div>
-    <span>Experience :</span> <span>{{candidate.professionalDetails.experience}}</span>
-    <span>Current Location :</span><span>Pune</span>
-    <!--<span>{{candidateDetails.location.city}}</span>-->
-    <span>Salary Band: </span><span>Know More</span>
-    <span>Availability: </span><span>Know More</span>
+    <div class="col-xs-6 padding-right5"><span>Experience:</span></div>
+    <div class="col-xs-6 padding-left5"><span>{{candidate.professionalDetails.experience}}</span></div>
+    <div class="col-xs-6 padding-right5"><span>Current Location:</span></div>
+    <div class="col-xs-6 padding-left5"><span>Pune<!--<span>{{candidateDetails.location.city}}</span>--></span></div>
+    <div class="col-xs-6 padding-right5"><span>Salary Band:</span></div>
+    <div class="col-xs-6 padding-left5"><span>Know More</span></div>
+    <div class="col-xs-6 padding-right5"><span>Availability:</span></div>
+    <div class="col-xs-6 padding-left5"><span>Know More</span></div>
   </div>
 </div>

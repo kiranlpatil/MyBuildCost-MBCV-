@@ -1,15 +1,14 @@
 $text-color: #666;
 $white: #fff;
 $option-border-color: #999;
-$primary-option: #1c75bd;
-$secondary-option: #00aed5;
+$primary-option: #3694d1;
+$secondary-option: #81D4FA;
 
 
 .select-option {
   display: inline-block;
   margin: 5px 20px 5px 0;
   text-align: left;
-  text-transform: capitalize;
 }
 
 .select-option > label {

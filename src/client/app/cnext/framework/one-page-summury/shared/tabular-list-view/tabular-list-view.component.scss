@@ -1,0 +1,60 @@
+$theme-color: #3694d1;
+$heading-color: #dbeef6;
+$border-color: #ccc;
+
+.capability-complexity {
+  .heading {
+    background: #dbeef6;
+    margin: 0;
+    width: 100%;
+
+    h4 {
+      font-size: 12px;
+      font-family: gothamrnd-book;
+      margin: 0;
+      padding: 10px 0;
+    }
+  }
+
+  .content {
+    border-bottom: 1px solid $border-color;
+    margin: 10px 0;
+
+    .col-md-4,
+    .col-sm-6 {
+      min-height: 100px;
+    }
+
+    span {
+      font-size: 12px;
+    }
+
+    .complexity-name {
+      color: $theme-color;
+    }
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .capability-complexity {
+    border-top: 1px solid $theme-color;
+
+    .content {
+      .col-md-4,
+      .col-sm-6 {
+        min-height: inherit;
+        margin-bottom: 15px;
+      }
+    }
+
+    .heading {
+      padding: 0 15px;
+      margin: 10px 0;
+    }
+
+    .col-sm-3,
+    .col-sm-9 {
+      padding: 0;
+    }
+  }
+}

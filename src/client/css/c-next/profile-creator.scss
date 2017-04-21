@@ -5,6 +5,7 @@ $profile-section-shadow: rgba(204, 204, 204, 1);
 $error: #e82c0c;
 $modal-bg: #f2f2f2;
 $border-color: #e8e8e8;
+$info: #999;
 
 .profile-wrapper {
 
@@ -64,14 +65,11 @@ $border-color: #e8e8e8;
     padding-left: 25px;
     display: block;
     margin: 0 0 10px;
-    /*padding: 5px 5px 5px 25px;
-    display: block;
-    margin: 0 0 10px;
-    border: 1px solid $border-color;
-    border-radius: 4px;
-    -moz-box-shadow: 1px 1px 1px 0 $profile-section-shadow;
-    -webkit-box-shadow: 1px 1px 1px 0 $profile-section-shadow;
-    box-shadow: 1px 1px 1px 0 $profile-section-shadow*/
+    color: $info;
+  }
+
+  .recruiter-info {
+    display: none;
   }
 
   .form-control {

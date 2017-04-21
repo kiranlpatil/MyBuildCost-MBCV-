@@ -1,23 +1,30 @@
-<div>
-  <div>
-    <div>
+<header class="page-header">
+  <div class="container">
+    <div class="cn-logo">
       <img src="assets/c-next/header/cnext-logo-white.png" alt="logo"/>
     </div>
-    <span>Print Profile :</span><img src="assets/c-next/icons/print-icon.png" alt="print"/>
-    <span>Generate Pdf :</span><img src="assets/c-next/icons/pdf-icon.png" alt="pdf"/>
 
+    <ul class="action-list">
+      <li>
+        <img src="assets/c-next/icons/print-icon.png" alt="print"/><span class="hidden-xs">Print Profile</span>
+      </li>
+      <li>
+        <img src="assets/c-next/icons/pdf-icon.png" alt="pdf"/><span class="hidden-xs">Generate Pdf</span>
+      </li>
+    </ul>
   </div>
+</header>
 
 
-  <div>
+<section class="container one-page-summary">
+  <div class="col-sm-3 left-content">
     <div>
-      <cn-candidate-description [candidateDetails]="candidateDetails"
-                                [candidate]="candidate"></cn-candidate-description>
+      <cn-candidate-description [candidateDetails]="candidateDetails" [candidate]="candidate"></cn-candidate-description>
     </div>
     <div>
       <cn-vertical-list-view [data]="candidate.employmentHistory" [type]="'employment'" ></cn-vertical-list-view>
     </div>
-    <div>
+     <div>
       <cn-vertical-list-view [data]="candidate.academics" [type]="'education'" ></cn-vertical-list-view>
     </div>
     <!-- <div>
@@ -25,23 +32,21 @@
     </div>-->
   </div>
 
-   <div>
-     <div>
-       <div><span>Core Capabilities</span><span>Complexities Handled</span></div>
+   <div class="col-sm-9 right-content">
+     <div class="col-sm-12">
        <cn-tabular-list-view [roles]="candidate.industry.roles"></cn-tabular-list-view>
      </div>
-     <div>
-       <span>Supplimentry Capabilities</span>
-       <cn-horizontal-list-view [data]="candidate.secondaryCapability"></cn-horizontal-list-view>
-     </div>
-     <div>
-       <span>Proficiency In</span>
+
+     <div class="col-md-6 col-sm-7">
+       <h4>Supplimentry Capabilities</h4>
+       <cn-horizontal-list-view [data]="candidate.proficiencies"></cn-horizontal-list-view>
+       <h4>Proficiency In</h4>
        <cn-horizontal-list-view [data]="candidate.proficiencies"></cn-horizontal-list-view>
      </div>
-     <div>
-       <span>Additional Information</span>
+     <div class="col-md-6 col-sm-5">
+       <h4>Additional Information</h4>
        <cn-additional-details [data]="candidate.aboutMyself"></cn-additional-details>
      </div>
    </div>
-</div>
+</section>
 
