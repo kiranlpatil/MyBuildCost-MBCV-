@@ -9,15 +9,11 @@
   <div class="details clearfix">
     <div>
       <p>Specialization area:</p>
-      <div  *ngFor="let role of candidate.industry.roles;let i = index">
-        <span>{{role.name}},</span>
-      </div>
+        <span *ngFor="let role of candidate.industry.roles;let i = index">{{role.name}},</span>
     </div>
     <div>
       <p>Industry Exposure:</p>
-      <div  *ngFor="let industry of candidate.intrestedIndustries">
-        <span>{{industry}}</span>
-      </div>
+      <span *ngFor="let industry of candidate.intrestedIndustries">{{industry}}</span>
     </div>
     <div>
       <p>Experience:</p>
