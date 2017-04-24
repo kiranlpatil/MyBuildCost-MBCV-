@@ -168,6 +168,7 @@ export class JobPosterComponent {
 
 
   postjob() {
+    this.showModalStyle = !this.showModalStyle;
     this.jobPosterModel.competencies = this.competensies.detail;
 
    // this.jobPosterModel.profiencies = this.proficiency;
@@ -190,7 +191,7 @@ export class JobPosterComponent {
 
   showHideModal() {
     this.showModalStyle = !this.showModalStyle;
-    this.postjob();
+    // this.postjob();
   }
 
   getStyleModal() {
