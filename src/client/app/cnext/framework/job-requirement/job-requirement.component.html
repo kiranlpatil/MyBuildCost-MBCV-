@@ -1,15 +1,4 @@
 
-
-<!--  <div class="col-sm-6">
-    <label>Education Qualificaion:</label>
-    <div class="list">
-      <div ng2-auto-complete
-           [source]="educationlist"
-           (ngModelChange)="selecteducationModel($event)">
-        <input class="form-control" [ngModel]="educationModel"   placeholder="Select Education" />
-      </div>
-    </div>
-  </div>-->
   <div class="col-sm-4">
   <label>Educational Qualification:</label>
   <select class="form-control" [(ngModel)]="jobRequirement.education" (change)="selecteducationModel($event.target.value)">
@@ -38,51 +27,5 @@
     </select>
   </div>
 
-<!--
 
-  <div class="col-sm-6">
-    <label >Experience Band:</label>
-    <div class="list">
-      <div ng2-auto-complete
-           [source]="experiencelist"
-           (ngModelChange)="selectexperienceModel($event)">
-        <input class="form-control" [ngModel]="experienceModel"  placeholder="Select Experience" />
-      </div>
-    </div>
-  </div>
-
-  <div class="col-sm-6">
-    <label>Salary Band:</label>
-    <div class="list">
-      <div ng2-auto-complete
-           [source]="salarylist"
-           (ngModelChange)="selectsalaryModel($event)">
-        <input class="form-control" [ngModel]="salaryModel"   placeholder="Select Salary" />
-      </div>
-    </div>
-  </div>
-
-  <div class="col-sm-6">
-    <label>Joining Period:</label>
-    <div class="list">
-      <div ng2-auto-complete
-           [source]="noticeperiodlist"
-           (ngModelChange)="selectenoticeperiodModel($event)">
-        <input class="form-control" [ngModel]="noticeperiodModel"  placeholder="Select Period" />
-      </div>
-    </div>
-  </div>-->
-
-  <!--<div class="col-sm-12" *ngIf="showIndustry">
-    <label>Industry:</label>
-
-    <cn-single-select-list [radioData]="industries"  (selectedData)="selectIndustryModel($event)"></cn-single-select-list>
-
-  </div>
-
-  <div class="col-sm-12" *ngIf="showRole">
-    <label>Role:</label>
-
-    <cn-multi-select-list [checkBoxData]="roles"  [maxInput]="'3'" (selectedData)="selectRolesModel($event)"></cn-multi-select-list>
-  </div>-->
 

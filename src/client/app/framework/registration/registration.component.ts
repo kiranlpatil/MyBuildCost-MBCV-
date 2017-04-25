@@ -58,7 +58,7 @@ export class RegistrationComponent {
     LocalStorageService.setLocalValue(LocalStorage.USER_ID, user.data._id);
     LocalStorageService.setLocalValue(LocalStorage.EMAIL_ID,this.userForm.value.email);
     LocalStorageService.setLocalValue(LocalStorage.MOBILE_NUMBER, this.userForm.value.mobile_number);
-    LocalStorageService.setLocalValue(LocalStorage.CHANGE_MAIL_VALUE, 'from_registration');
+    LocalStorageService.setLocalValue(LocalStorage.CHANGE_MAIL_VALUE, 'from_registration'); //TODO use navigation routes(framework)
     this.userForm.reset();
     this._router.navigate([NavigationRoutes.VERIFY_USER]);
   }
@@ -103,7 +103,7 @@ export class RegistrationComponent {
 
 */
 
-  showHideCandidate() {
+  showHideCandidate() { //TODO use single variable for all view.
     this.isCandidate = false;
     this.isRecruiter = true;
   }

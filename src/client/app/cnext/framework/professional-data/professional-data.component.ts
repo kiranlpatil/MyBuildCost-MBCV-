@@ -6,7 +6,7 @@ import { ProfessionalDataService } from './professional-data.service';
 import { Message } from '../../../framework/shared/message';
 import { MessageService } from '../../../framework/shared/message.service';
 import { ProfessionalService } from '../professional-service';
-import {ProfileCreatorService} from "../profile-creator/profile-creator.service";
+import {CandidateProfileService} from "../candidate-profile/candidate-profile.service";
 import {LocalStorageService} from "../../../framework/shared/localstorage.service";
 import {LocalStorage} from "../../../framework/shared/constants";
 import {Candidate} from "../model/candidate";
@@ -29,7 +29,7 @@ export class ProfessionalDataComponent extends BaseService implements OnInit {
   constructor(private professionaldataservice:ProfessionalDataService,
               private messageService:MessageService,
               private professionalService : ProfessionalService,
-              private profileCreatorService:ProfileCreatorService) {
+              private profileCreatorService:CandidateProfileService) {
     super();
   }
 

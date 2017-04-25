@@ -63,7 +63,7 @@ import {ScrollToModule} from 'ng2-scroll-to';
 
 //C-NEXT IMPORTS
 import { ProfilePictureComponent } from './cnext/framework/profile-picture/profile-picture.component';
-import { ProfileCreatorComponent } from './cnext/framework/profile-creator/profile-creator.component';
+
 import { CapabilityListComponent } from './cnext/framework/capability-list/capability-list.component';
 import { ProficiencyDomainComponent } from './cnext/framework/proficiency-domains/proficiency-domain.component';
 import { ComplexityListComponent } from './cnext/framework/complexity-list/complexity-list.component';
@@ -122,7 +122,6 @@ import { ShowJobFilterService } from './cnext/framework/showJobFilter.service';
 import {CandidateAwardService} from "./cnext/framework/awards/awards.service";
 import {AboutCandidateService} from "./cnext/framework/more-about-myself/more-about-myself.service";
 import {CandidateAcadmyDetailService} from "./cnext/framework/academic-details/academic-details.service";
-import {ProfileCreatorService} from "./cnext/framework/profile-creator/profile-creator.service";
 import {JobPosterService} from "./cnext/framework/job-poster/job-poster.service";
 import {DisableAwardGlyphiconService} from "./cnext/framework/disableGlyphiconAward.service";
 import {DisableCertificateGlyphiconService} from "./cnext/framework/disableCertificateGlyphicon.service";
@@ -134,6 +133,9 @@ import {VericalListViewComponent} from "./cnext/framework/one-page-summury/share
 import {TabularListViewComponent} from "./cnext/framework/one-page-summury/shared/tabular-list-view/tabular-list-view.component";
 import {HorizontalListViewComponent} from "./cnext/framework/one-page-summury/shared/horizontal-list-view/horizontal-list-view.component";
 import {AdditionalDetailsComponent} from "./cnext/framework/one-page-summury/shared/additional-details/additional-details.component";
+import {ProfileDescriptionComponent} from "./cnext/framework/profile-description/profile-description.component";
+import {CandidateProfileComponent} from "./cnext/framework/candidate-profile/candidate-profile.component";
+import {CandidateProfileService} from "./cnext/framework/candidate-profile/candidate-profile.service";
 
 @NgModule({
   imports: [
@@ -185,7 +187,8 @@ import {AdditionalDetailsComponent} from "./cnext/framework/one-page-summury/sha
     TabularListViewComponent,
     AdditionalDetailsComponent,
     HorizontalListViewComponent,
-    ProfileCreatorComponent,
+    CandidateProfileComponent,
+    ProfileDescriptionComponent,
     CapabilityListComponent,
     ProficiencyDomainComponent,
     IndustryListComponent,
@@ -285,7 +288,7 @@ import {AdditionalDetailsComponent} from "./cnext/framework/one-page-summury/sha
     AboutCandidateService,
     JobPosterService,
     CandidateAcadmyDetailService,
-    ProfileCreatorService,
+    CandidateProfileService,
     DisableAwardGlyphiconService,
     DisableCertificateGlyphiconService,
     DisableAboutMyselfGlyphiconService,

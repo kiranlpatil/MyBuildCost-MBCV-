@@ -6,7 +6,6 @@
     </div>
 
     <ul class="bar container" id="bar">
-      <!--<li class="active"><p>Enter Roles</p></li>-->
       <li [class.active]="whichStepsVisible[1]"><p>Area of Work</p></li>
       <li [class.active]="whichStepsVisible[2]"><p>Capabilities</p></li>
       <li [class.active]="whichStepsVisible[3]"><p>Complexities</p></li>
@@ -16,7 +15,7 @@
     </ul>
     <ul class="logout-dropdown">
       <li class="dropdown">
-        <a href="#" class="dropdown-toggle drop-down" data-toggle="dropdown" >
+        <a href="#" class="dropdown-toggle drop-down" data-toggle="dropdown">
           <img src="assets/framework/images/dashboard/3dots.png">
         </a>
         <ul class="dropdown-menu">
@@ -29,47 +28,26 @@
 
   <div class="profile-wrapper container">
     <div class="col-sm-12">
-
       <div class="wrapper">
-        <div class="section-container">
-          <div class="main-content clearfix">
-            <h4 class="heading">Enter Your Job Title</h4>
-            <div class="col-sm-3 text-center">
-              <cn-profile-picture></cn-profile-picture>
-              <div class="user-name">
-                <span class="profile-name-first">{{firstName}}</span><span class="profile-name-last">{{lastName}}</span>
-              </div>
-              <!--<div class="button-group">
-                <button class="btn btn-danger" style="margin-top: 15px;" (click)="logOut()">Logout</button>
-              </div>-->
-            </div>
-            <div class="col-sm-9 profile-description">
-              <h4>Enter Your Job Title</h4>
-              <div class="error-messages" *ngIf="isTitleFilled">Job title should not be empty.</div>
-              <input name="jobTitle" placeholder="e.g. Software Engineer" class="form-control job-title" [(ngModel)]="candidate.jobTitle" (change)="selectedtitle()" [disabled]="disableTitle">
-              <!--<textarea name="jobTitle" placeholder="e.g. Software Engineer" class="form-control"[ngModel]="title" (ngModelChange)="selectedtitle($event)" ></textarea>-->
+          <cn-profile-description [candidate]="candidate"
+                                  (onComplete)="onProfileDescriptionComplete($event)">
+          </cn-profile-description>
 
-              <div class="clearfix">&nbsp;</div>
-              <!--<div class="error-messages" *ngIf="isShowRequired"><p>*</p></div>-->
-              <h4>Select Industry (Any one value from the list below) </h4>
-              <cn-industry-list [industries]="industries" [candidateIndustry]="candidate.industry" (selectIndustry)="selectIndustry($event)" ></cn-industry-list>
-
-            </div>
-          </div>
-        </div>
         <div id="work-area">
-          <div  class="section-container" [hidden]="!isRolesShow">
+          <div class="section-container" [hidden]="!isRolesShow">
             <div class="main-content clearfix">
-              <h4 class="heading">Select Area of Work (Max 3)</h4>
-              <cn-role-list [roles]="rolesForMain" [candidateRoles]="candidateForRole" (selectRoles)="selectRole($event)"></cn-role-list>
+
+              <cn-role-list [roles]="rolesForMain" [candidateRoles]="candidateForRole"
+                            (selectRoles)="selectRole($event)"></cn-role-list>
             </div>
           </div>
         </div>
         <div id="capability-area">
-          <div   class="section-container" [hidden]="!showCapability">
+          <div class="section-container" [hidden]="!showCapability">
             <div class="main-content clearfix">
               <h4 class="heading">Choose Your Capabilities (Max. 10)</h4>
-              <cn-capibility-list [roles]="rolesForCapability" [candidateRoles]="candidateForCapability" (selectCapabilityWithRole)="selectRole($event)"></cn-capibility-list>
+              <cn-capibility-list [roles]="rolesForCapability" [candidateRoles]="candidateForCapability"
+                                  (selectCapabilityWithRole)="selectRole($event)"></cn-capibility-list>
             </div>
           </div>
         </div>
@@ -78,7 +56,9 @@
           <div class="section-container" [hidden]="!showComplexity">
             <div class="main-content clearfix">
               <h4 class="heading">Choose Complexities</h4>
-              <cn-complexity-list [roles]="rolesForComplexity" [candidateRoles]="candidateForComplexity" [isComplexityPresent]="isComplexityPresent"  (selectComplexityWithRole)="selectRole($event)"></cn-complexity-list>
+              <cn-complexity-list [roles]="rolesForComplexity" [candidateRoles]="candidateForComplexity"
+                                  [isComplexityPresent]="isComplexityPresent"
+                                  (selectComplexityWithRole)="selectRole($event)"></cn-complexity-list>
             </div>
           </div>
         </div>
@@ -87,7 +67,9 @@
           <div class="section-container clearfix profeiciency-domain" [hidden]="!showProfeciency">
             <div class="main-content clearfix">
               <h4 class="heading">Proficiencies (Max. 25)</h4>
-              <cn-proficiency-doamin [proficiencies]="proficiencies" [candidate]="candidate"  [type]="'profeciency'" [industry]="candidate.industry.name" (selectProficiency)="selectProficiency($event)"></cn-proficiency-doamin>
+              <cn-proficiency-doamin [proficiencies]="proficiencies" [candidate]="candidate" [type]="'profeciency'"
+                                     [industry]="candidate.industry.name"
+                                     (selectProficiency)="selectProficiency($event)"></cn-proficiency-doamin>
             </div>
           </div>
         </div>
@@ -95,7 +77,9 @@
         <div class="section-container profeiciency-domain" [hidden]="!showProfeciency">
           <div class="main-content clearfix">
             <h4 class="heading">Select Industry In Which You Have work Exposure / Experience</h4>
-            <cn-industry-experience-list [industries]="industries" [candidateExperiencedIndustry]="candidate.intrestedIndustries" (selectExperiencedIndustry)="selectExperiencedIndustry($event)"></cn-industry-experience-list>
+            <cn-industry-experience-list [industries]="industries"
+                                         [candidateExperiencedIndustry]="candidate.intrestedIndustries"
+                                         (selectExperiencedIndustry)="selectExperiencedIndustry($event)"></cn-industry-experience-list>
           </div>
         </div>
 
@@ -106,8 +90,8 @@
           </div>
         </div>
 
-        <div class="section-container" [hidden]="chkEmployeeHistory" [hidden]="!showProfeciency" >
-          <div class="main-content clearfix"  >
+        <div class="section-container" [hidden]="chkEmployeeHistory" [hidden]="!showProfeciency">
+          <div class="main-content clearfix">
             <h4 class="heading">Employment History
               <span class="close-dialog" [hidden]="isHiddenEmployeehistory">Close this section if not needed
             <span class="glyphicon glyphicon-remove" (click)="hideEmployeeHistory()"></span>
@@ -120,12 +104,12 @@
         <div class="section-container" [hidden]="!showProfeciency">
           <div class="main-content clearfix">
             <h4 class="heading">Academic Details</h4>
-            <cn-academic-details [candidate]="candidate" ></cn-academic-details>
+            <cn-academic-details [candidate]="candidate"></cn-academic-details>
           </div>
         </div>
 
         <div class="section-container" [hidden]="chkCertification" [hidden]="!showProfeciency">
-          <div class="main-content clearfix" >
+          <div class="main-content clearfix">
             <h4 class="heading">Certification/Accreditation
               <span class="close-dialog" [hidden]="isHiddenCertificate">Close this section if not needed
             <span class="glyphicon glyphicon-remove" (click)="hideCertification()"></span>
@@ -159,31 +143,33 @@
 
         <div class="section-container profile-configurations" [hidden]="!showProfeciency">
           <div class="col-md-9 col-sm-8 no-padding text-left">
-            <div class="info"><p>In case you wish to hide your profile visibility from recruiters, select hide option above. You can also choose to show your profile later.</p></div>
+            <div class="info"><p>In case you wish to hide your profile visibility from recruiters, select hide option
+              above. You can also choose to show your profile later.</p></div>
             <div class="radio">
               <label>Profile Visibility:</label>
               <label class="radio-inline">
-                <input type="radio" name="profile-visibility" id="optionsRadios2"  (change)="showorhide($event.target.value)" value= true [checked]="candidate.isVisible == false" > show
+                <input type="radio" name="profile-visibility" id="optionsRadios2"
+                       (change)="showorhide($event.target.value)" value=true [checked]="candidate.isVisible == false">
+                show
               </label>
               <label class="radio-inline">
-                <input type="radio" name="profile-visibility" id="optionsRadios3"  (change)="showorhide($event.target.value)" value= false [checked]="candidate.isVisible == true" > hide
+                <input type="radio" name="profile-visibility" id="optionsRadios3"
+                       (change)="showorhide($event.target.value)" value=false [checked]="candidate.isVisible == true">
+                hide
               </label>
             </div>
             <div class="button-group">
-              <button class="btn btn-primary"(click)="onSubmit()" >Submit</button>
+              <button class="btn btn-primary" (click)="onSubmit()">Submit</button>
               <button class="btn btn-default">Cancel</button>
             </div>
           </div>
           <div class="col-md-3 col-sm-4 no-padding text-right social-links">
             <div>
               <label>You Can Share it On:</label>
-              <img src="assets/c-next/profile-creator/fb.png" />
-              <img src="assets/c-next/profile-creator/linked-in.png" />
-              <img src="assets/c-next/profile-creator/twitter.png" />
+              <img src="assets/c-next/profile-creator/fb.png"/>
+              <img src="assets/c-next/profile-creator/linked-in.png"/>
+              <img src="assets/c-next/profile-creator/twitter.png"/>
             </div>
-            <!--<div class="button-group">
-              <button class="btn btn-danger" style="margin-top: 15px;" (click)="logOut()">Logout</button>
-            </div>-->
           </div>
         </div>
       </div>

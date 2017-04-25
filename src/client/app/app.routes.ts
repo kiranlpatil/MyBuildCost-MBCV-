@@ -18,10 +18,10 @@ import {  ChangeMobileRoutes  } from './framework/dashboard/settings/change-mobi
 import {  LandingPageRoutes } from './framework/landing-page/landing-page.routes';
 import {  CandidateRoutes } from './framework/registration/candidate/candidate.routes';
 import {  RecruiterRoutes } from './framework/registration/recruiter/recruiter.routes';
-import {  ProfileCreator } from './cnext/framework/profile-creator/profile-creator.routes';
 import {  CompanyDetailsRoutes  } from './framework/registration/company_details/company-details.routes';
 import {  RecruiterDashboard  } from './cnext/framework/recruiter-dashboard/recruiter-dashboard.routes';
 import {  CandidateSummury  } from "./cnext/framework/one-page-summury/candidate-summury/candidate-summury.routes";
+import {ProfileCreator} from "./cnext/framework/candidate-profile/candidate-profile.routes";
 
 
 export const routes: Routes = [

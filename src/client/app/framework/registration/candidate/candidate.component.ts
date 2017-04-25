@@ -27,7 +27,7 @@ export class CandidateComponent implements OnInit {
   private storedcountry: string;
   private storedstate: string;
   private storedcity: string;
-  private locationDetails: any;
+  private locationDetails: any;  // TODO minimize coding to manage front end
   private isPasswordConfirm: boolean;
   private isFormSubmitted = false;
   private userForm: FormGroup;
@@ -97,7 +97,7 @@ export class CandidateComponent implements OnInit {
     this.model.birth_year = newval;
   }
 
-  selectCountryModel(newval: string) {            //TO DO:Use 2way binding.
+  selectCountryModel(newval: string) {            //TODO:Use 2way binding.
     this.states = new Array();
     this.cities = new Array();
     for (let item of this.locationDetails) {
@@ -115,7 +115,7 @@ export class CandidateComponent implements OnInit {
     tempCity.value = '';
   }
 
-  selectStateModel(newval: string) {
+  selectStateModel(newval: string) {      //TODO :USE 2way binding
     this.cities = new Array();
     for (let item of this.locationDetails) {
       if (item.country === this.storedcountry) {

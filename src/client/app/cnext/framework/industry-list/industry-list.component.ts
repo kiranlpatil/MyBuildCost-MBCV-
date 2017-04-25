@@ -1,5 +1,6 @@
 import {Component, Input, Output, EventEmitter} from "@angular/core";
 import {Industry} from "../model/industry";
+import {CandidateProfileService} from "../candidate-profile/candidate-profile.service";
 
 @Component({
   moduleId: module.id,
@@ -9,45 +10,18 @@ import {Industry} from "../model/industry";
 })
 
 export class IndustryListComponent {
-  @Input() industries:Industry[] = new Array(0);
-  private selectedIndustry:Industry = new Industry();
-  @Input() candidateIndustry:Industry = new Industry();
-  @Output() selectIndustry=new EventEmitter();
-  private disableIndustry : boolean=false;
-  private disableButton : boolean=true;
+  @Input() selectedIndustry:Industry = new Industry();
+  @Output() valueChange = new EventEmitter();
 
-  private showModalStyle:boolean = false;
+  private industries:Industry[] = new Array(0);
 
-  ngOnChanges(changes:any) {
-    if (changes.industries != undefined) {
-      if (changes.industries.currentValue != undefined)
-        this.industries = changes.industries.currentValue;
-    }
+  constructor(private candidateProfileService:CandidateProfileService) {
+    this.candidateProfileService.getIndustries()
+      .subscribe(industries => this.industries = industries.data);
   }
 
-  choosedIndustry(industry:Industry) {
-    this.disableButton=false;
-    this.selectedIndustry = industry;
-  }
-
-  showHideModal() { //TODO
-    this.showModalStyle = !this.showModalStyle;
-  }
-
-  disableIndustrires() {
-    this.disableButton=true;
-    this.disableIndustry=true;
-    //this.showModalStyle = !this.showModalStyle;
-    this.selectIndustry.emit(this.selectedIndustry); // this.createAndSave();
-
-  }
-
-  getStyleModal() {
-    if (this.showModalStyle) {
-      return 'block';
-    } else {
-      return 'none';
-    }
+  onValueChange(industry:Industry) {
+    this.valueChange.emit(industry);
   }
 }
 

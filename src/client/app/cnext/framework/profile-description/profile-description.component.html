@@ -1,0 +1,48 @@
+<div class="section-container">
+  <div class="main-content clearfix" *ngIf="compactView">
+    <h4 class="heading">Enter Your Job Title</h4>
+
+    <div class="col-sm-3 text-center">
+      <cn-profile-picture></cn-profile-picture>
+      <div class="user-name">
+        <span class="profile-name-first">{{candidateDetails.first_name}}</span><span class="profile-name-last">{{candidateDetails.last_name}}</span>
+      </div>
+    </div>
+
+    <div class="col-sm-9 profile-description">
+      <h4>Enter Your Job Title</h4>
+      <div class="error-messages" *ngIf="isTitleFilled">Job title should not be empty.</div>
+      <input name="jobTitle" placeholder="e.g. Software Engineer" class="form-control job-title"
+             [(ngModel)]="candidate.jobTitle" [disabled]="disableTitle">
+
+      <div class="clearfix">&nbsp;</div>
+      <h4>Select Industry (Any one value from the list below) </h4>
+      <cn-industry-list  [selectedIndustry]="candidate.industry" (valueChange)="onIndustryChange($event)"></cn-industry-list>
+    </div>
+
+    <div class="button-group clearfix">
+      <button class="btn btn-primary" scrollTo scrollTargetSelector="#work-area" (click)="onNext()">Next
+      </button>
+    </div>
+
+  </div>
+
+
+
+
+  <div class="main-content clearfix" *ngIf="!compactView">
+    <div [hidden]="compactView" align="right">
+      <button (click)="compactView=true">edit</button>
+    </div>
+
+    <div class="col-sm-3 text-center">
+      <img src="{{image_path}}"/>
+    </div>
+    <p>
+      <span class="profile-name-first">{{candidateDetails.first_name}}</span>
+      <span class="profile-name-last">{{candidateDetails.last_name}}</span>
+    </p>
+    <p>JobTitle:{{candidate.jobTitle}}</p>
+    <p>Industry:{{candidate.industry.name}}</p>
+  </div>
+</div>

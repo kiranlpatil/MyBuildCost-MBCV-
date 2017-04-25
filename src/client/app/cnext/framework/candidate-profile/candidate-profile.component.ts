@@ -1,20 +1,16 @@
 import {Component, OnInit} from "@angular/core";
-import {LocalStorageService} from "../../../framework/shared/localstorage.service";
-import {LocalStorage, NavigationRoutes, Messages} from "../../../framework/shared/constants";
+import {NavigationRoutes, Messages} from "../../../framework/shared/constants";
 import {Router} from "@angular/router";
-import {DashboardService} from "../../../framework/dashboard/dashboard.service";
 import {TestService} from "../test.service";
 import {ComplexityService} from "../complexity.service";
 import {ProficiencyService} from "../proficience.service";
 import {ProfessionalService} from "../professional-service";
 import {EducationalService} from "../educational-service";
-import {AwardService} from "../award-service";
 import {MyRoleListTestService} from "../myRolelist.service";
 import {MyRoTypeTestService} from "../myRole-Type.service";
 import {DisableTestService} from "../disable-service";
-import {JobTitle} from "../model/jobTitle";
 import {Candidate} from "../model/candidate";
-import {ProfileCreatorService} from "./profile-creator.service";
+import {CandidateProfileService} from "./candidate-profile.service";
 import {MessageService} from "../../../framework/shared/message.service";
 import {Message} from "../../../framework/shared/message";
 import {Industry} from "../model/industry";
@@ -27,11 +23,11 @@ import {DisableEmployeeHistoryGlyphiconService} from "../disableEmplyeeHistoryGl
 @Component({
   moduleId: module.id,
   selector: 'cn-profile-creator',
-  templateUrl: 'profile-creator.component.html',
-  styleUrls: ['profile-creator.component.css']
+  templateUrl: 'candidate-profile.component.html',
+  styleUrls: ['candidate-profile.component.css']
 })
 
-export class ProfileCreatorComponent implements OnInit {
+export class CandidateProfileComponent implements OnInit {
 
   private industries:Industry[] = new Array(0);
   private roles:Role[] = new Array(0);
@@ -42,11 +38,9 @@ export class ProfileCreatorComponent implements OnInit {
   private roleList:string[] = new Array()
   private primaryCapability:string[] = new Array()
   private proficiencies:string[] = new Array()
-  private isComplexityPresent : boolean =false;
+  private isComplexityPresent:boolean = false;
 
   whichStepsVisible:boolean[] = new Array(7);
-  firstName:string;
-  lastName:string;
   private newUser:number;
   private chkEmployeeHistory:boolean = false;
   private valueOFshowOrHide:string;
@@ -62,18 +56,17 @@ export class ProfileCreatorComponent implements OnInit {
   private disableTitle:boolean = false;
   private candidate:Candidate = new Candidate();
   private candidateForRole:Role[];
-  private candidateForCapability: Role[];
+  private candidateForCapability:Role[];
   private candidateForComplexity:Role[];
-  private isHiddenAboutMyself:boolean=false;
-  private isHiddenAwrard:boolean=false;
-  private isHiddenCertificate:boolean=false;
-  private isHiddenEmployeehistory:boolean=false;
-  private isTitleFilled:boolean=false;
-  private flag:boolean=true;
+  private isHiddenAboutMyself:boolean = false;
+  private isHiddenAwrard:boolean = false;
+  private isHiddenCertificate:boolean = false;
+  private isHiddenEmployeehistory:boolean = false;
+  private isTitleFilled:boolean = false;
+  private flag:boolean = true;
 
 
   constructor(private _router:Router,
-              private dashboardService:DashboardService,
               private testService:TestService,
               private disableAwardGlyphiconService:DisableAwardGlyphiconService,
               private disableEmplyeeHistoryGlyphiconService:DisableEmployeeHistoryGlyphiconService,
@@ -85,10 +78,9 @@ export class ProfileCreatorComponent implements OnInit {
               private complexityService:ComplexityService,
               private myRoleType:MyRoTypeTestService,
               private messageService:MessageService,
-              private awardService:AwardService,
               private myRolelist:MyRoleListTestService,
               private disableService:DisableTestService,
-              private profileCreatorService:ProfileCreatorService) {
+              private profileCreatorService:CandidateProfileService) {
 
     this.myRolelist.showTestRolelist$.subscribe(
       data => {
@@ -127,8 +119,6 @@ export class ProfileCreatorComponent implements OnInit {
 
       }
     );
-
-
     testService.showTest$.subscribe(
       data=> {
         this.whichStepsVisible[6] = data;
@@ -141,8 +131,6 @@ export class ProfileCreatorComponent implements OnInit {
         this.showComplexity = data;
       }
     );
-
-    // this services are for progressbar
     proficiencyService.showTest$.subscribe(
       data=> {
         this.whichStepsVisible[3] = data;
@@ -159,36 +147,15 @@ export class ProfileCreatorComponent implements OnInit {
         this.whichStepsVisible[5] = data;
       }
     );
-    awardService.showTest$.subscribe(
-      data=> {
-        //this.whichStepsVisible[6] = data;
-      }
-    );
+
   }
 
 
   ngOnInit() {
-
-
-    this.newUser = parseInt(LocalStorageService.getLocalValue(LocalStorage.IS_LOGGED_IN));
-    if (this.newUser === 0) {
-      this._router.navigate([NavigationRoutes.APP_START]);
-    } else {
-      this.getUserProfile();
-    }
-
-    this.getIndustry();
+    this.getCandidateProfile();
   }
 
-
-  selectIndustry(industry:Industry) {
-    if(this.candidate.jobTitle !== '' && this.candidate.jobTitle !== "") {
-      this.isTitleFilled =false;
-
-    }  else {
-      this.isTitleFilled =true;
-    }
-    this.candidate.industry = industry;
+  onProfileDescriptionComplete() {
     this.saveCandidateDetails();
     this.getRoles();
     this.isRolesShow = true;
@@ -203,7 +170,7 @@ export class ProfileCreatorComponent implements OnInit {
   selectRole(roles:Role[]) {
     this.candidate.industry.roles = roles;
     this.saveCandidateDetails();
-    if(this.flag) {
+    if (this.flag) {
       this.getCapability();
       this.showCapability = true;
       this.whichStepsVisible[1] = true;
@@ -214,7 +181,7 @@ export class ProfileCreatorComponent implements OnInit {
           this.getComplexity();
           this.showComplexity = true;
           this.whichStepsVisible[2] = true;
-          if(this.candidate.industry.roles[0].capabilities[0].complexities) {
+          if (this.candidate.industry.roles[0].capabilities[0].complexities) {
             if (this.candidate.industry.roles[0].capabilities[0].complexities.length > 0) {
               this.showProfeciency = true;
               this.getProficiency();
@@ -225,18 +192,10 @@ export class ProfileCreatorComponent implements OnInit {
     }
   }
 
-
-  selectProficiency(proficiency:string[]){
-    this.candidate.proficiencies=proficiency;
+  selectProficiency(proficiency:string[]) {
+    this.candidate.proficiencies = proficiency;
     this.saveCandidateDetails();
     this.whichStepsVisible[4] = true;
-  }
-
-  getIndustry() {
-    this.profileCreatorService.getIndustries()
-      .subscribe(
-        industrylist => this.industries = industrylist.data,
-        error => this.onError(error));
   }
 
   getRoles() {
@@ -246,10 +205,8 @@ export class ProfileCreatorComponent implements OnInit {
         error => this.onError(error));
   }
 
-
-
   getCapability() {
-    this.flag=false;
+    this.flag = false;
     for (let role of this.candidate.industry.roles) {
       this.roleList.push(role.name);
     }
@@ -267,7 +224,7 @@ export class ProfileCreatorComponent implements OnInit {
   getComplexity() {
     for (let role of this.candidate.industry.roles) {
       for (let capability of role.capabilities) {
-        if(capability.isPrimary){
+        if (capability.isPrimary) {
           this.primaryCapability.push(capability.name);
         }
       }
@@ -280,7 +237,7 @@ export class ProfileCreatorComponent implements OnInit {
             this.getCandidateForComplexity();
 
           },
-              error => this.onError(error));
+          error => this.onError(error));
     }
   }
 
@@ -303,36 +260,31 @@ export class ProfileCreatorComponent implements OnInit {
       .subscribe(
         candidateData => {
           this.candidateForComplexity = candidateData.data[0].industry.roles;
-          if(this.candidateForComplexity[0].capabilities[0].complexities.length>0){
-            //this.candidateForComplexity[0].isForTest=true;
-            this.isComplexityPresent =true;
+          if (this.candidateForComplexity[0].capabilities[0].complexities.length > 0) {
+            this.isComplexityPresent = true;
           }
         },
-            error => this.onError(error));
-  }
-
-  getProficiency(){
-    this.profileCreatorService.getProficiency(this.candidate.industry.name)
-      .subscribe(
-        data => this.proficiencies=data.data,
         error => this.onError(error));
   }
 
-
-
+  getProficiency() {
+    this.profileCreatorService.getProficiency(this.candidate.industry.name)
+      .subscribe(
+        data => this.proficiencies = data.data,
+        error => this.onError(error));
+  }
 
   OnCandidateDataSuccess(candidateData:any) {
     this.candidate = candidateData.data[0];
     this.candidateForRole = candidateData.data[0].industry.roles;
 
     if (this.candidate.jobTitle !== undefined && this.candidate.jobTitle !== "") {
-      this.isTitleFilled=false;
+      this.isTitleFilled = false;
       this.disableTitle = true;
     }
     if (this.candidate.industry.name !== undefined) {
       this.isRolesShow = true;
       this.getRoles();
-
     }
 
     if (this.candidate.industry.roles.length > 0) {
@@ -348,62 +300,36 @@ export class ProfileCreatorComponent implements OnInit {
           this.whichStepsVisible[3] = true;
           this.showProfeciency = true;
           if (this.candidate.proficiencies.length > 0) {
-            this.whichStepsVisible[4]=true;
+            this.whichStepsVisible[4] = true;
           }
         }
       }
     }
-    if (this.candidate.professionalDetails!== undefined && this.candidate.professionalDetails.education!=='') {
+    if (this.candidate.professionalDetails !== undefined && this.candidate.professionalDetails.education !== '') {
       this.whichStepsVisible[5] = true;
     }
 
-    if(this.candidate.academics.length > 0 && this.candidate.academics[0].schoolName !=='' &&
-      this.candidate.certifications.length >0 && this.candidate.certifications[0].name!== '' &&
+    if (this.candidate.academics.length > 0 && this.candidate.academics[0].schoolName !== '' &&
+      this.candidate.certifications.length > 0 && this.candidate.certifications[0].name !== '' &&
       this.candidate.aboutMyself !== undefined && this.candidate.aboutMyself !== '' &&
-      this.candidate.employmentHistory.length>0 && this.candidate.employmentHistory[0].companyName !== '' &&
-      this.candidate.awards.length >0 && this.candidate.awards[0].name !== ''
-    )
-    {
+      this.candidate.employmentHistory.length > 0 && this.candidate.employmentHistory[0].companyName !== '' &&
+      this.candidate.awards.length > 0 && this.candidate.awards[0].name !== ''
+    ) {
       this.whichStepsVisible[6] = true;
     }
 
-
-
-   /* if (this.candidate.academics.length > 0 && this.candidate.academics[0].schoolName !=='') {
-      this.whichStepsVisible[5] = true;
-    }*/
-    if(this.candidate.certifications.length >0 && this.candidate.certifications[0].name!== ''){
-      this.isHiddenCertificate=true;
+    if (this.candidate.certifications.length > 0 && this.candidate.certifications[0].name !== '') {
+      this.isHiddenCertificate = true;
     }
-    if(this.candidate.aboutMyself !== undefined && this.candidate.aboutMyself !== ''){
-      this.isHiddenAboutMyself=true;
+    if (this.candidate.aboutMyself !== undefined && this.candidate.aboutMyself !== '') {
+      this.isHiddenAboutMyself = true;
     }
-    if(this.candidate.employmentHistory.length>0 && this.candidate.employmentHistory[0].companyName !== ''){
-      this.isHiddenEmployeehistory=true;
+    if (this.candidate.employmentHistory.length > 0 && this.candidate.employmentHistory[0].companyName !== '') {
+      this.isHiddenEmployeehistory = true;
     }
-    if (this.candidate.awards.length >0 && this.candidate.awards[0].name !== '') {
-      this.isHiddenAwrard=true;
-     /* this.whichStepsVisible[6] = true;*/
+    if (this.candidate.awards.length > 0 && this.candidate.awards[0].name !== '') {
+      this.isHiddenAwrard = true;
     }
-  }
-
-  getUserProfile() {
-    this.dashboardService.getUserProfile()
-      .subscribe(
-        userprofile => this.onUserProfileSuccess(userprofile),
-        error => this.onUserProfileError(error));
-  }
-
-
-  onUserProfileSuccess(result:any) {
-
-    this.firstName = LocalStorageService.getLocalValue(LocalStorage.FIRST_NAME);
-    this.lastName = LocalStorageService.getLocalValue(LocalStorage.LAST_NAME);
-    this.getCandidateProfile();
-  }
-
-  onUserProfileError(error:any) {
-    console.log(error);
   }
 
   onError(error:any) {
@@ -415,9 +341,9 @@ export class ProfileCreatorComponent implements OnInit {
 
   showorhide(event:string) {
     this.valueOFshowOrHide = event;
-    if(event == "true"){
+    if (event == "true") {
       this.candidate.isVisible = true;
-    }else{
+    } else {
       this.candidate.isVisible = false;
     }
     this.saveCandidateDetails();
@@ -444,18 +370,6 @@ export class ProfileCreatorComponent implements OnInit {
     this._router.navigate([NavigationRoutes.APP_START]);
   }
 
-  selectedtitle() {
-    this.profileCreatorService.addProfileDetail(this.candidate).subscribe(
-      user => {
-        console.log(user);
-        this.isTitleFilled=false;
-      },
-      error => {
-        this.onError(error)
-      });
-
-  }
-
   saveCandidateDetails() {
     this.profileCreatorService.addProfileDetail(this.candidate).subscribe(
       user => {
@@ -467,15 +381,10 @@ export class ProfileCreatorComponent implements OnInit {
   }
 
   onSubmit() {
-  //  if(this.candidate.jobTitle && this.candidate.industry.name && this.candidate.intrestedIndustries.length) {
-      var message = new Message();
-      message.custom_message = Messages.MSG_SUCCESS_FOR_PROFILE_CREATION_STATUS;
-      message.isError = false;
-      this.messageService.message(message);
-      this._router.navigate([NavigationRoutes.APP_PROFILESUMMURY]);
-
-  //  }
-
+    var message = new Message();
+    message.custom_message = Messages.MSG_SUCCESS_FOR_PROFILE_CREATION_STATUS;
+    message.isError = false;
+    this.messageService.message(message);
+    this._router.navigate([NavigationRoutes.APP_PROFILESUMMURY]);
   }
-
 }

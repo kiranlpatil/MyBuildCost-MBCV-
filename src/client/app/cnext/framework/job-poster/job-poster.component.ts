@@ -22,7 +22,7 @@ import {JobPosterModel} from "../model/jobPoster";
 import {Industry} from "../model/industry";
 import {JobPosterService} from "./job-poster.service";
 import {Role} from "../model/role";
-import {ProfileCreatorService} from "../profile-creator/profile-creator.service";
+import {CandidateProfileService} from "../candidate-profile/candidate-profile.service";
 import {Message} from "../../../framework/shared/message";
 import {MessageService} from "../../../framework/shared/message.service";
 import {Proficiences} from "../model/proficiency";
@@ -69,7 +69,7 @@ export class JobPosterComponent {
   private flag:boolean=true;
 
   constructor(private _router:Router,
-              private profileCreatorService:ProfileCreatorService,
+              private profileCreatorService:CandidateProfileService,
               private complexityService:ComplexityService,
               private jobinformation:MyJobInformationService,
               private jobrequirement:JobRequirementService,

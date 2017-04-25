@@ -1,5 +1,5 @@
 import {Component, OnInit} from "@angular/core";
-import {ProfileCreatorService} from "../../profile-creator/profile-creator.service";
+import {CandidateProfileService} from "../../candidate-profile/candidate-profile.service";
 import {Message} from "../../../../framework/shared/message";
 import {MessageService} from "../../../../framework/shared/message.service";
 import {Candidate} from "../../model/candidate";
@@ -19,7 +19,7 @@ private candidate:Candidate=new Candidate();
   private secondaryCapabilities:string[]=new Array();
 
   constructor( private messageService:MessageService,
-               private profileCreatorService:ProfileCreatorService) {
+               private profileCreatorService:CandidateProfileService) {
   }
 
   ngOnInit() {

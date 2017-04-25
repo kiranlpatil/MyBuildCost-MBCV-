@@ -3,7 +3,7 @@ import {  Academicdetails  } from '../model/academic-details';
 import {ValueConstant, LocalStorage} from '../../../framework/shared/constants';
 import {  EducationalService  } from '../educational-service';
 import {CandidateAcadmyDetailService} from "./academic-details.service";
-import {ProfileCreatorService} from "../profile-creator/profile-creator.service";
+import {CandidateProfileService} from "../candidate-profile/candidate-profile.service";
 import {MessageService} from "../../../framework/shared/message.service";
 import {Message} from "../../../framework/shared/message";
 import {LocalStorageService} from "../../../framework/shared/localstorage.service";
@@ -37,7 +37,7 @@ export class AcademicDetailComponent {
   constructor(private educationalService : EducationalService,
               private acadmicDetailsService:CandidateAcadmyDetailService,
               private messageService:MessageService,
-              private profileCreatorService:ProfileCreatorService) {
+              private profileCreatorService:CandidateProfileService) {
 
     this.tempfield = new Array(1);
     this.currentDate = new Date();

@@ -4,7 +4,7 @@ import { EmployementHistory } from '../model/employment-history';
 import {ValueConstant, LocalStorage} from '../../../framework/shared/constants';
 import {EmploymentHistoryService} from "./employment-history.service";
 import {MessageService} from "../../../framework/shared/message.service";
-import {ProfileCreatorService} from "../profile-creator/profile-creator.service";
+import {CandidateProfileService} from "../candidate-profile/candidate-profile.service";
 import {LocalStorageService} from "../../../framework/shared/localstorage.service";
 import {Message} from "../../../framework/shared/message";
 import {Candidate} from "../model/candidate";
@@ -34,7 +34,7 @@ export class EmploymentHistoryComponent {
 
   constructor(private messageService:MessageService,
               private disableEmplyeeHistoryGlyphiconService:DisableEmployeeHistoryGlyphiconService,
-              private profileCreatorService:ProfileCreatorService) {
+              private profileCreatorService:CandidateProfileService) {
     this.tempfield = new Array(1);
     this.currentDate = new Date();
     this.year = this.currentDate.getUTCFullYear();

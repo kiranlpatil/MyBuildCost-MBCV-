@@ -3,7 +3,7 @@ import {Component, Input} from '@angular/core';
 import { Certifications } from '../model/certification-accreditation';
 import {ValueConstant, LocalStorage} from '../../../framework/shared/constants';
 import {MessageService} from "../../../framework/shared/message.service";
-import {ProfileCreatorService} from "../profile-creator/profile-creator.service";
+import {CandidateProfileService} from "../candidate-profile/candidate-profile.service";
 import {LocalStorageService} from "../../../framework/shared/localstorage.service";
 import {Message} from "../../../framework/shared/message";
 import {Candidate} from "../model/candidate";
@@ -32,7 +32,7 @@ export class CertificationAccreditationComponent {
 
   constructor(private messageService:MessageService,
               private disableCertificateGlyphiconService:DisableCertificateGlyphiconService,
-              private profileCreatorService:ProfileCreatorService) {
+              private profileCreatorService:CandidateProfileService) {
 
     this.tempfield = new Array(1);
     this.currentDate = new Date();

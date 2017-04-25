@@ -1,40 +1,15 @@
-<div class="select-industry clearfix" >
+<div class="select-industry clearfix">
   <div class="col-sm-12 no-padding">
-    <p class="info recruiter-info">Default value set to your own industry. Select a different value if you wish to hire from a different industry background</p>
+    <p class="info recruiter-info">Default value set to your own industry. Select a different value if you wish to hire
+      from a different industry background</p>
     <div class="max-height">
-      <div class="select-option"  *ngFor="let choice of industries;let i = index">
-        <label >
-          <input type="radio"  name="choice.name" id="{{choice.name}}" value="{{choice.name}}" [disabled]="disableIndustry||candidateIndustry.name" (click)="choosedIndustry(choice)" [checked]="choice.name===candidateIndustry.name"  >
-          <span>{{choice.name}}</span>
+      <div class="select-option" *ngFor="let item of industries;let i = index">
+        <label>
+          <input type="radio" name="item.name" id="{{item.name}}" value="{{item.name}}"
+                 (click)="onValueChange(item)" [checked]="item.name===selectedIndustry.name">
+          <span>{{item.name}}</span>
         </label>
       </div>
     </div>
-
-    <div class="button-group clearfix">
-      <button class="btn btn-primary" scrollTo scrollTargetSelector="#work-area" (click)="disableIndustrires()" [class.hide-next-btn]="disableButton||candidateIndustry.name" [disabled]="disableButton||candidateIndustry.name" >Next</button>
-    </div>
   </div>
 </div>
-
-<!--
-<div class="modal" [style.display]="getStyleModal()" >
-  <div class="modal-bg">
-    <div class="modal-dialog modal-md">
-      <div class="modal-content">
-        <div class="modal-body">
-          <div class="row">
-            <div class="col-sm-12">
-              <p>Saving industry details. Once saved, you cannot change it for 3 months.</p>
-
-              <div class="button-group">
-                <button class="btn btn-primary" (click)="disableIndustrires()">Save</button>
-                <button class="btn btn-default" (click)="showHideModal()">Cancel</button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
--->

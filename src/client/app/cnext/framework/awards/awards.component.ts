@@ -4,7 +4,7 @@ import {  Award  } from '../model/award';
 import { AwardService } from '../award-service';
 import {ValueConstant, LocalStorage} from '../../../framework/shared/constants';
 import {CandidateAwardService} from "./awards.service";
-import {ProfileCreatorService} from "../profile-creator/profile-creator.service";
+import {CandidateProfileService} from "../candidate-profile/candidate-profile.service";
 import {MessageService} from "../../../framework/shared/message.service";
 import {LocalStorageService} from "../../../framework/shared/localstorage.service";
 import {Message} from "../../../framework/shared/message";
@@ -38,7 +38,7 @@ export class AwardsComponent {
                private disableAwardGlyphiconService:DisableAwardGlyphiconService,
                private candidateAward:CandidateAwardService,
                private messageService:MessageService,
-               private profileCreatorService:ProfileCreatorService) {
+               private profileCreatorService:CandidateProfileService) {
     this.tempfield = new Array(1);
     this.currentDate = new Date();
     this.year = this.currentDate.getUTCFullYear();

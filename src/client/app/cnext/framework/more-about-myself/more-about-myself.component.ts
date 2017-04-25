@@ -1,7 +1,7 @@
 import {Component, OnInit, Input} from '@angular/core';
 import {AboutCandidateService} from "./more-about-myself.service";
 import {MessageService} from "../../../framework/shared/message.service";
-import {ProfileCreatorService} from "../profile-creator/profile-creator.service";
+import {CandidateProfileService} from "../candidate-profile/candidate-profile.service";
 import {LocalStorageService} from "../../../framework/shared/localstorage.service";
 import {LocalStorage} from "../../../framework/shared/constants";
 import {Message} from "../../../framework/shared/message";
@@ -28,9 +28,9 @@ export class MoreAboutMyselfComponent implements OnInit {
   private wordsTillNow:number;
   private remainingWords:number;
   private maxword:number;
-  constructor(private aboutMyselfservice:AboutCandidateService,private messageService:MessageService,
+  constructor(private aboutMyselfservice:AboutCandidateService, private messageService:MessageService,
               private disableAboutMyselfGlyphiconService:DisableAboutMyselfGlyphiconService,
-              private profileCreatorService:ProfileCreatorService,private testService:TestService,) {
+              private profileCreatorService:CandidateProfileService, private testService:TestService,) {
     this.reSize = new Array(1);
   }
   ngOnInit() {

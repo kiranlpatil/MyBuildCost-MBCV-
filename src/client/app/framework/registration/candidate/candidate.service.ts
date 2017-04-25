@@ -1,6 +1,4 @@
-/**
- * Created by techprimelab on 3/9/2017.
- */
+
 import {    Injectable  } from '@angular/core';
 import {  Observable  } from 'rxjs/Observable';
 import {  CandidateDetail  } from './candidate';

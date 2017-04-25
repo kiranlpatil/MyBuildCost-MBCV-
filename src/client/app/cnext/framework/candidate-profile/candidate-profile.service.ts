@@ -8,7 +8,7 @@ import {  LocalStorageService  } from '../../../framework/shared/localstorage.se
 import {Candidate} from "../model/candidate";
 
 @Injectable()
-export class ProfileCreatorService extends BaseService {
+export class CandidateProfileService extends BaseService {
 
   constructor(private http: Http) {
     super();

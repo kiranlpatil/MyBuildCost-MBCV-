@@ -14,7 +14,9 @@
       <div class="main-content clearfix">
         <h4 class="heading">Select Industry</h4>
         <div class="col-sm-12">
-          <cn-industry-list [industries]="industries"  (selectIndustry)="selectIndustry($event)" ></cn-industry-list>
+<!--
+          <cn-industry-list  [selectedIndustry]="candidate.industry" (valueChange)="onIndustryChange($event)"></cn-industry-list>
+-->
         </div>
       </div>
     </div>
@@ -28,13 +30,6 @@
     </div>
       </div>
 
-  <!--  <div class="section-container" [hidden]="!isShowRoletype">
-      <div class="main-content clearfix">
-        <h4 class="heading">Select Role Type (Any one of the following)</h4>
-        <cn-role-type-list [roleTypes]="roleTypes"  (selectRoleType)="selectRoleType($event)"></cn-role-type-list>
-      </div>
-    </div>
--->
     <div id="capability-area">
     <div class="section-container"  [hidden]="!isShowCapability">
       <div class="main-content clearfix">
@@ -105,7 +100,6 @@
           <div class="row">
             <div class="col-sm-12">
               <p>Your job post details are successfully added to your job listing.</p>
-
               <div class="button-group">
                 <button class="btn btn-default" (click)="postjob()">Ok</button>
               </div>
