@@ -35,7 +35,7 @@
 
   <div class="form-group">
     <control-messages [control]="userForm.controls.password"></control-messages>
-    <input type="password" formControlName="password" id="password" class="form-control" (focus)="showMessage()" [(ngModel)]="myPassword" (ngModelChange)="selectPassword($event)" required/>
+    <input type="password" formControlName="password" id="password" class="form-control" required/>
     <label>Password</label>
   </div>
 

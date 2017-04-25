@@ -22,7 +22,7 @@ export class CandidateComponent implements OnInit {
   countries: string[] = new Array(0);
   states: string[] = new Array(0);
   cities: string[] = new Array(0);
-  myPassword: string = '';
+ // myPassword: string = '';
   private model = new CandidateDetail();
   private storedcountry: string;
   private storedstate: string;
@@ -173,7 +173,6 @@ export class CandidateComponent implements OnInit {
   }
 
   onRegistrationError(error: any) {
-    // this.loaderService.stop();
     if (error.err_code === 404 || error.err_code === 0) {
       var message = new Message();
       message.error_msg = error.err_msg;
@@ -185,27 +184,19 @@ export class CandidateComponent implements OnInit {
     }
   }
 
-  showMessage() {
-    this.isShowMessage = false;
-  }
-
   selectStateMessage() {
-
     if (this.storedstate) {
       console.log("stord state is:", this.storedstate);
     } else {
       this.isStateSelected = true;
-
     }
   }
 
   selectCountryMessage() {
-
     if (this.storedcountry) {
       console.log("stord state is:", this.storedcountry);
     } else {
       this.isCountrySelected = true;
-
     }
   }
 
@@ -221,12 +212,6 @@ export class CandidateComponent implements OnInit {
     } else {
       this.isPasswordConfirm = false;
       return false;
-    }
-  }
-
-  selectPassword(newval: any) {
-    if (this.myPassword.match(/(?=.*\d)(?=.*[a-z])(?=.*[$@_#!%*?&])(?=.*[A-Z]).{8,}/)) {
-      this.isShowMessage = false;
     }
   }
 

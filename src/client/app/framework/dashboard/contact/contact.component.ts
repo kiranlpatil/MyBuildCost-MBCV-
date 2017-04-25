@@ -40,7 +40,6 @@ export class ContactComponent implements OnInit,OnDestroy {
 
     onSubmit() {
         this.submitted = true;
-     // this.loaderService.start();
       this.model = this.userForm.value;
         this.contactService.contact(this.model)
             .subscribe(

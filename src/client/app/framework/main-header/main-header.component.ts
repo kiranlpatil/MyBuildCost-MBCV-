@@ -8,18 +8,10 @@ import {  NavigationRoutes, ImagePath, LoaderService  } from '../shared/index';
     templateUrl: 'main-header.component.html',
     styleUrls: ['main-header.component.css'],
 })
-export class MainHeaderComponent implements OnInit,OnDestroy {
+export class MainHeaderComponent {
     BODY_BACKGROUND:string;
     constructor(private loaderService:LoaderService,private _router:Router) {
         this.BODY_BACKGROUND = ImagePath.BODY_BACKGROUND;
-    }
-
-    ngOnInit() {
-        //this.loaderService.stop();
-    }
-
-    ngOnDestroy() {
-        // this.loaderService.stop();
     }
 
     onLogin() {

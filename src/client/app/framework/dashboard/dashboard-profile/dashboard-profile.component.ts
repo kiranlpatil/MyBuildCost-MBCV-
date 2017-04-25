@@ -164,7 +164,6 @@ export class DashboardProfileComponent implements OnInit,OnDestroy {
   }
 
   fileChangeEvent(fileInput: any) {
-   // this.loaderService.start();
     //var inputValue = fileInput.target;
     this.filesToUpload = <Array<File>> fileInput.target.files;
     if (this.filesToUpload[0].type === 'image/jpeg' || this.filesToUpload[0].type === 'image/png'
@@ -178,15 +177,12 @@ export class DashboardProfileComponent implements OnInit,OnDestroy {
           this.fileChangeFail(error);
         });
       } else {
-       // this.loaderService.stop();
         var message = new Message();
         message.isError = true;
         message.error_msg = Messages.MSG_ERROR_IMAGE_SIZE;
         this.messageService.message(message);
       }
     } else {
-      //this.loaderService.stop();
-
       var message = new Message();
       message.isError = true;
       message.error_msg = Messages.MSG_ERROR_IMAGE_TYPE;

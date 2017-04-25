@@ -8,18 +8,9 @@ import { ImagePath, LoaderService } from '../shared/index';
     templateUrl: 'landing-page.component.html',
     styleUrls: ['landing-page.component.css'],
 })
-export class LandingPageComponent implements OnInit,OnDestroy {
+export class LandingPageComponent {
     BODY_BACKGROUND:string;
-    constructor(private loaderService:LoaderService,private _router:Router) {
+    constructor() {
         this.BODY_BACKGROUND = ImagePath.BODY_BACKGROUND;
     }
-
-    ngOnInit() {
-        //this.loaderService.stop();
-    }
-
-    ngOnDestroy() {
-        // this.loaderService.stop();
-    }
-
 }
