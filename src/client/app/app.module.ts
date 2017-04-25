@@ -117,7 +117,6 @@ import { IndustryExperienceService } from './cnext/framework/industry-experience
 import { DisableTestService } from './cnext/framework/disable-service';
 import { MyJobInformationService } from './cnext/framework/myJobInformation.service';
 import { JobRequirementService } from './cnext/framework/myJobRequirement.service';
-import { MYJobTitleService } from './cnext/framework/myJobTitle.service';
 import { JobIndustryShowService } from './cnext/framework/myJobIndustryShow.service';
 import { ShowJobFilterService } from './cnext/framework/showJobFilter.service';
 import {CandidateAwardService} from "./cnext/framework/awards/awards.service";
