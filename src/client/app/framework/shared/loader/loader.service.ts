@@ -6,7 +6,6 @@ export class LoaderService {
 
     status: Subject<boolean> = new Subject();
 
-   // constructor() {}
 
     public start(): void {
         this.status.next(true);

@@ -28,7 +28,7 @@ export class ChangeMobileComponent implements OnInit {
     NEW_MOBILE_ICON:string;
     CONFIRM_MOBILE_ICON:string;
 
-    constructor(private commanService:CommonService, private _router:Router,
+    constructor(private commonService:CommonService, private _router:Router,
                 private MobileService:ChangeMobileService, private messageService:MessageService, private formBuilder:FormBuilder,private loaderService:LoaderService) {
 
         this.userForm = this.formBuilder.group({
@@ -57,7 +57,6 @@ export class ChangeMobileComponent implements OnInit {
     }
 
     onSubmit() {
-      //this.loaderService.start();
         this.model = this.userForm.value;
         if (!this.makeMobileConfirm()) {
           LocalStorageService.setLocalValue(LocalStorage.MOBILE_NUMBER, this.model.new_mobile_number);
@@ -71,14 +70,12 @@ export class ChangeMobileComponent implements OnInit {
     }
 
     changeMobileSuccess(body:ChangeMobile) {
-     // this.loaderService.stop();
       this.userForm.reset();
       LocalStorageService.setLocalValue(LocalStorage.VERIFY_PHONE_VALUE,'from_settings');
       this._router.navigate([NavigationRoutes.VERIFY_PHONE]);
     }
 
     changeMobileFail(error:any) {
-     // this.loaderService.stop();
         if (error.err_code === 404 || error.err_code === 0) {
             var message = new Message();
             message.error_msg = error.err_msg;
@@ -91,11 +88,7 @@ export class ChangeMobileComponent implements OnInit {
     }
 
     goBack() {
-        this.commanService.goBack();
-    }
-
-    closeErrorMessage() {
-        this.isShowErrorMessage = true;
+        this.commonService.goBack();
     }
 
   showHideModal() {

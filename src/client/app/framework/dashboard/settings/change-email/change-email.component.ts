@@ -33,7 +33,7 @@ export class ChangeEmailComponent implements OnInit {
   NEW_EMAIL_ICON: string;
   CONFIRM_EMAIL_ICON: string;
 
-  constructor(private commanService: CommonService, private _router: Router,
+  constructor(private commonService: CommonService, private _router: Router,
               private emailService: ChangeEmailService, private messageService: MessageService, private formBuilder: FormBuilder) {
 
     this.userForm = this.formBuilder.group({
@@ -96,11 +96,7 @@ export class ChangeEmailComponent implements OnInit {
   }
 
   goBack() {
-    this.commanService.goBack();
-  }
-
-  closeErrorMessage() {
-    this.isShowErrorMessage = true;
+    this.commonService.goBack();
   }
 
   logOut() {

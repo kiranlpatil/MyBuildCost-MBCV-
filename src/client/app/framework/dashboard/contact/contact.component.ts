@@ -15,13 +15,12 @@ import {  LoaderService  } from '../../shared/loader/loader.service';
 })
 export class ContactComponent implements OnInit,OnDestroy {
     model = new Contact();
-    //loading = false;
     submitted = false;
     userForm:FormGroup;
     error_msg:string;
     isShowErrorMessage:boolean = true;
 
-    constructor(private commanService:CommonService, private _router:Router,private loaderService:LoaderService,
+    constructor(private commonService:CommonService, private _router:Router,private loaderService:LoaderService,
                 private contactService:ContactService, private messageService:MessageService, private formBuilder:FormBuilder) {
 
         this.userForm = this.formBuilder.group({
@@ -76,11 +75,7 @@ export class ContactComponent implements OnInit,OnDestroy {
     }
 
     goBack() {
-        this.commanService.goBack();
-    }
-
-    closeErrorMessage() {
-        this.isShowErrorMessage = true;
+        this.commonService.goBack();
     }
 
 }

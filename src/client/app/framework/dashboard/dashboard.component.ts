@@ -31,7 +31,7 @@ export class DashboardComponent implements OnInit,OnDestroy {
   }
 
   ngOnInit() {
-    this.newUser = parseInt(LocalStorageService.getLocalValue(LocalStorage.IS_LOGED_IN));
+    this.newUser = parseInt(LocalStorageService.getLocalValue(LocalStorage.IS_LOGGED_IN));
     if (this.newUser === 0) {
       this._router.navigate([NavigationRoutes.APP_START]);
     } else {

@@ -28,7 +28,7 @@ export class ForgotPasswordComponent {
   BODY_BACKGROUND:string;
   forgotPasswordButtonLabel:string;
 
-  constructor(private commanService:CommonService, private _router:Router,
+  constructor(private commonService:CommonService, private _router:Router,
               private forgotPasswordService:ForgotPasswordService, private messageService:MessageService,
               private formBuilder:FormBuilder,private loaderService:LoaderService) {
     this.userForm = this.formBuilder.group({
@@ -44,7 +44,6 @@ export class ForgotPasswordComponent {
   }
 
   onSubmit() {
-    //this.loaderService.start();
     this.model = this.userForm.value;
     this.forgotPasswordService.forgotPassword(this.model)
         .subscribe(
@@ -54,8 +53,6 @@ export class ForgotPasswordComponent {
 
   forgotPasswordSuccess(body:ForgotPassword) {
     var message = new Message();
-    //this.loaderService.stop();
-    //this.userForm.reset();
     message.isError = false;
     message.custom_message = Messages.MSG_SUCCESS_FORGOT_PASSWORD;
     this.messageService.message(message);
@@ -63,7 +60,6 @@ export class ForgotPasswordComponent {
   }
 
   forgotPasswordFail(error:any) {
-    //this.loaderService.stop();
     if (error.err_code === 404 || error.err_code === 0) {
       var message = new Message();
       message.error_msg = error.err_msg;
@@ -81,13 +77,10 @@ export class ForgotPasswordComponent {
   }
 
   goBack() {
-    this.commanService.goBack();
+    this.commonService.goBack();
     this._router.navigate([NavigationRoutes.APP_LOGIN]);
   }
 
-  closeErrorMessage() {
-    this.isShowErrorMessage = true;
-  }
 }
 
 

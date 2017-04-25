@@ -1,4 +1,3 @@
-
 import { Component ,OnInit } from '@angular/core';
 import { CompanyDetailsService } from './company-details.service';
 import { CompanyDetails } from './company-details';
@@ -18,7 +17,6 @@ import { LoaderService } from '../../shared/loader/loader.service';
 import { Http } from '@angular/http';
 import {Router, ActivatedRoute, Params} from '@angular/router';
 import {ValidationService} from "../../shared/customvalidations/validation.service";
-
 
 @Component({
   moduleId: module.id,
@@ -45,8 +43,7 @@ export class CompanyDetailsComponent implements OnInit {
   private fileName3:string;
   private buttonId:string;
 
-
-  constructor(private commanService: CommonService, private _router: Router, private http: Http,
+  constructor(private commonService: CommonService, private _router: Router, private http: Http,
               private companyDetailsService: CompanyDetailsService,private profileService: ProfileService,
               private messageService: MessageService, private formBuilder: FormBuilder, private loaderService: LoaderService,private activatedRoute:ActivatedRoute) {
     this.companyDetailsForm = this.formBuilder.group({
@@ -60,30 +57,22 @@ export class CompanyDetailsComponent implements OnInit {
   }
 
   ngOnInit() {
-
-    /*if (this.image_path === 'undefined') {
-      this.image_path = ImagePath.PROFILE_IMG_ICON;
-    }*/
     this.company_name = LocalStorageService.getLocalValue(LocalStorage.COMPANY_NAME);
 
       this.activatedRoute.queryParams.subscribe((params: Params) => {
         let access_token = params['access_token'];
         let id = params['_id'];
         LocalStorageService.setLocalValue(LocalStorage.ACCESS_TOKEN, access_token);
-        console.log("access token in comp details",access_token);
-        console.log("access token in comp details",id);
         LocalStorageService.setLocalValue(LocalStorage.USER_ID, id);
         this.companyDetailsService.activateAccount()
           .subscribe(
-            res => (this.newRegistrationSuccess(res)),
-            error => (this.newRegistrationFail(error)));
+            res => (console.log("account activated")),
+            error => (console.log("account not activated")));
       });
 
   }
 
-
   onSubmit() {
-   // if(this.companyDetailsForm.value.description1!=='' && this.companyDetailsForm.value.description2 !=='' && this.companyDetailsForm.value.description3 !=='' && this.companyDetailsForm.value.about_company !=='') {
       if (this.setOfDocuments[0] === undefined || this.setOfDocuments[1] === undefined || this.setOfDocuments[2] === undefined) {
         this.isDocumentUploaded = true;
       }
@@ -92,19 +81,16 @@ export class CompanyDetailsComponent implements OnInit {
         this.submitted = true;
         this.model = this.companyDetailsForm.value;
         this.model.setOfDocuments = this.setOfDocuments;
-        console.log('files to upload in setOfDocuments', this.setOfDocuments);
-
         this.companyDetailsService.companyDetails(this.model)
           .subscribe(
             success => this.onCompanyDetailsSuccess(success),
             error => this.onCompanyDetailsError(error));
       }
-   // }
   }
 
 
   goBack() {
-    this.commanService.goBack();
+    this.commonService.goBack();
     this._router.navigate(['/']);
   }
 
@@ -134,16 +120,12 @@ export class CompanyDetailsComponent implements OnInit {
           } else {
             this.setOfDocuments[2]=result.data.document;
           }
-
           console.log('setOfDocuments is:',this.setOfDocuments);
-
           this.fileChangeSuccess(result);
         }
       }, (error:any) => {
         this.fileChangeFail(error);
       });
-
-
   }
 
 
@@ -177,10 +159,6 @@ export class CompanyDetailsComponent implements OnInit {
 
   }
 
-  closeErrorMessage() {
-    this.isShowErrorMessage = true;
-  }
-
   onCompanyDetailsSuccess(success: any) {
     this.companyDetailsForm.reset();
     var message = new Message();
@@ -200,18 +178,6 @@ export class CompanyDetailsComponent implements OnInit {
       this.isShowErrorMessage = false;
       this.error_msg = error.err_msg;
     }
-  }
-
-  newRegistrationSuccess(res:any) {
-
-
-
-  }
-
-  newRegistrationFail(error:any) {
-    console.log("Error user is Inactive",error);
-    /*this.USER_ACTIVATION_STATUS = Messages.MSG_ERROR_MAIL_VERIFICATION_RESULT_STATUS;
-    this.USER_ACTIVATION_MESSAGE = Messages.MSG_ERROR_MAIL_VERIFICATION_BODY;*/
   }
 
 }

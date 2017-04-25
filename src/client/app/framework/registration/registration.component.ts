@@ -29,34 +29,24 @@ export class RegistrationComponent {
   userForm: FormGroup;
   error_msg: string;
   isCandidate:boolean =false;
-  //isCandidate:boolean = true;
   isRecruiter:boolean = true;
   isShowErrorMessage: boolean = true;
   isRecruitingForself:boolean = true;
   BODY_BACKGROUND:string;
 
-  constructor(private commanService: CommonService, private _router: Router,
+  constructor(private commonService: CommonService, private _router: Router,
               private registrationService: RegistrationService, private messageService: MessageService,
               private recruitingService: RecruitingService, private formBuilder: FormBuilder,private loaderService:LoaderService) {
 
-    /*this.userForm = this.formBuilder.group({
-      'first_name': ['', Validators.required],
-      'last_name': ['', Validators.required],
-      'mobile_number': ['', [Validators.required, ValidationService.mobileNumberValidator]],
-      'email': ['', [Validators.required, ValidationService.emailValidator]],
-      'password': ['', [Validators.required, Validators.minLength(8)]],
-      'conform_password': ['', [Validators.required, Validators.minLength(8)]]
-    });*/
 
     this.BODY_BACKGROUND = ImagePath.BODY_BACKGROUND;
   }
-
+/*
   onSubmit() {
     this.model = this.userForm.value;
     this.model.current_theme = AppSettings.LIGHT_THEM;
     if (!this.makePasswordConfirm()) {
       this.isFormSubmitted = true;
-     // this.loaderService.start();
       this.registrationService.addRegistration(this.model)
         .subscribe(
           user => this.onRegistrationSuccess(user),
@@ -65,7 +55,6 @@ export class RegistrationComponent {
   }
 
   onRegistrationSuccess(user: any) {
-    //this.loaderService.stop();
     LocalStorageService.setLocalValue(LocalStorage.USER_ID, user.data._id);
     LocalStorageService.setLocalValue(LocalStorage.EMAIL_ID,this.userForm.value.email);
     LocalStorageService.setLocalValue(LocalStorage.MOBILE_NUMBER, this.userForm.value.mobile_number);
@@ -75,7 +64,6 @@ export class RegistrationComponent {
   }
 
   onRegistrationError(error: any) {
-   // this.loaderService.stop();
     if (error.err_code === 404 || error.err_code === 0) {
       var message = new Message();
       message.error_msg = error.err_msg;
@@ -86,9 +74,11 @@ export class RegistrationComponent {
       this.error_msg = error.err_msg;
     }
   }
+*/
+/*
 
   goBack() {
-    this.commanService.goBack();
+    this.commonService.goBack();
     this._router.navigate(['/']);
   }
 
@@ -98,7 +88,7 @@ export class RegistrationComponent {
     }
   }
   makePasswordConfirm(): boolean {
-    if (this.model.conform_password !== this.model.password) {
+    if (this.model.confirm_password !== this.model.password) {
       this.isPasswordConfirm = true;
       return true;
     } else {
@@ -107,6 +97,11 @@ export class RegistrationComponent {
     }
   }
 
+ closeErrorMessage() {
+ this.isShowErrorMessage = true;
+ }
+
+*/
 
   showHideCandidate() {
     this.isCandidate = false;
@@ -116,10 +111,6 @@ export class RegistrationComponent {
   showHideRecruiter() {
     this.isRecruiter = false;
     this.isCandidate = true;
-  }
-
-  closeErrorMessage() {
-    this.isShowErrorMessage = true;
   }
 
   recruitmentForSelf() {

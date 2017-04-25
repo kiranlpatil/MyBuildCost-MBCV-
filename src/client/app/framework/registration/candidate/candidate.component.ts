@@ -43,7 +43,7 @@ export class CandidateComponent implements OnInit {
   private currentDate: any;
 
 
-  constructor(private commanService: CommonService, private _router: Router, private http: Http, private dateservice: DateService,
+  constructor(private commonService: CommonService, private _router: Router, private http: Http, private dateservice: DateService,
               private candidateService: CandidateService, private messageService: MessageService, private formBuilder: FormBuilder, private loaderService: LoaderService) {
 
     this.userForm = this.formBuilder.group({
@@ -52,7 +52,7 @@ export class CandidateComponent implements OnInit {
       'mobile_number': ['',[ValidationService.requireMobileNumberValidator, ValidationService.mobileNumberValidator]],
       'email': ['', [ValidationService.requireEmailValidator, ValidationService.emailValidator]],
       'password': ['', [ValidationService.requirePasswordValidator, ValidationService.passwordValidator]],
-      'conform_password': ['', ValidationService.requireConfirmPasswordValidator],
+      'confirm_password': ['', ValidationService.requireConfirmPasswordValidator],
       'birth_year': ['', [Validators.required, ValidationService.birthYearValidator]],
       'location': [
         {
@@ -154,7 +154,6 @@ export class CandidateComponent implements OnInit {
     if (!this.makePasswordConfirm()) {
 
       this.isFormSubmitted = true;
-      // this.loaderService.start();
       this.candidateService.addCandidate(this.model)
         .subscribe(
           candidate => this.onRegistrationSuccess(candidate),
@@ -211,12 +210,12 @@ export class CandidateComponent implements OnInit {
   }
 
   goBack() {
-    this.commanService.goBack();
+    this.commonService.goBack();
     this._router.navigate(['/']);
   }
 
   makePasswordConfirm(): boolean {
-    if (this.model.conform_password !== this.model.password) {
+    if (this.model.confirm_password !== this.model.password) {
       this.isPasswordConfirm = true;
       return true;
     } else {
@@ -224,11 +223,6 @@ export class CandidateComponent implements OnInit {
       return false;
     }
   }
-
-  closeErrorMessage() {
-    this.isShowErrorMessage = true;
-  }
-
 
   selectPassword(newval: any) {
     if (this.myPassword.match(/(?=.*\d)(?=.*[a-z])(?=.*[$@_#!%*?&])(?=.*[A-Z]).{8,}/)) {

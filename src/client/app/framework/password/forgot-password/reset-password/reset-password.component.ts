@@ -105,8 +105,5 @@ export class ResetPasswordComponent implements OnInit {
         }
     }
 
-    closeErrorMessage() {
-        this.isShowErrorMessage = true;
-    }
 }
 

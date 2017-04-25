@@ -34,17 +34,15 @@ export class AppComponent implements OnInit {
                 private commonService:CommonService,
                 protected loaderService:LoaderService) {
         this.appTheme = AppSettings.INITIAL_THEM;
-        if (parseInt(LocalStorageService.getLocalValue(LocalStorage.IS_LOGED_IN)) === 1) {
+        if (parseInt(LocalStorageService.getLocalValue(LocalStorage.IS_LOGGED_IN)) === 1) {
           if(LocalStorageService.getLocalValue(LocalStorage.IS_CANDIDATE)==='true') {
             this._router.navigate([NavigationRoutes.APP_CREATEPROFILE]);
           } else {
             this._router.navigate([NavigationRoutes.APP_RECRUITER_DASHBOARD]);
-            // this._router.navigate(['/dashboard']);
-            //this._router.navigate([NavigationRoutes.APP_COMPANYDETAILS]);
           }
 
         } else {
-            LocalStorageService.setLocalValue(LocalStorage.IS_LOGED_IN, 0);
+            LocalStorageService.setLocalValue(LocalStorage.IS_LOGGED_IN, 0);
         }
         this.subscription = themeChangeService.showTheme$.subscribe(
             theme => {

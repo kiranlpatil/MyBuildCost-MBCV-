@@ -98,10 +98,6 @@ export class VerifyPhoneComponent {
 
   }
 
-  closeErrorMessage() {
-    this.isShowErrorMessage = true;
-  }
-
   resendChangeMobileOtpSuccess(res: any) {
 
     var message = new Message();

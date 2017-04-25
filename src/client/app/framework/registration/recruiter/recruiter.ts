@@ -10,7 +10,7 @@ export class Recruiter {
   email : string;
   mobile_number : string;
   password : string;
-  conform_password : string;
+  confirm_password : string;
   location:Location;
   companyDetails:CompanyDetails;
   pin:string;

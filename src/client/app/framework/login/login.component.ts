@@ -20,10 +20,6 @@ import {  ValidationService  } from '../shared/customvalidations/validation.serv
 import {  FBToken  } from './fbtoken';
 import {  GoogleToken  } from './googletoken';
 import {  ProjectAsset  } from '../shared/constants';
-//import { isBoolean } from 'util';
-
-/// <reference path='../../../../../typings/globals/fbsdk/index.d.ts'/>
-/// <reference path='../../../../../tools/manual_typings/project/googleplus.d.ts'/>
 
 @Component({
   moduleId: module.id,
@@ -38,7 +34,6 @@ export class LoginComponent implements OnInit {
   private userForm:FormGroup;
   private error_msg:string;
   private isShowErrorMessage:boolean = true;
-  //private status:boolean;
   private MY_LOGO_PATH:string;
   private EMAIL_ICON:string;
   private PASSWORD_ICON:string;
@@ -67,7 +62,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     window.history.forward();
-    if (parseInt(LocalStorageService.getLocalValue(LocalStorage.IS_LOGED_IN)) === 1) {
+    if (parseInt(LocalStorageService.getLocalValue(LocalStorage.IS_LOGGED_IN)) === 1) {
       this._router.navigate(['/create_profile']);
     }
   }
@@ -109,7 +104,7 @@ export class LoginComponent implements OnInit {
 
 
   successRedirect(res:any) {
-    LocalStorageService.setLocalValue(LocalStorage.IS_LOGED_IN, 1);
+    LocalStorageService.setLocalValue(LocalStorage.IS_LOGGED_IN, 1);
     LocalStorageService.setLocalValue(LocalStorage.PROFILE_PICTURE,res.data.picture);
     if(res.data.isCandidate === true) {
 
@@ -118,13 +113,8 @@ export class LoginComponent implements OnInit {
       LocalStorageService.setLocalValue(LocalStorage.COMPANY_NAME,res.data.company_name);
 
        this._router.navigate([NavigationRoutes.APP_RECRUITER_DASHBOARD]);
-    // this._router.navigate([NavigationRoutes.APP_COMPANYDETAILS]);
     }
-   /* var socialLogin:string = LocalStorageService.getLocalValue(LocalStorage.IS_SOCIAL_LOGIN);
 
-    if(socialLogin === AppSettings.IS_SOCIAL_LOGIN_YES) {
-      //window.location.reload(); //this will enable access to dropdown option oof profile.
-    }*/
   }
 
   loginFail(error:any) {
@@ -146,10 +136,6 @@ export class LoginComponent implements OnInit {
 
   onForgotPassword() {
     this._router.navigate([NavigationRoutes.APP_FORGOTPASSWORD]);
-  }
-
-  closeErrorMessage() {
-    this.isShowErrorMessage = true;
   }
 
   onFailure(error:any) {

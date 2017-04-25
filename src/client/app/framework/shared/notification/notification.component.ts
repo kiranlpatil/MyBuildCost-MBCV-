@@ -29,9 +29,8 @@ export class NotificationComponent implements OnInit {
     }
 
     ngOnInit() {
-      //this.loaderService.start();
         this.unreadNotifications=0;
-        this.newUser = parseInt(LocalStorageService.getLocalValue(LocalStorage.IS_LOGED_IN));
+        this.newUser = parseInt(LocalStorageService.getLocalValue(LocalStorage.IS_LOGGED_IN));
         if (this.newUser === 0) {
             this._router.navigate([NavigationRoutes.APP_START]);
         } else {
@@ -47,7 +46,6 @@ export class NotificationComponent implements OnInit {
     }
 
     onNotificationSuccess(result:any) {
-      //this.loaderService.stop();
         if (result !== null) {
           this.notifications = result.data;
           for(var i=0; i< result.data.length; i++) {
@@ -63,8 +61,6 @@ export class NotificationComponent implements OnInit {
     }*/
 
     onNotificationFail(error:any) {
-     // this.loaderService.stop();
-        //this.retriveData();
         var message = new Message();
         message.isError = true;
         message.error_msg = error;

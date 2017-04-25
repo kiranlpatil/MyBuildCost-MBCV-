@@ -45,7 +45,7 @@ export class DashboardProfileComponent implements OnInit,OnDestroy {
   MOBILE_ICON: string;
   EMAIL_ICON: string;
 
-  constructor(private commanService: CommonService, private dashboardService: DashboardService,
+  constructor(private commonService: CommonService, private dashboardService: DashboardService,
               private messageService: MessageService, private zone: NgZone, private profileService: ProfileService,
               private _router: Router, private formBuilder: FormBuilder, private loaderService: LoaderService,
               private themeChangeService: ThemeChangeService) {
@@ -75,7 +75,7 @@ export class DashboardProfileComponent implements OnInit,OnDestroy {
     } else {
       this.isSocialLogin = false;
     }
-    this.newUser = parseInt(LocalStorageService.getLocalValue(LocalStorage.IS_LOGED_IN));
+    this.newUser = parseInt(LocalStorageService.getLocalValue(LocalStorage.IS_LOGGED_IN));
     if (this.newUser === 0) {
       this._router.navigate([NavigationRoutes.APP_START]);
     } else {
@@ -97,8 +97,6 @@ export class DashboardProfileComponent implements OnInit,OnDestroy {
   }
 
   onUserProfileSuccess(result: any) {
-    //this.loaderService.stop();
-
     if (result.data.current_theme) {
       LocalStorageService.setLocalValue(LocalStorage.MY_THEME, result.data.current_theme);
       this.themeChangeService.change(result.data.current_theme);
@@ -118,8 +116,6 @@ export class DashboardProfileComponent implements OnInit,OnDestroy {
   }
 
   onUserProfileError(error: any) {
-    //this.loaderService.stop();
-
     var message = new Message();
     message.isError = true;
     message.error_msg = error.err.msg;
@@ -128,7 +124,6 @@ export class DashboardProfileComponent implements OnInit,OnDestroy {
 
   onSubmit() {
     this.submitted = true;
-    //this.loaderService.start();
     this.model = this.userForm.value;
     this.dashboardService.updateProfile(this.model)
       .subscribe(
@@ -137,7 +132,6 @@ export class DashboardProfileComponent implements OnInit,OnDestroy {
   }
 
   onProfileUpdateSuccess(result: any) {
-   // this.loaderService.stop();
 
     if (result !== null) {
       var message = new Message();
@@ -149,7 +143,6 @@ export class DashboardProfileComponent implements OnInit,OnDestroy {
   }
 
   onProfileUpdateError(error: any) {
-   // this.loaderService.stop();
 
     if (error.err_code === 404 || error.err_code === 0) {
       var message = new Message();
@@ -167,7 +160,7 @@ export class DashboardProfileComponent implements OnInit,OnDestroy {
   }
 
   goBack() {
-    this.commanService.goBack();
+    this.commonService.goBack();
   }
 
   fileChangeEvent(fileInput: any) {
@@ -221,7 +214,6 @@ export class DashboardProfileComponent implements OnInit,OnDestroy {
   }
 
   fileChangeFail(error: any) {
-   // this.loaderService.stop();
 
     var message = new Message();
     message.isError = true;
@@ -235,10 +227,6 @@ export class DashboardProfileComponent implements OnInit,OnDestroy {
       this.messageService.message(message);
     }
 
-  }
-
-  closeErrorMessage() {
-    this.isShowErrorMessage = true;
   }
 
   showHideEmailModal() {

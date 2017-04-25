@@ -13,7 +13,6 @@ import {MyRoleListTestService} from "../myRolelist.service";
 import {MyRoTypeTestService} from "../myRole-Type.service";
 import {DisableTestService} from "../disable-service";
 import {JobTitle} from "../model/jobTitle";
-import {MYJobTitleService} from "../myJobTitle.service";
 import {Candidate} from "../model/candidate";
 import {ProfileCreatorService} from "./profile-creator.service";
 import {MessageService} from "../../../framework/shared/message.service";
@@ -89,7 +88,6 @@ export class ProfileCreatorComponent implements OnInit {
               private awardService:AwardService,
               private myRolelist:MyRoleListTestService,
               private disableService:DisableTestService,
-              private jobtitleservice:MYJobTitleService,
               private profileCreatorService:ProfileCreatorService) {
 
     this.myRolelist.showTestRolelist$.subscribe(
@@ -172,7 +170,7 @@ export class ProfileCreatorComponent implements OnInit {
   ngOnInit() {
 
 
-    this.newUser = parseInt(LocalStorageService.getLocalValue(LocalStorage.IS_LOGED_IN));
+    this.newUser = parseInt(LocalStorageService.getLocalValue(LocalStorage.IS_LOGGED_IN));
     if (this.newUser === 0) {
       this._router.navigate([NavigationRoutes.APP_START]);
     } else {

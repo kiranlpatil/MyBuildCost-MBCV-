@@ -73,7 +73,6 @@ export class VerifyUserComponent implements OnInit {
                     error => (this.verifyFail(error)));
         } else {
             this.model.email=LocalStorageService.getLocalValue(LocalStorage.EMAIL_ID);
-            //this.isMailSent=true;
             this.verifyUserService.verifyUserByMail(this.model)
                 .subscribe(
                     res => (this.verifySuccess(res)),
@@ -108,9 +107,5 @@ export class VerifyUserComponent implements OnInit {
 
         }
     }
-
-     closeErrorMessage() {
-         this.isShowErrorMessage = true;
-     }
 
 }

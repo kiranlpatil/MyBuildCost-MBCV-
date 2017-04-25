@@ -89,7 +89,7 @@ export class LocalStorage {
   public static IS_THEME_SELECTED = 'is_theme_selected';
   public static IS_SOCIAL_LOGIN = 'is_social_login';
   public static PROFILE_PICTURE = 'profile_picture';
-  public static IS_LOGED_IN = 'is_user_loged_in';
+  public static IS_LOGGED_IN = 'is_user_logged_in';
   public static USER_ID = 'user_id';
   public static IS_CANDIDATE = 'is_candidate';
   public static MOBILE_NUMBER = 'mobile_number';

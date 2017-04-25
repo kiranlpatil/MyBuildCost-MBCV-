@@ -8,7 +8,7 @@ export class CandidateDetail {
   email : string;
   mobile_number : string;
   password : string;
-  conform_password : string;
+  confirm_password : string;
   pin:string;
   location :Location;
   current_theme : string;

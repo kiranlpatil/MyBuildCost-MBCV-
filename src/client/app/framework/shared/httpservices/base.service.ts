@@ -5,9 +5,8 @@ import {  LocalStorageService, LocalStorage  } from '../../shared/index';
 
 export class BaseService  {
 
-  extractData(res:Response) { 
+  extractData(res:Response) {
 
-    //this.loaderService.showLoading(false);
     let body = res.json();
     if (body.hasOwnProperty('access_token')) {
       LocalStorageService.setLocalValue(LocalStorage.ACCESS_TOKEN, body.access_token);

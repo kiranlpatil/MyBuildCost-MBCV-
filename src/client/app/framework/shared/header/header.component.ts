@@ -32,7 +32,7 @@ export class HeaderComponent implements OnInit {
         }
     }
 
-    constructor(private _router:Router, private commanService:CommonService, private dashboardService:DashboardService,
+    constructor(private _router:Router, private commonService:CommonService, private dashboardService:DashboardService,
                 private profileService:ProfileService, private messageService:MessageService,
                 private _eref:ElementRef) {
         this.subscription = profileService.profileUpdateObservable$.subscribe(
@@ -45,7 +45,7 @@ export class HeaderComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.newUser = parseInt(LocalStorageService.getLocalValue(LocalStorage.IS_LOGED_IN));
+        this.newUser = parseInt(LocalStorageService.getLocalValue(LocalStorage.IS_LOGGED_IN));
         if (this.newUser === 0) {
             this._router.navigate([NavigationRoutes.APP_START]);
         } else {

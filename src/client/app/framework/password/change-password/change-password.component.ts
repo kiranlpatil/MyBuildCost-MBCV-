@@ -34,7 +34,7 @@ export class ChangePasswordComponent {
     NEW_PASSWORD_ICON:string;
     CONFIRM_PASSWORD_ICON:string;
 
-    constructor(private commanService:CommonService,
+    constructor(private commonService:CommonService,
                 private _router:Router,
                 private passwordService:ChangePasswordService,
                 private messageService:MessageService,
@@ -74,7 +74,6 @@ export class ChangePasswordComponent {
     }
 
     changePasswordSuccess(body:ChangePassword) {
-    //  this.loaderService.stop();
       this.showHideModal();
         this.userForm.reset();
     }
@@ -93,11 +92,7 @@ export class ChangePasswordComponent {
     }
 
     goBack() {
-        this.commanService.goBack();
-    }
-
-    closeErrorMessage() {
-        this.isShowErrorMessage = true;
+        this.commonService.goBack();
     }
 
     showHideModal() {

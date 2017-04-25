@@ -51,7 +51,7 @@ export class RecruiterComponent implements OnInit {
   private isStateSelected:boolean=false;
   private isCountrySelected:boolean=false;
 
-  constructor(private commanService: CommonService, private _router: Router, private http: Http,
+  constructor(private commonService: CommonService, private _router: Router, private http: Http,
               private recruiterService: RecruiterService, private recruitmentForService: RecruitingService,
               private messageService: MessageService, private formBuilder: FormBuilder, private loaderService:LoaderService) {
 
@@ -67,7 +67,7 @@ export class RecruiterComponent implements OnInit {
       'mobile_number': ['',[ValidationService.requireMobileNumberValidator, ValidationService.mobileNumberValidator]],
       'email': ['',[ValidationService.requireEmailValidator, ValidationService.emailValidator]],
       'password': ['', [ValidationService.requirePasswordValidator, ValidationService.passwordValidator]],
-      'conform_password': ['', [ ValidationService.requireConfirmPasswordValidator]],
+      'confirm_password': ['', [ ValidationService.requireConfirmPasswordValidator]],
       'location':[
         {
           'country':['',Validators.required],
@@ -207,7 +207,6 @@ export class RecruiterComponent implements OnInit {
   }
 
   onRegistrationError(error: any) {
-    // this.loaderService.stop();
     if (error.err_code === 404 || error.err_code === 0) {
       var message = new Message();
       message.error_msg = error.message;
@@ -239,22 +238,18 @@ export class RecruiterComponent implements OnInit {
   }
 
   goBack() {
-    this.commanService.goBack();
+    this.commonService.goBack();
     this._router.navigate(['/']);
   }
 
   makePasswordConfirm(): boolean {
-    if (this.model.conform_password !== this.model.password) {
+    if (this.model.confirm_password !== this.model.password) {
       this.isPasswordConfirm = true;
       return true;
     } else {
       this.isPasswordConfirm = false;
       return false;
     }
-  }
-
-  closeErrorMessage() {
-    this.isShowErrorMessage = true;
   }
 
   showMessage() {
