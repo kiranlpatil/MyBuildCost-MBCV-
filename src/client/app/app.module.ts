@@ -136,6 +136,7 @@ import {AdditionalDetailsComponent} from "./cnext/framework/one-page-summury/sha
 import {ProfileDescriptionComponent} from "./cnext/framework/profile-description/profile-description.component";
 import {CandidateProfileComponent} from "./cnext/framework/candidate-profile/candidate-profile.component";
 import {CandidateProfileService} from "./cnext/framework/candidate-profile/candidate-profile.service";
+import {RecruiterHeaderComponent} from "./cnext/framework/recruiter-dashboard/recruiter-dashboard-header/recruiter-header.component";
 
 @NgModule({
   imports: [
@@ -208,6 +209,7 @@ import {CandidateProfileService} from "./cnext/framework/candidate-profile/candi
     CompanyDetailsComponent,
     MoreAboutMyselfComponent,
     RecruiterDashboardComponent,
+    RecruiterHeaderComponent,
     RoleListComponent,
     RoleTypetListComponent,
     IndustryExperienceListComponent

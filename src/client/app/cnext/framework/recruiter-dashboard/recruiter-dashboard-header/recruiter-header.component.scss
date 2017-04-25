@@ -1,0 +1,33 @@
+$white: #fff;
+
+.page-header {
+  .user-info {
+    img {
+      width: auto;
+      height: 40px;
+      margin: 0 15px;
+      float: left;
+    }
+
+    h4 {
+      margin: 12px 0 0;
+      width: auto;
+      color: $white;
+      text-transform: capitalize;
+      font-family: 'helvlightregular';
+      white-space: pre-wrap;
+      text-overflow: clip;
+      overflow: auto;
+    }
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .page-header {
+    .user-info {
+      img {
+        margin: -12px 15px 0 0;
+      }
+    }
+  }
+}

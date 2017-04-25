@@ -1,0 +1,165 @@
+$text-color: #666;
+$white: #fff;
+$instruction: #00aed5;
+$profile-section-shadow: rgba(204, 204, 204, 1);
+$error: #e82c0c;
+$border-color: #e8e8e8;
+$info: #999;
+$theme-color: #3694d1;
+
+.section-container {
+  margin-top: 0;
+  text-align: left;
+}
+
+.main-content {
+  background: $white;
+  padding: 15px;
+  text-align: left;
+
+  .heading {
+    color: $theme-color;
+    font-size: 14px;
+    margin: 0 0 15px;
+    padding: 8px 15px;
+    position: relative;
+    text-align: left;
+    font-family: 'gothamrnd-book';
+    font-weight: bold;
+    background: #f1f1f1;
+    border-radius: 5px;
+
+    span {
+      background: transparent;
+      color: $theme-color;
+      float: right;
+      font-size: 12px;
+      font-style: italic;
+      font-weight: 400;
+    }
+
+    .close-dialog {
+      padding: 2px 35px 0 0;
+    }
+
+    .glyphicon-remove {
+      border: 1px solid $theme-color;
+      border-radius: 50%;
+      font-style: normal;
+      padding: 5px;
+      position: absolute;
+      right: 15px;
+      top: 4px;
+    }
+  }
+
+  .info {
+    font-size: 10px;
+    font-style: italic;
+    background: url('../../../assets/c-next/profile-creator/info.png')  no-repeat  0 0;
+    padding-left: 25px;
+    display: block;
+    margin: 0 0 10px;
+    color: $info;
+  }
+
+
+  .btn-create-profile {
+    background-color: $white;
+    color: $text-color;
+    padding: 4px 15px;
+  }
+
+  .instructions {
+    color: $instruction;
+    font-size: 12px;
+    font-style: italic;
+    margin: 0;
+  }
+
+
+  .error-messages {
+    padding-left: 0;
+    color: $error;
+    font-size: 12px;
+    padding-left: 0;
+
+    p {
+      color: $error;
+      font-size: 12px;
+      padding-left: 0;
+    }
+  }
+
+  .form-control {
+    width: 100%;
+  }
+
+  span {
+    background-color: $white;
+    color: $text-color;
+    padding-left: 15px;
+  }
+
+  .hide-next-btn:disabled {
+    display: none;
+  }
+
+  .form-group {
+    float: left;
+    margin: 15px 0 15px 0;
+    padding: 0;
+    position: relative;
+    width: 100%;
+
+    label {
+      -moz-transition: top .2s ease-in, font-size .2s ease-in;
+      -webkit-transition: top .2s ease-in, font-size .2s ease-in;
+      color: $text-color;
+      font-size: 14px;
+      font-weight: normal;
+      left: 0;
+      position: absolute;
+      top: 10px;
+      transition: .2s ease all;
+      z-index: 1;
+      //transition: top .2s ease-in, font-size .2s ease-in;
+    }
+
+    input {
+      color: $text-color;
+      position: relative;
+      z-index: 2;
+
+      &:focus ~ label,
+      &:valid ~ label {
+        font-size: 12px;
+        top: -10px;
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 980px) {
+  .main-content {
+    .btn-default {
+      float: none;
+      margin: 10px 0 0;
+    }
+
+    .instructions {
+      margin-top: 10px;
+    }
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .main-content {
+    .info {
+      font-size: 10px;
+      background: none;
+      padding-left: 0;
+      display: block;
+    }
+  }
+}

@@ -56,49 +56,17 @@
   url('../assets/framework/fonts/gothamrnd-book.svg#helvlightregular') format('svg');
 }
 
-/*//Common Fonts
-@font-face {
-    font-family: 'gothamrnd-book';
-    font-style: normal;
-    font-weight: normal;
-    src: url('../assets/framework/fonts/gothamrnd-book.eot'),
-    url('../assets/framework/fonts/gothamrnd-book.woff') format('woff'),
-    url('../assets/framework/fonts/gothamrnd-book.ttf') format('truetype'),
-    url('../assets/framework/fonts/gothamrnd-book.svg#gothamrnd-book') format('svg');
-}
-
-@font-face {
-    font-family: 'gothamrnd-book';
-    font-style: normal;
-    font-weight: normal;
-    src: url('../assets/framework/fonts/gothamrnd-book.eot?#iefix') format('embedded-opentype');
-}
-
-@font-face {
-    font-family: 'gothamrnd-light';
-    font-style: normal;
-    font-weight: normal;
-    src: url('../assets/framework/fonts/gothamrnd-light.eot'),
-    url('../assets/framework/fonts/gothamrnd-light.woff') format('woff'),
-    url('../assets/framework/fonts/gothamrnd-light.ttf') format('truetype'),
-    url('../assets/framework/fonts/gothamrnd-light.svg#gothamrnd-light') format('svg');
-}
-
-@font-face {
-    font-family: 'gothamrnd-light';
-    font-style: normal;
-    font-weight: normal;
-    src: url('../assets/framework/fonts/gothamrnd-light.eot?#iefix') format('embedded-opentype');
-}*/
-
 @import './common';
 @import './framework/light-theme';
 @import './framework/dark-theme';
 
 
 //cn-next
-@import './framework/cn-theme';
-@import './c-next/profile-creator';
-@import './c-next/job-poster';
-@import './c-next/cn-forms';
-@import './c-next/cn-select-option';
+@import 'c-next/theme/cn-theme';
+@import 'c-next/common-components/profile-creator';
+@import 'c-next/common-components/job-poster';
+@import 'c-next/common-components/cn-forms';
+@import 'c-next/common-components/cn-select-option';
+@import 'c-next/common-components/cn-modal';
+@import 'c-next/common-components/cn-header';
+@import 'c-next/common-components/cn-tabs';

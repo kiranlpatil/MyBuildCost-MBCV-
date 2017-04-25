@@ -1,0 +1,36 @@
+$modal-bg: #f2f2f2;
+$text-color: #666;
+
+.modal-dialog {
+  border-radius: 25px;
+  text-align: center;
+
+  .modal-body {
+    padding: 30px;
+  }
+
+  .modal-content {
+    background: $modal-bg;
+    border-radius: 25px;
+  }
+
+  p {
+    color: $text-color;
+    font-size: 18px;
+    text-align: center;
+  }
+
+  .button-group {
+    margin-top: 30px;
+  }
+
+  .btn {
+    float: none;
+    margin-top: 0;
+
+    &:focus,
+    &:active {
+      outline: none;
+    }
+  }
+}

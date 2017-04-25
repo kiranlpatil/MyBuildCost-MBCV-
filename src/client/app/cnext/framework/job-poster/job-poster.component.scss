@@ -1,5 +1,6 @@
 $white: #fff;
 $border-color: #ddd;
+$profile-background: #f2f2f2;
 
 
 .error-messages {
@@ -11,69 +12,15 @@ $border-color: #ddd;
   line-height: 11px;
 }
 
-.section-container {
-  text-align: left;
-}
-
-.heading {
-  color: #3694d1;
-  font-size: 14px;
-  margin: 0 0 15px;
-  padding: 8px 15px;
-  position: relative;
-  text-align: left;
-  font-family: 'gothamrnd-book';
-  font-weight: bold;
-  background: #f8f8f8;
-  border-radius: 5px;
-
-  span {
-    background: transparent;
-    color: #3694d1;
-    float: right;
-    font-size: 12px;
-    font-style: italic;
-    font-weight: 400;
-  }
-
-  .close-dialog {
-    padding: 2px 35px 0 0;
-  }
-
-  .glyphicon-remove {
-    border: 1px solid #3694d1;
-    border-radius: 50%;
-    font-style: normal;
-    padding: 5px;
-    position: absolute;
-    right: 15px;
-    top: 4px;
-  }
-}
-
-.main-content {
-  background: $white;
-  //border: 1px solid $border-color;
-  padding: 15px;
-  text-align: left;
-}
-
 .job-info {
   margin: 15px 30px 0;
 }
+
 .job-poster {
- border: 1px solid $border-color;
+  border: 1px solid $border-color;
   margin: 15px 30px;
-}
-
-.max-height {
-  max-height: 400px;
-  overflow: auto;
-}
-
-.min-height {
-  height: 400px;
-  overflow: auto;
+  background: $profile-background;
+  clear: both;
 }
 
 .button-group {
@@ -91,10 +38,6 @@ $border-color: #ddd;
 }
 
 @media only screen and (max-width: 980px) {
-  .section-container {
-    text-align: left;
-  }
-
   .job-info {
     margin: 15px 15px 0;
   }

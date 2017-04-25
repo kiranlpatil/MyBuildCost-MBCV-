@@ -1,0 +1,75 @@
+$text-color: #333;
+$bg-tab-content: #f9f9f9;
+$nav-tab: #7264b3;
+$profile-section-shadow: rgba(204, 204, 204, 1);
+$border-color: #ddd;
+$white: #fff;
+
+.nav-tabs {
+  li {
+    a {
+      border: 1px solid $nav-tab;
+      border-radius: 0;
+      padding: 13px 15px;
+      background: $nav-tab;
+      color: $white;
+      margin-bottom: -0.5px;
+      width: 200px;
+
+      &:focus,
+      &:hover {
+        border: 1px solid $border-color;
+        border-bottom-color: transparent;
+        background: $bg-tab-content;
+        color: $text-color;
+      }
+    }
+  }
+
+  .active {
+    a {
+      border: 1px solid $border-color;
+      border-bottom-color: transparent;
+      background-color: $bg-tab-content !important;
+      color: $text-color;
+    }
+  }
+}
+
+.tab-content {
+  background: $bg-tab-content;
+  border-bottom: 1px solid $border-color;
+  border-left: 1px solid $border-color;
+  border-right: 1px solid $border-color;
+  -moz-box-shadow: 0 0 1px 0 $profile-section-shadow;
+  -webkit-box-shadow: 0 0 1px 0 $profile-section-shadow;
+  box-shadow: 0 0 1px 0 $profile-section-shadow;
+  padding-bottom: 20px;
+}
+
+
+@media only screen and (max-width: 768px) {
+  .nav-tabs {
+    li {
+      a {
+        padding: 15px;
+        width: auto;
+        font-size: 12px;
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .nav-tabs {
+    li {
+      width: 50%;
+
+      a {
+        padding: 10px 5px;
+        margin-right: 0;
+        font-size: 11px;
+      }
+    }
+  }
+}

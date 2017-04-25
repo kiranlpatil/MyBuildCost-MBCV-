@@ -1,53 +1,6 @@
-$profile-background: #f2f2f2;
 $white: #fff;
-$border-color: #ddd;
-$text-color: #333;
-$header: #3694d1;
-$bg-tab-content: #f9f9f9;
-$nav-tab: #7264b3;
-$profile-section-shadow: rgba(204, 204, 204, 1);
 
-.job-poster {
-  background: $profile-background;
-  clear: both;
-  padding-bottom: 50px;
-}
-
-.bar-container {
-  box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.4);
-  background: #3694d1;
-  height: 50px;
-  left: 0;
-  margin: 0 auto;
-  padding-top: 5px;
-  position: fixed;
-  top: 0;
-  width: 100%;
-  z-index: 99;
-  text-align: left;
-
-  .user-info {
-    img {
-      width: auto;
-      height: 40px;
-      margin: 0 15px;
-      float: left;
-    }
-
-    h4 {
-      margin: 12px 0 0;
-      width: auto;
-      color: $white;
-      text-transform: capitalize;
-      font-family: 'helvlightregular';
-      white-space: pre-wrap;
-      text-overflow: clip;
-      overflow: auto;
-    }
-  }
-}
-
-.poster-wrapper {
+.recruiter-profile-wrapper {
   margin: 65px auto 0;
 
   .col-sm-3 {
@@ -57,67 +10,21 @@ $profile-section-shadow: rgba(204, 204, 204, 1);
   .col-sm-9 {
     width: 75%;
   }
-
-  .max-height {
-    max-height: 400px;
-    overflow: auto;
-  }
-
-  .min-height {
-    min-height: 350px;
-    overflow: auto;
-  }
 }
 
-.nav-tabs {
-  li {
-    a {
-      border: 1px solid $nav-tab;
-      border-radius: 0;
-      padding: 13px 15px;
-      background: $nav-tab;
-      color: $white;
-      margin-bottom: -0.5px;
-      width: 200px;
-    }
-  }
-
-  .active {
-    a {
-      border: 1px solid $border-color;
-      border-bottom-color: transparent;
-      background: $bg-tab-content;
-      color: $text-color;
-    }
-  }
+.posted-job {
+  padding: 30px;
+  display: block;
 }
-
-.tab-content {
-  background: $bg-tab-content;
-  border-bottom: 1px solid $border-color;
-  border-left: 1px solid $border-color;
-  border-right: 1px solid $border-color;
-  -moz-box-shadow: 0 0 1px 0 $profile-section-shadow;
-  -webkit-box-shadow: 0 0 1px 0 $profile-section-shadow;
-  box-shadow: 0 0 1px 0 $profile-section-shadow;
-  padding-bottom: 20px;
-
-  .posted-job {
-    padding: 30px;
-    display: block;
-  }
-}
-
 
 @media only screen and (max-width: 1280px) {
-  .poster-wrapper {
+  .recruiter-profile-wrapper {
     display: inline-block;
   }
 }
 
 @media only screen and (max-width: 768px) {
-  .poster-wrapper {
-
+  .recruiter-profile-wrapper {
     .col-sm-3, .col-sm-9 {
       float: none;
       margin-bottom: 15px;
@@ -125,39 +32,11 @@ $profile-section-shadow: rgba(204, 204, 204, 1);
       width: 100%;
     }
   }
-
-  .nav-tabs {
-    li {
-      a {
-        padding: 15px;
-        width: auto;
-        font-size: 12px;
-      }
-    }
-  }
 }
 
 @media only screen and (max-width: 767px) {
-  .poster-wrapper {
+  .recruiter-profile-wrapper {
     padding: 0;
-  }
-  .bar-container {
-    .user-info {
-      img {
-        margin: -12px 15px 0 0;
-      }
-    }
-  }
-
-  .nav-tabs {
-    li {
-      width: 50%;
-
-      a {
-        padding: 10px 5px;
-        margin-right: 0;
-        font-size: 11px;
-      }
-    }
+    width: 100%;
   }
 }

@@ -1,60 +1,33 @@
-<div class="job-poster clearfix">
-  <div class="bar-container profile-header">
-    <div class="container">
-      <div class="user-info col-sm-9 no-padding">
-        <img src= "{{uploaded_image_path}}" alt="User Profile Picture"/>
-        <h4>{{company_name}}</h4>
+<cn-recruiter-header></cn-recruiter-header>
+
+<div class="container">
+  <div class="col-sm-12 recruiter-profile-wrapper">
+
+    <ul class="nav nav-tabs">
+      <li>
+        <a data-toggle="tab" href="#posted-job">My Job Posts</a>
+      </li>
+      <li class="active">
+        <a data-toggle="tab" href="#post-new-job">Post New Job / Search</a>
+      </li>
+    </ul>
+
+    <div class="tab-content">
+      <div id="posted-job" class="tab-pane fade">
+          <span class="posted-job"><b>Posted jobs</b></span>
       </div>
-      <ul class="logout-dropdown">
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle drop-down" data-toggle="dropdown" >
-            <img src="assets/framework/images/dashboard/3dots.png">
-          </a>
-          <ul class="dropdown-menu">
-            <li><a (click)="logOut()"><b>Logout</b></a></li>
-          </ul>
-        </li>
-      </ul>
-    </div>
-    <button type="submit" class="btn btn-default btn-logout" (click)="logOut()">Logout</button>
-  </div>
+      <div id="post-new-job" class="tab-pane fade in active clearfix">
+        <cn-job-poster></cn-job-poster>
 
-  <div class="container">
-
-   <!-- <div class="col-sm-3 padding-right5">
-      <cn-job-filter></cn-job-filter>
-    </div>-->
-
-    <div class="col-sm-12 poster-wrapper">
-
-      <ul class="nav nav-tabs">
-        <li >
-          <a data-toggle="tab" href="#posted-job">My Job Posts</a>
-
-        </li>
-        <li class="active" >
-          <a data-toggle="tab" href="#post-new-job">Post New Job / Search</a>
-        </li>
-      </ul>
-
-      <div class="tab-content">
-        <div id="posted-job" class="tab-pane fade">
-          <div>
-            <span class="posted-job"><b>Posted jobs</b></span>
+        <div class="col-sm-12">
+          <div class="col-sm-3 ">
+            <cn-job-filter></cn-job-filter>
           </div>
-        </div>
-        <div id="post-new-job" class="tab-pane fade in active clearfix">
-          <cn-job-poster></cn-job-poster>
-
-          <div class="col-sm-12">
-            <div class="col-sm-3 ">
-              <cn-job-filter></cn-job-filter>
-            </div>
-            <div class="col-sm-9 ">
-            </div>
+          <div class="col-sm-9 ">
           </div>
         </div>
       </div>
     </div>
   </div>
 </div>
+
