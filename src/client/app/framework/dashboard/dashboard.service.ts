@@ -3,6 +3,7 @@ import {  Http  } from '@angular/http';
 import {  Observable  } from 'rxjs/Observable';
 import {  AppSettings, BaseService, LocalStorageService, LocalStorage, MessageService, API  } from '../shared/index';
 import {  UserProfile  } from './user';
+import {CandidateDetail} from "../registration/candidate/candidate";
 
 @Injectable()
 export class DashboardService extends BaseService {
@@ -11,14 +12,14 @@ export class DashboardService extends BaseService {
         super();
     }
 
-    getUserProfile():Observable<UserProfile> {
+    getUserProfile():Observable<any> { //todo
         var url = API.USER_PROFILE + '/' + LocalStorageService.getLocalValue(LocalStorage.USER_ID);
         return this.http.get(url)
             .map(this.extractData)
             .catch(this.handleError);
     }
 
-    updateProfile(model:UserProfile):Observable<UserProfile> {
+    updateProfile(model:CandidateDetail):Observable<CandidateDetail> {
         var url = API.USER_PROFILE + '/' + LocalStorageService.getLocalValue(LocalStorage.USER_ID);
         let body = JSON.stringify(model);
         return this.http.put(url, body)

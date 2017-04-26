@@ -1,5 +1,4 @@
 import {Component} from "@angular/core";
-import {Router} from "@angular/router";
 import {JobInformation} from "../model/job-information";
 import {JobRequirement} from "../model/job-requirement";
 import {JobLocation} from "../model/job-location";
@@ -15,7 +14,6 @@ import {JobIndustryShowService} from "../myJobIndustryShow.service";
 import {DisableTestService} from "../disable-service";
 import {ComplexityService} from "../complexity.service";
 import {ProficiencyService} from "../proficience.service";
-import {TestService} from "../test.service";
 import {MyRoTypeTestService} from "../myRole-Type.service";
 import {ShowJobFilterService} from "../showJobFilter.service";
 import {JobPosterModel} from "../model/jobPoster";
@@ -37,10 +35,9 @@ import {Proficiences} from "../model/proficiency";
 
 export class JobPosterComponent {
   private industries:Industry[] = new Array(0);
-  private roleTypes:string[] = new Array(0);
   private roleList:string[] = new Array(0);
   private primaryCapability:string[] = new Array(0);
-  private proficiencies:Proficiences=new Proficiences();
+  private proficiencies:Proficiences = new Proficiences();
 
   private rolesForMain:Role[] = new Array(0);
   private rolesForCapability:Role[] = new Array(0);
@@ -63,13 +60,10 @@ export class JobPosterComponent {
   private competensies = new Description();
   private responsibilities = new Description();
   private jobPosterModel = new JobPosterModel();
-  private jobForRole:Role[] = new Array(0);
-  private jobForCapability: Role[]=new Array(0);
   private jobForComplexity:Role[] = new Array(0);
-  private flag:boolean=true;
+  private flag:boolean = true;
 
-  constructor(private _router:Router,
-              private profileCreatorService:CandidateProfileService,
+  constructor(private profileCreatorService:CandidateProfileService,
               private complexityService:ComplexityService,
               private jobinformation:MyJobInformationService,
               private jobrequirement:JobRequirementService,
@@ -80,7 +74,6 @@ export class JobPosterComponent {
               private jobPostComplexiyservice:JobPostComplexityService,
               private jobPostProficiency:JobPostProficiencyService,
               private myRoleType:MyRoTypeTestService,
-              private testService:TestService,
               private proficiencyService:ProficiencyService,
               private jobPostIndustryShow:JobIndustryShowService,
               private disableService:DisableTestService,
@@ -93,12 +86,6 @@ export class JobPosterComponent {
 
       }
     );
-    testService.showTest$.subscribe(
-      data => {
-        this.isShowCapability = data;
-      }
-    );
-
     complexityService.showTest$.subscribe(
       data => {
         this.isShowComplexity = data;
@@ -171,7 +158,7 @@ export class JobPosterComponent {
     this.showModalStyle = !this.showModalStyle;
     this.jobPosterModel.competencies = this.competensies.detail;
 
-   // this.jobPosterModel.profiencies = this.proficiency;
+    // this.jobPosterModel.profiencies = this.proficiency;
     this.jobPosterModel.responsibility = this.responsibilities.detail;
     this.jobPosterModel.postingDate = (new Date()).toISOString();
 
@@ -245,7 +232,7 @@ export class JobPosterComponent {
     this.jobPosterModel.industry.roles = roles;
     //this.savejobPosterModelDetails();
 
-    if(this.flag) {
+    if (this.flag) {
       this.getCapability();
       this.isShowCapability = true;
 
@@ -263,19 +250,19 @@ export class JobPosterComponent {
 
   selectRoleFromComplexity(roles:Role[]) {
     this.jobPosterModel.industry.roles = roles;
-    this.jobForComplexity=roles;
+    this.jobForComplexity = roles;
     this.isShowProficiency = true;
   }
 
   /*selectRoleType(roleType:string) {
-    this.jobPosterModel.roleType = roleType;
-//    this.savejobPosterModelDetails();
-    this.getCapability();
-    this.isShowCapability = true;
-  }
-*/
-  selectProficiency(proficiency:string[]){
-    this.jobPosterModel.profiencies=proficiency;
+   this.jobPosterModel.roleType = roleType;
+   //    this.savejobPosterModelDetails();
+   this.getCapability();
+   this.isShowCapability = true;
+   }
+   */
+  selectProficiency(proficiency:string[]) {
+    this.jobPosterModel.profiencies = proficiency;
   }
 
   getIndustry() {
@@ -292,12 +279,12 @@ export class JobPosterComponent {
    error => this.onError(error));
    }*/
 
- /* getRoleType() {
-    this.profileCreatorService.getRoleTypes()
-      .subscribe(
-        data=> this.roleTypes = data.roleTypes,
-        error => this.onError(error));
-  }*/
+  /* getRoleType() {
+   this.profileCreatorService.getRoleTypes()
+   .subscribe(
+   data=> this.roleTypes = data.roleTypes,
+   error => this.onError(error));
+   }*/
 
   /*getCapability(){
    for(let role of this.jobPosterModel.industry.roles){
@@ -324,7 +311,7 @@ export class JobPosterComponent {
 
 
   getCapability() {
-    this.flag=false;
+    this.flag = false;
     for (let role of this.jobPosterModel.industry.roles) {
       this.roleList.push(role.name);
     }
@@ -341,7 +328,7 @@ export class JobPosterComponent {
   getComplexity() {
     for (let role of this.jobPosterModel.industry.roles) {
       for (let capability of role.capabilities) {
-        if(capability.isPrimary){
+        if (capability.isPrimary) {
           this.primaryCapability.push(capability.name);
         }
       }
@@ -351,17 +338,17 @@ export class JobPosterComponent {
         .subscribe(
           rolelist => {
             this.rolesForComplexity = rolelist.data;
-            this.jobForComplexity=this.jobPosterModel.industry.roles;
+            this.jobForComplexity = this.jobPosterModel.industry.roles;
           },
           error => this.onError(error));
     }
   }
 
-  getProficiency(){
+  getProficiency() {
 
     this.profileCreatorService.getProficiency(this.jobPosterModel.industry.name)
       .subscribe(
-        data => this.proficiencies=data.data,
+        data => this.proficiencies = data.data,
         error => this.onError(error));
   }
 }

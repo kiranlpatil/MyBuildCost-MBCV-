@@ -18,6 +18,7 @@ import {
  } from '../../shared/index';
 import {  NavigationRoutes  } from '../../shared/constants';
 import {  LoaderService  } from '../../shared/loader/loader.service';
+import {CandidateDetail} from "../../registration/candidate/candidate";
 
 
 @Component({
@@ -29,7 +30,7 @@ import {  LoaderService  } from '../../shared/loader/loader.service';
 
 export class DashboardProfileComponent implements OnInit,OnDestroy {
 
-  model = new UserProfile();
+  model = new CandidateDetail();
   submitted = false;
   isSocialLogin: boolean;
   userForm: FormGroup;

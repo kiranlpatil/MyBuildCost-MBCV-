@@ -1,6 +1,7 @@
 $border-color: #e8e8e8;
 $light-blue: #00aed5;
 $primary-option: #1c75bd;
+$secondary-option: #81D4FA;
 $modal-bg: rgba(0, 0, 0, .6);
 
 .modal-bg {
@@ -75,7 +76,6 @@ $modal-bg: rgba(0, 0, 0, .6);
 
   .select-option {
     span{
-      background-color: $primary-option;
       padding: 4px 10px;
       border-radius: 25px;
       min-width: 100px;
@@ -83,6 +83,13 @@ $modal-bg: rgba(0, 0, 0, .6);
       font-weight: 600;
       padding: 4px 10px;
       font-size: 12px;
+    }
+
+    .primary {
+      background-color: $primary-option;
+    }
+    .secondary {
+      background-color: $secondary-option;
     }
   }
 }

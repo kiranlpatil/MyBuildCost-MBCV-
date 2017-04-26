@@ -5,44 +5,54 @@ import {ValueConstant} from "../../../framework/shared/constants";
 
 @Component({
   moduleId: module.id,
-  selector: 'cn-capibility-list',
-  templateUrl: 'capability-list.component.html',
-  styleUrls: ['capability-list.component.css']
+  selector: 'cn-capabilities',
+  templateUrl: 'capabilities.component.html',
+  styleUrls: ['capabilities.component.css']
 })
 
-export class CapabilityListComponent {
+export class CapabilitiesComponent {
 
   @Input() roles:Role[] = new Array(0);
   @Input() candidateRoles:Role[] = new Array();
-  @Output() selectCapabilityWithRole = new EventEmitter()
+  @Output() onComplete = new EventEmitter();
+  private compactView:boolean=true;
+
+
   private primaryNames:string[] = new Array(0);
   private secondaryNames:string[] = new Array(0);
   private primaryCapabilitiesNumber:number = 0;
-  private disableButton:boolean=true;
+  private disableButton:boolean = true;
 
   ngOnChanges(changes:any) {
     if (this.candidateRoles) {
       this.secondaryNames = new Array(0);
-      this.primaryNames= new Array(0);
+      this.primaryNames = new Array(0);
       for (let role of this.candidateRoles) {
         if (role.capabilities) {
-          for (let primary of role.capabilities) {
-            if(primary.isPrimary){
+          this.compactView = true;
+          for (let primary of role.capabilities) {debugger
+            if (primary.isPrimary == true) {
               this.primaryNames.push(primary.name);
             }
-            else if(primary.isSecondary){
+            else if( primary.isPrimary == false) {
               this.secondaryNames.push(primary.name);
             }
           }
         }
       }
     }
+
+      if(this.primaryNames.length>0 ){
+        this.compactView = true;
+      }
+    else{
+      this.compactView = false;
+    }
   }
 
-
   selectedCapability(selectedRole:Role, selectedCapability:Capability, event:any) {
-    this.disableButton=false;
-    this.roles[0].isAPIForComplexity=true;
+    this.disableButton = false;
+    this.roles[0].isAPIForComplexity = true;
     if (event.target.checked) {
       if (this.primaryCapabilitiesNumber < ValueConstant.MAX_CAPABILITIES) {
         this.primaryCapabilitiesNumber++;
@@ -60,8 +70,9 @@ export class CapabilityListComponent {
     }
   }
 
-  disableCapability() {
-    this.disableButton=true;
-    this.selectCapabilityWithRole.emit(this.roles);
+  onNext() {
+    this.compactView=true;
+    this.disableButton = true;
+    this.onComplete.emit(this.roles);
   }
 }

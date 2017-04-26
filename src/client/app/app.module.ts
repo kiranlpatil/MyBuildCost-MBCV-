@@ -57,14 +57,12 @@ import {  DashboardComponent  } from './framework/dashboard/dashboard.component'
  import {  RecruiterComponent  } from './framework/registration/recruiter/recruiter.component';
  import {  CandidateService  } from './framework/registration/candidate/candidate.service';
  import {  RecruiterService  } from './framework/registration/recruiter/recruiter.service';
-import {  TestService  } from './cnext/framework/test.service';
 import {  RecruitingService  } from './framework/shared/recruiting.service';
 import {ScrollToModule} from 'ng2-scroll-to';
 
 //C-NEXT IMPORTS
 import { ProfilePictureComponent } from './cnext/framework/profile-picture/profile-picture.component';
 
-import { CapabilityListComponent } from './cnext/framework/capability-list/capability-list.component';
 import { ProficiencyDomainComponent } from './cnext/framework/proficiency-domains/proficiency-domain.component';
 import { ComplexityListComponent } from './cnext/framework/complexity-list/complexity-list.component';
 import { MainHeaderComponent } from './framework/main-header/main-header.component';
@@ -86,7 +84,6 @@ import { DescriptionFieldComponent } from './cnext/framework/description-field/d
 import { ProficiencyDomainService } from './cnext/framework/proficiency-domains/proficiency-domain.service';
 import { MyRoleService } from './cnext/framework/role-service';
 import { MyIndustryService } from './cnext/framework/industry-service';
-import { CapabilityListService } from './cnext/framework/capability-list/capability-list.service';
 import { MyCapabilityService } from './cnext/framework/capability-service';
 import { ComplexityListService } from './cnext/framework/complexity-list/complexity-list.service';
 import { CompanyDetailsComponent } from './framework/registration/company_details/company-details.component';
@@ -137,6 +134,7 @@ import {CandidateProfileComponent} from "./cnext/framework/candidate-profile/can
 import {CandidateProfileService} from "./cnext/framework/candidate-profile/candidate-profile.service";
 import {WorkAreaComponent} from "./cnext/framework/work-area/work-area.component";
 import {RecruiterHeaderComponent} from "./cnext/framework/recruiter-dashboard/recruiter-dashboard-header/recruiter-header.component";
+import {CapabilitiesComponent} from "./cnext/framework/capibilities/capabilities.component";
 
 @NgModule({
   imports: [
@@ -190,7 +188,7 @@ import {RecruiterHeaderComponent} from "./cnext/framework/recruiter-dashboard/re
     HorizontalListViewComponent,
     CandidateProfileComponent,
     ProfileDescriptionComponent,
-    CapabilityListComponent,
+    CapabilitiesComponent,
     ProficiencyDomainComponent,
     IndustryListComponent,
     ComplexityListComponent,
@@ -228,7 +226,6 @@ import {RecruiterHeaderComponent} from "./cnext/framework/recruiter-dashboard/re
       useValue: '<%= APP_BASE %>'
     },
     MessageService,
-    TestService,
     RecruitingService,
     FacebookService,
     LoginService,
@@ -256,7 +253,6 @@ import {RecruiterHeaderComponent} from "./cnext/framework/recruiter-dashboard/re
     JobLocationService,
     VerifyPhoneService,
     IndustryListService,
-    CapabilityListService,
     ComplexityListService,
     MyCapabilityService,
     MyRoleService,

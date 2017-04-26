@@ -1,7 +1,6 @@
 import {Component, OnInit} from "@angular/core";
 import {NavigationRoutes} from "../../../framework/shared/constants";
 import {Router} from "@angular/router";
-import {TestService} from "../test.service";
 import {ComplexityService} from "../complexity.service";
 import {ProficiencyService} from "../proficience.service";
 import {ProfessionalService} from "../professional-service";
@@ -61,7 +60,6 @@ export class CandidateProfileComponent implements OnInit {
 
 
   constructor(private _router:Router,
-              private testService:TestService,
               private disableAwardGlyphiconService:DisableAwardGlyphiconService,
               private disableEmplyeeHistoryGlyphiconService:DisableEmployeeHistoryGlyphiconService,
               private disableCertificateGlyphiconService:DisableCertificateGlyphiconService,
@@ -113,12 +111,7 @@ export class CandidateProfileComponent implements OnInit {
 
       }
     );
-    testService.showTest$.subscribe(
-      data=> {
-        this.whichStepsVisible[6] = data;
-        // this.showCapability = data;
-      }
-    );
+
     complexityService.showTest$.subscribe(
       data=> {
         this.whichStepsVisible[3] = data;
@@ -188,6 +181,16 @@ export class CandidateProfileComponent implements OnInit {
         }
       }
     }
+  }
+
+  onCapabilityComplete(roles:Role[]){
+    this.candidate.industry.roles = roles;
+    this.saveCandidateDetails();
+    this.candidateForComplexity = this.candidate.industry.roles;
+    this.rolesForComplexity = new Array(0);
+    this.getComplexity();
+    this.showComplexity = true;
+    this.whichStepsVisible[2] = true;
   }
 
   selectProficiency(proficiency:string[]) {

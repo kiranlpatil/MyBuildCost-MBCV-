@@ -13,4 +13,5 @@ export class CandidateDetail {
   location :Location;
   current_theme : string;
   picture : string="assets/framework/images/dashboard/profile.png";
+  social_profile_picture : string;
 }
