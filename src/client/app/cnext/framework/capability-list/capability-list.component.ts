@@ -21,9 +21,6 @@ export class CapabilityListComponent {
   private disableButton:boolean=true;
 
   ngOnChanges(changes:any) {
-    if (changes.roles) {
-      this.roles = changes.roles.currentValue;
-    }
     if (this.candidateRoles) {
       this.secondaryNames = new Array(0);
       this.primaryNames= new Array(0);

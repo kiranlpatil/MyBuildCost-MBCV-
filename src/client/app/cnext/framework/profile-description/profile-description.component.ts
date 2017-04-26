@@ -17,9 +17,10 @@ export class ProfileDescriptionComponent {
   @Input() candidate:Candidate = new Candidate();
   @Output() onComplete = new EventEmitter();
 
-  private compactView:boolean = true;
+  private compactView:boolean=true;
+  private disableButton:boolean=true;
   private candidateDetails:CandidateDetail = new CandidateDetail();
-  private image_path:string = "assets/framework/images/dashboard/profile.png";
+  private image_path:string ;
 
   constructor(private userProfileService:DashboardService) {
   }
@@ -37,6 +38,9 @@ export class ProfileDescriptionComponent {
   ngOnChanges() {
     if (this.candidate.jobTitle !== undefined && this.candidate.jobTitle !== ""
       && this.candidate.industry.name !== undefined && this.candidate.industry.name !== "") {
+      this.compactView = true;
+    }
+    else{
       this.compactView = false;
     }
   }
@@ -46,12 +50,13 @@ export class ProfileDescriptionComponent {
       if (this.candidate.industry.name !== newIndustry.name) {
         this.candidate.industry = newIndustry;
         this.candidate.industry.roles=new Array();
+        this.disableButton=false;
       }
     }
   }
 
   onNext() {
-    this.compactView = false;
+    this.compactView = true;
     this.onComplete.emit(this.candidate);
   }
 }

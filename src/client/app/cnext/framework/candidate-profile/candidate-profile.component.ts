@@ -1,5 +1,5 @@
 import {Component, OnInit} from "@angular/core";
-import {NavigationRoutes, Messages} from "../../../framework/shared/constants";
+import {NavigationRoutes} from "../../../framework/shared/constants";
 import {Router} from "@angular/router";
 import {TestService} from "../test.service";
 import {ComplexityService} from "../complexity.service";
@@ -13,7 +13,6 @@ import {Candidate} from "../model/candidate";
 import {CandidateProfileService} from "./candidate-profile.service";
 import {MessageService} from "../../../framework/shared/message.service";
 import {Message} from "../../../framework/shared/message";
-import {Industry} from "../model/industry";
 import {Role} from "../model/role";
 import {DisableAwardGlyphiconService} from "../disableGlyphiconAward.service";
 import {DisableCertificateGlyphiconService} from "../disableCertificateGlyphicon.service";
@@ -29,19 +28,15 @@ import {DisableEmployeeHistoryGlyphiconService} from "../disableEmplyeeHistoryGl
 
 export class CandidateProfileComponent implements OnInit {
 
-  private industries:Industry[] = new Array(0);
-  private roles:Role[] = new Array(0);
   private rolesForMain:Role[] = new Array(0);
   private rolesForCapability:Role[] = new Array(0);
   private rolesForComplexity:Role[] = new Array(0);
-  private roleTypes:string[] = new Array(0);
   private roleList:string[] = new Array()
   private primaryCapability:string[] = new Array()
   private proficiencies:string[] = new Array()
   private isComplexityPresent:boolean = false;
 
   whichStepsVisible:boolean[] = new Array(7);
-  private newUser:number;
   private chkEmployeeHistory:boolean = false;
   private valueOFshowOrHide:string;
   private chkCertification:boolean = false;
@@ -50,7 +45,7 @@ export class CandidateProfileComponent implements OnInit {
   private showCapability:boolean = false;
   private showComplexity:boolean = false;
   private showProfeciency:boolean = false;
-  private isRolesShow:boolean = false;
+  private isRolesShow:boolean = true;
   private showfield:boolean = false;
   private isRoleTypeShow:boolean = false;
   private disableTitle:boolean = false;
@@ -63,7 +58,6 @@ export class CandidateProfileComponent implements OnInit {
   private isHiddenCertificate:boolean = false;
   private isHiddenEmployeehistory:boolean = false;
   private isTitleFilled:boolean = false;
-  private flag:boolean = true;
 
 
   constructor(private _router:Router,
@@ -158,7 +152,10 @@ export class CandidateProfileComponent implements OnInit {
   onProfileDescriptionComplete() {
     this.saveCandidateDetails();
     this.getRoles();
-    this.isRolesShow = true;
+    this.isRolesShow = false;
+    this.candidateForRole = this.candidate.industry.roles;
+    this.candidateForCapability = this.candidate.industry.roles;
+    this.rolesForCapability = new Array(0);
   }
 
   selectExperiencedIndustry(experiencedindustry:string[]) {
@@ -167,14 +164,15 @@ export class CandidateProfileComponent implements OnInit {
   }
 
 
-  selectRole(roles:Role[]) {
+  onWorkAreaComplete(roles:Role[]) {
     this.candidate.industry.roles = roles;
     this.saveCandidateDetails();
-    if (this.flag) {
-      this.getCapability();
-      this.showCapability = true;
-      this.whichStepsVisible[1] = true;
-    }
+    this.candidateForCapability = this.candidate.industry.roles;
+    this.rolesForCapability = new Array(0);
+    this.getCapability();
+    this.showCapability = true;
+    this.whichStepsVisible[1] = true;
+
     if (this.candidate.industry.roles) {
       if (this.candidate.industry.roles[0].capabilities) {
         if (this.candidate.industry.roles[0].capabilities.length > 0) {
@@ -206,7 +204,7 @@ export class CandidateProfileComponent implements OnInit {
   }
 
   getCapability() {
-    this.flag = false;
+    this.roleList = new Array(0);
     for (let role of this.candidate.industry.roles) {
       this.roleList.push(role.name);
     }
@@ -283,7 +281,7 @@ export class CandidateProfileComponent implements OnInit {
       this.disableTitle = true;
     }
     if (this.candidate.industry.name !== undefined) {
-      this.isRolesShow = true;
+      this.isRolesShow = false;
       this.getRoles();
     }
 
@@ -381,10 +379,6 @@ export class CandidateProfileComponent implements OnInit {
   }
 
   onSubmit() {
-    var message = new Message();
-    message.custom_message = Messages.MSG_SUCCESS_FOR_PROFILE_CREATION_STATUS;
-    message.isError = false;
-    this.messageService.message(message);
     this._router.navigate([NavigationRoutes.APP_PROFILESUMMURY]);
   }
 }

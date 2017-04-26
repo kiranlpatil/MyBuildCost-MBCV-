@@ -108,7 +108,6 @@ import { JonPostDescriptionService } from './cnext/framework/job-post-descriptio
 import { JobPostComplexityService } from './cnext/framework/job-post-complexity.service';
 import { JobPostProficiencyService } from './cnext/framework/jobPostProficiency.service';
 import { MyRoleListTestService } from './cnext/framework/myRolelist.service';
-import { RoleListComponent } from './cnext/framework/role-list/role-list.component';
 import { RoleTypetListComponent } from './cnext/framework/role-type/role-type.component';
 import { MyRoTypeTestService } from './cnext/framework/myRole-Type.service';
 import { RoleTypeService } from './cnext/framework/role-type/role-type.service';
@@ -136,6 +135,7 @@ import {AdditionalDetailsComponent} from "./cnext/framework/one-page-summury/sha
 import {ProfileDescriptionComponent} from "./cnext/framework/profile-description/profile-description.component";
 import {CandidateProfileComponent} from "./cnext/framework/candidate-profile/candidate-profile.component";
 import {CandidateProfileService} from "./cnext/framework/candidate-profile/candidate-profile.service";
+import {WorkAreaComponent} from "./cnext/framework/work-area/work-area.component";
 import {RecruiterHeaderComponent} from "./cnext/framework/recruiter-dashboard/recruiter-dashboard-header/recruiter-header.component";
 
 @NgModule({
@@ -209,8 +209,8 @@ import {RecruiterHeaderComponent} from "./cnext/framework/recruiter-dashboard/re
     CompanyDetailsComponent,
     MoreAboutMyselfComponent,
     RecruiterDashboardComponent,
+    WorkAreaComponent,
     RecruiterHeaderComponent,
-    RoleListComponent,
     RoleTypetListComponent,
     IndustryExperienceListComponent
 

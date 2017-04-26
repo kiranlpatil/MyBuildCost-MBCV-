@@ -30,18 +30,11 @@
     <div class="col-sm-12">
       <div class="wrapper">
           <cn-profile-description [candidate]="candidate"
-                                  (onComplete)="onProfileDescriptionComplete($event)">
-          </cn-profile-description>
+                                  (onComplete)="onProfileDescriptionComplete($event)"></cn-profile-description>
 
-        <div id="work-area">
-          <div class="section-container" [hidden]="!isRolesShow">
-            <div class="main-content clearfix">
+           <cn-work-area [roles]="rolesForMain" [selectedRoles]="candidateForRole"
+                                (onComplete)="onWorkAreaComplete($event)" [hidden]="isRolesShow"></cn-work-area>
 
-              <cn-role-list [roles]="rolesForMain" [candidateRoles]="candidateForRole"
-                            (selectRoles)="selectRole($event)"></cn-role-list>
-            </div>
-          </div>
-        </div>
         <div id="capability-area">
           <div class="section-container" [hidden]="!showCapability">
             <div class="main-content clearfix">

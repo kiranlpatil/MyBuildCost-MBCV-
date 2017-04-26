@@ -1,0 +1,36 @@
+<div id="work-area">
+  <div class="section-container" *ngIf="compactView">
+    <div class="main-content clearfix"><h4 class="heading">Select Area of Work (Max 3)</h4>
+      <div class="work-area col-sm-12">
+        <p class="info hide-candidate-info">
+          Select those areas of work which describe what you are best at or where you would like to position your
+          career.
+        </p>
+        <div class="select-option" *ngFor="let item of roles;let i = index">
+          <label>
+            <input type="checkbox" name="choices"
+                   value="{{item.name}}" (click)="selectOption(item,$event)"
+                   [checked]="isSelected(item.name)"/>
+            <span>{{item.name}}</span>
+          </label>
+          <div class="error-messages" *ngIf="alert">You have selected maximum work areas.</div>
+        </div>
+
+        <div class="button-group clearfix">
+          <button class="btn btn-primary" scrollTo scrollTargetSelector="#capability-area" (click)="onNext()" [disabled]="disableButton">
+            Next
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="!compactView">
+    <div  align="right">
+      <button (click)="compactView=true;disableButton=false">edit</button>
+    </div>
+    <p>Area Of Work</p>
+    <div *ngFor="let item of selectedRoles">
+      <span>{{item.name}}</span>
+    </div>
+  </div>
+</div>
