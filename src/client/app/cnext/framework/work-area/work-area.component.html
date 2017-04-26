@@ -1,8 +1,8 @@
-<div id="work-area">
-  <div class="section-container" *ngIf="compactView">
+<div id="work-area" >
+  <div class="section-container " *ngIf="compactView">
     <div class="main-content clearfix"><h4 class="heading">Select Area of Work (Max 3)</h4>
       <div class="work-area col-sm-12">
-        <p class="info hide-candidate-info">
+        <p class="info">
           Select those areas of work which describe what you are best at or where you would like to position your
           career.
         </p>
@@ -24,13 +24,14 @@
       </div>
     </div>
   </div>
-  <div *ngIf="!compactView">
-    <div  align="right">
-      <button (click)="compactView=true;disableButton=false">edit</button>
-    </div>
-    <p>Area Of Work</p>
-    <div *ngFor="let item of selectedRoles">
-      <span>{{item.name}}</span>
+
+  <div class="main-content" *ngIf="!compactView">
+    <div [class.compact-view]="!compactView" class="clearfix">
+      <button class="btn-edit" (click)="compactView=true;disableButton=false"></button>
+      <h4 class="heading">Area Of Work</h4>
+      <div class="select-option" *ngFor="let item of selectedRoles">
+        <span>{{item.name}}</span>
+      </div>
     </div>
   </div>
 </div>

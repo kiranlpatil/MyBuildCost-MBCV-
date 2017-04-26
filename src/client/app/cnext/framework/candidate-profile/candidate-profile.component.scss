@@ -177,27 +177,6 @@ $blue: #3694d1;
     }
   }
 
-  .user-name {
-    margin-top: 15px;
-
-    .profile-name-first, .profile-name-last {
-      color: $light-blue;
-      font-family: 'gothamrnd-light';
-      font-size: 24px;
-      font-weight: 100;
-      background: none;
-      padding: 0;
-      text-transform: capitalize;
-    }
-
-    .profile-name-last {
-      color: #1B75BC;
-      font-family: 'gothamrnd-book';
-      font-weight: 900;
-
-    }
-  }
-
   .job-title {
     border-radius: 0;
     width: 400px;

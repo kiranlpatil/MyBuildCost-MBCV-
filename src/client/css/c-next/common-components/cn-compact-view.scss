@@ -1,0 +1,109 @@
+$border-color: #e8e8e8;
+$light-blue: #00aed5;
+$primary-option: #1c75bd;
+$modal-bg: rgba(0, 0, 0, .6);
+
+.modal-bg {
+  background: $modal-bg;
+  height: 100%;
+  left: 0;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 2;
+}
+
+.compact-view {
+  clear: both;
+  border: 1px solid $border-color;
+  position: relative;
+  padding: 15px;
+
+  .btn-edit {
+    background: url("../assets/c-next/compact-view/editButton.png") no-repeat 50% 50%;
+    background-size: cover;
+    background-color: #fff;
+    border: 0;
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 20px;
+    width: 20px;
+    padding: 0;
+  }
+
+  .heading {
+    background: none;
+    padding: 0;
+    margin-top: -7px;
+  }
+
+  .img-container {
+    width: 85px;
+    height: 85px;
+    overflow: hidden;
+    border: 1px solid $border-color;
+    box-sizing: border-box;
+    position: relative;
+    margin: 0 15px 0 0;
+    float: left;
+
+    img {
+      width: 100%;
+      background: #e6e6e6;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%,-50%);
+    }
+  }
+
+  .user-name {
+    margin-top: 0 !important;
+  }
+
+  p {
+    margin: 0;
+    font-size: 12px;
+  }
+
+  label {
+    color: $light-blue;
+    padding: 0;
+    min-width: 90px;
+  }
+
+  .select-option {
+    span{
+      background-color: $primary-option;
+      padding: 4px 10px;
+      border-radius: 25px;
+      min-width: 100px;
+      color: #fff;
+      font-weight: 600;
+      padding: 4px 10px;
+      font-size: 12px;
+    }
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .compact-view {
+    padding: 5px;
+
+    .img-container {
+      float: none;
+      margin: 0;
+    }
+
+    .heading {
+      margin-top: 0;
+    }
+
+    .select-option {
+      span {
+        font-size: 9px;
+      }
+    }
+  }
+}
