@@ -1,25 +1,26 @@
 import {Component, Input, Output, EventEmitter} from "@angular/core";
 import {Industry} from "../model/industry";
+import {CandidateProfileService} from "../candidate-profile/candidate-profile.service";
+import {Section} from "../model/candidate";
 
 @Component({
   moduleId: module.id,
-  selector: 'cn-industry-experience-list',
+  selector: 'cn-industry-experience',
   templateUrl: 'industry-experience.component.html',
   styleUrls: ['industry-experience.component.css']
 })
 
 export class IndustryExperienceListComponent {
 
-  @Input() industries:Industry[] = new Array(0);
+  private industries:Industry[] = new Array(0);
   private selectedIndustries:string[] = new Array(0);
+  @Input() highlightedSection :Section;
   @Input() candidateExperiencedIndustry:string[] = new Array(0);
-  @Output() selectExperiencedIndustry = new EventEmitter();
+  @Output() onComplete = new EventEmitter();
 
-  ngOnChanges(changes:any) {
-    if (changes.industries != undefined) {
-      if (changes.industries.currentValue != undefined)
-        this.industries = changes.industries.currentValue;
-    }
+  constructor(private candidateProfileService:CandidateProfileService) {
+    this.candidateProfileService.getIndustries()
+      .subscribe(industries => this.industries = industries.data);
   }
 
   selectIndustryModel(industry:string,event:any) {
@@ -32,7 +33,11 @@ export class IndustryExperienceListComponent {
         }
       }
     }
-    this.selectExperiencedIndustry.emit(this.selectedIndustries);
+    this.onComplete.emit(this.selectedIndustries);
+  }
+
+  onNext() {
+    this.highlightedSection.name = "Professional-Details";
   }
 }
 

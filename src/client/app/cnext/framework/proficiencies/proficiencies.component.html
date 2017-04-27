@@ -1,0 +1,87 @@
+<div class="clearfix">
+  <div id="proficiency-area">
+    <div class="section-container clearfix profeiciency-domain" >
+      <div class="main-content clearfix"  *ngIf="highlightedSection.name=='Proficiencies'">
+        <h4 class="heading">Proficiencies (Max. 25)</h4>
+        <div class="proficiency-container col-sm-12">
+          <!--<p>Add your <span  *ngIf="proficiencyType">proficiencies/tools/technologies</span><span *ngIf="domainType">domains you work</span></p>-->
+          <p class="info">Enter all key words that describe your area of expertise or specialization. These
+            proficiencies will be used for second level of matching post
+            capability. <span class="messages">You can edit this list anytime.</span></p>
+          <p class="instructions" *ngIf="showAlert">You can select maximum 25 proficiencies.</p>
+
+          <div class="list clearfix">
+            <div class="col-sm-4 no-padding">
+              <div class="form-group">
+                <div ng2-auto-complete
+                     [source]="proficiencies.names"
+                     (ngModelChange)="selectedProficiencyModel($event)">
+                  <input class="form-control" [(ngModel)]="proficiencyModel" id={{type}}
+                         (keyup.enter)="showHideModal($event.target.value)" placeholder="{{proficiencies.label}}"/>
+                  <br/>
+                  <p class="info-message">*To add other proficiency which are not in the list, just type and enter</p>
+
+                  <br/> <br/>
+                </div>
+                <!--
+                          <button type="button"  class="btn btn-create-profile"  value="Add Other"  (click)="onSelect()" >Click to add new proficiency</button>
+                          <div [hidden]="isShow" class="add-proficiency">
+                            <input  class="form-control" [(ngModel)]="proficiencyother" (ngModelChange)="enterProficiency($event)" id={{addOther}} placeholder="Other Proficiency" />
+                            <button type="button"  class="btn btn-create-profile"  value="AddProficiency"  (click)="addProficiencyToMasterData()">Add Proficiency</button>
+                          </div>-->
+              </div>
+            </div>
+            <div class="col-sm-8 padding-left15">
+              <div class="btn-container clearfix">
+                <div *ngFor="let item of selectedProficiencies; let i = index">
+                  <button type="button" class="btn btn-create-profile" (click)="deleteItem($event)">
+                    {{item}} <span class="glyphicon glyphicon-remove"></span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="button-group clearfix">
+          <button class="btn btn-primary" scrollTo scrollTargetSelector="#industry-experience"
+                  (click)="onNext()" [disabled]="disableButton">Next
+          </button>
+        </div>
+      </div>
+      <div class="main-content" *ngIf="highlightedSection.name !='Proficiencies'">
+        <div class="compact-view clearfix">
+          <button class="btn-edit" (click)="highlightedSection.name='Proficiencies'"></button>
+          <h4 class="heading">Proficiencies</h4>
+          <div class="select-option" *ngFor="let item of selectedProficiencies">
+            <span class="primary">{{item}}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal" [style.display]="getStyleModal()">
+  <div class="modal-bg">
+    <div class="modal-dialog modal-md">
+      <div class="modal-content">
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-sm-12">
+              <p>Do you want to add this proficiency ? </p>
+
+              <div class="button-group">
+                <button class="btn btn-primary" (click)="addProficiencyToMasterData()">Save</button>
+                <button class="btn btn-default" (click)="showHideModal() ">Cancel</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+

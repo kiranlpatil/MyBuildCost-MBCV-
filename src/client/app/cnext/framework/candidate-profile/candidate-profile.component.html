@@ -29,10 +29,10 @@
   <div class="candidate-profile-wrapper container">
     <div class="col-sm-12">
       <div class="wrapper">
-          <cn-profile-description [candidate]="candidate" [highlightedSection]="highlightedSection"
+        <cn-profile-description [candidate]="candidate" [highlightedSection]="highlightedSection"
                                   (onComplete)="onProfileDescriptionComplete($event)"></cn-profile-description>
 
-           <cn-work-area [roles]="rolesForMain" [selectedRoles]="candidateForRole" [highlightedSection]="highlightedSection"
+        <cn-work-area [roles]="rolesForMain" [selectedRoles]="candidateForRole" [highlightedSection]="highlightedSection"
                                 (onComplete)="onWorkAreaComplete($event)" [hidden]="isRolesShow"></cn-work-area>
 
         <cn-capabilities [roles]="rolesForCapability" [candidateRoles]="candidateForCapability" [highlightedSection]="highlightedSection"
@@ -42,25 +42,13 @@
                             [isComplexityPresent]="isComplexityPresent"
                             (onComplete)="onComplexitytyComplete($event)" [hidden]="!showComplexity"></cn-complexities>
 
-        <div id="proficiency-area">
-          <div class="section-container clearfix profeiciency-domain" [hidden]="!showProfeciency">
-            <div class="main-content clearfix">
-              <h4 class="heading">Proficiencies (Max. 25)</h4>
-              <cn-proficiency-doamin [proficiencies]="proficiencies" [candidate]="candidate" [type]="'profeciency'"
-                                     [industry]="candidate.industry.name"
-                                     (selectProficiency)="selectProficiency($event)"></cn-proficiency-doamin>
-            </div>
-          </div>
-        </div>
+        <cn-proficiencies [proficiencies]="proficiencies" [candidate]="candidate" [type]="'profeciency'"
+                               [industry]="candidate.industry.name" [highlightedSection]="highlightedSection"
+                               (onComplete)="onProficiencyComplete($event)" [hidden]="!showProfeciency"></cn-proficiencies>
 
-        <div class="section-container profeiciency-domain" [hidden]="!showProfeciency">
-          <div class="main-content clearfix">
-            <h4 class="heading">Select Industry In Which You Have work Exposure / Experience</h4>
-            <cn-industry-experience-list [industries]="industries"
-                                         [candidateExperiencedIndustry]="candidate.intrestedIndustries"
-                                         (selectExperiencedIndustry)="selectExperiencedIndustry($event)"></cn-industry-experience-list>
-          </div>
-        </div>
+        <cn-industry-experience [candidateExperiencedIndustry]="candidate.intrestedIndustries" [highlightedSection]="highlightedSection"
+                                     (onComplete)="onExperienceIndustryComplete($event)" ></cn-industry-experience>
+
 
         <div class="section-container" [hidden]="!showProfeciency">
           <div class="main-content clearfix">

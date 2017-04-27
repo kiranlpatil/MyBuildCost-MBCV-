@@ -45,6 +45,7 @@ export class CandidateProfileComponent implements OnInit {
   private showCapability:boolean = false;
   private showComplexity:boolean = false;
   private showProfeciency:boolean = false;
+  private showIndustryExperience:boolean = false;
   private isRolesShow:boolean = true;
   private showfield:boolean = false;
   private isRoleTypeShow:boolean = false;
@@ -161,7 +162,7 @@ export class CandidateProfileComponent implements OnInit {
     this.rolesForCapability = new Array(0);
   }
 
-  selectExperiencedIndustry(experiencedindustry:string[]) {
+  onExperienceIndustryComplete(experiencedindustry:string[]) {
     this.candidate.intrestedIndustries = experiencedindustry;
     this.saveCandidateDetails();
   }
@@ -211,7 +212,8 @@ export class CandidateProfileComponent implements OnInit {
     this.getProficiency();
   }
 
-  selectProficiency(proficiency:string[]) {
+  onProficiencyComplete(proficiency:string[]) {
+    this.showIndustryExperience=true;
     this.candidate.proficiencies = proficiency;
     this.saveCandidateDetails();
     this.whichStepsVisible[4] = true;
@@ -324,6 +326,9 @@ export class CandidateProfileComponent implements OnInit {
           }
         }
       }
+    }
+    if(this.candidate.intrestedIndustries.length>0){
+      this.showIndustryExperience=true;
     }
     if (this.candidate.professionalDetails !== undefined && this.candidate.professionalDetails.education !== '') {
       this.whichStepsVisible[5] = true;
