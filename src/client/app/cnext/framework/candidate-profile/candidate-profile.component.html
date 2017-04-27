@@ -54,12 +54,7 @@
 
         <cn-employment-history [candidate]="candidate" [highlightedSection]="highlightedSection" (onComplete)="onEmploymentHistoryComplete($event)" [hidden]="!showemploymentHistory"></cn-employment-history>
 
-        <div class="section-container" [hidden]="!showProfeciency">
-          <div class="main-content clearfix">
-            <h4 class="heading">Academic Details</h4>
-            <cn-academic-details [candidate]="candidate"></cn-academic-details>
-          </div>
-        </div>
+        <cn-academic-details [candidate]="candidate" [highlightedSection]="highlightedSection" (onComplete)="onAcademicDetailsComplete($event)" [hidden]="!showemploymentHistory"></cn-academic-details>
 
         <div class="section-container" [hidden]="chkCertification" [hidden]="!showProfeciency">
           <div class="main-content clearfix">

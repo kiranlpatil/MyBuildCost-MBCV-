@@ -49,6 +49,7 @@ export class CandidateProfileComponent implements OnInit {
   private showProfessionalData:boolean = false;
   private showemploymentHistory:boolean = false;
   private showAcademicsDetails:boolean = false;
+  private showCertificationDetails:boolean = false;
   private isRolesShow:boolean = true;
   private showfield:boolean = false;
   private isRoleTypeShow:boolean = false;
@@ -232,6 +233,9 @@ export class CandidateProfileComponent implements OnInit {
   onEmploymentHistoryComplete(){
     this.showAcademicsDetails=true;
   }
+  onAcademicDetailsComplete(){
+    this.showCertificationDetails=true;
+  }
   
   getRoles() {
     this.profileCreatorService.getRoles(this.candidate.industry.name)
@@ -361,6 +365,7 @@ export class CandidateProfileComponent implements OnInit {
     }
 
     if (this.candidate.certifications.length > 0 && this.candidate.certifications[0].name !== '') {
+      this.showCertificationDetails=true;
       this.isHiddenCertificate = true;
     }
     if (this.candidate.aboutMyself !== undefined && this.candidate.aboutMyself !== '') {
