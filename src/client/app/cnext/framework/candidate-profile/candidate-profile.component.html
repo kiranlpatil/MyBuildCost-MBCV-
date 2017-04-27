@@ -50,7 +50,7 @@
                                      (onComplete)="onExperienceIndustryComplete($event)" [hidden]="!showIndustryExperience" ></cn-industry-experience>
 
 
-        <cn-professional-data [candidate]="candidate" [highlightedSection]="highlightedSection"></cn-professional-data>
+        <cn-professional-data [candidate]="candidate" [highlightedSection]="highlightedSection" (onComplete)="onProfessionalDataComplete($event)" [hidden]="!showProfessionalData"></cn-professional-data>
 
         <div class="section-container" [hidden]="chkEmployeeHistory" [hidden]="!showProfeciency">
           <div class="main-content clearfix">

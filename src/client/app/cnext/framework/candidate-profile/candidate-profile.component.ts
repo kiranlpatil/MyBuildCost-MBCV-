@@ -46,6 +46,8 @@ export class CandidateProfileComponent implements OnInit {
   private showComplexity:boolean = false;
   private showProfeciency:boolean = false;
   private showIndustryExperience:boolean = false;
+  private showProfessionalData:boolean = false;
+  private showemploymentHistory:boolean = false;
   private isRolesShow:boolean = true;
   private showfield:boolean = false;
   private isRoleTypeShow:boolean = false;
@@ -163,10 +165,14 @@ export class CandidateProfileComponent implements OnInit {
   }
 
   onExperienceIndustryComplete(experiencedindustry:string[]) {
+    this.showProfessionalData=true;
     this.candidate.intrestedIndustries = experiencedindustry;
     this.saveCandidateDetails();
   }
 
+  onProfessionalDataComplete(){
+    this.showemploymentHistory=true
+  }
 
   onWorkAreaComplete(roles:Role[]) {
     this.candidate.industry.roles = roles;
@@ -330,7 +336,9 @@ export class CandidateProfileComponent implements OnInit {
     if(this.candidate.intrestedIndustries.length>0){
       this.showIndustryExperience=true;
     }
+    
     if (this.candidate.professionalDetails !== undefined && this.candidate.professionalDetails.education !== '') {
+      this.showProfessionalData=true;
       this.whichStepsVisible[5] = true;
     }
 
