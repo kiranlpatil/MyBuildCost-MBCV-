@@ -32,7 +32,6 @@ export class CapabilitiesComponent {
       this.primaryNames = new Array(0);
       for (let role of this.candidateRoles) {
         if (role.capabilities) {
-          this.compactView = true;
           for (let primary of role.capabilities) {
             if (primary.isPrimary == true) {
               this.primaryNames.push(primary.name);

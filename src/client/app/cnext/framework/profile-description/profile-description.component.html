@@ -20,7 +20,7 @@
       <cn-industry-list  [selectedIndustry]="candidate.industry" (valueChange)="onIndustryChange($event)"></cn-industry-list>
 
       <div class="button-group clearfix">
-        <button class="btn btn-primary" scrollTo scrollTargetSelector="#work-area" (click)="onNext()" [disabled]="disableButton">Next
+        <button class="btn btn-primary" scrollTo scrollTargetSelector="#work-area" (click)="onNext()" >Next
         </button>
       </div>
     </div>
@@ -44,5 +44,5 @@
       </div>
     </div>
   </div>
-  <div [class.modal-bg]="highlightedSection.name!='Profile'"></div>
+ <!-- <div [class.modal-bg]="highlightedSection.name!='Profile'"></div>-->
 </div>

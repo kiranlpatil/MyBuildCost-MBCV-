@@ -1,7 +1,7 @@
 <div id="complexity-area" >
   <div class="section-container clearfix" >
     <div class="main-content clearfix modal-content" *ngIf="highlightedSection.name=='Complexities'">
-        <div class="col-sm-12 complexities">
+        <div class="complexities">
           <h4 class="heading">Choose Complexities</h4>
           <p class="info">Depending on your experience and expertise, you have used your capabilities under varying degree
             of
@@ -53,8 +53,7 @@
           </div>
           <div class="button-group clearfix">
             <div *ngIf="isCandidate">
-              <button class="btn btn-primary"  (click)="showHideModal()"
-                      [disabled]="!isComplexityButtonEnable">Next
+              <button class="btn btn-primary"  (click)="showHideModal()">Next
               </button>
             </div>
             <div *ngIf="!isCandidate">
@@ -69,13 +68,15 @@
 
     <div *ngIf="highlightedSection.name!='Complexities'">
       <div class="main-content main-content-capabilitites">
-        <div class="col-sm-12">
+        <div class="compact-view clearfix">
           <button class="btn-edit" (click)="highlightedSection.name='Complexities'"></button>
-          <cn-tabular-list-view [roles]="candidateRoles"></cn-tabular-list-view>
+          <div class="col-sm-12">
+            <cn-tabular-list-view [roles]="candidateRoles"></cn-tabular-list-view>
+          </div>
         </div>
       </div>
     </div>
-    <div [class.modal-bg]="highlightedSection.name!='Complexities'"></div>
+    <!--<div [class.modal-bg]="highlightedSection.name!='Complexities'"></div>-->
   </div>
 </div>
 

@@ -31,7 +31,7 @@ export class ProfilePictureComponent  {
 
 
   constructor(private dashboardService: DashboardService,
-              private messageService: MessageService, private profileService: ProfileService) {debugger
+              private messageService: MessageService, private profileService: ProfileService) {
     this.filesToUpload = [];
     this.uploaded_image_path = LocalStorageService.getLocalValue(LocalStorage.PROFILE_PICTURE); //TODO:Get it from get user call.
     this.isCandidate = LocalStorageService.getLocalValue(LocalStorage.IS_CANDIDATE);

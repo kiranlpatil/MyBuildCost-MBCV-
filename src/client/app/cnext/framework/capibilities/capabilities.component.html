@@ -39,18 +39,18 @@
 
     <div class="main-content" *ngIf="highlightedSection.name!='Capabilities'">
       <div class="compact-view clearfix">
-        <button class="btn-edit" (click)="compactView=false"></button>
+        <button class="btn-edit" (click)="highlightedSection.name='Capabilities'"></button>
         <h4 class="heading">Capabilities</h4>
         <span class="capability-option" *ngFor="let role of roles">
           <div class="select-option" *ngFor="let item of role.capabilities">
-            <span *ngIf="secondaryNames.indexOf(item.name)!=-1||primaryNames.indexOf(item.name)!=-1"
+            <span
                 [class.primary]="primaryNames.indexOf(item.name)!=-1"
                 [class.secondary]="secondaryNames.indexOf(item.name)!=-1">{{item.name}}</span>
           </div>
         </span>
       </div>
     </div>
-    <div [class.modal-bg]="highlightedSection.name!='Capabilities'"></div>
+   <!-- <div [class.modal-bg]="highlightedSection.name!='Capabilities'"></div>-->
   </div>
 </div>
 

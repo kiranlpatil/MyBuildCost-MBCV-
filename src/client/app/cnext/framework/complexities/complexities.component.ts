@@ -30,6 +30,7 @@ export class ComplexitiesComponent {
   private isComplexityButtonEnable:boolean = false;
   private showModalStyle:boolean = false;
   private isCandidate:boolean = false;
+  private count:number=0;
  // private compactView:boolean = true;
 
 
@@ -46,7 +47,9 @@ export class ComplexitiesComponent {
   }
   ngOnChanges(changes:any) {
     if (changes.roles) {
+      
       this.roles = changes.roles.currentValue;
+      console.log(this.count++,this.roles);
     }
     if (this.candidateRoles) {
       this.scenarioNames = new Array(0);
@@ -103,9 +106,9 @@ export class ComplexitiesComponent {
     if(this.selectedComplexityNames.indexOf(complexity.name)===-1){
       this.selectedComplexityNames.push(complexity.name);
     }
-    if (this.selectedComplexityNames.length === this.scenaricomplexityNames.length) {
+   /* if (this.selectedComplexityNames.length === this.scenaricomplexityNames.length) {
       this.isComplexityButtonEnable =true;
-    }
+    }*/
   }
 
   saveComplexity(){
