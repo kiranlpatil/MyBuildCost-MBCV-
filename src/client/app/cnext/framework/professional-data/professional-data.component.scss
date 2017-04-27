@@ -1,25 +1,25 @@
-.professional-data {
-  /*width: 83%;*/
+.compact-view {
+  p {
+    float:left;
+    width: 20%;
 
-}
-
-@media only screen and (max-width: 1366px) {
-  .professional-data {
-    /*width: 90%;*/
+    label {
+      width: 100%;
+    }
   }
 }
-
-@media only screen and (max-width: 1280px) {
-  .professional-data {
-    width: 100%;
-  }
-}
-
 @media only screen and (max-width: 980px) {
   .professional-data {
     .col-sm-4 {
       width: 50%;
       float: left;
+    }
+  }
+
+  .compact-view {
+    p {
+      width: 33%;
+      margin-bottom: 15px;
     }
   }
 }
@@ -30,6 +30,13 @@
       width: 100%;
       float: none;
       padding: 0;
+    }
+  }
+
+  .compact-view {
+    p {
+      width: 100%;
+      margin-bottom: 15px;
     }
   }
 }

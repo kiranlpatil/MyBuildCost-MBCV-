@@ -1,10 +1,10 @@
 
 <div class="section-container" >
-  <div class="main-content clearfix" *ngIf="highlightedSection.name =='Professional-Details'">
+  <div class="main-content modal-content clearfix" *ngIf="highlightedSection.name =='Professional-Details'">
     <h4 class="heading">Professional Data</h4>
     <div class="professional-data clearfix">
       <div class="col-sm-4">
-        <label >Ready To Realocate?</label>
+        <label >Ready To Relocate?</label>
         <select class="form-control"   [(ngModel)]="candidate.professionalDetails.relocate" (change) = "saveProfessionalData()">
           <option *ngFor="let c of realocationlist" [selected]="true" [ngValue]="c">{{c}}</option>
         </select>
@@ -52,13 +52,11 @@
     <div class="compact-view clearfix">
       <button class="btn-edit" (click)="highlightedSection.name='Professional-Details'"></button>
       <h4 class="heading">Professional Data</h4>
-      <div class="select-option" >
-        <label >Ready To Realocate?</label><p>{{candidate.professionalDetails.relocate}}</p>
-        <label >Education:</label><p>{{candidate.professionalDetails.education}}</p>
-        <label >Experience:&nbsp;</label><p>{{candidate.professionalDetails.experience}}</p>
-        <label >Current Salary:&nbsp;</label><p>{{candidate.professionalDetails.currentSalary}}</p>
-        <label >Notice Period:&nbsp;</label><p>{{candidate.professionalDetails.noticePeriod}}</p>
-      </div>
+      <p><label >Ready To Relocate?</label> {{candidate.professionalDetails.relocate}}</p>
+      <p><label >Education</label> {{candidate.professionalDetails.education}}</p>
+      <p><label >Experience</label> {{candidate.professionalDetails.experience}}</p>
+      <p><label >Current Salary</label> {{candidate.professionalDetails.currentSalary}}</p>
+      <p><label >Notice Period</label> {{candidate.professionalDetails.noticePeriod}}</p>
     </div>
   </div>
 

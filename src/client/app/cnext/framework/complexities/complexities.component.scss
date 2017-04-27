@@ -4,18 +4,6 @@ $white: #fff;
 $option-border-color: #f8f8f8;
 $option-theme-color: #1c75bd;
 
-.complexities {
-  .btn-primary {
-    float: right;
-    margin-top: 15px;
-
-    &:focus,
-    &:active {
-      outline: none;
-    }
-  }
-
-}
 .main-content > span {
   padding-left: 0;
 }
@@ -33,7 +21,7 @@ $option-theme-color: #1c75bd;
 }
 
 .select-complexity {
-  padding: 0 0 10px;
+  padding: 5px 0 5px;
   border-bottom: 1px solid $border-color;
 
   .complexity-name {
@@ -51,32 +39,7 @@ $option-theme-color: #1c75bd;
   padding: 10px 0;
 }
 
-@media screen and (max-width: 1099px) {
-  .select-option > label {
-    & > input {
-      & + span {
-        &:hover {
-          border: 1px solid $option-theme-color;
-        }
-      }
-    }
-
-    &:hover {
-      & > input {
-        & + span {
-          border: 1px solid $option-theme-color;
-        }
-      }
-    }
-  }
-}
-
 @media screen and (max-width: 980px) {
-  .btn-primary {
-    float: none;
-    margin-top: 15px;
-  }
-
   .scenarios {
     .select-option {
       margin: 0 20px 0 0;
@@ -91,22 +54,8 @@ $option-theme-color: #1c75bd;
     }
   }
 
-  .select-option > label {
-    padding: 0;
-
-    & > input {
-      & + span {
-        font-size: 10px;
-      }
-    }
-  }
-
   .complexities {
     padding: 0;
-  }
-
-  .btn-primary {
-    float: none;
   }
 }
 

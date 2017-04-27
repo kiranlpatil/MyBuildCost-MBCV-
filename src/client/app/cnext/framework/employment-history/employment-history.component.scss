@@ -23,6 +23,10 @@ $border-color: #ccc;
   width: 50%;
   float: left;
   padding-right: 15px;
+
+  label {
+    width: 100%;
+  }
 }
 
 .right-content {

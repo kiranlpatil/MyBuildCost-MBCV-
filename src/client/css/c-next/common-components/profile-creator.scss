@@ -166,9 +166,6 @@ $theme-color: #3694d1;
     }
   }
 
-  label {
-    width: 100%;
-  }
 }
 
 @media only screen and (max-width: 980px) {
@@ -197,6 +194,7 @@ $theme-color: #3694d1;
 
     .btn-primary {
       float: none;
+      margin-top: 0;
     }
   }
 }
