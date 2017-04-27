@@ -47,15 +47,10 @@
                                (onComplete)="onProficiencyComplete($event)" [hidden]="!showProfeciency"></cn-proficiencies>
 
         <cn-industry-experience [candidateExperiencedIndustry]="candidate.intrestedIndustries" [highlightedSection]="highlightedSection"
-                                     (onComplete)="onExperienceIndustryComplete($event)" ></cn-industry-experience>
+                                     (onComplete)="onExperienceIndustryComplete($event)" [hidden]="!showIndustryExperience" ></cn-industry-experience>
 
 
-        <div class="section-container" [hidden]="!showProfeciency">
-          <div class="main-content clearfix">
-            <h4 class="heading">Professional Data</h4>
-            <cn-professional-data [candidate]="candidate"></cn-professional-data>
-          </div>
-        </div>
+        <cn-professional-data [candidate]="candidate" [highlightedSection]="highlightedSection"></cn-professional-data>
 
         <div class="section-container" [hidden]="chkEmployeeHistory" [hidden]="!showProfeciency">
           <div class="main-content clearfix">
