@@ -1,7 +1,7 @@
 <div class="section-container" >
-  <div class="main-content clearfix" *ngIf="highlightedSection.name =='AcademicDetails'">
+  <div class="main-content modal-content clearfix" *ngIf="highlightedSection.name =='AcademicDetails'">
     <h4 class="heading">Academic Details</h4>
-    <div class="col-sm-12 clearfix academic-details" *ngFor="let item of candidate.academics;let i= index">
+    <div class="col-sm-12 form" *ngFor="let item of candidate.academics;let i= index">
 
       <div class="row">
         <div class="col-sm-4">
@@ -60,9 +60,11 @@
     <div class="compact-view clearfix">
       <button class="btn-edit" (click)="highlightedSection.name='AcademicDetails'"></button>
       <h4 class="heading">Academic Details</h4>
-      <div class="select-option" *ngFor="let item of candidate.academics">
-        <p>{{item.specialization}} at {{item.board}} in {{item.yearOfPassing}}</p>
-      </div>
+      <ul>
+        <li *ngFor="let item of candidate.academics">
+          <p>{{item.specialization}} at {{item.board}} in {{item.yearOfPassing}}</p>
+        </li>
+      </ul>
     </div>
   </div>
 </div>

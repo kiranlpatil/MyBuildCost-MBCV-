@@ -7,18 +7,6 @@ $border-color: #ccc;
   }
 }
 
-.form {
-  border-top: 1px solid $border-color;
-  margin: 10px 0 20px;
-  padding-top: 15px;
-
-  &:first-child {
-    border: 0;
-    padding-top: 0;
-    margin-top: 0;
-  }
-}
-
 .left-content {
   width: 50%;
   float: left;

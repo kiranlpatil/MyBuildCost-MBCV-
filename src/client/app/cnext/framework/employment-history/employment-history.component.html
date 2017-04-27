@@ -1,7 +1,5 @@
-
-
 <div class="section-container" [hidden]="chkEmployeeHistory">
-  <div class="main-content clearfix" *ngIf="highlightedSection.name =='EmploymentHistory'">
+  <div class="main-content modal-content clearfix" *ngIf="highlightedSection.name =='EmploymentHistory'">
     <h4 class="heading">Employment History
               <span class="close-dialog" [hidden]="isHiddenEmployeehistory">Close this section if not needed
             <span class="glyphicon glyphicon-remove" (click)="hideEmployeeHistory()"></span>
@@ -61,29 +59,30 @@
         </div>
       </div>
     </div>
-
-    <div class="form col-sm-12">
+    <div class="col-sm-12">
       <div class="clear">
         <button type="button" id="more_fields" (click)="addAnother()" class="btn btn-create-profile"  >
           Add Another <span>+</span>
         </button>
         <div class="error-messages" *ngIf="isShowError"><p>Fields should not be empty Or Dates are not valid</p></div>
       </div>
-    </div>
-    <div class="button-group clearfix">
-      <button class="btn btn-primary" scrollTo scrollTargetSelector="#academic-details"
-              (click)="onNext()" [disabled]="disableButton">Next
-      </button>
+      <div class="button-group clearfix">
+        <button class="btn btn-primary" scrollTo scrollTargetSelector="#academic-details"
+                (click)="onNext()" [disabled]="disableButton">Next
+        </button>
+      </div>
     </div>
   </div>
   <div class="main-content" *ngIf="highlightedSection.name !='EmploymentHistory'">
     <div class="compact-view clearfix">
       <button class="btn-edit" (click)="highlightedSection.name='EmploymentHistory'"></button>
       <h4 class="heading">Employment History</h4>
-      <div class="select-option" *ngFor="let item of candidate.employmentHistory">
-        <p>{{item.designation}} at {{item.companyName}} </p>
-        <p>From {{item.from.month}} {{item.from.year}} to {{item.to.month}} {{item.to.year}}</p>
-      </div>
+      <ul>
+        <li *ngFor="let item of candidate.employmentHistory">
+          <p>{{item.designation}} at {{item.companyName}} </p>
+          <p>From {{item.from.month}} {{item.from.year}} to {{item.to.month}} {{item.to.year}}</p>
+        </li>
+      </ul>
     </div>
   </div>
 

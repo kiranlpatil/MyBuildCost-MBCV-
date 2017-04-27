@@ -99,6 +99,7 @@ $modal-bg: rgba(0, 0, 0, .2);
       font-size: 12px;
       min-width: 100px;
       padding: 4px 10px;
+      text-align: center;
     }
 
     .primary {
@@ -117,6 +118,16 @@ $modal-bg: rgba(0, 0, 0, .2);
 
     span {
       padding-left: 0;
+    }
+  }
+
+  ul {
+    padding: 0 15px;
+
+    li {
+      width: 50%;
+      float: left;
+      margin-bottom: 15px;
     }
   }
 }
@@ -151,6 +162,13 @@ $modal-bg: rgba(0, 0, 0, .2);
       }
       .content {
         margin: 5px !important;
+      }
+    }
+
+    ul {
+      li {
+        width: 100%;
+        float: left;
       }
     }
   }
