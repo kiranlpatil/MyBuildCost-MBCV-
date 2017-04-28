@@ -4,11 +4,16 @@
         <div class=" complexities">
           <h4 class="heading">Choose Complexities</h4>
           <div class="col-sm-12">
-            <p class="info">Depending on your experience and expertise, you have used your capabilities under varying degree
-              of
-              complexity.
-              For each capability that you have selected, choose the ost appropriate degree of complexity that
-              describes what you are good at doing</p>
+            <div class="info">
+              <ul>
+                <li>Depending on your experience and expertise, you have used your capabilities under varying degree of
+                complexity.
+                </li>
+                <li>For each capability that you have selected, choose the ost appropriate degree of complexity that
+                  describes what you are good at doing
+                </li>
+              </ul>
+            </div>
             <div *ngIf="isComplexityPresent">
               <div *ngFor="let role of candidateRoles">
                 <div *ngFor="let capability of role.capabilities">

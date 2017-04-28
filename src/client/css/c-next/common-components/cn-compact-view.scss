@@ -128,6 +128,8 @@ $modal-bg: rgba(0, 0, 0, .2);
       width: 50%;
       float: left;
       margin-bottom: 15px;
+      text-transform: capitalize;
+      list-style-image: url('../../../assets/c-next/compact-view/list-type.png');
     }
   }
 }

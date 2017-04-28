@@ -1,9 +1,11 @@
 import {Component, OnInit} from "@angular/core";
+import {Router} from "@angular/router";
 import {CandidateProfileService} from "../../candidate-profile/candidate-profile.service";
 import {Message} from "../../../../framework/shared/message";
 import {MessageService} from "../../../../framework/shared/message.service";
 import {Candidate} from "../../model/candidate";
 import {CandidateDetail} from "../../../../framework/registration/candidate/candidate";
+import {NavigationRoutes} from "../../../../framework/shared/constants";
 
 
 @Component({
@@ -19,7 +21,8 @@ private candidate:Candidate=new Candidate();
   private secondaryCapabilities:string[]=new Array();
 
   constructor( private messageService:MessageService,
-               private profileCreatorService:CandidateProfileService) {
+               private profileCreatorService:CandidateProfileService,
+               private _router:Router) {
   }
 
   ngOnInit() {
@@ -54,5 +57,10 @@ private candidate:Candidate=new Candidate();
         }
       }
     }
+  }
+
+  logOut() {
+    window.localStorage.clear();
+    this._router.navigate([NavigationRoutes.APP_START]);
   }
 }

@@ -259,6 +259,58 @@ select {
   color: $white;
 }
 
+.btn,
+.btn-notification,
+.btn-back {
+  &:focus,
+  &:active,
+  &:hover {
+    box-shadow: none;
+    outline: none;
+  }
+}
+
+.btn-back,
+.btn-close,
+.btn-notification {
+  background: none;
+  border: 0;
+  display: block;
+  position: relative;
+}
+
+.btn-notification {
+  float: right;
+  margin-top: 15px;
+  width: 26px;
+  z-index: 99;
+
+  img {
+    width: 17px;
+  }
+}
+
+.btn-back {
+  margin-top: 14px;
+  width: 22px;
+  z-index: 101;
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.btn-close {
+  float: right;
+  padding: 0;
+  width: 12px;
+  z-index: 101;
+
+  &:focus {
+    outline: none;
+  }
+}
+
 // Headings
 h3,
 h4,
