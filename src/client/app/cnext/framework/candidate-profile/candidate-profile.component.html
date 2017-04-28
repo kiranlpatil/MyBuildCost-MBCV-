@@ -25,8 +25,8 @@
     </ul>
     <button class="btn btn-danger btn-logout" (click)="logOut()">Logout</button>
   </div>
-
-  <div class="candidate-profile-wrapper container">
+  <form name="myform" (ngSubmit)="onSubmit()" >
+    <div class="profile-wrapper container">
     <div class="col-sm-12">
       <div class="wrapper">
         <cn-profile-description [candidate]="candidate" [highlightedSection]="highlightedSection"
@@ -45,9 +45,9 @@
                          [isComplexityPresent]="isComplexityPresent"
                          (onComplete)="onComplexitytyComplete($event)" [hidden]="!showComplexity"></cn-complexities>
 
-        <cn-proficiencies [proficiencies]="proficiencies" [candidate]="candidate" [type]="'profeciency'"
-                          [industry]="candidate.industry.name" [highlightedSection]="highlightedSection"
-                          (onComplete)="onProficiencyComplete($event)" [hidden]="!showProfeciency"></cn-proficiencies>
+        <cn-proficiencies [proficiencies]="proficiencies" [candidate]="candidate"
+                                [highlightedSection]="highlightedSection"
+                               (onComplete)="onProficiencyComplete($event)" [hidden]="!showProfeciency"></cn-proficiencies>
 
         <cn-industry-experience [candidateExperiencedIndustry]="candidate.intrestedIndustries"
                                 [highlightedSection]="highlightedSection"
@@ -129,6 +129,7 @@
       </div>
     </div>
   </div>
+</form>
 </div>
 
 <!--
