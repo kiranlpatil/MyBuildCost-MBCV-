@@ -14,68 +14,57 @@
       <div class="main-content clearfix">
         <h4 class="heading">Select Industry</h4>
         <div class="col-sm-12">
-<!--
-          <cn-industry-list  [selectedIndustry]="candidate.industry" (valueChange)="onIndustryChange($event)"></cn-industry-list>
--->
+          <cn-industry-list  (valueChange)="selectIndustry($event)" ></cn-industry-list>
         </div>
       </div>
     </div>
 
-    <div id="work-area">
-    <div class="section-container" [hidden]="!isShowRoleList">
-      <div class="main-content clearfix" >
-        <h4 class="heading">Select Area of Work (Max 3)</h4>
-<!--
-        <cn-work-area [roles]="rolesForMain"  (selectRoles)="selectRole($event)"></cn-work-area>
--->
-      </div>
-    </div>
-      </div>
 
-    <div id="capability-area">
-    <div class="section-container"  [hidden]="!isShowCapability">
-      <div class="main-content clearfix">
-        <h4 class="heading">Select Capabilities (Max. 10)</h4>
-<!--
-        <cn-capibility-list [roles]="rolesForCapability"  (selectCapabilityWithRole)="selectRole($event)"></cn-capibility-list>
--->
-      </div>
-    </div>
-      </div>
+    <cn-work-area [roles]="rolesForMain" [highlightedSection]="highlightedSection" (onComplete)="selectRole($event)" [hidden]="!isShowRoleList"></cn-work-area>
 
-    <div id="complexity-area">
-  <div class="section-container"  [hidden]="!isShowComplexity" >
-      <div class="main-content clearfix">
-        <h4 class="heading">Choose Complexities</h4>
-        <div>
-<!--
-          <cn-complexity-list [roles]="rolesForComplexity" [candidateRoles]="jobForComplexity"   (selectComplexityWithRole)="selectRoleFromComplexity($event)"></cn-complexity-list>
--->
-        </div>
-      </div>
-    </div>
-      </div>
 
-    <div class="section-container clearfix profeiciency-domain" [hidden]="!isShowProficiency">
-      <div class="main-content clearfix">
-        <h4 class="heading">Enter Proficiencies (Max. 25)</h4>
+
+
+
+
+        <cn-capabilities [roles]="rolesForCapability" [candidateRoles]="jobPosterModel.industry.roles"
+                         [highlightedSection]="highlightedSection"
+                         (onComplete)="selectRole($event)" [hidden]="!isShowCapability"></cn-capabilities>
+
+
+
+
+
+
+
+        <cn-complexities [roles]="rolesForComplexity" [candidateRoles]="jobPosterModel.industry.roles"
+                         [highlightedSection]="highlightedSection"
+                         [isComplexityPresent]="isComplexityPresent"
+                         (onComplete)="selectRoleFromComplexity($event)" [hidden]="!isShowComplexity"></cn-complexities>
+
+
+
+
+
 <!--
         <cn-proficiency-doamin [proficiencies]="proficiencies" [type]="'profeciency'" [industry]="jobPosterModel.industry.name" (selectProficiency)="selectProficiency($event)"></cn-proficiency-doamin>
 -->
-      </div>
-    </div>
+         <cn-proficiencies [proficiencies]="proficiencies"
+                                [highlightedSection]="highlightedSection"
+                               (onComplete)="selectProficiency($event)" [hidden]="!isShowProficiency"></cn-proficiencies>
 
-    <div id="proficiency-area">
-    <div class="section-container clearfix profeiciency-domain" [hidden]="!isShowProficiency">
-      <!-- <div class="">-->
-      <div class="main-content clearfix">
-        <h4 class="heading">Industry </h4>
+
+
+
 <!--
         <cn-industry-experience-list [industries]="industries"  (selectExperiencedIndustry)="selectExperiencedIndustry($event)"></cn-industry-experience-list>
 -->
-      </div>
-    </div>
-      </div>
+        <cn-industry-experience
+                               [highlightedSection]="highlightedSection"
+                                (onComplete)="selectExperiencedIndustry($event)"
+                                [hidden]="!isShowProficiency"></cn-industry-experience>
+
+
 
     <div class="main-content"  [hidden]="!isShowProficiency">
       <div class="row">

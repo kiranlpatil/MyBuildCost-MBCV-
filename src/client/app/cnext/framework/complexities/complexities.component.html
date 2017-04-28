@@ -63,8 +63,7 @@
                 </button>
               </div>
               <div *ngIf="!isCandidate">
-                <button class="btn btn-primary" [class.hide-next-btn]="!isComplexityButtonEnable" (click)="saveComplexity()"
-                        [disabled]="!isComplexityButtonEnable">Next
+                <button class="btn btn-primary"  (click)="saveComplexity()">Next
                 </button>
               </div>
             </div>

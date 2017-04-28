@@ -24,6 +24,7 @@ import {CandidateProfileService} from "../candidate-profile/candidate-profile.se
 import {Message} from "../../../framework/shared/message";
 import {MessageService} from "../../../framework/shared/message.service";
 import {Proficiences} from "../model/proficiency";
+import {Section} from "../model/candidate";
 
 
 @Component({
@@ -62,6 +63,8 @@ export class JobPosterComponent {
   private jobPosterModel = new JobPosterModel();
   private jobForComplexity:Role[] = new Array(0);
   private flag:boolean = true;
+  private highlightedSection:Section = new Section();
+
 
   constructor(private profileCreatorService:CandidateProfileService,
               private complexityService:ComplexityService,
@@ -104,6 +107,7 @@ export class JobPosterComponent {
     disableService.showTestDisable$.subscribe(
       data=> {
         this.isShowRoleList = data;
+        this.highlightedSection.name='Work-Area';
       }
     );
 
@@ -228,7 +232,7 @@ export class JobPosterComponent {
   }
 
 
-  selectRole(roles:Role[]) {
+  selectRole(roles:Role[]) {debugger
     this.jobPosterModel.industry.roles = roles;
     //this.savejobPosterModelDetails();
 

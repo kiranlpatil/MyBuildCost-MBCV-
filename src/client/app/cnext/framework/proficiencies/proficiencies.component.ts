@@ -24,7 +24,6 @@ export class ProficienciesComponent {
   private masterDataProficiencies = new Array();
   private Proficiencies = new Array();
   private showAlert:boolean = false;
-  private proficiencyModel:string;
   private alreadyPresent:boolean = false;
   private showModalStyle:boolean = false;
   private otherProficiency:string = '';
@@ -53,8 +52,7 @@ export class ProficienciesComponent {
       }
     }
   }
-  OnProficiencyDataSuccess(data:any)
-  {
+  OnProficiencyDataSuccess(data:any) {
 this.Proficiencies= data.data;
 this.masterDataProficiencies = data.data;
 
