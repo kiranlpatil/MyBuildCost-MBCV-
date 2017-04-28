@@ -51,6 +51,7 @@ export class CandidateProfileComponent implements OnInit {
   private showAcademicsDetails:boolean = false;
   private showCertificationDetails:boolean = false;
   private showAwards:boolean = false;
+  private showAboutMySelf:boolean = false;
   private isRolesShow:boolean = true;
   private showfield:boolean = false;
   private isRoleTypeShow:boolean = false;
@@ -167,7 +168,7 @@ export class CandidateProfileComponent implements OnInit {
     this.rolesForCapability = new Array(0);
   }
 
-  
+
 
   onWorkAreaComplete(roles:Role[]) {
     this.candidate.industry.roles = roles;
@@ -205,7 +206,7 @@ export class CandidateProfileComponent implements OnInit {
   }
 
   onComplexitytyComplete(roles:Role[]){
-    
+
     this.candidate.industry.roles = roles;
     this.candidateForComplexity=this.candidate.industry.roles;
     this.saveCandidateDetails();
@@ -219,7 +220,7 @@ export class CandidateProfileComponent implements OnInit {
     this.saveCandidateDetails();
     this.whichStepsVisible[4] = true;
   }
-  
+
   onExperienceIndustryComplete(experiencedindustry:string[]) {
     this.showProfessionalData=true;
     this.candidate.intrestedIndustries = experiencedindustry;
@@ -241,7 +242,10 @@ export class CandidateProfileComponent implements OnInit {
   onCertificationsComplete(){
     this.showAwards=true;
   }
-  
+  onAwardsComplete(){
+    this.showAboutMySelf=true;
+  }
+
   getRoles() {
     this.profileCreatorService.getRoles(this.candidate.industry.name)
       .subscribe(
@@ -353,12 +357,12 @@ export class CandidateProfileComponent implements OnInit {
     if(this.candidate.intrestedIndustries.length>0){
       this.showIndustryExperience=true;
     }
-    
+
     if (this.candidate.professionalDetails !== undefined && this.candidate.professionalDetails.education !== '') {
       this.showProfessionalData=true;
       this.whichStepsVisible[5] = true;
     }
-    
+
     if (this.candidate.academics.length > 0 && this.candidate.academics[0].schoolName !== '' &&
       this.candidate.certifications.length > 0 && this.candidate.certifications[0].name !== '' &&
       this.candidate.aboutMyself !== undefined && this.candidate.aboutMyself !== '' &&
@@ -374,6 +378,7 @@ export class CandidateProfileComponent implements OnInit {
       this.isHiddenCertificate = true;
     }
     if (this.candidate.aboutMyself !== undefined && this.candidate.aboutMyself !== '') {
+      this.showAboutMySelf=true;
       this.isHiddenAboutMyself = true;
     }
     if (this.candidate.employmentHistory.length > 0 && this.candidate.employmentHistory[0].companyName !== '') {

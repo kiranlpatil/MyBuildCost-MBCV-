@@ -30,45 +30,51 @@
     <div class="col-sm-12">
       <div class="wrapper">
         <cn-profile-description [candidate]="candidate" [highlightedSection]="highlightedSection"
-                                  (onComplete)="onProfileDescriptionComplete($event)"></cn-profile-description>
+                                (onComplete)="onProfileDescriptionComplete($event)"></cn-profile-description>
 
-        <cn-work-area [roles]="rolesForMain" [selectedRoles]="candidateForRole" [highlightedSection]="highlightedSection"
-                                (onComplete)="onWorkAreaComplete($event)" [hidden]="isRolesShow"></cn-work-area>
+        <cn-work-area [roles]="rolesForMain" [selectedRoles]="candidateForRole"
+                      [highlightedSection]="highlightedSection"
+                      (onComplete)="onWorkAreaComplete($event)" [hidden]="isRolesShow"></cn-work-area>
 
-        <cn-capabilities [roles]="rolesForCapability" [candidateRoles]="candidateForCapability" [highlightedSection]="highlightedSection"
-                            (onComplete)="onCapabilityComplete($event)" [hidden]="!showCapability"></cn-capabilities>
+        <cn-capabilities [roles]="rolesForCapability" [candidateRoles]="candidateForCapability"
+                         [highlightedSection]="highlightedSection"
+                         (onComplete)="onCapabilityComplete($event)" [hidden]="!showCapability"></cn-capabilities>
 
-        <cn-complexities [roles]="rolesForComplexity" [candidateRoles]="candidateForComplexity" [highlightedSection]="highlightedSection"
-                            [isComplexityPresent]="isComplexityPresent"
-                            (onComplete)="onComplexitytyComplete($event)" [hidden]="!showComplexity"></cn-complexities>
+        <cn-complexities [roles]="rolesForComplexity" [candidateRoles]="candidateForComplexity"
+                         [highlightedSection]="highlightedSection"
+                         [isComplexityPresent]="isComplexityPresent"
+                         (onComplete)="onComplexitytyComplete($event)" [hidden]="!showComplexity"></cn-complexities>
 
         <cn-proficiencies [proficiencies]="proficiencies" [candidate]="candidate" [type]="'profeciency'"
-                               [industry]="candidate.industry.name" [highlightedSection]="highlightedSection"
-                               (onComplete)="onProficiencyComplete($event)" [hidden]="!showProfeciency"></cn-proficiencies>
+                          [industry]="candidate.industry.name" [highlightedSection]="highlightedSection"
+                          (onComplete)="onProficiencyComplete($event)" [hidden]="!showProfeciency"></cn-proficiencies>
 
-        <cn-industry-experience [candidateExperiencedIndustry]="candidate.intrestedIndustries" [highlightedSection]="highlightedSection"
-                                     (onComplete)="onExperienceIndustryComplete($event)" [hidden]="!showIndustryExperience" ></cn-industry-experience>
-
-
-        <cn-professional-data [candidate]="candidate" [highlightedSection]="highlightedSection" (onComplete)="onProfessionalDataComplete($event)" [hidden]="!showProfessionalData"></cn-professional-data>
-
-        <cn-employment-history [candidate]="candidate" [highlightedSection]="highlightedSection" (onComplete)="onEmploymentHistoryComplete($event)" [hidden]="!showemploymentHistory"></cn-employment-history>
-
-        <cn-academic-details [candidate]="candidate" [highlightedSection]="highlightedSection" (onComplete)="onAcademicDetailsComplete($event)" [hidden]="!showemploymentHistory"></cn-academic-details>
-
-        <cn-certification-accreditation [candidate]="candidate" [highlightedSection]="highlightedSection" (onComplete)="onCertificationsComplete($event)" [hidden]="!showCertificationDetails"></cn-certification-accreditation>
+        <cn-industry-experience [candidateExperiencedIndustry]="candidate.intrestedIndustries"
+                                [highlightedSection]="highlightedSection"
+                                (onComplete)="onExperienceIndustryComplete($event)"
+                                [hidden]="!showIndustryExperience"></cn-industry-experience>
 
 
-        <div class="section-container" [hidden]="chkAwards" [hidden]="!showProfeciency">
-          <div class="main-content clearfix">
-            <h4 class="heading">Awards
-              <span class="close-dialog" [hidden]="isHiddenAwrard">Close this section if not needed
-            <span class="glyphicon glyphicon-remove" (click)="hideAwards()"></span>
-          </span>
-            </h4>
-            <cn-awards [candidate]="candidate"></cn-awards>
-          </div>
-        </div>
+        <cn-professional-data [candidate]="candidate" [highlightedSection]="highlightedSection"
+                              (onComplete)="onProfessionalDataComplete($event)"
+                              [hidden]="!showProfessionalData"></cn-professional-data>
+
+        <cn-employment-history [candidate]="candidate" [highlightedSection]="highlightedSection"
+                               (onComplete)="onEmploymentHistoryComplete($event)"
+                               [hidden]="!showemploymentHistory"></cn-employment-history>
+
+        <cn-academic-details [candidate]="candidate" [highlightedSection]="highlightedSection"
+                             (onComplete)="onAcademicDetailsComplete($event)"
+                             [hidden]="!showemploymentHistory"></cn-academic-details>
+
+        <cn-certification-accreditation [candidate]="candidate" [highlightedSection]="highlightedSection"
+                                        (onComplete)="onCertificationsComplete($event)"
+                                        [hidden]="!showCertificationDetails"></cn-certification-accreditation>
+
+        <cn-awards [candidate]="candidate" [highlightedSection]="highlightedSection"
+                   (onComplete)="onAwardsComplete($event)"
+                   [hidden]="!showAwards"></cn-awards>
+
 
         <div class="section-container" [hidden]="chkAboutMyself" [hidden]="!showProfeciency">
           <div class="main-content clearfix">
