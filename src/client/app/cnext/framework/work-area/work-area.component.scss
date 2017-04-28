@@ -1,3 +1,8 @@
+$text-color: #666;
+$white: #fff;
+$option-border-color: #999;
+$primary-option: #1c75bd;
+
 .error-messages {
   color: #f66761;
   font-size: 10px;
@@ -8,18 +13,11 @@
 }
 
 .work-area {
-  margin-bottom: 15px;
-
   .btn {
     &:focus,
     &:active {
       outline: none;
     }
-  }
-
-  .btn-primary {
-    float: right;
-    margin-top: 15px;
   }
 }
 
@@ -30,11 +28,6 @@
     }
   }
 }
-
-$text-color: #666;
-$white: #fff;
-$option-border-color: #999;
-$primary-option: #1c75bd;
 
 @media screen and (max-width: 767px) {
   .work-area {

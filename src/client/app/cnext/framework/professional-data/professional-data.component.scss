@@ -44,6 +44,14 @@
     p {
       width: 100%;
       margin-bottom: 15px;
+
+      label {
+        width: 50%;
+      }
+
+      &:last-child {
+        margin-bottom: 0;
+      }
     }
   }
 }

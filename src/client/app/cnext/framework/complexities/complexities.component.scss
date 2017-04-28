@@ -11,10 +11,6 @@ $option-theme-color: #1c75bd;
 .compact-view {
   padding: 0;
 
-  .btn-edit {
-    z-index:3
-  }
-
   .content {
     border-bottom: 0 ;
   }
@@ -27,7 +23,7 @@ $option-theme-color: #1c75bd;
 }
 
 .select-complexity {
-  padding: 5px 0 5px;
+  padding: 10px 0;
   border-bottom: 1px solid $border-color;
 
   .complexity-name {
@@ -39,27 +35,7 @@ $option-theme-color: #1c75bd;
   }
 }
 
-.select-option > label {
-  margin: 0;
-  padding: 10px 0;
-}
-
-
-@media screen and (max-width: 980px) {
-  .scenarios {
-    .select-option {
-      margin: 0 20px 0 0;
-    }
-  }
-}
-
 @media screen and (max-width: 767px) {
-  .scenarios {
-    .select-option {
-      margin: 3px 20px 3px 0;
-    }
-  }
-
   .complexities {
     padding: 0;
   }

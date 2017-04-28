@@ -206,6 +206,10 @@ $theme-color: #3694d1;
       background: none;
       padding-left: 0;
       display: block;
+
+      ul {
+        padding: 0 0 0 15px;
+      }
     }
 
     .btn-primary {

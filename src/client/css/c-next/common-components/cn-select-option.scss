@@ -4,7 +4,6 @@ $option-border-color: #999;
 $primary-option: #3694d1;
 $secondary-option: #81D4FA;
 
-
 .select-option {
   display: inline-block;
   margin: 5px 20px 5px 0;
@@ -181,6 +180,9 @@ $secondary-option: #81D4FA;
 }
 
 @media screen and (max-width: 767px) {
+  .select-option {
+    margin: 5px 10px 5px 0;
+  }
   .select-option > label {
     & > input {
       & + span {
