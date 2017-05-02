@@ -1,6 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { JonPostDescriptionService } from '../job-post-description.service';
-import { Description } from '../model/description';
+import { Component, Input, OnInit,Output,EventEmitter } from '@angular/core';
+
 
 
 @Component({
@@ -13,15 +12,16 @@ import { Description } from '../model/description';
 export class DescriptionFieldComponent implements OnInit {
   @Input('type') type : string;
   @Input('maxLength') maxLength :number;
+  @Input() description:string;
+  @Output() onComplete=new EventEmitter();
 
- private description:string;
- private newstringOne:string[];
+  private newstringOne:string[];
  private newstringTwo:string[];
  private newstringThree:string[];
  private condition:number;
  private maxword:number;
  private remainingWords:number;
-  constructor(private jobPostDescription:JonPostDescriptionService) {
+  constructor() {
 
   }
 
@@ -29,7 +29,13 @@ export class DescriptionFieldComponent implements OnInit {
     this.remainingWords=this.maxLength;
   }
 
-  wordCount(event:any) {
+  ngOnChanges(){
+    if(this.description != undefined && this.description != ''){
+      this.description=this.description.toString().replace(/,/g, " ");
+      this.wordCount();
+    }
+  }
+  wordCount() {
     this.newstringOne= this.description.split(' ');
     this.newstringTwo= this.description.split('.');
     this.newstringThree= this.description.split(',');
@@ -38,7 +44,7 @@ export class DescriptionFieldComponent implements OnInit {
       if (this.condition-3>=this.maxLength) {
         this. maxword=this.description.length;
       }
-    this.jobPostDescription.change({"data":this.newstringOne,"type":this.type});
+    this.onComplete.emit(this.newstringOne);
   }
 
 }

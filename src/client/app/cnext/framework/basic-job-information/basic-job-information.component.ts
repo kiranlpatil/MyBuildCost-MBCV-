@@ -47,6 +47,9 @@ export class  BasicJobInformationComponent{
     this.jobPosterModel.industry = industry;
   }
   onNext() {
+    
+    console.log(this.jobPosterModel);
+    if(this.jobPosterModel.jobTitle != '')
     this.highlightedSection.name = "Work-Area";
     this.onComplete.emit(this.jobPosterModel);
   }

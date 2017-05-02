@@ -12,11 +12,19 @@ import {JobPosterModel} from "../model/jobPoster";
 export class JobInformationComponent {
   @Input() jobPosterModel:JobPosterModel = new JobPosterModel();
   @Output() selectJobInformation=new EventEmitter();
+  private showmsg:boolean=false;
   private jobInformation=new JobInformation();
   
   isJobTitleSelected(job:any) {
-    this.jobInformation.jobTitle=job;
-    this.selectJobInformation.emit(this.jobInformation);
+    if(job==''){
+      this.showmsg=true;
+    }
+    else{
+      this.showmsg=false;
+      this.jobInformation.jobTitle=job;
+      this.selectJobInformation.emit(this.jobInformation);
+    }
+   
   }
 
   isHiringMangerSelected(manager:any) {

@@ -259,6 +259,9 @@ export class JobPosterComponent {
     this.jobPosterModel.profiencies = proficiency;
   }
 
+  onCompentansiesandResponsibilitycomplete(data:any){
+    this.jobPosterModel=data;
+  }
  
 
   onError(error:any) {

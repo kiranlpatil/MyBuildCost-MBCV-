@@ -131,6 +131,7 @@ import {ComplexitiesComponent} from "./cnext/framework/complexities/complexities
 import {ProficienciesComponent} from "./cnext/framework/proficiencies/proficiencies.component";
 import {ProficiencyDomainService} from "./cnext/framework/proficiencies/proficiencies.service";
 import {BasicJobInformationComponent} from "./cnext/framework/basic-job-information/basic-job-information.component";
+import {CompentansiesAndResponsibilitiesComponent} from "./cnext/framework/compentacies-and-responsibilities/compentacies-and-responsibilities.component";
 
 //C-NEXT IMPORTS
 
@@ -193,6 +194,7 @@ import {BasicJobInformationComponent} from "./cnext/framework/basic-job-informat
     JobPosterComponent,
     SingleSelectListComponent,
     BasicJobInformationComponent,
+    CompentansiesAndResponsibilitiesComponent,
     JobInformationComponent,
     JobRequirementComponent,
     JobLocationComponent,

@@ -2,6 +2,8 @@ import {Component, Input, Output, EventEmitter} from "@angular/core";
 import {Industry} from "../model/industry";
 import {CandidateProfileService} from "../candidate-profile/candidate-profile.service";
 import {Section} from "../model/candidate";
+import {LocalStorageService} from "../../../framework/shared/localstorage.service";
+import {LocalStorage} from "../../../framework/shared/constants";
 
 @Component({
   moduleId: module.id,
@@ -37,7 +39,12 @@ export class IndustryExperienceListComponent {
   }
 
   onNext() {
-    this.highlightedSection.name = "Professional-Details";
+    if(LocalStorageService.getLocalValue(LocalStorage.IS_CANDIDATE)==='true') {
+      this.highlightedSection.name = "Professional-Details";
+    }
+    else{
+      this.highlightedSection.name = "Compentancies";
+    }
   }
 }
 
