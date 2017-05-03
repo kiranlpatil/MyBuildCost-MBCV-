@@ -32,4 +32,6 @@ export function cnextInit(app: express.Application) { //todo add interceptor to 
   app.get("/api/companysize",  userController.getCompanySize);
   app.get("/api/function",  userController.getFunction);
   app.put("/api/recruiter/:id",recruiterController.updateDetails);
+  app.get("/api/recruiter/:id",recruiterController.retrieve);
+
 }

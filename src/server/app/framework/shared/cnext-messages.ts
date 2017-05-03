@@ -5,6 +5,8 @@ class CNextMessages {
   public static INDUSTRY_RECRUITER_MESSAGE: string = "Saving industry details. Once saved, you cannot change it for 3 months.";
   public static PROFICIENCY_NOT_UPDATED: string = "Proficiency is not updated";
   public static PROFICIENCY_NOT_RETRIVED: string = "Retriving proficiency is failed";
+  public static PROBLEM_IN_RETRIEVE_JOB_PROFILE: string = "Problem in retrieving the job profile";
+
  }
 export=CNextMessages;
 
