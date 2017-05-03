@@ -28,7 +28,8 @@ export class ProfessionalDataComponent extends BaseService implements OnInit {
   private experiencelist=new Array();
   private salarylist=new Array();
   private noticeperiodlist=new Array();
-  private professionalDetails:ProfessionalData=new ProfessionalData();
+  private disableButton:boolean=true;
+  /*private professionalDetails:ProfessionalData=new ProfessionalData();*/
 
   constructor(private professionaldataservice:ProfessionalDataService,
               private messageService:MessageService,
@@ -133,14 +134,14 @@ export class ProfessionalDataComponent extends BaseService implements OnInit {
   }
 
   saveProfessionalData() {
-    console.log(this.candidate.professionalDetails);
     this.professionalService.change(true);
+    if(this.candidate.professionalDetails.currentSalary !='' && this.candidate.professionalDetails.education!= '' && 
+      this.candidate.professionalDetails.experience != '' && this.candidate.professionalDetails.noticePeriod != '' && this.candidate.professionalDetails.relocate != '' ){
+      this.disableButton=false;
+    }
     this.profileCreatorService.addProfileDetail(this.candidate).subscribe(
       user => {
         console.log(user);
-      },
-      error => {
-        console.log(error);
       });
   }
 

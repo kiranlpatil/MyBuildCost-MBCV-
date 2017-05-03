@@ -58,7 +58,7 @@
   </div>
   <div class="main-content" *ngIf="highlightedSection.name !='Professional-Details'">
     <div class="compact-view clearfix">
-      <button class="btn-edit" (click)="highlightedSection.name='Professional-Details'"></button>
+      <button class="btn-edit" (click)="highlightedSection.name='Professional-Details';disableButton=false"></button>
       <h4 class="heading">Professional Data</h4>
       <p><label>Ready To Relocate?</label> {{candidate.professionalDetails.relocate}}</p>
       <p><label>Education</label> {{candidate.professionalDetails.education}}</p>
