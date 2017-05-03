@@ -17,10 +17,7 @@ export class CapabilitiesComponent {
   @Input() candidateRoles:Role[] = new Array();
   @Output() onComplete = new EventEmitter();
   @Input() highlightedSection: Section;
-
-  //private compactView:boolean=true;
-
-
+  
   private primaryNames:string[] = new Array(0);
   private secondaryNames:string[] = new Array(0);
   private primaryCapabilitiesNumber:number = 0;
@@ -43,13 +40,6 @@ export class CapabilitiesComponent {
         }
       }
     }
-
-    //   if(this.primaryNames.length>0 ){
-    //     this.compactView = true;
-    //   }
-    // else{
-    //   this.compactView = false;
-    // }
   }
 
   selectedCapability(selectedRole:Role, selectedCapability:Capability, event:any) {
@@ -73,7 +63,6 @@ export class CapabilitiesComponent {
   }
 
   onNext() {
-    // this.compactView=true;
     this.highlightedSection.name = "Complexities";
     this.disableButton = true;
     this.onComplete.emit(this.roles);

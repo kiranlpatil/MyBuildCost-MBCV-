@@ -22,7 +22,8 @@ $blue: #3694d1;
 
 .wrapper {
   border: 1px solid $border-color;
-  background: #fff;
+  background: $white;
+  padding-top: 7px;
 }
 
 .create-profile {
@@ -190,7 +191,6 @@ $blue: #3694d1;
     padding-left: 0;
     color: $label;
     font-weight: 600;
-    width: 150px;
   }
 
   .radio-inline {
@@ -300,14 +300,6 @@ $blue: #3694d1;
       width:  100%;
     }
 
-    .close-dialog {
-      display: none;
-
-      .glyphicon-remove {
-        display: block;
-      }
-    }
-
     .job-title {
       width: 100%;
     }
@@ -323,10 +315,6 @@ $blue: #3694d1;
 
     .col-sm-8 {
       width: 100%;
-    }
-
-    label {
-      width: 145px;
     }
 
     .social-links {

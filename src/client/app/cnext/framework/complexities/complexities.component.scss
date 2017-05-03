@@ -4,18 +4,6 @@ $white: #fff;
 $option-border-color: #f8f8f8;
 $option-theme-color: #1c75bd;
 
-.complexities {
-  .btn-primary {
-    float: right;
-    margin-top: 15px;
-
-    &:focus,
-    &:active {
-      outline: none;
-    }
-  }
-
-}
 .main-content > span {
   padding-left: 0;
 }
@@ -23,17 +11,19 @@ $option-theme-color: #1c75bd;
 .compact-view {
   padding: 0;
 
-  .btn-edit {
-    z-index:3
-  }
-
   .content {
     border-bottom: 0 ;
+  }
+
+  &:hover {
+    .btn-edit {
+      opacity: 1;
+    }
   }
 }
 
 .select-complexity {
-  padding: 0 0 10px;
+  padding: 10px 0;
   border-bottom: 1px solid $border-color;
 
   .complexity-name {
@@ -45,68 +35,16 @@ $option-theme-color: #1c75bd;
   }
 }
 
-
-.select-option > label {
-  margin: 0;
-  padding: 10px 0;
-}
-
-@media screen and (max-width: 1099px) {
-  .select-option > label {
-    & > input {
-      & + span {
-        &:hover {
-          border: 1px solid $option-theme-color;
-        }
-      }
-    }
-
-    &:hover {
-      & > input {
-        & + span {
-          border: 1px solid $option-theme-color;
-        }
-      }
-    }
-  }
-}
-
-@media screen and (max-width: 980px) {
-  .btn-primary {
-    float: none;
-    margin-top: 15px;
-  }
-
-  .scenarios {
-    .select-option {
-      margin: 0 20px 0 0;
-    }
+.complexities {
+  .info {
+    background: none;
+    padding-left: 0;
   }
 }
 
 @media screen and (max-width: 767px) {
-  .scenarios {
-    .select-option {
-      margin: 3px 20px 3px 0;
-    }
-  }
-
-  .select-option > label {
-    padding: 0;
-
-    & > input {
-      & + span {
-        font-size: 10px;
-      }
-    }
-  }
-
   .complexities {
     padding: 0;
-  }
-
-  .btn-primary {
-    float: none;
   }
 }
 

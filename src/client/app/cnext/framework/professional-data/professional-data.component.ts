@@ -1,5 +1,5 @@
 
-import {Component, OnInit, Input} from '@angular/core';
+import {Component, OnInit, EventEmitter, Input, Output} from '@angular/core';
 import { BaseService } from '../../../framework/shared/httpservices/base.service';
 import { ProfessionalData } from '../model/professional-data';
 import { ProfessionalDataService } from './professional-data.service';
@@ -9,7 +9,7 @@ import { ProfessionalService } from '../professional-service';
 import {CandidateProfileService} from "../candidate-profile/candidate-profile.service";
 import {LocalStorageService} from "../../../framework/shared/localstorage.service";
 import {LocalStorage} from "../../../framework/shared/constants";
-import {Candidate} from "../model/candidate";
+import {Candidate, Section} from "../model/candidate";
 @Component({
   moduleId: module.id,
   selector: 'cn-professional-data',
@@ -19,6 +19,9 @@ import {Candidate} from "../model/candidate";
 
 export class ProfessionalDataComponent extends BaseService implements OnInit {
   @Input() candidate:Candidate;
+  @Input() highlightedSection :Section;
+  @Output() onComplete = new EventEmitter();
+
 
   private realocationlist=new Array();
   private educationlist=new Array();
@@ -69,16 +72,9 @@ export class ProfessionalDataComponent extends BaseService implements OnInit {
         error => { this.onError(error);});
 
 
-      if(LocalStorageService.getLocalValue(LocalStorage.IS_CANDIDATE)==="true"){
-        this.profileCreatorService.getCandidateDetails()
-          .subscribe(
-            candidateData => this.OnCandidateDataSuccess(candidateData),
-            error => this.onError(error));
 
-      }
   }
 
-  OnCandidateDataSuccess(candidateData:any){}
 
   onGetNoticePeriodListSuccess(data:any) {
     for(let k of data.noticeperiod) {
@@ -135,5 +131,9 @@ export class ProfessionalDataComponent extends BaseService implements OnInit {
       });
   }
 
+  onNext() {
+    this.onComplete.emit();
+    this.highlightedSection.name = "EmploymentHistory";
+  }
 }
 

@@ -4,7 +4,6 @@ $option-border-color: #999;
 $primary-option: #3694d1;
 $secondary-option: #81D4FA;
 
-
 .select-option {
   display: inline-block;
   margin: 5px 20px 5px 0;
@@ -21,6 +20,7 @@ $secondary-option: #81D4FA;
     & + span {
       border: 1px solid $option-border-color;
       border-radius: 25px;
+      box-shadow: 0 0 1px 0 $option-border-color inset, 0 0 1px 0 $option-border-color;
       color: $text-color;
       cursor: pointer;
       font-size: 12px;
@@ -32,6 +32,7 @@ $secondary-option: #81D4FA;
 
       &:hover {
         border: 1px solid $option-border-color;
+        box-shadow: 0 0 1px 0 $option-border-color inset, 0 0 1px 0 $option-border-color;
       }
     }
 
@@ -40,6 +41,7 @@ $secondary-option: #81D4FA;
         color: $white;
         background-color: $primary-option;
         border: 1px solid $primary-option;
+        box-shadow: 0 0 1px 0 $primary-option inset, 0 0 1px 0 $primary-option;
       }
     }
   }
@@ -76,9 +78,11 @@ $secondary-option: #81D4FA;
 
     & + span {
       border: 1px solid $primary-option;
+      box-shadow: 0 0 1px 0 $primary-option inset, 0 0 1px 0 $primary-option;
 
       &:hover {
         border: 1px solid $primary-option;
+        box-shadow: 0 0 1px 0 $primary-option inset, 0 0 1px 0 $primary-option;
       }
     }
 
@@ -86,6 +90,7 @@ $secondary-option: #81D4FA;
       & + span {
         background-color: $primary-option;
         border: 1px solid $primary-option;
+        box-shadow: 0 0 1px 0 $primary-option inset, 0 0 1px 0 $primary-option;
       }
     }
   }
@@ -94,12 +99,14 @@ $secondary-option: #81D4FA;
     & > input {
       & + span {
         border: 1px solid $primary-option;
+        box-shadow: 0 0 1px 0 $primary-option inset, 0 0 1px 0 $primary-option;
       }
 
       &:checked {
         & + span {
           background-color: $primary-option;
           border: 1px solid $primary-option;
+          box-shadow: 0 0 1px 0 $primary-option inset, 0 0 1px 0 $primary-option;
         }
       }
     }
@@ -112,9 +119,11 @@ $secondary-option: #81D4FA;
 
     & + span {
       border: 1px solid $secondary-option;
+      box-shadow: 0 0 1px 0 $secondary-option inset, 0 0 1px 0 $secondary-option;
 
       &:hover {
         border: 1px solid $secondary-option;
+        box-shadow: 0 0 1px 0 $secondary-option inset, 0 0 1px 0 $secondary-option;
       }
     }
 
@@ -122,6 +131,7 @@ $secondary-option: #81D4FA;
       & + span {
         background-color: $secondary-option;
         border: 1px solid $secondary-option;
+        box-shadow: 0 0 1px 0 $secondary-option inset, 0 0 1px 0 $secondary-option;
       }
     }
   }
@@ -130,12 +140,14 @@ $secondary-option: #81D4FA;
     & > input {
       & + span {
         border: 1px solid $secondary-option;
+        box-shadow: 0 0 1px 0 $secondary-option inset, 0 0 1px 0 $secondary-option;
       }
 
       &:checked {
         & + span {
           background-color: $secondary-option;
           border: 1px solid $secondary-option;
+          box-shadow: 0 0 1px 0 $secondary-option inset, 0 0 1px 0 $secondary-option;
         }
       }
     }
@@ -148,6 +160,7 @@ $secondary-option: #81D4FA;
       & + span {
         &:hover {
           border: 1px solid $primary-option;
+          box-shadow: 0 0 1px 0 $primary-option inset, 0 0 1px 0 $primary-option;
         }
       }
     }
@@ -156,6 +169,7 @@ $secondary-option: #81D4FA;
       & > input {
         & + span {
           border: 1px solid $primary-option;
+          box-shadow: 0 0 1px 0 $primary-option inset, 0 0 1px 0 $primary-option;
         }
       }
     }
@@ -166,6 +180,7 @@ $secondary-option: #81D4FA;
       & + span {
         &:hover {
           border: 1px solid $secondary-option;
+          box-shadow: 0 0 1px 0 $secondary-option inset, 0 0 1px 0 $secondary-option;
         }
       }
     }
@@ -174,6 +189,7 @@ $secondary-option: #81D4FA;
       & > input {
         & + span {
           border: 1px solid $secondary-option;
+          box-shadow: 0 0 1px 0 $secondary-option inset, 0 0 1px 0 $secondary-option;
         }
       }
     }
@@ -181,6 +197,9 @@ $secondary-option: #81D4FA;
 }
 
 @media screen and (max-width: 767px) {
+  .select-option {
+    margin: 5px 10px 5px 0;
+  }
   .select-option > label {
     & > input {
       & + span {

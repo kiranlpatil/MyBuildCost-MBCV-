@@ -1,17 +1,8 @@
 $light-blue: #00aed5;
 
-.main-content {
-  padding-top: 15px;
-}
-
 h4 {
   font-size: 14px;
   margin: 0 0 10px;
-}
-
-.btn-primary {
-  float: right;
-  margin-top: 15px;
 }
 
 .user-name {
@@ -35,12 +26,16 @@ h4 {
   }
 }
 
+.compact-view {
+  &:hover {
+    .btn-edit {
+      opacity: 1;
+    }
+  }
+}
+
 
 @media only screen and (max-width: 767px) {
-  .btn-primary {
-    float: none;
-  }
-
   .user-name {
     .profile-name-first, .profile-name-last {
       font-size: 16px;

@@ -1,7 +1,7 @@
-import * as fs from 'fs';
-var config = require('config');
 import CNextMessages = require("../shared/cnext-messages");
 import ProjectAsset = require("../shared/projectasset");
+import RoleRepository = require("../dataaccess/repository/role.repository");
+import IndustryRepository = require("../dataaccess/repository/industry.repository");
 import ProficiencyRepository = require("../dataaccess/repository/proficiency.repository");
 class ProficiencyService {
   private proficiencyRepository:ProficiencyRepository;
@@ -13,22 +13,22 @@ class ProficiencyService {
   }
 
   retrieve(field:any, callback:(error:any, result:any) => void) {
-    this.proficiencyRepository.retrieve(field,callback);
-  }
-
-  pushIntoArray(name:any, value:string,callback:(error:any, result:any) => void) {
-    this.proficiencyRepository.pushElementInArray(name,value,callback);
+    this.proficiencyRepository.retrieveAll({}, callback);
   }
 
   create(item:any, callback:(error:any, result:any) => void) {
     this.proficiencyRepository.create(item, (err, res) => {
       if (err) {
-        callback(new Error(CNextMessages.PROBLEM_IN_CREATING_INDUSTRY), null);
+        callback(new Error("Problem in Creating proficiency model"), null);
       }
       else {
         callback(null, res);
       }
     });
+  }
+
+  pushIntoArray( value:string,callback:(error:any, result:any) => void) {
+    this.proficiencyRepository.pushElementInArray(value,callback);
   }
 }
 

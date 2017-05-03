@@ -7,59 +7,26 @@ $border-color: #ccc;
   }
 }
 
-.form {
-  border-top: 1px solid $border-color;
-  margin: 15px 0;
-
-  &:first-child {
-    border: 0;
-  }
-}
-
-label {
-  font-weight: 400;
-}
-
 .certification {
-  border-top: 1px solid $border-color;
-  margin: 10px 0 20px;
-  padding-top: 15px;
-
-  &:first-child {
-    border: 0;
-    padding-top: 0;
-    margin-top: 0;
-  }
-
   .worked-from,
   .worked-to {
     label {
-      font-weight: 400;
       margin-bottom: 10px;
       width: 100%;
     }
 
     .form-control {
-      //background: url('assets/framework/images/form/drop-down.png') no-repeat;
-      //background-position: 95% 50%;
-      border-radius: 0;
-      font-weight: 400;
       margin-bottom: 15px;
       padding: 6px;
     }
   }
+}
 
-  select {
-    border-radius: 0;
-    margin: 0 0 15px !important;
-  }
-
-  textarea {
-    border-radius: 0;
-    height: 100px;
-    margin-bottom: 15px;
-    resize: vertical;;
-    width: 100%;
+.compact-view {
+  &:hover {
+    .btn-edit {
+      opacity: 1;
+    }
   }
 }
 
@@ -81,13 +48,13 @@ label {
     padding: 0;
 
     .col-sm-4,
-    .form-control {
-      margin: 0;
+    .col-sm-12 {
+      padding: 0;
       width: 100%;
     }
 
-    .btn-create-profile {
-      margin-top: 15px;
+    .row {
+      margin: 0;
     }
   }
 }

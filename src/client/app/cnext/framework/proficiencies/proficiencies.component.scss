@@ -17,13 +17,8 @@ $message: #00aed5;
     }
 
     .btn-create-profile {
-      font-size: 12px;
-      padding: 6px 15px;
-      background-color: #fff;
-      border: 1px solid $btn-color;
-
       .glyphicon-remove {
-        top: 3px;
+        top: 2px;
       }
     }
 
@@ -54,9 +49,32 @@ $message: #00aed5;
   }
 }
 
+.compact-view {
+  &:hover {
+    .btn-edit {
+      opacity: 1;
+    }
+  }
+}
+
 @media screen and (max-width: 767px) {
   .proficiency-container {
     padding: 0;
+
+    .btn-container {
+      padding: 5px;
+
+      .btn-create-profile {
+        font-size: 10px;
+        padding: 4px 10px;
+        text-align: left;
+        white-space: normal;
+
+        .glyphicon-remove {
+          padding-left: 10px;
+        }
+      }
+    }
   }
 }
 

@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input,Output,EventEmitter} from '@angular/core';
 import {  Academicdetails  } from '../model/academic-details';
 import {ValueConstant, LocalStorage} from '../../../framework/shared/constants';
 import {  EducationalService  } from '../educational-service';
@@ -7,7 +7,7 @@ import {CandidateProfileService} from "../candidate-profile/candidate-profile.se
 import {MessageService} from "../../../framework/shared/message.service";
 import {Message} from "../../../framework/shared/message";
 import {LocalStorageService} from "../../../framework/shared/localstorage.service";
-import {Candidate} from "../model/candidate";
+import {Candidate, Section} from "../model/candidate";
 
 @Component({
   moduleId: module.id,
@@ -18,7 +18,9 @@ import {Candidate} from "../model/candidate";
 
 export class AcademicDetailComponent {
   @Input() candidate:Candidate;
-
+  @Input() highlightedSection :Section;
+  @Output() onComplete = new EventEmitter();
+  
   private  tempfield: string[];
   private year: any;
   private currentDate: any;
@@ -142,5 +144,10 @@ export class AcademicDetailComponent {
     this.sendPostCall=true;
 
 
+  }
+
+  onNext() {
+    this.onComplete.emit();
+    this.highlightedSection.name = "Certification";
   }
 }

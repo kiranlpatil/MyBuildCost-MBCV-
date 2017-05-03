@@ -26,130 +26,97 @@
     <button class="btn btn-danger btn-logout" (click)="logOut()">Logout</button>
   </div>
 
-  <div class="candidate-profile-wrapper container">
+    <div class="profile-wrapper container">
     <div class="col-sm-12">
       <div class="wrapper">
-          <cn-profile-description [candidate]="candidate" [highlightedSection]="highlightedSection"
-                                  (onComplete)="onProfileDescriptionComplete($event)"></cn-profile-description>
+        <cn-profile-description [candidate]="candidate" [highlightedSection]="highlightedSection"
+                                (onComplete)="onProfileDescriptionComplete($event)"></cn-profile-description>
 
-           <cn-work-area [roles]="rolesForMain" [selectedRoles]="candidateForRole" [highlightedSection]="highlightedSection"
-                                (onComplete)="onWorkAreaComplete($event)" [hidden]="isRolesShow"></cn-work-area>
+        <cn-work-area [roles]="rolesForMain" [selectedRoles]="candidateForRole"
+                      [highlightedSection]="highlightedSection"
+                      (onComplete)="onWorkAreaComplete($event)" [hidden]="isRolesShow"></cn-work-area>
 
-        <cn-capabilities [roles]="rolesForCapability" [candidateRoles]="candidateForCapability" [highlightedSection]="highlightedSection"
-                            (onComplete)="onCapabilityComplete($event)" [hidden]="!showCapability"></cn-capabilities>
+        <cn-capabilities [roles]="rolesForCapability" [candidateRoles]="candidateForCapability"
+                         [highlightedSection]="highlightedSection"
+                         (onComplete)="onCapabilityComplete($event)" [hidden]="!showCapability"></cn-capabilities>
 
-        <cn-complexities [roles]="rolesForComplexity" [candidateRoles]="candidateForComplexity" [highlightedSection]="highlightedSection"
-                            [isComplexityPresent]="isComplexityPresent"
-                            (onComplete)="onComplexitytyComplete($event)" [hidden]="!showComplexity"></cn-complexities>
+        <cn-complexities [roles]="rolesForComplexity" [candidateRoles]="candidateForComplexity"
+                         [highlightedSection]="highlightedSection"
+                         [isComplexityPresent]="isComplexityPresent"
+                         (onComplete)="onComplexitytyComplete($event)" [hidden]="!showComplexity"></cn-complexities>
 
-        <div id="proficiency-area">
-          <div class="section-container clearfix profeiciency-domain" [hidden]="!showProfeciency">
-            <div class="main-content clearfix">
-              <h4 class="heading">Proficiencies (Max. 25)</h4>
-              <cn-proficiency-doamin [proficiencies]="proficiencies" [candidate]="candidate" [type]="'profeciency'"
-                                     [industry]="candidate.industry.name"
-                                     (selectProficiency)="selectProficiency($event)"></cn-proficiency-doamin>
+        <cn-proficiencies [proficiencies]="proficiencies" [choosedproficiencies]="candidate.proficiencies"
+                                [highlightedSection]="highlightedSection"
+                               (onComplete)="onProficiencyComplete($event)" [hidden]="!showProfeciency"></cn-proficiencies>
+
+        <cn-industry-experience [candidateExperiencedIndustry]="candidate.intrestedIndustries"
+                                [highlightedSection]="highlightedSection"
+                                (onComplete)="onExperienceIndustryComplete($event)"
+                                [hidden]="!showIndustryExperience"></cn-industry-experience>
+
+
+        <cn-professional-data [candidate]="candidate" [highlightedSection]="highlightedSection"
+                              (onComplete)="onProfessionalDataComplete($event)"
+                              [hidden]="!showProfessionalData"></cn-professional-data>
+
+        <cn-employment-history [candidate]="candidate" [highlightedSection]="highlightedSection"
+                               (onComplete)="onEmploymentHistoryComplete($event)"
+                               [hidden]="!showemploymentHistory"></cn-employment-history>
+
+        <cn-academic-details [candidate]="candidate" [highlightedSection]="highlightedSection"
+                             (onComplete)="onAcademicDetailsComplete($event)"
+                             [hidden]="!showemploymentHistory"></cn-academic-details>
+
+        <cn-certification-accreditation [candidate]="candidate" [highlightedSection]="highlightedSection"
+                                        (onComplete)="onCertificationsComplete($event)"
+                                        [hidden]="!showCertificationDetails"></cn-certification-accreditation>
+
+        <cn-awards [candidate]="candidate" [highlightedSection]="highlightedSection"
+                   (onComplete)="onAwardsComplete($event)"
+                   [hidden]="!showAwards"></cn-awards>
+
+
+        <cn-more-about-myself [candidate]="candidate" [highlightedSection]="highlightedSection" [hidden]="!showAboutMySelf"></cn-more-about-myself>
+
+
+        <div class="section-container">
+          <div class="main-content clearfix">
+            <h4 class="heading">Profile Visibility</h4>
+            <div class="col-sm-12">
+              <div class="info">In case you wish to hide your profile from recruiters, select hide option
+                below. You may also choose to show your profile later.</div>
+              <div class="radio">
+                <!--<label>Profile Visibility:</label>-->
+                <label class="radio-inline">
+                  <input type="radio" name="profile-visibility" id="optionsRadios2"
+                         (change)="showorhide($event.target.value)" value=true [checked]="candidate.isVisible == false">
+                  Show profile
+                </label>
+                <label class="radio-inline">
+                  <input type="radio" name="profile-visibility" id="optionsRadios3"
+                         (change)="showorhide($event.target.value)" value=false [checked]="candidate.isVisible == true">
+                  Hide profile
+                </label>
+              </div>
             </div>
           </div>
         </div>
 
-        <div class="section-container profeiciency-domain" [hidden]="!showProfeciency">
-          <div class="main-content clearfix">
-            <h4 class="heading">Select Industry In Which You Have work Exposure / Experience</h4>
-            <cn-industry-experience-list [industries]="industries"
-                                         [candidateExperiencedIndustry]="candidate.intrestedIndustries"
-                                         (selectExperiencedIndustry)="selectExperiencedIndustry($event)"></cn-industry-experience-list>
-          </div>
-        </div>
-
-        <div class="section-container" [hidden]="!showProfeciency">
-          <div class="main-content clearfix">
-            <h4 class="heading">Professional Data</h4>
-            <cn-professional-data [candidate]="candidate"></cn-professional-data>
-          </div>
-        </div>
-
-        <div class="section-container" [hidden]="chkEmployeeHistory" [hidden]="!showProfeciency">
-          <div class="main-content clearfix">
-            <h4 class="heading">Employment History
-              <span class="close-dialog" [hidden]="isHiddenEmployeehistory">Close this section if not needed
-            <span class="glyphicon glyphicon-remove" (click)="hideEmployeeHistory()"></span>
-          </span>
-            </h4>
-            <cn-employment-history [candidate]="candidate"></cn-employment-history>
-          </div>
-        </div>
-
-        <div class="section-container" [hidden]="!showProfeciency">
-          <div class="main-content clearfix">
-            <h4 class="heading">Academic Details</h4>
-            <cn-academic-details [candidate]="candidate"></cn-academic-details>
-          </div>
-        </div>
-
-        <div class="section-container" [hidden]="chkCertification" [hidden]="!showProfeciency">
-          <div class="main-content clearfix">
-            <h4 class="heading">Certification/Accreditation
-              <span class="close-dialog" [hidden]="isHiddenCertificate">Close this section if not needed
-            <span class="glyphicon glyphicon-remove" (click)="hideCertification()"></span>
-          </span>
-            </h4>
-            <cn-certification-accreditation [candidate]="candidate"></cn-certification-accreditation>
-          </div>
-        </div>
-
-        <div class="section-container" [hidden]="chkAwards" [hidden]="!showProfeciency">
-          <div class="main-content clearfix">
-            <h4 class="heading">Awards
-              <span class="close-dialog" [hidden]="isHiddenAwrard">Close this section if not needed
-            <span class="glyphicon glyphicon-remove" (click)="hideAwards()"></span>
-          </span>
-            </h4>
-            <cn-awards [candidate]="candidate"></cn-awards>
-          </div>
-        </div>
-
-        <div class="section-container" [hidden]="chkAboutMyself" [hidden]="!showProfeciency">
-          <div class="main-content clearfix">
-            <h4 class="heading">More About Myself(Max 250)
-              <span class="close-dialog" [hidden]="isHiddenAboutMyself">Close this section if not needed
-            <span class="glyphicon glyphicon-remove" (click)="hideAboutMyself()"></span>
-          </span>
-            </h4>
-            <cn-more-about-myself [candidate]="candidate"></cn-more-about-myself>
-          </div>
-        </div>
-
-        <div class="section-container profile-configurations" [hidden]="!showProfeciency">
-          <div class="col-md-9 col-sm-8 no-padding text-left">
-            <div class="info"><p>In case you wish to hide your profile visibility from recruiters, select hide option
-              above. You can also choose to show your profile later.</p></div>
-            <div class="radio">
-              <label>Profile Visibility:</label>
-              <label class="radio-inline">
-                <input type="radio" name="profile-visibility" id="optionsRadios2"
-                       (change)="showorhide($event.target.value)" value=true [checked]="candidate.isVisible == false">
-                show
-              </label>
-              <label class="radio-inline">
-                <input type="radio" name="profile-visibility" id="optionsRadios3"
-                       (change)="showorhide($event.target.value)" value=false [checked]="candidate.isVisible == true">
-                hide
-              </label>
-            </div>
+        <div class="profile-configurations">
+          <div class="col-sm-6 no-padding text-left">
             <div class="button-group">
               <button class="btn btn-primary" (click)="onSubmit()">Submit</button>
               <button class="btn btn-default">Cancel</button>
             </div>
           </div>
-          <div class="col-md-3 col-sm-4 no-padding text-right social-links">
+          <!--<div class="col-sm-6 no-padding text-right social-links">
             <div>
-              <label>You Can Share it On:</label>
+              <label>Share On</label>
               <img src="assets/c-next/profile-creator/fb.png"/>
               <img src="assets/c-next/profile-creator/linked-in.png"/>
               <img src="assets/c-next/profile-creator/twitter.png"/>
             </div>
-          </div>
+          </div>-->
         </div>
       </div>
     </div>

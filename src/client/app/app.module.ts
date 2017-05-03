@@ -59,7 +59,6 @@ import {RecruiterService} from "./framework/registration/recruiter/recruiter.ser
 import {RecruitingService} from "./framework/shared/recruiting.service";
 import {ScrollToModule} from "ng2-scroll-to";
 import {ProfilePictureComponent} from "./cnext/framework/profile-picture/profile-picture.component";
-import {ProficiencyDomainComponent} from "./cnext/framework/proficiency-domains/proficiency-domain.component";
 import {MainHeaderComponent} from "./framework/main-header/main-header.component";
 import {ComplexityService} from "./cnext/framework/complexity.service";
 import {ProfessionalDataComponent} from "./cnext/framework/professional-data/professional-data.component";
@@ -76,7 +75,6 @@ import {JobInformationComponent} from "./cnext/framework/job-information/job-inf
 import {JobRequirementComponent} from "./cnext/framework/job-requirement/job-requirement.component";
 import {JobLocationComponent} from "./cnext/framework/job-location/job-location.component";
 import {DescriptionFieldComponent} from "./cnext/framework/description-field/description-field.component";
-import {ProficiencyDomainService} from "./cnext/framework/proficiency-domains/proficiency-domain.service";
 import {MyRoleService} from "./cnext/framework/role-service";
 import {MyIndustryService} from "./cnext/framework/industry-service";
 import {MyCapabilityService} from "./cnext/framework/capability-service";
@@ -130,6 +128,11 @@ import {WorkAreaComponent} from "./cnext/framework/work-area/work-area.component
 import {RecruiterHeaderComponent} from "./cnext/framework/recruiter-dashboard/recruiter-dashboard-header/recruiter-header.component";
 import {CapabilitiesComponent} from "./cnext/framework/capibilities/capabilities.component";
 import {ComplexitiesComponent} from "./cnext/framework/complexities/complexities.component";
+import {ProficienciesComponent} from "./cnext/framework/proficiencies/proficiencies.component";
+import {ProficiencyDomainService} from "./cnext/framework/proficiencies/proficiencies.service";
+import {BasicJobInformationComponent} from "./cnext/framework/basic-job-information/basic-job-information.component";
+import {CompentansiesAndResponsibilitiesComponent} from "./cnext/framework/compentacies-and-responsibilities/compentacies-and-responsibilities.component";
+import {BasicJobInformationService} from "./cnext/framework/basic-job-information/basic-job-information.service";
 
 //C-NEXT IMPORTS
 
@@ -186,11 +189,13 @@ import {ComplexitiesComponent} from "./cnext/framework/complexities/complexities
     CandidateProfileComponent,
     ProfileDescriptionComponent,
     CapabilitiesComponent,
-    ProficiencyDomainComponent,
+    ProficienciesComponent,
     IndustryListComponent,
     ComplexitiesComponent,
     JobPosterComponent,
     SingleSelectListComponent,
+    BasicJobInformationComponent,
+    CompentansiesAndResponsibilitiesComponent,
     JobInformationComponent,
     JobRequirementComponent,
     JobLocationComponent,
@@ -247,6 +252,7 @@ import {ComplexitiesComponent} from "./cnext/framework/complexities/complexities
     ActiveUserService,
     ActiveEmailService,
     VerifyUserService,
+    BasicJobInformationService,
     JobLocationService,
     VerifyPhoneService,
     IndustryListService,

@@ -1,24 +1,33 @@
 import {Component, Input, Output, EventEmitter} from "@angular/core";
 import {Industry} from "../model/industry";
+import {CandidateProfileService} from "../candidate-profile/candidate-profile.service";
+import {Section} from "../model/candidate";
+import {LocalStorageService} from "../../../framework/shared/localstorage.service";
+import {LocalStorage} from "../../../framework/shared/constants";
 
 @Component({
   moduleId: module.id,
-  selector: 'cn-industry-experience-list',
+  selector: 'cn-industry-experience',
   templateUrl: 'industry-experience.component.html',
   styleUrls: ['industry-experience.component.css']
 })
 
 export class IndustryExperienceListComponent {
 
-  @Input() industries:Industry[] = new Array(0);
+  private industries:Industry[] = new Array(0);
   private selectedIndustries:string[] = new Array(0);
+  @Input() highlightedSection :Section;
   @Input() candidateExperiencedIndustry:string[] = new Array(0);
-  @Output() selectExperiencedIndustry = new EventEmitter();
+  @Output() onComplete = new EventEmitter();
 
-  ngOnChanges(changes:any) {
-    if (changes.industries != undefined) {
-      if (changes.industries.currentValue != undefined)
-        this.industries = changes.industries.currentValue;
+  constructor(private candidateProfileService:CandidateProfileService) {
+    this.candidateProfileService.getIndustries()
+      .subscribe(industries => this.industries = industries.data);
+  }
+
+  ngOnChanges(changes:any){
+    if(changes.candidateExperiencedIndustry.currentValue != undefined){
+      this.candidateExperiencedIndustry=changes.candidateExperiencedIndustry.currentValue;
     }
   }
 
@@ -32,7 +41,16 @@ export class IndustryExperienceListComponent {
         }
       }
     }
-    this.selectExperiencedIndustry.emit(this.selectedIndustries);
+    this.onComplete.emit(this.selectedIndustries);
+  }
+
+  onNext() {
+    if(LocalStorageService.getLocalValue(LocalStorage.IS_CANDIDATE)==='true') {
+      this.highlightedSection.name = "Professional-Details";
+    }
+    else{
+      this.highlightedSection.name = "Compentancies";
+    }
   }
 }
 

@@ -9,7 +9,6 @@ $theme-color: #3694d1;
 
 .section-container {
   text-align: left;
-  background: $white;
 }
 
 .main-content {
@@ -58,10 +57,15 @@ $theme-color: #3694d1;
     font-size: 10px;
     font-style: italic;
     background: url('../../../assets/c-next/profile-creator/info.png')  no-repeat  0 0;
-    padding-left: 25px;
+    padding: 2px 0 2px 25px;
     display: block;
     margin: 0 0 10px;
     color: $info;
+
+    ul {
+      padding: 0 0 0 10px;
+      margin-top: -6px;
+    }
   }
 
   .btn {
@@ -73,8 +77,11 @@ $theme-color: #3694d1;
 
   .btn-create-profile {
     background-color: $white;
+    border: 1px solid $theme-color;
+    box-shadow: 0 0 1px 0 #3694d1 inset, 0 0 1px 0 #3694d1;
     color: $text-color;
-    padding: 4px 15px;
+    font-size: 12px;
+    padding: 6px 15px;
   }
 
   .instructions {
@@ -98,11 +105,6 @@ $theme-color: #3694d1;
     }
   }
 
-  .form-control {
-    width: 100%;
-    border-radius: 0;
-  }
-
   span {
     background-color: $white;
     color: $text-color;
@@ -123,13 +125,13 @@ $theme-color: #3694d1;
     label {
       -moz-transition: top .2s ease-in, font-size .2s ease-in;
       -webkit-transition: top .2s ease-in, font-size .2s ease-in;
-      color: $text-color;
       font-size: 14px;
-      font-weight: normal;
+      font-weight: 600;
       left: 0;
       position: absolute;
       top: 10px;
       transition: .2s ease all;
+      width: 100%;
       z-index: 1;
       //transition: top .2s ease-in, font-size .2s ease-in;
     }
@@ -138,12 +140,54 @@ $theme-color: #3694d1;
       color: $text-color;
       position: relative;
       z-index: 2;
+      border-radius: 0;
+      margin-top: 9px;
 
       &:focus ~ label,
       &:valid ~ label {
         font-size: 12px;
         top: -10px;
       }
+    }
+  }
+
+  textarea {
+    height: 100px;
+    resize: vertical;
+    width: 100%;
+    border-radius: 0;
+    margin-top: 10px;
+  }
+
+  select {
+    border-radius: 0;
+    margin: 0 0 15px;
+  }
+
+  label {
+    font-size: 12px;
+    color: $info;
+  }
+
+  .btn-primary {
+    float: right;
+    margin-top: 15px;
+
+    &:focus,
+    &:active {
+      outline: none;
+    }
+  }
+
+  .form {
+    border-top: 1px solid $border-color;
+    margin: 10px 0 20px;
+    padding-top: 15px;
+
+    &:first-child {
+      border-top: 0;
+      padding-top: 0;
+      margin-top: 0;
     }
   }
 }
@@ -170,6 +214,25 @@ $theme-color: #3694d1;
       background: none;
       padding-left: 0;
       display: block;
+
+      ul {
+        padding: 0 0 0 15px;
+      }
+    }
+
+    .btn-primary {
+      float: none;
+      margin-top: 10px;
+    }
+
+    .heading {
+      .close-dialog {
+        visibility: hidden;
+
+        .glyphicon-remove {
+          visibility: visible;
+        }
+      }
     }
   }
 }

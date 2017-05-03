@@ -1,4 +1,4 @@
-import {Component, Input} from "@angular/core";
+import {Component, Input, EventEmitter, Output} from "@angular/core";
 import {Award} from "../model/award";
 import {AwardService} from "../award-service";
 import {ValueConstant, LocalStorage} from "../../../framework/shared/constants";
@@ -7,7 +7,7 @@ import {CandidateProfileService} from "../candidate-profile/candidate-profile.se
 import {MessageService} from "../../../framework/shared/message.service";
 import {LocalStorageService} from "../../../framework/shared/localstorage.service";
 import {Message} from "../../../framework/shared/message";
-import {Candidate} from "../model/candidate";
+import {Candidate, Section} from "../model/candidate";
 import {DisableAwardGlyphiconService} from "../disableGlyphiconAward.service";
 
 
@@ -20,6 +20,9 @@ import {DisableAwardGlyphiconService} from "../disableGlyphiconAward.service";
 
 export class AwardsComponent {
   @Input() candidate:Candidate;
+  @Input() highlightedSection:Section;
+  @Output() onComplete = new EventEmitter();
+
   public monthList = new Array('January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December');
   private tempfield:string[];
   private year:any;
@@ -122,5 +125,10 @@ export class AwardsComponent {
     this.sendPostCall = true;
 
 
+  }
+
+  onNext() {
+    this.onComplete.emit();
+    this.highlightedSection.name = "AboutMySelf";
   }
 }

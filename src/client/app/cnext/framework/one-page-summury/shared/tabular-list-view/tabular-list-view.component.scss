@@ -4,9 +4,10 @@ $border-color: #ccc;
 
 .capability-complexity {
   .heading {
-    background: #dbeef6;
+    background: #dbeef6 !important;
     margin: 0;
     width: 100%;
+    border-radius: 0;
 
     h4 {
       font-size: 12px;
@@ -50,13 +51,22 @@ $border-color: #ccc;
     }
 
     .heading {
-      padding: 0 15px;
-      margin: 10px 0;
+      padding: 0 15px !important;
+      margin: 5px 0 !important;
+
+      h4 {
+        padding: 5px 0;
+      }
     }
 
     .col-sm-3,
     .col-sm-9 {
       padding: 0;
+    }
+
+    .col-sm-4 {
+      padding: 5px 0 5px 0;
+      width: 100%;
     }
   }
 }

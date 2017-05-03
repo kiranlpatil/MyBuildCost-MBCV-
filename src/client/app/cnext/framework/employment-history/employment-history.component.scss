@@ -7,39 +7,13 @@ $border-color: #ccc;
   }
 }
 
-.form {
-  border-top: 1px solid $border-color;
-  margin: 10px 0 20px;
-  padding-top: 15px;
-
-  &:first-child {
-    border: 0;
-    padding-top: 0;
-    margin-top: 0;
-  }
-}
-
 .left-content {
   width: 50%;
   float: left;
   padding-right: 15px;
 
-  .worked-from,
-  .worked-to {
-    label {
-      font-weight: 400;
-      margin-bottom: 10px;
-      width: 100%;
-    }
-
-    .form-control {
-      //background: url('assets/framework/images/form/drop-down.png') no-repeat;
-      //background-position: 95% 50%;
-      border-radius: 0;
-      font-weight: 400;
-      margin-bottom: 15px;
-      padding: 6px;
-    }
+  label {
+    width: 100%;
   }
 }
 
@@ -49,23 +23,15 @@ $border-color: #ccc;
   padding-left: 15px;
 
   textarea {
-    border-radius: 0;
     height: 150px;
     margin-top: 15px;
-    resize: vertical;;
-    width: 100%;
   }
 }
-@media only screen and (max-width: 1024px) {
-  .left-content,
-  .right-content{
-    width: 100%;
-    padding: 0;
 
-    textarea {
-      margin: 5px 0 15px;
-      height: 100px;
-      width: 100%;
+.compact-view {
+  &:hover {
+    .btn-edit {
+      opacity: 1;
     }
   }
 }
@@ -73,26 +39,28 @@ $border-color: #ccc;
 @media only screen and (max-width: 980px) {
   .left-content,
   .right-content{
-    textarea {
-      width: 100%;
-    }
+    width: 100%;
+    padding: 0;
   }
 }
 
 @media only screen and (max-width: 767px) {
   .left-content {
-    .form-control {
-      margin: 0;
-      width: 100%;
-    }
-
     .col-sm-12 {
       clear: both;
     }
   }
 
+  .col-sm-12 {
+    padding: 0;
+  }
+
   .right-content {
     margin-bottom: 15px;
+
+    textarea {
+      width: 100%;
+    }
   }
 
   .form {

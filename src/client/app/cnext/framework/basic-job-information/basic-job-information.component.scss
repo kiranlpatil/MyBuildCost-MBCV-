@@ -1,0 +1,41 @@
+$light-blue: #00aed5;
+
+.job-info {
+  label {
+    width: 100%;
+  }
+
+  .form-control {
+    border-radius: 0;
+    margin-bottom: 15px;
+  }
+}
+
+.compact-view {
+  p {
+    width: 24%;
+    padding: 0 0.5%;
+    float:left;
+    margin-bottom: 15px;
+
+    label {
+      width: 100%;
+    }
+  }
+
+  &:hover {
+    .btn-edit {
+      opacity: 1;
+    }
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .compact-view {
+    p {
+      width: 100%;
+      padding: 0;
+      margin-bottom: 10px;
+    }
+  }
+}
