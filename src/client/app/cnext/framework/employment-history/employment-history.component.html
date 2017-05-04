@@ -1,13 +1,14 @@
 <div class="section-container" [hidden]="chkEmployeeHistory">
   <div class="main-content modal-content clearfix" *ngIf="highlightedSection.name =='EmploymentHistory'">
     <h4 class="heading">Employment History
-      <span class="close-dialog" [hidden]="isHiddenEmployeehistory">Close this section if not needed
+      <span class="close-dialog" [hidden]="isButtonShow">Close this section if not needed
         <span class="glyphicon glyphicon-remove" (click)="hideEmployeeHistory()"></span>
       </span>
     </h4>
-    <div class="form col-sm-12 clearfix" *ngFor="let item of candidate.employmentHistory;let i= index">
-
-      <div class="left-content">
+    <div class="form col-sm-12 clearfix"  [class.hide]="hideDiv[i]" *ngFor="let item of candidate.employmentHistory;let i= index">
+      <div >
+        <span class="glyphicon glyphicon-trash" (click)="deleteItem(i)" ></span>
+        <div class="left-content">
         <div class="col-sm-6 padding-right15">
           <div class="form-group">
             <input type="text" class="form-control" [(ngModel)]="item.companyName" (change)="postEmploymentHistoy()"   required />
@@ -38,6 +39,11 @@
 
         <div class="worked-to col-sm-12 no-padding">
           <label>To Date</label>
+          <div *ngIf="item.to.month ==''">
+            <label class="checkbox-inline">
+            <input type="checkbox" (click)="setCurrentDate(item)" name="TillDate" value="TillDate" />Till Date
+            </label>
+          </div>
           <div class="col-sm-6 padding-right15">
             <select class="form-control" [(ngModel)]="item.to.month" (change)="postEmploymentHistoy()">
               <option *ngFor="let c of monthList" [selected]="true" [ngValue]="c">{{c}}</option>
@@ -52,11 +58,11 @@
           </div>
         </div>
       </div>
-
-      <div class="right-content">
+        <div class="right-content">
         <div>
           <textarea class="form-control" [(ngModel)]="item.remarks" (change)="postEmploymentHistoy()" Placeholder="Remark"></textarea>
         </div>
+      </div>
       </div>
     </div>
     <div class="col-sm-12">
@@ -79,14 +85,13 @@
       <button class="btn-edit" (click)="highlightedSection.name='EmploymentHistory'"></button>
       <h4 class="heading">Employment History</h4>
       <ul>
-        <li *ngFor="let item of candidate.employmentHistory">
-          <p>{{item.designation}} at {{item.companyName}} </p>
-          <p>From {{item.from.month}} {{item.from.year}} to {{item.to.month}} {{item.to.year}}</p>
-        </li>
+        <div *ngFor="let item of candidate.employmentHistory">
+          <li *ngIf="item.designation != '' && item.companyName != ''"><p >{{item.designation}} at {{item.companyName}} </p>
+          <p >From {{item.from.month}} {{item.from.year}} to {{item.to.month}} {{item.to.year}}</p></li>
+        </div>
       </ul>
     </div>
   </div>
-
 </div>
 
 

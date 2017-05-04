@@ -22,7 +22,7 @@
   </div>
   <div class="main-content" *ngIf="highlightedSection.name !='IndustryExposure'">
     <div class="compact-view clearfix">
-      <button class="btn-edit" (click)="highlightedSection.name='IndustryExposure'"></button>
+      <button class="btn-edit" (click)="highlightedSection.name='IndustryExposure';disableButton=false"></button>
       <h4 class="heading">Experienced Industry</h4>
       <div class="select-option" *ngFor="let item of candidateExperiencedIndustry">
         <span class="primary">{{item}}</span>

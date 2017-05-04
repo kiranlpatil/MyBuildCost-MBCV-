@@ -9,7 +9,7 @@ import { Component, Input, OnInit,Output,EventEmitter } from '@angular/core';
   styleUrls: ['description-field.component.css']
 })
 
-export class DescriptionFieldComponent implements OnInit {
+export class DescriptionFieldComponent {
   @Input('type') type : string;
   @Input('maxLength') maxLength :number;
   @Input() description:string;
@@ -22,12 +22,9 @@ export class DescriptionFieldComponent implements OnInit {
  private maxword:number;
  private remainingWords:number;
   constructor() {
-
-  }
-
-  ngOnInit() {
     this.remainingWords=this.maxLength;
   }
+
 
   ngOnChanges(){
     if(this.description != undefined && this.description != ''){
@@ -46,5 +43,4 @@ export class DescriptionFieldComponent implements OnInit {
       }
     this.onComplete.emit(this.description);
   }
-
 }
