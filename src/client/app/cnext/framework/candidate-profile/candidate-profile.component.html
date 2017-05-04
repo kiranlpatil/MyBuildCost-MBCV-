@@ -32,27 +32,30 @@
         <cn-profile-description [candidate]="candidate" [highlightedSection]="highlightedSection"
                                 (onComplete)="onProfileDescriptionComplete($event)"></cn-profile-description>
 
+        <div id="work-area" >
         <cn-work-area [roles]="rolesForMain" [selectedRoles]="candidateForRole"
                       [highlightedSection]="highlightedSection"
                       (onComplete)="onWorkAreaComplete($event)" [hidden]="isRolesShow"></cn-work-area>
+          </div>
 
+        <div id="capability-area">
         <cn-capabilities [roles]="rolesForCapability" [candidateRoles]="candidateForCapability"
                          [highlightedSection]="highlightedSection"
-                         (onComplete)="onCapabilityComplete($event)" [hidden]="!showCapability"></cn-capabilities>
-
+                         (onComplete)="onCapabilityComplete($event)" [hidden]="!showCapability"></cn-capabilities></div>
+        <div id="complexity-area" >
         <cn-complexities [roles]="rolesForComplexity" [candidateRoles]="candidateForComplexity"
                          [highlightedSection]="highlightedSection"
                          [isComplexityPresent]="isComplexityPresent"
-                         (onComplete)="onComplexitytyComplete($event)" [hidden]="!showComplexity"></cn-complexities>
-
+                         (onComplete)="onComplexitytyComplete($event)" [hidden]="!showComplexity"></cn-complexities></div>
+        <div id="proficiency-area">
         <cn-proficiencies [proficiencies]="proficiencies" [choosedproficiencies]="candidate.proficiencies"
                                 [highlightedSection]="highlightedSection"
-                               (onComplete)="onProficiencyComplete($event)" [hidden]="!showProfeciency"></cn-proficiencies>
-
+                               (onComplete)="onProficiencyComplete($event)" [hidden]="!showProfeciency"></cn-proficiencies></div>
+        <div id="industry-experience">
         <cn-industry-experience [candidateExperiencedIndustry]="candidate.intrestedIndustries"
                                 [highlightedSection]="highlightedSection"
                                 (onComplete)="onExperienceIndustryComplete($event)"
-                                [hidden]="!showIndustryExperience"></cn-industry-experience>
+                                [hidden]="!showIndustryExperience"></cn-industry-experience></div>
 
 
         <cn-professional-data [candidate]="candidate" [highlightedSection]="highlightedSection"
