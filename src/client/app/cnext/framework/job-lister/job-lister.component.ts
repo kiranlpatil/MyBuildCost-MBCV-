@@ -1,8 +1,4 @@
-import {  Component  } from '@angular/core';
-import {JobListerService} from "./job-lister-service";
-import {JobPosterModel} from "../model/jobPoster";
-//import { JobListerService } from 'job-lister-service';
-//import {JobPosterModel} from "../model/JobPosterModel";
+import {Component, Input} from "@angular/core";
 
 
 @Component({
@@ -13,12 +9,13 @@ import {JobPosterModel} from "../model/jobPoster";
 })
 
 export class JobListerComponent {
-  public jobList:JobPosterModel[] = new Array(0);
-  constructor(private jobListerService:JobListerService) {
-      jobListerService.getJobList().subscribe(
-        data=> {
-          this.jobList = data.data[0].postedJobs;
-        }
-      );
+  @Input() jobListInput: any[] = new Array(0);
+
+  ngOnChanges(changes: any) {
+    if (changes.jobListInput != undefined && changes.jobListInput.length > 0) {
+      this.jobListInput = changes.jobListInput;
     }
+
   }
+
+}

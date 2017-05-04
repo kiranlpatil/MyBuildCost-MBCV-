@@ -1,6 +1,9 @@
-<div *ngFor="let item of jobList">
+<div *ngIf="jobListInput.length > 0">
+<div *ngFor="let item of jobListInput">
 <div>JobTitle : {{item.jobTitle}}</div>
 <div>Department : {{item.department}}</div>
 <div>Posting date : {{item.postingDate}}</div>
 <div>Hiring Manager : {{item.hiringManager}}</div>
 </div>
+</div>
+<div *ngIf="jobListInput.length == 0">You havn't posted any job yet</div>

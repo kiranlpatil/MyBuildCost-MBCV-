@@ -113,7 +113,7 @@ import {BasicJobInformationComponent} from "./cnext/framework/basic-job-informat
 import {CompentansiesAndResponsibilitiesComponent} from "./cnext/framework/compentacies-and-responsibilities/compentacies-and-responsibilities.component";
 import {BasicJobInformationService} from "./cnext/framework/basic-job-information/basic-job-information.service";
 import {JobListerComponent} from "./cnext/framework/job-lister/job-lister.component";
-import {JobListerService} from "./cnext/framework/job-lister/job-lister-service";
+import {RecruiterDashboardService} from "./cnext/framework/recruiter-dashboard/recruiter-dashboard.service";
 
 
 //C-NEXT IMPORTS
@@ -254,7 +254,7 @@ import {JobListerService} from "./cnext/framework/job-lister/job-lister-service"
     JobPosterService,
     CandidateAcadmyDetailService,
     CandidateProfileService,
-    JobListerService,
+    RecruiterDashboardService,
 
   ],
   bootstrap: [AppComponent]
