@@ -112,6 +112,9 @@ import {ProficiencyDomainService} from "./cnext/framework/proficiencies/proficie
 import {BasicJobInformationComponent} from "./cnext/framework/basic-job-information/basic-job-information.component";
 import {CompentansiesAndResponsibilitiesComponent} from "./cnext/framework/compentacies-and-responsibilities/compentacies-and-responsibilities.component";
 import {BasicJobInformationService} from "./cnext/framework/basic-job-information/basic-job-information.service";
+import {JobListerComponent} from "./cnext/framework/job-lister/job-lister.component";
+import {JobListerService} from "./cnext/framework/job-lister/job-lister-service";
+
 
 //C-NEXT IMPORTS
 
@@ -187,7 +190,8 @@ import {BasicJobInformationService} from "./cnext/framework/basic-job-informatio
     WorkAreaComponent,
     RecruiterHeaderComponent,
     RoleTypetListComponent,
-    IndustryExperienceListComponent
+    IndustryExperienceListComponent,
+    JobListerComponent
 
   ],
   providers: [
@@ -250,6 +254,7 @@ import {BasicJobInformationService} from "./cnext/framework/basic-job-informatio
     JobPosterService,
     CandidateAcadmyDetailService,
     CandidateProfileService,
+    JobListerService,
 
   ],
   bootstrap: [AppComponent]
