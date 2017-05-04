@@ -116,6 +116,7 @@ import {JobListerService} from "./cnext/framework/job-lister/job-lister-service"
 import {QCardviewComponent} from "./cnext/framework/q-card-view/q-card-view.component";
 import {QCardViewService} from "./cnext/framework/q-card-view/q-card-view.service";
 import {SortPipe} from "./cnext/framework/q-card-view/q-card-view.pipe";
+import {ProgressBarComponent} from "./cnext/framework/progress-bar/progress-bar.component";
 import {ShowQcardviewService} from "./cnext/framework/showQCard.service";
 import {jobListerSortPipe} from "./cnext/framework/job-lister/job-lister.pipe";
 
@@ -191,6 +192,7 @@ import {jobListerSortPipe} from "./cnext/framework/job-lister/job-lister.pipe";
     CompanyDetailsComponent,
     MoreAboutMyselfComponent,
     RecruiterDashboardComponent,
+    ProgressBarComponent,
     WorkAreaComponent,
     RecruiterHeaderComponent,
     RoleTypetListComponent,

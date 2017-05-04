@@ -6,7 +6,7 @@
       "matching" : 100,
       "salary" : 4.8,
       "experience" :4,
-      "location" : "pune"
+      "location" : "Yes"
 
     },
     {
@@ -15,7 +15,7 @@
       "matching" :75,
       "salary" : 5,
       "experience" :5,
-      "location" : "pune"
+      "location" : "No"
 
     },
     {
@@ -24,7 +24,7 @@
       "matching" :80 ,
       "salary" : 6,
       "experience" :6,
-      "location" : "pune"
+      "location" : "Yes"
 
     },
     {
@@ -33,9 +33,35 @@
       "matching" :50 ,
       "salary" : 6,
       "experience" :6,
-      "location" : "pune"
+      "location" : "Yes"
+
+    },
+    {
+      "first_name" : "lucky",
+      "last_name" : "vaishnav",
+      "matching" : 95,
+      "salary" : 4.8,
+      "experience" :4,
+      "location" : "No"
+
+    },
+    {
+      "first_name" : "lucky",
+      "last_name" : "vaishnav",
+      "matching" : 97,
+      "salary" : 4.8,
+      "experience" :4,
+      "location" : "Yes"
+
+    },
+    {
+      "first_name" : "lucky",
+      "last_name" : "vaishnav",
+      "matching" : 99,
+      "salary" : 4.8,
+      "experience" :4,
+      "location" : "No"
 
     }
-
   ]
 }

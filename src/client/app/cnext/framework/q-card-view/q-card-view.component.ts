@@ -9,7 +9,7 @@ import {QCardsortBy} from "../model/q-cardview-sortby";
   moduleId: module.id,
   selector: 'cn-q-card-view',
   templateUrl: 'q-card-view.component.html',
-  styleUrls: ['q-card-view.component.scss'],
+  styleUrls: ['q-card-view.component.css'],
 
 })
 export class QCardviewComponent  {

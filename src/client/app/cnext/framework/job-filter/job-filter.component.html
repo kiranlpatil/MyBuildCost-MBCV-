@@ -1,7 +1,8 @@
-<div class="filter-container" [hidden]="!isShowJobFilter" >
-  <p>Adjust these filters to get more numbers of candidates</p>
+<button type="button" class="btn btn-block" data-toggle="collapse" data-target="#filter-container">Filters</button>
+<div id="filter-container" class="collapse filter-container" [hidden]="!isShowJobFilter">
+  <p class="info">Adjust these filters to get more numbers of candidates</p>
   <div class="inner col-sm-12">
-    <label>Proficiency:
+    <label>Proficiency
       <div ng2-auto-complete
            [source]="roles"
            (ngModelChange)="selectRolesModel($event)">
@@ -9,7 +10,7 @@
       </div>
     </label>
 
-    <label>Domain:
+    <label>Domain
       <div ng2-auto-complete
            [source]="roles"
            (ngModelChange)="selectRolesModel($event)">
@@ -17,7 +18,7 @@
       </div>
     </label>
 
-    <label>Experience:
+    <label>Experience
       <div ng2-auto-complete
            [source]="roles"
            (ngModelChange)="selectRolesModel($event)">
@@ -25,7 +26,7 @@
       </div>
     </label>
 
-    <label>Complexity:
+    <label>Complexity
       <div ng2-auto-complete
            [source]="roles"
            (ngModelChange)="selectRolesModel($event)">
@@ -33,7 +34,7 @@
       </div>
     </label>
 
-    <label>Lead Time to Join:
+    <label>Lead Time to Join
       <div ng2-auto-complete
            [source]="roles"
            (ngModelChange)="selectRolesModel($event)">
@@ -41,26 +42,24 @@
       </div>
     </label>
 
-    <p>Salary Range:</p>
-    <div class="row">
-      <div class="col-sm-6">
-        <label>
-          <div ng2-auto-complete
-               [source]="roles"
-               (ngModelChange)="selectRolesModel($event)">
-            <input class="form-control" [ngModel]="roleModel" placeholder="Min"/>
-          </div>
-        </label>
-      </div>
-      <div class="col-sm-6">
-        <label>
-          <div ng2-auto-complete
-               [source]="roles"
-               (ngModelChange)="selectRolesModel($event)">
-            <input class="form-control" [ngModel]="roleModel" placeholder="Max"/>
-          </div>
-        </label>
-      </div>
+    <label>Salary Range</label>
+    <div class="col-sm-6 padding-right5">
+      <label>
+        <div ng2-auto-complete
+             [source]="roles"
+             (ngModelChange)="selectRolesModel($event)">
+          <input class="form-control" [ngModel]="roleModel" placeholder="Min"/>
+        </div>
+      </label>
+    </div>
+    <div class="col-sm-6 padding-left5">
+      <label>
+        <div ng2-auto-complete
+             [source]="roles"
+             (ngModelChange)="selectRolesModel($event)">
+          <input class="form-control" [ngModel]="roleModel" placeholder="Max"/>
+        </div>
+      </label>
     </div>
   </div>
 </div>
