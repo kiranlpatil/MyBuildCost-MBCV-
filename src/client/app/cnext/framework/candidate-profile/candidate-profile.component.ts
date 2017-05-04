@@ -329,14 +329,8 @@ export class CandidateProfileComponent implements OnInit {
       this.whichStepsVisible[5] = true;
     }
 
-    if (this.candidate.academics.length > 0 && this.candidate.academics[0].schoolName !== '' &&
-      this.candidate.certifications.length > 0 && this.candidate.certifications[0].name !== '' &&
-      this.candidate.aboutMyself !== undefined && this.candidate.aboutMyself !== '' &&
-      this.candidate.employmentHistory.length > 0 && this.candidate.employmentHistory[0].companyName !== '' &&
-      this.candidate.awards.length > 0 && this.candidate.awards[0].name !== ''
-    ) {
+    if (this.candidate.academics.length > 0 && this.candidate.academics[0].schoolName !== '') {
       this.showAcademicsDetails=true;
-      this.whichStepsVisible[6] = true;
     }
 
     if (this.candidate.certifications.length > 0 && this.candidate.certifications[0].name !== '') {
@@ -344,6 +338,7 @@ export class CandidateProfileComponent implements OnInit {
       this.isHiddenCertificate = true;
     }
     if (this.candidate.aboutMyself !== undefined && this.candidate.aboutMyself !== '') {
+      this.whichStepsVisible[6] = true;
       this.showAboutMySelf=true;
       this.isHiddenAboutMyself = true;
     }

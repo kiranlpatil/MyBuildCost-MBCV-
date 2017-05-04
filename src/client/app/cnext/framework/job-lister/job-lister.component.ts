@@ -1,9 +1,6 @@
-import {  Component  } from '@angular/core';
-import {JobListerService} from "./job-lister-service";
+import {  Component,Input  } from '@angular/core';
 import {JobPosterModel} from "../model/jobPoster";
 import {QCardsortBy} from "../model/q-cardview-sortby";
-//import { JobListerService } from 'job-lister-service';
-//import {JobPosterModel} from "../model/JobPosterModel";
 
 
 @Component({
@@ -14,22 +11,33 @@ import {QCardsortBy} from "../model/q-cardview-sortby";
 })
 
 export class JobListerComponent {
+  @Input() jobListInput: any[] = new Array(0);
   public jobList:JobPosterModel[] = new Array(0);
   public jobListToCheck:JobPosterModel[] = new Array(0);
   private toggle:boolean=false;
   private qCardModel:QCardsortBy=new QCardsortBy();
 
-  constructor(private jobListerService:JobListerService) {
-      jobListerService.getJobList().subscribe(
-        data=> {
-          this.jobList = data.data[0].postedJobs;});
-          this.qCardModel.name='Date';
+  constructor() {
+    this.qCardModel.name='Date';
+  }
+
+  ngOnChanges(changes: any) {
+    if (changes.jobListInput != undefined && changes.jobListInput.length > 0) {
+      this.jobListInput = changes.jobListInput;
     }
+
+  }
+
   sortBy(){
     this.toggleFormat();
   }
-  get format()   {
-    return this.toggle ? this.qCardModel.name :"Date"; }
-  toggleFormat() {
-    this.toggle = true; }
+
+  get format() {
+    return this.toggle ? this.qCardModel.name :"Date";
   }
+
+  toggleFormat() {
+    this.toggle = true;
+  }
+
+}

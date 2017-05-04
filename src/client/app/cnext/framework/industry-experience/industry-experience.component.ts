@@ -19,7 +19,7 @@ export class IndustryExperienceListComponent {
   @Input() highlightedSection :Section;
   @Input() candidateExperiencedIndustry:string[] = new Array(0);
   @Output() onComplete = new EventEmitter();
-
+  private disableButton:boolean=true;
   constructor(private candidateProfileService:CandidateProfileService) {
     this.candidateProfileService.getIndustries()
       .subscribe(industries => this.industries = industries.data);
@@ -34,6 +34,7 @@ export class IndustryExperienceListComponent {
 
   selectIndustryModel(industry:string,event:any) {
     if(event.target.checked) {
+      this.disableButton=false;
       this.selectedIndustries.push(industry);
     } else {
       for (let data of this.selectedIndustries) {
@@ -41,6 +42,9 @@ export class IndustryExperienceListComponent {
           this.selectedIndustries.splice(this.selectedIndustries.indexOf(data), 1);
         }
       }
+    }
+    if(this.selectedIndustries.length <= 0){
+      this.disableButton=true;
     }
     this.onComplete.emit(this.selectedIndustries);
   }
