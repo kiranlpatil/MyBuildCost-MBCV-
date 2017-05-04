@@ -1,6 +1,14 @@
-<div *ngFor="let item of jobList">
-<div>JobTitle : {{item.jobTitle}}</div>
-<div>Department : {{item.department}}</div>
-<div>Posting date : {{item.postingDate}}</div>
-<div>Hiring Manager : {{item.hiringManager}}</div>
+<label>Sort by</label>
+<select [(ngModel)]="qCardModel.name" (change)="sortBy()">
+  <option value="Date">Date</option>
+</select>
+
+<div *ngFor="let item of jobList | orderBy:format">
+<span>JobTitle : {{item.jobTitle}}</span>
+<span>Department : {{item.department}}</span>
+<span>Posting date : {{item.postingDate | date:'shortDate'}} </span>
+<span>Hiring Manager : {{item.hiringManager}}</span>
+
+
 </div>
+

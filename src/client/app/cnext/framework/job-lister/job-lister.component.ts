@@ -1,6 +1,7 @@
 import {  Component  } from '@angular/core';
 import {JobListerService} from "./job-lister-service";
 import {JobPosterModel} from "../model/jobPoster";
+import {QCardsortBy} from "../model/q-cardview-sortby";
 //import { JobListerService } from 'job-lister-service';
 //import {JobPosterModel} from "../model/JobPosterModel";
 
@@ -14,11 +15,21 @@ import {JobPosterModel} from "../model/jobPoster";
 
 export class JobListerComponent {
   public jobList:JobPosterModel[] = new Array(0);
+  public jobListToCheck:JobPosterModel[] = new Array(0);
+  private toggle:boolean=false;
+  private qCardModel:QCardsortBy=new QCardsortBy();
+
   constructor(private jobListerService:JobListerService) {
       jobListerService.getJobList().subscribe(
         data=> {
-          this.jobList = data.data[0].postedJobs;
-        }
-      );
+          this.jobList = data.data[0].postedJobs;});
+          this.qCardModel.name='Date';
     }
+  sortBy(){
+    this.toggleFormat();
+  }
+  get format()   {
+    return this.toggle ? this.qCardModel.name :"Date"; }
+  toggleFormat() {
+    this.toggle = true; }
   }

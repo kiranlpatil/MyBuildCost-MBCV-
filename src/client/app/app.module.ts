@@ -89,7 +89,6 @@ import {RoleTypeService} from "./cnext/framework/role-type/role-type.service";
 import {IndustryExperienceListComponent} from "./cnext/framework/industry-experience/industry-experience.component";
 import {IndustryExperienceService} from "./cnext/framework/industry-experience/industry-experience.service";
 import {DisableTestService} from "./cnext/framework/disable-service";
-import {ShowJobFilterService} from "./cnext/framework/showJobFilter.service";
 import {CandidateAwardService} from "./cnext/framework/awards/awards.service";
 import {AboutCandidateService} from "./cnext/framework/more-about-myself/more-about-myself.service";
 import {CandidateAcadmyDetailService} from "./cnext/framework/academic-details/academic-details.service";
@@ -117,6 +116,8 @@ import {JobListerService} from "./cnext/framework/job-lister/job-lister-service"
 import {QCardviewComponent} from "./cnext/framework/q-card-view/q-card-view.component";
 import {QCardViewService} from "./cnext/framework/q-card-view/q-card-view.service";
 import {SortPipe} from "./cnext/framework/q-card-view/q-card-view.pipe";
+import {ShowQcardviewService} from "./cnext/framework/showQCard.service";
+import {jobListerSortPipe} from "./cnext/framework/job-lister/job-lister.pipe";
 
 
 //C-NEXT IMPORTS
@@ -196,7 +197,8 @@ import {SortPipe} from "./cnext/framework/q-card-view/q-card-view.pipe";
     IndustryExperienceListComponent,
     JobListerComponent,
     QCardviewComponent,
-    SortPipe
+    SortPipe,
+    jobListerSortPipe
 
   ],
   providers: [
@@ -253,7 +255,6 @@ import {SortPipe} from "./cnext/framework/q-card-view/q-card-view.pipe";
     RoleTypeService,
     IndustryExperienceService,
     DisableTestService,
-    JobIndustryShowService,
     ShowQcardviewService,
     CandidateAwardService,
     AboutCandidateService,
