@@ -1,8 +1,8 @@
 export class AppSettings {
- //public static IP = 'http://localhost:8080';
+ public static IP = 'http://localhost:8080';
   // public static IP = 'http://ee802b7f.ngrok.io';
   //public static IP = 'http://10.192.33.252:8087';
-  public static IP = 'http://52.41.194.37:8080';
+ // public static IP = 'http://52.41.194.37:8080';
   //public static IP = '';
 
 
@@ -109,6 +109,8 @@ export class LocalStorage {
 
 export class ValueConstant {
   public static MAX_CAPABILITIES:number = 10;
+  public static MAX_WORKAREA:number = 3;
+  public static MAX_INTERESTEDINDUSTRY:number = 7;
   public static MAX_PROFECIENCES:number = 25;
   public static MAX_DOMAINS:number = 10;
   public static MAX_YEAR_LIST:number = 60;
