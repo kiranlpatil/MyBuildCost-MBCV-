@@ -21,8 +21,10 @@ $profile-section-shadow: rgba(204, 204, 204, 1);
 
     select {
       border: 0;
-      border-bottom: 1px solid $border-color;
+      border: 1px solid $border-color;
       padding: 5px 15px;
+      min-width: 150px;
+      width: auto;
     }
   }
 

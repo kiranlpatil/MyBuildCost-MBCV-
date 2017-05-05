@@ -11,19 +11,21 @@
 
   <div class="col-sm-12 list-view" *ngIf="jobListInput.length > 0">
     <div class="panel clearfix" *ngFor="let item of jobListInput | orderBy:format">
-      <div class="col-sm-1 col-xs-3 no-padding">
+      <div class="col-sm-6 no-padding job-posted clearfix">
+        <div class="col-xs-2 no-padding">
           <p><span>52</span></p>Matches
-      </div>
-      <div class="col-sm-11 col-xs-9 no-padding">
-        <div class="col-sm-6 no-padding">
+        </div>
+        <div class="col-xs-10 padding-left15">
           <h4>{{item.jobTitle}}</h4>
           <p>{{item.department}}</p>
         </div>
-        <div class="col-sm-3 no-padding">
-          <p><span class="glyphicon glyphicon-calendar"></span>{{item.postingDate | date:'shortDate'}}</p>
+      </div>
+      <div class="col-sm-6 contact-info">
+        <div class="col-xs-6 no-padding">
+          <p><img src="../../../../assets/c-next/post-job/calendar.png" alt="calendar"/>{{item.postingDate | date:'shortDate'}}</p>
         </div>
-        <div  class="col-sm-3 no-padding">
-          <p><span class="glyphicon glyphicon-user"></span>{{item.hiringManager}}</p>
+        <div  class="col-xs-6 no-padding">
+          <p><img src="../../../../assets/c-next/post-job/contact-person.png" alt="Hiring Manager"/>{{item.hiringManager}}</p>
         </div>
       </div>
     </div>
