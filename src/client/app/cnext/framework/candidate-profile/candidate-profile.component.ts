@@ -321,7 +321,7 @@ export class CandidateProfileComponent implements OnInit {
         }
       }
     }
-    if(this.candidate.interestedIndustries.length>0){
+    if(this.candidate.interestedIndustries!== undefined && this.candidate.interestedIndustries.length>0){
       this.showIndustryExperience=true;
     }
 
