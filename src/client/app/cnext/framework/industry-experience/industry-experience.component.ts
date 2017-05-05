@@ -27,7 +27,7 @@ export class IndustryExperienceListComponent {
   }
 
   ngOnChanges(changes:any){
-    
+
     if(changes.candidateExperiencedIndustry.currentValue != undefined){
       this.candidateExperiencedIndustry=changes.candidateExperiencedIndustry.currentValue;
       this.selectedIndustries=this.candidateExperiencedIndustry;
@@ -36,6 +36,7 @@ export class IndustryExperienceListComponent {
       }
     }
     if(this.candidateExperiencedIndustry === undefined){
+      this.candidateExperiencedIndustry= new Array(0);
       this.candidateExperiencedIndustry.push("s");
     }
   }
