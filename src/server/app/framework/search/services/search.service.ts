@@ -15,10 +15,11 @@ class SearchService {
     let data = {
       "industry.name": jobProfile.industry.name,
       //"relocate":true,
-      "proficiencies": {$in: jobProfile.proficiencies},
-      "interestedIndustries": {$in: jobProfile.interestedIndustries},
+      //"proficiencies": {$in: jobProfile.proficiencies},
+     // "interestedIndustries": {$in: jobProfile.interestedIndustries},
       "isVisible":true
     };
+    console.log("Data "+ JSON.stringify(data));
     this.candidateRepository.retrieve(data, (err, res) => {
       if (err) {
         callback(err, null);

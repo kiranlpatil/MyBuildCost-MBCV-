@@ -40,7 +40,7 @@ export function retrieve(req:express.Request, res:express.Response, next:any) {
       else {
         res.send({
           "status": "success",
-          "data": result[0].proficiencies
+          "data": result[0]//.proficiencies
         });
       }
     });

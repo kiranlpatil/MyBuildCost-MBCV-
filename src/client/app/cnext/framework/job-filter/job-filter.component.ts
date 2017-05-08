@@ -15,7 +15,7 @@ export class JobFilterComponent {
   constructor(private showQCardview:ShowQcardviewService) {
     this.showQCardview.showJobQCardView$.subscribe(
       data=> {
-        this.isShowJobFilter=data;
+        this.isShowJobFilter=true;
       }
     );
   }

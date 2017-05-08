@@ -11,10 +11,10 @@ export class   QCardViewService extends BaseService{
   }
   getSearchedcandidate(jobPosterModel:JobPosterModel)
   {
-    let headers = new Headers({ 'Content-Type': 'application/json'});
-    let options = new RequestOptions({ headers: headers });
-    let url:string=API.SEARCHED_CANDIDATE+'/jobPosterModel?jobPosterModel='+jobPosterModel;
-    return this.http.get(url,options)
+    let headers = new Headers({'Content-Type': 'application/json'});
+    let options = new RequestOptions({headers: headers});
+    var body = JSON.stringify(jobPosterModel);
+    return this.http.post(API.SEARCH_CANDIDATE,body,options)
       .map(this.extractData)
       .catch(this.handleError);
   }

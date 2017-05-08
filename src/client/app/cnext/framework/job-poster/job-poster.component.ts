@@ -80,7 +80,7 @@ export class JobPosterComponent {
 
   mockupSearch() {
     this.isShowCandidateQCardView=true;
-    this.showQCardView.change(true);
+    this.showQCardView.change(this.jobPosterModel);
 
 
   }

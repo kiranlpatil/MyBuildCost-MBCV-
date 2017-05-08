@@ -12,37 +12,43 @@ import {QCardsortBy} from "../model/q-cardview-sortby";
   styleUrls: ['q-card-view.component.css'],
 
 })
-export class QCardviewComponent  {
+export class QCardviewComponent {
   private candidates:CandidateQCard[] = new Array();
-  private toggle:boolean=false;
+  private toggle:boolean = false;
   private matches:number;
-  private jobPosterModel:JobPosterModel=new JobPosterModel();
-  private qCardModel:QCardsortBy=new QCardsortBy();
+  private qCardModel:QCardsortBy = new QCardsortBy();
   private isShowQCardView:boolean;
-  constructor(private qCardViewService: QCardViewService,private showQCardview:ShowQcardviewService) {
+
+  constructor(private qCardViewService:QCardViewService, private showQCardview:ShowQcardviewService) {
     this.showQCardview.showJobQCardView$.subscribe(
       data=> {
-        this.isShowQCardView=data,
-          this.showQCardView();
+        this.showQCardView(data);
       }
     );
 
   }
-  showQCardView()
-  {if(this.isShowQCardView) {
-    this.qCardViewService.getSearchedcandidate(this.jobPosterModel)
-      .subscribe(
-        data =>{ this.candidates = data.candidate,
-      this.matches=this.candidates.length});
+
+  showQCardView(jobPosterModel:JobPosterModel) {
+      this.isShowQCardView=true;
+      this.qCardViewService.getSearchedcandidate(jobPosterModel)
+        .subscribe(
+          data => {
+            this.candidates = data,
+              this.matches = this.candidates.length
+          });
   }
+
+  sortBy() {
+    this.toggleFormat();
   }
-  sortBy(){
-  this.toggleFormat();
-  }
-  get formatcandidate()   {
+
+  get formatcandidate() {
     console.log(this.qCardModel.name);
-    return this.toggle ? this.qCardModel.name :"JobMatching"; }
+    return this.toggle ? this.qCardModel.name : "JobMatching";
+  }
+
   toggleFormat() {
-    this.toggle = true; }
+    this.toggle = true;
+  }
 
 }
