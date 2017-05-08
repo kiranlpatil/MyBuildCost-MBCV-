@@ -12,7 +12,7 @@ import {QCardsortBy} from "../model/q-cardview-sortby";
   styleUrls: ['q-card-view.component.css'],
 
 })
-export class QCardviewComponent {
+export class QCardviewComponent  {
   private candidates:CandidateQCard[] = new Array();
   private toggle:boolean = false;
   private matches:number;
@@ -30,6 +30,7 @@ export class QCardviewComponent {
 
   showQCardView(jobPosterModel:JobPosterModel) {
       this.isShowQCardView=true;
+      console.log(jobPosterModel.toString());
       this.qCardViewService.getSearchedcandidate(jobPosterModel)
         .subscribe(
           data => {
@@ -43,7 +44,6 @@ export class QCardviewComponent {
   }
 
   get formatcandidate() {
-    console.log(this.qCardModel.name);
     return this.toggle ? this.qCardModel.name : "JobMatching";
   }
 

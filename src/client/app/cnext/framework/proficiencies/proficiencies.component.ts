@@ -32,7 +32,7 @@ export class ProficienciesComponent {
 
   constructor(private proficiencydoaminService:ProficiencyDomainService ,private messageService:MessageService ) {
   }
-  ngOnInit() {
+  ngOnInit() {debugger
     this.proficiencydoaminService.getProficiency()
       .subscribe(
         data => this.OnProficiencyDataSuccess(data),
@@ -56,7 +56,7 @@ export class ProficienciesComponent {
     /*}*/
   /*}*/
   OnProficiencyDataSuccess(data:any) {
-this.Proficiencies= data.data;
+this.Proficiencies= data.data[0].proficiencies;
 this.masterDataProficiencies = data.data;
 
   }

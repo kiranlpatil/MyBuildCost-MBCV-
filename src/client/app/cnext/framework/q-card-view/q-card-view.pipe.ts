@@ -6,7 +6,7 @@ import {CandidateQCard} from "../model/candidateQcard";
 export class SortPipe implements  PipeTransform{
 
 
-  transform(array: Array<CandidateQCard>, args: string): Array<CandidateQCard> {debugger
+  transform(array: Array<CandidateQCard>, args: string): Array<CandidateQCard> {
     if (array == null ) {
       return null;
     }
