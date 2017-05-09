@@ -30,6 +30,10 @@ class RecruiterSchema {
             type: [String]
           },
           postedJobs:[{
+            candidate_list: [{
+              name: String,
+              ids: [String]
+            }],
             jobTitle :{
               type : String
             },
@@ -77,7 +81,6 @@ class RecruiterSchema {
               type : String
             },
             responsibility :{
-
               type : String
             },
             postingDate :{
