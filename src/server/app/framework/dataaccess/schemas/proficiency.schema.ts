@@ -7,8 +7,11 @@ var mongooseConnection = DataAccess.mongooseConnection;
 class ProficiencySchema {
     static get schema() {
         var schema = mongoose.Schema({
-          names :{
-            type: [String]
+          /*name :{
+            type: String
+          },*/
+          proficiencies : {
+            type : [String]
           }
         },{ versionKey: false });
 

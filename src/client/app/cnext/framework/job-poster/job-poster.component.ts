@@ -64,7 +64,7 @@ export class JobPosterComponent {
     this.jobPostService.postJob(this.jobPosterModel).subscribe(
 
       data => {
-        this.onSuccess(data.data._id)
+        this.onSuccess(data.data.postedJobs[0]._id)
       });
   }
 

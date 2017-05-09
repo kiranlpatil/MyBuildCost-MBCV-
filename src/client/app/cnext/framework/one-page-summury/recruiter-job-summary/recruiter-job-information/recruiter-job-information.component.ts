@@ -13,25 +13,16 @@ import {ImagePath} from "../../../../../framework/shared/constants";
 })
 
 export class RecruiterJobInformation  {
-  @Input() recruiter: any ;
+  @Input() recruiter: JobSummary=new JobSummary() ;
   private image_path:string=ImagePath.COMPANY_LOGO_IMG_ICON;
-  private postedjob:any=new Array(0);
 
-  ngOnChanges(changes:any) {debugger
+  ngOnChanges(changes:any) {
     if(changes.recruiter.currentValue != undefined){
       this.recruiter=changes.recruiter.currentValue;
-      this.recruiterData(this.recruiter);
     }
     if(this.recruiter != undefined && this.recruiter.company_logo != undefined){
       this.image_path=this.recruiter.company_logo;
     }
   }
-
-  recruiterData(rec:any){
-    console.log(rec);
-if(rec != undefined){
-  console.log(rec.postedJobs);
-this.postedjob=rec.postedJobs;
-}
-  }
+  
 }

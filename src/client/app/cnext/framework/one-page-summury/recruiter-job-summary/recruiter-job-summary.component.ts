@@ -15,7 +15,7 @@ import {JobSummary} from "../../model/jobSummary";
 export class RecruiterJobSummaryComponent implements OnInit {
 
 
-  private recruiter:any;
+  private recruiter:JobSummary=new JobSummary();
   private secondaryCapabilities: string[] = new Array();
 
 
@@ -26,15 +26,13 @@ export class RecruiterJobSummaryComponent implements OnInit {
   ngOnInit() {
     this.recruiterDashboardService.getPostedJobDetails()
       .subscribe(
-        data => {debugger
-          console.log("incoming data"+ data);
+        data => {
           this.OnRecruiterDataSuccess(data.data.industry)
         });
   }
 
   OnRecruiterDataSuccess(data: any) {
     this.recruiter = data;
-    console.log("data",this.recruiter);
     this.getSecondaryData();
 
   }

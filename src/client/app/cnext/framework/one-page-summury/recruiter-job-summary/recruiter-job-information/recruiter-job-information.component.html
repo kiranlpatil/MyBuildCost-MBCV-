@@ -1,27 +1,30 @@
-<div class="user-info col-sm-3">
+<div class="user-info col-sm-3" *ngIf="recruiter != undefined">
   <img src="{{image_path}}" alt="User Profile Picture"/>
   <h4>{{recruiter.company_name}}</h4>
-</div>
-<div>
-  <label>Job Title</label>
-  <p>{{recruiter.postedJobs[0].jobTitle}}</p>
-  <label>Hiring Manger</label>
-  <p>{{recruiter.postedJobs[0].hiringManager}}</p>
-  <label>Department</label>
-  <p>{{recruiter.postedJobs[0].department}}</p>
+  <div *ngFor="let postedJob of recruiter.postedJobs">
+    <div>
+      <label>Job Title</label>
+      <p>{{postedJob.jobTitle}}</p>
+      <label>Hiring Manger</label>
+      <p>{{postedJob.hiringManager}}</p>
+      <label>Department</label>
+      <p>{{postedJob.department}}</p>
 
-  <label>Industry</label> <span>{{recruiter.postedJobs[0].industry}}</span>
-  <p>Specialization area</p>
-  <span *ngFor="let role of recruiter.postedJobs[0].industry.roles;let i = index">{{role.name}}
+      <label>Industry</label> <span>{{postedJob.industry.name}}</span>
+      <p>Specialization area</p>
+  <span *ngFor="let role of postedJob.industry.roles;let i = index">{{role.name}}
     <span
-      *ngIf="recruiter.postedJobs[0].industry.roles.length>1 &&  i!=recruiter.postedJobs[0].industry.roles.length-1">,</span>
+      *ngIf="postedJob.industry.roles.length>1 &&  i!=postedJob.industry.roles.length-1">,</span>
   </span>
-  <p>Industry Exposure</p>
-  <span *ngFor="let industry of recruiter.postedJobs[0].interestedIndustry;let i = index">{{industry}}<span
-    *ngIf="recruiter.postedJobs[0].interestedIndustry.length>1 && i!=recruiter.postedJobs[0].interestedIndustry-1">,</span>
+      <p>Industry Exposure</p>
+  <span *ngFor="let industry of postedJob.interestedIndustry;let i = index">{{industry}}<span
+    *ngIf="recruiter.postedJobs[0].interestedIndustry.length>1 && i!=postedJob.interestedIndustry-1">,</span>
   </span>
-  <label>Education</label> <span>{{recruiter.postedJobs[0].education}}</span>
-  <label>Experience</label> <span>{{recruiter.postedJobs[0].experience}}</span>
-  <label>Joining Period</label> <span>{{recruiter.postedJobs[0].joiningPeriod}}</span>
-  <label>Location</label> <span>{{recruiter.postedJobs[0].location.cityName}}</span>
+      <label>Education</label> <span>{{postedJob.education}}</span>
+      <label>Experience</label> <span>{{postedJob.experience}}</span>
+      <label>Joining Period</label> <span>{{postedJob.joiningPeriod}}</span>
+      <label>Location</label> <span>pune</span>
+    </div>
+  </div>
 </div>
+
