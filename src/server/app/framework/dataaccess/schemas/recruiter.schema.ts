@@ -48,8 +48,11 @@ class RecruiterSchema {
             salary :{
               type : String
             },
-            profiencies :{
+            proficiencies :{
               type : [String]
+            },
+            interestedIndustries: {
+              type :[String]
             },
             industry:{
               name:String,
