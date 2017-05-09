@@ -32,7 +32,7 @@ export class ProficienciesComponent {
 
   constructor(private proficiencydoaminService:ProficiencyDomainService ,private messageService:MessageService ) {
   }
-  ngOnInit() {debugger
+  ngOnInit() {
     this.proficiencydoaminService.getProficiency()
       .subscribe(
         data => this.OnProficiencyDataSuccess(data),
@@ -57,12 +57,13 @@ export class ProficienciesComponent {
   /*}*/
   OnProficiencyDataSuccess(data:any) {
 this.Proficiencies= data.data[0].proficiencies;
-this.masterDataProficiencies = data.data;
+this.masterDataProficiencies = this.Proficiencies;
 
   }
   onError(error:any) {
     var message = new Message();
     message.error_msg = error.err_msg;
+
     message.isError = true;
     this.messageService.message(message);
   }
