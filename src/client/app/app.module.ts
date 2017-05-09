@@ -121,6 +121,7 @@ import {jobListerSortPipe} from "./cnext/framework/job-lister/job-lister.pipe";
 import {RecruiterDashboardService} from "./cnext/framework/recruiter-dashboard/recruiter-dashboard.service";
 import {RecruiterJobSummaryComponent} from "./cnext/framework/one-page-summury/recruiter-job-summary/recruiter-job-summary.component";
 import {RecruiterJobInformation} from "./cnext/framework/one-page-summury/recruiter-job-summary/recruiter-job-information/recruiter-job-information.component";
+import {JobFilterService} from "./cnext/framework/job-filter/job-filter.service";
 
 
 //C-NEXT IMPORTS
@@ -268,7 +269,8 @@ import {RecruiterJobInformation} from "./cnext/framework/one-page-summury/recrui
     CandidateAcadmyDetailService,
     CandidateProfileService,
     RecruiterDashboardService,
-    QCardViewService
+    QCardViewService,
+    JobFilterService
 
   ],
   bootstrap: [AppComponent]

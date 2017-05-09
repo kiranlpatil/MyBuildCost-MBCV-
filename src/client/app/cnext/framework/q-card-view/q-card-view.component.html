@@ -1,4 +1,4 @@
-<div class="dashboard-view clearfix" [hidden]="!isShowQCardView">
+<div class="dashboard-view clearfix"><!--[hidden]="!isShowQCardView"-->
 
   <header class="col-sm-12">
    <p>{{matches}} Matches Found</p>
@@ -6,8 +6,7 @@
     <div class="sort-by">
       <label>Sort by</label>
       <select id="menu"  [(ngModel)]="qCardModel.name" (change)="sortBy()">
-        <option value="JobMatching">JobMatching</option>
-        <option value="Experience" >Experience</option>
+        <option value="{{itemList}}" *ngFor="let itemList of qCardModel.listOfMatchings">{{itemList}}</option>
       </select>
     </div>
   </header>

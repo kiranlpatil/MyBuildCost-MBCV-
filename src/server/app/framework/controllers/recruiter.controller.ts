@@ -158,3 +158,14 @@ export function retrieve(req: express.Request, res: express.Response, next: any)
     res.status(403).send({message: e.message});
   }
 }
+
+export function getFilterList (req:express.Request, res:express.Response) {
+  __dirname = './';
+  var filepath="recruiter-filter-list.json";
+  try {
+    res.sendFile(filepath,{root: __dirname});
+  }
+  catch (e) {
+    res.status(403).send({message: e.message});
+  }
+}
