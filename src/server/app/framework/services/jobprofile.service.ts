@@ -10,6 +10,8 @@ import CandidateRepository = require("../dataaccess/repository/candidate.reposit
 import JobProfileModel = require("../dataaccess/model/jobprofile.model");
 import CandidateSearchRepository = require("../search/candidate-search.repository");
 import * as mongoose from "mongoose";
+import RecruiterModel = require("../dataaccess/model/recruiter.model");
+import {Recruiter} from "../dataaccess/model/recruiter-final.model";
 
 
 class JobProfileService {
@@ -57,9 +59,13 @@ class JobProfileService {
       else {
         if(res.length > 0)
         {
+          let recruiter : Recruiter = new Recruiter();
+          recruiter=res[0];
           for (let job of res[0].postedJobs) {
             if (job._id.toString() === data.postedJob) {
-              callback(null, job);
+              recruiter.postedJobs = new Array(0);
+              recruiter.postedJobs.push(job);
+              callback(null, recruiter);
             }
           }
         }

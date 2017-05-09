@@ -14,7 +14,7 @@ export class JobPosterService extends BaseService {
   constructor(private http: Http) {
     super();
   }
-  postJob(jobDetail:JobPosterModel):Observable<JobPosterModel> {
+  postJob(jobDetail:JobPosterModel):Observable<any> {
     let headers = new Headers({ 'Content-Type': 'application/json'});
     let options = new RequestOptions({ headers: headers });
     let body = JSON.stringify({"postedJobs":jobDetail});

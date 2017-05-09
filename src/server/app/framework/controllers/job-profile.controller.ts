@@ -61,7 +61,7 @@ export function retrieve(req: express.Request, res: express.Response, next: any)
       }else{
         res.status(200).send({
           "data": {
-           "industry": result.industry
+           "industry": result
           }
         });
       }

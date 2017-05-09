@@ -119,6 +119,8 @@ import {ProgressBarComponent} from "./cnext/framework/progress-bar/progress-bar.
 import {ShowQcardviewService} from "./cnext/framework/showQCard.service";
 import {jobListerSortPipe} from "./cnext/framework/job-lister/job-lister.pipe";
 import {RecruiterDashboardService} from "./cnext/framework/recruiter-dashboard/recruiter-dashboard.service";
+import {RecruiterJobSummaryComponent} from "./cnext/framework/one-page-summury/recruiter-job-summary/recruiter-job-summary.component";
+import {RecruiterJobInformation} from "./cnext/framework/one-page-summury/recruiter-job-summary/recruiter-job-information/recruiter-job-information.component";
 
 
 //C-NEXT IMPORTS
@@ -200,7 +202,9 @@ import {RecruiterDashboardService} from "./cnext/framework/recruiter-dashboard/r
     JobListerComponent,
     QCardviewComponent,
     SortPipe,
-    jobListerSortPipe
+    jobListerSortPipe,
+    RecruiterJobSummaryComponent,
+    RecruiterJobInformation
 
   ],
   providers: [

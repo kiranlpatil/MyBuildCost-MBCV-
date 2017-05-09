@@ -22,6 +22,7 @@ import {  CompanyDetailsRoutes  } from './framework/registration/company_details
 import {  RecruiterDashboard  } from './cnext/framework/recruiter-dashboard/recruiter-dashboard.routes';
 import {  CandidateSummury  } from "./cnext/framework/one-page-summury/candidate-summury/candidate-summury.routes";
 import {ProfileCreator} from "./cnext/framework/candidate-profile/candidate-profile.routes";
+import {RecruiterSummary} from "./cnext/framework/one-page-summury/recruiter-job-summary/recruiter-job-summary.routes";
 
 
 export const routes: Routes = [
@@ -36,6 +37,7 @@ export const routes: Routes = [
   ...VerifyPhoneRoutes,
   ...DashboardRoutes,
   ...RecruiterDashboard,
+  ...RecruiterSummary,
   ...ForgotPasswordRoutes,
   ...ResetPasswordRoutes,
   ...DashboardProfileRoutes,

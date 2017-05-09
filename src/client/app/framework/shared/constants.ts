@@ -80,6 +80,7 @@ export class NavigationRoutes {
   public static APP_CHANGEEMAIL:string = '/change_email';
   public static APP_CREATEPROFILE:string = '/create_profile';
   public static APP_PROFILESUMMURY:string = '/profile_summury';
+  public static APP_JOB_SUMMURY:string = '/job_summary';
   public static APP_COMPANYDETAILS:string = '/company_details';
 
 }
@@ -105,6 +106,7 @@ export class LocalStorage {
   public static CHANGE_MAIL_VALUE = 'change_mail_value';
   public static FROM_CANDIDATE_REGISTRATION = 'from_candidate_registration';
   public static VERIFY_CHANGE_PHONE_VALUE = 'verify_change_phone_value';
+  public static CURRENT_JOB_POSTED_ID = 'current_job_posted_job_id';
 }
 
 export class ValueConstant {
@@ -161,6 +163,7 @@ export class API {
   public static ADDRESS = 'address';
   public static ROLE_TYPE = 'roletype';
   public static JOB_LIST = 'recruiter';
+  public static JOB_DETAILS = 'recruiter/jobProfile';
 
 
 }

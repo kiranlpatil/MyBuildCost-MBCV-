@@ -1,9 +1,8 @@
 import {Component, OnInit} from "@angular/core";
 import {Router} from "@angular/router";
-import {NavigationRoutes} from "../../../../framework/shared/constants";
-import {JobPosterModel} from "../../model/jobPoster";
-import {Recruiter} from "../../../../framework/registration/recruiter/recruiter";
+import {NavigationRoutes, ImagePath} from "../../../../framework/shared/constants";
 import {RecruiterDashboardService} from "../../recruiter-dashboard/recruiter-dashboard.service";
+import {JobSummary} from "../../model/jobSummary";
 
 
 @Component({
@@ -15,31 +14,35 @@ import {RecruiterDashboardService} from "../../recruiter-dashboard/recruiter-das
 
 export class RecruiterJobSummaryComponent implements OnInit {
 
-  private jobDetail:JobPosterModel=new JobPosterModel();
-  private recruiter:Recruiter=new Recruiter();
-  private secondaryCapabilities:string[]=new Array();
 
-  constructor(private _router:Router,
+  private recruiter:any;
+  private secondaryCapabilities: string[] = new Array();
+
+
+  constructor(private _router: Router,
               private recruiterDashboardService: RecruiterDashboardService) {
   }
 
   ngOnInit() {
-    this.recruiterDashboardService.getJobList()
+    this.recruiterDashboardService.getPostedJobDetails()
       .subscribe(
-        data => {
-         this.OnRecruiterDataSuccess(data.data[0])
+        data => {debugger
+          console.log("incoming data"+ data);
+          this.OnRecruiterDataSuccess(data.data.industry)
         });
   }
-  
-  OnRecruiterDataSuccess(data:any) {
+
+  OnRecruiterDataSuccess(data: any) {
     this.recruiter = data;
+    console.log("data",this.recruiter);
     this.getSecondaryData();
+
   }
-  
-  getSecondaryData(){
-    for(let role of this.jobDetail.industry.roles){
-      for(let capability of role.capabilities){
-        if(capability.isSecondary){
+
+  getSecondaryData() {
+    for (let role of this.recruiter.postedJobs[0].industry.roles) {
+      for (let capability of role.capabilities) {
+        if (capability.isSecondary) {
           this.secondaryCapabilities.push(capability.name);
         }
       }

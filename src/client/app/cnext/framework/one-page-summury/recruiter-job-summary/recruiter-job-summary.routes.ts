@@ -3,7 +3,7 @@ import {  RecruiterJobSummaryComponent  } from './index';
 
 export const RecruiterSummary: Route[] = [
   {
-    path: 'post_job_summary',
+    path: 'job_summary',
     component: RecruiterJobSummaryComponent
   }
 ];

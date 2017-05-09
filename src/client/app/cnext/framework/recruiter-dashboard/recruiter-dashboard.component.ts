@@ -24,7 +24,9 @@ export class RecruiterDashboardComponent implements OnInit {
       .subscribe(
         data => {
           this.recruiter = data.data[0];
+
           for (let i of this.recruiter["postedJobs"]) {
+            console.log("temp"+i);
             this.jobList.push(i);
           }
           this.companyName = this.recruiter["company_name"];

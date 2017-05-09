@@ -7,9 +7,10 @@ import {Message} from "../../../framework/shared/message";
 import {MessageService} from "../../../framework/shared/message.service";
 import {Proficiences} from "../model/proficiency";
 import {Section} from "../model/candidate";
-import {LocalStorage} from "../../../framework/shared/constants";
+import {LocalStorage, NavigationRoutes} from "../../../framework/shared/constants";
 import {LocalStorageService} from "../../../framework/shared/localstorage.service";
 import {ShowQcardviewService} from "../showQCard.service";
+import {Router} from "@angular/router";
 
 
 @Component({
@@ -40,11 +41,11 @@ export class JobPosterComponent {
   private flag:boolean = true;
   private highlightedSection:Section = new Section();
 
-
   constructor(private profileCreatorService:CandidateProfileService,
               private messageService:MessageService,
               private showQCardView:ShowQcardviewService,
-              private jobPostService:JobPosterService) {
+              private jobPostService:JobPosterService, private _router:Router) {
+
 
   }
 
@@ -61,9 +62,17 @@ export class JobPosterComponent {
     this.showModalStyle = !this.showModalStyle;
     this.jobPosterModel.postingDate = (new Date()).toISOString();
     this.jobPostService.postJob(this.jobPosterModel).subscribe(
-      user => {
-        console.log(user);
+
+      data => {
+        this.onSuccess(data.data._id)
       });
+  }
+
+  onSuccess(jobId:string) {
+    if(jobId != undefined){
+      LocalStorageService.setLocalValue(LocalStorage.CURRENT_JOB_POSTED_ID, jobId);
+      this._router.navigate([NavigationRoutes.APP_JOB_SUMMURY]);
+    }
   }
 
   showHideModal() {

@@ -23,6 +23,9 @@ class RecruiterSchema {
           company_headquarter_country:{
             type:String
           },
+          about_company:{
+            type:String
+          },
           setOfDocuments:{
             type: [String]
           },
