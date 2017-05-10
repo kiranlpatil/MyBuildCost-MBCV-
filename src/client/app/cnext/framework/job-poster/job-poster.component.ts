@@ -81,9 +81,7 @@ export class JobPosterComponent {
     this.showModalStyle = !this.showModalStyle;
   }
 
-  getAddress(event :any){
-    this.state =event.formatted_address;
-  }
+  
 
   getStyleModal() {
     if (this.showModalStyle) {

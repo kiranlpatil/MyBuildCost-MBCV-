@@ -27,8 +27,8 @@
 
     <div class="main-content" *ngIf="highlightedSection.name!='Work-Area'">
       <div class="compact-view clearfix">
-        <button  (click)="highlightedSection.name='Work-Area';disableButton=false" [hidden]="highlightedSection.isLocked"></button>
-         <span class=" glyphicon glyphicon-lock" title="you can edit this field after {{highlightedSection.date}}" *ngIf="highlightedSection.isLocked"></span>
+        <button  class="btn-edit" (click)="highlightedSection.name='Work-Area';disableButton=false" [hidden]="highlightedSection.isLocked"></button>
+         <span class="glyphicon glyphicon-lock" title="you can edit this field after {{highlightedSection.date| date:'shortDate'}}" *ngIf="highlightedSection.isLocked"></span>
         <h4 class="heading">Area Of Work</h4>
         <div class="select-option" *ngFor="let item of selectedRoles">
           <span class="primary">{{item.name}}</span>

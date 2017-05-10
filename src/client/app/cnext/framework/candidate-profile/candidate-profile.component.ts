@@ -167,6 +167,7 @@ export class CandidateProfileComponent implements OnInit {
     var date = new Date();
     date.setDate(date.getDate() + 90);
     this.candidate.lockedOn = date;
+    this.highlightedSection.date=date;
     this.candidateForComplexity = this.candidate.industry.roles;
     this.saveCandidateDetails();
     this.showProfeciency = true;
@@ -178,7 +179,6 @@ export class CandidateProfileComponent implements OnInit {
     this.candidate.proficiencies = proficiency;
     this.saveCandidateDetails();
     this.whichStepsVisible[4] = true;
-    this.candidate.interestedIndustries
   }
 
   onExperienceIndustryComplete(experiencedindustry:string[]) {
