@@ -1,10 +1,4 @@
 {
-  "salary":[ "Upto 2 Lakhs",
-    "2-3 Lakhs",
-    "3-5 Lakhs",
-    "5-8 Lakhs",
-    "8-12 Lakhs",
-    "12-20 Lakhs",
-    "20-30 Lakhs",
-    "Above 30 Lakhs" ]
+  "salary":[ "1 Lakh","2 Lakh","3 Lakh","4 Lakh","5 Lakh","6 Lakh","7 Lakh","8 Lakh","9 Lakh","10 Lakh","11 Lakh","12 Lakh","13 Lakh","14 Lakh","15 Lakh","16 Lakh","17 Lakh","18 Lakh","19 Lakh","20 Lakh","21 Lakh","22 Lakh","23 Lakh","24 Lakh","25 Lakh","26 Lakh","27 Lakh","29 Lakh","30 Lakh" ]
 }
+

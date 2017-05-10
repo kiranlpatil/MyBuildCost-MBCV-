@@ -1,14 +1,9 @@
 import {Component, Input, EventEmitter, Output} from "@angular/core";
 import {Award} from "../model/award";
-import {AwardService} from "../award-service";
-import {ValueConstant, LocalStorage} from "../../../framework/shared/constants";
-import {CandidateAwardService} from "./awards.service";
+import {ValueConstant} from "../../../framework/shared/constants";
 import {CandidateProfileService} from "../candidate-profile/candidate-profile.service";
 import {MessageService} from "../../../framework/shared/message.service";
-import {LocalStorageService} from "../../../framework/shared/localstorage.service";
-import {Message} from "../../../framework/shared/message";
 import {Candidate, Section} from "../model/candidate";
-
 
 
 @Component({
@@ -35,9 +30,7 @@ export class AwardsComponent {
   private hideDiv:boolean[] = new Array();
 
 
-  constructor(private awardService:AwardService,
-              private messageService:MessageService,
-              private profileCreatorService:CandidateProfileService) {
+  constructor(private profileCreatorService:CandidateProfileService) {
     this.tempfield = new Array(1);
     this.currentDate = new Date();
     this.year = this.currentDate.getUTCFullYear();
@@ -50,16 +43,13 @@ export class AwardsComponent {
     }
   }
 
-  changeValue() {
-    this.awardService.change(true);
-  }
 
   ngOnChanges(changes:any) {
     if (this.candidate.awards.length === 0) {
       this.candidate.awards.push(new Award());
     }
-    else{
-      this.isHiddenAwrard=true;
+    else {
+      this.isHiddenAwrard = true;
     }
   }
 
@@ -86,7 +76,7 @@ export class AwardsComponent {
     this.isShowError = false;
     for (let item of this.candidate.awards) {
       if (item.name !== "" || item.issuedBy !== "" || item.year !== "") {
-        this.isHiddenAwrard=true;
+        this.isHiddenAwrard = true;
       }
     }
     for (let item of this.candidate.awards) {
@@ -107,10 +97,10 @@ export class AwardsComponent {
     this.hideDiv[i] = true;
     this.candidate.awards.splice(i, 1);
     this.postData();
-    this.hideDiv[i]=false;
+    this.hideDiv[i] = false;
   }
 
-  postData(){
+  postData() {
     this.profileCreatorService.addProfileDetail(this.candidate).subscribe(
       user => {
         console.log(user);

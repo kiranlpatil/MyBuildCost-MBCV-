@@ -45,7 +45,8 @@
 
     <div class="main-content" *ngIf="highlightedSection.name!='Capabilities'">
       <div class="compact-view clearfix">
-        <button class="btn-edit" (click)="highlightedSection.name='Capabilities'"></button>
+        <button class="btn-edit" (click)="highlightedSection.name='Capabilities'" [hidden]="highlightedSection.isLocked"></button>
+        <span class=" glyphicon glyphicon-lock" title="you can edit this field after {{highlightedSection.date}}" *ngIf="highlightedSection.isLocked"></span>
         <h4 class="heading">Capabilities</h4>
         <span class="capability-option" *ngFor="let role of roles">
           <div class="select-option" *ngFor="let item of role.capabilities">

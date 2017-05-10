@@ -1,6 +1,6 @@
 <div class="section-container">
   <div class="main-content clearfix modal-content" *ngIf="highlightedSection.name=='JobProfile'">
-    <form [formGroup]="jobPostForm" (ngSubmit)="onNext(jobPostForm.value)">
+    <form [formGroup]="jobPostForm" (ngSubmit)="onNext(jobPostForm.value)" novalidate>
       <div class="job-info section-container clearfix">
         <div class="row">
           <div class="col-sm-4" >

@@ -17,8 +17,8 @@
       *ngIf="postedJob.industry.roles.length>1 &&  i!=postedJob.industry.roles.length-1">,</span>
   </span>
       <p>Industry Exposure</p>
-  <span *ngFor="let industry of postedJob.interestedIndustry;let i = index">{{industry}}<span
-    *ngIf="recruiter.postedJobs[0].interestedIndustry.length>1 && i!=postedJob.interestedIndustry-1">,</span>
+  <span *ngFor="let industry of postedJob.interestedIndustries;let i = index">{{industry}}<span
+    *ngIf="recruiter.postedJobs[0].interestedIndustries.length>1 && i!=postedJob.interestedIndustries-1">,</span>
   </span>
       <label>Education</label> <span>{{postedJob.education}}</span>
       <label>Experience</label> <span>{{postedJob.experience}}</span>

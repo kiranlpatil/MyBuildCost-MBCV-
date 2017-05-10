@@ -23,17 +23,16 @@ export class JobListerComponent {
   }
 
   ngOnChanges(changes: any) {
-    if (changes.jobListInput != undefined && changes.jobListInput.length > 0) {debugger
+    if (changes.jobListInput != undefined && changes.jobListInput.length > 0) {
       this.jobListInput = changes.jobListInput;
     }
-
   }
 
   sortBy(){
     this.toggleFormat();
   }
 
-  onJobClikecd(item : any){debugger
+  onJobClikecd(item : any){
     this.jobEventEmitter.emit(item);
   }
   get format() {

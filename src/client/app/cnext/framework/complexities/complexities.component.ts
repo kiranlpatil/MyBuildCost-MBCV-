@@ -8,6 +8,7 @@ import {LocalStorageService} from "../../../framework/shared/localstorage.servic
 import {LocalStorage} from "../../../framework/shared/constants";
 import {Section} from "../model/candidate";
 
+
 @Component({
   moduleId: module.id,
   selector: 'cn-complexities',
@@ -34,10 +35,7 @@ export class ComplexitiesComponent {
  // private compactView:boolean = true;
 
 
-  constructor(  private complexityService:ComplexityService)
-  {
-
-
+  constructor(  private complexityService:ComplexityService) {
   }
 
   ngOnInit() {
@@ -47,7 +45,7 @@ export class ComplexitiesComponent {
   }
   ngOnChanges(changes:any) {
     if (changes.roles) {
-      
+
       this.roles = changes.roles.currentValue;
       console.log(this.count++,this.roles);
     }
@@ -116,6 +114,8 @@ export class ComplexitiesComponent {
     this.isComplexityButtonEnable =false;
     if(this.isCandidate) {
         this.showModalStyle = !this.showModalStyle;
+      
+      this.highlightedSection.isLocked=true;
     }
     this.complexityService.change(true);
     for(let rol  of this.candidateRoles){
