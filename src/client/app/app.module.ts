@@ -82,7 +82,6 @@ import {IndustryListService} from "./cnext/framework/industry-list/industry-list
 import {DateService} from "./cnext/framework/date.service";
 import {ProfessionalService} from "./cnext/framework/professional-service";
 import {EducationalService} from "./cnext/framework/educational-service";
-import {AwardService} from "./cnext/framework/award-service";
 import {MyRoleListTestService} from "./cnext/framework/myRolelist.service";
 import {RoleTypetListComponent} from "./cnext/framework/role-type/role-type.component";
 import {RoleTypeService} from "./cnext/framework/role-type/role-type.service";
@@ -254,7 +253,6 @@ import {GoogleplaceDirective} from "angular2-google-map-auto-complete/directives
     VerifyPhoneService,
     IndustryListService,
     MyCapabilityService,
-    AwardService,
     ProfessionalService,
     EducationalService,
     ProfessionalDataService,

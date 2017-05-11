@@ -13,8 +13,8 @@ export class JobPosterModel {
   location : JobLocation = new JobLocation();
   competencies : string = '';
   responsibility : string = '';
-  postingDate : string ='';
+  postingDate : Date;
   remark : string ='';
   roleType : string = '';
-  interestedIndustry :string[] = new Array(0);
+  interestedIndustries :string[] = new Array(0);
 }

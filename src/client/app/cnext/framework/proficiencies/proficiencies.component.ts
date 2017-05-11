@@ -56,8 +56,9 @@ export class ProficienciesComponent {
     /*}*/
   /*}*/
   OnProficiencyDataSuccess(data:any) {
-  this.Proficiencies= data.proficiencies;
-  this.masterDataProficiencies = this.Proficiencies;
+this.Proficiencies= data.data[0].proficiencies;
+this.masterDataProficiencies = this.Proficiencies;
+
   }
   onError(error:any) {
     var message = new Message();

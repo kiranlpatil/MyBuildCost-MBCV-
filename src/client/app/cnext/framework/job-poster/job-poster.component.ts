@@ -62,14 +62,13 @@ export class JobPosterComponent {
 
   postjob() {
     this.showModalStyle = !this.showModalStyle;
-    this.jobPosterModel.postingDate = (new Date()).toISOString();
+    this.jobPosterModel.postingDate =  new Date();;
     this.jobPostService.postJob(this.jobPosterModel).subscribe(
-
       data => {
-        this.onSuccess(data.data.postedJobs[0]._id)
+        this.onSuccess(data.data.postedJobs[0]._id);
       });
   }
-
+  
   onSuccess(jobId:string) {
     if(jobId != undefined){
       LocalStorageService.setLocalValue(LocalStorage.CURRENT_JOB_POSTED_ID, jobId);
@@ -81,9 +80,7 @@ export class JobPosterComponent {
     this.showModalStyle = !this.showModalStyle;
   }
 
-  getAddress(event :any){
-    this.state =event.formatted_address;
-  }
+  
 
   getStyleModal() {
     if (this.showModalStyle) {
@@ -101,7 +98,7 @@ export class JobPosterComponent {
   }
 
   selectExperiencedIndustry(experiencedindustry:string[]) {
-    this.jobPosterModel.interestedIndustry = experiencedindustry;
+    this.jobPosterModel.interestedIndustries = experiencedindustry;
   }
 
 

@@ -24,15 +24,11 @@ export class BasicJobInformationComponent {
   private experiencelist = new Array();
   private salarylist = new Array();
   private noticeperiodlist = new Array();
-  private locationDetails : any;
-  private countries:string[]=new Array();
-  private  states:string[]=new Array();
-  private cities:string[]=new Array();
+  private address : string;
   private storedIndustry:Industry;
   private storedLoaction:JobLocation=new JobLocation();
 
   constructor(private professionaldataservice:ProfessionalDataService,
-              private basicJobInformationService:BasicJobInformationService,
               private formBuilder: FormBuilder) {
 
     this.jobPostForm=this.formBuilder.group({
@@ -43,14 +39,7 @@ export class BasicJobInformationComponent {
       'experience':['', Validators.required],
       'salary':['', Validators.required],
       'joiningPeriod':['', Validators.required],
-      'location': [
-        {
-          'country': ['', Validators.required],
-          'state': ['', Validators.required],
-          'city': ['', Validators.required],
-          'pin': ['']
-        }
-        , Validators.required],
+      'location': ['', Validators.required],
     });
   }
 
@@ -75,49 +64,16 @@ export class BasicJobInformationComponent {
         data => {
           this.noticeperiodlist = data.noticeperiod;
         });
-    this.basicJobInformationService.getAddress()
-      .subscribe(
-        data=> { this.onAddressSuccess(data);});
   }
 
-  onAddressSuccess(data:any) {
-    this.locationDetails=data.address;
-    for(var  i = 0; i <data.address.length; i++) {
-      this.countries.push(data.address[i].country);
-    }
+  getAddress(event :any){debugger
+    this.address =event.formatted_address;
+    var addressArray=this.address.split(',');
+    this.storedLoaction.cityName=addressArray[0];
+    this.storedLoaction.state=addressArray[1];
+    this.storedLoaction.country=addressArray[2];
   }
-
-  selectCountryModel(country:any) {
-    this.storedLoaction.country=country;
-    for(let item of this.locationDetails) {
-      if(item.country===country) {
-        for(let state of item.states) {
-          this.states.push(state.name);
-        }
-      }
-    }
-  }
-
-  selectStateModel(selectedstate:any) {
-    this.storedLoaction.state=selectedstate;
-    for(let item of this.locationDetails) {
-      if(item.country=== this.storedLoaction.country) {
-        for(let state of item.states) {
-          if(state.name===selectedstate) {
-            for(let city of state.cities) {
-              this.cities.push(city);
-            }
-          }
-        }
-      }
-    }
-  }
-
-
-  selectCityModel(value:any){
-    this.storedLoaction.cityName=value;
-  }
-
+  
   selectIndustry(industry:Industry) {
     this.storedIndustry = industry;
   }

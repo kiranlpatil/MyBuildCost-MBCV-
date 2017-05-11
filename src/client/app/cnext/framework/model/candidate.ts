@@ -18,9 +18,13 @@ export class Candidate {
   employmentHistory : EmployementHistory[]=new Array();
   proficiencies : string[]=new Array(0);
   secondaryCapability : string[]=new Array();
+  lockedOn: Date;
+
 }
 
 
 export class Section{
   name : string;
+  date : Date;
+  isLocked:boolean;
 };

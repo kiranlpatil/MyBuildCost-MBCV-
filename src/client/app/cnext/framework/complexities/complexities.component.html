@@ -73,7 +73,8 @@
     <div *ngIf="highlightedSection.name!='Complexities'">
       <div class="main-content main-content-capabilitites">
         <div class="compact-view clearfix">
-          <button class="btn-edit" (click)="highlightedSection.name='Complexities'"></button>
+          <button class="btn-edit" (click)="highlightedSection.name='Complexities'" [hidden]="highlightedSection.isLocked"></button>
+          <span class=" glyphicon glyphicon-lock" title="you can edit this field after {{highlightedSection.date| date:'shortDate'}}" *ngIf="highlightedSection.isLocked"></span>
           <div class="col-sm-12">
             <cn-tabular-list-view [roles]="candidateRoles"></cn-tabular-list-view>
           </div>
