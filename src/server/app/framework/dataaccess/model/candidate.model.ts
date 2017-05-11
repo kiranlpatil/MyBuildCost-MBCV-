@@ -10,8 +10,9 @@ import RoleModel = require("./role.model");
 import CertificationModel = require("./certification.model");
 import AwardModel = require("./award.model");
 import IndustryModel = require("./industry.model");
+import UserSampleModel = require("./user-sample.model");
 
-interface CandidateModel {
+interface CandidateModel extends UserSampleModel{
   jobTitle : string;
   isVisible : boolean;
   aboutMyself: string;

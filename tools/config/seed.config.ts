@@ -399,7 +399,7 @@ export class SeedConfig {
       '@angular/router/testing': 'node_modules/@angular/router/bundles/router-testing.umd.js',
       'ng2-recaptcha': 'node_modules/ng2-recaptcha/ng2-recaptcha.js',
       'ng2-scroll-to': 'node_modules/ng2-scroll-to/index.js',
-      'ng2-google-place-autocomplete': 'node_modules/ng2-google-place-autocomplete/',
+      'ng2-google-place-autocomplete': 'node_modules/ng2-google-place-autocomplete/src/',
       'app/*': '/app/*',
       // For test config
       'dist/dev/*': '/base/dist/dev/*',

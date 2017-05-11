@@ -1,3 +1,4 @@
+import LocationModel = require("../../dataaccess/model/location.model");
 export class CandidateQCard {
   first_name : string;
   last_name : string;
@@ -7,5 +8,5 @@ export class CandidateQCard {
   matching : number;
   salary : string;
   experience : string;
-  location : string;
+  location : LocationModel;
 }

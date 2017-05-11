@@ -12,7 +12,6 @@ import {LocalStorageService} from "../../../framework/shared/localstorage.servic
 import {ShowQcardviewService} from "../showQCard.service";
 import {Router} from "@angular/router";
 
-
 @Component({
   moduleId: module.id,
   selector: 'cn-job-poster',
