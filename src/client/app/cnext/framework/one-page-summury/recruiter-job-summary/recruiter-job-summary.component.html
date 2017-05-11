@@ -1,4 +1,3 @@
-
 <header class="page-header">
   <div class="container">
     <div class="cn-logo">
@@ -37,22 +36,25 @@
     <div class="col-sm-12">
       <cn-tabular-list-view [roles]="postedJob.industry.roles"></cn-tabular-list-view>
     </div>
-
-    <div class="col-lg-5 col-md-12">
-      <div *ngIf="secondaryCapabilities.length>0">
+    <div class="col-sm-12 no-padding">
+      <div class="col-sm-6" *ngIf="secondaryCapabilities.length>0">
         <h4 >Supplimentry Capabilities</h4>
         <cn-horizontal-list-view [data]="secondaryCapabilities"></cn-horizontal-list-view>
       </div>
-      <h4>Proficiency In</h4>
-      <cn-horizontal-list-view [data]="postedJob.proficiencies"></cn-horizontal-list-view>
+      <div class="col-sm-6">
+        <h4>Proficiency In</h4>
+        <cn-horizontal-list-view [data]="postedJob.proficiencies"></cn-horizontal-list-view>
+      </div>
     </div>
-    <div class="col-lg-7 col-md-12">
-      <h4>Competencies</h4>
-      <cn-additional-details [data]="postedJob.competencies"></cn-additional-details>
-    </div>
-    <div class="col-lg-7 col-md-12">
-      <h4>Responsibility</h4>
-      <cn-additional-details [data]="postedJob.responsibility"></cn-additional-details>
+    <div class="col-sm-12 no-padding">
+      <div class="col-sm-6">
+        <h4>Competencies</h4>
+        <cn-additional-details [data]="postedJob.competencies"></cn-additional-details>
+      </div>
+      <div class="col-sm-6">
+        <h4>Responsibility</h4>
+        <cn-additional-details [data]="postedJob.responsibility"></cn-additional-details>
+      </div>
     </div>
   </div>
 </section>

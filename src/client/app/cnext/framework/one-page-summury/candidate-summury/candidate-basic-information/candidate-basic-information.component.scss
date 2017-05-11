@@ -2,10 +2,10 @@ $text-color: #576b7c;
 $name: #666;
 $blue-color: #3694d1;
 
-.candidate-description {
+.basic-description {
   text-align: left;
 
-  p, span {
+  p, span, label {
     color: $text-color;
     font-size: 12px;
     word-break: break-all;
@@ -42,11 +42,17 @@ $blue-color: #3694d1;
       min-height: 20px;
     }
 
-    p {
+    span {
+      color: $text-color;
+      width: 100%;
+    }
+
+    label {
       color: $name;
       font-weight: bold;
       font-family: 'gothamrnd-book';
       margin: 5px 0 0 0;
+      width: 100%;
     }
   }
 }

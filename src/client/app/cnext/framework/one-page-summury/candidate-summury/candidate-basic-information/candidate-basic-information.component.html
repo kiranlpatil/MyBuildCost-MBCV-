@@ -1,4 +1,4 @@
-<div class="candidate-description">
+<div class="basic-description">
   <div class="basic-info clearfix">
     <img src="{{image_path}}" alt="profile"/>
     <p class="name">{{candidateDetails.first_name}} {{candidateDetails.last_name}}</p>
@@ -6,21 +6,25 @@
   </div>
 
   <div class="details clearfix">
-      <p>Mobile</p>
+      <label>Mobile</label>
       <span>{{candidateDetails.mobile_number}}</span>
-      <p>Email</p>
+      <label>Email</label>
       <span>{{candidateDetails.email}}</span>
-      <p>Specialization area</p>
-      <span *ngFor="let role of candidate.industry.roles;let i = index">{{role.name}}<span *ngIf="candidate.industry.roles.length>1 &&  i!=candidate.industry.roles.length-1">,</span></span>
-      <p>Industry Exposure</p>
-      <span *ngFor="let industry of candidate.interestedIndustries;let i = index">{{industry}}<span *ngIf="candidate.interestedIndustries.length>1 && i!=candidate.interestedIndustries.length-1">,</span></span>
-      <p>Experience</p>
+      <label>Specialization area</label>
+      <span *ngFor="let role of candidate.industry.roles;let i = index">{{role.name}}
+        <span *ngIf="candidate.industry.roles.length>1 &&  i!=candidate.industry.roles.length-1">,</span>
+      </span>
+      <label>Industry Exposure</label>
+      <span *ngFor="let industry of candidate.interestedIndustries;let i = index">{{industry}}
+        <span *ngIf="candidate.interestedIndustries.length>1 && i!=candidate.interestedIndustries.length-1">,</span>
+      </span>
+      <label>Experience</label>
       <span>{{candidate.professionalDetails.experience}}</span>
-      <p>Current Location</p>
+      <label>Current Location</label>
       <span>Pune</span><!--<span>{{candidateDetails.location.city}}</span>-->
-      <p>Salary Band</p>
+      <label>Salary Band</label>
       <span>Know More</span>
-      <p>Availability</p>
+      <label>Availability</label>
       <span>Know More</span>
   </div>
 </div>

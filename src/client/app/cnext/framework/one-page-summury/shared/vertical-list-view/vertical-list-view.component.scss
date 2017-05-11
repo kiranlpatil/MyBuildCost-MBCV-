@@ -2,6 +2,7 @@
 
 $theme-color: #3694d1;
 $text-color: #576b7c;
+$bg-color: #f2f2f2;
 
 .vertical-view {
   margin-bottom: 15px;
@@ -20,7 +21,7 @@ $text-color: #576b7c;
 
   img {
     width: 25px;
-    margin-right: 10px;
+    margin-right: 5px;
   }
 
   span {
@@ -43,23 +44,26 @@ $text-color: #576b7c;
 
       &::before {
         background-color: $text-color;
+        border: 5px solid $bg-color;
         border-radius: 50%;
         content: "";
         display: block;
-        height: 10px;
-        margin: 5px 0;
+        //height: 10px;
+        margin: 0;
         position: absolute;
-        width: 10px;
+        //width: 10px;
+        padding: 5px;
+        top: 0;
         z-index: 2;
       }
 
       &::after {
         background: $text-color;
         content: '';
-        height: 70%;
-        left: 5px;
+        height: 100%;
+        left: 10px;
         position: absolute;
-        top: 35%;
+        top: 0;
         width: 1px;
         z-index: 1;
       }
@@ -70,14 +74,31 @@ $text-color: #576b7c;
       }
 
       p {
-        padding: 0 0 5px 20px;
+        padding: 0 0 5px 30px;
         color: $text-color;
-        margin: 0;
+        margin: -4px 0 5px 0;
         word-break: break-all;
       }
 
       .text-ellipsis {
         @extend %text-ellipsis;
+      }
+
+      .read-less,
+      .read-more {
+        display: none;
+        cursor: pointer;
+        font-weight: bold;
+        font-size: 10px;
+        color: $theme-color;
+      }
+
+      .text-ellipsis ~ .read-more {
+        display: block;
+      }
+
+      .text-wrap ~ .read-less {
+        display: block;
       }
     }
   }

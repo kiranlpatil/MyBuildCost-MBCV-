@@ -1,0 +1,101 @@
+$white: #fff;
+$theme-color: #3694d1;
+$border-color: #e8e8e8;
+
+.page-header {
+  background: $theme-color;
+  border-bottom: 1px solid $theme-color;
+  -webkit-box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.4);
+  -moz-box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.4);
+  height: 50px;
+  left: 0;
+  margin: 0 auto;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 99;
+
+  .cn-logo {
+    position: fixed;
+    top: 10px;
+    left: 15px;
+    width: 120px;
+
+    img {
+      width: 100%;
+    }
+  }
+
+  .action-list {
+    float: right;
+    padding-top: 2px;
+
+    li {
+      color: $white;
+      float:left;
+      list-style-type: none;
+      margin-left: 15px;
+    }
+  }
+}
+
+.one-page-summary {
+  margin-top: 65px;
+  margin-bottom: 50px;
+  text-align: left;
+  padding: 0;
+
+  .left-content {
+    border-right: 1px solid $border-color;
+  }
+
+  h4 {
+    font-size: 12px;
+    font-family: gothamrnd-book;
+    margin: 0;
+    padding: 10px 0;
+  }
+}
+
+@media only screen and (max-width: 1366px) {
+  .one-page-summary {
+    width: 100%;
+  }
+
+  .left-content {
+    width: 20%;
+  }
+
+  .right-content {
+    width: 80%;
+  }
+}
+
+@media only screen and (max-width: 1024px) {
+  .one-page-summary {
+    .left-content {
+      width: 30%;
+    }
+
+    .right-content {
+      width: 70%;
+    }
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .one-page-summary {
+    margin-bottom: 20px;
+
+    .left-content,
+    .right-content {
+      border-right: 0;
+      width: 100%;
+    }
+
+    .col-md-6 {
+      padding: 0;
+    }
+  }
+}
