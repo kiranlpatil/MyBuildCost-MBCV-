@@ -32,18 +32,16 @@ class CandidateRepository extends RepositoryBase<ICandidate> {
             let candi_last_digit: number = Number(candi_item.substr(candi_item.lastIndexOf(".")+1));
             if(candi_last_digit == job_last_digit - 1){
                 candidate_card_view.below_one_step_matching +=10;
-                candidate_card_view.matching+=10;
             }else if(candi_last_digit == job_last_digit + 1) {
               candidate_card_view.above_one_step_matching +=10;
-              candidate_card_view.matching+=10;
             }else if(candi_last_digit == job_last_digit ){
-              candidate_card_view.matching+=10;
               candidate_card_view.exact_matching +=10;
             }
             break;
           }
         }
       }
+      candidate_card_view.matching = candidate_card_view.above_one_step_matching + candidate_card_view.below_one_step_matching + candidate_card_view.exact_matching;
       candidate_card_view.salary = candidate.professionalDetails.currentSalary;
       candidate_card_view.experience = candidate.professionalDetails.experience;
       candidate_card_view.location = candidate.professionalDetails.relocate;
