@@ -78,7 +78,7 @@ export function add(req: express.Request, res: express.Response, next: any) {
 
     var jobProfileService = new JobProfileService();
     let data ={
-      "userId": req.params.recruiterId,
+      "recruiterId": req.params.recruiterId,
       "profileId": req.params.profileId,
       "listName": req.params.listName,
       "candidateId": req.params.candidateId
@@ -123,5 +123,3 @@ export function getQCardDetails(req: express.Request, res: express.Response, nex
     res.status(403).send({message: e.message});
   }
 }
-
-
