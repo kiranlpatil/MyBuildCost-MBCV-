@@ -1,5 +1,6 @@
 $white: #fff;
 $border-color: #e8e8e8;
+$text-color: #666;
 
 .recruiter-profile-wrapper {
   .col-sm-3 {
@@ -9,6 +10,12 @@ $border-color: #e8e8e8;
   .col-sm-9 {
     width: 75%;
     padding-left: 0;
+  }
+
+  .btn-back {
+    margin: 0;
+    padding: 5px;
+    color: $text-color;
   }
 }
 

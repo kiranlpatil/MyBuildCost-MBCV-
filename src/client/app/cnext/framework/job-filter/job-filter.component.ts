@@ -138,7 +138,7 @@ export class JobFilterComponent implements OnInit,OnChanges{
     this.candidateFilter.experienceMinValue = event;
     this.candidateFilterService.filterby(this.candidateFilter);
   }
-  onSelectionChange(value:any) { debugger
+  onSelectionChange(value:any) {
     this.candidateFilter.filterByLocation = value;
     this.candidateFilterService.filterby(this.candidateFilter);
   }

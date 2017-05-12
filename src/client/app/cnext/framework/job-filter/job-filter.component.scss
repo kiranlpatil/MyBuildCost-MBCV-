@@ -11,14 +11,25 @@ $profile-section-shadow: rgba(204, 204, 204, 1);
     color: $text-color;
   }
 
+  h4 {
+    margin: 0;
+    background: #e8e8e8;
+    color: #666;
+    font-size: 16px;
+    padding: 5px 15px;
+    border: 1px solid #ccc;
+  }
+
   .inner {
     border: 1px solid $border-color;
     background: $bg-tab-content;
     box-shadow: 0 0 1px 0 $profile-section-shadow;
     padding: 15px;
 
-    p {
-      margin: 0;
+    h5 {
+      margin: 15px 0 5px 0;
+      font-weight: 900;
+      color: #666;
     }
 
     label {
@@ -27,10 +38,15 @@ $profile-section-shadow: rgba(204, 204, 204, 1);
       font-size: 14px;
       margin: 10px 0 0 0;
       width: 100%;
+    }
 
-      &:first-child {
-        margin: 0;
-      }
+    .radio,
+    .checkbox {
+      margin-left: 20px;
+    }
+
+    .min-max-values {
+      margin-bottom: 10px;
     }
   }
 

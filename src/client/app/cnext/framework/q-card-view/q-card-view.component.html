@@ -12,9 +12,9 @@
   </header>
 
   <div class="card-view clearfix">
-    <div class="col-sm-4" *ngFor= "let item of candidates2 | orderby:formatcandidate | dashboardfilter:candidateFilter">
+    <div class="col-sm-6" *ngFor= "let item of candidates2 | orderby:formatcandidate | dashboardfilter:candidateFilter">
       <div class="panel clearfix">
-        <div class="col-xs-6 no-padding">
+        <div class="col-sm-7 col-xs-6 no-padding left-side">
           <p><img src="assets/c-next/card-view/salary.png" alt="Salary"/>$ {{item.salary}}</p>
           <p><img src="assets/c-next/card-view/experience.png" alt="Experience"/>{{item.experience}} Years</p>
           <p><img src="assets/c-next/card-view/relocation.png" alt="Location"/> {{item.location}}</p>
@@ -24,7 +24,7 @@
           <p><img src="assets/c-next/card-view/relocation.png" alt="Location"/> {{item.interestedIndustries}}</p>
         </div>
 
-        <div class="col-xs-6 no-padding ">
+        <div class="col-sm-5 col-xs-6 no-padding right-side">
           <div class="canvas-container">
             <cn-progress-bar [value]="item.matching" [color]="'#e77e22'" [rotation]="false"></cn-progress-bar>
             <cn-progress-bar [value]="item.matching" [color]="'#e77e22'" [rotation]="true" ></cn-progress-bar>

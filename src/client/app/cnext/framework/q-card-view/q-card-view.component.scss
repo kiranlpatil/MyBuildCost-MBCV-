@@ -29,11 +29,12 @@ $orange: #e77e22;
   }
 
   .canvas-container {
-    float: right;
+    float: none;
     height: 110px;
     position: relative;
     transform: rotateY(180deg);
     width: 110px;
+    margin: 0 auto;
 
     .percentage {
       color: $orange;
@@ -45,6 +46,19 @@ $orange: #e77e22;
   .card-view {
     .col-sm-4 {
       width: 50%;
+    }
+  }
+}
+@media only screen and (device-width: 768px) {
+  .card-view {
+    .left-side {
+      float:right;
+      width: 100%;
+    }
+
+    .right-side {
+      float:left;
+      width: 100%;
     }
   }
 }
