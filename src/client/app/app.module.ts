@@ -126,6 +126,8 @@ import {GoogleplaceDirective} from "angular2-google-map-auto-complete/directives
 import {MultiSelectComponent} from "./cnext/framework/multi-select/multi-select.component";
 import {MultiSelectService} from "./cnext/framework/multi-select/multi-select.service";
 import {JobProficienciesComponent} from "./cnext/framework/job-proficiency/job-proficiencies.component";
+import {RecruiteQCardView2Service} from "./cnext/framework/recruiter-q-card-view2/recruiter-q-card-view2.service";
+import {RecruiterQCardview2Component} from "./cnext/framework/recruiter-q-card-view2/recruiter-q-card-view2.component";
 
 
 import {CandidateFilterService} from "./cnext/framework/filters/candidate-filter.service";
@@ -217,6 +219,7 @@ import {CandidateDashboardFilterPipe} from "./cnext/framework/filters/candidate-
     jobListerSortPipe,
     RecruiterJobSummaryComponent,
     RecruiterJobInformation,
+    RecruiterQCardview2Component,
     CandidateDashboardFilterPipe
 
   ],
@@ -283,7 +286,8 @@ import {CandidateDashboardFilterPipe} from "./cnext/framework/filters/candidate-
     RecruiterDashboardService,
     QCardViewService,
     JobFilterService,
-    CandidateFilterService
+    CandidateFilterService,
+    RecruiteQCardView2Service
 
   ],
   bootstrap: [AppComponent]

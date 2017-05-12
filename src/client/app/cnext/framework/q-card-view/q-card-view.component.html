@@ -12,9 +12,11 @@
   </header>
 
   <div class="card-view clearfix">
-    <div class="col-sm-6" *ngFor= "let item of candidates2 | orderby:formatcandidate | dashboardfilter:candidateFilter">
+    <div class="col-sm-4" *ngFor= "let item of candidates | orderby:formatcandidate | dashboardfilter:candidateFilter">
       <div class="panel clearfix">
         <div class="col-sm-7 col-xs-6 no-padding left-side">
+          <div><span class="glyphicon glyphicon-heart-empty" (click)="addToShortList(item._id)"></span></div>
+          <div [hidden]="!item.isCandidateRead">UnRead</div>
           <p><img src="assets/c-next/card-view/salary.png" alt="Salary"/>$ {{item.salary}}</p>
           <p><img src="assets/c-next/card-view/experience.png" alt="Experience"/>{{item.experience}} Years</p>
           <p><img src="assets/c-next/card-view/relocation.png" alt="Location"/> {{item.location}}</p>
@@ -22,6 +24,7 @@
           <p><img src="assets/c-next/card-view/relocation.png" alt="Location"/> {{item.noticePeriod}}</p>
           <p><img src="assets/c-next/card-view/relocation.png" alt="Location"/> {{item.proficiencies}}</p>
           <p><img src="assets/c-next/card-view/relocation.png" alt="Location"/> {{item.interestedIndustries}}</p>
+          <p><img src="assets/c-next/card-view/relocation.png" alt="Location"/><span *ngIf="item.location == 'Yes'">Ready to Relocate</span><span *ngIf="item.location != 'Yes'">Not Ready to Relocate</span></p>
         </div>
 
         <div class="col-sm-5 col-xs-6 no-padding right-side">
@@ -31,6 +34,7 @@
             <span class="percentage"><span>{{item.matching}}%</span><br />Skills<br />matching</span>
           </div>
         </div>
+        <button type="button" (click)="addToCart(item._id)" >Add To Cart</button>
       </div>
     </div>
   </div>

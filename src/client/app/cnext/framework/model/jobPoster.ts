@@ -1,6 +1,8 @@
 import {Industry} from "./industry";
 import {JobLocation} from "./job-location";
 export class JobPosterModel {
+  _id:string;
+  recruiterId : string;
   jobTitle : string = '';
   hiringManager : string = '';
   department : string= '';
@@ -18,4 +20,5 @@ export class JobPosterModel {
   remark : string ='';
   roleType : string = '';
   interestedIndustries :string[] = new Array(0);
+  candidate_list:any=new Array();
 }

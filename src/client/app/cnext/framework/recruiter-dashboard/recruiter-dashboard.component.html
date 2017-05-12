@@ -10,7 +10,6 @@
         <a data-toggle="tab" href="#post-new-job">Post New Job / Search</a>
       </li>
     </ul>
-
     <div class="tab-content">
       <div id="posted-job" class="tab-pane fade clearfix">
         <div [hidden]="isJobSelected">
@@ -20,9 +19,40 @@
           <div class="col-sm-3">
             <cn-job-filter [selectedJob]="selectedJobProfile"></cn-job-filter>
           </div>
-          <div class="col-sm-9">
+          <div class="col-sm-12 list-view"  *ngIf="selectedJobProfile!=undefined">
+            <div class="panel clearfix" >
+              <div class="col-sm-6 no-padding job-posted clearfix">
+                <div class="col-xs-2 no-padding">
+                  <p><span>52</span></p>Matches
+                </div>
+                <div class="col-xs-10 padding-left15">
+                  <h4>{{selectedJobProfile.jobTitle}}</h4>
+                  <p>{{selectedJobProfile.department}}</p>
+                </div>
+              </div>
+              <div class="col-sm-6 contact-info">
+                <div class="col-xs-6 no-padding">
+                  <p><img src="../../../../assets/c-next/post-job/calendar.png" alt="calendar"/>{{selectedJobProfile.postingDate | date:'shortDate'}}</p>
+                </div>
+                <div  class="col-xs-6 no-padding">
+                  <p><img src="../../../../assets/c-next/post-job/contact-person.png" alt="Hiring Manager"/>{{selectedJobProfile.hiringManager}}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <button (click)="showMatchedCandidate()" >Matched Candidates</button>
+            <button (click)="showShortlistedCandidate()">Shortlisted Candidates</button>
+            <button (click)="candidateInCart()">cart</button>
+            <button (click)="rejectedCandidates()">Rejected List</button>
+            <!--<button (click)="appliedCandidates()">Applied List</button>-->
+          </div>
+          <div class="col-sm-9" [hidden]="showQCard">
             <button class="btn btn-back" (click)="isJobSelected=false"><span class="glyphicon glyphicon-chevron-left"></span>Back</button>
-            <cn-q-card-view [jobPosterModel]="selectedJobProfile"></cn-q-card-view>
+            <cn-q-card-view [jobPosterModel]="selectedJobProfile" [recruiterId]="recruiter._id"></cn-q-card-view>
+          </div>
+          <div class="col-sm-9"  [hidden]="!showQCard">
+          <cn-recruiter-dashboard-qcard-view  [candidates]="candidates" ></cn-recruiter-dashboard-qcard-view>
           </div>
         </div>
       </div>

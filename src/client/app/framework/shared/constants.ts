@@ -93,6 +93,7 @@ export class LocalStorage {
   public static PROFILE_PICTURE = 'profile_picture';
   public static IS_LOGGED_IN = 'is_user_logged_in';
   public static USER_ID = 'user_id';
+  public static _ID = '_id';
   public static IS_CANDIDATE = 'is_candidate';
   public static MOBILE_NUMBER = 'mobile_number';
   public static COMPANY_NAME = 'company_name';
@@ -118,6 +119,9 @@ export class ValueConstant {
   public static MAX_DOMAINS:number = 10;
   public static MAX_YEAR_LIST:number = 60;
   public static MAX_ACADEMIC_YEAR_LIST:number = 50;
+  public static SHORT_LISTED_CANDIDATE:string = 'shortListed';
+  public static CART_LISTED_CANDIDATE:string = 'cartListed';
+  public static REJECTED_LISTED_CANDIDATE:string = 'rejectedList';
 }
 
 
@@ -165,6 +169,8 @@ export class API {
   public static ROLE_TYPE = 'roletype';
   public static JOB_LIST = 'recruiter';
   public static JOB_DETAILS = 'recruiter/jobProfile';
+  public static SHORTLIST_CANDIDATE = 'shortlistedcandidate';
+  public static CANDIDATE_DETAILS = 'recruiter/jobProfile';
 
 
 }

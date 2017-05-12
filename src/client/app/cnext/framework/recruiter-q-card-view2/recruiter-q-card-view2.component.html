@@ -1,0 +1,47 @@
+<div class="dashboard-view clearfix">
+
+
+  <div class="card-view clearfix">
+    <div class="col-sm-4" *ngFor="let item of candidates">
+      <div class="panel clearfix">
+        <div class="col-xs-6 no-padding">
+          <img src="{{item.picture}}" alt="picture" *ngIf="item.picture!=undefined"/>
+          <img src="{{image_path}}" alt="picture" *ngIf="item.picture==undefined"/>
+          <p> {{item.first_name}}{{item.last_name}}</p>
+          <p>Contact {{item.mobile_number}}</p>
+          <p>Email{{item.email}} Years</p>
+          <span class="percentage">Skills {{item.matching}}%</span><span>match</span>
+        </div>
+        <button type="button" data-toggle="modal" data-target="#myModal" (click)="onClick(item)">View Profile</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Profile</h4>
+      </div>
+      <div class="modal-body">
+        <!--<pre>{{ selectedPerson | json }}  </pre>-->
+        <h5>{{selectedPerson.first_name}}{{selectedPerson.last_name}}</h5>
+        <h5>Contact:{{selectedPerson.mobile_number}}</h5>
+        <h5>Email:{{selectedPerson.email}}</h5>
+        <h5>Status{{selectedPerson.status}}</h5>
+        <h5>Skills:{{selectedPerson.matching}}</h5>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
