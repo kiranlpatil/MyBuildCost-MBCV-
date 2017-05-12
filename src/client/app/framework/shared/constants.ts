@@ -65,6 +65,7 @@ export class Messages {
   public static MSG_ERROR_IMAGE_SIZE:string = 'Make sure image size is less than 500kb';
   public static MSG_ERROR_FB_AUTH:string = 'User cancelled login or did not fully authorize';
   public static MSG_ERROR_FB_domain_error:string = 'The domain of this URL isn not included in the app domains';
+  public static MSG_WARNING_ON_EDIT_CANDIDATE:string = 'This section can be updated only after';
 }
 
 export class NavigationRoutes {

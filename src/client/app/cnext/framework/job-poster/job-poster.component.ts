@@ -137,8 +137,8 @@ export class JobPosterComponent {
     if(jobModel.proficiencies!=undefined ){
       this.jobPosterModel.proficiencies = jobModel.proficiencies;
     }
-    if(jobModel.mandatoryProficiencies!=undefined ){
-      this.jobPosterModel.mandatoryProficiencies = jobModel.mandatoryProficiencies;
+    if(jobModel.additionalProficiencies!=undefined ){
+      this.jobPosterModel.additionalProficiencies = jobModel.additionalProficiencies;
     }
   }
 

@@ -20,7 +20,7 @@ export class JobProficienciesComponent {
   private disablebutton:boolean = true;
 
   onMandatoryProficiencyComplete(mandatory:string[]){
-    this.jobPosterModel.mandatoryProficiencies=mandatory;
+    this.jobPosterModel.proficiencies=mandatory;
     this.onComplete.emit(this.jobPosterModel);
     if(mandatory.length>0){
       this.disablebutton=false;
@@ -30,7 +30,7 @@ export class JobProficienciesComponent {
   }
 
   onOptionalProficiencyComplete(optional:string[]){
-    this.jobPosterModel.proficiencies=optional;
+    this.jobPosterModel.additionalProficiencies=optional;
     this.onComplete.emit(this.jobPosterModel);
   }
   

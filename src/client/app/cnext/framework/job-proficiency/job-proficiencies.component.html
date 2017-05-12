@@ -7,9 +7,9 @@
           capability. <span class="messages">You can edit this list anytime.</span></p>
         <div class="col-sm-12">
           <label>Mandatory Proficiencies</label>
-          <cn-multi-select [type]="Mandatory" [data]="proficiencies" [selectedData]="jobPosterModel.mandatoryProficiencies" (onComplete)="onMandatoryProficiencyComplete($event)"  ></cn-multi-select>
+          <cn-multi-select [type]="Mandatory" [data]="proficiencies" [selectedData]="jobPosterModel.proficiencies" (onComplete)="onMandatoryProficiencyComplete($event)"  ></cn-multi-select>
           <label>Additional Proficiencies</label>
-          <cn-multi-select [type]="Additional" [data]="proficiencies" [selectedData]="jobPosterModel.proficiencies" (onComplete)="onOptionalProficiencyComplete($event)" ></cn-multi-select>
+          <cn-multi-select [type]="Additional" [data]="proficiencies" [selectedData]="jobPosterModel.additionalProficiencies" (onComplete)="onOptionalProficiencyComplete($event)" ></cn-multi-select>
           <div class="button-group clearfix">
             <button class="btn btn-primary" scrollTo scrollTargetSelector="#industry-experience"
                     (click)="onNext()" [disabled]="disablebutton">Next
@@ -26,8 +26,8 @@
               <label>Mandatory</label>
             </div>
             <div class="col-md-10 col-sm-9 padding-left15">
-              <span class="option" *ngFor="let item of jobPosterModel.mandatoryProficiencies;let i = index">
-                {{item}}<span *ngIf="jobPosterModel.mandatoryProficiencies.length>1 && i!=jobPosterModel.mandatoryProficiencies.length-1">,</span>
+              <span class="option" *ngFor="let item of jobPosterModel.proficiencies;let i = index">
+                {{item}}<span *ngIf="jobPosterModel.proficiencies.length>1 && i!=jobPosterModel.proficiencies.length-1">,</span>
               </span>
             </div>
           </div>
@@ -36,8 +36,8 @@
               <label>Additional</label>
             </div>
             <div class="col-md-10 col-sm-9 padding-left15">
-              <span class="option" *ngFor="let item of jobPosterModel.proficiencies;let i = index">
-                {{item}}<span *ngIf="jobPosterModel.proficiencies.length>1 && i!=jobPosterModel.proficiencies.length-1">,</span>
+              <span class="option" *ngFor="let item of jobPosterModel.additionalProficiencies;let i = index">
+                {{item}}<span *ngIf="jobPosterModel.additionalProficiencies.length>1 && i!=jobPosterModel.additionalProficiencies.length-1">,</span>
               </span>
             </div>
           </div>

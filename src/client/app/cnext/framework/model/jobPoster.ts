@@ -11,7 +11,7 @@ export class JobPosterModel {
   salary : string = '';
   joiningPeriod :string ='';
   proficiencies :string[] = new Array(0);
-  mandatoryProficiencies :string[] = new Array(0);
+  additionalProficiencies :string[] = new Array(0);
   industry : Industry = new Industry();
   location : JobLocation = new JobLocation();
   competencies : string = '';

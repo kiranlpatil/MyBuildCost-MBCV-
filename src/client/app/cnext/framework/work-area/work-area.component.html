@@ -26,7 +26,7 @@
   <div class="main-content" *ngIf="highlightedSection.name!='Work-Area'">
     <div class="compact-view clearfix">
       <button  class="btn-edit" (click)="highlightedSection.name='Work-Area';disableButton=false" [hidden]="highlightedSection.isLocked"></button>
-       <span class="glyphicon glyphicon-lock" title="you can edit this field after {{highlightedSection.date| date:'mediumDate'}}" *ngIf="highlightedSection.isLocked"></span>
+       <span class="glyphicon glyphicon-lock" title="This section can be updated only after {{highlightedSection.date| date:'mediumDate'}}" *ngIf="highlightedSection.isLocked"></span>
       <div class="col-md-2 col-sm-3 padding-right15">
         <h4 class="heading">Area Of Work</h4>
       </div>

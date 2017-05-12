@@ -57,6 +57,9 @@ class RecruiterSchema {
             proficiencies :{
               type : [String]
             },
+            additionalProficiencies :{
+              type : [String]
+            },
             interestedIndustries: {
               type :[String]
             },

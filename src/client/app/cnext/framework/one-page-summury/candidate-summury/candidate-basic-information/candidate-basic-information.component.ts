@@ -2,7 +2,7 @@ import {Component,Input } from "@angular/core";
 
 import {CandidateDetail} from "../../../../../framework/registration/candidate/candidate";
 import {Candidate} from "../../../model/candidate";
-import {AppSettings} from "../../../../../framework/shared/constants";
+import {AppSettings, ImagePath} from "../../../../../framework/shared/constants";
 
 
 @Component({
@@ -17,7 +17,7 @@ export class CandidateBasicInformationComponent {
   @Input() candidateDetails:CandidateDetail=new CandidateDetail();
   @Input() candidate:Candidate=new Candidate();
 
-  private image_path:string='assets/framework/images/dashboard/profile.png';
+  private image_path:string=ImagePath.PROFILE_IMG_ICON;
   
   ngOnChanges(){
     if(this.candidateDetails !== undefined){
