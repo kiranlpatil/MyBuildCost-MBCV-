@@ -30,7 +30,7 @@ export class RecruiterQCardview2Component  {
 
   }
 */
-  ngOnChanges(changes :any){debugger
+  ngOnChanges(changes :any){
    /* if(changes.jobPosterModel.currentValue){
       for(let item of changes.jobPosterModel.currentValue.candidate_list[1].ids){
         this.candidateIDS.push(item);
@@ -46,7 +46,7 @@ export class RecruiterQCardview2Component  {
     }*/
   }
 /*rejectedCandidates() {
-  if(this.rejectedCandidatesIDS.length!==0){debugger
+  if(this.rejectedCandidatesIDS.length!==0){
       this.qCardViewService.getCandidatesdetails(this.rejectedCandidatesIDS,this.jobPosterModel)
         .subscribe(
           data => {
@@ -55,7 +55,7 @@ export class RecruiterQCardview2Component  {
   }
 }
 appliedCandidates(){
-  if(this.appliedCandidatesIDS.length!==0){debugger
+  if(this.appliedCandidatesIDS.length!==0){
     this.qCardViewService.getCandidatesdetails(this.appliedCandidatesIDS,this.jobPosterModel)
       .subscribe(
         data => {
@@ -67,7 +67,7 @@ appliedCandidates(){
 }
 
   showShortlistedCandidate() {
-    if(this.candidateIDS.length!==0){debugger
+    if(this.candidateIDS.length!==0){
       this.qCardViewService.getCandidatesdetails(this.candidateIDS,this.jobPosterModel)
         .subscribe(
           data => {
@@ -77,7 +77,7 @@ appliedCandidates(){
     }
   }
   candidateInCart() {
-    if(this.candidateInCartIDS.length!==0){debugger
+    if(this.candidateInCartIDS.length!==0){
       this.qCardViewService.getCandidatesdetails(this.candidateInCartIDS,this.jobPosterModel)
         .subscribe(
           data => {

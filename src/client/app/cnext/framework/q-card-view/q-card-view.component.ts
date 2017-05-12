@@ -43,7 +43,7 @@ export class QCardviewComponent{
       }
     );
   }
-  ngOnChanges(changes :any){debugger
+  ngOnChanges(changes :any){
         if(changes.jobPosterModel!=undefined && changes.jobPosterModel.currentValue){
             this.showQCardView();
             if(changes.jobPosterModel.currentValue.candidate_list.length != 0){
@@ -69,7 +69,7 @@ export class QCardviewComponent{
     this.showQCardView();
     this.showMatchedCandidateButton=false;
   }
-  showQCardView() {debugger
+  showQCardView() {
       this.isShowQCardView=true;
       this.qCardViewService.getSearchedcandidate(this.jobPosterModel)
         .subscribe(

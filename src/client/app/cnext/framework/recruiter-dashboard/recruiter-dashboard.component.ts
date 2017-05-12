@@ -63,7 +63,7 @@ export class RecruiterDashboardComponent implements OnInit {
   }
   rejectedCandidates() {
     this.showQCard=true;
-    if(this.rejectedCandidatesIDS.length!==0){debugger
+    if(this.rejectedCandidatesIDS.length!==0){
       this.qCardViewService.getCandidatesdetails(this.rejectedCandidatesIDS,this.selectedJobProfile)
         .subscribe(
           data => {
@@ -73,7 +73,7 @@ export class RecruiterDashboardComponent implements OnInit {
   }
   appliedCandidates(){
     this.showQCard=true;
-    if(this.appliedCandidatesIDS.length!==0){debugger
+    if(this.appliedCandidatesIDS.length!==0){
       this.qCardViewService.getCandidatesdetails(this.appliedCandidatesIDS,this.selectedJobProfile)
         .subscribe(
           data => {
@@ -90,7 +90,7 @@ export class RecruiterDashboardComponent implements OnInit {
   }
   showShortlistedCandidate() {
     this.showQCard=true;
-    if(this.candidateIDS.length!==0){debugger
+    if(this.candidateIDS.length!==0){
       this.qCardViewService.getCandidatesdetails(this.candidateIDS,this.selectedJobProfile)
         .subscribe(
           data => {
@@ -123,7 +123,7 @@ export class RecruiterDashboardComponent implements OnInit {
 
     }
   }
-  jobSelected(job : any){debugger
+  jobSelected(job : any){
       this.isJobSelected=true;
       this.selectedJobProfile = job;
       if(this.selectedJobProfile.candidate_list.length != 0){
