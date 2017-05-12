@@ -2,12 +2,12 @@ $border-color: #e8e8e8;
 $profile-section-shadow: rgba(204, 204, 204, 1);
 
 .dashboard-view {
-  text-align: left;
+  /*text-align: left;
   border: 1px solid $border-color;
-  box-shadow: 0 0 1px 0 $profile-section-shadow;
+  box-shadow: 0 0 1px 0 $profile-section-shadow;*/
 
   header {
-    margin: 15px 0;
+    margin: 0 0 10px;
     clear: both;
 
     p {
