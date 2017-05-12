@@ -73,7 +73,7 @@ export function retrieve(req: express.Request, res: express.Response, next: any)
   }
 }
 
-export function add(req: express.Request, res: express.Response, next: any) {
+export function update(req: express.Request, res: express.Response, next: any) {
   try {
 
     var jobProfileService = new JobProfileService();
@@ -81,7 +81,8 @@ export function add(req: express.Request, res: express.Response, next: any) {
       "recruiterId": req.params.recruiterId,
       "profileId": req.params.profileId,
       "listName": req.params.listName,
-      "candidateId": req.params.candidateId
+      "candidateId": req.params.candidateId,
+      "action":req.params.action
     };
 
     jobProfileService.update(data, (err, result) => {

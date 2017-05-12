@@ -113,7 +113,17 @@ class JobProfileService {
               for (let list of job.candidate_list) {
                 if (list.name == item.listName) {
                   updateFlag = true;
-                  list.ids.push(item.candidateId);
+                  if(item.action=="add") {
+                    let index = list.ids.indexOf(item.candidateId);    // <-- Not supported in <IE9
+                    if (index == -1) {
+                      list.ids.push(item.candidateId);
+                    }
+                  }else{
+                    let index = list.ids.indexOf(item.candidateId);    // <-- Not supported in <IE9
+                    if (index !== -1) {
+                      list.ids.splice(index, 1);
+                    }
+                  }
                   updatedQuery3 = {
                     $set: {
                       "postedJobs.$.candidate_list": job.candidate_list
