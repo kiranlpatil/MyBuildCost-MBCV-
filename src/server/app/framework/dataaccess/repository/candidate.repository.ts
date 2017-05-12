@@ -22,7 +22,20 @@ class CandidateRepository extends RepositoryBase<ICandidate> {
     let job_posted_selected_complexity:string[] = new Array(0);
     job_posted_selected_complexity = this.getCodesFromindustry(jobProfile.industry);
     let card_view_candidates:CandidateQCard[] = new Array(0);
+    let count=0;
     for (let candidate of candidates) {
+      let isFound : boolean= false;
+      if(jobProfile.candidate_list){
+        for(let list of jobProfile.candidate_list){
+          if(list.ids.indexOf(candidate._id.toString())!=-1){
+            isFound=true;
+          }
+        }
+      }
+      if(isFound){
+        continue;
+      }
+      count++;
       let candidate_selected_complexity:string[] = new Array(0);
       let candidate_card_view:CandidateQCard = new CandidateQCard();
       candidate_card_view.matching = 0;
@@ -63,18 +76,19 @@ class CandidateRepository extends RepositoryBase<ICandidate> {
           candidate_card_view.picture = res.picture;
          */ candidate_card_view.location = candidate.location.cityName;
           card_view_candidates.push(candidate_card_view);
-          if (card_view_candidates.length == candidates.length) {
+          if (card_view_candidates.length == count) {
             callback(null, card_view_candidates);
           }
         }
       });
 
-      setTimeout(()=>{
-        callback(null, card_view_candidates);
-      },5000);
-
-
     }
+    setTimeout(()=>{
+      if(card_view_candidates.length==0){
+        callback(null, card_view_candidates);
+      }
+    },5000);
+
 
   }
 

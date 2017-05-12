@@ -5,6 +5,7 @@ import ILocation = require("../mongoose/location");
 import LocationModel = require("./location.model");
 import ProficiencyModel = require("./proficiency.model");
 import IndustryModel = require("./industry.model");
+import CandidateListModel = require("./candidate-list.model");
 
 interface JobProfileModel {
     jobTitle : string;
@@ -23,6 +24,7 @@ interface JobProfileModel {
     postingDate : Date;
     remark : string;
     interestedIndustries : string[];
+    candidate_list : CandidateListModel[];
 
 }
 export = JobProfileModel;
