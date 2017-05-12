@@ -1,0 +1,77 @@
+$border-color: #e8e8e8;
+$text-color: #666;
+$btn-color: #3694d1;
+$message: #00aed5;
+
+.list  {
+
+  .btn-container {
+    border: 1px solid $border-color;
+    min-height: 65px;
+    padding: 15px 15px 5px;
+    margin-top: 5px;
+
+    div {
+      float: left;
+      margin: 0 10px 10px 0;
+    }
+
+    .btn-create-profile {
+      .glyphicon-remove {
+        top: 2px;
+      }
+    }
+
+    span {
+      color:  $btn-color;
+      font-size: 12px;
+      padding-left: 20px;
+    }
+  }
+
+  .info-message {
+    font-size: 12px;
+    font-style: italic;
+    margin: 0 0 10px;
+  }
+
+}
+
+.compact-view {
+  &:hover {
+    .btn-edit {
+      opacity: 1;
+    }
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .list {
+    padding: 0;
+
+    .btn-container {
+      padding: 5px;
+
+      .btn-create-profile {
+        font-size: 10px;
+        padding: 4px 10px;
+        text-align: left;
+        white-space: normal;
+
+        .glyphicon-remove {
+          padding-left: 10px;
+        }
+      }
+    }
+
+    input {
+      margin-top: 0;
+    }
+
+    .form-group {
+      margin: 0 0 15px 0;
+    }
+  }
+}
+
+

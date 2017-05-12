@@ -23,9 +23,11 @@
                      (onComplete)="selectRoleFromComplexity($event)" [hidden]="!isShowComplexity"></cn-complexities></div>
 
     <div id="proficiency-area">
-    <cn-proficiencies [proficiencies]="proficiencies" [choosedproficiencies]="jobPosterModel.profiencies"
+    <cn-job-proficiencies [proficiencies]="proficiencies"  [jobPosterModel]="jobPosterModel"
                       [highlightedSection]="highlightedSection"
-                      (onComplete)="selectProficiency($event)" [hidden]="!isShowProficiency"></cn-proficiencies></div>
+                      (onComplete)="selectProficiency($event)" [hidden]="!isShowProficiency">
+    </cn-job-proficiencies>
+    </div>
 
     <div id="industry-experience">
     <cn-industry-experience [candidateExperiencedIndustry]="jobPosterModel.interestedIndustries"

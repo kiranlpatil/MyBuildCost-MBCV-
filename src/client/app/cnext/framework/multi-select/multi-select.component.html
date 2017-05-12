@@ -1,0 +1,48 @@
+<p class="instructions" *ngIf="showAlert">You can select maximum 25 proficiencies.</p>
+<div class="list clearfix">
+  <div class="col-sm-4 no-padding">
+    <div class="form-group">
+      <div ng2-auto-complete
+           [source]="Proficiencies"
+           (ngModelChange)="selectedProficiencyModel($event)">
+        <input class="form-control" id="proficiencyId"
+               (keyup.enter)="showHideModal($event.target.value)" />
+      </div>
+    </div>
+    <p class="info-message">To add other proficiency which are not in the list, just type and enter</p>
+  </div>
+  <div class="col-sm-8 padding-left15">
+    <div class="btn-container clearfix">
+      <div *ngFor="let item of selectedProficiencies; let i = index">
+        <button type="button" class="btn btn-create-profile" (click)="deleteItem($event)">
+          {{item}} <span class="glyphicon glyphicon-remove"></span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="modal" [style.display]="getStyleModal()">
+  <div class="modal-bg">
+    <div class="modal-dialog modal-md">
+      <div class="modal-content">
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-sm-12">
+              <p>Do you want to add this proficiency ? </p>
+              <div class="button-group">
+                <button class="btn btn-primary" (click)="addProficiencyToMasterData()">Save</button>
+                <button class="btn btn-default" (click)="showHideModal() ">Cancel</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+

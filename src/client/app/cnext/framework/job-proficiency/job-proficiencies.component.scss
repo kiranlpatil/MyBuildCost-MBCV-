@@ -1,0 +1,40 @@
+$border-color: #e8e8e8;
+$text-color: #666;
+$btn-color: #3694d1;
+$message: #00aed5;
+
+.proficiency-container  {
+
+  .info-message {
+    font-size: 12px;
+    font-style: italic;
+    margin: 0 0 10px;
+  }
+
+  .messages {
+    color: $message;
+    padding: 0;
+  }
+
+  label {
+    font-weight: bold;
+    font-size: 14px;
+    color: $message;
+  }
+}
+
+.compact-view {
+  &:hover {
+    .btn-edit {
+      opacity: 1;
+    }
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .proficiency-container {
+    padding: 0;
+  }
+}
+
+

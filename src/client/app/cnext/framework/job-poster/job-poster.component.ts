@@ -133,8 +133,13 @@ export class JobPosterComponent {
     this.isShowProficiency = true;
   }
 
-  selectProficiency(proficiency:string[]) {
-    this.jobPosterModel.proficiencies = proficiency;
+  selectProficiency(jobModel:JobPosterModel) {
+    if(jobModel.proficiencies!=undefined ){
+      this.jobPosterModel.proficiencies = jobModel.proficiencies;
+    }
+    if(jobModel.mandatoryProficiencies!=undefined ){
+      this.jobPosterModel.mandatoryProficiencies = jobModel.mandatoryProficiencies;
+    }
   }
 
   onCompentansiesandResponsibilitycomplete(data:any) {
@@ -193,9 +198,12 @@ export class JobPosterComponent {
   }
 
   getProficiency() {
-    this.profileCreatorService.getProficiency(this.jobPosterModel.industry.name)
+    this.profileCreatorService.getProficiency()
       .subscribe(
-        data => this.proficiencies = data.data,
+        data => {
+          this.proficiencies = data.data[0].proficiencies;
+          console.log(this.proficiencies);
+        },
         error => this.onError(error));
   }
 }

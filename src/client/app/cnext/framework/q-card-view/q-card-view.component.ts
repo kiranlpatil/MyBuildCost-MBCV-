@@ -28,7 +28,7 @@ export class QCardviewComponent  {
     );
 
   }
-  ngOnChanges(changes :any){debugger
+  ngOnChanges(changes :any){
         if(changes.jobPosterModel.currentValue){
               this.showQCardView();
         }

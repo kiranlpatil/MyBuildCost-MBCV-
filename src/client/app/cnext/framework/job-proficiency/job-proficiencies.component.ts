@@ -1,0 +1,121 @@
+import {Component, Input, EventEmitter, Output} from "@angular/core";
+import {Section} from "../model/candidate";
+import {JobPosterModel} from "../model/jobPoster";
+
+
+
+@Component({
+  moduleId: module.id,
+  selector: 'cn-job-proficiencies',
+  templateUrl: 'job-proficiencies.component.html',
+  styleUrls: ['job-proficiencies.component.css']
+})
+
+export class JobProficienciesComponent {
+  @Input() jobPosterModel:JobPosterModel;
+  @Input() highlightedSection:Section;
+  @Input() proficiencies:string[];
+  @Output() onComplete = new EventEmitter();
+  
+  private disablebutton:boolean = true;
+
+  onMandatoryProficiencyComplete(mandatory:string[]){
+    this.jobPosterModel.mandatoryProficiencies=mandatory;
+    this.onComplete.emit(this.jobPosterModel);
+    if(mandatory.length>0){
+      this.disablebutton=false;
+    } else {
+      this.disablebutton=true;
+    }
+  }
+
+  onOptionalProficiencyComplete(optional:string[]){
+    this.jobPosterModel.proficiencies=optional;
+    this.onComplete.emit(this.jobPosterModel);
+  }
+  
+  onNext() {
+    this.highlightedSection.name = "IndustryExposure";
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

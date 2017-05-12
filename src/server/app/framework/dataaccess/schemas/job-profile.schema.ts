@@ -36,6 +36,9 @@ class JobProfileSchema {
       proficiencies :{
         names : [String]
       },
+      mandatoryProficiencies :{
+        names : [String]
+      },
       industry:{
         name:String,
         roles: [{

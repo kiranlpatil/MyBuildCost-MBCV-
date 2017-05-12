@@ -27,8 +27,8 @@ export class CandidateProfileComponent implements OnInit {
   private rolesForCapability:Role[] = new Array(0);
   private rolesForComplexity:Role[] = new Array(0);
   private roleList:string[] = new Array()
-  private primaryCapability:string[] = new Array()
-  private proficiencies:string[] = new Array()
+  private primaryCapability:string[] = new Array();
+  private proficiencies:string[] = new Array();
   private isComplexityPresent:boolean = false;
 
   whichStepsVisible:boolean[] = new Array(7);
@@ -281,9 +281,12 @@ export class CandidateProfileComponent implements OnInit {
   }
 
   getProficiency() {
-    this.profileCreatorService.getProficiency(this.candidate.industry.name)
+    this.profileCreatorService.getProficiency()
       .subscribe(
-        data => this.proficiencies = data.data,
+        data => {
+          this.proficiencies = data.data[0].proficiencies;
+          console.log(this.proficiencies);
+        },
         error => this.onError(error));
   }
 

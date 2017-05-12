@@ -123,6 +123,9 @@ import {RecruiterJobInformation} from "./cnext/framework/one-page-summury/recrui
 import {JobFilterService} from "./cnext/framework/job-filter/job-filter.service";
 //import {GooglePlaceModule} from 'ng2-google-place-autocomplete';
 import {GoogleplaceDirective} from "angular2-google-map-auto-complete/directives/googleplace.directive"
+import {MultiSelectComponent} from "./cnext/framework/multi-select/multi-select.component";
+import {MultiSelectService} from "./cnext/framework/multi-select/multi-select.service";
+import {JobProficienciesComponent} from "./cnext/framework/job-proficiency/job-proficiencies.component";
 
 
 //C-NEXT IMPORTS
@@ -183,10 +186,12 @@ import {GoogleplaceDirective} from "angular2-google-map-auto-complete/directives
     CandidateProfileComponent,
     ProfileDescriptionComponent,
     CapabilitiesComponent,
+    JobProficienciesComponent,
     ProficienciesComponent,
     IndustryListComponent,
     ComplexitiesComponent,
     JobPosterComponent,
+    MultiSelectComponent,
     BasicJobInformationComponent,
     CompentansiesAndResponsibilitiesComponent,
     JobFilterComponent,
@@ -267,6 +272,7 @@ import {GoogleplaceDirective} from "angular2-google-map-auto-complete/directives
     DisableTestService,
     ShowQcardviewService,
     CandidateAwardService,
+    MultiSelectService,
     AboutCandidateService,
     JobPosterService,
     CandidateAcadmyDetailService,

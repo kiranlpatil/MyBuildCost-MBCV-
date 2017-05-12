@@ -1,79 +1,34 @@
 <div class="clearfix">
+  <div class="section-container clearfix profeiciency-domain" >
+    <div class="main-content  modal-content clearfix"  *ngIf="highlightedSection.name=='Proficiencies'">
+      <h4 class="heading">Proficiencies (Max 25)</h4>
+      <p class="info">Enter all key words that describe your area of expertise or specialization. These
+        proficiencies will be used for second level of matching post
+        capability. <span class="messages">You can edit this list anytime.</span></p>
+      <div class="proficiency-container col-sm-12">
 
-    <div class="section-container clearfix profeiciency-domain" >
-      <div class="main-content  modal-content clearfix"  *ngIf="highlightedSection.name=='Proficiencies'">
-        <h4 class="heading">Proficiencies (Max 25)</h4>
-        <div class="proficiency-container col-sm-12">
-          <!--<p>Add your <span  *ngIf="proficiencyType">proficiencies/tools/technologies</span><span *ngIf="domainType">domains you work</span></p>-->
-          <p class="info">Enter all key words that describe your area of expertise or specialization. These
-            proficiencies will be used for second level of matching post
-            capability. <span class="messages">You can edit this list anytime.</span></p>
-          <p class="instructions" *ngIf="showAlert">You can select maximum 25 proficiencies.</p>
-
-          <div class="list clearfix">
-            <div class="col-sm-4 no-padding">
-              <div class="form-group">
-                <div ng2-auto-complete
-                     [source]="Proficiencies"
-                     (ngModelChange)="selectedProficiencyModel($event)">
-                  <input class="form-control" [(ngModel)]="proficiencyModel" id="proficiencyId"
-                         (keyup.enter)="showHideModal($event.target.value)" placeholder="{{proficiencies.label}}"/>
-                </div>
-              </div>
-              <p class="info-message">To add other proficiency which are not in the list, just type and enter</p>
-            </div>
-            <div class="col-sm-8 padding-left15">
-              <div class="btn-container clearfix">
-                <div *ngFor="let item of selectedProficiencies; let i = index">
-                  <button type="button" class="btn btn-create-profile" (click)="deleteItem($event)">
-                    {{item}} <span class="glyphicon glyphicon-remove"></span>
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="button-group clearfix">
-            <button class="btn btn-primary" scrollTo scrollTargetSelector="#industry-experience"
-                    (click)="onNext()" [disabled]="disablebutton">Next
-            </button>
-          </div>
-        </div>
-      </div>
-      <div class="main-content" *ngIf="highlightedSection.name !='Proficiencies'">
-        <div class="compact-view clearfix">
-          <button class="btn-edit" (click)="highlightedSection.name='Proficiencies';disablebutton=false"></button>
-          <div class="col-md-2 col-sm-3 padding-right15">
-            <h4 class="heading">Proficiencies</h4>
-          </div>
-          <div class="col-md-10 col-sm-9 padding-left15">
-            <span class="option" *ngFor="let item of selectedProficiencies;let i = index">
-              {{item}}<span *ngIf="selectedProficiencies.length>1 && i!=selectedProficiencies.length-1">,</span>&nbsp;
-            </span>
-          </div>
+        <cn-multi-select  [data]="proficiencies" [selectedData]="choosedproficiencies" (onComplete)="onProficiencyComplete($event)"  ></cn-multi-select>
+        <div class="button-group clearfix">
+          <button class="btn btn-primary" scrollTo scrollTargetSelector="#industry-experience"
+                  (click)="onNext()" [disabled]="disablebutton">Next
+          </button>
         </div>
       </div>
     </div>
-</div>
-
-
-<div class="modal" [style.display]="getStyleModal()">
-  <div class="modal-bg">
-    <div class="modal-dialog modal-md">
-      <div class="modal-content">
-        <div class="modal-body row">
-          <div class="col-sm-12">
-            <p>Do you want to add this proficiency ? </p>
-
-            <div class="button-group">
-              <button class="btn btn-primary" (click)="addProficiencyToMasterData()">Save</button>
-              <button class="btn btn-default" (click)="showHideModal() ">Cancel</button>
-            </div>
-          </div>
+    <div class="main-content" *ngIf="highlightedSection.name !='Proficiencies'">
+      <div class="compact-view clearfix">
+        <button class="btn-edit" (click)="highlightedSection.name='Proficiencies';disablebutton=false"></button>
+        <h4 class="heading">Proficiencies</h4>
+        <div class="select-option" *ngFor="let item of choosedproficiencies">
+          <span class="primary">{{item}}</span>
         </div>
       </div>
     </div>
   </div>
 </div>
+
+
+
 
 
 
