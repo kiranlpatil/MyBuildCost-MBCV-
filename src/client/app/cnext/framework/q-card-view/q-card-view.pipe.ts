@@ -12,9 +12,9 @@ export class SortPipe implements  PipeTransform{
     }
     if(args==='JobMatching' && args!==""){
     array.sort((a: CandidateQCard, b: CandidateQCard) => {
-      if (a.matching > b.matching ){
+      if (Number(a.matching) >= Number(b.matching) ){
         return -1;
-      }else if( a.matching < b.matching ){
+      }else if( Number(a.matching) <= Number(b.matching) ){
         return 1;
       }else{
         return 0;
@@ -22,9 +22,9 @@ export class SortPipe implements  PipeTransform{
     });}
     if(args==='Experience' && args!==""){
       array.sort((a: CandidateQCard, b: CandidateQCard) => {
-        if (a.experience > b.experience ){
+        if (Number(a.experience.split(" ")[0]) >= Number(b.experience.split(" ")[0]) ){
           return -1;
-        }else if( a.experience < b.experience ){
+        }else if( Number(a.experience.split(" ")[0]) <= Number(b.experience.split(" ")[0]) ){
           return 1;
         }else{
           return 0;
@@ -32,9 +32,9 @@ export class SortPipe implements  PipeTransform{
       });
     } if(args==='Salary' && args!==""){
       array.sort((a: CandidateQCard, b: CandidateQCard) => {
-        if (Number(a.salary.split(" ")[0]) > Number(b.salary.split(" ")[0])){
+        if (Number(a.salary.split(" ")[0]) >= Number(b.salary.split(" ")[0])){
           return -1;
-        }else if(Number(a.salary.split(" ")[0]) < Number(b.salary.split(" ")[0])){
+        }else if(Number(a.salary.split(" ")[0]) <= Number(b.salary.split(" ")[0])){
           return 1;
         }else{
           return 0;
