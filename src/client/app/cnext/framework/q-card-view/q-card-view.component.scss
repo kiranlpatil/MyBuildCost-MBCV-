@@ -39,6 +39,7 @@ $white: #fff;
       position: absolute;
       top: 15px;
       right: 15px;
+      z-index: 5;
     }
 
     .shortlisted {
@@ -50,6 +51,7 @@ $white: #fff;
       top: 15px;
       right: 40px;
       color: #999;
+      z-index: 5;
     }
 
     .glyphicon-eye-open {
@@ -57,6 +59,7 @@ $white: #fff;
       top: 15px;
       right: 40px;
       color: $orange;
+      z-index: 5;
     }
 
     .right-side {
