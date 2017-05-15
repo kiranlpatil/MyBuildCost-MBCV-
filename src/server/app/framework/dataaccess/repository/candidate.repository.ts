@@ -48,11 +48,11 @@ class CandidateRepository extends RepositoryBase<ICandidate> {
             let job_last_digit:number = Number(job_item.substr(job_item.lastIndexOf(".") + 1));
             let candi_last_digit:number = Number(candi_item.substr(candi_item.lastIndexOf(".") + 1));
             if (candi_last_digit == job_last_digit - 1) {
-              candidate_card_view.below_one_step_matching += 10;
+              candidate_card_view.below_one_step_matching += 1;
             } else if (candi_last_digit == job_last_digit + 1) {
-              candidate_card_view.above_one_step_matching += 10;
+              candidate_card_view.above_one_step_matching += 1;
             } else if (candi_last_digit == job_last_digit) {
-              candidate_card_view.exact_matching += 10;
+              candidate_card_view.exact_matching += 1;
             }
             break;
           }
@@ -64,6 +64,9 @@ class CandidateRepository extends RepositoryBase<ICandidate> {
         if (error) {
           callback(error, null);
         } else {
+          candidate_card_view.above_one_step_matching = (candidate_card_view.above_one_step_matching / job_posted_selected_complexity.length) * 100;
+          candidate_card_view.below_one_step_matching= (candidate_card_view.below_one_step_matching/ job_posted_selected_complexity.length) * 100;
+          candidate_card_view.exact_matching = (candidate_card_view.exact_matching / job_posted_selected_complexity.length) * 100;
           candidate_card_view.matching = candidate_card_view.above_one_step_matching + candidate_card_view.below_one_step_matching + candidate_card_view.exact_matching;
           candidate_card_view.salary = candidate.professionalDetails.currentSalary;
           candidate_card_view.experience = candidate.professionalDetails.experience;
@@ -89,7 +92,7 @@ class CandidateRepository extends RepositoryBase<ICandidate> {
       if(card_view_candidates.length==0){
         callback(null, card_view_candidates);
       }
-    },5000);
+    },3000);
 
 
   }
