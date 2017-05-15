@@ -6,6 +6,7 @@ import {RecruiterDashboardService} from "./recruiter-dashboard.service";
 import {JobPosterModel} from "../model/jobPoster";
 import {RecruiteQCardView2Service} from "../recruiter-q-card-view2/recruiter-q-card-view2.service";
 import {CandidateQCard} from "../model/candidateQcard";
+import {RecruitercandidatesListsService} from "../candidate-lists.service";
 
 @Component({
   moduleId: module.id,
@@ -33,12 +34,15 @@ export class RecruiterDashboardComponent implements OnInit {
   private rejectedCandidatesIDS = new Array();
   private appliedCandidatesIDS = new Array();
   private candidates:CandidateQCard[] = new Array(0);
+  private candidatesInCart:CandidateQCard[] = new Array(0);
+  private candidatesshortlisted:CandidateQCard[] = new Array(0);
 
 
-  constructor(private _router: Router, private recruiterDashboardService: RecruiterDashboardService,private qCardViewService:RecruiteQCardView2Service) {
+  constructor(private _router: Router, private recruiterDashboardService: RecruiterDashboardService,
+              private qCardViewService:RecruiteQCardView2Service,private candidateLists:RecruitercandidatesListsService) {
     this.recruiterDashboardService.getJobList()
       .subscribe(
-        data => {
+        data => {if( data.data[0] != undefined)
           this.recruiter = data.data[0];
 
           for (let i of this.recruiter["postedJobs"]) {
@@ -46,6 +50,7 @@ export class RecruiterDashboardComponent implements OnInit {
             this.jobList.push(i);
           }
           this.companyName = this.recruiter["company_name"];
+          if( this.jobList.length >= 0)
           this.jobCount = this.jobList.length;
         });
   }
@@ -64,23 +69,26 @@ export class RecruiterDashboardComponent implements OnInit {
   rejectedCandidates() {
     this.showQCard=true;
     this.candidates=[];
-    if(this.rejectedCandidatesIDS.length!==0){
+   /* if(this.rejectedCandidatesIDS.length!==0){
       this.qCardViewService.getCandidatesdetails(this.rejectedCandidatesIDS,this.selectedJobProfile)
         .subscribe(
           data => {
             this.candidates=data;
+            this.candidateLists.change(this.candidates);
           });
-    }
+
+    }*/
   }
   appliedCandidates(){
     this.showQCard=true;
     this.candidates=[];
     if(this.appliedCandidatesIDS.length!==0){
-      this.qCardViewService.getCandidatesdetails(this.appliedCandidatesIDS,this.selectedJobProfile)
+     /* this.qCardViewService.getCandidatesdetails(this.appliedCandidatesIDS,this.selectedJobProfile)
         .subscribe(
           data => {
             this.candidates=data;
           });
+*/
 
     }
 
@@ -94,22 +102,27 @@ export class RecruiterDashboardComponent implements OnInit {
     this.showQCard=true;
     this.candidates=[];
     if(this.candidateIDS.length!==0){
-      this.qCardViewService.getCandidatesdetails(this.candidateIDS,this.selectedJobProfile)
-        .subscribe(
-          data => {
-            this.candidates=data;
-          });
+      for(let item of this.candidateInCartIDS ) {
+        this.qCardViewService.getCandidatesdetails(item, this.selectedJobProfile)
+          .subscribe(
+            data => {
+              this.candidatesshortlisted = data;
+              /!* this.candidateLists.change(this.candidates);*!/
+            });
 
+      }
     }
   }
-  candidateInCart() {
+  candidateInCart() {debugger
     this.showQCard=true;
     this.candidates=[];
-    if(this.candidateInCartIDS.length != 0){
-      this.qCardViewService.getCandidatesdetails(this.candidateInCartIDS,this.selectedJobProfile)
+    for(let item of this.candidateInCartIDS ){
+      console.log("cart ids",JSON.stringify(this.candidateInCartIDS));
+      this.qCardViewService.getCandidatesdetails(item ,this.selectedJobProfile)
         .subscribe(
           data => {
-            this.candidates=data;
+            this.candidatesInCart=data;
+            /*this.candidateLists.change(this.candidates);*/
           });
 
     }
@@ -120,12 +133,12 @@ export class RecruiterDashboardComponent implements OnInit {
     this.showQCard=true;
     this.candidates=[];
     if(this.candidateIDS.length != 0){
-      this.qCardViewService.getCandidatesdetails(this.candidateIDS,this.selectedJobProfile)
+      /*this.qCardViewService.getCandidatesdetails(this.candidateIDS,this.selectedJobProfile)
         .subscribe(
           data => {
             this.candidates=data;
-          });
-
+          });*/
+      this.candidateLists.change(this.candidates);
     }
   }
   jobSelected(job : any){

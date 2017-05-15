@@ -17,7 +17,7 @@ import {ValueConstant} from "../../../framework/shared/constants";
 })
 export class QCardviewComponent implements OnInit, OnChanges {
   private candidates: CandidateQCard[] = new Array();
-  //private candidates2:CandidateQCard[] = new Array();
+  private allCandidates:CandidateQCard[] = new Array();
   private selectedPerson: CandidateQCard = new CandidateQCard();
   private showMatchedCandidateButton: boolean;
   private candidateSeenIDS = new Array();
@@ -67,6 +67,15 @@ export class QCardviewComponent implements OnInit, OnChanges {
         console.log(user);
       });
     this.shortlisted = !this.shortlisted;
+    let i=0;
+    for(let item of this.candidates){
+
+      if(item._id ===_id){
+        this.candidates.splice(i,1);
+      }
+      i++;
+    }
+    this.matches=this.candidates.length;
   }
 
   matchedCandidate() {
@@ -80,7 +89,6 @@ export class QCardviewComponent implements OnInit, OnChanges {
       .subscribe(
         data => {
           this.candidates = data,
-              console.log ("match",this.candidates);
             this.matches = this.candidates.length
         });
     for (let readedCandidate of this.candidateSeenIDS) {
@@ -96,6 +104,15 @@ export class QCardviewComponent implements OnInit, OnChanges {
       user => {
         console.log(user);
       });
+    let i=0;
+    for(let item of this.candidates){
+
+      if(item._id ===_id){
+        this.candidates.splice(i,1);
+      }
+      i++;
+    }
+    this.matches=this.candidates.length;
   }
 
   sortBy() {
@@ -126,12 +143,7 @@ export class QCardviewComponent implements OnInit, OnChanges {
 
    "below_one_step_matching": 20,
    "above_one_step_matching": 10,
-   "exact_matching": 140,
-   "mobile_number":"1234567891",
-   "email":"k@gmail.com",
-   "status":"",
-   "picture":'',
-   "isCandidateRead":true
+   "exact_matching": 140
    },
    {
    "_id": "2",
@@ -148,12 +160,8 @@ export class QCardviewComponent implements OnInit, OnChanges {
 
    "below_one_step_matching": 20,
    "above_one_step_matching": 10,
-   "exact_matching": 140,
-   "mobile_number":"1234567891",
-   "email":"k@gmail.com",
-   "status":"",
-   "picture":'',
-   "isCandidateRead":true
+   "exact_matching": 140
+
    },
    {
    "_id": "3",
@@ -169,12 +177,8 @@ export class QCardviewComponent implements OnInit, OnChanges {
    "interestedIndustries":["MNC","IT","GK"],
    "below_one_step_matching": 20,
    "above_one_step_matching": 10,
-   "exact_matching": 140,
-   "mobile_number":"1234567891",
-   "email":"k@gmail.com",
-   "status":"",
-   "picture":'',
-   "isCandidateRead":true
+   "exact_matching": 140
+
    },
    {
    "_id": "4",
@@ -190,12 +194,8 @@ export class QCardviewComponent implements OnInit, OnChanges {
    "interestedIndustries":["MNC","IT","PK"],
    "below_one_step_matching": 20,
    "above_one_step_matching": 10,
-   "exact_matching": 140,
-   "mobile_number":"1234567891",
-   "email":"k@gmail.com",
-   "status":"",
-   "picture":'',
-   "isCandidateRead":true
+   "exact_matching": 140
+
    },
    {
    "_id": "5",
@@ -211,12 +211,8 @@ export class QCardviewComponent implements OnInit, OnChanges {
    "interestedIndustries":["MNC","PK"],
    "below_one_step_matching": 20,
    "above_one_step_matching": 10,
-   "exact_matching": 140,
-   "mobile_number":"1234567891",
-   "email":"k@gmail.com",
-   "status":"",
-   "picture":'',
-   "isCandidateRead":true
+   "exact_matching": 140
+
    },
    {
    "_id": "6",
@@ -232,12 +228,8 @@ export class QCardviewComponent implements OnInit, OnChanges {
    "interestedIndustries":["MNC"],
    "below_one_step_matching": 20,
    "above_one_step_matching": 10,
-   "exact_matching": 140,
-   "mobile_number":"1234567891",
-   "email":"k@gmail.com",
-   "status":"",
-   "picture":'',
-   "isCandidateRead":true
+   "exact_matching": 140
+
    },
    {
    "_id": "7",
@@ -253,12 +245,8 @@ export class QCardviewComponent implements OnInit, OnChanges {
    "interestedIndustries":["MNC","IT","PK"],
    "below_one_step_matching": 20,
    "above_one_step_matching": 10,
-   "exact_matching": 140,
-   "mobile_number":"1234567891",
-   "email":"k@gmail.com",
-   "status":"",
-   "picture":'',
-   "isCandidateRead":true
+   "exact_matching": 140
+
    }
    ]*/
 }

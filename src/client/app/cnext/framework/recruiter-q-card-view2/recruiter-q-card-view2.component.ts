@@ -5,6 +5,7 @@ import {JobPosterModel} from "../model/jobPoster";
 import {QCardsortBy} from "../model/q-cardview-sortby";
 import {RecruiteQCardView2Service} from "./recruiter-q-card-view2.service";
 import {ImagePath} from "../../../framework/shared/constants";
+import {RecruitercandidatesListsService} from "../candidate-lists.service";
 
 @Component({
   moduleId: module.id,
@@ -14,7 +15,8 @@ import {ImagePath} from "../../../framework/shared/constants";
 
 })
 export class RecruiterQCardview2Component  {
-  @Input() candidates:CandidateQCard[] = new Array(0);
+  @Input() candidates:CandidateQCard[];
+
   private selectedPerson:CandidateQCard = new CandidateQCard();
   private image_path:string=ImagePath.PROFILE_IMG_ICON;
  /* private candidateIDS = new Array();
@@ -24,13 +26,23 @@ export class RecruiterQCardview2Component  {
   private qCardModel:QCardsortBy = new QCardsortBy();*/
 
  /* @Input() private jobPosterModel :JobPosterModel;*/
-/*
-  constructor(private qCardViewService:RecruiteQCardView2Service) {
-    this.candidates=[];
+  constructor(private qCardViewService:RecruiteQCardView2Service,private candidateLists:RecruitercandidatesListsService) {
+   /* this.candidateLists.showTest$.subscribe(
+      data => {
+        this.candidates = data;
+
+      }
+    );*/
 
   }
-*/
+
   ngOnChanges(changes :any){
+   /* this.candidateLists.showTest$.subscribe(
+      data => {
+        this.candidates = data;
+
+      }
+    );*/
    /* if(changes.jobPosterModel.currentValue){
       for(let item of changes.jobPosterModel.currentValue.candidate_list[1].ids){
         this.candidateIDS.push(item);

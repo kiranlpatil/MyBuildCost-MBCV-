@@ -132,6 +132,7 @@ import {RecruiterQCardview2Component} from "./cnext/framework/recruiter-q-card-v
 
 import {CandidateFilterService} from "./cnext/framework/filters/candidate-filter.service";
 import {CandidateDashboardFilterPipe} from "./cnext/framework/filters/candidate-dashboard-filter.pipe";
+import {RecruitercandidatesListsService} from "./cnext/framework/candidate-lists.service";
 //C-NEXT IMPORTS
 
 
@@ -287,7 +288,8 @@ import {CandidateDashboardFilterPipe} from "./cnext/framework/filters/candidate-
     QCardViewService,
     JobFilterService,
     CandidateFilterService,
-    RecruiteQCardView2Service
+    RecruiteQCardView2Service,
+    RecruitercandidatesListsService
 
   ],
   bootstrap: [AppComponent]
