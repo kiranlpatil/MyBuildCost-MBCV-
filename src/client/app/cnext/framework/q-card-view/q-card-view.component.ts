@@ -17,7 +17,7 @@ import {ValueConstant} from "../../../framework/shared/constants";
 })
 export class QCardviewComponent implements OnInit, OnChanges {
   private candidates: CandidateQCard[] = new Array();
-  private allCandidates:CandidateQCard[] = new Array();
+  private candidates2:CandidateQCard[] = new Array();
   private selectedPerson: CandidateQCard = new CandidateQCard();
   private showMatchedCandidateButton: boolean;
   private candidateSeenIDS = new Array();
@@ -58,7 +58,7 @@ export class QCardviewComponent implements OnInit, OnChanges {
   }
 
   ngOnInit() {
-    //this.candidates2 = this.candidate2;
+    this.candidates2 = this.candidate2;
   }
 
   addToShortList(_id: any) {
@@ -127,58 +127,71 @@ export class QCardviewComponent implements OnInit, OnChanges {
     this.toggle = true;
   }
 
-  /*candidate2 =[
+  candidate2 =[
    {
    "_id": "1",
    "first_name" : "krishna",
    "last_name" : "ghatul",
-   "matching" : 100,
+   "matching" : 10,
    "salary": "3 Lakhs",
    "experience": "2 year",
    "education": "Post Graduate",
    "location":"Mumbai",
-   "proficiencies":["ABC"],
+   "proficiencies":["c"],
    "noticePeriod":"Within 1 month",
    "interestedIndustries":["OTHER"],
 
    "below_one_step_matching": 20,
    "above_one_step_matching": 10,
-   "exact_matching": 140
+   "exact_matching": 140,
+   "mobile_number":"1234567891",
+   "email":"k@gmail.com",
+   "status":"",
+   "picture":'',
+   "isCandidateRead":true
    },
    {
    "_id": "2",
    "first_name" : "Tom",
    "last_name" : "ghatul",
-   "matching" : 100,
+   "matching" : 20,
    "salary": "1 Lakhs",
    "experience": "5 year",
    "education": "Under Graduate",
    "location":"Delhi",
-   "proficiencies":["ABC","JAVA"],
+   "proficiencies":["c++","java"],
    "noticePeriod":"Immediate",
-   "interestedIndustries":["MNC","IT","GK","OTHER"],
+   "interestedIndustries":["MNC","GK","OTHER"],
 
    "below_one_step_matching": 20,
    "above_one_step_matching": 10,
-   "exact_matching": 140
-
+   "exact_matching": 140,
+   "mobile_number":"1234567891",
+   "email":"k@gmail.com",
+   "status":"",
+   "picture":'',
+   "isCandidateRead":true
    },
    {
    "_id": "3",
    "first_name" : "Ram",
    "last_name" : "ghatul",
-   "matching" : 100,
+   "matching" : 80,
    "salary": "3 Lakhs",
    "experience": "9 year",
    "education": "Graduate",
    "location":"Masco",
-   "proficiencies":["JAVA"],
+   "proficiencies":["xyz"],
    "noticePeriod":"Within 1 month",
-   "interestedIndustries":["MNC","IT","GK"],
+   "interestedIndustries":["MNC","GK"],
    "below_one_step_matching": 20,
    "above_one_step_matching": 10,
-   "exact_matching": 140
-
+   "exact_matching": 140,
+   "mobile_number":"1234567891",
+   "email":"k@gmail.com",
+   "status":"",
+   "picture":'',
+   "isCandidateRead":true
    },
    {
    "_id": "4",
@@ -189,64 +202,143 @@ export class QCardviewComponent implements OnInit, OnChanges {
    "experience": "4 year",
    "education": "Post Graduate",
    "location":"pune",
-   "proficiencies":["ABC","JAVA","Bertrand"],
+   "proficiencies":["c++","c","java"],
    "noticePeriod":"1-2 Month",
-   "interestedIndustries":["MNC","IT","PK"],
+   "interestedIndustries":["MNC","PK","GK","OTHER","STARTUP"],
    "below_one_step_matching": 20,
    "above_one_step_matching": 10,
-   "exact_matching": 140
-
+   "exact_matching": 140,
+   "mobile_number":"1234567891",
+   "email":"k@gmail.com",
+   "status":"",
+   "picture":'',
+   "isCandidateRead":true
    },
    {
    "_id": "5",
    "first_name" : "Narendra",
    "last_name" : "Modi",
-   "matching" : 100,
+   "matching" : 70,
    "salary": "5 Lakhs",
    "experience": "3 year",
    "education": "Post Graduate",
-   "location":"pune",
-   "proficiencies":["Bertrand"],
+   "location":"Nashik",
+   "proficiencies":["MNC"],
    "noticePeriod":"2-3 Month",
-   "interestedIndustries":["MNC","PK"],
+   "interestedIndustries":["java","c"],
    "below_one_step_matching": 20,
    "above_one_step_matching": 10,
-   "exact_matching": 140
-
+   "exact_matching": 140,
+   "mobile_number":"1234567891",
+   "email":"k@gmail.com",
+   "status":"",
+   "picture":'',
+   "isCandidateRead":true
    },
    {
    "_id": "6",
    "first_name" : "Akshay",
    "last_name" : "Kumar",
-   "matching" : 100,
+   "matching" : 90,
    "salary": "6 Lakhs",
    "experience": "8 year",
    "education": "Graduate",
-   "location":"pune",
-   "proficiencies":["ABC","JAVA","ABSET","Bertrand"],
-   "noticePeriod":"Beyond 3 months",
+   "location":"Latur",
+   "proficiencies":["c"],
+   "noticePeriod":"Imm",
    "interestedIndustries":["MNC"],
    "below_one_step_matching": 20,
    "above_one_step_matching": 10,
-   "exact_matching": 140
-
+   "exact_matching": 140,
+   "mobile_number":"1234567891",
+   "email":"k@gmail.com",
+   "status":"",
+   "picture":'',
+   "isCandidateRead":true
    },
    {
    "_id": "7",
-   "first_name" : "Mr:xyz",
+   "first_name" : "jglgjfg",
    "last_name" : "Abcsa",
    "matching" : 100,
    "salary": "7 Lakhs",
-   "experience": "1 year",
-   "education": "Under Graduate",
-   "location":"pune",
-   "proficiencies":["ABC"],
+   "experience": "10 year",
+   "education": "Graduate",
+   "location":"Aurangabad",
+   "proficiencies":["java"],
    "noticePeriod":"Beyond 3 months",
-   "interestedIndustries":["MNC","IT","PK"],
+   "interestedIndustries":["MNC","PK"],
    "below_one_step_matching": 20,
    "above_one_step_matching": 10,
-   "exact_matching": 140
-
-   }
-   ]*/
+   "exact_matching": 140,
+   "mobile_number":"1234567891",
+   "email":"k@gmail.com",
+   "status":"",
+   "picture":'',
+   "isCandidateRead":true
+   },
+    {
+      "_id": "8",
+      "first_name" : "Mr:xyz",
+      "last_name" : "Abcsa",
+      "matching" : 60,
+      "salary": "7 Lakhs",
+      "experience": "4 year",
+      "education": "Under Graduate",
+      "location":"Nagar",
+      "proficiencies":["c++"],
+      "noticePeriod":"2-3 Month",
+      "interestedIndustries":["MNC","PK"],
+      "below_one_step_matching": 20,
+      "above_one_step_matching": 10,
+      "exact_matching": 140,
+      "mobile_number":"1234567891",
+      "email":"k@gmail.com",
+      "status":"",
+      "picture":'',
+      "isCandidateRead":true
+    },
+    {
+      "_id": "9",
+      "first_name" : "Mr:xyz",
+      "last_name" : "Abcsa",
+      "matching" : 75,
+      "salary": "12 Lakhs",
+      "experience": "6 year",
+      "education": "Under Graduate",
+      "location":"Thane",
+      "proficiencies":["xyz"],
+      "noticePeriod":"Beyond 3 months",
+      "interestedIndustries":["MNC","PK"],
+      "below_one_step_matching": 20,
+      "above_one_step_matching": 10,
+      "exact_matching": 140,
+      "mobile_number":"1234567891",
+      "email":"k@gmail.com",
+      "status":"",
+      "picture":'',
+      "isCandidateRead":true
+    },
+    {
+      "_id": "10",
+      "first_name" : "Mr:xyz",
+      "last_name" : "Abcsa",
+      "matching" : 50,
+      "salary": "10 Lakhs",
+      "experience": "1 year",
+      "education": "Under Graduate",
+      "location":"pune",
+      "proficiencies":["c++"],
+      "noticePeriod":"Immediate",
+      "interestedIndustries":["MNC","PK"],
+      "below_one_step_matching": 20,
+      "above_one_step_matching": 10,
+      "exact_matching": 140,
+      "mobile_number":"1234567891",
+      "email":"k@gmail.com",
+      "status":"",
+      "picture":'',
+      "isCandidateRead":true
+    }
+   ]
 }

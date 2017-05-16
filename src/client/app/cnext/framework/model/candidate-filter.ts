@@ -12,4 +12,5 @@ export class CandidateFilter {
   industryExposureDataForFilter : string[] = new Array(0);
   filterByJoinTime:string;
   filterByLocation:string;
+  query:any;
 }
