@@ -1,11 +1,14 @@
-import {Component,Input} from "@angular/core";
+import {Component, Input, EventEmitter, Output} from "@angular/core";
 import {CandidateQCard} from "../model/candidateQcard";
 import {ShowQcardviewService} from "../showQCard.service";
 import {JobPosterModel} from "../model/jobPoster";
 import {QCardsortBy} from "../model/q-cardview-sortby";
 import {RecruiteQCardView2Service} from "./recruiter-q-card-view2.service";
-import {ImagePath} from "../../../framework/shared/constants";
+import {ImagePath, ValueConstant} from "../../../framework/shared/constants";
 import {RecruitercandidatesListsService} from "../candidate-lists.service";
+import {QCardViewService} from "../q-card-view/q-card-view.service";
+import {RecruiterDashboardService} from "../recruiter-dashboard/recruiter-dashboard.service";
+import {UpdatedIds} from "../model/updatedCandidatesIDS";
 
 @Component({
   moduleId: module.id,
@@ -15,91 +18,70 @@ import {RecruitercandidatesListsService} from "../candidate-lists.service";
 
 })
 export class RecruiterQCardview2Component  {
+  @Output() currentrejected:EventEmitter<any> = new EventEmitter<any>();
   @Input() candidates:CandidateQCard[];
-
+  @Input() recruiterId: string;
+  @Input() listName: string;
+  @Input()  jobPosterModel: JobPosterModel;
+  private recruiter: any={
+    _id:''
+  };
+  private updatedIdsModel:UpdatedIds=new UpdatedIds() ;
+  private candidateIDS = new Array();
+  private candidateInCartIDS:string[] = new Array();
+  private rejectedCandidatesIDS = new Array();
+  private selectedJobProfile : JobPosterModel;
   private selectedPerson:CandidateQCard = new CandidateQCard();
   private image_path:string=ImagePath.PROFILE_IMG_ICON;
- /* private candidateIDS = new Array();
-  private candidateInCartIDS = new Array();
-  private rejectedCandidatesIDS = new Array();
-  private appliedCandidatesIDS = new Array();
-  private qCardModel:QCardsortBy = new QCardsortBy();*/
+  private candidateRejected:CandidateQCard[] = new Array(0);
+  constructor(private recruiterQCardViewService: QCardViewService,private recruiterDashboardService: RecruiterDashboardService,
+              private qCardViewService:RecruiteQCardView2Service,private candidateLists:RecruitercandidatesListsService) {
 
- /* @Input() private jobPosterModel :JobPosterModel;*/
-  constructor(private qCardViewService:RecruiteQCardView2Service,private candidateLists:RecruitercandidatesListsService) {
-   /* this.candidateLists.showTest$.subscribe(
-      data => {
-        this.candidates = data;
-
-      }
-    );*/
 
   }
 
   ngOnChanges(changes :any){
-   /* this.candidateLists.showTest$.subscribe(
-      data => {
-        this.candidates = data;
 
-      }
-    );*/
-   /* if(changes.jobPosterModel.currentValue){
-      for(let item of changes.jobPosterModel.currentValue.candidate_list[1].ids){
-        this.candidateIDS.push(item);
-      }
-      for(let item of changes.jobPosterModel.currentValue.candidate_list[2].ids){
-        this.candidateInCartIDS.push(item);
-      }
-      for(let item of changes.jobPosterModel.currentValue.candidate_list[3].ids){
-        this.rejectedCandidatesIDS.push(item);
-      } for(let item of changes.jobPosterModel.currentValue.candidate_list[4].ids){
-        this.appliedCandidatesIDS.push(item);
-      }
-    }*/
-  }
-/*rejectedCandidates() {
-  if(this.rejectedCandidatesIDS.length!==0){
-      this.qCardViewService.getCandidatesdetails(this.rejectedCandidatesIDS,this.jobPosterModel)
-        .subscribe(
-          data => {
-            this.candidates=data;
-          });
-  }
-}
-appliedCandidates(){
-  if(this.appliedCandidatesIDS.length!==0){
-    this.qCardViewService.getCandidatesdetails(this.appliedCandidatesIDS,this.jobPosterModel)
-      .subscribe(
-        data => {
-            this.candidates=data;
-        });
+if (changes.jobPosterModel != undefined && changes.jobPosterModel.currentValue) {
+ if (changes.jobPosterModel.currentValue.candidate_list.length != 0) {
+
+ this.jobPosterModel=changes.jobPosterModel.currentValue;
+     }
+   }
 
   }
 
-}
 
-  showShortlistedCandidate() {
-    if(this.candidateIDS.length!==0){
-      this.qCardViewService.getCandidatesdetails(this.candidateIDS,this.jobPosterModel)
-        .subscribe(
-          data => {
-              this.candidates=data;
-          });
 
-    }
+
+
+  Cancel(item:any)
+  {
+    this.recruiterQCardViewService.addCandidateLists(this.recruiterId, this.jobPosterModel._id, item._id, this.listName, "remove").subscribe(
+      user => {
+        console.log(user);
+      });
+
+
   }
-  candidateInCart() {
-    if(this.candidateInCartIDS.length!==0){
-      this.qCardViewService.getCandidatesdetails(this.candidateInCartIDS,this.jobPosterModel)
-        .subscribe(
-          data => {
-              this.candidates=data;
-          });
-
-    }
-  }*/
+  rejectCandidate(item:any)
+  {
 
 
+    this.updatedIdsModel.updatedCandidateRejectedId=item._id;
+
+
+    this.recruiterQCardViewService.addCandidateLists(this.recruiterId, this.jobPosterModel._id, item._id, ValueConstant.REJECTED_LISTED_CANDIDATE, "add").subscribe(
+      user => {
+        console.log(user);
+      });
+    this.recruiterQCardViewService.addCandidateLists(this.recruiterId, this.jobPosterModel._id, item._id, ValueConstant.APPLIED_CANDIDATE, "remove").subscribe(
+      user => {
+        console.log(user);
+      });
+
+    this.currentrejected.emit(this.updatedIdsModel);
+  }
   onClick(item:any){
 
     this.selectedPerson = item;

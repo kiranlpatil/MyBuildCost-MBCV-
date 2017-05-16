@@ -26,11 +26,11 @@ export class   RecruiteQCardView2Service extends BaseService{
       .map(this.extractData)
       .catch(this.handleError);
   }
-  getCandidatesdetails(id:string,model:JobPosterModel):Observable<any>{
+  getCandidatesdetails(ids:string[],model:JobPosterModel):Observable<any>{
     let headers = new Headers({'Content-Type': 'application/json'});
     let options = new RequestOptions({headers: headers});
     var body = {
-      "candidateIds" : id
+      "candidateIds" : ids
     };
     let url:string=API.CANDIDATE_DETAILS+'/'+model._id+'/'+'candidates'
     return this.http.post(url,body,options)

@@ -1,7 +1,10 @@
 import {Component, OnInit} from "@angular/core";
 import {Router} from "@angular/router";
 import {LocalStorageService} from "../../../framework/shared/localstorage.service";
-import {LocalStorage, ImagePath, AppSettings, NavigationRoutes} from "../../../framework/shared/constants";
+import {
+  LocalStorage, ImagePath, AppSettings, NavigationRoutes,
+  ValueConstant
+} from "../../../framework/shared/constants";
 import {RecruiterDashboardService} from "./recruiter-dashboard.service";
 import {JobPosterModel} from "../model/jobPoster";
 import {RecruiteQCardView2Service} from "../recruiter-q-card-view2/recruiter-q-card-view2.service";
@@ -18,6 +21,8 @@ import {RecruitercandidatesListsService} from "../candidate-lists.service";
 export class RecruiterDashboardComponent implements OnInit {
   company_name: string;
   uploaded_image_path: string;
+  public shortList:any= ValueConstant.SHORT_LISTED_CANDIDATE;
+  public cartList:any= ValueConstant.CART_LISTED_CANDIDATE;
   private recruiter: any={
     _id:''
   };
@@ -29,13 +34,19 @@ export class RecruiterDashboardComponent implements OnInit {
   private isshortedListSelected: boolean;
   private showShortlisted: boolean;
   private showQCard: boolean;
-  private candidateIDS = new Array();
-  private candidateInCartIDS = new Array();
+  private candidateIDS = new Array(0);
+  private candidateInCartIDS:string[] = new Array(0);
+  private ids = new Array();
   private rejectedCandidatesIDS = new Array();
   private appliedCandidatesIDS = new Array();
   private candidates:CandidateQCard[] = new Array(0);
-  private candidatesInCart:CandidateQCard[] = new Array(0);
+
+  private candidatesInCart:CandidateQCard[] ;
   private candidatesshortlisted:CandidateQCard[] = new Array(0);
+  private candidateApplied:CandidateQCard[] = new Array(0);
+  private candidateRejected:CandidateQCard[] = new Array(0);
+
+
 
 
   constructor(private _router: Router, private recruiterDashboardService: RecruiterDashboardService,
@@ -68,28 +79,25 @@ export class RecruiterDashboardComponent implements OnInit {
   }
   rejectedCandidates() {
     this.showQCard=true;
-    this.candidates=[];
-   /* if(this.rejectedCandidatesIDS.length!==0){
-      this.qCardViewService.getCandidatesdetails(this.rejectedCandidatesIDS,this.selectedJobProfile)
+
+    if(this.rejectedCandidatesIDS.length>0) {
+      this.qCardViewService.getCandidatesdetails(this.rejectedCandidatesIDS, this.selectedJobProfile)
         .subscribe(
           data => {
-            this.candidates=data;
-            this.candidateLists.change(this.candidates);
+            this.candidateRejected = data;
           });
+    }
 
-    }*/
   }
   appliedCandidates(){
     this.showQCard=true;
     this.candidates=[];
-    if(this.appliedCandidatesIDS.length!==0){
-     /* this.qCardViewService.getCandidatesdetails(this.appliedCandidatesIDS,this.selectedJobProfile)
+    if(this.appliedCandidatesIDS.length>0) {
+      this.qCardViewService.getCandidatesdetails(this.appliedCandidatesIDS, this.selectedJobProfile)
         .subscribe(
           data => {
-            this.candidates=data;
+            this.candidateApplied = data;
           });
-*/
-
     }
 
   }
@@ -101,63 +109,97 @@ export class RecruiterDashboardComponent implements OnInit {
   showShortlistedCandidate() {
     this.showQCard=true;
     this.candidates=[];
-    if(this.candidateIDS.length!==0){
-      for(let item of this.candidateIDS ) {
-        this.qCardViewService.getCandidatesdetails(item, this.selectedJobProfile)
-          .subscribe(
-            data => {
-              this.candidatesshortlisted = data;
-              /!* this.candidateLists.change(this.candidates);*!/
-            });
-
-      }
-    }
-  }
-  candidateInCart() {debugger
-    this.showQCard=true;
-    this.candidates=[];
-    for(let item of this.candidateInCartIDS ){
-      console.log("cart ids",JSON.stringify(this.candidateInCartIDS));
-      this.qCardViewService.getCandidatesdetails(item ,this.selectedJobProfile)
+    if(this.candidateInCartIDS.length>0) {
+      this.qCardViewService.getCandidatesdetails(this.candidateIDS, this.selectedJobProfile)
         .subscribe(
           data => {
-            this.candidatesInCart=data;
-            /*this.candidateLists.change(this.candidates);*/
+            this.candidatesshortlisted = data;
           });
-
     }
   }
-  ShortlistedCandidate()
-  {
 
+  rejectedIds(model:any)
+  {
     this.showQCard=true;
     this.candidates=[];
-    if(this.candidateIDS.length != 0){
-      /*this.qCardViewService.getCandidatesdetails(this.candidateIDS,this.selectedJobProfile)
+    if(model.updatedCandidateRejectedId!=undefined)
+    {
+      this.rejectedCandidatesIDS.push(model.updatedCandidateRejectedId);}
+
+    this.qCardViewService.getCandidatesdetails(this.rejectedCandidatesIDS, this.selectedJobProfile)
+      .subscribe(
+        data => {
+          this.candidateRejected = data;
+        });
+  }
+  updateIds(model:any) {
+    this.showQCard=true;
+    this.candidates=[];
+    if(model.updatedCandidateIncartId!=undefined)
+    {
+      this.candidateInCartIDS.push(model.updatedCandidateIncartId);
+    }
+
+      if(model.updatedCandidateInShortlistId!=undefined)
+    {
+      this.candidateIDS.push(model.updatedCandidateInShortlistId);
+    }
+
+
+    this.qCardViewService.getCandidatesdetails(this.candidateInCartIDS,this.selectedJobProfile)
+      .subscribe(
+        data => {
+          this.candidatesInCart=data;
+        });
+    this.qCardViewService.getCandidatesdetails(this.candidateIDS,this.selectedJobProfile)
+      .subscribe(
+        data => {
+          this.candidatesshortlisted=data;
+        });
+    this.qCardViewService.getCandidatesdetails(this.rejectedCandidatesIDS, this.selectedJobProfile)
+      .subscribe(
+        data => {
+          this.candidateRejected = data;
+        });
+
+  }
+  candidateInCart() {
+    this.showQCard=true;
+    if(this.candidateInCartIDS.length>0) {
+      this.qCardViewService.getCandidatesdetails(this.candidateInCartIDS, this.selectedJobProfile)
         .subscribe(
           data => {
-            this.candidates=data;
-          });*/
-      this.candidateLists.change(this.candidates);
+            this.candidatesInCart = data;
+          });
     }
   }
+
   jobSelected(job : any){
       this.isJobSelected=true;
       this.selectedJobProfile = job;
       if(this.selectedJobProfile.candidate_list.length != 0){
         for(let item of this.selectedJobProfile.candidate_list){
           if(item.name == "shortListed"){
-            this.candidateIDS.push(item.ids);
+            if(item.ids.length>0) {
+              this.candidateIDS = item.ids;
+            }
           }
           if(item.name == "cartListed"){
-            this.candidateInCartIDS.push(item.ids);
+            if(item.ids.length>0){
+              this.candidateInCartIDS= item.ids;
+            }
           }
           if(item.name == "rejectedList"){
-            this.rejectedCandidatesIDS.push(item.ids);
+            if(item.ids.length>0) {
+              this.rejectedCandidatesIDS = item.ids;
+            }
           }
-          /*if(this.selectedJobProfile.candidate_list[item].name = "applied"){
-            this.appliedCandidatesIDS.push(item);
-          }*/
+          if(item.name == "applied"){
+            if(item.ids.length>0) {
+              this.appliedCandidatesIDS = item.ids;
+            }
+          }
+
         }
       }
 

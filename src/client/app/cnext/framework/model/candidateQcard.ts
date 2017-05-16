@@ -18,4 +18,6 @@ export class CandidateQCard {
   interestedIndustries:string[];
   picture:string;
   isCandidateRead:boolean;
+  isCandidateshortListed:boolean;
+
 }
