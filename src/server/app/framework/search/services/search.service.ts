@@ -41,7 +41,7 @@ class SearchService {
     let data = {
       "postedJobs.industry.name": candidate.industry.name,
       "postedJobs.proficiencies": {$in: candidate.proficiencies},
-      /*"interestedIndustries": {$in: candidate.interestedIndustries}*/
+      "postedJobs.interestedIndustries": {$in: candidate.interestedIndustries}
     };
     this.recruiterRepository.retrieve(data, (err, res) => {
       if (err) {

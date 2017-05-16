@@ -11,5 +11,9 @@ export class JobQCard {
   location : string;
   company_size : string;
   interestedIndustries: string[];
+  proficiencies : string[];
+  company_logo : string;
+  company_age: string;
+  _id : string;
 
 }

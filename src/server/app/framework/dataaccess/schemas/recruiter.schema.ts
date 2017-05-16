@@ -36,6 +36,12 @@ class RecruiterSchema {
                 type:String
               }]
             }],
+            location: {
+              city: String,
+              state: String,
+              country: String,
+              pin: String
+            },
             jobTitle :{
               type : String
             },

@@ -12,7 +12,7 @@ class RecruiterRepository extends RepositoryBase<IRecruiter> {
     super(RecruiterSchema);
   }
 
-  getJobProfileQCard(recruiters:RecruiterModel[], candidate:CandidateModel, callback:(error:any, result:any) => void) {
+  getJobProfileQCard(recruiters:any[], candidate:CandidateModel, callback:(error:any, result:any) => void) {  //todo add condition for exit
 
 
     let jobs_cards:JobQCard[] = new Array(0);
@@ -41,17 +41,20 @@ class RecruiterRepository extends RepositoryBase<IRecruiter> {
                   if (job_item.substr(0, job_item.lastIndexOf(".")) == candi_item.substr(0, candi_item.lastIndexOf("."))) {
                     let job_last_digit:number = Number(job_item.substr(job_item.lastIndexOf(".") + 1));
                     let candi_last_digit:number = Number(candi_item.substr(candi_item.lastIndexOf(".") + 1));
-                    if (candi_last_digit == job_last_digit - 1) {
-                      job_qcard.below_one_step_matching += 10;
-                    } else if (candi_last_digit == job_last_digit + 1) {
-                      job_qcard.above_one_step_matching += 10;
-                    } else if (candi_last_digit == job_last_digit) {
-                      job_qcard.exact_matching += 10;
+                    if (job_last_digit == candi_last_digit - 1) {
+                      job_qcard.below_one_step_matching += 1;
+                    } else if (job_last_digit == candi_last_digit + 1) {
+                      job_qcard.above_one_step_matching += 1;
+                    } else if (job_last_digit == candi_last_digit) {
+                      job_qcard.exact_matching += 1;
                     }
                     break;
                   }
                 }
               }
+              job_qcard.above_one_step_matching = (job_qcard.above_one_step_matching / candidate_selected_complexity.length) * 100;
+              job_qcard.below_one_step_matching= (job_qcard.below_one_step_matching/ candidate_selected_complexity.length) * 100;
+              job_qcard.exact_matching = (job_qcard.exact_matching / candidate_selected_complexity.length) * 100;
               job_qcard.matching = job_qcard.above_one_step_matching + job_qcard.below_one_step_matching + job_qcard.exact_matching;
               job_qcard.company_name = recruiter.company_name;
               job_qcard.company_size = recruiter.company_size;
@@ -59,11 +62,12 @@ class RecruiterRepository extends RepositoryBase<IRecruiter> {
               job_qcard.experience = job.experience;
               job_qcard.education = job.education;
               job_qcard.interestedIndustries = job.interestedIndustries;
+              job_qcard.proficiencies= job.proficiencies;
+              job_qcard.location = job.location.city;
+              job_qcard._id=job._id;
               jobs_cards.push(job_qcard);
               //todo add condition for exit
-              /*if(jobs_cards.length==recruiters.length){
 
-               }*/
           }
 
       }
