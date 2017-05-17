@@ -29,6 +29,10 @@ class CandidateSchema {
       userId: {
         type: mongoose.Schema.Types.ObjectId, ref: 'User'
       },
+      isCompleted :{
+        type : Boolean,
+        default: true
+      },
       isVisible: {
         type: Boolean
       },
