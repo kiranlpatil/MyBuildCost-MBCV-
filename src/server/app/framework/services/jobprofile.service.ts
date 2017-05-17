@@ -163,20 +163,27 @@ class JobProfileService {
   applyJob(item:any, callback:(error:any, result:any) => void) {
 
 
-    this.candidateRepository.retrieve({"_id":new mongoose.Types.ObjectId(item.candidateId)},(error, response) =>{
+    this.candidateRepository.retrieve({"_id": new mongoose.Types.ObjectId(item.candidateId)}, (error, response) => {
 
-      if(error){
+      if (error) {
         callback(new Error("No candidate Found"), null);
-      }else{
-        if(response.length>0){
-          let updateExistingQueryForCandidate : any;
-          let isJobFound : boolean=false;
-          for(let list of response[0].job_list){
-            if (list.name == ConstVariables.APPLIED_CANDIDATE) {
-              isJobFound=true;
-              let index = list.ids.indexOf(item.profileId);
-              if (index == -1) {
-                list.ids.push(item.profileId);
+      } else {
+        if (response.length > 0) {
+          let updateExistingQueryForCandidate:any;
+          let isJobFound:boolean = false;
+          for (let list of response[0].job_list) {
+            if (list.name == item.listName) {
+              isJobFound = true;
+              if (item.action == "add") {
+                let index = list.ids.indexOf(item.profileId);
+                if (index == -1) {
+                  list.ids.push(item.profileId);
+                }
+              } else if (item.action == "remove" && item.listName != "applied") {
+                let index = list.ids.indexOf(item.profileId);
+                if (index !== -1) {
+                  list.ids.splice(index, 1);
+                }
               }
               updateExistingQueryForCandidate = {
                 $set: {
@@ -189,7 +196,7 @@ class JobProfileService {
           let newEntryQueryForCandidate = {
             $push: {
               "job_list": {
-                "name": ConstVariables.APPLIED_CANDIDATE,
+                "name": item.listName,
                 "ids": item.profileId
               }
             }
@@ -197,7 +204,7 @@ class JobProfileService {
           let options = {
             "new": true, "upsert": true
           };
-          let latestQueryForCandidate :any;
+          let latestQueryForCandidate:any;
           isJobFound ? latestQueryForCandidate = updateExistingQueryForCandidate : latestQueryForCandidate = newEntryQueryForCandidate;
           let candidateSearchQuery = {
             "_id": item.candidateId
@@ -205,69 +212,73 @@ class JobProfileService {
 
           this.candidateRepository.findOneAndUpdate(candidateSearchQuery, latestQueryForCandidate, options, (err, record) => {
             if (record) {
-              let query = {
-                "postedJobs": {$elemMatch: {"_id": new mongoose.Types.ObjectId(item.profileId)}}
-              };
-              let newEntryQuery = {
-                $push: {
-                  "postedJobs.$.candidate_list": {
-                    "name": ConstVariables.APPLIED_CANDIDATE,
-                    "ids": item.candidateId
+              if (item.listName == "applied" && item.action == "add") {
+                let query = {
+                  "postedJobs": {$elemMatch: {"_id": new mongoose.Types.ObjectId(item.profileId)}}
+                };
+                let newEntryQuery = {
+                  $push: {
+                    "postedJobs.$.candidate_list": {
+                      "name": ConstVariables.APPLIED_CANDIDATE,
+                      "ids": item.candidateId
+                    }
                   }
-                }
-              };
-              let updateExistingQuery : any;
-              this.recruiterRepository.retrieve(query, (err, res) => {
-                if (err) {
-                  callback(new Error("Not Found Any Job posted"), null);
-                }
-                else {
-                  let isFound : boolean =false;
-                  if (res.length > 0) {
-                    for (let job of res[0].postedJobs) {
-                      if (job._id.toString() === item.profileId) {
-                        for (let list of job.candidate_list) {
-                          if (list.name == ConstVariables.APPLIED_CANDIDATE) {
-                            isFound=true;
-                            let index = list.ids.indexOf(item.candidateId);
-                            if (index == -1) {
-                              list.ids.push(item.candidateId);
-                            }
-                            updateExistingQuery = {
-                              $set: {
-                                "postedJobs.$.candidate_list": job.candidate_list
+                };
+                let updateExistingQuery:any;
+                this.recruiterRepository.retrieve(query, (err, res) => {
+                  if (err) {
+                    callback(new Error("Not Found Any Job posted"), null);
+                  }
+                  else {
+                    let isFound:boolean = false;
+                    if (res.length > 0) {
+                      for (let job of res[0].postedJobs) {
+                        if (job._id.toString() === item.profileId) {
+                          for (let list of job.candidate_list) {
+                            if (list.name == ConstVariables.APPLIED_CANDIDATE) {
+                              isFound = true;
+                              let index = list.ids.indexOf(item.candidateId);
+                              if (index == -1) {
+                                list.ids.push(item.candidateId);
                               }
-                            };
-                            break;
+                              updateExistingQuery = {
+                                $set: {
+                                  "postedJobs.$.candidate_list": job.candidate_list
+                                }
+                              };
+                              break;
+                            }
                           }
                         }
                       }
+                      let latestQuery:any;
+                      isFound ? latestQuery = updateExistingQuery : latestQuery = newEntryQuery;
+                      let recruiterSearchQuery = {
+                        "_id": res[0]._id,
+                        "postedJobs._id": item.profileId
+                      };
+
+                      this.recruiterRepository.findOneAndUpdate(recruiterSearchQuery, latestQuery, options, (err, record) => {
+                        if (record) {
+                          callback(null, record);
+                        } else {
+                          let error:any;
+                          if (record === null) {
+                            error = new Error("Unable to add candidate.");
+                            callback(error, null);
+                          }
+                          else {
+                            callback(err, null);
+                          }
+                        }
+                      });
                     }
-                    let latestQuery :any;
-                    isFound ? latestQuery = updateExistingQuery : latestQuery = newEntryQuery;
-                    let recruiterSearchQuery = {
-                      "_id": res[0]._id,
-                      "postedJobs._id": item.profileId
-                    };
-
-                    this.recruiterRepository.findOneAndUpdate(recruiterSearchQuery, latestQuery, options, (err, record) => {
-                      if (record) {
-                        callback(null, record);
-                      } else {
-                        let error:any;
-                        if (record === null) {
-                          error = new Error("Unable to add candidate.");
-                          callback(error, null);
-                        }
-                        else {
-                          callback(err, null);
-                        }
-                      }
-                    });
                   }
-                }
-              });
-
+                });
+              }
+              else {
+                callback(null, record);
+              }
             } else {
               let error:any;
               if (record === null) {

@@ -111,6 +111,8 @@ export function apply(req : express.Request, res : express.Response, next :any){
     let data = {
       "candidateId": req.params.id,
       "profileId": req.params.profileId,
+      "action": req.params.action,
+      "listName": req.params.listName
     };
     jobProfileService.applyJob(data,(err, result)=>{
         if(err){
