@@ -84,6 +84,7 @@ class CandidateRepository extends RepositoryBase<ICandidate> {
           candidate_card_view.mobile_number = res.mobile_number;
           candidate_card_view.picture = res.picture;
           candidate_card_view.location = candidate.location.city;
+          candidate_card_view.noticePeriod =candidate.professionalDetails.noticePeriod;
           if(candidate_card_view.matching >= ConstVariables.LOWER_LIMIT_FOR_SEARCH_RESULT){
             count_for_break++;
             card_view_candidates.push(candidate_card_view);
