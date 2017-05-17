@@ -108,6 +108,9 @@ if (changes.jobPosterModel != undefined && changes.jobPosterModel.currentValue) 
     this.selectedPerson=item;
 
   }
+  onError(err:any) {
+
+  }
 
   OnCandidateDataSuccess(candidate:Candidate) {
     this.selectedCandidate = candidate;
