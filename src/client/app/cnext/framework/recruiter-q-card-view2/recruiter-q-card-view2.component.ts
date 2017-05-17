@@ -93,7 +93,8 @@ if (changes.jobPosterModel != undefined && changes.jobPosterModel.currentValue) 
 
     this.removeId=item._id;
     this.removeIDs.emit(this.removeId);
-    this.removeRejectedIDs.emit(this.removeId);
+    if(this.listName==="rejectedList"){
+    this.removeRejectedIDs.emit(this.removeId);}
   }
   rejectCandidate(item:any)
   {
