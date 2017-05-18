@@ -1,9 +1,9 @@
 export class AppSettings {
-  //public static IP = 'http://10.192.33.139:8080';
+ public static IP = 'http://localhost:8080';
   // public static IP = 'http://ee802b7f.ngrok.io';
   //public static IP = 'http://10.192.33.252:8087';
   //public static IP = 'http://52.89.221.23:8080';
-  public static IP = 'http://52.41.194.37:8080';
+  //public static IP = 'http://52.41.194.37:8080';
   //public static IP = '';
 
 
@@ -124,6 +124,7 @@ export class ValueConstant {
   public static CART_LISTED_CANDIDATE:string = 'cartListed';
   public static REJECTED_LISTED_CANDIDATE:string = 'rejectedList';
   public static APPLIED_CANDIDATE:string = 'applied';
+  public static VALUE_FOR_CNDIDATES_MATCHING = 0;
 }
 
 
