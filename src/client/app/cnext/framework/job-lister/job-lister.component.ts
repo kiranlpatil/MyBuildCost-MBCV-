@@ -29,7 +29,7 @@ export class JobListerComponent {
   ngOnChanges(changes: any) {
     if (changes.jobListInput.currentValue != undefined && changes.jobListInput.currentValue.length > 0) {
       this.jobListInput = changes.jobListInput.currentValue;
-      this.totalCandidateInAllCart = 0;
+      this.candidatesInList= new CandidateNumberDifferentList();
       for (let i = 0; i < this.jobListInput.length; i++) {
         for (let list of this.jobListInput[i].candidate_list) {
           if (list.name == ValueConstant.CART_LISTED_CANDIDATE) {
