@@ -143,6 +143,7 @@ import {CandidateFilterComponent} from "./cnext/framework/candidate-dashboard/ca
 import {JobViewComponent} from "./cnext/framework/one-page-summury/recruiter-job-summary/job-view/job-view.component";
 import {CandidateJobListComponent} from "./cnext/framework/candidate-dashboard/candidate-job-list/candidate-job-list.component";
 import {CandidateJobListService} from "./cnext/framework/candidate-dashboard/candidate-job-list/candidate-job-list.service";
+import {CandidateViewComponent} from "./cnext/framework/one-page-summury/candidate-summury/candidate-view/candidate-view.component";
 //C-NEXT IMPORTS
 
 
@@ -224,6 +225,7 @@ import {CandidateJobListService} from "./cnext/framework/candidate-dashboard/can
     CandidateFilterComponent,
     RecruiterDashboardComponent,
     ProgressBarComponent,
+    CandidateViewComponent,
     WorkAreaComponent,
     JobViewComponent,
     QcardListComponent,

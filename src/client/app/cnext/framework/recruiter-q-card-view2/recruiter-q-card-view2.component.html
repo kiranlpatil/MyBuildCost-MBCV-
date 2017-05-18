@@ -2,16 +2,16 @@
   <header class="col-sm-12">
     <div class="form-group">
       <label class="radio">
-        <input  type="radio" name="radiogroup" value="{{match.aboveMatch}}" (click)="matching($event.target.value)">AboveMatch
+        <input type="radio" name="radiogroup" value="{{match.aboveMatch}}" (click)="matching($event.target.value)">AboveMatch
       </label>
       <label class="radio">
-        <input  type="radio" name="radiogroup" value="{{match.belowMatch}}" (click)="matching($event.target.value)">BelowMatch
+        <input type="radio" name="radiogroup" value="{{match.belowMatch}}" (click)="matching($event.target.value)">BelowMatch
       </label>
     </div>
     <p>{{matches}} Matches Found</p>
     <div class="sort-by">
       <label>Sort by</label>
-      <select id="menu"  [(ngModel)]="qCardModel.sortValue">
+      <select id="menu" [(ngModel)]="qCardModel.sortValue">
         <option value="{{itemList}}" *ngFor="let itemList of qCardModel.listOfMatchings">{{itemList}}</option>
       </select>
     </div>
@@ -20,19 +20,22 @@
 
 
   <div class="card-view clearfix">
-    <div class="col-sm-4" *ngFor="let item of candidates | dashboardfilter:candidateFilter | orderby:qCardModel.sortValue">
+    <div class="col-sm-4"
+         *ngFor="let item of candidates | dashboardfilter:candidateFilter | orderby:qCardModel.sortValue">
       <div class="panel clearfix">
         <ul>
           <!--<li><span class="glyphicon glyphicon-heart-empty" [hidden]="!showButton.isShowRejectButton" (click)="rejectCandidate(item)"></span></li>-->
           <!--<li><button [hidden]="!showButton.isShowRejectButton"  type="button" (click)="rejectCandidate(item)">Reject</button></li>-->
           <li>
             <div [hidden]="!showButton.isShowViewProfileButton">
-              <span class="glyphicon glyphicon-eye-open" data-toggle="modal" [attr.data-target]="'#'+listName" (click)="viewProfile(item,false)"></span>
+              <span class="glyphicon glyphicon-eye-open" data-toggle="modal" [attr.data-target]="'#'+listName"
+                    (click)="viewProfile(item,false)"></span>
             </div>
           </li>
           <li>
-            <div [hidden]="!showButton.isShowRemoveButton" >
-              <span class="glyphicon glyphicon-remove" [hidden]="!showButton.isShowRemoveButton" (click)="Cancel(item)"></span>
+            <div [hidden]="!showButton.isShowRemoveButton">
+              <span class="glyphicon glyphicon-remove" [hidden]="!showButton.isShowRemoveButton"
+                    (click)="Cancel(item)"></span>
             </div>
           </li>
         </ul>
@@ -45,87 +48,42 @@
           <p><span class="glyphicon glyphicon-stats"></span>Skills {{item.matching}}% match</p>
         </div>
         <div class="button-group">
-          <button class="btn btn-cart btn-primary" [hidden]="!showButton.isShowViewFullProfileButton" type="button" (click)="viewProfile(item,true)" data-toggle="modal" [attr.data-target]="'#'+listName" >View Full Profile</button>
+          <button class="btn btn-cart btn-primary" [hidden]="!showButton.isShowViewFullProfileButton" type="button"
+                  (click)="viewProfile(item,true)" data-toggle="modal" [attr.data-target]="'#'+listName">View Full
+            Profile
+          </button>
         </div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- Modal -->
+
 <div class="modal fade" id={{listName}} role="dialog">
   <div class="modal-dialog">
-
-    <!-- Modal content-->
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
         <h4 class="modal-title">Profile</h4>
       </div>
       <div class="modal-body">
-        <!--<pre>{{ selectedPerson | json }}  </pre>-->
-        <h5>{{selectedPerson.first_name}}{{selectedPerson.last_name}}</h5>
-        <h5>Contact:{{selectedPerson.mobile_number}}</h5>
-        <h5>Email:{{selectedPerson.email}}</h5>
-        <h5>Status{{selectedPerson.status}}</h5>
-        <h5>Skills:{{selectedPerson.matching}}</h5>
-        <div  *ngIf="!isFullProfileView" class="col-sm-8">
-          <cn-tabular-list-view (eventCart)="addShortlistedTOcart($event)" (eventReject)="rejectCandidate($event)" [model]="selectedCandidate"  [roles]="selectedCandidate.industry.roles"></cn-tabular-list-view>
+        <div *ngIf="!isFullProfileView" class="col-sm-8">
+          <h5>{{selectedPerson.first_name}}{{selectedPerson.last_name}}</h5>
+          <h5>Contact:{{selectedPerson.mobile_number}}</h5>
+          <h5>Email:{{selectedPerson.email}}</h5>
+          <h5>Status{{selectedPerson.status}}</h5>
+          <h5>Skills:{{selectedPerson.matching}}</h5>
+
+          <cn-tabular-list-view [roles]="selectedCandidate.industry.roles"></cn-tabular-list-view>
         </div>
-
-        <div *ngIf="isFullProfileView">
-          <div class="col-sm-3 left-content">
-            <div>
-<!--
-              <cn-candidate-description [candidateDetails]="candidateDetails" [candidate]="candidate"></cn-candidate-description>
--->
-            </div>
-            <div>
-              <cn-vertical-list-view [data]="selectedCandidate.employmentHistory" [type]="'employment'" ></cn-vertical-list-view>
-            </div>
-            <div>
-              <cn-vertical-list-view [data]="selectedCandidate.academics" [type]="'education'" ></cn-vertical-list-view>
-            </div>
-            <div>
-              <cn-vertical-list-view [data]="selectedCandidate.awards" [type]="'awards'" ></cn-vertical-list-view>
-            </div>
-            <div>
-              <cn-vertical-list-view [data]="selectedCandidate.certifications" [type]="'certifications'" ></cn-vertical-list-view>
-            </div>
-            <!-- <div>
-              <cn-contact-details [candidateDetails]="candidateDetails"></cn-contact-details>
-            </div>-->
-          </div>
-
-          <div class="col-sm-9 right-content">
-            <div class="col-sm-12">
-              <cn-tabular-list-view   [roles]="selectedCandidate.industry.roles"></cn-tabular-list-view>
-            </div>
-
-            <div class="col-lg-5 col-md-12">
-              <div *ngIf="secondaryCapabilities.length>0">
-                <h4 >Supplimentry Capabilities</h4>
-                <cn-horizontal-list-view [data]="secondaryCapabilities"></cn-horizontal-list-view>
-              </div>
-              <h4>Proficiency In</h4>
-              <cn-horizontal-list-view [data]="selectedCandidate.proficiencies"></cn-horizontal-list-view>
-            </div>
-            <div class="col-lg-7 col-md-12">
-              <h4>Additional Information</h4>
-              <cn-additional-details [data]="selectedCandidate.aboutMyself"></cn-additional-details>
-            </div>
-          </div>
-          <button [hidden]="isFullProfileView"  type="button" (click)="rejectCandidate(selectedCandidate)">Reject</button>
+        <div *ngIf="isFullProfileView" class="col-sm-8">
+          <cn-candidate-view [candidateId]="selectedCandidate._id"></cn-candidate-view>
+          <button [hidden]="isFullProfileView" type="button" (click)="rejectCandidate(selectedCandidate)">Reject
+          </button>
         </div>
-
       </div>
-      <div class="modal-footer">
-       <!-- <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>-->
-
-
-      </div>
+      <div class="modal-footer"></div>
     </div>
-
   </div>
 </div>
 

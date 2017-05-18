@@ -13,12 +13,12 @@ import {Candidate} from "../../../model/candidate";
 export class TabularListViewComponent {
 
   @Input() roles:Role[]=new Array(0);
-  @Input() button:RecruiterDashboardButton;
+  /*@Input() button:RecruiterDashboardButton;
   @Input() model: Candidate;
   @Output() eventReject: EventEmitter<any>= new EventEmitter<any>();
-  @Output() eventCart: EventEmitter<any>= new EventEmitter<any>();
+  @Output() eventCart: EventEmitter<any>= new EventEmitter<any>();*/
 
-  Reject(){
+  /*Reject(){
 
     this.eventReject.emit(this.model);
     this.model=new Candidate();
@@ -26,5 +26,5 @@ export class TabularListViewComponent {
   Addto(){
     this.eventCart.emit(this.model);
     this.model=new Candidate();
-  }
+  }*/
 }
