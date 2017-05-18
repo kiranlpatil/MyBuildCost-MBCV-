@@ -20,12 +20,10 @@ export class RecruiterDashboardService extends BaseService {
   }
 
   getPostedJobDetails(jobId:string):Observable<any> {
-    if(jobId != undefined){
       let url:string=API.JOB_DETAILS+'/'+jobId;
       return this.http.get(url)
         .map(this.extractData)
         .catch(this.handleError);
-    }
   }
 
 }
