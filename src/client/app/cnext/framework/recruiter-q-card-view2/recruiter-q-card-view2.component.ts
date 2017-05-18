@@ -14,6 +14,7 @@ import {CandidateFilter} from "../model/candidate-filter";
 import {CandidateFilterService} from "../filters/candidate-filter.service";
 import {CandidateProfileService} from "../candidate-profile/candidate-profile.service";
 import {Candidate} from "../model/candidate";
+import {CandidateDetail} from "../../../framework/registration/candidate/candidate";
 
 @Component({
   moduleId: module.id,
@@ -37,6 +38,9 @@ export class RecruiterQCardview2Component implements OnInit,OnChanges {
   private updatedIdsModel:UpdatedIds=new UpdatedIds() ;
   private removeId:string;
   private selectedCandidate : Candidate= new Candidate();
+  private isFullProfileView : boolean = false;
+  private secondaryCapabilities : string[]=new Array(0);
+  private candidateDetails :CandidateDetail=new CandidateDetail();
   private candidateIDS = new Array();
   private candidateInCartIDS:string[] = new Array();
   private rejectedCandidatesIDS = new Array();
@@ -124,12 +128,15 @@ if (changes.jobPosterModel != undefined && changes.jobPosterModel.currentValue) 
     }
     this.currentrejected.emit(this.updatedIdsModel);
   }
+
   clearFilter() {
   this.candidateFilterService.clearFilter();
   }
-  onClick(item:any){
+
+  viewProfile(item:any, isFullView : boolean){
+    this.isFullProfileView=isFullView;
     this.profileCreatorService.getCandidateDetailsOfParticularId(item._id).subscribe(
-      candidateData => this.OnCandidateDataSuccess(candidateData.data),
+      candidateData => this.OnCandidateDataSuccess(candidateData),
       error => this.onError(error));
     this.selectedPerson=item;
 
@@ -138,8 +145,16 @@ if (changes.jobPosterModel != undefined && changes.jobPosterModel.currentValue) 
 
   }
 
-  OnCandidateDataSuccess(candidate:Candidate) {
-    this.selectedCandidate = candidate;
+  OnCandidateDataSuccess(candidate:any) {
+    this.selectedCandidate = candidate.data;
+    this.candidateDetails = candidate.metadata;
+    for(let role of this.selectedCandidate.industry.roles){
+      for(let capability of role.capabilities){
+        if(capability.isSecondary){
+          this.secondaryCapabilities.push(capability.name);
+        }
+      }
+    }
 //    this.candidateDetails = candidateData.metadata;
   }
 

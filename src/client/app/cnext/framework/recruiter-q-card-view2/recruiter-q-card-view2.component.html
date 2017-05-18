@@ -15,16 +15,18 @@
             <p class="percentage"><span class="glyphicon glyphicon-stats"></span>Skills {{item.matching}}% <span>match</span></p>
           </div>
         </div>
-        <button  class="btn btn-cart btn-block" type="button" data-toggle="modal" data-target="#myModal" (click)="onClick(item)">View Profile</button>
+        <button  class="btn btn-cart btn-block" type="button" data-toggle="modal" [attr.data-target]="'#'+listName" (click)="viewProfile(item,false)">View Profile</button>
         <button [hidden]="!showButton.isShowRemoveButton"  type="button" (click)="Cancel(item)">Remove</button>
         <button [hidden]="!showButton.isShowRejectButton"  type="button" (click)="rejectCandidate(item)">Reject</button>
+        <button   type="button" (click)="viewProfile(item,true)" data-toggle="modal" [attr.data-target]="'#'+listName" >View Full Profile</button>
+
       </div>
     </div>
   </div>
 </div>
 
 <!-- Modal -->
-<div class="modal fade" id="myModal" role="dialog">
+<div class="modal fade" id={{listName}} role="dialog">
   <div class="modal-dialog">
 
     <!-- Modal content-->
@@ -40,8 +42,52 @@
         <h5>Email:{{selectedPerson.email}}</h5>
         <h5>Status{{selectedPerson.status}}</h5>
         <h5>Skills:{{selectedPerson.matching}}</h5>
-        <div class="col-sm-12">
+        <div  *ngIf="!isFullProfileView" class="col-sm-8">
           <cn-tabular-list-view [roles]="selectedCandidate.industry.roles"></cn-tabular-list-view>
+        </div>
+
+        <div *ngIf="isFullProfileView">
+          <div class="col-sm-3 left-content">
+            <div>
+<!--
+              <cn-candidate-description [candidateDetails]="candidateDetails" [candidate]="candidate"></cn-candidate-description>
+-->
+            </div>
+            <div>
+              <cn-vertical-list-view [data]="selectedCandidate.employmentHistory" [type]="'employment'" ></cn-vertical-list-view>
+            </div>
+            <div>
+              <cn-vertical-list-view [data]="selectedCandidate.academics" [type]="'education'" ></cn-vertical-list-view>
+            </div>
+            <div>
+              <cn-vertical-list-view [data]="selectedCandidate.awards" [type]="'awards'" ></cn-vertical-list-view>
+            </div>
+            <div>
+              <cn-vertical-list-view [data]="selectedCandidate.certifications" [type]="'certifications'" ></cn-vertical-list-view>
+            </div>
+            <!-- <div>
+              <cn-contact-details [candidateDetails]="candidateDetails"></cn-contact-details>
+            </div>-->
+          </div>
+
+          <div class="col-sm-9 right-content">
+            <div class="col-sm-12">
+              <cn-tabular-list-view [roles]="selectedCandidate.industry.roles"></cn-tabular-list-view>
+            </div>
+
+            <div class="col-lg-5 col-md-12">
+              <div *ngIf="secondaryCapabilities.length>0">
+                <h4 >Supplimentry Capabilities</h4>
+                <cn-horizontal-list-view [data]="secondaryCapabilities"></cn-horizontal-list-view>
+              </div>
+              <h4>Proficiency In</h4>
+              <cn-horizontal-list-view [data]="selectedCandidate.proficiencies"></cn-horizontal-list-view>
+            </div>
+            <div class="col-lg-7 col-md-12">
+              <h4>Additional Information</h4>
+              <cn-additional-details [data]="selectedCandidate.aboutMyself"></cn-additional-details>
+            </div>
+          </div>
         </div>
 
       </div>
