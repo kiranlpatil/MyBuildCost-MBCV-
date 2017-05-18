@@ -1,8 +1,6 @@
 import {Component, Input, EventEmitter, Output, OnChanges, OnInit} from "@angular/core";
 import {CandidateQCard} from "../model/candidateQcard";
-import {ShowQcardviewService} from "../showQCard.service";
 import {JobPosterModel} from "../model/jobPoster";
-import {QCardsortBy} from "../model/q-cardview-sortby";
 import {RecruiteQCardView2Service} from "./recruiter-q-card-view2.service";
 import {ImagePath, ValueConstant} from "../../../framework/shared/constants";
 import {RecruitercandidatesListsService} from "../candidate-lists.service";
@@ -15,6 +13,7 @@ import {CandidateFilterService} from "../filters/candidate-filter.service";
 import {CandidateProfileService} from "../candidate-profile/candidate-profile.service";
 import {Candidate} from "../model/candidate";
 import {CandidateDetail} from "../../../framework/registration/candidate/candidate";
+import {AddToCartIds} from "../model/addToCartModel";
 
 @Component({
   moduleId: module.id,
@@ -24,37 +23,41 @@ import {CandidateDetail} from "../../../framework/registration/candidate/candida
 
 })
 export class RecruiterQCardview2Component implements OnInit,OnChanges {
-  @Output() currentrejected:EventEmitter<any> = new EventEmitter<any>();
-  @Output() removeIDs:EventEmitter<any> = new EventEmitter<any>();
-  @Output() removeRejectedIDs:EventEmitter<any> = new EventEmitter<any>();
-  @Input() candidates:CandidateQCard[];
+  @Output() addShortListedToCartIds: EventEmitter<any>= new EventEmitter<any>();
+  @Output() addappliedToCartIds: EventEmitter<any>= new EventEmitter<any>();
+  @Output() currentrejected: EventEmitter<any> = new EventEmitter<any>();
+  @Output() removeIDs: EventEmitter<any> = new EventEmitter<any>();
+  @Output() removeRejectedIDs: EventEmitter<any> = new EventEmitter<any>();
+  @Input() candidates: CandidateQCard[];
   @Input() recruiterId: string;
   @Input() listName: string;
-  @Input()  jobPosterModel: JobPosterModel;
-  @Input()  showButton: RecruiterDashboardButton;
-  private recruiter: any={
-    _id:''
+  @Input() jobPosterModel: JobPosterModel;
+  @Input() showButton: RecruiterDashboardButton;
+  private recruiter: any = {
+    _id: ''
   };
-  private updatedIdsModel:UpdatedIds=new UpdatedIds() ;
-  private removeId:string;
-  private selectedCandidate : Candidate= new Candidate();
-  private isFullProfileView : boolean = false;
-  private secondaryCapabilities : string[]=new Array(0);
-  private candidateDetails :CandidateDetail=new CandidateDetail();
+  private updatedIdsModel: UpdatedIds = new UpdatedIds();
+  private removeId: string;
+  private selectedCandidate: Candidate = new Candidate();
+  private addIdsToCartIdsModel: AddToCartIds = new AddToCartIds();
+  private isFullProfileView: boolean = false;
+  private secondaryCapabilities: string[] = new Array(0);
+  private candidateDetails: CandidateDetail = new CandidateDetail();
   private candidateIDS = new Array();
-  private candidateInCartIDS:string[] = new Array();
+  private candidateInCartIDS: string[] = new Array();
   private rejectedCandidatesIDS = new Array();
-  private selectedJobProfile : JobPosterModel;
-  private selectedPerson:CandidateQCard = new CandidateQCard();
-  private image_path:string=ImagePath.PROFILE_IMG_ICON;
-  private candidateRejected:CandidateQCard[] = new Array(0);
+  private selectedJobProfile: JobPosterModel;
+  private selectedPerson: CandidateQCard = new CandidateQCard();
+  private image_path: string = ImagePath.PROFILE_IMG_ICON;
+  private candidateRejected: CandidateQCard[] = new Array(0);
   private candidateFilter: CandidateFilter;
 
-   constructor(private recruiterQCardViewService: QCardViewService,
-              private profileCreatorService:CandidateProfileService,
+  constructor(private recruiterQCardViewService: QCardViewService,
+              private qCardView: QCardViewService,
+              private profileCreatorService: CandidateProfileService,
               private recruiterDashboardService: RecruiterDashboardService,
-               private candidateFilterService: CandidateFilterService,
-              private qCardViewService:RecruiteQCardView2Service,private candidateLists:RecruitercandidatesListsService) {
+              private candidateFilterService: CandidateFilterService,
+              private qCardViewService: RecruiteQCardView2Service, private candidateLists: RecruitercandidatesListsService) {
 
     this.candidateFilterService.candidateFilterValue$.subscribe(
       (data: CandidateFilter) => {
@@ -64,28 +67,58 @@ export class RecruiterQCardview2Component implements OnInit,OnChanges {
 
   }
 
-  ngOnChanges(changes :any){
+  ngOnChanges(changes: any) {
 
-if (changes.jobPosterModel != undefined && changes.jobPosterModel.currentValue) {
- if (changes.jobPosterModel.currentValue.candidate_list.length != 0) {
+    if (changes.jobPosterModel != undefined && changes.jobPosterModel.currentValue) {
+      if (changes.jobPosterModel.currentValue.candidate_list.length != 0) {
 
- this.jobPosterModel=changes.jobPosterModel.currentValue;
-     }
-   }
+        this.jobPosterModel = changes.jobPosterModel.currentValue;
+      }
+    }
 
   }
 
-   ngOnInit() {
-  //this.candidates = this.candidate2;
-   }
+  ngOnInit() {
+    //this.candidates = this.candidate2;
+  }
 
 
-  Cancel(item:any)
-  {
+  Cancel(item: any) {
     this.recruiterQCardViewService.addCandidateLists(this.recruiterId, this.jobPosterModel._id, item._id, this.listName, "remove").subscribe(
       user => {
         console.log(user);
       });
+    let i = 0;
+    for (let item1 of this.candidates) {
+
+      if (item1._id === item._id) {
+        this.candidates.splice(i, 1);
+      }
+      i++;
+    }
+
+    this.removeId = item._id;
+    this.removeIDs.emit(this.removeId);
+    if (this.listName === "rejectedList") {
+      this.removeRejectedIDs.emit(this.removeId);
+    }
+  }
+  addShortlistedTOcart(item:any){
+    this.qCardView.addCandidateLists(this.recruiterId, this.jobPosterModel._id, item._id, ValueConstant.CART_LISTED_CANDIDATE, "add").subscribe(
+      user => {
+        console.log(user);
+      });
+
+    this.qCardView.addCandidateLists(this.recruiterId, this.jobPosterModel._id, item._id, this.listName, "remove").subscribe(
+      user => {
+        console.log(user);
+      });
+    if(this.listName==="shortListed") {
+      this.addShortListedToCartIds.emit(item._id);
+    }
+    if(this.listName==="applied") {
+      this.addappliedToCartIds.emit(item._id);
+    }
     let i=0;
     for(let item1 of this.candidates){
 
@@ -95,19 +128,14 @@ if (changes.jobPosterModel != undefined && changes.jobPosterModel.currentValue) 
       i++;
     }
 
-    this.removeId=item._id;
-    this.removeIDs.emit(this.removeId);
-    if(this.listName==="rejectedList"){
-    this.removeRejectedIDs.emit(this.removeId);}
   }
-  rejectCandidate(item:any)
-  {
+  rejectCandidate(item: any) {
 
 
-    this.updatedIdsModel.updatedCandidateRejectedId=item._id;
+    this.updatedIdsModel.updatedCandidateRejectedId = item._id;
 
 
-    this.recruiterQCardViewService.addCandidateLists(this.recruiterId, this.jobPosterModel._id, item._id,this.listName, "remove").subscribe(
+    this.recruiterQCardViewService.addCandidateLists(this.recruiterId, this.jobPosterModel._id, item._id, this.listName, "remove").subscribe(
       user => {
         console.log(user);
       });
@@ -118,11 +146,11 @@ if (changes.jobPosterModel != undefined && changes.jobPosterModel.currentValue) 
       });
 
 
-    let i=0;
-    for(let reject of this.candidates){
+    let i = 0;
+    for (let reject of this.candidates) {
 
-      if(reject._id ===item._id){
-        this.candidates.splice(i,1);
+      if (reject._id === item._id) {
+        this.candidates.splice(i, 1);
       }
       i++;
     }
@@ -130,27 +158,28 @@ if (changes.jobPosterModel != undefined && changes.jobPosterModel.currentValue) 
   }
 
   clearFilter() {
-  this.candidateFilterService.clearFilter();
+    this.candidateFilterService.clearFilter();
   }
 
-  viewProfile(item:any, isFullView : boolean){
-    this.isFullProfileView=isFullView;
+  viewProfile(item: any, isFullView: boolean) {
+    this.isFullProfileView = isFullView;
     this.profileCreatorService.getCandidateDetailsOfParticularId(item._id).subscribe(
       candidateData => this.OnCandidateDataSuccess(candidateData),
       error => this.onError(error));
-    this.selectedPerson=item;
-
-  }
-  onError(err:any) {
+    this.selectedPerson = item;
 
   }
 
-  OnCandidateDataSuccess(candidate:any) {
+  onError(err: any) {
+
+  }
+
+  OnCandidateDataSuccess(candidate: any) {
     this.selectedCandidate = candidate.data;
     this.candidateDetails = candidate.metadata;
-    for(let role of this.selectedCandidate.industry.roles){
-      for(let capability of role.capabilities){
-        if(capability.isSecondary){
+    for (let role of this.selectedCandidate.industry.roles) {
+      for (let capability of role.capabilities) {
+        if (capability.isSecondary) {
           this.secondaryCapabilities.push(capability.name);
         }
       }

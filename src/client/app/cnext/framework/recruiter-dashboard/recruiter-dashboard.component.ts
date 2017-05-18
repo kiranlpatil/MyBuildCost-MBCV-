@@ -44,6 +44,7 @@ export class RecruiterDashboardComponent implements OnInit {
   private isIdDuplicate:boolean=false;
   private isPresent:boolean=false;
   private rejectedCandidatesIDS = new Array();
+  private appliedCandidatesIDSHistroy = new Array();
   private newrejectedCandidatesIDS = new Array();
   private appliedCandidatesIDS = new Array();
   private newappliedCandidatesIDS = new Array();
@@ -56,6 +57,7 @@ export class RecruiterDashboardComponent implements OnInit {
   private newcandidates: CandidateQCard[] = new Array();
   private removeFromlist:string[]=new Array() ;
   private newSearchListlist:string[]=new Array() ;
+  private newSearchListlistTwo:string[]=new Array() ;
   private removerejectedList:string[]=new Array() ;
 
   constructor(private candidateFilterService: CandidateFilterService,private _router: Router, private recruiterDashboardService: RecruiterDashboardService,
@@ -89,7 +91,6 @@ export class RecruiterDashboardComponent implements OnInit {
   rejectedCandidates() {
     this.buttonModel.isShowRemoveButton=true;
     this.buttonModel.isShowViewProfileButton=true;
-    this.buttonModel.isShowRejectButton=false;
     this.showQCard=true;
     this.candidateFilterService.clearFilter();
 
@@ -122,9 +123,9 @@ this.newrejectedCandidatesIDS=[];
 
   }
   appliedCandidates(){
-    this.buttonModel.isShowRemoveButton=false;
     this.buttonModel.isShowViewProfileButton=true;
     this.buttonModel.isShowRejectButton=true;
+    this.buttonModel.isShowAddToCartButton=true;
 
     this.showQCard=true;
     this.candidateFilterService.clearFilter();
@@ -178,6 +179,21 @@ this.newappliedCandidatesIDS=[];
       }
       this.isIdDuplicate=false;
     }
+    this.newSearchListlistTwo=this.newSearchListlist;
+    this.newSearchListlist=[];
+    for(let item of this.newSearchListlistTwo){
+      for(let item2 of this.appliedCandidatesIDSHistroy){
+        if(item===item2){
+          this.isIdDuplicate=true;
+        }
+
+      }
+      if(this.isIdDuplicate===false)
+      {
+        this.newSearchListlist.push(item);
+      }
+      this.isIdDuplicate=false;
+    }
 
       this.qCardViewService.getCandidatesdetails(this.newSearchListlist, this.selectedJobProfile)
         .subscribe(
@@ -193,6 +209,7 @@ this.newappliedCandidatesIDS=[];
     this.buttonModel.isShowRemoveButton=true;
     this.buttonModel.isShowViewProfileButton=true;
     this.buttonModel.isShowRejectButton=true;
+    this.buttonModel.isShowAddToCartButton=true;
 
     this.showQCard=true;
     this.candidateFilterService.clearFilter();
@@ -278,6 +295,38 @@ this.newcandidateIDS=[];
 
     }
 
+
+  }
+  appliedToCartIds(item:any){
+    if(item!=undefined) {
+      this.candidateInCartIDS.push(item);
+      this.appliedCandidatesIDSHistroy.push(item);
+    }
+
+  }
+  shortlistToCartIds(item:any){
+    this.showQCard=true;
+    this.candidates=[];
+
+    if(item!=undefined)
+    { let i=0;
+      this.candidateInCartIDS.push(item);
+      for(let item1 of this.removeFromlist){
+        if(item1===item){
+          this.removeFromlist.splice(i,1);
+        }
+        i++;
+      }
+    }
+    if(item!=undefined)
+    { let i=0;
+      for(let item1 of this.candidateIDS){
+        if(item1===item){
+          this.candidateIDS.splice(i,1);
+        }
+        i++;
+      }
+    }
 
   }
   updateIds(model:any) {

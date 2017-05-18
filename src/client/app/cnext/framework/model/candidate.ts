@@ -19,6 +19,7 @@ export class Candidate {
   proficiencies : string[]=new Array(0);
   secondaryCapability : string[]=new Array();
   lockedOn: Date;
+  _id : string;
 
 }
 
