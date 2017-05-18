@@ -3,40 +3,40 @@ $white: #fff;
 .page-header {
   .user-info {
     img {
-      width: auto;
+      float: left;
       height: 40px;
       margin: 0 15px 0 0;
-      float: left;
+      width: auto;
     }
 
     h4 {
-      margin: 0;
-      width: auto;
       color: $white;
-      text-transform: capitalize;
-      font-family: 'gothamrnd-book';
-      white-space: pre-wrap;
-      text-overflow: clip;
-      overflow: auto;
-      font-size: 14px;
-      vertical-align: middle;
       display: table-cell;
+      font-family: 'gothamrnd-book';
+      font-size: 14px;
+      margin: 0;
       height: 43px;
+      overflow: auto;
+      text-overflow: clip;
+      text-transform: capitalize;
+      vertical-align: middle;
+      width: auto;
+      white-space: pre-wrap;
     }
   }
 
-  .job-posted > li {
+  .list-counts > li {
     color: $white;
-    width: 12%;
     float: left;
     list-style: none;
     padding-right: 10px;
+    width: 10%;
 
     p {
-      margin: 0;
       color: $white;
       font-size: 10px;
       line-height: 12px;
+      margin: 0;
     }
 
     span {
@@ -54,15 +54,12 @@ $white: #fff;
     .container {
       width: 100%;
     }
-
-    .user-info {
-      padding: 0;
-    }
   }
 }
+
 @media only screen and (max-width: 980px) {
   .page-header {
-    .job-posted > li {
+    .list-counts > li {
       width: 17%;
     }
   }
@@ -70,6 +67,20 @@ $white: #fff;
 
 @media only screen and (max-width: 767px) {
   .page-header {
+    .list-counts > li {
+      margin-top: 7px;
+      width: 25%;
+
+      span {
+        font-size: 16px;
+        line-height: 25px;
+      }
+
+      p {
+        display: none;
+      }
+    }
+
     .user-info {
       h4 {
         display: none;

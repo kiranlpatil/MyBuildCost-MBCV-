@@ -5,7 +5,17 @@ $bg-tab-content: #f9f9f9;
 $profile-section-shadow: rgba(204, 204, 204, 1);
 
 .filter-container {
+  padding-bottom: 10px;
+  position: fixed;
+  top: 90px;
+  left: 0;
+  height: 100vh;
+  overflow: auto;
+  border: 1px solid $border-color;
+  background: $bg-tab-content;
+  box-shadow: 0 0 1px 0 $profile-section-shadow;
   text-align: left;
+  width: 250px;
 
   p {
     color: $text-color;
@@ -21,32 +31,48 @@ $profile-section-shadow: rgba(204, 204, 204, 1);
   }
 
   .inner {
-    border: 1px solid $border-color;
-    background: $bg-tab-content;
-    box-shadow: 0 0 1px 0 $profile-section-shadow;
     padding: 15px;
 
     h5 {
-      margin: 15px 0 5px 0;
+      margin: 20px 0 5px 0;
       font-weight: 900;
       color: #666;
+      position: relative;
+      cursor: pointer;
     }
 
     label {
       color: $text-color;
       font-weight: 100;
       font-size: 14px;
-      margin: 10px 0 0 0;
+      margin: 0;
       width: 100%;
     }
 
     .radio,
     .checkbox {
-      margin-left: 20px;
+      padding-left: 30px;
     }
 
     .min-max-values {
       margin-bottom: 10px;
+    }
+
+    h5:after {
+      height: 12px;
+      width: 12px;
+      position: absolute;
+      right: 0;
+      top: 0;
+      content: "";
+    }
+
+    .panel-up:after {
+      background: url(../../../../assets/framework/images/dashboard/up-arrow.png) no-repeat 50% 50%;
+    }
+
+    .panel-down:after {
+      background: url("../../../../assets/framework/images/dashboard/down-arrow.png") no-repeat 50% 50%;
     }
   }
 
@@ -64,16 +90,6 @@ $profile-section-shadow: rgba(204, 204, 204, 1);
     &:active {
       outline: none;
     }
-  }
-}
-
-@media only screen and (min-width: 768px) {
-  .filter-container {
-    display: block;
-  }
-
-  .btn-filter {
-    display: none;
   }
 }
 

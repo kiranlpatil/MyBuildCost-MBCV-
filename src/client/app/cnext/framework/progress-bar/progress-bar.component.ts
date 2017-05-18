@@ -18,8 +18,8 @@ export class ProgressBarComponent {
 
   ngOnChanges(changes: any) {
     this.canvas = this.canvasRef.nativeElement;
-    this.canvas.width = 110;
-    this.canvas.height = 110;
+    this.canvas.width = 90;
+    this.canvas.height = 90;
     if (this.canvas.getContext) {
       this.ctx = this.canvas.getContext('2d');
       this.ctx.clearRect(0, 0,this.canvas.width,this.canvas.height);
@@ -35,9 +35,9 @@ export class ProgressBarComponent {
     this.ctx.lineCap = 'round';
     this.ctx.closePath();
     this.ctx.fill();
-    this.imd = this.ctx.getImageData(0, 0, 110, 110);
+    this.imd = this.ctx.getImageData(0, 0, 90, 90);
     this.ctx.putImageData(this.imd, 0, 0);
-    this.ctx.arc(55, 55, 50, -( Math.PI / 2), ((Math.PI * 2) * (this.value / 100) ) - ( Math.PI / 2), this.rotation);
+    this.ctx.arc(45, 45, 40, -( Math.PI / 2), ((Math.PI * 2) * (this.value / 100) ) - ( Math.PI / 2), this.rotation);
     this.ctx.stroke();
   }
 }

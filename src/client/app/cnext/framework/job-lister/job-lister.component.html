@@ -9,23 +9,39 @@
     </div>
   </header>
 
-  <div class="col-sm-12 list-view" *ngIf="jobListInput.length > 0">
-    <div class="panel clearfix" *ngFor="let item of jobListInput | orderBy:format" (click)="onJobClikecd(item)">
-      <div class="col-sm-6 no-padding job-posted clearfix">
-        <div class="col-xs-2 no-padding">
-          <p><span>52</span></p>Matches
-        </div>
-        <div class="col-xs-10">
-          <h4>{{item.jobTitle}}</h4>
-          <p>{{item.department}}</p>
-        </div>
-      </div>
-      <div class="col-sm-6 contact-info">
-        <div class="col-xs-6 no-padding">
-          <p><img src="../../../../assets/c-next/post-job/calendar.png" alt="calendar"/>{{item.postingDate | date:'mediumDate'}}</p>
-        </div>
-        <div  class="col-xs-6 no-padding">
-          <p><img src="../../../../assets/c-next/post-job/contact-person.png" alt="Hiring Manager"/>{{item.hiringManager}}</p>
+  <div class="list-view" *ngIf="jobListInput.length > 0">
+    <div class="col-md-3" *ngFor="let item of jobListInput | orderBy:format" (click)="onJobClikecd(item)">
+      <div class="panel clearfix">
+        <span class="glyphicon glyphicon-trash"></span>
+        <div class="job-posted clearfix">
+          <div class="col-xs-2 no-padding">
+            <p><span>52</span></p>Matches
+          </div>
+          <div class="col-xs-10 padding-left15">
+            <h4>{{item.jobTitle}}</h4>
+            <span>{{item.department}}</span>
+          </div>
+          <div class="contact-info clearfix">
+            <div class="col-sm-12 no-padding">
+              <div class="col-xs-2 no-padding">
+                <img src="../../../../assets/c-next/post-job/calendar.png" alt="calendar"/>
+              </div>
+              <div class="col-xs-10 padding-left15">
+                <p>{{item.postingDate | date:'mediumDate'}}</p>
+              </div>
+            </div>
+            <div class="col-sm-12 no-padding">
+              <div class="col-xs-2 no-padding">
+                <img src="../../../../assets/c-next/post-job/contact-person.png" alt="Hiring Manager"/>
+              </div>
+              <div class="col-xs-10 padding-left15">
+                <p>{{item.hiringManager}}</p>
+              </div>
+            </div>
+          </div>
+          <div class="button-group">
+            <button class="btn btn-primary">Post Job</button>
+          </div>
         </div>
       </div>
     </div>

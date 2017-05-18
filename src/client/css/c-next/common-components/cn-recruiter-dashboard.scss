@@ -1,5 +1,5 @@
 $border-color: #e8e8e8;
-$profile-section-shadow: rgba(204, 204, 204, 1);
+$profile-section-shadow: rgba(0, 0, 0, 0.04);
 
 .dashboard-view {
   /*text-align: left;
@@ -7,16 +7,12 @@ $profile-section-shadow: rgba(204, 204, 204, 1);
   box-shadow: 0 0 1px 0 $profile-section-shadow;*/
 
   header {
-    margin: 0 0 10px;
+    margin: 10px 0 10px;
     clear: both;
 
     p {
       float: left;
       margin: 6px 0 0 0;
-    }
-
-    .sort-by {
-      float: right;
     }
 
     select {
@@ -31,7 +27,8 @@ $profile-section-shadow: rgba(204, 204, 204, 1);
   .panel {
     border:1px solid $border-color;
     border-radius: 0;
-    box-shadow: 1px 1px 1px 0 $profile-section-shadow;
+    //box-shadow: 1px 1px 1px 0 $profile-section-shadow;
+    box-shadow: 2px 2px 2px $profile-section-shadow;
     margin: 10px 0 10px;
     padding: 20px 10px;
 
@@ -64,16 +61,13 @@ $profile-section-shadow: rgba(204, 204, 204, 1);
     transform: rotateY(180deg);
     width: 110px;
 
-    .percentage {
+    span {
       font-family: 'gothamrnd-light';
       left: 50%;
       position: absolute;
       text-align: center;
       top: 50%;
       transform: translate(-50%, -50%) rotateY(180deg);
-    }
-
-    .percentage > span {
       font-family: 'gothamrnd-book';
       font-size: 20px;
     }

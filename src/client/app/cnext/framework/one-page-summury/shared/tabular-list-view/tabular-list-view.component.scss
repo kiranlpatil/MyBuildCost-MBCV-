@@ -57,10 +57,16 @@ $border-color: #ccc;
 
     .heading {
       padding: 0 15px !important;
-      margin: 0 0 5px !important;
+      margin: 0 !important;
 
       h4 {
         padding: 5px 0;
+      }
+    }
+
+    .col-sm-3 {
+      span {
+        padding: 0 15px;
       }
     }
 
@@ -70,7 +76,7 @@ $border-color: #ccc;
     }
 
     .col-sm-4 {
-      padding: 5px 0 5px 0;
+      padding: 0 15px;
       width: 100%;
     }
   }

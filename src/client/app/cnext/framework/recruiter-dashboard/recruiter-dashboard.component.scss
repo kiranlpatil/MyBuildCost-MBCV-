@@ -89,9 +89,8 @@ $highlight: #596c7d;
     }
   }
 
-  .candidate-listing {
+  /*. {
     .nav-tabs > li > a {
-      width: 150px;
       border-bottom: 0;
 
       &:hover,
@@ -101,6 +100,23 @@ $highlight: #596c7d;
         border-bottom: 0;
       }
     }
+  }*/
+
+  /*.tab-content {
+    padding-bottom: 0;
+  }*/
+
+  .dashboard-tabs {
+    background: $white;
+    position: fixed;
+    top: 50px;
+    left: 0;
+    width: 100%;
+    z-index:999;
+  }
+
+  .candidate-listing {
+    padding-left: 250px;
   }
 }
 

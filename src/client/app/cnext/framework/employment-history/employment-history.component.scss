@@ -15,6 +15,12 @@ $border-color: #ccc;
   label {
     width: 100%;
   }
+
+  .worked-to {
+    select {
+      margin-bottom: 5px;
+    }
+  }
 }
 
 .right-content {
@@ -50,24 +56,18 @@ $border-color: #ccc;
 
 @media only screen and (max-width: 767px) {
   .left-content {
-    .col-sm-12 {
-      clear: both;
-    }
+    padding: 0 15px;
   }
 
-  .col-sm-12 {
+  .col-sm-12,
+  .col-sm-6,
+  .form {
+    clear: both;
     padding: 0;
   }
 
   .right-content {
     margin-bottom: 15px;
-
-    textarea {
-      width: 100%;
-    }
-  }
-
-  .form {
-    padding: 0;
+    padding: 0 15px;
   }
 }

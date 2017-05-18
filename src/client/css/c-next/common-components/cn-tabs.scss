@@ -7,26 +7,23 @@ $white: #fff;
 $theme-color: #3694d1;
 
 .nav-tabs {
-  border-bottom: 1px solid $theme-color;
+  border-bottom: 1px solid $border-color;
 
   li {
+    margin: 0;
+
     a {
-      height: 42px;
-      margin-top: 5px;
-      padding: 11px 15px;
-      border: 1px solid $border-color;
+      background-color: $bg-tab-content !important;
+      border: 0 solid $white;
+      border-bottom: 3px solid $white;
       border-radius: 0;
-      //background: $nav-tab;
       color: $text-color;
-      margin-bottom: -0.5px;
-      margin-right: 5px;
-      width: 200px;
+      font-size: 12px;
+      font-family: 'gothamrnd-book';
+      padding: 10px 15px;
 
       &:focus,
       &:hover {
-        border: 1px solid $theme-color;
-        border-bottom-color: transparent;
-        //background: $bg-tab-content;
         color: $text-color;
       }
     }
@@ -36,23 +33,17 @@ $theme-color: #3694d1;
 .dashboard-tabs {
   .active {
     a {
-      border: 1px solid $theme-color !important;
-      border-bottom-color: transparent !important;
-      background-color: $bg-tab-content !important;
+      border: 0 !important;
+      border-bottom: 3px solid $theme-color !important;
       color: $text-color;
-      padding: 13px 15px;
-      margin-top: -2px;
-      height: 50px;
     }
   }
 }
 
 .tab-content {
   background: $bg-tab-content;
-  border: 1px solid $theme-color;
   border-top-color: transparent;
-  box-shadow: 0 0 1px 0 $profile-section-shadow;
-  padding: 15px 0;
+  //padding: 15px 0;
 }
 
 
@@ -70,7 +61,6 @@ $theme-color: #3694d1;
   .nav-tabs {
     li {
       a {
-        padding: 15px;
         width: auto;
         font-size: 12px;
       }

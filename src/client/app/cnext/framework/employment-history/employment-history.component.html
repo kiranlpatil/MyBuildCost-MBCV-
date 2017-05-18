@@ -6,9 +6,8 @@
       </span>
     </h4>
     <div class="form col-sm-12 clearfix"  [class.hide]="hideDiv[i]" *ngFor="let item of candidate.employmentHistory;let i= index">
-      <div >
-        <span class="glyphicon glyphicon-trash" (click)="deleteItem(i)" ></span>
-        <div class="left-content">
+      <span class="glyphicon glyphicon-trash" (click)="deleteItem(i)" ></span>
+      <div class="left-content">
         <div class="col-sm-6 padding-right15">
           <div class="form-group">
             <input type="text" class="form-control" [(ngModel)]="item.companyName" (change)="postEmploymentHistoy()"   required />
@@ -23,48 +22,49 @@
           </div>
         </div>
 
-        <div class="worked-from col-sm-12 no-padding">
-          <label>From Date</label>
-          <div class="col-sm-6 padding-right15">
-            <select class="form-control" [(ngModel)]="item.from.month" (change)="postEmploymentHistoy()">
-              <option *ngFor="let c of monthList" [selected]="true" [ngValue]="c">{{c}}</option>
-            </select>
+        <div class="col-sm-12 no-padding">
+          <div class="worked-from col-sm-6 padding-right15">
+            <label>From Date</label>
+            <div class="col-sm-6 padding-right5">
+              <select class="form-control" [(ngModel)]="item.from.month" (change)="postEmploymentHistoy()">
+                <option *ngFor="let c of monthList" [selected]="true" [ngValue]="c">{{c}}</option>
+              </select>
+            </div>
+            <div class="col-sm-6 padding-left5">
+              <select class="form-control" [(ngModel)]="item.from.year" (change)="postEmploymentHistoy()">
+                <option *ngFor="let c of yearList" [selected]="true" [ngValue]="c">{{c}}</option>
+              </select>
+            </div>
           </div>
-          <div class="col-sm-6 padding-left15">
-            <select class="form-control" [(ngModel)]="item.from.year" (change)="postEmploymentHistoy()">
-              <option *ngFor="let c of yearList" [selected]="true" [ngValue]="c">{{c}}</option>
-            </select>
-          </div>
-        </div>
 
-        <div class="worked-to col-sm-12 no-padding">
-          <label>To Date</label>
-          <div *ngIf="item.to.month ==''">
-            <label class="checkbox-inline">
-            <input type="checkbox" (click)="setCurrentDate(item)" name="TillDate" value="TillDate" />Till Date
-            </label>
-          </div>
-          <div class="col-sm-6 padding-right15">
-            <select class="form-control" [(ngModel)]="item.to.month" (change)="postEmploymentHistoy()">
-              <option *ngFor="let c of monthList" [selected]="true" [ngValue]="c">{{c}}</option>
-            </select>
-          </div>
-          <div class="col-sm-6 padding-left15">
-            <select class="form-control" [(ngModel)]="item.to.year" (change)="postEmploymentHistoy()">
-              <option *ngFor="let c of yearList" [selected]="true" [ngValue]="c">{{c}}</option>
-            </select>
-
-
+          <div class="worked-to col-sm-6 padding-left15">
+            <label>To Date</label>
+            <div class="col-sm-6 padding-right5">
+              <select class="form-control" [(ngModel)]="item.to.month" (change)="postEmploymentHistoy()">
+                <option *ngFor="let c of monthList" [selected]="true" [ngValue]="c">{{c}}</option>
+              </select>
+            </div>
+            <div class="col-sm-6 padding-left5">
+              <select class="form-control" [(ngModel)]="item.to.year" (change)="postEmploymentHistoy()">
+                <option *ngFor="let c of yearList" [selected]="true" [ngValue]="c">{{c}}</option>
+              </select>
+            </div>
+            <div *ngIf="item.to.month ==''">
+              <label class="checkbox-inline">
+                <input type="checkbox" (click)="setCurrentDate(item)" name="TillDate" value="TillDate" />Till Date
+              </label>
+            </div>
           </div>
         </div>
       </div>
-        <div class="right-content">
+
+      <div class="right-content">
         <div>
           <textarea class="form-control" [(ngModel)]="item.remarks" (change)="postEmploymentHistoy()" Placeholder="Remark"></textarea>
         </div>
       </div>
-      </div>
     </div>
+
     <div class="col-sm-12">
       <div class="clear">
         <div class="error-messages" *ngIf="isShowDateErrorMessage"><p>Please fill valid month/year.</p></div>
@@ -93,12 +93,3 @@
     </div>
   </div>
 </div>
-
-
-
-
-
-
-
-
-

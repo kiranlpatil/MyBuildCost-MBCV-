@@ -1,0 +1,152 @@
+$border-color: #e8e8e8;
+$orange: #e77e22;
+$theme-color: #3694d1;
+$white: #fff;
+
+.card-view {
+  clear: both;
+  text-align: left;
+  max-height: 600px;
+  overflow: auto;
+
+  .panel {
+    padding: 15px;
+    position: relative;
+
+    .glyphicon {
+      background: #fff;
+      color: #999;
+      position: absolute;
+      z-index: 5;
+    }
+
+    .glyphicon-heart-empty {
+      top: 15px;
+      right: 15px;
+    }
+
+    .shortlisted {
+      color: $orange;
+    }
+
+    .glyphicon-eye-close {
+      top: 15px;
+      right: 40px;
+    }
+
+    .glyphicon-eye-open {
+      top: 15px;
+      right: 40px;
+      color: $orange;
+    }
+
+    .right-side {
+      text-align: center;
+    }
+
+    p {
+      border-bottom: 1px solid $border-color;
+      font-size: 12px;
+      margin: 0;
+      padding: 10px 5px 10px 30px;
+      position: relative;
+
+      img {
+        left: 0;
+        position: absolute;
+        top: 5px;
+      }
+
+      &:first-child {
+        margin-top: 20px;
+      }
+
+      &:last-child {
+        border-bottom: 0 solid $border-color;
+      }
+
+      span {
+        width: 100%;
+
+      }
+    }
+
+    .proficiencies {
+      min-height: 80px;
+    }
+
+    .profile-picture {
+      width: 80px;
+      height: 80px;
+      margin: 20px auto 0;
+    }
+
+    h6 {
+      color: $orange;
+      font-weight: 900;
+      font-size: 12px;
+      margin: 5px 0 10px;
+      text-transform: capitalize;
+    }
+
+    .btn-cart {
+      border-radius: 0;
+      background-color: $theme-color;
+      border: 1px solid $theme-color;
+      box-shadow: none;
+      color: $white;
+      width: 100%;
+
+      &:hover,
+      &:focus,
+      &:active {
+        background-color: $theme-color;
+        border: 1px solid $theme-color;
+        box-shadow: none;
+        color: $white;
+      }
+    }
+  }
+
+  .canvas-container {
+    color: $orange;
+    float: none;
+    margin: 0 auto;
+    height: 90px;
+    position: relative;
+    transform: rotateY(180deg);
+    width: 90px;
+  }
+}
+
+@media only screen and (max-width: 1024px) {
+  .card-view {
+    .col-sm-4 {
+      width: 50%;
+    }
+  }
+}
+@media only screen and (max-width: 980px) {
+  .card-view {
+    .left-side {
+      float:right;
+      width: 100%;
+    }
+
+    .right-side {
+      float:left;
+      width: 100%;
+    }
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .card-view {
+    max-height: inherit;
+    overflow: auto;
+
+    .col-sm-4 {
+      width: 100%;
+    }
+  }
+}
