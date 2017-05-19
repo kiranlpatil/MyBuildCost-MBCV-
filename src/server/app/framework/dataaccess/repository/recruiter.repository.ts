@@ -80,6 +80,8 @@ class RecruiterRepository extends RepositoryBase<IRecruiter> {
               job_qcard.proficiencies= job.proficiencies;
               job_qcard.location = job.location.city;
               job_qcard._id=job._id;
+              job_qcard.industry = job.industry.name;
+              job_qcard.jobTitle= job.jobTitle;
               jobs_cards.push(job_qcard);
               //todo add condition for exit
 
