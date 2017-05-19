@@ -44,7 +44,7 @@ export class CandidateDashboardComponent  {
     this.onBlockClick();
   }
 
-  extractList(jobList:JobQcard[]){ debugger
+  extractList(jobList:JobQcard[]){ 
     for(let job of jobList){
       var addition=job.above_one_step_matching+job.exact_matching;
       if(addition <= ValueConstant.MATCHING_PERCENTAGE){
