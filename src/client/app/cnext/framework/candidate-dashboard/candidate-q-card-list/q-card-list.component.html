@@ -9,15 +9,15 @@
         <a (click)="clearFilter()">Clear all filters</a>
       </li>
     </ul>
+    <div class="search">
+      <input class="form-control" type="text" />
+      <button class="btn btn-search" type="button"><img src="./assets/framework/images/dashboard/search.png"></button>
+    </div>
     <div class="sort-by">
       <label>Sort by</label>
       <select id="menu"  [(ngModel)]="qCardModel.sortValue">
         <option value="{{itemList}}" *ngFor="let itemList of qCardModel.listOfMatchings">{{itemList}}</option>
       </select>
-    </div>
-    <div class="search">
-      <input class="form-control" type="text" />
-      <button class="btn btn-search" type="button">Search</button>
     </div>
   </header>
 

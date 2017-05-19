@@ -38,19 +38,20 @@
         <div class="modal-body">
           <div class="modal-header">
             <h4>Job Description</h4>
+            <img src="/assets/c-next/card-view/close-grey.png" (click)="closeJob()" class="close"/>
           </div>
           <div class="row">
             <div class="col-sm-12">
               <cn-job-view [jobId]="jobId"></cn-job-view>
-              <div class="button-group" [hidden]="type=='apply' || type=='block'" >
-                <button class="btn btn-primary" (click)="applyJob()">Apply</button>
-                <button class="btn btn-default" (click)="blockJob() ">Not Interested</button>
-              </div>
-              <div class="button-group" [hidden]="type =='none'">
-                <button class="btn btn-primary" (click)="closeJob()">Close</button>
-              </div>
             </div>
           </div>
+            <div class="button-group" [hidden]="type=='apply' || type=='block'" >
+              <button class="btn btn-primary" (click)="applyJob()">Apply</button>
+              <button class="btn btn-danger" (click)="blockJob() ">Not Interested</button>
+            </div>
+            <!--<div class="button-group" [hidden]="type =='none'">
+              <button class="btn btn-primary" (click)="closeJob()">Close</button>
+            </div>-->
         </div>
       </div>
     </div>
