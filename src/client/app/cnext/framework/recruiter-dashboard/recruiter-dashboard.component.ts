@@ -130,6 +130,8 @@ export class RecruiterDashboardComponent implements OnInit {
   }
 
   showAllJobs(){
+    this.filterService.clearFilter();
+    this.filterService.setAboveMatch();
     this.isJobSelected=false;
     this.getRecruiterData();
   }
