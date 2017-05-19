@@ -71,7 +71,6 @@ export class RecruiterDashboardComponent implements OnInit {
         data => {
           if (data.data[0] != undefined)
             this.recruiter = data.data[0];
-          debugger
           this.jobList = this.recruiter.postedJobs;
           this.companyName = this.recruiter.company_name;
           if (this.jobList.length >= 0)
@@ -433,6 +432,11 @@ export class RecruiterDashboardComponent implements OnInit {
         }
       }
     }
+    setTimeout(()=>{
+      let matcheElement: any =document.getElementById("matched_anchor");
+      matcheElement.click();
+    },300);
+
   }
 
   logOut() {
