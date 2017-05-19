@@ -80,7 +80,7 @@ export class CandidateFilterComponent {
       .subscribe(
         (list:any) => {
           //this.proficiencyList = list.proficiency;
-          this.companySizeList = this.companysize;
+          this.companySizeList = list.companysize;
           this.salaryRangeList = list.salaryRangeList;
           this.educationList = list.education;
           this.jointimeList = list.joining_period;
@@ -245,17 +245,5 @@ export class CandidateFilterComponent {
     this.candidateFilter.query = query;
     this.filterService.filterby(this.candidateFilter);
   }
-  companysize=[
-    "Below 50",
-    "50-100",
-    "100-150",
-    "150-200",
-    "200-250",
-    "250-300",
-    "300-350",
-    "350-400",
-    "400-500",
-    "Above 500"
-    ]
 
 }

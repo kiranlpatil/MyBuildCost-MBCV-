@@ -82,6 +82,7 @@ i++;
   }
   ngOnInit() {
    //this.candidates2 = this.candidate2;
+    this.matchFormat = this.match.aboveMatch;
   }
   clearFilter() {
     this.filterService.clearFilter();
