@@ -44,7 +44,7 @@
             </div>
           </li>-->
           <li>
-            <div [hidden]="!showButton.isShowRemoveButton">
+            <div [hidden]="true">
               <!--<span class="glyphicon glyphicon-remove" [hidden]="!showButton.isShowRemoveButton"-->
                     <!--(click)="Cancel(item)"></span>-->
               <img alt="close_img" src="./assets/framework/images/dashboard/close-red.png" [hidden]="!showButton.isShowRemoveButton" (click)="Cancel(item)">
@@ -93,9 +93,9 @@
             <div  class="col-sm-12">
               <div *ngIf="!isFullProfileView">
                 <h5>{{selectedPerson.first_name}}{{selectedPerson.last_name}}</h5>
-                <h5>Contact:{{selectedPerson.mobile_number}}</h5>
+               <!-- <h5>Contact:{{selectedPerson.mobile_number}}</h5>
                 <h5>Email:{{selectedPerson.email}}</h5>
-                <h5>Status{{selectedPerson.status}}</h5>
+                <h5>Status{{selectedPerson.status}}</h5>-->
                 <h5>Skills:{{selectedPerson.matching}}</h5>
                 <cn-tabular-list-view [roles]="selectedCandidate.industry.roles"></cn-tabular-list-view>
                 <div [hidden]="'rejectedList'===listName">
