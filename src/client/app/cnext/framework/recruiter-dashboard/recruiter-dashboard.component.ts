@@ -12,6 +12,7 @@ import {CandidateQCard} from "../model/candidateQcard";
 import {RecruitercandidatesListsService} from "../candidate-lists.service";
 import {RecruiterDashboardButton} from "../model/buttonAtRecruiterdashboard";
 import {FilterService} from "../filters/filter.service";
+import {CandidatesInDiffList} from "../model/candidatesinDiffList";
 
 @Component({
   moduleId: module.id,
@@ -33,7 +34,7 @@ export class RecruiterDashboardComponent implements OnInit {
   private jobList:any[] = new Array(0);
   private jobCount:any;
   private companyName:any;
-  private selectedJobProfile:JobPosterModel;
+  private selectedJobProfile:JobPosterModel= new JobPosterModel();
   private isJobSelected:boolean;
   private showQCard:boolean;
   private candidateIDS = new Array(0);
@@ -43,29 +44,29 @@ export class RecruiterDashboardComponent implements OnInit {
   private ids = new Array();
   private isIdDuplicate:boolean = false;
   private isPresent:boolean = false;
-  private rejectedCandidatesIDS = new Array();
-  private appliedCandidatesIDSHistroy = new Array();
-  private newrejectedCandidatesIDS = new Array();
-  private appliedCandidatesIDS = new Array();
-  private newappliedCandidatesIDS = new Array();
+  private rejectedCandidatesIDS = new Array(0);
+  private appliedCandidatesIDSHistroy = new Array(0);
+  private newrejectedCandidatesIDS = new Array(0);
+  private appliedCandidatesIDS = new Array(0);
+  private newappliedCandidatesIDS = new Array(0);
   private candidates:CandidateQCard[] = new Array(0);
   private buttonModel:RecruiterDashboardButton = new RecruiterDashboardButton();
-  private candidatesInCart:CandidateQCard[];
+  private candidatesInCart:CandidateQCard[] = new Array(0);
   private candidatesshortlisted:CandidateQCard[] = new Array(0);
   private candidateApplied:CandidateQCard[] = new Array(0);
   private candidateRejected:CandidateQCard[] = new Array(0);
-  private newcandidates:CandidateQCard[] = new Array();
-  private removeFromlist:string[] = new Array();
-  private newSearchListlist:string[] = new Array();
-  private newSearchListlistTwo:string[] = new Array();
-  private removerejectedList:string[] = new Array();
+  private newcandidates:CandidateQCard[] = new Array(0);
+  private removeFromlist:string[] = new Array(0);
+  private newSearchListlist:string[] = new Array(0);
+  private newSearchListlistTwo:string[] = new Array(0);
+  private removerejectedList:string[] = new Array(0);
 
-  constructor(private filterService: FilterService, private _router:Router, private recruiterDashboardService:RecruiterDashboardService,
+  constructor(private filterService:FilterService, private _router:Router, private recruiterDashboardService:RecruiterDashboardService,
               private qCardViewService:RecruiteQCardView2Service, private candidateLists:RecruitercandidatesListsService) {
   }
 
 
-  getRecruiterData() {
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              getRecruiterData() {debugger
     this.recruiterDashboardService.getJobList()
       .subscribe(
         data => {
@@ -74,7 +75,7 @@ export class RecruiterDashboardComponent implements OnInit {
           this.jobList = this.recruiter.postedJobs;
           this.companyName = this.recruiter.company_name;
           if (this.jobList.length >= 0)
-            this.jobCount = this.jobList.length;
+            this.jobCount = this.jobList.length                                                                                                                             ;
         });
   }
 
@@ -124,15 +125,17 @@ export class RecruiterDashboardComponent implements OnInit {
       .subscribe(
         data => {
           this.candidateRejected = data;
+          this.selectedJobProfile.numberOfCandidatesInList.rejected= data.length;
+
         });
     this.newrejectedCandidatesIDS = [];
 
   }
 
-  showAllJobs(){
+  showAllJobs() {
     this.filterService.clearFilter();
     this.filterService.setAboveMatch();
-    this.isJobSelected=false;
+    this.isJobSelected = false;
     this.getRecruiterData();
   }
 
@@ -169,6 +172,8 @@ export class RecruiterDashboardComponent implements OnInit {
       .subscribe(
         data => {
           this.candidateApplied = data;
+          this.selectedJobProfile.numberOfCandidatesInList.applied  = data.length;
+
         });
 
     this.newappliedCandidatesIDS = [];
@@ -248,6 +253,8 @@ export class RecruiterDashboardComponent implements OnInit {
       .subscribe(
         data => {
           this.candidatesshortlisted = data;
+          this.selectedJobProfile.numberOfCandidatesInList.shortlist= data.length;
+
         });
     this.newcandidateIDS = [];
   }
@@ -403,41 +410,54 @@ export class RecruiterDashboardComponent implements OnInit {
       .subscribe(
         data => {
           this.candidatesInCart = data;
+          this.selectedJobProfile.numberOfCandidatesInList.cart= data.length;
         });
     this.newcandidateInCartIDS = [];
   }
 
-  jobSelected(job:any) {
+  jobSelected(job:any) {debugger
     this.isJobSelected = true;
     this.selectedJobProfile = job;
+    this.selectedJobProfile.numberOfCandidatesInList = new CandidatesInDiffList();
     if (this.selectedJobProfile.candidate_list.length != 0) {
       for (let item of this.selectedJobProfile.candidate_list) {
+        for(let data of item.ids){
+          if(data=="undefined"){
+            item.ids.splice(item.ids.indexOf(data),1);
+          }
+        }
         if (item.name == "shortListed") {
           if (item.ids.length > 0) {
             this.candidateIDS = item.ids;
+            this.selectedJobProfile.numberOfCandidatesInList.shortlist = item.ids.length;
           }
         }
         if (item.name == "cartListed") {
           if (item.ids.length > 0) {
             this.candidateInCartIDS = item.ids;
+            this.selectedJobProfile.numberOfCandidatesInList.cart = item.ids.length;
           }
         }
         if (item.name == "rejectedList") {
           if (item.ids.length > 0) {
             this.rejectedCandidatesIDS = item.ids;
+            this.selectedJobProfile.numberOfCandidatesInList.rejected = item.ids.length;
+
           }
         }
         if (item.name == "applied") {
           if (item.ids.length > 0) {
             this.appliedCandidatesIDS = item.ids;
+            this.selectedJobProfile.numberOfCandidatesInList.applied = item.ids.length;
+
           }
         }
       }
     }
-    setTimeout(()=>{
-      let matcheElement: any =document.getElementById("matched_anchor");
+    setTimeout(()=> {
+      let matcheElement:any = document.getElementById("matched_anchor");
       matcheElement.click();
-    },300);
+    }, 300);
 
   }
 

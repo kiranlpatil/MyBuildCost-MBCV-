@@ -17,7 +17,7 @@
             <div class="list-view"  *ngIf="selectedJobProfile!=undefined">
               <div class="panel clearfix">
                 <ul>
-                  <li class="job-posted"><p><span>52</span></p></li>
+                  <li class="job-posted"><p><span>{{this.selectedJobProfile.numberOfCandidatesInList.cart}}</span></p></li>
                   <li><h4>{{selectedJobProfile.jobTitle}}</h4><p>{{selectedJobProfile.department}}</p></li>
                   <li class="contact-info">
                     <p><img src="../../../../assets/c-next/post-job/calendar.png" alt="calendar"/>{{selectedJobProfile.postingDate | date:'mediumDate'}}</p>
@@ -33,16 +33,16 @@
                 <a (click)="showMatchedCandidate()"  id="matched_anchor" data-toggle="tab" href="#matched"><span class="count"><span>52</span></span> Matched</a>
               </li>
               <li>
-                <a (click)="showShortlistedCandidate()" data-toggle="tab" href="#shortlisted"><span class="count"><span>52</span></span> Shortlisted</a>
+                <a (click)="showShortlistedCandidate()" data-toggle="tab" href="#shortlisted"><span class="count"><span>{{this.selectedJobProfile.numberOfCandidatesInList.shortlist}}</span></span> Shortlisted</a>
               </li>
               <li>
-                <a (click)="candidateInCart()" data-toggle="tab" href="#cart"><span class="count"><span>52</span></span> In Cart</a>
+                <a (click)="candidateInCart()" data-toggle="tab" href="#cart"><span class="count"><span>{{this.selectedJobProfile.numberOfCandidatesInList.cart}}</span></span> In Cart</a>
               </li>
               <li>
-                <a (click)="appliedCandidates()" data-toggle="tab" href="#applied"><span class="count"><span>52</span></span> Applied</a>
+                <a (click)="appliedCandidates()" data-toggle="tab" href="#applied"><span class="count"><span>{{this.selectedJobProfile.numberOfCandidatesInList.applied}}</span></span> Applied</a>
               </li>
               <li>
-                <a (click)="rejectedCandidates()" data-toggle="tab" href="#rejected"><span class="count"><span>52</span></span> Rejected</a>
+                <a (click)="rejectedCandidates()" data-toggle="tab" href="#rejected"><span class="count"><span>{{selectedJobProfile.numberOfCandidatesInList.rejected}}</span></span> Rejected</a>
               </li>
             </ul>
             <div class="tab-content">

@@ -27,6 +27,11 @@ export class   RecruiteQCardView2Service extends BaseService{
       .catch(this.handleError);
   }
   getCandidatesdetails(ids:string[],model:JobPosterModel):Observable<any>{
+    for(let item of ids){
+      if(item=="undefined"){
+        ids.splice(ids.indexOf(item),1);
+      }
+    }
     let headers = new Headers({'Content-Type': 'application/json'});
     let options = new RequestOptions({headers: headers});
     var body = {
