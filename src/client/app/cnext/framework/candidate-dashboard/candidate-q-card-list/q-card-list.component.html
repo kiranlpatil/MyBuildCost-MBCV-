@@ -1,9 +1,9 @@
-<div class="dashboard-view clearfix">
+<div class="dashboard-view clearfix" *ngIf="listOfJobs != undefined">
 
   <header class="col-sm-12">
     <ul>
       <li>
-        <p> {{jobList.length}} of {{joblistCount}} job profiles</p>
+        <p> {{listOfJobs.length}} of {{joblistCount}} job profiles</p>
       </li>
       <li>
         <a (click)="clearFilter()">Clear all filters</a>
