@@ -13,12 +13,16 @@
           </div>
           <div class="col-sm-7 col-xs-6 no-padding left-side">
             <h6 >{{job.company_name}}</h6>
+            <h6 >{{job.jobTitle}}</h6>
+            <h6 >{{job.industry}}</h6>
             <p><img src="assets/c-next/card-view/salary.png" alt="Salary"/>$ {{job.salary}}</p>
             <p><img src="assets/c-next/card-view/experience.png" alt="Experience"/>{{job.experience}}</p>
             <p><img src="assets/c-next/card-view/relocation.png" alt="Location"/> {{job.location}} </p>
             <p><img src="assets/c-next/card-view/relocation.png" alt="education"/> {{job.education}}</p>
             <p><img src="assets/c-next/card-view/relocation.png" alt="size">{{job.company_size}}</p>
+<!--
             <p><img src="assets/c-next/card-view/relocation.png" alt="size">{{job.companyAge}}</p>
+-->
           </div>
         </div>
           <button class="btn btn-cart btn-block" type="button" (click)="viewJob(job._id)" >View</button>

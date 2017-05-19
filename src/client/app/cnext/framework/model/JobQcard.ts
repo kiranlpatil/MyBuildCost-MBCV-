@@ -8,6 +8,7 @@ export class JobQcard {
   matching:number;
   company_name:string;
   companyLogo:string;
+  industry : string;
   _id:string;
   proficiencies:string[]=new Array();
   joiningPeriod:string;

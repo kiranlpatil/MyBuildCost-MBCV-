@@ -28,8 +28,10 @@
 
   <div class="main-content" *ngIf="highlightedSection.name!='Profile'">
     <div class="compact-view clearfix">
-      <button class="btn-edit" (click)="highlightedSection.name='Profile';disableButton=false" [hidden]="highlightedSection.isLocked"></button>
+      <button class="btn-edit" (click)="highlightedSection.name='Profile';disableButton=false" ></button> <!--[hidden]="highlightedSection.isLocked"-->
+<!--
       <span class=" glyphicon glyphicon-lock" title="you can edit this field after {{highlightedSection.date| date:'mediumDate'}}" *ngIf="highlightedSection.isLocked"></span>
+-->
       <div class="img-container">
         <img src="{{image_path}}" alt="Profile Picture"/>
       </div>

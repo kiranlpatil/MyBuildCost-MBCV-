@@ -31,7 +31,7 @@ class CandidateSchema {
       },
       isCompleted :{
         type : Boolean,
-        default: true
+        default: false
       },
       isVisible: {
         type: Boolean

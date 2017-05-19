@@ -184,6 +184,7 @@ export class CandidateProfileComponent implements OnInit {
   onExperienceIndustryComplete(experiencedindustry:string[]) {
     this.showProfessionalData = true;
     this.candidate.interestedIndustries = experiencedindustry;
+    this.candidate.isCompleted=true;
     this.saveCandidateDetails();
   }
 

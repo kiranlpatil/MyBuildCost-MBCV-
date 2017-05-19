@@ -20,6 +20,7 @@ export class Candidate {
   proficiencies : string[]=new Array(0);
   secondaryCapability : string[]=new Array();
   lockedOn: Date;
+  isCompleted:boolean;
   summary:Summary=new Summary();
   basicInformation:CandidateDetail=new CandidateDetail();
   _id : string;
