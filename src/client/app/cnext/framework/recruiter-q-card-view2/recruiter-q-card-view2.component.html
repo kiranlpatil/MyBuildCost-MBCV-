@@ -18,15 +18,15 @@
         <p>{{matches}} Matche(s) Found</p>
       </li>
     </ul>
+    <div class="search">
+      <input class="form-control" type="text" />
+      <button class="btn btn-search" type="button"><img src="./assets/framework/images/dashboard/search.png"></button>
+    </div>
     <div class="sort-by">
       <label>Sort by</label>
       <select id="menu" [(ngModel)]="qCardModel.sortValue">
         <option value="{{itemList}}" *ngFor="let itemList of qCardModel.listOfMatchings">{{itemList}}</option>
       </select>
-    </div>
-    <div class="search">
-      <input class="form-control" type="text" />
-      <button class="btn btn-search" type="button">Search</button>
     </div>
   </header>
 
@@ -45,8 +45,9 @@
           </li>-->
           <li>
             <div [hidden]="!showButton.isShowRemoveButton">
-              <span class="glyphicon glyphicon-remove" [hidden]="!showButton.isShowRemoveButton"
-                    (click)="Cancel(item)"></span>
+              <!--<span class="glyphicon glyphicon-remove" [hidden]="!showButton.isShowRemoveButton"-->
+                    <!--(click)="Cancel(item)"></span>-->
+              <img alt="close_img" src="./assets/framework/images/dashboard/close-red.png" [hidden]="!showButton.isShowRemoveButton" (click)="Cancel(item)">
             </div>
           </li>
         </ul>

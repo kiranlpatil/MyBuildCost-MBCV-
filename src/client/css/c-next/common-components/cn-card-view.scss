@@ -189,12 +189,12 @@ header {
   }
 
   .sort-by {
-    float: right;
+    float: left;
     margin-left: 15px;
   }
 
   .search {
-    float: right;
+    float: left;
 
     input {
       width: auto;
@@ -205,12 +205,13 @@ header {
     }
 
     .btn-search {
-      background: $purple;
+      background: transparent;
       border-radius: 0;
       color: #fff;
       padding: 4px 20px;
-      margin: -3px 0 0 -5px;
+      margin: -3px 0 0 -53px;
     }
+
   }
 }
 

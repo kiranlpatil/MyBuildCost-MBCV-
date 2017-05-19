@@ -18,3 +18,26 @@
     border-radius: 8px;
   }
 }
+
+.card-view{
+  .panel{
+    ul > li {
+      display: none;
+      position: absolute;
+      right: -12px;
+      top: -8px;
+      cursor: pointer;
+    }
+    &:hover{
+      ul > li {
+        display: block!important;
+      }
+    }
+  }
+}
+
+header {
+  ul{
+    margin-top: 5px;
+  }
+}
