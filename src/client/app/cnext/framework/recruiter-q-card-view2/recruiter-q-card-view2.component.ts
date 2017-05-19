@@ -2,7 +2,7 @@ import {Component, Input, EventEmitter, Output, OnChanges, OnInit} from "@angula
 import {CandidateQCard} from "../model/candidateQcard";
 import {JobPosterModel} from "../model/jobPoster";
 import {RecruiteQCardView2Service} from "./recruiter-q-card-view2.service";
-import {ImagePath, ValueConstant} from "../../../framework/shared/constants";
+import {ImagePath, ValueConstant, AppSettings} from "../../../framework/shared/constants";
 import {RecruitercandidatesListsService} from "../candidate-lists.service";
 import {QCardViewService} from "../q-card-view/q-card-view.service";
 import {RecruiterDashboardService} from "../recruiter-dashboard/recruiter-dashboard.service";
@@ -200,4 +200,13 @@ this.showModalStyle=true;
     }
 //    this.candidateDetails = candidateData.metadata;
   }
+
+  getImagePath(imagePath:string){
+    if(imagePath != undefined){
+      return AppSettings.IP + imagePath.substring(4).replace('"', '');
+    }
+
+    return null;
+  }
+
 }

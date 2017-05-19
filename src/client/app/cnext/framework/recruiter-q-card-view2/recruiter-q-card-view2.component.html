@@ -50,7 +50,7 @@
             </div>
           </li>
         </ul>
-        <img class="profile-picture" src="{{item.picture}}" alt="picture" *ngIf="item.picture!=undefined"/>
+        <img class="profile-picture" [src]="getImagePath(item.picture)" alt="picture" *ngIf="item.picture!=undefined"/>
         <img class="profile-picture" src="{{image_path}}" alt="picture" *ngIf="item.picture==undefined"/>
         <h6>{{item.first_name}} {{item.last_name}}</h6>
         <div class="left-side personal-info">
