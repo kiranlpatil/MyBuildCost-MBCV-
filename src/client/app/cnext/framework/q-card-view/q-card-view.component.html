@@ -25,10 +25,10 @@
         <h6 class="username">{{item.first_name}} {{item.last_name}}</h6>
         <ul>
           <li><span class="glyphicon glyphicon-heart-empty" (click)="addToShortList(item)" [class.shortlisted]="item.isCandidateshortListed"></span></li>
-          <li>
+         <!-- <li>
             <div [hidden]="!item.isCandidateRead"><span class="glyphicon glyphicon-eye-close"></span></div>
             <div [hidden]="item.isCandidateRead"><span class="glyphicon glyphicon-eye-open"></span></div>
-          </li>
+          </li>-->
         </ul>
         <div class="col-sm-7 col-xs-6 no-padding left-side">
           <p><img src="assets/c-next/card-view/salary.png" alt="Salary"/>$ {{item.salary}}</p>
