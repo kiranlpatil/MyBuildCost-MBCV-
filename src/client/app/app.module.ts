@@ -113,7 +113,6 @@ import {BasicJobInformationService} from "./cnext/framework/basic-job-informatio
 import {JobListerComponent} from "./cnext/framework/job-lister/job-lister.component";
 import {QCardviewComponent} from "./cnext/framework/q-card-view/q-card-view.component";
 import {QCardViewService} from "./cnext/framework/q-card-view/q-card-view.service";
-import {SortPipe} from "./cnext/framework/q-card-view/q-card-view.pipe";
 import {ProgressBarComponent} from "./cnext/framework/progress-bar/progress-bar.component";
 import {ShowQcardviewService} from "./cnext/framework/showQCard.service";
 import {jobListerSortPipe} from "./cnext/framework/job-lister/job-lister.pipe";
@@ -130,7 +129,6 @@ import {RecruiteQCardView2Service} from "./cnext/framework/recruiter-q-card-view
 import {RecruiterQCardview2Component} from "./cnext/framework/recruiter-q-card-view2/recruiter-q-card-view2.component";
 
 
-import {CandidateFilterService} from "./cnext/framework/filters/candidate-filter.service";
 import {CandidateDashboardFilterPipe} from "./cnext/framework/filters/candidate-dashboard-filter.pipe";
 import {RecruitercandidatesListsService} from "./cnext/framework/candidate-lists.service";
 import {CandidateDashboardMatchingPipe} from "./cnext/framework/filters/candidate-dashboard-matching.pipe";
@@ -145,6 +143,9 @@ import {CandidateJobListComponent} from "./cnext/framework/candidate-dashboard/c
 import {CandidateJobListService} from "./cnext/framework/candidate-dashboard/candidate-job-list/candidate-job-list.service";
 import {CandidateViewComponent} from "./cnext/framework/one-page-summury/candidate-summury/candidate-view/candidate-view.component";
 import {CandidateInCartService} from "./cnext/framework/candidate-in-cart.service";
+import {CandidateFilterService} from "./cnext/framework/candidate-dashboard/candiadte-filter/candidate-filter.service";
+import {FilterService} from "./cnext/framework/filters/filter.service";
+import {SortPipe} from "./cnext/framework/filters/q-card-view.pipe";
 //C-NEXT IMPORTS
 
 
@@ -313,7 +314,9 @@ import {CandidateInCartService} from "./cnext/framework/candidate-in-cart.servic
     CandidateFilterService,
     RecruiteQCardView2Service,
     RecruitercandidatesListsService,
-    CandidateInCartService
+    CandidateInCartService,
+    RecruitercandidatesListsService,
+    FilterService
 
   ],
   bootstrap: [AppComponent]

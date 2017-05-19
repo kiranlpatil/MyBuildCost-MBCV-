@@ -11,7 +11,7 @@ import {RecruiteQCardView2Service} from "../recruiter-q-card-view2/recruiter-q-c
 import {CandidateQCard} from "../model/candidateQcard";
 import {RecruitercandidatesListsService} from "../candidate-lists.service";
 import {RecruiterDashboardButton} from "../model/buttonAtRecruiterdashboard";
-import {CandidateFilterService} from "../filters/candidate-filter.service";
+import {FilterService} from "../filters/filter.service";
 
 @Component({
   moduleId: module.id,
@@ -60,7 +60,7 @@ export class RecruiterDashboardComponent implements OnInit {
   private newSearchListlistTwo:string[] = new Array();
   private removerejectedList:string[] = new Array();
 
-  constructor(private candidateFilterService:CandidateFilterService, private _router:Router, private recruiterDashboardService:RecruiterDashboardService,
+  constructor(private filterService: FilterService, private _router:Router, private recruiterDashboardService:RecruiterDashboardService,
               private qCardViewService:RecruiteQCardView2Service, private candidateLists:RecruitercandidatesListsService) {
   }
 
@@ -101,8 +101,7 @@ export class RecruiterDashboardComponent implements OnInit {
     this.buttonModel.isShowAddToCartButton = false;
 
     this.showQCard = true;
-    this.candidateFilterService.clearFilter();
-
+    this.filterService.clearFilter();
     let i = 0;
     for (let item1 of this.rejectedCandidatesIDS) {
 
@@ -144,7 +143,7 @@ export class RecruiterDashboardComponent implements OnInit {
     this.buttonModel.isShowViewFullProfileButton = false;
 
     this.showQCard = true;
-    this.candidateFilterService.clearFilter();
+    this.filterService.clearFilter();
     this.candidates = [];
 
 
@@ -176,7 +175,7 @@ export class RecruiterDashboardComponent implements OnInit {
 
   showMatchedCandidate() {
     this.showQCard = false;
-    this.candidateFilterService.clearFilter();
+    this.filterService.clearFilter();
     for (let item of this.removeFromlist) {
       for (let item2 of this.rejectedCandidatesIDS) {
         if (item === item2) {
@@ -223,7 +222,7 @@ export class RecruiterDashboardComponent implements OnInit {
     this.buttonModel.isShowAddToCartButton = true;
 
     this.showQCard = true;
-    this.candidateFilterService.clearFilter();
+    this.filterService.clearFilter();
     this.candidates = [];
 
 
@@ -374,7 +373,7 @@ export class RecruiterDashboardComponent implements OnInit {
 
   candidateInCart() {
     this.showQCard = true;
-    this.candidateFilterService.clearFilter();
+    this.filterService.clearFilter();
     this.buttonModel.isShowRemoveButton = true;
     this.buttonModel.isShowViewFullProfileButton = true;
     this.buttonModel.isShowRejectButton = true;

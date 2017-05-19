@@ -3,9 +3,9 @@ import { ShowQcardviewService } from '../showQCard.service';
 import {QCardViewService} from "../q-card-view/q-card-view.service";
 import {JobFilterService} from "./job-filter.service";
 import {CandidateFilter} from "../model/candidate-filter";
-import {CandidateFilterService} from "../filters/candidate-filter.service";
 import {JobPosterModel} from "../model/jobPoster";
 import {  FormGroup, FormBuilder } from '@angular/forms';
+import {FilterService} from "../filters/filter.service";
 
 @Component({
     moduleId: module.id,
@@ -32,13 +32,13 @@ export class JobFilterComponent implements OnInit,OnChanges{
   @Input() private selectedJob :JobPosterModel;
 
 
-  constructor(private formBuilder:FormBuilder, private showQCardview: ShowQcardviewService, private jobFilterService: JobFilterService, private candidateFilterService: CandidateFilterService) {
+  constructor(private formBuilder:FormBuilder, private showQCardview: ShowQcardviewService, private jobFilterService: JobFilterService, private filterService: FilterService) {
     this.showQCardview.showJobQCardView$.subscribe(
       data=> {
         this.isShowJobFilter=true;
       }
     );
-    this.candidateFilterService.clearFilter$.subscribe(() => {
+    this.filterService.clearFilter$.subscribe(() => {
       this.clearFilter();
     })
 
@@ -99,7 +99,7 @@ export class JobFilterComponent implements OnInit,OnChanges{
       this.queryListRemove('(item.proficiencies.filter(function (obj) {return args.proficiencyDataForFilter.indexOf(obj.toLowerCase()) !== -1;}).length == args.proficiencyDataForFilter.length)');
     }
     this.buildQuery();
-    this.candidateFilterService.filterby(this.candidateFilter);
+    this.filterService.filterby(this.candidateFilter);
   }
 
   filterByEducation(event:any) {
@@ -119,7 +119,7 @@ export class JobFilterComponent implements OnInit,OnChanges{
       this.queryListRemove('(args.educationDataForFilter.indexOf(item.education.toLowerCase()) !== -1)');
     }
     this.buildQuery();
-    this.candidateFilterService.filterby(this.candidateFilter);
+    this.filterService.filterby(this.candidateFilter);
   }
 
   filterByIndustryExposure(event:any) {
@@ -139,7 +139,7 @@ export class JobFilterComponent implements OnInit,OnChanges{
       this.queryListRemove('(item.interestedIndustries.filter(function (obj) {return args.industryExposureDataForFilter.indexOf(obj.toLowerCase()) !== -1;}).length == args.industryExposureDataForFilter.length)');
     }
     this.buildQuery();
-    this.candidateFilterService.filterby(this.candidateFilter);
+    this.filterService.filterby(this.candidateFilter);
   }
 
   filterByJoinTime(value:any) {
@@ -147,7 +147,7 @@ export class JobFilterComponent implements OnInit,OnChanges{
       this.candidateFilter.filterByJoinTime = value;
       this.queryListPush('(args.filterByJoinTime && (item.noticePeriod || item.joiningPeriod)) && ((args.filterByJoinTime.toLowerCase() === item.noticePeriod.toLowerCase()) || (args.filterByJoinTime.toLowerCase() === item.noticePeriod.toLowerCase()))');
       this.buildQuery();
-      this.candidateFilterService.filterby(this.candidateFilter);
+      this.filterService.filterby(this.candidateFilter);
     }
   }
 
@@ -166,7 +166,7 @@ export class JobFilterComponent implements OnInit,OnChanges{
     if(Number(this.candidateFilter.salaryMaxValue) && Number(this.candidateFilter.salaryMinValue)) {
       this.queryListPush('((Number(item.salary.split(" ")[0]) >= Number(args.salaryMinValue)) && (Number(item.salary.split(" ")[0]) <= Number(args.salaryMaxValue)))');
       this.buildQuery();
-      this.candidateFilterService.filterby(this.candidateFilter);
+      this.filterService.filterby(this.candidateFilter);
     }
   }
 
@@ -185,23 +185,23 @@ export class JobFilterComponent implements OnInit,OnChanges{
     if(Number(this.candidateFilter.experienceMinValue) && Number(this.candidateFilter.experienceMaxValue)){
       this.queryListPush('((Number(item.experience.split(" ")[0]) >= Number(args.experienceMinValue)) && (Number(item.experience.split(" ")[0]) <= Number(args.experienceMaxValue)))');
       this.buildQuery();
-      this.candidateFilterService.filterby(this.candidateFilter);
+      this.filterService.filterby(this.candidateFilter);
     }
   }
 
   filterByLocation(value:any) {
     this.candidateFilter.filterByLocation = value;
     if(value == 'All') {
-      this.queryListPush('((args.filterByLocation.toLowerCase() === item.location.toLowerCase()) || (args.filterByLocation.toLowerCase() !== item.location.toLowerCase()))');
-      this.queryListRemove('(args.filterByLocation.toLowerCase() === item.location.toLowerCase())');
+      this.queryListPush('((args.filterByLocation && item.location) && ((args.filterByLocation.toLowerCase() === item.location.toLowerCase()) || (args.filterByLocation.toLowerCase() !== item.location.toLowerCase())))');
+      this.queryListRemove('(((args.filterByLocation && item.location))&&(args.filterByLocation.toLowerCase() === item.location.toLowerCase()))');
     } else {
-      this.queryListPush('(args.filterByLocation.toLowerCase() === item.location.toLowerCase())');
-      this.queryListRemove('((args.filterByLocation.toLowerCase() === item.location.toLowerCase()) || (args.filterByLocation.toLowerCase() !== item.location.toLowerCase()))');
+      this.queryListPush('(((args.filterByLocation && item.location))&&(args.filterByLocation.toLowerCase() === item.location.toLowerCase()))');
+      this.queryListRemove('((args.filterByLocation && item.location) && ((args.filterByLocation.toLowerCase() === item.location.toLowerCase()) || (args.filterByLocation.toLowerCase() !== item.location.toLowerCase())))');
     }
-    this.buildQuery();
-    this.candidateFilterService.filterby(this.candidateFilter);
-  }
 
+    this.buildQuery();
+    this.filterService.filterby(this.candidateFilter);
+  }
   queryListPush(query:string) {
     if(this.queryList.indexOf(query) == -1) {
       this.queryList.push(query);
@@ -227,6 +227,6 @@ export class JobFilterComponent implements OnInit,OnChanges{
     this.candidateFilter=new CandidateFilter();
     this.queryList  = new Array(0);
     this.candidateFilter.query = query;
-    this.candidateFilterService.filterby(this.candidateFilter);
+    this.filterService.filterby(this.candidateFilter);
   }
 }

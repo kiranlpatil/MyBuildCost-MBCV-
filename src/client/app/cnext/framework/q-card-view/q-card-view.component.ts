@@ -5,11 +5,11 @@ import {QCardViewService} from "./q-card-view.service";
 import {JobPosterModel} from "../model/jobPoster";
 import {QCardsortBy} from "../model/q-cardview-sortby";
 import {CandidateFilter} from "../model/candidate-filter";
-import {CandidateFilterService} from "../filters/candidate-filter.service";
 import {ValueConstant} from "../../../framework/shared/constants";
 import {UpdatedIds} from "../model/updatedCandidatesIDS";
 import {RecruiteQCardView2Service} from "../recruiter-q-card-view2/recruiter-q-card-view2.service";
 import {MatchCandidate} from "../model/match-candidate";
+import {FilterService} from "../filters/filter.service";
 
 @Component({
   moduleId: module.id,
@@ -44,9 +44,9 @@ export class QCardviewComponent implements OnInit, OnChanges {
 
   constructor(private qCardViewService: QCardViewService,
               private cardViewService:RecruiteQCardView2Service,
-              private showQCardview: ShowQcardviewService, private candidateFilterService: CandidateFilterService) {
+              private showQCardview: ShowQcardviewService, private filterService: FilterService) {
 
-    this.candidateFilterService.candidateFilterValue$.subscribe(
+    this.filterService.candidateFilterValue$.subscribe(
       (data: CandidateFilter) => {
         this.candidateFilter = data;
         console.log('filter data', this.candidateFilter);
@@ -84,7 +84,7 @@ i++;
    //this.candidates2 = this.candidate2;
   }
   clearFilter() {
-    this.candidateFilterService.clearFilter();
+    this.filterService.clearFilter();
   }
   addToShortList(selectedCandidate: any) {
     this.qCardViewService.addCandidateLists(this.recruiterId, this.jobPosterModel._id, selectedCandidate._id, ValueConstant.SHORT_LISTED_CANDIDATE, "add").subscribe(

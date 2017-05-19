@@ -21,7 +21,9 @@ export class CandidateDashboardComponent  {
   private appliedJobs:JobQcard[]=new Array();
   private blockedJobs:JobQcard[]=new Array();
   private hidesection:boolean=false;
-  
+  private locationList:string[] = new Array(0);
+  locationList2:string[] = new Array(0);
+
   private type:string;
   constructor(private candidateProfileService:CandidateProfileService,
               private candidateDashboardService:CandiadteDashboardService,
@@ -432,13 +434,18 @@ this.appliedJobs=this.jobList;
 
   }
 
-  extractList(jobList:JobQcard[]){
+  extractList(jobList:JobQcard[]){ debugger
     for(let job of jobList){
       var addition=job.above_one_step_matching+job.exact_matching;
       if(addition <= ValueConstant.MATCHING_PERCENTAGE){
         this.jobList.splice(this.jobList.indexOf(job),1);
+      } else {
+        if(this.locationList.indexOf(job.location) == -1) {
+          this.locationList.push(job.location);
+        }
       }
     }
+    this.locationList2 = this.locationList;
   }
 
   OnCandidateDataSuccess(candidateData:any) {
@@ -498,7 +505,7 @@ this.onBlockClick();
           this.appliedJobs=data.data;
           this.candidate.summary.numberOfJobApplied=this.appliedJobs.length;
         });
-    
+
   }
 
   onBlockClick(){

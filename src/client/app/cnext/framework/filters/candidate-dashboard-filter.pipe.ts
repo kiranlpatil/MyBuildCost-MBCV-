@@ -12,7 +12,7 @@ export class CandidateDashboardFilterPipe implements  PipeTransform {
       return null;
     }
 
-    if (args) {
+    if (args) { debugger
       //return array.filter(item => item.proficiencies.toLowerCase().indexOf(args.filterByValue.toLowerCase()) !== -1);
 
       return array.filter(item => eval(args.query)

@@ -3,7 +3,7 @@ import { Subject } from 'rxjs/Subject';
 import {CandidateFilter} from "../model/candidate-filter";
 
 @Injectable()
-export class CandidateFilterService {
+export class FilterService {
 
   // Observable string sources
   candidateFilter = new Subject<CandidateFilter>();

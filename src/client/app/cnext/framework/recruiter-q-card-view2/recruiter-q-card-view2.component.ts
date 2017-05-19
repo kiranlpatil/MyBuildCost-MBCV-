@@ -9,13 +9,13 @@ import {RecruiterDashboardService} from "../recruiter-dashboard/recruiter-dashbo
 import {UpdatedIds} from "../model/updatedCandidatesIDS";
 import {RecruiterDashboardButton} from "../model/buttonAtRecruiterdashboard";
 import {CandidateFilter} from "../model/candidate-filter";
-import {CandidateFilterService} from "../filters/candidate-filter.service";
 import {CandidateProfileService} from "../candidate-profile/candidate-profile.service";
 import {Candidate} from "../model/candidate";
 import {CandidateDetail} from "../../../framework/registration/candidate/candidate";
 import {AddToCartIds} from "../model/addToCartModel";
 import {MatchCandidate} from "../model/match-candidate";
 import {QCardsortBy} from "../model/q-cardview-sortby";
+import {FilterService} from "../filters/filter.service";
 
 @Component({
   moduleId: module.id,
@@ -60,10 +60,10 @@ export class RecruiterQCardview2Component implements OnInit,OnChanges {
               private qCardView: QCardViewService,
               private profileCreatorService: CandidateProfileService,
               private recruiterDashboardService: RecruiterDashboardService,
-              private candidateFilterService: CandidateFilterService,
+              private filterService: FilterService,
               private qCardViewService: RecruiteQCardView2Service, private candidateLists: RecruitercandidatesListsService) {
 
-    this.candidateFilterService.candidateFilterValue$.subscribe(
+    this.filterService.candidateFilterValue$.subscribe(
       (data: CandidateFilter) => {
         this.candidateFilter = data;
       }
@@ -162,7 +162,7 @@ export class RecruiterQCardview2Component implements OnInit,OnChanges {
   }
 
   clearFilter() {
-    this.candidateFilterService.clearFilter();
+    this.filterService.clearFilter();
   }
 
   viewProfile(item: any, isFullView: boolean) {
