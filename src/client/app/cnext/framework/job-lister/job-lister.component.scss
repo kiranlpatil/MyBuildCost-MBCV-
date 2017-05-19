@@ -59,12 +59,13 @@ $theme-color: #3694d1;
     }
 
     h4 {
+      @extend %text-ellipsis;
       color: $highlight;
       font-size: 16px;
       font-weight: bold;
       margin: 0 0 5px;
       text-transform: capitalize;
-      @extend %text-ellipsis;
+      width: 90%;
     }
 
     .contact-info {

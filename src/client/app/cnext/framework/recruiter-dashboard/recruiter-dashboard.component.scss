@@ -3,8 +3,13 @@
 $white: #fff;
 $border-color: #e8e8e8;
 $text-color: #666;
-$purple: #7264b5;
+$purple: #7366ad;
 $highlight: #596c7d;
+$theme-color: #27aae1;
+$orange: #fbb040;
+$green: #8dc63f;
+$red: #ef4136;
+
 
 .recruiter-profile-wrapper {
   .col-sm-3 {
@@ -139,23 +144,40 @@ $highlight: #596c7d;
     }
 
     .count {
-      width: 30px;
-      height: 30px;
+      width: 22px;
+      height: 22px;
       border-radius: 50%;
-      background-color: $purple;
-      color: $white;
+      background-color: #7264b5;
+      color: #fff;
       position: absolute;
       display: inline-block;
-      top: 3px;
+      top: 8px;
       left: 8px;
 
       span {
-        font-size: 11px;
+        left: 50%;
+        font-size: 10px;
+        font-weight: 100;
         position: absolute;
         top: 50%;
-        left: 50%;
         transform: translate(-50%, -50%);
       }
+    }
+
+    li:first-child > a > .count {
+      background-color: $green;
+    }
+
+    li:nth-child(2)  > a > .count {
+      background-color: $orange;
+    }
+
+    li:nth-child(4)  > a > .count {
+      background-color: $theme-color;
+    }
+
+    li:nth-child(5)  > a > .count {
+      background-color: $red;
     }
   }
 
