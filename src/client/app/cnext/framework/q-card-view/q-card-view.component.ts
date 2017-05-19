@@ -213,6 +213,10 @@ export class QCardviewComponent implements OnInit, OnChanges {
     this.toggle = true;
   }
 
+  closeJob()  {
+    this.showModalStyle = !this.showModalStyle;
+  }
+
   matching(value: any) {
     this.matchFormat = value;
   }
