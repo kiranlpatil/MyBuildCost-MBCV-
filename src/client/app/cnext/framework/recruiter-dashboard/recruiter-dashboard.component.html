@@ -30,7 +30,7 @@
             </div>
             <ul class="nav nav-tabs sub-tabs">
               <li class="active">
-                <a (click)="showMatchedCandidate()"  id="matched_anchor" data-toggle="tab" href="#matched"><span class="count"><span>52</span></span> Matched</a>
+                <a (click)="showMatchedCandidate()"  id="matched_anchor" data-toggle="tab" href="#matched"><span class="count"><span>{{this.selectedJobProfile.numberOfCandidatesInList.matched}}</span></span> Matched</a>
               </li>
               <li>
                 <a (click)="showShortlistedCandidate()" data-toggle="tab" href="#shortlisted"><span class="count"><span>{{this.selectedJobProfile.numberOfCandidatesInList.shortlist}}</span></span> Shortlisted</a>
@@ -47,7 +47,7 @@
             </ul>
             <div class="tab-content">
               <div id="matched" class="tab-pane fade in active " [hidden]="showQCard">
-                <cn-q-card-view (updatedIds)="updateIds($event)"  [addToSerchIds]="newcandidates" [jobPosterModel]="selectedJobProfile"  [recruiterId]="recruiter._id"></cn-q-card-view>
+                <cn-q-card-view (updatedIds)="updateIds($event)" (latestSearchResultCount)="latestSearchResultCount($event)" [addToSerchIds]="newcandidates" [jobPosterModel]="selectedJobProfile"  [recruiterId]="recruiter._id"></cn-q-card-view>
               </div>
               <div  id="shortlisted" class="tab-pane fade"  [hidden]="!showQCard">
                 <cn-recruiter-dashboard-qcard-view (addappliedToCartIds)="appliedToCartIds($event)" (addShortListedToCartIds)="shortlistToCartIds($event)" [showButton]="buttonModel" (removeIDs)="removeFromIds($event)" (removeRejectedIDs)="removeFromRejectedList($event)" (currentrejected)="rejectedIds($event)" [listName]="shortList" [jobPosterModel]="selectedJobProfile" [candidates]="candidatesshortlisted"  [recruiterId]="recruiter._id" ></cn-recruiter-dashboard-qcard-view><!--[candidates]="candidates"-->

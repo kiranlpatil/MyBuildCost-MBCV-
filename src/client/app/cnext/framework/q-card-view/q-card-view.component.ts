@@ -22,25 +22,26 @@ import {CandidateDetail} from "../../../framework/registration/candidate/candida
 
 })
 export class QCardviewComponent implements OnInit, OnChanges {
-  @Output() updatedIds= new EventEmitter<UpdatedIds>();
+  @Output() updatedIds = new EventEmitter<UpdatedIds>();
   private selectedCandidate: Candidate = new Candidate();
   private candidateDetails: CandidateDetail = new CandidateDetail();
   private candidates: CandidateQCard[] = new Array();
-  private candidates2:any[] = new Array();
+  private candidates2: any[] = new Array();
   private selectedPerson: CandidateQCard = new CandidateQCard();
   private showMatchedCandidateButton: boolean;
   private candidateSeenIDS = new Array();
   private candidateshortlisted = new Array();
-  private updatedIdsModel:UpdatedIds=new UpdatedIds() ;
+  private updatedIdsModel: UpdatedIds = new UpdatedIds();
   private toggle: boolean = false;
   private matches: number;
-  private isCandidateAdd:boolean=false;
+  private isCandidateAdd: boolean = false;
   private qCardModel: QCardsortBy = new QCardsortBy();
   private match: MatchCandidate = new MatchCandidate();
   private isShowQCardView: boolean;
   private candidateFilter: CandidateFilter;
   private matchFormat: string;
-  private showModalStyle:boolean = false;
+  private showModalStyle: boolean = false;
+  @Output() latestSearchResultCount  = new EventEmitter<number>();
 
   @Input() private jobPosterModel: JobPosterModel;
   @Input() private recruiterId: string;
@@ -49,8 +50,8 @@ export class QCardviewComponent implements OnInit, OnChanges {
   private shortlisted: boolean = false;
 
   constructor(private qCardViewService: QCardViewService,
-              private profileCreatorService :CandidateProfileService,
-              private cardViewService:RecruiteQCardView2Service,
+              private profileCreatorService: CandidateProfileService,
+              private cardViewService: RecruiteQCardView2Service,
               private showQCardview: ShowQcardviewService, private filterService: FilterService) {
 
     this.filterService.candidateFilterValue$.subscribe(
@@ -76,46 +77,55 @@ export class QCardviewComponent implements OnInit, OnChanges {
       }
 
     }
-    for(let item1 of this.candidates)
-
-    {let i=0;
-      for(let item2 of this.addToSerchIds)
-    {
-      if(item1._id===item2._id){
-      this.addToSerchIds.splice(i,1);
+    for (let item1 of this.candidates) {
+      let i = 0;
+      for (let item2 of this.addToSerchIds) {
+        if (item1._id === item2._id) {
+          this.addToSerchIds.splice(i, 1);
+        }
+        i++;
+      }
     }
-i++;
-    }}
-    if(this.isCandidateAdd===false){
-    this.candidates=this.candidates.concat( this.addToSerchIds);}
-    this.isCandidateAdd=false;
+    if (this.isCandidateAdd === false) {
+      this.candidates = this.candidates.concat(this.addToSerchIds);
+    }debugger
+    this.latestSearchResultCount.emit(this.candidates.length);
+
+
+    this.isCandidateAdd = false;
 
   }
+
   ngOnInit() {
-   //this.candidates2 = this.candidate2;
+    //this.candidates2 = this.candidate2;
     this.matchFormat = this.match.aboveMatch
   }
+
   clearFilter() {
     this.filterService.clearFilter();
   }
+
   addToShortList(selectedCandidate: any) {
     this.qCardViewService.addCandidateLists(this.recruiterId, this.jobPosterModel._id, selectedCandidate._id, ValueConstant.SHORT_LISTED_CANDIDATE, "add").subscribe(
       user => {
         console.log(user);
       });
-    if(selectedCandidate.isCandidateshortListed !=true){
-      selectedCandidate.isCandidateshortListed=true;}
- else {selectedCandidate.isCandidateshortListed=false}
+    if (selectedCandidate.isCandidateshortListed != true) {
+      selectedCandidate.isCandidateshortListed = true;
+    }
+    else {
+      selectedCandidate.isCandidateshortListed = false
+    }
 
-    this.updatedIdsModel.updatedCandidateInShortlistId=selectedCandidate._id;
+    this.updatedIdsModel.updatedCandidateInShortlistId = selectedCandidate._id;
     this.updatedIds.emit(this.updatedIdsModel);
-    this.updatedIdsModel=new UpdatedIds();
+    this.updatedIdsModel = new UpdatedIds();
     /*this.shortlisted = !this.shortlisted;*/
-    let i=0;
-    for(let item of this.candidates){
+    let i = 0;
+    for (let item of this.candidates) {
 
-      if(item._id ===selectedCandidate._id){
-        this.candidates.splice(i,1);
+      if (item._id === selectedCandidate._id) {
+        this.candidates.splice(i, 1);
       }
       i++;
     }
@@ -133,8 +143,8 @@ i++;
       .subscribe(
         data => {
           this.candidates = data;
-            console.log('q card data',this.candidates);
-            this.matches = this.candidates.length
+          console.log('q card data', this.candidates);
+          this.matches = this.candidates.length
         });
     for (let readedCandidate of this.candidateSeenIDS) {
       for (let searchedCandidate of this.candidates) {
@@ -145,8 +155,8 @@ i++;
 
 
   }
-  Reject(item:any)
-  {
+
+  Reject(item: any) {
     this.showModalStyle = !this.showModalStyle;
   }
 
@@ -157,14 +167,14 @@ i++;
       user => {
         console.log(user);
       });
-    this.updatedIdsModel.updatedCandidateIncartId=_id;
+    this.updatedIdsModel.updatedCandidateIncartId = _id;
     this.updatedIds.emit(this.updatedIdsModel);
-    this.updatedIdsModel=new UpdatedIds();
-    let i=0;
-    for(let item of this.candidates){
+    this.updatedIdsModel = new UpdatedIds();
+    let i = 0;
+    for (let item of this.candidates) {
 
-      if(item._id ===_id){
-        this.candidates.splice(i,1);
+      if (item._id === _id) {
+        this.candidates.splice(i, 1);
       }
       i++;
     }
@@ -173,7 +183,7 @@ i++;
   }
 
 
-  viewProfile(candidateid:string){
+  viewProfile(candidateid: string) {
     this.profileCreatorService.getCandidateDetailsOfParticularId(candidateid).subscribe(
       candidateData => this.OnCandidateDataSuccess(candidateData));
 
@@ -194,13 +204,16 @@ i++;
       return 'none';
     }
   }
+
   sortBy() {
     this.toggleFormat();
   }
+
   toggleFormat() {
     this.toggle = true;
   }
-  matching(value:any) {
+
+  matching(value: any) {
     this.matchFormat = value;
   }
 }

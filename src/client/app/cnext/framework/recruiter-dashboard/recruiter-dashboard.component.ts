@@ -415,7 +415,11 @@ export class RecruiterDashboardComponent implements OnInit {
     this.newcandidateInCartIDS = [];
   }
 
-  jobSelected(job:any) {debugger
+  latestSearchResultCount(latestValue : number){
+      this.selectedJobProfile.numberOfCandidatesInList.matched=latestValue;
+  }
+
+  jobSelected(job:any) {
     this.isJobSelected = true;
     this.selectedJobProfile = job;
     this.selectedJobProfile.numberOfCandidatesInList = new CandidatesInDiffList();
