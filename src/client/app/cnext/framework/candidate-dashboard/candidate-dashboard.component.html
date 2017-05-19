@@ -3,7 +3,7 @@
 
 
   <div class="container recruiter-profile-wrapper" [hidden]="hidesection">
-    <h4>{{jobList.length}} total jobs available</h4>
+    <!--<h4>{{}} total jobs available</h4>-->
     <div class="col-sm-12">
       <ul class="nav nav-tabs dashboard-tabs">
         <li class="active">
@@ -16,7 +16,7 @@
         </div>
         <div class="col-sm-9 clearfix">
           <div id="exact-match" class="tab-pane fade active in clearfix">
-            <cn-q-card-list [listOfJobs]="jobList" [type]="'none'"
+            <cn-q-card-list [joblistCount]="jobList.length" [listOfJobs]="jobList" [type]="'none'"
                             (onAction)="onActionPerformOnExactList($event)"></cn-q-card-list>
           </div>
         </div>
