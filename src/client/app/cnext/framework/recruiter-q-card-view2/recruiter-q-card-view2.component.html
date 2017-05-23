@@ -44,9 +44,9 @@
             </div>
           </li>-->
           <li>
-            <div [hidden]="true">
-              <!--<span class="glyphicon glyphicon-remove" [hidden]="!showButton.isShowRemoveButton"-->
-                    <!--(click)="Cancel(item)"></span>-->
+            <div [hidden]="!showButton.isShowRemoveButton">
+             <!-- <span class="glyphicon glyphicon-remove" [hidden]="!showButton.isShowRemoveButton"
+                    (click)="Cancel(item)"></span>-->
               <img alt="close_img" src="./assets/framework/images/dashboard/close-red.png" [hidden]="!showButton.isShowRemoveButton" (click)="Cancel(item)">
             </div>
           </li>
