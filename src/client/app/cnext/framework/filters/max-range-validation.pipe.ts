@@ -1,6 +1,5 @@
 
 import {Pipe, PipeTransform} from "@angular/core";
-import {ArrayRangeValidation} from "../model/array-range-validation";
 
 @Pipe({name:'maxrange','pure':false})
 
