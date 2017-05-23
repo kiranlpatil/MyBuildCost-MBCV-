@@ -1,12 +1,12 @@
 import {Pipe, PipeTransform} from '@angular/core';
 import {CandidateQCard} from "../model/candidateQcard";
 
-@Pipe({name: 'orderby', pure: false})
+@Pipe({name: 'dashboardsort', pure: false})
 
-export class SortPipe implements PipeTransform {
+export class DashboardSortPipe implements PipeTransform {
 
 
-  transform(array: Array<CandidateQCard>, args: string): Array<CandidateQCard> { debugger
+  transform(array: Array<CandidateQCard>, args: string): Array<CandidateQCard> {
     if (array == null) {
       return null;
     }
