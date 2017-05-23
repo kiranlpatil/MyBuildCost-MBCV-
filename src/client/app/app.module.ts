@@ -146,6 +146,8 @@ import {CandidateInCartService} from "./cnext/framework/candidate-in-cart.servic
 import {CandidateFilterService} from "./cnext/framework/candidate-dashboard/candiadte-filter/candidate-filter.service";
 import {FilterService} from "./cnext/framework/filters/filter.service";
 import {DashboardSortPipe} from "./cnext/framework/filters/dashboard-sort.pipe";
+import {MinRangeValidation} from "./cnext/framework/filters/min-range-validation.pipe";
+import {MaxRangeValidation} from "./cnext/framework/filters/max-range-validation.pipe";
 //C-NEXT IMPORTS
 
 
@@ -243,7 +245,9 @@ import {DashboardSortPipe} from "./cnext/framework/filters/dashboard-sort.pipe";
     RecruiterJobInformation,
     RecruiterQCardview2Component,
     CandidateDashboardFilterPipe,
-    CandidateDashboardMatchingPipe
+    CandidateDashboardMatchingPipe,
+    MinRangeValidation,
+    MaxRangeValidation
 
   ],
   providers: [
