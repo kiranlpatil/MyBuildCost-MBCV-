@@ -28,10 +28,6 @@ export class JobFilterComponent implements OnInit,OnChanges{
   private location:string;
   private All = "All";
   private userForm:FormGroup;
-  private salaryMinRange :string;
-  private salaryMaxRange :string;
-  private experienceMinRange:string;
-  private experianceMaxRange:string;
 
   @Input() private selectedJob :JobPosterModel;
 
@@ -157,13 +153,11 @@ export class JobFilterComponent implements OnInit,OnChanges{
 
 
   selectSalaryMinModel(value:any) {
-    this.salaryMinRange = value;
     this.candidateFilter.salaryMinValue = value;
     this.salaryFilterBy();
   }
 
   selectSalaryMaxModel(value:any) {
-    this.salaryMaxRange = value;
     this.candidateFilter.salaryMaxValue = value;
     this.salaryFilterBy();
   }
@@ -177,14 +171,12 @@ export class JobFilterComponent implements OnInit,OnChanges{
   }
 
   selectExperiencesMaxModel(value:any) {
-    this.experianceMaxRange = value;
     this.candidateFilter.experienceMaxValue = value;
     this.experienceFilterBy();
 
   }
 
   selectExperiencesMinModel(value:any) {
-    this.experienceMinRange = value;
     this.candidateFilter.experienceMinValue = value;
     this.experienceFilterBy();
   }
