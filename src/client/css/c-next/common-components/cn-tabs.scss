@@ -19,8 +19,8 @@ $theme-color: #3694d1;
       border-bottom: 3px solid $white;
       border-radius: 0;
       color: $text-color;
-      font-size: 12px;
       font-family: 'gothamrnd-book';
+      font-size: 12px;
       padding: 10px 15px;
 
       &:focus,
@@ -29,9 +29,7 @@ $theme-color: #3694d1;
       }
     }
   }
-}
 
-.nav-tabs {
   .active {
     a {
       border: 0 !important;
@@ -62,8 +60,8 @@ $theme-color: #3694d1;
   .nav-tabs {
     li {
       a {
-        width: auto;
         font-size: 12px;
+        width: auto;
       }
     }
   }
@@ -75,9 +73,9 @@ $theme-color: #3694d1;
       width: 50%;
 
       a {
-        padding: 10px 5px;
-        margin-right: 0;
         font-size: 11px;
+        margin-right: 0;
+        padding: 10px 5px;
       }
     }
 

@@ -6,10 +6,10 @@ $white: #fff;
 $text-color: #999;
 $theme-color: #3694d1;
 
-.dashboard-view {
+.job-list {
   text-align: left;
 
-  .list-view {
+  .card-view {
     color: $text-color;
 
     .panel {
@@ -115,8 +115,8 @@ $theme-color: #3694d1;
 }
 
 @media only screen and (min-width: 1367px) {
-  .dashboard-view {
-    .list-view > .col-md-3 {
+  .job-list {
+    .card-view > .col-md-3 {
       width: 20%;
     }
   }
@@ -124,24 +124,24 @@ $theme-color: #3694d1;
 
 
 @media only screen and (max-width: 1024px) {
-  .dashboard-view {
-    .list-view > .col-md-3 {
+  .job-list {
+    .card-view > .col-md-3 {
       width: 33%;
     }
   }
 }
 
 @media only screen and (max-width: 980px) {
-  .dashboard-view {
-    .list-view > .col-md-3 {
+  .job-list {
+    .card-view > .col-md-3 {
       width: 50%;
       float: left;
     }
   }
 }
 @media only screen and (max-width: 767px) {
-  .dashboard-view {
-    .list-view {
+  .job-list {
+    .card-view {
       p {
         font-size: 12px;
       }
@@ -160,7 +160,7 @@ $theme-color: #3694d1;
       }
     }
 
-    .list-view > .col-md-3 {
+    .card-view > .col-md-3 {
       width: 100%;
     }
   }

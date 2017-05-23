@@ -1,10 +1,3 @@
-@import '../../../../css/common';
-
-$white: #fff;
-$border-color: #e8e8e8;
-$text-color: #666;
-$purple: #7366ad;
-$highlight: #596c7d;
 $theme-color: #27aae1;
 $orange: #fbb040;
 $green: #8dc63f;
@@ -14,157 +7,33 @@ $red: #ef4136;
 .profile-wrapper {
   margin: 95px auto 15px;
 
-  .col-sm-3 {
-    width: 25%;
-  }
+  .list-view > ul > li {
+    padding: 0 15px;
 
-  .col-sm-9 {
-    padding-left: 0;
-    width: 75%;
-  }
-
-  .btn-back {
-    border: 0;
-    color: $text-color;
-    margin: 0;
-    padding: 5px;
-    position: fixed;
-    right: 10px;
-    top: 55px;
-    width: auto;
-    z-index: 1000;
-
-    &:focus,
-    &:hover {
-      outline: none;
+    &:first-child {
+      padding: 0 15px 0 0;
     }
   }
 
-  .list-view {
-    background: #edf4f7;
-    color: $text-color;
-    position: fixed;
-    top: 90px;
-    padding: 0;
-    text-align: left;
-    width: 100%;
-    z-index: 999;
-
-    .panel {
-      background: transparent;
-      box-shadow: none;
-      cursor: pointer;
-      margin: 0;
-      padding: 5px 10px;
-    }
-
-    ul {
-      margin: 0;
-      list-style: none;
-      padding: 0;
-    }
-
-    ul > li {
-      float: left;
-      padding: 0 15px;
-      width: auto;
-
-      &:first-child {
-        padding: 0 15px 0 0;
-      }
-    }
-
+  .list-view > .job-posted {
     p {
-      color: $text-color;
-      margin: 5px 0;
-      padding: 0;
-      @extend %text-ellipsis;
-    }
-
-    .job-posted {
-      font-size: 10px;
-      text-align: center;
-
-      p {
-        background-color: $purple;
-        border-radius: 50%;
-        color: $white;
-        height: 35px;
-        margin: 0 auto 5px auto;
-        position: relative;
-        width: 35px;
-      }
-
-      span {
-        font-size: 14px;
-        left: 50%;
-        position: absolute;
-        top: 50%;
-        transform: translate(-50%, -50%);
-      }
-    }
-
-    h4 {
-      color: $highlight;
-      font-size: 18px;
-      margin: 5px 0 0;
-      @extend %text-ellipsis;
-    }
-
-    .contact-info {
-      p {
-        margin-top: 15px;
-      }
-
-      p > img {
-        font-size: 20px;
-        margin-right: 10px;
-        position: relative;
-        top: 0;
-      }
+      margin: 0 auto 5px;
     }
   }
 
-  .dashboard-tabs {
-    background: $white;
-    left: 0;
-    position: fixed;
-    top: 50px;
-    width: 100%;
-    z-index:999;
+  .list-view > .contact-info {
+    p {
+      margin-top: 15px;
+    }
+
+    p > img {
+      font-size: 20px;
+      margin-right: 10px;
+    }
   }
 
   .sub-tabs {
-    background: $white;
-    width: 100%;
-    position: fixed;
     top: 50px;
-    z-index: 999;
-
-    a {
-      padding: 10px 15px 10px 45px;
-    }
-
-    .count {
-      background-color: #7264b5;
-      border-radius: 50%;
-      color: #fff;
-      display: inline-block;
-      height: 22px;
-      left: 8px;
-      position: absolute;
-      top: 8px;
-      width: 22px;
-
-      span {
-        font-size: 10px;
-        font-weight: 100;
-        left: 50%;
-        position: absolute;
-        top: 50%;
-        transform: translate(-50%, -50%);
-      }
-    }
 
     li:first-child > a > .count {
       background-color: $green;
@@ -187,89 +56,3 @@ $red: #ef4136;
     padding: 0 0 0 200px;
   }
 }
-
-@media only screen and (max-width: 1280px) {
-  .recruiter-profile-wrapper {
-    padding: 0;
-    width: 100%;
-  }
-}
-
-@media only screen and (max-width: 1024px) {
-  .recruiter-profile-wrapper {
-    .col-sm-3 {
-      width: 30%;
-
-    }
-
-    .col-sm-9 {
-      width: 70%;
-      padding: 0;
-    }
-
-    .list-view {
-      ul > li {
-        padding: 0 10px;
-
-        &:first-child {
-          padding: 0 10px 0 0;
-        }
-      }
-    }
-
-    .sub-tabs {
-      a {
-        padding: 10px 10px 10px 45px;
-      }
-    }
-  }
-
-  .candidate-listing {
-    padding: 55px 0 0 200px;
-  }
-}
-
-@media only screen and (max-width: 767px) {
-  .recruiter-profile-wrapper {
-    .col-sm-9 {
-      float: none;
-      padding: 0;
-      width: 100%;
-    }
-
-    .col-sm-3 {
-      border: 1px solid $border-color;
-      float: none;
-      margin: 0 2%;
-      padding: 0;
-      width: 96%;
-    }
-
-    .list-view {
-      p {
-        font-size: 12px;
-      }
-
-      h4 {
-        font-size: 16px;
-        margin: 0;
-      }
-
-      .job-posted {
-        margin-bottom: 10px;
-      }
-
-      .contact-info {
-        clear: both;
-        padding: 0;
-      }
-
-      .contact-info > .col-xs-6 {
-        p {
-          margin-top: 5px;
-        }
-      }
-    }
-  }
-}
-

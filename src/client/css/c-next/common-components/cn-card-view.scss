@@ -3,15 +3,19 @@ $orange: #e77e22;
 $theme-color: #3694d1;
 $white: #fff;
 $purple: #7366ad;
+$profile-section-shadow: rgba(0, 0, 0, 0.04);
 
 .card-view {
   clear: both;
   text-align: left;
-  //max-height: 600px;
-  //overflow: auto;
 
   .panel {
-    padding: 35px 15px 15px;
+    border:1px solid $border-color;
+    border-radius: 0;
+    box-shadow: 2px 2px 2px $profile-section-shadow;
+    cursor: pointer;
+    margin: 10px 0 10px;
+    padding: 45px 15px 10px 15px;
     position: relative;
 
     ul {
@@ -144,6 +148,16 @@ $purple: #7366ad;
     position: relative;
     transform: rotateY(180deg);
     width: 90px;
+
+    span {
+      left: 50%;
+      position: absolute;
+      text-align: center;
+      top: 50%;
+      transform: translate(-50%, -50%) rotateY(180deg);
+      font-family: 'gothamrnd-book';
+      font-size: 20px;
+    }
   }
 
   .button-group {

@@ -62,7 +62,7 @@
 
         <!--<button [hidden]="!showButton.isShowRemoveButton"  type="button" (click)="Cancel(item)">Remove</button>-->
        <!-- <button [hidden]="!showButton.isShowRejectButton"  type="button" (click)="rejectCandidate(item)">Reject</button>-->
-        <div [hidden]="!showButton.isShowViewFullProfileButton">
+        <div class="button-group" [hidden]="!showButton.isShowViewFullProfileButton">
           <button class="btn btn-cart btn-block" type="button" (click)="viewProfile(item,true)" data-toggle="modal" [attr.data-target]="'#'+listName" >View Full Profile</button>
         </div>
         <div class="button-group">
@@ -75,8 +75,6 @@
             <button class="btn btn-cart" *ngIf = "'shortListed'===listName || 'applied'===listName "   type="button" (click)="addShortlistedTOcart(item)">Add To Cart</button>
           </div>
         </div>
-
-
       </div>
     </div>
   </div>

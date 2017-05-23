@@ -1,4 +1,4 @@
-<div class="dashboard-view clearfix">
+<div class="job-list clearfix">
 
   <header class="col-sm-12">
     <!--<div class="sort-by">
@@ -13,7 +13,7 @@
     </div>
   </header>
 
-  <div class="list-view" *ngIf="jobListInput.length > 0">
+  <div class="card-view" *ngIf="jobListInput.length > 0">
     <div class="col-md-3" *ngFor="let item of jobListInput | orderBy:format;let i = index" (click)="onJobClikecd(item)">
       <div class="panel clearfix">
         <span class="glyphicon glyphicon-trash"></span>

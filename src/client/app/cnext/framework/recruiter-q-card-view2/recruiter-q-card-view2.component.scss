@@ -117,12 +117,9 @@ button{
     }
     &:hover{
       ul > li {
-        display: block!important;
+        display: block !important;
       }
       .button-group{
-        display: block;
-      }
-      .btn{
         display: block;
       }
     }
@@ -133,9 +130,6 @@ button{
       left: 0;
       padding: 5px 5px;
       background: #fff;
-      display: none;
-    }
-    .btn{
       display: none;
     }
   }

@@ -5,9 +5,9 @@ $text-color: #576b7c;
 $bg-color: #f2f2f2;
 
 .vertical-view {
+  font-size: 12px;
   margin-bottom: 15px;
   text-align: left;
-  font-size: 12px;
 
   &::before {
     clear: both;
@@ -20,8 +20,8 @@ $bg-color: #f2f2f2;
   }
 
   img {
-    width: 25px;
     margin-right: 5px;
+    width: 25px;
   }
 
   span {
@@ -36,23 +36,21 @@ $bg-color: #f2f2f2;
 
     li {
       list-style-type: none;
+      margin: 0;
+      padding: 5px 0;
       position: relative;
       text-align: left;
       width: 100%;
-      padding: 5px 0;
-      margin: 0;
 
       &::before {
         background-color: $text-color;
         border: 5px solid $bg-color;
         border-radius: 50%;
-        content: "";
+        content: '';
         display: block;
-        //height: 10px;
         margin: 0;
-        position: absolute;
-        //width: 10px;
         padding: 5px;
+        position: absolute;
         top: 0;
         z-index: 2;
       }
@@ -74,9 +72,9 @@ $bg-color: #f2f2f2;
       }
 
       p {
-        padding: 0 0 5px 30px;
         color: $text-color;
-        margin: -4px 0 5px 0;
+        margin: -4px 0 5px;
+        padding: 0 0 5px 30px;
         word-break: break-all;
       }
 
@@ -86,11 +84,11 @@ $bg-color: #f2f2f2;
 
       .read-less,
       .read-more {
-        display: none;
-        cursor: pointer;
-        font-weight: bold;
-        font-size: 10px;
         color: $theme-color;
+        cursor: pointer;
+        display: none;
+        font-size: 10px;
+        font-weight: bold;
       }
 
       .text-ellipsis ~ .read-more {
@@ -103,34 +101,3 @@ $bg-color: #f2f2f2;
     }
   }
 }
-
-/*
-!* mixin for multiline *!
-@mixin multiLineEllipsis($lineHeight: 1.2em, $lineCount: 1, $bgColor: white){
-  overflow: hidden;
-  position: relative;
-  line-height: $lineHeight;
-  max-height: $lineHeight * $lineCount;
-  text-align: justify;
-  margin-right: -1em;
-  padding-right: 1em;
-  &:before {
-    content: '...';
-    position: absolute;
-    right: 0;
-    bottom: 0;
-  }
-  &:after {
-    content: '';
-    position: absolute;
-    right: 0;
-    width: 1em;
-    height: 1em;
-    margin-top: 0.2em;
-    background: $bgColor;
-  }
-}
-
-.block-with-text {
-  @include multiLineEllipsis($lineHeight: 1.2em, $lineCount: 3, $bgColor: white);
-}*/
