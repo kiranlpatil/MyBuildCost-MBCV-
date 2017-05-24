@@ -54,6 +54,7 @@ export class RecruiterQCardview2Component implements OnInit,OnChanges {
   private candidateFilter: CandidateFilter;
   private qCardModel: QCardsortBy = new QCardsortBy();
   private showModalStyle:boolean = false;
+  private qCardCount = {count:0};
 
   constructor(private recruiterQCardViewService: QCardViewService,
               private qCardView: QCardViewService,
@@ -78,7 +79,7 @@ export class RecruiterQCardview2Component implements OnInit,OnChanges {
         this.jobPosterModel = changes.jobPosterModel.currentValue;
       }
     }
-
+    this.qCardCount.count = this.candidates.length;
   }
 
   ngOnInit() {

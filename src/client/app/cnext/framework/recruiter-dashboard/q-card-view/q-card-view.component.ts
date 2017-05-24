@@ -49,6 +49,7 @@ export class QCardviewComponent implements OnInit, OnChanges {
   @Input() private addToSerchIds: CandidateQCard[];
 
   private shortlisted: boolean = false;
+  private qCardCount = {count:0};
 
   constructor(private qCardViewService: QCardViewService,
               private profileCreatorService: CandidateProfileService,
@@ -90,7 +91,7 @@ export class QCardviewComponent implements OnInit, OnChanges {
       this.candidates = this.candidates.concat(this.addToSerchIds);
     }
     this.latestSearchResultCount.emit(this.candidates.length);
-
+    this.qCardCount.count = this.candidates.length;
 
     this.isCandidateAdd = false;
 
@@ -144,7 +145,7 @@ export class QCardviewComponent implements OnInit, OnChanges {
         data => {
           this.candidates = data;
           console.log('q card data', this.candidates);
-          this.matches = this.candidates.length
+          //this.matches = this.candidates.length
         });
     for (let readedCandidate of this.candidateSeenIDS) {
       for (let searchedCandidate of this.candidates) {
