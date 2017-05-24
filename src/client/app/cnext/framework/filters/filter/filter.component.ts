@@ -3,7 +3,6 @@ import {  FormGroup, FormBuilder } from '@angular/forms';
 import {CandidateFilter} from "../../model/candidate-filter";
 import {JobPosterModel} from "../../model/jobPoster";
 import {ShowQcardviewService} from "../../showQCard.service";
-import {JobFilterService} from "../../recruiter-dashboard/job-filter/job-filter.service";
 import {Candidate} from "../../model/candidate";
 import {QCardFilterService} from "../q-card-filter.service";
 import {FilterService} from "./filter.service";
