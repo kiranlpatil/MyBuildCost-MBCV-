@@ -1,7 +1,7 @@
 import {Component,Input,EventEmitter,Output} from "@angular/core";
 import {JobQcard} from "../../model/JobQcard";
 import {CandidateFilter} from "../../model/candidate-filter";
-import {FilterService} from "../../filters/filter.service";
+import {QCardFilterService} from "../../filters/q-card-filter.service";
 import {QCardsortBy} from "../../model/q-cardview-sortby";
 
 @Component({
@@ -19,8 +19,8 @@ export class QcardListComponent  {
   private filterMeta : CandidateFilter;
   private qCardModel: QCardsortBy = new QCardsortBy();
 
-  constructor(private filterService:FilterService) {
-    this.filterService.candidateFilterValue$.subscribe(
+  constructor(private qCardFilterService:QCardFilterService) {
+    this.qCardFilterService.candidateFilterValue$.subscribe(
       (data: CandidateFilter) => {
         this.filterMeta = data;
       }
@@ -31,6 +31,6 @@ export class QcardListComponent  {
     this.onAction.emit(action);
   }
   clearFilter() {
-    this.filterService.clearFilter();
+    this.qCardFilterService.clearFilter();
   }
 }

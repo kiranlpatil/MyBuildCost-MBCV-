@@ -11,7 +11,7 @@ import {QCardViewService} from "./q-card-view.service";
 import {CandidateProfileService} from "../../candidate-profile/candidate-profile.service";
 import {RecruiteQCardView2Service} from "../recruiter-q-card-view2/recruiter-q-card-view2.service";
 import {ShowQcardviewService} from "../../showQCard.service";
-import {FilterService} from "../../filters/filter.service";
+import {QCardFilterService} from "../../filters/q-card-filter.service";
 import {ValueConstant} from "../../../../framework/shared/constants";
 
 
@@ -53,14 +53,14 @@ export class QCardviewComponent implements OnInit, OnChanges {
   constructor(private qCardViewService: QCardViewService,
               private profileCreatorService: CandidateProfileService,
               private cardViewService: RecruiteQCardView2Service,
-              private showQCardview: ShowQcardviewService, private filterService: FilterService) {
+              private showQCardview: ShowQcardviewService, private qCardFilterService: QCardFilterService) {
 
-    this.filterService.candidateFilterValue$.subscribe(
+    this.qCardFilterService.candidateFilterValue$.subscribe(
       (data: CandidateFilter) => {
         this.candidateFilter = data;
       }
     );
-    this.filterService.aboveMatch$.subscribe(
+    this.qCardFilterService.aboveMatch$.subscribe(
       () => {
         this.matchFormat = this.match.aboveMatch
       }
@@ -102,7 +102,7 @@ export class QCardviewComponent implements OnInit, OnChanges {
   }
 
   clearFilter() {
-    this.filterService.clearFilter();
+    this.qCardFilterService.clearFilter();
   }
 
   addToShortList(selectedCandidate: any) {

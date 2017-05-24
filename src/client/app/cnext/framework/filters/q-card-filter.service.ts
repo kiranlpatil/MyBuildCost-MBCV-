@@ -3,7 +3,7 @@ import {Subject} from 'rxjs/Subject';
 import {CandidateFilter} from "../model/candidate-filter";
 
 @Injectable()
-export class FilterService {
+export class QCardFilterService {
 
   // Observable string sources
   candidateFilter = new Subject<CandidateFilter>();

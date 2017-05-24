@@ -5,7 +5,7 @@ import {JobPosterModel} from "../../model/jobPoster";
 import {ShowQcardviewService} from "../../showQCard.service";
 import {JobFilterService} from "../../recruiter-dashboard/job-filter/job-filter.service";
 import {Candidate} from "../../model/candidate";
-import {FilterService} from "../../filters/filter.service";
+import {QCardFilterService} from "../../filters/q-card-filter.service";
 import {CandidateFilterService} from "./candidate-filter.service";
 
 @Component({
@@ -37,13 +37,13 @@ export class CandidateFilterComponent {
 
 
 
-  constructor(private formBuilder:FormBuilder, private showQCardview: ShowQcardviewService, private _filterSerive: CandidateFilterService, private filterService: FilterService) {
+  constructor(private formBuilder:FormBuilder, private showQCardview: ShowQcardviewService, private _filterSerive: CandidateFilterService, private qCardFilterService: QCardFilterService) {
     this.showQCardview.showJobQCardView$.subscribe(
       data=> {
         this.isShowJobFilter=true;
       }
     );
-    this.filterService.clearFilter$.subscribe(() => {
+    this.qCardFilterService.clearFilter$.subscribe(() => {
       this.clearFilter();
     })
 
@@ -110,7 +110,7 @@ export class CandidateFilterComponent {
       this.queryListRemove('(item.proficiencies.filter(function (obj) {return args.proficiencyDataForFilter.indexOf(obj.toLowerCase()) !== -1;}).length == args.proficiencyDataForFilter.length)');
     }
     this.buildQuery();
-    this.filterService.filterby(this.candidateFilter);
+    this.qCardFilterService.filterby(this.candidateFilter);
   }
 
   filterByEducation(event:any) {
@@ -130,7 +130,7 @@ export class CandidateFilterComponent {
       this.queryListRemove('(args.educationDataForFilter.indexOf(item.education.toLowerCase()) !== -1)');
     }
     this.buildQuery();
-    this.filterService.filterby(this.candidateFilter);
+    this.qCardFilterService.filterby(this.candidateFilter);
   }
 
   filterByIndustryExposure(event:any) {
@@ -150,7 +150,7 @@ export class CandidateFilterComponent {
       this.queryListRemove('(item.interestedIndustries.filter(function (obj) {return args.industryExposureDataForFilter.indexOf(obj.toLowerCase()) !== -1;}).length == args.industryExposureDataForFilter.length)');
     }
     this.buildQuery();
-    this.filterService.filterby(this.candidateFilter);
+    this.qCardFilterService.filterby(this.candidateFilter);
   }
 
   filterByJoinTime(value:any) {
@@ -158,7 +158,7 @@ export class CandidateFilterComponent {
       this.candidateFilter.filterByJoinTime = value;
       this.queryListPush('((args.filterByJoinTime && item.joiningPeriod) && (args.filterByJoinTime.toLowerCase() === item.joiningPeriod.toLowerCase()))');
       this.buildQuery();
-      this.filterService.filterby(this.candidateFilter);
+      this.qCardFilterService.filterby(this.candidateFilter);
     }
   }
 
@@ -177,7 +177,7 @@ export class CandidateFilterComponent {
     if(Number(this.candidateFilter.salaryMaxValue) && Number(this.candidateFilter.salaryMinValue)) {
       this.queryListPush('((Number(item.salary.split(" ")[0]) >= Number(args.salaryMinValue)) && (Number(item.salary.split(" ")[0]) <= Number(args.salaryMaxValue)))');
       this.buildQuery();
-      this.filterService.filterby(this.candidateFilter);
+      this.qCardFilterService.filterby(this.candidateFilter);
     }
   }
 
@@ -196,7 +196,7 @@ export class CandidateFilterComponent {
     if(Number(this.candidateFilter.experienceMinValue) && Number(this.candidateFilter.experienceMaxValue)){
       this.queryListPush('((Number(item.experience.split(" ")[0]) >= Number(args.experienceMinValue)) && (Number(item.experience.split(" ")[0]) <= Number(args.experienceMaxValue)))');
       this.buildQuery();
-      this.filterService.filterby(this.candidateFilter);
+      this.qCardFilterService.filterby(this.candidateFilter);
     }
   }
 
@@ -205,7 +205,7 @@ export class CandidateFilterComponent {
       this.candidateFilter.filterByLocation = value;
       this.queryListPush('(((args.filterByLocation && item.location))&&(args.filterByLocation.toLowerCase() === item.location.toLowerCase()))');
       this.buildQuery();
-      this.filterService.filterby(this.candidateFilter);
+      this.qCardFilterService.filterby(this.candidateFilter);
     }
   }
 
@@ -214,7 +214,7 @@ export class CandidateFilterComponent {
       this.candidateFilter.filterByCompanySize = value;
       this.queryListPush('(((args.filterByCompanySize && item.company_size))&&(args.filterByCompanySize.toLowerCase() === item.company_size.toLowerCase()))');
       this.buildQuery();
-      this.filterService.filterby(this.candidateFilter);
+      this.qCardFilterService.filterby(this.candidateFilter);
     }
   }
 
@@ -243,7 +243,7 @@ export class CandidateFilterComponent {
     this.candidateFilter=new CandidateFilter();
     this.queryList  = new Array(0);
     this.candidateFilter.query = query;
-    this.filterService.filterby(this.candidateFilter);
+    this.qCardFilterService.filterby(this.candidateFilter);
   }
 
 }
