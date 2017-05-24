@@ -14,7 +14,7 @@
         </div>
       </li>
       <li>
-        <p>Showing {{qCardCount.count}} out of {{candidates.length}}</p>
+        <p>Showing {{qCardCount.count}} out of {{totalQCardMatches.count}}</p>
       </li>
       <li>
         <a (click)="clearFilter()">Clear all filters</a>
@@ -34,7 +34,7 @@
   </header>
 
   <div class="card-view clearfix">
-    <div class="col-sm-4" *ngFor= "let item of candidates | dashboardsort:qCardModel.sortValue | dashboardfilter:candidateFilter:qCardCount | candidatematching: matchFormat;let i=index;"><!--| candidatematching: matchFormat-->
+    <div class="col-sm-4" *ngFor= "let item of candidates | candidatematching: matchFormat:totalQCardMatches| dashboardfilter:candidateFilter:qCardCount| dashboardsort:qCardModel.sortValue ;let i=index;"><!--| candidatematching: matchFormat-->
       <div class="panel clearfix">
         <img class="profile-picture" src="assets/framework/images/dashboard/profile.png" alt="Profile Picture"/>
         <h6 class="username">{{item.first_name}} {{item.last_name}}</h6>

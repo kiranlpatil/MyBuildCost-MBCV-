@@ -34,7 +34,7 @@ export class QCardviewComponent implements OnInit, OnChanges {
   private candidateshortlisted = new Array();
   private updatedIdsModel: UpdatedIds = new UpdatedIds();
   private toggle: boolean = false;
-  private matches: number;
+  private totalQCardMatches = {count:0};
   private isCandidateAdd: boolean = false;
   private qCardModel: QCardsortBy = new QCardsortBy();
   private match: MatchCandidate = new MatchCandidate();
@@ -91,7 +91,7 @@ export class QCardviewComponent implements OnInit, OnChanges {
       this.candidates = this.candidates.concat(this.addToSerchIds);
     }
     this.latestSearchResultCount.emit(this.candidates.length);
-    this.qCardCount.count = this.candidates.length;
+    //this.qCardCount.count = this.candidates.length;
 
     this.isCandidateAdd = false;
 
