@@ -148,6 +148,8 @@ import {DashboardSortPipe} from "./cnext/framework/filters/dashboard-sort.pipe";
 import {MinRangeValidation} from "./cnext/framework/filters/min-range-validation.pipe";
 import {MaxRangeValidation} from "./cnext/framework/filters/max-range-validation.pipe";
 import {RecuirterDashboardMatchingPipe} from "./cnext/framework/filters/recuirter-dashboard-matching.pipe";
+import {EmployeeHistoryComponent} from "./cnext/framework/employment-history/employee-history/employee-history.component";
+
 //C-NEXT IMPORTS
 
 
@@ -210,6 +212,7 @@ import {RecuirterDashboardMatchingPipe} from "./cnext/framework/filters/recuirte
     ProficienciesComponent,
     IndustryListComponent,
     ComplexitiesComponent,
+    EmployeeHistoryComponent,
     JobPosterComponent,
     MultiSelectComponent,
     BasicJobInformationComponent,

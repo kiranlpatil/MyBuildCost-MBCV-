@@ -5,91 +5,48 @@
         <span class="glyphicon glyphicon-remove" (click)="hideEmployeeHistory()"></span>
       </span>
     </h4>
-    <div class="form col-sm-12 clearfix"  [class.hide]="hideDiv[i]" *ngFor="let item of candidate.employmentHistory;let i= index">
-      <span class="glyphicon glyphicon-trash" (click)="deleteItem(i)" ></span>
-      <div class="left-content">
-        <div class="col-sm-6 padding-right15">
-          <div class="form-group">
-            <input type="text" class="form-control" [(ngModel)]="item.companyName" (change)="postEmploymentHistoy()"   required />
-            <label>Company Name</label>
+    <form [formGroup]="employeeHistory" novalidate (ngSubmit)="save(employeeHistory)">
+      <!--empHistories-->
+      <div formArrayName="emplyeeHistories">
+        <div *ngFor="let history of employeeHistory.controls.emplyeeHistories.controls; let i=index"
+             class="panel panel-default">
+          <div>
+          <span class="glyphicon glyphicon-trash pull-right"
+                *ngIf="i > 0"
+                (click)="removeEmployeeHistory(i)"></span>
           </div>
-        </div>
-
-        <div class="col-sm-6 padding-left15">
-          <div class="form-group">
-            <input type="text" class="form-control" name="designation" [(ngModel)]="item.designation" (change)="postEmploymentHistoy()" required />
-            <label>Designation</label>
-          </div>
-        </div>
-
-        <div class="col-sm-12 no-padding">
-          <div class="worked-from col-sm-6 padding-right15">
-            <label>From Date</label>
-            <div class="col-sm-6 padding-right5">
-              <select class="form-control" [(ngModel)]="item.from.month" (change)="postEmploymentHistoy()">
-                <option *ngFor="let c of monthList" [selected]="true" [ngValue]="c">{{c}}</option>
-              </select>
-            </div>
-            <div class="col-sm-6 padding-left5">
-              <select class="form-control" [(ngModel)]="item.from.year" (change)="postEmploymentHistoy()">
-                <option *ngFor="let c of yearList" [selected]="true" [ngValue]="c">{{c}}</option>
-              </select>
-            </div>
-          </div>
-
-          <div class="worked-to col-sm-6 padding-left15">
-            <label>To Date</label>
-            <div class="col-sm-6 padding-right5">
-              <select class="form-control" [(ngModel)]="item.to.month" (change)="postEmploymentHistoy()">
-                <option *ngFor="let c of monthList" [selected]="true" [ngValue]="c">{{c}}</option>
-              </select>
-            </div>
-            <div class="col-sm-6 padding-left5">
-              <select class="form-control" [(ngModel)]="item.to.year" (change)="postEmploymentHistoy()">
-                <option *ngFor="let c of yearList" [selected]="true" [ngValue]="c">{{c}}</option>
-              </select>
-            </div>
-            <div *ngIf="item.to.month ==''">
-              <label class="checkbox-inline">
-                <input type="checkbox" (click)="setCurrentDate(item)" name="TillDate" value="TillDate" />Till Date
-              </label>
-            </div>
+          <div class="panel-body" [formGroupName]="i">
+            <cn-employee-history [group]="employeeHistory.controls.emplyeeHistories.controls[i]"></cn-employee-history>
           </div>
         </div>
       </div>
 
-      <div class="right-content">
-        <div>
-          <textarea class="form-control" [(ngModel)]="item.remarks" (change)="postEmploymentHistoy()" Placeholder="Remark"></textarea>
-        </div>
-      </div>
-    </div>
-
-    <div class="col-sm-12">
-      <div class="clear">
-        <div class="error-messages" *ngIf="isShowDateErrorMessage"><p>Please fill valid month/year.</p></div>
-        <button type="button" id="more_fields" (click)="addAnother()" class="btn btn-create-profile"  >
-          Add Another <span>+</span>
-        </button>
-        <div class="error-messages" *ngIf="isShowError"><p>Fields should not be empty Or Dates are not valid</p></div>
+      <div class="margin-20">
+        <a (click)="addEmployeeHistory()" style="cursor: default">
+          Add another +
+        </a>
       </div>
       <div class="button-group clearfix">
-        <button class="btn btn-primary" scrollTo scrollTargetSelector="#academic-details"
-                (click)="onNext()" [disabled]="disableButton">Next
+        <button type="submit" class="btn btn-primary" scrollTo scrollTargetSelector="#academic-details"
+                (click)="postData()" [disabled]="!employeeHistory.valid">Next
         </button>
       </div>
-    </div>
+      <div class="clearfix"></div>
+    </form>
   </div>
+
   <div class="main-content" *ngIf="highlightedSection.name !='EmploymentHistory'">
     <div class="compact-view clearfix">
       <button class="btn-edit" (click)="highlightedSection.name='EmploymentHistory'"></button>
       <h4 class="heading">Employment History</h4>
       <ul>
         <div *ngFor="let item of candidate.employmentHistory">
-          <li *ngIf="item.designation != '' && item.companyName != ''"><p >{{item.designation}} at {{item.companyName}} </p>
-          <p >From {{item.from.month}} {{item.from.year}} to {{item.to.month}} {{item.to.year}}</p></li>
+          <li *ngIf="item.designation != '' && item.companyName != ''"><p>{{item.designation}} at
+            {{item.companyName}} </p>
+            <p>From {{item.from.month}} {{item.from.year}} to {{item.to.month}} {{item.to.year}}</p></li>
         </div>
       </ul>
     </div>
   </div>
+
 </div>

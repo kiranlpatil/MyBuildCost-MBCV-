@@ -1,8 +1,7 @@
 import {Component, EventEmitter, Input, Output} from "@angular/core";
-import {EmployementHistory} from "../model/employment-history";
-import {ValueConstant} from "../../../framework/shared/constants";
 import {CandidateProfileService} from "../candidate-profile/candidate-profile.service";
 import {Candidate, Section} from "../model/candidate";
+import {FormGroup, FormArray, FormBuilder, Validators} from "@angular/forms";
 
 @Component({
   moduleId: module.id,
@@ -16,116 +15,99 @@ export class EmploymentHistoryComponent {
   @Input() highlightedSection:Section;
   @Output() onComplete = new EventEmitter();
 
+  public employeeHistory:FormGroup;
 
-  public monthList:string[] = new Array('January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December');
   error_msg:string;
-  private tempfield:string[];
-  private year:any;
-  private currentDate:any;
-  private yearList = new Array();
-  private checkFields:boolean = true;
+  private emphis:EmpHis = new EmpHis();
   private chkEmployeeHistory:boolean = false;
-  private sendPostCall:boolean = false;
-  private isShowError:boolean = false;
-  private hideDiv:boolean[] = new Array();
   private isButtonShow:boolean = false;
-  private isShowDateErrorMessage:boolean = false;
 
 
-  constructor(private profileCreatorService:CandidateProfileService) {
-    this.tempfield = new Array(1);
-    this.currentDate = new Date();
-    this.year = this.currentDate.getUTCFullYear();
-    this.createYearList(this.year); //TODO use the service for date list
+  constructor(private _fb:FormBuilder, private profileCreatorService:CandidateProfileService) {
+  }
 
+  ngOnInit() {
+    this.employeeHistory = this._fb.group({
+      emplyeeHistories: this._fb.array([])
+    });
+
+    // add address
+    this.addEmployeeHistory();
+
+    //subscribe to addresses value changes
+    this.employeeHistory.controls['emplyeeHistories'].valueChanges.subscribe(x => {
+      this.isButtonShow = true;
+    })
   }
 
   ngOnChanges(changes:any) {
-    if (this.candidate.employmentHistory.length == 0) {
-      this.candidate.employmentHistory.push(new EmployementHistory());
-    }
-    else {
-      this.isButtonShow = true;
-    }
+    /* if (this.candidate.employmentHistory.length == 0) {
+     this.candidate.employmentHistory.push(new EmployementHistory());
+     }
+     else {
+     this.isButtonShow = true;
+     }*/
     if (changes.candidate.currentValue != undefined) {
       this.candidate = changes.candidate.currentValue;
-      this.isShowError = false;
+      if (this.candidate.employmentHistory != undefined && this.candidate.employmentHistory.length > 0) {
+        debugger
+        /*(<FormGroup>this.employeeHistory.controls['emplyeeHistories'])
+         .setValue(this.candidate.employmentHistory, {onlySelf: true});*/
+
+        console.log(this.employeeHistory.value);
+        this.emphis.emplyeeHistories = this.candidate.employmentHistory;
+        console.log(this.emphis);
+        (<FormGroup>this.employeeHistory)
+          .patchValue(this.emphis);
+      }
     }
   }
 
-  createYearList(year:any) {
-    for (let i = 0; i < ValueConstant.MAX_YEAR_LIST; i++) {
-      this.yearList.push(year--);
-    }
-
+  initEmployeeHistory() {
+    return this._fb.group({
+      companyName: ['', Validators.required],
+      designation: ['', Validators.required],
+      from: this._fb.group({
+        month: ['', Validators.required],
+        year: ['', Validators.required],
+      }),
+      to: this._fb.group({
+        month: ['', Validators.required],
+        year: ['', Validators.required],
+      }),
+      remarks: ['']
+    });
   }
 
-  addAnother() {
-
-    for (let item of this.candidate.employmentHistory) {
-      var indexOfFromMonth = this.monthList.indexOf(item.from.month);
-      var indexToMonth = this.monthList.indexOf(item.to.month);
-
-      if ((item.companyName === "" || item.designation === "" || item.from.month === "" ||
-        item.from.year === "" || item.to.month === "" || item.to.year === "") ||
-
-        (indexOfFromMonth === indexToMonth && item.from.year >= item.to.year) || (item.from.year > item.to.year) ||
-
-        (indexOfFromMonth >= indexToMonth && item.from.year === item.to.year)) {
-        this.checkFields = false;
-        this.isShowError = true;
-      }
-    }
-    if (this.checkFields === true) {
-      this.candidate.employmentHistory.push(new EmployementHistory());
-    }
-    this.checkFields = true;
+  addEmployeeHistory() {
+    const control = <FormArray>this.employeeHistory.controls['emplyeeHistories'];
+    const addrCtrl = this.initEmployeeHistory();
+    control.push(addrCtrl);
+    /* subscribe to individual address value changes
+     addrCtrl.valueChanges.subscribe(x => {
+     console.log(x);
+     })*/
   }
 
-  postEmploymentHistoy() {
-    this.isShowError = false;
-    for (let item of this.candidate.employmentHistory) {
-      if ((item.companyName !== "" || item.designation !== "" || item.from.month !== "" ||
-        item.from.year !== "" || item.to.month !== "" || item.to.year !== "")) {
-        this.isButtonShow = true;
-      }
-    }
+  removeEmployeeHistory(i:number) {
+    const control = <FormArray>this.employeeHistory.controls['emplyeeHistories'];
+    control.removeAt(i);
+  }
 
+  save(model:any) {
+    console.log(this.employeeHistory);
+    console.log(model);
+  }
 
-    for (let item of this.candidate.employmentHistory) {
-      var indexOfFromMonth = this.monthList.indexOf(item.from.month);
-      var indexToMonth = this.monthList.indexOf(item.to.month);
-      if (((indexOfFromMonth === indexToMonth && item.from.year >= item.to.year) || (item.from.year > item.to.year) ||
-
-        (indexOfFromMonth >= indexToMonth && item.from.year === item.to.year)) &&
-
-        (item.companyName !== "" && item.designation !== "" && item.from.month !== "" &&
-        item.from.year !== "" && item.to.month !== "" && item.to.year !== "")) {
-        this.isShowDateErrorMessage = true;
-      }
-      else {
-        this.isShowDateErrorMessage = false;
-      }
-    }
-
-    for (let item of this.candidate.employmentHistory) {
-      var indexOfFromMonth = this.monthList.indexOf(item.from.month);
-      var indexToMonth = this.monthList.indexOf(item.to.month);
-      if ((item.companyName === "" || item.designation === "" || item.from.month === "" ||
-        item.from.year === "" || item.to.month === "" || item.to.year === "") ||
-
-        (indexOfFromMonth === indexToMonth && item.from.year >= item.to.year) || (item.from.year > item.to.year) ||
-
-        (indexOfFromMonth >= indexToMonth && item.from.year === item.to.year)) {
-        this.sendPostCall = false;
-      }
-    }
-
-
-    if (this.sendPostCall === true) {
-      this.postData();
-    }
-    this.sendPostCall = true;
+  postData() {
+    console.log(this.employeeHistory);
+    this.candidate.employmentHistory = this.employeeHistory.value.emplyeeHistories;
+    console.log(this.candidate.employmentHistory);
+    this.profileCreatorService.addProfileDetail(this.candidate).subscribe(
+      user => {
+        console.log(user);
+        this.onNext();
+      });
   }
 
   onNext() {
@@ -133,31 +115,14 @@ export class EmploymentHistoryComponent {
     this.highlightedSection.name = "AcademicDetails";
   }
 
-  deleteItem(i:number) {
-    this.hideDiv[i] = true;
-    this.candidate.employmentHistory.splice(i, 1);
-    this.postData();
-    this.hideDiv[i]=false;
-  }
-
-  postData() {
-    this.profileCreatorService.addProfileDetail(this.candidate).subscribe(
-      user => {
-        console.log(user);
-      });
-  }
-
-  setCurrentDate(newval:EmployementHistory){
-    newval.to.month=this.monthList[this.currentDate.getUTCMonth()-1];
-      newval.to.year=this.year;
-    console.log(newval);
-  }
-
-  hideEmployeeHistory(){
-    this.chkEmployeeHistory=true;
-   this.onNext();
+  hideEmployeeHistory() {
+    this.chkEmployeeHistory = true;
+    this.onNext();
   }
 }
 
+export class EmpHis {
+  emplyeeHistories:any;
+}
 
 
