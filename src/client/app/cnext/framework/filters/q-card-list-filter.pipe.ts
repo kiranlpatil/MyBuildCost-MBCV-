@@ -13,7 +13,7 @@ export class QCardListFilterPipe implements PipeTransform {
     }
 
     if (args) {
-      var result:any;
+      var result:CandidateQCard[];
       result = array.filter(item => eval(args.query));
       qCardCount.count = result.length;
       return result;
