@@ -319,7 +319,7 @@ class JobProfileService {
               recruiter = res[0];
               for (let job of res[0].postedJobs) {
                 if (job._id.toString() === item.jobId) {
-                  this.candidateRepository.getCandidateQCard(candidateDetails, job, true, callback);
+                  this.candidateRepository.getCandidateQCard(candidateDetails, job, undefined, callback);
                 }
               }
             }

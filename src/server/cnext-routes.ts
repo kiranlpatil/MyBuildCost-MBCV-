@@ -39,6 +39,7 @@ export function cnextInit(app: express.Application) { //todo add interceptor to 
   app.get("/api/candidate/:id/jobProfile",searchController.getMatchingJobProfiles);
   app.get("/api/candidate/:id/:candidateId",candidateController.retrieve);
   app.get("/api/candidate/:id/list/:listName",candidateController.getList);
+  app.get("/api/recruiter/jobProfile/:id/list/:listName",recruiterController.getList);
   app.put("/api/candidate/:id/jobProfile/:profileId/:listName/:action",jobProfileController.apply);
   app.post("/api/recruiter/jobProfile/:id/candidates",jobProfileController.getQCardDetails);
   app.put("/api/recruiter/:recruiterId/jobProfile/:profileId/:listName/:candidateId/:action",jobProfileController.update);

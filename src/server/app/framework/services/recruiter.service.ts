@@ -7,9 +7,13 @@ import ProjectAsset = require("../shared/projectasset");
 import UserRepository = require("../dataaccess/repository/user.repository");
 import LocationRepository = require("../dataaccess/repository/location.repository");
 import RecruiterRepository = require("../dataaccess/repository/recruiter.repository");
+import {Recruiter} from "../dataaccess/model/recruiter-final.model";
+import JobProfileModel = require("../dataaccess/model/jobprofile.model");
+import CandidateRepository = require("../dataaccess/repository/candidate.repository");
 
 class RecruiterService {
   private recruiterRepository:RecruiterRepository;
+  private candidateRepository:CandidateRepository;
   private userRepository:UserRepository;
   private locationRepository:LocationRepository;
 
@@ -19,6 +23,7 @@ class RecruiterService {
     this.recruiterRepository = new RecruiterRepository();
     this.userRepository = new UserRepository();
     this.locationRepository=new LocationRepository();
+    this.candidateRepository = new CandidateRepository();
     this.APP_NAME = ProjectAsset.APP_NAME;
   }
 
@@ -112,6 +117,40 @@ class RecruiterService {
       }
       else {
         this.recruiterRepository.findOneAndUpdate({'_id':res[0]._id}, item, {new: true}, callback);
+      }
+    });
+  }
+
+  findJobById(item: any, callback: (error: any, result: any) => void) {
+    let query = {
+      "postedJobs": {$elemMatch: {"_id": new mongoose.Types.ObjectId(item.jobProfileId)}}
+    };
+    this.recruiterRepository.retrieve(query, (err, res) => {
+      if (err) {
+        callback(new Error("Not Found Any Job posted"), null);
+      }
+      else {
+        if (res.length > 0) {
+          let candidateIds : string[]= new Array(0);
+          let jobProfile: JobProfileModel;
+          for (let job of res[0].postedJobs) {
+            if (job._id.toString() === item.jobProfileId) {
+              jobProfile= job;
+              for(let list of job.candidate_list){
+                if(list.name==item.listName){
+                  candidateIds= list.ids;
+                }
+              }
+            }
+          }
+          this.candidateRepository.retrieveByMultiIds(candidateIds,{},(err : any, res :any) => {
+            if(err){
+              callback(new Error("Candidates are not founds"), null);
+            }else{
+              this.candidateRepository.getCandidateQCard(res,jobProfile, candidateIds,callback);
+            }
+          })
+        }
       }
     });
   }
