@@ -13,5 +13,4 @@ export class MinRangeValidation implements PipeTransform {
 
     return array;
   }
-   //return array;
 }

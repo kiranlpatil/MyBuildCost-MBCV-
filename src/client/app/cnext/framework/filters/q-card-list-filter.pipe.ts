@@ -4,7 +4,7 @@ import {CandidateQCard} from "../model/candidateQcard";
 
 @Pipe({name: 'dashboardfilter', pure: false})
 
-export class DashboardFilterPipe implements PipeTransform {
+export class QCardListFilterPipe implements PipeTransform {
 
 
   transform(array: Array<CandidateQCard>, args: CandidateFilter): Array<any> {

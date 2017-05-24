@@ -143,12 +143,12 @@ import {CandidateViewComponent} from "./cnext/framework/one-page-summury/candida
 import {CandidateInCartService} from "./cnext/framework/candidate-in-cart.service";
 import {CandidateFilterService} from "./cnext/framework/candidate-dashboard/candiadte-filter/candidate-filter.service";
 import {FilterService} from "./cnext/framework/filters/filter.service";
-import {DashboardSortPipe} from "./cnext/framework/filters/dashboard-sort.pipe";
+import {QCardListSortPipe} from "./cnext/framework/filters/q-card-list-sort.pipe";
 import {MinRangeValidation} from "./cnext/framework/filters/min-range-validation.pipe";
 import {MaxRangeValidation} from "./cnext/framework/filters/max-range-validation.pipe";
 import {RecuirterDashboardMatchingPipe} from "./cnext/framework/filters/recuirter-dashboard-matching.pipe";
-import {DashboardFilterPipe} from "./cnext/framework/filters/dashboard-filter.pipe";
 import {EmployeeHistoryComponent} from "./cnext/framework/employment-history/employee-history/employee-history.component";
+import {QCardListFilterPipe} from "./cnext/framework/filters/q-card-list-filter.pipe";
 
 //C-NEXT IMPORTS
 
@@ -242,12 +242,12 @@ import {EmployeeHistoryComponent} from "./cnext/framework/employment-history/emp
     IndustryExperienceListComponent,
     JobListerComponent,
     QCardviewComponent,
-    DashboardSortPipe,
+    QCardListSortPipe,
     jobListerSortPipe,
     RecruiterJobSummaryComponent,
     RecruiterJobInformation,
     RecruiterQCardview2Component,
-    DashboardFilterPipe,
+    QCardListFilterPipe,
     RecuirterDashboardMatchingPipe,
     MinRangeValidation,
     MaxRangeValidation
