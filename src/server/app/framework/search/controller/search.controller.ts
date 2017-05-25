@@ -4,6 +4,7 @@ import * as mongoose from "mongoose";
 import JobProfileModel = require("../../dataaccess/model/jobprofile.model");
 import SearchService = require("../services/search.service");
 import CandidateService = require("../../services/candidate.service");
+import RecruiterService = require("../../services/recruiter.service");
 
 export class SearchController {
   //searchService : SearchService;
@@ -13,13 +14,16 @@ export class SearchController {
 
   getMatchingCandidates(req:express.Request, res:express.Response) {
     let searchService = new SearchService();
-    let jobModel:JobProfileModel = <JobProfileModel>req.body;
-    searchService.getMatchingCandidates(jobModel, (error:Error, result:any)=> {
-      if (error) {
-        res.status(304).send(error);
-      } else {
-        res.status(200).send(result);
-      }
+    let profileId = req.params.id;
+    let recruiterService = new RecruiterService();
+    recruiterService.getJobById(profileId, (err : any, jobres:any)=>{
+      searchService.getMatchingCandidates(jobres, (error:Error, result:any)=> {
+        if (error) {
+          res.status(304).send(error);
+        } else {
+          res.status(200).send(result);
+        }
+      });
     });
   }
 

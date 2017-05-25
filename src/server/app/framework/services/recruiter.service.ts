@@ -157,7 +157,7 @@ class RecruiterService {
     });
   }
 
-  findJobById(item: any, callback: (error: any, result: any) => void) {
+  getCandidateList(item: any, callback: (error: any, result: any) => void) {
     let query = {
       "postedJobs": {$elemMatch: {"_id": new mongoose.Types.ObjectId(item.jobProfileId)}}
     };
@@ -187,6 +187,27 @@ class RecruiterService {
             }
           })
         }
+      }
+    });
+  }
+
+  getJobById(id: any, callback: (error: any, result: any) => void) {
+    let query = {
+      "postedJobs": {$elemMatch: {"_id": new mongoose.Types.ObjectId(id)}}
+    };
+    this.recruiterRepository.retrieve(query, (err: any, res: any) =>  {
+      if(err){
+        callback(new Error("Problem in Job Retrieve"),null);
+      }else {
+        let jobProfile:JobProfileModel;
+        if (res.length > 0) {
+          for (let job of res[0].postedJobs) {
+            if (job._id.toString() === id) {
+              jobProfile= job;
+            }
+          }
+        }
+        callback(null,jobProfile);
       }
     });
   }

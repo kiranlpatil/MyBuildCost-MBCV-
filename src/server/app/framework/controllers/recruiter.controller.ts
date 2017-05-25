@@ -177,10 +177,10 @@ export function getList(req:express.Request, res:express.Response, next:any) {
     let data:any = {
       "jobProfileId": req.params.id,
       "listName": req.params.listName
-    }
+    };
     let candidateService = new CandidateService();
     let recruiterService = new RecruiterService();
-    recruiterService.findJobById(data, (error:any, response:any)=> {
+    recruiterService.getCandidateList(data, (error:any, response:any)=> {
       if (error) {
         next({
           reason: Messages.MSG_ERROR_RSN_EXISTING_USER,
