@@ -50,7 +50,7 @@ export class EmploymentHistoryComponent {
     if (changes.candidate.currentValue != undefined) {
       this.candidate = changes.candidate.currentValue;
       if (this.candidate.employmentHistory != undefined && this.candidate.employmentHistory.length > 0) {
-        debugger
+
         /*(<FormGroup>this.employeeHistory.controls['emplyeeHistories'])
          .setValue(this.candidate.employmentHistory, {onlySelf: true});*/
 

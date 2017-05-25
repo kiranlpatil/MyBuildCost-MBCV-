@@ -1,5 +1,5 @@
-<div class="section-container academic-details">
-  <div class="main-content modal-content clearfix" *ngIf="highlightedSection.name =='AcademicDetails'">
+<div class="section-container academic-details" *ngIf="highlightedSection.name =='AcademicDetails'">
+  <div class="main-content modal-content clearfix" >
     <h4 class="heading">Academic Details</h4>
     <div class="col-sm-12 form" [class.hide]="hideDiv[i]" *ngFor="let item of candidate.academics;let i= index">
       <span class="glyphicon glyphicon-trash" (click)="deleteItem(i)"></span>
@@ -50,7 +50,10 @@
       </div>
     </div>
   </div>
-  <div class="main-content" *ngIf="highlightedSection.name !='AcademicDetails'">
+
+</div>
+<div class="section-container"  [ngClass]="(highlightedSection.name=='EmploymentHistory')?'full-width':'half-width'" *ngIf="highlightedSection.name !='AcademicDetails'">
+  <div class="main-content">
     <div class="compact-view clearfix">
       <button class="btn-edit" (click)="highlightedSection.name='AcademicDetails'"></button>
       <h4 class="heading">Academic Details</h4>
@@ -64,7 +67,6 @@
     </div>
   </div>
 </div>
-
 
 
 

@@ -34,7 +34,9 @@
       <div class="clearfix"></div>
     </form>
   </div>
+</div>
 
+<div class="section-container" [ngClass]="(highlightedSection.name=='AcademicDetails')?'full-width':'half-width'"  [hidden]="chkEmployeeHistory">
   <div class="main-content" *ngIf="highlightedSection.name !='EmploymentHistory'">
     <div class="compact-view clearfix">
       <button class="btn-edit" (click)="highlightedSection.name='EmploymentHistory'"></button>
@@ -48,5 +50,5 @@
       </ul>
     </div>
   </div>
-
 </div>
+

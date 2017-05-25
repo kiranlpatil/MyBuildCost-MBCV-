@@ -1,5 +1,5 @@
-<div class="section-container">
-  <div class="main-content clearfix modal-content" *ngIf="highlightedSection.name=='Profile'">
+<div class="section-container" *ngIf="highlightedSection.name=='Profile'">
+  <div class="main-content clearfix modal-content" >
     <h4 class="heading">Enter Your Job Title</h4>
 
     <div class="col-sm-3 text-center">
@@ -25,13 +25,14 @@
       </div>
     </div>
   </div>
-
+</div>
+<div class="section-container" [ngClass]="(highlightedSection.name !=='Work-Area')?'half-width':'full-width'">
   <div class="main-content" *ngIf="highlightedSection.name!='Profile'">
     <div class="compact-view clearfix">
       <button class="btn-edit" (click)="highlightedSection.name='Profile';disableButton=false" ></button> <!--[hidden]="highlightedSection.isLocked"-->
-<!--
-      <span class=" glyphicon glyphicon-lock" title="you can edit this field after {{highlightedSection.date| date:'mediumDate'}}" *ngIf="highlightedSection.isLocked"></span>
--->
+      <!--
+            <span class=" glyphicon glyphicon-lock" title="you can edit this field after {{highlightedSection.date| date:'mediumDate'}}" *ngIf="highlightedSection.isLocked"></span>
+      -->
       <div class="img-container">
         <img src="{{image_path}}" alt="Profile Picture"/>
       </div>
@@ -46,5 +47,5 @@
       </div>
     </div>
   </div>
- <!-- <div [class.modal-bg]="highlightedSection.name!='Profile'"></div>-->
+  <!-- <div [class.modal-bg]="highlightedSection.name!='Profile'"></div>-->
 </div>

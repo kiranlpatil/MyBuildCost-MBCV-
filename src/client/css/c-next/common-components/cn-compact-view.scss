@@ -27,7 +27,7 @@ $theme-color: #3694d1;
   position: relative;
   border-radius: 0;
   animation: fadein .5s;
-  margin: 7px 15px;
+  margin: 7px;
   box-shadow: 1px 1px 1px 0 $modal-bg;
   border: 1px solid $theme-color;
   padding: 15px;
@@ -113,7 +113,7 @@ $theme-color: #3694d1;
   .option {
     font-weight: 600;
     font-size: 12px;
-    padding: 0;
+    //padding: 0;
     text-transform: capitalize;
   }
 
@@ -134,7 +134,8 @@ $theme-color: #3694d1;
       list-style-image: url('../../../assets/c-next/compact-view/list-type.png');
       margin-bottom: 10px;
       text-transform: capitalize;
-      width: 33%;
+      width: 50%;
+      padding-right: 25px;
     }
   }
 
@@ -144,6 +145,16 @@ $theme-color: #3694d1;
     }
   }
 }
+
+.half-width {
+  width: 50%;
+  float:left;
+}
+
+.full-width {
+  width: 100%;
+}
+
 
 @media only screen and (max-width: 1280px) {
   .compact-view {

@@ -22,6 +22,8 @@ $primary-option: #1c75bd;
 }
 
 .compact-view {
+  min-height: 107px;
+
   &:hover {
     .btn-edit {
       opacity: 1;

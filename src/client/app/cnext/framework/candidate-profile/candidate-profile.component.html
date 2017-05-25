@@ -43,7 +43,7 @@
         <cn-capabilities [roles]="rolesForCapability" [candidateRoles]="candidateForCapability"
                          [highlightedSection]="highlightedSection"
                          (onComplete)="onCapabilityComplete($event)" [hidden]="!showCapability"></cn-capabilities></div>
-        <div id="complexity-area" >
+        <div id="complexity-area" class="clear clearfix">
         <cn-complexities [roles]="rolesForComplexity" [candidateRoles]="candidateForComplexity"
                          [highlightedSection]="highlightedSection"
                          [isComplexityPresent]="isComplexityPresent"
@@ -51,7 +51,7 @@
         <div id="proficiency-area">
         <cn-proficiencies [proficiencies]="proficiencies" [choosedproficiencies]="candidate.proficiencies"
                                 [highlightedSection]="highlightedSection"
-                               (onComplete)="onProficiencyComplete($event)" [hidden]="!showProfeciency"></cn-proficiencies></div>
+                               (onSelect)="onProficiencySelect($event)" (onComplete)="onProficiencyComplete($event)" [hidden]="!showProfeciency"></cn-proficiencies></div>
         <div id="industry-experience">
         <cn-industry-experience [candidateExperiencedIndustry]="candidate.interestedIndustries"
                                 [highlightedSection]="highlightedSection"

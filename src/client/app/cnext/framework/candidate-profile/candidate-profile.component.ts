@@ -162,7 +162,6 @@ export class CandidateProfileComponent implements OnInit {
   }
 
   onComplexitytyComplete(roles:Role[]) {
-
     this.candidate.industry.roles = roles;
     var date = new Date();
     date.setDate(date.getDate() + 90);
@@ -174,11 +173,14 @@ export class CandidateProfileComponent implements OnInit {
     this.getProficiency();
   }
 
-  onProficiencyComplete(proficiency:string[]) {
-    this.showIndustryExperience = true;
+  onProficiencySelect(proficiency:string[]) {
     this.candidate.proficiencies = proficiency;
     this.saveCandidateDetails();
     this.whichStepsVisible[4] = true;
+  }
+
+  onProficiencyComplete(event:any){
+    this.showIndustryExperience = true;
   }
 
   onExperienceIndustryComplete(experiencedindustry:string[]) {
@@ -340,7 +342,7 @@ export class CandidateProfileComponent implements OnInit {
         }
       }
     }
-    if (this.candidate.interestedIndustries !== undefined && this.candidate.interestedIndustries.length > 0) {
+    if (this.candidate.interestedIndustries !== undefined && this.candidate.interestedIndustries.length >= 1) {
       this.showIndustryExperience = true;
     }
 

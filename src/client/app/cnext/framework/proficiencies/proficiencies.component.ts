@@ -13,6 +13,7 @@ export class ProficienciesComponent {
   @Input() highlightedSection:Section;
   @Input() proficiencies:string[];
   @Output() onComplete = new EventEmitter();
+  @Output() onSelect = new EventEmitter();
 
 
   private disablebutton:boolean = true;
@@ -23,10 +24,11 @@ export class ProficienciesComponent {
     } else {
       this.disablebutton = true;
     }
-    this.onComplete.emit(proficiency);
+    this.onSelect.emit(proficiency);
   }
 
   onNext() {
+      this.onComplete.emit();
     this.highlightedSection.name = "IndustryExposure";
   }
 }
