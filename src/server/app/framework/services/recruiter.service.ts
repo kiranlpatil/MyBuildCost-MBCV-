@@ -114,7 +114,7 @@ class RecruiterService {
           }
         }
         recruiter.jobCountModel.numberOfJobposted= recruiter.postedJobs.length;
-        callback(null,recruiter);
+        callback(null,[recruiter]);
       }
     });
   }

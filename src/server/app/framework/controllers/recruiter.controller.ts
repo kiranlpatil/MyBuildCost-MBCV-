@@ -135,7 +135,7 @@ export function retrieve(req: express.Request, res: express.Response, next: any)
     let data ={
       "userId":new mongoose.Types.ObjectId(req.params.id)
     };
-    recruiterService.retrieve(data, (error : any, result : Recruiter) => {
+    recruiterService.retrieve(data, (error : any, result : Recruiter[]) => {
       if (error) {
         next({
           reason: CNextMessages.PROBLEM_IN_RETRIEVE_JOB_PROFILE,
@@ -145,8 +145,8 @@ export function retrieve(req: express.Request, res: express.Response, next: any)
       }else{
         res.status(200).send({
           "status": Messages.STATUS_SUCCESS,
-          "data": [result],
-          "jobCountModel":result.jobCountModel
+          "data": result,
+          "jobCountModel":result[0].jobCountModel
           });
       }
 
