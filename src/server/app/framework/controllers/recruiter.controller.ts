@@ -135,7 +135,7 @@ export function retrieve(req: express.Request, res: express.Response, next: any)
     let data ={
       "userId":new mongoose.Types.ObjectId(req.params.id)
     };
-    recruiterService.retrieve(data, (error, result : Recruiter) => {
+    recruiterService.retrieve(data, (error : any, result : Recruiter) => {
       if (error) {
         next({
           reason: CNextMessages.PROBLEM_IN_RETRIEVE_JOB_PROFILE,

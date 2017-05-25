@@ -84,15 +84,17 @@ class RecruiterService {
 
   retrieve(field: any, callback: (error: any, result: any) => void) {
     this.recruiterRepository.retrieve(field, (err,res)=>{
-      if(err){
+        if(err){
         let er = new Error("Unable to retrieve recruiter details.");
         callback(er, null);
       }else{
-        if(res.length>0){
           let recruiter : Recruiter = new Recruiter();
           recruiter= res[0];
-          recruiter.jobCountModel= new JobCountModel();
-          if(recruiter.postedJobs){
+          if(recruiter){
+            recruiter.jobCountModel= new JobCountModel();
+          }
+          if(res.length>0){
+           if(recruiter.postedJobs){
             for(let job of recruiter.postedJobs){
               for(let list of job.candidate_list ){
                   switch (list.name){
