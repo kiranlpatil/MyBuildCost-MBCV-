@@ -15,7 +15,7 @@ export class   QCardViewService extends BaseService{
     let headers = new Headers({'Content-Type': 'application/json'});
     let options = new RequestOptions({headers: headers});
     let url ="/api/recruiter/jobProfile/"+id+"/candidates";
-    return this.http.get(url,{},options)
+    return this.http.get(url)
       .map(this.extractData)
       .catch(this.handleError);
   }
