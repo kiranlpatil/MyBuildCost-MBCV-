@@ -150,6 +150,7 @@ import {EmployeeHistoryComponent} from "./cnext/framework/employment-history/emp
 import {QCardListFilterPipe} from "./cnext/framework/filters/q-card-list-filter.pipe";
 import {MyGoogleDirective} from "./framework/registration/candidate/google-our-place/googleplace.directive";
 import {CandidateDashboardHeaderComponent} from "./cnext/framework/candidate-dashboard/candidate-dashboard-header/candidate-dashboard-header.component";
+import {JobDashboardComponent} from "./cnext/framework/recruiter-dashboard/job-dashboard/job-dashboard.component";
 
 //C-NEXT IMPORTS
 
@@ -253,7 +254,8 @@ import {CandidateDashboardHeaderComponent} from "./cnext/framework/candidate-das
     QCardListFilterPipe,
     RecuirterQCardMatchingPipe,
     MinRangeValidation,
-    MaxRangeValidation
+    MaxRangeValidation,
+    JobDashboardComponent
 
   ],
   providers: [

@@ -144,6 +144,33 @@ class RecruiterService {
       });
   }
 
+  findById(id: any, callback: (error: any, result: any) => void) {
+    console.log("222222222222222222222222222222 id is",id);
+    this.recruiterRepository.findById(id, callback);
+    console.log("2222222222finddddddddddddddddd2222222222");
+  }
+
+
+  getList(item : any,callback:(error:any, result:any)=>void) {
+    console.log("333333333333333");
+    let query = {
+      "postedJobs._id": {$in: item.ids},
+    };
+    this.recruiterRepository.retrieve(query,(err,res)=> {
+      if(err){
+        callback(err,null);
+      }else{
+        this.recruiterRepository.getJobProfileQCard(res, item.candidate, item.ids , (canError,canResult)=>{
+          if(canError){
+            callback(canError, null);
+          }else{
+            callback(null,canResult);
+          }
+        });
+      }
+    });
+  }
+
   updateDetails(_id: string, item: any, callback: (error: any, result: any) => void) {
 
     this.recruiterRepository.retrieve({"userId":new mongoose.Types.ObjectId(_id)}, (err, res) => {

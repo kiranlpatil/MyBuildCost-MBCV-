@@ -24,14 +24,17 @@ import {QCardFilter} from "../../model/q-card-filter";
 })
 export class QCardviewComponent implements OnInit, OnChanges {
   @Output() updatedIds = new EventEmitter<UpdatedIds>();
+  @Output() idsSelected = new EventEmitter<any>();
+  @Output() latestSearchResultCount  = new EventEmitter<number>();
+  @Input() private jobPosterModel: JobPosterModel;
+  @Input() private recruiterId: string;
+  @Input() private candidates: CandidateQCard[];
+
   private selectedCandidate: Candidate = new Candidate();
   private candidateDetails: CandidateDetail = new CandidateDetail();
-  private candidates: CandidateQCard[] = new Array();
-  private candidates2: any[] = new Array();
-  private selectedPerson: CandidateQCard = new CandidateQCard();
+/*  private candidates: CandidateQCard[] = new Array();*/
   private showMatchedCandidateButton: boolean;
   private candidateSeenIDS = new Array();
-  private candidateshortlisted = new Array();
   private updatedIdsModel: UpdatedIds = new UpdatedIds();
   private toggle: boolean = false;
   private totalQCardMatches = {count:0};
@@ -42,11 +45,6 @@ export class QCardviewComponent implements OnInit, OnChanges {
   private candidateFilter: QCardFilter;
   private matchFormat: string;
   private showModalStyle: boolean = false;
-  @Output() latestSearchResultCount  = new EventEmitter<number>();
-
-  @Input() private jobPosterModel: JobPosterModel;
-  @Input() private recruiterId: string;
-  @Input() private addToSerchIds: CandidateQCard[];
 
   private shortlisted: boolean = false;
   private qCardCount = {count:0};
@@ -78,7 +76,7 @@ export class QCardviewComponent implements OnInit, OnChanges {
       }
 
     }
-    for (let item1 of this.candidates) {
+/*    for (let item1 of this.candidates) {
       let i = 0;
       for (let item2 of this.addToSerchIds) {
         if (item1._id === item2._id) {
@@ -93,7 +91,7 @@ export class QCardviewComponent implements OnInit, OnChanges {
     this.latestSearchResultCount.emit(this.candidates.length);
     //this.qCardCount.count = this.candidates.length;
 
-    this.isCandidateAdd = false;
+    this.isCandidateAdd = false;*/
 
   }
 
@@ -147,12 +145,12 @@ export class QCardviewComponent implements OnInit, OnChanges {
           console.log('q card data', this.candidates);
           //this.matches = this.candidates.length
         });
-    for (let readedCandidate of this.candidateSeenIDS) {
+   /* for (let readedCandidate of this.candidateSeenIDS) {
       for (let searchedCandidate of this.candidates) {
         if (searchedCandidate._id === readedCandidate)
           searchedCandidate.isCandidateRead = true;
       }
-    }
+    }*/
 
 
   }
@@ -175,7 +173,7 @@ export class QCardviewComponent implements OnInit, OnChanges {
     for (let item of this.candidates) {
 
       if (item._id === _id) {
-        this.candidates.splice(i, 1);
+        this.candidates.splice(this.candidates.indexOf(item), 1);
       }
       i++;
     }
