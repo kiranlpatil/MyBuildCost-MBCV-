@@ -50,15 +50,17 @@
       <div class="col-sm-12">
         <div class="button-group clearfix">
           <button type="submit" class="btn btn-primary" scrollTo scrollTargetSelector="#Employment-History"
-                  (click)="onNext()" [disabled]="disableButton">Next
+                  (click)="onNext()" [disabled]="disableButton" [hidden]="!showButton">Next
           </button>
+          <button class="btn btn-primary" (click)="onSave()" [hidden]="showButton">Save</button>
+          <button class="btn btn-danger"  (click)="highlightedSection.name='none'" [hidden]="showButton" >Cancel</button>
         </div>
       </div>
    <!-- </form>-->
   </div>
   <div class="main-content" *ngIf="highlightedSection.name !='Professional-Details'">
     <div class="compact-view clearfix">
-      <button class="btn-edit" (click)="highlightedSection.name='Professional-Details';disableButton=false"></button>
+      <button class="btn-edit" (click)="highlightedSection.name='Professional-Details';highlightedSection.isDisable=true;disableButton=false;showButton=false" [hidden]="highlightedSection.isDisable"></button>
       <h4 class="heading">Professional Data</h4>
       <p><label>Ready To Relocate?</label> {{candidate.professionalDetails.relocate}}</p>
       <p><label>Education</label> {{candidate.professionalDetails.education}}</p>

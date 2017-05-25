@@ -28,8 +28,10 @@
       </div>
       <div class="button-group clearfix">
         <button type="submit" class="btn btn-primary" scrollTo scrollTargetSelector="#academic-details"
-                (click)="postData()" [disabled]="!employeeHistory.valid">Next
+                (click)="postData()" [disabled]="!employeeHistory.valid" [hidden]="!showButton">Next
         </button>
+        <button class="btn btn-primary"  (click)="onSave()" [hidden]="showButton">Save</button>
+        <button class="btn btn-danger"  (click)="highlightedSection.name='none'" [hidden]="showButton" >Cancel</button>
       </div>
       <div class="clearfix"></div>
     </form>
@@ -39,7 +41,7 @@
 <div class="section-container" [ngClass]="(highlightedSection.name=='AcademicDetails')?'full-width':'half-width'"  [hidden]="chkEmployeeHistory">
   <div class="main-content" *ngIf="highlightedSection.name !='EmploymentHistory'">
     <div class="compact-view clearfix">
-      <button class="btn-edit" (click)="highlightedSection.name='EmploymentHistory'"></button>
+      <button class="btn-edit" (click)="highlightedSection.name='EmploymentHistory';highlightedSection.isDisable=true;showButton=false" [hidden]="highlightedSection.isDisable"></button>
       <h4 class="heading">Employment History</h4>
       <ul>
         <div *ngFor="let item of candidate.employmentHistory">

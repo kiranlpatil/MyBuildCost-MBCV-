@@ -32,6 +32,7 @@ export class Section{
   name : string;
   date : Date;
   isLocked:boolean;
+  isDisable:boolean;
 }
 
 export class Summary{

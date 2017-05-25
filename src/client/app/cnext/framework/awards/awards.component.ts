@@ -29,7 +29,7 @@ export class AwardsComponent {
   private chkAwards:boolean = false;
   private isHiddenAwrard:boolean = false;
   private hideDiv:boolean[] = new Array();
-
+  private showButton:boolean = true;
 
   constructor(private profileCreatorService:CandidateProfileService) {
     this.tempfield = new Array(1);
@@ -115,5 +115,11 @@ export class AwardsComponent {
   onNext() {
     this.onComplete.emit();
     this.highlightedSection.name = "AboutMySelf";
+    this.highlightedSection.isDisable=false;
+  }
+  onSave() {
+    this.onComplete.emit();
+    this.highlightedSection.name = "none";
+    this.highlightedSection.isDisable=false;
   }
 }

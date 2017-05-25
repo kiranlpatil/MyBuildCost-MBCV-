@@ -7,10 +7,11 @@
         <p class="error-messages">{{remainingWords}} words remaining</p>
       </div>
     </div>
+    <button class="btn btn-danger"  (click)="highlightedSection.name='none'" [hidden]="showButton" >Cancel</button>
   </div>
   <div class="main-content" *ngIf="highlightedSection.name !='AboutMySelf'">
     <div class="compact-view clearfix">
-      <button class="btn-edit" (click)="highlightedSection.name='AboutMySelf'"></button>
+      <button class="btn-edit" (click)="highlightedSection.name='AboutMySelf';highlightedSection.isDisable=true;showButton=false" [hidden]="highlightedSection.isDisable"></button>
       <h4 class="heading">More About Self</h4>
       <p>{{candidate.aboutMyself}}</p>
     </div>

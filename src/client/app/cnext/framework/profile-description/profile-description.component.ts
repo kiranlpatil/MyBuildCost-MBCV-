@@ -20,6 +20,7 @@ export class ProfileDescriptionComponent {
 
  // private compactView:boolean=true;
   private disableButton:boolean=true;
+  private showButton:boolean=true;
   private candidateDetails:CandidateDetail = new CandidateDetail();
   private image_path:string='assets/framework/images/dashboard/profile.png' ;
 
@@ -59,11 +60,20 @@ export class ProfileDescriptionComponent {
   }
 
   onPictureUpload(imagePath:string){
-this.candidate.basicInformation.picture=imagePath;    
+this.candidate.basicInformation.picture=imagePath;
+    this.image_path=AppSettings.IP + imagePath.substring(4).replace('"', '');
   }
   onNext() {
 //    this.compactView = true;
     this.highlightedSection.name = "Work-Area";
+    this.highlightedSection.isDisable=false;
+
+    this.onComplete.emit(this.candidate);
+  }
+  onSave() {
+//    this.compactView = true;
+    this.highlightedSection.name = "none";
+    this.highlightedSection.isDisable=false;
     this.onComplete.emit(this.candidate);
   }
 }

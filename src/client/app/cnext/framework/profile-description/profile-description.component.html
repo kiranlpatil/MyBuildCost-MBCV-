@@ -20,8 +20,9 @@
       <cn-industry-list  [selectedIndustry]="candidate.industry" (valueChange)="onIndustryChange($event)"></cn-industry-list>
 
       <div class="button-group clearfix">
-        <button class="btn btn-primary" scrollTo scrollTargetSelector="#work-area" (click)="onNext()" >Next
-        </button>
+        <button class="btn btn-primary" scrollTo scrollTargetSelector="#work-area" (click)="onNext()" [hidden]="!showButton">Next</button>
+      <!--  <button class="btn btn-primary"  (click)="onSave()" [hidden]="showButton">Save</button>-->
+        <button class="btn btn-danger"  (click)="highlightedSection.name='none'" [hidden]="showButton" >Cancel</button>
       </div>
     </div>
   </div>
@@ -29,7 +30,7 @@
 <div class="section-container" [ngClass]="(highlightedSection.name !=='Work-Area')?'half-width':'full-width'">
   <div class="main-content" *ngIf="highlightedSection.name!='Profile'">
     <div class="compact-view clearfix">
-      <button class="btn-edit" (click)="highlightedSection.name='Profile';disableButton=false" ></button> <!--[hidden]="highlightedSection.isLocked"-->
+      <button class="btn-edit" (click)="highlightedSection.name='Profile';disableButton=false;showButton=false;;highlightedSection.isDisable=true" [hidden]="highlightedSection.isDisable" ></button> <!--[hidden]="highlightedSection.isLocked"-->
       <!--
             <span class=" glyphicon glyphicon-lock" title="you can edit this field after {{highlightedSection.date| date:'mediumDate'}}" *ngIf="highlightedSection.isLocked"></span>
       -->

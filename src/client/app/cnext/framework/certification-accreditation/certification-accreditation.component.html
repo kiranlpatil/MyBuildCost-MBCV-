@@ -45,14 +45,16 @@
       </div>
       <div class="button-group clearfix">
         <button class="btn btn-primary" scrollTo scrollTargetSelector="#awards"
-                (click)="onNext()" [disabled]="disableButton">Next
+                (click)="onNext()" [disabled]="disableButton" [hidden]="!showButton">Next
         </button>
+        <button class="btn btn-primary"  (click)="onSave()" [hidden]="showButton">Save</button>
+        <button class="btn btn-danger"  (click)="highlightedSection.name='none'" [hidden]="showButton" >Cancel</button>
       </div>
     </div>
   </div>
   <div class="main-content" *ngIf="highlightedSection.name !='Certification'">
     <div class="compact-view clearfix">
-      <button class="btn-edit" (click)="highlightedSection.name='Certification'"></button>
+      <button class="btn-edit" (click)="highlightedSection.name='Certification';highlightedSection.isDisable=true;showButton=false" [hidden]="highlightedSection.isDisable"></button>
       <h4 class="heading">Certifications</h4>
       <ul>
         <div *ngFor="let item of candidate.certifications">

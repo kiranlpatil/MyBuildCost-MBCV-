@@ -21,7 +21,7 @@ export class EmploymentHistoryComponent {
   private emphis:EmpHis = new EmpHis();
   private chkEmployeeHistory:boolean = false;
   private isButtonShow:boolean = false;
-
+  private showButton:boolean = true;
 
   constructor(private _fb:FormBuilder, private profileCreatorService:CandidateProfileService) {
   }
@@ -113,6 +113,14 @@ export class EmploymentHistoryComponent {
   onNext() {
     this.onComplete.emit();
     this.highlightedSection.name = "AcademicDetails";
+    this.highlightedSection.isDisable=false;
+
+  }
+  onSave() {
+    this.onComplete.emit();
+    this.highlightedSection.name = "none";
+    this.highlightedSection.isDisable=false;
+
   }
 
   hideEmployeeHistory() {

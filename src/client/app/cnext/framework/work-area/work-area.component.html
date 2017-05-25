@@ -16,7 +16,7 @@
       </div>
 
       <div class="button-group clearfix">
-        <button class="btn btn-primary" scrollTo scrollTargetSelector="#capability-area" (click)="onNext()" >
+        <button class="btn btn-primary" scrollTo scrollTargetSelector="#capability-area" (click)="onNext()" [hidden]="!showButton" >
           Next
         </button>
       </div>
@@ -27,7 +27,7 @@
 <div class="section-container" [ngClass]="(highlightedSection.name=='Profile')?'full-width':'half-width'" *ngIf="highlightedSection.name!='Work-Area'">
 <div class="main-content" >
   <div class="compact-view clearfix">
-    <button  class="btn-edit" (click)="highlightedSection.name='Work-Area';highlightedSection.sectionName='capability';disableButton=false" ></button> <!--[hidden]="highlightedSection.isLocked"-->
+    <button  class="btn-edit" (click)="highlightedSection.name='Work-Area';highlightedSection.sectionName='capability';disableButton=false;highlightedSection.isDisable=true" [hidden]="highlightedSection.isDisable"></button> <!--[hidden]="highlightedSection.isLocked"-->
     <!--
            <span class="glyphicon glyphicon-lock" title="This section can be updated only after {{highlightedSection.date| date:'mediumDate'}}" *ngIf="highlightedSection.isLocked"></span>
     -->

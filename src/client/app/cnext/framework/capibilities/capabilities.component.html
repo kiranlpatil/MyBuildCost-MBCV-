@@ -37,6 +37,7 @@
           <button class="btn btn-primary" scrollTo scrollTargetSelector="#complexity-area"
                   (click)="onNext()" [disabled]="disableButton">Next
           </button>
+
         </div>
       </div>
     </div>
@@ -48,7 +49,7 @@
 <div class="section-container clear clearfix"  *ngIf="highlightedSection.name!='Capabilities'">
   <div class="main-content" >
     <div class="compact-view clearfix">
-      <button class="btn-edit" (click)="highlightedSection.name='Capabilities'" ></button> <!--[hidden]="highlightedSection.isLocked"-->
+      <button class="btn-edit" (click)="highlightedSection.name='Capabilities';highlightedSection.isDisable=true" [hidden]="highlightedSection.isDisable" ></button> <!--[hidden]="highlightedSection.isLocked"-->
       <!--
             <span class=" glyphicon glyphicon-lock" title="you can edit this field after {{highlightedSection.date| date:'mediumDate'}}" *ngIf="highlightedSection.isLocked"></span>
       -->

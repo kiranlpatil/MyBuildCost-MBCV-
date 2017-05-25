@@ -16,7 +16,7 @@ export class JobProficienciesComponent {
   @Input() highlightedSection:Section;
   @Input() proficiencies:string[];
   @Output() onComplete = new EventEmitter();
-  
+  private showButton:boolean = true;
   private disablebutton:boolean = true;
 
   onMandatoryProficiencyComplete(mandatory:string[]){
@@ -36,6 +36,11 @@ export class JobProficienciesComponent {
   
   onNext() {
     this.highlightedSection.name = "IndustryExposure";
+    this.highlightedSection.isDisable=false;
+  }
+  onSave() {
+    this.highlightedSection.name = "none";
+    this.highlightedSection.isDisable=false;
   }
 }
 

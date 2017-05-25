@@ -20,7 +20,7 @@ export class AcademicDetailComponent {
   @Input() candidate:Candidate;
   @Input() highlightedSection :Section;
   @Output() onComplete = new EventEmitter();
-
+  private showButton:boolean = true;
   private  tempfield: string[];
   private year: any;
   private currentDate: any;
@@ -131,5 +131,11 @@ export class AcademicDetailComponent {
   onNext() {
     this.onComplete.emit();
     this.highlightedSection.name = "Certification";
+    this.highlightedSection.isDisable=false;
+  }
+  onSave() {
+    this.onComplete.emit();
+    this.highlightedSection.name = "none";
+    this.highlightedSection.isDisable=false;
   }
 }

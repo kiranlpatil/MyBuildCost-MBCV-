@@ -10,14 +10,17 @@
         <cn-multi-select  [data]="proficiencies" [selectedData]="choosedproficiencies" (onComplete)="onProficiencyComplete($event)"  ></cn-multi-select>
         <div class="button-group clearfix">
           <button class="btn btn-primary" scrollTo scrollTargetSelector="#industry-experience"
-                  (click)="onNext()" [disabled]="disablebutton">Next
-          </button>
+                  (click)="onNext()" [disabled]="choosedproficiencies.length<=0" [hidden]="!showButton">Next</button>
+          <button class="btn btn-primary"
+                  (click)="onSave()" [disabled]="choosedproficiencies.length<=0" [hidden]="showButton">Save</button>
+          <button class="btn btn-danger" [disabled]="choosedproficiencies.length<=0"
+                  (click)="highlightedSection.name='none'"  [hidden]="showButton">Cancel</button>
         </div>
       </div>
     </div>
     <div class="main-content" *ngIf="highlightedSection.name !='Proficiencies'">
       <div class="compact-view clearfix">
-        <button class="btn-edit" (click)="highlightedSection.name='Proficiencies';disablebutton=false"></button>
+        <button class="btn-edit" (click)="highlightedSection.name='Proficiencies';highlightedSection.isDisable=true;showButton=false" [hidden]="highlightedSection.isDisable"></button>
         <h4 class="heading">Proficiencies</h4>
         <span class="option col-sm-3 padding-right15" *ngFor="let item of choosedproficiencies;let i = index">
           {{item}}

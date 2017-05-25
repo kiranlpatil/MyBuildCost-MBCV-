@@ -24,6 +24,7 @@ export class ProfessionalDataComponent extends BaseService implements OnInit {
 
  /* private professionalDetailForm : FormGroup;*/
   private realocationlist=new Array();
+  private showButton:boolean = true;
   private educationlist=new Array();
   private experiencelist=new Array();
   private salarylist=new Array();
@@ -157,6 +158,14 @@ export class ProfessionalDataComponent extends BaseService implements OnInit {
     this.saveProfessionalData();*/
     this.onComplete.emit();
     this.highlightedSection.name = "EmploymentHistory";
+    this.highlightedSection.isDisable=false;
+
+  }
+  onSave() {
+    this.onComplete.emit();
+    this.highlightedSection.name = "none";
+    this.highlightedSection.isDisable=false;
+
   }
 }
 

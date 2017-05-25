@@ -16,20 +16,28 @@ export class ProficienciesComponent {
   @Output() onSelect = new EventEmitter();
 
 
-  private disablebutton:boolean = true;
 
+  private showButton:boolean = true;
+
+  
   onProficiencyComplete(proficiency:string[]) {
-    if (proficiency.length > 0) {
+    /*if (proficiency.length > 0) {
       this.disablebutton = false;
     } else {
       this.disablebutton = true;
-    }
+    }*/
     this.onSelect.emit(proficiency);
   }
 
   onNext() {
       this.onComplete.emit();
     this.highlightedSection.name = "IndustryExposure";
+    this.highlightedSection.isDisable=false;
+  }
+  onSave() {
+    this.highlightedSection.name="none";
+    this.highlightedSection.isDisable=false;
+      this.onComplete.emit();
   }
 }
 

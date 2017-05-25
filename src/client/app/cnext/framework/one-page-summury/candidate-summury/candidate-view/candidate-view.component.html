@@ -33,7 +33,7 @@
       <h4>Proficiency In</h4>
       <cn-horizontal-list-view [data]="candidate.proficiencies"></cn-horizontal-list-view>
     </div>
-    <div class="col-lg-7 col-md-12" *ngIf="candidate.aboutMyself != undefined">
+    <div class="col-lg-7 col-md-12" *ngIf="candidate.aboutMyself != undefined && candidate.aboutMyself!=''">
       <h4>Additional Information</h4>
       <cn-additional-details [data]="candidate.aboutMyself"></cn-additional-details>
     </div>

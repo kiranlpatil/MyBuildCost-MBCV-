@@ -29,7 +29,7 @@ export class CertificationAccreditationComponent {
   private chkCertification:boolean = false;
   private isShowError:boolean = false;
   private hideDiv:boolean[] = new Array();
-
+  private showButton:boolean = true;
 
   constructor(private messageService:MessageService,
               private profileCreatorService:CandidateProfileService) {
@@ -114,5 +114,13 @@ export class CertificationAccreditationComponent {
   onNext() {
     this.onComplete.emit();
     this.highlightedSection.name = "Awards";
+    this.highlightedSection.isDisable=false;
+
+  }
+  onSave() {
+    this.onComplete.emit();
+    this.highlightedSection.name = "none";
+    this.highlightedSection.isDisable=false;
+
   }
 }

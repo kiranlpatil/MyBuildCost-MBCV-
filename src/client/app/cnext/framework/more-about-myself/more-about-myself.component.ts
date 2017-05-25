@@ -23,7 +23,7 @@ export class MoreAboutMyselfComponent implements OnInit {
   private wordsTillNow:number;
   private remainingWords:number;
   private maxword:number;
-
+  private showButton:boolean = true;
   constructor(private messageService:MessageService,
               private profileCreatorService:CandidateProfileService) {
     this.reSize = new Array(1);
@@ -67,6 +67,8 @@ export class MoreAboutMyselfComponent implements OnInit {
     this.profileCreatorService.addProfileDetail(this.candidate).subscribe(
       user => {
         console.log(user);
+        this.highlightedSection.isDisable=false;
+
       },
       error => {
         console.log(error);

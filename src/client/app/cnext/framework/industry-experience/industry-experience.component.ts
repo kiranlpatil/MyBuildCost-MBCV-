@@ -13,7 +13,7 @@ import {LocalStorage, ValueConstant} from "../../../framework/shared/constants";
 })
 
 export class IndustryExperienceListComponent {
-
+  private showButton:boolean = true;
   private industries:Industry[] = new Array(0);
   private selectedIndustries:string[] = new Array(0);
   @Input() highlightedSection :Section;
@@ -64,10 +64,18 @@ export class IndustryExperienceListComponent {
   onNext() {
     if(LocalStorageService.getLocalValue(LocalStorage.IS_CANDIDATE)==='true') {
       this.highlightedSection.name = "Professional-Details";
+      this.highlightedSection.isDisable=false;
+
     }
     else{
       this.highlightedSection.name = "Compentancies";
+      this.highlightedSection.isDisable=false;
+
     }
+  }
+  onSave() {
+      this.highlightedSection.name = "none";
+      this.highlightedSection.isDisable=false;
   }
 }
 
