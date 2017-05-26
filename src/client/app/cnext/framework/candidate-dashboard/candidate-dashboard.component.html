@@ -14,10 +14,10 @@
                 <a id="matched_anchor" (click)="showMatchedJobs()" data-toggle="tab" href="#matched"><span class="count"><span>{{jobList.length}}</span></span> Matched</a>
               </li>
               <li>
-                <a (click)="showappliedJobs()" data-toggle="tab" href="#applied"><span class="count"><span>{{candidate.summary.numberOfJobApplied}}</span></span> Applied</a>
+                <a (click)="showappliedJobs()" data-toggle="tab" href="#applied"><span class="applied-count count"><span>{{candidate.summary.numberOfJobApplied}}</span></span> Applied</a>
               </li>
               <li>
-                <a (click)="showrejectedJobs()" data-toggle="tab" href="#rejected"><span class="count"><span>{{candidate.summary.numberJobsBlocked}}</span></span> Not Interested</a>
+                <a (click)="showrejectedJobs()" data-toggle="tab" href="#rejected"><span class="rejected-count count"><span>{{candidate.summary.numberJobsBlocked}}</span></span> Not Interested</a>
               </li>
             </ul>
             <div class="tab-content">

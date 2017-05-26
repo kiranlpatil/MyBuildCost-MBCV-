@@ -39,6 +39,20 @@
         </div>
       </div>
     </div>
+    <ul class="nav nav-tabs sub-tabs">
+      <li class="active">
+        <a (click)="getMatchingProfiles()"  id="matched_anchor" data-toggle="tab" href="#matched"><span class="match-count count"><span>{{recruiterJobView.numberOfMatchedCandidates}}</span></span> Matched</a>
+      </li>
+      <li>
+        <a (click)="getSelectedListData('cartListed')" data-toggle="tab" href="#cart"><span class="count"><span>{{recruiterJobView.numberOfCandidatesInCart}}</span></span> In Cart</a>
+      </li>
+      <li>
+        <a (click)="getSelectedListData('applied')" data-toggle="tab" href="#applied"><span class="applied-count count"><span>{{recruiterJobView.numberOfCandidatesApplied}}</span></span> Applied</a>
+      </li>
+      <li>
+        <a (click)="getSelectedListData('rejectedList')" data-toggle="tab" href="#rejected"><span class="rejected-count count"><span>{{recruiterJobView.numberOfCandidatesrejected}}</span></span> Rejected</a>
+      </li>
+    </ul>
     <div id="matched" class="tab-pane fade in active " >
       <cn-q-card-view *ngIf="whichListVisible[0]" [candidateQlist]="candidateQlist" [candidates]="candidateQlist.matchedCandidates" [type]="'matchedList'" [jobId]="jobId" [recuirterListCountModel]="recruiterJobView"></cn-q-card-view>
     </div>

@@ -167,19 +167,19 @@ $border-light: #efefef;
       }
     }
 
-    li:first-child > a > .count {
+    li > a > .match-count {
       background-color: $green;
     }
 
-    li:nth-child(2)  > a > .count {
+    li  > a > .shortlisted-count {
       background-color: $orange;
     }
 
-    li:nth-child(4)  > a > .count {
+    li  > a > .applied-count {
       background-color: $theme-color;
     }
 
-    li:nth-child(5)  > a > .count {
+    li  > a > .rejected-count {
       background-color: $red;
     }
   }
@@ -193,7 +193,7 @@ $border-light: #efefef;
     border-bottom: 1px solid $border-light;
 
     ul {
-      margin-top: 0 !important;
+      margin: 5px !important;
     }
   }
 

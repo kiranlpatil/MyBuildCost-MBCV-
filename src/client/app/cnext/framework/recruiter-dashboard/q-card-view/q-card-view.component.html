@@ -39,10 +39,13 @@
       <div class="panel clearfix">
         <img class="profile-picture" src="assets/framework/images/dashboard/profile.png" alt="Profile Picture"/>
         <h6 class="username">{{item.first_name}} {{item.last_name}}</h6>
-        <ul *ngIf="type=='matchedList'">
+        <ul>
+          <li  *ngIf="type=='matchedList'">
+            <span class="glyphicon glyphicon-star" *ngIf="emailsOfShrortListedCandidates.indexOf(item.email)==-1" (click)="addRemoveToShortList(item)" ></span>
+            <span class="glyphicon glyphicon-star active-star" *ngIf="emailsOfShrortListedCandidates.indexOf(item.email)!=-1" (click)="addRemoveToShortList(item)" ></span>
+          </li>
           <li>
-            <span class="glyphicon glyphicon-heart-empty" *ngIf="emailsOfShrortListedCandidates.indexOf(item.email)==-1" (click)="addRemoveToShortList(item)" ></span>
-            <span style="height:10px;width:10px;background-color: red" *ngIf="emailsOfShrortListedCandidates.indexOf(item.email)!=-1" (click)="addRemoveToShortList(item)" >Stared</span>
+              <a (click)="actionOnQCard('remove','rejectedList','rejectedList',item)"  *ngIf="type=='cartListed'" ><img src="assets/c-next/card-view/close-red.png" /></a>
           </li>
         </ul>
         <div class="col-sm-7 col-xs-6 no-padding left-side">
@@ -86,11 +89,11 @@
           <div class="col-sm-6 padding-right5">
             <button class="btn btn-cart btn-block" type="button" (click)="viewProfile(item._id)">View</button>
           </div>
-          <div class="col-sm-6 padding-left5">
+          <!--<div class="col-sm-6 padding-left5">
             <button class="btn btn-cart btn-block" type="button"
                     (click)="actionOnQCard('remove','cartListed','cartListed',item)">Remove
             </button>
-          </div>
+          </div>-->
           <div class="col-sm-6 padding-left5">
             <button class="btn btn-cart btn-block" type="button"
                     (click)="actionOnQCard('add','cartListed','rejectedList', item)">Reject
@@ -108,15 +111,10 @@
           </div>
         </div>
         <div class="button-group" *ngIf="type=='rejectedList'">
-          <div class="col-sm-6 padding-right5">
+          <div class="col-sm-12 no-padding">
             <button class="btn btn-cart btn-block" type="button" (click)="viewProfile(item._id)">View</button>
           </div>
-          <div class="col-sm-6 padding-left5">
-            <button class="btn btn-cart btn-block" type="button"
-                    (click)="actionOnQCard('remove','rejectedList','rejectedList',item)">Remove
-            </button>
-          </div>
-      </div>
+        </div>
     </div>
   </div>
 </div>
@@ -126,31 +124,47 @@
     <div class="modal-dialog modal-md">
       <div class="modal-content">
         <div class="modal-body">
+          <div class="modal-header">
+            <img src="assets/framework/images/dashboard/profile.png" />
+            <h5>{{candidateDetails.first_name}} {{candidateDetails.last_name}}</h5>
+            <img src="/assets/c-next/card-view/close-grey.png" (click)="closeJob()" class="close"/>
+          </div>
           <div class="row">
             <div class="col-sm-12" *ngIf="selectedCandidate != undefined" >
               <div>
-                <h5>{{candidateDetails.first_name}}{{candidateDetails.last_name}}</h5>
                <!-- <h5>Contact:{{candidateDetails.mobile_number}}</h5>
                 <h5>Email:{{candidateDetails.email}}</h5>-->
-                <div *ngIf="selectedCandidate.industry != undefined ">
-                <cn-tabular-list-view [roles]="selectedCandidate.industry.roles"></cn-tabular-list-view>
-              </div>
-              <div class="button-group" >
-                <button class="btn btn-primary" (click)="addToCart(selectedCandidate._id)">Add To Cart</button>
-                <button class="btn btn-default" (click)="Reject(selectedCandidate._id) ">Reject</button>
-              </div>
-              <div class="button-group">
-                  <button class="btn btn-primary" (click)="closeJob()" >Close</button>
+                  <div *ngIf="selectedCandidate.industry != undefined ">
+                  <cn-tabular-list-view [roles]="selectedCandidate.industry.roles"></cn-tabular-list-view>
+                </div>
               </div>
             </div>
+          </div>
+          <div class="button-group" >
+            <button class="btn btn-primary" (click)="addToCart(selectedCandidate._id)">Add To Cart</button>
+            <button class="btn btn-danger" (click)="Reject(selectedCandidate._id) ">Reject</button>
           </div>
         </div>
       </div>
     </div>
   </div>
 </div>
+
+<div *ngIf="type=='cartListed'" class="modal dashboard-modal" [style.display]="getStyleModal()">
+  <div class="modal-bg">
+    <div class="modal-dialog modal-md">
+      <div class="modal-content">
+        <div class="modal-body">
+          <div class="modal-header">
+            <h4>Job Description</h4>
+            <img src="/assets/c-next/card-view/close-grey.png" (click)="closeJob()" class="close"/>
+          </div>
+          <div class="row">
+            <cn-candidate-view [candidateId]="selectedCandidate._id"></cn-candidate-view>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
-<div *ngIf="type=='cartListed'" class="modal" [style.display]="getStyleModal()">
-  <cn-candidate-view [candidateId]="selectedCandidate._id"></cn-candidate-view>
-</div>
