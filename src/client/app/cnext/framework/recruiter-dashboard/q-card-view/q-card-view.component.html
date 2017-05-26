@@ -39,11 +39,10 @@
         <img class="profile-picture" src="assets/framework/images/dashboard/profile.png" alt="Profile Picture"/>
         <h6 class="username">{{item.first_name}} {{item.last_name}}</h6>
         <ul *ngIf="type=='matchedList'">
-          <li><span class="glyphicon glyphicon-heart-empty" (click)="addRemoveToShortList(item)" [class.shortlisted]="candidateQlist.shortListedCandidates.indexOf(item)!=-1"></span></li>
-         <!-- <li>
-            <div [hidden]="!item.isCandidateRead"><span class="glyphicon glyphicon-eye-close"></span></div>
-            <div [hidden]="item.isCandidateRead"><span class="glyphicon glyphicon-eye-open"></span></div>
-          </li>-->
+          <li>
+            <span class="glyphicon glyphicon-heart-empty" *ngIf="emailsOfShrortListedCandidates.indexOf(item.email)==-1" (click)="addRemoveToShortList(item)" ></span>
+            <span style="height:10px;width:10px;background-color: red" *ngIf="emailsOfShrortListedCandidates.indexOf(item.email)!=-1" (click)="addRemoveToShortList(item)" >Stared</span>
+          </li>
         </ul>
         <div class="col-sm-7 col-xs-6 no-padding left-side">
           <p><img src="assets/c-next/card-view/salary.png" alt="Salary"/>$ {{item.salary}}</p>

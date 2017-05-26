@@ -31,6 +31,7 @@ export class QCardviewComponent {
     @Input() recuirterListCountModel : RecruiterJobView = new RecruiterJobView();
     @Input() jobId: string;
     @Input() type : string;
+    private emailsOfShrortListedCandidates : string[]= new Array(0)
     private qCardModel: QCardsortBy = new QCardsortBy();
     private totalQCardMatches = {count:0};
     private qCardCount = {count:0};
@@ -52,6 +53,18 @@ export class QCardviewComponent {
         this.matchFormat = this.match.aboveMatch
       }
     );
+  }
+
+   ngOnChanges(changes : any){
+      if(changes.candidateQlist && changes.candidateQlist.currentValue){
+          if(changes.candidateQlist.currentValue.shortListedCandidates){
+            this.emailsOfShrortListedCandidates= new Array(0);
+            for(let candidate of changes.candidateQlist.currentValue.shortListedCandidates ){
+              this.emailsOfShrortListedCandidates.push(candidate.email);
+            }
+
+          }
+      }
   }
 
   actionOnQCard(action: string, sourceListName : string ,destinationListName : string , candidate : CandidateQCard){
@@ -77,19 +90,14 @@ export class QCardviewComponent {
     }
     if(action=="add" && !isMatchList) {
       this.qCardViewService.updateCandidateLists(this.jobId, candidate._id, sourceListName, "remove").subscribe(
-        data=> { debugger
-         /*
-          this.recuirterListCountModel.numberOfMatchedCandidates = this.candidateQlist.matchedCandidates.length;*/
-          /*if(this.jobId == )*/
+        data=> {
           this.updateCountModel(data);
-          console.log("Success");
         }
       );
     }
     this.qCardViewService.updateCandidateLists(this.jobId,candidate._id,destinationListName,action).subscribe(
-      data=>{ debugger
+      data=>{
         this.updateCountModel(data);
-        console.log("Success");
       }
     );
 
@@ -97,11 +105,15 @@ export class QCardviewComponent {
 
   addRemoveToShortList(candidate : CandidateQCard){
     let action: string;
-    (this.candidateQlist.shortListedCandidates.indexOf(candidate)!=-1) ? action='remove': action='add';
+    (this.emailsOfShrortListedCandidates.indexOf(candidate.email)!=-1) ? action='remove': action='add';
+    if(action=='add'){
+      this.emailsOfShrortListedCandidates.push(candidate.email);
+    }else{
+      this.emailsOfShrortListedCandidates.splice(this.emailsOfShrortListedCandidates.indexOf(candidate.email),1);
+    }
     this.qCardViewService.updateCandidateLists(this.jobId,candidate._id,ValueConstant.SHORT_LISTED_CANDIDATE,action).subscribe(
       data=>{
         this.updateCountModel(data);
-        console.log("Success");
       }
     );
 

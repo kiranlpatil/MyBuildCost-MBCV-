@@ -52,13 +52,20 @@ export class JobDashboardComponent implements OnInit {
     this.jobDashboardService.getSearchedcandidate(this.jobId)
       .subscribe(
         (data: any) => {
-          this.recruiterJobView.numberOfMatchedCandidates=data.length;
-          this.candidateQlist.matchedCandidates = data;
+          this.jobDashboardService.getSelectedListData(this.jobId, ValueConstant.SHORT_LISTED_CANDIDATE)
+            .subscribe(
+              (listdata: any) => {
+                this.recruiterJobView.numberOfMatchedCandidates=data.length;
+                let temp = new CandidateQListModel();
+                temp.shortListedCandidates=listdata.data;
+                temp.matchedCandidates= data;
+                this.candidateQlist =temp;
+              });
         });
   }
 
   getSelectedListData(listName : string) {
-    this.jobDashboardService.getSelectedListData(this.jobId, listName)//ValueConstant.CART_LISTED_CANDIDATE)
+    this.jobDashboardService.getSelectedListData(this.jobId, listName)
       .subscribe(
         (data: any) => {
           switch (listName){
