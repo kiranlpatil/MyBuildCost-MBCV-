@@ -22,8 +22,9 @@ export class JobDashboardComponent implements OnInit {
 
   jobId : any;
   jobCount:any;
- private  headerInfo:any;
+  private  headerInfo:any;
   private recruiterJobView:RecruiterJobView = new RecruiterJobView();
+  private whichListVisible : boolean[]= new Array(4);
   private candidateQlist : CandidateQListModel= new CandidateQListModel();
   private selectedJobProfile: JobPosterModel = new JobPosterModel();
   constructor(public refrence:ReferenceService,private activatedRoute:ActivatedRoute,private jobDashboardService :JobDashboardService) {
@@ -38,7 +39,9 @@ export class JobDashboardComponent implements OnInit {
     });
 
     this.getJobProfile();
+    this.whichListVisible= new Array(4);
     this.getMatchingProfiles();
+
   }
 
   getJobProfile() {
@@ -59,6 +62,10 @@ export class JobDashboardComponent implements OnInit {
   }
 
   getMatchingProfiles() {
+    for(let i=0;i< this.whichListVisible.length;i++){
+      this.whichListVisible[i]=false;
+    }
+    this.whichListVisible[0]= true;
     this.jobDashboardService.getSearchedcandidate(this.jobId)
       .subscribe(
         (data: any) => {
@@ -75,21 +82,27 @@ export class JobDashboardComponent implements OnInit {
   }
 
   getSelectedListData(listName : string) {
+    for(let i=0;i< this.whichListVisible.length;i++){
+      this.whichListVisible[i]=false;
+    }
     this.jobDashboardService.getSelectedListData(this.jobId, listName)
       .subscribe(
         (data: any) => {
           switch (listName){
             case ValueConstant.CART_LISTED_CANDIDATE :
               this.candidateQlist.cartCandidates=data.data;
+              this.whichListVisible[1]= true;
               break;
             case ValueConstant.REJECTED_LISTED_CANDIDATE :
               this.candidateQlist.rejectedCandidates=data.data;
+              this.whichListVisible[3]= true;
               break;
             case ValueConstant.SHORT_LISTED_CANDIDATE :
               this.candidateQlist.shortListedCandidates=data.data;
               break;
             case ValueConstant.APPLIED_CANDIDATE :
               this.candidateQlist.appliedCandidates=data.data;
+              this.whichListVisible[2]= true;
               break;
           }
         });

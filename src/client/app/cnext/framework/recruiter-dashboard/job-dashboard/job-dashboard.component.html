@@ -7,7 +7,7 @@
   <div class="candidate-listing">
     <ul class="nav nav-tabs sub-tabs">
       <li class="active">
-        <a (click)="getMatchingProfiles()"  id="matched_anchor" data-toggle="tab" href="#matched"><span class="count"><span>{{recruiterJobView.numberOfMatchedCandidates}}</span></span> Matched</a>
+        <a (click)="getMatchingProfiles()" data-toggle="tab" href="#matched"><span class="count"><span>{{recruiterJobView.numberOfMatchedCandidates}}</span></span> Matched</a>
       </li>
       <li>
         <a (click)="getSelectedListData('cartListed')" data-toggle="tab" href="#cart"><span class="count"><span>{{recruiterJobView.numberOfCandidatesInCart}}</span></span> In Cart</a>
@@ -27,33 +27,30 @@
       <div class="list-view"  *ngIf="selectedJobProfile!=undefined">
         <div class="panel clearfix">
           <ul>
-            <li class="job-posted"><p><span>0</span></p></li>
-            <li><h4>Software Developer</h4><p>IT</p></li>
+            <li class="job-posted"><p><span>{{recruiterJobView.numberOfCandidatesInCart}}</span></p></li>
+            <li><h4>{{selectedJobProfile.jobTitle}}</h4><p>IT</p></li>
             <li class="contact-info">
-              <p><img src="../../../../assets/c-next/post-job/calendar.png" alt="calendar"/>25 May 2017</p>
+              <p><img src="../../../../assets/c-next/post-job/calendar.png" alt="calendar"/>{{selectedJobProfile.postingDate | date :'dd MMM yyyy'}}<!--25 May 2017--></p>
             </li>
             <li class="contact-info">
-              <p><img src="../../../../assets/c-next/post-job/contact-person.png" alt="Hiring Manager"/>Sachin Nangare</p>
+              <p><img src="../../../../assets/c-next/post-job/contact-person.png" alt="Hiring Manager"/>{{selectedJobProfile.hiringManager}}</p>
             </li>
           </ul>
         </div>
       </div>
     </div>
     <div id="matched" class="tab-pane fade in active " >
-      <cn-q-card-view [candidateQlist]="candidateQlist" [candidates]="candidateQlist.matchedCandidates" [type]="'matchedList'" [jobId]="jobId" [recuirterListCountModel]="recruiterJobView"></cn-q-card-view>
-
+      <cn-q-card-view *ngIf="whichListVisible[0]" [candidateQlist]="candidateQlist" [candidates]="candidateQlist.matchedCandidates" [type]="'matchedList'" [jobId]="jobId" [recuirterListCountModel]="recruiterJobView"></cn-q-card-view>
     </div>
     <div  id="cart" class="tab-pane fade">
-      <cn-q-card-view [candidateQlist]="candidateQlist" [candidates]="candidateQlist.cartCandidates" [type]="'cartListed'" [jobId]="jobId" [recuirterListCountModel]="recruiterJobView"></cn-q-card-view>
-      <!--<cn-recruiter-dashboard-qcard-view  [candidates]="candidatesInCart" ></cn-recruiter-dashboard-qcard-view>-->
+      <cn-q-card-view *ngIf="whichListVisible[1]" [candidateQlist]="candidateQlist" [candidates]="candidateQlist.cartCandidates" [type]="'cartListed'" [jobId]="jobId" [recuirterListCountModel]="recruiterJobView"></cn-q-card-view>
     </div>
     <div  id="applied" class="tab-pane fade" >
-      <cn-q-card-view  [candidateQlist]="candidateQlist" [candidates]="candidateQlist.appliedCandidates" [type]="'applied'" [jobId]="jobId" [recuirterListCountModel]="recruiterJobView"></cn-q-card-view>
-      <!--      <cn-recruiter-dashboard-qcard-view [candidates]="candidateApplied" ></cn-recruiter-dashboard-qcard-view>-->
+      <cn-q-card-view  *ngIf="whichListVisible[2]" [candidateQlist]="candidateQlist" [candidates]="candidateQlist.appliedCandidates" [type]="'applied'" [jobId]="jobId" [recuirterListCountModel]="recruiterJobView"></cn-q-card-view>
     </div>
     <div  id="rejected"  class="tab-pane fade">
-      <cn-q-card-view [candidateQlist]="candidateQlist" [candidates]="candidateQlist.rejectedCandidates" [type]="'rejectedList'" [jobId]="jobId" [recuirterListCountModel]="recruiterJobView"></cn-q-card-view>
-      <!--<cn-recruiter-dashboard-qcard-view [candidates]="candidateApplied"  ></cn-recruiter-dashboard-qcard-view>-->
+      <cn-q-card-view *ngIf="whichListVisible[3]" [candidateQlist]="candidateQlist" [candidates]="candidateQlist.rejectedCandidates" [type]="'rejectedList'" [jobId]="jobId" [recuirterListCountModel]="recruiterJobView"></cn-q-card-view>
     </div>
 
   </div>
+</div>
