@@ -92,6 +92,7 @@ class RecruiterService {
           recruiter= res[0];
           if(recruiter){
             recruiter.jobCountModel= new JobCountModel();
+            recruiter.jobCountModel.numberOfJobposted= recruiter.postedJobs.length;
           }
           if(res.length>0){
            if(recruiter.postedJobs){
@@ -113,7 +114,6 @@ class RecruiterService {
             }
           }
         }
-        recruiter.jobCountModel.numberOfJobposted= recruiter.postedJobs.length;
         callback(null,[recruiter]);
       }
     });
@@ -145,9 +145,7 @@ class RecruiterService {
   }
 
   findById(id: any, callback: (error: any, result: any) => void) {
-    console.log("222222222222222222222222222222 id is",id);
     this.recruiterRepository.findById(id, callback);
-    console.log("2222222222finddddddddddddddddd2222222222");
   }
 
 
