@@ -35,12 +35,13 @@ $header-shadow: rgba(0, 0, 0, 0.4);
       font-family: 'gothamrnd-book';
       font-size: 14px;
       margin: 0;
-      overflow: auto;
-      text-overflow: clip;
+      overflow: hidden;
+      text-overflow: ellipsis;
       text-transform: capitalize;
       vertical-align: middle;
       width: auto;
-      white-space: pre-wrap;
+      white-space: nowrap;
+      max-width: 200px;
     }
 
     h5 {
@@ -48,13 +49,14 @@ $header-shadow: rgba(0, 0, 0, 0.4);
       height: 20px;
       font-family: 'gothamrnd-book';
       font-size: 12px;
-      overflow: auto;
-      text-overflow: clip;
+      overflow: hidden;
+      text-overflow: ellipsis;
       text-transform: capitalize;
       vertical-align: middle;
       width: auto;
-      white-space: pre-wrap;
+      white-space: nowrap;
       margin: 0;
+      max-width: 200px;
     }
   }
 

@@ -28,8 +28,11 @@ $border-color: #e8e8e8;
   }
 
   .action-list {
-    float: right;
-    padding: 2px 105px 0 0;
+    padding: 0;
+    position: fixed;
+    z-index: 1000;
+    top: 0;
+    right: 280px;
 
     li {
       color: $white;
