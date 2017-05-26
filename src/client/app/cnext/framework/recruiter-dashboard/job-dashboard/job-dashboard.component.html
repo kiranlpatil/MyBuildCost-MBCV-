@@ -1,7 +1,7 @@
 
 <ul class="nav nav-tabs sub-tabs">
   <li class="active">
-    <a (click)="getMatchingProfiles()"  id="matched_anchor" data-toggle="tab" href="#matched"><span class="count"><span>3</span></span> Matched</a>
+    <a (click)="getMatchingProfiles()"  id="matched_anchor" data-toggle="tab" href="#matched"><span class="count"><span>{{recruiterJobView.numberOfMatchedCandidates}}</span></span> Matched</a>
   </li>
   &lt;!&ndash;
   <li>
@@ -17,19 +17,19 @@
 
   <div class="tab-content">
     <div id="matched" class="tab-pane fade in active " >
-      <cn-q-card-view [candidateQlist]="candidateQlist" [candidates]="candidateQlist.matchedCandidates" [type]="'matchedList'" [jobId]="jobId" ></cn-q-card-view>
+      <cn-q-card-view [candidateQlist]="candidateQlist" [candidates]="candidateQlist.matchedCandidates" [type]="'matchedList'" [jobId]="jobId" [recuirterListCountModel]="recruiterJobView"></cn-q-card-view>
 
     </div>
-    <div  id="cart" class="tab-pane fade"  >
-      <cn-q-card-view [candidateQlist]="candidateQlist" [candidates]="candidateQlist.cartCandidates" [type]="'cartListed'" [jobId]="jobId"  ></cn-q-card-view>
+    <div  id="cart" class="tab-pane fade">
+      <cn-q-card-view [candidateQlist]="candidateQlist" [candidates]="candidateQlist.cartCandidates" [type]="'cartListed'" [jobId]="jobId" [recuirterListCountModel]="recruiterJobView"></cn-q-card-view>
       <!--<cn-recruiter-dashboard-qcard-view  [candidates]="candidatesInCart" ></cn-recruiter-dashboard-qcard-view>-->
     </div>
     <div  id="applied" class="tab-pane fade" >
-      <cn-q-card-view  [candidateQlist]="candidateQlist" [candidates]="candidateQlist.appliedCandidates" [type]="'applied'" [jobId]="jobId" ></cn-q-card-view>
+      <cn-q-card-view  [candidateQlist]="candidateQlist" [candidates]="candidateQlist.appliedCandidates" [type]="'applied'" [jobId]="jobId" [recuirterListCountModel]="recruiterJobView"></cn-q-card-view>
 <!--      <cn-recruiter-dashboard-qcard-view [candidates]="candidateApplied" ></cn-recruiter-dashboard-qcard-view>-->
     </div>
     <div  id="rejected"  class="tab-pane fade">
-      <cn-q-card-view [candidateQlist]="candidateQlist" [candidates]="candidateQlist.rejectedCandidates" [type]="'rejectedList'" [jobId]="jobId" ></cn-q-card-view>
+      <cn-q-card-view [candidateQlist]="candidateQlist" [candidates]="candidateQlist.rejectedCandidates" [type]="'rejectedList'" [jobId]="jobId" [recuirterListCountModel]="recruiterJobView"></cn-q-card-view>
       <!--<cn-recruiter-dashboard-qcard-view [candidates]="candidateApplied"  ></cn-recruiter-dashboard-qcard-view>-->
     </div>
   </div>

@@ -14,6 +14,7 @@ import {QCardFilterService} from "../../filters/q-card-filter.service";
 import {ValueConstant} from "../../../../framework/shared/constants";
 import {QCardFilter} from "../../model/q-card-filter";
 import {CandidateQListModel} from "../job-dashboard/q-cards-candidates";
+import {RecruiterJobView} from "../../model/recruiter-job-view";
 
 
 @Component({
@@ -27,6 +28,7 @@ export class QCardviewComponent {
 
     @Input() candidateQlist : CandidateQListModel = new CandidateQListModel();
     @Input() candidates : CandidateQCard[];
+    @Input() recuirterListCountModel : RecruiterJobView = new RecruiterJobView();
     @Input() jobId: string;
     @Input() type : string;
     private qCardModel: QCardsortBy = new QCardsortBy();
@@ -52,7 +54,7 @@ export class QCardviewComponent {
     );
   }
 
-  actionOnQCard(action: string, sourceListName : string ,destinationListName : string , candidate : CandidateQCard){debugger
+  actionOnQCard(action: string, sourceListName : string ,destinationListName : string , candidate : CandidateQCard){
 
     let isMatchList : boolean= false;
     switch (sourceListName){
@@ -75,13 +77,18 @@ export class QCardviewComponent {
     }
     if(action=="add" && !isMatchList) {
       this.qCardViewService.updateCandidateLists(this.jobId, candidate._id, sourceListName, "remove").subscribe(
-        data=> {
+        data=> { debugger
+         /*
+          this.recuirterListCountModel.numberOfMatchedCandidates = this.candidateQlist.matchedCandidates.length;*/
+          /*if(this.jobId == )*/
+          this.updateCountModel(data);
           console.log("Success");
         }
       );
     }
     this.qCardViewService.updateCandidateLists(this.jobId,candidate._id,destinationListName,action).subscribe(
-      data=>{
+      data=>{ debugger
+        this.updateCountModel(data);
         console.log("Success");
       }
     );
@@ -93,10 +100,27 @@ export class QCardviewComponent {
     (this.candidateQlist.shortListedCandidates.indexOf(candidate)!=-1) ? action='remove': action='add';
     this.qCardViewService.updateCandidateLists(this.jobId,candidate._id,ValueConstant.SHORT_LISTED_CANDIDATE,action).subscribe(
       data=>{
+        this.updateCountModel(data);
         console.log("Success");
       }
     );
 
+  }
+
+  updateCountModel(data:any) {
+    var _jobId = this.jobId;
+    var item = data.data.postedJobs.filter(function(item:any) { return (item._id == _jobId)});
+    for(let candidateItem of item[0].candidate_list) {
+      if (candidateItem.name == ValueConstant.APPLIED_CANDIDATE) {
+        this.recuirterListCountModel.numberOfCandidatesApplied = candidateItem.ids.length;
+      }
+      if (candidateItem.name == ValueConstant.CART_LISTED_CANDIDATE) {
+        this.recuirterListCountModel.numberOfCandidatesInCart = candidateItem.ids.length;
+      }
+      if (candidateItem.name == ValueConstant.REJECTED_LISTED_CANDIDATE) {
+        this.recuirterListCountModel.numberOfCandidatesrejected = candidateItem.ids.length;
+      }
+    }
   }
 
 

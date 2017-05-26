@@ -90,7 +90,7 @@ export class RecruiterDashboardComponent implements OnInit {
      }*/
   }
 
-  rejectedCandidates() {
+  /*rejectedCandidates() {
     this.buttonModel.isShowViewProfileButton = true;
 
     this.buttonModel.isShowRemoveButton = true;
@@ -128,7 +128,7 @@ export class RecruiterDashboardComponent implements OnInit {
         });
     this.newrejectedCandidatesIDS = [];
 
-  }
+  }*/
 
   showAllJobs() {
     this.qCardFilterService.clearFilter();
@@ -137,7 +137,7 @@ export class RecruiterDashboardComponent implements OnInit {
     this.getRecruiterData();
   }
 
-  appliedCandidates() {
+  /*appliedCandidates() {
     this.buttonModel.isShowViewProfileButton = true;
     this.buttonModel.isShowRejectButton = true;
     this.buttonModel.isShowAddToCartButton = true;
@@ -175,9 +175,9 @@ export class RecruiterDashboardComponent implements OnInit {
         });
 
     this.newappliedCandidatesIDS = [];
-  }
+  }*/
 
-  showMatchedCandidate() {
+  /*showMatchedCandidate() {
     this.showQCard = false;
     this.qCardFilterService.clearFilter();
     this.getRecruiterData();
@@ -191,7 +191,7 @@ export class RecruiterDashboardComponent implements OnInit {
         data => {
           this.candidates = data;
           console.log('q card data', this.candidates);
-          /*    this.matches = this.candidates.length*/
+          /!*    this.matches = this.candidates.length*!/
         });
     for (let item of this.removeFromlist) {
       for (let item2 of this.rejectedCandidatesIDS) {
@@ -229,9 +229,9 @@ export class RecruiterDashboardComponent implements OnInit {
 
     this.newSearchListlist = [];
 
-  }
+  }*/
 
-  showShortlistedCandidate() {
+ /* showShortlistedCandidate() {
     this.buttonModel.isShowRemoveButton = true;
     this.buttonModel.isShowViewFullProfileButton = false;
     this.buttonModel.isShowRejectButton = true;
@@ -268,7 +268,7 @@ export class RecruiterDashboardComponent implements OnInit {
 
         });
     this.newcandidateIDS = [];
-  }
+  }*/
 
   removeFromRejectedList(reject: any) {
     for (let item of  this.removerejectedList) {
