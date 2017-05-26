@@ -35,6 +35,9 @@ class CandidateRepository extends RepositoryBase<ICandidate> {
       }else{
         if(jobProfile.candidate_list){
           for(let list of jobProfile.candidate_list){
+            if(list.name == ConstVariables.SHORT_LISTED_CANDIDATE){
+              continue;
+            }
             if(list.ids.indexOf(candidate._id.toString())!=-1){
               isFound=true;
               break;
