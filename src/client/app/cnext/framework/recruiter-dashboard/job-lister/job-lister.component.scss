@@ -16,6 +16,7 @@ $theme-color: #3694d1;
       padding: 10px 10px 0;
       cursor: pointer;
       position: relative;
+      min-height: 135px;
 
       &:hover {
         .glyphicon-trash {

@@ -1,5 +1,5 @@
 <div class="dashboard-view clearfix"> <!--[hidden]="!isShowQCardView"-->
-  <header class="col-sm-12">
+  <header class="col-sm-12 q-card-header">
     <ul>
       <li>
         <div class="match-cases" *ngIf="type=='matchedList'">
@@ -116,21 +116,19 @@
                     (click)="actionOnQCard('remove','rejectedList','rejectedList',item)">Remove
             </button>
           </div>
-
-
       </div>
     </div>
   </div>
 </div>
 </div>
-<div *ngIf="type!='cartListed'"class="modal" [style.display]="getStyleModal()">
+<div *ngIf="type!='cartListed'"class="modal dashboard-modal" [style.display]="getStyleModal()">
   <div class="modal-bg">
     <div class="modal-dialog modal-md">
       <div class="modal-content">
         <div class="modal-body">
           <div class="row">
             <div class="col-sm-12" *ngIf="selectedCandidate != undefined" >
-              <div >
+              <div>
                 <h5>{{candidateDetails.first_name}}{{candidateDetails.last_name}}</h5>
                <!-- <h5>Contact:{{candidateDetails.mobile_number}}</h5>
                 <h5>Email:{{candidateDetails.email}}</h5>-->

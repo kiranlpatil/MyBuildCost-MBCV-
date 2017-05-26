@@ -1,7 +1,6 @@
 <cn-recruiter-header [headerInfo]="recruiterHeaderDetails" [jobCount]="recruiterDashboard.postedJobs.length" [companyName]="recruiterDashboard.company_name"></cn-recruiter-header>
 
 <div class="container-fluid profile-wrapper recruiter-profile-wrapper">
-  <div>
     <ul class="nav nav-tabs dashboard-tabs">
       <li class="active"><a data-toggle="tab" href="#posted-job">My Job Posts</a></li>
       <li><a data-toggle="tab" href="#post-new-job">Post New Job / Search</a></li>
@@ -11,25 +10,7 @@
         <div [hidden]="isJobSelected">
           <cn-job-lister [headerInfoForJob]="recruiterHeaderDetails" [jobListInput]="recruiterDashboard.postedJobs" (jobEventEmitter)="jobSelected($event)"></cn-job-lister>
         </div>
-       <!-- <div class="candidate-listing" [hidden]="!isJobSelected" >
-          <cn-filter [selectedJob]="selectedJobProfile" [role]=true></cn-filter>
-          <div class="col-sm-12 no-padding">
-            <button class="btn btn-back" (click)="showAllJobs()">All Jobs</button>
-            <div class="list-view"  *ngIf="selectedJobProfile!=undefined">
-              <div class="panel clearfix">
-                <ul>
-                  <li class="job-posted"><p><span>{{this.selectedJobProfile.numberOfCandidatesInList.cart}}</span></p></li>
-                  <li><h4>{{selectedJobProfile.jobTitle}}</h4><p>{{selectedJobProfile.department}}</p></li>
-                  <li class="contact-info">
-                    <p><img src="../../../../assets/c-next/post-job/calendar.png" alt="calendar"/>{{selectedJobProfile.postingDate | date:'mediumDate'}}</p>
-                  </li>
-                  <li class="contact-info">
-                    <p><img src="../../../../assets/c-next/post-job/contact-person.png" alt="Hiring Manager"/>{{selectedJobProfile.hiringManager}}</p>
-                  </li>
-                </ul>
-              </div>
-            </div>
-            <ul class="nav nav-tabs sub-tabs">
+            <!--<ul class="nav nav-tabs sub-tabs">
               <li class="active">
                 <a (click)="showMatchedCandidate()"  id="matched_anchor" data-toggle="tab" href="#matched"><span class="count"><span>{{this.selectedJobProfile.numberOfCandidatesInList.matched}}</span></span> Matched</a>
               </li>
@@ -65,8 +46,6 @@
             </div>
           </div>
         </div>-->
-      </div>
-
       <div id="post-new-job" class="tab-pane fade clearfix">
         <cn-job-poster></cn-job-poster>
       </div>

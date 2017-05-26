@@ -13,7 +13,7 @@ $border-light: #efefef;
 
 
 .profile-wrapper {
-  margin: 140px auto 15px;
+  margin: 95px auto 15px;
 
  /* .col-sm-3 {
     width: 25%;
@@ -139,7 +139,7 @@ $border-light: #efefef;
     background: $white;
     width: 100%;
     position: fixed;
-    top: 157px;
+    top: 156px;
     z-index: 999;
 
     a {
@@ -187,13 +187,13 @@ $border-light: #efefef;
   .q-card-header {
     background: $white;
     position: fixed;
-    top: 198px;
+    top: 197px;
     z-index: 999;
     padding: 4px 215px 4px 5px;
     border-bottom: 1px solid $border-light;
 
     ul {
-      margin-top: 7px;
+      margin-top: 0 !important;
     }
   }
 
@@ -228,7 +228,7 @@ $border-light: #efefef;
   }
 
   .candidate-listing {
-    padding: 100px 0 0 200px;
+    padding: 147px 0 0 200px;
   }
 }
 
