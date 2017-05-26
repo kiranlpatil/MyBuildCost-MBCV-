@@ -1,4 +1,4 @@
-import {Component, OnInit, Input} from "@angular/core";
+import {Component, OnInit, EventEmitter, Input, Output} from "@angular/core";
 import {MessageService} from "../../../framework/shared/message.service";
 import {CandidateProfileService} from "../candidate-profile/candidate-profile.service";
 import {Message} from "../../../framework/shared/message";
@@ -15,6 +15,7 @@ import {isUndefined} from "util";
 export class MoreAboutMyselfComponent implements OnInit {
   @Input() candidate:Candidate;
   @Input() highlightedSection:Section;
+  @Output() onComplete=new EventEmitter();
   private maxLength:number = 250;
   private reSize:string[];
   private spaceSplitedString:string[];
@@ -73,11 +74,7 @@ export class MoreAboutMyselfComponent implements OnInit {
       error => {
         console.log(error);
       });
-
-    if (this.candidate.aboutMyself !== " " && this.candidate.employmentHistory !== undefined &&
-      this.candidate.certifications !== undefined && this.candidate.academics !== undefined
-      && this.candidate.awards !== undefined) {
-    }
+    this.onComplete.emit(this.candidate.aboutMyself);
   }
 
 }

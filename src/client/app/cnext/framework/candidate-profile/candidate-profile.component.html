@@ -64,7 +64,7 @@
                    [hidden]="!showAwards"></cn-awards>
 
 
-        <cn-more-about-myself [candidate]="candidate" [highlightedSection]="highlightedSection" [hidden]="!showAboutMySelf"></cn-more-about-myself>
+        <cn-more-about-myself [candidate]="candidate" [highlightedSection]="highlightedSection" (onComplete)="onMoreAboutMySelfComplete($event)" [hidden]="!showAboutMySelf"></cn-more-about-myself>
 
 
         <div class="section-container" [hidden]="!showAboutMySelf">
@@ -75,14 +75,15 @@
                 below. You may also choose to show your profile later.</div>
               <div class="radio">
                 <!--<label>Profile Visibility:</label>-->
+
                 <label class="radio-inline">
-                  <input type="radio" name="profile-visibility" id="optionsRadios2"
-                         (change)="showorhide($event.target.value)" value=true [checked]="candidate.isVisible == false">
+                  <input type="radio" name="profile-visibility"
+                         (change)="showorhide('show',$event)" value=true [checked]="candidate.isVisible == true">
                   Show profile
                 </label>
                 <label class="radio-inline">
-                  <input type="radio" name="profile-visibility" id="optionsRadios3"
-                         (change)="showorhide($event.target.value)" value=false [checked]="candidate.isVisible == true">
+                  <input type="radio" name="profile-visibility"
+                         (change)="showorhide('hide',$event)" value=false [checked]="candidate.isVisible == false">
                   Hide profile
                 </label>
               </div>

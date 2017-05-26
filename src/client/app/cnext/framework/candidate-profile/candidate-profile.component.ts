@@ -210,6 +210,14 @@ export class CandidateProfileComponent implements OnInit {
     this.showAboutMySelf = true;
   }
 
+  onMoreAboutMySelfComplete(data:string){
+    console.log(data);
+    if(data != ''){
+      this.whichStepsVisible[6]=true;
+    }else{
+      this.whichStepsVisible[6]=false;
+    }
+  }
   getRoles() {
     this.profileCreatorService.getRoles(this.candidate.industry.name)
       .subscribe(
@@ -367,7 +375,7 @@ export class CandidateProfileComponent implements OnInit {
       this.showCertificationDetails = true;
       this.isHiddenCertificate = true;
     }
-    if (this.candidate.aboutMyself !== undefined && this.candidate.aboutMyself !== '') {
+    if (this.candidate.aboutMyself !== undefined && this.candidate.aboutMyself !== '') {debugger
       this.whichStepsVisible[6] = true;
       this.showAboutMySelf = true;
       this.isHiddenAboutMyself = true;
@@ -393,12 +401,17 @@ export class CandidateProfileComponent implements OnInit {
     return Math.floor(( Date.UTC(storedDate.getFullYear(), storedDate.getMonth(), storedDate.getDate()) - Date.UTC(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate())) / (1000 * 60 * 60 * 24));
   }
 
-  showorhide(event:string) {
-    this.valueOFshowOrHide = event;
-    if (event == "true") {
-      this.candidate.isVisible = true;
+  showorhide(type:string,event:any) {
+    if (type == "show") {
+      if(event.target.checked){
+        this.candidate.isVisible = true;
+      }
     } else {
-      this.candidate.isVisible = false;
+      if (type == "hide") {
+        if(event.target.checked){
+          this.candidate.isVisible = false;
+        }
+      }
     }
     this.saveCandidateDetails();
   }
