@@ -148,7 +148,7 @@ export class QCardviewComponent {
     this.qCardFilterService.clearFilter();
   }
 
-  matching(value: any) { debugger
+  matching(value: any) {
     this.matchFormat = value;
   }
   viewProfile(candidateid: string) {

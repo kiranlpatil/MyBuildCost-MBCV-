@@ -375,7 +375,7 @@ export class CandidateProfileComponent implements OnInit {
       this.showCertificationDetails = true;
       this.isHiddenCertificate = true;
     }
-    if (this.candidate.aboutMyself !== undefined && this.candidate.aboutMyself !== '') {debugger
+    if (this.candidate.aboutMyself !== undefined && this.candidate.aboutMyself !== '') {
       this.whichStepsVisible[6] = true;
       this.showAboutMySelf = true;
       this.isHiddenAboutMyself = true;

@@ -33,7 +33,7 @@ export class RecruiterDashboardComponent implements OnInit {
 
   ngOnInit() {
     this.activatedRoute.params.subscribe(params => {
-      this.tabName = params['id'];debugger
+      this.tabName = params['id'];
       if(this.tabName === 'post_new_job') {
         let matcheElement: any = document.getElementById('post_job');
         matcheElement.click();
