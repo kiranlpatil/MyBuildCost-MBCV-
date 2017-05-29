@@ -1,13 +1,10 @@
-
 import {Component, OnInit} from "@angular/core";
 import {Router, ActivatedRoute, Params} from '@angular/router';
 import {JobDashboardService} from "./job-dashboard.service";
 import {RecruiterJobView} from "../../model/recruiter-job-view";
 import {ValueConstant} from "../../../../framework/shared/constants";
-import {CandidateQCard} from "../../model/candidateQcard";
 import {CandidateQListModel} from "./q-cards-candidates";
 import {JobPosterModel} from "../../model/jobPoster";
-import {RecruiterHeaderDetails} from "../../model/recuirterheaderdetails";
 import {ReferenceService} from "../../model/newClass";
 
 @Component({
@@ -27,7 +24,10 @@ export class JobDashboardComponent implements OnInit {
   private whichListVisible : boolean[]= new Array(4);
   private candidateQlist : CandidateQListModel= new CandidateQListModel();
   private selectedJobProfile: JobPosterModel = new JobPosterModel();
-  constructor(public refrence:ReferenceService,private activatedRoute:ActivatedRoute,private jobDashboardService :JobDashboardService) {
+  constructor(public refrence:ReferenceService,
+              private activatedRoute:ActivatedRoute,
+              private jobDashboardService :JobDashboardService,
+              private _router : Router) {
 
   }
   ngOnInit() {
@@ -88,7 +88,7 @@ export class JobDashboardComponent implements OnInit {
     this.jobDashboardService.getSelectedListData(this.jobId, listName)
       .subscribe(
         (data: any) => {
-          switch (listName){
+          switch (listName) {
             case ValueConstant.CART_LISTED_CANDIDATE :
               this.candidateQlist.cartCandidates=data.data;
               this.whichListVisible[1]= true;
@@ -106,6 +106,16 @@ export class JobDashboardComponent implements OnInit {
               break;
           }
         });
+  }
+
+  navigateTo(navigateTo: string, item : string) {
+    if (navigateTo !== undefined ) {
+      if(item) {
+        this._router.navigate([navigateTo , item]);
+      }else {
+        this._router.navigate([navigateTo]);
+      }
+    }
   }
 
 
