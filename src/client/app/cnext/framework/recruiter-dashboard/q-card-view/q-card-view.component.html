@@ -44,7 +44,7 @@
             <span class="glyphicon glyphicon-star" *ngIf="emailsOfShrortListedCandidates.indexOf(item.email)==-1" (click)="addRemoveToShortList(item)" ></span>
             <span class="glyphicon glyphicon-star active-star" *ngIf="emailsOfShrortListedCandidates.indexOf(item.email)!=-1" (click)="addRemoveToShortList(item)" ></span>
           </li>
-          <li>
+          <li *ngIf="type=='cartListed' || type=='rejectedList'">
               <a (click)="actionOnQCard('remove','cartListed','cartListed',item)"  *ngIf="type=='cartListed'" ><img src="assets/c-next/card-view/close-red.png" /></a>
               <a (click)="actionOnQCard('remove','rejectedList','rejectedList',item)"  *ngIf="type=='rejectedList'" ><img src="assets/c-next/card-view/close-red.png" /></a>
           </li>
