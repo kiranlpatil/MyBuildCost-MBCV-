@@ -79,7 +79,7 @@
         </div>
         <div class="button-group" *ngIf="type=='matchedList'">
           <div class="col-sm-6 padding-right5">
-            <button class="btn btn-cart btn-block" type="button" (click)="viewProfile(item._id)">View</button>
+            <button class="btn btn-cart btn-block" type="button" (click)="viewProfile(item)">View</button>
           </div>
           <div class="col-sm-6 padding-left5">
             <button class="btn btn-cart btn-block" type="button"
@@ -89,7 +89,7 @@
         </div>
         <div class="button-group" *ngIf="type=='cartListed'" >
           <div class="col-sm-12 no-padding">
-            <button class="btn btn-cart btn-block" type="button" (click)="viewProfile(item._id)">View</button>
+            <button class="btn btn-cart btn-block" type="button" (click)="viewProfile(item)">View</button>
           </div>
           <!--<div class="col-sm-6 padding-left5">
             <button class="btn btn-cart btn-block" type="button"
@@ -104,7 +104,7 @@
         </div>
         <div class="button-group" *ngIf="type=='applied'">
           <div class="col-sm-6 padding-right5">
-            <button class="btn btn-cart btn-block" type="button" (click)="viewProfile(item._id)">View</button>
+            <button class="btn btn-cart btn-block" type="button" (click)="viewProfile(item)">View</button>
           </div>
           <div class="col-sm-6 padding-left5">
             <button class="btn btn-cart btn-block" type="button"
@@ -114,7 +114,7 @@
         </div>
         <div class="button-group" *ngIf="type=='rejectedList'">
           <div class="col-sm-12 no-padding">
-            <button class="btn btn-cart btn-block" type="button" (click)="viewProfile(item._id)">View</button>
+            <button class="btn btn-cart btn-block" type="button" (click)="viewProfile(item)">View</button>
           </div>
         </div>
     </div>
@@ -142,11 +142,11 @@
             </div>
           </div>
           <div class="button-group" *ngIf="type=='applied'">
-            <button class="btn btn-default" (click)="actionOnQCard('add','applied','cartListed',selectedCandidate)">Add To Cart</button>
-            <button class="btn btn-default" (click)="actionOnQCard('add','applied','rejectedList', selectedCandidate)">Reject</button>
+            <button class="btn btn-default" (click)="actionOnQCard('add','applied','cartListed',modelCandidate)">Add To Cart</button>
+            <button class="btn btn-default" (click)="actionOnQCard('add','applied','rejectedList', modelCandidate)">Reject</button>
           </div>
           <div class="button-group" *ngIf="type=='matchedList'">
-            <button class="btn btn-default" (click)="actionOnQCard('add','matchedList','rejectedList', selectedCandidate)">Reject</button>
+            <button class="btn btn-default" (click)="actionOnQCard('add','matchedList','rejectedList', modelCandidate)">Reject</button>
           </div>
         </div>
       </div>
@@ -167,7 +167,7 @@
             <cn-candidate-view [candidateId]="selectedCandidate._id"></cn-candidate-view>
           </div>
           <div class="button-group" >
-            <button class="btn btn-default" (click)="actionOnQCard('add','cartListed','rejectedList', selectedCandidate)">Reject</button>
+            <button class="btn btn-default" (click)="actionOnQCard('add','cartListed','rejectedList', modelCandidate)">Reject</button>
           </div>
         </div>
       </div>

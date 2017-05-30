@@ -29,7 +29,6 @@ export class QCardviewComponent {
   @Input() jobId: string;
   @Input() type: string;
   @Output() addedTocart: EventEmitter<any> = new EventEmitter<any>();
-  @Output() removeFromapplied: EventEmitter<any> = new EventEmitter<any>();
   private emailsOfShrortListedCandidates: string[] = new Array(0)
   private qCardModel: QCardsortBy = new QCardsortBy();
   private totalQCardMatches = {count: 0};
@@ -38,6 +37,7 @@ export class QCardviewComponent {
   private filterMeta: QCardFilter;
   private matchFormat: string = 'aboveMatch';
   private selectedCandidate: Candidate = new Candidate();
+  private modelCandidate: CandidateQCard = new CandidateQCard();
   private candidateDetails: CandidateDetail = new CandidateDetail();
   private showModalStyle: boolean = false;
   private isAlreadyPresentInCart: boolean = false;
@@ -79,14 +79,16 @@ export class QCardviewComponent {
     let isMatchList: boolean = false;
     switch (sourceListName) {
       case ValueConstant.APPLIED_CANDIDATE :
-        if(destinationListName===ValueConstant.REJECTED_LISTED_CANDIDATE)
+/*
        this.candidateQlist.appliedCandidates.splice(this.candidateQlist.appliedCandidates.indexOf(candidate), 1);
+*/
 
         break;
       case ValueConstant.REJECTED_LISTED_CANDIDATE :
         this.candidateQlist.rejectedCandidates.splice(this.candidateQlist.rejectedCandidates.indexOf(candidate), 1);
         break;
       case ValueConstant.CART_LISTED_CANDIDATE :
+        console.log(this.candidateQlist.cartCandidates);
         this.candidateQlist.cartCandidates.splice(this.candidateQlist.cartCandidates.indexOf(candidate), 1);
         console.log(this.candidateQlist.cartCandidates.indexOf(candidate));
         break;
@@ -135,8 +137,7 @@ export class QCardviewComponent {
 
       if (sourceListName === ValueConstant.CART_LISTED_CANDIDATE && (destinationListName=== ValueConstant.CART_LISTED_CANDIDATE|| destinationListName === ValueConstant.REJECTED_LISTED_CANDIDATE))
         this.addedTocart.emit(false);
-    if (sourceListName ===ValueConstant.APPLIED_CANDIDATE &&  destinationListName === ValueConstant.REJECTED_LISTED_CANDIDATE)
-      this.addedTocart.emit(false);
+
   }
 
   addRemoveToShortList(candidate: CandidateQCard) {
@@ -181,8 +182,9 @@ export class QCardviewComponent {
   matching(value: any) {
     this.matchFormat = value;
   }
-  viewProfile(candidateid: string) {
-    this.profileCreatorService.getCandidateDetailsOfParticularId(candidateid).subscribe(
+  viewProfile(candidate: CandidateQCard) {
+    this.modelCandidate=candidate;
+    this.profileCreatorService.getCandidateDetailsOfParticularId(candidate._id).subscribe(
       candidateData => this.OnCandidateDataSuccess(candidateData));
 
   }
