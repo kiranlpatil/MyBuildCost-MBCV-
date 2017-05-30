@@ -4,12 +4,12 @@
       <li>
         <div class="match-cases" *ngIf="type=='matchedList'">
           <label class="radio-inline">
-            <input  type="radio" name="radiogroup" value="{{match.aboveMatch}}" (click)="matching($event.target.value)" checked="checked">Exact Match or Higher Capabilities
-            <span></span>
+            <input  type="radio" name="radiogroup" value="{{match.aboveMatch}}" (click)="matching($event.target.value)" checked="checked">
+            <span>Exact Match or Higher Capabilities</span>
           </label>
           <label class="radio-inline">
-            <input  type="radio" name="radiogroup" value="{{match.belowMatch}}" (click)="matching($event.target.value)">With One Level Lower Capabilities
-            <span></span>
+            <input  type="radio" name="radiogroup" value="{{match.belowMatch}}" (click)="matching($event.target.value)">
+            <span>With One Level Lower Capabilities</span>
           </label>
         </div>
       </li>
@@ -121,6 +121,7 @@
   </div>
 </div>
 </div>
+
 <div *ngIf="type!='cartListed'"class="modal dashboard-modal" [style.display]="getStyleModal()">
   <div class="modal-bg">
     <div class="modal-dialog modal-md">
@@ -129,16 +130,14 @@
           <div class="modal-header">
             <img src="assets/framework/images/dashboard/profile.png" />
             <h5>{{candidateDetails.first_name}} {{candidateDetails.last_name}}</h5>
-            <img src="/assets/c-next/card-view/close-grey.png" (click)="closeJob()" class="close"/>
+            <img src="/assets/c-next/card-view/close-white.png" (click)="closeJob()" class="close"/>
           </div>
-          <div class="row">
-            <div class="col-sm-12" *ngIf="selectedCandidate != undefined" >
-              <div>
-               <!-- <h5>Contact:{{candidateDetails.mobile_number}}</h5>
-                <h5>Email:{{candidateDetails.email}}</h5>-->
-                  <div *ngIf="selectedCandidate.industry != undefined ">
-                  <cn-tabular-list-view [roles]="selectedCandidate.industry.roles"></cn-tabular-list-view>
-                </div>
+          <div class="col-sm-12" *ngIf="selectedCandidate != undefined" >
+            <div>
+             <!-- <h5>Contact:{{candidateDetails.mobile_number}}</h5>
+              <h5>Email:{{candidateDetails.email}}</h5>-->
+                <div *ngIf="selectedCandidate.industry != undefined ">
+                <cn-tabular-list-view [roles]="selectedCandidate.industry.roles"></cn-tabular-list-view>
               </div>
             </div>
           </div>
@@ -149,7 +148,6 @@
           <div class="button-group" *ngIf="type=='matchedList'">
             <button class="btn btn-default" (click)="actionOnQCard('add','matchedList','rejectedList', selectedCandidate)">Reject</button>
           </div>
-
         </div>
       </div>
     </div>
