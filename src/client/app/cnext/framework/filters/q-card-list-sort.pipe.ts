@@ -34,9 +34,9 @@ export class QCardListSortPipe implements PipeTransform {
     }
     if (args === 'Salary') {
       array.sort((a: CandidateQCard, b: CandidateQCard) => {
-        if (Number(a.salary.split(" ")[0]) < Number(b.salary.split(" ")[0])) {
+        if (Number(a.salary.split(" ")[0]) > Number(b.salary.split(" ")[0])) {
           return -1;
-        } else if (Number(a.salary.split(" ")[0]) > Number(b.salary.split(" ")[0])) {
+        } else if (Number(a.salary.split(" ")[0]) < Number(b.salary.split(" ")[0])) {
           return 1;
         } else {
           return 0;

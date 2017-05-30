@@ -87,11 +87,7 @@ export class JobDashboardComponent implements OnInit {
     if(event==false)
       this.headerInfo.totalNumberOfCandidateInCart-=1;
   }
-  RemovedFromApplied(event:any){
-    if(event==true)
-      this.headerInfo.totalNumberOfCandidatesApplied-=1;
 
-    }
 
   getSelectedListData(listName : string) {
     for(let i=0;i< this.whichListVisible.length;i++){
