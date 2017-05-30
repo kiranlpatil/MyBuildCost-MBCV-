@@ -11,6 +11,7 @@ import {RecruiterJobView} from "../../model/recruiter-job-view";
 import {Candidate} from "../../model/candidate";
 import {CandidateDetail} from "../../../../framework/registration/candidate/candidate";
 import {CandidateProfileService} from "../../candidate-profile/candidate-profile.service";
+/*import underline = Chalk.underline;*/
 
 
 @Component({
@@ -39,6 +40,7 @@ export class QCardviewComponent {
   private selectedCandidate: Candidate = new Candidate();
   private candidateDetails: CandidateDetail = new CandidateDetail();
   private showModalStyle: boolean = false;
+  private isAlreadyPresentInCart: boolean = false;
 
 
   constructor(private qCardFilterService: QCardFilterService,
@@ -77,7 +79,8 @@ export class QCardviewComponent {
     let isMatchList: boolean = false;
     switch (sourceListName) {
       case ValueConstant.APPLIED_CANDIDATE :
-        this.candidateQlist.appliedCandidates.splice(this.candidateQlist.appliedCandidates.indexOf(candidate), 1);
+      /*  this.candidateQlist.appliedCandidates.splice(this.candidateQlist.appliedCandidates.indexOf(candidate), 1);*/
+
         break;
       case ValueConstant.REJECTED_LISTED_CANDIDATE :
         this.candidateQlist.rejectedCandidates.splice(this.candidateQlist.rejectedCandidates.indexOf(candidate), 1);
@@ -94,7 +97,7 @@ export class QCardviewComponent {
         isMatchList = true;
         break;
     }
-    if (action == "add" && !isMatchList) {
+    if (action == "add" && !isMatchList &&  sourceListName!=ValueConstant.APPLIED_CANDIDATE) {
       this.qCardViewService.updateCandidateLists(this.jobId, candidate._id, sourceListName, "remove").subscribe(
         data => {
           this.updateCountModel(data);
@@ -109,17 +112,30 @@ export class QCardviewComponent {
       }
     );
     this.showModalStyle = false;
-    if (destinationListName === ValueConstant.CART_LISTED_CANDIDATE && ( sourceListName === ValueConstant.MATCHED_CANDIDATE || sourceListName === ValueConstant.APPLIED_CANDIDATE )){
-      this.addedTocart.emit(true);
-    if( sourceListName === ValueConstant.APPLIED_CANDIDATE){
-      this.removeFromapplied.emit(true);
-    }}
 
+    if (destinationListName === ValueConstant.CART_LISTED_CANDIDATE && ( sourceListName === ValueConstant.MATCHED_CANDIDATE || sourceListName === ValueConstant.APPLIED_CANDIDATE )){
+
+      for(let candidateInApplied of this.candidateQlist.appliedCandidates){
+      for(let candidateInCart  of this.candidateQlist.cartCandidates){
+          if(candidateInApplied._id===candidateInCart._id ){
+            this.isAlreadyPresentInCart=true;
+          }
+        }
+      }
+      if(!this.isAlreadyPresentInCart)
+      this.addedTocart.emit(true);
+
+      this.isAlreadyPresentInCart=false;
+    }
+
+    if(destinationListName === ValueConstant.CART_LISTED_CANDIDATE &&  sourceListName === ValueConstant.APPLIED_CANDIDATE)
+      this.candidateQlist.cartCandidates.push(candidate);
 
       if (sourceListName === ValueConstant.CART_LISTED_CANDIDATE && (destinationListName=== ValueConstant.CART_LISTED_CANDIDATE|| destinationListName === ValueConstant.REJECTED_LISTED_CANDIDATE))
         this.addedTocart.emit(false);
 
   }
+
   addRemoveToShortList(candidate: CandidateQCard) {
     let action: string;
     (this.emailsOfShrortListedCandidates.indexOf(candidate.email) != -1) ? action = 'remove' : action = 'add';

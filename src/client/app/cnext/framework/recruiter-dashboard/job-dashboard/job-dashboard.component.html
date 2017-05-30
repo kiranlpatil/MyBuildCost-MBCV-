@@ -60,7 +60,7 @@
       <cn-q-card-view (addedTocart)="AddedToCart($event)" *ngIf="whichListVisible[1]" [candidateQlist]="candidateQlist" [candidates]="candidateQlist.cartCandidates" [type]="'cartListed'" [jobId]="jobId" [recuirterListCountModel]="recruiterJobView"></cn-q-card-view>
     </div>
     <div  id="applied" class="tab-pane fade" >
-      <cn-q-card-view (addedTocart)="AddedToCart($event)"(removeFromapplied)="RemovedFromApplied($event)"  *ngIf="whichListVisible[2]" [candidateQlist]="candidateQlist" [candidates]="candidateQlist.appliedCandidates" [type]="'applied'" [jobId]="jobId" [recuirterListCountModel]="recruiterJobView"></cn-q-card-view>
+      <cn-q-card-view (addedTocart)="AddedToCart($event)"  *ngIf="whichListVisible[2]" [candidateQlist]="candidateQlist" [candidates]="candidateQlist.appliedCandidates" [type]="'applied'" [jobId]="jobId" [recuirterListCountModel]="recruiterJobView"></cn-q-card-view>
     </div>
     <div  id="rejected"  class="tab-pane fade">
       <cn-q-card-view  (addedTocart)="AddedToCart($event)" *ngIf="whichListVisible[3]" [candidateQlist]="candidateQlist" [candidates]="candidateQlist.rejectedCandidates" [type]="'rejectedList'" [jobId]="jobId" [recuirterListCountModel]="recruiterJobView"></cn-q-card-view>
