@@ -68,6 +68,22 @@ class RecruiterRepository extends RepositoryBase<IRecruiter> {
                   }
                 }
               }
+             /* for (let job_item of job_selected_complexity) {
+                for (let candi_item of candidate_selected_complexity) {
+                  if (job_item.substr(0, job_item.lastIndexOf(".")) == candi_item.substr(0, candi_item.lastIndexOf("."))) {
+                    let job_last_digit:number = Number(job_item.substr(job_item.lastIndexOf(".") + 1));
+                    let candi_last_digit:number = Number(candi_item.substr(candi_item.lastIndexOf(".") + 1));
+                    if (job_last_digit == candi_last_digit + 10) {
+                      job_qcard.below_one_step_matching += 10;
+                    } else if (job_last_digit == candi_last_digit - 10) {
+                      job_qcard.above_one_step_matching += 10;
+                    } else if (job_last_digit == candi_last_digit) {
+                      job_qcard.exact_matching += 10;
+                    }
+                    break;
+                  }
+                }
+              }*/
               job_qcard.above_one_step_matching = (job_qcard.above_one_step_matching / job_selected_complexity.length) * 100;
               job_qcard.below_one_step_matching= (job_qcard.below_one_step_matching/ job_selected_complexity.length) * 100;
               job_qcard.exact_matching = (job_qcard.exact_matching / job_selected_complexity.length) * 100;

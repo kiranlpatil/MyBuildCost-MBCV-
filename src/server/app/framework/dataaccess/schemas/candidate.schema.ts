@@ -71,10 +71,12 @@ class CandidateSchema {
             isPrimary : Boolean,
             isSecondary : Boolean
           }],
-          secondaryCapabilities:[{
+          default_complexities: [{
             complexities: [{
               scenarios: [{
-                name: String
+                isChecked : Boolean,
+                name: String,
+                code : String
               }],
               name: String
             }],

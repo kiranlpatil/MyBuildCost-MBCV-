@@ -89,6 +89,17 @@ class RecruiterSchema {
                   name: String,
                   isPrimary : Boolean,
                   isSecondary : Boolean
+                }],
+                default_complexities: [{
+                  complexities: [{
+                    scenarios: [{
+                      name: String,
+                      isChecked : Boolean,
+                      code: String
+                    }],
+                    name: String
+                  }],
+                  name: String
                 }]
               }]
             },
