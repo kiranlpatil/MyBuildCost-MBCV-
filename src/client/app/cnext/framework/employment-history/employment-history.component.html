@@ -12,7 +12,7 @@
              class="panel panel-default">
           <div>
           <span class="glyphicon glyphicon-trash pull-right"
-                *ngIf="i > 0"
+                *ngIf="employeeHistory.controls.emplyeeHistories.controls.length>0 && employeeHistory.controls.emplyeeHistories.controls.length !==1 "
                 (click)="removeEmployeeHistory(i)"></span>
           </div>
           <div class="panel-body" [formGroupName]="i">
@@ -27,11 +27,13 @@
         </button>
       </div>
       <div class="button-group clearfix">
-        <button class="btn btn-default"  (click)="highlightedSection.name='none';highlightedSection.isDisable=false" [hidden]="showButton " [disabled]="employeeHistory.valid" >Cancel</button>
+        <button class="btn btn-default"  (click)="highlightedSection.name='none';highlightedSection.isDisable=false" [hidden]="showButton">Cancel</button>
         <button type="submit" class="btn btn-primary" scrollTo scrollTargetSelector="#academic-details"
-                (click)="postData()" [disabled]="!employeeHistory.valid" [hidden]="!showButton">Next
+                (click)="postData('next')" [disabled]="!employeeHistory.valid"  [hidden]="!showButton">Next
         </button>
-        <button class="btn btn-primary"  (click)="onSave()" [disabled]="!employeeHistory.valid" [hidden]="showButton">Save</button>
+        <button type="submit" class="btn btn-primary" (click)="postData('save')" [disabled]="!employeeHistory.valid"
+                [hidden]="showButton">Save
+        </button>
       </div>
       <div class="clearfix"></div>
     </form>
