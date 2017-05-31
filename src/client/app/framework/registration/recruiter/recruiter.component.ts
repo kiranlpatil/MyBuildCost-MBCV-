@@ -116,6 +116,7 @@ export class RecruiterComponent implements OnInit {
     this.model.company_size=this.storedcompanySize;
     this.model.company_headquarter_country =this.companyHeadquarter;
     this.model.isRecruitingForself =this.isRecruitingForself;
+    this.model.email = this.model.email.toLowerCase();
     console.log(this.model);
     if (!this.makePasswordConfirm()) {
       this.isFormSubmitted = true;

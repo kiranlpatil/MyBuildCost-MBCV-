@@ -1,4 +1,4 @@
-import {Component, Input, EventEmitter, Output} from "@angular/core";
+import {Component, Input, EventEmitter, Output, OnInit} from "@angular/core";
 import {Section} from "../model/candidate";
 import {JobPosterModel} from "../model/jobPoster";
 import {ValueConstant} from "../../../framework/shared/constants";
@@ -12,7 +12,7 @@ import {ValueConstant} from "../../../framework/shared/constants";
   styleUrls: ['job-proficiencies.component.css']
 })
 
-export class JobProficienciesComponent {
+export class JobProficienciesComponent implements OnInit {
   @Input() jobPosterModel:JobPosterModel;
   @Input() highlightedSection:Section;
   @Input() proficiencies:string[];
@@ -22,7 +22,7 @@ export class JobProficienciesComponent {
   private maxNumberOfMandatory:number;
   private maxNumberOfAdditional:number;
 
-  ngOnInit(){
+  ngOnInit() {
     this.maxNumberOfMandatory=ValueConstant.MAX_MANDATORY_PROFECIENCES;
     this.maxNumberOfAdditional=ValueConstant.MAX_ADDITIONAL_PROFECIENCES;
   }
