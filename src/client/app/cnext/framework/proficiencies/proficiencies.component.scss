@@ -12,10 +12,16 @@ $message: #00aed5;
 }
 
 .compact-view {
+  width: 75%;
+
   &:hover {
     .btn-edit {
       opacity: 1;
     }
+  }
+
+  .option {
+    padding: 0;
   }
 }
 

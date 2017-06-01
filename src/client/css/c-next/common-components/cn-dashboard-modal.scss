@@ -1,3 +1,6 @@
+$theme-color: #3694d1;
+$white: #fff;
+
 .dashboard-modal {
 
   .modal-dialog {
@@ -6,7 +9,7 @@
     top: 50%;
     -webkit-transform: translate(0, -50%) !important;
     transform: translate(-50%, -50%) !important;
-    border-radius: 8px;
+    border-radius: 0;
     position: fixed;
     margin: 0 auto;
     left: 50%;
@@ -14,22 +17,23 @@
 
   .modal-body {
     padding: 0;
-    border-radius: 8px;
+    border-radius: 0;
     position: relative;
-    margin-top: 20px;
+    margin-top: 0;
   }
 
   .modal-header {
     position: fixed;
-    top: 0;
+    top: -29px;
     left: 0;
-    background: #f2f2f2;
+    background: $theme-color;
     z-index: 100;
     right: 0;
-    margin: 0 8px;
-    border-radius: 8px 8px 0 0;
+    margin: 0 7px;
+    border-radius: 0;
     box-sizing: border-box;
-    padding: 5px 15px;
+    padding: 5px 15px 5px 0;
+    border-bottom: 1px solid $theme-color;
 
     img {
       width: 30px;
@@ -42,14 +46,16 @@
       margin: 0;
       padding: 5px 15px;
       text-align: left;
-      font-size: 16px;
+      color: $white;
+      font-size: 14px;
     }
 
     h4 {
       margin: 0;
       padding: 5px 15px;
       text-align: left;
-      font-size: 16px;
+      color: $white;
+      font-size: 14px;
     }
 
     .close {
@@ -65,26 +71,30 @@
   .modal-content {
     height: 100%;
     overflow: auto;
-    border-radius: 8px;
+    border-radius: 0;
+    border: 1px solid $white;
+    padding: 15px 0;
+    background: $white;
   }
 
   .button-group {
     display: block;
     position: fixed;
-    bottom: -8px;
+    bottom: -7px;
     right: 0;
-    background: #f2f2f2;
+    background: $white;
     z-index: 100;
     margin: 0 8px;
-    border-radius: 0 0 8px 8px;
+    border-radius: 0;
     box-sizing: border-box;
     padding: 5px 15px;
     width: auto;
+    margin-left: 233px;
     text-align: right;
 
     button {
       display: inline-block;
-      border-radius: 0;
+      border-radius: 25px;
     }
 
     button:nth-child(1){
@@ -100,12 +110,32 @@
   .vertical-view {
     ul {
       li::before {
-        border: 5px solid #f2f2f2 !important;
+        border: 5px solid $white !important;
       }
     }
   }
 
   .one-page-summary {
     margin-top: 0;
+    p {
+      text-align: left;
+    }
+
+    .left-content {
+      background: #f0f5f7;
+      position: fixed;
+      height: 100%;
+      top: 7px;
+      left: 7px;
+      overflow: auto;
+      width: 225px;
+      padding: 15px;
+      z-index: 1;
+    }
+
+    .right-content {
+      width: 100%;
+      padding-left: 240px;
+    }
   }
 }

@@ -32,7 +32,7 @@ export class EmploymentHistoryComponent {
     });
 
     // add address
-    this.addEmployeeHistory();
+    //this.addEmployeeHistory();
 
     //subscribe to addresses value changes
     this.employeeHistory.controls['emplyeeHistories'].valueChanges.subscribe(x => {
@@ -57,8 +57,23 @@ export class EmploymentHistoryComponent {
         console.log(this.employeeHistory.value);
         this.emphis.emplyeeHistories = this.candidate.employmentHistory;
         console.log(this.emphis);
-        (<FormGroup>this.employeeHistory)
-          .patchValue(this.emphis);
+        /*for (let item of this.candidate.employmentHistory) {
+          this.form.controls['students'].push(new FormControl('This will not show'));
+          this.employeeHistory
+            .patchValue(this.emphis);
+          console.log(this.employeeHistory.value)
+        }*/
+
+        let controlArray = <FormArray>this.employeeHistory.controls['emplyeeHistories'];
+        this.candidate.employmentHistory.forEach(item => {
+          const fb = this.initEmployeeHistory();
+          fb.patchValue(item);
+          controlArray.push(fb);
+        });
+        if(!this.candidate.employmentHistory) {
+          this.addEmployeeHistory();
+        }
+
       }
     }
   }
@@ -99,14 +114,19 @@ export class EmploymentHistoryComponent {
     console.log(model);
   }
 
-  postData() {
+  postData(type:string) {
     console.log(this.employeeHistory);
     this.candidate.employmentHistory = this.employeeHistory.value.emplyeeHistories;
     console.log(this.candidate.employmentHistory);
     this.profileCreatorService.addProfileDetail(this.candidate).subscribe(
       user => {
         console.log(user);
-        this.onNext();
+        if(type=='next'){
+          this.onNext();
+        }
+        else if(type== 'save'){
+          this.onSave()
+        }
       });
   }
 
@@ -114,14 +134,12 @@ export class EmploymentHistoryComponent {
     this.onComplete.emit();
     this.highlightedSection.name = "AcademicDetails";
     this.highlightedSection.isDisable=false;
-
   }
   onSave() {
     this.onComplete.emit();
     this.highlightedSection.name = "none";
     this.highlightedSection.isDisable=false;
   }
-
   hideEmployeeHistory() {
     this.chkEmployeeHistory = true;
     this.onNext();

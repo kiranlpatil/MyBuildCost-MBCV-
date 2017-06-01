@@ -12,6 +12,6 @@ export class CandidateDetail {
   pin:string='';
   location :Location;
   current_theme : string;
-  picture : string="assets/framework/images/dashboard/profile.png";
+  picture : string="assets/framework/images/dashboard/default-profile.png";
   social_profile_picture : string;
 }

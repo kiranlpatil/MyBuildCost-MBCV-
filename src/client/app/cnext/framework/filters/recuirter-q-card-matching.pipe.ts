@@ -16,6 +16,15 @@ export class RecuirterQCardMatchingPipe implements PipeTransform {
     if(cartType =='matchedList') {
       if (args == 'aboveMatch') {
         result = array.filter(item => ((item.exact_matching + item.above_one_step_matching) >= defaultMatch));
+        result.sort((a: CandidateQCard, b: CandidateQCard) => {
+          if (Number(a.exact_matching+a.above_one_step_matching) > Number(b.exact_matching+b.above_one_step_matching)) {
+            return -1;
+          } else if (Number(a.exact_matching+a.above_one_step_matching) < Number(b.exact_matching+b.above_one_step_matching)) {
+            return 1;
+          } else {
+            return 0;
+          }
+        });
         totalQCardMatches.count = result.length;
         return result;
       }

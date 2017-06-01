@@ -22,19 +22,37 @@ $primary-option: #1c75bd;
 }
 
 .compact-view {
-  min-height: 107px;
-
-  &:hover {
-    .btn-edit {
-      opacity: 1;
-    }
-  }
-
   .option {
-    li {
+    padding: 0;
+  }
+}
+
+.work-area-section {
+  position: absolute;
+  top: 90px;
+  left: 142px;
+  width: 39%;
+
+  .main-content {
+    padding-left: 7px;
+    padding-top: 7px;
+    background: transparent;
+
+    .compact-view {
+      border: 0;
+      padding: 0;
+    }
+
+    .option {
       width: 100%;
+      display: block;
     }
   }
+}
+
+.recruite-view {
+  width: 50%;
+  float: left;
 }
 
 @media screen and (max-width: 767px) {

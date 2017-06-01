@@ -79,11 +79,16 @@ export class BasicJobInformationComponent {
 
   onNext() {
     this.jobPosterModel=this.jobPostForm.value;
-    this.jobPosterModel.industry=this.storedIndustry;
+    if(this.storedIndustry){
+      this.jobPosterModel.industry=this.storedIndustry;
+    }
     this.jobPosterModel.location=this.storedLoaction;
-    console.log(this.jobPosterModel);
-    this.highlightedSection.name = "Work-Area";
-    this.onComplete.emit(this.jobPosterModel);
+     if(this.jobPosterModel.industry){
+       this.highlightedSection.name = "Work-Area";
+       this.onComplete.emit(this.jobPosterModel);
+    }else{
+      this.jobPosterModel.industry = new Industry();
+    }
   }
 }
 

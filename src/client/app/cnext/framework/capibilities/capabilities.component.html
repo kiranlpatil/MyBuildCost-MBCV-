@@ -1,23 +1,16 @@
 <div class="section-container clear clearfix" *ngIf="highlightedSection.name=='Capabilities'">
   <div class="main-content clearfix modal-content" >
-    <h4 class="heading">Choose Your Capabilities (Max 10)</h4>
+    <h4 class="heading">Choose Your Capabilities</h4>
 
     <div class="clearfix">
       <div class="capabilities col-sm-12">
-        <div class="info">
-          <ul>
-            <li>Select those capabilities which describe what you are best at or where you would
-              like to position your career. </li>
-            <li> Selecting too many capabilities would dilute the matching and alignment with
-              the best job opportunity.</li>
-            <li>Hence you should select maximum 10 primary
-          capabilities.You may additionally select upto 10 secondary capabilities.</li>
-          </ul>
-        </div>
-        <p class="legends">
+        <p class="info">
+          Select those capabilities which describe what you are best at or where you would like to position your career.
+        </p>
+        <!--<p class="legends">
           <span class="color-panel primary-color"></span>Primary
           <span class="color-panel secondary-color"></span>Secondary
-        </p>
+        </p>-->
         <div class="capability-type max-height">
           <span class="capability-option" *ngFor="let role of roles">
             <div class="select-option"
@@ -44,20 +37,26 @@
   </div>
 </div>
 
-<!--[ngClass]="(highlightedSection.sectionName=='capability')?'col-sm-12':'col-sm-6'" -->
+<!-- -->
 
-<div class="section-container clear clearfix"  *ngIf="highlightedSection.name!='Capabilities'">
+<div class="section-container" [ngClass]="(highlightedSection.name=='Work-Area' || highlightedSection.name=='Profile')?'full-width':'half-width'"  *ngIf="highlightedSection.name!='Capabilities'">
   <div class="main-content" >
     <div class="compact-view clearfix">
-      <button class="btn-edit" (click)="highlightedSection.name='Capabilities';highlightedSection.isDisable=true" [hidden]="highlightedSection.isDisable" ></button> <!--[hidden]="highlightedSection.isLocked"-->
+     <!--[hidden]="highlightedSection.isLocked"-->
       <!--
             <span class=" glyphicon glyphicon-lock" title="you can edit this field after {{highlightedSection.date| date:'mediumDate'}}" *ngIf="highlightedSection.isLocked"></span>
       -->
-      <h4 class="heading">Capabilities</h4>
-      <ul class="option" *ngFor="let role of roles;let i = index">
-        <li *ngFor="let item of role.capabilities">{{item.name}}</li>
-      </ul>
+      <h4 class="heading">Capabilities
+        <button class="btn-edit" (click)="highlightedSection.name='Capabilities';highlightedSection.isDisable=true" [hidden]="highlightedSection.isDisable" ></button>
+      </h4>
+
+      <span class="option" *ngFor="let role of roles;let i = index">
+        <span *ngFor="let item of role.capabilities">
+          {{item.name}}&nbsp;<span *ngIf="role.capabilities.length>1 && i!=role.capabilities.length -1">,</span>&nbsp;
+        </span>
+      </span>
     </div>
     <!-- <div [class.modal-bg]="highlightedSection.name!='Capabilities'"></div>-->
   </div>
 </div>
+<div class="clearfix divider clear"></div>

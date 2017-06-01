@@ -27,6 +27,17 @@ class IndustrySchema {
                 name: String
               }],
               name : String
+            }],
+            default_complexities: [{
+              complexities: [{
+                scenarios: [{
+                  name: String,
+                  isChecked : Boolean,
+                  code: String
+                }],
+                name: String
+              }],
+              name: String
             }]
           }],
           proficiencies : {

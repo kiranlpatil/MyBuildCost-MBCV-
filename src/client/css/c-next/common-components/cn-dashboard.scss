@@ -198,32 +198,30 @@ $border-light: #efefef;
   }
 
   .match-cases{
-    padding: 0;
+    padding: 0 4px 0 0;
     border: 1px solid $border-color;
+    height: 27px;
 
     label{
-      position: relative;
-      z-index: 2;
-      color: $text-color;
-      padding: 5px;
-      margin: 0;
+      color: #666;
+      padding: 0;
+      margin: 4px -4px 0 0;
     }
 
     input{
       display: none;
     }
 
-    input:checked + span{
-      box-shadow: 0 0 4px 0 #a5d6f7 inset, 0 0 1px 0 #a5d6f7;
-      position: absolute;
-      /* z-index: -1; */
+    input + span {
+      background: #f8fbfd;
       width: 100%;
       height: 100%;
-      left: 0;
-      top: 0;
-      /* display: inline-block; */
       padding: 5px;
-      color: $theme-color;
+    }
+
+    input:checked + span{
+      background: $theme-color;
+      color: $white;
     }
   }
 

@@ -76,7 +76,8 @@ export class CandidateComponent implements OnInit {
     this.model.current_theme = AppSettings.LIGHT_THEM;
     this.model.isCandidate = true;
     this.model.location = this.storedLoaction;
-    console.log(this.model);
+    this.model.email = this.model.email.toLowerCase();
+
     if (!this.makePasswordConfirm()) {
 
       this.isFormSubmitted = true;

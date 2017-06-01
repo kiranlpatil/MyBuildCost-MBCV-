@@ -16,7 +16,8 @@ var app = express();
 export function init(port: number, mode: string,protocol: string) {
 
   app.use(bodyParser.urlencoded({ extended: false }));
-  app.use(bodyParser.json());
+  app.use(bodyParser.json({limit: '40mb'}));
+  app.use(bodyParser.urlencoded({limit: '40mb', extended: true}));
   app.use(bodyParser.text());
   app.use(compression());
   app.use(cors());

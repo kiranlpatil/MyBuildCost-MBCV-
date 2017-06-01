@@ -1,6 +1,6 @@
 <div class="section-container">
   <div class="main-content clearfix modal-content" *ngIf="highlightedSection.name=='JobProfile'">
-    <form [formGroup]="jobPostForm" (ngSubmit)="onNext(jobPostForm.value)" novalidate>
+    <form [formGroup]="jobPostForm"  novalidate>
       <div class="job-info section-container clearfix">
         <div class="row">
           <div class="col-sm-4" >
@@ -57,7 +57,7 @@
             <label>Job Location</label>
             <control-messages [control]="jobPostForm.controls.location"></control-messages>
 
-            <input type="text" formControlName="location" class="form-control select"  placeholder="" (setAddress) = "getAddress($event)" mygoogleplace/>
+            <input type="text" formControlName="location" class="form-control"  placeholder="" (setAddress) = "getAddress($event)" mygoogleplace/>
 
           </div>
           </div>
@@ -70,7 +70,7 @@
         </div>
       </div>
       <div class="button-group clearfix">
-        <button type="submit" class="btn btn-primary" scrollTo scrollTargetSelector="#work-area" (click)="onNext()"
+        <button  class="btn btn-primary" scrollTo scrollTargetSelector="#work-area" (click)="onNext()"
                 [disabled]="!jobPostForm.valid">Next
         </button>
       </div>
@@ -79,7 +79,9 @@
 
   <div class="main-content" *ngIf="highlightedSection.name!='JobProfile'">
     <div class="compact-view clearfix">
-      <button class="btn-edit" (click)="highlightedSection.name='JobProfile';disableButton=false"></button>
+      <h4 class="heading">Job Description
+        <button class="btn-edit" (click)="highlightedSection.name='JobProfile';disableButton=false"></button>
+      </h4>
 
       <div class="clearfix">
         <p><label>Job Title</label> {{jobPosterModel.jobTitle}}</p>

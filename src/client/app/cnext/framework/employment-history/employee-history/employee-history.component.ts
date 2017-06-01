@@ -24,21 +24,22 @@ export class EmployeeHistoryComponent {
     this.tempfield = new Array(1);
     this.currentDate = new Date();
     this.year = this.currentDate.getUTCFullYear();
+    this.year=this.year-ValueConstant.MAX_YEAR_LIST;
     this.createYearList(this.year); //TODO use the service for date list
-
   }
-  
+
   createYearList(year:any) {
-    for (let i = 0; i < ValueConstant.MAX_YEAR_LIST; i++) {
-      this.yearList.push(year--);
+   
+    for (let i = 0; i <= ValueConstant.MAX_YEAR_LIST; i++) {
+      this.yearList.push(year++);
     }
   }
-  
+
   setCurrentDate(){
-    
+
     console.log("in set current date");
   }
-  
+
 }
 
 

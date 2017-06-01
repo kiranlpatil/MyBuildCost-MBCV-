@@ -1,3 +1,4 @@
+<div class="clearfix divider clear"></div>
 <div class="section-container clear">
   <div class="main-content modal-content clearfix" *ngIf="highlightedSection.name =='AboutMySelf'">
     <h4 class="heading">More About Myself (Max 250)</h4>
@@ -16,8 +17,9 @@
   </div>
   <div class="main-content" *ngIf="highlightedSection.name !='AboutMySelf'">
     <div class="compact-view clearfix">
-      <button class="btn-edit" (click)="highlightedSection.name='AboutMySelf';highlightedSection.isDisable=true;showButton=false" [hidden]="highlightedSection.isDisable"></button>
-      <h4 class="heading">More About Self</h4>
+      <h4 class="heading">More About Self
+        <button class="btn-edit" (click)="highlightedSection.name='AboutMySelf';highlightedSection.isDisable=true;showButton=false" [hidden]="highlightedSection.isDisable"></button>
+      </h4>
       <p>{{candidate.aboutMyself}}</p>
     </div>
   </div>

@@ -35,25 +35,38 @@ $theme-color: #3694d1;
 
 .compact-view {
   clear: both;
-  border: 1px solid $border-color;
+  //border: 1px solid $border-color;
   position: relative;
   padding: 10px;
 
   .btn-edit {
-    background: url("../assets/c-next/compact-view/editButton.png") no-repeat 50% 50%;
+    background: url("../assets/c-next/compact-view/pencil.png") no-repeat 50% 50%;
     background-color: #fff;
     background-size: cover;
     border: 0;
-    display: block;
+    //display: block;
     height: 20px;
-    opacity: 0;
+    opacity: 1;
     padding: 0;
-    position: absolute;
-    right: 0;
-    top: 0;
+    //position: absolute;
+    //right: 0;
+    //top: 0;
     transition: opacity 0.25s ease-out;
     width: 20px;
     z-index: 3;
+
+    position: relative;
+    top: -4px;
+    display: inline-block;
+    left: -2px;
+  }
+
+  .see-more {
+    color: $theme-color;
+    font-size: 12px;
+    position: absolute;
+    right: 0;
+    top: 17px;
   }
 
   .btn-edit[hidden] {
@@ -74,7 +87,7 @@ $theme-color: #3694d1;
 
   .heading {
     background: none !important;
-    margin: 0px 0 10px 0 !important;
+    margin: 0 0 10px 0 !important;
     padding: 0 !important;
   }
 
@@ -82,11 +95,11 @@ $theme-color: #3694d1;
     border: 1px solid $border-color;
     box-sizing: border-box;
     float: left;
-    height: 85px;
+    height: 110px;
     margin: 0 15px 0 0;
     overflow: hidden;
     position: relative;
-    width: 85px;
+    width: 110px;
 
     img {
       background: #e6e6e6;
@@ -100,6 +113,8 @@ $theme-color: #3694d1;
 
   .user-name {
     margin-top: 0 !important;
+    margin-bottom: 10px;
+    display: block;
   }
 
   p {
@@ -109,15 +124,15 @@ $theme-color: #3694d1;
 
   label {
     color: $light-blue;
-    min-width: 90px;
+    //min-width: 90px;
     margin-bottom: 0;
-    padding: 0;
+    padding: 0 10px 0 0;
   }
 
   .option {
     font-weight: 600;
     font-size: 12px;
-    //padding: 0;
+    padding: 0;
     text-transform: capitalize;
   }
 
@@ -137,11 +152,12 @@ $theme-color: #3694d1;
     li {
       color: #666;
       float: left;
-      list-style-image: url('../../../assets/c-next/compact-view/bullet.png');
+      list-style-type: none;
+      //list-style-image: url('../../../assets/c-next/compact-view/bullet.png');
       margin-bottom: 10px;
       padding-right: 25px;
       text-transform: capitalize;
-      width: 50%;
+      width: 100%;
     }
   }
 
@@ -151,12 +167,28 @@ $theme-color: #3694d1;
       margin-bottom: 0;
     }
   }
+}
 
-  .capability-complexity {
-    .heading {
-      margin-top: 0 !important;
+.profile-main-content {
+  .compact-view {
+    min-height: 150px;
+
+    .img-container {
+      .custom-file-upload > img {
+        width: 25px !important;
+        bottom: 0;
+        right: 0;
+        left: 100%;
+        margin-left: -11px;
+        background: transparent;
+      }
     }
   }
+}
+
+.quarter-width {
+  width: 25%;
+  float:left;
 }
 
 .half-width {
