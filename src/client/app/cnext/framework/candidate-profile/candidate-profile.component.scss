@@ -9,6 +9,7 @@ $border-color: #e8e8e8;
 $light-blue: #00aed5;
 $label: #888;
 $blue: #3694d1;
+$current: #FFC107;
 
 
 .error-messages {
@@ -67,7 +68,7 @@ $blue: #3694d1;
     list-style-type: none;
     position: relative;
     text-align: center;
-    width: 16.6%;
+    width: 14.24%;
 
     p {
       margin: -7px 0;
@@ -128,6 +129,21 @@ $blue: #3694d1;
     &::after {
       background: $white;
       opacity: 1;
+    }
+  }
+
+  .current {
+    &::before {
+      background: $current !important;
+    }
+
+    p{
+      top: -9px;
+      border-bottom: 3px solid $current;
+      width: auto;
+      display: inline-block;
+      position: relative;
+      padding: 0;
     }
   }
 }

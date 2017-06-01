@@ -27,6 +27,14 @@ h4 {
   }
 }
 
+/*.main-content {
+  .button-group {
+    position: absolute;
+    bottom:0;
+    right: 0;
+  }
+}*/
+
 .compact-view {
   &:hover {
     .btn-edit {
@@ -37,7 +45,7 @@ h4 {
 
 .profile-main-content {
   .compact-view {
-    min-height: 150px;
+    min-height: 165px;
   }
 }
 

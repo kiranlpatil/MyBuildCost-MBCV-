@@ -35,17 +35,12 @@ $primary-option: #1c75bd;
 
   .main-content {
     padding-left: 7px;
-    padding-top: 7px;
+    padding-top: 4px;
     background: transparent;
 
     .compact-view {
       border: 0;
       padding: 0;
-    }
-
-    .option {
-      width: 100%;
-      display: block;
     }
   }
 }

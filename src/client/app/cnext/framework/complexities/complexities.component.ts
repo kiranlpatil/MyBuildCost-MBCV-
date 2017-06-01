@@ -83,8 +83,15 @@ export class ComplexitiesComponent {
           }
         }
     }
+    let isFound : boolean = false;
     for (let item of complexity.scenarios) {
+      if(item.isChecked){
+        isFound =true;
+      }
       item.isChecked = false;
+    }
+    if(!isFound){
+      this.count++;
     }
     selectedScenario.isChecked = true;
     if(this.selectedComplexityNames.indexOf(complexity.name)===-1){
@@ -100,7 +107,6 @@ export class ComplexitiesComponent {
     this.isComplexityButtonEnable =false;
     if(this.isCandidate) {
         this.showModalStyle = !this.showModalStyle;
-
       this.highlightedSection.isLocked=true;
     }
     this.complexityService.change(true);
