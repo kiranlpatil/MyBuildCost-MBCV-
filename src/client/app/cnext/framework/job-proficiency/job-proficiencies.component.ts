@@ -17,8 +17,10 @@ export class JobProficienciesComponent implements OnInit {
   @Input() highlightedSection:Section;
   @Input() proficiencies:string[];
   @Output() onComplete = new EventEmitter();
+  @Output() onNextComplete = new EventEmitter();
   private showButton:boolean = true;
   private disablebutton:boolean = true;
+  private showAdditional:boolean = false;
   private maxNumberOfMandatory:number;
   private maxNumberOfAdditional:number;
 
@@ -30,6 +32,9 @@ export class JobProficienciesComponent implements OnInit {
   onMandatoryProficiencyComplete(mandatory:string[]){
     this.jobPosterModel.proficiencies=mandatory;
     this.onComplete.emit(this.jobPosterModel);
+    if(this.jobPosterModel.proficiencies.length >= 5) {
+      this.showAdditional= true;
+    }
     if(mandatory.length>0){
       this.disablebutton=false;
     } else {
@@ -40,16 +45,20 @@ export class JobProficienciesComponent implements OnInit {
   onOptionalProficiencyComplete(optional:string[]){
     this.jobPosterModel.additionalProficiencies=optional;
     this.onComplete.emit(this.jobPosterModel);
+    if (this.jobPosterModel.additionalProficiencies.length== 0) {
+        this.showAdditional= false;
+    }
   }
 
   onNext() {
     this.highlightedSection.name = "IndustryExposure";
     this.highlightedSection.isDisable=false;
+    this.onNextComplete.emit();
   }
   onSave() {
     this.highlightedSection.name = "none";
     this.highlightedSection.isDisable=false;
-
+    this.onNextComplete.emit();
   }
 }
 

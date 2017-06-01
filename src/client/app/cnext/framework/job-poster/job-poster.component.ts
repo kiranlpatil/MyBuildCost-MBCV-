@@ -34,6 +34,8 @@ export class JobPosterComponent {
   private isShowRoletype:boolean = false;
   private isShowCapability:boolean = false;
   private isShowProficiency:boolean = false;
+  private showIndustryExposure:boolean = false;
+  private showCompentensies:boolean = false;
   private showModalStyle:boolean = false;
   private jobPosterModel = new JobPosterModel();
   private jobForComplexity:Role[] = new Array(0);
@@ -145,6 +147,14 @@ export class JobPosterComponent {
     }
   }
 
+  onProficiencyComplete(event:any){
+    this.showIndustryExposure=true;
+
+  }
+
+  onIndustryExposureComplete(event:any){
+    this.showCompentensies=true;
+  }
   onCompentansiesandResponsibilitycomplete(data:any) {
     this.jobPosterModel = data;
     if (this.jobPosterModel.competencies != undefined && this.jobPosterModel.competencies != '' &&

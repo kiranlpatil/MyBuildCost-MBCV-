@@ -8,8 +8,8 @@
         <div class="col-sm-12">
           <label>Mandatory Proficiencies</label>
           <cn-multi-select [type]="'Mandatory'" [data]="proficiencies" [maxLength]="maxNumberOfMandatory" [selectedData]="jobPosterModel.proficiencies" (onComplete)="onMandatoryProficiencyComplete($event)"  ></cn-multi-select>
-          <label *ngIf="jobPosterModel.proficiencies != undefined && jobPosterModel.proficiencies.length==5">Additional Proficiencies</label>
-          <cn-multi-select [type]="'Additional'" [data]="proficiencies" [maxLength]="maxNumberOfAdditional" [selectedData]="jobPosterModel.additionalProficiencies" (onComplete)="onOptionalProficiencyComplete($event)" *ngIf="jobPosterModel.proficiencies != undefined && jobPosterModel.proficiencies.length==5"></cn-multi-select>
+          <label *ngIf="showAdditional">Additional Proficiencies</label>
+          <cn-multi-select [type]="'Additional'" [data]="proficiencies" [maxLength]="maxNumberOfAdditional" [selectedData]="jobPosterModel.additionalProficiencies" (onComplete)="onOptionalProficiencyComplete($event)"  *ngIf="showAdditional"></cn-multi-select>
           <div class="button-group clearfix">
             <button class="btn btn-primary" scrollTo scrollTargetSelector="#industry-experience"
                     (click)="onNext()" [disabled]="disablebutton" [hidden]="!showButton">Next
@@ -20,25 +20,27 @@
       </div>
       <div class="main-content" *ngIf="highlightedSection.name !='Proficiencies'">
         <div class="compact-view clearfix">
-          <button class="btn-edit" (click)="highlightedSection.name='Proficiencies';disablebutton=false;showButton=false"></button>
-          <h4 class="heading">Proficiencies</h4>
-          <div class="col-sm-12 no-padding">
-            <div class="col-md-2 col-sm-3 padding-right15">
+
+          <h4 class="heading">Proficiencies
+            <button class="btn-edit" (click)="highlightedSection.name='Proficiencies';disablebutton=false;showButton=false"></button>
+          </h4>
+          <div class="col-sm-6 padding-right15">
+            <div>
               <label>Mandatory</label>
             </div>
-            <div class="col-md-10 col-sm-9 padding-left15">
+            <div>
               <span class="option" *ngFor="let item of jobPosterModel.proficiencies;let i = index">
-                {{item}}<span *ngIf="jobPosterModel.proficiencies.length>1 && i!=jobPosterModel.proficiencies.length-1">,</span>
+                {{item}}&nbsp;<span *ngIf="jobPosterModel.proficiencies.length>1 && i!=jobPosterModel.proficiencies.length-1">,</span>&nbsp;
               </span>
             </div>
           </div>
-          <div class="col-sm-12 no-padding">
-            <div class="col-md-2 col-sm-3 padding-right15">
+          <div class="col-sm-6 padding-left15" *ngIf="jobPosterModel.additionalProficiencies!= undefined && jobPosterModel.additionalProficiencies.length > 0">
+            <div>
               <label>Additional</label>
             </div>
-            <div class="col-md-10 col-sm-9 padding-left15">
+            <div>
               <span class="option" *ngFor="let item of jobPosterModel.additionalProficiencies;let i = index">
-                {{item}}<span *ngIf="jobPosterModel.additionalProficiencies.length>1 && i!=jobPosterModel.additionalProficiencies.length-1">,</span>
+                {{item}}&nbsp;<span *ngIf="jobPosterModel.additionalProficiencies.length>1 && i!=jobPosterModel.additionalProficiencies.length-1">,</span>&nbsp;
               </span>
             </div>
           </div>

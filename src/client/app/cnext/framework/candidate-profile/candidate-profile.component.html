@@ -17,31 +17,30 @@
         <cn-profile-description [candidate]="candidate" [highlightedSection]="highlightedSection"
                                 (onComplete)="onProfileDescriptionComplete($event)"></cn-profile-description>
 
-        <div id="work-area" >
         <cn-work-area [roles]="rolesForMain" [selectedRoles]="candidateForRole"
                       [highlightedSection]="highlightedSection"
                       (onComplete)="onWorkAreaComplete($event)" [hidden]="isRolesShow"></cn-work-area>
-          </div>
 
-        <div id="capability-area">
         <cn-capabilities [roles]="rolesForCapability" [candidateRoles]="candidateForCapability"
                          [highlightedSection]="highlightedSection"
-                         (onComplete)="onCapabilityComplete($event)" [hidden]="!showCapability"></cn-capabilities></div>
-        <div id="complexity-area" class="clear clearfix">
+                         (onComplete)="onCapabilityComplete($event)" [hidden]="!showCapability"></cn-capabilities>
+
         <cn-complexities [roles]="rolesForComplexity" [candidateRoles]="candidateForComplexity"
                          [highlightedSection]="highlightedSection"
                          [isComplexityPresent]="isComplexityPresent"
-                         (onComplete)="onComplexitytyComplete($event)" [hidden]="!showComplexity"></cn-complexities></div>
-        <div id="proficiency-area">
+                         (onComplete)="onComplexitytyComplete($event)" [hidden]="!showComplexity"></cn-complexities>
+
         <cn-proficiencies [proficiencies]="proficiencies" [choosedproficiencies]="candidate.proficiencies"
-                                [highlightedSection]="highlightedSection"
-                               (onSelect)="onProficiencySelect($event)" (onComplete)="onProficiencyComplete($event)" [hidden]="!showProfeciency"></cn-proficiencies></div>
-        <div id="industry-experience">
+                          [highlightedSection]="highlightedSection"
+                          (onSelect)="onProficiencySelect($event)" (onComplete)="onProficiencyComplete($event)"
+                          [hidden]="!showProfeciency"></cn-proficiencies>
+
         <cn-industry-experience [candidateExperiencedIndustry]="candidate.interestedIndustries"
                                 [choosedIndeustry]="candidate.industry.name"
                                 [highlightedSection]="highlightedSection"
                                 (onComplete)="onExperienceIndustryComplete($event)"
-                                [hidden]="!showIndustryExperience" *ngIf="candidate != undefined || candidate.industry !=undefined"></cn-industry-experience></div>
+                                [hidden]="!showIndustryExperience"
+                                *ngIf="candidate != undefined || candidate.industry !=undefined"></cn-industry-experience>
 
 
         <cn-professional-data [candidate]="candidate" [highlightedSection]="highlightedSection"
@@ -65,7 +64,9 @@
                    [hidden]="!showAwards"></cn-awards>
 
 
-        <cn-more-about-myself [candidate]="candidate" [highlightedSection]="highlightedSection" (onComplete)="onMoreAboutMySelfComplete($event)" [hidden]="!showAboutMySelf"></cn-more-about-myself>
+        <cn-more-about-myself [candidate]="candidate" [highlightedSection]="highlightedSection"
+                              (onComplete)="onMoreAboutMySelfComplete($event)"
+                              [hidden]="!showAboutMySelf"></cn-more-about-myself>
 
 
         <div class="section-container" [hidden]="!showAboutMySelf">
@@ -73,16 +74,16 @@
             <div class="compact-view clearfix profile-visibility">
               <h4 class="heading">Profile Visibility</h4>
               <div class="switch">
-              <label class="radio-inline">
-                <input type="radio" name="profile-visibility"
-                       (change)="showorhide('show',$event)" value=true [checked]="candidate.isVisible == true">
-                <span>Show</span>
-              </label>
-              <label class="radio-inline">
-                <input type="radio" name="profile-visibility"
-                       (change)="showorhide('hide',$event)" value=false [checked]="candidate.isVisible == false">
-                <span>Hide</span>
-              </label>
+                <label class="radio-inline">
+                  <input type="radio" name="profile-visibility"
+                         (change)="showorhide('show',$event)" value=true [checked]="candidate.isVisible == true">
+                  <span>Show</span>
+                </label>
+                <label class="radio-inline">
+                  <input type="radio" name="profile-visibility"
+                         (change)="showorhide('hide',$event)" value=false [checked]="candidate.isVisible == false">
+                  <span>Hide</span>
+                </label>
               </div>
               <div class="info">In case you wish to hide your profile from recruiters, select hide option
                 below. You may also choose to show your profile later.

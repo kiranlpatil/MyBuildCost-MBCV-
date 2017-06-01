@@ -6,45 +6,42 @@
     <cn-basic-job-information [highlightedSection]="highlightedSection" [jobPosterModel]="jobPosterModel"
                               (onComplete)="onBasicJobInformationComplete($event)"></cn-basic-job-information>
 
-    <div id="work-area" >
+
     <cn-work-area [roles]="rolesForMain" [highlightedSection]="highlightedSection" (onComplete)="selectRole($event)"
                   [hidden]="!isShowRoleList"></cn-work-area>
-    </div>
 
-    <div id="capability-area">
     <cn-capabilities [roles]="rolesForCapability" [candidateRoles]="jobPosterModel.industry.roles"
                      [highlightedSection]="highlightedSection"
-                     (onComplete)="selectRole($event)" [hidden]="!isShowCapability"></cn-capabilities></div>
+                     (onComplete)="selectRole($event)" [hidden]="!isShowCapability"></cn-capabilities>
 
-    <div id="complexity-area" >
     <cn-complexities [roles]="rolesForComplexity" [candidateRoles]="jobPosterModel.industry.roles"
                      [highlightedSection]="highlightedSection"
                      [isComplexityPresent]="isComplexityPresent"
-                     (onComplete)="selectRoleFromComplexity($event)" [hidden]="!isShowComplexity"></cn-complexities></div>
+                     (onComplete)="selectRoleFromComplexity($event)" [hidden]="!isShowComplexity"></cn-complexities>
 
-    <div id="proficiency-area">
-    <cn-job-proficiencies [proficiencies]="proficiencies"  [jobPosterModel]="jobPosterModel"
-                      [highlightedSection]="highlightedSection"
-                      (onComplete)="selectProficiency($event)" [hidden]="!isShowProficiency">
+    <cn-job-proficiencies [proficiencies]="proficiencies" [jobPosterModel]="jobPosterModel"
+                          [highlightedSection]="highlightedSection"
+                          (onComplete)="selectProficiency($event)" (onNextComplete)="onProficiencyComplete($event)" [hidden]="!isShowProficiency">
     </cn-job-proficiencies>
-    </div>
 
-    <div id="industry-experience">
     <cn-industry-experience [candidateExperiencedIndustry]="jobPosterModel.interestedIndustries"
                             [choosedIndeustry]="jobPosterModel.industry.name"
-      [highlightedSection]="highlightedSection"
-      (onComplete)="selectExperiencedIndustry($event)"
-      [hidden]="!isShowProficiency" *ngIf="jobPosterModel != undefined && jobPosterModel.industry != undefined"></cn-industry-experience></div>
+                            [highlightedSection]="highlightedSection"
+                            (onComplete)="selectExperiencedIndustry($event)"
+                            [hidden]="!showIndustryExposure" (onNextComplete)="onIndustryExposureComplete($event)"
+                            *ngIf="jobPosterModel != undefined && jobPosterModel.industry != undefined"></cn-industry-experience>
 
 
-    <div [hidden]="!isShowProficiency">
-      <cn-compentacies-and-responsibilities [jobPosterModel]="jobPosterModel" [highlightedSection]="highlightedSection" (onComplete)="onCompentansiesandResponsibilitycomplete($event)" [hidden]="!isShowProficiency"></cn-compentacies-and-responsibilities>
-    </div>
+      <cn-compentacies-and-responsibilities [jobPosterModel]="jobPosterModel" [highlightedSection]="highlightedSection"
+                                            (onComplete)="onCompentansiesandResponsibilitycomplete($event)"
+                                            [hidden]="!showCompentensies"></cn-compentacies-and-responsibilities>
+
     <div class="button-group" [hidden]="!isShowProficiency">
-      <!--<button type="submit" class="btn btn-primary" (click)="mockupSearch()" >Mock Search</button>--><!--[disabled]="disableButton"-->
-<!--
-      <button type="submit" class="btn btn-primary">Save Job</button>
--->
+      <!--<button type="submit" class="btn btn-primary" (click)="mockupSearch()" >Mock Search</button>-->
+      <!--[disabled]="disableButton"-->
+      <!--
+            <button type="submit" class="btn btn-primary">Save Job</button>
+      -->
       <button type="submit" class="btn btn-danger" (click)="showHideModal()" [disabled]="disableButton">Post Job</button>
     </div>
   </div>
@@ -58,7 +55,7 @@
         <div class="modal-body">
           <div class="row">
             <div class="col-sm-12">
-              <p>Do you want to add your  job post details to your job listing.</p>
+              <p>Do you want to add your job post details to your job listing.</p>
               <div class="button-group">
                 <button class="btn btn-primary" (click)="postjob()">Yes</button>
                 <button class="btn btn-default" (click)="closeJob()">Cancel</button>

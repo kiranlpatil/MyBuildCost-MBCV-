@@ -13,19 +13,13 @@ $light-blue: #00aed5;
 
 .compact-view {
   p {
-    width: 24%;
-    padding: 0 0.5%;
+    width: 25%;
+    padding: 0 0.5% 0 0;
     float:left;
     margin-bottom: 10px;
 
     label {
-      width: 100%;
-    }
-  }
-
-  &:hover {
-    .btn-edit {
-      opacity: 1;
+      width: auto;
     }
   }
 }

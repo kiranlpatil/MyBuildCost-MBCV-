@@ -20,6 +20,7 @@ export class IndustryExperienceListComponent {
   @Input() choosedIndeustry :string;
   @Input() candidateExperiencedIndustry:string[] = new Array(0);
   @Output() onComplete = new EventEmitter();
+  @Output() onNextComplete = new EventEmitter();
   private disableButton:boolean=true;
   constructor(private candidateProfileService:CandidateProfileService) {
     this.getIndustries();
@@ -67,6 +68,7 @@ export class IndustryExperienceListComponent {
   }
 
   onNext() {
+    this.onNextComplete.emit();
     if(LocalStorageService.getLocalValue(LocalStorage.IS_CANDIDATE)==='true') {
       this.highlightedSection.name = "Professional-Details";
       this.highlightedSection.isDisable=false;
@@ -79,6 +81,7 @@ export class IndustryExperienceListComponent {
     }
   }
   onSave() {
+    this.onNextComplete.emit();
       this.highlightedSection.name = "none";
       this.highlightedSection.isDisable=false;
   }

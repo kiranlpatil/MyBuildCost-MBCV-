@@ -57,7 +57,7 @@
             <label>Job Location</label>
             <control-messages [control]="jobPostForm.controls.location"></control-messages>
 
-            <input type="text" formControlName="location" class="form-control select"  placeholder="" (setAddress) = "getAddress($event)" mygoogleplace/>
+            <input type="text" formControlName="location" class="form-control"  placeholder="" (setAddress) = "getAddress($event)" mygoogleplace/>
 
           </div>
           </div>
@@ -79,7 +79,9 @@
 
   <div class="main-content" *ngIf="highlightedSection.name!='JobProfile'">
     <div class="compact-view clearfix">
-      <button class="btn-edit" (click)="highlightedSection.name='JobProfile';disableButton=false"></button>
+      <h4 class="heading">Job Description
+        <button class="btn-edit" (click)="highlightedSection.name='JobProfile';disableButton=false"></button>
+      </h4>
 
       <div class="clearfix">
         <p><label>Job Title</label> {{jobPosterModel.jobTitle}}</p>
