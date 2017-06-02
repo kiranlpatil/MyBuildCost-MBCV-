@@ -1,7 +1,7 @@
 <div class="section-container">
   <div class="main-content modal-content clearfix" *ngIf="highlightedSection.name =='Certification'">
     <h4 class="heading">Certification/Accreditation</h4>
-    <form [formGroup]="certificationDetail" novalidate >
+    <form class="description-form" [formGroup]="certificationDetail" novalidate >
       <div formArrayName="certifications">
         <div *ngFor="let history of certificationDetail.controls.certifications.controls; let i=index"
              class="panel panel-default">
