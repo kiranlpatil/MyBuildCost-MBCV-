@@ -1,48 +1,47 @@
-<div class="clearfix container">
+<div class="profile-wrapper clearfix container">
+  <div class="col-sm-12">
+    <div class="wrapper job-poster">
+
+      <cn-basic-job-information [highlightedSection]="highlightedSection" [jobPosterModel]="jobPosterModel"
+                                (onComplete)="onBasicJobInformationComplete($event)"></cn-basic-job-information>
 
 
-  <div class="job-poster">
+      <cn-work-area [roles]="rolesForMain" [highlightedSection]="highlightedSection" (onComplete)="selectRole($event)"
+                    [hidden]="!isShowRoleList"></cn-work-area>
 
-    <cn-basic-job-information [highlightedSection]="highlightedSection" [jobPosterModel]="jobPosterModel"
-                              (onComplete)="onBasicJobInformationComplete($event)"></cn-basic-job-information>
+      <cn-capabilities [roles]="rolesForCapability" [candidateRoles]="jobPosterModel.industry.roles"
+                       [highlightedSection]="highlightedSection"
+                       (onComplete)="selectRole($event)" [hidden]="!isShowCapability"></cn-capabilities>
 
+      <cn-complexities [roles]="rolesForComplexity" [candidateRoles]="jobPosterModel.industry.roles"
+                       [highlightedSection]="highlightedSection"
+                       [isComplexityPresent]="isComplexityPresent"
+                       (onComplete)="selectRoleFromComplexity($event)" [hidden]="!isShowComplexity"></cn-complexities>
 
-    <cn-work-area [roles]="rolesForMain" [highlightedSection]="highlightedSection" (onComplete)="selectRole($event)"
-                  [hidden]="!isShowRoleList"></cn-work-area>
-
-    <cn-capabilities [roles]="rolesForCapability" [candidateRoles]="jobPosterModel.industry.roles"
-                     [highlightedSection]="highlightedSection"
-                     (onComplete)="selectRole($event)" [hidden]="!isShowCapability"></cn-capabilities>
-
-    <cn-complexities [roles]="rolesForComplexity" [candidateRoles]="jobPosterModel.industry.roles"
-                     [highlightedSection]="highlightedSection"
-                     [isComplexityPresent]="isComplexityPresent"
-                     (onComplete)="selectRoleFromComplexity($event)" [hidden]="!isShowComplexity"></cn-complexities>
-
-    <cn-job-proficiencies [proficiencies]="proficiencies" [jobPosterModel]="jobPosterModel"
-                          [highlightedSection]="highlightedSection"
-                          (onComplete)="selectProficiency($event)" (onNextComplete)="onProficiencyComplete($event)" [hidden]="!isShowProficiency">
-    </cn-job-proficiencies>
-
-    <cn-industry-experience [candidateExperiencedIndustry]="jobPosterModel.interestedIndustries"
-                            [choosedIndeustry]="jobPosterModel.industry.name"
+      <cn-job-proficiencies [proficiencies]="proficiencies" [jobPosterModel]="jobPosterModel"
                             [highlightedSection]="highlightedSection"
-                            (onComplete)="selectExperiencedIndustry($event)"
-                            [hidden]="!showIndustryExposure" (onNextComplete)="onIndustryExposureComplete($event)"
-                            *ngIf="jobPosterModel != undefined && jobPosterModel.industry != undefined"></cn-industry-experience>
+                            (onComplete)="selectProficiency($event)" (onNextComplete)="onProficiencyComplete($event)" [hidden]="!isShowProficiency">
+      </cn-job-proficiencies>
 
+      <cn-industry-experience [candidateExperiencedIndustry]="jobPosterModel.interestedIndustries"
+                              [choosedIndeustry]="jobPosterModel.industry.name"
+                              [highlightedSection]="highlightedSection"
+                              (onComplete)="selectExperiencedIndustry($event)"
+                              [hidden]="!showIndustryExposure" (onNextComplete)="onIndustryExposureComplete($event)"
+                              *ngIf="jobPosterModel != undefined && jobPosterModel.industry != undefined"></cn-industry-experience>
 
-      <cn-compentacies-and-responsibilities [jobPosterModel]="jobPosterModel" [highlightedSection]="highlightedSection"
-                                            (onComplete)="onCompentansiesandResponsibilitycomplete($event)"
-                                            [hidden]="!showCompentensies"></cn-compentacies-and-responsibilities>
+        <cn-compentacies-and-responsibilities [jobPosterModel]="jobPosterModel" [highlightedSection]="highlightedSection"
+                                              (onComplete)="onCompentansiesandResponsibilitycomplete($event)"
+                                              [hidden]="!showCompentensies"></cn-compentacies-and-responsibilities>
 
-    <div class="button-group" [hidden]="!isShowProficiency">
-      <!--<button type="submit" class="btn btn-primary" (click)="mockupSearch()" >Mock Search</button>-->
-      <!--[disabled]="disableButton"-->
-      <!--
-            <button type="submit" class="btn btn-primary">Save Job</button>
-      -->
-      <button type="submit" class="btn btn-danger" (click)="showHideModal()" [disabled]="disableButton">Post Job</button>
+      <div class="button-group" [hidden]="!isShowProficiency">
+        <!--<button type="submit" class="btn btn-primary" (click)="mockupSearch()" >Mock Search</button>-->
+        <!--[disabled]="disableButton"-->
+        <!--
+              <button type="submit" class="btn btn-primary">Save Job</button>
+        -->
+        <button type="submit" class="btn btn-danger" (click)="showHideModal()" [disabled]="disableButton">Post Job</button>
+      </div>
     </div>
   </div>
 </div>

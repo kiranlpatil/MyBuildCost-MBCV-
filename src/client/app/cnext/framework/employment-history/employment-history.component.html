@@ -43,7 +43,6 @@
 <div class="section-container" [ngClass]="(highlightedSection.name=='AcademicDetails' || highlightedSection.name=='Awards' || highlightedSection.name=='Certification')?'full-width':'quarter-width'"  [hidden]="chkEmployeeHistory">
   <div class="main-content" *ngIf="highlightedSection.name !='EmploymentHistory'">
     <div class="compact-view clearfix">
-      <button class="btn-edit" (click)="highlightedSection.name='EmploymentHistory';highlightedSection.isDisable=true;showButton=false" [hidden]="highlightedSection.isDisable"></button>
       <!--<ul>
         <div *ngFor="let item of candidate.employmentHistory">
           <li *ngIf="item.designation != '' && item.companyName != ''"><p>{{item.designation}} at
@@ -51,7 +50,15 @@
             <p>From {{item.from.month}} {{item.from.year}} to {{item.to.month}} {{item.to.year}}</p></li>
         </div>
       </ul>-->
+      <div *ngIf="candidate.employmentHistory.length==0">
+        <h4 class="heading-compact" (click)="highlightedSection.name='EmploymentHistory';highlightedSection.isDisable=true;showButton=false;" >
+          <img src="assets/c-next/icons/employment-icon.png" alt="employment"/>
+          Employment History
+          <span class="glyphicon glyphicon-plus"></span>
+        </h4>
+      </div>
       <div *ngIf="candidate.employmentHistory.length>0">
+        <button class="btn-edit" (click)="highlightedSection.name='EmploymentHistory';highlightedSection.isDisable=true;showButton=false" [hidden]="highlightedSection.isDisable"></button>
         <cn-vertical-list-view [data]="candidate.employmentHistory" [type]="'employment history'" ></cn-vertical-list-view>
       </div>
     </div>

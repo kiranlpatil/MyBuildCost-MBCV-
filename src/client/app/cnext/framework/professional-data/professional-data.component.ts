@@ -157,7 +157,7 @@ export class ProfessionalDataComponent extends BaseService implements OnInit {
     this.candidate.professionalDetails=this.professionalDetails;
     this.saveProfessionalData();*/
     this.onComplete.emit();
-    this.highlightedSection.name = "EmploymentHistory";
+    this.highlightedSection.name = "none";
     this.highlightedSection.isDisable=false;
 
   }

@@ -1,75 +1,56 @@
-<div class="section-container certification" [hidden]="chkCertification" >
+<div class="section-container">
   <div class="main-content modal-content clearfix" *ngIf="highlightedSection.name =='Certification'">
-    <h4 class="heading">Certification/Accreditation
-              <span class="close-dialog" [hidden]="isHiddenCertificate">Close this section if not needed
-            <span class="glyphicon glyphicon-remove" (click)="hideCertification()"></span>
-          </span>
-    </h4>
-    <div class="form col-sm-12 " [class.hide]="hideDiv[i]" *ngFor="let item of candidate.certifications;let i= index">
-      <span class="glyphicon glyphicon-trash" (click)="deleteItem(i)"></span>
-      <div class="row">
-        <div class="col-sm-4">
-          <div class="form-group">
-            <input type="text" class="form-control" [(ngModel)]="item.name"  (change)="postCertificates()" required />
-            <label>Certification Name</label>
+    <h4 class="heading">Certification/Accreditation</h4>
+    <form [formGroup]="certificationDetail" novalidate >
+      <div formArrayName="certifications">
+        <div *ngFor="let history of certificationDetail.controls.certifications.controls; let i=index"
+             class="panel panel-default">
+          <div>
+          <span class="glyphicon glyphicon-trash pull-right"
+                *ngIf="certificationDetail.controls.certifications.controls.length>0 && certificationDetail.controls.certifications.controls.length !==1 "
+                (click)="removeCertification(i)"></span>
           </div>
-        </div>
-
-        <div class="col-sm-4">
-          <div class="form-group">
-            <input type="text" class="form-control" [(ngModel)]="item.issuedBy"  (change)="postCertificates()" required />
-            <label>Certification authority</label>
+          <div class="panel-body" [formGroupName]="i">
+            <cn-certificates [group]="certificationDetail.controls.certifications.controls[i]"></cn-certificates>
           </div>
-        </div>
-
-
-        <div class="col-sm-4">
-          <label>Year of Certification</label>
-          <select class="form-control" [(ngModel)]="item.year" (change)="postCertificates()">
-            <option *ngFor="let c of yearList" [selected]="true" [ngValue]="c">{{c}}</option>
-          </select>
         </div>
       </div>
 
-      <div class="col-sm-12 no-padding">
-        <textarea class="form-control" [(ngModel)]="item.remark" (change)="postCertificates()" Placeholder="Certification/Accreditation"></textarea>
-      </div>
-    </div>
-
-    <div class="col-sm-12" >
-      <div class="clear">
-        <button type="button" id="more_fields" (click)="addAnother()" class="btn btn-create-profile" [disabled]="disbleRole" >
-          Add Another <span>+</span>
+      <div class="margin-20">
+        <button (click)="addCertification()" class="btn btn-create-profile" [disabled]="!certificationDetail.valid">
+          Add another
         </button>
-        <div class="error-messages" *ngIf="isShowError"><p>Fields should not be empty.</p></div>
       </div>
       <div class="button-group clearfix">
-        <button class="btn btn-default"  (click)="highlightedSection.name='none';highlightedSection.isDisable=false" [hidden]="showButton" >Cancel</button>
-        <button class="btn btn-primary" scrollTo scrollTargetSelector="#awards"
-                (click)="onNext()" [disabled]="disableButton" [hidden]="!showButton">Next
+        <button class="btn btn-default"  (click)="highlightedSection.name='none';highlightedSection.isDisable=false" >Cancel</button>
+        <button type="submit" class="btn btn-primary" scrollTo scrollTargetSelector="#certification"
+                (click)="postData('next')" [disabled]="!certificationDetail.valid"  [hidden]="!showButton">Next
         </button>
-        <button class="btn btn-primary"  (click)="onSave()" [hidden]="showButton">Save</button>
+        <button type="submit" class="btn btn-primary" (click)="postData('save')" [disabled]="!certificationDetail.valid"
+                [hidden]="showButton">Save
+        </button>
+      </div>
+      <div class="clearfix"></div>
+    </form>
+  </div>
+</div>
+
+ <div class="section-container" [ngClass]="(highlightedSection.name=='EmploymentHistory' || highlightedSection.name=='Awards' || highlightedSection.name=='AcademicDetails' )?'full-width':'quarter-width'" *ngIf="highlightedSection.name !='Certification'">
+  <div class="main-content">
+    <div class="compact-view clearfix">
+      <div *ngIf="candidate.certifications.length==0">
+        Certifications
+        <h4 class="heading-compact" (click)="highlightedSection.name='Certification';highlightedSection.isDisable=true;showButton=false" >
+          <img src="assets/c-next/icons/education-icon.png" alt="employment"/>
+          <span class="glyphicon glyphicon-plus"></span>
+        </h4>
+      </div>
+
+      <div *ngIf="candidate.certifications.length>0">
+        <button class="btn-edit" (click)="highlightedSection.name='Certification';highlightedSection.isDisable=true;showButton=false" [hidden]="highlightedSection.isDisable"></button>
+        <cn-vertical-list-view [data]="candidate.certifications" [type]="'certifications'" ></cn-vertical-list-view>
       </div>
     </div>
   </div>
 </div>
-<div class="section-container" [ngClass]="(highlightedSection.name=='EmploymentHistory' || highlightedSection.name=='Awards' || highlightedSection.name=='AcademicDetails' )?'full-width':'quarter-width'" *ngIf="highlightedSection.name !='Certification'">
-  <div class="main-content">
-    <div class="compact-view clearfix">
-      <button class="btn-edit" (click)="highlightedSection.name='Certification';highlightedSection.isDisable=true;showButton=false" [hidden]="highlightedSection.isDisable"></button>
-
-        <cn-vertical-list-view [data]="candidate.certifications" [type]="'certifications'" ></cn-vertical-list-view>
-
-    </div>
-  </div>
-</div>
-
-
-
-
-
-
-
-
-
 

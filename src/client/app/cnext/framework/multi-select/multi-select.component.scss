@@ -4,7 +4,6 @@ $btn-color: #3694d1;
 $message: #00aed5;
 
 .list  {
-
   .btn-container {
     //border: 1px solid $border-color;
     min-height: 65px;
@@ -41,11 +40,13 @@ $message: #00aed5;
 
 }
 
-.compact-view {
-  &:hover {
-    .btn-edit {
-      opacity: 1;
-    }
+.error-messages {
+  p {
+    color: #f66761;
+    font-size: 10px;
+    font-style: italic;
+    line-height: 12px;
+    margin: 2px 0;
   }
 }
 

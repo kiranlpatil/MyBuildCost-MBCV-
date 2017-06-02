@@ -112,7 +112,7 @@ export class CandidateProfileComponent implements OnInit {
 
 
   ngOnInit() {
-
+    this.whichStepsVisible[0]=true;
 
   }
 
@@ -183,31 +183,36 @@ export class CandidateProfileComponent implements OnInit {
     this.showIndustryExperience = true;
   }
 
-  onExperienceIndustryComplete(experiencedindustry:string[]) {
-    this.showProfessionalData = true;
+  onExperienceIndustrySelect(experiencedindustry:string[]) {
     this.candidate.interestedIndustries = experiencedindustry;
     this.candidate.isCompleted=true;
     this.saveCandidateDetails();
   }
-
+  onExperienceIndustryComplete(){
+    this.showProfessionalData = true;
+  }
   onProfessionalDataComplete() {
-    this.showemploymentHistory = true
+    this.showemploymentHistory = true;
+    this.showAcademicsDetails = true;
+    this.showCertificationDetails = true;
+    this.showAwards = true;
+    this.showAboutMySelf = true;
   }
 
   onEmploymentHistoryComplete() {
-    this.showAcademicsDetails = true;
+
   }
 
   onAcademicDetailsComplete() {
-    this.showCertificationDetails = true;
+
   }
 
   onCertificationsComplete() {
-    this.showAwards = true;
+
   }
 
   onAwardsComplete() {
-    this.showAboutMySelf = true;
+
   }
 
   onMoreAboutMySelfComplete(data:string){
@@ -284,7 +289,7 @@ export class CandidateProfileComponent implements OnInit {
       .subscribe(
         candidateData => {
           this.candidateForComplexity = candidateData.data[0].industry.roles;
-          if (this.candidateForComplexity[0].capabilities[0].complexities.length > 0) {
+          if (this.candidateForComplexity && this.candidateForComplexity[0].capabilities && this.candidateForComplexity[0].capabilities[0] && this.candidateForComplexity[0].capabilities[0].complexities.length > 0) {
             this.isComplexityPresent = true;
           }
         },
@@ -319,6 +324,9 @@ export class CandidateProfileComponent implements OnInit {
       //TODO: Shrikant write logic which should be the active section
       console.log(this.candidate);
       this.highlightedSection.name = "Profile";
+    }
+    if(this.candidate.isVisible == undefined){
+      this.candidate.isVisible=true;
     }
     if (this.candidate.lockedOn != undefined) {
       if (this.dateDifferenceInDays(new Date(), new Date(this.candidate.lockedOn)) <= 90) {

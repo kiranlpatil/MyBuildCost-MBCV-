@@ -2,12 +2,13 @@
   <cn-candidate-header [candidate]="candidate" *ngIf="candidate != undefined"></cn-candidate-header>
   <div class="bar-container profile-header">
     <ul class="bar container" id="bar">
-      <li [class.active]="whichStepsVisible[1]"><p>Area of Work</p></li>
-      <li [class.active]="whichStepsVisible[2]"><p>Capabilities</p></li>
-      <li [class.active]="whichStepsVisible[3]"><p>Complexities</p></li>
-      <li [class.active]="whichStepsVisible[4]"><p>Proficiencies</p></li>
-      <li [class.active]="whichStepsVisible[5]"><p>Professional Data</p></li>
-      <li [class.active]="whichStepsVisible[6]"><p>Profile Description</p></li>
+      <li [class.active]="whichStepsVisible[0]" [class.current]="highlightedSection.name=='Profile'"><p>My Profile</p></li>
+      <li [class.active]="whichStepsVisible[1]" [class.current]="highlightedSection.name=='Work-Area'"><p>Area of Work</p></li>
+      <li [class.active]="whichStepsVisible[2]" [class.current]="highlightedSection.name=='Capabilities'"><p>Capabilities</p></li>
+      <li [class.active]="whichStepsVisible[3]" [class.current]="highlightedSection.name=='Complexities'"><p>Complexities</p></li>
+      <li [class.active]="whichStepsVisible[4]" [class.current]="highlightedSection.name=='Proficiencies' || highlightedSection.name=='IndustryExposure'"><p>Proficiencies</p></li>
+      <li [class.active]="whichStepsVisible[5]" [class.current]="highlightedSection.name=='Professional-Details'"><p>Professional Data</p></li>
+      <li [class.active]="whichStepsVisible[6]" [class.current]="highlightedSection.name=='AboutMySelf' || highlightedSection.name=='AcademicDetails' || highlightedSection.name=='Awards' || highlightedSection.name=='EmploymentHistory' || highlightedSection.name=='Certification'"><p>Profile Description</p></li>
     </ul>
   </div>
 
@@ -38,7 +39,8 @@
         <cn-industry-experience [candidateExperiencedIndustry]="candidate.interestedIndustries"
                                 [choosedIndeustry]="candidate.industry.name"
                                 [highlightedSection]="highlightedSection"
-                                (onComplete)="onExperienceIndustryComplete($event)"
+                                (onComplete)="onExperienceIndustrySelect($event)"
+                                (onNextComplete)="onExperienceIndustryComplete($event)"
                                 [hidden]="!showIndustryExperience"
                                 *ngIf="candidate != undefined || candidate.industry !=undefined"></cn-industry-experience>
 
@@ -46,6 +48,10 @@
         <cn-professional-data [candidate]="candidate" [highlightedSection]="highlightedSection"
                               (onComplete)="onProfessionalDataComplete($event)"
                               [hidden]="!showProfessionalData"></cn-professional-data>
+
+        <cn-more-about-myself [candidate]="candidate" [highlightedSection]="highlightedSection"
+                              (onComplete)="onMoreAboutMySelfComplete($event)"
+                              [hidden]="!showAboutMySelf"></cn-more-about-myself>
 
         <cn-employment-history [candidate]="candidate" [highlightedSection]="highlightedSection"
                                (onComplete)="onEmploymentHistoryComplete($event)"
@@ -64,12 +70,7 @@
                    [hidden]="!showAwards"></cn-awards>
 
 
-        <cn-more-about-myself [candidate]="candidate" [highlightedSection]="highlightedSection"
-                              (onComplete)="onMoreAboutMySelfComplete($event)"
-                              [hidden]="!showAboutMySelf"></cn-more-about-myself>
-
-
-        <div class="section-container" [hidden]="!showAboutMySelf">
+        <div class="section-container clear" [hidden]="!showAboutMySelf">
           <div class="main-content clearfix">
             <div class="compact-view clearfix profile-visibility">
               <h4 class="heading">Profile Visibility</h4>

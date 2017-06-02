@@ -64,20 +64,6 @@ export class ComplexitiesComponent {
       }
     }
 
-    if (this.roles) {
-      this.scenaricomplexityNames = new Array(0);
-      for (let role of this.roles) {
-        if (role.capabilities) {
-          for (let primary of role.capabilities) {
-            if (primary.complexities) {
-              for (let complexity of primary.complexities) {
-                this.scenaricomplexityNames.push(complexity.name);
-              }
-            }
-          }
-        }
-      }
-    }
 
     // if(this.scenarioNames.length>0){
     //   this.compactView=true;
@@ -97,8 +83,15 @@ export class ComplexitiesComponent {
           }
         }
     }
+    let isFound : boolean = false;
     for (let item of complexity.scenarios) {
+      if(item.isChecked){
+        isFound =true;
+      }
       item.isChecked = false;
+    }
+    if(!isFound){
+      this.count++;
     }
     selectedScenario.isChecked = true;
     if(this.selectedComplexityNames.indexOf(complexity.name)===-1){
@@ -114,7 +107,6 @@ export class ComplexitiesComponent {
     this.isComplexityButtonEnable =false;
     if(this.isCandidate) {
         this.showModalStyle = !this.showModalStyle;
-      
       this.highlightedSection.isLocked=true;
     }
     this.complexityService.change(true);
@@ -122,8 +114,13 @@ export class ComplexitiesComponent {
       for(let mainrol of this.roles){
         if(rol.name = mainrol.name){
           for(let cap of rol.capabilities){
-            if(cap.isSecondary){
-              mainrol.capabilities.push(cap);
+            for(let mainCap of mainrol.capabilities){
+              if(mainCap.name === cap.name){
+                if(cap.isSecondary){
+                  mainCap.isSecondary=true;
+                  mainCap.isPrimary = false;
+                }
+              }
             }
           }
         }

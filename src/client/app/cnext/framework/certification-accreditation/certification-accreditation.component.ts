@@ -1,11 +1,7 @@
 import {Component, Input, Output, EventEmitter} from "@angular/core";
-import {Certifications} from "../model/certification-accreditation";
-import {ValueConstant, LocalStorage} from "../../../framework/shared/constants";
-import {MessageService} from "../../../framework/shared/message.service";
 import {CandidateProfileService} from "../candidate-profile/candidate-profile.service";
-import {LocalStorageService} from "../../../framework/shared/localstorage.service";
-import {Message} from "../../../framework/shared/message";
 import {Candidate, Section} from "../model/candidate";
+import {FormGroup, FormArray, FormBuilder, Validators} from "@angular/forms";
 
 @Component({
   moduleId: module.id,
@@ -15,111 +11,92 @@ import {Candidate, Section} from "../model/candidate";
 })
 
 export class CertificationAccreditationComponent {
+
   @Input() candidate:Candidate;
   @Input() highlightedSection:Section;
   @Output() onComplete = new EventEmitter();
 
-  private tempfield:string[];
-  private year:any;
-  private currentDate:any;
-  private yearList = new Array();
-  private disableAddAnother:boolean = true;
-  private isHiddenCertificate:boolean = true;
-  private sendPostCall:boolean = false;
-  private chkCertification:boolean = false;
-  private isShowError:boolean = false;
-  private hideDiv:boolean[] = new Array();
+  public certificationDetail:FormGroup;
+
+
+  private isButtonShow:boolean = false;
   private showButton:boolean = true;
 
-  constructor(private messageService:MessageService,
-              private profileCreatorService:CandidateProfileService) {
+  constructor(private _fb:FormBuilder, private profileCreatorService:CandidateProfileService) {
+  }
 
-    this.tempfield = new Array(1);
-    this.currentDate = new Date();
-    this.year = this.currentDate.getUTCFullYear();
-    this.createYearList(this.year);
+  ngOnInit() {
+    this.certificationDetail = this._fb.group({
+      certifications: this._fb.array([])
+    });
 
+    //subscribe to addresses value changes
+    this.certificationDetail.controls['certifications'].valueChanges.subscribe(x => {
+      this.isButtonShow = true;
+    })
   }
 
   ngOnChanges(changes:any) {
-    if (this.candidate.certifications.length == 0) {
-      this.candidate.certifications.push(new Certifications());
-    }
-    else{
-      this.isHiddenCertificate=true;
-    }
-  }
+    if (changes.candidate.currentValue != undefined) {
+      this.candidate = changes.candidate.currentValue;
+      if (this.candidate.certifications != undefined && this.candidate.certifications.length > 0) {
 
-
-  createYearList(year:number) {
-    for (let i = 0; i < ValueConstant.MAX_ACADEMIC_YEAR_LIST; i++) {
-      this.yearList.push(year--);
-    }
-
-  }
-
-  addAnother() {
-    for (let item of this.candidate.certifications) {
-      if (item.name === "" || item.issuedBy === "" || item.year === "") {
-        this.disableAddAnother = false;
-        this.isShowError = true;
-
+        let controlArray = <FormArray>this.certificationDetail.controls['certifications'];
+        this.candidate.certifications.forEach(item => {
+          const fb = this.initCerificateDetails();
+          fb.patchValue(item);
+          controlArray.push(fb);
+        });
+        if (!this.candidate.certifications) {
+          this.addCertification();
+        }
       }
     }
-    if (this.disableAddAnother === true) {
-      this.candidate.certifications.push(new Certifications());
-    }
-    this.disableAddAnother = true;
   }
 
-  postCertificates() {
-    this.isShowError = false;
-    for (let item of this.candidate.certifications) {
-      if (item.name !== "" || item.issuedBy !== "" || item.year !== "") {
-
-      }
-    }
-    for (let item of this.candidate.certifications) {
-      if (item.name === "" || item.issuedBy === "" || item.year === "") {
-        this.sendPostCall = false;
-
-      }
-    }
-    if (this.sendPostCall === true) {
-     this.postData();
-    }
-    this.sendPostCall = true;
-  }
-
-  deleteItem(i:number) {
-    this.hideDiv[i] = true;
-    this.candidate.certifications.splice(i, 1);
-    this.postData();
-    this.hideDiv[i]=false;
-  }
-
-  postData(){
-  this.profileCreatorService.addProfileDetail(this.candidate).subscribe(
-    user => {
-      console.log(user);
+  initCerificateDetails() {
+    return this._fb.group({
+      remark: [''],
+      name: ['', Validators.required],
+      issuedBy: ['', Validators.required],
+      year: ['', Validators.required]
     });
-}
-
-  hideCertification(){
-    this.chkCertification=true;
-    this.onNext();
-
   }
-  
+
+  addCertification() {
+    const control = <FormArray>this.certificationDetail.controls['certifications'];
+    const addrCtrl = this.initCerificateDetails();
+    control.push(addrCtrl);
+  }
+
+  removeCertification(i:number) {
+    const control = <FormArray>this.certificationDetail.controls['certifications'];
+    control.removeAt(i);
+  }
+
+  postData(type:string) {
+    this.candidate.certifications = this.certificationDetail.value.certifications;
+    this.profileCreatorService.addProfileDetail(this.candidate).subscribe(
+        user => {
+          if (type == 'next') {
+            this.onNext();
+          }
+          else if (type == 'save') {
+            this.onSave()
+          }
+        });
+  }
+
   onNext() {
     this.onComplete.emit();
-    this.highlightedSection.name = "Awards";
-    this.highlightedSection.isDisable=false;
-
+    this.highlightedSection.name = "none";
+    this.highlightedSection.isDisable = false;
   }
+
   onSave() {
     this.onComplete.emit();
     this.highlightedSection.name = "none";
-    this.highlightedSection.isDisable=false;
+    this.highlightedSection.isDisable = false;
   }
+
 }

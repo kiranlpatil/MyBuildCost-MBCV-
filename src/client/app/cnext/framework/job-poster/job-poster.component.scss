@@ -35,6 +35,12 @@ $profile-background: #f2f2f2;
   }
 }
 
+.profile-wrapper {
+  margin: 15px auto 0;
+  padding: 0;
+  border: 1px solid $border-color;
+}
+
 @media only screen and (max-width: 980px) {
   .job-info {
     margin: 15px 15px 0;

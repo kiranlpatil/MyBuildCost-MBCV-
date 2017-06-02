@@ -68,20 +68,20 @@ export class IndustryExperienceListComponent {
   }
 
   onNext() {
-    this.onNextComplete.emit();
+
     if(LocalStorageService.getLocalValue(LocalStorage.IS_CANDIDATE)==='true') {
       this.highlightedSection.name = "Professional-Details";
       this.highlightedSection.isDisable=false;
-
+      this.onNextComplete.emit()
     }
     else{
+      this.onNextComplete.emit();
       this.highlightedSection.name = "Compentancies";
       this.highlightedSection.isDisable=false;
 
     }
   }
   onSave() {
-    this.onNextComplete.emit();
       this.highlightedSection.name = "none";
       this.highlightedSection.isDisable=false;
   }

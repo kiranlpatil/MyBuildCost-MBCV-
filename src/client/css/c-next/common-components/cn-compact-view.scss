@@ -26,7 +26,7 @@ $theme-color: #3694d1;
   z-index: 3;
   position: relative;
   border-radius: 0;
-  animation: fadein .5s;
+  //animation: fadein .5s;
   margin: 7px;
   box-shadow: 1px 1px 1px 0 $modal-bg;
   border: 1px solid $theme-color;
@@ -54,12 +54,18 @@ $theme-color: #3694d1;
     transition: opacity 0.25s ease-out;
     width: 20px;
     z-index: 3;
-
     position: relative;
     top: -4px;
     display: inline-block;
     left: -2px;
   }
+
+  /*.glyphicon-plus {
+    position: relative;
+    top: -4px;
+    display: inline-block;
+    left: -2px;
+  }*/
 
   .see-more {
     color: $theme-color;
@@ -87,7 +93,7 @@ $theme-color: #3694d1;
 
   .heading {
     background: none !important;
-    margin: 0 0 10px 0 !important;
+    margin: 0 0 5px 0 !important;
     padding: 0 !important;
   }
 
@@ -109,11 +115,16 @@ $theme-color: #3694d1;
       top: 50%;
       width: 100%;
     }
+
+    .custom-file-upload > img {
+      width: 25px !important;
+      background: transparent;
+    }
   }
 
   .user-name {
     margin-top: 0 !important;
-    margin-bottom: 10px;
+    margin-bottom: 3px;
     display: block;
   }
 
@@ -169,22 +180,7 @@ $theme-color: #3694d1;
   }
 }
 
-.profile-main-content {
-  .compact-view {
-    min-height: 150px;
 
-    .img-container {
-      .custom-file-upload > img {
-        width: 25px !important;
-        bottom: 0;
-        right: 0;
-        left: 100%;
-        margin-left: -11px;
-        background: transparent;
-      }
-    }
-  }
-}
 
 .quarter-width {
   width: 25%;

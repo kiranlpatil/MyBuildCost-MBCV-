@@ -153,6 +153,8 @@ import {JobDashboardComponent} from "./cnext/framework/recruiter-dashboard/job-d
 import {JobDashboardService} from "./cnext/framework/recruiter-dashboard/job-dashboard/job-dashboard.service";
 import {ReferenceService} from "./cnext/framework/model/newClass";
 import {AcademicsComponent} from "./cnext/framework/academic-details/academics/academics.component";
+import {CerificatesComponent} from "./cnext/framework/certification-accreditation/cerificates/certificates.component";
+import {AwardComponent} from "./cnext/framework/awards/award/award.component";
 
 //C-NEXT IMPORTS
 
@@ -236,6 +238,8 @@ import {AcademicsComponent} from "./cnext/framework/academic-details/academics/a
     MoreAboutMyselfComponent,
     CandidateHeaderComponent,
     FilterComponent,
+    CerificatesComponent,
+    AwardComponent,
     RecruiterDashboardComponent,
     ProgressBarComponent,
     CandidateViewComponent,

@@ -1,14 +1,14 @@
   <div class="section-container clearfix" >
     <div class="main-content clearfix modal-content" *ngIf="highlightedSection.name=='Complexities'">
       <div class="complexities">
-        <h4 class="heading">Choose Complexities for the above Capabilities</h4>
+        <h4 class="heading">Choose Complexities for the above Capabilities <span class="pull-right">{{count}} / {{scenarioNames.length}} selected </span></h4>
         <div class="col-sm-12">
           <p class="info">
             This section provides a list of complexity scenarios for your selected capabilities.
             For each scenario, select the most appropriate level of complexity that you are capable of handling.
             If you have not handled a particular complexity, choose not applicable.
           </p>
-          <div *ngIf="isComplexityPresent">
+          <div *ngIf="candidateRoles && candidateRoles[0] && candidateRoles[0].capabilities && candidateRoles[0].capabilities[0] && candidateRoles[0].capabilities[0].complexities && candidateRoles[0].capabilities[0].complexities.length > 0">
             <div *ngFor="let role of candidateRoles">
               <div *ngFor="let capability of role.capabilities">
                 <div class="select-complexity clearfix" *ngFor="let complexity of capability.complexities">
@@ -30,7 +30,7 @@
             </div>
           </div>
 
-          <div *ngIf="!isComplexityPresent">
+          <div *ngIf="!(candidateRoles && candidateRoles[0] && candidateRoles[0].capabilities && candidateRoles[0].capabilities[0] && candidateRoles[0].capabilities[0].complexities && candidateRoles[0].capabilities[0].complexities.length > 0)">
             <div *ngFor="let role of roles">
               <div *ngFor="let capability of role.capabilities">
                 <div class="select-complexity clearfix" *ngFor="let complexity of capability.complexities">
