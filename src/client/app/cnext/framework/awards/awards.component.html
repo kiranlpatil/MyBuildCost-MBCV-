@@ -106,13 +106,14 @@
   <div class="main-content">
     <div class="compact-view clearfix">
       <div *ngIf="candidate.awards.length == 0"><!--*ngIf="candidate.awards != undefined && candidate.awards.length==1 && candidate.awards[0].name=='' && candidate.awards[0].issuedBy=='' "-->
-        Awards
+
         <h4 class="heading-compact" (click)="highlightedSection.name='Awards';highlightedSection.isDisable=true;showButton=false" >
-          <img src="assets/c-next/icons/education-icon.png" alt="employment"/>
+          <img src="assets/c-next/icons/awards.png" alt="employment"/>
+          Awards
           <span class="glyphicon glyphicon-plus"></span>
         </h4>
       </div>
-      <div  *ngIf="candidate.awards != undefined && candidate.awards.length>0 && candidate.awards[0].name!=='' && candidate.awards[0].issuedBy!==''">
+      <div  class="vertical-container" *ngIf="candidate.awards != undefined && candidate.awards.length>0 && candidate.awards[0].name!=='' && candidate.awards[0].issuedBy!==''">
         <button class="btn-edit" (click)="highlightedSection.name='Awards';highlightedSection.isDisable=true;showButton=false" [hidden]="highlightedSection.isDisable"></button>
         <cn-vertical-list-view [data]="candidate.awards" [type]="'awards'" ></cn-vertical-list-view>
       </div>

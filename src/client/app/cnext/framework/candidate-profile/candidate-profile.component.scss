@@ -134,7 +134,14 @@ $current: #FFC107;
 
   .current {
     &::before {
-      background: $current !important;
+      background: $current !important;opacity: 1;
+      border: 1px solid lighten($active-color, 30%);
+      color: $active-text-color;
+    }
+
+    &::after {
+      background: $white;
+      opacity: 1;
     }
 
     p{
@@ -144,6 +151,7 @@ $current: #FFC107;
       display: inline-block;
       position: relative;
       padding: 0;
+      opacity: 1;
     }
   }
 }
