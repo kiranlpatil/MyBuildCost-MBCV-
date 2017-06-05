@@ -372,7 +372,7 @@ export class CandidateProfileComponent implements OnInit {
       this.whichStepsVisible[4] = true;
     }
     
-    if (this.candidate.interestedIndustries !== undefined) {
+    if (this.candidate.interestedIndustries !== undefined && this.candidate.interestedIndustries.length > 0) {
       this.showIndustryExperience = true;
     }
 
