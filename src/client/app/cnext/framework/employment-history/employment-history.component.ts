@@ -22,6 +22,7 @@ export class EmploymentHistoryComponent {
   private chkEmployeeHistory:boolean = false;
   private isButtonShow:boolean = false;
   private showButton:boolean = true;
+  private showAddButton:boolean = true;
 
   constructor(private _fb:FormBuilder, private profileCreatorService:CandidateProfileService) {
   }
@@ -98,6 +99,7 @@ export class EmploymentHistoryComponent {
     const control = <FormArray>this.employeeHistory.controls['emplyeeHistories'];
     const addrCtrl = this.initEmployeeHistory();
     control.push(addrCtrl);
+    this.showAddButton=false;
     /* subscribe to individual address value changes
      addrCtrl.valueChanges.subscribe(x => {
      console.log(x);

@@ -39,12 +39,12 @@
 <div class="section-container"  [ngClass]="(highlightedSection.name=='EmploymentHistory' || highlightedSection.name=='Awards' || highlightedSection.name=='Certification')?'full-width':'quarter-width'" *ngIf="highlightedSection.name !='AcademicDetails'">
   <div class="main-content">
     <div class="compact-view clearfix">
-      <div *ngIf="candidate.academics.length==0">
+      <div *ngIf="candidate.academics.length==0 || !showAddButton">
 
-        <h4 class="heading-compact" (click)="highlightedSection.name='AcademicDetails';highlightedSection.isDisable=true;showButton=false" >
+        <h4 class="heading-compact" (click)="highlightedSection.name='AcademicDetails';addAcademicDetail();highlightedSection.isDisable=true;showButton=false" >
           <img src="assets/c-next/icons/education-icon.png" alt="employment"/>
           Acedemic Details
-          <span class="glyphicon glyphicon-plus"></span>
+          <span class="glyphicon glyphicon-plus" ></span>
         </h4>
       </div>
 

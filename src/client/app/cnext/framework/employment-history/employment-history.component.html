@@ -46,11 +46,11 @@
             <p>From {{item.from.month}} {{item.from.year}} to {{item.to.month}} {{item.to.year}}</p></li>
         </div>
       </ul>-->
-      <div *ngIf="candidate.employmentHistory.length==0">
-        <h4 class="heading-compact" (click)="highlightedSection.name='EmploymentHistory';highlightedSection.isDisable=true;showButton=false;" >
+      <div *ngIf="candidate.employmentHistory.length==0 || !showAddButton" >
+        <h4 class="heading-compact" (click)="highlightedSection.name='EmploymentHistory';addEmployeeHistory();highlightedSection.isDisable=true;showButton=false;" >
           <img src="assets/c-next/icons/employment-icon.png" alt="employment"/>
           Employment History
-          <span class="glyphicon glyphicon-plus"></span>
+          <span class="glyphicon glyphicon-plus" ></span>
         </h4>
       </div>
       <div class="vertical-container" *ngIf="candidate.employmentHistory.length>0">

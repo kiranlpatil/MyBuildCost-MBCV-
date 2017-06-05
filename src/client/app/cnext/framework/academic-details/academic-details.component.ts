@@ -17,6 +17,7 @@ export class AcademicDetailComponent {
 
   public academicDetail:FormGroup;
 
+  private showAddButton:boolean = true;
 
   private isButtonShow:boolean = false;
   private showButton:boolean = true;
@@ -66,6 +67,7 @@ export class AcademicDetailComponent {
     const control = <FormArray>this.academicDetail.controls['acdemicDetails'];
     const addrCtrl = this.initAcademicDetails();
     control.push(addrCtrl);
+    this.showAddButton=false;
   }
 
   removeAcademicDetail(i:number) {
