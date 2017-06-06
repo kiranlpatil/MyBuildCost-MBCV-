@@ -28,7 +28,7 @@
 
 
         <ul class="nav navbar-nav navbar-right">
-          <li class="user-info">
+          <li class="user-info user-info-desktop">
             <h4>{{company_name}}</h4>
           </li>
 
@@ -39,6 +39,10 @@
                 <span class="caret"></span>
               </a>
               <ul class="dropdown-menu mobile-dropdown">
+                <li class="user-info user-info-ipad">
+                  <h4>{{company_name}}</h4>
+                </li>
+                <li class="divider"></li>
                 <li role="menuitem" >
                   <a class="dropdown-item" [routerLink]="['recruiter_dashboard']"
                      (click)="navigateTo('/recruiterdashboard'); toggleMenu();">
