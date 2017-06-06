@@ -24,7 +24,7 @@ export class JobViewComponent  {
 
   ngOnChanges(changes:any){
     if (changes.jobId !=undefined && changes.jobId.currentValue != undefined  ) {
-      
+
       this.jobId=changes.jobId.currentValue;
       this.recruiterDashboardService.getPostedJobDetails(this.jobId)
         .subscribe(

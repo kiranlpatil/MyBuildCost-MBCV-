@@ -35,6 +35,9 @@
             <li class="contact-info">
               <p><img src="../../../../assets/c-next/post-job/contact-person.png" alt="Hiring Manager"/>{{selectedJobProfile.hiringManager}}</p>
             </li>
+            <li>
+              <button (click)="viewJobdetails()">view job details</button>
+            </li>
           </ul>
         </div>
       </div>
@@ -70,5 +73,22 @@
       <p *ngIf="recruiterJobView.numberOfCandidatesrejected==0">There are no candidates in Rejected</p>
     </div>
 
+  </div>
+</div>
+<div  class="modal dashboard-modal" [style.display]="getModal()">
+  <div class="modal-bg">
+    <div class="modal-dialog modal-md">
+      <div class="modal-content">
+        <div class="modal-body">
+          <div class="modal-header">
+            <h4>Job Description</h4>
+            <img src="/assets/c-next/card-view/close-grey.png" (click)="closeJob()" class="close"/>
+          </div>
+          <div class="row">
+            <cn-job-view [jobId]="selectedJobProfile._id"></cn-job-view>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

@@ -19,6 +19,7 @@ export class JobDashboardComponent implements OnInit {
 
   jobId : any;
   jobCount:any;
+  private showModalStyle: boolean = false;
   private  headerInfo:any;
   private recruiterJobView:RecruiterJobView = new RecruiterJobView();
   private whichListVisible : boolean[]= new Array(4);
@@ -125,7 +126,19 @@ export class JobDashboardComponent implements OnInit {
       }
     }
   }
-
-
+  viewJobdetails()
+  {debugger
+    this.showModalStyle=true;
+  }
+  getModal() {//TODO remove this from all model
+    if (this.showModalStyle) {
+      return 'block';
+    } else {
+      return 'none';
+    }
+  }
+  closeJob(){
+    this.showModalStyle = !this.showModalStyle;
+  }
 
 }
