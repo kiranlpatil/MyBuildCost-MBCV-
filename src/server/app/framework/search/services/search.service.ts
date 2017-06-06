@@ -206,6 +206,9 @@ class SearchService {
                           complexity.match = "exact";
                         }
                       }
+                      if(complexity.match==undefined){
+                        complexity.match = "missing";
+                      }
 
                     }
 
@@ -280,6 +283,9 @@ class SearchService {
                         } else if (job_last_digit == candi_last_digit) {
                           jobCom.match = "exact";
                         }
+                      }
+                      if(jobCom.match==undefined){
+                        jobCom.match = "missing";
                       }
 
                     }
