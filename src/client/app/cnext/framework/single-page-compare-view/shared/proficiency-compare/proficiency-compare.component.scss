@@ -1,19 +1,23 @@
-$theme-color: #1c75bd;
+$theme-color: #3694d1;
 $white: #fff;
+$gray: #ccc;
+$green: #7DC527;
 
 .option {
-  background: $theme-color;
-  border-radius: 25px;
-  color: $white;
+  border: 1px solid $gray;
+  border-radius: 4px;
+  color: $theme-color;
   display: inline-block;
   font-size: 10px;
-  font-weight: normal;
+  font-weight: bold;
   margin: 5px 15px 5px 0;
   min-width: 100px;
   padding: 4px 10px;
   text-align: center;
+  border-left: 10px solid $gray;
+}
 
-  .exact {
-    color: #f00;
-  }
+.exact {
+  border: 1px solid $green;
+  border-left: 10px solid $green;
 }

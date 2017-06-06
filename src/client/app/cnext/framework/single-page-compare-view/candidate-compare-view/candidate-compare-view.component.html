@@ -26,18 +26,18 @@
       <span *ngFor="let industry of postedJob.interestedIndustries;let i = index">{{industry}}<span
         *ngIf="recruiter.postedJobs[0].interestedIndustries.length>1 && i!=postedJob.interestedIndustries-1">,</span>
       </span>
-          <label>Education</label>
+          <label [class.exact]="data.educationMatch=='exact'" [class.above]="data.educationMatch=='above'"
+                 [class.below]="data.educationMatch=='below'" [class.missing]="data.educationMatch=='missing'">Education</label>
           <span>{{postedJob.education}}</span>
-          <span>{{data.educationMatch}}</span>
-          <label>Experience</label>
+          <label [class.exact]="data.experienceMatch=='exact'" [class.above]="data.experienceMatch=='above'"
+                 [class.below]="data.experienceMatch=='below'" [class.missing]="data.experienceMatch=='missing'">Experience</label>
           <span>{{postedJob.experience}}</span>
-          <span>{{data.experienceMatch}}</span>
-          <label>Salary</label>
+          <label [class.exact]="data.salaryMatch=='exact'" [class.above]="data.salaryMatch=='above'"
+                 [class.below]="data.salaryMatch=='below'" [class.missing]="data.salaryMatch=='missing'" >Salary</label>
           <span>{{postedJob.salary}}</span>
-          <span>{{data.salaryMatch}}</span>
-          <label>Joining Period</label>
+          <label  [class.exact]="data.releaseMatch=='exact'" [class.above]="data.releaseMatch=='above'"
+                  [class.below]="data.releaseMatch=='below'" [class.missing]="data.releaseMatch=='missing'">Joining Period</label>
           <span>{{data.joiningPeriod}}</span>
-          <span>{{data.releaseMatch}}</span>
           <label>Location</label>
           <span>pune</span>
         </div>

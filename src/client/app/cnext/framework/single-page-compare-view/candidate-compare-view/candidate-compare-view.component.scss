@@ -2,6 +2,10 @@
 $text-color: #576b7c;
 $name: #666;
 $blue-color: #3694d1;
+$green: #7DC527;
+$red: #96e328;
+$orange: #FFB316;
+$gray: #ccc;
 
 .basic-description {
   text-align: left;
@@ -56,4 +60,18 @@ $blue-color: #3694d1;
       width: 100%;
     }
   }
+}
+
+.exact {
+  color: $green !important;
+}
+
+.above {
+  color: $orange !important;
+}
+.below {
+  color: $red !important;
+}
+.missing {
+  color: $gray !important;
 }
