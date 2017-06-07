@@ -220,7 +220,6 @@ export class CandidateProfileComponent implements OnInit {
   }
 
   onMoreAboutMySelfComplete(data:string) {
-    console.log(data);
     if (data != '') {
       this.whichStepsVisible[6] = true;
     } else {
@@ -277,7 +276,6 @@ export class CandidateProfileComponent implements OnInit {
       .subscribe(
         candidateData => {
           this.OnCandidateDataSuccess(candidateData);
-          console.log(candidateData)
         },
         error => this.onError(error));
   }
@@ -306,7 +304,6 @@ export class CandidateProfileComponent implements OnInit {
       .subscribe(
         data => {
           this.proficiencies = data.data[0].proficiencies;
-          console.log(this.proficiencies);
         },
         error => this.onError(error));
   }
