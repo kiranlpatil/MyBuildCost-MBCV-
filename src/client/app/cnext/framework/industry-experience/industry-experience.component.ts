@@ -100,6 +100,9 @@ export class IndustryExperienceListComponent {
         this.industries.splice(this.industries.indexOf(item), 1);
       }
     }
+    var newIndustry=new Industry();
+    newIndustry.name="any";
+    this.industries.push(newIndustry);
   }
 }
 
