@@ -22,6 +22,7 @@ export class CapabilitiesComponent {
   private secondaryNames:string[] = new Array(0);
   private primaryCapabilitiesNumber:number = 0;
   private disableButton:boolean = true;
+  tooltipMessage : string="<p class='info'>Select those capabilities which describe what you are best at or where you would like to position your career.</p>";
 
   ngOnChanges(changes:any) {
     if (this.candidateRoles) {
