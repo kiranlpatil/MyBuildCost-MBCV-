@@ -1092,7 +1092,7 @@ this.data={
     "javascript"
   ]
 }
-    console.log(this.data)
+    //console.log(this.data)
 
   }
 
