@@ -158,6 +158,7 @@ import {CapabilityCompareComponent} from "./cnext/framework/single-page-compare-
 import {CerificatesComponent} from "./cnext/framework/certification-accreditation/cerificates/certificates.component";
 import {AwardComponent} from "./cnext/framework/awards/award/award.component";
 import {ProficiencyCompareComponent} from "./cnext/framework/single-page-compare-view/shared/proficiency-compare/proficiency-compare.component";
+import {TooltipComponent} from "./cnext/framework/tool-tip-component/tool-tip-component";
 
 //C-NEXT IMPORTS
 
@@ -181,6 +182,7 @@ import {ProficiencyCompareComponent} from "./cnext/framework/single-page-compare
     LoaderComponent,
     LandingPageComponent,
     MainHeaderComponent,
+    TooltipComponent,
     LoginComponent,
     RegistrationComponent,
     CandidateComponent,
