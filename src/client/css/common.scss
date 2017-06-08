@@ -26,6 +26,7 @@ $label: #999;
 $theme-color: #66afe9;
 $gray-shadow: rgba(0,0,0,.075);
 $blue-shadow: rgba(102,175,233,.6);
+$body-bg: #edf1f5;
 
 .btn-logout {
   margin-top: 15px;
@@ -101,6 +102,7 @@ html {
   font-weight: 600;
   //height: 100%;
   text-align: center;
+  background: $body-bg;
 
   //Container
   .container-fluid {

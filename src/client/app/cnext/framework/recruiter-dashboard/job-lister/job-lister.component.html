@@ -7,7 +7,7 @@
     </div>-->
   </header>
 
-  <div class="card-view">
+  <div class="card-view clearfix">
     <div class="col-md-3" *ngFor="let item of jobListInput | orderBy:format;let i = index" (click)="onJobClikecd(item._id)">
       <div class="panel clearfix">
         <span class="glyphicon glyphicon-trash"></span>
