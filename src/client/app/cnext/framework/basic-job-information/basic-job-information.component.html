@@ -72,7 +72,7 @@
       </div>
       <div class="button-group clearfix">
         <button  class="btn btn-primary" scrollTo scrollTargetSelector="#work-area" (click)="onNext()"
-                [disabled]="!jobPostForm.valid">Next
+                [disabled]="!jobPostForm.valid || storedIndustry==undefined">Next
         </button>
       </div>
     </form>
