@@ -384,20 +384,22 @@ export class CandidateProfileComponent implements OnInit {
           this.getComplexity();
           this.showComplexity = true;
           this.whichStepsVisible[2] = true;
-          if (this.candidate.industry.roles[0].capabilities[0]!=undefined){
+          if (this.candidate.industry.roles[0].capabilities[0] != undefined) {
             if (this.candidate.industry.roles[0].capabilities[0].complexities.length > 0) {
               debugger
               this.whichStepsVisible[3] = true;
             } else {
               this.highlightedSection.name = 'Complexities';
             }
-        }
-          if (this.candidate.industry.roles[0].default_complexities[0].complexities.length> 0 ) {debugger
+          }
+          if(this.candidate.industry.roles[0].default_complexities!=undefined && this.candidate.industry.roles[0].default_complexities[0]!=undefined){
+          if (this.candidate.industry.roles[0].default_complexities[0].complexities.length > 0) {
+            debugger
             this.whichStepsVisible[3] = true;
           } else {
             this.highlightedSection.name = 'Complexities';
           }
-
+        }
 
         } else {
           this.highlightedSection.name = 'Capabilities';
