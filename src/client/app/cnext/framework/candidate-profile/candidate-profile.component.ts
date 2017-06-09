@@ -199,7 +199,6 @@ export class CandidateProfileComponent implements OnInit {
               this.showComplexity = true;
               this.whichStepsVisible[2] = true;
             }
-            ;
             this.goto = false;
             this.getCandidateForCapability();
           });
