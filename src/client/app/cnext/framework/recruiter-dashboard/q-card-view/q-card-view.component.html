@@ -109,7 +109,7 @@
 </div>
 </div>
 
-<div *ngIf="type!='cartListed'"class="modal dashboard-modal" [style.display]="getStyleModal()">
+<div *ngIf="type!='cartListed'"class="modal dashboard-modal recruiter-modal" [style.display]="getStyleModal()">
   <div class="modal-bg">
     <div class="modal-dialog modal-md">
       <div class="modal-content">
@@ -149,7 +149,7 @@
         <div class="modal-body">
           <div class="modal-header">
             <h4>Job Description</h4>
-            <img src="/assets/c-next/card-view/close-grey.png" (click)="closeJob()" class="close"/>
+            <img src="/assets/c-next/card-view/close-white.png" (click)="closeJob()" class="close"/>
           </div>
           <div class="row">
             <cn-candidate-view [candidateId]="selectedCandidate._id"></cn-candidate-view>
