@@ -177,10 +177,11 @@ $active-color: #edf1f5;
       position: absolute;
       left: 50%;
       text-align: center;
-      top: 66%;
+      top: 73%;
       transform: translate(-50%, -50%) rotateY(180deg);
       color: $orange;
       font-size: 10px;
+      padding: 0;
     }
   }
 
