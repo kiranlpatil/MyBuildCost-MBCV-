@@ -25,7 +25,7 @@ export class MoreAboutMyselfComponent implements OnInit {
   private remainingWords:number;
   private maxword:number;
   private showButton:boolean = true;
-  tooltipMessage : string="<p class='info'>More About Myself. Please mention any additional details you feel are important for recruiter to know about you and are not cover in any of the section above</p>";
+  tooltipMessage : string="<ul><li><h5>More about myself</h5><p class='info'>More About Myself. Please mention any additional details you feel are important for recruiter to know about you and are not cover in any of the section above</p></li></ul>";
 
   constructor(private messageService:MessageService,
               private profileCreatorService:CandidateProfileService) {

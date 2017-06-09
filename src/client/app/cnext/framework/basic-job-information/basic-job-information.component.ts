@@ -28,7 +28,11 @@ export class BasicJobInformationComponent {
   private address : string;
   private storedIndustry:Industry;
   private storedLoaction:JobLocation=new JobLocation();
-  tooltipMessage : string="<p class='info'>Enter all key words that describe your area of expertise or specialization.";
+  tooltipMessage : string="<ul>" +
+      "<li><h5>Job description</h5>" +
+      "<p class='info'>Enter all key words that describe your area of expertise or specialization.</p>" +
+      "</li>" +
+      "</ul>";
 
   constructor(private professionaldataservice:ProfessionalDataService,
               private formBuilder: FormBuilder) {

@@ -25,9 +25,9 @@ export class ProfileDescriptionComponent {
   private image_path:string='assets/framework/images/dashboard/profile.png' ;
   tooltipMessage : string=
       "<ul>" +
-      "<li><p><strong> Job Title </strong></br>" + "&nbspEnter your current job title</br></p></li>" +
-      "<li><strong>Core Industry</strong></br></p>" +"&nbspEnter your core Industry in which you are working or have your maximum experience</br></li>" +
-      "<li><p><b>Profile Picture</b></br></p>" +"&nbspPlease update your latest profile picture. Profiles with your best picture increase your possiblity to get shortlisted.</br>" +
+      "<li><h5> Job Title </h5><p>Enter your current job title</p></li>" +
+      "<li><h5>Core Industry</h5><p>Enter your core Industry in which you are working or have your maximum experience</p></li>" +
+      "<li><h5>Profile Picture</h5><p>Please update your latest profile picture. Profiles with your best picture increase your possiblity to get shortlisted.</p></li>" +
       "</ul>";
 
   constructor(private userProfileService:DashboardService) {

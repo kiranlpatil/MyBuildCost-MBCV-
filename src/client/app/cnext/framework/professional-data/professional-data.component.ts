@@ -33,13 +33,13 @@ export class ProfessionalDataComponent extends BaseService implements OnInit {
   tooltipMessage : string=
 
       "<ul>" +
-      "<li><p><strong> Ready to Relocate </strong></br>" + "&nbspSelect if you are open to relocate from your current location as per job demand.</br></p></li>" +
-      "<li><p><strong> Education </strong></br>" + "&nbspSpecify your highest degree you attened.</br></p></li>" +
-      "<li><p><strong> Notice Period </strong></br>" + "&nbspMention your notice period you have to serve before you can take up new job.</br></p></li>" +
-      "<li><p><strong> Industry Exposure </strong></br>" + "&nbspPlease mention if you have experience working with local or multinational companies.</br></p></li>" +
-      "<li><p><strong> Experiance </strong></br>" + "&nbspNumber of years relevent experience for your selected Industry.</br></p></li>" +
-      "<li><p><strong> Current Salary </strong></br>" + "&nbspPlease mention your current salary (CTC).</br></p></li>" +
-      "</ul>"
+      "<li><h5> Ready to Relocate</h5><p>Select if you are open to relocate from your current location as per job demand.</p></li>" +
+      "<li><h5> Education </h5><p>Specify your highest degree you attened.</p></li>" +
+      "<li><h5> Notice Period </h5><p>Mention your notice period you have to serve before you can take up new job.</p></li>" +
+      "<li><h5> Industry Exposure </h5><p>Please mention if you have experience working with local or multinational companies.</p></li>" +
+      "<li><h5> Experiance </h5><p>Number of years relevent experience for your selected Industry.</p></li>" +
+      "<li><h5> Current Salary </h5><p>Please mention your current salary (CTC).</p></li>" +
+      "</ul>";
 
 
 

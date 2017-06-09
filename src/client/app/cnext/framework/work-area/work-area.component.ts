@@ -19,9 +19,8 @@ export class WorkAreaComponent {
   private isCandidate:boolean = false;
   private disableButton:boolean = true;
   tooltipMessage : string=
-
       "<ul>" +
-      "<li><p><strong> Area Of Work </strong></br>" + "&nbspSelect those areas of work that describe what you are best at or where you would like to position your career.</br></p></li>" +
+      "<li><h5> Area Of Work </h5><p>Select those areas of work that describe what you are best at or where you would like to position your career.</p></li>" +
       "</ul>"
 
 

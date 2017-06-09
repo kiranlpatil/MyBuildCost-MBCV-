@@ -22,7 +22,7 @@ export class IndustryExperienceListComponent {
   @Output() onComplete = new EventEmitter();
   @Output() onNextComplete = new EventEmitter();
   private disableButton:boolean=true;
-  tooltipMessage : string="<p class='info'>An individual may be exposed to multiple industries during the professional life. At times, organisations need individuals who have cross industry expertise. Select such industries where you can claim a reasonable exposure.</p>";
+  tooltipMessage : string="<ul><li><h5>Industry Exposure</h5><p class='info'>An individual may be exposed to multiple industries during the professional life. At times, organisations need individuals who have cross industry expertise.</p></li><li><p>Select such industries where you can claim a reasonable exposure.</p></li></ul>";
 
   constructor(private candidateProfileService:CandidateProfileService) {
     this.getIndustries();

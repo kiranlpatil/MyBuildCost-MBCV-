@@ -58,12 +58,23 @@ $theme-color: #3694d1;
     }*/
 
     ul {
-      padding: 0 15px;
+      padding: 0 5px;
       margin: 0;
+      list-style: none;
     }
 
     p {
+      margin: 0 0 5px 5px;
+      font-size: 10px;
+      display: block;
+      color: #666;
+    }
+
+    h5 {
       margin: 0 0 5px;
+      font-size: 12px;
+      font-weight: 900;
+      font-family: 'gothamrnd-book';
     }
   }
 }

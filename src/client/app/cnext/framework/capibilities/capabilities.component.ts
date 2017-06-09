@@ -25,7 +25,9 @@ export class CapabilitiesComponent {
   tooltipMessage : string=
 
       "<ul>" +
-      "<li><p class='info'><strong> Capablities </strong></br>" + "&nbsp;Select those capabilities which describe what you are best at or where you would like to position your career. These capablities are going to help you find best job you desire.</br></p></li>" +
+      "<li>" +
+      "<h5>Capablities </h5><p class='info'>Select those capabilities which describe what you are best at or where you would like to position your career. These capablities are going to help you find best job you desire.</p>" +
+      "</li>" +
       "</ul>";
 
   ngOnChanges(changes:any) {
