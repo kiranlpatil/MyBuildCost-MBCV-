@@ -137,6 +137,9 @@
           </div>
           <div class="button-group" *ngIf="type=='matchedList'">
             <button class="btn btn-default" (click)="actionOnQCard('add','matchedList','rejectedList', modelCandidate)">Reject</button>
+            <button class="btn btn-cart btn-block" type="button"
+                    (click)="actionOnQCard('add','matchedList','cartListed',modelCandidate)">Add To Cart
+            </button>
           </div>
         </div>
       </div>
@@ -158,6 +161,7 @@
           </div>
           <div class="button-group" >
             <button class="btn btn-default" (click)="actionOnQCard('add','cartListed','rejectedList', modelCandidate)">Reject</button>
+
           </div>
         </div>
       </div>
