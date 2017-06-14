@@ -8,7 +8,7 @@ export class QCardListFilterPipe implements PipeTransform {
 
 
   transform(array: Array<CandidateQCard>, args: QCardFilter, qCardCount: any): Array<any> {
-    if (array == null) {
+    if (array === null) {
       return null;
     }
 

@@ -178,7 +178,7 @@ export class CandidateProfileComponent implements OnInit {
 
   }
   onMoreAboutMySelfComplete(data: string) {
-    if (data != '') {
+    if (data !== '') {
       this.whichStepsVisible[6] = true;
     } else {
       this.whichStepsVisible[6] = false;
@@ -207,7 +207,7 @@ export class CandidateProfileComponent implements OnInit {
               }
             }
             if (this.goto === false) {
-              if (this.whichStepsVisible[3] != true) {
+              if (this.whichStepsVisible[3] !== true) {
                 this.highlightedSection.name = "Complexities";
                 this.highlightedSection.isDisable = false;
               }
@@ -350,7 +350,7 @@ export class CandidateProfileComponent implements OnInit {
       this.whichStepsVisible[5] = true;
     }
 
-    if (candidateData.data[0].isCompleted == true) {
+    if (candidateData.data[0].isCompleted === true) {
       this.showIndustryExperience = true;
       this.showProfessionalData = true;
       this.showAboutMySelf = true;

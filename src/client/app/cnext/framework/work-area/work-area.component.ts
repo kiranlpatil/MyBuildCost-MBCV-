@@ -76,7 +76,7 @@ export class WorkAreaComponent {
   isSelected(value: string) {
     return this.selectedRoles.filter(function (el: Role) {
         return el.name == value;
-      }).length != 0;
+      }).length !== 0;
   }
 
 }

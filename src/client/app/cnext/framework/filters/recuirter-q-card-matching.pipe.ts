@@ -10,7 +10,7 @@ export class RecuirterQCardMatchingPipe implements PipeTransform {
 
     var defaultMatch = ValueConstant.VALUE_FOR_CNDIDATES_PERCENT_MATCHING_LOWER_BOUND;
     var result: CandidateQCard[];
-    if (array == null) {
+    if (array === null) {
       return null;
     }
     if (cartType == 'matchedList') {

@@ -45,7 +45,7 @@ export class JobProficienciesComponent implements OnInit {
   onOptionalProficiencyComplete(optional: string[]) {
     this.jobPosterModel.additionalProficiencies = optional;
     this.onComplete.emit(this.jobPosterModel);
-    if (this.jobPosterModel.additionalProficiencies.length == 0) {
+    if (this.jobPosterModel.additionalProficiencies.length === 0) {
       this.showAdditional = false;
     }
   }

@@ -166,10 +166,10 @@ export class FilterComponent {
   filterByJoinTime(value: any) {
     if (value) {
       this.qCardFilter.filterByJoinTime = value;
-      if (this.isRecuirter == true) {
+      if (this.isRecuirter === true) {
         this.queryListPush('((args.filterByJoinTime && item.noticePeriod) && (args.filterByJoinTime.toLowerCase() === item.noticePeriod.toLowerCase()))');
       }
-      if (this.isRecuirter == false) {
+      if (this.isRecuirter === false) {
         this.queryListPush('((args.filterByJoinTime && item.joiningPeriod) && (args.filterByJoinTime.toLowerCase() === item.joiningPeriod.toLowerCase()))');
       }
       this.buildQuery();

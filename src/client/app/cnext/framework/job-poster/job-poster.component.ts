@@ -58,7 +58,7 @@ export class JobPosterComponent {
     if (LocalStorageService.getLocalValue(LocalStorage.IS_CANDIDATE) === 'true') {
       this.isCandidate = true;
     }
-    if (this.isCandidate != true) {
+    if (this.isCandidate !== true) {
       this.highlightedSection.name = "JobProfile";
     }
   }
@@ -161,8 +161,8 @@ export class JobPosterComponent {
 
   onCompentansiesandResponsibilitycomplete(data: any) {
     this.jobPosterModel = data;
-    if (this.jobPosterModel.competencies != undefined && this.jobPosterModel.competencies != '' &&
-      this.jobPosterModel.responsibility != undefined && this.jobPosterModel.responsibility != '') {
+    if (this.jobPosterModel.competencies != undefined && this.jobPosterModel.competencies !== '' &&
+      this.jobPosterModel.responsibility != undefined && this.jobPosterModel.responsibility !== '') {
       this.disableButton = false;
     }
   }
@@ -200,7 +200,7 @@ export class JobPosterComponent {
                 }
               }
             }
-            if (this.isCapabilitypresent == false) {
+            if (this.isCapabilitypresent === false) {
               this.isShowCapability = false;
               this.isShowComplexity = true;
               this.getComplexity();

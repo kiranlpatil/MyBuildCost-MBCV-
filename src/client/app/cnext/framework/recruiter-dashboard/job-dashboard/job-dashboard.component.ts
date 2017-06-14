@@ -85,9 +85,9 @@ export class JobDashboardComponent implements OnInit {
   }
 
   AddedToCart(event: any) {
-    if (event == true)
+    if (event === true)
       this.headerInfo.totalNumberOfCandidateInCart += 1;
-    if (event == false)
+    if (event === false)
       this.headerInfo.totalNumberOfCandidateInCart -= 1;
   }
 

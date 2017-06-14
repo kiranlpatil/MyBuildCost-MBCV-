@@ -63,8 +63,8 @@ export class ProfessionalDataComponent extends BaseService implements OnInit {
      this.professionalDetailForm.education.value=this.candidate.professionalDetails;
      }*/
     if (changes.candidate != undefined && changes.candidate.professionalDetails != undefined) {
-      if (this.candidate.professionalDetails.currentSalary != '' && this.candidate.professionalDetails.education != '' &&
-        this.candidate.professionalDetails.experience != '' && this.candidate.professionalDetails.noticePeriod != '' && this.candidate.professionalDetails.relocate != '') {
+      if (this.candidate.professionalDetails.currentSalary !== '' && this.candidate.professionalDetails.education !== '' &&
+        this.candidate.professionalDetails.experience !== '' && this.candidate.professionalDetails.noticePeriod !== '' && this.candidate.professionalDetails.relocate !== '') {
         this.disableButton = false;
       }
     }
@@ -170,8 +170,8 @@ export class ProfessionalDataComponent extends BaseService implements OnInit {
   }
 
   saveProfessionalData() {
-    if (this.candidate.professionalDetails.currentSalary != '' && this.candidate.professionalDetails.education != '' &&
-      this.candidate.professionalDetails.experience != '' && this.candidate.professionalDetails.noticePeriod != '' && this.candidate.professionalDetails.relocate != '') {
+    if (this.candidate.professionalDetails.currentSalary !== '' && this.candidate.professionalDetails.education !== '' &&
+      this.candidate.professionalDetails.experience !== '' && this.candidate.professionalDetails.noticePeriod !== '' && this.candidate.professionalDetails.relocate !== '') {
       this.disableButton = false;
     }
     this.profileCreatorService.addProfileDetail(this.candidate).subscribe(

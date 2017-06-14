@@ -10,7 +10,7 @@ export class QCardListSortPipe implements PipeTransform {
 
 
   transform(array: Array<CandidateQCard>, args: string[]): Array<CandidateQCard> {
-    if (array == null) {
+    if (array === null) {
       return null;
     }
     if (JSON.stringify(lastObject) === JSON.stringify(array) && lastArgs === args[0]) {
