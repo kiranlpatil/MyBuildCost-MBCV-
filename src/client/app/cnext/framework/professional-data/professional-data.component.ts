@@ -21,12 +21,12 @@ export class ProfessionalDataComponent extends BaseService implements OnInit {
   @Output() onComplete = new EventEmitter();
 
   /* private professionalDetailForm : FormGroup;*/
-  private realocationlist = new Array();
+  private realocationList = new Array();
   private showButton: boolean = true;
-  private educationlist = new Array();
-  private experiencelist = new Array();
-  private salarylist = new Array();
-  private noticeperiodlist = new Array();
+  private educationList = new Array();
+  private experienceList = new Array();
+  private salaryList = new Array();
+  private noticePeriodList = new Array();
   private disableButton: boolean = true;
   /*private professionalDetails:ProfessionalData=new ProfessionalData();*/
   tooltipMessage: string =
@@ -41,7 +41,7 @@ export class ProfessionalDataComponent extends BaseService implements OnInit {
     "</ul>";
 
 
-  constructor(private professionaldataservice: ProfessionalDataService,
+  constructor(private professionaldataService: ProfessionalDataService,
               private messageService: MessageService,
               private formBuilder: FormBuilder,
               private profileCreatorService: CandidateProfileService) {
@@ -72,7 +72,7 @@ export class ProfessionalDataComponent extends BaseService implements OnInit {
 
   ngOnInit() {
 
-    this.professionaldataservice.getRealocationList()
+    this.professionaldataService.getRealocationList()
       .subscribe(
         data => {
           this.onRealocationListSuccess(data);
@@ -81,7 +81,7 @@ export class ProfessionalDataComponent extends BaseService implements OnInit {
           this.onError(error);
         });
 
-    this.professionaldataservice.getEducationList()
+    this.professionaldataService.getEducationList()
       .subscribe(
         data => {
           this.onEducationListSuccess(data);
@@ -91,7 +91,7 @@ export class ProfessionalDataComponent extends BaseService implements OnInit {
         });
 
 
-    this.professionaldataservice.getExperienceList()
+    this.professionaldataService.getExperienceList()
       .subscribe(
         data => {
           this.onExperienceListSuccess(data);
@@ -100,7 +100,7 @@ export class ProfessionalDataComponent extends BaseService implements OnInit {
           this.onError(error);
         });
 
-    this.professionaldataservice.getCurrentSalaryList()
+    this.professionaldataService.getCurrentSalaryList()
       .subscribe(
         data => {
           this.onCurrentSalaryListSuccess(data);
@@ -110,7 +110,7 @@ export class ProfessionalDataComponent extends BaseService implements OnInit {
         });
 
 
-    this.professionaldataservice.getNoticePeriodList()
+    this.professionaldataService.getNoticePeriodList()
       .subscribe(
         data => {
           this.onGetNoticePeriodListSuccess(data);
@@ -125,35 +125,35 @@ export class ProfessionalDataComponent extends BaseService implements OnInit {
 
   onGetNoticePeriodListSuccess(data: any) {
     for (let k of data.noticeperiod) {
-      this.noticeperiodlist.push(k);
+      this.noticePeriodList.push(k);
     }
 
   }
 
   onCurrentSalaryListSuccess(data: any) {
     for (let k of data.salary) {
-      this.salarylist.push(k);
+      this.salaryList.push(k);
     }
 
   }
 
   onExperienceListSuccess(data: any) {
     for (let k of data.experience) {
-      this.experiencelist.push(k);
+      this.experienceList.push(k);
     }
 
   }
 
   onEducationListSuccess(data: any) {
     for (let k of data.educated) {
-      this.educationlist.push(k);
+      this.educationList.push(k);
     }
 
   }
 
   onRealocationListSuccess(data: any) {
     for (let k of data.realocate) {
-      this.realocationlist.push(k);
+      this.realocationList.push(k);
     }
   }
 

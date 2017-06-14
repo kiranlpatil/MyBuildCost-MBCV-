@@ -20,10 +20,10 @@ export class BasicJobInformationComponent {
   @Output() onComplete = new EventEmitter();
 
   private jobPostForm: FormGroup;
-  private educationlist = new Array();
-  private experiencelist = new Array();
-  private salarylist = new Array();
-  private noticeperiodlist = new Array();
+  private educationList = new Array();
+  private experienceList = new Array();
+  private salaryList = new Array();
+  private noticePeriodList = new Array();
   private address: string;
   private storedIndustry: Industry;
   private storedLoaction: JobLocation = new JobLocation();
@@ -33,7 +33,7 @@ export class BasicJobInformationComponent {
     "</li>" +
     "</ul>";
 
-  constructor(private professionaldataservice: ProfessionalDataService,
+  constructor(private professionaldataService: ProfessionalDataService,
               private formBuilder: FormBuilder) {
 
     this.jobPostForm = this.formBuilder.group({
@@ -49,25 +49,25 @@ export class BasicJobInformationComponent {
   }
 
   ngOnInit() {
-    this.professionaldataservice.getEducationList()
+    this.professionaldataService.getEducationList()
       .subscribe(
         data => {
-          this.educationlist = data.educated;
+          this.educationList = data.educated;
         });
-    this.professionaldataservice.getExperienceList()
+    this.professionaldataService.getExperienceList()
       .subscribe(
         data => {
-          this.experiencelist = data.experience;
+          this.experienceList = data.experience;
         });
-    this.professionaldataservice.getCurrentSalaryList()
+    this.professionaldataService.getCurrentSalaryList()
       .subscribe(
         data => {
-          this.salarylist = data.salary;
+          this.salaryList = data.salary;
         });
-    this.professionaldataservice.getNoticePeriodList()
+    this.professionaldataService.getNoticePeriodList()
       .subscribe(
         data => {
-          this.noticeperiodlist = data.noticeperiod;
+          this.noticePeriodList = data.noticeperiod;
         });
   }
 

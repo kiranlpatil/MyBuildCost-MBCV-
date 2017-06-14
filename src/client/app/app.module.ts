@@ -112,7 +112,6 @@ import {jobListerSortPipe} from "./cnext/framework/recruiter-dashboard/job-liste
 import {RecruiterDashboardService} from "./cnext/framework/recruiter-dashboard/recruiter-dashboard.service";
 import {RecruiterJobSummaryComponent} from "./cnext/framework/one-page-summury/recruiter-job-summary/recruiter-job-summary.component";
 import {RecruiterJobInformation} from "./cnext/framework/one-page-summury/recruiter-job-summary/recruiter-job-information/recruiter-job-information.component";
-//import {GooglePlaceModule} from 'ng2-google-place-autocomplete';
 import {MultiSelectComponent} from "./cnext/framework/multi-select/multi-select.component";
 import {MultiSelectService} from "./cnext/framework/multi-select/multi-select.service";
 import {JobProficienciesComponent} from "./cnext/framework/job-proficiency/job-proficiencies.component";
@@ -164,7 +163,6 @@ import {JobCompareViewComponent} from "./cnext/framework/single-page-compare-vie
   imports: [
     BrowserModule,
     FormsModule,
-    //  GooglePlaceModule,
     RouterModule.forRoot(routes),
     HttpModule,
     ReactiveFormsModule,

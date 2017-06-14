@@ -13,10 +13,10 @@ export class CandidateAwardService extends BaseService {
   }
 
 
-  addCandidateAward(candidateaward: Award[]): Observable<any> {
+  addCandidateAward(candidateAward: Award[]): Observable<any> {
     let headers = new Headers({'Content-Type': 'application/json'});
     let options = new RequestOptions({headers: headers});
-    let body = JSON.stringify({"awards": candidateaward});
+    let body = JSON.stringify({"awards": candidateAward});
     let url: string = API.CANDIDATE_PROFILE + '/' + LocalStorageService.getLocalValue(LocalStorage.USER_ID);
     return this.http.put(url, body, options)
       .map(this.extractData)
