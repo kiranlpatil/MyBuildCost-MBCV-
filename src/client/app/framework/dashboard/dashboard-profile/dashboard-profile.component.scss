@@ -26,9 +26,7 @@
     text-align: center;
 
     .avtar {
-      background-color: $white;
-      background-position: center center;
-      background-repeat: no-repeat;
+      background: $white no-repeat center center;
       background-size: cover;
       border-radius: 50%;
       //padding-bottom: 42%;

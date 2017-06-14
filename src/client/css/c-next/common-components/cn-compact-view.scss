@@ -44,8 +44,7 @@ $theme-color: #3694d1;
   padding: 10px;
 
   .btn-edit {
-    background: url("../assets/c-next/compact-view/pencil.png") no-repeat 50% 50%;
-    background-color: #fff;
+    background: #fff url("../assets/c-next/compact-view/pencil.png") no-repeat 50% 50%;
     background-size: cover;
     border: 0;
     //display: block;

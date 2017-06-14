@@ -38,14 +38,13 @@ $border-blue: #d1dce4;
 
   .list-view {
     color: $text-color;
-    padding: 0;
     text-align: left;
     position: fixed;
     top: 83px;
     background: $active-color;
     width: 100%;
     z-index: 999;
-    padding-right: 200px;
+    padding: 0 200px 0 0;
 
     .panel {
       padding: 5px 15px;
@@ -107,13 +106,12 @@ $border-blue: #d1dce4;
 
     h4 {
       font-size: 18px;
-      margin: 0 0 0;
       color: $highlight;
       @extend %text-ellipsis;
       font-weight: bold;
       font-family: "gothamrnd-book";
       text-transform: capitalize;
-      margin-top: 6px;
+      margin: 6px 0 0;
     }
 
     .contact-info {

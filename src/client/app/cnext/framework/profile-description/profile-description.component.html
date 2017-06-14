@@ -51,7 +51,7 @@
                   (click)="highlightedSection.name='Profile';disableButton=false;showButton=false;;highlightedSection.isDisable=true"
                   [hidden]="highlightedSection.isDisable"></button>
         </p>
-        <p><label>Job Title</label> {{candidate.jobTitle}}</p>
+        <p class="truncate-text"><label>Job Title</label> {{candidate.jobTitle}}</p>
         <p><label>Industry</label> {{candidate.industry.name}}</p>
       </div>
     </div>

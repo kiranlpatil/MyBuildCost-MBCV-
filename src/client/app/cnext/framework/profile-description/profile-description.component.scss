@@ -51,6 +51,12 @@ h4 {
   }
 }
 
+.truncate-text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 .profile-main-content {
   .compact-view {
     min-height: 165px;
