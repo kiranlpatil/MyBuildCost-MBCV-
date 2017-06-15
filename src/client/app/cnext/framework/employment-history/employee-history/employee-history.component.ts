@@ -18,8 +18,10 @@ export class EmployeeHistoryComponent {
   private currentDate: any;
   private yearList = new Array();
   public monthList: string[] = new Array('January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December');
+private fromYear:number;
+private toYear:number;
 
-  constructor() {
+constructor() {
     this.currentDate = new Date();
     this.year = this.currentDate.getUTCFullYear();
     this.year = this.year - ValueConstant.MAX_YEAR_LIST;
@@ -34,10 +36,14 @@ export class EmployeeHistoryComponent {
   }
 
   setCurrentDate() {                        //TODO remove it.
-
-    console.log("in set current date");
   }
 
+onFromYear(value:any) {
+    this.fromYear=value;
+}
+onToYear(value:any) {
+  this.toYear=value;
+}
 }
 
 

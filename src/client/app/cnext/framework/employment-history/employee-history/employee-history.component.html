@@ -30,12 +30,12 @@
           </div>
           <div class="col-sm-6 padding-left5">
             <select class="form-control" formControlName="month" required>
-              <option *ngFor="let c of monthList" [ngValue]="c">{{c}}</option>
+              <option value ={{month}} *ngFor="let month of monthList">{{month}}</option>
             </select>
           </div>
           <div class="col-sm-3 padding-left5">
-            <select class="form-control" formControlName="year" required>
-              <option *ngFor="let c of yearList" [ngValue]="c">{{c}}</option>
+            <select class="form-control" formControlName="year" (change)="onFromYear($event.target.value)" required>
+              <option value="{{year}}" *ngFor="let year of yearList | minrange:toYear" >{{year}}</option>
             </select>
           </div>
         </div>
@@ -48,12 +48,12 @@
           </div>
           <div class="col-sm-6 padding-right5">
             <select class="form-control" formControlName="month" required>
-              <option *ngFor="let c of monthList" [ngValue]="c">{{c}}</option>
+              <option value ={{month}} *ngFor="let month of monthList" >{{month}}</option>
             </select>
           </div>
           <div class="col-sm-3 padding-left5">
-            <select class="form-control" formControlName="year" required>
-              <option *ngFor="let c of yearList" [ngValue]="c">{{c}}</option>
+            <select class="form-control" formControlName="year" (change)="onToYear($event.target.value)" required>
+              <option value="{{year}}" *ngFor="let year of yearList | maxrange:fromYear" >{{year}}</option>
             </select>
           </div>
           <!--<div >  &lt;!&ndash;*ngIf="item.to.month ==''"&ndash;&gt;
