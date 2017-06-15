@@ -1,7 +1,7 @@
-import {Component, EventEmitter, Input, OnInit, Output} from "@angular/core";
-import {Section} from "../model/candidate";
-import {JobPosterModel} from "../model/jobPoster";
-import {ValueConstant} from "../../../framework/shared/constants";
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Section } from '../model/candidate';
+import { JobPosterModel } from '../model/jobPoster';
+import { ValueConstant } from '../../../framework/shared/constants';
 
 
 @Component({
@@ -53,13 +53,13 @@ export class JobProficienciesComponent implements OnInit {
   }
 
   onNext() {
-    this.highlightedSection.name = "IndustryExposure";
+    this.highlightedSection.name = 'IndustryExposure';
     this.highlightedSection.isDisable = false;
     this.onNextComplete.emit();
   }
 
   onSave() {
-    this.highlightedSection.name = "none";
+    this.highlightedSection.name = 'none';
     this.highlightedSection.isDisable = false;
     this.onNextComplete.emit();
   }
