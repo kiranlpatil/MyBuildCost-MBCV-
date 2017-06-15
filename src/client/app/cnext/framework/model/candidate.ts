@@ -1,10 +1,10 @@
-import {Industry} from "./industry";
-import {Award} from "./award";
-import {AcademicDetails} from "./academic-details";
-import {Certifications} from "./certification-accreditation";
-import {ProfessionalData} from "./professional-data";
-import {EmployementHistory} from "./employment-history";
-import {CandidateDetail} from "../../../framework/registration/candidate/candidate";
+import { Industry } from './industry';
+import { Award } from './award';
+import { AcademicDetails } from './academic-details';
+import { Certifications } from './certification-accreditation';
+import { ProfessionalData } from './professional-data';
+import { EmployementHistory } from './employment-history';
+import { CandidateDetail } from '../../../framework/registration/candidate/candidate';
 export class Candidate {
   jobTitle: string;
   isVisible: boolean;

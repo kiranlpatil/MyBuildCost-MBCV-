@@ -9,7 +9,7 @@ import { JobPosterModel } from '../model/jobPoster';
   styleUrls: ['compentacies-and-responsibilities.component.css']
 })
 
-export class CompentenciesAndResponsibilitiesComponent {
+export class CompetenciesAndResponsibilitiesComponent {
   @Input() jobPosterModel: JobPosterModel;
   @Input() highlightedSection: Section;
   @Output() onComplete = new EventEmitter();

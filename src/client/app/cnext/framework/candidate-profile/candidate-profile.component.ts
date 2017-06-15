@@ -14,17 +14,16 @@ import { Role } from '../model/role';
 })
 
 export class CandidateProfileComponent implements OnInit {
-
+  whichStepsVisible: boolean[] = new Array(7);
   private rolesForMain: Role[] = new Array(0);
   private rolesForCapability: Role[] = new Array(0);
   private rolesForComplexity: Role[] = new Array(0);
-  private roleList: string[] = new Array()
+  private roleList: string[] = new Array();
   private primaryCapability: string[] = new Array();
   private proficiencies: string[] = new Array();
   private isComplexityPresent: boolean = false;
   private isShowNext: boolean = true;
   private isShowPrev: boolean = false;
-  whichStepsVisible: boolean[] = new Array(7);
   private showCapability: boolean = false;
   private showComplexity: boolean = false;
   private showProficiency: boolean = false;

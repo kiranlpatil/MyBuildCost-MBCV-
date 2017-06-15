@@ -53,7 +53,7 @@ export class JobListerComponent implements  OnDestroy, OnChanges {
     this.toggleFormat();
   }
 
-  onJobClikecd(item: any) {
+  onJobClicked(item: any) {
     //this.jobEventEmitter.emit(item);
     this._router.navigate(['jobdashboard/', item]);
   }
