@@ -1,12 +1,12 @@
-import {Component, ElementRef, EventEmitter, Input, Output, ViewChild} from "@angular/core";
-import {Role} from "../model/role";
-import {Scenario} from "../model/scenario";
-import {Complexity} from "../model/complexity";
-import {Capability} from "../model/capability";
-import {ComplexityService} from "../complexity.service";
-import {LocalStorageService} from "../../../framework/shared/localstorage.service";
-import {LocalStorage} from "../../../framework/shared/constants";
-import {Section} from "../model/candidate";
+import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import { Role } from '../model/role';
+import { Scenario } from '../model/scenario';
+import { Complexity } from '../model/complexity';
+import { Capability } from '../model/capability';
+import { ComplexityService } from '../complexity.service';
+import { LocalStorageService } from '../../../framework/shared/localstorage.service';
+import { LocalStorage } from '../../../framework/shared/constants';
+import { Section } from '../model/candidate';
 
 @Component({
   moduleId: module.id,

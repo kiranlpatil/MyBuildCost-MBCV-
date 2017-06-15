@@ -1,6 +1,6 @@
-import {Component, EventEmitter, Input, Output} from "@angular/core";
-import {Section} from "../model/candidate";
-import {JobPosterModel} from "../model/jobPoster";
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Section } from '../model/candidate';
+import { JobPosterModel } from '../model/jobPoster';
 
 @Component({
   moduleId: module.id,
