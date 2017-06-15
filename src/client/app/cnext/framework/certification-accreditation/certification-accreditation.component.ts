@@ -33,7 +33,7 @@ export class CertificationAccreditationComponent {
     //subscribe to addresses value changes
     this.certificationDetail.controls['certifications'].valueChanges.subscribe(x => {
       this.isButtonShow = true;
-    })
+    });
   }
 
   ngOnChanges(changes: any) {
@@ -43,7 +43,7 @@ export class CertificationAccreditationComponent {
 
         let controlArray = <FormArray>this.certificationDetail.controls['certifications'];
         this.candidate.certifications.forEach(item => {
-          const fb = this.initCerificateDetails();
+          const fb = this.initCertificateDetails();
           fb.patchValue(item);
           controlArray.push(fb);
         });
@@ -54,7 +54,7 @@ export class CertificationAccreditationComponent {
     }
   }
 
-  initCerificateDetails() {
+  initCertificateDetails() {
     return this._fb.group({
       remark: [''],
       name: ['', Validators.required],
@@ -65,7 +65,7 @@ export class CertificationAccreditationComponent {
 
   addCertification() {
     const control = <FormArray>this.certificationDetail.controls['certifications'];
-    const addrCtrl = this.initCerificateDetails();
+    const addrCtrl = this.initCertificateDetails();
     control.push(addrCtrl);
   }
 

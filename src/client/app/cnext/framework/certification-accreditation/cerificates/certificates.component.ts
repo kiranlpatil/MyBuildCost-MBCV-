@@ -11,7 +11,7 @@ import {ValueConstant} from "../../../../framework/shared/constants";
   styleUrls: ['certificates.component.css']
 })
 
-export class CerificatesComponent {
+export class CertificatesComponent {
   @Input('group')
   public certificateForm: FormGroup;
   private year: any;

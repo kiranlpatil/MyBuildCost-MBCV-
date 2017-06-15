@@ -26,7 +26,7 @@ export class BasicJobInformationComponent {
   private noticePeriodList = new Array();
   private address: string;
   private storedIndustry: Industry;
-  private storedLoaction: JobLocation = new JobLocation();
+  private storedLocation: JobLocation = new JobLocation();
   tooltipMessage: string = "<ul>" +
     "<li><h5>Job description</h5>" +
     "<p class='info'>Enter all key words that describe the required area of expertise or specialization.</p>" +
@@ -72,9 +72,9 @@ export class BasicJobInformationComponent {
   }
 
   getAddress(address: MyGoogleAddress) {
-    this.storedLoaction.city = address.city;
-    this.storedLoaction.state = address.state;
-    this.storedLoaction.country = address.country;
+    this.storedLocation.city = address.city;
+    this.storedLocation.state = address.state;
+    this.storedLocation.country = address.country;
   }
 
   selectIndustry(industry: Industry) {
@@ -86,7 +86,7 @@ export class BasicJobInformationComponent {
     if (this.storedIndustry) {
       this.jobPosterModel.industry = this.storedIndustry;
     }
-    this.jobPosterModel.location = this.storedLoaction;
+    this.jobPosterModel.location = this.storedLocation;
     if (this.jobPosterModel.industry) {
       this.highlightedSection.name = "Work-Area";
       this.onComplete.emit(this.jobPosterModel);

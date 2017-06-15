@@ -101,7 +101,7 @@ import {ComplexitiesComponent} from "./cnext/framework/complexities/complexities
 import {ProficienciesComponent} from "./cnext/framework/proficiencies/proficiencies.component";
 import {ProficiencyDomainService} from "./cnext/framework/proficiencies/proficiencies.service";
 import {BasicJobInformationComponent} from "./cnext/framework/basic-job-information/basic-job-information.component";
-import {CompentansiesAndResponsibilitiesComponent} from "./cnext/framework/compentacies-and-responsibilities/compentacies-and-responsibilities.component";
+import {CompentenciesAndResponsibilitiesComponent} from "./cnext/framework/compentacies-and-responsibilities/compentacies-and-responsibilities.component";
 import {BasicJobInformationService} from "./cnext/framework/basic-job-information/basic-job-information.service";
 import {JobListerComponent} from "./cnext/framework/recruiter-dashboard/job-lister/job-lister.component";
 import {QCardviewComponent} from "./cnext/framework/recruiter-dashboard/q-card-view/q-card-view.component";
@@ -148,7 +148,7 @@ import {ReferenceService} from "./cnext/framework/model/newClass";
 import {AcademicsComponent} from "./cnext/framework/academic-details/academics/academics.component";
 import {CandidateCompareViewComponent} from "./cnext/framework/single-page-compare-view/candidate-compare-view/candidate-compare-view.component";
 import {CapabilityCompareComponent} from "./cnext/framework/single-page-compare-view/shared/capability-compare/capability-compare.component";
-import {CerificatesComponent} from "./cnext/framework/certification-accreditation/cerificates/certificates.component";
+import {CertificatesComponent} from "./cnext/framework/certification-accreditation/cerificates/certificates.component";
 import {AwardComponent} from "./cnext/framework/awards/award/award.component";
 import {ProficiencyCompareComponent} from "./cnext/framework/single-page-compare-view/shared/proficiency-compare/proficiency-compare.component";
 import {CandidateCompareService} from "./cnext/framework/single-page-compare-view/candidate-compare-view/candidate-compare-view.service";
@@ -227,7 +227,7 @@ import {GuidedTourComponent} from "./cnext/framework/guided-tour/guided-tour.com
     JobPosterComponent,
     MultiSelectComponent,
     BasicJobInformationComponent,
-    CompentansiesAndResponsibilitiesComponent,
+    CompentenciesAndResponsibilitiesComponent,
     CandidateJobListComponent,
     CandidateDashboardComponent,
     ProfessionalDataComponent,
@@ -243,7 +243,7 @@ import {GuidedTourComponent} from "./cnext/framework/guided-tour/guided-tour.com
     MoreAboutMyselfComponent,
     CandidateHeaderComponent,
     FilterComponent,
-    CerificatesComponent,
+    CertificatesComponent,
     AwardComponent,
     RecruiterDashboardComponent,
     ProgressBarComponent,
