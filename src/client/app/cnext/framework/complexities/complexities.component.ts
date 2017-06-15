@@ -252,7 +252,7 @@ export class ComplexitiesComponent {
     this.highlightedSection.name='Complexities';
  this.highlightedSection.isDisable=true;
     this.roles = this.candidateRoles;
-
+this.showMore=false;
 
 
   }
