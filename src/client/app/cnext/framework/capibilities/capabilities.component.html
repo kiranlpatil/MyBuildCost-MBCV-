@@ -2,12 +2,13 @@
   <cn-tool-tip [message]="tooltipCandidateMessage" *ngIf="isCandidate"></cn-tool-tip>
   <cn-tool-tip [message]="tooltipRecruiterMessage" *ngIf="!isCandidate"></cn-tool-tip>
   <div class="main-content clearfix modal-content">
-    <h4 class="heading">Choose Your Capabilities</h4>
+    <h4 class="heading"><span class="light-font">Choose Your</span> Capabilities <span class="light-font"> for</span> Area Of Work <span class="light-font">selected above</span></h4>
 
     <div class="clearfix">
       <div class="capabilities col-sm-12">
         <div class="capability-type max-height">
           <span class="capability-option" *ngFor="let role of roles">
+            <h5 class="sub-areas">Area Of Work - {{role.name}}</h5>
             <div class="select-option"
                  *ngFor="let item of role.capabilities;let i = index"
                  [class.primary]="item.isPrimary || primaryNames.indexOf(item.name)!=-1"

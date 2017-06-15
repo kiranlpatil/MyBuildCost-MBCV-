@@ -97,9 +97,14 @@ $theme-color: #3694d1;
 
   .heading {
     background: none !important;
-    margin: 0 0 5px 0 !important;
+    margin: 0 0 5px !important;
     padding: 0 !important;
     z-index: 1;
+  }
+
+  .sub-areas {
+    border-bottom: 1px solid $border-color;
+    padding-bottom: 5px;
   }
 
   .img-container {
