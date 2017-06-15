@@ -1,15 +1,15 @@
 <div class="list clearfix">
-  <div class="col-sm-4 no-padding">
+  <div class="col-sm-12 no-padding">
     <div ng2-auto-complete
          [source]="Proficiencies"
          (ngModelChange)="selectedProficiencyModel($event)"
          no-match-found-text="No Match Found, Press Enter to add It">
       <input class="form-control" #elem [id]="type"
-             (keyup.enter)="showHideModal($event.target.value)"/>
+             (keyup.enter)="showHideModal($event.target.value)" placeholder="Enter words that describe your area of expertise. E.g. for IT:- Java, C++. for Manufacturing:- Metal Cutting"/>
       <div class="error-messages" *ngIf="showAlert"><p>You can select maximum {{maxLength}} proficiencies.</p></div>
     </div>
   </div>
-  <div class="col-sm-8 padding-left15">
+  <div class="col-sm-12 no-padding">
     <div class="btn-container clearfix">
       <div *ngFor="let item of selectedProficiencies; let i = index">
         <button type="button" class="btn btn-create-profile" (click)="deleteItem($event)">

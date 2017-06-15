@@ -60,38 +60,11 @@ export class CandidateProfileComponent implements OnInit {
     );
     this.getCandidateProfile();
   }
-
-
-  showHide(isPrev: boolean) {
-    let carouselData: any = document.getElementsByClassName('carousel-slide');
-    let isFound: boolean = false;
-    let isPrevFound: boolean = false;
-
-    for (let index = 0; index < carouselData.length; index++) {
-      if (isPrev) {
-        (index === 1) ? carouselData[index].classList.contains('active') ? isPrevFound = true : console.log() : console.log();
-      }
-      if (index === carouselData.length - 2) {
-        if (!isPrev) {
-          carouselData[index].classList.contains('active') ? isFound = true : console.log();
-        }
-      }
-    }
-    (isFound) ? this.isShowNext = false : this.isShowNext = true;
-    (isPrevFound) ? this.isShowPrev = false : this.isShowPrev = true;
-  }
-
   ngOnInit() {
     this.whichStepsVisible[0] = true;
-    let item: any = $('#myCarousel');
-    item.carousel({
-      interval: 1000000000000
-    });
-
   }
 
   onSkip() {
-    console.log('fromon');
     this.highlightedSection.name='Profile';
   }
 
@@ -162,6 +135,7 @@ export class CandidateProfileComponent implements OnInit {
   }
 
   onProfessionalDataComplete() {
+    this.whichStepsVisible[5] = true;
     this.showEmploymentHistory = true;
     this.showAcademicsDetails = true;
     this.showCertificationDetails = true;
@@ -367,6 +341,7 @@ export class CandidateProfileComponent implements OnInit {
       this.showAboutMySelf = true;
       this.showAcademicsDetails = true;
       this.showAwards = true;
+      this.showProficiency=true;
       this.showCertificationDetails = true;
       this.showEmploymentHistory = true;
     }
