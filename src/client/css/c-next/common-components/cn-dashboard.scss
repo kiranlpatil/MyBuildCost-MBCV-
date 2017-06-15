@@ -12,6 +12,7 @@ $red: #ef4136;
 $border-light: #efefef;
 $active-color: #edf1f5;
 $border-blue: #d1dce4;
+$label-border: #a7a7a7;
 
 .profile-wrapper {
   .wrapper-border {
@@ -79,6 +80,15 @@ $border-blue: #d1dce4;
       padding: 0;
       color: $text-color;
       @extend %text-ellipsis;
+    }
+
+    label {
+      margin: 0;
+      padding: 0;
+      color: $text-color;
+      @extend %text-ellipsis;
+      font-size: 9px;
+      border-bottom: 1px solid $label-border;
     }
 
     .job-posted {
