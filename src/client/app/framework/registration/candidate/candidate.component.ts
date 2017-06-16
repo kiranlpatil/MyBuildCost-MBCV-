@@ -113,7 +113,7 @@ export class CandidateComponent implements OnInit {
   }
 
   makePasswordConfirm(): boolean {
-    if (this.model.confirm_password !== this.model.password) {
+       if (this.model.confirm_password !== this.model.password && this.model.confirm_password !== "") {
       this.isPasswordConfirm = true;
       return true;
     } else {
