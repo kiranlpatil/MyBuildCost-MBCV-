@@ -17,7 +17,7 @@
     </div>
 
     <div class="form-group list">
-      <div ng2-auto-complete [source]="companySize" (ngModelChange)="selectCompanySizeModel($event)">
+      <div ng2-auto-complete  max-num-list="10" [source]="companySize" (ngModelChange)="selectCompanySizeModel($event)">
         <input class="form-control" [ngModel]="storedcompanySize" [ngModelOptions]="{standalone: true}"
                placeholder="Company Size" required/>
       </div>
