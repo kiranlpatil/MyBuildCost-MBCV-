@@ -30,27 +30,37 @@
       <button class="btn btn-back" (click)="navigateTo('recruiterdashboard',undefined)">All Jobs</button>
       <div class="list-view" *ngIf="selectedJobProfile!=undefined">
         <div class="panel clearfix">
-          <ul class="pull-left">
-            <!--<li class="job-posted"><p><span>{{recruiterJobView.numberOfCandidatesInCart}}</span></p></li>-->
-            <li>
-              <h4 title="View Job Details">{{selectedJobProfile.jobTitle}}</h4>
-              <a class="job-details" (click)="viewJobDetails()">view job</a>
-            </li>
-            <!--<li>
-              <a class="view-details" (click)="viewJobDetails()">view job details</a>
-            </li>-->
-          </ul>
-          <ul class="pull-right job-info">
-            <li class="contact-info"><label>Industry</label><p>IT</p></li>
-            <li class="contact-info">
-              <label>Posted Date</label>
-              <p>{{selectedJobProfile.postingDate | date :'dd MMM yyyy'}}</p>
-            </li>
-            <li class="contact-info">
-              <label>Hiring Manager</label>
-              <p>{{selectedJobProfile.hiringManager}}</p>
-            </li>
-          </ul>
+          <div class="col-md-7 col-sm-6 no-padding">
+            <ul class="pull-left job-details">
+              <!--<li class="job-posted"><p><span>{{recruiterJobView.numberOfCandidatesInCart}}</span></p></li>-->
+              <li>
+                <h4 title="View Job Details" title="{{selectedJobProfile.jobTitle}}">{{selectedJobProfile.jobTitle}}</h4>
+              </li>
+              <li>
+                <a (click)="viewJobDetails()">view job</a>
+              </li>
+              <!--<li>
+                <a class="view-details" (click)="viewJobDetails()">view job details</a>
+              </li>-->
+            </ul>
+          </div>
+          <div class="col-md-5 col-sm-6 no-padding">
+            <ul class="pull-right job-info">
+              <li class="contact-info"><label>Industry</label><p>IT</p></li>
+              <li class="contact-info">
+                <label>Hiring Manager</label>
+                <p>{{selectedJobProfile.hiringManager}}</p>
+              </li>
+              <li class="contact-info">
+                <label>Date Posted</label>
+                <p>{{selectedJobProfile.postingDate | date :'dd MMM yyyy'}}</p>
+              </li>
+              <!--<li class="contact-info">
+                <label>Expiry Date</label>
+                <p>{{selectedJobProfile.postingDate | date :'dd MMM yyyy'}}</p>
+              </li>-->
+            </ul>
+          </div>
         </div>
       </div>
     </div>

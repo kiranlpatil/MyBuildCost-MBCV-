@@ -22,14 +22,46 @@
   }
 }
 
-.list-view {
+.panel {
+  cursor: default;
+}
+
+.job-details {
+  width: 100%;
+
+  li {
+    padding: 0 5px 0 0;
+  }
+
+  li:first-child {
+    max-width: 90%;
+  }
+
   li > h4 {
-    display: inline;
+    display: inline-block;
     cursor: default;
   }
 
   li > a {
     font-size: 9px;
     text-decoration: underline;
+    margin-top: 10px;
+    display: block;
+  }
+}
+
+@media only screen and (max-width: 1024px) {
+  .job-details {
+    li > h4 {
+      font-size: 18px;
+    }
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .job-details {
+    li:first-child {
+      max-width: 85%;
+    }
   }
 }
