@@ -6,6 +6,7 @@ import { JobQcard } from '../model/JobQcard';
 import { LocalStorage, ValueConstant } from '../../../framework/shared/constants';
 import { LocalStorageService } from '../../../framework/shared/localstorage.service';
 import { CandidateJobListService } from './candidate-job-list/candidate-job-list.service';
+import {QCardFilterService} from "../filters/q-card-filter.service";
 
 
 @Component({
@@ -27,7 +28,8 @@ export class CandidateDashboardComponent {
 
   constructor(private candidateProfileService: CandidateProfileService,
               private candidateDashboardService: CandidateDashboardService,
-              private candidateJobListService: CandidateJobListService) {
+              private candidateJobListService: CandidateJobListService,
+              private qcardFilterService:QCardFilterService) {
     this.candidateProfileService.getCandidateDetails()
       .subscribe(
         candidateData => {
@@ -51,6 +53,7 @@ export class CandidateDashboardComponent {
         }
       }
     }
+    this.candidate.summary.numberOfmatched=this.jobList.length;
     this._locationList = this.locationList;
   }
 
@@ -66,6 +69,7 @@ export class CandidateDashboardComponent {
         this.jobList.splice(this.jobList.indexOf(job), 1);
       }
     }
+    this.candidate.summary.numberOfmatched=this.jobList.length;
     this.onActionPerform(action);
   }
 
@@ -75,6 +79,7 @@ export class CandidateDashboardComponent {
         this.jobList.splice(this.jobList.indexOf(job), 1);
       }
     }
+    this.candidate.summary.numberOfmatched=this.jobList.length;
     this.onActionPerform(action);
   }
 
@@ -88,6 +93,7 @@ export class CandidateDashboardComponent {
   }
 
   onActionOnApplyJob(action: string) {
+    this.qcardFilterService.clearFilter();
   }
 
   onActionOnBlockJob(action: string) {
@@ -98,17 +104,18 @@ export class CandidateDashboardComponent {
     }
   }
 
-  showAppliedJobs() {
+  showAppliedJobs() {debugger
+    this.qcardFilterService.clearFilter();
     this.candidateJobListService.getAppliedJobList()
       .subscribe(
         data => {
           this.appliedJobs = data.data;
           this.candidate.summary.numberOfJobApplied = this.appliedJobs.length;
         });
-
   }
 
-  showRejectedJobs() {
+  showRejectedJobs() {debugger
+    this.qcardFilterService.clearFilter();
     this.candidateJobListService.getBlockedJobList()
       .subscribe(
         data => {
@@ -118,10 +125,12 @@ export class CandidateDashboardComponent {
   }
 
   showMatchedJobs() {
+    this.qcardFilterService.clearFilter();
     this.candidateDashboardService.getJobList()
       .subscribe(
         data => {
           this.jobList = data;
+          this.candidate.summary.numberOfmatched= this.jobList.length;
           this.extractList(this.jobList);
         });
   }

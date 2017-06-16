@@ -64,12 +64,11 @@ export class ComplexitiesComponent {
       this.isCandidate = true;
     }
   }
-  ngOnDestroy(){
-    this.selectedScenarioNames=new Array();
-  }
 
-  ngOnChanges(changes:any) {debugger
+  ngOnChanges(changes:any) {
+    this.showMore=false;
     this.roleWithDefaultComplexity=new Array();
+    this.scenarioNames=new Array();
     this.selectedScenarioNames=new Array();
     this.isPresentCapability=false;
     this.isPresentDefaultComplexity=false;
@@ -250,9 +249,11 @@ export class ComplexitiesComponent {
   edit()
   {
     this.highlightedSection.name='Complexities';
- this.highlightedSection.isDisable=true;
-    this.roles = this.candidateRoles;
+ this.highlightedSection.isDisable=true
+    if( !this.isPresentCapability){
+    this.roles = this.candidateRoles;}
 this.showMore=false;
+    this.isPresentCapability=false;
 
 
   }

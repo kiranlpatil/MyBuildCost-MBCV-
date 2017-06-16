@@ -6,6 +6,7 @@ import { ValueConstant } from '../../../../framework/shared/constants';
 import { CandidateQListModel } from './q-cards-candidates';
 import { JobPosterModel } from '../../model/jobPoster';
 import { ReferenceService } from '../../model/newClass';
+import {QCardFilterService} from "../../filters/q-card-filter.service";
 
 @Component({
   moduleId: module.id,
@@ -29,7 +30,7 @@ export class JobDashboardComponent implements OnInit {
   constructor(public refrence: ReferenceService,
               private activatedRoute: ActivatedRoute,
               private jobDashboardService: JobDashboardService,
-              private _router: Router) {
+              private _router:Router,private qcardFilterService:QCardFilterService) {
 
   }
 
@@ -65,6 +66,7 @@ export class JobDashboardComponent implements OnInit {
   }
 
   getMatchingProfiles() {
+    this.qcardFilterService.clearFilter();
     for (let i = 0; i < this.whichListVisible.length; i++) {
       this.whichListVisible[i] = false;
     }
@@ -93,6 +95,8 @@ export class JobDashboardComponent implements OnInit {
 
 
   getSelectedListData(listName: string) {
+
+    this.qcardFilterService.clearFilter();
     for (let i = 0; i < this.whichListVisible.length; i++) {
       this.whichListVisible[i] = false;
     }

@@ -72,7 +72,7 @@ export class CandidateQCardComponent {
   }
 
   deleteItem(jobId: string) {
-
+    this.showModalStyle=true;
     LocalStorageService.setLocalValue(LocalStorage.CURRENT_JOB_POSTED_ID, jobId);
     this.candidateDashboardService.removeBlockJob().subscribe(
       data => {
