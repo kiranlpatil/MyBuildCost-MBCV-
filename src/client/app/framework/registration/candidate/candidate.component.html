@@ -46,7 +46,7 @@
            [(ngModel)]="model.confirm_password" (blur)="makePasswordConfirm()" class="form-control" required/>
     <label>Confirm Password</label>
     <span class="error-messages"
-          *ngIf="userForm.get('confirm_password').touched && (isPasswordConfirm == true)"> Passwords do not match </span>
+          *ngIf="isPasswordConfirm == true"> Passwords do not match </span>
   </div>
 
   <div class="form-group list">
