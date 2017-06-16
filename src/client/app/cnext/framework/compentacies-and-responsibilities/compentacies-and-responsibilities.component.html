@@ -3,7 +3,7 @@
     <div class="row">
       <div class="section-container col-sm-12">
         <div class="max-height">
-          <h4 class="heading">Competency and Responsibilities (500 Words)</h4>
+          <h4 class="heading">Additional information about the job (500 Words)</h4>
           <cn-description-field [description]="jobPosterModel.competencies" [type]="'competensies'" [maxLength]=" '500'"
                                 (onComplete)="onCompetenciesComplete($event)"></cn-description-field>
         </div>
@@ -23,7 +23,7 @@
     <div class="compact-view clearfix">
       <button class="btn-edit" (click)="highlightedSection.name='Compentancies'"></button>
       <div class="col-sm-12">
-        <h4 class="heading">Competencies</h4>
+        <h4 class="heading">Additional information about the Job</h4>
         <p class="primary">{{jobPosterModel.competencies}}</p>
       </div>
       <!--<div class="col-sm-6">
