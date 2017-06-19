@@ -22,6 +22,9 @@ class ProfessionalDetailsSchema {
       },
       noticePeriod: {
         type: String
+      },
+      industryExposure: {
+        type: String
       }
     }, {versionKey: false});
 

@@ -37,6 +37,7 @@ export class ProfessionalDataComponent extends BaseService implements OnInit {
   private experienceList = new Array();
   private salaryList = new Array();
   private noticePeriodList = new Array();
+  private industryExposureList = new Array();
   private disableButton: boolean = true;
   /*private professionalDetails:ProfessionalData=new ProfessionalData();*/
   constructor(private professionalDataService: ProfessionalDataService,
@@ -116,6 +117,14 @@ export class ProfessionalDataComponent extends BaseService implements OnInit {
         error => {
           this.onError(error);
         });
+    this.professionalDataService.getIndustryExposureList()
+      .subscribe(
+        data => {
+          this.onGetIndustryExposureListSuccess(data);
+        },
+        error => {
+          this.onError(error);
+        });
 
 
   }
@@ -128,11 +137,16 @@ export class ProfessionalDataComponent extends BaseService implements OnInit {
 
   }
 
+  onGetIndustryExposureListSuccess(data: any) {
+    for (let k of data.industryexposure) {
+      this.industryExposureList.push(k);
+    }
+  }
+
   onCurrentSalaryListSuccess(data: any) {
     for (let k of data.salary) {
       this.salaryList.push(k);
     }
-
   }
 
   onExperienceListSuccess(data: any) {
@@ -172,6 +186,7 @@ export class ProfessionalDataComponent extends BaseService implements OnInit {
       this.candidate.professionalDetails.experience !== '' && this.candidate.professionalDetails.noticePeriod !== '' && this.candidate.professionalDetails.relocate !== '') {
       this.disableButton = false;
     }
+    console.log(this.candidate);
     this.profileCreatorService.addProfileDetail(this.candidate).subscribe(
       user => {
         console.log(user);

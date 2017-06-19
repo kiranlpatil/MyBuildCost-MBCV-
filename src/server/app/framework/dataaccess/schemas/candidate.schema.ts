@@ -102,7 +102,8 @@ class CandidateSchema {
         experience: String,
         currentSalary: String,
         noticePeriod: String,
-        relocate: String
+        relocate: String,
+        industryExposure: String,
       },
       employmentHistory: [{
         companyName: String,

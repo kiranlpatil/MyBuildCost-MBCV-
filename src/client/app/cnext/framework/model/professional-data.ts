@@ -4,4 +4,5 @@ export class ProfessionalData {
   currentSalary: string = '';
   noticePeriod: string = '';
   relocate: string = '';
+  industryExposure: string = '';
 }
