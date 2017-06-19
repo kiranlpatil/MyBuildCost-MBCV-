@@ -24,18 +24,10 @@ $border-color: #ccc;
   float: left;
   padding-right: 5px;
 
-  label {
-    width: 100%;
-  }
-
   .worked-to,
   .worked-from {
     select {
       margin-bottom: 0;
-    }
-
-    label {
-      margin-top: 7px;
     }
   }
 }

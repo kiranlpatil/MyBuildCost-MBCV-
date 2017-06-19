@@ -24,6 +24,25 @@
   </div>
 </div>
 
+<div class="modal popup" [style.display]="getStyleModal()">
+    <div class="modal-dialog modal-md">
+      <div class="modal-content">
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-sm-12">
+              <p>You can select maximum 3 Areas of Work.</p>
+              <div class="button-group">
+                <form>
+                  <button class="btn btn-primary" (click)="showHideModal()">OK</button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+
 <div class="section-container" [class.recruite-view]="isCandidate == false"
      [ngClass]="(highlightedSection.name=='Profile' || isCandidate == false)?'full-width':'half-width work-area-section'"
      *ngIf="highlightedSection.name!='Work-Area'">

@@ -33,6 +33,11 @@ $border-color: #ccc;
   margin-top: 20px;
 }
 
+textarea {
+  height: auto;
+  margin-top: 0;
+}
+
 @media only screen and (max-width: 767px) {
   .academic-details {
 

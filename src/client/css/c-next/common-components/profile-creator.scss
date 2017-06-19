@@ -345,6 +345,17 @@ $theme-color: #3694d1;
   select {
     padding: 6px;
   }
+
+  .form-control {
+    border: 1px solid $border-color !important;
+    background: $white !important;
+    padding: 6px !important;
+  }
+
+  label {
+    top: -10px !important;
+    font-size: 12px !important;
+  }
 }
 
 .divider {

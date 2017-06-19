@@ -57,7 +57,8 @@
       <a class="right" *ngIf="isShowNext" (click)="showHide(false)" href="#myCarousel" data-slide="next">
         <a class="btn btn-primary">Next</a>
       </a>
-      <a class="btn btn-danger skip" (click)="onSkipClick()">Skip</a>
+      <a class="btn btn-danger skip"  *ngIf="isShowNext" (click)="onSkipClick()">Skip</a>
+      <a class="btn btn-danger skip"  *ngIf="!isShowNext" (click)="onSkipClick()">Finish</a>
     </div>
   </div>
 </div>

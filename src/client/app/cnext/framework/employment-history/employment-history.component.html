@@ -42,13 +42,6 @@
      [ngClass]="(highlightedSection.name=='EmploymentHistory')?'full-width':'quarter-width'">
   <div class="main-content" *ngIf="highlightedSection.name !='EmploymentHistory'">
     <div class="compact-view clearfix">
-      <!--<ul>
-        <div *ngFor="let item of candidate.employmentHistory">
-          <li *ngIf="item.designation != '' && item.companyName != ''"><p>{{item.designation}} at
-            {{item.companyName}} </p>
-            <p>From {{item.from.month}} {{item.from.year}} to {{item.to.month}} {{item.to.year}}</p></li>
-        </div>
-      </ul>-->
       <div *ngIf="employeeHistory.controls.employeeHistories.controls.length==0">
         <h4 class="heading-compact"
             (click)="highlightedSection.name='EmploymentHistory';addEmployeeHistory();highlightedSection.isDisable=true;showButton=false;">

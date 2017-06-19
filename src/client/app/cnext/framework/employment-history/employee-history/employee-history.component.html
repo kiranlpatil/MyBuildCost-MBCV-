@@ -25,7 +25,7 @@
     <div class="col-sm-12 no-padding">
       <div class="worked-from col-sm-6 no-padding">
         <div formGroupName="from">
-          <div class="col-sm-3 no-padding">
+          <div class="col-sm-2 no-padding">
             <label>From Date</label>
           </div>
           <div class="col-sm-6 padding-left5">
@@ -33,7 +33,7 @@
               <option value ={{month}} *ngFor="let month of monthList">{{month}}</option>
             </select>
           </div>
-          <div class="col-sm-3 padding-left5">
+          <div class="col-sm-4 padding-left5">
             <select class="form-control" formControlName="year" (change)="onFromYear($event.target.value)" required>
               <option value="{{year}}" *ngFor="let year of yearList | minrange:toYear" >{{year}}</option>
             </select>
@@ -43,7 +43,7 @@
 
       <div class="worked-to col-sm-6 padding-left5">
         <div formGroupName="to">
-          <div class="col-sm-3 no-padding">
+          <div class="col-sm-2 no-padding">
             <label>To Date</label>
           </div>
           <div class="col-sm-6 padding-right5">
@@ -51,23 +51,20 @@
               <option value ={{month}} *ngFor="let month of monthList" >{{month}}</option>
             </select>
           </div>
-          <div class="col-sm-3 padding-left5">
+          <div class="col-sm-4 padding-left5">
             <select class="form-control" formControlName="year" (change)="onToYear($event.target.value)" required>
               <option value="{{year}}" *ngFor="let year of yearList | maxrange:fromYear" >{{year}}</option>
             </select>
           </div>
-          <!--<div >  &lt;!&ndash;*ngIf="item.to.month ==''"&ndash;&gt;
-            <label class="checkbox-inline">
-              <input type="checkbox" (click)="setCurrentDate()" name="TillDate" value="TillDate"/>Till Date
-            </label>
-          </div>-->
+
         </div>
       </div>
     </div>
   </div>
   <div class="right-content">
     <div>
-      <textarea class="form-control" formControlName="remarks" Placeholder="Remark"></textarea>
+      <label>Remark</label>
+      <textarea class="form-control" formControlName="remarks"></textarea>
     </div>
   </div>
 </div>

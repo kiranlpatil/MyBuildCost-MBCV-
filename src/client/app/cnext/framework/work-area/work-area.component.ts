@@ -18,6 +18,8 @@ export class WorkAreaComponent {
   @Output() onComplete = new EventEmitter();
   private isCandidate: boolean = false;
   private disableButton: boolean = true;
+  private showModalStyle:boolean = false;
+
   tooltipCandidateMessage: string =
     "<ul>" +
     "<li><h5> Area Of Work </h5><p>Select those areas of work that describe what you are best at or where you would like to position your career.</p></li>" +
@@ -41,7 +43,6 @@ export class WorkAreaComponent {
    }*/
 
   selectOption(role: Role, event: any) {
-    debugger
     if (event.target.checked) {
       if (this.selectedRoles.length < ValueConstant.MAX_WORKAREA) {
         let isFound: boolean = false;
@@ -55,6 +56,7 @@ export class WorkAreaComponent {
         }
       } else {
         event.target.checked = false;
+        this.showHideModal();
       }
     } else {
       let tempRole: Role;
@@ -70,7 +72,6 @@ export class WorkAreaComponent {
   }
 
   onNext() {
-    debugger
 //    this.compactView=false;
     this.highlightedSection.name = "Capabilities";
     this.highlightedSection.isDisable = false;
@@ -81,6 +82,19 @@ export class WorkAreaComponent {
     return this.selectedRoles.filter(function (el: Role) {
         return el.name == value;
       }).length !== 0;
+  }
+
+
+  getStyleModal() {
+    if (this.showModalStyle) {
+      return 'block';
+    } else {
+      return 'none';
+    }
+  }
+
+  showHideModal() {
+    this.showModalStyle = !this.showModalStyle;
   }
 
 }

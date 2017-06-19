@@ -3,6 +3,7 @@ $text-color: #666;
 $white: #fff;
 $option-border-color: #f8f8f8;
 $option-theme-color: #1c75bd;
+$complexity-bg: #ececec;
 
 .main-content > span {
   padding-left: 0;
@@ -42,11 +43,15 @@ $option-theme-color: #1c75bd;
 
 .select-complexity {
   padding: 5px 0;
-  border-bottom: 1px solid $border-color;
+  //border-bottom: 1px solid $border-color;
+
+  &:nth-child(even) {
+    background: $complexity-bg !important;
+  }
 
   .complexity-name {
     p {
-      margin: 10px 0 5px;
+      margin: 10px 5px 5px;
       text-transform: capitalize;
       font-size: 12px;
     }

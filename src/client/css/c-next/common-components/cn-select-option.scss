@@ -119,20 +119,20 @@ $secondary-option: #81D4FA;
     display: none;
 
     & + span {
-      border: 1px solid $secondary-option;
-      box-shadow: 0 0 1px 0 $secondary-option inset, 0 0 1px 0 $secondary-option;
+      border: 1px solid $primary-option;
+      box-shadow: 0 0 1px 0 $primary-option inset, 0 0 1px 0 $primary-option;
 
       &:hover {
-        border: 1px solid $secondary-option;
-        box-shadow: 0 0 1px 0 $secondary-option inset, 0 0 1px 0 $secondary-option;
+        border: 1px solid $primary-option;
+        box-shadow: 0 0 1px 0 $primary-option inset, 0 0 1px 0 $primary-option;
       }
     }
 
     &:checked {
       & + span {
-        background-color: $secondary-option;
-        border: 1px solid $secondary-option;
-        box-shadow: 0 0 1px 0 $secondary-option inset, 0 0 1px 0 $secondary-option;
+        background-color: $primary-option;
+        border: 1px solid $primary-option;
+        box-shadow: 0 0 1px 0 $primary-option inset, 0 0 1px 0 $primary-option;
       }
     }
   }
@@ -140,15 +140,15 @@ $secondary-option: #81D4FA;
   &:hover {
     & > input {
       & + span {
-        border: 1px solid $secondary-option;
-        box-shadow: 0 0 1px 0 $secondary-option inset, 0 0 1px 0 $secondary-option;
+        border: 1px solid $primary-option;
+        box-shadow: 0 0 1px 0 $primary-option inset, 0 0 1px 0 $primary-option;
       }
 
       &:checked {
         & + span {
-          background-color: $secondary-option;
-          border: 1px solid $secondary-option;
-          box-shadow: 0 0 1px 0 $secondary-option inset, 0 0 1px 0 $secondary-option;
+          background-color: $primary-option;
+          border: 1px solid $primary-option;
+          box-shadow: 0 0 1px 0 $primary-option inset, 0 0 1px 0 $primary-option;
         }
       }
     }
@@ -180,8 +180,8 @@ $secondary-option: #81D4FA;
     & > input {
       & + span {
         &:hover {
-          border: 1px solid $secondary-option;
-          box-shadow: 0 0 1px 0 $secondary-option inset, 0 0 1px 0 $secondary-option;
+          border: 1px solid $primary-option;
+          box-shadow: 0 0 1px 0 $primary-option inset, 0 0 1px 0 $primary-option;
         }
       }
     }
@@ -189,8 +189,8 @@ $secondary-option: #81D4FA;
     &:hover {
       & > input {
         & + span {
-          border: 1px solid $secondary-option;
-          box-shadow: 0 0 1px 0 $secondary-option inset, 0 0 1px 0 $secondary-option;
+          border: 1px solid $primary-option;
+          box-shadow: 0 0 1px 0 $primary-option inset, 0 0 1px 0 $primary-option;
         }
       }
     }

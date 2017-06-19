@@ -1,4 +1,4 @@
-$light-blue: #00aed5;
+$light-blue: #1b75bc;
 
 h4 {
   font-size: 14px;
@@ -17,22 +17,22 @@ h4 {
   margin-top: 15px;
   word-wrap: break-word;
 
-  .profile-name-first, .profile-name-last {
+  .profile-name-first,
+  .profile-name-last {
     color: $light-blue;
-    font-family: 'gothamrnd-light';
+    font-family: 'gothamrnd-book';
     font-size: 20px;
-    font-weight: 100;
+    font-weight: 900;
     background: none;
     padding: 0;
     text-transform: capitalize;
   }
 
-  .profile-name-last {
+ /* .profile-name-last {
     color: #1B75BC;
     font-family: 'gothamrnd-book';
     font-weight: 900;
-
-  }
+  }*/
 }
 
 /*.main-content {

@@ -18,7 +18,7 @@
                       <p>{{complexity.name}}</p>
                     </div>
                     <div class="scenarios col-sm-10 padding-left15">
-                      <div class="select-option" *ngFor="let scenario of complexity.scenarios">
+                      <div class="select-option2" *ngFor="let scenario of complexity.scenarios">
                         <label>
                           <input type="radio" name="{{complexity.name}}" value="{{scenario.name}}"
                                  (change)="selectDefaultComplexity(role,complexity,scenario,$event)"
@@ -44,7 +44,7 @@
                       <p>{{complexity.name}}</p>
                     </div>
                     <div class="scenarios col-sm-10 padding-left15">
-                      <div class="select-option" *ngFor="let scenario of complexity.scenarios">
+                      <div class="select-option2" *ngFor="let scenario of complexity.scenarios">
                         <label>
                           <input class="selected-complexity" type="radio" name="{{complexity.name}}"
                                  value="{{scenario.name}}"
@@ -68,7 +68,7 @@
                     <p id="complexity1">{{complexity.name}}</p>
                   </div>
                   <div class="scenarios col-sm-10 padding-left15">
-                    <div class="select-option" *ngFor="let scenario of complexity.scenarios">
+                    <div class="select-option2" *ngFor="let scenario of complexity.scenarios">
                       <label>
                         <input class="selected-complexity" type="radio" name="{{complexity.name}}"
                                value="{{scenario.name}}"
@@ -91,7 +91,7 @@
                     <p id="complexity">{{complexity.name}}</p>
                   </div>
                   <div class="scenarios col-sm-10 padding-left15">
-                    <div class="select-option" *ngFor="let scenario of complexity.scenarios">
+                    <div class="select-option2" *ngFor="let scenario of complexity.scenarios">
                       <label>
                         <input type="radio" name="{{complexity.name}}" value="{{scenario.name}}"
                                (change)="selectComplexity(role,capability,complexity,scenario,$event)"
