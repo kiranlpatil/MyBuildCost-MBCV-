@@ -25,8 +25,8 @@
       <button class="btn btn-default" (click)="highlightedSection.name='none'; highlightedSection.isDisable=false"
               [hidden]="showButton">Cancel
       </button>
-      <button class="btn btn-primary" (click)="onNext()">Next</button><!-- [hidden]="!showButton" -->
-      <!--  <button class="btn btn-primary"  (click)="onSave()" [hidden]="showButton">Save</button>-->
+      <button class="btn btn-primary" (click)="onNext()" [hidden]="!showButton">Next</button>
+        <button class="btn btn-primary"  (click)="onSave()" [hidden]="showButton">Save</button>
     </div>
   </div>
 </div>
@@ -57,4 +57,23 @@
     </div>
   </div>
   <!-- <div [class.modal-bg]="highlightedSection.name!='Profile'"></div>-->
+</div>
+
+
+<div class="modal popup" [style.display]="getStyleModal()">
+  <div class="modal-dialog modal-md">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-sm-12">
+            <p>Data will be flushed.</p>
+            <div class="button-group">
+              <button class="btn btn-primary" (click)="showModalStyle = !showModalStyle;onNext()">Ok</button>
+              <button class="btn btn-primary" (click)="showHideModal()">Cancel</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

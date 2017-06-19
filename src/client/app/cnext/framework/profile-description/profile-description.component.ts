@@ -18,9 +18,12 @@ export class ProfileDescriptionComponent implements OnInit {
   @Output() onComplete = new EventEmitter();
 
   // private compactView:boolean=true;
+  private savedIndustry:string='';
+  private changedIndustry:Industry=new Industry();
   private disableButton: boolean = true;
   private showButton: boolean = true;
   private candidateDetails: CandidateDetail = new CandidateDetail();
+  private showModalStyle:boolean = false;
   private image_path: string = 'assets/framework/images/dashboard/profile.png';
   tooltipMessage: string =
     "<ul>" +
@@ -44,23 +47,24 @@ export class ProfileDescriptionComponent implements OnInit {
   }
 
 
-  // ngOnChanges() {
-  //   if (this.candidate.jobTitle !== undefined && this.candidate.jobTitle !== ""
-  //     && this.candidate.industry.name !== undefined && this.candidate.industry.name !== "") {
-  //     this.compactView = true;
-  //   }
-  //   else{
-  //     this.compactView = false;
-  //   }
-  // }
+  ngOnChanges(changes:any) {
+    if(changes.candidate !== undefined && changes.candidate.currentValue !== undefined) {
+      this.candidate=changes.candidate.currentValue;
+    }
+    if (this.candidate.jobTitle !== undefined && this.candidate.jobTitle !== ""
+      && this.candidate.industry.name !== undefined && this.candidate.industry.name !== "") {
+      this.savedIndustry=this.candidate.industry.name;
+      console.log(this.savedIndustry);
+    }
+  }
 
   onIndustryChange(newIndustry: Industry) {
     if (newIndustry !== undefined && newIndustry.name !== "") {
-      if (this.candidate.industry.name !== newIndustry.name) {
-        this.candidate.industry = newIndustry;
-        this.candidate.industry.roles = new Array();
-        this.disableButton = false;
-      }
+/*
+      if (this.savedIndustry !== newIndustry.name) {
+*/
+       this.changedIndustry=newIndustry;
+     /* }*/
     }
   }
 
@@ -70,6 +74,10 @@ export class ProfileDescriptionComponent implements OnInit {
   }
 
   onNext() {
+    this.candidate.industry = this.changedIndustry;
+    this.candidate.industry.roles = new Array();
+    this.disableButton = false;
+    this.savedIndustry=this.candidate.industry.name;
 //    this.compactView = true;
     this.highlightedSection.name = 'Work-Area';
     this.highlightedSection.isDisable = false;
@@ -83,10 +91,26 @@ export class ProfileDescriptionComponent implements OnInit {
 
   onSave() {
 //    this.compactView = true;
-    this.highlightedSection.name = 'none';
-    this.highlightedSection.isDisable = false;
-    this.onComplete.emit(this.candidate);
-    this.showButton = true;
+    if(this.changedIndustry.name !== this.savedIndustry) {
+      this.showModalStyle = !this.showModalStyle;
+    } else {
+      this.highlightedSection.name = 'none';
+      this.highlightedSection.isDisable = false;
+      //this.onComplete.emit(this.candidate);
+      this.showButton = true;
+    }
+  }
+
+  getStyleModal() {
+    if (this.showModalStyle) {
+      return 'block';
+    } else {
+      return 'none';
+    }
+  }
+
+  showHideModal() {
+    this.showModalStyle = !this.showModalStyle;
   }
 }
 
