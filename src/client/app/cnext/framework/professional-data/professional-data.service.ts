@@ -55,6 +55,12 @@ export class ProfessionalDataService extends BaseService {
       .map(this.extractData)
       .catch(this.handleError);
   }
+  getIndustryExposureList(): Observable<any> {
+    var url = API.INDUSTRYEXPOSURE;
+    return this.http.get(url)
+      .map(this.extractData)
+      .catch(this.handleError);
+  }
 
   addCandidateProfessionalData(candidateproficiency: string[]): Observable<string[]> {
     let headers = new Headers({'Content-Type': 'application/json'});

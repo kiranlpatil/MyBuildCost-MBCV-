@@ -6,6 +6,7 @@ interface ProfessionalDetailsModel {
   currentSalary: string;
   noticePeriod: string;
   relocate: string;
+  industryExposure: string;
 }
 export = ProfessionalDetailsModel;
 

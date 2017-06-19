@@ -51,13 +51,10 @@
       <div class="col-sm-2">
         <label>Industry Exposure</label>
         <!-- <control-messages [control]="professionalDetailForm.controls.noticePeriod"></control-messages>-->
-        <select>
-          <option>Local companies</option>
-          <option>Regional / National</option>
-          <option>MNC / Global</option>
+        <select [(ngModel)]="candidate.professionalDetails.industryExposure" (change)="saveProfessionalData()">
+          <option *ngFor="let c of industryExposureList" [ngValue]="c">{{c}}</option>
         </select>
       </div>
-
     </div>
     <div class="col-sm-12">
       <div class="button-group clearfix">
@@ -86,7 +83,7 @@
       <p><label>Experience</label> {{candidate.professionalDetails.experience}}</p>
       <p><label>Current Salary</label> {{candidate.professionalDetails.currentSalary}}</p>
       <p><label>Notice Period</label> {{candidate.professionalDetails.noticePeriod}}</p>
-      <p><label>Industry Exposure</label> Local companies</p>
+      <p><label>Industry Exposure</label> {{candidate.professionalDetails.industryExposure}}</p>
     </div>
   </div>
 </div>

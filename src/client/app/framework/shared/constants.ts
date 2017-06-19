@@ -170,6 +170,7 @@ export class API {
   public static EXPERIENCE = 'experience';
   public static CURRENTSALARY = 'currentsalary';
   public static NOTICEPERIOD = 'noticeperiod';
+  public static INDUSTRYEXPOSURE = 'industryexposure';
   public static PROFICIENCYLIST = 'proficiency';
   public static DOMAINLIST = 'domain';
   public static CAPABILITY_LIST = 'capability';
