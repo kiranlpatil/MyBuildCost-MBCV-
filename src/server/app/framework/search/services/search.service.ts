@@ -42,8 +42,18 @@ class SearchService {
         ]
       };
     }
-
-    this.candidateRepository.retrieveWithLean(data, (err, res) => {
+  let included_fields ={
+    'industry.roles.capabilities.complexities.scenarios.code':1,
+    'industry.roles.capabilities.complexities.scenarios.isChecked':1,
+    'industry.roles.default_complexities.complexities.scenarios.code':1,
+    'industry.roles.default_complexities.complexities.scenarios.isChecked':1,
+      'userId':1,
+      'proficiencies' : 1,
+      'location':1,
+      'interestedIndustries':1,
+      'professionalDetails':1,
+  };
+    this.candidateRepository.retrieveWithLean(data,included_fields, (err, res) => {
       if (err) {
         callback(err, null);
       } else {
