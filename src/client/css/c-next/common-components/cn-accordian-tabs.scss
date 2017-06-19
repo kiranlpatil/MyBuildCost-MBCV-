@@ -1,0 +1,16 @@
+.panel-group {
+  margin-bottom: 10px;
+
+  .panel-heading {
+    padding: 5px 15px;
+    a > span {
+      top: -1px;
+    }
+
+    h5 {
+      display: inline-block;
+      width: auto;
+      margin: 3px 0 0 15px;
+    }
+  }
+}

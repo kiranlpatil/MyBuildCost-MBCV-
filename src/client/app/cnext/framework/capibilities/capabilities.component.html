@@ -6,19 +6,33 @@
 
     <div class="clearfix">
       <div class="capabilities col-sm-12">
-        <div class="capability-type max-height">
-          <span class="capability-option" *ngFor="let role of roles">
-            <h5 class="sub-areas">Area Of Work - {{role.name}}</h5>
-            <div class="select-option"
-                 *ngFor="let item of role.capabilities;let i = index"
-                 [class.primary]="item.isPrimary || primaryNames.indexOf(item.name)!=-1"
-                 [class.secondary]="item.isSecondary || secondaryNames.indexOf(item.name)!=-1">
-              <label>
-                <input type="checkbox" name="checkbox" (click)="selectedCapability(role,item,$event)" id="{{item.name}}"
-                       value="{{item.name}}"
-                       [checked]="secondaryNames.indexOf(item.name)!=-1||primaryNames.indexOf(item.name)!=-1">
-                <span>{{item.name}}</span>
-              </label>
+        <div class="capability-type">
+          <span class="capability-option" *ngFor="let role of roles;let i = index">
+            <div class="panel-group" id="accordion">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h4 class="panel-title">
+                      <a data-toggle="collapse" data-parent="#accordion" href="#collapse{{i}}" aria-expanded="false">
+                        <span class="glyphicon glyphicon-plus"></span>
+                        <h5 class="sub-areas">Area Of Work - {{role.name}}</h5></a>
+                  </h4>
+                </div>
+                <div id="collapse{{i}}" class="panel-collapse collapse" >
+                  <div class="panel-body">
+                    <div class="select-option"
+                         *ngFor="let item of role.capabilities;let i = index"
+                         [class.primary]="item.isPrimary || primaryNames.indexOf(item.name)!=-1"
+                         [class.secondary]="item.isSecondary || secondaryNames.indexOf(item.name)!=-1">
+                      <label>
+                        <input type="checkbox" name="checkbox" (click)="selectedCapability(role,item,$event)" id="{{item.name}}"
+                               value="{{item.name}}"
+                               [checked]="secondaryNames.indexOf(item.name)!=-1||primaryNames.indexOf(item.name)!=-1">
+                        <span>{{item.name}}</span>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </span>
         </div>
