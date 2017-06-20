@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnInit, Output} from '@angular/core';
 import { Role } from '../model/role';
 import { Section } from '../model/candidate';
 import { LocalStorage, ValueConstant } from '../../../framework/shared/constants';
@@ -11,14 +11,17 @@ import { LocalStorageService } from '../../../framework/shared/localstorage.serv
   styleUrls: ['work-area.component.css']
 })
 
-export class WorkAreaComponent {
+export class WorkAreaComponent implements OnInit,OnChanges {
   @Input() roles: Role[] = new Array(0);
   @Input() selectedRoles: Role[] = new Array(0);
   @Input() highlightedSection: Section;
   @Output() onComplete = new EventEmitter();
+  private savedSelectedRoles: Role[] = new Array(0);
   private isCandidate: boolean = false;
   private disableButton: boolean = true;
   private showModalStyle:boolean = false;
+  private showModalStyle2:boolean = false;
+  private showButton: boolean = true;
 
   tooltipCandidateMessage: string =
     "<ul>" +
@@ -36,23 +39,25 @@ export class WorkAreaComponent {
     }
   }
 
-  /*  ngOnChanges(changes:any) {
-   if(changes.selectedRoles != undefined && changes.selectedRoles.currentValue != undefined){
+    ngOnChanges(changes:any) {
+   if(changes.selectedRoles !== undefined && changes.selectedRoles.currentValue !== undefined){
    this.selectedRoles=changes.selectedRoles.currentValue;
+     this.savedSelectedRoles= this.selectedRoles.slice();
+
    }
-   }*/
+   }
 
   selectOption(role: Role, event: any) {
     if (event.target.checked) {
-      if (this.selectedRoles.length < ValueConstant.MAX_WORKAREA) {
+      if (this.savedSelectedRoles.length < ValueConstant.MAX_WORKAREA) {
         let isFound: boolean = false;
-        for (let selrole of this.selectedRoles) {
+        for (let selrole of this.savedSelectedRoles) {
           if (role.name === selrole.name) {
             isFound = true;
           }
         }
         if (!isFound) {
-          this.selectedRoles.push(role);
+          this.savedSelectedRoles.push(role);
         }
       } else {
         event.target.checked = false;
@@ -60,31 +65,58 @@ export class WorkAreaComponent {
       }
     } else {
       let tempRole: Role;
-      for (let selrole of this.selectedRoles) {
+      for (let selrole of this.savedSelectedRoles) {
         if (role.name === selrole.name) {
           tempRole = selrole;
         }
       }
       if (tempRole) {
-        this.selectedRoles.splice(this.selectedRoles.indexOf(tempRole), 1);
+        this.savedSelectedRoles.splice(this.savedSelectedRoles.indexOf(tempRole), 1);
       }
     }
   }
 
   onNext() {
-//    this.compactView=false;
-    this.highlightedSection.name = "Capabilities";
+    this.selectedRoles=this.savedSelectedRoles;
+    this.highlightedSection.name = 'Capabilities';
     this.highlightedSection.isDisable = false;
     this.onComplete.emit(this.selectedRoles);
   }
-
+onSave() {
+    var roleId:any[]=new Array(0);
+    var goNext:boolean;
+    if(this.selectedRoles.length === this.savedSelectedRoles.length ) {
+      for (let role of this.selectedRoles) {
+        roleId.push(role.name);
+    }
+      for(let selectedRole of this.savedSelectedRoles){
+        if(roleId.indexOf(selectedRole.name)=== -1) {
+          goNext=true;
+        }
+      }
+      if(goNext) {
+        this.showModalStyle2 = !this.showModalStyle2;
+        /*this.onNext();*/
+      } else {
+        this.highlightedSection.name = 'none';
+        this.highlightedSection.isDisable = false;
+        this.showButton = true;
+      }
+    } else {
+      this.showModalStyle2 = !this.showModalStyle2;
+      /*this.onNext();*/
+    }
+}
+onCancel() {
+  this.highlightedSection.name='none';
+  this.highlightedSection.isDisable=false;
+  this.savedSelectedRoles=this.selectedRoles;
+}
   isSelected(value: string) {
     return this.selectedRoles.filter(function (el: Role) {
-        return el.name == value;
+        return el.name === value;
       }).length !== 0;
   }
-
-
   getStyleModal() {
     if (this.showModalStyle) {
       return 'block';
@@ -97,4 +129,15 @@ export class WorkAreaComponent {
     this.showModalStyle = !this.showModalStyle;
   }
 
+  getStyleModal2() {
+    if (this.showModalStyle2) {
+      return 'block';
+    } else {
+      return 'none';
+    }
+  }
+
+  showHideModal2() {
+    this.showModalStyle2 = !this.showModalStyle2;
+  }
 }

@@ -48,7 +48,7 @@
           <span class="profile-name-first">{{candidateDetails.first_name}}</span>&nbsp;
           <span class="profile-name-last">{{candidateDetails.last_name}}</span>
           <button class="btn-edit"
-                  (click)="highlightedSection.name='Profile';disableButton=false;showButton=false;;highlightedSection.isDisable=true"
+                  (click)="highlightedSection.name='Profile';disableButton=false;showButton=false;highlightedSection.isDisable=true"
                   [hidden]="highlightedSection.isDisable"></button>
         </p>
         <p class="truncate-text"><label>Job Title</label> <span title="{{candidate.jobTitle}}">{{candidate.jobTitle}}</span></p>

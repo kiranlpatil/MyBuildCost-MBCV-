@@ -16,9 +16,9 @@
 
       <div class="button-group clearfix">
         <button class="btn btn-primary" scrollTo scrollTargetSelector="#capability-area" (click)="onNext()"
-                [disabled]="!(selectedRoles.length>0)"> <!-- [hidden]="!showButton"  -->
-          Next
-        </button>
+                [disabled]="!(savedSelectedRoles.length>0)" [hidden]="!showButton">Next</button>
+        <button class="btn btn-default" (click)="onCancel()" [hidden]="showButton">Cancel</button>
+        <button class="btn btn-primary"  (click)="onSave()"  [disabled]="!(savedSelectedRoles.length>0)" [hidden]="showButton">Save</button>
       </div>
     </div>
   </div>
@@ -43,6 +43,29 @@
     </div>
 </div>
 
+<div class="modal popup" [style.display]="getStyleModal2()">
+  <div class="modal-dialog modal-md">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-sm-12">
+            <p>data will be flushed</p>
+            <div class="button-group">
+              <form>
+                <div class="button-group">
+                  <button class="btn btn-primary" (click)="showModalStyle2 = !showModalStyle2;onNext()">Ok</button>
+                  <button class="btn btn-primary" (click)="showHideModal2()">Cancel</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
 <div class="section-container" [class.recruite-view]="isCandidate == false"
      [ngClass]="(highlightedSection.name=='Profile' || isCandidate == false)?'full-width':'half-width work-area-section'"
      *ngIf="highlightedSection.name!='Work-Area'">
@@ -54,7 +77,7 @@
       -->
       <h4 class="heading">Area Of Work
         <button class="btn-edit"
-                (click)="highlightedSection.name='Work-Area';highlightedSection.sectionName='capability';highlightedSection.isDisable=true"
+                (click)="highlightedSection.name='Work-Area';showButton=false;highlightedSection.sectionName='capability';highlightedSection.isDisable=true"
                 [hidden]="highlightedSection.isDisable"></button>
       </h4>
       <p>
