@@ -3,7 +3,7 @@ $text-color: #666;
 $white: #fff;
 $option-border-color: #f8f8f8;
 $option-theme-color: #1c75bd;
-$complexity-bg: #ececec;
+$complexity-bg: #f8f8f8;
 
 .main-content > span {
   padding-left: 0;
@@ -41,26 +41,31 @@ $complexity-bg: #ececec;
   }
 }
 
+.main-content {
+  .heading {
+    margin-bottom: 15px;
+  }
+}
+
 .select-complexity {
   padding: 5px 0;
   //border-bottom: 1px solid $border-color;
 
   &:nth-child(even) {
-    background: $complexity-bg !important;
+    background: $complexity-bg;
   }
 
   .complexity-name {
     p {
       margin: 10px 5px 5px;
       text-transform: capitalize;
-      font-size: 12px;
+      font-size: 13px;
     }
   }
 }
 
-.complexity-container {
-  max-height: 330px;
-  overflow: auto;
+.panel-body {
+  padding: 0;
 }
 
 @media screen and (max-width: 767px) {

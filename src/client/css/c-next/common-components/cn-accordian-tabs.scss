@@ -1,16 +1,25 @@
+$header-bg: #edf1f5;
+
 .panel-group {
   margin-bottom: 10px;
 
   .panel-heading {
-    padding: 5px 15px;
-    a > span {
-      top: 0;
+    padding: 0;
+    background-color: $header-bg;
+
+    a {
+      padding: 5px 15px;
+      display: block;
     }
 
-    h5 {
-      display: inline-block;
-      width: auto;
-      margin: 3px 0 0 15px;
+    a > .glyphicon-plus,
+    a > .glyphicon-minus {
+      top: 0;
+      margin: 0 15px 0 0;
+    }
+
+    span {
+      background: transparent;
     }
   }
 }

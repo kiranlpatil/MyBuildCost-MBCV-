@@ -39,6 +39,10 @@ export class ComplexitiesComponent {
   private isPresentDefaultComplexity:boolean = false;
   private isPresentDefaultComplexityCandidate:boolean = false;
   private count:number = 0;
+  private openAccordian1: boolean[] = new Array(0);
+  private openAccordian2: boolean[] = new Array(0);
+  private openAccordian3: boolean[] = new Array(0);
+  private openAccordian4: boolean[] = new Array(0);
  // private elements:any;
   tooltipCandidateMessage:string = "<ul><li>" +
     "<h5>Complexities</h5><p class='info'> This section provides a list of complexity scenarios for your selected capabilities." +
@@ -142,7 +146,7 @@ export class ComplexitiesComponent {
   }
 
   selectDefaultComplexity(role:Role, complexity:Complexity, selectedScenario:Scenario, event:any) {
-    debugger
+
 
     for (let item of complexity.scenarios) {
 
@@ -158,7 +162,6 @@ export class ComplexitiesComponent {
   }
 
   selectComplexity(role:Role, capability:Capability, complexity:Complexity, selectedScenario:Scenario, event:any) {
-    debugger
     for (let rol  of this.candidateRoles) {
       debugger
       for (let cap of rol.capabilities) {
@@ -253,7 +256,6 @@ export class ComplexitiesComponent {
     if( !this.isPresentCapability){
     this.roles = this.candidateRoles;}
 this.showMore=false;
-    this.isPresentCapability=false;
 
 
   }

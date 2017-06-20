@@ -10,11 +10,14 @@
           <span class="capability-option" *ngFor="let role of roles;let i = index">
             <div class="panel-group" id="accordion">
               <div class="panel panel-default">
-                <div class="panel-heading">
-                  <h5 class="panel-title sub-areas">
+                <div class="panel-heading" (click)="openPanel[i] = !openPanel[i]" >
+                  <h4 class="panel-title sub-areas">
                       <a data-toggle="collapse" data-parent="#accordion" href="#collapse{{i}}" aria-expanded="false">
-                        <span class="glyphicon glyphicon-plus"></span>Area Of Work - {{role.name}}</a>
-                  </h5>
+                        <span *ngIf="!openPanel[i]" class="glyphicon glyphicon-plus"></span>
+                        <span *ngIf="openPanel[i]" class="glyphicon glyphicon-minus"></span>
+                        {{role.name}}
+                      </a>
+                  </h4>
                 </div>
                 <div id="collapse{{i}}" class="panel-collapse collapse" >
                   <div class="panel-body">

@@ -60,15 +60,8 @@ $theme-color: #3694d1;
     position: relative;
     top: -4px;
     display: inline-block;
-    left: -2px;
+    left: 0;
   }
-
-  /*.glyphicon-plus {
-    position: relative;
-    top: -4px;
-    display: inline-block;
-    left: -2px;
-  }*/
 
   .see-more {
     color: $theme-color;
@@ -139,7 +132,7 @@ $theme-color: #3694d1;
   }
 
   p {
-    font-size: 12px;
+    font-size: 13px;
     margin: 0;
   }
 
@@ -152,7 +145,7 @@ $theme-color: #3694d1;
 
   .option {
     font-weight: 600;
-    font-size: 12px;
+    font-size: 13px;
     padding: 0;
     text-transform: capitalize;
   }
@@ -173,9 +166,9 @@ $theme-color: #3694d1;
     li {
       color: #666;
       float: left;
-      list-style-type: none;
+      list-style-type: disc;
       //list-style-image: url('../../../assets/c-next/compact-view/bullet.png');
-      margin-bottom: 10px;
+      margin-bottom: 0;
       padding-right: 25px;
       text-transform: capitalize;
       width: 100%;
