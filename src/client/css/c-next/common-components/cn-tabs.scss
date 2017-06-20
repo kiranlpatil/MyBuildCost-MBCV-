@@ -1,4 +1,4 @@
-$text-color: #333;
+$text-color: #666;
 $bg-tab-content: #fff;
 $nav-tab: #7264b3;
 $profile-section-shadow: rgba(204, 204, 204, 1);
@@ -51,30 +51,35 @@ $active-tab-border: #b2bcc3;
     width: auto;
 
     a {
-      background-color: $bg-tab-content !important;
-      border: 0 solid $bg-tab-content;
-      border-bottom: 3px solid $bg-tab-content;
+      background-color: $active-tab !important;
+      border: 0 solid $active-tab;
+      border-bottom: 4px solid $active-tab;
       border-radius: 0;
       color: $text-color;
       font-family: 'gothamrnd-book';
       font-size: 13px;
-      padding: 10px 15px 3px;
+      padding: 4px 15px;
+      top: 0;
 
       &:focus,
       &:hover {
         color: $text-color;
       }
     }
+
+    &:first-child {
+      margin-left: 15px;
+    }
   }
 
   .active {
     a {
       background: $active-tab !important;
-      border: 1px solid $active-tab-border !important;
-      border-bottom: 3px solid $active-tab !important;
+      //border: 1px solid $active-tab-border !important;
+      border-bottom: 4px solid $theme-color !important;
       color: $theme-color !important;
-      padding: 7px 15px 5px;
-      top: 2px;
+      padding: 4px 15px;
+      top: 0;
     }
   }
 }

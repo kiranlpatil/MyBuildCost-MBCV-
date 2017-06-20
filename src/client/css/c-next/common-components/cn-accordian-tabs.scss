@@ -1,4 +1,5 @@
 $header-bg: #edf1f5;
+$primary-option: #3694d1;
 
 .panel-group {
   margin-bottom: 10px;
@@ -22,4 +23,27 @@ $header-bg: #edf1f5;
       background: transparent;
     }
   }
+}
+
+.panel-heading .panel-title a[aria-expanded="true"]::after {
+  font-family: 'Glyphicons Halflings';
+  content: "\2212";
+  float: left;
+  color: $primary-option;
+  font-size: 12px;
+  padding: 2px 3px;
+  border: 1px solid $primary-option;
+  border-radius: 50%;
+  margin-right: 15px;
+}
+.panel-heading .panel-title a[aria-expanded="false"]::after {
+  content: "\002b";
+  font-family: 'Glyphicons Halflings';
+  float: left;
+  color: $primary-option;
+  font-size: 12px;
+  padding: 3px 2px 2px 3px;
+  border: 1px solid $primary-option;
+  border-radius: 50%;
+  margin-right: 15px;
 }

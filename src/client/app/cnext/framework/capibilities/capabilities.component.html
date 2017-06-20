@@ -8,11 +8,9 @@
       <div class="capabilities col-sm-12">
             <div class="capability-type panel-group"  id="accordion" >
               <div class="panel panel-default capability-option"  *ngFor="let role of roles;let i = index">
-                <div class="panel-heading" (click)="role.isOpen?role.isOpen=false:role.isOpen=true" >
+                <div class="panel-heading" >
                   <h4 class="panel-title sub-areas">
                       <a data-toggle="collapse" data-parent="#accordion" href="#collapse{{i}}" aria-expanded="false">
-                        <span *ngIf="!role.isOpen" class="glyphicon glyphicon-plus"></span>
-                        <span *ngIf="role.isOpen" class="glyphicon glyphicon-minus"></span>
                         {{role.name}}
                       </a>
                   </h4>

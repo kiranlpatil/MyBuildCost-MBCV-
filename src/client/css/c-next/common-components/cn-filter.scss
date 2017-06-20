@@ -3,7 +3,7 @@ $border-color: #ddd;
 $text-color: #333;
 $bg-tab-content: #f9f9f9;
 $profile-section-shadow: rgba(204, 204, 204, 1);
-$active-tab-border: #b2bcc3;
+$border-color: #e8e8e8;
 
 .filter-container {
   padding-bottom: 60px;
@@ -12,7 +12,7 @@ $active-tab-border: #b2bcc3;
   left: 0;
   height: 100vh;
   overflow: auto;
-  border: 1px solid $active-tab-border;
+  border: 1px solid $border-color;
   //background: $bg-tab-content;
   //box-shadow: 0 0 1px 0 $profile-section-shadow;
   text-align: left;
@@ -36,7 +36,7 @@ $active-tab-border: #b2bcc3;
     background-color: #fff;
     width: 200px;
     z-index: 10;
-    border-right: 1px solid $active-tab-border;
+    border-right: 1px solid $border-color;
   }
 
   .inner {

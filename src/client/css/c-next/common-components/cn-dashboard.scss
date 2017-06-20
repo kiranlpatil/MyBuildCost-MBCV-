@@ -13,6 +13,7 @@ $border-light: #efefef;
 $active-color: #edf1f5;
 $border-blue: #d1dce4;
 $label-border: #a7a7a7;
+$bg-tabs: #edf1f5;
 
 .profile-wrapper {
   .wrapper-border {
@@ -30,10 +31,12 @@ $label-border: #a7a7a7;
     top: 50px;
     right: 10px;
     z-index: 999;
+    box-shadow: none;
 
     &:focus,
     &:hover {
       outline: none;
+      box-shadow: none;
     }
   }
 
@@ -141,9 +144,9 @@ $label-border: #a7a7a7;
   }
 
   .dashboard-tabs {
-    background: $white;
+    background: $bg-tabs;
     position: fixed;
-    top: 47px;
+    top: 52px;
     left: 0;
     width: 100%;
     z-index: 999;
