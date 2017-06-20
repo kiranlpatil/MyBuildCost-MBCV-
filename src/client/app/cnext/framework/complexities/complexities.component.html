@@ -12,11 +12,13 @@
               <div *ngIf="role.default_complexities!=undefined && role.default_complexities[0]!=undefined">
                 <div class="panel-group" id="accordion1">
                   <div class="panel panel-default">
-                    <div class="panel-heading" (click)="openAccordian1[i] = !openAccordian1[i]">
+                    <div class="panel-heading" (click)="role.isOpen?role.isOpen=false:role.isOpen=true">
                       <h5 class="panel-title sub-areas">
                         <a data-toggle="collapse" data-parent="#accordion1" href="#collapse1{{i}}" aria-expanded="false">
-                          <span *ngIf="!openAccordian1[i]" class="glyphicon glyphicon-plus"></span>
-                          <span *ngIf="openAccordian1[i]"  class="glyphicon glyphicon-minus"></span>{{role.name}} <span class="glyphicon glyphicon-chevron-right"></span> Common Capabilities</a>
+                          <span *ngIf="!role.isOpen" class="glyphicon glyphicon-plus"></span>
+                          <span *ngIf="role.isOpen" class="glyphicon glyphicon-minus"></span>
+                          {{role.name}}
+                          <span class="glyphicon glyphicon-chevron-right"></span> Common Capabilities</a>
                       </h5>
                     </div>
                     <div id="collapse1{{i}}" class="panel-collapse collapse" >
@@ -51,11 +53,11 @@
               <div *ngIf="role.default_complexities!=undefined && role.default_complexities[0]!=undefined">
                 <div class="panel-group" id="accordion2">
                   <div class="panel panel-default">
-                    <div class="panel-heading" (click)="openAccordian2[i] = !openAccordian2[i]">
+                    <div class="panel-heading" (click)="role.isOpen?role.isOpen=false:role.isOpen=true">
                       <h5 class="panel-title sub-areas">
                         <a data-toggle="collapse" data-parent="#accordion2" href="#collapse2{{i}}" aria-expanded="false">
-                          <span *ngIf="!openAccordian2[i]" class="glyphicon glyphicon-plus"></span>
-                          <span *ngIf="openAccordian2[i]" class="glyphicon glyphicon-minus"></span>
+                          <span *ngIf="!role.isOpen" class="glyphicon glyphicon-plus"></span>
+                          <span *ngIf="role.isOpen" class="glyphicon glyphicon-minus"></span>
                           {{role.name}} <span class="glyphicon glyphicon-chevron-right"></span> Common Capabilities</a>
                       </h5>
                     </div>
@@ -92,11 +94,11 @@
               <div *ngFor="let capability of role.capabilities;let j = index">
                 <div class="panel-group" id="accordion3">
                   <div class="panel panel-default">
-                    <div class="panel-heading" (click)="openAccordian3[ij] = !openAccordian3[ij]">
+                    <div class="panel-heading" (click)="role.isOpen?role.isOpen=false:role.isOpen=true">
                       <h5 class="panel-title sub-areas">
                         <a data-toggle="collapse" data-parent="#accordion3" href="#collapse3{{i}}{{j}}" aria-expanded="false">
-                          <span *ngIf="!openAccordian3[i]" class="glyphicon glyphicon-plus"></span>
-                          <span *ngIf="openAccordian3[i]" class="glyphicon glyphicon-minus"></span>
+                          <span *ngIf="!role.isOpen" class="glyphicon glyphicon-plus"></span>
+                          <span *ngIf="role.isOpen" class="glyphicon glyphicon-minus"></span>
                           {{role.name}} <span class="glyphicon glyphicon-chevron-right"></span> {{capability.name}}
                         </a>
                       </h5>
@@ -131,11 +133,11 @@
               <div *ngFor="let capability of role.capabilities;let j = index">
                 <div class="panel-group" id="accordion4">
                   <div class="panel panel-default">
-                    <div class="panel-heading" (click)="openAccordian4[i] = !openAccordian4[i]">
+                    <div class="panel-heading" (click)="role.isOpen?role.isOpen=false:role.isOpen=true" >
                       <h5 class="panel-title sub-areas">
                         <a data-toggle="collapse" data-parent="#accordion4" href="#collapse4{{i}}{{j}}" aria-expanded="false">
-                          <span *ngIf="!openAccordian4[i]" class="glyphicon glyphicon-plus"></span>
-                          <span *ngIf="openAccordian4[i]" class="glyphicon glyphicon-minus"></span>
+                          <span *ngIf="!role.isOpen" class="glyphicon glyphicon-plus"></span>
+                          <span *ngIf="role.isOpen" class="glyphicon glyphicon-minus"></span>
                           {{role.name}} <span class="glyphicon glyphicon-chevron-right"></span>  {{capability.name}}</a>
                       </h5>
                     </div>

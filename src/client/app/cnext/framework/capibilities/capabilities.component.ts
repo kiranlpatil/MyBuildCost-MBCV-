@@ -24,7 +24,6 @@ export class CapabilitiesComponent {
   private primaryCapabilitiesNumber: number = 0;
   private disableButton: boolean = true;
   private isCandidate: boolean = false;
-  private openPanel: boolean[] = new Array(0);
   tooltipCandidateMessage: string =
 
     "<ul>" +
