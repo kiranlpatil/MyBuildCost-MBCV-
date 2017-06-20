@@ -63,13 +63,6 @@ $theme-color: #3694d1;
     left: -2px;
   }
 
-  /*.glyphicon-plus {
-    position: relative;
-    top: -4px;
-    display: inline-block;
-    left: -2px;
-  }*/
-
   .see-more {
     color: $theme-color;
     font-size: 12px;
@@ -173,9 +166,9 @@ $theme-color: #3694d1;
     li {
       color: #666;
       float: left;
-      list-style-type: none;
+      list-style-type: disc;
       //list-style-image: url('../../../assets/c-next/compact-view/bullet.png');
-      margin-bottom: 10px;
+      margin-bottom: 0;
       padding-right: 25px;
       text-transform: capitalize;
       width: 100%;

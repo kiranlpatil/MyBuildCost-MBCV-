@@ -48,22 +48,18 @@
      *ngIf="highlightedSection.name!='Work-Area'">
   <div class="main-content">
     <div class="compact-view clearfix">
-      <!--[hidden]="highlightedSection.isLocked"-->
-      <!--
-             <span class="glyphicon glyphicon-lock" title="This section can be updated only after {{highlightedSection.date| date:'mediumDate'}}" *ngIf="highlightedSection.isLocked"></span>
-      -->
       <h4 class="heading">Area Of Work
         <button class="btn-edit"
                 (click)="highlightedSection.name='Work-Area';highlightedSection.sectionName='capability';highlightedSection.isDisable=true"
                 [hidden]="highlightedSection.isDisable"></button>
       </h4>
-      <p>
-      <span class="option" *ngFor="let item of selectedRoles;let i = index">
-        {{item.name}}&nbsp;<span *ngIf="selectedRoles.length>1 && i!=selectedRoles.length-1">,</span>&nbsp;
-      </span>
-      </p>
-
-
+      <ul>
+        <li *ngFor="let item of selectedRoles;let i = index">
+          <span class="option">
+            {{item.name}}
+          </span>
+        </li>
+      </ul>
     </div>
   </div>
 </div>

@@ -39,6 +39,10 @@ export class ComplexitiesComponent {
   private isPresentDefaultComplexity:boolean = false;
   private isPresentDefaultComplexityCandidate:boolean = false;
   private count:number = 0;
+  private openAccordian1: boolean[] = new Array(0);
+  private openAccordian2: boolean[] = new Array(0);
+  private openAccordian3: boolean[] = new Array(0);
+  private openAccordian4: boolean[] = new Array(0);
  // private elements:any;
   tooltipCandidateMessage:string = "<ul><li>" +
     "<h5>Complexities</h5><p class='info'> This section provides a list of complexity scenarios for your selected capabilities." +
