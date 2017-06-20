@@ -26,7 +26,6 @@ export function create(req: express.Request, res: express.Response, next: any) {
     var recruiterService = new RecruiterService();
     recruiterService.createUser(newUser, (error, result) => {
       if (error) {
-        console.log("crt user error", error);
         if (error == Messages.MSG_ERROR_CHECK_EMAIL_PRESENT) {
           next({
             reason: Messages.MSG_ERROR_RSN_EXISTING_USER,
