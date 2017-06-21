@@ -15,6 +15,7 @@ import { ReferenceService } from '../../model/newClass';
 export class JobListerComponent implements  OnDestroy, OnChanges {
   @Input() jobListInput: any[] = new Array(0);
   @Input() headerInfoForJob: RecruiterHeaderDetails;
+  @Input() screenType:string;
   @Output() jobEventEmitter: EventEmitter<any> = new EventEmitter();
   //public jobList:JobPosterModel[] = new Array(0);
   //public jobListToCheck:JobPosterModel[] = new Array(0);

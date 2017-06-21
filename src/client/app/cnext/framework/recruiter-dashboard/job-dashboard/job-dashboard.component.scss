@@ -1,5 +1,10 @@
-.move-left {
-  left: 199px !important;
+.list-view {
+  left: 0 !important;
+  border-bottom: 1px solid #d1dce4;
+
+  .panel {
+    padding: 2px 15px !important;
+  }
 }
 
 .view-details {
@@ -13,7 +18,7 @@
 
   li {
     text-align: center;
-    margin-top: 0 !important;
+    margin-top: 5px !important;
   }
 
   li > p {

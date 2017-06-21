@@ -18,6 +18,7 @@ export class RecruiterDashboardComponent implements OnInit {
   private recruiterDashboard: RecruiterDashboard = new RecruiterDashboard();
   private recruiterHeaderDetails: RecruiterHeaderDetails = new RecruiterHeaderDetails();
   private tabName: string;
+  private screenType: string='';
  // private showTabsForJobPoster: boolean = false;
 
   constructor(private recruiterDashboardService: RecruiterDashboardService,
@@ -31,6 +32,11 @@ export class RecruiterDashboardComponent implements OnInit {
         (data: any) => {
           this.recruiterDashboard = <RecruiterDashboard>data.data[0];
           this.recruiterHeaderDetails = <RecruiterHeaderDetails>data.jobCountModel;
+          if(this.recruiterDashboard.postedJobs.length>0){
+            this.screenType='jobList';
+          } else {
+            this.screenType='welcomescreen';
+          }
         });
   }
 
