@@ -4,6 +4,7 @@ $text-color: #333;
 $bg-tab-content: #f9f9f9;
 $profile-section-shadow: rgba(204, 204, 204, 1);
 $border-color: #e8e8e8;
+$filter-bg: #edf1f5;
 
 .filter-container {
   padding-bottom: 60px;
@@ -17,7 +18,7 @@ $border-color: #e8e8e8;
   //box-shadow: 0 0 1px 0 $profile-section-shadow;
   text-align: left;
   width: 200px;
-  background: $white;
+  background: $filter-bg;
   z-index: 998;
 
   p {
@@ -33,7 +34,7 @@ $border-color: #e8e8e8;
     position: fixed;
     top: 50px;
     left: 0;
-    background-color: #fff;
+    background-color: $filter-bg;
     width: 200px;
     z-index: 10;
     border-right: 1px solid $border-color;
