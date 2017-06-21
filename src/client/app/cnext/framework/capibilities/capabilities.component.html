@@ -34,9 +34,10 @@
             </div>
         <div class="button-group clearfix">
           <button class="btn btn-primary" scrollTo scrollTargetSelector="#complexity-area"
-                  (click)="onNext()" [disabled]="!(primaryNames.length>0)">Next
+                  (click)="onNext()" [disabled]="!(primaryNames.length>0)" [hidden]="!showButton">Next
           </button>
-
+          <button class="btn btn-default" (click)="onCancel()" [hidden]="showButton">Cancel</button>
+          <button class="btn btn-primary"  (click)="onSave()"  [disabled]="!(primaryNames.length>0)" [hidden]="showButton">Save</button>
         </div>
       </div>
     </div>
@@ -49,7 +50,7 @@
   <div class="main-content">
     <div class="compact-view clearfix">
       <h4 class="heading">Capabilities
-        <button class="btn-edit" (click)="highlightedSection.name='Capabilities';highlightedSection.isDisable=true"
+        <button class="btn-edit" (click)="highlightedSection.name='Capabilities';highlightedSection.isDisable=true;showButton=false"
                 [hidden]="highlightedSection.isDisable"></button>
       </h4>
 

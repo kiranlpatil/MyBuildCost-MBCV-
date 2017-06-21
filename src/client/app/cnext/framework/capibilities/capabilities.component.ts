@@ -18,9 +18,12 @@ export class CapabilitiesComponent {
   @Input() candidateRoles: Role[] = new Array();
   @Output() onComplete = new EventEmitter();
   @Input() highlightedSection: Section;
-
+  private savedselectedRoles:Role[]= new Array(0);
+  private showButton: boolean = true;
   private primaryNames: string[] = new Array(0);
+  private savedprimaryNames: string[] = new Array(0);
   private secondaryNames: string[] = new Array(0);
+  private savedsecondaryNames: string[] = new Array(0);
   private primaryCapabilitiesNumber: number = 0;
   private disableButton: boolean = true;
   private isCandidate: boolean = false;
@@ -95,6 +98,46 @@ export class CapabilitiesComponent {
     this.onComplete.emit(newselectedRoles);
   }
 
+onSave(){
+    if(this.savedprimaryNames.length===this.primaryNames.length && this.savedsecondaryNames.length===this.secondaryNames.length){
+      var goNext:boolean=false;
+      for(let primary of this.primaryNames){
+        if(this.savedprimaryNames.indexOf(primary)===-1) {
+          goNext=true;
+          break;
+        }
+      }
+      for(let secondary of this.secondaryNames){
+        if(this.savedsecondaryNames.indexOf(secondary)===-1) {
+          goNext=true;
+          break;
+        }
+      }
+
+      if(goNext){
+        this.onNext();
+      } else{
+        this.onCancel();
+      }
+
+    } else{
+      this.onNext();
+    }
+
+
+}
+  onCancel(){
+    this.highlightedSection.name = 'none';
+    this.highlightedSection.isDisable = false;
+    this.roles=new Array(0);
+    for(let role of this.savedselectedRoles){
+      let originalRole =Object.assign({}, role);
+      this.roles.push(originalRole);
+    }
+    this.primaryNames=this.savedprimaryNames.slice();
+    this.secondaryNames=this.savedsecondaryNames.slice();
+  }
+
   setPrimaryCapabilitydata() {
     this.secondaryNames = new Array(0);
     this.primaryNames = new Array(0);
@@ -124,5 +167,14 @@ export class CapabilitiesComponent {
         }
       }
     }
+    this.savedselectedRoles=new Array(0);
+    for(let role of this.roles){
+      let savetempRole =Object.assign({}, role);
+      this.savedselectedRoles.push(savetempRole);
+    }
+    this.savedprimaryNames=this.primaryNames.slice();
+    this.savedsecondaryNames=this.secondaryNames.slice();
+
+
   }
 }
