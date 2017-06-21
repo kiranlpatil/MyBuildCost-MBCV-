@@ -4,9 +4,14 @@
   background-position: 0 0;
 
   .content {
+    background: transparent !important;
+    border: 0 !important;
+
     h5 {
       text-align: left;
-      font-size: 18px;
+      font-size: 20px;
+      background: transparent !important;
+      border: 0 !important;
     }
 
     p {
