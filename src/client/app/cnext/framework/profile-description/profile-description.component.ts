@@ -106,7 +106,7 @@ export class ProfileDescriptionComponent implements OnInit {
     }
   }
 
-  onJobTitleChange() {debugger
+  onJobTitleChange() {
     if(this.candidate && this.candidate.jobTitle === '') {
       this.disableButton=true;
     } else {

@@ -104,7 +104,7 @@ export class CandidateDashboardComponent {
     }
   }
 
-  showAppliedJobs() {debugger
+  showAppliedJobs() {
     this.qcardFilterService.clearFilter();
     this.candidateJobListService.getAppliedJobList()
       .subscribe(
@@ -117,7 +117,7 @@ export class CandidateDashboardComponent {
     }
   }
 
-  showRejectedJobs() {debugger
+  showRejectedJobs() {
     this.qcardFilterService.clearFilter();
     this.candidateJobListService.getBlockedJobList()
       .subscribe(

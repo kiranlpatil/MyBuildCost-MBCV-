@@ -44,7 +44,7 @@ export class RecruiterDashboardComponent implements OnInit {
     });
     this.getRecruiterData();
   }
-  navigateTo(nav: string) {debugger
+  navigateTo(nav: string) {
     if (nav !== undefined) {
       this._router.navigate([nav]);
     }

@@ -159,7 +159,7 @@ export class ComplexitiesComponent {
 
   selectComplexity(role:Role, capability:Capability, complexity:Complexity, selectedScenario:Scenario, event:any) {
     for (let rol  of this.candidateRoles) {
-      debugger
+
       for (let cap of rol.capabilities) {
         if (cap.name == capability.name) {
           capability.isPrimary = cap.isPrimary;
@@ -186,7 +186,7 @@ export class ComplexitiesComponent {
   }
 
 
-  saveComplexity() {debugger
+  saveComplexity() {
     //this.compactView=true
     this.isComplexityButtonEnable = false;
     if (this.isCandidate) {

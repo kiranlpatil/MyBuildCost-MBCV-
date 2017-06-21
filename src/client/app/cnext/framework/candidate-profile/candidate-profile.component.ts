@@ -238,7 +238,7 @@ export class CandidateProfileComponent implements OnInit {
         candidateData => this.candidateForCapability = candidateData.data[0].industry.roles);
   }
 
-  getCandidateForComplexity() {debugger
+  getCandidateForComplexity() {
     this.profileCreatorService.getCandidateDetails()
       .subscribe(
         candidateData => {

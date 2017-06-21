@@ -78,7 +78,7 @@ export class ProfilePictureComponent {
     }
   }
 
-  fileChangeSuccess(result: any) {debugger
+  fileChangeSuccess(result: any) {
     this.model = result.data;
     LocalStorageService.setLocalValue(LocalStorage.PROFILE_PICTURE, result.data.picture);
     var socialLogin: string = LocalStorageService.getLocalValue(LocalStorage.IS_SOCIAL_LOGIN);

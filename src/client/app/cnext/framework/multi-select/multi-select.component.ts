@@ -31,7 +31,7 @@ export class MultiSelectComponent {
   }
 
   /* ngOnInit() {
-   debugger
+
    document.getElementById('save-button').focus();
 
    }
@@ -98,7 +98,7 @@ export class MultiSelectComponent {
 
     if(this.selectedProficiencies.indexOf(newVal) ===-1) {
       if (newVal != '' && this.masterDataProficiencies.indexOf(newVal) === -1) {
-        debugger
+
         this.showModalStyle = true;
       }
       else {

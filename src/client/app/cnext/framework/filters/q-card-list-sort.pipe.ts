@@ -63,7 +63,7 @@ export class QCardListSortPipe implements PipeTransform {
     }else{
       if(args[0] === 'Experience' ) {
         array.sort((a:CandidateQCard, b:CandidateQCard) => {
-          debugger
+
           if (Number(a.experience.split(' ')[0]) > Number(b.experience.split(' ')[0])) {
             return -1;
           } else if (Number(a.experience.split(' ')[0]) < Number(b.experience.split(' ')[0])) {
@@ -87,10 +87,10 @@ export class QCardListSortPipe implements PipeTransform {
       });
     }
 
-    else {debugger
+    else {
       if(args[0] === 'Salary') {
         array.sort((a:CandidateQCard, b:CandidateQCard) => {
-          debugger
+
           if (Number(a.salary.split(' ')[0]) < Number(b.salary.split(' ')[0])) {
             return -1;
           } else if (Number(a.salary.split(' ')[0]) > Number(b.salary.split(' ')[0])) {
