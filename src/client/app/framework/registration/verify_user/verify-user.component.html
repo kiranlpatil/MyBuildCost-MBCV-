@@ -19,7 +19,7 @@
     </div>
 
     <form [formGroup]="userForm" (submit)="onSubmit()" [hidden]="chkMobile">
-      <p><b>You are almost done! We just need to verify your account before you can start using it.</b></p>
+      <p><b>You are almost done! We just need to verify your account before you can start using the system.</b></p>
       <p>One Time Password (OTP) will be sent on the following mobile number.</p>
 
       <div class="form-group" id="inputMobile">
@@ -35,14 +35,13 @@
     </form>
 
     <form [formGroup]="userForm" (submit)="onSubmit()" [hidden]="chkEmail">
-      <p><b>You are almost done! We just need to verify your account before you can start using it.</b></p>
+      <p><b>You are almost done! We just need to verify your account before you can start using the system.</b></p>
       <p>Verification link will be emailed on the following email address.</p>
 
       <div class="form-group" id="inputEmail">
         <control-messages [control]="userForm.controls.email"></control-messages>
         <input type="email" [(ngModel)]="model.email" formControlName="email" id="email" maxlength="40"
                class="form-control" readonly/>
-        <!--<label>Email</label>-->
       </div>
 
       <div class="button-group">
