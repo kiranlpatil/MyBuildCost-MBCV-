@@ -50,6 +50,12 @@
   }
 }
 
+#rejected {
+  .card-view {
+    margin-top: 50px;
+  }
+}
+
 @media only screen and (max-width: 1024px) {
   .job-details {
     li > h4 {
