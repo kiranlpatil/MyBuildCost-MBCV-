@@ -12,15 +12,16 @@
            >Post New Job</a></li>
   </ul>
   <div class="tab-content">
+
     <div id="posted-job" class="tab-pane fade active in clearfix">
-      <div *ngIf="recruiterDashboard">
+      <div *ngIf="recruiterDashboard && screenType != ''">
         <cn-job-lister [headerInfoForJob]="recruiterHeaderDetails" [jobListInput]="recruiterDashboard.postedJobs"
-                       (jobEventEmitter)="jobSelected($event)"></cn-job-lister>
+                       (jobEventEmitter)="jobSelected($event)" [screenType]="screenType"></cn-job-lister>
       </div>
     </div>
     <!--<cn-tool-tip [message]="test"></cn-tool-tip>-->
-    <div id="post_new_job" class="tab-pane fade clearfix">
-      <cn-job-poster></cn-job-poster>
+    <div id="post_new_job" class="tab-pane fade clearfix" *ngIf="recruiterDashboard">
+      <cn-job-poster [noOfJobPosted]="recruiterDashboard.postedJobs.length"></cn-job-poster>
     </div>
   </div>
 </div>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit ,Input} from '@angular/core';
 import { JobPosterModel } from '../model/jobPoster';
 import { JobPosterService } from './job-poster.service';
 import { Role } from '../model/role';
@@ -20,6 +20,7 @@ import { Router } from '@angular/router';
 })
 
 export class JobPosterComponent implements OnInit {
+  @Input() noOfJobPosted:number;
   private roleList: string[] = new Array(0);
   private primaryCapability: string[] = new Array(0);
   private proficiencies: Proficiences = new Proficiences();

@@ -6,6 +6,35 @@ $white: #fff;
 $text-color: #999;
 $theme-color: #3694d1;
 
+.welcome-text {
+  height: 100vh;
+  z-index: 100000;
+  text-align: left;
+
+  .content {
+    color: #666;
+    width: 80%;
+    top: 50%;
+    -webkit-transform: translate(0, -50%) !important;
+    transform: translate(-50%, -50%) !important;
+    border-radius: 0;
+    position: absolute;
+    margin: 0 auto;
+    left: 50%;
+    z-index: 100;
+  }
+
+  img {
+    width: 100%;
+    margin: 15px 0;
+  }
+
+  h4 {
+    color: $theme-color;
+    font-size: 20px;
+  }
+}
+
 .job-list {
   text-align: left;
   margin-top: 70px;
@@ -54,7 +83,7 @@ $theme-color: #3694d1;
         background-color: $purple;
         color: $white;
         position: relative;
-        margin: 0 auto 5px auto;
+        margin: 0 auto 5px;
       }
 
       span {
