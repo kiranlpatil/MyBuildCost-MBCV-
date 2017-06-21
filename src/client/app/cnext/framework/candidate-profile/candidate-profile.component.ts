@@ -90,9 +90,11 @@ export class CandidateProfileComponent implements OnInit {
   }
 
   onCapabilityComplete(roles: Role[]) {
+
     this.candidate.industry.roles = roles;
     this.candidateForCapability = this.candidate.industry.roles;
     this.candidateForRole = this.candidate.industry.roles;
+    this.candidateForComplexity = this.candidate.industry.roles;
     this.saveCandidateDetails();
     this.getComplexity();
     this.showComplexity = true;
@@ -106,7 +108,7 @@ export class CandidateProfileComponent implements OnInit {
     this.candidate.lockedOn = date;
     this.highlightedSection.date = date;
     this.candidateForComplexity = this.candidate.industry.roles;
-    //this.candidateForCapability = this.candidate.industry.roles;
+    this.candidateForCapability = this.candidate.industry.roles;
     this.saveCandidateDetails();
     this.showProficiency = true;
     this.getProficiency();
@@ -176,7 +178,7 @@ export class CandidateProfileComponent implements OnInit {
     for (let role of this.candidate.industry.roles) {
       this.roleList.push(role.name);
     }
-    if (this.candidate.industry.name !== undefined && this.roleList != undefined) {
+    if (this.candidate.industry.name !== undefined && this.roleList !== undefined) {
       this.profileCreatorService.getCapability(this.candidate.industry.name, this.roleList)
         .subscribe(
           rolelist => {
@@ -218,8 +220,7 @@ export class CandidateProfileComponent implements OnInit {
           rolelist => {
             this.rolesForComplexity = rolelist.data;
             this.showComplexity = true;
-            this.getCandidateForComplexity();
-
+            //this.getCandidateForComplexity();
           });
     }
   }
@@ -238,13 +239,13 @@ export class CandidateProfileComponent implements OnInit {
         candidateData => this.candidateForCapability = candidateData.data[0].industry.roles);
   }
 
-  getCandidateForComplexity() {
+ /* getCandidateForComplexity() {debugger
     this.profileCreatorService.getCandidateDetails()
       .subscribe(
         candidateData => {
           this.candidateForComplexity = candidateData.data[0].industry.roles;
         });
-  }
+  }*/
 
   getProficiency() {
     this.profileCreatorService.getProficiency()
@@ -288,20 +289,21 @@ export class CandidateProfileComponent implements OnInit {
 
           for(let role of this.candidate.industry.roles)
           {
-            if(role.default_complexities[0]!=undefined && role.default_complexities[0].complexities.length>0) {
+            if(role.default_complexities[0]!==undefined && role.default_complexities[0].complexities.length>0) {
               this.isPresentDefaultcomplexity=true;
             }
-            if(role.capabilities !=undefined && role.capabilities.length>0) {
+            if(role.capabilities !== undefined && role.capabilities.length>0) {
               this.isPresentCapability=true;
             }
           }
-     /*     if (( this.candidate.industry.roles[0].capabilities && this.candidate.industry.roles[0].capabilities.length >= 1 ) || (this.candidate.industry.roles[0].default_complexities && this.candidate.industry.roles[0].default_complexities.length >= 1)) {*/
+          //if (( this.candidate.industry.roles[0].capabilities && this.candidate.industry.roles[0].capabilities.length >= 1 )
+          // || (this.candidate.industry.roles[0].default_complexities && this.candidate.industry.roles[0].default_complexities.length >= 1)) {
           if ( this.isPresentCapability|| this.isPresentDefaultcomplexity){
             this.getComplexity();
             this.whichStepsVisible[2] = true;
-/*
-              if ((this.candidate.industry.roles[0].capabilities[0] != undefined && this.candidate.industry.roles[0].capabilities[0].complexities.length > 0)||( this.candidate.industry.roles[0].default_complexities[0] != undefined  && this.candidate.industry.roles[0].default_complexities[0].complexities.length > 0)) {
-*/
+//              if ((this.candidate.industry.roles[0].capabilities[0] != undefined && this.candidate.industry.roles[0].capabilities[0].complexities.length > 0)||
+//              ( this.candidate.industry.roles[0].default_complexities[0] != undefined  && this.candidate.industry.roles[0].default_complexities[0].complexities.length > 0)) {
+
               if (this.isPresentCapability|| this.isPresentDefaultcomplexity) {
                 this.whichStepsVisible[3] = true;
                 this.highlightedSection.name = 'None';

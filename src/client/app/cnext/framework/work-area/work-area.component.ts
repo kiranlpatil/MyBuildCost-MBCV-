@@ -16,6 +16,15 @@ export class WorkAreaComponent implements OnInit,OnChanges {
   @Input() selectedRoles: Role[] = new Array(0);
   @Input() highlightedSection: Section;
   @Output() onComplete = new EventEmitter();
+  tooltipCandidateMessage: string =
+    '<ul>' +
+    '<li><h5> Area Of Work </h5><p>Select those areas of work that describe what you are best at or where you would like to position your career.</p></li>' +
+    '</ul>';
+
+  tooltipRecruiterMessage: string =
+    '<ul>' +
+    '<li><h5> Area Of Work </h5><p>Select those areas of work that describe your requirement the best.</p></li>' +
+    '</ul>';
   private savedSelectedRoles: Role[] = new Array(0);
   private isCandidate: boolean = false;
   private disableButton: boolean = true;
@@ -23,15 +32,6 @@ export class WorkAreaComponent implements OnInit,OnChanges {
   private showModalStyle2:boolean = false;
   private showButton: boolean = true;
 
-  tooltipCandidateMessage: string =
-    "<ul>" +
-    "<li><h5> Area Of Work </h5><p>Select those areas of work that describe what you are best at or where you would like to position your career.</p></li>" +
-    "</ul>";
-
-  tooltipRecruiterMessage: string =
-      "<ul>" +
-      "<li><h5> Area Of Work </h5><p>Select those areas of work that describe your requirement the best.</p></li>" +
-      "</ul>";
 
   ngOnInit() {
     if (LocalStorageService.getLocalValue(LocalStorage.IS_CANDIDATE) === 'true') {

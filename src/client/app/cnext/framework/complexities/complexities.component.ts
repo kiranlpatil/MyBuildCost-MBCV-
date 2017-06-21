@@ -202,6 +202,27 @@ export class ComplexitiesComponent {
               if (mainrol.capabilities) {
                 for (let mainCap of mainrol.capabilities) {
                   if (mainCap.name === cap.name) {
+                    if(cap.complexities){
+                      mainCap.complexities=cap.complexities;
+                    }
+                    if (cap.isSecondary) {
+                      mainCap.isSecondary = true;
+                      mainCap.isPrimary = false;
+                    }else if(cap.isPrimary){
+                      mainCap.isSecondary = false;
+                      mainCap.isPrimary = true;
+                    }
+                  }
+                }
+              }
+            }
+          }
+          if(rol.default_complexities){
+            for (let cap of rol.default_complexities) {
+              if (mainrol.capabilities) {
+                for (let mainCap of mainrol.default_complexities) {
+                  if (mainCap.name === cap.name) {
+                    mainCap.complexities=cap.complexities;
                     if (cap.isSecondary) {
                       mainCap.isSecondary = true;
                       mainCap.isPrimary = false;

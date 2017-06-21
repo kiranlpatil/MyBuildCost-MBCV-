@@ -1,9 +1,9 @@
-import {Component, EventEmitter, Input, Output} from "@angular/core";
-import {Role} from "../model/role";
-import {Capability} from "../model/capability";
-import {LocalStorage, ValueConstant} from "../../../framework/shared/constants";
-import {Section} from "../model/candidate";
-import {LocalStorageService} from "../../../framework/shared/localstorage.service";
+import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {Role} from '../model/role';
+import {Capability} from '../model/capability';
+import {LocalStorage, ValueConstant} from '../../../framework/shared/constants';
+import {Section} from '../model/candidate';
+import {LocalStorageService} from '../../../framework/shared/localstorage.service';
 
 @Component({
   moduleId: module.id,
@@ -35,12 +35,12 @@ export class CapabilitiesComponent {
 
   tooltipRecruiterMessage: string =
 
-      "<ul>" +
-      "<li>" +
-      "<h5>Capabilities </h5><p class='info'>Select those capabilities that are required in the candidate." +
-      "These Capabilities are going to help you find best candidate you desire.</p>" +
-      "</li>" +
-      "</ul>";
+    "<ul>" +
+    "<li>" +
+    "<h5>Capabilities </h5><p class='info'>Select those capabilities that are required in the candidate." +
+    "These Capabilities are going to help you find best candidate you desire.</p>" +
+    "</li>" +
+    "</ul>";
 
   ngOnInit() {
     if (LocalStorageService.getLocalValue(LocalStorage.IS_CANDIDATE) === 'true') {
@@ -84,7 +84,15 @@ export class CapabilitiesComponent {
     this.highlightedSection.name = "Complexities";
     this.highlightedSection.isDisable = false;
     this.disableButton = true;
-    this.onComplete.emit(this.roles);
+    var newselectedRoles:Role[]= new Array(0);
+    for(let role of this.roles){
+      let tempRole =Object.assign({}, role);
+      newselectedRoles.push(tempRole);
+      tempRole.capabilities= tempRole.capabilities.filter((cap : Capability)=> {
+        return cap.isPrimary;
+      });
+    }
+    this.onComplete.emit(newselectedRoles);
   }
 
   setPrimaryCapabilitydata() {
@@ -102,10 +110,16 @@ export class CapabilitiesComponent {
                     cap.isPrimary ? this.primaryNames.push(cap.name) : (cap.isSecondary ? this.secondaryNames.push(cap.name) : console.log(""));
                     mainCap.isPrimary = cap.isPrimary;
                     mainCap.isSecondary = cap.isSecondary;
+                    if (cap.complexities && cap.complexities.length > 0) {
+                      mainCap.complexities = cap.complexities;
+                    }
                   }
                 }
               }
             }
+          }
+          if (role.default_complexities && role.default_complexities.length) {
+            mainRole.default_complexities = role.default_complexities;
           }
         }
       }
