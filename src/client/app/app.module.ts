@@ -156,6 +156,7 @@ import {TooltipComponent} from "./cnext/framework/tool-tip-component/tool-tip-co
 import {JobCompareService} from "./cnext/framework/single-page-compare-view/job-compare-view/job-compare-view.service";
 import {JobCompareViewComponent} from "./cnext/framework/single-page-compare-view/job-compare-view/job-compare-view.component";
 import {GuidedTourComponent} from "./cnext/framework/guided-tour/guided-tour.component";
+import {RedirectRecruiterDashboardService} from "./cnext/framework/redirect-dashboard.service";
 
 //C-NEXT IMPORTS
 
@@ -337,7 +338,8 @@ import {GuidedTourComponent} from "./cnext/framework/guided-tour/guided-tour.com
     RecruiterCandidatesListsService,
     QCardFilterService,
     JobDashboardService,
-    ReferenceService
+    ReferenceService,
+    RedirectRecruiterDashboardService
 
   ],
   bootstrap: [AppComponent]
