@@ -114,6 +114,16 @@ export class ComplexitiesComponent {
                 this.isPresentCapability=false;
                 this.selectedScenarioNames.push(complexity.name);
               }
+            }else {
+              for(let mainRole of this.roles){
+                for(let mainCap of mainRole.capabilities){
+                  if(primary.name == mainCap.name){
+                    primary.complexities= mainCap.complexities;
+                    break;
+                  }
+                }
+              }
+
             }
           }
         }
