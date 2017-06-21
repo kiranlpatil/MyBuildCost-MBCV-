@@ -144,6 +144,11 @@ export class MultiSelectComponent {
         this.selectedProficiencyModel(this.otherProficiency);
       }
     }
+    this.profileCreatorService.getProficiency()
+      .subscribe(
+        data => {
+          this.masterDataProficiencies = data.data[0].proficiencies;
+        });
     this.alreadyPresent = false;
     let emptyInputField: any = document.getElementById(this.type);
     emptyInputField.value = '';
