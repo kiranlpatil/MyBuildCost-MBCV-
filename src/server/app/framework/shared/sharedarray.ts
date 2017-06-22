@@ -11,7 +11,7 @@ class MailAttachments {
     }, {
       path: './src/server/app/framework/public/images/banner/banner.png',
       cid: 'unique@banner'
-    }, {
+    }/*, {
       path: './src/server/app/framework/public/images/footer/fb.png',
       cid: 'unique@fbfooter'
     }, {
@@ -20,7 +20,7 @@ class MailAttachments {
     }, {
       path: './src/server/app/framework/public/images/footer/linked-in.png',
       cid: 'unique@linkedin'
-    }
+    }*/
   ];
 }
 export=MailAttachments;
