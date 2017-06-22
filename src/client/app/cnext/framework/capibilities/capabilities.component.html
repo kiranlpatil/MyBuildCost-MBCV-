@@ -7,8 +7,8 @@
     <div class="clearfix">
       <div class="capabilities col-sm-12">
             <div class="capability-type panel-group"  id="accordion" >
-              <div class="panel panel-default capability-option"  *ngFor="let role of roles;let i = index">
-                <div class="panel-heading" *ngIf="role.capabilities.length>0">
+              <div class="panel panel-default capability-option"  *ngFor="let role of roles;let i = index" [hidden]="role.capabilities.length==0">
+                <div class="panel-heading">
                   <h4 class="panel-title sub-areas">
                       <a data-toggle="collapse" data-parent="#accordion" href="#collapse{{i}}" aria-expanded="false">
                         {{role.name}}
