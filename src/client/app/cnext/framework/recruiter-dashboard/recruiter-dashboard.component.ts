@@ -1,10 +1,10 @@
-import {AfterViewInit, Component,  OnInit} from '@angular/core';
+import { AfterViewInit, Component,  OnInit } from '@angular/core';
 import { RecruiterDashboardService } from './recruiter-dashboard.service';
 import { RecruiterDashboard } from '../model/recruiter-dashboard';
 import { RecruiterHeaderDetails } from '../model/recuirterheaderdetails';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
-import {RedirectRecruiterDashboardService} from "../redirect-dashboard.service";
+import { RedirectRecruiterDashboardService } from '../redirect-dashboard.service';
 
 @Component({
   moduleId: module.id,
@@ -50,7 +50,7 @@ export class RecruiterDashboardComponent implements OnInit, AfterViewInit {
     this.getRecruiterData();
   }
 
-  ngAfterViewInit(){
+  ngAfterViewInit() {
     this.activatedRoute.params.subscribe(params => {
       this.tabName = params['id'];
       if (this.tabName === 'post_new_job') {
