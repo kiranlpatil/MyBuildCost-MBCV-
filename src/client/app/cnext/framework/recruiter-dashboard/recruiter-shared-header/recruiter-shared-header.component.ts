@@ -55,9 +55,12 @@ export class RecruiterSharedHeaderComponent implements OnInit {
     }
   }
 
-  redirectToRecruiterDashboard(){
-    this.redirectRecruiterDashboard.change(true);
-
+  redirectToRecruiterDashboard() {
+    if(this._router.url==='/recruiterdashboard') {
+      this.redirectRecruiterDashboard.change(true);
+    }else {
+      this.navigateTo('/recruiterdashboard');
+    }
   }
 
 

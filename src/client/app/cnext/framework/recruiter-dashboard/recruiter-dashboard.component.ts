@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {AfterViewInit, Component,  OnInit} from '@angular/core';
 import { RecruiterDashboardService } from './recruiter-dashboard.service';
 import { RecruiterDashboard } from '../model/recruiter-dashboard';
 import { RecruiterHeaderDetails } from '../model/recuirterheaderdetails';
@@ -13,9 +13,8 @@ import {RedirectRecruiterDashboardService} from "../redirect-dashboard.service";
   styleUrls: ['recruiter-dashboard.component.css']
 })
 
-export class RecruiterDashboardComponent implements OnInit {
+export class RecruiterDashboardComponent implements OnInit, AfterViewInit {
   company_name: string;
-  /*  test : string="HI <p>helll</p> hiidhi<div>dssddsds</div>";*/
   private recruiterDashboard: RecruiterDashboard = new RecruiterDashboard();
   private recruiterHeaderDetails: RecruiterHeaderDetails = new RecruiterHeaderDetails();
   private tabName: string;
@@ -26,10 +25,10 @@ export class RecruiterDashboardComponent implements OnInit {
               private activatedRoute: ActivatedRoute,private _router: Router,
               private redirectRecruiterDashboard: RedirectRecruiterDashboardService) {
     redirectRecruiterDashboard.showTest$.subscribe(
-      isShow=>{
-        let matcheElement: any = document.getElementById('recr_job_dashboard');
-        matcheElement.click();
-    })
+      isShow=> {
+        let matchElement: any = document.getElementById('recr_job_dashboard');
+        matchElement.click();
+    });
   }
 
 
@@ -48,15 +47,19 @@ export class RecruiterDashboardComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.getRecruiterData();
+  }
+
+  ngAfterViewInit(){
     this.activatedRoute.params.subscribe(params => {
       this.tabName = params['id'];
       if (this.tabName === 'post_new_job') {
-        let matcheElement: any = document.getElementById('post_job');
-        matcheElement.click();
+          let matchElement: any = document.getElementById('post_job');
+          matchElement.click();
       }
     });
-    this.getRecruiterData();
   }
+
   navigateTo(nav: string) {
     if (nav !== undefined) {
       this._router.navigate([nav]);
