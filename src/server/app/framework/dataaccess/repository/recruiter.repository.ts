@@ -87,7 +87,7 @@ class RecruiterRepository extends RepositoryBase<IRecruiter> {
           job_qcard.industry = job.industry.name;
           job_qcard.jobTitle = job.jobTitle;
           job_qcard.joiningPeriod = job.joiningPeriod;
-          if (job_qcard.matching >= ConstVariables.LOWER_LIMIT_FOR_SEARCH_RESULT) {
+          if ((job_qcard.above_one_step_matching+job_qcard.exact_matching) >= ConstVariables.LOWER_LIMIT_FOR_SEARCH_RESULT) {
             jobs_cards.push(job_qcard);
           }
           //todo add condition for exit

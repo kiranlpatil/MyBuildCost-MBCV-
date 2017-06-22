@@ -80,7 +80,7 @@ class CandidateRepository extends RepositoryBase<ICandidate> {
       candidate_card_view._id = candidate._id;
       candidate_card_view.location = candidate.location.city;
       candidate_card_view.noticePeriod = candidate.professionalDetails.noticePeriod;
-      if (candidate_card_view.matching >= ConstVariables.LOWER_LIMIT_FOR_SEARCH_RESULT) {
+      if ((candidate_card_view.above_one_step_matching + candidate_card_view.exact_matching) >= ConstVariables.LOWER_LIMIT_FOR_SEARCH_RESULT) {
         candidate_q_card_map[candidate.userId]=candidate_card_view;
         idsOfSelectedCandidates.push(candidate.userId);
       }
