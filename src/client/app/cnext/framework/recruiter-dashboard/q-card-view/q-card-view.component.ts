@@ -28,13 +28,14 @@ export class QCardviewComponent implements OnChanges {
   @Input() recuirterListCountModel: RecruiterJobView = new RecruiterJobView();
   @Input() jobId: string;
   @Input() type: string;
+  @Input() filterMeta: QCardFilter;
   @Output() addedTocart: EventEmitter<any> = new EventEmitter<any>();
   public qCardModel: QCardsortBy = new QCardsortBy();
   public totalQCardMatches = {count: 0};
   public qCardCount = {count: 0};
   private emailsOfShrortListedCandidates: string[] = new Array(0);
   private match: MatchCandidate = new MatchCandidate();
-  private filterMeta: QCardFilter;
+  /*private filterMeta: QCardFilter;*/
   private matchFormat: string = 'aboveMatch';
   private selectedCandidate: Candidate = new Candidate();
   private modelCandidate: CandidateQCard = new CandidateQCard();
@@ -47,11 +48,11 @@ export class QCardviewComponent implements OnChanges {
   constructor(private qCardFilterService: QCardFilterService,
               private profileCreatorService: CandidateProfileService, private qCardViewService: QCardViewService) {
 
-    this.qCardFilterService.candidateFilterValue$.subscribe(
+   /* this.qCardFilterService.candidateFilterValue$.subscribe(
       (data: QCardFilter) => {
         this.filterMeta = data;
       }
-    );
+    );*/
     this.qCardFilterService.aboveMatch$.subscribe(
       () => {
         this.matchFormat = this.match.aboveMatch;
@@ -63,7 +64,7 @@ export class QCardviewComponent implements OnChanges {
     this.matchFormat = 'aboveMatch';
   }
 
-  ngOnChanges(changes: any) {
+  ngOnChanges(changes: any) {debugger
     if (changes.candidateQlist && changes.candidateQlist.currentValue) {
       if (changes.candidateQlist.currentValue.shortListedCandidates) {
         this.emailsOfShrortListedCandidates = new Array(0);

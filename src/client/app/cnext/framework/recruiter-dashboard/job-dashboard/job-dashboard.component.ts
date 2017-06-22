@@ -26,11 +26,17 @@ export class JobDashboardComponent implements OnInit {
   private whichListVisible: boolean[] = new Array(4);
   private candidateQlist: CandidateQListModel = new CandidateQListModel();
   private selectedJobProfile: JobPosterModel = new JobPosterModel();
+  private filterMeta: QCardFilter;
 
   constructor(public refrence: ReferenceService,
               private activatedRoute: ActivatedRoute,
               private jobDashboardService: JobDashboardService,
               private _router:Router,private qcardFilterService:QCardFilterService) {
+    this.qcardFilterService.candidateFilterValue$.subscribe(
+      (data: QCardFilter) => {
+        this.filterMeta = data;
+      }
+    );
 
   }
 
@@ -66,7 +72,7 @@ export class JobDashboardComponent implements OnInit {
   }
 
   getMatchingProfiles() {
-    this.qcardFilterService.clearFilter();
+   /* this.qcardFilterService.clearFilter();*/
     for (let i = 0; i < this.whichListVisible.length; i++) {
       this.whichListVisible[i] = false;
     }
@@ -96,7 +102,7 @@ export class JobDashboardComponent implements OnInit {
 
   getSelectedListData(listName: string) {
 
-    this.qcardFilterService.clearFilter();
+   /* this.qcardFilterService.clearFilter();*/
     for (let i = 0; i < this.whichListVisible.length; i++) {
       this.whichListVisible[i] = false;
     }
