@@ -105,13 +105,26 @@ export class JobPosterComponent implements OnInit {
   }
 
   selectExperiencedIndustry(experiencedindustry: string[]) {
+    this.showCompentensies = true;
     this.jobPosterModel.interestedIndustries = experiencedindustry;
   }
 
 
   onBasicJobInformationComplete(jobModel: JobPosterModel) {
     jobModel.industry.roles=[];
-    this.jobPosterModel = jobModel;
+    this.jobPosterModel.department = jobModel.department;
+    this.jobPosterModel.education = jobModel.education;
+    this.jobPosterModel.experience = jobModel.experience;
+    this.jobPosterModel.hiringManager = jobModel.hiringManager;
+    this.jobPosterModel.jobTitle = jobModel.jobTitle;
+    this.jobPosterModel.joiningPeriod = jobModel.joiningPeriod;
+    this.jobPosterModel.location = jobModel.location;
+    this.jobPosterModel.salary= jobModel.salary;
+    if(this.jobPosterModel.industry.name !== jobModel.industry.name){
+      this.jobPosterModel.industry = jobModel.industry;
+      this.highlightedSection.name = 'Work-Area';
+    }
+    console.log(jobModel);
     this.getRoles();
     this.isShowRoleList = true;
     this.jobForRole = this.jobPosterModel.industry.roles;
