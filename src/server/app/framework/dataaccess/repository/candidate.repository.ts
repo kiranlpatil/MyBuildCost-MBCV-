@@ -77,8 +77,12 @@ class CandidateRepository extends RepositoryBase<ICandidate> {
       candidate_card_view.education = candidate.professionalDetails.education;
       candidate_card_view.proficiencies = candidate.proficiencies;
       candidate_card_view.interestedIndustries = candidate.interestedIndustries;
-      candidate_card_view._id = candidate._id;
-      candidate_card_view.location = candidate.location.city;
+      candidate_card_view._id = candidate._id;//todo solve the problem of location from front end
+      if(candidate.location){
+        candidate_card_view.location = candidate.location.city;
+      }else{
+        candidate_card_view.location = 'Pune';
+      }
       candidate_card_view.noticePeriod = candidate.professionalDetails.noticePeriod;
       if ((candidate_card_view.above_one_step_matching + candidate_card_view.exact_matching) >= ConstVariables.LOWER_LIMIT_FOR_SEARCH_RESULT) {
         candidate_q_card_map[candidate.userId]=candidate_card_view;
