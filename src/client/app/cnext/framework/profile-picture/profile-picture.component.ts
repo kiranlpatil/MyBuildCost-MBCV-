@@ -65,12 +65,14 @@ export class ProfilePictureComponent {
           this.fileChangeFail(error);
         });
       } else {
+        this.isLoading = false;
         var message = new Message();
         message.isError = true;
         message.error_msg = Messages.MSG_ERROR_IMAGE_SIZE;
         this.messageService.message(message);
       }
     } else {
+      this.isLoading = false;
       var message = new Message();
       message.isError = true;
       message.error_msg = Messages.MSG_ERROR_IMAGE_TYPE;
