@@ -73,8 +73,14 @@
       </div>
       <div class="button-group clearfix">
         <button class="btn btn-primary" scrollTo scrollTargetSelector="#work-area" (click)="onNext()"
-                [disabled]="!jobPostForm.valid || storedIndustry==undefined">Next
+                [disabled]="!jobPostForm.valid || storedIndustry==undefined" [hidden]="!showButton">Next
         </button>
+        <button class="btn btn-primary" scrollTo scrollTargetSelector="#work-area" (click)="onNext()"
+                [disabled]="!jobPostForm.valid || storedIndustry==undefined" [hidden]="showButton">Save
+        </button>
+<!--
+        <button class="btn btn-default" (click)="onCancel()" [hidden]="showButton">Cancel</button>
+-->
       </div>
     </form>
   </div>
@@ -83,9 +89,8 @@
   <div class="main-content">
     <div class="compact-view clearfix">
       <h4 class="heading">Job Description
-        <button class="btn-edit" (click)="highlightedSection.name='JobProfile';disableButton=false"></button>
+        <button class="btn-edit" (click)="highlightedSection.name='JobProfile';showButton=false;disableButton=false"></button>
       </h4>
-
       <div class="clearfix">
         <p><label>Job Title</label> {{jobPosterModel.jobTitle}}</p>
         <p><label>Education</label> {{jobPosterModel.education}}</p>

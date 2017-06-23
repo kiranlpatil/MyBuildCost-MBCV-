@@ -42,8 +42,11 @@ export class WorkAreaComponent implements OnInit,OnChanges {
     ngOnChanges(changes:any) {
    if(changes.selectedRoles !== undefined && changes.selectedRoles.currentValue !== undefined){
    this.selectedRoles=changes.selectedRoles.currentValue;
-     this.savedSelectedRoles= this.selectedRoles.slice();
-
+     this.savedSelectedRoles=new Array(0);
+     for(let role of this.selectedRoles){
+       let savetempRole =Object.assign({}, role);
+       this.savedSelectedRoles.push(savetempRole);
+     }
    }
    }
 
@@ -77,7 +80,11 @@ export class WorkAreaComponent implements OnInit,OnChanges {
   }
 
   onNext() {
-    this.selectedRoles=this.savedSelectedRoles;
+    this.selectedRoles=new Array(0);
+    for(let role of this.savedSelectedRoles){
+      let savetempRole =Object.assign({}, role);
+      this.selectedRoles.push(savetempRole);
+    }
     this.highlightedSection.name = 'Capabilities';
     this.highlightedSection.isDisable = false;
     this.onComplete.emit(this.selectedRoles);
@@ -98,9 +105,7 @@ onSave() {
         this.showModalStyle2 = !this.showModalStyle2;
         /*this.onNext();*/
       } else {
-        this.highlightedSection.name = 'none';
-        this.highlightedSection.isDisable = false;
-        this.showButton = true;
+        this.onCancel();
       }
     } else {
       this.showModalStyle2 = !this.showModalStyle2;
@@ -110,7 +115,11 @@ onSave() {
 onCancel() {
   this.highlightedSection.name='none';
   this.highlightedSection.isDisable=false;
-  this.savedSelectedRoles=this.selectedRoles;
+  this.savedSelectedRoles=new Array(0);
+  for(let role of this.selectedRoles){
+    let savetempRole =Object.assign({}, role);
+    this.savedSelectedRoles.push(savetempRole);
+  }
 }
   isSelected(value: string) {
     return this.selectedRoles.filter(function (el: Role) {

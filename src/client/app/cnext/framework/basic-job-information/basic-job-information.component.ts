@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnInit, Output} from '@angular/core';
 import { Industry } from '../model/industry';
 import { Section } from '../model/candidate';
 import { JobPosterModel } from '../model/jobPoster';
@@ -14,17 +14,18 @@ import { MyGoogleAddress } from '../../../framework/registration/candidate/googl
   styleUrls: ['basic-job-information.component.css']
 })
 
-export class BasicJobInformationComponent implements OnInit {
+export class BasicJobInformationComponent implements OnInit,OnChanges {
   @Input() jobPosterModel: JobPosterModel = new JobPosterModel();
   @Input() highlightedSection: Section;
   @Output() onComplete = new EventEmitter();
-
+  private savedjobPosterModel: JobPosterModel = new JobPosterModel();
   private jobPostForm: FormGroup;
   private educationList = new Array();
   private experienceList = new Array();
   private salaryList = new Array();
   private noticePeriodList = new Array();
   private address: string;
+  private showButton: boolean = true;
   private storedIndustry: Industry;
   private storedLocation: JobLocation = new JobLocation();
   tooltipMessage: string = "<ul>" +
@@ -71,6 +72,12 @@ export class BasicJobInformationComponent implements OnInit {
         });
   }
 
+  ngOnChanges(changes:any) {
+    if(changes.jobPosterModel !== undefined && changes.jobPosterModel.currentValue !== undefined){
+      this.jobPosterModel=changes.jobPosterModel.currentValue;
+      this.savedjobPosterModel=Object.assign({},this.jobPosterModel);
+    }
+  }
   getAddress(address: MyGoogleAddress) {
     this.storedLocation.city = address.city;
     this.storedLocation.state = address.state;
@@ -88,12 +95,19 @@ export class BasicJobInformationComponent implements OnInit {
     }
     this.jobPosterModel.location = this.storedLocation;
     if (this.jobPosterModel.industry) {
-      this.highlightedSection.name = 'Work-Area';
+      this.savedjobPosterModel=Object.assign({},this.jobPosterModel);
       this.onComplete.emit(this.jobPosterModel);
     } else {
       this.jobPosterModel.industry = new Industry();
     }
   }
+  onCancel() {
+    this.jobPosterModel=Object.assign({},this.savedjobPosterModel);
+    this.highlightedSection.name='none';
+    //this.highlightedSection.name='none';
+  }
 }
+
+
 /*
  this.username = new FormControl(this.login.username, [Validators.required, Validators.minLength(3), Validators.maxLength(40)]);*/

@@ -38,7 +38,7 @@ export class RecruiterDashboardComponent implements OnInit, AfterViewInit {
         (data: any) => {
           this.recruiterDashboard = <RecruiterDashboard>data.data[0];
           this.recruiterHeaderDetails = <RecruiterHeaderDetails>data.jobCountModel;
-          if(this.recruiterDashboard.postedJobs.length>0){
+          if(this.recruiterDashboard != undefined && this.recruiterDashboard.postedJobs != undefined && this.recruiterDashboard.postedJobs.length>0){
             this.screenType='jobList';
           } else {
             this.screenType='welcomescreen';
