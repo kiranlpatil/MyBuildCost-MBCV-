@@ -6,7 +6,8 @@ import { ValueConstant } from '../../../../framework/shared/constants';
 import { CandidateQListModel } from './q-cards-candidates';
 import { JobPosterModel } from '../../model/jobPoster';
 import { ReferenceService } from '../../model/newClass';
-import {QCardFilterService} from "../../filters/q-card-filter.service";
+import { QCardFilterService } from '../../filters/q-card-filter.service';
+import { QCardFilter } from '../../model/q-card-filter';
 
 @Component({
   moduleId: module.id,
