@@ -124,7 +124,6 @@ export class JobPosterComponent implements OnInit {
       this.jobPosterModel.industry = jobModel.industry;
       this.highlightedSection.name = 'Work-Area';
     }
-    console.log(jobModel);
     this.getRoles();
     this.isShowRoleList = true;
     this.jobForRole = this.jobPosterModel.industry.roles;

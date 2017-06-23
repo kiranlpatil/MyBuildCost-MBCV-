@@ -129,11 +129,15 @@ export class ComplexitiesComponent {
         }
         if (role.default_complexities) {
           for (let primary of role.default_complexities) {
-            if (primary.complexities) {
+            if (primary.complexities) {debugger
               for (let complexity of primary.complexities) {
                 this.isPresentDefaultComplexityCandidate=true;
                 this.isPresentDefaultComplexity=false;
-                this.selectedScenarioNames.push(complexity.name);
+                for(let scenario of complexity.scenarios){
+                  if(scenario.isChecked) {
+                    this.selectedScenarioNames.push(complexity.name);
+                  }
+                }
               }
             }
           }
