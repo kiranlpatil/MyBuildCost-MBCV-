@@ -75,8 +75,7 @@ export class CompanyDetailsComponent implements OnInit {
   onSubmit() {
     if (this.setOfDocuments[0] === undefined || this.setOfDocuments[1] === undefined || this.setOfDocuments[2] === undefined) {
       this.isDocumentUploaded = true;
-    }
-    else {
+    } else {
       this.isDocumentUploaded = false;
       this.submitted = true;
       this.model = this.companyDetailsForm.value;
