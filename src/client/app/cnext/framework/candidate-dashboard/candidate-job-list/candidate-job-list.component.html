@@ -8,7 +8,6 @@
       </select>
     </div>
 </header>
-<a class="clear-filter" (click)="clearFilter()">Clear all filters</a>
   <div class="card-view clearfix">
     <div *ngFor="let job of listOfJobs| qcardlistsort:[qCardModel.sortValue,'aboveMatch','candidate']| qcardlistfilter:filterMeta:qCardCount ;let i=index">
       <cn-candidate-q-card [job]="job" [type]="type" (onAction)="onActionPerform($event)"></cn-candidate-q-card>

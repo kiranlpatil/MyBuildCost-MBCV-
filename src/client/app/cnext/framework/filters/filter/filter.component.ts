@@ -36,6 +36,7 @@ export class FilterComponent {
   private All = 'All';
   private userForm: FormGroup;
   private isRecuirter: boolean;
+  private showClearFilter: boolean;
 
   constructor(private formBuilder: FormBuilder, private showQCardview: ShowQcardviewService, private _filterService: FilterService, private qCardFilterService: QCardFilterService) {
     this.showQCardview.showJobQCardView$.subscribe(
@@ -117,12 +118,16 @@ export class FilterComponent {
     } else {
       this.queryListRemove('(item.proficiencies.filter(function (obj) {return args.proficiencyDataForFilter.indexOf(obj.toLowerCase()) !== -1;}).length == args.proficiencyDataForFilter.length)');
     }
+    this.showClearFilter = true;
     this.buildQuery();
     this.qCardFilterService.filterby(this.qCardFilter);
   }
 
   filterByEducation(event: any) {
     var value = event.target.value;
+    if(value == ''){
+      this.queryListRemove('(args.educationDataForFilter.indexOf(item.education.toLowerCase()) !== -1)');
+    }
     if (event.target.checked) {
       this.qCardFilter.educationDataForFilter.push(value.toLowerCase())
     } else {
@@ -136,6 +141,7 @@ export class FilterComponent {
     } else {
       this.queryListRemove('(args.educationDataForFilter.indexOf(item.education.toLowerCase()) !== -1)');
     }
+    this.showClearFilter = true;
     this.buildQuery();
     this.qCardFilterService.filterby(this.qCardFilter);
   }
@@ -155,12 +161,20 @@ export class FilterComponent {
     } else {
       this.queryListRemove('(item.interestedIndustries.filter(function (obj) {return args.industryExposureDataForFilter.indexOf(obj.toLowerCase()) !== -1;}).length == args.industryExposureDataForFilter.length)');
     }
+    this.showClearFilter = true;
     this.buildQuery();
     this.qCardFilterService.filterby(this.qCardFilter);
   }
 
   filterByJoinTime(value: any) {
-    if (value) {
+    if(value == ''){
+      if (this.isRecuirter === true) {
+        this.queryListRemove('((args.filterByJoinTime && item.noticePeriod) && (args.filterByJoinTime.toLowerCase() === item.noticePeriod.toLowerCase()))');
+      }
+      else if(this.isRecuirter === false) {
+        this.queryListRemove('((args.filterByJoinTime && item.joiningPeriod) && (args.filterByJoinTime.toLowerCase() === item.joiningPeriod.toLowerCase()))');
+      }
+    } else if (value) {
       this.qCardFilter.filterByJoinTime = value;
       if (this.isRecuirter === true) {
         this.queryListPush('((args.filterByJoinTime && item.noticePeriod) && (args.filterByJoinTime.toLowerCase() === item.noticePeriod.toLowerCase()))');
@@ -168,17 +182,27 @@ export class FilterComponent {
       if (this.isRecuirter === false) {
         this.queryListPush('((args.filterByJoinTime && item.joiningPeriod) && (args.filterByJoinTime.toLowerCase() === item.joiningPeriod.toLowerCase()))');
       }
-      this.buildQuery();
-      this.qCardFilterService.filterby(this.qCardFilter);
+      this.showClearFilter = true;
     }
+    this.buildQuery();
+    this.qCardFilterService.filterby(this.qCardFilter);
   }
 
   selectSalaryMinModel(value: any) {
+    if(value == ''){
+      this.qCardFilter.salaryMinValue = this.salaryRangeList[0];
+      return
+    }
     this.qCardFilter.salaryMinValue = value;
     this.salaryFilterBy();
   }
 
   selectSalaryMaxModel(value: any) {
+    if(value == ''){
+      this.queryListRemove('((Number(item.salary.split(" ")[0]) >= Number(args.salaryMinValue)) && (Number(item.salary.split(" ")[0]) <= Number(args.salaryMaxValue)))');
+      this.qCardFilter.salaryMaxValue = this.salaryRangeList[this.salaryRangeList.length -1];
+      return
+    }
     this.qCardFilter.salaryMaxValue = value;
     this.salaryFilterBy();
   }
@@ -186,37 +210,51 @@ export class FilterComponent {
   salaryFilterBy() {
     if (Number(this.qCardFilter.salaryMaxValue) && Number(this.qCardFilter.salaryMinValue)) {
       this.queryListPush('((Number(item.salary.split(" ")[0]) >= Number(args.salaryMinValue)) && (Number(item.salary.split(" ")[0]) <= Number(args.salaryMaxValue)))');
+      this.showClearFilter = true;
       this.buildQuery();
       this.qCardFilterService.filterby(this.qCardFilter);
     }
   }
 
   selectExperiencesMaxModel(value: any) {
+    if(value == ''){
+      this.queryListRemove('((Number(item.experience.split(" ")[0]) >= Number(args.experienceMinValue)) && (Number(item.experience.split(" ")[0]) <= Number(args.experienceMaxValue)))');
+      this.qCardFilter.experienceMaxValue = this.experienceRangeList[this.experienceRangeList.length -1];
+      return
+    }
     this.qCardFilter.experienceMaxValue = value;
     this.experienceFilterBy();
 
   }
 
   selectExperiencesMinModel(value: any) {
+    if(value == ''){
+      this.qCardFilter.experienceMinValue = this.experienceRangeList[0];
+      return
+    }
     this.qCardFilter.experienceMinValue = value;
     this.experienceFilterBy();
   }
 
   experienceFilterBy() {
-    if (Number(this.qCardFilter.experienceMinValue) && Number(this.qCardFilter.experienceMaxValue)) {
+    if (Number(this.qCardFilter.experienceMinValue) != undefined && Number(this.qCardFilter.experienceMaxValue) != undefined) {
       this.queryListPush('((Number(item.experience.split(" ")[0]) >= Number(args.experienceMinValue)) && (Number(item.experience.split(" ")[0]) <= Number(args.experienceMaxValue)))');
+      this.showClearFilter = true;
       this.buildQuery();
       this.qCardFilterService.filterby(this.qCardFilter);
     }
   }
 
   jobsFilterByLocation(value: any) {
-    if (value) {
+    if(value == ''){
+      this.queryListRemove('(((args.filterByLocation && item.location))&&(args.filterByLocation.toLowerCase() === item.location.toLowerCase()))');
+    }else if (value) {
       this.qCardFilter.filterByLocation = value;
       this.queryListPush('(((args.filterByLocation && item.location))&&(args.filterByLocation.toLowerCase() === item.location.toLowerCase()))');
-      this.buildQuery();
-      this.qCardFilterService.filterby(this.qCardFilter);
+      this.showClearFilter = true;
     }
+    this.buildQuery();
+    this.qCardFilterService.filterby(this.qCardFilter);
   }
 
   candidatesFilterByLocation(value: any) {
@@ -228,19 +266,23 @@ export class FilterComponent {
       this.queryListPush('(((args.filterByLocation && item.location))&&(args.filterByLocation.toLowerCase() === item.location.toLowerCase()))');
       this.queryListRemove('((args.filterByLocation && item.location) && ((args.filterByLocation.toLowerCase() === item.location.toLowerCase()) || (args.filterByLocation.toLowerCase() !== item.location.toLowerCase())))');
     }
-
+    this.showClearFilter = true;
     this.buildQuery();
     this.qCardFilterService.filterby(this.qCardFilter);
 
   }
 
   filterByCompanySize(value: any) {
+    if(value == ''){
+      this.queryListRemove('(((args.filterByCompanySize && item.company_size))&&(args.filterByCompanySize.toLowerCase() === item.company_size.toLowerCase()))');
+    }
     if (value) {
       this.qCardFilter.filterByCompanySize = value;
       this.queryListPush('(((args.filterByCompanySize && item.company_size))&&(args.filterByCompanySize.toLowerCase() === item.company_size.toLowerCase()))');
-      this.buildQuery();
-      this.qCardFilterService.filterby(this.qCardFilter);
+      this.showClearFilter = true;
     }
+    this.buildQuery();
+    this.qCardFilterService.filterby(this.qCardFilter);
   }
 
   queryListPush(query: string) {
@@ -265,6 +307,7 @@ export class FilterComponent {
   }
 
   clearFilter() {
+    this.showClearFilter = false;
     var query = 'true';
     this.userForm.reset();
     this.qCardFilter = new QCardFilter();
