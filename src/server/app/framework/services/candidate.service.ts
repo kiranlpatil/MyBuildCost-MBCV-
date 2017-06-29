@@ -7,7 +7,6 @@ import LocationRepository = require('../dataaccess/repository/location.repositor
 import RecruiterRepository = require('../dataaccess/repository/recruiter.repository');
 import IndustryRepository = require('../dataaccess/repository/industry.repository');
 import IndustryModel = require("../dataaccess/model/industry.model");
-import ScenarioModel = require("../dataaccess/model/scenario.model");
 class CandidateService {
   private candidateRepository: CandidateRepository;
   private recruiterRepository: RecruiterRepository;
@@ -44,8 +43,7 @@ class CandidateService {
         this.userRepository.create(item, (err, res) => {
           if (err) {
             callback(new Error(Messages.MSG_ERROR_REGISTRATION_MOBILE_NUMBER), null);
-          }
-          else {
+          }else {
             var userId1 = res._id;
             var newItem: any = {
               userId: userId1,
@@ -68,8 +66,7 @@ class CandidateService {
     this.candidateRepository.retrieve(field, (err, result) => {
       if (err) {
         callback(err, null);
-      }
-      else {
+      }else {
         if (result.length > 0) {
           result[0].academics = result[0].academics.sort(function (a: any, b: any) {
             return b.yearOfPassing - a.yearOfPassing;
@@ -97,26 +94,33 @@ class CandidateService {
       if (err) {
         callback(err, res);
       } else {
-        this.industryRepositiry.retrieve({"name": item.industry.name}, (error: any, industries: IndustryModel[]) => {
+        this.industryRepositiry.retrieve({'name': item.industry.name}, (error: any, industries: IndustryModel[]) => {
           if (err) {
             callback(err, res);
           } else {
+
             if(item.capability_matrix === undefined) {
               item.capability_matrix = { };
             }
+            let new_capability_matrix: any = { };
             if (item.industry.roles && item.industry.roles.length > 0) {
               for (let role of item.industry.roles) {
                 if (role.capabilities && role.capabilities.length > 0) {
                   for (let capability of role.capabilities) {
                     if (capability.code) {
                       for (let mainRole of industries[0].roles) {
-                        if (role.code.toString() == mainRole.code) {
+                        if (role.code.toString() === mainRole.code.toString()) {
                           for (let mainCap of mainRole.capabilities) {
-                            if (capability.code.toString() == mainCap.code) {
+                            if (capability.code.toString() === mainCap.code.toString()) {
                               for (let mainComp of mainCap.complexities) {
                                 let itemcode = mainCap.code +'_' + mainComp.code;
                                 if (item.capability_matrix[itemcode] === undefined) {
+                                  new_capability_matrix[itemcode] = -1;
                                   item.capability_matrix[itemcode] = -1;
+                                }else if(item.capability_matrix !== -1) {
+                                  new_capability_matrix[itemcode]= item.capability_matrix[itemcode];
+                                }else {
+                                  new_capability_matrix[itemcode] = -1;
                                 }
                               }
                             }
@@ -129,13 +133,18 @@ class CandidateService {
                 for (let capability of  role.default_complexities) {
                   if (capability.code) {
                     for (let mainRole of industries[0].roles) {
-                      if (role.code.toString() == mainRole.code) {
+                      if (role.code.toString() === mainRole.code.toString()) {
                          for (let mainCap of mainRole.default_complexities) {
-                          if (capability.code.toString() == mainCap.code) {
+                          if (capability.code.toString() === mainCap.code.toString()) {
                             for (let mainComp of mainCap.complexities) {
                               let itemcode = mainCap.code +'_'+ mainComp.code;
                               if (item.capability_matrix[itemcode] === undefined) {
+                                new_capability_matrix[itemcode] = -1;
                                 item.capability_matrix[itemcode] = -1;
+                              }else if(item.capability_matrix !== -1) {
+                                new_capability_matrix[itemcode]= item.capability_matrix[itemcode];
+                              }else {
+                                new_capability_matrix[itemcode] = -1;
                               }
                             }
                           }
