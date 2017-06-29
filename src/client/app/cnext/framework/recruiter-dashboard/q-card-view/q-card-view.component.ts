@@ -64,14 +64,13 @@ export class QCardviewComponent implements OnChanges {
     this.matchFormat = 'aboveMatch';
   }
 
-  ngOnChanges(changes: any) {debugger
+  ngOnChanges(changes: any) {
     if (changes.candidateQlist && changes.candidateQlist.currentValue) {
       if (changes.candidateQlist.currentValue.shortListedCandidates) {
         this.emailsOfShrortListedCandidates = new Array(0);
         for (let candidate of changes.candidateQlist.currentValue.shortListedCandidates) {
           this.emailsOfShrortListedCandidates.push(candidate.email);
         }
-
       }
     }
   }
