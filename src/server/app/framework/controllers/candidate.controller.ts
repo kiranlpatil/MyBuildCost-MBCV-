@@ -1,23 +1,23 @@
-import * as express from "express";
-import * as mongoose from "mongoose";
-import AuthInterceptor = require("../interceptor/auth.interceptor");
-import Messages = require("../shared/messages");
-import CandidateModel = require("../dataaccess/model/candidate.model");
-import CandidateService = require("../services/candidate.service");
-import UserService = require("../services/user.service");
-import RecruiterService = require("../services/recruiter.service");
-import SearchService = require("../search/services/search.service");
+import * as express from 'express';
+import * as mongoose from 'mongoose';
+import AuthInterceptor = require('../interceptor/auth.interceptor');
+import Messages = require('../shared/messages');
+import CandidateModel = require('../dataaccess/model/candidate.model');
+import CandidateService = require('../services/candidate.service');
+import UserService = require('../services/user.service');
+import RecruiterService = require('../services/recruiter.service');
+import SearchService = require('../search/services/search.service');
 
 
 export function create(req: express.Request, res: express.Response, next: any) {
   try {
-    console.log("USer is", req.body);
+    console.log('USer is', req.body);
     var newUser: CandidateModel = <CandidateModel>req.body;
-    console.log("USer is", newUser);
+    console.log('USer is', newUser);
     var candidateService = new CandidateService();
     candidateService.createUser(newUser, (error, result) => {
       if (error) {
-        console.log("crt user error", error);
+        console.log('crt user error', error);
         if (error == Messages.MSG_ERROR_CHECK_EMAIL_PRESENT) {
           next({
             reason: Messages.MSG_ERROR_RSN_EXISTING_USER,
@@ -44,10 +44,10 @@ export function create(req: express.Request, res: express.Response, next: any) {
         var auth: AuthInterceptor = new AuthInterceptor();
         var token = auth.issueTokenWithUid(newUser);
         res.status(200).send({
-          "status": Messages.STATUS_SUCCESS,
-          "data": {
-            "reason": Messages.MSG_SUCCESS_REGISTRATION,
-            "_id": result.userId,
+          'status': Messages.STATUS_SUCCESS,
+          'data': {
+            'reason': Messages.MSG_SUCCESS_REGISTRATION,
+            '_id': result.userId,
           },
           access_token: token
         });
@@ -55,7 +55,7 @@ export function create(req: express.Request, res: express.Response, next: any) {
     });
   }
   catch (e) {
-    res.status(403).send({"status": Messages.STATUS_ERROR, "error_message": e.message});
+    res.status(403).send({'status': Messages.STATUS_ERROR, 'error_message': e.message});
   }
 }
 
@@ -84,8 +84,8 @@ export function updateDetails(req: express.Request, res: express.Response, next:
           else {
             var token = auth.issueTokenWithUid(updatedCandidate);
             res.send({
-              "status": "success",
-              "data": {},
+              'status': 'success',
+              'data': {},
               access_token: token
             });
           }
@@ -109,7 +109,7 @@ export function retrieve(req: express.Request, res: express.Response, next: any)
       candidateService.findById(candidateId, (error, resu) => {
         if (error) {
           next({
-            reason: "User Not Available",//Messages.MSG_ERROR_RSN_INVALID_CREDENTIALS,
+            reason: 'User Not Available',//Messages.MSG_ERROR_RSN_INVALID_CREDENTIALS,
             message: 'User is not available',//Messages.MSG_ERROR_WRONG_TOKEN,
             code: 401
           })
@@ -118,15 +118,15 @@ export function retrieve(req: express.Request, res: express.Response, next: any)
           userService.findById(resu.userId, (error, result) => {
             if (error) {
               next({
-                reason: "User Not Available",//Messages.MSG_ERROR_RSN_INVALID_CREDENTIALS,
+                reason: 'User Not Available',//Messages.MSG_ERROR_RSN_INVALID_CREDENTIALS,
                 message: 'User is not available',//Messages.MSG_ERROR_WRONG_TOKEN,
                 code: 401
               })
             } else {
               res.send({
-                "status": "success",
-                "data": resu,
-                "metadata": result
+                'status': 'success',
+                'data': resu,
+                'metadata': result
               });
 
             }
@@ -146,24 +146,24 @@ export function retrieve(req: express.Request, res: express.Response, next: any)
         else {
           if (result.length <= 0) {
             next({
-              reason: "User Not Available",//Messages.MSG_ERROR_RSN_INVALID_CREDENTIALS,
+              reason: 'User Not Available',//Messages.MSG_ERROR_RSN_INVALID_CREDENTIALS,
               message: 'User is not available',//Messages.MSG_ERROR_WRONG_TOKEN,
               code: 401
             })
           } else {
-            candidateService.retrieve({"userId": new mongoose.Types.ObjectId(result._id)}, (error, resu) => {
+            candidateService.retrieve({'userId': new mongoose.Types.ObjectId(result._id)}, (error, resu) => {
               if (error) {
                 next({
-                  reason: "User Not Available",//Messages.MSG_ERROR_RSN_INVALID_CREDENTIALS,
+                  reason: 'User Not Available',//Messages.MSG_ERROR_RSN_INVALID_CREDENTIALS,
                   message: 'User is not available',//Messages.MSG_ERROR_WRONG_TOKEN,
                   code: 401
                 })
               }
               else {
                 res.send({
-                  "status": "success",
-                  "data": resu,
-                  "metadata": result
+                  'status': 'success',
+                  'data': resu,
+                  'metadata': result
                 });
               }
             });
@@ -187,15 +187,15 @@ export function metchResult(req: express.Request, res: express.Response, next: a
     searchService.getMatchingResult(candidateId, jobId, (error: any, result: any) => {
       if (error) {
         next({
-          reason: "Problem in Search Matching Result",//Messages.MSG_ERROR_RSN_INVALID_CREDENTIALS,
+          reason: 'Problem in Search Matching Result',//Messages.MSG_ERROR_RSN_INVALID_CREDENTIALS,
           message: 'Problem in Search Matching Result',//Messages.MSG_ERROR_WRONG_TOKEN,
           code: 401
         })
       }
       else {
         res.send({
-          "status": "success",
-          "data": result,
+          'status': 'success',
+          'data': result,
         });
 
       }
@@ -238,8 +238,8 @@ export function getList(req: express.Request, res: express.Response, next: any) 
                 });
               } else {
                 res.send({
-                  "status": "success",
-                  "data": result,
+                  'status': 'success',
+                  'data': result,
                 });
               }
             });

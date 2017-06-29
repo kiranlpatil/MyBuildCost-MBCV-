@@ -1,22 +1,13 @@
-import * as express from "express";
-import * as mongoose from "mongoose";
-import {Recruiter} from "../dataaccess/model/recruiter-final.model";
-import AuthInterceptor = require("../interceptor/auth.interceptor");
-import SendMailService = require("../services/sendmail.service");
-import UserModel = require("../dataaccess/model/user.model");
-import Messages = require("../shared/messages");
-import ResponseService = require("../shared/response.service");
-import CandidateModel = require("../dataaccess/model/candidate.model");
-import CandidateService = require("../services/candidate.service");
-import EmployeeHistoryService = require("../services/employee-history.service");
-import ProfessionalDetailsService = require("../services/professional-details.service");
-import AcademicService = require("../services/academics.service");
-import RecruiterModel = require("../dataaccess/model/recruiter.model");
-import RecruiterService = require("../services/recruiter.service");
-import JobProfileModel = require("../dataaccess/model/jobprofile.model");
-import UserService = require("../services/user.service");
-import JobProfileService = require("../services/jobprofile.service");
-import CNextMessages = require("../shared/cnext-messages");
+import * as express from 'express';
+import * as mongoose from 'mongoose';
+import {Recruiter} from '../dataaccess/model/recruiter-final.model';
+import AuthInterceptor = require('../interceptor/auth.interceptor');
+import Messages = require('../shared/messages');
+import CandidateService = require('../services/candidate.service');
+import RecruiterModel = require('../dataaccess/model/recruiter.model');
+import RecruiterService = require('../services/recruiter.service');
+import JobProfileModel = require('../dataaccess/model/jobprofile.model');
+import CNextMessages = require('../shared/cnext-messages');
 
 
 export function create(req: express.Request, res: express.Response, next: any) {
@@ -52,16 +43,16 @@ export function create(req: express.Request, res: express.Response, next: any) {
         var auth: AuthInterceptor = new AuthInterceptor();
         var token = auth.issueTokenWithUid(newUser);
         res.status(200).send({
-          "status": Messages.STATUS_SUCCESS,
-          "data": {
-            "reason": Messages.MSG_SUCCESS_REGISTRATION,
-            "_id": result.userId,
-            "company_name": result.company_name,
-            "current_theme": result.current_theme,
-            "email": result.email,
-            "isRecruitingForself": result.isRecruitingForself,
-            "mobile_number": result.mobile_number,
-            "isCandidate": result.iscandidate
+          'status': Messages.STATUS_SUCCESS,
+          'data': {
+            'reason': Messages.MSG_SUCCESS_REGISTRATION,
+            '_id': result.userId,
+            'company_name': result.company_name,
+            'current_theme': result.current_theme,
+            'email': result.email,
+            'isRecruitingForself': result.isRecruitingForself,
+            'mobile_number': result.mobile_number,
+            'isCandidate': result.iscandidate
           },
           access_token: token
         });
@@ -69,7 +60,7 @@ export function create(req: express.Request, res: express.Response, next: any) {
     });
   }
   catch (e) {
-    res.status(403).send({"status": Messages.STATUS_ERROR, "error_message": e.message});
+    res.status(403).send({'status': Messages.STATUS_ERROR, 'error_message': e.message});
   }
 }
 
@@ -89,8 +80,8 @@ export function postJob(req: express.Request, res: express.Response, next: any) 
         });
       } else {
         res.status(200).send({
-          "status": Messages.STATUS_SUCCESS,
-          "data": result
+          'status': Messages.STATUS_SUCCESS,
+          'data': result
         });
       }
     });
@@ -106,18 +97,17 @@ export function updateDetails(req: express.Request, res: express.Response, next:
     var params = req.query;
     delete params.access_token;
     var userId: string = req.params.id;
-    console.log("updated recruiter" + JSON.stringify(newRecruiter));
+    console.log('updated recruiter' + JSON.stringify(newRecruiter));
     var auth: AuthInterceptor = new AuthInterceptor();
     var recruiterService = new RecruiterService();
     recruiterService.updateDetails(userId, newRecruiter, (error, result) => {
       if (error) {
         next(error);
-      }
-      else {
+      }else {
         var token = auth.issueTokenWithUid(newRecruiter);
         res.send({
-          "status": "success",
-          "data": result,
+          'status': 'success',
+          'data': result,
           access_token: token
         });
       }
@@ -132,7 +122,7 @@ export function retrieve(req: express.Request, res: express.Response, next: any)
   try {
     var recruiterService = new RecruiterService();
     let data = {
-      "userId": new mongoose.Types.ObjectId(req.params.id)
+      'userId': new mongoose.Types.ObjectId(req.params.id)
     };
     recruiterService.retrieve(data, (error: any, result: Recruiter[]) => {
       if (error) {
@@ -144,14 +134,14 @@ export function retrieve(req: express.Request, res: express.Response, next: any)
       } else {
         if (result[0]) {
           res.status(200).send({
-            "status": Messages.STATUS_SUCCESS,
-            "data": result,
-            "jobCountModel": result[0].jobCountModel
+            'status': Messages.STATUS_SUCCESS,
+            'data': result,
+            'jobCountModel': result[0].jobCountModel
           });
         } else {
           res.status(200).send({
-            "status": Messages.STATUS_SUCCESS,
-            "data": result
+            'status': Messages.STATUS_SUCCESS,
+            'data': result
           });
         }
       }
@@ -159,15 +149,14 @@ export function retrieve(req: express.Request, res: express.Response, next: any)
     });
 
 
-  }
-  catch (e) {
+  }catch (e) {
     res.status(403).send({message: e.message});
   }
 }
 
 export function getFilterList(req: express.Request, res: express.Response) {
   __dirname = './';
-  var filepath = "recruiter-filter-list.json";
+  var filepath = 'recruiter-filter-list.json';
   try {
     res.sendFile(filepath, {root: __dirname});
   }
@@ -180,10 +169,9 @@ export function getFilterList(req: express.Request, res: express.Response) {
 export function getList(req: express.Request, res: express.Response, next: any) {
   try {
     let data: any = {
-      "jobProfileId": req.params.id,
-      "listName": req.params.listName
+      'jobProfileId': req.params.id,
+      'listName': req.params.listName
     };
-    let candidateService = new CandidateService();
     let recruiterService = new RecruiterService();
     recruiterService.getCandidateList(data, (error: any, response: any) => {
       if (error) {
@@ -194,8 +182,8 @@ export function getList(req: express.Request, res: express.Response, next: any) 
         });
       } else {
         res.send({
-          "status": "success",
-          "data": response,
+          'status': 'success',
+          'data': response,
         });
       }
     });

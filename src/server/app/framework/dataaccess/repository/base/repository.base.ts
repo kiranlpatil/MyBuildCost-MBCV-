@@ -56,6 +56,9 @@ class RepositoryBase<T extends mongoose.Document> implements IRead<T>, IWrite<T>
     this._model.findById(_id, callback);
   }
 
+  findByIdwithExclude(_id: string, exclude: any, callback: (error: any, result: T) => void) {
+    this._model.findById(_id,exclude, callback);
+  }
   findByName(name: string, callback: (error: any, result: T) => void) {
     this._model.find({"name": name}, callback);
   }
