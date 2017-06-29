@@ -29,20 +29,23 @@
                 <cn-q-card-list [joblistCount]="jobList.length" [listOfJobs]="jobList" [type]="'none'"
                                 (onAction)="onActionPerformOnExactList($event)"></cn-q-card-list>
                 <div class="welcome-text" *ngIf="candidate.summary.numberOfmatched==0">
-                  <p>Currently there are no jobs. You can edit your profile again.</p>
+                  <p>Currently there are no jobs matching to your profile.
+                    This is because the jobs posted currently by recruiters demand a different set of capabilities that
+                    what you possess. This dashboard shows job postings that match your capability profile.
+                    It is recommended that you keep visiting this page frequently to see the best matching jobs.</p>
                 </div>
               </div>
               <div id="applied" class="tab-pane fade"><!--[hidden]="!hideSection"-->
                 <cn-candidate-job-list [type]="'apply'" [listOfJobs]="appliedJobs"
                                        (onAction)="onActionOnApplyJob($event)"
                 ></cn-candidate-job-list><!--[hidden]="type !=='apply'"-->
-                <p *ngIf="candidate.summary.numberOfJobApplied==0 ">There are no job you have applied.</p>
+                <p *ngIf="candidate.summary.numberOfJobApplied==0 ">Presently there are no jobs for which you have applied</p>
               </div>
               <div id="rejected" class="tab-pane fade"><!-- [hidden]="!hideSection" -->
                 <cn-candidate-job-list [type]="'block'" [listOfJobs]="blockedJobs"
                                        (onAction)="onActionOnBlockJob($event)"
                 ></cn-candidate-job-list><!-- [hidden]="type !=='block'" -->
-                <p *ngIf="candidate.summary.numberJobsBlocked==0 ">This section is empty.</p>
+                <p *ngIf="candidate.summary.numberJobsBlocked==0 ">Currently you have not marked any jobs as "Not Interested".</p>
               </div>
             </div>
           </div>

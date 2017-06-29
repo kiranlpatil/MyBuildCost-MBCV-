@@ -24,9 +24,9 @@ export class IndustryExperienceListComponent implements OnInit,OnChanges {
   '<li><p>Select such industries where you can claim a reasonable exposure.</p></li></ul>';
 
   tooltipRecruiterMessage: string = '<ul><li><h5>Industry Exposure</h5>' +
-    '<p class="info">Candidates may be exposed to multiple industries during the professional life. ' +
-  'At times, organisations need candidates who have cross industry expertise.</p></li>' +
-  '<li><p>Select such industries where you can claim a reasonable exposure.</p></li></ul>';
+    '<p class="info">If you wish the candidate to have exposure to any industry besides his core industry, please select such additional industries.' +
+  '</p></li>' +
+  '</ul>';
   private showButton: boolean = true;
   private industries: Industry[] = new Array(0);
   private selectedIndustries: string[] = new Array(0);

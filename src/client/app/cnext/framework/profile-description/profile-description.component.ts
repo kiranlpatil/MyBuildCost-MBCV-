@@ -27,11 +27,11 @@ export class ProfileDescriptionComponent implements OnInit {
   private showModalStyle: boolean = false;
   private image_path: string = 'assets/framework/images/dashboard/profile.png';
   tooltipMessage: string =
-    "<ul>" +
-    "<li><h5> Job Title </h5><p>Enter your current job title</p></li>" +
-    "<li><h5>Core Industry</h5><p>Enter your core Industry in which you are working or have your maximum experience</p></li>" +
-    "<li><h5>Profile Picture</h5><p>Please update your latest profile picture. Profiles with your best picture increase your possiblity to get shortlisted.</p></li>" +
-    "</ul>";
+    '<ul>' +
+    '<li><h5> Job Title </h5><p>Enter your current job title. </p></li>' +
+    '<li><h5>Core Industry</h5><p>Enter your industry. This industry forms the core of your current professional profile. In next sections, you shall be shown questions and parameters that are relevant to this industry. If you have worked in multiple industries, choose the one that is most relevent as on date. You shall get option to include additional industries in later section.</p></li>' +
+    '<li><h5>Profile Picture</h5><p>Please update your latest profile picture. Profiles with your best picture increase your possiblity to get shortlisted.</p></li>' +
+    '</ul>';
 
   constructor(private userProfileService: DashboardService) {
   }

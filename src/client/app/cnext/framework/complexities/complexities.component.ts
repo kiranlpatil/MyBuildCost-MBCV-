@@ -50,11 +50,11 @@ export class ComplexitiesComponent implements OnInit, OnChanges {
     "For each scenario, select the most appropriate level of complexity that you are capable of handling.</p></li>" +
     "<li><p>If you have not handled a particular complexity, choose not applicable.</p>" +
     "</li></ul>";
-  tooltipRecruiterMessage: string = "<ul><li>" +
-    "<h5>Complexities</h5><p class='info'> This section provides a list of complexity scenarios for selected capabilities." +
-    "For each scenario, select the most appropriate level of complexity that candidates are required to be capable of handling.</p></li>" +
-    "<li><p>If you have not handled a particular complexity, choose not applicable.</p>" +
-    "</li></ul>";
+  tooltipRecruiterMessage: string = '<ul><li>' +
+    '<h5>Complexities</h5><p class="info"> This section provides a list of complexity scenarios for selected capabilities.' +
+    'For each scenario, select the most appropriate level that candidate is required to handle.</p></li>' +
+    '<li><p>For scenarios that are not relevant to your job profile, choose "not applicable".</p>' +
+    '</li></ul>';
   @ViewChild("save")
   private _inputElement1: ElementRef;
 

@@ -24,10 +24,10 @@ export class ProfessionalDataComponent extends BaseService implements OnInit {
 
     "<ul>" +
     "<li><h5> Ready to Relocate</h5><p>Select if you are open to relocate from your current location as per job demand.</p></li>" +
-    "<li><h5> Education </h5><p>Specify your highest degree you attened.</p></li>" +
-    "<li><h5> Notice Period </h5><p>Mention your notice period you have to serve before you can take up new job.</p></li>" +
-    "<li><h5> Industry Exposure </h5><p>Please mention if you have experience working with local or multinational companies.</p></li>" +
-    "<li><h5> Experiance </h5><p>Number of years relevent experience for your selected Industry.</p></li>" +
+    "<li><h5> Education </h5><p>Specify the highest academic degree that you possess.</p></li>" +
+    "<li><h5> Notice Period </h5><p>Mention the notice period you have to serve before you can take up new job.</p></li>" +
+    "<li><h5> Industry Culture </h5><p>Please mention if you have experience working with local or multinational companies.</p></li>" +
+    "<li><h5> Experiance </h5><p>Number of years of Professional Experience that you possess. </p></li>" +
     "<li><h5> Current Salary </h5><p>Please mention your current salary (CTC).</p></li>" +
     "</ul>";
   /* private professionalDetailForm : FormGroup;*/

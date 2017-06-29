@@ -50,7 +50,7 @@
       </div>
 
       <div class="col-sm-3">
-        <label>Industry Exposure</label>
+        <label>Industry Culture</label>
         <!-- <control-messages [control]="professionalDetailForm.controls.noticePeriod"></control-messages>-->
         <select [(ngModel)]="candidate.professionalDetails.industryExposure" (change)="saveProfessionalData()">
           <option *ngFor="let c of industryExposureList" [ngValue]="c">{{c}}</option>

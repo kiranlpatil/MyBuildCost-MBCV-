@@ -66,25 +66,29 @@
       <cn-q-card-view (addedTocart)="AddedToCart($event)" *ngIf="whichListVisible[0]" [candidateQlist]="candidateQlist" [filterMeta]="filterMeta"
                       [candidates]="candidateQlist.matchedCandidates" [type]="'matchedList'" [jobId]="jobId"
                       [recuirterListCountModel]="recruiterJobView"></cn-q-card-view>
-      <p *ngIf="recruiterJobView.numberOfMatchedCandidates==0">No matched candidates found</p>
+      <p *ngIf="recruiterJobView.numberOfMatchedCandidates==0">Currently there are no candidates matching to your job posting.
+        This is because the currently available candidates possess different set of capabilities that
+        what you job expects. This dashboard shows candidates that have best matches with your desired
+        capability profile. It is recommended that you keep visiting this page frequently to see the best matching
+        candidates.</p>
     </div>
     <div id="cart-job" class="tab-pane fade">
       <cn-q-card-view (addedTocart)="AddedToCart($event)" *ngIf="whichListVisible[1]" [candidateQlist]="candidateQlist" [filterMeta]="filterMeta"
                       [candidates]="candidateQlist.cartCandidates" [type]="'cartListed'" [jobId]="jobId"
                       [recuirterListCountModel]="recruiterJobView"></cn-q-card-view>
-      <p *ngIf="recruiterJobView.numberOfCandidatesInCart==0">There are no candidates in Cart</p>
+      <p *ngIf="recruiterJobView.numberOfCandidatesInCart==0">You have not added any candidates to the Cart for this job posting.</p>
     </div>
     <div id="applied-job" class="tab-pane fade">
       <cn-q-card-view (addedTocart)="AddedToCart($event)" *ngIf="whichListVisible[2]" [candidateQlist]="candidateQlist" [filterMeta]="filterMeta"
                       [candidates]="candidateQlist.appliedCandidates" [type]="'applied'" [jobId]="jobId"
                       [recuirterListCountModel]="recruiterJobView"></cn-q-card-view>
-      <p *ngIf="recruiterJobView.numberOfCandidatesApplied==0">There are no candidates in Applied</p>
+      <p *ngIf="recruiterJobView.numberOfCandidatesApplied==0">There are no pending applications from candidates for this job posting.</p>
     </div>
     <div id="rejected-job" class="tab-pane fade">
       <cn-q-card-view (addedTocart)="AddedToCart($event)" *ngIf="whichListVisible[3]" [candidateQlist]="candidateQlist" [filterMeta]="filterMeta"
                       [candidates]="candidateQlist.rejectedCandidates" [type]="'rejectedList'" [jobId]="jobId"
                       [recuirterListCountModel]="recruiterJobView"></cn-q-card-view>
-      <p *ngIf="recruiterJobView.numberOfCandidatesrejected==0">There are no candidates in Rejected</p>
+      <p *ngIf="recruiterJobView.numberOfCandidatesrejected==0">There are no candidates Rejected by you for this job posting.</p>
     </div>
 
   </div>

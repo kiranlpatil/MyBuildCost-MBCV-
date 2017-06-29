@@ -31,8 +31,7 @@ export class CapabilitiesComponent {
 
     "<ul>" +
     "<li>" +
-    "<h5>Capabilities </h5><p class='info'>Select those capabilities which describe what you are best at or where you would like to position your career. " +
-    "These Capabilities are going to help you find best job you desire.</p>" +
+    "<h5>Capabilities </h5><p class='info'>Select those capabilities that describe your current strength. These capabilities would define you in the eyes of the recruiter and help you align with the best suitable job. If there are capabilities that you have developed in past but are no more relevent, you should not select such capabilites as this would dilute the matching and alignment with the best job opportunity.</p>" +
     "</li>" +
     "</ul>";
 

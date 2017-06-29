@@ -22,7 +22,7 @@ export class Messages {
   public static MSG_SUCCESS_REGISTRATION: string = 'Kindly verify your account.';
   public static MSG_SUCCESS_CHANGE_MOBILE_NUMBER: string = 'Mobile number changed successfully.';
   public static MSG_SUCCESS_RESEND_VERIFICATION_CODE: string = 'New One Time Password (OTP) sent on your mobile number.';
-  public static MSG_SUCCESS_MAIL_VERIFICATION: string = 'Verification email sent successfully on your email account. Kindly verify your account.';
+  public static MSG_SUCCESS_MAIL_VERIFICATION: string = 'Verification email sent successfully on your email account. Kindly proceed by clikcing on th elink provided in your email.';
   public static MSG_SUCCESS_NEWREGISTRATION: string = 'Registration successful. Mobile number verified. Kindly login';
   public static MSG_SUCCESS_RESET_PASSWORD: string = 'Your password is reset successfully';
   public static MSG_SUCCESS_CHANGE_PASSWORD: string = 'Your password has been changed successfully';
@@ -40,7 +40,7 @@ export class Messages {
     'You may start using it immediately right now.Click on Login!';
 
   public static MSG_SUCCESS_FOR_PROFILE_CREATION_STATUS: string = 'Your profile created successfully';
-  public static MSG_SUCCESS_FOR_JOB_POST_STATUS: string = 'You are successfully posted your job';
+  public static MSG_SUCCESS_FOR_JOB_POST_STATUS: string = 'You have successfully posted the new job. You can search for matching candidates for this job through your dashboard.';
 
   public static MSG_ERROR_MAIL_VERIFICATION_BODY: string = 'Your account verification failed due to invalid access token!';
   public static MSG_ERROR_MAIL_VERIFICATION_RESULT_STATUS: string = 'Sorry';

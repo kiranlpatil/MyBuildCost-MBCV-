@@ -44,29 +44,6 @@
     </div>
 </div>
 
-<div class="modal popup" [style.display]="getStyleModal2()">
-  <div class="modal-dialog modal-md">
-    <div class="modal-content">
-      <div class="modal-body">
-        <div class="row">
-          <div class="col-sm-12">
-            <p>Data will be flushed</p>
-            <div class="button-group">
-              <form>
-                <div class="button-group">
-                  <button class="btn btn-success" (click)="showModalStyle2 = !showModalStyle2;onNext()">Ok</button>
-                  <button class="btn btn-default" (click)="showHideModal2()">Cancel</button>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-
 <div class="section-container" [class.recruite-view]="isCandidate == false"
      [ngClass]="(highlightedSection.name=='Profile' || isCandidate == false)?'full-width':'half-width work-area-section'"
      *ngIf="highlightedSection.name!='Work-Area'">
