@@ -28,6 +28,8 @@ export class ComplexitiesComponent implements OnInit, OnChanges {
   private isCandidate: boolean = false;
   private currentComplexity: number=0;
   private showMore: boolean = false;
+  private slideToRight: boolean = false;
+  private slideToLeft: boolean = false;
 
   tooltipCandidateMessage: string = "<ul><li>" +
     "<h5>Complexities</h5><p class='info'> This section provides a list of complexity scenarios for your selected capabilities." +
@@ -87,25 +89,32 @@ export class ComplexitiesComponent implements OnInit, OnChanges {
   }
 
   onAnswered(complexityDetail: ComplexityDetails) {
-    //this.currentComplexityDetails.isChecked=false;
     this.complexities[this.complexityIds[this.currentComplexity]] = complexityDetail.userChoice;
     console.log(this.complexities);
     this.onNext();
   }
 
   onNext() {
-    this.onComplextyAnswered.emit(this.complexities);
-    if (this.currentComplexity < this.complexityIds.length - 1) {
-      this.getComplexityDetails(this.complexityIds[++this.currentComplexity]);
+      this.onComplextyAnswered.emit(this.complexities);
+    this.getComplexityDetails(this.complexityIds[++this.currentComplexity]);
+    if(this.slideToLeft === true) {
+      this.slideToLeft= !this.slideToLeft;
     }
-    if (this.currentComplexity === this.complexityIds.length - 1) {
-      this.showHideModal();
-    }
-  }
+      this.slideToRight= !this.slideToRight;
+
+    setTimeout(() => {
+      this.slideToRight=false;
+    }, 1001);
+      }
   onPrevious() {
-    if(this.currentComplexity>=0) {
-      this.getComplexityDetails(this.complexityIds[--this.currentComplexity]);
+    this.getComplexityDetails(this.complexityIds[--this.currentComplexity]);
+    if(this.slideToRight === true) {
+      this.slideToRight= !this.slideToRight;
     }
+    this.slideToLeft= !this.slideToLeft;
+    setTimeout(() => {
+      this.slideToLeft=false;
+    }, 1001);
   }
 
   getComplexityDetails(complexityId: string) {  //TODO remove after amits call of updated get API
@@ -122,9 +131,6 @@ export class ComplexitiesComponent implements OnInit, OnChanges {
                   this.currentComplexityDetails.name=complexity.name;
                   this.currentComplexityDetails.scenarios=complexity.scenarios.slice();
                   this.currentComplexityDetails.userChoice=this.complexities[this.complexityIds[this.currentComplexity]];
-                  if (this.currentComplexityDetails.userChoice !== '-1') {
-                    this.currentComplexityDetails.isChecked = true;
-                  }
                   this.currentComplexityDetails.code=complexityId;
                   this.currentComplexityDetails.questionForCandidate='xxx xxxx xxxx xxxx'+complexity.name+'?';
                   this.currentComplexityDetails.questionForRecruiter='xxx xxxx xxxx xxxx'+complexity.name+'?';
