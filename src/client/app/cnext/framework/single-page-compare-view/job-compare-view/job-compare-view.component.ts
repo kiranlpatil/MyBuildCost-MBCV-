@@ -43,7 +43,7 @@ export class JobCompareViewComponent implements OnChanges {
     }
     if (this.candiadteId != undefined && this.recruiterId != undefined && this.typeOfView ) {
       this.getCompareDetail(this.candiadteId, this.recruiterId);
-      this.candiadteId = changes.candiadteId.currentValue;
+      this.candiadteId = changes.candiadteId.currentValue;debugger
       switch (this.typeOfView) {
         case 'spa_candidate' :
           this.getCandidateProfile(this.candiadteId)

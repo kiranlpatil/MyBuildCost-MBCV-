@@ -15,6 +15,7 @@ export class CandidateQCardComponent {
   @Input() job: JobQcard;
   @Input() type: string;
   @Output() onAction = new EventEmitter();
+  candidateId: string;
   private showModalStyle: boolean = false;
   private hideButton: boolean = true;
 
@@ -37,6 +38,7 @@ export class CandidateQCardComponent {
     if (jobId != undefined) {
       LocalStorageService.setLocalValue(LocalStorage.CURRENT_JOB_POSTED_ID, jobId);
       this.jobId = jobId;
+      this.candidateId = LocalStorageService.getLocalValue(LocalStorage.END_USER_ID);
     }
     this.showModalStyle = !this.showModalStyle;
   }

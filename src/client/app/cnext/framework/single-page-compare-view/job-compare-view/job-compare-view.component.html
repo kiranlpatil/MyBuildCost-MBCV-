@@ -65,6 +65,13 @@
       <cn-proficiency-compare [data]="data.proficiencies"
                               [matchdData]="data.proficienciesMatch"></cn-proficiency-compare>
     </div>
+    Candidate has Additional Capabilities
+    <div *ngIf="data != undefined">
+      <span *ngFor="let cap of data.additionalCapabilites" >
+      {{cap}}
+      </span>
+    </div>
+
   </section>
 </section>
 
@@ -133,6 +140,12 @@
       <h4>Proficiency In</h4>
       <cn-proficiency-compare [data]="data.proficiencies"
                               [matchdData]="data.proficienciesMatch"></cn-proficiency-compare>
+      you have Additional Capabilities
+      <div *ngIf="data != undefined">
+        <span *ngFor="let cap of data.additionalCapabilites" >
+          {{cap}}
+        </span>
+      </div>
     </div>
   </section>
 </section>
@@ -145,6 +158,12 @@
       <h4>Proficiency In</h4>
       <cn-proficiency-compare [data]="data.proficiencies"
                               [matchdData]="data.proficienciesMatch"></cn-proficiency-compare>
+      Candidate has Additional Capabilities
+      <div *ngIf="data != undefined">
+      <span *ngFor="let cap of data.additionalCapabilites" >
+      {{cap}}
+      </span>
+      </div>
     </div>
 </section>
 

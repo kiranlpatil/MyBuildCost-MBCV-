@@ -183,13 +183,13 @@ export function metchResult(req: express.Request, res: express.Response, next: a
     var searchService = new SearchService();
     let jobId = req.params.jobId;
     let candidateId = req.params.candidateId;
-    searchService.getMatchingResult(candidateId, jobId, (error: any, result: any) => {
+    searchService.getMatchingResult(candidateId, jobId, true, (error: any, result: any) => {
       if (error) {
         next({
           reason: 'Problem in Search Matching Result',//Messages.MSG_ERROR_RSN_INVALID_CREDENTIALS,
           message: 'Problem in Search Matching Result',//Messages.MSG_ERROR_WRONG_TOKEN,
           code: 401
-        })
+        });
       }
       else {
         res.send({
@@ -212,7 +212,6 @@ export function getList(req: express.Request, res: express.Response, next: any) 
     let candidateId: string = req.params.id;
     let listName: string = req.params.listName;
     let candidateService = new CandidateService();
-    let recruiterService = new RecruiterService();
     candidateService.findById(candidateId, (error: any, response: CandidateModel) => {
       if (error) {
         next({

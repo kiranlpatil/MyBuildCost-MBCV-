@@ -51,7 +51,7 @@
             <img src="/assets/c-next/card-view/close-white.png" (click)="closeJob()" class="close"/>
           </div>
           <div class="col-sm-12 no-padding">
-            <cn-candidate-compare-view [jobId]="jobId"></cn-candidate-compare-view>
+            <cn-job-compare-view [typeOfView]="'spa_job'" [candiadteId]="candidateId" [jobId]="jobId"></cn-job-compare-view>
           </div>
           <div class="button-group" *ngIf="!hideButton">
             <button class="btn btn-primary" (click)="applyJob()">Apply</button>

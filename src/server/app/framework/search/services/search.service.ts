@@ -8,8 +8,8 @@ import {ConstVariables} from '../../shared/sharedconstants';
 import MatchViewModel = require('../../dataaccess/model/match-view.model');
 import Match = require('../../dataaccess/model/match-enum');
 import IndustryRepository = require('../../dataaccess/repository/industry.repository');
-import IndustryModel = require("../../dataaccess/model/industry.model");
-import ScenarioModel = require("../../dataaccess/model/scenario.model");
+import IndustryModel = require('../../dataaccess/model/industry.model');
+import ScenarioModel = require('../../dataaccess/model/scenario.model');
 
 class SearchService {
   APP_NAME: string;
@@ -111,7 +111,7 @@ class SearchService {
     });
   }
 
-  getMatchingResult(candidateId: string, jobId: string, callback: (error: any, result: any) => void) {
+  getMatchingResult(candidateId: string, jobId: string, isCandidate : boolean,callback: (error: any, result: any) => void) {
     this.candidateRepository.findByIdwithExclude(candidateId,{'industry':0}, (err: any, candidateRes: any) => {
       if (err) {
         callback(err, null);
@@ -125,7 +125,7 @@ class SearchService {
             if (errInJob) {
               callback(errInJob, null);
             } else {
-              this.getResult(candidateRes, resOfRecruiter.postedJobs[0], callback);
+              this.getResult(candidateRes, resOfRecruiter.postedJobs[0], isCandidate, callback);
             }
           });
         }
@@ -133,27 +133,6 @@ class SearchService {
     });
   }
 
-  getMatchingResultForJob(candidateId: string, jobId: string, callback: (error: any, result: any) => void) {
-    this.candidateRepository.findById(candidateId, (err: any, candidateRes: any) => {
-      if (err) {
-        callback(err, null);
-      } else {
-        if (candidateRes) {
-          let data = {
-            'postedJob': jobId
-          };
-          let jobProfileService: JobProfileService = new JobProfileService();
-          jobProfileService.retrieve(data, (errInJob, resOfRecruiter) => {
-            if (errInJob) {
-              callback(errInJob, null);
-            } else {
-              this.getResultForJob(candidateRes, resOfRecruiter.postedJobs[0], callback);
-            }
-          });
-        }
-      }
-    });
-  }
 
   compareTwoOptions(first: number, second: number): string {
     if (first < second) {
@@ -193,7 +172,7 @@ class SearchService {
     return -1;
   }
 
-  getResult(candidate: any, job: any, callback: (error: any, result: any) => void) {
+  getResult(candidate: any, job: any, isCandidate: boolean, callback: (error: any, result: any) => void) {
     this.industryRepository.retrieve({'name': job.industry.name}, (err: any, industries: IndustryModel[]) => {
       if (err) {
         callback(err, null);
@@ -203,8 +182,23 @@ class SearchService {
         let jobExperience: string[] = job.experience.split(' ');
         let canSalary: string[] = newCandidate.professionalDetails.currentSalary.split(' ');
         let jobSalary: string[] = job.salary.split(' ');
-        newCandidate.experienceMatch = this.compareTwoOptions(Number(candiExperience[0]), Number(jobExperience[0]));
-        newCandidate.salaryMatch = this.compareTwoOptions(Number(canSalary[0]), Number(jobSalary[0]));
+        let salary1: string ;
+        let salary2 :string ;
+        let experience1 : string;
+        let experience2 : string;
+        if(!isCandidate) {
+          salary1=candiExperience[0];
+          salary2= jobExperience[0];
+          experience1=canSalary[0];
+          experience2= jobSalary[0];
+        }else {
+          salary1=candiExperience[0];
+          salary2= jobExperience[0];
+          experience1=canSalary[0];
+          experience2= jobSalary[0];
+        }
+        newCandidate.experienceMatch = this.compareTwoOptions(Number(experience1), Number(experience2));
+        newCandidate.salaryMatch = this.compareTwoOptions(Number(salary1), Number(salary2));
         let canEducation: number = this.getEductionSwitchCase(newCandidate.professionalDetails.education);
         let jobEducation: number = this.getEductionSwitchCase(job.education);
         newCandidate.educationMatch = this.compareTwoOptions(canEducation, jobEducation);
@@ -225,238 +219,119 @@ class SearchService {
 
 //        let match_map: Map<string,MatchViewModel> = new Map<string,MatchViewModel>();
         newCandidate['match_map'] = {};
-        for (let cap in job.capability_matrix) {
-          let match_view: MatchViewModel = new MatchViewModel();
-          if (job.capability_matrix[cap] === -1 || job.capability_matrix[cap] === 0 || job.capability_matrix[cap] === undefined) {
-            match_view.match = Match.MissMatch;
-          } else if (job.capability_matrix[cap] === newCandidate.capability_matrix[cap]) {
-            match_view.match = Match.Exact;
-          } else if (job.capability_matrix[cap] === (newCandidate.capability_matrix[cap] - ConstVariables.DIFFERENCE_IN_COMPLEXITY_SCENARIO)) {
-            match_view.match = Match.Above;
-          } else if (job.capability_matrix[cap] === (newCandidate.capability_matrix[cap] + ConstVariables.DIFFERENCE_IN_COMPLEXITY_SCENARIO)) {
-            match_view.match = Match.Below;
-          } else {
-            match_view.match = Match.MissMatch;
-          }
-          let isFound: boolean = false;
+        newCandidate = this.buildCompareView(job,newCandidate,industries);
+        newCandidate = this.getAdditionalCapabilities(job, newCandidate, industries);
+        callback(null, newCandidate);
+      }
+    });
+  }
+
+  getAdditionalCapabilities(job : any, newCandidate : any , industries : any) : any {
+    newCandidate.additionalCapabilites = new Array(0);
+    for (let cap in newCandidate.capability_matrix) {
+        let isFound: boolean= false;
+        for(let jobCap in job.capability_matrix) {
+            if(cap.substr(0,cap.indexOf('_')) === jobCap.substr(0,jobCap.indexOf('_'))){
+              isFound=true;
+              break;
+            }
+        }
+        if(!isFound) {
           for (let role of industries[0].roles) {
             for (let capability of role.capabilities) {
               for (let complexity of capability.complexities) {
                 let custom_code = capability.code + '_' + complexity.code;
                 if (custom_code === cap) {
-                  isFound = true;
-                  let scenarios = complexity.scenarios.filter((sce: ScenarioModel) => {
-                    console.log(newCandidate.capability_matrix[cap]);
-                    sce.code =sce.code.replace('.','_');
-                    sce.code =sce.code.replace('.','_');
-                    sce.code = sce.code.substr(sce.code.lastIndexOf('_')+1);
-                    if(sce.code == newCandidate.capability_matrix[cap])  {
-                      return true;
-                    }else {
-                      return false;
-                    }
-                  });
-                  match_view.capability_name = capability.name;
-                  match_view.complexity_name = complexity.name;
-                   match_view.scenario_name=scenarios[0].name;
-                  break;
+                  if(newCandidate.additionalCapabilites.indexOf(capability.name) == -1) {
+                    newCandidate.additionalCapabilites.push(capability.name);
+                  }
                 }
               }
-              if(isFound) {
-                break;
-              }
             }
-            for (let capability of role.default_complexities) {
-              for (let complexity of capability.complexities) {
-                let custom_code = capability.code + '_' + complexity.code;
-                if (custom_code === cap) {
-                  isFound = true;
-                  let scenarios = complexity.scenarios.filter((sce: ScenarioModel) => {
-                    console.log(newCandidate.capability_matrix[cap]);
-                    sce.code =sce.code.replace('.','_');
-                    sce.code =sce.code.replace('.','_');
-                    sce.code = sce.code.substr(sce.code.lastIndexOf('_')+1);
-                    if(sce.code == newCandidate.capability_matrix[cap])  {
-                      return true;
-                    }else {
-                      return false;
-                    }
-                  });
-                  match_view.capability_name = capability.name;
-                  match_view.complexity_name = complexity.name;
-                  match_view.scenario_name=scenarios[0].name;
-                  break;
+          }
+        }
+    }
+
+      return newCandidate;
+  }
+
+  buildCompareView(job : any, newCandidate : any , industries : any) : any {
+
+    for (let cap in job.capability_matrix) {
+      let match_view: MatchViewModel = new MatchViewModel();
+      if (job.capability_matrix[cap] === -1 || job.capability_matrix[cap] === 0 || job.capability_matrix[cap] === undefined) {
+        match_view.match = Match.MissMatch;
+      } else if (job.capability_matrix[cap] === newCandidate.capability_matrix[cap]) {
+        match_view.match = Match.Exact;
+      } else if (job.capability_matrix[cap] === (newCandidate.capability_matrix[cap] - ConstVariables.DIFFERENCE_IN_COMPLEXITY_SCENARIO)) {
+        match_view.match = Match.Above;
+      } else if (job.capability_matrix[cap] === (newCandidate.capability_matrix[cap] + ConstVariables.DIFFERENCE_IN_COMPLEXITY_SCENARIO)) {
+        match_view.match = Match.Below;
+      } else {
+        match_view.match = Match.MissMatch;
+      }
+      let isFound: boolean = false;
+      for (let role of industries[0].roles) {
+        for (let capability of role.capabilities) {
+          for (let complexity of capability.complexities) {
+            let custom_code = capability.code + '_' + complexity.code;
+            if (custom_code === cap) {
+              isFound = true;
+              let scenarios = complexity.scenarios.filter((sce: ScenarioModel) => {
+                console.log(newCandidate.capability_matrix[cap]);
+                sce.code =sce.code.replace('.','_');
+                sce.code =sce.code.replace('.','_');
+                sce.code = sce.code.substr(sce.code.lastIndexOf('_')+1);
+                if(sce.code == newCandidate.capability_matrix[cap])  {
+                  return true;
+                }else {
+                  return false;
                 }
-              }
-              if(isFound) {
-                break;
-              }
-            }
-            if (isFound) {
+              });
+              match_view.capability_name = capability.name;
+              match_view.complexity_name = complexity.name;
+              match_view.scenario_name=scenarios[0].name;
               break;
             }
           }
-          newCandidate['match_map'][cap]= match_view;
+          if(isFound) {
+            break;
+          }
         }
-        callback(null, newCandidate);
-      }
-    });
-
-
-  }
-
-  getResultForJob(candidate: any, job: any, callback: (error: any, result: any) => void) {
-    let newJob = job.toObject();
-    let candiExperience: string[] = candidate.professionalDetails.experience.split(' ');
-    let jobExperience: string[] = newJob.experience.split(' ');
-    let canSalary: string[] = candidate.professionalDetails.currentSalary.split(' ');
-    let jobSalary: string[] = newJob.salary.split(' ');
-    newJob.experienceMatch = this.compareTwoOptions(Number(candiExperience[0]), Number(jobExperience[0]));
-    newJob.salaryMatch = this.compareTwoOptions(Number(canSalary[0]), Number(jobSalary[0]));
-    let canEducation: number = this.getEductionSwitchCase(candidate.professionalDetails.education);
-    let jobEducation: number = this.getEductionSwitchCase(newJob.education);
-    newJob.educationMatch = this.compareTwoOptions(canEducation, jobEducation);
-    newJob.releaseMatch = this.compareTwoOptions(this.getPeriodSwitchCase(candidate.professionalDetails.noticePeriod), this.getPeriodSwitchCase(newJob.joiningPeriod));
-    newJob.interestedIndustryMatch = new Array(0);
-
-    for (let industry of newJob.interestedIndustries) {
-      console.log(industry + '====' + newJob.interestedIndustries);
-      if (candidate.interestedIndustries.indexOf(industry) !== -1) {
-        newJob.interestedIndustryMatch.push(industry);
-      }
-    }
-    newJob.proficienciesMatch = new Array(0);
-    for (let proficiency of newJob.proficiencies) {
-      if (candidate.proficiencies.indexOf(proficiency) !== -1) {
-        newJob.proficienciesMatch.push(proficiency);
-      }
-    }
-    for (let role of candidate.industry.roles) {
-      let isRoleFound: boolean = false;
-      for (let jobRole of newJob.industry.roles) {
-        if (jobRole.name == role.name) {
-          isRoleFound = true;
-          if (role.default_complexities) {
-            for (let canDefcap of role.default_complexities) {
-              if (jobRole.default_complexities) {
-                for (let jobDefCap of jobRole.default_complexities) {
-                  for (let jobCom of jobDefCap.complexities) {
-                    for (let complexity of canDefcap.complexities) {
-                      if (jobCom.name === complexity.name) {
-                        let jobSceNum: string = '';
-                        for (let jobScen of jobCom.scenarios) {
-                          if (jobScen.isChecked) {
-                            jobSceNum = jobScen.code;
-                          }
-                        }
-                        let comNum: string = '';
-                        for (let scenario of complexity.scenarios) {
-                          if (scenario.isChecked) {
-                            comNum = scenario.code;
-                          }
-                        }
-                        if (comNum === '' || jobSceNum === '') {
-                          continue;
-                        }
-                        if (jobSceNum.substr(0, jobSceNum.lastIndexOf('.')) == comNum.substr(0, comNum.lastIndexOf('.'))) {
-                          let job_last_digit: number = Number(jobSceNum.substr(jobSceNum.lastIndexOf('.') + 1));
-                          let candi_last_digit: number = Number(comNum.substr(comNum.lastIndexOf('.') + 1));
-                          if (job_last_digit === candi_last_digit + ConstVariables.DIFFERENCE_IN_COMPLEXITY_SCENARIO) {
-                            jobCom.match = 'below';
-                          } else if (job_last_digit === candi_last_digit - ConstVariables.DIFFERENCE_IN_COMPLEXITY_SCENARIO) {
-                            jobCom.match = 'above';
-                          } else if (job_last_digit === candi_last_digit) {
-                            jobCom.match = 'exact';
-                          }
-                        }
-                        if (jobCom.match === undefined) {
-                          jobCom.match = 'missing';
-                        }
-
-                      }
-
-                    }
-                  }
-
+        for (let capability of role.default_complexities) {
+          for (let complexity of capability.complexities) {
+            let custom_code = capability.code + '_' + complexity.code;
+            if (custom_code === cap) {
+              isFound = true;
+              let scenarios = complexity.scenarios.filter((sce: ScenarioModel) => {
+                console.log(newCandidate.capability_matrix[cap]);
+                sce.code =sce.code.replace('.','_');
+                sce.code =sce.code.replace('.','_');
+                sce.code = sce.code.substr(sce.code.lastIndexOf('_')+1);
+                if(sce.code == newCandidate.capability_matrix[cap])  {
+                  return true;
+                }else {
+                  return false;
                 }
-              }
-            }
-
-          }
-          for (let cap of role.capabilities) {
-            let isCapFound: boolean = false;
-            for (let jobCap of jobRole.capabilities) {
-              if (jobCap.name === cap.name) {
-                isCapFound = true;
-                for (let jobCom of jobCap.complexities) {
-                  for (let complexity of cap.complexities) {
-                    if (jobCom.name === complexity.name) {
-                      let jobSceNum: string = '';
-                      for (let jobScen of jobCom.scenarios) {
-                        if (jobScen.isChecked) {
-                          jobSceNum = jobScen.code;
-                        }
-                      }
-                      let comNum: string = '';
-                      for (let scenario of complexity.scenarios) {
-                        if (scenario.isChecked) {
-                          comNum = scenario.code;
-                        }
-                      }
-                      if (comNum === '' || jobSceNum === '') {
-                        continue;
-                      }
-                      if (jobSceNum.substr(0, jobSceNum.lastIndexOf('.')) == comNum.substr(0, comNum.lastIndexOf('.'))) {
-                        let job_last_digit: number = Number(jobSceNum.substr(jobSceNum.lastIndexOf('.') + 1));
-                        let candi_last_digit: number = Number(comNum.substr(comNum.lastIndexOf('.') + 1));
-                        if (job_last_digit === candi_last_digit + ConstVariables.DIFFERENCE_IN_COMPLEXITY_SCENARIO) {
-                          jobCom.match = 'below';
-                        } else if (job_last_digit === candi_last_digit - ConstVariables.DIFFERENCE_IN_COMPLEXITY_SCENARIO) {
-                          jobCom.match = 'above';
-                        } else if (job_last_digit === candi_last_digit) {
-                          jobCom.match = 'exact';
-                        }
-                      }
-                      if (jobCom.match === undefined) {
-                        jobCom.match = 'missing';
-                      }
-
-                    }
-
-                  }
-                }
-              }
-
-            }
-            if (!isCapFound) {
-              let newcap = cap.toObject();
-              for (let jobCompl of newcap.complexities) {
-                jobCompl.match = 'extra';
-              }
-              jobRole.capabilities.push(newcap);
+              });
+              match_view.capability_name = capability.name;
+              match_view.complexity_name = complexity.name;
+              match_view.scenario_name=scenarios[0].name;
+              break;
             }
           }
+          if(isFound) {
+            break;
+          }
+        }
+        if (isFound) {
+          break;
         }
       }
-      if (!isRoleFound) {
-        let newrole = role.toObject();
-        for (let ccap of newrole.capabilities) {
-          for (let cm of ccap.complexities) {
-            cm.match = 'extra';
-          }
-        }
-        for (let jobDefCap of newrole.default_complexities) {
-          for (let cm of jobDefCap.complexities) {
-            cm.match = 'extra';
-          }
-        }
-
-        newJob.industry.roles.push(newrole);
-      }
+      newCandidate['match_map'][cap]= match_view;
     }
-    callback(null, newJob);
+    return newCandidate;
   }
-
 
 }
 

@@ -138,7 +138,7 @@ export function metchResultForJob(req: express.Request, res: express.Response, n
     var searchService = new SearchService();
     let jobId = req.params.jobId;
     let candidateId = req.params.candidateId;
-    searchService.getMatchingResult(candidateId, jobId, (error: any, result: any) => {
+    searchService.getMatchingResult(candidateId, jobId, false,(error: any, result: any) => {
       if (error) {
         next({
           reason: "Problem in Search Matching Result",//Messages.MSG_ERROR_RSN_INVALID_CREDENTIALS,
