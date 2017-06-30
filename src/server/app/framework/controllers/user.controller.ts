@@ -99,11 +99,20 @@ export function login(req: express.Request, res: express.Response, next: any) {
       }
       else if (result.length > 0 && result[0].isActivated === false) {
         if (result[0].password === params.password) {
-          next({
-            reason: Messages.MSG_ERROR_RSN_INVALID_REGISTRATION_STATUS,
-            message: Messages.MSG_ERROR_VERIFY_ACCOUNT,
-            code: 403
-          });
+          if(result[0].isCandidate === true) {
+            next({
+              reason: Messages.MSG_ERROR_RSN_INVALID_REGISTRATION_STATUS,
+              message: Messages.MSG_ERROR_VERIFY_CANDIDATE_ACCOUNT,
+              code: 403
+            });
+          } else {
+            next({
+              reason: Messages.MSG_ERROR_RSN_INVALID_REGISTRATION_STATUS,
+              message: Messages.MSG_ERROR_VERIFY_ACCOUNT,
+              code: 403
+            });
+          }
+
         }
         else {
           next({
@@ -120,7 +129,7 @@ export function login(req: express.Request, res: express.Response, next: any) {
           reason: Messages.MSG_ERROR_RSN_USER_NOT_FOUND,
           message: Messages.MSG_ERROR_USER_NOT_PRESENT,
           code: 403
-        })
+        });
       }
     });
   }
