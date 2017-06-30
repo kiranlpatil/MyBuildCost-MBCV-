@@ -30,7 +30,7 @@ $theme-color: #3694d1;
       display: block;
       border-color: transparent #fdefc4 transparent transparent;
       border-style: solid;
-      border-width: 15px 25px 0px 56px;
+      border-width: 15px 25px 0 56px;
       width: 0;
       height: 0;
       position: absolute;
@@ -47,14 +47,14 @@ $theme-color: #3694d1;
     }
 
     p {
-      margin: 0 0 5px 5px;
+      margin: 0 0 5px;
       font-size: 10px;
       display: block;
       color: #666;
     }
 
     h5 {
-      margin: 0 0 5px;
+      margin: 8px 0 3px;
       font-size: 13px;
       font-weight: 900;
       font-family: 'gothamrnd-book';

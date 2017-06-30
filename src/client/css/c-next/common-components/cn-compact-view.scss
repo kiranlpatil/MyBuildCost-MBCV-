@@ -34,7 +34,7 @@ $theme-color: #3694d1;
   margin: 7px 15px;
   box-shadow: 1px 1px 1px 0 $modal-bg;
   border: 1px solid $theme-color;
-  padding: 15px !important;
+  padding: 0 0 15px 0 !important;
 }
 
 .compact-view {
@@ -91,9 +91,10 @@ $theme-color: #3694d1;
 
   .heading {
     background: none !important;
-    margin: 0 0 5px !important;
+    margin: 0 0 15px !important;
     padding: 0 !important;
     z-index: 1;
+    border-radius: 0 !important;
   }
 
   .sub-areas {

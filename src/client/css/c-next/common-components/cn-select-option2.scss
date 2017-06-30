@@ -5,26 +5,24 @@ $primary-option: #3694d1;
 $secondary-option: #3694d1;
 
 .select-option2 {
-  display: inline-block;
-  margin: 5px 10px 5px 0;
+  display: block;
+  margin: 10px 10px 10px 0;
   text-align: left;
 }
 
 .select-option2 > label {
   margin: 0;
+  min-height: 22px;
   padding: 0;
   position: relative;
 
   & > input {
     display: block;
     position: absolute;
-    top: 4px;
-    left: 5px;
+    top: 2px;
+    left: -2px;
 
     & + span {
-      border: 1px solid $option-border-color;
-      border-radius: 25px;
-      box-shadow: 0 0 1px 0 $option-border-color inset, 0 0 1px 0 $option-border-color;
       color: $text-color;
       cursor: pointer;
       font-size: 13px;
@@ -34,19 +32,11 @@ $secondary-option: #3694d1;
       display: inline-block;
       text-align: left;
       user-select: none;
-
-      &:hover {
-        border: 1px solid $option-border-color;
-        box-shadow: 0 0 1px 0 $option-border-color inset, 0 0 1px 0 $option-border-color;
-      }
     }
 
     &:checked {
       & + span {
-        color: $white;
-        background-color: $primary-option;
-        border: 1px solid $primary-option;
-        box-shadow: 0 0 1px 0 $primary-option inset, 0 0 1px 0 $primary-option;
+        color: $primary-option;
       }
     }
 
@@ -70,7 +60,7 @@ $secondary-option: #3694d1;
 
       &:checked {
         & + span {
-          color: $white;
+          color: $primary-option;
         }
       }
     }
@@ -78,129 +68,6 @@ $secondary-option: #3694d1;
     & > input:disabled {
       & + span {
         cursor: not-allowed;
-      }
-    }
-  }
-}
-
-.primary > label {
-  & > input {
-
-    & + span {
-      border: 1px solid $primary-option;
-      box-shadow: 0 0 1px 0 $primary-option inset, 0 0 1px 0 $primary-option;
-
-      &:hover {
-        border: 1px solid $primary-option;
-        box-shadow: 0 0 1px 0 $primary-option inset, 0 0 1px 0 $primary-option;
-      }
-    }
-
-    &:checked {
-      & + span {
-        background-color: $primary-option;
-        border: 1px solid $primary-option;
-        box-shadow: 0 0 1px 0 $primary-option inset, 0 0 1px 0 $primary-option;
-      }
-    }
-  }
-
-  &:hover {
-    & > input {
-      & + span {
-        border: 1px solid $primary-option;
-        box-shadow: 0 0 1px 0 $primary-option inset, 0 0 1px 0 $primary-option;
-      }
-
-      &:checked {
-        & + span {
-          background-color: $primary-option;
-          border: 1px solid $primary-option;
-          box-shadow: 0 0 1px 0 $primary-option inset, 0 0 1px 0 $primary-option;
-        }
-      }
-    }
-  }
-}
-
-.secondary > label {
-  & > input {
-    display: none;
-
-    & + span {
-      border: 1px solid $primary-option;
-      box-shadow: 0 0 1px 0 $primary-option inset, 0 0 1px 0 $primary-option;
-
-      &:hover {
-        border: 1px solid $primary-option;
-        box-shadow: 0 0 1px 0 $primary-option inset, 0 0 1px 0 $primary-option;
-      }
-    }
-
-    &:checked {
-      & + span {
-        background-color: $primary-option;
-        border: 1px solid $primary-option;
-        box-shadow: 0 0 1px 0 $primary-option inset, 0 0 1px 0 $primary-option;
-      }
-    }
-  }
-
-  &:hover {
-    & > input {
-      & + span {
-        border: 1px solid $primary-option;
-        box-shadow: 0 0 1px 0 $primary-option inset, 0 0 1px 0 $primary-option;
-      }
-
-      &:checked {
-        & + span {
-          background-color: $primary-option;
-          border: 1px solid $primary-option;
-          box-shadow: 0 0 1px 0 $primary-option inset, 0 0 1px 0 $primary-option;
-        }
-      }
-    }
-  }
-}
-
-@media screen and (max-width: 1280px) {
-  .primary > label {
-    & > input {
-      & + span {
-        &:hover {
-          border: 1px solid $primary-option;
-          box-shadow: 0 0 1px 0 $primary-option inset, 0 0 1px 0 $primary-option;
-        }
-      }
-    }
-
-    &:hover {
-      & > input {
-        & + span {
-          border: 1px solid $primary-option;
-          box-shadow: 0 0 1px 0 $primary-option inset, 0 0 1px 0 $primary-option;
-        }
-      }
-    }
-  }
-
-  .secondary > label {
-    & > input {
-      & + span {
-        &:hover {
-          border: 1px solid $primary-option;
-          box-shadow: 0 0 1px 0 $primary-option inset, 0 0 1px 0 $primary-option;
-        }
-      }
-    }
-
-    &:hover {
-      & > input {
-        & + span {
-          border: 1px solid $primary-option;
-          box-shadow: 0 0 1px 0 $primary-option inset, 0 0 1px 0 $primary-option;
-        }
       }
     }
   }
