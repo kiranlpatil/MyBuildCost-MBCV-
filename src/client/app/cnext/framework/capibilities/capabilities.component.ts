@@ -67,8 +67,9 @@ export class CapabilitiesComponent {
         this.primaryNames.push(selectedCapability.name);
 
       } else {
-        this.secondaryNames.push(selectedCapability.name);
-        selectedCapability.isSecondary = true;
+        event.target.checked=false;
+        /*this.secondaryNames.push(selectedCapability.name);
+        selectedCapability.isSecondary = true;*/
       }
     } else {
       if (selectedCapability.isPrimary) {
@@ -76,8 +77,9 @@ export class CapabilitiesComponent {
         this.primaryNames.splice(this.primaryNames.indexOf(selectedCapability.name), 1);
         selectedCapability.isPrimary = false;
       } else if (selectedCapability.isSecondary) {
-        this.secondaryNames.splice(this.secondaryNames.indexOf(selectedCapability.name), 1);
-        selectedCapability.isSecondary = false;
+        /*this.secondaryNames.splice(this.secondaryNames.indexOf(selectedCapability.name), 1);
+        selectedCapability.isSecondary = false;*/
+
       }
     }
   }
