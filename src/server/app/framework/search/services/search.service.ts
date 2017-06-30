@@ -286,7 +286,9 @@ class SearchService {
               });
               match_view.capability_name = capability.name;
               match_view.complexity_name = complexity.name;
-              match_view.scenario_name=scenarios[0].name;
+              if(scenarios[0]){
+                match_view.scenario_name=scenarios[0].name;
+              }
               break;
             }
           }
@@ -312,7 +314,9 @@ class SearchService {
               });
               match_view.capability_name = capability.name;
               match_view.complexity_name = complexity.name;
-              match_view.scenario_name=scenarios[0].name;
+              if(scenarios[0]){
+                match_view.scenario_name=scenarios[0].name;
+              }
               break;
             }
           }
