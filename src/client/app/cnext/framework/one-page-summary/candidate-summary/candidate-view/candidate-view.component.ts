@@ -2,6 +2,8 @@ import {Component, Input} from "@angular/core";
 import {CandidateDetail} from "../../../../../framework/registration/candidate/candidate";
 import {Candidate} from "../../../model/candidate";
 import {CandidateProfileService} from "../../../candidate-profile/candidate-profile.service";
+import {ComplexityComponentService} from "../../../complexities/complexity.service";
+import {JobCompareService} from "../../../single-page-compare-view/job-compare-view/job-compare-view.service";
 
 
 @Component({
@@ -16,14 +18,20 @@ export class CandidateViewComponent {
   private candidateDetails: CandidateDetail = new CandidateDetail();
   private candidate: Candidate = new Candidate();
   private secondaryCapabilities: string[] = new Array();
-
-  constructor(private profileCreatorService: CandidateProfileService) {
+  private capabilities : any;
+  constructor(private profileCreatorService: CandidateProfileService,
+              private complexityComponentService: ComplexityComponentService,
+              private jobCompareService : JobCompareService) {
   }
 
   ngOnChanges(changes: any) {
     if (changes.candidateId != undefined && changes.candidateId.currentValue != undefined) {
       this.candidateId = changes.candidateId.currentValue;
       this.getCandidateProfile(this.candidateId);
+      this.complexityComponentService.getCapabilityMatrix().subscribe(
+        capa => {
+          this.capabilities= this.jobCompareService.getStandardMatrix(capa.data);
+        });
     }
   }
 

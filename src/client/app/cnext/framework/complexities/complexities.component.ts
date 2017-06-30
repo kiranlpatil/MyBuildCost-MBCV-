@@ -68,7 +68,7 @@ export class ComplexitiesComponent implements OnInit, OnChanges {
       this.complexities = changes.complexities.currentValue;
       this.getComplexityIds(this.complexities);
       this.complexityComponentService.getCapabilityMatrix().subscribe(
-        capa => {debugger
+        capa => {
           this.capabilities= this.jobCompareService.getStandardMatrix(capa.data);
         });
     }

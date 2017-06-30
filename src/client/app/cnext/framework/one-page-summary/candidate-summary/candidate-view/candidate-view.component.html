@@ -23,8 +23,8 @@
 
   <div class="col-sm-9 right-content">
     <div class="col-sm-12">
-      <cn-tabular-list-view [roles]="candidate.industry.roles"></cn-tabular-list-view>
-    </div>
+    <cn-capability-compare [isCompact]="true" [capabilities]="capabilities" > </cn-capability-compare>
+     </div>
 
     <div class="col-sm-12">
       <div *ngIf="secondaryCapabilities.length>0">
