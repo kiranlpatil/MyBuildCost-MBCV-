@@ -7,6 +7,8 @@ import LocationRepository = require('../dataaccess/repository/location.repositor
 import RecruiterRepository = require('../dataaccess/repository/recruiter.repository');
 import IndustryRepository = require('../dataaccess/repository/industry.repository');
 import IndustryModel = require("../dataaccess/model/industry.model");
+import ScenarioModel = require("../dataaccess/model/scenario.model");
+import MatchViewModel = require("../dataaccess/model/match-view.model");
 class CandidateService {
   private candidateRepository: CandidateRepository;
   private recruiterRepository: RecruiterRepository;
@@ -103,59 +105,6 @@ class CandidateService {
               item.capability_matrix = { };
             }
             let new_capability_matrix: any = { };
-           /* if (item.industry.roles && item.industry.roles.length > 0) {
-              for (let role of item.industry.roles) {
-                if (role.capabilities && role.capabilities.length > 0) {
-                  for (let capability of role.capabilities) {
-                    if (capability.code) {
-                      for (let mainRole of industries[0].roles) {
-                        if (role.code.toString() === mainRole.code.toString()) {
-                          for (let mainCap of mainRole.capabilities) {
-                            if (capability.code.toString() === mainCap.code.toString()) {
-                              for (let mainComp of mainCap.complexities) {
-                                let itemcode = mainCap.code +'_' + mainComp.code;
-                                if (item.capability_matrix[itemcode] === undefined) {
-                                  new_capability_matrix[itemcode] = -1;
-                                  item.capability_matrix[itemcode] = -1;
-                                }else if(item.capability_matrix !== -1) {
-                                  new_capability_matrix[itemcode]= item.capability_matrix[itemcode];
-                                }else {
-                                  new_capability_matrix[itemcode] = -1;
-                                }
-                              }
-                            }
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-                for (let capability of  role.default_complexities) {
-                  if (capability.code) {
-                    for (let mainRole of industries[0].roles) {
-                      if (role.code.toString() === mainRole.code.toString()) {
-                         for (let mainCap of mainRole.default_complexities) {
-                          if (capability.code.toString() === mainCap.code.toString()) {
-                            for (let mainComp of mainCap.complexities) {
-                              let itemcode = mainCap.code +'_'+ mainComp.code;
-                              if (item.capability_matrix[itemcode] === undefined) {
-                                new_capability_matrix[itemcode] = -1;
-                                item.capability_matrix[itemcode] = -1;
-                              }else if(item.capability_matrix !== -1) {
-                                new_capability_matrix[itemcode]= item.capability_matrix[itemcode];
-                              }else {
-                                new_capability_matrix[itemcode] = -1;
-                              }
-                            }
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-           */
            item.capability_matrix = this.getCapabilityMatrix(item,industries,new_capability_matrix);
             this.candidateRepository.findOneAndUpdateIndustry({'_id': res[0]._id}, item, {new: true}, callback);
           }
@@ -163,6 +112,97 @@ class CandidateService {
       }
     });
   }
+
+  getCapabilityValueKeyMatrix(_id: string,  callback: (error: any, result: any) => void) {
+
+    this.candidateRepository.retrieve({'_id': new mongoose.Types.ObjectId(_id)}, (err, res) => {
+      if (err) {
+        callback(err, res);
+      } else {
+        this.industryRepositiry.retrieve({'name': res[0].industry.name}, (error: any, industries: IndustryModel[]) => {
+          if (err) {
+            callback(err, res);
+          } else {
+
+            let new_capability_matrix: any =  this.getCapabilityValueKeyMatrixBuild(res[0].capability_matrix,industries);
+            callback(null, new_capability_matrix);
+          }
+        });
+      }
+    });
+  }
+
+
+  getCapabilityValueKeyMatrixBuild(capability_matrix : any, industries : any) : any {
+    let keyValueCapability : any = { };
+    for (let cap in capability_matrix) {
+      let isFound: boolean = false;
+      let match_view: MatchViewModel = new MatchViewModel();
+      for (let role of industries[0].roles) {
+        for (let capability of role.capabilities) {
+          for (let complexity of capability.complexities) {
+            let custom_code = capability.code + '_' + complexity.code;
+            if (custom_code === cap) {
+              isFound = true;
+              let scenarios = complexity.scenarios.filter((sce: ScenarioModel) => {
+                sce.code = sce.code.replace('.', '_');
+                sce.code = sce.code.replace('.', '_');
+                sce.code = sce.code.substr(sce.code.lastIndexOf('_') + 1);
+                if (sce.code.substr(sce.code.lastIndexOf('.')+1) == capability_matrix[cap]) {
+                  return true;
+                } else {
+                  return false;
+                }
+              });
+              match_view.capability_name = capability.name;
+              match_view.complexity_name = complexity.name;
+              if(scenarios[0]){
+                match_view.scenario_name = scenarios[0].name;
+              }
+              keyValueCapability[cap]=match_view;
+              break;
+            }
+          }
+          if (isFound) {
+            break;
+          }
+        }
+        for (let capability of role.default_complexities) {
+          for (let complexity of capability.complexities) {
+            let custom_code = capability.code + '_' + complexity.code;
+            if (custom_code === cap) {
+              isFound = true;
+              let scenarios = complexity.scenarios.filter((sce: ScenarioModel) => {
+                sce.code = sce.code.replace('.', '_');
+                sce.code = sce.code.replace('.', '_');
+                sce.code = sce.code.substr(sce.code.lastIndexOf('_') + 1);
+                if (sce.code.substr(sce.code.lastIndexOf('.')+1) == capability_matrix[cap]) {
+                  return true;
+                } else {
+                  return false;
+                }
+              });
+              match_view.capability_name = capability.name;
+              match_view.complexity_name = complexity.name;
+              if(scenarios[0]){
+                match_view.scenario_name = scenarios[0].name;
+              }
+              keyValueCapability[cap]=match_view;
+              break;
+            }
+          }
+          if (isFound) {
+            break;
+          }
+        }
+        if (isFound) {
+          break;
+        }
+      }
+    }
+    return keyValueCapability;
+  }
+
 
   getCapabilityMatrix(item : any,industries: IndustryModel[], new_capability_matrix: any ) : any {
     if (item.industry.roles && item.industry.roles.length > 0) {
@@ -219,6 +259,7 @@ class CandidateService {
     }
     return new_capability_matrix;
   }
+
 
   getList(item: any, callback: (error: any, result: any) => void) {
     let query = {

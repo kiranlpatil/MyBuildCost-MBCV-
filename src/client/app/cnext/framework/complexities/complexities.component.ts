@@ -5,6 +5,9 @@ import {LocalStorageService} from "../../../framework/shared/localstorage.servic
 import {LocalStorage} from "../../../framework/shared/constants";
 import {Section} from "../model/candidate";
 import {ComplexityDetails} from "../model/complexity-detail";
+import {ComplexityComponentService} from "./complexity.service";
+import {JobCompareService} from "../single-page-compare-view/job-compare-view/job-compare-view.service";
+import {Capability} from "../model/capability";
 
 @Component({
   moduleId: module.id,
@@ -30,6 +33,8 @@ export class ComplexitiesComponent implements OnInit, OnChanges {
   private showMore: boolean = false;
   private slideToRight: boolean = false;
   private slideToLeft: boolean = false;
+  private capabilities : Capability[]= new Array();
+
 
   tooltipCandidateMessage: string = "<ul><li>" +
     "<h5>Complexities</h5><p class='info'> This section provides a list of complexity scenarios for your selected capabilities." +
@@ -44,7 +49,9 @@ export class ComplexitiesComponent implements OnInit, OnChanges {
   @ViewChild("save")
   private _inputElement1: ElementRef;
 
-  constructor(private complexityService: ComplexityService) {
+  constructor(private complexityService: ComplexityService,
+              private complexityComponentService: ComplexityComponentService,
+              private jobCompareService : JobCompareService) {
   }
 
   ngOnInit() {
@@ -60,8 +67,13 @@ export class ComplexitiesComponent implements OnInit, OnChanges {
     if (changes.complexities && changes.complexities.currentValue) {
       this.complexities = changes.complexities.currentValue;
       this.getComplexityIds(this.complexities);
+      this.complexityComponentService.getCapabilityMatrix().subscribe(
+        capa => {debugger
+          this.capabilities= this.jobCompareService.getStandardMatrix(capa.data);
+        });
     }
   }
+
   getComplexityIds(complexities: any) {
     this.currentComplexity = 0;
     this.complexityIds = [];

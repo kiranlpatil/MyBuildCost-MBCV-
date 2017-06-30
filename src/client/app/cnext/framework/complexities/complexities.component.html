@@ -20,14 +20,21 @@
     </div>
   </div>
 </div>
-<div class="section-container clearfix" *ngIf="highlightedSection.name!='Complexities'">
+<div class="section-container " *ngIf="highlightedSection.name!='Complexities'">
   <div class="main-content">
-    <div class="compact-view clearfix">
+    <div class="compact-view ">
       <a data-toggle="collapse" data-target="#demo" (click)="showMore = !showMore">
         <h4 class="heading">Complexities handled for the above Capabilities</h4>
         <span class="see-more" *ngIf="!showMore">more...</span>
         <span class="see-more" *ngIf="showMore">less...</span>
       </a>
+      <div>
+        <div class="col-sm-9 right-content">
+          <div class="col-sm-12">
+            <cn-capability-compare [capabilities]="capabilities"></cn-capability-compare>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>

@@ -12,11 +12,15 @@ import CandidateRepository = require("../dataaccess/repository/candidate.reposit
 import JobProfileModel = require("../dataaccess/model/jobprofile.model");
 import CandidateSearchRepository = require("../search/candidate-search.repository");
 import RecruiterModel = require("../dataaccess/model/recruiter.model");
+import IndustryModel = require("../dataaccess/model/industry.model");
+import IndustryRepository = require("../dataaccess/repository/industry.repository");
+import CandidateService = require("./candidate.service");
 
 
 class JobProfileService {
   private jobprofileRepository: JobProfileRepository;
   private candidateSearchRepository: CandidateSearchRepository;
+  private industryRepository: IndustryRepository;
   private recruiterRepository: RecruiterRepository;
   candidateRepository: CandidateRepository;
   APP_NAME: string;
@@ -25,6 +29,7 @@ class JobProfileService {
     this.jobprofileRepository = new JobProfileRepository();
     this.candidateSearchRepository = new CandidateSearchRepository();
     this.recruiterRepository = new RecruiterRepository();
+    this.industryRepository = new IndustryRepository();
     this.candidateRepository = new CandidateRepository();
     this.APP_NAME = ProjectAsset.APP_NAME;
   }
@@ -70,6 +75,27 @@ class JobProfileService {
             }
           }
         }
+      }
+    });
+  }
+
+  getCapabilityValueKeyMatrix(_id: string,  callback: (error: any, result: any) => void) {
+    let data: any = {
+      "postedJob": _id
+    };
+    this.retrieve(data, (err: any, res:Recruiter) => {
+      if (err) {
+        callback(err, res);
+      } else {
+        this.industryRepository.retrieve({'name': res.postedJobs[0].industry.name}, (error: any, industries: IndustryModel[]) => {
+          if (err) {
+            callback(err, res);
+          } else {
+            let candidateService: CandidateService = new CandidateService();
+            let new_capability_matrix: any =  candidateService.getCapabilityValueKeyMatrixBuild(res.postedJobs[0].capability_matrix,industries);
+            callback(null, new_capability_matrix);
+          }
+        });
       }
     });
   }

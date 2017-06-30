@@ -158,6 +158,7 @@ import {JobCompareViewComponent} from "./cnext/framework/single-page-compare-vie
 import {GuidedTourComponent} from "./cnext/framework/guided-tour/guided-tour.component";
 import {RedirectRecruiterDashboardService} from "./cnext/framework/redirect-dashboard.service";
 import {QuestionAnswerComponent} from "./cnext/framework/question-answer/question-answer.component";
+import {ComplexityComponentService} from "./cnext/framework/complexities/complexity.service";
 
 //C-NEXT IMPORTS
 
@@ -287,6 +288,7 @@ import {QuestionAnswerComponent} from "./cnext/framework/question-answer/questio
     },
     MessageService,
     RecruitingService,
+    ComplexityComponentService,
     FacebookService,
     LoginService,
     LoaderService,

@@ -98,6 +98,27 @@ export function updateDetails(req: express.Request, res: express.Response, next:
   }
 }
 
+export function getCapabilityMatrix(req: express.Request, res: express.Response, next: any) {
+  try {
+    var candidateId: string = req.params.id;
+    var candidateService = new CandidateService();
+    candidateService.getCapabilityValueKeyMatrix(candidateId, (error, result) => {
+      if (error) {
+        next(error);
+      }
+      else {
+          res.send({
+            'status': 'success',
+            'data': result,
+          });
+      }
+    });
+  }
+  catch (e) {
+    res.status(403).send({message: e.message});
+  }
+}
+
 
 export function retrieve(req: express.Request, res: express.Response, next: any) { //todo authentication is remaining
   try {
@@ -176,6 +197,7 @@ export function retrieve(req: express.Request, res: express.Response, next: any)
     res.status(403).send({message: e.message});
   }
 }
+
 
 
 export function metchResult(req: express.Request, res: express.Response, next: any) {

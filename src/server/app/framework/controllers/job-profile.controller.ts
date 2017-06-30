@@ -71,6 +71,32 @@ export function retrieve(req: express.Request, res: express.Response, next: any)
   }
 }
 
+export function getCapabilityMatrix(req: express.Request, res: express.Response, next: any) {
+  try {
+    var jobProfileService = new JobProfileService();
+    let data = {
+      "postedJob": req.params.id
+    };
+    jobProfileService.getCapabilityValueKeyMatrix(req.params.id, (error, result) => {
+      if (error) {
+        next({
+          reason: CNextMessages.PROBLEM_IN_RETRIEVE_JOB_PROFILE,
+          message: CNextMessages.PROBLEM_IN_RETRIEVE_JOB_PROFILE,
+          code: 401
+        });
+      } else {
+        res.status(200).send({
+          "data": result
+        });
+      }
+
+    });
+  } catch (e) {
+    res.status(403).send({message: e.message});
+  }
+}
+
+
 export function update(req: express.Request, res: express.Response, next: any) {
   try {
 

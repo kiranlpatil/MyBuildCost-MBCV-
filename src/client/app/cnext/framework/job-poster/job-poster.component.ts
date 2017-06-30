@@ -78,9 +78,10 @@ export class JobPosterComponent implements OnInit {
     this.jobPostService.postJob(this.jobPosterModel).subscribe(
       data => {
         this.jobPosterModel._id = data.data.postedJobs[0]._id;
+        LocalStorageService.setLocalValue(LocalStorage.POSTED_JOB,this.jobPosterModel._id);
         if (this.setCapabilityMatrix) {
           this.jobPosterModel.capability_matrix = data.data.postedJobs[0].capability_matrix;
-          this.setCapabilityMatrix = false;
+            this.setCapabilityMatrix = false;
         }
         console.log(this.jobPosterModel.capability_matrix);
       });

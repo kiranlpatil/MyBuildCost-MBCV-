@@ -111,6 +111,7 @@ export class LocalStorage {
   public static FROM_CANDIDATE_REGISTRATION = 'from_candidate_registration';
   public static VERIFY_CHANGE_PHONE_VALUE = 'verify_change_phone_value';
   public static CURRENT_JOB_POSTED_ID = 'current_job_posted_job_id';
+  public static POSTED_JOB = 'posted_job';
 }
 
 export class ValueConstant {
@@ -170,6 +171,8 @@ export class API {
   public static NOTICEPERIOD = 'noticeperiod';
   public static INDUSTRYEXPOSURE = 'industryexposure';
   public static PROFICIENCYLIST = 'proficiency';
+  public static CAPABILITY_MATRIX_FOR_CANDIDATE = 'capabilitymatrix/candidate';
+  public static CAPABILITY_MATRIX_FOR_RECRUITER = 'capabilitymatrix/recruiter/jobProfile';
   public static DOMAINLIST = 'domain';
   public static CAPABILITY_LIST = 'capability';
   public static ROLE_LIST = 'roles';
