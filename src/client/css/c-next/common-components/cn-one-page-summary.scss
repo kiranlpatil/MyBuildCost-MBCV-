@@ -69,6 +69,17 @@ $border-color: #e8e8e8;
   padding: 10px 0;
 }
 
+.proficiency-compare-section-area {
+  h4 {
+    font-size: 13px;
+    font-family: gothamrnd-book;
+    margin: 0 15px 0 0;
+    padding: 10px 0;
+    float: left;
+    width: auto;
+  }
+}
+
 @media only screen and (max-width: 1366px) {
   .one-page-summary {
     width: 100%;
