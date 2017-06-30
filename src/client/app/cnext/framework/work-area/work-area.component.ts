@@ -1,8 +1,8 @@
-import {Component, EventEmitter, Input, OnChanges, OnInit, Output} from '@angular/core';
-import { Role } from '../model/role';
-import { Section } from '../model/candidate';
-import { LocalStorage, ValueConstant } from '../../../framework/shared/constants';
-import { LocalStorageService } from '../../../framework/shared/localstorage.service';
+import {Component, EventEmitter, Input, OnChanges, OnInit, Output} from "@angular/core";
+import {Role} from "../model/role";
+import {Section} from "../model/candidate";
+import {LocalStorage, ValueConstant} from "../../../framework/shared/constants";
+import {LocalStorageService} from "../../../framework/shared/localstorage.service";
 
 @Component({
   moduleId: module.id,
@@ -102,14 +102,12 @@ onSave() {
         }
       }
       if(goNext) {
-        this.showModalStyle2 = !this.showModalStyle2;
-        /*this.onNext();*/
+        this.onNext();
       } else {
         this.onCancel();
       }
     } else {
-      this.showModalStyle2 = !this.showModalStyle2;
-      /*this.onNext();*/
+      this.onNext();
     }
 }
 onCancel() {
