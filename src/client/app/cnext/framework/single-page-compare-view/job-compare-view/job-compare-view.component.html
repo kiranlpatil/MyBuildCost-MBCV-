@@ -137,9 +137,13 @@
       <div class="col-sm-12">
         <cn-capability-compare [capabilities]="capabilities"></cn-capability-compare>
       </div>
+      <div class="col-sm-12 proficiency-compare-section-area">
       <h4>Proficiency In</h4>
+        <div class="pull-left col-xs-8 no-padding text-left">
       <cn-proficiency-compare [data]="data.proficiencies"
                               [matchdData]="data.proficienciesMatch"></cn-proficiency-compare>
+        </div>
+        </div>
       you have Additional Capabilities
       <div *ngIf="data != undefined">
         <span *ngFor="let cap of data.additionalCapabilites" >
@@ -151,13 +155,17 @@
 </section>
 
 <section *ngIf="data != undefined && typeOfView=='compact'">
-    <div class="col-sm-9 right-content">
-      <div class="col-sm-12">
+    <div class="">
+      <div class="col-xs-12">
         <cn-capability-compare [capabilities]="capabilities"></cn-capability-compare>
       </div>
-      <h4>Proficiency In</h4>
-      <cn-proficiency-compare [data]="data.proficiencies"
+      <div class="col-sm-12 proficiency-compare-section-area">
+        <h4>Proficiency In</h4>
+        <div class="pull-left col-xs-10 no-padding text-left">
+        <cn-proficiency-compare [data]="data.proficiencies"
                               [matchdData]="data.proficienciesMatch"></cn-proficiency-compare>
+          </div>
+      </div>
       Candidate has Additional Capabilities
       <div *ngIf="data != undefined">
       <span *ngFor="let cap of data.additionalCapabilites" >

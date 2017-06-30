@@ -13,44 +13,168 @@ $white: #ffffff;
 .exact {
   background: $light-green !important;
   padding: 10px 5px;
+  height: 59px;
+}
+
+.exact:hover {
+  .complexity-scenarios-description {
+    white-space: inherit;
+    position: absolute;
+    background: $light-green;
+    padding: 5px;
+    bottom: 0;
+    min-height: 59px;
+    width: 200px;
+    left: -43px;
+    box-shadow: 0px 0px 4px 0px #757575;
+    font-size: 12px;
+    z-index: 9;
+    border: 1px solid $white;
+  }
 }
 
 .above {
   background: $green !important;
   padding: 10px 5px;
+  height: 59px;
 }
+
+.above:hover {
+  .complexity-scenarios-description {
+    white-space: inherit;
+    position: absolute;
+    background: $green;
+    padding: 5px;
+    bottom: 0;
+    min-height: 59px;
+    width: 200px;
+    left: -43px;
+    box-shadow: 0px 0px 4px 0px #757575;
+    font-size: 12px;
+    z-index: 9;
+    border: 1px solid $white;
+  }
+}
+
+
 
 .below {
   background: $orange !important;
   padding: 10px 5px;
+  height: 59px;
+}
+
+.below:hover {
+  .complexity-scenarios-description {
+    white-space: inherit;
+    position: absolute;
+    background: $orange;
+    padding: 5px;
+    bottom: 0;
+    min-height: 59px;
+    width: 200px;
+    left: -43px;
+    box-shadow: 0px 0px 4px 0px #757575;
+    font-size: 12px;
+    z-index: 9;
+    border: 1px solid $white;
+  }
 }
 
 .missing {
   background: $red !important;
   padding: 10px 5px;
+  height: 59px;
+}
+
+.missing:hover {
+  .complexity-scenarios-description {
+    white-space: inherit;
+    position: absolute;
+    background: $red;
+    padding: 5px;
+    bottom: 0;
+    min-height: 59px;
+    width: 200px;
+    left: -43px;
+    box-shadow: 0px 0px 4px 0px #757575;
+    font-size: 12px;
+    z-index: 9;
+    border: 1px solid $white;
+  }
 }
 
 .extra {
   background: $gray !important;
   padding: 10px 5px;
+  height: 59px;
+}
+
+.extra:hover {
+  .complexity-scenarios-description {
+    white-space: inherit;
+    position: absolute;
+    background: $gray;
+    padding: 5px;
+    bottom: 0;
+    min-height: 59px;
+    width: 200px;
+    left: -43px;
+    box-shadow: 0px 0px 4px 0px #757575;
+    font-size: 12px;
+    z-index: 9;
+    border: 1px solid $white;
+  }
 }
 
 .row-background {
   color: $white;
   font-size: 11px;
+  text-align: left;
+}
+
+/*.complexity-scenarios-description {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}*/
+
+.row-section .column1:first-child {
+  .above:hover,
+  .below:hover,
+  .missing:hover,
+  .extra:hover,
+  .exact:hover {
+    .complexity-scenarios-description {
+      left: 0px;
+    }
+  }
+}
+
+
+.more-capability:last-child {
+  .above:hover,
+  .below:hover,
+  .missing:hover,
+  .extra:hover,
+  .exact:hover {
+    .complexity-scenarios-description {
+      right: 0;
+      left: inherit;
+    }
+  }
 }
 
 .capability-label {
   padding: 5px 0;
-  display: inline-block;
+  display: table;
   text-align: center;
   width: 100%;
   span {
     font-size: 11px;
     text-align: center;
-    display: inline-block;
+    display: table-row;
     word-break: break-word;
-    float: left;
     height: 50px;
     word-wrap: break-word;
     padding: 0 20px;
@@ -58,7 +182,15 @@ $white: #ffffff;
   }
 }
 
+.complexity-scenarios-description {
+  /*white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;*/
+}
+
 .capability-complexity {
+  padding-left: 10px;
+  padding-top: 15px;
   .legends {
     float: left;
     list-style: none;
@@ -130,6 +262,7 @@ $white: #ffffff;
     .complexity-name {
       font-size: 12px;
       color: $theme-color;
+      word-break: break-word;
     }
   }
 
@@ -206,7 +339,8 @@ $white: #ffffff;
   border-collapse:separate;
 }
 .column1{
-  width: 10%;
+  /*width: 10%;*/
+  max-width: 120px;
   display: table-cell;
   padding: 0px;
   background: #fff;
