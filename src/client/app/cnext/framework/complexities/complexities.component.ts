@@ -154,6 +154,11 @@ export class ComplexitiesComponent implements OnInit, OnChanges {
                   this.currentComplexityDetails.capabilityName=capability.name;
                   this.currentComplexityDetails.name=complexity.name;
                   this.currentComplexityDetails.scenarios=complexity.scenarios.slice();
+                  for (let scenario of this.currentComplexityDetails.scenarios) {
+                    if (scenario.name === undefined || scenario.name === null || scenario.name === '') {
+                      this.currentComplexityDetails.scenarios.splice(this.currentComplexityDetails.scenarios.indexOf(scenario), 1);
+                    }
+                  }
                   this.currentComplexityDetails.userChoice=this.complexities[this.complexityIds[this.currentComplexity]];
                   if (this.currentComplexityDetails.userChoice !== '-1') {
                     this.currentComplexityDetails.isChecked = true;
@@ -183,6 +188,11 @@ export class ComplexitiesComponent implements OnInit, OnChanges {
                   this.currentComplexityDetails.capabilityName='Common Capability';
                   this.currentComplexityDetails.name=complexity.name;
                   this.currentComplexityDetails.scenarios=complexity.scenarios.slice();
+                  for (let scenario of this.currentComplexityDetails.scenarios) {
+                    if (scenario.name === undefined || scenario.name === null || scenario.name === '') {
+                      this.currentComplexityDetails.scenarios.splice(this.currentComplexityDetails.scenarios.indexOf(scenario), 1);
+                    }
+                  }
                   this.currentComplexityDetails.userChoice=this.complexities[this.complexityIds[this.currentComplexity]];
                   this.currentComplexityDetails.code=complexityId;
                   if (complexity.questionForCandidate !== undefined && complexity.questionForCandidate !== null && complexity.questionForCandidate !== '') {

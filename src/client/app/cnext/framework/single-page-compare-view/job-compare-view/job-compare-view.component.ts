@@ -6,6 +6,7 @@ import {CandidateDetail} from '../../../../framework/registration/candidate/cand
 import {CandidateProfileService} from '../../candidate-profile/candidate-profile.service';
 import {RecruiterDashboardService} from '../../recruiter-dashboard/recruiter-dashboard.service';
 import {Recruiter} from '../../../../framework/registration/recruiter/recruiter';
+import {AppSettings} from "../../../../framework/shared/constants";
 
 @Component({
   moduleId: module.id,
@@ -95,6 +96,13 @@ export class JobCompareViewComponent implements OnChanges {
   OnCompareSuccess(data: any) {
     this.data = data.data;
     this.capabilities= this.jobCompareService.getStandardMatrix(this.data.match_map);
+  }
+
+  getImagePath(imagePath: string) {
+    if (imagePath !== undefined) {
+      return AppSettings.IP + imagePath.substring(4).replace('"', '');
+    }
+    return null;
   }
 
 }
