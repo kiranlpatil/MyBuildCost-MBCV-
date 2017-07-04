@@ -13,7 +13,17 @@ export class CapabilityCompareComponent  implements OnChanges{
 
   @Input() capabilities: Capability[] = new Array(0);
   @Input() isCompact : boolean = false;
-  ngOnChanges() {
+  maxArray : number[]= new Array(0);
+  ngOnChanges(changes : any) {
+    if(changes.capabilities && changes.capabilities.currentValue){
+      let max = 0;
+      for(let cap of changes.capabilities.currentValue) {
+        if(max < cap.complexities.length){
+          max=cap.complexities.length;
+        }
+      }
+      this.maxArray = new Array(max);
+    }
     //  console.log("in compare view",this.roles);
   }
 

@@ -17,6 +17,9 @@
       <div class="column1"  *ngFor="let capability of capabilities; let i= index" [class.more-capability]="i== capabilities.length-1 && capabilities.length >= 10">
         <div class="content clearfix" >
           <div class="">
+            <div  *ngFor="let item of maxArray;let x=index;">
+              <span class="empty-divs" *ngIf="x >= capability.complexities.length;" ></span>
+            </div>
             <div *ngFor="let complexity of capability.complexities;let i=index">
               <div class="col-sm-12 no-padding row-background">
                 <div class="" [class.exact]="complexity.match==2 " [class.compact-view]="isCompact" [class.above]="complexity.match==3"
@@ -29,7 +32,6 @@
                   </div>
                 </div>
               </div>
-
             </div>
           </div>
           <div class="capability-label">

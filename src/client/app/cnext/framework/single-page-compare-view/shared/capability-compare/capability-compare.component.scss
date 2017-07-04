@@ -219,6 +219,7 @@ $white: #ffffff;
   color: $white;
   font-size: 11px;
   text-align: left;
+  border-bottom: 1px solid #e6e6e6;
 }
 
 /*.complexity-scenarios-description {
@@ -240,7 +241,8 @@ $white: #ffffff;
 }
 
 
-.more-capability:last-child {
+.more-capability:last-child,
+.row-section .column1:last-child {
   .above:hover,
   .below:hover,
   .missing:hover,
@@ -263,7 +265,7 @@ $white: #ffffff;
     text-align: center;
     display: table-row;
     word-break: break-word;
-    height: 50px;
+    height: 60px;
     word-wrap: break-word;
     padding: 0 20px;
     color: #B3B3B3;
@@ -285,6 +287,17 @@ $white: #ffffff;
     display: table-cell;
     position: absolute;
   }
+}
+
+.empty-divs {
+  border: 1px solid #E6E6E6;
+  height: 58px;
+  width: 100%;
+  float: left;
+  padding: 0;
+  margin: 0;
+  border-left: 0;
+  border-top: 0;
 }
 
 .capability-complexity {
@@ -435,10 +448,12 @@ $white: #ffffff;
   display:table;
   margin: 0;
   border-collapse:separate;
+  border: 1px solid #E6E6E6;
+  border-right: 0;
 }
 .column1{
   /*width: 10%;*/
-  max-width: 120px;
+  max-width: 200px;
   display: table-cell;
   padding: 0px;
   background: #fff;
