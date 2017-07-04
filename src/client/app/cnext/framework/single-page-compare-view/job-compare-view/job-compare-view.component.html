@@ -33,7 +33,7 @@
               Ready to Relocate</label>
             <span>{{candidate.professionalDetails.relocate}}</span>
             <label [class.exact]="data.salaryMatch=='exact'" [class.above]="data.salaryMatch=='above'"
-                   [class.below]="data.salaryMatch=='below'" [class.missing]="data.salaryMatch=='missing'">Salary Band</label>
+                   [class.below]="data.salaryMatch=='below'" [class.missing]="data.salaryMatch=='missing'">Current Salary</label>
             <span>{{candidate.professionalDetails.currentSalary}}</span>
           </div>
         </div>
@@ -43,7 +43,7 @@
                                [calledFrom]="'singlepageview'"></cn-vertical-list-view>
       </div>
       <div *ngIf="candidate.academics.length>0">
-        <cn-vertical-list-view [data]="candidate.academics" [type]="'acedemic details'"
+        <cn-vertical-list-view [data]="candidate.academics" [type]="'academic details'"
                                [calledFrom]="'singlepageview'"></cn-vertical-list-view>
       </div>
       <div *ngIf="candidate.awards.length>0">
@@ -96,7 +96,7 @@
           <div class="details clearfix" *ngFor="let postedJob of recruiter.postedJobs">
             <label class="first-label">Job Title </label>
             <span>{{postedJob.jobTitle}}</span>
-            <label>Hiring Manger</label>
+            <label>Hiring Manager</label>
             <span>{{postedJob.hiringManager}}</span>
             <label>Department</label>
             <span>{{postedJob.department}}</span>
@@ -115,10 +115,10 @@
                    [class.missing]="data.educationMatch=='missing'">Education</label>
             <span>{{postedJob.education}}</span>
             <label [class.exact]="data.experienceMatch=='exact'" [class.above]="data.experienceMatch=='above'"
-                   [class.below]="data.experienceMatch=='below'" [class.missing]="data.experienceMatch=='missing'">Experience</label>
+                   [class.below]="data.experienceMatch=='below'" [class.missing]="data.experienceMatch=='missing'">Experience Band</label>
             <span>{{postedJob.experienceMinValue}} - {{postedJob.experienceMaxValue}}</span>
             <label [class.exact]="data.salaryMatch=='exact'" [class.above]="data.salaryMatch=='above'"
-                   [class.below]="data.salaryMatch=='below'" [class.missing]="data.salaryMatch=='missing'">Salary</label>
+                   [class.below]="data.salaryMatch=='below'" [class.missing]="data.salaryMatch=='missing'">Salary Band</label>
             <span>{{postedJob.salaryMinValue}} - {{postedJob.salaryMaxValue}}</span>
             <label [class.exact]="data.releaseMatch=='exact'" [class.above]="data.releaseMatch=='above'"
                    [class.below]="data.releaseMatch=='below'" [class.missing]="data.releaseMatch=='missing'">Joining

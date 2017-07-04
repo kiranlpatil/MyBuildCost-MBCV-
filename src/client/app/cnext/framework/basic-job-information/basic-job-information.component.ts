@@ -34,12 +34,12 @@ export class BasicJobInformationComponent implements OnInit,OnChanges {
   private storedIndustry: Industry;
   private storedLocation: JobLocation = new JobLocation();
   tooltipMessage: string =  '<ul>' +
-      '<li><h5> Job description </h5></li>' +
+      '<li><h5> Job Description </h5></li>' +
       '<li><h5> Job Title </h5><p>This job name would be displayed in the posting.</p></li>' +
       '<li><h5> Hiring Manager </h5><p>Name of the manager who has given the requirement for this job.</p></li>' +
       '<li><h5> Hiring Department </h5><p>Name of the department for which the candidate is being hired.</p></li>' +
       '<li><h5> Educational Qualification, Experience Band </h5><p>Choose from dropdown.</p></li>' +
-      '<li><h5> Salary band </h5><p>The target salary that you wish to offer for the job. </p></li>' +
+      '<li><h5> Salary Band </h5><p>The target salary that you wish to offer for the job. </p></li>' +
       '<li><h5> Joining Period </h5><p>How much lead time are you willing to provide to the candidate for joining.</p></li>' +
       '<li><h5> Job Location </h5><p>Where the candidate will be required to work.</p></li>' +
       '<li><h5> Industry </h5><p>The industry for which you are hiring.</p></li>' +

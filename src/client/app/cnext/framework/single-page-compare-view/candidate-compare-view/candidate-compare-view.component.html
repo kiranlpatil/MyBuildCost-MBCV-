@@ -14,7 +14,7 @@
         <div class="details clearfix" *ngFor="let postedJob of recruiter.postedJobs">
           <label class="first-label">Job Title </label>
           <span>{{postedJob.jobTitle}}</span>
-          <label>Hiring Manger</label>
+          <label>Hiring Manager</label>
           <span>{{postedJob.hiringManager}}</span>
           <label>Department</label>
           <span>{{postedJob.department}}</span>
@@ -36,7 +36,7 @@
                  [class.below]="data.experienceMatch=='below'" [class.missing]="data.experienceMatch=='missing'">Experience</label>
           <span>{{postedJob.experience}}</span>
           <label [class.exact]="data.salaryMatch=='exact'" [class.above]="data.salaryMatch=='above'"
-                 [class.below]="data.salaryMatch=='below'" [class.missing]="data.salaryMatch=='missing'">Salary</label>
+                 [class.below]="data.salaryMatch=='below'" [class.missing]="data.salaryMatch=='missing'">Salary Band</label>
           <span>{{postedJob.salary}}</span>
           <label [class.exact]="data.releaseMatch=='exact'" [class.above]="data.releaseMatch=='above'"
                  [class.below]="data.releaseMatch=='below'" [class.missing]="data.releaseMatch=='missing'">Joining
