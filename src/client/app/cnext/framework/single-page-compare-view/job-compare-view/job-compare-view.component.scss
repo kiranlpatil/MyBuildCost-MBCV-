@@ -66,23 +66,83 @@ $red: #e82c0c;
 }
 
 .exact {
-  color: $light-green !important;
+  img {
+    width: 14px;
+    float: left;
+    margin: 1px 10px;
+  }
+  .missing-img {
+    display: none;
+  }
 }
 
 .above {
-  color: $green !important;
+  img {
+    width: 14px;
+    float: left;
+    margin: 1px 10px;
+  }
+  .missing-img {
+    display: none;
+  }
 }
 
 .below {
-  color: $orange !important;
+  img {
+    width: 14px;
+    float: left;
+    margin: 1px 10px;
+  }
+  .missing-img {
+    display: none;
+  }
 }
 
 .missing {
-  color: $red !important;
+  img {
+    width: 14px;
+    float: left;
+    margin: 1px 10px;
+  }
+  .exact-img {
+    display: none;
+  }
+  /*&:hover .info-hover-section {
+    display: block;
+    position: fixed;
+    background: #fff;
+    padding: 10px 15px;
+    z-index: 9999;
+    width: 200px;
+    margin-top: 20px;
+    font-size: 12px;
+    color: #576b7c;
+    font-weight: 100;
+    font-family: 'gothamrnd-light';
+  }*/
+}
+
+.info-description:hover .info-hover-section {
+  display: block;
+  position: fixed;
+  background: #fff;
+  padding: 10px 15px;
+  z-index: 9999;
+  width: 200px;
+  margin-top: 15px;
+  font-size: 12px;
+  color: #576b7c;
+  font-weight: 100;
+  font-family: 'gothamrnd-light';
+  box-shadow: 0px 2px 4px 0px #c1c1c1;
 }
 
 .first-label {
   margin-top: 0;
+}
+
+.info-hover-section {
+  display: none;
 }
 
 .about-company-label {

@@ -12,14 +12,16 @@ $white: #ffffff;
 
 .exact {
   background: $light-green !important;
-  padding: 10px 5px 0px;
+  padding: 5px 5px 0px;
   height: 57px;
+  line-height: 16px;
 }
 
 .compact-view{
   background: #64a1ca !important;
-  padding: 10px 5px 0px;
+  padding: 5px 5px 0px;
   height: 57px;
+  line-height: 16px;
 }
 
 .compact-view:hover {
@@ -30,8 +32,8 @@ $white: #ffffff;
     padding: 5px;
     bottom: 0;
     min-height: 59px;
-    width: 200px;
-    left: -43px;
+    width: 125%;
+    left: -27px;
     box-shadow: 0px 0px 4px 0px #757575;
     color : white !important;
     font-size: 12px;
@@ -58,8 +60,8 @@ $white: #ffffff;
     padding: 5px;
     bottom: 0;
     min-height: 59px;
-    width: 200px;
-    left: -43px;
+    width: 125%;
+    left: -27px;
     box-shadow: 0px 0px 4px 0px #757575;
     font-size: 12px;
     z-index: 9;
@@ -79,8 +81,9 @@ $white: #ffffff;
 
 .above {
   background: $green !important;
-  padding: 10px 5px 0px;
+  padding: 5px 5px 0px;
   height: 57px;
+  line-height: 16px;
 }
 
 .above:hover {
@@ -91,8 +94,8 @@ $white: #ffffff;
     padding: 5px;
     bottom: 0;
     min-height: 59px;
-    width: 200px;
-    left: -43px;
+    width: 125%;
+    left: -27px;
     box-shadow: 0px 0px 4px 0px #757575;
     font-size: 12px;
     z-index: 9;
@@ -114,8 +117,9 @@ $white: #ffffff;
 
 .below {
   background: $orange !important;
-  padding: 10px 5px 0px;
+  padding: 5px 5px 0px;
   height: 57px;
+  line-height: 16px;
 }
 
 .below:hover {
@@ -126,8 +130,8 @@ $white: #ffffff;
     padding: 5px;
     bottom: 0;
     min-height: 59px;
-    width: 200px;
-    left: -43px;
+    width: 125%;
+    left: -27px;
     box-shadow: 0px 0px 4px 0px #757575;
     font-size: 12px;
     z-index: 9;
@@ -147,8 +151,9 @@ $white: #ffffff;
 
 .missing {
   background: $red !important;
-  padding: 10px 5px 0px;
+  padding: 5px 5px 0px;
   height: 57px;
+  line-height: 16px;
 }
 
 .missing:hover {
@@ -159,8 +164,8 @@ $white: #ffffff;
     padding: 5px;
     bottom: 0;
     min-height: 59px;
-    width: 200px;
-    left: -43px;
+    width: 125%;
+    left: -27px;
     box-shadow: 0px 0px 4px 0px #757575;
     font-size: 12px;
     z-index: 9;
@@ -180,12 +185,15 @@ $white: #ffffff;
 
 .complexity-name {
   word-break: break-word;
+  font-family: 'gothamrnd-book';
+  font-style: normal !important;
 }
 
 .extra {
   background: $gray !important;
-  padding: 10px 5px 0px;
+  padding: 5px 5px 0px;
   height: 57px;
+  line-height: 16px;
 }
 
 .extra:hover {
@@ -196,8 +204,8 @@ $white: #ffffff;
     padding: 5px;
     bottom: 0;
     min-height: 59px;
-    width: 200px;
-    left: -43px;
+    width: 125%;
+    left: -27px;
     box-shadow: 0px 0px 4px 0px #757575;
     font-size: 12px;
     z-index: 9;
@@ -287,6 +295,7 @@ $white: #ffffff;
     white-space: nowrap;
     display: table-cell;
     position: absolute;
+    font-style: italic;
   }
 }
 
@@ -465,10 +474,10 @@ $white: #ffffff;
 .not-applicable{
   display:  none !important;
 }
-@media only screen
+/*@media only screen
 and (max-width: 840px) {
   .column1{
     display: table-row;
     width: 100%;
   }
-}
+}*/

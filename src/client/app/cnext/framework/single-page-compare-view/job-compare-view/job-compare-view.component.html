@@ -112,13 +112,43 @@
       </span>
             <label [class.exact]="data.educationMatch=='exact'" [class.above]="data.educationMatch=='above'"
                    [class.below]="data.educationMatch=='below'"
-                   [class.missing]="data.educationMatch=='missing'">Education</label>
+                   [class.missing]="data.educationMatch=='missing'">
+              <strong class="pull-left">Education</strong>
+              <img class="exact-img" src="assets/framework/images/dashboard/right-tick.svg" />
+              <div class="info-description">
+                <img class="missing-img" src="assets/framework/images/dashboard/info-red.svg" />
+                <div class="info-hover-section">
+                  Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
+                  industry's standard dummy text ever since the 1500s,
+                </div>
+              </div>
+            </label>
             <span>{{postedJob.education}}</span>
             <label [class.exact]="data.experienceMatch=='exact'" [class.above]="data.experienceMatch=='above'"
-                   [class.below]="data.experienceMatch=='below'" [class.missing]="data.experienceMatch=='missing'">Experience Band</label>
+                   [class.below]="data.experienceMatch=='below'" [class.missing]="data.experienceMatch=='missing'">
+              <strong class="pull-left"> Experience Band</strong>
+              <img class="exact-img" src="assets/framework/images/dashboard/right-tick.svg" />
+              <div class="info-description">
+                <img class="missing-img" src="assets/framework/images/dashboard/info-red.svg" />
+                <div class="info-hover-section">
+                  Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
+                  industry's standard dummy text ever since the 1500s,
+                </div>
+              </div>
+            </label>
             <span>{{postedJob.experienceMinValue}} - {{postedJob.experienceMaxValue}}</span>
             <label [class.exact]="data.salaryMatch=='exact'" [class.above]="data.salaryMatch=='above'"
-                   [class.below]="data.salaryMatch=='below'" [class.missing]="data.salaryMatch=='missing'">Salary Band</label>
+                   [class.below]="data.salaryMatch=='below'" [class.missing]="data.salaryMatch=='missing'">
+              <strong class="pull-left"> Salary Band </strong>
+              <img class="exact-img" src="assets/framework/images/dashboard/right-tick.svg" />
+              <div class="info-description">
+                <img class="missing-img" src="assets/framework/images/dashboard/info-red.svg" />
+                <div class="info-hover-section">
+                  Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
+                  industry's standard dummy text ever since the 1500s,
+                </div>
+              </div>
+            </label>
             <span>{{postedJob.salaryMinValue}} - {{postedJob.salaryMaxValue}}</span>
             <label [class.exact]="data.releaseMatch=='exact'" [class.above]="data.releaseMatch=='above'"
                    [class.below]="data.releaseMatch=='below'" [class.missing]="data.releaseMatch=='missing'">Joining
