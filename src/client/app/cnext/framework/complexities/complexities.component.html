@@ -22,7 +22,7 @@
 </div>
 <div class="section-container " *ngIf="highlightedSection.name!='Complexities'">
   <div class="main-content">
-    <div class="compact-view ">
+    <div class="compact-view">
       <a data-toggle="collapse" data-target="#demo" (click)="showMore = !showMore">
         <h4 class="heading">Complexities handled for the above Capabilities
           <button class="btn-edit" (click)="edit()"
@@ -33,9 +33,7 @@
       </a>
       <div id="demo">
         <div class="col-sm-12 no-padding">
-          <div class="col-sm-12 no-padding">
-            <cn-capability-compare [isCompact]="true" [capabilities]="capabilities"></cn-capability-compare>
-          </div>
+          <cn-capability-compare [isCompact]="true" [capabilities]="capabilities"></cn-capability-compare>
         </div>
       </div>
     </div>

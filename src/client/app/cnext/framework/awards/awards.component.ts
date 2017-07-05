@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { CandidateProfileService } from '../candidate-profile/candidate-profile.service';
 import { Candidate, Section } from '../model/candidate';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -11,7 +11,7 @@ import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['awards.component.css']
 })
 
-export class AwardsComponent {
+export class AwardsComponent implements OnInit {
 
   @Input() candidate: Candidate;
   @Input() highlightedSection: Section;
