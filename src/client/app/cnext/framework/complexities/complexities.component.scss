@@ -43,7 +43,7 @@ $complexity-bg: #f8f8f8;
     padding: 12px 2px;
     border-radius: 0 6px 6px 0;
     background: $text-color;
-    zindex: 10;
+    z-index: 10;
 
     span {
       color: $white;
@@ -54,7 +54,7 @@ $complexity-bg: #f8f8f8;
     position: absolute;
     right: 15px;
     bottom: 15px;
-    zindex: 10;
+    z-index: 10;
   }
 }
 

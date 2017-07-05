@@ -34,7 +34,7 @@ $theme-color: #3694d1;
   margin: 7px 15px;
   box-shadow: 1px 1px 1px 0 $modal-bg;
   border: 1px solid $theme-color;
-  padding: 0 0 15px 0 !important;
+  padding: 0 0 15px !important;
   overflow: hidden;
 }
 
@@ -43,7 +43,7 @@ $theme-color: #3694d1;
   //border: 1px solid $border-color;
   position: relative;
   padding: 10px;
-  z-index: 5;
+  z-index: 1;
 
   .btn-edit {
     background: transparent url("../assets/c-next/compact-view/pencil.png") no-repeat 50% 50%;
