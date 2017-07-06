@@ -536,6 +536,14 @@ control-messages {
       padding: 0 0 0 15px;
     }
   }
+
+  .form-group{
+    control-messages {
+      div {
+        margin: 53px 0 0;
+      }
+    }
+  }
 }
 
 .min-range {
