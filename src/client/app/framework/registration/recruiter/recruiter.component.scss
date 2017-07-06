@@ -45,7 +45,7 @@ $theme-color: #66afe9;
 
       &:focus,
       &:active {
-        border: 1px solid $theme-color;
+        border-bottom: 1px solid $theme-color;
       }
     }
   }
