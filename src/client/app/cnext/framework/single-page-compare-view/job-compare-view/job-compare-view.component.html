@@ -163,9 +163,13 @@
               <span>{{postedJob.joiningPeriod}}</span>
               <label>Location</label>
               <span>{{postedJob.location.city}}</span>
+              <div> About Job
+                {{postedJob.competencies}}
+              </div>
             </div>
           </div>
         </div>
+
         <div class="about-company-label" *ngIf="recruiter != undefined">
           <label>About Company</label>
           <cn-additional-details [data]="recruiter.about_company"></cn-additional-details>
