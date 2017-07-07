@@ -31,7 +31,7 @@
       <h4 class="heading">Additional Industries In which you have work exposure / experience
         <button class="btn-edit"
                 (click)="highlightedSection.name='IndustryExposure';disableButton=false;highlightedSection.isDisable=true;showButton=false"
-                [hidden]="highlightedSection.isDisable"></button>
+                [hidden]="highlightedSection.isDisable" title="Edit Industry Exposure"></button>
       </h4>
       <span class="option" *ngFor="let item of candidateExperiencedIndustry;let i = index">
         <span>{{item}}</span>&nbsp;<span

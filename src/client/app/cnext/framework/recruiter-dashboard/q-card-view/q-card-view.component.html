@@ -60,7 +60,7 @@
                    *ngIf="item.picture!=undefined"/>
               {{item.first_name}} {{item.last_name}}
             </h6>
-            <p class="proficiencies">
+            <p class="proficiencies" title="Key Skills">
               <img src="assets/c-next/card-view/proficiencies.png" alt="Location"/>
               <span *ngFor="let proficiency of item.proficiencies;let i=index">
                 <span *ngIf="i < 5">{{proficiency}}
@@ -71,7 +71,7 @@
             </p>
           </div>
           <div class="col-md-4 col-sm-5 col-xs-6 no-padding">
-            <div class="canvas-container">
+            <div class="canvas-container" title="Matching Percentage">
               <cn-progress-bar [value]="item.matching" [color]="'#e77e22'" [rotation]="false"></cn-progress-bar>
               <cn-progress-bar [value]="item.matching" [color]="'#e77e22'" [rotation]="true"></cn-progress-bar>
               <span *ngIf="matchFormat == 'aboveMatch' && type == 'matchedList'">{{item.exact_matching + item.above_one_step_matching | number : '1.0-0'}}%</span>
@@ -82,15 +82,15 @@
             </div>
           </div>
         </header>
-        <div class="col-xs-6 details">
-          <p class="border-bottom"><img src="assets/c-next/card-view/salary.png" alt="Salary"/>₹ {{item.salary}}</p>
+        <div class="col-xs-6 details" >
+          <p class="border-bottom" title="Salary"><img src="assets/c-next/card-view/salary.png" alt="Salary"/>₹ {{item.salary}}</p>
         </div>
         <div class="col-xs-6 details">
-          <p class="border-bottom"><img src="assets/c-next/card-view/experience.png" alt="Experience"/>{{item.experience}}
+          <p class="border-bottom" title="Experience"><img src="assets/c-next/card-view/experience.png" alt="Experience"/>{{item.experience}}
           </p>
         </div>
         <div class="col-xs-12 details">
-          <p><img src="assets/c-next/card-view/relocation.png" alt="Location"/> {{item.location}}</p>
+          <p title="Current Location"><img src="assets/c-next/card-view/relocation.png" alt="Location"/> {{item.location}}</p>
         </div>
         <div class="button-group" *ngIf="type=='matchedList'">
           <!--<div class="col-sm-6 padding-right5">

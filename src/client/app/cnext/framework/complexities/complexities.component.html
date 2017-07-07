@@ -26,7 +26,7 @@
       <a data-toggle="collapse" data-target="#demo" (click)="showMore = !showMore">
         <h4 class="heading">Complexities handled for the above Capabilities
           <button class="btn-edit" (click)="edit()"
-                  [hidden]="highlightedSection.isDisable"></button>
+                  [hidden]="highlightedSection.isDisable" title="Edit Complexities"></button>
         </h4>
         <span class="see-more" *ngIf="!showMore">more...</span>
         <span class="see-more" *ngIf="showMore">less...</span>

@@ -28,7 +28,7 @@
         <h4 class="heading">Key Skills
           <button class="btn-edit"
                   (click)="highlightedSection.name='Proficiencies';highlightedSection.isDisable=true;showButton=false"
-                  [hidden]="highlightedSection.isDisable"></button>
+                  [hidden]="highlightedSection.isDisable" title="Edit Key Skills"></button>
         </h4>
         <span class="option" *ngFor="let item of choosedproficiencies;let i = index">
           <span>{{item}}</span>&nbsp;<span

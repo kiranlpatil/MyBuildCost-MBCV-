@@ -53,7 +53,7 @@
       <h4 class="heading">Area Of Work
         <button class="btn-edit"
                 (click)="highlightedSection.name='Work-Area';showButton=false;highlightedSection.sectionName='capability';highlightedSection.isDisable=true"
-                [hidden]="highlightedSection.isDisable"></button>
+                [hidden]="highlightedSection.isDisable" title="Edit Work Area"></button>
       </h4>
       <ul>
         <li *ngFor="let item of selectedRoles;let i = index">

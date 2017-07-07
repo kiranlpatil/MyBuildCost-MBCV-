@@ -300,6 +300,25 @@ header {
   top: 175px !important;
 }
 
+#matched-job {
+  .card-view {
+    margin-top: 95px;
+  }
+}
+
+
+.empty-list-message {
+  width: 80%;
+  margin: 0 auto;
+
+  h4 {
+    color: $theme-color;
+    font-size: 20px;
+  }
+}
+
+
+
 @media only screen and (min-width: 1367px) {
   .card-view {
     .col-sm-4 {

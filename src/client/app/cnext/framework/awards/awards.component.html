@@ -49,13 +49,13 @@
             (click)="highlightedSection.name='Awards';addAward();highlightedSection.isDisable=true;showButton=false">
           <img src="assets/c-next/icons/awards.png" alt="employment"/>
           Awards
-          <span class="glyphicon glyphicon-plus"></span>
+          <span class="glyphicon glyphicon-plus" title="Add Awards"></span>
         </h4>
       </div>
       <div class="vertical-container" *ngIf=" awardDetail.controls.awards.controls.length>0 ">
         <button class="btn-edit"
                 (click)="highlightedSection.name='Awards';highlightedSection.isDisable=true;showButton=false"
-                [hidden]="highlightedSection.isDisable"></button>
+                [hidden]="highlightedSection.isDisable" title="Edit Awards"></button>
         <cn-vertical-list-view [data]="candidate.awards" [type]="'awards'" [calledFrom]="'candidateview'"></cn-vertical-list-view>
       </div>
     </div>

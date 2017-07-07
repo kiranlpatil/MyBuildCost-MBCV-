@@ -41,7 +41,7 @@
     <div class="compact-view clearfix">
       <h4 class="heading">Capabilities
         <button class="btn-edit" (click)="highlightedSection.name='Capabilities';highlightedSection.isDisable=true;showButton=false"
-                [hidden]="highlightedSection.isDisable"></button>
+                [hidden]="highlightedSection.isDisable" title="Edit Capabilities"></button>
       </h4>
 
       <span class="option" *ngFor="let item of primaryNames;let i = index">

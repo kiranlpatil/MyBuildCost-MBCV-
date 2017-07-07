@@ -1,13 +1,13 @@
 <div class="col-sm-4">
   <div class="panel clearfix" (click)="viewJob(job._id)">
     <ul>
-      <li *ngIf="type=='block'" (click)="deleteItem(job._id)"><img src="assets/c-next/card-view/close-grey.png" /></li>
+      <li *ngIf="type=='block'" (click)="deleteItem(job._id)" title='Remove from "Not Interested" list.' ><img src="assets/c-next/card-view/close-grey.png" /></li>
     </ul>
     <header class="clearfix">
       <div class="col-md-8 col-sm-7 col-xs-6 no-padding">
-        <h6>{{job.jobTitle}}</h6>
-        <h5>{{job.company_name}}</h5>
-        <p class="proficiencies">
+        <h6 title="Job Title">{{job.jobTitle}}</h6>
+        <h5 title="Company Name">{{job.company_name}}</h5>
+        <p class="proficiencies" title="Key Skills">
           <img src="assets/c-next/card-view/proficiencies.png" alt="Location"/>
           <span *ngFor="let proficiency of job.proficiencies;let i=index">
           <span *ngIf="i < 5">{{proficiency}}
@@ -17,7 +17,7 @@
           <br/><span *ngIf="job.proficiencies.length > 5">( {{job.proficiencies.length-5}} More )</span>
         </p>
       </div>
-      <div class="col-md-4 col-sm-5 col-xs-6 no-padding">
+      <div class="col-md-4 col-sm-5 col-xs-6 no-padding" title="Matching Percentage">
         <div class="canvas-container">
           <cn-progress-bar [value]="job.above_one_step_matching + job.exact_matching | number : '1.0-0'"
                            [color]="'#e77e22'" [rotation]="false"></cn-progress-bar>
@@ -29,14 +29,14 @@
       </div>
     </header>
     <div class="col-sm-6 details">
-      <p><img src="assets/c-next/card-view/industry.png" alt="Salary"/> {{job.industry}}</p>
-      <p><img src="assets/c-next/card-view/salary.png" alt="Salary"/>₹ {{job.salaryMinValue}} - {{job.salaryMaxValue}}</p>
-      <p><img src="assets/c-next/card-view/experience.png" alt="Experience"/>{{job.experienceMinValue}} - {{job.experienceMaxValue}}</p>
+      <p title="Industry"><img src="assets/c-next/card-view/industry.png" alt="Industry" /> {{job.industry}}</p>
+      <p title="Salary"><img src="assets/c-next/card-view/salary.png" alt="Salary"/>₹ {{job.salaryMinValue}} - {{job.salaryMaxValue}}</p>
+      <p title="Experience"><img src="assets/c-next/card-view/experience.png" alt="Experience" />{{job.experienceMinValue}} - {{job.experienceMaxValue}}</p>
     </div>
     <div class="col-sm-6 details">
-      <p><img src="assets/c-next/card-view/relocation.png" alt="Location"/> {{job.location}} </p>
-      <p><img src="assets/c-next/card-view/education.png" alt="education"/> {{job.education}}</p>
-      <p><img src="assets/c-next/card-view/company-size.png" alt="size">{{job.company_size}}</p>
+      <p title="Current Location"><img src="assets/c-next/card-view/relocation.png" alt="Current Location" /> {{job.location}} </p>
+      <p title="Education"><img src="assets/c-next/card-view/education.png" alt="Education" /> {{job.education}}</p>
+      <p title="Company size"><img src="assets/c-next/card-view/company-size.png" alt="Company Size" >{{job.company_size}}</p>
     </div>
   </div>
 </div>
