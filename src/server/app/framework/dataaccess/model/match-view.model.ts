@@ -2,8 +2,11 @@ import Match = require('./match-enum');
 import ScenarioModel = require("./scenario.model");
 class MatchViewModel {
   capability_name: string;
+  capability_code: string;
   role_name: string;
   complexity_name: string;
+  complexity_number: number;
+  total_complexity_in_capability: number;
   scenario_name: string;
   match: Match;
   scenarios: ScenarioModel[];

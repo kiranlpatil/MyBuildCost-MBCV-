@@ -140,7 +140,9 @@ class CandidateService {
       let match_view: MatchViewModel = new MatchViewModel();
       for (let role of industries[0].roles) {
         for (let capability of role.capabilities) {
+          var count_of_complexity = 0;
           for (let complexity of capability.complexities) {
+            ++count_of_complexity;
             let custom_code = capability.code + '_' + complexity.code;
             if (custom_code === cap) {
               isFound = true;
@@ -156,6 +158,9 @@ class CandidateService {
                 }
               });
               match_view.capability_name = capability.name;
+              match_view.capability_code = capability.code;
+              match_view.total_complexity_in_capability = capability.complexities.length;
+              match_view.complexity_number = count_of_complexity;
               match_view.role_name = role.name;
               match_view.code = custom_code;
               if (complexity.questionForCandidate !== undefined && complexity.questionForCandidate !== null && complexity.questionForCandidate !== '') {
@@ -182,7 +187,9 @@ class CandidateService {
           }
         }
         for (let capability of role.default_complexities) {
+          var count_of_default_complexity = 0;
           for (let complexity of capability.complexities) {
+            ++count_of_default_complexity;
             let custom_code = capability.code + '_' + complexity.code;
             if (custom_code === cap) {
               isFound = true;
@@ -198,6 +205,9 @@ class CandidateService {
                 }
               });
               match_view.capability_name = capability.name;
+              match_view.capability_code = capability.code;
+              match_view.total_complexity_in_capability = capability.complexities.length;
+              match_view.complexity_number = count_of_default_complexity;
               match_view.complexity_name = complexity.name;
               match_view.role_name = role.name;
               match_view.code = custom_code;

@@ -25,12 +25,12 @@ export class ComplexitiesComponent implements OnInit, OnChanges {
   @Input() isComplexityPresent: boolean = true;
 
   private complexityIds: string[] = [];
-  private complexityList: any[] = [];
-  private currentComplexityDetails:ComplexityDetails=new ComplexityDetails();
+  private complexityList: any[] = new Array(0);
+  private currentComplexityDetails: ComplexityDetails = new ComplexityDetails();
   private isComplexityButtonEnable: boolean = false;
   private showModalStyle: boolean = false;
   private isCandidate: boolean = false;
-  private currentComplexity: number=0;
+  private currentComplexity: number = 0;
   private showMore: boolean = false;
   private slideToRight: boolean = false;
   private slideToLeft: boolean = false;
@@ -52,7 +52,7 @@ export class ComplexitiesComponent implements OnInit, OnChanges {
 
   constructor(private complexityService: ComplexityService,
               private complexityComponentService: ComplexityComponentService,
-              private jobCompareService : JobCompareService) {
+              private jobCompareService: JobCompareService) {
   }
 
   ngOnInit() {
@@ -71,20 +71,28 @@ export class ComplexitiesComponent implements OnInit, OnChanges {
         capa => {
           this.complexityData = capa.data;
           this.getComplexityIds(this.complexities);
-          console.log('data from complexity', capa.data);
-          this.capabilities= this.jobCompareService.getStandardMatrix(capa.data);
+          this.capabilities = this.jobCompareService.getStandardMatrix(capa.data);
         });
     }
   }
 
+  /*getCurrentComplexityPosition(){
+   for (let i = 0; i < this.complexityIds.length; i++) {
+   if(this.complexityList[i].userChoice===undefined || this.complexityList[i].userChoice === ''){
+   this.currentComplexity=i;
+   break;
+   }
+   }
+   }*/
   getComplexityIds(complexities: any) {
     this.currentComplexity = 0;
     this.complexityIds = [];
+    this.complexityIds = Object.keys(complexities);
     for (let id in complexities) {
-      this.complexityIds.push(id);
       this.complexityList.push(this.complexityData[id]);
     }
-    if(this.currentComplexity === 0) {
+    // this.getCurrentComplexityPosition();
+    if (this.currentComplexity === 0) {
       this.getComplexityDetails(this.complexityIds[this.currentComplexity]);
     }
   }
@@ -108,13 +116,11 @@ export class ComplexitiesComponent implements OnInit, OnChanges {
   onAnswered(complexityDetail: ComplexityDetails) {
     this.complexities[this.complexityIds[this.currentComplexity]] = complexityDetail.userChoice;
     this.complexityData[this.complexityIds[this.currentComplexity]] = complexityDetail;
-    console.log(this.complexities);
-    console.log(this.complexityData[this.complexityIds[this.currentComplexity]]);
     this.onNext();
   }
 
   onNext() {
-      this.onComplextyAnswered.emit(this.complexities);
+    this.onComplextyAnswered.emit(this.complexities);
     if (this.currentComplexity === this.complexityIds.length - 1) {
       if (this.isCandidate) {
         this.showHideModal();
@@ -124,34 +130,32 @@ export class ComplexitiesComponent implements OnInit, OnChanges {
     } else if (this.currentComplexity <= this.complexityIds.length - 1) {
       this.getComplexityDetails(this.complexityIds[++this.currentComplexity]);
     }
-    if(this.slideToLeft === true) {
-      this.slideToLeft= !this.slideToLeft;
+    if (this.slideToLeft === true) {
+      this.slideToLeft = !this.slideToLeft;
     }
-      this.slideToRight= !this.slideToRight;
+    this.slideToRight = !this.slideToRight;
 
     setTimeout(() => {
-      this.slideToRight=false;
+      this.slideToRight = false;
     }, 3000);
-      }
+  }
+
   onPrevious() {
     if (this.currentComplexity >= 0) {
       this.getComplexityDetails(this.complexityIds[--this.currentComplexity]);
     }
-    if(this.slideToRight === true) {
-      this.slideToRight= !this.slideToRight;
+    if (this.slideToRight === true) {
+      this.slideToRight = !this.slideToRight;
     }
-    this.slideToLeft= !this.slideToLeft;
+    this.slideToLeft = !this.slideToLeft;
     setTimeout(() => {
-      this.slideToLeft=false;
+      this.slideToLeft = false;
     }, 3000);
   }
 
   getComplexityDetails(complexityId: string) {  //TODO remove after amits call of updated get API
-
     if (this.complexityData !== undefined) {
-      console.log(this.complexityData[complexityId]);
       this.currentComplexityDetails = this.complexityData[complexityId];
-      console.log('current complexity details', this.currentComplexityDetails);
     }
   }
 
