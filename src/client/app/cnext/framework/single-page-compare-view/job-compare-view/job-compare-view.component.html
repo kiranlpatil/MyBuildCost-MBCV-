@@ -1,11 +1,11 @@
-<div class="modal-header" >
+<div class="modal-header">
 
   <div *ngIf="typeOfView =='spa_job' && recruiter != undefined">
     <img src="assets/framework/images/dashboard/profile.png" alt="User Profile"
          *ngIf="recruiter.company_logo==undefined"/>
     <img [src]="getImagePath(recruiter.company_logo)" alt="User Profile"
          *ngIf="recruiter.company_logo!=undefined"/>
-    <h4 >
+    <h4>
       <span *ngIf="recruiter.postedJobs[0]">{{recruiter.postedJobs[0].jobTitle}}</span>
       <span>{{recruiter.company_name}}</span>
     </h4>
@@ -29,12 +29,12 @@
         <div>
           <div class="basic-description" *ngIf="candidateDetails != undefined">
             <div class="basic-info clearfix">
-             <!-- <img src="assets/framework/images/dashboard/profile.png" alt="User Profile"
-                   *ngIf="candidateDetails.picture==undefined"/>
-              <img [src]="getImagePath(candidateDetails.picture)" alt="User Profile"
-                   *ngIf="candidateDetails.picture!=undefined"/>
-              <p class="name">{{candidateDetails.first_name}} {{candidateDetails.last_name}}</p>
-              <p>{{candidate.jobTitle}}</p>-->
+              <!-- <img src="assets/framework/images/dashboard/profile.png" alt="User Profile"
+                    *ngIf="candidateDetails.picture==undefined"/>
+               <img [src]="getImagePath(candidateDetails.picture)" alt="User Profile"
+                    *ngIf="candidateDetails.picture!=undefined"/>
+               <p class="name">{{candidateDetails.first_name}} {{candidateDetails.last_name}}</p>
+               <p>{{candidate.jobTitle}}</p>-->
             </div>
 
             <div class="details clearfix">
@@ -198,7 +198,14 @@
         </div>
       </div>
       <div class="col-xs-12 no-padding">
-        <h4 style="color: #3694d1;">These are your Extra Key Skills</h4>
+        <h4 style="color: #3694d1;"
+            *ngIf="(typeOfView =='spa_job' && data && data.proficiencies && data.proficiencies.length>0)">
+          These are your Extra Key Skills
+        </h4>
+        <h4 style="color: #3694d1;"
+            *ngIf="(typeOfView =='spa_candidate' && data && data.proficiencies && data.proficiencies.length>0)">
+          These are candidates Extra Key Skills
+        </h4>
         <div class="option pull-left" *ngFor="let item of data.proficiencies;let i = index"
              style="padding-top: 6px;padding-right: 7px;">
           <span>{{item}}</span>
@@ -206,7 +213,12 @@
       </div>
 
       <div class="col-xs-12 no-padding">
-        <h4 style="color: #3694d1;">You have Additional Capabilities </h4>
+        <h4
+          *ngIf="(typeOfView =='spa_job' && data && data.additionalCapabilites && data.additionalCapabilites.length>0)"
+          style="color: #3694d1;">You have Additional Capabilities </h4>
+        <h4
+          *ngIf="(typeOfView =='spa_candidate'&& data && data.additionalCapabilites && data.additionalCapabilites.length>0)"
+          style="color: #3694d1;">Candidate have Additional Capabilities </h4>
         <div *ngIf="data != undefined">
           <span class="option pull-left" *ngFor="let cap of data.additionalCapabilites" style="padding-top: 7px;">
             {{cap}},
@@ -233,7 +245,8 @@
       </div>
       <div class="col-sm-12 proficiency-compare-section-area">
 
-        <h4> Candidate has Additional Capabilities </h4>
+        <h4 *ngIf="(typeOfView =='spa_candidate'&& data && data.additionalCapabilites && data.additionalCapabilites.length>0)"
+        > Candidate has Additional Capabilities </h4>
         <div class="pull-left col-xs-8 no-padding text-left">
           <div *ngIf="data != undefined">
         <span *ngFor="let cap of data.additionalCapabilites">
