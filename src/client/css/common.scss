@@ -102,6 +102,15 @@ $optional-field: #66afe9;
   font-weight: bold;
 }
 
+.input-group-addon {
+  padding: 6px 12px 6px 0;
+  background-color: transparent;
+  border: 1px solid transparent;
+  border-bottom: 1px solid #ccc;
+  border-radius: 4px;
+  font-weight: bold;
+}
+
 :focus {
   outline: none;
 }
@@ -304,7 +313,7 @@ select,
 }
 
 [type='radio'] {
-  margin-top: 2px !important;
+  margin-top: 4px !important;
   width: 20px;
 }
 

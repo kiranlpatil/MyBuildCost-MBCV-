@@ -16,7 +16,7 @@ export class MainHeaderComponent {
   }
 
   onLogin() {
-    this._router.navigate([NavigationRoutes.APP_LOGIN]);
+    this._router.navigate([NavigationRoutes.APP_COMPANYDETAILS]);
   }
 
   onSignUp() {
