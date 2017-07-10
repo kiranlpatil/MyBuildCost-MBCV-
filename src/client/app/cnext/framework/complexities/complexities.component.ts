@@ -121,6 +121,10 @@ export class ComplexitiesComponent implements OnInit, OnChanges {
 
   onNext() {
     this.onComplextyAnswered.emit(this.complexities);
+    if (this.slideToLeft === true) {
+      this.slideToLeft = !this.slideToLeft;
+    }
+    this.slideToRight = !this.slideToRight;
     if (this.currentComplexity === this.complexityIds.length - 1) {
       if (this.isCandidate) {
         this.showHideModal();
@@ -128,13 +132,10 @@ export class ComplexitiesComponent implements OnInit, OnChanges {
         this.saveComplexity();
       }
     } else if (this.currentComplexity <= this.complexityIds.length - 1) {
-      this.getComplexityDetails(this.complexityIds[++this.currentComplexity]);
+      setTimeout(() => {
+        this.getComplexityDetails(this.complexityIds[++this.currentComplexity]);
+      }, 1002);
     }
-    if (this.slideToLeft === true) {
-      this.slideToLeft = !this.slideToLeft;
-    }
-    this.slideToRight = !this.slideToRight;
-
     setTimeout(() => {
       this.slideToRight = false;
     }, 3000);

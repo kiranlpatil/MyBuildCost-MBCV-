@@ -26,7 +26,9 @@ export class QuestionAnswerComponent implements OnInit,OnChanges {
   }
  ngOnChanges(changes:any) {
   if (changes.complexityDetails && changes.complexityDetails.currentValue) {
-    this.complexityDetails = changes.complexityDetails.currentValue;
+    setTimeout(() => {
+      this.complexityDetails = changes.complexityDetails.currentValue;
+    }, 1002);
   }
 }
 
