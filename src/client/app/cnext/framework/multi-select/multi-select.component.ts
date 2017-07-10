@@ -1,6 +1,6 @@
-import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnChanges, Output, ViewChild } from '@angular/core';
 import { MultiSelectService } from './multi-select.service';
-import {CandidateProfileService} from "../candidate-profile/candidate-profile.service";
+import { CandidateProfileService } from '../candidate-profile/candidate-profile.service';
 
 @Component({
   moduleId: module.id,
@@ -9,7 +9,7 @@ import {CandidateProfileService} from "../candidate-profile/candidate-profile.se
   styleUrls: ['multi-select.component.css']
 })
 
-export class MultiSelectComponent {
+export class MultiSelectComponent implements OnChanges {
   @Input() selectedData: string[];
   @Input() maxLength: number;
   @Input() type: string;
@@ -100,13 +100,13 @@ export class MultiSelectComponent {
       if (newVal != '' && this.masterDataProficiencies.indexOf(newVal) === -1) {
 
         this.showModalStyle = true;
-      }
-      else {
+       // this.addProficiencyToMasterData();
+      } else {
         if (this.masterDataProficiencies.indexOf(newVal) != -1) {
           this.addProficiencyToMasterData();
         }
       }
-    }else{
+    } else {
       this.showModalStyle =false;
     }
   }
@@ -126,7 +126,7 @@ export class MultiSelectComponent {
         data => {
           this.masterDataProficiencies = data.data[0].proficiencies;
         });
-    this.showModalStyle = false;
+    this.showModalStyle = false;    // popup box related.
     if (this.otherProficiency !== '') {
       for (let i = 0; i < this.masterDataProficiencies.length; i++) {
         if (this.masterDataProficiencies[i].toUpperCase() === this.otherProficiency.toUpperCase()) {
