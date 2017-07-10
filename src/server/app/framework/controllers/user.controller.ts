@@ -1002,7 +1002,7 @@ export function getIndiaStates(req: express.Request, res: express.Response) {
     res.status(403).send({message: e.message});
   }
 }
-getRoleTypes
+
 
 
 
