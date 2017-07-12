@@ -1,6 +1,6 @@
 $text-color: #576b7c;
 $name: #666;
-$blue-color: #3694d1;
+$blue-color: #0d75fa;
 
 .basic-description {
   text-align: left;
@@ -51,10 +51,11 @@ $blue-color: #3694d1;
 
     label {
       color: $blue-color;
-      font-weight: bold;
+      font-weight: 500;
       font-family: 'gothamrnd-book';
       margin: 20px 0 0;
       width: 100%;
+      font-size: 14px;
     }
   }
 }

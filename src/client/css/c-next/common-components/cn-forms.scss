@@ -22,7 +22,7 @@ $text-color: #666;
     border: 1px solid $border-color;
 
     h5 {
-      color: #1c75bd;
+      color: #0d75fa;
       font-family: 'helvlightregular';
       font-size: 13px;
       font-weight: bold;
@@ -79,6 +79,7 @@ $text-color: #666;
 
     .btn {
       float: none;
+      border-radius: 5px;
 
       &:focus, &:active {
 

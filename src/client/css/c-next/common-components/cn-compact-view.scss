@@ -1,10 +1,10 @@
 $border-color: #e8e8e8;
-$light-blue: #00aed5;
-$primary-option: #3694d1;
+$light-blue: #0d75fa;
+$primary-option: #0d75fa;
 $secondary-option: #81d4fa;
 $modal-bg: rgba(0, 0, 0, .05);
 $active-section: #a8de78;
-$theme-color: #3694d1;
+$theme-color: #0d75fa;
 
 .modal-bg {
   background: $modal-bg;
@@ -145,6 +145,9 @@ $theme-color: #3694d1;
     //min-width: 90px;
     margin-bottom: 0;
     padding: 0 10px 0 0;
+    font-size: 14px;
+    font-weight: 500;
+    font-family: 'gothamrnd-book';
   }
 
   .option {

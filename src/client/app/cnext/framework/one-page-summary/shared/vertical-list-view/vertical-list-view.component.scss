@@ -1,6 +1,6 @@
 @import '../../../../../../css/common';
 
-$theme-color: #3694d1;
+$theme-color: #0d75fa;
 $text-color: #576b7c;
 $bg-color: #fff;
 
@@ -27,8 +27,10 @@ $bg-color: #fff;
 
   span {
     color: $theme-color;
-    font-size: 12px;
+    font-size: 14px;
     text-transform: capitalize;
+    font-weight: 500;
+    font-family: 'gothamrnd-book';
   }
 
   ul {
@@ -78,6 +80,7 @@ $bg-color: #fff;
         margin: -4px 0 5px;
         padding: 0 0 5px 30px;
         word-break: keep-all;
+        font-size: 12px;
       }
 
       .text-ellipsis {

@@ -1,4 +1,4 @@
-$theme-color: #3694d1;
+$theme-color: #0d75fa;
 $heading-color: #dbeef6;
 $border-color: #e8e8e8;
 $text-color: #666;
@@ -496,10 +496,12 @@ and (max-width: 840px) {
     display: inline-block;
     width: 100%;
     .complexity-name {
-      color: #3694d1;
+      color: $theme-color;
       margin-bottom: 2px;
       width: 100%;
       display: inline-block;
+      font-size: 14px;
+      font-weight: 500;
     }
     .complexities-col {
       display: block;

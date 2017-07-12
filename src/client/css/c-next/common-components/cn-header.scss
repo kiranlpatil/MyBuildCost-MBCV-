@@ -1,12 +1,13 @@
 $white: #fff;
-$theme-color: #3694d1;
+$black: #000;
+$theme-color: #0d75fa;
 $header-shadow: rgba(0, 0, 0, 0.4);
 $text-color: #666;
 
 .page-header {
-  border-bottom: 1px solid $theme-color;
+  border-bottom: 1px solid $black;
   box-shadow: 0 0 2px 1px $header-shadow;
-  background: $theme-color;
+  background: $black;
   height: 50px;
   left: 0;
   margin: 0 auto;

@@ -18,7 +18,7 @@ $filter-bg: #edf1f5;
   //box-shadow: 0 0 1px 0 $profile-section-shadow;
   text-align: left;
   width: 200px;
-  background: $filter-bg;
+  background: $white;
   z-index: 998;
 
   p {
@@ -34,7 +34,7 @@ $filter-bg: #edf1f5;
     position: fixed;
     top: 50px;
     left: 0;
-    background-color: $filter-bg;
+    background-color: $white;
     width: 200px;
     z-index: 10;
     border-right: 1px solid $border-color;
