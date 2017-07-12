@@ -36,6 +36,7 @@ export class ComplexitiesComponent implements OnInit, OnChanges {
   private slideToLeft: boolean = false;
   private capabilities: Capability[] = [];
   private complexityData: any;
+  private isValid: boolean =true;
 
   tooltipCandidateMessage: string = "<ul><li>" +
     "<h5>Complexities</h5><p class='info'> This section provides a list of complexity scenarios for your selected capabilities." +
@@ -117,12 +118,19 @@ export class ComplexitiesComponent implements OnInit, OnChanges {
   }
 
   onAnswered(complexityDetail: ComplexityDetails) {
+    this.isValid = true;
     this.complexities[this.complexityIds[this.currentComplexity]] = complexityDetail.userChoice;
     this.complexityData[this.complexityIds[this.currentComplexity]] = complexityDetail;
     this.onNext();
   }
 
   onNext() {
+    this.isValid = true;
+    if(this.complexities[this.complexityIds[this.currentComplexity]] == -1){
+        this.isValid = false;
+        return;
+    }
+
     this.onComplextyAnswered.emit(this.complexities);
     if (this.slideToLeft === true) {
       this.slideToLeft = !this.slideToLeft;
@@ -145,6 +153,11 @@ export class ComplexitiesComponent implements OnInit, OnChanges {
   }
 
   onPrevious() {
+    this.isValid = true;
+    if(this.complexities[this.complexityIds[this.currentComplexity]] == -1){
+      this.isValid = false;
+      return;
+    }
     if (this.currentComplexity >= 0) {
       this.getComplexityDetails(this.complexityIds[--this.currentComplexity]);
     }

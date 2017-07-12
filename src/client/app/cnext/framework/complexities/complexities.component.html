@@ -7,6 +7,10 @@
       </h4>
       <div class="complexity-container">
           <cn-question-answer [complexityDetails]="currentComplexityDetails" [slideQuestionToLeft]="slideToLeft" [slideQuestionToRight]="slideToRight" (onComplete)="onAnswered($event)" ></cn-question-answer>
+        <div class="error-messages"
+             *ngIf="!isValid">
+          <p>You can't leave this empty.</p>
+        </div>
           <div class="button-group clearfix clear">
             <div>
               <button class="btn btn-success btn-next" (click)="onNext()" [disabled]="currentComplexity===complexityIds.length">Next</button>

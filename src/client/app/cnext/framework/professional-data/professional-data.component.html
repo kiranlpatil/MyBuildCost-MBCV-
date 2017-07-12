@@ -13,6 +13,10 @@
           <select [(ngModel)]="candidate.professionalDetails.currentSalary" (change)="saveProfessionalData()">
             <option *ngFor="let c of salaryList" [ngValue]="c">{{c}}</option>
           </select>
+          <div class="error-messages"
+               *ngIf="candidate.professionalDetails.currentSalary == '' && !isValid">
+            <p>You can't leave this empty.</p>
+          </div>
 
         </div>
 
@@ -22,7 +26,10 @@
           <select [(ngModel)]="candidate.professionalDetails.relocate" (change)="saveProfessionalData()">
             <option *ngFor="let c of realocationList" [ngValue]="c">{{c}}</option>
           </select>
-
+          <div class="error-messages"
+               *ngIf="candidate.professionalDetails.relocate == '' && !isValid">
+            <p>You can't leave this empty.</p>
+          </div>
         </div>
 
         <div class="col-sm-3">
@@ -31,6 +38,10 @@
           <select [(ngModel)]="candidate.professionalDetails.industryExposure" (change)="saveProfessionalData()">
             <option *ngFor="let c of industryExposureList" [ngValue]="c">{{c}}</option>
           </select>
+          <div class="error-messages"
+               *ngIf="candidate.professionalDetails.industryExposure == '' && !isValid">
+            <p>You can't leave this empty.</p>
+          </div>
         </div>
 
         <div class="col-sm-3">
@@ -39,6 +50,10 @@
           <select [(ngModel)]="candidate.professionalDetails.noticePeriod" (change)="saveProfessionalData()">
             <option *ngFor="let c of noticePeriodList" [ngValue]="c">{{c}}</option>
           </select>
+          <div class="error-messages"
+               *ngIf="candidate.professionalDetails.noticePeriod == '' && !isValid">
+            <p>You can't leave this empty.</p>
+          </div>
         </div>
 
 
@@ -49,7 +64,7 @@
                     <button class="btn btn-default"  (click)="highlightedSection.name='none'; highlightedSection.isDisable=false" [hidden]="showButton" >Cancel</button>
           -->
           <button type="submit" class="btn btn-success" scrollTo scrollTargetSelector="#Employment-History"
-                  (click)="onNext()" [disabled]="disableButton" [hidden]="!showButton">Next
+                  (click)="onNext()" [hidden]="!showButton">Next
           </button>
           <button class="btn btn-success" (click)="onSave()" [hidden]="showButton">Save</button>
         </div>
@@ -67,7 +82,7 @@
     <div class="compact-view clearfix">
       <h4 class="heading-compact">Professional Preferences & Experience Summary
         <button class="btn-edit"
-                (click)="highlightedSection.name='Professional-Details';highlightedSection.isDisable=true;disableButton=false;showButton=false"
+                (click)="highlightedSection.name='Professional-Details';highlightedSection.isDisable=true;isValid=true;showButton=false"
                 [hidden]="highlightedSection.isDisable" title="Edit Professional Preferences & Experience Summary"></button>
       </h4>
 
