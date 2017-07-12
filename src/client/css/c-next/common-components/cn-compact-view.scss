@@ -4,8 +4,9 @@ $primary-option: #3694d1;
 $secondary-option: #81d4fa;
 $modal-bg: rgba(0, 0, 0, .5);
 $active-section: #a8de78;
-$theme-color: #3694d1;
+$theme-color: #0d75fa;
 $black: #333;
+$white: #fff;
 
 .modal-bg {
   background: $modal-bg;
@@ -45,7 +46,7 @@ $black: #333;
   border-radius: 0;
   margin: 0 auto;
   box-shadow: 1px 1px 1px 0 $modal-bg;
-  border: 1px solid $theme-color;
+  border: 2px solid $white;
   padding: 0 0 15px !important;
   overflow: hidden;
   top: 50%;
@@ -152,11 +153,20 @@ $black: #333;
     padding: 0 10px 0 0;
   }
 
+  .option-list {
+    float: left;
+    margin: 5px 10px 5px 0;
+  }
+
   .option {
-    font-weight: 600;
-    font-size: 13px;
+    font-weight: 900;
+    font-size: 12px;
     padding: 0;
     text-transform: capitalize;
+    background: $theme-color;
+    color: $white;
+    border-radius: 25px;
+    padding: 5px 15px;
   }
 
   .content {
@@ -168,7 +178,7 @@ $black: #333;
     padding-left: 0;
   }
 
-  ul,
+  /*ul,
   .option {
     padding: 0 0 0 15px;
 
@@ -189,7 +199,7 @@ $black: #333;
       width: 25%;
       margin-bottom: 0;
     }
-  }
+  }*/
 
   .vertical-container {
     margin-top: -21px;
@@ -231,6 +241,13 @@ $black: #333;
         width: 50%;
       }
     }
+  }
+}
+
+
+@media only screen and (max-width: 767px) {
+  .edit-modal-content {
+    width: 90%;
   }
 }
 

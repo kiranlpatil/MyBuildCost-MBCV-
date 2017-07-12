@@ -29,17 +29,21 @@
   </div>
 
   <div class="section-container clearfix profeiciency-domain" *ngIf="highlightedSection.name !='Proficiencies'">
-    <div class="main-content">
+    <div class="main-content" (click)="highlightedSection.name='Proficiencies';highlightedSection.isDisable=true;showButton=false">
       <div class="compact-view clearfix">
-        <h4 class="heading-compact">Key Skills
-          <button class="btn-edit"
-                  (click)="highlightedSection.name='Proficiencies';highlightedSection.isDisable=true;showButton=false"
-                  [hidden]="highlightedSection.isDisable" title="Edit Key Skills"></button>
-        </h4>
-        <span class="option" *ngFor="let item of choosedproficiencies;let i = index">
-          <span>{{item}}</span>&nbsp;<span
-          *ngIf="choosedproficiencies.length>1 && i!=choosedproficiencies.length -1">,</span>&nbsp;
-        </span>
+        <div class="col-sm-3 padding-right15">
+          <h4 class="heading-compact">Key Skills
+          <!--  <button class="btn-edit"
+                    (click)="highlightedSection.name='Proficiencies';highlightedSection.isDisable=true;showButton=false"
+                    [hidden]="highlightedSection.isDisable" title="Edit Key Skills"></button>-->
+          </h4>
+        </div>
+        <div class="col-sm-9 padding-left15">
+          <span class="option-list" *ngFor="let item of choosedproficiencies;let i = index">
+            <span class="option">{{item}}</span>&nbsp;<!--<span
+            *ngIf="choosedproficiencies.length>1 && i!=choosedproficiencies.length -1">,</span>&nbsp;-->
+          </span>
+        </div>
       </div>
     </div>
   </div>

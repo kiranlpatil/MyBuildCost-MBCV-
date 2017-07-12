@@ -36,8 +36,8 @@
         <div class="modal-body">
           <div class="row">
             <div class="col-sm-12">
-<p >You can select maximum 3 areas of work. To change your options you should
-        deselect the area of work which does not best describe your current focus.</p>
+              <p>You can select maximum 3 areas of work. To change your options you should
+                      deselect the area of work which does not best describe your current focus.</p>
               <div class="button-group">
                 <form>
                   <button class="btn btn-success" (click)="showHideModal()">OK</button>
@@ -52,20 +52,22 @@
 
 <div class="section-container" [class.recruite-view]="isCandidate == false"
      *ngIf="highlightedSection.name!='Work-Area'">
-  <div class="main-content">
+  <div class="main-content" (click)="highlightedSection.name='Work-Area';showButton=false;highlightedSection.sectionName='capability';highlightedSection.isDisable=true">
     <div class="compact-view clearfix">
-      <h4 class="heading-compact">Area Of Work
-        <button class="btn-edit"
-                (click)="highlightedSection.name='Work-Area';showButton=false;highlightedSection.sectionName='capability';highlightedSection.isDisable=true"
-                [hidden]="highlightedSection.isDisable" title="Edit Work Area"></button>
-      </h4>
-      <ul>
-        <li *ngFor="let item of selectedRoles;let i = index">
+      <div class="col-sm-3 padding-right15">
+        <h4 class="heading-compact">Area Of Work
+         <!-- <button class="btn-edit"
+                  (click)="highlightedSection.name='Work-Area';showButton=false;highlightedSection.sectionName='capability';highlightedSection.isDisable=true"
+                  [hidden]="highlightedSection.isDisable" title="Edit Work Area"></button>-->
+        </h4>
+      </div>
+      <div class="col-sm-9 padding-left15">
+        <div class="option-list" *ngFor="let item of selectedRoles;let i = index">
           <span class="option">
             {{item.name}}
           </span>
-        </li>
-      </ul>
+        </div>
+      </div>
     </div>
   </div>
 </div>

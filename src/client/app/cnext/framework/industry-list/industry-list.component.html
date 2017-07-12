@@ -32,24 +32,25 @@
 
   </div>
 </div>
-<div class="section-container">
-  <div class="main-content profile-main-content" *ngIf="highlightedSection && highlightedSection.name!='Industry'">
+<div class="section-container" *ngIf="highlightedSection && highlightedSection.name!='Industry'">
+  <div class="main-content profile-main-content"  (click)="highlightedSection.name='Industry';disableButton=false;showButton=false;highlightedSection.isDisable=true">
     <div class="compact-view clearfix">
       <!--[hidden]="highlightedSection.isLocked"-->
       <!--
             <span class=" glyphicon glyphicon-lock" title="you can edit this field after {{highlightedSection.date| date:'mediumDate'}}" *ngIf="highlightedSection.isLocked"></span>
       -->
 
-
-      <div>
-        <p lass="truncate-text" class="user-name">
-
-          <button class="btn-edit"
+      <div class="col-sm-3 padding-right15">
+        <h4 class="heading-compact">Industry
+         <!-- <button class="btn-edit"
                   (click)="highlightedSection.name='Industry';disableButton=false;showButton=false;highlightedSection.isDisable=true"
-                  [hidden]="highlightedSection.isDisable" title="Edit My Profile"></button>
-        </p>
-        <p lass="truncate-text"><label>Industry</label> <span title="{{selectedIndustry.name}}">{{selectedIndustry.name}}</span>
-        </p>
+                  [hidden]="highlightedSection.isDisable" title="Edit My Profile"></button>-->
+        </h4>
+      </div>
+      <div class="col-sm-9 padding-left15">
+          <div class="option-list">
+            <span class="option" title="{{selectedIndustry.name}}">{{selectedIndustry.name}}</span>
+          </div>
       </div>
     </div>
   </div>
