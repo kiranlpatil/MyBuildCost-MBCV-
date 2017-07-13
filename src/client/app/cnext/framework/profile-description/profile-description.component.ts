@@ -4,6 +4,7 @@ import {Candidate, Section} from "../model/candidate";
 import {AppSettings} from "../../../framework/shared/constants";
 import {DashboardService} from "../../../framework/dashboard/dashboard.service";
 import {CandidateDetail} from "../../../framework/registration/candidate/candidate";
+import {ProfessionalDataService} from "../professional-data/professional-data.service";
 
 @Component({
   moduleId: module.id,
@@ -25,9 +26,11 @@ export class ProfileDescriptionComponent implements OnInit {
   private changedIndustry: Industry = new Industry();
   private disableButton: boolean = true;
   private showButton: boolean = true;
+  private experienceList = [];
   private savedJobTitle: string;
   private candidateDetails: CandidateDetail = new CandidateDetail();
   private showModalStyle: boolean = false;
+  private educationList = [];
   private image_path: string = 'assets/framework/images/dashboard/profile.png';
   tooltipMessage: string =
     '<ul>' +
@@ -36,7 +39,7 @@ export class ProfileDescriptionComponent implements OnInit {
     '<li><p>3. Please update your latest profile picture. Profiles with your best picture increase your possiblity to get shortlisted.</p></li>' +
     '</ul>';
 
-  constructor(private userProfileService: DashboardService) {
+  constructor(private userProfileService: DashboardService, private professionalDataService: ProfessionalDataService) {
   }
 
   ngOnInit() {
@@ -47,6 +50,18 @@ export class ProfileDescriptionComponent implements OnInit {
           if (this.candidateDetails.picture != undefined) {
             this.image_path = AppSettings.IP + this.candidateDetails.picture.substring(4).replace('"', '');
           }
+        });
+
+    this.professionalDataService.getExperienceList()
+      .subscribe(
+        data => {
+          this.onExperienceListSuccess(data);
+        });
+
+    this.professionalDataService.getEducationList()
+      .subscribe(
+        data => {
+          this.onEducationListSuccess(data);
         });
   }
 
@@ -70,6 +85,17 @@ export class ProfileDescriptionComponent implements OnInit {
     this.image_path = AppSettings.IP + imagePath.substring(4).replace('"', '');
   }
 
+  onExperienceListSuccess(data: any) {
+    for (let k of data.experience) {
+      this.experienceList.push(k);
+    }
+  }
+
+  onEducationListSuccess(data: any) {
+    for (let k of data.educated) {
+      this.educationList.push(k);
+    }
+  }
   onNext() {
     console.log("from next");
     this.candidate.industry = this.changedIndustry;

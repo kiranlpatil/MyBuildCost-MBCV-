@@ -32,12 +32,10 @@ export class ProfessionalDataComponent extends BaseService implements OnInit {
     "</ul>";
   /* private professionalDetailForm : FormGroup;*/
   showButton: boolean = true;
-  private realocationList = new Array();
-  private educationList = new Array();
-  private experienceList = new Array();
-  private salaryList = new Array();
-  private noticePeriodList = new Array();
-  private industryExposureList = new Array();
+  private realocationList = [];
+  private salaryList = [];
+  private noticePeriodList = [];
+  private industryExposureList = [];
   private isValid: boolean = true;
   /*private professionalDetails:ProfessionalData=new ProfessionalData();*/
   constructor(private professionalDataService: ProfessionalDataService,
@@ -80,34 +78,6 @@ export class ProfessionalDataComponent extends BaseService implements OnInit {
           this.onError(error);
         });
 
-    this.professionalDataService.getEducationList()
-      .subscribe(
-        data => {
-          this.onEducationListSuccess(data);
-        },
-        error => {
-          this.onError(error);
-        });
-
-
-    this.professionalDataService.getExperienceList()
-      .subscribe(
-        data => {
-          this.onExperienceListSuccess(data);
-        },
-        error => {
-          this.onError(error);
-        });
-
-    this.professionalDataService.getCurrentSalaryList()
-      .subscribe(
-        data => {
-          this.onCurrentSalaryListSuccess(data);
-        },
-        error => {
-          this.onError(error);
-        });
-
 
     this.professionalDataService.getNoticePeriodList()
       .subscribe(
@@ -125,7 +95,11 @@ export class ProfessionalDataComponent extends BaseService implements OnInit {
         error => {
           this.onError(error);
         });
-
+    this.professionalDataService.getCurrentSalaryList()
+      .subscribe(
+        data => {
+          this.onCurrentSalaryListSuccess(data);
+        });
 
   }
 
@@ -136,31 +110,16 @@ export class ProfessionalDataComponent extends BaseService implements OnInit {
     }
 
   }
-
-  onGetIndustryExposureListSuccess(data: any) {
-    for (let k of data.industryexposure) {
-      this.industryExposureList.push(k);
-    }
-  }
-
   onCurrentSalaryListSuccess(data: any) {
     for (let k of data.salary) {
       this.salaryList.push(k);
     }
   }
 
-  onExperienceListSuccess(data: any) {
-    for (let k of data.experience) {
-      this.experienceList.push(k);
+  onGetIndustryExposureListSuccess(data: any) {
+    for (let k of data.industryexposure) {
+      this.industryExposureList.push(k);
     }
-
-  }
-
-  onEducationListSuccess(data: any) {
-    for (let k of data.educated) {
-      this.educationList.push(k);
-    }
-
   }
 
   onRealocationListSuccess(data: any) {

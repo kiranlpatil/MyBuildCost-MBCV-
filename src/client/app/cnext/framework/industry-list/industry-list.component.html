@@ -29,7 +29,9 @@
       <cn-tool-tip [message]="tooltipMessage"></cn-tool-tip>
     </div>
 
-    <button class="btn-prev"><span class="glyphicon glyphicon-chevron-left"></span></button>
+    <button class="btn-prev" (click)="highlightedSection.name='Profile'">
+      <span class="glyphicon glyphicon-chevron-left"></span>
+    </button>
 
     <div class="button-group clearfix">
       <button class="btn btn-primary" (click)="onNext()">Next</button>
@@ -47,15 +49,15 @@
 
       <div class="col-sm-3 padding-right15">
         <h4 class="heading-compact">Industry
-         <!-- <button class="btn-edit"
-                  (click)="highlightedSection.name='Industry';disableButton=false;showButton=false;highlightedSection.isDisable=true"
-                  [hidden]="highlightedSection.isDisable" title="Edit My Profile"></button>-->
+          <!-- <button class="btn-edit"
+                   (click)="highlightedSection.name='Industry';disableButton=false;showButton=false;highlightedSection.isDisable=true"
+                   [hidden]="highlightedSection.isDisable" title="Edit My Profile"></button>-->
         </h4>
       </div>
       <div class="col-sm-9 padding-left15">
-          <div class="option-list">
-            <span class="option" title="{{selectedIndustry.name}}">{{selectedIndustry.name}}</span>
-          </div>
+        <div class="option-list">
+          <span class="option" title="{{selectedIndustry.name}}">{{selectedIndustry.name}}</span>
+        </div>
       </div>
     </div>
   </div>
