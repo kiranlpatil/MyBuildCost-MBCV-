@@ -7,7 +7,7 @@
       <!-- <form [formGroup]="professionalDetailForm" (ngSubmit)="onNext(jobPostForm.value)">-->
       <div class="col-sm-9 professional-data clearfix">
 
-        <div class="col-sm-12">
+        <div class="col-sm-12 form-gruop">
           <label>Current Salary</label>
           <!-- <control-messages [control]="professionalDetailForm.controls.currentSalary"></control-messages>-->
           <select [(ngModel)]="candidate.professionalDetails.currentSalary" (change)="saveProfessionalData()">
@@ -15,12 +15,12 @@
           </select>
           <div class="error-messages"
                *ngIf="candidate.professionalDetails.currentSalary == '' && !isValid">
-            <p>You can't leave this empty.</p>
+            <p>You can't leave this field empty.</p>
           </div>
 
         </div>
 
-        <div class="col-sm-12">
+        <div class="col-sm-12 form-gruop">
           <label>Ready To Relocate?</label>
           <!--  <control-messages [control]="professionalDetailForm.controls.relocate"></control-messages>-->
           <select [(ngModel)]="candidate.professionalDetails.relocate" (change)="saveProfessionalData()">
@@ -28,11 +28,11 @@
           </select>
           <div class="error-messages"
                *ngIf="candidate.professionalDetails.relocate == '' && !isValid">
-            <p>You can't leave this empty.</p>
+            <p>You can't leave this field empty.</p>
           </div>
         </div>
 
-        <div class="col-sm-12">
+        <div class="col-sm-12 form-gruop">
           <label>Company Culture</label>
           <!-- <control-messages [control]="professionalDetailForm.controls.noticePeriod"></control-messages>-->
           <select [(ngModel)]="candidate.professionalDetails.industryExposure" (change)="saveProfessionalData()">
@@ -40,11 +40,11 @@
           </select>
           <div class="error-messages"
                *ngIf="candidate.professionalDetails.industryExposure == '' && !isValid">
-            <p>You can't leave this empty.</p>
+            <p>You can't leave this field empty.</p>
           </div>
         </div>
 
-        <div class="col-sm-12">
+        <div class="col-sm-12 form-gruop">
           <label>Notice Period</label>
           <!-- <control-messages [control]="professionalDetailForm.controls.noticePeriod"></control-messages>-->
           <select [(ngModel)]="candidate.professionalDetails.noticePeriod" (change)="saveProfessionalData()">
@@ -52,7 +52,7 @@
           </select>
           <div class="error-messages"
                *ngIf="candidate.professionalDetails.noticePeriod == '' && !isValid">
-            <p>You can't leave this empty.</p>
+            <p>You can't leave this field empty.</p>
           </div>
         </div>
 

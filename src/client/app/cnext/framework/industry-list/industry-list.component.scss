@@ -1,4 +1,11 @@
 $border-color: #e8e8e8;
+
+.error-messages {
+  position: absolute;
+  margin: -25px 0 0 30px;
+}
+
+
 .compact-view {
   border-bottom: 1px solid $border-color;
 }

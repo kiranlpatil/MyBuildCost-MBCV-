@@ -2,6 +2,11 @@ $text-color: #666;
 $white: #fff;
 $theme-color: #0d75fa;
 
+.error-messages {
+  position: absolute;
+  margin: -15px 0 0 30px;
+}
+
 .compact-view {
   padding: 0;
 

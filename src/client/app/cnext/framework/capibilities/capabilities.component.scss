@@ -2,6 +2,11 @@ $primary-option: #3694d1;
 $secondary-option: #81d4fa;
 $border-color: #e8e8e8;
 
+.error-messages {
+  position: absolute;
+  margin: -15px 0 0 0;
+}
+
 .compact-view {
   .option {
     padding: 0;

@@ -6,6 +6,8 @@
       <h4 class="heading">Additional Industry Exposure<!-- <span class="sub-heading">(In additional to your core industry, select Industries In which you have work exposure / experience)</span>-->
       </h4>
       <div class="col-sm-12 industry-experience">
+        <div class="error-messages" *ngIf="submitStatus"><p>You can't leave this empty.</p>
+        </div>
         <div class="select-option" *ngFor="let choice of industries;let i = index">
           <label>
             <input type="checkbox" name="choice.name" value="{{choice.name}}"
@@ -13,10 +15,6 @@
                    [checked]="candidateExperiencedIndustry.indexOf(choice.name)!=-1">
             <span>{{choice.name}}</span>
           </label>
-        </div>
-        <div class="error-messages"
-             *ngIf="submitStatus">
-          <p>You can't leave this empty.</p>
         </div>
       </div>
     </div>

@@ -7,6 +7,9 @@
     <div class="col-sm-9 profile-description">
       <div class="clearfix">
         <h4 class="heading">Select your Industry (Any One)</h4>
+        <div class="error-messages" *ngIf="!isValid">
+          <p>You can't leave this empty.</p>
+        </div>
         <div class="col-sm-12 select-industry">
           <div class="max-height">
             <div class="select-option" *ngFor="let item of industries;let i = index">
@@ -19,10 +22,6 @@
           </div>
         </div>
       </div>
-      <div class="error-messages" *ngIf="!isValid">
-        <p>You can't leave this empty.</p>
-      </div>
-
     </div>
 
     <div class="col-sm-3 no-padding">

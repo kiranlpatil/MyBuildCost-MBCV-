@@ -5,6 +5,7 @@
     <div class="col-sm-9">
       <h4 class="heading">Select Area of Work That Describes Your Current Focus (Max 3)</h4>
       <div class="col-sm-12 work-area">
+        <div class="error-messages" *ngIf="emptyWorkAreas">Select areas you have worked.</div>
         <div class="select-option" *ngFor="let item of roles;let i = index">
           <label>
             <input type="checkbox" name="choices"
@@ -14,7 +15,6 @@
           </label>
           <div class="error-messages" *ngIf="alert">You have selected maximum work areas.If you want to select a new work area, deselect any of the earlier ones.</div>
         </div>
-        <div class="error-messages" *ngIf="emptyWorkAreas">Select areas you have worked.</div>
       </div>
     </div>
 

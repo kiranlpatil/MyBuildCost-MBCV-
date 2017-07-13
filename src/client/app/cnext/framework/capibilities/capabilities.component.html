@@ -6,23 +6,23 @@
       <div class=" col-sm-9">
         <h4 class="heading">Select those capabilities that describe your current strenght</h4>
         <div class="col-sm-12 capabilities">
-          <div class="capability-type">
-          <span class="capability-option" *ngFor="let role of roles">
-            <!--<h5 class="sub-areas">Area Of Work - {{role.name}}</h5>-->
-            <div class="select-option"
-                 *ngFor="let item of role.capabilities;let i = index"
-                 [class.primary]="item.isPrimary || primaryNames.indexOf(item.name)!=-1"
-                 [class.secondary]="item.isSecondary || secondaryNames.indexOf(item.name)!=-1">
-              <label>
-                <input type="checkbox" name="checkbox" (click)="selectedCapability(role,item,$event)" id="{{item.name}}"
-                       value="{{item.name}}"
-                       [checked]="secondaryNames.indexOf(item.name)!=-1||primaryNames.indexOf(item.name)!=-1">
-                <span>{{item.name}}</span>
-              </label>
-            </div>
-          </span>
-          </div>
           <div class="error-messages" *ngIf="emptyCapabilities">Select your capabilities.</div>
+          <div class="capability-type">
+            <span class="capability-option" *ngFor="let role of roles">
+              <!--<h5 class="sub-areas">Area Of Work - {{role.name}}</h5>-->
+              <div class="select-option"
+                   *ngFor="let item of role.capabilities;let i = index"
+                   [class.primary]="item.isPrimary || primaryNames.indexOf(item.name)!=-1"
+                   [class.secondary]="item.isSecondary || secondaryNames.indexOf(item.name)!=-1">
+                <label>
+                  <input type="checkbox" name="checkbox" (click)="selectedCapability(role,item,$event)" id="{{item.name}}"
+                         value="{{item.name}}"
+                         [checked]="secondaryNames.indexOf(item.name)!=-1||primaryNames.indexOf(item.name)!=-1">
+                  <span>{{item.name}}</span>
+                </label>
+              </div>
+            </span>
+          </div>
         </div>
       </div>
 

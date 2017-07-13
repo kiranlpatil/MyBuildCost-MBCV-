@@ -178,12 +178,12 @@ $pink: #e91d62;
   .error-messages {
     padding-left: 0;
     color: $error;
-    font-size: 12px;
+    font-size: 11px;
     padding-left: 0;
 
     p {
       color: $error;
-      font-size: 12px;
+      font-size: 11px;
       padding-left: 0;
     }
   }
@@ -244,7 +244,7 @@ $pink: #e91d62;
 
   select {
     border-radius: 0;
-    margin: 0 0 15px;
+    margin: 0 0 25px;
   }
 
   label {
@@ -285,6 +285,12 @@ $pink: #e91d62;
     left: 0;
     background: transparent;
     border: 0;
+    background: url('../../assets/c-next/profile-creator/previous.png');
+    padding: 12px 10px;
+
+    span {
+      display: none;
+    }
   }
 
   .form {
