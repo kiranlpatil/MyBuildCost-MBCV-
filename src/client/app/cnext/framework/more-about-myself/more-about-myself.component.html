@@ -2,9 +2,9 @@
 <div class="section-container clear" *ngIf="highlightedSection.name =='AboutMySelf'">
 
   <div class="main-content edit-modal-content clearfix">
-    <div class="col-sm-9">
+    <div class="col-sm-9 no-padding">
       <h4 class="heading">About myself (Max 250)</h4>
-      <div class="col-sm-12">
+      <div class="col-sm-12 scrollable-content">
         <div class="col-sm-8 more-about-myself">
         <textarea class="form-control" [(ngModel)]="candidate.aboutMyself" (ngModelChange)="addAboutMyself()"
                   [maxlength]="maxword" Placeholder="Enter About Yourself"></textarea>
@@ -16,7 +16,7 @@
       <cn-tool-tip [message]="tooltipMessage"></cn-tool-tip>
     </div>
     <div class="button-group">
-      <div class="saving-loader">Saving...</div>
+      <!--<div class="saving-loader">Saving...</div>-->
       <button class="btn btn-primary" (click)="highlightedSection.name='none'; highlightedSection.isDisable=false">
         Next
       </button>

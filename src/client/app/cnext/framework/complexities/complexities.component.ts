@@ -170,6 +170,9 @@ export class ComplexitiesComponent implements OnInit, OnChanges {
     if (this.currentComplexity >= 0) {
       this.getComplexityDetails(this.complexityIds[--this.currentComplexity]);
     }
+    if (this.currentComplexity == 0) {
+      this.highlightedSection.name ='Capabilities';
+    }
     if (this.slideToRight === true) {
       this.slideToRight = !this.slideToRight;
     }

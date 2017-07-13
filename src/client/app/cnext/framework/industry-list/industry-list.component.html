@@ -4,21 +4,17 @@
     <cn-tool-tip [message]="tooltipMessage"></cn-tool-tip>
   -->
   <div class="main-content clearfix edit-modal-content">
-    <div class="col-sm-9 profile-description">
-      <div class="clearfix">
-        <h4 class="heading">Select your Industry (Any One)</h4>
-        <div class="error-messages" *ngIf="!isValid">
-          <p>You can't leave this empty.</p>
-        </div>
+    <div class="col-sm-9 profile-description no-padding">
+      <h4 class="heading">Select your Industry (Any One)</h4>
+      <div class="error-messages" *ngIf="!isValid"><p>You can't leave this empty.</p></div>
+      <div class="scrollable-content">
         <div class="col-sm-12 select-industry">
-          <div class="max-height">
-            <div class="select-option" *ngFor="let item of industries;let i = index">
-              <label>
-                <input type="radio" name="item.name" id="{{item.name}}" value="{{item.name}}"
-                       (click)="onValueChange(item)" [checked]="item.name===selectedIndustry.name">
-                <span>{{item.name}}</span>
-              </label>
-            </div>
+          <div class="select-option" *ngFor="let item of industries;let i = index">
+            <label>
+              <input type="radio" name="item.name" id="{{item.name}}" value="{{item.name}}"
+                     (click)="onValueChange(item)" [checked]="item.name===selectedIndustry.name">
+              <span>{{item.name}}</span>
+            </label>
           </div>
         </div>
       </div>
@@ -33,7 +29,7 @@
     </button>
 
     <div class="button-group clearfix">
-      <div class="saving-loader">Saving...</div>
+      <!--<div class="saving-loader">Saving...</div>-->
       <button class="btn btn-primary" (click)="onNext()">Next</button>
     </div>
 

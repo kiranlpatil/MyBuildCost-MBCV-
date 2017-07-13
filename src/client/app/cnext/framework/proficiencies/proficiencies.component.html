@@ -3,9 +3,9 @@
   <div class="section-container clearfix profeiciency-domain" *ngIf="highlightedSection.name=='Proficiencies'">
 
     <div class="main-content  edit-modal-content clearfix">
-      <div class="col-sm-9">
-        <h4 class="heading">Key Skills (Max 25)</h4>
-        <div class="proficiency-container col-sm-12">
+      <div class="col-sm-9 no-padding">
+        <h4 class="heading">Keywods that describes your area of expertise</h4>
+        <div class="proficiency-container col-sm-12 scrollable-content">
 
           <cn-multi-select [data]="proficiencies" [selectedData]="choosedproficiencies" [maxLength]="maxProficiencies"
                            (onComplete)="onProficiencyComplete($event)" [submitStatus] = "submitStatus"></cn-multi-select>
@@ -18,7 +18,7 @@
         class="glyphicon glyphicon-chevron-left"></span></button>
 
       <div class="button-group clearfix">
-        <div class="saving-loader">Saving...</div>
+       <!-- <div class="saving-loader">Saving...</div>-->
         <!--         <button class="btn btn-default" [disabled]="choosedproficiencies.length<=0"
                          (click)="highlightedSection.name='none'; highlightedSection.isDisable=false"  [hidden]="showButton">Cancel</button>-->
         <button class="btn btn-primary" scrollTo scrollTargetSelector="#industry-experience"

@@ -3,8 +3,10 @@ $white: #fff;
 $theme-color: #0d75fa;
 
 .error-messages {
-  position: absolute;
-  margin: -15px 0 0 30px;
+  position: fixed;
+  margin: 5px 15px;
+  bottom: 0;
+  left: 0;
 }
 
 .compact-view {
@@ -48,10 +50,6 @@ $theme-color: #0d75fa;
 }
 
 .complexity-container {
-  overflow: hidden;
-  position: relative;
-  min-height: 250px;
-  //background:red;
 
   .btn-prev {
     position: absolute;
@@ -78,3 +76,14 @@ $theme-color: #0d75fa;
   }
 }
 
+.question-count {
+  position: absolute;
+  bottom: 15px;
+  right: 37%;
+}
+
+.heading {
+  overflow: visible !important;
+  text-overflow: clip !important;
+  white-space: normal !important;
+}

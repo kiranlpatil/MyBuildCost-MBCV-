@@ -1,23 +1,25 @@
 <div class="modal-bg" *ngIf="highlightedSection.name=='AcademicDetails'"></div>
 <div class="section-container clear"  *ngIf="highlightedSection.name =='AcademicDetails'">
   <div class="main-content edit-modal-content clearfix">
-    <div class="col-sm-9">
+    <div class="col-sm-9 no-padding">
       <h4 class="heading">Academic Details</h4>
-      <form class="description-form" [formGroup]="academicDetail" novalidate>
-        <div formArrayName="academicDetails">
-          <div *ngFor="let history of academicDetail.controls.academicDetails.controls; let i=index"
-               class="panel panel-default">
-            <div>
-          <span class="glyphicon glyphicon-trash pull-right"
-                *ngIf="academicDetail.controls.academicDetails.controls.length>0 && academicDetail.controls.academicDetails.controls.length !==1 "
-                (click)="removeAcademicDetail(i)"></span>
+      <div class="scrollable-content">
+        <form class="description-form" [formGroup]="academicDetail" novalidate>
+          <div class="col-sm-8" formArrayName="academicDetails">
+            <div *ngFor="let history of academicDetail.controls.academicDetails.controls; let i=index"
+                 class="panel panel-default">
+              <div>
+                <span class="glyphicon glyphicon-trash pull-right"
+                    *ngIf="academicDetail.controls.academicDetails.controls.length>0 && academicDetail.controls.academicDetails.controls.length !==1 "
+                    (click)="removeAcademicDetail(i)"></span>
+              </div>
+              <div class="panel-body" [formGroupName]="i">
+                <cn-academics [group]="academicDetail.controls.academicDetails.controls[i]" [submitStatus] = "submitStatus"></cn-academics>
+              </div>
+            </div>
           </div>
-          <div class="panel-body" [formGroupName]="i">
-            <cn-academics [group]="academicDetail.controls.academicDetails.controls[i]" [submitStatus] = "submitStatus"></cn-academics>
-          </div>
-        </div>
+        </form>
       </div>
-    </form>
     </div>
     <div class="col-sm-3 no-padding">
       <cn-tool-tip [message]="tooltipMessage"></cn-tool-tip>

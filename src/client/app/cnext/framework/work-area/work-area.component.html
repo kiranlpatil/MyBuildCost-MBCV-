@@ -2,10 +2,10 @@
 <div class="section-container" *ngIf="highlightedSection.name=='Work-Area'">
   <div class="main-content clearfix edit-modal-content">
 
-    <div class="col-sm-9">
+    <div class="col-sm-9 no-padding">
       <h4 class="heading">Select Area of Work That Describes Your Current Focus (Max 3)</h4>
-      <div class="col-sm-12 work-area">
-        <div class="error-messages" *ngIf="emptyWorkAreas">Select areas you have worked.</div>
+      <div class="error-messages" *ngIf="emptyWorkAreas">Select areas you have worked.</div>
+      <div class="col-sm-12 work-area scrollable-content">
         <div class="select-option" *ngFor="let item of roles;let i = index">
           <label>
             <input type="checkbox" name="choices"
@@ -26,7 +26,7 @@
       class="glyphicon glyphicon-chevron-left"></span></button>
 
     <div class="button-group clearfix">
-      <div class="saving-loader">Saving...</div>
+      <!--<div class="saving-loader">Saving...</div>-->
       <button class="btn btn-primary" scrollTo scrollTargetSelector="#capability-area" (click)="onNext()"
               [hidden]="!showButton">Next</button>
       <button class="btn btn-default" (click)="onCancel()" [hidden]="showButton">Cancel</button>
