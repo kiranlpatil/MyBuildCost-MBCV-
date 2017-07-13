@@ -18,7 +18,7 @@ $black: #333;
     height: 100vh;
     padding: 50px 0 0;
     position: fixed;
-    width: 100%;
+    width: 25%;
 
     ul {
       padding: 0 5px;
@@ -341,7 +341,6 @@ $black: #333;
     border-left: transparent 1px solid;
     border-right: transparent 1px solid;
     box-shadow: none;
-    margin: 0;
 
     &:focus,
     &:active,
