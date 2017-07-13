@@ -61,7 +61,7 @@ $white: #fff;
   clear: both;
   //border: 1px solid $border-color;
   position: relative;
-  padding: 15px;
+  padding: 5px;
   //z-index: 2;
   user-select: none;
 
@@ -81,12 +81,22 @@ $white: #fff;
   }
 
   .see-more {
-    color: $theme-color;
-    font-size: 12px;
-    position: absolute;
-    left: 350px;
-    top: 7px;
-    z-index: 0;
+    clear: both;
+    position: relative;
+    top: -3px;
+
+    p {
+      color: $theme-color;
+      font-size: 10px;
+      text-align: center;
+    }
+
+    span {
+      color: $theme-color;
+      font-size: 8px;
+      text-align: center;
+      display: block;
+    }
   }
 
   .btn-edit[hidden] {
@@ -147,10 +157,11 @@ $white: #fff;
   }
 
   label {
-    color: $light-blue;
     //min-width: 90px;
     margin-bottom: 0;
     padding: 0 10px 0 0;
+    min-width: 145px;
+    color: $black;
   }
 
   .option-list {
@@ -166,7 +177,7 @@ $white: #fff;
     background: $theme-color;
     color: $white;
     border-radius: 25px;
-    padding: 5px 15px;
+    padding: 3px 15px;
   }
 
   .content {
@@ -202,7 +213,7 @@ $white: #fff;
   }*/
 
   .vertical-container {
-    margin-top: -21px;
+
   }
 }
 

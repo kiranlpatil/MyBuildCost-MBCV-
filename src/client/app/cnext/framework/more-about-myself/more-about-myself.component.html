@@ -3,34 +3,35 @@
 
   <div class="main-content edit-modal-content clearfix">
     <div class="col-sm-9">
-      <h4 class="heading">More About Myself (Max 250)</h4>
-      <div class="clearfix">
-        <div class="col-sm-12 more-about-myself">
+      <h4 class="heading">About myself (Max 250)</h4>
+      <div class="col-sm-12">
+        <div class="col-sm-8 more-about-myself">
         <textarea class="form-control" [(ngModel)]="candidate.aboutMyself" (ngModelChange)="addAboutMyself()"
                   [maxlength]="maxword" Placeholder="Enter About Yourself"></textarea>
           <p class="error-messages">{{remainingWords}} words remaining</p>
         </div>
       </div>
-      <div class="button-group">
-        <button class="btn btn-success" (click)="highlightedSection.name='none'; highlightedSection.isDisable=false">
-          Next
-        </button>
-      </div>
     </div>
     <div class="col-sm-3 no-padding">
       <cn-tool-tip [message]="tooltipMessage"></cn-tool-tip>
     </div>
+    <div class="button-group">
+      <div class="saving-loader">Saving...</div>
+      <button class="btn btn-primary" (click)="highlightedSection.name='none'; highlightedSection.isDisable=false">
+        Next
+      </button>
+    </div>
     <button class="btn-prev" (click)="highlightedSection.name='Professional-Details'"><span
-      class="glyphicon glyphicon-chevron-left"></span></button>
+            class="glyphicon glyphicon-chevron-left"></span></button>
   </div>
 </div>
 <div class="section-container clear" *ngIf="highlightedSection.name !='AboutMySelf'">
-  <div class="main-content">
+  <div class="main-content"  (click)="highlightedSection.name='AboutMySelf';highlightedSection.isDisable=true;showButton=false">
     <div class="compact-view clearfix">
-      <h4 class="heading-compact">More About Self
-        <button class="btn-edit"
-                (click)="highlightedSection.name='AboutMySelf';highlightedSection.isDisable=true;showButton=false"
-                [hidden]="highlightedSection.isDisable" title="Edit More About Self"></button>
+      <h4 class="heading-compact">About myself
+        <!--<button class="btn-edit"
+
+                [hidden]="highlightedSection.isDisable" title="Edit More About Self"></button>-->
         <!--<span class="glyphicon glyphicon-plus"></span>-->
       </h4>
       <p>{{candidate.aboutMyself}}</p>

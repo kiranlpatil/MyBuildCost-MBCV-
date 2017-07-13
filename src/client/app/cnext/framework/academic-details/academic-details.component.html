@@ -17,27 +17,24 @@
           </div>
         </div>
       </div>
-
-      <div class="margin-20">
-        <button (click)="addAcademicDetail()" class="btn btn-create-profile" [disabled]="!academicDetail.valid">
-          Add another
-        </button>
-      </div>
-      <div class="button-group clearfix">
-        <button class="btn btn-default" (click)="highlightedSection.name='none';highlightedSection.isDisable=false">
-          Cancel
-        </button>
-        <button type="submit" class="btn btn-success" scrollTo scrollTargetSelector="#certification"
-                (click)="postData('next')" [hidden]="!showButton">Next
-        </button>
-        <button type="submit" class="btn btn-success" (click)="postData('save')" [hidden]="showButton">Save
-        </button>
-      </div>
-      <div class="clearfix"></div>
     </form>
     </div>
     <div class="col-sm-3 no-padding">
-      <cn-tool-tip></cn-tool-tip>
+      <cn-tool-tip [message]="tooltipMessage"></cn-tool-tip>
+    </div>
+    <div class="button-group clearfix">
+      <div class="saving-loader">Saving...</div>
+      <button class="btn btn-default" (click)="highlightedSection.name='none';highlightedSection.isDisable=false">
+        Cancel
+      </button>
+      <button type="submit" class="btn btn-primary" scrollTo scrollTargetSelector="#certification"
+              (click)="postData('next')" [hidden]="!showButton">Next
+      </button>
+      <button type="submit" class="btn btn-primary" (click)="postData('save')" [hidden]="showButton">Save
+      </button>
+      <button (click)="addAcademicDetail()" class="btn btn-add-another" [disabled]="!academicDetail.valid">
+        Add another
+      </button>
     </div>
     <button class="btn-prev" (click)="highlightedSection.name='EmploymentHistory'"><span
       class="glyphicon glyphicon-chevron-left"></span></button>
@@ -48,7 +45,7 @@
 <div class="section-container"
      [ngClass]="(highlightedSection.name=='AcademicDetails')?'full-width':'half-width'"
      *ngIf="highlightedSection.name !='AcademicDetails'">
-  <div class="main-content">
+  <div class="main-content" (click)="highlightedSection.name='AcademicDetails';highlightedSection.isDisable=true;showButton=false">
     <div class="compact-view clearfix">
       <div *ngIf="academicDetail.controls.academicDetails.controls.length==0">
 
@@ -61,9 +58,9 @@
       </div>
 
       <div class="vertical-container" *ngIf="academicDetail.controls.academicDetails.controls.length>0">
-        <button class="btn-edit"
-                (click)="highlightedSection.name='AcademicDetails';highlightedSection.isDisable=true;showButton=false"
-                [hidden]="highlightedSection.isDisable" tooltip="Edit Academic Details"></button>
+       <!-- <button class="btn-edit"
+
+                [hidden]="highlightedSection.isDisable" tooltip="Edit Academic Details"></button>-->
         <cn-vertical-list-view [data]="candidate.academics" [type]="'academic details'" [calledFrom]="'candidateview'"></cn-vertical-list-view>
       </div>
     </div>

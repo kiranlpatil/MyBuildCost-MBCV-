@@ -1,4 +1,10 @@
+$border-color: #e8e8e8;
+.compact-view {
+  border-bottom: 1px solid $border-color;
+}
+
 .select-industry {
+  padding: 0 15px 0 30px;
   .btn {
     &:focus,
     &:active {

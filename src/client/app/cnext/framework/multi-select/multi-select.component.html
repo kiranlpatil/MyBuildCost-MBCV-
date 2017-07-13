@@ -1,5 +1,5 @@
 <div class="list clearfix">
-  <div class="col-sm-12 no-padding">
+  <div class="col-sm-12">
     <div class="keyskill-form-group">
       <label>Add your skills</label>
       <div ng2-auto-complete
@@ -17,8 +17,7 @@
         </div>
       </div>
     </div>
-  </div>
-  <div class="col-sm-12 no-padding">
+
     <div class="btn-container clearfix">
       <div *ngFor="let item of selectedProficiencies; let i = index">
         <button type="button" class="btn btn-create-profile" (click)="deleteItem($event)">

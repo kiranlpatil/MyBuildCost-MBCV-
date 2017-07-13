@@ -23,12 +23,10 @@ export class ProfessionalDataComponent extends BaseService implements OnInit {
   tooltipMessage: string =
 
     "<ul>" +
-    "<li><h5> Ready to Relocate</h5><p>Select if you are open to relocate from your current location as per job demand.</p></li>" +
-    "<li><h5> Education </h5><p>Specify the highest academic degree that you possess.</p></li>" +
-    "<li><h5> Notice Period </h5><p>Mention the notice period you have to serve before you can take up new job.</p></li>" +
-    "<li><h5> Industry Culture </h5><p>Please mention if you have experience working with local or multinational companies.</p></li>" +
-    "<li><h5> Experiance </h5><p>Number of years of Professional Experience that you possess. </p></li>" +
-    "<li><h5> Current Salary </h5><p>Please mention your current salary (CTC).</p></li>" +
+    "<li><p>1. Please mention your current salary (CTC).</p></li>" +
+    "<li><p>2. Select if you are open to relocate from your current location as per job demand.</p></li>" +
+    "<li><p>3. Mention the notice period you have to serve before you can take up new job.</p></li>" +
+
     "</ul>";
   /* private professionalDetailForm : FormGroup;*/
   showButton: boolean = true;

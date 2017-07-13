@@ -1,7 +1,7 @@
-$theme-color: #3694d1;
+$theme-color: #0d75fa;
 $heading-color: #dbeef6;
 $border-color: #e8e8e8;
-$text-color: #666;
+$text-color: #333;
 $light-green: #B1D669;
 $orange: #EAA83D;
 $gray: #ccc;
@@ -495,8 +495,13 @@ and (max-width: 840px) {
     border-top: 1px solid #E6E6E6;
     display: inline-block;
     width: 100%;
+    .capability-label-name {
+      font-size: 14px;
+      color: $theme-color;
+    }
     .complexity-name {
-      color: #3694d1;
+      color: $text-color;
+      font-size: 14px;
       margin-bottom: 2px;
       width: 100%;
       display: inline-block;
@@ -508,6 +513,9 @@ and (max-width: 840px) {
     .scenario-row {
       margin-bottom: 10px;
       display: inline-block;
+    }
+    .scenario-row > span {
+      color: $text-color;
     }
   }
 }

@@ -3,11 +3,11 @@
 
   <div class="main-content edit-modal-content clearfix">
     <div class="col-sm-9">
-      <h4 class="heading">Professional Preferences & Experience Summary (Mandatory)</h4>
+      <h4 class="heading">Professional Preferences (Mandatory)</h4>
       <!-- <form [formGroup]="professionalDetailForm" (ngSubmit)="onNext(jobPostForm.value)">-->
-      <div class="professional-data clearfix">
+      <div class="col-sm-9 professional-data clearfix">
 
-        <div class="col-sm-3">
+        <div class="col-sm-12">
           <label>Current Salary</label>
           <!-- <control-messages [control]="professionalDetailForm.controls.currentSalary"></control-messages>-->
           <select [(ngModel)]="candidate.professionalDetails.currentSalary" (change)="saveProfessionalData()">
@@ -20,7 +20,7 @@
 
         </div>
 
-        <div class="col-sm-3">
+        <div class="col-sm-12">
           <label>Ready To Relocate?</label>
           <!--  <control-messages [control]="professionalDetailForm.controls.relocate"></control-messages>-->
           <select [(ngModel)]="candidate.professionalDetails.relocate" (change)="saveProfessionalData()">
@@ -32,9 +32,9 @@
           </div>
         </div>
 
-        <div class="col-sm-3">
+        <!--<div class="col-sm-12">
           <label>Company Culture</label>
-          <!-- <control-messages [control]="professionalDetailForm.controls.noticePeriod"></control-messages>-->
+          &lt;!&ndash; <control-messages [control]="professionalDetailForm.controls.noticePeriod"></control-messages>&ndash;&gt;
           <select [(ngModel)]="candidate.professionalDetails.industryExposure" (change)="saveProfessionalData()">
             <option *ngFor="let c of industryExposureList" [ngValue]="c">{{c}}</option>
           </select>
@@ -42,9 +42,9 @@
                *ngIf="candidate.professionalDetails.industryExposure == '' && !isValid">
             <p>You can't leave this empty.</p>
           </div>
-        </div>
+        </div>-->
 
-        <div class="col-sm-3">
+        <div class="col-sm-12">
           <label>Notice Period</label>
           <!-- <control-messages [control]="professionalDetailForm.controls.noticePeriod"></control-messages>-->
           <select [(ngModel)]="candidate.professionalDetails.noticePeriod" (change)="saveProfessionalData()">
@@ -58,32 +58,32 @@
 
 
       </div>
-      <div class="col-sm-12">
-        <div class="button-group clearfix">
-          <!--
-                    <button class="btn btn-default"  (click)="highlightedSection.name='none'; highlightedSection.isDisable=false" [hidden]="showButton" >Cancel</button>
-          -->
-          <button type="submit" class="btn btn-success" scrollTo scrollTargetSelector="#Employment-History"
-                  (click)="onNext()" [hidden]="!showButton">Next
-          </button>
-          <button class="btn btn-success" (click)="onSave()" [hidden]="showButton">Save</button>
-        </div>
-      </div>
     </div>
     <div class="col-sm-3 no-padding">
       <cn-tool-tip [message]="tooltipMessage"></cn-tool-tip>
     </div>
-    <button class="btn-prev" (click)="highlightedSection.name='Industry'"><span
+
+      <div class="button-group clearfix">
+        <!--
+                  <button class="btn btn-default"  (click)="highlightedSection.name='none'; highlightedSection.isDisable=false" [hidden]="showButton" >Cancel</button>
+        -->
+        <div class="saving-loader">Saving...</div>
+        <button type="submit" class="btn btn-primary" scrollTo scrollTargetSelector="#Employment-History"
+                (click)="onNext()" [hidden]="!showButton">Next
+        </button>
+        <button class="btn btn-primary" (click)="onSave()" [hidden]="showButton">Save</button>
+      </div>
+
+    <button class="btn-prev" (click)="highlightedSection.name='IndustryExposure'"><span
       class="glyphicon glyphicon-chevron-left"></span></button>
   </div>
 </div>
 <div class="section-container" *ngIf="highlightedSection.name !='Professional-Details'">
-  <div class="main-content">
+  <div class="main-content" (click)="highlightedSection.name='Professional-Details';highlightedSection.isDisable=true;isValid=true;showButton=false">
     <div class="compact-view clearfix">
-      <h4 class="heading-compact">Professional Preferences & Experience Summary
-        <button class="btn-edit"
-                (click)="highlightedSection.name='Professional-Details';highlightedSection.isDisable=true;isValid=true;showButton=false"
-                [hidden]="highlightedSection.isDisable" title="Edit Professional Preferences & Experience Summary"></button>
+      <h4 class="heading-compact">Professional Preferences
+       <!-- <button class="btn-edit"
+                [hidden]="highlightedSection.isDisable" title="Edit Professional Preferences & Experience Summary"></button>-->
       </h4>
 
       <p><label>Current Salary</label> {{candidate.professionalDetails.currentSalary}}</p>

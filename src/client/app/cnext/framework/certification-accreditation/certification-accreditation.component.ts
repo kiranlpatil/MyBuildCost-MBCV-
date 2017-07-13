@@ -15,6 +15,7 @@ export class CertificationAccreditationComponent {
   @Input() candidate: Candidate;
   @Input() highlightedSection: Section;
   @Output() onComplete = new EventEmitter();
+  tooltipMessage: string = "<ul><li><p>1. Certification/Accreditation Message</p></li></ul>";
 
   public certificationDetail: FormGroup;
 

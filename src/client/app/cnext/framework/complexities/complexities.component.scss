@@ -3,13 +3,13 @@ $white: #fff;
 $theme-color: #0d75fa;
 
 .compact-view {
-  padding: 5px;
+  padding: 0;
 
   .heading-compact {
     background: $theme-color;
     color: $white;
     margin: 0;
-    padding: 5px;
+    padding: 5px 15px;
   }
 
   a {
@@ -33,6 +33,12 @@ $theme-color: #0d75fa;
   .add-more {
     color: $white;
     font-size: 12px;
+    font-weight: 300;
+
+    .glyphicon {
+      padding: 0 10px 0 20px;
+      color: $white;
+    }
   }
 }
 

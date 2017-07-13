@@ -2,9 +2,9 @@
 <div class="section-container" *ngIf="highlightedSection.name=='Work-Area'">
   <div class="main-content clearfix edit-modal-content">
 
-    <div class="work-area col-sm-9">
+    <div class="col-sm-9">
       <h4 class="heading">Select Area of Work That Describes Your Current Focus (Max 3)</h4>
-      <div class="col-sm-12">
+      <div class="col-sm-12 work-area">
         <div class="select-option" *ngFor="let item of roles;let i = index">
           <label>
             <input type="checkbox" name="choices"
@@ -12,7 +12,7 @@
                    [checked]="isSelected(item.name)"/>
             <span>{{item.name}}</span>
           </label>
-          <div class="error-messages" *ngIf="alert">You have selected maximum work areas.</div>
+          <div class="error-messages" *ngIf="alert">You have selected maximum work areas.If you want to select a new work area, deselect any of the earlier ones.</div>
         </div>
         <div class="error-messages" *ngIf="emptyWorkAreas">Select areas you have worked.</div>
       </div>
@@ -26,6 +26,7 @@
       class="glyphicon glyphicon-chevron-left"></span></button>
 
     <div class="button-group clearfix">
+      <div class="saving-loader">Saving...</div>
       <button class="btn btn-primary" scrollTo scrollTargetSelector="#capability-area" (click)="onNext()"
               [hidden]="!showButton">Next</button>
       <button class="btn btn-default" (click)="onCancel()" [hidden]="showButton">Cancel</button>

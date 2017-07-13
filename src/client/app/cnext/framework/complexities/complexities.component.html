@@ -2,7 +2,7 @@
 <div class="section-container clearfix" *ngIf="highlightedSection.name=='Complexities'">
   <div class="main-content clearfix edit-modal-content">
     <div class="complexities col-sm-9">
-      <h4 class="heading">Capabilities Details
+      <h4 class="heading">Tell us about your experience in: (name of the variable)
         <span class="pull-right">{{currentComplexity+1}}/{{complexityIds.length}}</span>
       </h4>
       <div class="complexity-container">
@@ -11,16 +11,15 @@
              *ngIf="!isValid">
           <p>You can't leave this empty.</p>
         </div>
-          <div class="button-group clearfix clear">
-            <div>
-              <button class="btn btn-success btn-next" (click)="onNext()" [disabled]="currentComplexity===complexityIds.length">Next</button>
-            </div>
-          </div>
       </div>
     </div>
     <div class="col-sm-3 no-padding">
       <cn-tool-tip [message]="tooltipCandidateMessage" *ngIf="isCandidate"></cn-tool-tip>
       <cn-tool-tip [message]="tooltipRecruiterMessage" *ngIf="!isCandidate"></cn-tool-tip>
+    </div>
+    <div class="button-group clearfix clear">
+      <div class="saving-loader">Saving...</div>
+        <button class="btn btn-primary" (click)="onNext()" [disabled]="currentComplexity===complexityIds.length">Next</button>
     </div>
     <button class="btn-prev" (click)="onPrevious()" [disabled]="currentComplexity===0"><span class="glyphicon glyphicon-chevron-left"></span></button>
   </div>
@@ -29,17 +28,23 @@
   <div class="main-content clearfix">
     <div class="compact-view">
       <a data-toggle="collapse" data-target="#demo" (click)="showMore = !showMore">
-        <h4 class="heading-compact">Complexities handled for the above Capabilities
-          <span class="glyphicon glyphicon-plus-sign"></span><span class="add-more">Add More</span>
-          <button class="btn-edit" (click)="edit()"
-                  [hidden]="highlightedSection.isDisable" title="Edit Complexities"></button>
+        <h4 class="heading-compact">Capabilities
+          <span class="add-more"><span class="glyphicon glyphicon-plus-sign"></span>Add More</span>
+          <!--<button class="btn-edit" (click)="edit()"
+                  [hidden]="highlightedSection.isDisable" title="Edit Complexities"></button>-->
         </h4>
-       <!-- <span class="see-more" *ngIf="!showMore">more...</span>
-        <span class="see-more" *ngIf="showMore">less...</span>-->
       </a>
       <div id="demo">
-        <div class="col-sm-12 no-padding">
+        <div class="col-sm-12 no-padding" (click)="edit()">
           <cn-capability-compare [isCompact]="true" [capabilities]="capabilities"></cn-capability-compare>
+        </div>
+        <div class="see-more" *ngIf="!showMore">
+          <p>Show more</p>
+          <span class="glyphicon glyphicon-chevron-down"></span>
+        </div>
+        <div class="see-more" *ngIf="showMore">
+          <span class="glyphicon glyphicon-chevron-up"></span>
+          <p>Show less</p>
         </div>
       </div>
     </div>

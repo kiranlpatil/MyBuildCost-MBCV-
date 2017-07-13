@@ -1,7 +1,7 @@
 $message: #00aed5;
+$border-color: #e8e8e8;
 
 .proficiency-container {
-
   .messages {
     color: $message;
     padding: 0;
@@ -9,6 +9,7 @@ $message: #00aed5;
 }
 
 .compact-view {
+  border-bottom: 1px solid $border-color;
   &:hover {
     .btn-edit {
       opacity: 1;

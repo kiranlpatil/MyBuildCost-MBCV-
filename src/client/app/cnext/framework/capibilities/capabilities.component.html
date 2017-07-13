@@ -3,9 +3,9 @@
 
   <div class="main-content clearfix edit-modal-content">
     <div class="clearfix">
-      <div class="capabilities col-sm-9">
+      <div class=" col-sm-9">
         <h4 class="heading">Select those capabilities that describe your current strenght</h4>
-        <div class="col-sm-12">
+        <div class="col-sm-12 capabilities">
           <div class="capability-type">
           <span class="capability-option" *ngFor="let role of roles">
             <!--<h5 class="sub-areas">Area Of Work - {{role.name}}</h5>-->
@@ -35,6 +35,7 @@
         class="glyphicon glyphicon-chevron-left"></span></button>
 
       <div class="button-group clearfix">
+        <div class="saving-loader">Saving...</div>
         <button class="btn btn-primary" scrollTo scrollTargetSelector="#complexity-area"
                 (click)="onNext()" [hidden]="!showButton">Next
         </button>

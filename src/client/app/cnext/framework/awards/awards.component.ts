@@ -23,6 +23,7 @@ export class AwardsComponent implements OnInit {
   private isButtonShow: boolean = false;
   private showButton: boolean = true;
   private submitStatus: boolean;
+  tooltipMessage: string = "<ul><li><p>1. Award message</p></li></ul>";
 
   constructor(private _fb: FormBuilder, private profileCreatorService: CandidateProfileService) {
   }

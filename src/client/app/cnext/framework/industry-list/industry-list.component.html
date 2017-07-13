@@ -5,9 +5,9 @@
   -->
   <div class="main-content clearfix edit-modal-content">
     <div class="col-sm-9 profile-description">
-      <div class="select-industry clearfix">
+      <div class="clearfix">
         <h4 class="heading">Select your Industry (Any One)</h4>
-        <div class="col-sm-12">
+        <div class="col-sm-12 select-industry">
           <div class="max-height">
             <div class="select-option" *ngFor="let item of industries;let i = index">
               <label>
@@ -34,13 +34,14 @@
     </button>
 
     <div class="button-group clearfix">
+      <div class="saving-loader">Saving...</div>
       <button class="btn btn-primary" (click)="onNext()">Next</button>
     </div>
 
   </div>
 </div>
 <div class="section-container" *ngIf="highlightedSection && highlightedSection.name!='Industry'">
-  <div class="main-content profile-main-content"  (click)="highlightedSection.name='Industry';disableButton=false;showButton=false;highlightedSection.isDisable=true">
+  <div class="main-content"  (click)="highlightedSection.name='Industry';disableButton=false;showButton=false;highlightedSection.isDisable=true">
     <div class="compact-view clearfix">
       <!--[hidden]="highlightedSection.isLocked"-->
       <!--
