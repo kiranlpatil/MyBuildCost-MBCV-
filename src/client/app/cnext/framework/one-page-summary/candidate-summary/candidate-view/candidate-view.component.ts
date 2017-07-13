@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, OnChanges} from '@angular/core';
 import {CandidateDetail} from '../../../../../framework/registration/candidate/candidate';
 import {Candidate} from '../../../model/candidate';
 import {CandidateProfileService} from '../../../candidate-profile/candidate-profile.service';
@@ -13,7 +13,8 @@ import {JobCompareService} from '../../../single-page-compare-view/job-compare-v
   styleUrls: ['candidate-view.component.css'],
 
 })
-export class CandidateViewComponent {
+
+export class CandidateViewComponent implements OnChanges{
   @Input() candidateId: string;
   private candidateDetails: CandidateDetail = new CandidateDetail();
   private candidate: Candidate = new Candidate();
