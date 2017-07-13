@@ -29,22 +29,22 @@
         <div class="form-group">
           <label>Current Company</label>
           <!--<control-messages [control]="professionalDetailForm.controls.education"></control-messages>-->
-          <input name="jobTitle" class="form-control"
-                 [(ngModel)]="candidate.jobTitle" (ngModelChange)="onJobTitleChange()">
+          <input name="currentcompany" class="form-control" placeholder="Current Company"
+                 [(ngModel)]="candidate.professionalDetails.currentCompany">
 
         </div>
 
         <div class="form-group">
           <label>Current Location</label>
           <!--<control-messages [control]="professionalDetailForm.controls.education"></control-messages>-->
-          <input name="jobTitle" class="form-control"
-                 [(ngModel)]="candidate.jobTitle" (ngModelChange)="onJobTitleChange()">
+          <input name="location" class="form-control" placeholder="Location"
+                 [(ngModel)]="candidate.professionalDetails.location">
         </div>
 
         <div class="form-group">
           <label>Highest Qualification</label>
           <!--<control-messages [control]="professionalDetailForm.controls.education"></control-messages>-->
-          <select [(ngModel)]="candidate.professionalDetails.education" (change)="saveProfessionalData()">
+          <select [(ngModel)]="candidate.professionalDetails.education">
             <option *ngFor="let c of educationList" [ngValue]="c">{{c}}</option>
           </select>
         </div>
@@ -52,7 +52,7 @@
         <div class="form-group">
           <label>Total Experience</label>
           <!--<control-messages [control]="professionalDetailForm.controls.experience"></control-messages>-->
-          <select [(ngModel)]="candidate.professionalDetails.experience" (change)="saveProfessionalData()">
+          <select [(ngModel)]="candidate.professionalDetails.experience">
             <option *ngFor="let c of experienceList" [ngValue]="c">{{c}}</option>
           </select>
         </div>
