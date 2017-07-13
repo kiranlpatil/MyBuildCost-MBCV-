@@ -23,20 +23,8 @@ $info: #666;
     display: none;
   }
 
-  .modal-bg {
-    z-index: 1;
-  }
-
-  .compact-view {
-    z-index: 2;
-
-    .heading {
-      z-index: 2 !important;
-    }
-
-    .btn-edit {
-      z-index: 3;
-    }
+  .main-content {
+    margin: 30px auto !important;
   }
 }
 

@@ -18,7 +18,7 @@
       </div>
     </div>
 
-    <div class="btn-container clearfix">
+    <div class="btn-container clearfix" [class.job-proficiency-container]="type==='Mandatory'||type==='Additional'">
       <div *ngFor="let item of selectedProficiencies; let i = index">
         <button type="button" class="btn btn-create-profile" (click)="deleteItem($event)">
           {{item}} <span class="glyphicon glyphicon-remove"></span>

@@ -26,11 +26,11 @@ export class ProfileDescriptionComponent implements OnInit {
   private changedIndustry: Industry = new Industry();
   private disableButton: boolean = true;
   private showButton: boolean = true;
-  private experienceList = [];
+  private experienceList: any = [];
   private savedJobTitle: string;
   private candidateDetails: CandidateDetail = new CandidateDetail();
   private showModalStyle: boolean = false;
-  private educationList = [];
+  private educationList:any = [];
   private image_path: string = 'assets/framework/images/dashboard/profile.png';
   tooltipMessage: string =
     '<ul>' +

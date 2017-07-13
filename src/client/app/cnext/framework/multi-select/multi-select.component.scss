@@ -69,6 +69,10 @@ $message: #0d75fa;
   }
 }
 
+.job-proficiency-container {
+  min-height: 65px !important;
+}
+
 @media screen and (max-width: 767px) {
   .list {
     padding: 0;
