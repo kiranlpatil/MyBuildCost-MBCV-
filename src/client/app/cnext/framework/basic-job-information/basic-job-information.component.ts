@@ -1,11 +1,11 @@
-import {Component, EventEmitter, Input, OnChanges, OnInit, Output} from '@angular/core';
-import { Industry } from '../model/industry';
-import { Section } from '../model/candidate';
-import { JobPosterModel } from '../model/jobPoster';
-import { ProfessionalDataService } from '../professional-data/professional-data.service';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { JobLocation } from '../model/job-location';
-import { MyGoogleAddress } from '../../../framework/registration/candidate/google-our-place/my-google-address';
+import {Component, EventEmitter, Input, OnChanges, OnInit, Output} from "@angular/core";
+import {Industry} from "../model/industry";
+import {Section} from "../model/candidate";
+import {JobPosterModel} from "../model/jobPoster";
+import {ProfessionalDataService} from "../professional-data/professional-data.service";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {JobLocation} from "../model/job-location";
+import {MyGoogleAddress} from "../../../framework/registration/candidate/google-our-place/my-google-address";
 import {FilterService} from "../filters/filter/filter.service";
 
 @Component({
@@ -21,14 +21,14 @@ export class BasicJobInformationComponent implements OnInit,OnChanges {
   @Output() onComplete = new EventEmitter();
   private savedjobPosterModel: JobPosterModel = new JobPosterModel();
   private jobPostForm: FormGroup;
-  private educationList = new Array();
+  private educationList = [];
   private experienceRangeList: string[] = new Array(0);
   private fromYear:string = '';
   private toYear:string = '';
   private salaryRangeList: string[] = new Array(0);
   private fromValue:string = '';
   private toValue:string = '';
-  private noticePeriodList = new Array();
+  private noticePeriodList = [];
   private address: string;
   private showButton: boolean = true;
   private storedIndustry: Industry;
@@ -105,6 +105,7 @@ export class BasicJobInformationComponent implements OnInit,OnChanges {
     this.jobPosterModel.location = this.storedLocation;
     if (this.jobPosterModel.industry) {
       this.savedjobPosterModel=Object.assign({},this.jobPosterModel);
+      this.highlightedSection.name = 'Industry';
       this.onComplete.emit(this.jobPosterModel);
     } else {
       this.jobPosterModel.industry = new Industry();
