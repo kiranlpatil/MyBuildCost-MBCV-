@@ -28,7 +28,7 @@
 <div class="section-container clear" *ngIf="highlightedSection.name !='AboutMySelf'">
   <div class="main-content"  (click)="highlightedSection.name='AboutMySelf';highlightedSection.isDisable=true;showButton=false">
     <div class="compact-view clearfix">
-      <h4 class="heading-compact">About myself
+      <h4 class="heading-compact">About myself <span class="optional-field">(Optional)</span>
         <!--<button class="btn-edit"
 
                 [hidden]="highlightedSection.isDisable" title="Edit More About Self"></button>-->
