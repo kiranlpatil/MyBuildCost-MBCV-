@@ -2,29 +2,31 @@
 <div class="modal-bg" *ngIf="highlightedSection.name=='Certification'"></div>
 <div class="section-container clear"  *ngIf="highlightedSection.name =='Certification'">
   <div class="main-content edit-modal-content clearfix">
-    <div class="col-sm-9">
+    <div class="col-sm-9 no-padding">
       <h4 class="heading">Certification/Accreditation</h4>
-      <form class="description-form" [formGroup]="certificationDetail" novalidate>
-        <div formArrayName="certifications">
-          <div *ngFor="let history of certificationDetail.controls.certifications.controls; let i=index"
-               class="panel panel-default">
-            <div>
+      <div class="scrollable-content">
+        <form class="description-form" [formGroup]="certificationDetail" novalidate>
+          <div class="col-sm-8" formArrayName="certifications">
+            <div *ngFor="let history of certificationDetail.controls.certifications.controls; let i=index"
+                 class="panel panel-default">
+              <div>
             <span class="glyphicon glyphicon-trash pull-right"
                   *ngIf="certificationDetail.controls.certifications.controls.length>0 && certificationDetail.controls.certifications.controls.length !==1 "
                   (click)="removeCertification(i)"></span>
-            </div>
-            <div class="panel-body" [formGroupName]="i">
-              <cn-certificates [group]="certificationDetail.controls.certifications.controls[i]" [submitStatus] = "submitStatus"></cn-certificates>
+              </div>
+              <div class="panel-body" [formGroupName]="i">
+                <cn-certificates [group]="certificationDetail.controls.certifications.controls[i]" [submitStatus] = "submitStatus"></cn-certificates>
+              </div>
             </div>
           </div>
-        </div>
-      </form>
+        </form>
+      </div>
     </div>
     <div class="col-sm-3 no-padding">
       <cn-tool-tip [message]="tooltipMessage"></cn-tool-tip>
     </div>
     <div class="button-group clearfix">
-      <div class="saving-loader">Saving...</div>
+      <!--<div class="saving-loader">Saving...</div>-->
       <button class="btn btn-default" (click)="highlightedSection.name='none';highlightedSection.isDisable=false">
         Cancel
       </button>
