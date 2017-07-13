@@ -1,7 +1,7 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Section } from '../model/candidate';
-import { JobPosterModel } from '../model/jobPoster';
-import { ValueConstant } from '../../../framework/shared/constants';
+import {Component, EventEmitter, Input, OnInit, Output} from "@angular/core";
+import {Section} from "../model/candidate";
+import {JobPosterModel} from "../model/jobPoster";
+import {ValueConstant} from "../../../framework/shared/constants";
 
 
 @Component({
@@ -47,9 +47,9 @@ export class JobProficienciesComponent implements OnInit {
   onOptionalProficiencyComplete(optional: string[]) {
     this.jobPosterModel.additionalProficiencies = optional;
     this.onComplete.emit(this.jobPosterModel);
-    if (this.jobPosterModel.additionalProficiencies.length === 0) {
+    /* if (this.jobPosterModel.additionalProficiencies.length === 0) {
       this.showAdditional = false;
-    }
+     }*/
   }
 
   onNext() {
