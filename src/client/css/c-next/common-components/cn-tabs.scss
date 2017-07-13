@@ -5,7 +5,7 @@ $profile-section-shadow: rgba(204, 204, 204, 1);
 $border-color: #ddd;
 $border-light: #efefef;
 $white: #fff;
-$theme-color: #3694d1;
+$theme-color: #0d75fa;
 $active-tab: #edf1f5;
 $active-tab-border: #b2bcc3;
 
@@ -36,7 +36,7 @@ $active-tab-border: #b2bcc3;
 
   .active {
     a {
-      background: $active-tab !important;
+      background: $white !important;
       border: 0 !important;
       border-bottom: 3px solid $theme-color !important;
       color: $theme-color !important;

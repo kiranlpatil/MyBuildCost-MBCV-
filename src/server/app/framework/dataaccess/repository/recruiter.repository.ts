@@ -15,6 +15,7 @@ class RecruiterRepository extends RepositoryBase<IRecruiter> {
 
   getJobProfileQCard(recruiters: any[], candidate: CandidateModel, jobProfileIds: string[], callback: (error: any, result: any) => void) {  //todo add condition for exit
 
+    let isSend : boolean = false;
     let jobs_cards: JobQCard[] = new Array(0);
     for (let recruiter of recruiters) {
       for (let job of recruiter.postedJobs) {
@@ -48,9 +49,7 @@ class RecruiterRepository extends RepositoryBase<IRecruiter> {
           let job_qcard: JobQCard = new JobQCard();
           job_qcard.matching = 0;
           let count : number = 0;
-          console.log(job.jobTitle);
           for (let cap in job.capability_matrix) {
-            console.log(cap+'=>'+job.capability_matrix[cap] +'=='+candidate.capability_matrix[cap])
             if (job.capability_matrix[cap] === -1 || job.capability_matrix[cap] === 0 || job.capability_matrix[cap] === undefined) {
             } else if (job.capability_matrix[cap] === candidate.capability_matrix[cap]) {
               job_qcard.exact_matching += 1;
@@ -65,7 +64,6 @@ class RecruiterRepository extends RepositoryBase<IRecruiter> {
               count++;
             }
           }
-          console.log('----------------------------------------------------------------------------------------------------------------------------');
 
           job_qcard.above_one_step_matching = (job_qcard.above_one_step_matching / count) * 100;
           job_qcard.below_one_step_matching = (job_qcard.below_one_step_matching / count) * 100;
@@ -83,7 +81,7 @@ class RecruiterRepository extends RepositoryBase<IRecruiter> {
           job_qcard.proficiencies = job.proficiencies;
           job_qcard.location = job.location.city;
           job_qcard._id = job._id;
-          job_qcard.industry = job.industry.name;
+          //job_qcard.industry = job.industry.name; //todo add industry name
           job_qcard.jobTitle = job.jobTitle;
           job_qcard.joiningPeriod = job.joiningPeriod;
           if ((job_qcard.above_one_step_matching+job_qcard.exact_matching) >= ConstVariables.LOWER_LIMIT_FOR_SEARCH_RESULT) {
@@ -92,9 +90,15 @@ class RecruiterRepository extends RepositoryBase<IRecruiter> {
           //todo add condition for exit
         }
       }
+      if(recruiters.indexOf(recruiter) == recruiters.length-1) {
+          isSend= true;
+          callback(null, jobs_cards);
+        }
     }
     setTimeout(() => {
-      callback(null, jobs_cards);
+      if(!isSend) {
+        callback(null, jobs_cards);
+      }
     }, 4000);
   }
 

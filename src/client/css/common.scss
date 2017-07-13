@@ -14,7 +14,7 @@ $grey-background: #777;
 $error-success: #42a948;
 $error-failure: #a94442;
 $toaster-error: #f66761;
-$toaster-success: #42a948; // #3ec59d;
+$toaster-success: #ffd; // #3ec59d;
 $bg-disabled: #e82c0c;
 $background-black-alpha5: rgba(0, 0, 0, .5);
 $toaster-message: rgba(102, 102, 102, .35);
@@ -424,7 +424,7 @@ h4 {
 .other-links {
   float: right;
   font-size: 11px;
-  margin: 10px 0 0;
+  margin: 14px 0 0;
   text-align: right;
 }
 
@@ -439,13 +439,14 @@ h4 {
   position: fixed;
   right: 15px;
   text-align: left;
-  top: 91px;
+  top: inherit;
   width: 400px;
   z-index: 10;
+  bottom: 15px;
 
   P,
   span {
-    color: $white;
+    color: #000;
     margin: 0;
   }
 }
@@ -458,6 +459,7 @@ h4 {
 .toaster-success {
   background: $toaster-success;
   z-index: 1001;
+  color: #000;
 }
 
 .alert {

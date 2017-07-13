@@ -103,7 +103,10 @@ class SearchService {
       'postedJobs.proficiencies': {$in: candidate.proficiencies},
       'postedJobs.interestedIndustries': {$in: candidate.interestedIndustries}
     };
-    this.recruiterRepository.retrieve(data, (err, res) => {
+    let excluded_fields = {
+      'postedJobs.industry': 0,
+    };
+    this.recruiterRepository.retrieveWithLean(data,excluded_fields, (err, res) => {
       if (err) {
         callback(err, null);
       } else {
