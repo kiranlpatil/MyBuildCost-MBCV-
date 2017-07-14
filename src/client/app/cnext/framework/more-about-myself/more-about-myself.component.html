@@ -8,7 +8,7 @@
         <div class="col-sm-8 more-about-myself">
         <textarea class="form-control" [(ngModel)]="candidate.aboutMyself" (ngModelChange)="addAboutMyself()"
                   [maxlength]="maxword" Placeholder="Enter About Yourself"></textarea>
-          <p class="error-messages">{{remainingWords}} words remaining</p>
+          <p class="error-messages">{{remainingWords + remainingWordsMessage}}</p>
         </div>
       </div>
     </div>
