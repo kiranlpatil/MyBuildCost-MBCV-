@@ -104,17 +104,20 @@
               <div class="info profile-info" *ngIf="!candidate.isVisible">If enabled, your profile will be available in employer search.</div>
               <div class="info profile-info" *ngIf="candidate.isVisible">Warning: Selecting Hide will hide your profile from recruiters. If you are on the lookout of job change, it is recommended to keep this setting to "Show". You can change this setting later.
               </div>
-              <div class="switch">
-                <label class="radio-inline">
-                  <input type="radio" name="profile-visibility"
-                         (change)="showOrHide('show',$event)" value=true [checked]="candidate.isVisible == true">
-                  <span></span>
-                </label>
-                <label class="radio-inline">
-                  <input type="radio" name="profile-visibility"
-                         (change)="showOrHide('hide',$event)" value=false [checked]="candidate.isVisible == false">
-                  <span></span>
-                </label>
+              <div class="pull-right">
+                <span class="switch-label">Yes</span>
+                <div class="switch">
+                  <label class="radio-inline">
+                    <input type="radio" name="profile-visibility"
+                           (change)="showOrHide('show',$event)" value=true [checked]="candidate.isVisible == true">
+                    <span></span>
+                  </label>
+                  <label class="radio-inline">
+                    <input type="radio" name="profile-visibility"
+                           (change)="showOrHide('hide',$event)" value=false [checked]="candidate.isVisible == false">
+                    <span></span>
+                  </label>
+                </div>
               </div>
             </div>
           </div>

@@ -2,7 +2,7 @@
 <div class="section-container clearfix" *ngIf="highlightedSection.name=='Complexities'">
   <div class="main-content clearfix edit-modal-content">
     <div class="complexities col-sm-9 no-padding">
-      <h4 class="heading">Tell us about your experience in: {{currentComplexityDetails.capability_name}}
+      <h4 class="heading">Tell us about your experience in {{currentComplexityDetails.capability_name}}
       </h4>
       <div class="error-messages" *ngIf="!isValid"><p>You can't leave this empty.</p></div>
       <div class="complexity-container scrollable-content">
