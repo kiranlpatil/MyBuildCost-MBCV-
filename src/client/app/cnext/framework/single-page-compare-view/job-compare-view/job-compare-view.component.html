@@ -228,7 +228,7 @@
           <div class="pull-left col-xs-8 no-padding text-left">
             <div class="pull-left" *ngFor="let item of data.proficiencies;let i = index"
                  style="padding-top: 6px;padding-right: 7px;">
-              <span>{{item}}</span>,
+              <span *ngIf="data.proficienciesMatch.indexOf(item)==-1">{{item}}<b *ngIf="i!=data.proficiencies.length-1">,</b></span>
             </div>
           </div>
         </div>
@@ -264,8 +264,21 @@
     <div class="col-sm-12 proficiency-compare-section-area">
       <h4 class="pull-left col-xs-3 no-padding text-left">Key skills</h4>
       <div class="pull-left col-xs-7 no-padding text-left">
-        <div class="option exact" *ngFor="let item of data.proficiencies;let i = index">
+        <div class="option exact" *ngFor="let item of data.proficienciesMatch;let i = index">
           <span>{{item}}</span> <img class="" src="assets/framework/images/dashboard/right-tick.svg"/>
+        </div>
+        <div class="option missing" *ngFor="let item of data.proficienciesUnMatch;let i = index">
+          <span>{{item}}</span><img class="" src="assets/framework/images/dashboard/missing.svg"/>
+        </div>
+      </div>
+      <h4 class="pull-left col-xs-3 no-padding text-left"
+          *ngIf="( data && data.proficiencies && data.proficiencies.length>0)">
+        These are candidates extra key skills
+      </h4>
+      <div class="pull-left col-xs-8 no-padding text-left">
+        <div class="pull-left" *ngFor="let item of data.proficiencies;let i = index"
+             style="padding-top: 6px;padding-right: 7px;">
+          <span *ngIf="data.proficienciesMatch.indexOf(item)==-1">{{item}}<b *ngIf="i!=data.proficiencies.length-1">,</b></span>
         </div>
       </div>
     </div>

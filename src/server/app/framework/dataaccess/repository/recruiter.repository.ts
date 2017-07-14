@@ -87,7 +87,6 @@ class RecruiterRepository extends RepositoryBase<IRecruiter> {
           if ((job_qcard.above_one_step_matching+job_qcard.exact_matching) >= ConstVariables.LOWER_LIMIT_FOR_SEARCH_RESULT) {
             jobs_cards.push(job_qcard);
           }
-          //todo add condition for exit
         }
       }
       if(recruiters.indexOf(recruiter) == recruiters.length-1) {
