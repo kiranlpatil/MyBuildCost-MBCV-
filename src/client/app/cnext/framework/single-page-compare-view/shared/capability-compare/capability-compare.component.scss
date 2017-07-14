@@ -32,7 +32,7 @@ $white: #ffffff;
     padding: 5px;
     bottom: 0;
     min-height: 59px;
-    width: 125%;
+    width: 200%;
     left: -27px;
     box-shadow: 0px 0px 4px 0px #757575;
     color : white !important;
@@ -60,7 +60,7 @@ $white: #ffffff;
     padding: 5px;
     bottom: 0;
     min-height: 59px;
-    width: 125%;
+    width: 200%;
     left: -27px;
     box-shadow: 0px 0px 4px 0px #757575;
     font-size: 12px;
@@ -94,7 +94,7 @@ $white: #ffffff;
     padding: 5px;
     bottom: 0;
     min-height: 59px;
-    width: 125%;
+    width: 200%;
     left: -27px;
     box-shadow: 0px 0px 4px 0px #757575;
     font-size: 12px;
@@ -130,7 +130,7 @@ $white: #ffffff;
     padding: 5px;
     bottom: 0;
     min-height: 59px;
-    width: 125%;
+    width: 200%;
     left: -27px;
     box-shadow: 0px 0px 4px 0px #757575;
     font-size: 12px;
@@ -164,7 +164,7 @@ $white: #ffffff;
     padding: 5px;
     bottom: 0;
     min-height: 59px;
-    width: 125%;
+    width: 200%;
     left: -27px;
     box-shadow: 0px 0px 4px 0px #757575;
     font-size: 12px;
@@ -204,7 +204,7 @@ $white: #ffffff;
     padding: 5px;
     bottom: 0;
     min-height: 59px;
-    width: 125%;
+    width: 200%;
     left: -27px;
     box-shadow: 0px 0px 4px 0px #757575;
     font-size: 12px;
@@ -404,6 +404,14 @@ $white: #ffffff;
 
   .col-sm-4 {
     width: 33.33%;
+  }
+}
+
+
+.user-info-modal {
+  margin-top: 5px;
+  .clearfix {
+    margin-bottom: 8px;
   }
 }
 
