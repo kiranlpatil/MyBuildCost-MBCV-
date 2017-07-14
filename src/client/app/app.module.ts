@@ -156,6 +156,7 @@ import {GuidedTourComponent} from "./cnext/framework/guided-tour/guided-tour.com
 import {RedirectRecruiterDashboardService} from "./cnext/framework/redirect-dashboard.service";
 import {QuestionAnswerComponent} from "./cnext/framework/question-answer/question-answer.component";
 import {ComplexityComponentService} from "./cnext/framework/complexities/complexity.service";
+import {MultipleQuestionAnswerComponent} from "./cnext/framework/multiple-question-answer/multiple-question-answer.component";
 
 //C-NEXT IMPORTS
 
@@ -218,6 +219,7 @@ import {ComplexityComponentService} from "./cnext/framework/complexities/complex
     ProfileDescriptionComponent,
     CapabilitiesComponent,
     GuidedTourComponent,
+    MultipleQuestionAnswerComponent,
     JobProficienciesComponent,
     ProficienciesComponent,
     IndustryListComponent,
