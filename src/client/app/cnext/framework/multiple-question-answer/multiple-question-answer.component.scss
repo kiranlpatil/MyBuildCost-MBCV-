@@ -19,14 +19,18 @@ $text-color: #333;
   }
 
   .question {
-    margin: 20px 0;
+    margin: 25px 0 10px;
   }
 
   .question > span {
-    color: $theme-color;
+    color: $text-color;
     margin: 0 0 15px;
     font-size: 16px;
     font-weight: bold;
+  }
+
+  .scenarios {
+    padding-left: 20px;
   }
 }
 

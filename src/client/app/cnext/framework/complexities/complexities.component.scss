@@ -1,4 +1,4 @@
-$text-color: #666;
+$text-color: #333;
 $white: #fff;
 $theme-color: #0d75fa;
 
@@ -50,24 +50,22 @@ $theme-color: #0d75fa;
   }
 }
 
-.complexity-container {
-
-  .btn-prev {
-    position: absolute;
-    left: 0;
-    bottom: 50%;
-    margin-top: 0;
-    margin-right: 0;
-    width: auto;
-    padding: 12px 2px;
-    border-radius: 0 6px 6px 0;
-    background: $text-color;
-    z-index: 10;
-
-    span {
-      color: $white;
+.main-content {
+  .heading {
+    .capability-name {
+      font-size: 20px !important;
+      float: none  !important;
+      color: $text-color  !important;
+      font-weight: 900  !important;
+      padding-bottom: 2px  !important;
+      border-bottom: 1px solid $text-color  !important;
+      line-height: 30px;
     }
   }
+}
+
+.complexity-container {
+  height: 380px !important;
 
   .btn-next {
     position: absolute;

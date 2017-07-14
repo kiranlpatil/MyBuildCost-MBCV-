@@ -3,10 +3,9 @@
   <div class="main-content clearfix edit-modal-content">
     <div class="complexities col-sm-9 no-padding">
       <h4 class="heading" *ngIf="isCandidate && currentComplexityDetails">Tell us about your experience in
-        {{currentComplexityDetails.capability_name}}</h4>
+        <span class="capability-name">{{currentComplexityDetails.capability_name}}</span></h4>
       <h4 class="heading" *ngIf="!isCandidate && currentCapability">Which is the most appropriate level that candidate
-        is required to handle in
-        {{currentCapability.name}}
+        is required to handle in <span class="capability-name">{{currentCapability.name}}</span>
       </h4>
       <div class="error-messages" *ngIf="!isValid"><p>{{requiedValidationMessage}}</p></div>
       <div class="complexity-container scrollable-content" *ngIf="isCandidate">

@@ -18,7 +18,7 @@ $pink: #e91d62;
     clear: both;
     font-size: 13px;
     height: 100%;
-    padding: 50px 0 0;
+    padding: 10px 0 0;
     position: fixed;
     width: 25%;
     right: 0;
@@ -32,7 +32,7 @@ $pink: #e91d62;
 
     p {
       margin: 0 0 15px;
-      font-size: 11px;
+      font-size: 12px;
       display: block;
       color: $white;
     }
@@ -284,7 +284,7 @@ $pink: #e91d62;
 
   label {
     font-size: 13px;
-    color: $info;
+    color: $black;
   }
 
   .button-group {
