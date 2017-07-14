@@ -112,7 +112,6 @@ export class BasicJobInformationComponent implements OnInit,OnChanges {
   }
 
   onNext() {
-    debugger;
     if (!this.jobPostForm.valid && this.storedIndustry == undefined) {
       this.submitStatus = true;
       return;
