@@ -22,9 +22,9 @@ export class JobProficienciesComponent implements OnInit {
   private showAdditional: boolean = false;
   private maxNumberOfMandatory: number;
   private maxNumberOfAdditional: number;
-  tooltipMessage: string = '<ul><li><h5>Key Skills</h5>' +
-      '<p class="info">Enter key words for specialization in Technologies, Products, Tools, Domains etc. E.g Java, Oracle, SAP, Cognos, AWS, Agile, DevOps, CMM, Telecom Billing, Retail Banking etc. ' +
-      'Use the Top 5 "Must Have" key words to describe the most important skills. You can provide additional 20 key words that are "Nice to Have".</p></li></ul>';
+  tooltipMessage: string = '<ul><li>' +
+      '<p>1. Enter key words for specialization in Technologies, Products, Tools, Domains etc. E.g Java, Oracle, SAP, Cognos, AWS, Agile, DevOps, CMM, Telecom Billing, Retail Banking etc.</p>' +
+      '<p>2. Use the Top 5 "Must Have" key words to describe the most important skills. You can provide additional 20 key words that are "Nice to Have".</p></li></ul>';
 
   ngOnInit() {
     this.maxNumberOfMandatory = ValueConstant.MAX_MANDATORY_PROFECIENCES;

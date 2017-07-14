@@ -16,14 +16,14 @@ $info: #666;
 }
 
 .recruiter-profile-wrapper {
-  margin: 95px 0 15px;
-  width: 85%;
+  margin: 95px auto 15px;
+  width: 850px;
 
   .hide-recruiter-info {
     display: none;
   }
 
-  .main-content {
+  .edit-modal-content {
     margin: 30px auto !important;
   }
 }

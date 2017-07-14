@@ -11,6 +11,10 @@ $light-blue: #00aed5;
     border-radius: 0;
     margin-bottom: 15px;
   }
+
+  select {
+    margin-bottom: 15px;
+  }
 }
 
 .compact-view {
@@ -21,7 +25,7 @@ $light-blue: #00aed5;
 
   }
   p {
-    width: 16%;
+    width: 25%;
     padding: 0 0.5% 0 0;
     float: left;
     margin-bottom: 10px;

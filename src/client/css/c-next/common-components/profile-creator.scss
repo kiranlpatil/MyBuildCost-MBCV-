@@ -14,12 +14,15 @@ $pink: #e91d62;
 
   .tooltip-message {
     background: $theme-color;
+    border-radius: 0 8px 8px 0;
     clear: both;
     font-size: 13px;
-    height: 100vh;
+    height: 100%;
     padding: 50px 0 0;
     position: fixed;
     width: 25%;
+    right: 0;
+    top: 0;
 
     ul {
       padding: 0 5px;
@@ -76,7 +79,7 @@ $pink: #e91d62;
 .scrollable-content {
   overflow: auto;
   height: 400px;
-  padding-left: 15px;
+  padding-left: 30px;
 }
 
 .main-content {

@@ -24,7 +24,7 @@ export class WorkAreaComponent implements OnInit,OnChanges {
 
   tooltipRecruiterMessage: string =
     '<ul>' +
-    '<li><h5> Area Of Work </h5><p>Select those areas in which the candidate is expected to work.</p></li>' +
+    '<li><p>1. Select those areas in which the candidate is expected to work.</p></li>' +
     '</ul>';
   private savedSelectedRoles: Role[] = new Array(0);
   private isCandidate: boolean = false;

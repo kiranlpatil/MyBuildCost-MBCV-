@@ -3,7 +3,7 @@
   <div class="section-container clearfix" *ngIf="highlightedSection.name=='Proficiencies'">
     <div class="main-content  edit-modal-content clearfix">
       <div class="col-sm-9 no-padding">
-        <h4 class="heading">Key Skills </h4>
+        <h4 class="heading">Keywords that describe your area of epertise </h4>
         <div class="proficiency-container">
           <div class="col-sm-12">
             <label>Mandatory Key Skills</label>
@@ -33,13 +33,12 @@
       </div>
     </div>
   </div>
-  <div class="section-container clearfix proficiency-container" *ngIf="highlightedSection.name !='Proficiencies'">
-    <div class="main-content">
+  <div class="section-container clearfix" *ngIf="highlightedSection.name !='Proficiencies'">
+    <div class="main-content" (click)="highlightedSection.name='Proficiencies';disablebutton=false;showButton=false">
       <div class="compact-view clearfix">
 
         <h4 class="heading-compact">Key Skills
-          <button class="btn-edit"
-                  (click)="highlightedSection.name='Proficiencies';disablebutton=false;showButton=false" title="Edit Key Skills"></button>
+          <!--<button class="btn-edit" title="Edit Key Skills"></button>-->
         </h4>
         <div class="col-sm-6 padding-right15">
           <div>
