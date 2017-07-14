@@ -34,9 +34,9 @@
                   [hidden]="highlightedSection.isDisable" title="Edit Complexities"></button>-->
         </h4>
       </a>
-      <div id="demo">
+      <div id="demo" class="collapse">
         <div class="col-sm-12 no-padding" (click)="edit()">
-          <cn-capability-compare [isCompact]="true" [rowsToShow]="5" [capabilities]="capabilities"></cn-capability-compare>
+          <cn-capability-compare id="complexity-compact-view" [isCompact]="true" [rowsToShow]="5" [capabilities]="capabilities"></cn-capability-compare>
         </div>
         <!--<div class="see-more" *ngIf="!showMore">
           <p>Show more</p>

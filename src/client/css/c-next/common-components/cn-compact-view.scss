@@ -245,12 +245,18 @@ $white: #fff;
   }
 }
 
+@media only screen and (max-width: 1366px) {
+  .edit-modal-content {
+    margin: 30px auto 0;
+  }
+}
 
-@media only screen and (max-width: 767px) {
+@media only screen and (max-width: 980px) {
   .edit-modal-content {
     width: 90%;
   }
 }
+
 
 @media only screen and (max-width: 767px) {
 

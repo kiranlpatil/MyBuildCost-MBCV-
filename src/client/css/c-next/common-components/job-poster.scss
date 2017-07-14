@@ -30,9 +30,23 @@ $info: #666;
 
 .candidate-profile-wrapper {
   width: 850px;
-  margin: 70px auto 15px;
+  margin: 100px auto 15px;
 
   .hide-candidate-info {
     display: none;
+  }
+}
+
+#complexity-compact-view {
+  .row-section,
+  .content {
+    border: 0;
+  }
+}
+
+@media only screen and (max-width: 980px) {
+  .recruiter-profile-wrapper,
+  .candidate-profile-wrapper {
+    width: 90%;
   }
 }
