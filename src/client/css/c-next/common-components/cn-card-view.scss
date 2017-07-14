@@ -11,7 +11,7 @@ $active-color: #edf1f5;
 .card-view {
   clear: both;
   text-align: left;
-  margin-top: 20px;
+  margin-top: 135px;
   //background-color: $active-color;
 
   .panel {
@@ -304,10 +304,43 @@ header {
 #applied-job,
 #rejected-job {
   .card-view {
-    margin-top: 85px;
+    margin-top: 0;
+    position: absolute;
+    top: 200px;
+    width: calc(100% - 200px);
   }
 }
 
+#matched-job {
+  .empty-list-message {
+    margin-top: 120px !important;
+  }
+}
+
+#cart-job {
+  .empty-list-message {
+    margin-top: 90px !important;
+  }
+}
+
+#applied-job {
+  .empty-list-message {
+    margin-top: 60px !important;
+  }
+}
+
+#rejected-job {
+  .empty-list-message {
+    margin-top: 120px !important;
+  }
+}
+
+
+#matched {
+  .card-view {
+    margin-top: 95px;
+  }
+}
 
 .empty-list-message {
   width: 80%;
@@ -318,8 +351,6 @@ header {
     font-size: 20px;
   }
 }
-
-
 
 @media only screen and (min-width: 1367px) {
   .card-view {
