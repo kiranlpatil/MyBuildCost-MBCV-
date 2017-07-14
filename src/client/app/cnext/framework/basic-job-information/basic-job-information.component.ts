@@ -35,16 +35,16 @@ export class BasicJobInformationComponent implements OnInit,OnChanges {
   private submitStatus: boolean;
   private storedIndustry: Industry;
   private storedLocation: JobLocation = new JobLocation();
-  private requiredLocationValidationMessage = Messages.MSG_ERROR_VALIDATION_JOINING_PERIOD_REQUIRED
+  private requiredLocationValidationMessage = Messages.MSG_ERROR_VALIDATION_JOINING_PERIOD_REQUIRED;
 
   private requiredJoiningPeriodValidationMessage = Messages.MSG_ERROR_VALIDATION_JOINING_PERIOD_REQUIRED;
   private requiredMaxSalaryValidationMessage = Messages.MSG_ERROR_VALIDATION_MAX_SALARY_REQUIRED;
-  private requiredMinSalaryValidationMessage = Messages.MSG_ERROR_VALIDATION_MIN_SALARY_REQUIRED
+  private requiredMinSalaryValidationMessage = Messages.MSG_ERROR_VALIDATION_MIN_SALARY_REQUIRED;
   private requiredMaxExperienceValidationMessage = Messages.MSG_ERROR_VALIDATION_MAX_EXPERIENCE_REQUIRED;
   private requiredMinExperienceValidationMessage = Messages.MSG_ERROR_VALIDATION_MIN_EXPERIENCE_REQUIRED;
   private requiredEducationalValidationMessage = Messages.MSG_ERROR_VALIDATION_EDUCATIONAL_QUALIFICATION_REQUIRED;
   private requiredHiringDepartmentValidationMessage = Messages.MSG_ERROR_VALIDATION_HIRING_DEPARTMENT_REQUIRED;
-  private requiredHiringManagerValidationMessage = Messages.MSG_ERROR_VALIDATION_HIRING_MANAGER_REQUIRED
+  private requiredHiringManagerValidationMessage = Messages.MSG_ERROR_VALIDATION_HIRING_MANAGER_REQUIRED;
   private requiredTitleValidationMessage = Messages.MSG_ERROR_VALIDATION_JOB_TITLE_REQUIRED;
 
 
@@ -112,7 +112,8 @@ export class BasicJobInformationComponent implements OnInit,OnChanges {
   }
 
   onNext() {
-    if(!this.jobPostForm.valid || this.storedIndustry==undefined) {
+    debugger;
+    if (!this.jobPostForm.valid && this.storedIndustry == undefined) {
       this.submitStatus = true;
       return;
     }

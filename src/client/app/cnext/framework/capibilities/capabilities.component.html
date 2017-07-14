@@ -4,7 +4,9 @@
   <div class="main-content clearfix edit-modal-content">
     <div class="clearfix">
       <div class=" col-sm-9 no-padding">
-        <h4 class="heading">Select those capabilities that describe your current strenght
+        <h4 class="heading" *ngIf="isCandidate">Select those capabilities that describe your current strenght
+        </h4>
+        <h4 class="heading" *ngIf="!isCandidate">Capabilities that are required in the candidate
         </h4>
         <div class="error-messages" *ngIf="emptyCapabilities">{{requiredCapabilitiesValidationMessage}}</div>
         <div class="col-sm-12 scrollable-content capabilities">

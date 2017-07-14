@@ -3,7 +3,8 @@
   <div class="main-content clearfix edit-modal-content">
 
     <div class="col-sm-9 no-padding">
-      <h4 class="heading">Select Area of Work That Describes Your Current Focus (Max 3)</h4>
+      <h4 class="heading" *ngIf="isCandidate">Select Area of Work That Describes Your Current Focus (Max 3)</h4>
+      <h4 class="heading" *ngIf="!isCandidate">In which Area Candidate Is Expected To Work </h4>
       <div class="error-messages" *ngIf="emptyWorkAreas">{{requiredValidationMessage}}</div>
       <div class="col-sm-12 work-area scrollable-content">
         <div class="select-option" *ngFor="let item of roles;let i = index">
@@ -29,8 +30,7 @@
       <!--<div class="saving-loader">Saving...</div>-->
       <button class="btn btn-primary" scrollTo scrollTargetSelector="#capability-area" (click)="onNext()"
               [hidden]="!showButton">Next</button>
-      <button class="btn btn-default" (click)="onCancel()" [hidden]="showButton">Cancel</button>
-      <button class="btn btn-primary"  (click)="onSave()"  [hidden]="showButton">Save</button>
+      <button class="btn btn-primary" (click)="onSave()" [hidden]="showButton">Next</button>
     </div>
   </div>
 </div>

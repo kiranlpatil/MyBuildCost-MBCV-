@@ -4,7 +4,8 @@
     <div class="complexities col-sm-9 no-padding">
       <h4 class="heading" *ngIf="isCandidate && currentComplexityDetails">Tell us about your experience in
         {{currentComplexityDetails.capability_name}}</h4>
-      <h4 class="heading" *ngIf="!isCandidate && currentCapability">Tell us about your experience in
+      <h4 class="heading" *ngIf="!isCandidate && currentCapability">Which is the most appropriate level that candidate
+        is required to handle in
         {{currentCapability.name}}
       </h4>
       <div class="error-messages" *ngIf="!isValid"><p>{{requiedValidationMessage}}</p></div>
