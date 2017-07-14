@@ -13,12 +13,14 @@ class RecruiterRepository extends RepositoryBase<IRecruiter> {
     super(RecruiterSchema);
   }
 
-  getJobProfileQCard(recruiters: any[], candidate: CandidateModel, jobProfileIds: string[], callback: (error: any, result: any) => void) {  //todo add condition for exit
-
+  getJobProfileQCard(recruiters: any[], candidate: CandidateModel, jobProfileIds: string[], callback: (error: any, result: any) => void) {
     let isSend : boolean = false;
     let jobs_cards: JobQCard[] = new Array(0);
     for (let recruiter of recruiters) {
       for (let job of recruiter.postedJobs) {
+       /* if(!job.isJobPosted) {
+          continue;
+        }*/
         let isPresent: boolean = false;
         for (let proficiency of candidate.proficiencies) {
           if (job.proficiencies.indexOf(proficiency) != -1) {
@@ -54,10 +56,10 @@ class RecruiterRepository extends RepositoryBase<IRecruiter> {
             } else if (job.capability_matrix[cap] === candidate.capability_matrix[cap]) {
               job_qcard.exact_matching += 1;
               count++;
-            } else if (job.capability_matrix[cap] === (candidate.capability_matrix[cap] - ConstVariables.DIFFERENCE_IN_COMPLEXITY_SCENARIO)) {
+            } else if (job.capability_matrix[cap] === (Number(candidate.capability_matrix[cap]) - ConstVariables.DIFFERENCE_IN_COMPLEXITY_SCENARIO)) {
               job_qcard.above_one_step_matching += 1;
               count++;
-            } else if (job.capability_matrix[cap] === (candidate.capability_matrix[cap] + ConstVariables.DIFFERENCE_IN_COMPLEXITY_SCENARIO)) {
+            } else if (job.capability_matrix[cap] === (Number(candidate.capability_matrix[cap]) + ConstVariables.DIFFERENCE_IN_COMPLEXITY_SCENARIO)) {
               job_qcard.below_one_step_matching += 1;
               count++;
             } else {
@@ -87,7 +89,6 @@ class RecruiterRepository extends RepositoryBase<IRecruiter> {
           if ((job_qcard.above_one_step_matching+job_qcard.exact_matching) >= ConstVariables.LOWER_LIMIT_FOR_SEARCH_RESULT) {
             jobs_cards.push(job_qcard);
           }
-          //todo add condition for exit
         }
       }
       if(recruiters.indexOf(recruiter) == recruiters.length-1) {

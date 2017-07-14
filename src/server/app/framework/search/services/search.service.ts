@@ -224,7 +224,7 @@ class SearchService {
         }
 //        let match_map: Map<string,MatchViewModel> = new Map<string,MatchViewModel>();
         newCandidate['match_map'] = {};
-        newCandidate = this.buildCompareView(job,newCandidate,industries);
+        newCandidate = this.buildCompareView(job,newCandidate,industries,isCandidate);
         newCandidate = this.getAdditionalCapabilities(job, newCandidate, industries);
         callback(null, newCandidate);
       }
@@ -260,17 +260,17 @@ class SearchService {
       return newCandidate;
   }
 
-  buildCompareView(job : any, newCandidate : any , industries : any) : any {
+  buildCompareView(job : any, newCandidate : any , industries : any, isCandidate : boolean) : any {
 
     for (let cap in job.capability_matrix) {
       let match_view: MatchViewModel = new MatchViewModel();
-      if (job.capability_matrix[cap] === -1 || job.capability_matrix[cap] === 0 || job.capability_matrix[cap] === undefined) {
+      if (job.capability_matrix[cap] == -1 || job.capability_matrix[cap] == 0 || job.capability_matrix[cap] == undefined) {
         match_view.match = Match.MissMatch;
-      } else if (job.capability_matrix[cap] === newCandidate.capability_matrix[cap]) {
+      } else if (job.capability_matrix[cap] == newCandidate.capability_matrix[cap]) {
         match_view.match = Match.Exact;
-      } else if (job.capability_matrix[cap] === (newCandidate.capability_matrix[cap] - ConstVariables.DIFFERENCE_IN_COMPLEXITY_SCENARIO)) {
+      } else if (job.capability_matrix[cap] == (Number(newCandidate.capability_matrix[cap]) - ConstVariables.DIFFERENCE_IN_COMPLEXITY_SCENARIO)) {
         match_view.match = Match.Above;
-      } else if (job.capability_matrix[cap] === (newCandidate.capability_matrix[cap] + ConstVariables.DIFFERENCE_IN_COMPLEXITY_SCENARIO)) {
+      } else if (job.capability_matrix[cap] == (Number(newCandidate.capability_matrix[cap]) + ConstVariables.DIFFERENCE_IN_COMPLEXITY_SCENARIO)) {
         match_view.match = Match.Below;
       } else {
         match_view.match = Match.MissMatch;
@@ -283,7 +283,6 @@ class SearchService {
             if (custom_code === cap) {
               isFound = true;
               let scenarios = complexity.scenarios.filter((sce: ScenarioModel) => {
-                console.log(newCandidate.capability_matrix[cap]);
                 sce.code =sce.code.replace('.','_');
                 sce.code =sce.code.replace('.','_');
                 sce.code = sce.code.substr(sce.code.lastIndexOf('_')+1);
@@ -293,10 +292,28 @@ class SearchService {
                   return false;
                 }
               });
+              let job_scenarios = complexity.scenarios.filter((sce: ScenarioModel) => {
+                sce.code =sce.code.replace('.','_');
+                sce.code =sce.code.replace('.','_');
+                sce.code = sce.code.substr(sce.code.lastIndexOf('_')+1);
+                if(sce.code == job.capability_matrix[cap])  {
+                  return true;
+                }else {
+                  return false;
+                }
+              });
               match_view.capability_name = capability.name;
               match_view.complexity_name = complexity.name;
-              if(scenarios[0]){
-                match_view.scenario_name=scenarios[0].name;
+              if(job_scenarios[0]) {
+                match_view.job_scenario_name= job_scenarios[0].name;
+              }
+              if(scenarios[0]) {
+                match_view.candidate_scenario_name=scenarios[0].name;
+              }
+              if(isCandidate) {
+                match_view.scenario_name = match_view.candidate_scenario_name;
+              }else {
+                match_view.scenario_name = match_view.job_scenario_name;
               }
               break;
             }
@@ -311,7 +328,6 @@ class SearchService {
             if (custom_code === cap) {
               isFound = true;
               let scenarios = complexity.scenarios.filter((sce: ScenarioModel) => {
-                console.log(newCandidate.capability_matrix[cap]);
                 sce.code =sce.code.replace('.','_');
                 sce.code =sce.code.replace('.','_');
                 sce.code = sce.code.substr(sce.code.lastIndexOf('_')+1);
@@ -321,10 +337,30 @@ class SearchService {
                   return false;
                 }
               });
+              let job_scenarios = complexity.scenarios.filter((sce: ScenarioModel) => {
+                sce.code =sce.code.replace('.','_');
+                sce.code =sce.code.replace('.','_');
+                sce.code = sce.code.substr(sce.code.lastIndexOf('_')+1);
+                if(sce.code == job.capability_matrix[cap])  {
+                  return true;
+                }else {
+                  return false;
+                }
+              });
               match_view.capability_name = capability.name;
               match_view.complexity_name = complexity.name;
-              if(scenarios[0]){
-                match_view.scenario_name=scenarios[0].name;
+              if(job_scenarios[0]){
+                match_view.job_scenario_name=job_scenarios[0].name;
+              }
+              if(scenarios[0]) {
+                match_view.candidate_scenario_name=scenarios[0].name;
+              }
+              if(isCandidate) {
+                console.log("in isCandidate");
+                match_view.scenario_name = match_view.candidate_scenario_name;
+              }else {
+                console.log("in Not isCandidate");
+                match_view.scenario_name = match_view.job_scenario_name;
               }
               break;
             }

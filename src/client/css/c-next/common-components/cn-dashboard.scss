@@ -5,10 +5,10 @@ $border-color: #e8e8e8;
 $text-color: #666;
 $purple: #7366ad;
 $highlight: #596c7d;
-$theme-color: #27aae1;
-$orange: #fbb040;
+$theme-color: #0d75fa;
+$orange: #ff9700;
 $green: #8dc63f;
-$red: #ef4136;
+$red: #e91d62;
 $border-light: #efefef;
 $active-color: #edf1f5;
 $border-blue: #d1dce4;
@@ -16,10 +16,6 @@ $label-border: #a7a7a7;
 $bg-tabs: #edf1f5;
 
 .profile-wrapper {
-  .wrapper-border {
-    border: 1px solid $border-color;
-    background: #fff;
-  }
 
   .btn-back {
     border: 0;
@@ -187,8 +183,23 @@ $bg-tabs: #edf1f5;
       }
     }
 
+    li.cart-job-tabs.active a {
+      border-bottom: 3px solid $purple !important;
+      color: $purple !important;
+    }
+
+    li.applied-count-tabs.active a {
+      border-bottom: 3px solid $orange !important;
+      color: $orange !important;
+    }
+
+    li.rejected-job-tabs.active a {
+      border-bottom: 3px solid $red !important;
+      color: $red !important;
+    }
+
     li > a > .match-count {
-      background-color: $green;
+      background-color: $theme-color;
     }
 
     li > a > .shortlisted-count {
@@ -196,7 +207,7 @@ $bg-tabs: #edf1f5;
     }
 
     li > a > .applied-count {
-      background-color: $theme-color;
+      background-color: $orange;
     }
 
     li > a > .rejected-count {
@@ -261,7 +272,7 @@ $bg-tabs: #edf1f5;
   }
 }
 
-.candidate-profile-wrapper {
+.candidate-dashboard-wrapper {
 
   .q-card-header {
     top: 90px;
@@ -277,7 +288,6 @@ $bg-tabs: #edf1f5;
 
     .col-sm-9 {
       width: 70%;
-      padding: 0;
     }
 
     .list-view {
@@ -306,7 +316,6 @@ $bg-tabs: #edf1f5;
   .profile-wrapper {
     .col-sm-9 {
       float: none;
-      padding: 0;
       width: 100%;
     }
 

@@ -18,11 +18,10 @@ $border-color: #e8e8e8;
     position: relative;
   }
 
-  .avtar > form {
-    bottom: 0.5%;
+  form {
+    bottom: -21%;
     position: absolute;
-    right: 1.5%;
-    text-align: right;
+    right: 32%;
   }
 
   .avtar > img {
@@ -39,12 +38,8 @@ $border-color: #e8e8e8;
   }
 
   .custom-file-upload {
-    border-radius: 4px;
     cursor: pointer;
-    display: inline-block;
-    width: 32px;
-    margin: 0;
-    opacity: 0.9;
+    width: 45px;
 
     img {
       width: 100%;

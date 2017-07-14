@@ -63,7 +63,7 @@
                 <label [class.exact]="data.experienceMatch=='exact'" [class.missing]="data.experienceMatch=='missing'">Experience</label>
                 <span>{{candidate.professionalDetails.experience}}</span>
                 <label>Current company</label>
-                <span> Techprimelab </span>
+                <span>{{candidate.professionalDetails.currentCompany}}</span>
                 <label>Current Location</label>
                 <span>{{candidateDetails.location.city}}</span><!--<span>{{candidateDetails.location.city}}</span>-->
                 <label [class.exact]="data.releaseMatch=='exact'" [class.above]="data.releaseMatch=='above'"
@@ -178,7 +178,7 @@
                   <label>Location</label>
                   <span>{{postedJob.location.city}}</span>
                   <label>Current company</label>
-                  <span> Techprimelab </span>
+                  <span>{{candidate.professionalDetails.currentCompany}}</span>
                   <label>About Job</label>
                   <span>
                     {{postedJob.competencies}}
@@ -202,7 +202,12 @@
   <div *ngIf="data && (typeOfView =='spa_job' || typeOfView =='spa_candidate')">
     <div class="spa-candidate-col">
       <div class="col-sm-12">
-        <cn-capability-compare [capabilities]="capabilities"></cn-capability-compare>
+        <div *ngIf="typeOfView =='spa_job' && recruiter != undefined" >
+          <cn-capability-compare [job_picture]="recruiter.company_logo"  [capabilities]="capabilities"></cn-capability-compare>
+        </div>
+        <div *ngIf="typeOfView =='spa_candidate' && candidateDetails != undefined">
+          <cn-capability-compare [candidate_picture]="candidateDetails.picture"   [capabilities]="capabilities"></cn-capability-compare>
+        </div>
       </div>
       <div class="col-sm-12 proficiency-compare-section-area">
         <h4 class="pull-left col-xs-3 no-padding text-left">Key Skills</h4>
@@ -228,7 +233,7 @@
           <div class="pull-left col-xs-8 no-padding text-left">
             <div class="pull-left" *ngFor="let item of data.proficiencies;let i = index"
                  style="padding-top: 6px;padding-right: 7px;">
-              <span>{{item}}</span>,
+              <span *ngIf="data.proficienciesMatch.indexOf(item)==-1">{{item}}<b *ngIf="i!=data.proficiencies.length-1">,</b></span>
             </div>
           </div>
         </div>
@@ -259,13 +264,29 @@
 <section *ngIf="data != undefined && typeOfView=='compact'">
   <div class="one-page-summary">
     <div class="col-xs-12">
-      <cn-capability-compare [capabilities]="capabilities"></cn-capability-compare>
+      <div *ngIf="typeOfView =='spa_candidate' && candidateDetails != undefined">
+        <cn-capability-compare [candidate_picture]="candidateDetails.picture"   [capabilities]="capabilities"></cn-capability-compare>
+      </div>
+
     </div>
     <div class="col-sm-12 proficiency-compare-section-area">
       <h4 class="pull-left col-xs-3 no-padding text-left">Key skills</h4>
       <div class="pull-left col-xs-7 no-padding text-left">
-        <div class="option exact" *ngFor="let item of data.proficiencies;let i = index">
+        <div class="option exact" *ngFor="let item of data.proficienciesMatch;let i = index">
           <span>{{item}}</span> <img class="" src="assets/framework/images/dashboard/right-tick.svg"/>
+        </div>
+        <div class="option missing" *ngFor="let item of data.proficienciesUnMatch;let i = index">
+          <span>{{item}}</span><img class="" src="assets/framework/images/dashboard/missing.svg"/>
+        </div>
+      </div>
+      <h4 class="pull-left col-xs-3 no-padding text-left"
+          *ngIf="( data && data.proficiencies && data.proficiencies.length>0)">
+        These are candidates extra key skills
+      </h4>
+      <div class="pull-left col-xs-8 no-padding text-left">
+        <div class="pull-left" *ngFor="let item of data.proficiencies;let i = index"
+             style="padding-top: 6px;padding-right: 7px;">
+          <span *ngIf="data.proficienciesMatch.indexOf(item)==-1">{{item}}<b *ngIf="i!=data.proficiencies.length-1">,</b></span>
         </div>
       </div>
     </div>

@@ -41,12 +41,13 @@ $theme-color: #3694d1;
 
   .card-view {
     color: $text-color;
+    margin-top: 20px !important;
 
     .panel {
       padding: 10px 10px 0;
       cursor: pointer;
       position: relative;
-      min-height: 135px;
+      min-height: 138px;
 
       &:hover {
         .glyphicon-trash {
