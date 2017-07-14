@@ -64,7 +64,7 @@ export class ComplexitiesComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: any) {
-    debugger;
+
     if (changes.roles && changes.roles.currentValue) {
       this.roles = changes.roles.currentValue;
     }
@@ -94,7 +94,7 @@ export class ComplexitiesComponent implements OnInit, OnChanges {
   }
 
   getComplexityIds(complexities: any) {
-    debugger;
+
     this.currentComplexity = 0;
     this.currentCapabilityNumber = 0;
     this.complexityIds = [];
@@ -109,7 +109,7 @@ export class ComplexitiesComponent implements OnInit, OnChanges {
   }
 
   saveComplexity() {
-    debugger;
+
     let jobId : string;
     if(!this.isCandidate) {
       jobId=LocalStorageService.getLocalValue(LocalStorage.POSTED_JOB);
@@ -134,7 +134,7 @@ export class ComplexitiesComponent implements OnInit, OnChanges {
   }
 
   onAnswered(complexityDetail: ComplexityDetails) {
-    debugger;
+
     this.isValid = true;
     this.complexities[this.complexityIds[this.currentComplexity]] = complexityDetail.userChoice;
     this.complexityData[this.complexityIds[this.currentComplexity]] = complexityDetail;
@@ -142,19 +142,19 @@ export class ComplexitiesComponent implements OnInit, OnChanges {
   }
 
   onCapabilityAnswered(capability: Capability) {
-    debugger;
+
     this.capabilities[this.currentCapabilityNumber] = capability;
     this.onNextCapability();
   }
 
   oncurrentComplexityAnswered(complexityDetails: ComplexityDetails) {
-    debugger;
+
     this.complexities[complexityDetails.code] = complexityDetails.userChoice;
     this.onComplextyAnswered.emit(this.complexities);
   }
 
   getCapabilityDetail(currentCapability: number) {
-    debugger;
+
     this.currentCapability = this.capabilities[this.currentCapabilityNumber];
     if (this.currentCapabilityNumber === this.capabilities.length) {
       this.saveComplexity();
@@ -163,12 +163,12 @@ export class ComplexitiesComponent implements OnInit, OnChanges {
   }
 
   onNextCapability() {
-    debugger;
+
     this.getCapabilityDetail(++this.currentCapabilityNumber);
   }
 
   onPreviousCapability() {
-    debugger;
+
     this.getCapabilityDetail(--this.currentCapabilityNumber);
   }
   onNext() {
