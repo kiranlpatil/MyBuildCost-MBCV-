@@ -32,22 +32,30 @@
                       <span class="complexity-name">{{complexity.name}}</span>
                       <span>{{scenario.name }}</span>
                       <div *ngIf="complexity.match != 2">
-                      <i >
-                          <span> <img src="/assets/framework/images/dashboard/profile.png" alt="User Profile"
-                                      *ngIf="candidate_picture==undefined"/>
-                            <img [src]="getImagePath(candidate_picture)" alt="User Profile"
+                        <div class="col-xs-12 no-padding user-info-modal">
+                          <div class="col-xs-2 no-padding ">
+                            <span> <img style="width: 24px;" src="/assets/framework/images/dashboard/profile.png" alt="User Profile"
+                                        *ngIf="candidate_picture==undefined"/>
+                              <img style="width: 24px;" [src]="getImagePath(candidate_picture)" alt="User Profile"
                                  *ngIf="candidate_picture!=undefined"/>
-                          </span>
-                          <span>{{scenario.candidate_scenario_name}} </span>
-                      </i>
-                      <i>
-                      <span> <img src="/assets/framework/images/dashboard/profile.png" alt="User Profile"
-                                  *ngIf="job_picture==undefined"/>
-                        <img src="/assets/framework/images/dashboard/profile.png" alt="User Profile"
-                             *ngIf="job_picture!=undefined"/>
-                      </span>
-                      <span>{{scenario.job_scenario_name }}</span>
-                      </i>
+                            </span>
+                          </div>
+                          <div class="col-xs-10 ">
+                            <span>{{scenario.candidate_scenario_name}} </span>
+                          </div>
+                          <div class="clearfix bottom-div"></div>
+                          <div class="col-xs-2 no-padding">
+                            <span> <img style="width: 24px;" src="/assets/framework/images/dashboard/profile.png" alt="User Profile"
+                                              *ngIf="job_picture==undefined"/>
+                              <img style="width: 24px;" src="/assets/framework/images/dashboard/profile.png" alt="User Profile"
+                                   *ngIf="job_picture!=undefined"/>
+                            </span>
+                          </div>
+                          <div class="col-xs-10 ">
+                            <span>{{scenario.job_scenario_name }}</span>
+                          </div>
+                        </div>
+
                       </div>
                     </div>
                   </div>
