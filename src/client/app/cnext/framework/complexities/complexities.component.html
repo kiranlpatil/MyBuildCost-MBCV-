@@ -13,7 +13,6 @@
                             [slideQuestionToRight]="slideToRight"
                             (onComplete)="onAnswered($event)"></cn-question-answer>
       </div>
-      <p>{{isCandidate}}</p>
       <div class="complexity-container scrollable-content" *ngIf="!isCandidate">
         <cn-multiple-question-answer [capabilityDetails]="currentCapability" [slideQuestionToLeft]="slideToLeft"
                                      [slideQuestionToRight]="slideToRight" (onComplete)="onCapabilityAnswered($event)"
@@ -33,7 +32,8 @@
               *ngIf="!isCandidate">Next
       </button>
     </div>
-    <span class="question-count">{{currentComplexity+1}} of {{complexityIds.length}}</span>
+    <span class="question-count" *ngIf="isCandidate">{{currentComplexity+1}} of {{complexityIds.length}}</span>
+    <span class="question-count" *ngIf="!isCandidate">{{currentCapabilityNumber+1}} of {{capabilities.length}}</span>
     <!--
         <span  class="question-count"> {{currentComplexityDetails.complexity_number}}</span><span *ngIf="currentComplexityDetails.total_complexity_in_capability"> of {{currentComplexityDetails.total_complexity_in_capability}}</span>
     -->
