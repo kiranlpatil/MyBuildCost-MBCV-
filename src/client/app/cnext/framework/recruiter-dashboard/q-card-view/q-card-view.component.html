@@ -64,8 +64,8 @@
           </div>
           <div class="col-md-4 col-sm-5 col-xs-6 no-padding canvas-cricle">
             <div class="canvas-container" title="Matching Percentage">
-              <cn-progress-bar [value]="item.matching" [color]="'#e77e22'" [rotation]="false"></cn-progress-bar>
-              <cn-progress-bar [value]="item.matching" [color]="'#e77e22'" [rotation]="true"></cn-progress-bar>
+              <cn-progress-bar  [value]="item.matching" [color]="progress_bar_color" [rotation]="false"></cn-progress-bar>
+              <cn-progress-bar [value]="item.matching" [color]="progress_bar_color" [rotation]="true"></cn-progress-bar>
               <span *ngIf="matchFormat == 'aboveMatch' && type == 'matchedList'">{{item.exact_matching + item.above_one_step_matching | number : '1.0-0'}}%</span>
               <span
                 *ngIf="matchFormat == 'belowMatch' && type == 'matchedList'">{{item.matching | number : '1.0-0'}}%</span>
