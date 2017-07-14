@@ -17,10 +17,13 @@
     </div>
     <div class="button-group">
       <!--<div class="saving-loader">Saving...</div>-->
-      <button class="btn btn-primary" (click)="highlightedSection.name='none'; highlightedSection.isDisable=false">
+      <button class="btn btn-primary"
+              (click)="highlightedSection.name='EmploymentHistory'; highlightedSection.isDisable=false"
+              *ngIf="!candidate.isSubmitted">
         Next
       </button>
-      <button class="btn btn-primary" (click)="highlightedSection.name='none'; highlightedSection.isDisable=false">
+      <button class="btn btn-primary" (click)="highlightedSection.name='none'; highlightedSection.isDisable=false"
+              *ngIf="candidate.isSubmitted">
         Done
       </button>
     </div>

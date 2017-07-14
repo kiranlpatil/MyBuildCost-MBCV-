@@ -26,9 +26,6 @@
     </div>
     <div class="button-group clearfix">
       <!--<div class="saving-loader">Saving...</div>-->
-      <button class="btn btn-default" (click)="highlightedSection.name='none';highlightedSection.isDisable=false">
-        Cancel
-      </button>
       <button type="submit" class="btn btn-primary" scrollTo scrollTargetSelector="#certification"
               (click)="postData('next')" *ngIf="!candidate.isSubmitted">Next
       </button>

@@ -154,7 +154,7 @@ export class ProfessionalDataComponent extends BaseService implements OnInit {
       return;
     }
     this.onComplete.emit();
-    this.highlightedSection.name = "none";
+    this.highlightedSection.name = "AboutMySelf";
     this.highlightedSection.isDisable = false;
 
   }

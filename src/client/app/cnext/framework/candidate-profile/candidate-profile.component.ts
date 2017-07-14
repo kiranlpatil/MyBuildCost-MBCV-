@@ -152,22 +152,22 @@ export class CandidateProfileComponent implements OnInit {
   }
 
   onEmploymentHistoryComplete() {
-    this.showEmploymentHistory = true;
-  }
-
-  onAcademicDetailsComplete() {
     this.showAcademicsDetails = true;
   }
 
-  onCertificationsComplete() {
+  onAcademicDetailsComplete() {
     this.showCertificationDetails = true;
   }
 
-  onAwardsComplete() {
+  onCertificationsComplete() {
     this.showAwards = true;
   }
 
+  onAwardsComplete() {
+  }
+
   onMoreAboutMySelfComplete(data:string) {
+    this.showEmploymentHistory = true;
     if (data !== '') {
       this.whichStepsVisible[6] = true;
     } else {
