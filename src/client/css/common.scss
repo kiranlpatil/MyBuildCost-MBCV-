@@ -456,6 +456,9 @@ h4 {
 .toaster-error {
   background: $toaster-error;
   z-index: 1000;
+  p {
+    color: #fff;
+  }
 }
 
 .toaster-success {
