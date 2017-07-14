@@ -5,8 +5,8 @@
     </ul>
     <header class="clearfix">
       <div class="col-md-8 col-sm-7 col-xs-6 no-padding">
-        <h6 title="Job Title">{{job.jobTitle}}</h6>
-        <h5 title="Company Name">{{job.company_name}}</h5>
+        <h6 title="Job Title: {{job.jobTitle}}">{{job.jobTitle}}</h6>
+        <h5 title="Company Name: {{job.company_name}}">{{job.company_name}}</h5>
         <p class="proficiencies" title="Key Skills">
           <img src="assets/c-next/card-view/proficiencies.png" alt="Location"/>
           <span *ngFor="let proficiency of job.proficiencies;let i=index">

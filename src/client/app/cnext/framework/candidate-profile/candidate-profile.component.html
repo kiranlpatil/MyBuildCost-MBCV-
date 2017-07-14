@@ -122,16 +122,16 @@
             </div>
           </div>
         </div>
-
-        <div class="profile-configurations" [hidden]="!showAboutMySelf" >
-          <div class="col-sm-6 text-left">
-            <div class="button-group" *ngIf="!candidate.isSubmitted">
-              <button class="btn btn-success" tabindex="1" (click)="showHideModal()">Submit</button>
-              <!--<button class="btn btn-default">Cancel</button>-->
-            </div>
+      </div>
+      <div class="profile-configurations" [hidden]="!showAboutMySelf" >
+        <div class="text-left">
+          <div class="button-group" *ngIf="!candidate.isSubmitted">>
+            <button class="btn btn-success" tabindex="1" (click)="showHideModal()">Submit</button>
+            <!--<button class="btn btn-default">Cancel</button>-->
           </div>
         </div>
       </div>
+
     </div>
   </div>
 </div>

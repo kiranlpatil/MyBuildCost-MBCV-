@@ -22,7 +22,7 @@ $bg-content: rgba(255, 255, 255, .1);
 $modal-bg: rgba(0, 0, 0, .7);
 $btn-color: #1c75bd;
 $input-bg: rgba(255, 255, 255, .1);
-$label: #999;
+$label: #333;
 $theme-color: #66afe9;
 $gray-shadow: rgba(0, 0, 0, .075);
 $blue-shadow: rgba(102, 175, 233, .6);
@@ -264,7 +264,7 @@ select,
     color: $label;
     display: block;
     float: left;
-    font-size: 13px;
+    font-size: 12px;
   }
 
   .form-control {
