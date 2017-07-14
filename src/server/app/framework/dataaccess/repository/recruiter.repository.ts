@@ -54,10 +54,10 @@ class RecruiterRepository extends RepositoryBase<IRecruiter> {
             } else if (job.capability_matrix[cap] === candidate.capability_matrix[cap]) {
               job_qcard.exact_matching += 1;
               count++;
-            } else if (job.capability_matrix[cap] === (candidate.capability_matrix[cap] - ConstVariables.DIFFERENCE_IN_COMPLEXITY_SCENARIO)) {
+            } else if (job.capability_matrix[cap] === (Number(candidate.capability_matrix[cap]) - ConstVariables.DIFFERENCE_IN_COMPLEXITY_SCENARIO)) {
               job_qcard.above_one_step_matching += 1;
               count++;
-            } else if (job.capability_matrix[cap] === (candidate.capability_matrix[cap] + ConstVariables.DIFFERENCE_IN_COMPLEXITY_SCENARIO)) {
+            } else if (job.capability_matrix[cap] === (Number(candidate.capability_matrix[cap]) + ConstVariables.DIFFERENCE_IN_COMPLEXITY_SCENARIO)) {
               job_qcard.below_one_step_matching += 1;
               count++;
             } else {

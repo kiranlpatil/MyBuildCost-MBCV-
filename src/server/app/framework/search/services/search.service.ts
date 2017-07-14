@@ -264,13 +264,13 @@ class SearchService {
 
     for (let cap in job.capability_matrix) {
       let match_view: MatchViewModel = new MatchViewModel();
-      if (job.capability_matrix[cap] === -1 || job.capability_matrix[cap] === 0 || job.capability_matrix[cap] === undefined) {
+      if (job.capability_matrix[cap] == -1 || job.capability_matrix[cap] == 0 || job.capability_matrix[cap] == undefined) {
         match_view.match = Match.MissMatch;
-      } else if (job.capability_matrix[cap] === newCandidate.capability_matrix[cap]) {
+      } else if (job.capability_matrix[cap] == newCandidate.capability_matrix[cap]) {
         match_view.match = Match.Exact;
-      } else if (job.capability_matrix[cap] === (newCandidate.capability_matrix[cap] - ConstVariables.DIFFERENCE_IN_COMPLEXITY_SCENARIO)) {
+      } else if (job.capability_matrix[cap] == (Number(newCandidate.capability_matrix[cap]) - ConstVariables.DIFFERENCE_IN_COMPLEXITY_SCENARIO)) {
         match_view.match = Match.Above;
-      } else if (job.capability_matrix[cap] === (newCandidate.capability_matrix[cap] + ConstVariables.DIFFERENCE_IN_COMPLEXITY_SCENARIO)) {
+      } else if (job.capability_matrix[cap] == (Number(newCandidate.capability_matrix[cap]) + ConstVariables.DIFFERENCE_IN_COMPLEXITY_SCENARIO)) {
         match_view.match = Match.Below;
       } else {
         match_view.match = Match.MissMatch;
@@ -283,7 +283,6 @@ class SearchService {
             if (custom_code === cap) {
               isFound = true;
               let scenarios = complexity.scenarios.filter((sce: ScenarioModel) => {
-                console.log(newCandidate.capability_matrix[cap]);
                 sce.code =sce.code.replace('.','_');
                 sce.code =sce.code.replace('.','_');
                 sce.code = sce.code.substr(sce.code.lastIndexOf('_')+1);
