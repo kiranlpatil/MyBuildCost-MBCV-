@@ -32,6 +32,7 @@ export class QCardviewComponent implements OnChanges {
   @Input() type: string;
   @Input() filterMeta: QCardFilter;
   @Output() addedTocart: EventEmitter<any> = new EventEmitter<any>();
+  @Input() progress_bar_color : string='#0d75fa';
   public qCardModel: QCardsortBy = new QCardsortBy();
   public totalQCardMatches = {count: 0};
   public qCardCount = {count: 0};
