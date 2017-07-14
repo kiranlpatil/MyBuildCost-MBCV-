@@ -56,10 +56,18 @@
         <h4 class="heading-compact">
           <img src="assets/c-next/icons/employment-icon.png" alt="employment"/>
           Employment History
+          <button class="btn-edit"
+            (click)="highlightedSection.name='EmploymentHistory';highlightedSection.isDisable=true;showButton=false"
+             title="Edit Employment History"></button>
         </h4>
       </div>
       <div class="" *ngIf="employeeHistory.controls.employeeHistories.controls.length>0">
-        <h4 class="heading-compact"> <img src="assets/c-next/icons/employment-icon.png" alt="employment"/>Employment History</h4>
+        <h4 class="heading-compact"> <img src="assets/c-next/icons/employment-icon.png" alt="employment"/>
+          Employment History
+          <button class="btn-edit"
+            (click)="highlightedSection.name='EmploymentHistory';highlightedSection.isDisable=true;showButton=false"
+            title="Edit Employment History"></button>
+        </h4>
         <ul>
           <div *ngFor="let item of candidate.employmentHistory;let i = index">
             <div *ngIf="i == 0">

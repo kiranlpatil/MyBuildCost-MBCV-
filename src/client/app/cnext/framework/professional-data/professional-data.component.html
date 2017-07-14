@@ -82,8 +82,8 @@
   <div class="main-content" (click)="highlightedSection.name='Professional-Details';highlightedSection.isDisable=true;isValid=true;showButton=false">
     <div class="compact-view clearfix">
       <h4 class="heading-compact">Professional Preferences
-       <!-- <button class="btn-edit"
-                [hidden]="highlightedSection.isDisable" title="Edit Professional Preferences & Experience Summary"></button>-->
+        <button class="btn-edit"
+                [hidden]="highlightedSection.isDisable" title="Edit Professional Preferences & Experience Summary"></button>
       </h4>
 
       <p><label>Current Salary</label> {{candidate.professionalDetails.currentSalary}}</p>

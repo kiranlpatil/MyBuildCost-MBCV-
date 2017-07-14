@@ -107,11 +107,13 @@
           <div class="main-content clearfix">
             <div class="compact-view clearfix profile-visibility">
               <h4 class="heading-compact">Profile Visibility for employer</h4>
-              <div class="info profile-info" *ngIf="!candidate.isVisible">If enabled, your profile will be available in employer search.</div>
-              <div class="info profile-info" *ngIf="candidate.isVisible">Warning: Selecting Hide will hide your profile from recruiters. If you are on the lookout of job change, it is recommended to keep this setting to "Show". You can change this setting later.
+              <div class="info profile-info" *ngIf="!candidate.isVisible">If "Yes", your profile will be available in employer search.</div>
+              <div class="info profile-info" *ngIf="candidate.isVisible">If "No", your profile will not be visible to recruiter.
+                If you are on the lookout of job change, it is recommended to keep this setting to "Yes". You can change this setting later.
               </div>
               <div class="pull-right">
-                <span class="switch-label">Yes</span>
+                <span class="switch-label" *ngIf="candidate.isVisible == true">Yes</span>
+                <span class="switch-label" *ngIf="candidate.isVisible == false">No</span>
                 <div class="switch">
                   <label class="radio-inline">
                     <input type="radio" name="profile-visibility"
