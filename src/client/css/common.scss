@@ -426,7 +426,7 @@ h4 {
 .other-links {
   float: right;
   font-size: 11px;
-  margin: 14px 0 0;
+  margin: 14px 14px 22px;
   text-align: right;
 }
 
@@ -655,6 +655,10 @@ control-messages {
 
 .navbar-brand {
   padding: 0px 15px 15px 15px;
+}
+
+.profile-summary {
+  margin-top: 30px;
 }
 
 // Media Queries
