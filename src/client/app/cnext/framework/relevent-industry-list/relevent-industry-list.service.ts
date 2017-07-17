@@ -20,10 +20,11 @@ export class ReleventIndustryListService extends BaseService {
       .catch(this.handleError);
   }
 
-  updateSelectedReleventIndustries(data:string[]): Observable<String> {
+  /*updateSelectedReleventIndustries(data:string[]): Observable<String> {
     var body = JSON.stringify(data);
-    return this.http.post(API.GOOGLE_LOGIN, body)
+    var url = API.RElEVENT_INDUSTRIES + '/' + LocalStorageService.getLocalValue(LocalStorage.USER_ID);
+    return this.http.post(url, body)
       .map(this.extractData)
       .catch(this.handleError);
-  }
+  }*/
 }

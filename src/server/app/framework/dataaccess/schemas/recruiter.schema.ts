@@ -138,7 +138,8 @@ class RecruiterSchema {
         },
         postingDate: {
           type: Date
-        }
+        },
+        releventIndustries:[{type:String}]
       }]
     }, {versionKey: false});
 

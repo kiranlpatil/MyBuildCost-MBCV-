@@ -27,4 +27,5 @@ export class JobPosterModel {
   interestedIndustries: string[] = new Array(0);
   candidate_list: any = [];
   numberOfCandidatesInList: CandidatesInDiffList = new CandidatesInDiffList();
+  releventIndustries:string[] = new Array(0);
 }

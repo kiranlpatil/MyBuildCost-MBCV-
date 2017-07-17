@@ -46,7 +46,7 @@ export class JobPosterComponent implements OnInit {
   private jobForComplexity: Role[] = new Array(0);
   private jobForRole: Role[]= new Array(0);
   private jobForCapability: Role[]= new Array(0);
-  private rolesForRelevent: Role[] = new Array(0);
+  private isShowReleventIndustryListStep :boolean = false;
 
   private flag: boolean = true;
   private highlightedSection: Section = new Section();
@@ -196,12 +196,17 @@ export class JobPosterComponent implements OnInit {
   }
   onIndustryExposureComplete(event: any) {
     //this.showCompentensies = true;
+    if(this.isShowReleventIndustryListStep) {
+      this.highlightedSection.name = 'ReleventIndustry';
+      this.showReleventIndustryList = true;
+      /*var rolesForRelevent: Role[] = new Array(0);
+      rolesForRelevent = this.jobForRole;
+      this.rolesForRelevent = rolesForRelevent;*/
+    } else {
+      this.showCompentensies = true;
+      this.highlightedSection.name = 'Compentancies';
+    }
 
-    this.highlightedSection.name = 'ReleventIndustry';
-    this.showReleventIndustryList = true;
-    var rolesForRelevent: Role[] = new Array(0);
-    rolesForRelevent = this.jobForRole;
-    this.rolesForRelevent = rolesForRelevent;
   }
 
   onCompentansiesandResponsibilitycomplete(data: any) {
@@ -296,8 +301,15 @@ export class JobPosterComponent implements OnInit {
   getJobForComplexity() {
     this.isShowComplexity = true;
   }
-  onReleventIndustryComplete(event:any) {
+  onReleventIndustryComplete(value:any) {
+    console.log('----data------',value);
+    this.jobPosterModel.releventIndustries = value;
+    console.log('---- this.jobPosterModel.releventIndustries------', this.jobPosterModel.releventIndustries);
     this.showCompentensies = true;
+    this.updateJob();
+  }
+  checkReleventIndustries(value:any) {
+    (value > 0)?this.isShowReleventIndustryListStep = true:this.isShowReleventIndustryListStep = false;
   }
 
 }

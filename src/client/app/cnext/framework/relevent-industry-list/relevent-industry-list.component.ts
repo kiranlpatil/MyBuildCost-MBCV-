@@ -19,6 +19,7 @@ export class ReleventIndustryListComponent implements OnInit {
   workAreas:string[] = new Array();
   workAreasToUpdate:string[] = new Array();
   @Output() onNextComplete = new EventEmitter();
+  @Output() checkReleventIndustries = new EventEmitter();
   @Input() highlightedSection: Section;
   @Input() roles: Role[] = new Array(0);
   suggestionMsgForReleventIndustry:string;
@@ -44,10 +45,8 @@ export class ReleventIndustryListComponent implements OnInit {
   }
 
   getReleventIndustries() {
-    console.log('-------------------this.roles-------',this.roles);
     if(this.roles.length) {
       this.roles.forEach(x => this.workAreas.push(x.name));
-      console.log('-------------------this.roles----arrrray---',this.workAreas);
       this.releventIndustryService.getReleventIndustries(this.workAreas)
         .subscribe(
           res => {
@@ -61,15 +60,15 @@ export class ReleventIndustryListComponent implements OnInit {
   onGetIndustriesSuccess(res:any) {
     this.releventIndustries = new Array(0);
     this.releventIndustries = <ReleventIndustry[]>res.data;
-    console.log('--------data-----',res.data);
+    this.checkReleventIndustries.emit(res.data.length);
   }
   onError(error:any) {
   console.log('----errorr------');
   }
 
-  onNext() {
+  goNext() {
     this.highlightedSection.name = 'Compentancies';
-    this.onNextComplete.emit();
+    this.onNextComplete.emit(this.workAreasToUpdate);
   }
 
   getReleventIndustry(event:any) { debugger
@@ -85,28 +84,30 @@ export class ReleventIndustryListComponent implements OnInit {
     this.releventIndustries[index].isChecked = event.target.checked;
   }
 
-  updateSelectedReleventIndustries() {
+  onNext() {
     this.workAreasToUpdate = new Array(0);
     this.releventIndustries.forEach(item => {
       if(item.isChecked){
         this.workAreasToUpdate.push(item.name);
       }
     });
-    if(this.workAreasToUpdate.length) {
-      this.releventIndustryService.updateSelectedReleventIndustries(this.workAreasToUpdate)
+
+    this.goNext();
+    /*if(this.workAreasToUpdate.length) {
+      /!*this.releventIndustryService.updateSelectedReleventIndustries(this.workAreasToUpdate)
         .subscribe(
           (data: any) => this.onUpdateSuccess(data),
           (error: any) => this.onUpdateError(error)
-        )
+        )*!/
     } else {
-
-    }
+      this.goNext();
+    }*/
   }
-  onUpdateSuccess(data:any) {
-
+  /*onUpdateSuccess(data:any) {
+   this.goNext();
   }
   onUpdateError(error:any) {
-
-  }
+  console.log('onUpdateError');
+  }*/
 
 }
