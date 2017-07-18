@@ -14,7 +14,7 @@ import {LocalStorage, ValueConstant, Messages} from '../../../framework/shared/c
 
 export class IndustryExperienceListComponent implements OnInit,OnChanges {
   @Input() highlightedSection: Section;
-  @Input() choosedIndeustry: string;
+  @Input() choosedIndustry: string;
   @Input() candidateExperiencedIndustry: string[] = new Array(0);
   @Output() onComplete = new EventEmitter();
   @Output() onNextComplete = new EventEmitter();
@@ -34,7 +34,8 @@ export class IndustryExperienceListComponent implements OnInit,OnChanges {
   private isCandidate:boolean = false;
   private submitStatus: boolean;
   private requiedIndustryExposureValidationMessage = Messages.MSG_ERROR_VALIDATION_INDUSTRY_EXPOSURE_REQUIRED;
-  private suggestionMessageAboutDomain = Messages.SUGGESTION_MSG_ABOUT_DOMAIN;
+  private suggestionMessageAboutDomain = "In addition to "+ this.choosedIndustry + " industry, do you want the candidate to have mandatory experience in any specific Domain? If yes, select such MUST HAVE DOMAINS from below.";
+
 
   constructor(private candidateProfileService: CandidateProfileService) {
     this.getIndustries();
@@ -55,8 +56,8 @@ export class IndustryExperienceListComponent implements OnInit,OnChanges {
       }
     }
 
-    if (changes.choosedIndeustry !== undefined && changes.choosedIndeustry.currentValue !== undefined) {
-      this.choosedIndeustry = changes.choosedIndeustry.currentValue;
+    if (changes.choosedIndustry !== undefined && changes.choosedIndustry.currentValue !== undefined) {
+      this.choosedIndustry = changes.choosedIndustry.currentValue;
       this.getIndustries();
     }
     if (this.candidateExperiencedIndustry === undefined) {
@@ -128,7 +129,7 @@ export class IndustryExperienceListComponent implements OnInit,OnChanges {
   onIndustryListSuccess(data: Industry[]) {
     this.industries = data;
     for (let item of this.industries) {
-      if (item.name === this.choosedIndeustry) {
+      if (item.name === this.choosedIndustry) {
         this.industries.splice(this.industries.indexOf(item), 1);
       }
     }
