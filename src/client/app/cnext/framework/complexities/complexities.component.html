@@ -26,10 +26,10 @@
     </div>
     <div class="button-group clearfix clear">
       <!--<div class="saving-loader">Saving...</div>-->
-      <button class="btn btn-primary" (click)="onNext()" [disabled]="currentComplexity===complexityIds.length"
+      <button class="btn btn-primary" (click)="onNext()"
               *ngIf="isCandidate">Next
       </button>
-      <button class="btn btn-primary" (click)="onNextCapability()" [disabled]="currentComplexity===complexityIds.length"
+      <button class="btn btn-primary" (click)="onNextCapability()"
               *ngIf="!isCandidate">Next
       </button>
     </div>
