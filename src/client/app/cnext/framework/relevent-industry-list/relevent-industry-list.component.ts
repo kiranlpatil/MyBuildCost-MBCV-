@@ -26,6 +26,7 @@ export class ReleventIndustryListComponent implements OnInit {
   @Input() industry:Industry;
   suggestionMsgForReleventIndustry:string;
   showRleventindustry:boolean=false;
+  private showButton: boolean = true;
   //arr = Observable.of(this.releventIndustries);
   constructor(private releventIndustryService:ReleventIndustryListService) {
 
@@ -70,6 +71,15 @@ export class ReleventIndustryListComponent implements OnInit {
 
   goNext() {
     this.highlightedSection.name = 'Compentancies';
+    this.onNextComplete.emit(this.workAreasToUpdate);
+  }
+  onSave() {
+    /*if(this.selectedIndustries.length==0) {
+      this.submitStatus = true;
+      return;
+    }*/
+    this.highlightedSection.name = 'none';
+    this.highlightedSection.isDisable = false;
     this.onNextComplete.emit(this.workAreasToUpdate);
   }
 
