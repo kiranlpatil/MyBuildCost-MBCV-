@@ -28,13 +28,11 @@ export class WorkAreaComponent implements OnInit,OnChanges {
     '</ul>';
   private savedSelectedRoles: Role[] = new Array(0);
   private isCandidate: boolean = false;
-  private disableButton: boolean = true;
   private showModalStyle:boolean = false;
   private showModalStyle2:boolean = false;
   private showButton: boolean = true;
-  private emptyWorkAreas:boolean;
-  private requiredValidationMessage = Messages.MSG_ERROR_VALIDATION_AREAS_WORKED_REQUIRED;
-  private maxLimitExtend = Messages.MSG_ERROR_VALIDATION_MAX_AREAS_WORKED_CROSSED ;
+  private isValid:boolean = true;
+  private validationMessage: string;
 
   ngOnInit() {
     if (LocalStorageService.getLocalValue(LocalStorage.IS_CANDIDATE) === 'true') {
@@ -43,19 +41,20 @@ export class WorkAreaComponent implements OnInit,OnChanges {
   }
 
     ngOnChanges(changes:any) {
-   if(changes.selectedRoles !== undefined && changes.selectedRoles.currentValue !== undefined){
-   this.selectedRoles=changes.selectedRoles.currentValue;
-     this.savedSelectedRoles=new Array(0);
-     for(let role of this.selectedRoles){
-       let savetempRole =Object.assign({}, role);
-       this.savedSelectedRoles.push(savetempRole);
-     }
-   }
+      if(changes.selectedRoles !== undefined && changes.selectedRoles.currentValue !== undefined){
+        this.selectedRoles=changes.selectedRoles.currentValue;
+        this.savedSelectedRoles=new Array(0);
+        for(let role of this.selectedRoles){
+          let savetempRole =Object.assign({}, role);
+          this.savedSelectedRoles.push(savetempRole);
+        }
+      }
    }
 
   selectOption(role: Role, event: any) {
+    this.validationMessage = '';
+    this.isValid = true;
     if (event.target.checked) {
-      this.emptyWorkAreas = false;
       if (this.savedSelectedRoles.length < ValueConstant.MAX_WORKAREA) {
         let isFound: boolean = false;
         for (let selrole of this.savedSelectedRoles) {
@@ -68,7 +67,8 @@ export class WorkAreaComponent implements OnInit,OnChanges {
         }
       } else {
         event.target.checked = false;
-        this.showHideModal();
+        this.validationMessage = Messages.MSG_ERROR_VALIDATION_MAX_AREAS_WORKED_CROSSED;
+        this.isValid = false;
       }
     } else {
       let tempRole: Role;
@@ -84,6 +84,8 @@ export class WorkAreaComponent implements OnInit,OnChanges {
   }
 
   onPrevious() {
+    this.validationMessage = '';
+    this.isValid = true;
     this.selectedRoles = new Array(0);
     for (let role of this.savedSelectedRoles) {
       let savetempRole = Object.assign({}, role);
@@ -91,9 +93,11 @@ export class WorkAreaComponent implements OnInit,OnChanges {
     }
     this.highlightedSection.name = 'Industry';
   }
+
   onNext() {
-    if(!(this.savedSelectedRoles.length>0)){
-      this.emptyWorkAreas = true;
+    if(this.savedSelectedRoles.length == 0){
+      this.validationMessage = Messages.MSG_ERROR_VALIDATION_AREAS_WORKED_REQUIRED;
+      this.isValid = false;
       return;
     }
     this.selectedRoles=new Array(0);
@@ -105,30 +109,34 @@ export class WorkAreaComponent implements OnInit,OnChanges {
     this.highlightedSection.isDisable = false;
     this.onComplete.emit(this.selectedRoles);
   }
-onSave() {
-  if(!(this.savedSelectedRoles.length>0)){
-    return;
-  }
-    var roleId:any[]=new Array(0);
-    var goNext:boolean;
-    if(this.selectedRoles.length === this.savedSelectedRoles.length ) {
-      for (let role of this.selectedRoles) {
-        roleId.push(role.name);
+
+  onSave() {
+    this.isValid = true;
+    if(this.savedSelectedRoles.length == 0){
+      this.validationMessage = Messages.MSG_ERROR_VALIDATION_AREAS_WORKED_REQUIRED;
+      this.isValid = false;
+      return;
     }
-      for(let selectedRole of this.savedSelectedRoles){
-        if(roleId.indexOf(selectedRole.name)=== -1) {
-          goNext=true;
-        }
+      var roleId:any[]=new Array(0);
+      var goNext:boolean;
+      if(this.selectedRoles.length === this.savedSelectedRoles.length ) {
+        for (let role of this.selectedRoles) {
+          roleId.push(role.name);
       }
-      if(goNext) {
-        this.onNext();
+        for(let selectedRole of this.savedSelectedRoles){
+          if(roleId.indexOf(selectedRole.name)=== -1) {
+            goNext=true;
+          }
+        }
+        if(goNext) {
+          this.onNext();
+        } else {
+          this.onNext();
+        }
       } else {
         this.onNext();
       }
-    } else {
-      this.onNext();
-    }
-}
+  }
 onCancel() {
   this.highlightedSection.name='none';
   this.highlightedSection.isDisable=false;

@@ -5,8 +5,7 @@
     <div class="col-sm-9 no-padding">
       <h4 class="heading" *ngIf="isCandidate">Select Area of Work That Describes Your Current Focus (Max 3)</h4>
       <h4 class="heading" *ngIf="!isCandidate">In which Area Candidate Is Expected To Work </h4>
-      <div class="error-messages" *ngIf="emptyWorkAreas">{{requiredValidationMessage}}</div>
-      <div class="error-messages" *ngIf="alert">{{maxLimitExtend}}</div>
+      <div class="error-messages" *ngIf="!isValid">{{validationMessage}}</div>
       <div class="scrollable-content">
         <div class="select-option" *ngFor="let item of roles;let i = index">
           <label>
@@ -33,26 +32,6 @@
       <button class="btn btn-primary" (click)="onSave()" [hidden]="showButton">Save</button>
     </div>
   </div>
-</div>
-
-<div class="modal popup" [style.display]="getStyleModal()">
-    <div class="modal-dialog modal-md">
-      <div class="modal-content">
-        <div class="modal-body">
-          <div class="row">
-            <div class="col-sm-12">
-              <p>You can select maximum 3 areas of work. To change your options you should
-                      deselect the area of work which does not best describe your current focus.</p>
-              <div class="button-group">
-                <form>
-                  <button class="btn btn-success" (click)="showHideModal()">OK</button>
-                </form>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
 </div>
 
 <div class="section-container"

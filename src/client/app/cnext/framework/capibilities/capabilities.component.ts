@@ -27,8 +27,8 @@ export class CapabilitiesComponent {
   private primaryCapabilitiesNumber: number = 0;
   private disableButton: boolean = true;
   private isCandidate: boolean = false;
-  private emptyCapabilities: boolean;
-  private requiredCapabilitiesValidationMessage = Messages.MSG_ERROR_VALIDATION_CAPABILITIES_REQUIRED;
+  private isValid: boolean = true;
+  private validationMessage = Messages.MSG_ERROR_VALIDATION_CAPABILITIES_REQUIRED;
   private capabilitiesCodes : string[]= new Array(0);
   tooltipCandidateMessage: string =
 
@@ -54,6 +54,8 @@ export class CapabilitiesComponent {
   }
 
   ngOnChanges(changes: any) {
+    this.isValid = true;
+    this.validationMessage = '';
     if (this.candidateRoles) {
       this.setPrimaryCapabilitydata();
     }
@@ -77,23 +79,36 @@ export class CapabilitiesComponent {
   }
 
   selectedCapability(selectedRole: Role, selectedCapability: Capability, event: any) {
+    this.isValid = true;
+    this.validationMessage = '';
     this.disableButton = false;
     this.roles[0].isAPIForComplexity = true;
+    let setOfCapabilityNumber = [7,8,9];
     if (event.target.checked) {
-      this.emptyCapabilities = false;
+      this.isValid = false;
       if (this.primaryCapabilitiesNumber < ValueConstant.MAX_CAPABILITIES) {
         this.primaryCapabilitiesNumber++;
+        if(setOfCapabilityNumber.indexOf(this.primaryCapabilitiesNumber) > -1 && this.capabilitiesCodes.length >= ValueConstant.MAX_CAPABILITIES) {
+          this.isValid = false;
+          this.validationMessage = `You can select ${ValueConstant.MAX_CAPABILITIES - this.primaryCapabilitiesNumber} more capabilities.`
+        }
         selectedCapability.isPrimary = true;
         this.primaryNames.push(selectedCapability.name);
 
       } else {
         event.target.checked=false;
+        this.isValid = false;
+        this.validationMessage = Messages.MSG_ERROR_VALIDATION_MAX_CAPABILITIES_CROSSED;
         /*this.secondaryNames.push(selectedCapability.name);
         selectedCapability.isSecondary = true;*/
       }
     } else {
       if (selectedCapability.isPrimary) {
         this.primaryCapabilitiesNumber--;
+        if(setOfCapabilityNumber.indexOf(this.primaryCapabilitiesNumber) > 0 && this.capabilitiesCodes.length >= ValueConstant.MAX_CAPABILITIES) {
+          this.isValid = false;
+          this.validationMessage = `You can select ${ValueConstant.MAX_CAPABILITIES - this.primaryCapabilitiesNumber} more capabilities.`
+        }
         this.primaryNames.splice(this.primaryNames.indexOf(selectedCapability.name), 1);
         selectedCapability.isPrimary = false;
       } else if (selectedCapability.isSecondary) {
@@ -105,8 +120,11 @@ export class CapabilitiesComponent {
   }
 
   onNext() {
-    if(!(this.primaryNames.length>0)){
-      this.emptyCapabilities = true;
+    this.isValid = true;
+    this.validationMessage = '';
+    if(this.primaryNames.length == 0){
+      this.isValid = false;
+      this.validationMessage = Messages.MSG_ERROR_VALIDATION_CAPABILITIES_REQUIRED;
       return;
     }
     this.highlightedSection.name = "Complexities";
@@ -123,11 +141,15 @@ export class CapabilitiesComponent {
     this.onComplete.emit(newselectedRoles);
   }
 
-onSave(){
-    if(!(this.primaryNames.length>0)){
-      this.emptyCapabilities = true;
+  onSave(){
+    this.isValid = true;
+    this.validationMessage = '';
+    if(this.primaryNames.length == 0){
+      this.isValid = false;
+      this.validationMessage = Messages.MSG_ERROR_VALIDATION_CAPABILITIES_REQUIRED;
       return;
     }
+
     if(this.savedprimaryNames.length===this.primaryNames.length && this.savedsecondaryNames.length===this.secondaryNames.length){
       var goNext:boolean=false;
       for(let primary of this.primaryNames){
@@ -152,9 +174,8 @@ onSave(){
     } else{
       this.onNext();
     }
+  }
 
-
-}
   onCancel(){
     this.highlightedSection.name = 'none';
     this.highlightedSection.isDisable = false;
