@@ -1,8 +1,8 @@
 export class AppSettings {
-  //public static IP = 'http://localhost:8080';
+   public static IP = 'http://localhost:8080';
   // public static IP = 'http://ee802b7f.ngrok.io';
   //public static IP = 'http://10.192.33.252:8087';
-    public static IP = 'http://52.89.221.23:8080';
+    //public static IP = 'http://52.89.221.23:8080';
  // public static IP = 'http://52.41.194.37:8080';
   //public static IP = '';
 
@@ -125,7 +125,8 @@ export class Messages {
   public static MSG_ERROR_VALIDATION_PASSWORD = "Passwords must contain at least 8 characters and must be alpha-numeric.";
   public static MSG_ERROR_VALIDATION_BIRTH_YEAR = "You can't leave this empty.";
   public static MSG_ERROR_VALIDATION_PIN_NUMBER = "Pin code should not be greater than 20 characters.";
-
+  public static SUGGESTION_MSG_FOR_RELEVENT_INDUSTRY = 'Based on the profile you have selected, we suggest to search candidate from following industries for matching profiles. Remove if you dont want to search candidates from any specific industry';
+  public static SUGGESTION_MSG_ABOUT_DOMAIN = 'In addition to IT industry, do you want the candidate to have MANDATORY experience in any specific Domain? If yes, select such MUST HAVE DOMAINS.';
 }
 
 export class NavigationRoutes {
@@ -246,6 +247,7 @@ export class API {
   public static SHORTLIST_CANDIDATE = 'shortlistedcandidate';
   public static CANDIDATE_DETAILS = 'recruiter/jobProfile';
   public static CANDIDATESFROMLISTS = 'recruiter/jobProfile';
+  public static RElEVENT_INDUSTRIES = 'releventindustries';
 }
 
 export class ImagePath {

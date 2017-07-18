@@ -35,7 +35,11 @@
                               [hidden]="!showIndustryExposure" (onNextComplete)="onIndustryExposureComplete($event)"
                               *ngIf="jobPosterModel != undefined && jobPosterModel.industry != undefined"></cn-industry-experience>
     </div>
-    <div class="wrapper" [hidden]="!showCompentensies">
+    <div class="wrapper">
+      <cn-relevent-industry-list [roles]="jobForRole" [industry]="jobPosterModel.industry" [highlightedSection]="highlightedSection" [hidden]="!showReleventIndustryList" (onNextComplete)="onReleventIndustryComplete($event)" (checkReleventIndustries)="checkReleventIndustries($event)"></cn-relevent-industry-list>
+
+    </div>
+    <div class="wrapper">
       <cn-compentacies-and-responsibilities [jobPosterModel]="jobPosterModel" [highlightedSection]="highlightedSection"
                                             (onComplete)="onCompentansiesandResponsibilitycomplete($event)"
                                             [hidden]="!showCompentensies"></cn-compentacies-and-responsibilities>
@@ -49,7 +53,6 @@
       <button type="submit" class="btn btn-danger btn-post-job" (click)="showHideModal()">Post Job
       </button>
     </div>
-  </div>
 </div>
 
 

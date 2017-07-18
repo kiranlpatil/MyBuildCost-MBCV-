@@ -39,12 +39,14 @@ export class JobPosterComponent implements OnInit {
   private isShowProficiency: boolean = false;
   private showIndustryExposure: boolean = false;
   private showCompentensies: boolean = false;
+  private showReleventIndustryList: boolean = false;
   private showModalStyle: boolean = false;
   private isCapabilitypresent: boolean = false;
   private jobPosterModel = new JobPosterModel();
   private jobForComplexity: Role[] = new Array(0);
   private jobForRole: Role[]= new Array(0);
   private jobForCapability: Role[]= new Array(0);
+  private isShowReleventIndustryListStep :boolean = false;
 
   private flag: boolean = true;
   private highlightedSection: Section = new Section();
@@ -192,12 +194,23 @@ export class JobPosterComponent implements OnInit {
   }
 
   selectExperiencedIndustry(experiencedindustry: string[]) {
-    this.showCompentensies = true;
+    //this.showCompentensies = true;
     this.jobPosterModel.interestedIndustries = experiencedindustry;
     this.updateJob();
   }
   onIndustryExposureComplete(event: any) {
-    this.showCompentensies = true;
+    //this.showCompentensies = true;
+    if(this.isShowReleventIndustryListStep) {
+      this.highlightedSection.name = 'ReleventIndustry';
+      this.showReleventIndustryList = true;
+      /*var rolesForRelevent: Role[] = new Array(0);
+      rolesForRelevent = this.jobForRole;
+      this.rolesForRelevent = rolesForRelevent;*/
+    } else {
+      this.showCompentensies = true;
+      this.highlightedSection.name = 'Compentancies';
+    }
+
   }
 
   onCompentansiesandResponsibilitycomplete(data: any) {
@@ -292,4 +305,15 @@ export class JobPosterComponent implements OnInit {
   getJobForComplexity() {
     this.isShowComplexity = true;
   }
+  onReleventIndustryComplete(value:any) {
+    console.log('----data------',value);
+    this.jobPosterModel.releventIndustries = value;
+    console.log('---- this.jobPosterModel.releventIndustries------', this.jobPosterModel.releventIndustries);
+    this.showCompentensies = true;
+    this.updateJob();
+  }
+  checkReleventIndustries(value:any) {
+    (value > 0)?this.isShowReleventIndustryListStep = true:this.isShowReleventIndustryListStep = false;
+  }
+
 }

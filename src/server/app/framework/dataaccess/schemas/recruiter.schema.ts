@@ -141,7 +141,8 @@ class RecruiterSchema {
         },
         expiringDate: {
           type: Date
-        }
+        },
+        releventIndustries:[{type:String}]
       }]
     }, {versionKey: false});
 
