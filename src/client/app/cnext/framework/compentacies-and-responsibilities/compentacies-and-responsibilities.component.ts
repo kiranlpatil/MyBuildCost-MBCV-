@@ -12,6 +12,7 @@ import { JobPosterModel } from '../model/jobPoster';
 export class CompetenciesAndResponsibilitiesComponent {
   @Input() jobPosterModel: JobPosterModel;
   @Input() highlightedSection: Section;
+  @Input() isShowReleventIndustryListStep: boolean;
   @Output() onComplete = new EventEmitter();
 
   tooltipMessage: string = '<ul><li>' +
@@ -25,5 +26,8 @@ export class CompetenciesAndResponsibilitiesComponent {
   onResponsibilitiesComplete(data: string) {
     this.jobPosterModel.responsibility = data;
     this.onComplete.emit(this.jobPosterModel);
+  }
+  back() {
+    (this.isShowReleventIndustryListStep)?this.highlightedSection.name='ReleventIndustry':this.highlightedSection.name='IndustryExposure';
   }
 }

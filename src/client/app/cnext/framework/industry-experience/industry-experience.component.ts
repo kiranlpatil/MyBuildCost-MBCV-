@@ -106,6 +106,7 @@ export class IndustryExperienceListComponent implements OnInit,OnChanges {
       this.onNextComplete.emit();
       this.highlightedSection.name = 'ReleventIndustry';
       this.highlightedSection.isDisable = false;
+      this.onNextComplete.emit();
 
     }
   }

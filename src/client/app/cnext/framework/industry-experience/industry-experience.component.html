@@ -7,7 +7,7 @@
       </h4>
       <div class="error-messages" *ngIf="submitStatus"><p>{{requiedIndustryExposureValidationMessage}}</p> </div>
       <div class="col-sm-12 industry-experience scrollable-content">
-        <p>{{suggestionMessageAboutDomain}}</p>
+        <p [innerHTML]="suggestionMessageAboutDomain"></p>
         <div class="select-option" *ngFor="let choice of industries;let i = index">
           <label>
             <input type="checkbox" name="choice.name" value="{{choice.name}}"

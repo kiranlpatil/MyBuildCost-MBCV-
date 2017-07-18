@@ -207,8 +207,9 @@ export class JobPosterComponent implements OnInit {
       rolesForRelevent = this.jobForRole;
       this.rolesForRelevent = rolesForRelevent;*/
     } else {
-      this.showCompentensies = true;
+      console.log('------going to Compentancies-------',this.isShowReleventIndustryListStep);
       this.highlightedSection.name = 'Compentancies';
+      this.showCompentensies = true;
     }
 
   }
@@ -313,6 +314,7 @@ export class JobPosterComponent implements OnInit {
     this.updateJob();
   }
   checkReleventIndustries(value:any) {
+    console.log('checkReleventIndustries couunt',value);
     (value > 0)?this.isShowReleventIndustryListStep = true:this.isShowReleventIndustryListStep = false;
   }
 
