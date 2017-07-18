@@ -5,7 +5,8 @@
   -->
   <div class="main-content clearfix edit-modal-content">
     <div class="col-sm-9 profile-description no-padding">
-      <h4 class="heading">Select your Industry (Any One)</h4>
+      <h4 class="heading" *ngIf="isCandidate">Select your Industry (Any One)</h4>
+      <h4 class="heading" *ngIf="!isCandidate">Select industry in which candidate is expected to work (Any One)</h4>
       <div class="error-messages" *ngIf="!isValid"><p>{{requiredFieldMessage}}</p></div>
       <div class="scrollable-content">
         <div class="col-sm-12 select-industry">

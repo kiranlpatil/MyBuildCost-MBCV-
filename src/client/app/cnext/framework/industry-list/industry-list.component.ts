@@ -16,6 +16,7 @@ export class IndustryListComponent implements OnChanges {
   @Input() selectedIndustry: Industry = new Industry();
   @Input() highlightedSection: Section;
   @Output() valueChange = new EventEmitter();
+  private isCandidate: boolean = false;
 
   tooltipMessage: string =
       '<ul>' +
@@ -29,6 +30,9 @@ export class IndustryListComponent implements OnChanges {
   constructor(private candidateProfileService: CandidateProfileService) {
     this.candidateProfileService.getIndustries()
       .subscribe(industries => this.industries = industries.data);
+    if (LocalStorageService.getLocalValue(LocalStorage.IS_CANDIDATE) === 'true') {
+      this.isCandidate = true;
+    }
   }
 
   ngOnChanges(changes: any) {
