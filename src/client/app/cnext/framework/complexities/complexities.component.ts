@@ -111,7 +111,7 @@ export class ComplexitiesComponent implements OnInit, OnChanges {
   }
 
   saveComplexity() {
-
+    this.isValid = true;
     let jobId : string;
     if(!this.isCandidate) {
       jobId=LocalStorageService.getLocalValue(LocalStorage.POSTED_JOB);
