@@ -202,11 +202,25 @@ $white: #fff;
       color: #666;
       //float: left;
       //list-style-type: disc;
-      list-style-image: url('../../../assets/c-next/compact-view/list-type.png');
+      list-style: none;
       margin-bottom: 0;
-      padding: 0 15px 0 8px;
+      padding: 0 15px 0 6px;
       text-transform: capitalize;
       width: 100%;
+      position: relative;
+
+      &::before {
+        display: block;
+        position: absolute;
+        content: '';
+        border-radius: 100%;
+        height: 8px;
+        width: 8px;
+        top: 5px;
+        left: -18px;
+        margin: auto;
+        background: $theme-color;
+      }
     }
   }
 
