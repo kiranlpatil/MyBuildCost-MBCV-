@@ -28,38 +28,75 @@ class SearchService {
     console.time('getMatching Candidate');
     let data: any;
     let isFound: boolean = false;
+    let industries: string[] = new Array();
+    let isReleventIndustriesFound: boolean = false;
     if (jobProfile.interestedIndustries && jobProfile.interestedIndustries.length > 0) {
       /*isFound= jobProfile.interestedIndustries.filter((name : string)=> {
        if(name === 'None'){
        return name;
        }
        });*/
+      //jobProfile.releventIndustries = ['Textile'];
       for (let name of jobProfile.interestedIndustries) {
         if (name === 'None') {
           isFound = true;
         }
       }
+      if(jobProfile.releventIndustries.length) {
+        isReleventIndustriesFound = true;
+      }
       if (isFound) {
-        data = {
-          'industry.name': jobProfile.industry.name,
-          $or: [
-            {'professionalDetails.relocate': 'Yes'},
-            {'location.city': jobProfile.location.city}
-          ],
-          'proficiencies': {$in: jobProfile.proficiencies},
-          'isVisible': true,
-        };
+
+        if(isReleventIndustriesFound) {
+          industries = jobProfile.releventIndustries;
+
+          industries.push(jobProfile.industry.name);
+          data = {
+            'industry.name': {$in: industries},
+            $or: [
+              {'professionalDetails.relocate': 'Yes'},
+              {'location.city': jobProfile.location.city}
+            ],
+            'proficiencies': {$in: jobProfile.proficiencies},
+            'isVisible': true,
+          };
+        } else {
+          data = {
+            'industry.name': jobProfile.industry.name,
+            $or: [
+              {'professionalDetails.relocate': 'Yes'},
+              {'location.city': jobProfile.location.city}
+            ],
+            'proficiencies': {$in: jobProfile.proficiencies},
+            'isVisible': true,
+          };
+        }
       } else {
-        data = {
-          'industry.name': jobProfile.industry.name,
-          $or: [
-            {'professionalDetails.relocate': 'Yes'},
-            {'location.city': jobProfile.location.city}
-          ],
-          'proficiencies': {$in: jobProfile.proficiencies},
-          'interestedIndustries': {$in: jobProfile.interestedIndustries},
-          'isVisible': true,
-        };
+        if(isReleventIndustriesFound) {
+          industries = jobProfile.releventIndustries;
+          industries.push(jobProfile.industry.name);
+          data = {
+            'industry.name': {$in: industries},
+            $or: [
+              {'professionalDetails.relocate': 'Yes'},
+              {'location.city': jobProfile.location.city}
+            ],
+            'proficiencies': {$in: jobProfile.proficiencies},
+            'interestedIndustries': {$in: jobProfile.interestedIndustries},
+            'isVisible': true,
+          };
+        } else {
+          data = {
+            'industry.name': jobProfile.industry.name,
+            $or: [
+              {'professionalDetails.relocate': 'Yes'},
+              {'location.city': jobProfile.location.city}
+            ],
+            'proficiencies': {$in: jobProfile.proficiencies},
+            'interestedIndustries': {$in: jobProfile.interestedIndustries},
+            'isVisible': true,
+          };
+        }
       }
 
     } else {
@@ -89,7 +126,6 @@ class SearchService {
       if (err) {
         callback(err, null);
       } else {
-        console.timeEnd('getMatching Candidate');
         // callback(null, res);
         this.candidateRepository.getCandidateQCard(res, jobProfile, undefined, callback);
       }

@@ -32,5 +32,6 @@ interface JobProfileModel {
   candidate_list: CandidateListModel[];
   capability_matrix : any;
   postedJobs : any;
+  releventIndustries:string[];
 }
 export = JobProfileModel;
