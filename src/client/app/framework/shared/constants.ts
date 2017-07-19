@@ -1,8 +1,8 @@
 export class AppSettings {
-   public static IP = 'http://localhost:8080';
+   //public static IP = 'http://localhost:8080';
   // public static IP = 'http://ee802b7f.ngrok.io';
   //public static IP = 'http://10.192.33.252:8087';
-    //public static IP = 'http://52.89.221.23:8080';
+    public static IP = 'http://52.89.221.23:8080';
  // public static IP = 'http://52.41.194.37:8080';
   //public static IP = '';
 
@@ -289,5 +289,5 @@ export class ImagePath {
 export class ProjectAsset {
   public static APP_NAME = 'Job Mosis';
   public static TAG_LINE = 'The Awesome Web Experience';
-  public static UNDER_LICENECE = '&#169; 2016 Techprimelab Software Pvt. Ltd.';
+  public static UNDER_LICENECE = '&#169; 2017 Techprimelab Software Pvt. Ltd.';
 }
