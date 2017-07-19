@@ -29,7 +29,7 @@
       </button>
       <button type="submit" class="btn btn-primary" (click)="postData('save')" *ngIf="candidate.isSubmitted">Done
       </button>
-      <button (click)="addAcademicDetail()" class="btn btn-add-another" [disabled]="!academicDetail.valid">
+      <button (click)="addAcademicDetail('addAnother')" class="btn btn-add-another" [disabled]="!academicDetail.valid">
         Add another
       </button>
     </div>
@@ -70,7 +70,7 @@
             </div>
           </div>
         </ul>
-        <p class="more-elements" *ngIf="candidate.academics.length != 1">{{candidate.academics.length-1}} more</p>
+        <p class="more-elements" *ngIf="candidate.academics.length > 1">{{candidate.academics.length-1}} more</p>
       </div>
     </div>
   </div>

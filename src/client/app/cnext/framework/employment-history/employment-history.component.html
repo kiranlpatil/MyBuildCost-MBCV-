@@ -21,7 +21,7 @@
           </div>
         </div>
         <div class="error-messages edit-error-msg"
-             *ngIf="submitStatus">
+             *ngIf="!isValidservicePeriod">
           <p>Please mentioned service period</p>
         </div>
       </form>
@@ -38,7 +38,7 @@
       <button type="submit" class="btn btn-primary" (click)="postData('save')"
               *ngIf="candidate.isSubmitted">Done
       </button>
-      <button (click)="addEmployeeHistory()" class="btn btn-add-another" [disabled]="!employeeHistory.valid">
+      <button (click)="addEmployeeHistory('addAnother')" class="btn btn-add-another" [disabled]="!employeeHistory.valid">
         Add another
       </button>
     </div>
@@ -78,7 +78,7 @@
             </div>
           </div>
         </ul>
-        <p class="more-elements" *ngIf="candidate.employmentHistory.length != 1">{{candidate.employmentHistory.length-1}} more</p>
+        <p class="more-elements" *ngIf="candidate.employmentHistory.length > 1">{{candidate.employmentHistory.length-1}} more</p>
       </div>
     </div>
   </div>
