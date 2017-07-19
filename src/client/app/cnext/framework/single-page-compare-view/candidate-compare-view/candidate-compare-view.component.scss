@@ -40,6 +40,8 @@ $blue: #0d75fa;
     p {
       color: $text-color;
       margin: 0 0 5px;
+      word-break: keep-all;
+      float: left;
     }
   }
 

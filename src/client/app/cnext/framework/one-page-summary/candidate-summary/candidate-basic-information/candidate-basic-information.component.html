@@ -8,9 +8,9 @@
   </div>
 
   <div class="details clearfix">
-    <label>Mobile</label>
-    <span>{{candidateDetails.mobile_number}}</span>
-    <label>Email</label>
+    <label>Mobile Number</label>
+    <span>+91 {{candidateDetails.mobile_number}}</span>
+    <label>Email Id</label>
     <span>{{candidateDetails.email}}</span>
     <label>Specialization area</label>
     <span *ngFor="let role of candidate.industry.roles;let i = index">{{role.name}}
