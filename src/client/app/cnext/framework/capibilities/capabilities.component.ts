@@ -124,7 +124,7 @@ export class CapabilitiesComponent {
     this.validationMessage = '';
     if(this.primaryNames.length == 0){
       this.isValid = false;
-      this.validationMessage = Messages.MSG_ERROR_VALIDATION_CAPABILITIES_REQUIRED;
+      this.validationMessage = this.isCandidate ? Messages.MSG_ERROR_VALIDATION_CAPABILITIES_REQUIRED_CANDIDATE : Messages.MSG_ERROR_VALIDATION_CAPABILITIES_REQUIRED_RECRUITER;
       return;
     }
     this.highlightedSection.name = "Complexities";
@@ -146,7 +146,7 @@ export class CapabilitiesComponent {
     this.validationMessage = '';
     if(this.primaryNames.length == 0){
       this.isValid = false;
-      this.validationMessage = Messages.MSG_ERROR_VALIDATION_CAPABILITIES_REQUIRED;
+      this.validationMessage = this.isCandidate ? Messages.MSG_ERROR_VALIDATION_CAPABILITIES_REQUIRED_CANDIDATE : Messages.MSG_ERROR_VALIDATION_CAPABILITIES_REQUIRED_RECRUITER;
       return;
     }
 
