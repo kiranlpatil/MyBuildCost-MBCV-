@@ -120,8 +120,10 @@ export class Messages {
   public static MSG_ERROR_VALIDATION_EDUCATIONAL_QUALIFICATION_REQUIRED = "Select educational qualification.";
   public static MSG_ERROR_VALIDATION_MIN_EXPERIENCE_REQUIRED = "Select minimum experience expected.";
   public static MSG_ERROR_VALIDATION_MAX_EXPERIENCE_REQUIRED = "Select maximum experience expected.";
+  public static MSG_ERROR_VALIDATION_EXPERIENCE = "Select valid Minimum and Maximum experience.";
   public static MSG_ERROR_VALIDATION_MIN_SALARY_REQUIRED = "Select minimum salary offered.";
   public static MSG_ERROR_VALIDATION_MAX_SALARY_REQUIRED = "Select maximum salary offered.";
+  public static MSG_ERROR_VALIDATION_SALARY = "Select valid Minimum and Maximum salary band.";
   public static MSG_ERROR_VALIDATION_JOINING_PERIOD_REQUIRED = "Select joining period.";
   public static MSG_ERROR_VALIDATION_OTP_MOBILE_NUMBER = "Please provide valid mobile number.";
   public static MSG_ERROR_VALIDATION_PASSWORD = "Passwords must contain at least 8 characters and must be alpha-numeric.";

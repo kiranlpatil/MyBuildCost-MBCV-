@@ -35,29 +35,32 @@ export class BasicJobInformationComponent implements OnInit,OnChanges {
   private submitStatus: boolean;
   private storedIndustry: Industry;
   private storedLocation: JobLocation = new JobLocation();
-  private requiredLocationValidationMessage = Messages.MSG_ERROR_VALIDATION_LOCATION_REQUIRED;
+  private isSalaryValid: boolean = true;
+  private isExperienceValid: boolean = true;
 
-  private requiredJoiningPeriodValidationMessage = Messages.MSG_ERROR_VALIDATION_JOINING_PERIOD_REQUIRED;
-  private requiredMaxSalaryValidationMessage = Messages.MSG_ERROR_VALIDATION_MAX_SALARY_REQUIRED;
-  private requiredMinSalaryValidationMessage = Messages.MSG_ERROR_VALIDATION_MIN_SALARY_REQUIRED;
-  private requiredMaxExperienceValidationMessage = Messages.MSG_ERROR_VALIDATION_MAX_EXPERIENCE_REQUIRED;
-  private requiredMinExperienceValidationMessage = Messages.MSG_ERROR_VALIDATION_MIN_EXPERIENCE_REQUIRED;
-  private requiredEducationalValidationMessage = Messages.MSG_ERROR_VALIDATION_EDUCATIONAL_QUALIFICATION_REQUIRED;
-  private requiredHiringDepartmentValidationMessage = Messages.MSG_ERROR_VALIDATION_HIRING_DEPARTMENT_REQUIRED;
-  private requiredHiringManagerValidationMessage = Messages.MSG_ERROR_VALIDATION_HIRING_MANAGER_REQUIRED;
-  private requiredTitleValidationMessage = Messages.MSG_ERROR_VALIDATION_JOB_TITLE_REQUIRED;
-
+  private locationValidationMessage = Messages.MSG_ERROR_VALIDATION_LOCATION_REQUIRED;
+  private joiningPeriodValidationMessage = Messages.MSG_ERROR_VALIDATION_JOINING_PERIOD_REQUIRED;
+  private maxSalaryValidationMessage = Messages.MSG_ERROR_VALIDATION_MAX_SALARY_REQUIRED;
+  private minSalaryValidationMessage = Messages.MSG_ERROR_VALIDATION_MIN_SALARY_REQUIRED;
+  private salaryValidationMessage = Messages.MSG_ERROR_VALIDATION_SALARY;
+  private maxExperienceValidationMessage = Messages.MSG_ERROR_VALIDATION_MAX_EXPERIENCE_REQUIRED;
+  private minExperienceValidationMessage = Messages.MSG_ERROR_VALIDATION_MIN_EXPERIENCE_REQUIRED;
+  private experienceValidationMessage = Messages.MSG_ERROR_VALIDATION_EXPERIENCE;
+  private educationalValidationMessage = Messages.MSG_ERROR_VALIDATION_EDUCATIONAL_QUALIFICATION_REQUIRED;
+  private hiringDepartmentValidationMessage = Messages.MSG_ERROR_VALIDATION_HIRING_DEPARTMENT_REQUIRED;
+  private hiringManagerValidationMessage = Messages.MSG_ERROR_VALIDATION_HIRING_MANAGER_REQUIRED;
+  private titleValidationMessage = Messages.MSG_ERROR_VALIDATION_JOB_TITLE_REQUIRED;
 
   tooltipMessage: string =  '<ul>' +
-      '<li><p>1. This job name would be displayed in the posting.</p></li>' +
-      '<li><p>2. Name of the manager who has given the requirement for this job.</p></li>' +
-      '<li><p>3. Name of the department for which the candidate is being hired.</p></li>' +
-      '<li><p>4. Choose from dropdown.</p></li>' +
-      '<li><p>5. The target salary that you wish to offer for the job. </p></li>' +
-      '<li><p>6. How much lead time are you willing to provide to the candidate for joining.</p></li>' +
-      '<li><p>7. Where the candidate will be required to work.</p></li>' +
-      '<li><p>8. The industry for which you are hiring.</p></li>' +
-      '</ul>';
+    '<li><p>1. This job name would be displayed in the posting.</p></li>' +
+    '<li><p>2. Name of the manager who has given the requirement for this job.</p></li>' +
+    '<li><p>3. Name of the department for which the candidate is being hired.</p></li>' +
+    '<li><p>4. Choose from dropdown.</p></li>' +
+    '<li><p>5. The target salary that you wish to offer for the job. </p></li>' +
+    '<li><p>6. How much lead time are you willing to provide to the candidate for joining.</p></li>' +
+    '<li><p>7. Where the candidate will be required to work.</p></li>' +
+    '<li><p>8. The industry for which you are hiring.</p></li>' +
+    '</ul>';
 
   constructor(private professionalDataService: ProfessionalDataService,
               private formBuilder: FormBuilder, private _filterService: FilterService,) {
@@ -112,22 +115,38 @@ export class BasicJobInformationComponent implements OnInit,OnChanges {
   }
 
   onNext() {
+    this.isExperienceValid = true;
+    this.isSalaryValid = true;
+    this.jobPosterModel = this.jobPostForm.value;
     if (!this.jobPostForm.valid && this.storedIndustry == undefined) {
       this.submitStatus = true;
       return;
     }
-    this.jobPosterModel = this.jobPostForm.value;
+
+    if(Number(this.jobPosterModel.experienceMaxValue) <= Number(this.jobPosterModel.experienceMinValue)){
+      this.minExperienceValidationMessage = Messages.MSG_ERROR_VALIDATION_EXPERIENCE;
+      this.isExperienceValid = false;
+      return;
+    }
+
+    if(Number(this.jobPosterModel.salaryMaxValue) <= Number(this.jobPosterModel.salaryMinValue)){
+      this.minSalaryValidationMessage = Messages.MSG_ERROR_VALIDATION_SALARY;
+      this.isSalaryValid = false;
+      return;
+    }
+
+
     if (this.storedIndustry) {
       this.jobPosterModel.industry = this.storedIndustry;
     }
     this.jobPosterModel.location = this.storedLocation;
     //if (this.jobPosterModel.industry) {
-      this.savedjobPosterModel=Object.assign({},this.jobPosterModel);
-      this.highlightedSection.name = 'Industry';
-      this.onComplete.emit(this.jobPosterModel);
+    this.savedjobPosterModel=Object.assign({},this.jobPosterModel);
+    this.highlightedSection.name = 'Industry';
+    this.onComplete.emit(this.jobPosterModel);
     /*} else {
-      this.jobPosterModel.industry = new Industry();
-    }*/
+     this.jobPosterModel.industry = new Industry();
+     }*/
   }
   onCancel() {
     this.jobPosterModel=Object.assign({},this.savedjobPosterModel);
