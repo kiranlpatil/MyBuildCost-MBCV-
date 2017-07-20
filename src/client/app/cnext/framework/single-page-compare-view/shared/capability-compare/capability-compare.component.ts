@@ -1,9 +1,9 @@
-import {Component, Input, OnChanges, OnInit} from '@angular/core';
-import { Role } from '../../../model/role';
-import {Capability} from "../../../model/capability";
-import {Scenario} from "../../../model/scenario";
-import {AppSettings, LocalStorage} from "../../../../../framework/shared/constants";
-import {LocalStorageService} from "../../../../../framework/shared/localstorage.service";
+import { Component, Input, Output, OnChanges, EventEmitter } from '@angular/core';
+import { Capability } from '../../../model/capability';
+import { Scenario } from '../../../model/scenario';
+import { AppSettings, LocalStorage } from '../../../../../framework/shared/constants';
+import { LocalStorageService } from '../../../../../framework/shared/localstorage.service';
+import { Complexity } from '../../../model/complexity';
 
 @Component({
   moduleId: module.id,
@@ -12,12 +12,13 @@ import {LocalStorageService} from "../../../../../framework/shared/localstorage.
   styleUrls: ['capability-compare.component.css']
 })
 
-export class CapabilityCompareComponent  implements OnChanges{
+export class CapabilityCompareComponent  implements OnChanges {
 
   @Input() capabilities: Capability[] = new Array(0);
   @Input() rowsToShow: number;
   @Input() isCompact : boolean = false;
   @Input() candidate_picture : string;
+  @Output() SelectedComplexity = new EventEmitter();
   @Input() job_picture : string;
   isCandidate: boolean;
   showMore: boolean = false;
@@ -31,7 +32,7 @@ export class CapabilityCompareComponent  implements OnChanges{
         }
         for(let com of cap.complexities){
           let sces : Scenario[]= com.scenarios.filter((sce:Scenario)=>{
-            if(sce.name != undefined && sce.name != 'Not Applicable'){
+            if(sce.name !== undefined && sce.name !== 'Not Applicable') {
                 return true;
             }else {
               return false;
@@ -59,6 +60,15 @@ export class CapabilityCompareComponent  implements OnChanges{
     }
     //  console.log("in compare view",this.roles);
   }
+
+  onComplexitySelect(complexity:Complexity,capability:Capability) {
+    if(this.isCandidate) {
+    this.SelectedComplexity.emit(complexity);
+    } else {
+      this.SelectedComplexity.emit(capability);
+    }
+  }
+
   getImagePath(imagePath: string) {
     if (imagePath !== undefined) {
       return AppSettings.IP + imagePath.substring(4).replace('"', '');
