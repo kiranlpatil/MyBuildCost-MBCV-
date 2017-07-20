@@ -258,10 +258,13 @@ select,
     color: #666;
     font-weight: 900;
     font-size: 13px;
+    padding: 2px 0;
   }
 }
 
 .form-group {
+  position: relative;
+
   label {
     color: $label;
     display: block;
