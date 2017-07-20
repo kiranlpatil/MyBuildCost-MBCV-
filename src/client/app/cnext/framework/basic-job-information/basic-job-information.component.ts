@@ -17,7 +17,7 @@ import {Messages} from "../../../framework/shared/constants";
 })
 
 export class BasicJobInformationComponent implements OnInit, OnChanges {
-  @Input() jobPosterModel: JobPosterModel = new JobPosterModel();
+  @Input() jobPosterModel: any;
   @Input() highlightedSection: Section;
   @Output() onComplete = new EventEmitter();
   private savedjobPosterModel: JobPosterModel = new JobPosterModel();
@@ -78,7 +78,6 @@ export class BasicJobInformationComponent implements OnInit, OnChanges {
       'location': ['', Validators.required],
     });
   }
-
   ngOnInit() {
     this.professionalDataService.getEducationList()
       .subscribe(
@@ -102,6 +101,12 @@ export class BasicJobInformationComponent implements OnInit, OnChanges {
     if (changes.jobPosterModel !== undefined && changes.jobPosterModel.currentValue !== undefined) {
       this.jobPosterModel = changes.jobPosterModel.currentValue;
       this.savedjobPosterModel = Object.assign({}, this.jobPosterModel);
+      Object.keys(this.jobPosterModel).forEach(name => {
+        if (this.jobPostForm.controls[name]) {
+          let valueToSet: any = this.jobPosterModel[name];
+          this.jobPostForm.controls[name].patchValue(valueToSet, {onlySelf: true});
+        }
+      });
     }
   }
 
@@ -145,7 +150,7 @@ export class BasicJobInformationComponent implements OnInit, OnChanges {
     this.savedjobPosterModel = Object.assign({}, this.jobPosterModel);
     this.highlightedSection.name = 'Industry';
     this.onComplete.emit(this.jobPosterModel);
-    /*} else {
+    /* } else {
      this.jobPosterModel.industry = new Industry();
      }*/
   }
