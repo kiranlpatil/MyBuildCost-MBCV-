@@ -1,8 +1,8 @@
 export class AppSettings {
    //public static IP = 'http://localhost:8080';
   // public static IP = 'http://ee802b7f.ngrok.io';
-  //public static IP = 'http://10.192.33.252:8087';
-    public static IP = 'http://52.89.221.23:8080';
+  //public static IP = 'http://10.192.33.37:8080';
+   public static IP = 'http://52.89.221.23:8080';
  // public static IP = 'http://52.41.194.37:8080';
   //public static IP = '';
 
@@ -256,7 +256,7 @@ export class API {
 }
 
 export class ImagePath {
-  public static FAV_ICON = './assets/framework/images/logo/cnext-favicon.ico';
+  public static FAV_ICON = './assets/framework/images/logo/favicon.ico';
   public static BODY_BACKGROUND = './assets/framework/images/page_background/page-bg.png';
   public static MY_COLOR_LOGO = './assets/framework/images/logo/logo-color.png';
   public static MY_WHITE_LOGO = './assets/framework/images/logo/job-mosis-logo.png';
