@@ -33,7 +33,7 @@ export class IndustryListComponent implements OnChanges {
               private industryDetailsService: IndustryDetailsService) {
     this.industryDetailsService.makeCall$.subscribe(
       data => {
-        if (data) {
+        if (data && this.industries.length === 0) {
           this.getIndustry();
         }
       }

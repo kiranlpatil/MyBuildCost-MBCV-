@@ -1,4 +1,4 @@
-import {Component, OnInit} from "@angular/core";
+import {Component, DoCheck, KeyValueDiffers, OnInit} from "@angular/core";
 import {NavigationRoutes} from "../../../framework/shared/constants";
 import {Router} from "@angular/router";
 import {ComplexityService} from "../complexity.service";
@@ -14,7 +14,7 @@ import {Industry} from "../model/industry";
   styleUrls: ['candidate-profile.component.css']
 })
 
-export class CandidateProfileComponent implements OnInit {
+export class CandidateProfileComponent implements OnInit, DoCheck {
   whichStepsVisible:boolean[] = new Array(7);
   private rolesForMain:Role[] = new Array(0);
   private rolesForCapability:Role[] = new Array(0);
@@ -49,9 +49,10 @@ export class CandidateProfileComponent implements OnInit {
   private isComplexityFilled:boolean = true;
   private isPresentDefaultcomplexity:boolean = false;
   private highlightedSection:Section = new Section();
-
+  differ: any;
   constructor(private _router:Router,
               private complexityService:ComplexityService,
+              private differs: KeyValueDiffers,
               private profileCreatorService:CandidateProfileService) {
 
     complexityService.showTest$.subscribe(
@@ -61,12 +62,46 @@ export class CandidateProfileComponent implements OnInit {
       }
     );
     this.getCandidateProfile();
+    this.differ = differs.find({}).create(null);
+
   }
 
   ngOnInit() {
     this.whichStepsVisible[0] = true;
   }
 
+  /*ngOnChanges(changes:SimpleChanges) {
+   if(this.highlightedSection && this.highlightedSection.changes )
+   if(this.highlightedSection.name==='Work-Area'){
+   this.getRoles();
+   return;
+   } else if(this.highlightedSection.name==='Capabilities'){
+   this.getCapability();
+   return;
+   } else if(this.highlightedSection.name==='Complexities'){
+   this.getComplexity();
+   return;
+   }
+   }*/
+  ngDoCheck() {
+    let changes: any = this.differ.diff(this.highlightedSection);
+
+    if (changes) {
+      if (this.highlightedSection.name === 'Work-Area') {
+        this.getRoles();
+        return;
+      } else if (this.highlightedSection.name === 'Capabilities') {
+        this.getRoles();
+        this.getCapability();
+        return;
+      } else if (this.highlightedSection.name === 'Complexities') {
+        this.getComplexity();
+        return;
+      }
+    } else {
+      console.log('nothing changed');
+    }
+  }
   onSkip() {
     this.highlightedSection.name = 'Profile';
   }
@@ -280,10 +315,10 @@ export class CandidateProfileComponent implements OnInit {
       if (this.candidate.industry.name !== undefined) {
         this.isIndustryShow = false;
         this.isRolesShow = false;
-        this.getRoles();
+        //this.getRoles();
         if (this.candidate.industry.roles.length > 0) {
           this.showCapability = true;
-          this.getCapability();
+          //this.getCapability();
           this.whichStepsVisible[1] = true;
           for (let role of this.candidate.industry.roles) {
             if (role.default_complexities[0] !== undefined && role.default_complexities[0].complexities.length > 0) {
@@ -294,7 +329,8 @@ export class CandidateProfileComponent implements OnInit {
             }
           }
           if (this.isPresentCapability || this.isPresentDefaultcomplexity) {
-            this.getComplexity();
+            //this.getComplexity();
+            this.showComplexity = true;
             this.whichStepsVisible[2] = true;
             console.log('capability matrix',this.candidate.capability_matrix);
             if(this.candidate.capability_matrix){
@@ -370,31 +406,6 @@ export class CandidateProfileComponent implements OnInit {
     if (this.candidate.aboutMyself !== undefined && this.candidate.aboutMyself !== '') {
       this.whichStepsVisible[6] = true;
     }
-    /*
-     Do not remove this code it will in use after capability bug
-     if (this.candidate.proficiencies !== undefined && this.candidate.proficiencies.length > 0) {
-     this.highlightedSection.isProficiencyFilled = true;
-     this.showProficiency = true;
-     this.whichStepsVisible[4] = true;
-     if (this.candidate.interestedIndustries !== undefined && this.candidate.interestedIndustries.length > 0) {
-     this.showIndustryExperience = true;
-     if (this.candidate.professionalDetails !== undefined && this.candidate.professionalDetails.education !== '') {
-     this.showProfessionalData = true;
-     this.whichStepsVisible[5] = true;
-     } else {
-     this.showProfessionalData = true;
-     this.whichStepsVisible[5] = true;
-     this.highlightedSection.name = 'Professional-Details';
-     }
-     } else {
-     this.showIndustryExperience = true;
-     this.highlightedSection.name = 'IndustryExposure';
-     }
-     } else {
-     this.showProficiency = true;
-     this.whichStepsVisible[4] = true;
-     this.highlightedSection.name = 'Proficiencies';
-     }*/
   }
   isContains(element:any) {
   return this.candidate.capability_matrix[element] === -1;
@@ -460,5 +471,4 @@ export class CandidateProfileComponent implements OnInit {
       return 'none';
     }
   }
-
 }

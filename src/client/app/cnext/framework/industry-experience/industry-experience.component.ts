@@ -42,8 +42,8 @@ export class IndustryExperienceListComponent implements OnInit,OnChanges {
               private industryDetailsService: IndustryDataService) {
     this.industryDetailsService.makeCall$.subscribe(
       data => {
-        if (data) {
-    this.getIndustries();
+        if (data && this.industries.length === 0) {
+          this.getIndustries();
         }
       });
     this.candidateExperiencedIndustry = new Array(0);

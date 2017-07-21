@@ -55,7 +55,7 @@ export class ProfileDescriptionComponent implements OnInit {
               private profileDetailService: ProfileDetailsService) {
     this.profileDetailService.makeCall$.subscribe(
       data => {
-        if (data) {
+        if (data && this.educationList.length === 0 && this.experienceList.length === 0) {
           this.getprofileDetails();
         }
       }

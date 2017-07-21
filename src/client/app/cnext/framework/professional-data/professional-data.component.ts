@@ -58,7 +58,7 @@ export class ProfessionalDataComponent extends BaseService implements OnChanges 
 
     this.professionalDetailService.makeCall$.subscribe(
       data => {
-        if (data) {
+        if (data && this.noticePeriodList.length === 0 && this.industryExposureList.length === 0 && this.realocationList.length === 0 && this.salaryList.length === 0) {
           this.getDetailedList();
         }
       }
