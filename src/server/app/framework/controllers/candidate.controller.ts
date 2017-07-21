@@ -258,8 +258,10 @@ export function getList(req: express.Request, res: express.Response, next: any) 
           code: 403
         });
       } else {
+        let isFound : boolean= false;
         for (let list of response.job_list) {
           if (listName === list.name) {
+            isFound= true;
             let data: any = {
               listName: listName,
               ids: list.ids,
@@ -281,6 +283,13 @@ export function getList(req: express.Request, res: express.Response, next: any) 
             });
             break;
           }
+        }
+        if(!isFound) {
+          let result : any=[];
+          res.send({
+            'status': 'success',
+            'data': result,
+          });
         }
       }
     });
