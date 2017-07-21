@@ -35,6 +35,7 @@ export class IndustryExperienceListComponent implements OnInit,OnChanges {
   private submitStatus: boolean;
   private requiedIndustryExposureValidationMessage = Messages.MSG_ERROR_VALIDATION_INDUSTRY_EXPOSURE_REQUIRED;
   private suggestionMessageAboutDomain:string;
+  private suggestionMessageAboutCandidateDomain:string;
 
   constructor(private candidateProfileService: CandidateProfileService) {
     this.getIndustries();
@@ -57,7 +58,8 @@ export class IndustryExperienceListComponent implements OnInit,OnChanges {
 
     if (changes.choosedIndustry !== undefined && changes.choosedIndustry.currentValue !== undefined) {
       this.choosedIndustry = changes.choosedIndustry.currentValue;
-      this.suggestionMessageAboutDomain = "In addition to "+ this.choosedIndustry + " industry, do you want the candidate to have mandatory experience in any specific Domain? If yes, select such MUST HAVE DOMAINS from below.";
+      this.suggestionMessageAboutDomain = "In addition to "+ this.choosedIndustry + " industry, do you want the candidate to have mandatory experience in any specific domain? If yes, select such must have domains from below.";
+      this.suggestionMessageAboutCandidateDomain = "In addition to "+ this.choosedIndustry + " industry, do you have exposure to any of the domains mentioned below? If yes, select relevant domains.";
       this.getIndustries();
     }
     if (this.candidateExperiencedIndustry === undefined) {

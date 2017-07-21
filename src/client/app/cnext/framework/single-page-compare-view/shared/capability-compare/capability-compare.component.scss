@@ -311,7 +311,7 @@ $white: #ffffff;
   .extra:hover,
   .exact:hover {
     .complexity-scenarios-description {
-      left: 0px;
+      left: 0 !important;
     }
   }
 }
