@@ -3,6 +3,7 @@ import {QCardsortBy} from "../../model/q-cardview-sortby";
 import {Router} from "@angular/router";
 import {RecruiterHeaderDetails} from "../../model/recuirterheaderdetails";
 import {ReferenceService} from "../../model/newClass";
+import {RecruiterDashboard} from "../../model/recruiter-dashboard";
 
 
 @Component({
@@ -16,6 +17,7 @@ export class JobListerComponent implements  OnDestroy, OnChanges {
   @Input() jobListInput: any[] = new Array(0);
   @Input() headerInfoForJob: RecruiterHeaderDetails;
   @Input() screenType:string;
+  @Input() recruiter: RecruiterDashboard;
   @Output() jobEventEmitter: EventEmitter<any> = new EventEmitter();
   //public jobList:JobPosterModel[] = new Array(0);
   //public jobListToCheck:JobPosterModel[] = new Array(0);

@@ -2,7 +2,8 @@
   <div class="col-sm-12">
     <div class="wrapper wrapper-border job-poster">
       <cn-basic-job-information [highlightedSection]="highlightedSection" [jobPosterModel]="jobPosterModel"
-                                (onComplete)="onBasicJobInformationComplete($event)"></cn-basic-job-information>
+                                (onComplete)="onBasicJobInformationComplete($event)"
+                                [recruiter]="recruiter"></cn-basic-job-information>
     </div>
     <div class="wrapper" [hidden]="!isShowIndustryList">
       <cn-industry-list [selectedIndustry]="jobPosterModel.industry" [highlightedSection]="highlightedSection"
@@ -53,6 +54,7 @@
       <button type="submit" class="btn btn-primary btn-post-job" (click)="showHideModal()">Post Job
       </button>
     </div>
+  </div>
 </div>
 
 

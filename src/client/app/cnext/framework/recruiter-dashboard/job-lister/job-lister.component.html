@@ -34,7 +34,8 @@
           </div>
           <div class="col-xs-10 padding-left15">
             <h4 title="Job Title">{{item.jobTitle}}</h4>
-            <span title="Hiring Department">{{item.department}}</span>
+            <span title="Hiring Department" *ngIf="recruiter.isRecruitingForself">{{item.department}}</span>
+            <span title="Hiring Company" *ngIf="!recruiter.isRecruitingForself">{{item.department}}</span>
           </div>
           <div class="contact-info clearfix">
             <div class="col-sm-12 no-padding" title="Date Posted">

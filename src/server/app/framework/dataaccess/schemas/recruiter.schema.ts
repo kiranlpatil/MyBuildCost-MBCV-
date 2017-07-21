@@ -26,6 +26,9 @@ class RecruiterSchema {
       about_company: {
         type: String
       },
+      isRecruitingForself: {
+        type: Boolean
+      },
       setOfDocuments: {
         type: [String]
       },

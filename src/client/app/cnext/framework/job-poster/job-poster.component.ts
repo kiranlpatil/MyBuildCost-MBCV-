@@ -13,6 +13,7 @@ import {ShowQcardviewService} from "../showQCard.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Industry} from "../model/industry";
 import {RecruiterDashboardService} from "../recruiter-dashboard/recruiter-dashboard.service";
+import {RecruiterDashboard} from "../model/recruiter-dashboard";
 
 @Component({
   moduleId: module.id,
@@ -24,6 +25,8 @@ import {RecruiterDashboardService} from "../recruiter-dashboard/recruiter-dashbo
 export class JobPosterComponent implements OnInit, OnChanges {
   @Input() noOfJobPosted: number;
   @Input() currentjobId: string;
+  @Input() recruiter: RecruiterDashboard;
+
   private roleList: string[] = new Array(0);
   private primaryCapability: string[] = new Array(0);
   private proficiencies: Proficiences = new Proficiences();

@@ -13,7 +13,8 @@
     <span>{{postedJob.jobTitle}}</span>
     <label>Hiring Manager</label>
     <span>{{postedJob.hiringManager}}</span>
-    <label>Department</label>
+    <label *ngIf="recruiter.isRecruitingForself">Department</label>
+    <label *ngIf="!recruiter.isRecruitingForself">Company</label>
     <span>{{postedJob.department}}</span>
     <label>Industry</label>
     <span>{{postedJob.industry.name}}</span>
