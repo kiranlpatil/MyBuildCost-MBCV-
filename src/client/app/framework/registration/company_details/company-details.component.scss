@@ -161,6 +161,20 @@ $border-color: #e8e8e8;
   }
 }
 
+.loader-icon {
+  margin-top: -20px;
+  margin-right: 4px;
+}
+
+.file-uploaded-icon {
+  display: inline-block;
+  width: 24px;
+  height: 23px;
+  margin-top: -22px;
+  margin-right: 0px;
+  background: url(../assets/c-next/card-view/sprite.png) no-repeat -106px -399px;
+}
+
 @media only screen and (max-width: 768px) {
   .company-details {
     .content {

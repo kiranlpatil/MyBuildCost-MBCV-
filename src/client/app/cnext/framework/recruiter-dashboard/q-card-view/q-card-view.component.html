@@ -45,10 +45,10 @@
                   (click)="addRemoveToShortList(item)" title="Remove candidate from shortlisted"></span>
           </li>
           <li *ngIf="type=='cartListed' || type=='rejectedList'">
-            <a (click)="actionOnQCard('remove','cartListed','cartListed',item)" *ngIf="type=='cartListed'" title='Remove candidate from "Cart" list'><img
-              src="assets/c-next/card-view/close-grey.png"/></a>
-            <a (click)="actionOnQCard('remove','rejectedList','rejectedList',item)" *ngIf="type=='rejectedList'" title='Remove candidate from "Rejected" list'><img
-              src="assets/c-next/card-view/close-grey.png"/></a>
+            <a (click)="actionOnQCard('remove','cartListed','cartListed',item)" *ngIf="type=='cartListed'" title='Remove candidate from "Cart" list'>
+              <img src="assets/c-next/card-view/close-grey.png"/></a>
+            <a (click)="actionOnQCard('remove','rejectedList','rejectedList',item)" *ngIf="type=='rejectedList'" title='Remove candidate from "Rejected" list'>
+              <img src="assets/c-next/card-view/close-grey.png"/></a>
           </li>
         </ul>
         <header class="clearfix">

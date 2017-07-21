@@ -563,8 +563,11 @@ header {
     }
   }
   .proficiencies-icon {
-    background: url("../assets/c-next/card-view/pink-icons/proficiency.png") no-repeat 5px 1px;
-    min-height: 53px !important;
+    background: url("../assets/c-next/card-view/sprite.png") no-repeat  -103px -143px;
+
+  }
+  .company-date {
+    right: 30px;
   }
 }
 
