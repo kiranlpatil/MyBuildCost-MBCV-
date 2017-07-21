@@ -229,7 +229,7 @@
           </h4>
           <h4 class="pull-left col-xs-3 no-padding text-left"
               *ngIf="(typeOfView =='spa_candidate' && data && data.proficiencies && data.proficiencies.length>0)">
-            These are candidates extra key skills
+            These are candidate's extra key skills
           </h4>
           <div class="pull-left col-xs-8 no-padding text-left">
             <div class="pull-left" *ngFor="let item of data.proficiencies;let i = index"
@@ -247,7 +247,7 @@
           >Your additional capabilities </h4>
           <h4 class="pull-left col-xs-3 no-padding text-left"
               *ngIf="(typeOfView =='spa_candidate'&& data && data.additionalCapabilites && data.additionalCapabilites.length>0)"
-          >Candidate additional capabilities </h4>
+          >Candidate's additional capabilities </h4>
           <div *ngIf="data != undefined">
             <div class="pull-left col-xs-8 no-padding text-left">
               <div class="pull-left" *ngFor="let cap of data.additionalCapabilites" style="padding-top: 7px;padding-right: 7px;">
@@ -282,7 +282,7 @@
       </div>
       <h4 class="pull-left col-xs-3 no-padding text-left"
           *ngIf="( data && data.proficiencies && data.proficiencies.length>0)">
-        These are candidates extra key skills
+        These are candidate's extra key skills
       </h4>
       <div class="pull-left col-xs-8 no-padding text-left">
         <div class="pull-left" *ngFor="let item of data.proficiencies;let i = index"

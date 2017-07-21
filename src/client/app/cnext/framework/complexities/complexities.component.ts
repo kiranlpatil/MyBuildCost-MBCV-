@@ -54,7 +54,7 @@ export class ComplexitiesComponent implements OnInit, OnChanges {
     '</li></ul>';
   @ViewChild("save")
   private _inputElement1: ElementRef;
-  private maxCapabilitiesToShow = ValueConstant.MAX_CAPABILITIES;
+  private maxCapabilitiesToShow = ValueConstant.MAX_CAPABILITIES_TO_SHOW;
 
   constructor(private complexityService: ComplexityService,
               private complexityComponentService: ComplexityComponentService,
