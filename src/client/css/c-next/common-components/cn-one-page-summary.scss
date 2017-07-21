@@ -60,6 +60,12 @@ $text-color: #333;
     margin: 0;
     padding: 10px 0;
   }
+
+  .capability-of-capabilities-section {
+    .btn-edit {
+      display: none !important;
+    }
+  }
 }
 
 .proficiencies-matched-heading,

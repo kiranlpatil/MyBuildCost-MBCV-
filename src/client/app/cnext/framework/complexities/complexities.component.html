@@ -58,7 +58,7 @@
 
       <div>
         <div class="col-sm-12 no-padding">
-          <cn-capability-compare id="complexity-compact-view" [isCompact]="true" [rowsToShow]="5" [capabilities]="capabilities" (SelectedComplexity)="SelectedComplexity($event)"></cn-capability-compare>
+          <cn-capability-compare id="complexity-compact-view" [isCompact]="true" [rowsToShow]="maxCapabilitiesToShow" [capabilities]="capabilities" (SelectedComplexity)="SelectedComplexity($event)" *ngIf="capabilities && capabilities.length >0"></cn-capability-compare>
         </div>
       </div>
     </div>

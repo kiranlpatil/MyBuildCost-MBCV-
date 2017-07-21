@@ -2,7 +2,7 @@ import {Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, V
 import {Role} from "../model/role";
 import {ComplexityService} from "../complexity.service";
 import {LocalStorageService} from "../../../framework/shared/localstorage.service";
-import {LocalStorage, Messages} from "../../../framework/shared/constants";
+import {LocalStorage, Messages, ValueConstant} from "../../../framework/shared/constants";
 import {Section} from "../model/candidate";
 import {ComplexityDetails} from "../model/complexity-detail";
 import {ComplexityComponentService} from "./complexity.service";
@@ -54,7 +54,7 @@ export class ComplexitiesComponent implements OnInit, OnChanges {
     '</li></ul>';
   @ViewChild("save")
   private _inputElement1: ElementRef;
-
+  private maxCapabilitiesToShow=ValueConstant.MAX_CAPABILITIES_TO_SHOW
   constructor(private complexityService: ComplexityService,
               private complexityComponentService: ComplexityComponentService,
               private jobCompareService: JobCompareService) {
