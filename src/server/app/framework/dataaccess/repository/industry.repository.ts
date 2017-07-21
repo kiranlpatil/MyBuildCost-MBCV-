@@ -48,8 +48,8 @@ class IndustryRepository extends RepositoryBase<IIndustry> {
           callback(new Error('Records are not found'), null);
         } else {
           for (let role of industry[0].roles) {
-            for (let o of item.roles) {
-              if (o == role.name) {
+            for (let code of item.roles) {
+              if (code == role.code) {
                 let role_object: any = {
                   name: role.name,
                   code: role.code,
@@ -89,8 +89,8 @@ class IndustryRepository extends RepositoryBase<IIndustry> {
           callback(new Error('Records are not found'), null);
         } else {
           for (let role of industry[0].roles) {
-            for (let o of item.roles) {
-              if (o == role.name) {
+            for (let code of item.roles) {
+              if (code == role.code) {
                 let role_object: any = {
                   name: role.name,
                   code: role.code,
@@ -99,7 +99,7 @@ class IndustryRepository extends RepositoryBase<IIndustry> {
                 };
                 for (let capability of role.capabilities) {
                   for (let ob of item.capabilities) {
-                    if (ob == capability.name) {
+                    if (ob == capability.code) {
                       let capability_object: any = {
                         name: capability.name,
                         code: capability.code,

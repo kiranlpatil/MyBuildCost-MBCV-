@@ -188,51 +188,53 @@ class CandidateService {
             break;
           }
         }
-        for (let capability of role.default_complexities) {
-          var count_of_default_complexity = 0;
-          for (let complexity of capability.complexities) {
-            ++count_of_default_complexity;
-            let custom_code = capability.code + '_' + complexity.code;
-            if (custom_code === cap) {
-              isFound = true;
-              match_view.scenarios = complexity.scenarios.slice();
-              let scenarios = complexity.scenarios.filter((sce: ScenarioModel) => {
-                sce.code = sce.code.replace('.', '_');
-                sce.code = sce.code.replace('.', '_');
-                sce.code = sce.code.substr(sce.code.lastIndexOf('_') + 1);
-                if (sce.code.substr(sce.code.lastIndexOf('.')+1) == capability_matrix[cap]) {
-                  return true;
+        if(role.default_complexities ){
+          for (let capability of role.default_complexities) {
+            var count_of_default_complexity = 0;
+            for (let complexity of capability.complexities) {
+              ++count_of_default_complexity;
+              let custom_code = capability.code + '_' + complexity.code;
+              if (custom_code === cap) {
+                isFound = true;
+                match_view.scenarios = complexity.scenarios.slice();
+                let scenarios = complexity.scenarios.filter((sce: ScenarioModel) => {
+                  sce.code = sce.code.replace('.', '_');
+                  sce.code = sce.code.replace('.', '_');
+                  sce.code = sce.code.substr(sce.code.lastIndexOf('_') + 1);
+                  if (sce.code.substr(sce.code.lastIndexOf('.')+1) == capability_matrix[cap]) {
+                    return true;
+                  } else {
+                    return false;
+                  }
+                });
+                match_view.capability_name = capability.name;
+                match_view.capability_code = capability.code;
+                match_view.total_complexity_in_capability = capability.complexities.length;
+                match_view.complexity_number = count_of_default_complexity;
+                match_view.complexity_name = complexity.name;
+                match_view.role_name = role.name;
+                match_view.code = custom_code;
+                if (complexity.questionForCandidate !== undefined && complexity.questionForCandidate !== null && complexity.questionForCandidate !== '') {
+                  match_view.questionForCandidate = complexity.questionForCandidate;
                 } else {
-                  return false;
+                  match_view.questionForCandidate = complexity.name;
                 }
-              });
-              match_view.capability_name = capability.name;
-              match_view.capability_code = capability.code;
-              match_view.total_complexity_in_capability = capability.complexities.length;
-              match_view.complexity_number = count_of_default_complexity;
-              match_view.complexity_name = complexity.name;
-              match_view.role_name = role.name;
-              match_view.code = custom_code;
-              if (complexity.questionForCandidate !== undefined && complexity.questionForCandidate !== null && complexity.questionForCandidate !== '') {
-                match_view.questionForCandidate = complexity.questionForCandidate;
-              } else {
-                match_view.questionForCandidate = complexity.name;
+                if (complexity.questionForRecruiter !== undefined && complexity.questionForRecruiter !== null && complexity.questionForRecruiter !== '') {
+                  match_view.questionForRecruiter = complexity.questionForCandidate;
+                } else {
+                  match_view.questionForRecruiter = complexity.name;
+                }
+                if(scenarios[0]){
+                  match_view.scenario_name = scenarios[0].name;
+                  match_view.userChoice = scenarios[0].code;
+                }
+                keyValueCapability[cap]=match_view;
+                break;
               }
-              if (complexity.questionForRecruiter !== undefined && complexity.questionForRecruiter !== null && complexity.questionForRecruiter !== '') {
-                match_view.questionForRecruiter = complexity.questionForCandidate;
-              } else {
-                match_view.questionForRecruiter = complexity.name;
-              }
-              if(scenarios[0]){
-                match_view.scenario_name = scenarios[0].name;
-                match_view.userChoice = scenarios[0].code;
-              }
-              keyValueCapability[cap]=match_view;
+            }
+            if (isFound) {
               break;
             }
-          }
-          if (isFound) {
-            break;
           }
         }
         if (isFound) {

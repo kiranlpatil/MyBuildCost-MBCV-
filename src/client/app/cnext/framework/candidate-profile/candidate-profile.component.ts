@@ -184,7 +184,7 @@ export class CandidateProfileComponent implements OnInit {
   getCapability() {
     this.roleList = new Array(0);
     for (let role of this.candidate.industry.roles) {
-      this.roleList.push(role.name);
+      this.roleList.push(role.code);
     }
     if (this.candidate.industry.name !== undefined && this.roleList !== undefined) {
       this.profileCreatorService.getCapability(this.candidate.industry.name, this.roleList)
@@ -216,7 +216,7 @@ export class CandidateProfileComponent implements OnInit {
       if (role.capabilities && role.capabilities.length > 0) {
         for (let capability of role.capabilities) {
           if (capability.isPrimary) {
-            this.primaryCapability.push(capability.name);
+            this.primaryCapability.push(capability.code);
           }
         }
       }
@@ -307,7 +307,7 @@ export class CandidateProfileComponent implements OnInit {
           if (this.isPresentCapability || this.isPresentDefaultcomplexity) {
             this.getComplexity();
             this.whichStepsVisible[2] = true;
-            console.log("capability matrix",this.candidate.capability_matrix);
+            console.log('capability matrix',this.candidate.capability_matrix);
             if(this.candidate.capability_matrix){
               var capbilityMatrix:any = Object.keys(this.candidate.capability_matrix);
               for(let index of capbilityMatrix){
@@ -418,7 +418,7 @@ export class CandidateProfileComponent implements OnInit {
   }
 
   showOrHide(type:string, event:any) {
-    if (type == "show") {
+    if (type == 'show') {
       if (event.target.checked) {
         this.candidate.isVisible = true;
       }

@@ -9,7 +9,7 @@
         <label>
           <input type="checkbox" name="choices"
                  value="{{item.name}}" (click)="selectOption(item,$event)"
-                 [checked]="isSelected(item.name)"/>
+                 [checked]="isSelected(item.code)"/>
           <span>{{item.name}}</span>
         </label>
       </div>

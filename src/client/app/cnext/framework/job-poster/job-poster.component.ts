@@ -94,7 +94,7 @@ export class JobPosterComponent implements OnInit, OnChanges {
           // this.OnRecruiterDataSuccess(data.data.industry);
           console.log(data.data.industry.postedJobs[0]);
           this.jobPosterModel = data.data.industry.postedJobs[0];
-          console.log("job poster model", this.jobPosterModel);
+          console.log('job poster model', this.jobPosterModel);
           this.onGetJobDetailsSuccess(this.jobPosterModel);
 
         });
@@ -354,7 +354,7 @@ export class JobPosterComponent implements OnInit, OnChanges {
     // this.flag = false;
     this.roleList = new Array(0);
     for (let role of this.jobPosterModel.industry.roles) {
-      this.roleList.push(role.name);
+      this.roleList.push(role.code);
     }
     if (this.jobPosterModel.industry.name != undefined && this.roleList != undefined) {
       this.profileCreatorService.getCapability(this.jobPosterModel.industry.name, this.roleList)
