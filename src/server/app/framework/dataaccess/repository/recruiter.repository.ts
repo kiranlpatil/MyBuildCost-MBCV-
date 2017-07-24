@@ -1,12 +1,9 @@
-import RecruiterSchema = require("../schemas/recruiter.schema");
-import RepositoryBase = require("./base/repository.base");
-import IRecruiter = require("../mongoose/recruiter");
-import RecruiterModel = require("../model/recruiter.model");
-import { JobQCard } from "../../search/model/job-q-card";
-import { ConstVariables } from "../../shared/sharedconstants";
-import IndustryModel = require("../model/industry.model");
-import CandidateRepository = require("./candidate.repository");
-import CandidateModel = require("../model/candidate.model");
+import RecruiterSchema = require('../schemas/recruiter.schema');
+import RepositoryBase = require('./base/repository.base');
+import IRecruiter = require('../mongoose/recruiter');
+import { JobQCard } from '../../search/model/job-q-card';
+import { ConstVariables } from '../../shared/sharedconstants';
+import CandidateModel = require('../model/candidate.model');
 
 class RecruiterRepository extends RepositoryBase<IRecruiter> {
   constructor() {
@@ -16,7 +13,7 @@ class RecruiterRepository extends RepositoryBase<IRecruiter> {
   getJobProfileQCard(recruiters: any[], candidate: CandidateModel, jobProfileIds: string[], callback: (error: any, result: any) => void) {
     let isSend : boolean = false;
     let jobs_cards: JobQCard[] = new Array(0);
-    if(recruiters.length==0) {
+    if(recruiters.length === 0) {
       callback(null, jobs_cards);
     }
     for (let recruiter of recruiters) {
@@ -26,9 +23,13 @@ class RecruiterRepository extends RepositoryBase<IRecruiter> {
         }
         let isPresent: boolean = false;
         for (let proficiency of candidate.proficiencies) {
-          if (job.proficiencies.indexOf(proficiency) != -1) {
+          if (job.proficiencies.indexOf(proficiency) !== -1) {
+            if(job.interestedIndustries.indexOf('None') !== -1) {
+              isPresent = true;
+              break;
+            }
             for (let industry of candidate.interestedIndustries) {
-              if (job.interestedIndustries.indexOf(industry) != -1) {
+              if (job.interestedIndustries.indexOf(industry) !== -1) {
                 isPresent = true;
               }
             }
@@ -95,7 +96,7 @@ class RecruiterRepository extends RepositoryBase<IRecruiter> {
           }
         }
       }
-      if(recruiters.indexOf(recruiter) == recruiters.length-1) {
+      if(recruiters.indexOf(recruiter) == recruiters.length - 1) {
           isSend= true;
           callback(null, jobs_cards);
         }
