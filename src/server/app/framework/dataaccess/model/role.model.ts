@@ -5,6 +5,7 @@ import DefaultComplexityModel = require("./default-complexity.model");
 interface RoleModel {
   name: string;
   code : string;
+  sort_order: number;
   capabilities: CapabilityModel[];
   default_complexities: DefaultComplexityModel[]
 }

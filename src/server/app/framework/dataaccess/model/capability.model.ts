@@ -5,7 +5,8 @@ interface CapabilityModel {
   complexities: ComplexityModel[];
   name: string;
   code : string;
-  isPrimary: boolean,
-  isSecondary: boolean
+  sort_order: number;
+  isPrimary: boolean;
+  isSecondary: boolean;
 }
 export = CapabilityModel;
