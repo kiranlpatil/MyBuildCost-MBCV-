@@ -1,6 +1,6 @@
-import DataAccess = require("../dataaccess");
-import User = require("../mongoose/user");
-import IRecruiter = require("../mongoose/recruiter");
+import DataAccess = require('../dataaccess');
+import User = require('../mongoose/user');
+import IRecruiter = require('../mongoose/recruiter');
 
 var mongoose = DataAccess.mongooseInstance;
 var mongooseConnection = DataAccess.mongooseConnection;
@@ -105,6 +105,7 @@ class RecruiterSchema {
 
         industry: {
           name: String,
+          code: String,
           roles: [{
             code: String,
             name: String,
@@ -160,5 +161,5 @@ class RecruiterSchema {
     return schema;
   }
 }
-var schema = mongooseConnection.model<IRecruiter>("Recruiter", RecruiterSchema.schema);
+var schema = mongooseConnection.model<IRecruiter>('Recruiter', RecruiterSchema.schema);
 export = schema;

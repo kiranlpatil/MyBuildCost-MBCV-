@@ -10,37 +10,37 @@ class IndustryRepository extends RepositoryBase<IIndustry> {
     super(IndustrySchema);
   }
 
-  findRoles(name: string, callback: (error: any, result: any) => void) {
+  findRoles(code: string, callback: (error: any, result: any) => void) {
     this.items = new Array(0);
     console.time('findRole');
-    IndustrySchema.find({'name': name},{'roles.capabilities':0,'roles.default_complexities':0}).lean().exec((err: any, industry: any)=> {
-      if (err) {
-        callback(err, null);
-      } else {
-        if (industry.length <= 0) {
-          callback(new Error('Records are not found'), null);
+      IndustrySchema.find({'code': code},{'roles.capabilities':0,'roles.default_complexities':0}).lean().exec((err: any, industry: any)=> {
+        if (err) {
+          callback(err, null);
         } else {
-          for (let role of industry[0].roles) {
-            let obj: any = {
-              'industryName': industry[0].name,
-              '_id': role._id,
-              'name': role.name,
-              'code': role.code,
-            };
-            this.items.push(obj);
+          if (industry.length <= 0) {
+            callback(new Error('Records are not found'), null);
+          } else {
+            for (let role of industry[0].roles) {
+              let obj: any = {
+                'industryName': industry[0].name,
+                '_id': role._id,
+                'name': role.name,
+                'code': role.code,
+              };
+              this.items.push(obj);
+            }
+            console.timeEnd('findRole');
+            callback(null, this.items);
           }
-          console.timeEnd('findRole');
-          callback(null, this.items);
         }
-      }
-    });
+      });
   }
 
   findCapabilities(item: any, callback: (error: any, result: any) => void) {
     this.items = new Array(0);
     console.time('findCapability');
 
-    IndustrySchema.find({'name': item.name},{'roles.capabilities.complexities':0}).lean().exec((err: any, industry: any)=> {
+    IndustrySchema.find({'code': item.code},{'roles.capabilities.complexities':0}).lean().exec((err: any, industry: any)=> {
       if (err) {
         callback(err, null);
       } else {
@@ -81,7 +81,7 @@ class IndustryRepository extends RepositoryBase<IIndustry> {
   findComplexities(item: any, callback: (error: any, result: any) => void) {
     this.items = new Array(0);
     console.time('findComplexity');
-    IndustrySchema.find({'name': item.name}).lean().exec((err: any, industry: any)=> {
+    IndustrySchema.find({'code': item.code}).lean().exec((err: any, industry: any)=> {
       if (err) {
         callback(err, null);
       } else {

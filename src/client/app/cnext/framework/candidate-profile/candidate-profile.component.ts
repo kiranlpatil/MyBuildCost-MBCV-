@@ -1,11 +1,11 @@
-import {Component, DoCheck, KeyValueDiffers, OnInit} from "@angular/core";
-import {NavigationRoutes} from "../../../framework/shared/constants";
-import {Router} from "@angular/router";
-import {ComplexityService} from "../complexity.service";
-import {Candidate, Section} from "../model/candidate";
-import {CandidateProfileService} from "./candidate-profile.service";
-import {Role} from "../model/role";
-import {Industry} from "../model/industry";
+import {Component, DoCheck, KeyValueDiffers, OnInit} from '@angular/core';
+import {NavigationRoutes} from '../../../framework/shared/constants';
+import {Router} from '@angular/router';
+import {ComplexityService} from '../complexity.service';
+import {Candidate, Section} from '../model/candidate';
+import {CandidateProfileService} from './candidate-profile.service';
+import {Role} from '../model/role';
+import {Industry} from '../model/industry';
 
 @Component({
   moduleId: module.id,
@@ -210,7 +210,7 @@ export class CandidateProfileComponent implements OnInit, DoCheck {
   }
 
   getRoles() {
-    this.profileCreatorService.getRoles(this.candidate.industry.name)
+    this.profileCreatorService.getRoles(this.candidate.industry.code)
       .subscribe(
         rolelist => this.rolesForMain = rolelist.data);
   }
@@ -221,7 +221,7 @@ export class CandidateProfileComponent implements OnInit, DoCheck {
       this.roleList.push(role.code);
     }
     if (this.candidate.industry.name !== undefined && this.roleList !== undefined) {
-      this.profileCreatorService.getCapability(this.candidate.industry.name, this.roleList)
+      this.profileCreatorService.getCapability(this.candidate.industry.code, this.roleList)
         .subscribe(
           rolelist => {
             this.rolesForCapability = rolelist.data;
@@ -256,7 +256,7 @@ export class CandidateProfileComponent implements OnInit, DoCheck {
       }
     }
     if (this.candidate.industry.name !== undefined && this.roleList !== undefined) {
-      this.profileCreatorService.getComplexity(this.candidate.industry.name, this.roleList, this.primaryCapability)
+      this.profileCreatorService.getComplexity(this.candidate.industry.code, this.roleList, this.primaryCapability)
         .subscribe(
           rolelist => {
             this.rolesForComplexity = rolelist.data;

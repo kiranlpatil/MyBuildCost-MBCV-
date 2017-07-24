@@ -1,19 +1,19 @@
-import {Component, Input, OnChanges, OnInit} from "@angular/core";
-import {JobPosterModel} from "../model/jobPoster";
-import {JobPosterService} from "./job-poster.service";
-import {Role} from "../model/role";
-import {CandidateProfileService} from "../candidate-profile/candidate-profile.service";
-import {Message} from "../../../framework/shared/message";
-import {MessageService} from "../../../framework/shared/message.service";
-import {Proficiences} from "../model/proficiency";
-import {Section} from "../model/candidate";
-import {LocalStorage} from "../../../framework/shared/constants";
-import {LocalStorageService} from "../../../framework/shared/localstorage.service";
-import {ShowQcardviewService} from "../showQCard.service";
-import {ActivatedRoute, Router} from "@angular/router";
-import {Industry} from "../model/industry";
-import {RecruiterDashboardService} from "../recruiter-dashboard/recruiter-dashboard.service";
-import {RecruiterDashboard} from "../model/recruiter-dashboard";
+import {Component, Input, OnChanges, OnInit} from '@angular/core';
+import {JobPosterModel} from '../model/jobPoster';
+import {JobPosterService} from './job-poster.service';
+import {Role} from '../model/role';
+import {CandidateProfileService} from '../candidate-profile/candidate-profile.service';
+import {Message} from '../../../framework/shared/message';
+import {MessageService} from '../../../framework/shared/message.service';
+import {Proficiences} from '../model/proficiency';
+import {Section} from '../model/candidate';
+import {LocalStorage} from '../../../framework/shared/constants';
+import {LocalStorageService} from '../../../framework/shared/localstorage.service';
+import {ShowQcardviewService} from '../showQCard.service';
+import {ActivatedRoute, Router} from '@angular/router';
+import {Industry} from '../model/industry';
+import {RecruiterDashboardService} from '../recruiter-dashboard/recruiter-dashboard.service';
+import {RecruiterDashboard} from '../model/recruiter-dashboard';
 
 @Component({
   moduleId: module.id,
@@ -346,7 +346,7 @@ export class JobPosterComponent implements OnInit, OnChanges {
 
   getRoles() {
     if (this.jobPosterModel.industry.name !== undefined) {
-      this.profileCreatorService.getRoles(this.jobPosterModel.industry.name)
+      this.profileCreatorService.getRoles(this.jobPosterModel.industry.code)
         .subscribe(
           rolelist => this.rolesForMain = rolelist.data,
           error => this.onError(error));
@@ -361,7 +361,7 @@ export class JobPosterComponent implements OnInit, OnChanges {
       this.roleList.push(role.code);
     }
     if (this.jobPosterModel.industry.name != undefined && this.roleList != undefined) {
-      this.profileCreatorService.getCapability(this.jobPosterModel.industry.name, this.roleList)
+      this.profileCreatorService.getCapability(this.jobPosterModel.industry.code, this.roleList)
         .subscribe(
           rolelist => {
             this.rolesForCapability = rolelist.data;
@@ -400,7 +400,7 @@ export class JobPosterComponent implements OnInit, OnChanges {
       }
     }
     if (this.jobPosterModel.industry.name != undefined && this.roleList != undefined) {
-      this.profileCreatorService.getComplexity(this.jobPosterModel.industry.name, this.roleList, this.primaryCapability)
+      this.profileCreatorService.getComplexity(this.jobPosterModel.industry.code, this.roleList, this.primaryCapability)
         .subscribe(
           rolelist => {
             this.rolesForComplexity = rolelist.data;

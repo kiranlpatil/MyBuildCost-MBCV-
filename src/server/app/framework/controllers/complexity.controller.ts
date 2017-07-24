@@ -1,13 +1,13 @@
-import * as express from "express";
-import AuthInterceptor = require("../interceptor/auth.interceptor");
-import Messages = require("../shared/messages");
-import ResponseService = require("../shared/response.service");
-import RoleModel = require("../dataaccess/model/role.model");
-import RoleService = require("../services/role.service");
-import IndustryService = require("../services/industry.service");
-import CapabilityService = require("../services/capability.service");
-import ComplexityService = require("../services/complexity.service");
-import ScenarioService = require("../services/scenario.service");
+import * as express from 'express';
+import AuthInterceptor = require('../interceptor/auth.interceptor');
+import Messages = require('../shared/messages');
+import ResponseService = require('../shared/response.service');
+import RoleModel = require('../dataaccess/model/role.model');
+import RoleService = require('../services/role.service');
+import IndustryService = require('../services/industry.service');
+import CapabilityService = require('../services/capability.service');
+import ComplexityService = require('../services/complexity.service');
+import ScenarioService = require('../services/scenario.service');
 
 
 export function retrieve(req: express.Request, res: express.Response, next: any) {  // todo find better solution
@@ -17,11 +17,11 @@ export function retrieve(req: express.Request, res: express.Response, next: any)
     var rolesparam = req.query.roles;
     var capabilityparam = req.query.capability;
     let item: any = {
-      'name': params,
+      'code': params,
       'roles': JSON.parse(rolesparam),
       'capabilities': JSON.parse(capabilityparam)
     };
-    console.time("getComplexity");
+    console.time('getComplexity');
     complexityService.findByName(item, (error, result) => {
       if (error) {
         next({
@@ -30,10 +30,10 @@ export function retrieve(req: express.Request, res: express.Response, next: any)
           code: 401
         });
       }else {
-        console.timeEnd("getComplexity");
+        console.timeEnd('getComplexity');
         res.send({
-          "status": "success",
-          "data": result
+          'status': 'success',
+          'data': result
         });
       }
     });

@@ -1,10 +1,10 @@
-import {Component, EventEmitter, Input, OnChanges, Output} from "@angular/core";
-import {Industry} from "../model/industry";
-import {CandidateProfileService} from "../candidate-profile/candidate-profile.service";
-import {Section} from "../model/candidate";
-import {LocalStorageService} from "../../../framework/shared/localstorage.service";
-import {LocalStorage, Messages} from "../../../framework/shared/constants";
-import {IndustryDetailsService} from "../industry-detail-service";
+import {Component, EventEmitter, Input, OnChanges, Output} from '@angular/core';
+import {Industry} from '../model/industry';
+import {CandidateProfileService} from '../candidate-profile/candidate-profile.service';
+import {Section} from '../model/candidate';
+import {LocalStorageService} from '../../../framework/shared/localstorage.service';
+import {LocalStorage, Messages} from '../../../framework/shared/constants';
+import {IndustryDetailsService} from '../industry-detail-service';
 
 @Component({
   moduleId: module.id,
@@ -56,11 +56,11 @@ export class IndustryListComponent implements OnChanges {
   }
 
   onNext() {
-    if (this.choosedIndustry.name === '') {
+    if(this.choosedIndustry.code == ''){
       this.isValid = false;
       return;
     }
-    if (this.choosedIndustry.name === this.selectedIndustry.name) {
+    if (this.choosedIndustry.code === this.selectedIndustry.code) {
 
     } else {
       this.valueChange.emit(this.choosedIndustry);
@@ -70,7 +70,7 @@ export class IndustryListComponent implements OnChanges {
   }
 
   onPrevious() {
-    if (this.choosedIndustry.name !== this.selectedIndustry.name) {
+    if (this.choosedIndustry.code !== this.selectedIndustry.code) {
       this.choosedIndustry = Object.assign(this.selectedIndustry);
     }
     if (LocalStorageService.getLocalValue(LocalStorage.IS_CANDIDATE) === 'true') {
@@ -81,7 +81,7 @@ export class IndustryListComponent implements OnChanges {
   }
 
   getIndustry() {
-    console.log("called from industry list component");
+    console.log('called from industry list component');
     this.candidateProfileService.getIndustries()
       .subscribe(industries => this.industries = industries.data);
   }

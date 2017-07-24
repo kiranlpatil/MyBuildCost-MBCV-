@@ -11,7 +11,7 @@
       <div class="select-option" *ngFor="let item of industries;let i = index">
         <label>
           <input type="radio" name="item.name" id="{{item.name}}" value="{{item.name}}"
-                 (click)="onValueChange(item)" [checked]="item.name===selectedIndustry.name">
+                 (click)="onValueChange(item)" [checked]="item.code===selectedIndustry.code">
           <span>{{item.name}}</span>
         </label>
       </div>
