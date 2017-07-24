@@ -29,4 +29,5 @@ export class JobPosterModel {
   candidate_list: any = [];
   numberOfCandidatesInList: CandidatesInDiffList = new CandidatesInDiffList();
   releventIndustries:string[] = new Array(0);
+  showCompanyName: boolean;
 }

@@ -33,5 +33,6 @@ interface JobProfileModel {
   capability_matrix : any;
   postedJobs : any;
   releventIndustries:string[];
+  showCompanyName: boolean;
 }
 export = JobProfileModel;

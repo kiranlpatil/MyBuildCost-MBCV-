@@ -79,6 +79,7 @@ export class BasicJobInformationComponent implements OnInit, OnChanges {
       'salaryMinValue': ['', Validators.required],
       'joiningPeriod': ['', Validators.required],
       'location': ['', Validators.required],
+      'showCompanyName': ['']
     });
   }
 

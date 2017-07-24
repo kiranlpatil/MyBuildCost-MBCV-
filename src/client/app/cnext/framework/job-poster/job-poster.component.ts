@@ -243,6 +243,7 @@ export class JobPosterComponent implements OnInit, OnChanges {
     this.jobPosterModel.salaryMaxValue = jobModel.salaryMaxValue;
     this.jobPosterModel.salaryMinValue = jobModel.salaryMinValue;
     this.isShowIndustryList = true;
+    this.jobPosterModel.showCompanyName = jobModel.showCompanyName;
     this.updateJob();
   }
 

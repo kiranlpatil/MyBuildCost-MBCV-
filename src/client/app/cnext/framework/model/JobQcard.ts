@@ -12,7 +12,7 @@ export class JobQcard {
   companyLogo: string;
   industry: string;
   _id: string;
-  proficiencies: string[] = new Array();
+  proficiencies: string[] = [];
   joiningPeriod: string;
   jobTitle: string;
   recruiterId: string;
@@ -20,6 +20,7 @@ export class JobQcard {
   above_one_step_matching: number = 0;
   exact_matching: number = 0;
   postingDate: Date;
+  showCompanyName: boolean;
 }
 
 export class JobAction {

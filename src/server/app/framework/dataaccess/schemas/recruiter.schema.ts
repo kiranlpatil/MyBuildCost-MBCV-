@@ -29,6 +29,10 @@ class RecruiterSchema {
       isRecruitingForself: {
         type: Boolean
       },
+      showCompanyName: {
+        type: Boolean,
+        default: true
+      },
       setOfDocuments: {
         type: [String]
       },
@@ -36,6 +40,10 @@ class RecruiterSchema {
         isJobPosted:{
           type: Boolean,
           default: false
+        },
+        showCompanyName: {
+          type: Boolean,
+          default: true
         },
         capability_matrix : {
           type : Object
