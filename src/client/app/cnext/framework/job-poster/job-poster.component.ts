@@ -1,19 +1,19 @@
-import {Component, Input, OnChanges, OnInit} from '@angular/core';
-import {JobPosterModel} from '../model/jobPoster';
-import {JobPosterService} from './job-poster.service';
-import {Role} from '../model/role';
-import {CandidateProfileService} from '../candidate-profile/candidate-profile.service';
-import {Message} from '../../../framework/shared/message';
-import {MessageService} from '../../../framework/shared/message.service';
-import {Proficiences} from '../model/proficiency';
-import {Section} from '../model/candidate';
-import {LocalStorage} from '../../../framework/shared/constants';
-import {LocalStorageService} from '../../../framework/shared/localstorage.service';
-import {ShowQcardviewService} from '../showQCard.service';
-import {ActivatedRoute, Router} from '@angular/router';
-import {Industry} from '../model/industry';
-import {RecruiterDashboardService} from '../recruiter-dashboard/recruiter-dashboard.service';
-import {RecruiterDashboard} from '../model/recruiter-dashboard';
+import {Component, Input, OnChanges, OnInit} from "@angular/core";
+import {JobPosterModel} from "../model/jobPoster";
+import {JobPosterService} from "./job-poster.service";
+import {Role} from "../model/role";
+import {CandidateProfileService} from "../candidate-profile/candidate-profile.service";
+import {Message} from "../../../framework/shared/message";
+import {MessageService} from "../../../framework/shared/message.service";
+import {Proficiences} from "../model/proficiency";
+import {Section} from "../model/candidate";
+import {LocalStorage} from "../../../framework/shared/constants";
+import {LocalStorageService} from "../../../framework/shared/localstorage.service";
+import {ShowQcardviewService} from "../showQCard.service";
+import {Router} from "@angular/router";
+import {Industry} from "../model/industry";
+import {RecruiterDashboardService} from "../recruiter-dashboard/recruiter-dashboard.service";
+import {RecruiterDashboard} from "../model/recruiter-dashboard";
 
 @Component({
   moduleId: module.id,
@@ -62,7 +62,6 @@ export class JobPosterComponent implements OnInit, OnChanges {
   constructor(private profileCreatorService: CandidateProfileService,
               private recruiterDashboardService: RecruiterDashboardService,
               private messageService: MessageService,
-              private activatedRoute: ActivatedRoute,
               private showQCardView: ShowQcardviewService,
               private jobPostService: JobPosterService,
               private _router: Router) {
@@ -139,7 +138,7 @@ export class JobPosterComponent implements OnInit, OnChanges {
           this.getComplexity();
           this.setCapabilityMatrix = true;
           if (jobmodel.capability_matrix) {
-            var capbilityMatrix: any = Object.keys(jobmodel.capability_matrix);
+            let capbilityMatrix: any = Object.keys(jobmodel.capability_matrix);
             for (let index of capbilityMatrix) {
               if (jobmodel.capability_matrix[index] === -1) {
                 this.isComplexityFilled = false;
@@ -243,7 +242,7 @@ export class JobPosterComponent implements OnInit, OnChanges {
     this.jobPosterModel.salaryMaxValue = jobModel.salaryMaxValue;
     this.jobPosterModel.salaryMinValue = jobModel.salaryMinValue;
     this.isShowIndustryList = true;
-    this.jobPosterModel.showCompanyName = jobModel.showCompanyName;
+    this.jobPosterModel.hideCompanyName = jobModel.hideCompanyName;
     this.updateJob();
   }
 
@@ -287,7 +286,7 @@ export class JobPosterComponent implements OnInit, OnChanges {
     this.updateJob();
   }
 
-  selectRoleFromComplexity(roles: Role[]) {
+  selectRoleFromComplexity() {
     this.updateJob();
     this.getProficiency();
     this.isShowProficiency = true;
@@ -303,7 +302,7 @@ export class JobPosterComponent implements OnInit, OnChanges {
     this.updateJob();
   }
 
-  onProficiencyComplete(event: any) {
+  onProficiencyComplete() {
     this.showIndustryExposure = true;
   }
 
@@ -313,7 +312,7 @@ export class JobPosterComponent implements OnInit, OnChanges {
     this.updateJob();
   }
 
-  onIndustryExposureComplete(event: any) {
+  onIndustryExposureComplete() {
     //this.showCompentensies = true;
     if (this.isShowReleventIndustryListStep) {
       this.highlightedSection.name = 'ReleventIndustry';
@@ -338,7 +337,7 @@ export class JobPosterComponent implements OnInit, OnChanges {
   }
 
   onError(error: any) {
-    var message = new Message();
+    let message = new Message();
     message.error_msg = error.err_msg;
     message.isError = true;
     this.messageService.message(message);

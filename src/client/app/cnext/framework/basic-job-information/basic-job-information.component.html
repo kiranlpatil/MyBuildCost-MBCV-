@@ -10,8 +10,13 @@
               <label>Job Title</label>
               <input class="form-control" type="text" formControlName="jobTitle" required/>
               <div class="error-messages"
-                   *ngIf="(jobPostForm.get('jobTitle').touched || submitStatus)&& jobPostForm.get('jobTitle').hasError('required')">
+                   *ngIf="(jobPostForm.get('jobTitle').touched || submitStatus) && jobPostForm.get('jobTitle').hasError('required')">
                 <p>{{titleValidationMessage}}</p>
+              </div>
+              <div class="error-messages"
+                   *ngIf="(jobPostForm.get('jobTitle').touched || submitStatus) && jobPostForm.get('jobTitle').hasError('required')
+                   || ((jobPostForm.get('jobTitle').touched || submitStatus) && jobPostForm.get('jobTitle').hasError('containsWhiteSpace'))">
+                <p>{{titleSpaceValidationMessage}}</p>
               </div>
             </div>
           </div>
@@ -35,15 +40,16 @@
               <input class="form-control" type="text" formControlName="department" required>
               <div class="error-messages"
                    *ngIf="(jobPostForm.get('department').touched || submitStatus)&& jobPostForm.get('department').hasError('required')">
-                <p>{{hiringDepartmentValidationMessage}}</p>
+                <p *ngIf="recruiter.isRecruitingForself">{{hiringDepartmentValidationMessage}}</p>
+                <p *ngIf="!recruiter.isRecruitingForself">{{hiringCompanyValidationMessage}}</p>
               </div>
             </div>
           </div>
 
           <div class="col-sm-8 no-padding" *ngIf="!recruiter.isRecruitingForself">
             <div class="form-group">
-              <h4>Company Name Visibility for candidate</h4>
-              <input type="checkbox" formControlName="showCompanyName"> Hide company Name<br>
+              <h4>Hide company Name from applicant</h4>
+              <input type="checkbox" formControlName="hideCompanyName"> Hide company Name<br>
             </div>
           </div>
 

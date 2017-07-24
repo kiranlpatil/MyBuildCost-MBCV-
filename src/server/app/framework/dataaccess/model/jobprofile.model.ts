@@ -30,9 +30,9 @@ interface JobProfileModel {
   remark: string;
   interestedIndustries: string[];
   candidate_list: CandidateListModel[];
-  capability_matrix : any;
-  postedJobs : any;
-  releventIndustries:string[];
-  showCompanyName: boolean;
+  capability_matrix: any;
+  postedJobs: any;
+  releventIndustries: string[];
+  hideCompanyName: boolean;
 }
 export = JobProfileModel;

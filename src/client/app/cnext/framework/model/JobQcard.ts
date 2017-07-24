@@ -6,10 +6,8 @@ export class JobQcard {
   company_size: string;
   experienceMinValue: string;
   experienceMaxValue: string;
-  companyAge: string;
   matching: number;
   company_name: string;
-  companyLogo: string;
   industry: string;
   _id: string;
   proficiencies: string[] = [];
@@ -20,10 +18,5 @@ export class JobQcard {
   above_one_step_matching: number = 0;
   exact_matching: number = 0;
   postingDate: Date;
-  showCompanyName: boolean;
-}
-
-export class JobAction {
-  jobId: string;
-  action: string;
+  hideCompanyName: boolean;
 }

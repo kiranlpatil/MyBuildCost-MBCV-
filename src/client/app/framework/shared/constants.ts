@@ -117,8 +117,10 @@ export class Messages {
   public static MSG_ERROR_VALIDATION_AWARD_AUTHORITY_REQUIRED = 'Authority name is required.';
   public static MSG_ERROR_VALIDATION_AWARD_YEAR_REQUIRED = 'Issued year is required.';
   public static MSG_ERROR_VALIDATION_JOB_TITLE_REQUIRED = 'Enter job title.';
+  public static MSG_ERROR_JOB_TITLE_INVALID_BLANK_SPACE = 'Enter valid job title.';
   public static MSG_ERROR_VALIDATION_HIRING_MANAGER_REQUIRED = 'Enter hiring manager name.';
   public static MSG_ERROR_VALIDATION_HIRING_DEPARTMENT_REQUIRED = 'Enter hiring department.';
+  public static MSG_ERROR_VALIDATION_HIRING_COMPANY_REQUIRED = 'Enter hiring company name.';
   public static MSG_ERROR_VALIDATION_EDUCATIONAL_QUALIFICATION_REQUIRED = 'Select educational qualification.';
   public static MSG_ERROR_VALIDATION_MIN_EXPERIENCE_REQUIRED = 'Select minimum experience expected.';
   public static MSG_ERROR_VALIDATION_MAX_EXPERIENCE_REQUIRED = 'Select maximum experience expected.';

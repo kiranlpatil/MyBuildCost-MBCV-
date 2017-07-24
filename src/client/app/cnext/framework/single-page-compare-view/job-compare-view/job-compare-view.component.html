@@ -8,8 +8,8 @@
     <div class="job-info-labal pull-left">
       <div class="user-job-label">
         <span *ngIf="recruiter.postedJobs[0]">{{recruiter.postedJobs[0].jobTitle}}</span>
-        <label>at</label>
-        <span class="company-name">{{recruiter.company_name}}</span>
+        <label *ngIf="!recruiter.postedJobs[0].hideCompanyName">at</label>
+        <span *ngIf="!recruiter.postedJobs[0].hideCompanyName" class="company-name">{{recruiter.company_name}}</span>
       </div>
     </div>
     <img src="/assets/c-next/card-view/close-white.png" (click)="closeThis()" class="close"/>
@@ -118,11 +118,11 @@
                 <div class="details clearfix" *ngFor="let postedJob of recruiter.postedJobs">
                   <!-- <label class="first-label">Job Title </label>
                    <span>{{postedJob.jobTitle}}</span>-->
-                  <label>Hiring Manager</label>
-                  <span>{{postedJob.hiringManager}}</span>
+                  <label *ngIf="candidate == undefined">Hiring Manager</label>
+                  <span *ngIf="candidate == undefined">{{postedJob.hiringManager}}</span>
                   <label *ngIf="recruiter.isRecruitingForself">Department</label>
-                  <label *ngIf="!recruiter.isRecruitingForself">Company</label>
-                  <span>{{postedJob.department}}</span>
+                  <label *ngIf="!recruiter.isRecruitingForself && !postedJob.hideCompanyName">Company</label>
+                  <span *ngIf="!postedJob.hideCompanyName">{{postedJob.department}}</span>
                   <label>Industry</label>
                   <span>{{postedJob.industry.name}}</span>
                   <label>Area of Work</label>

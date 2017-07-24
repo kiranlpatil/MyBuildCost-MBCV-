@@ -29,6 +29,7 @@ export class JobDashboardComponent implements OnInit {
   private candidateQlist: CandidateQListModel = new CandidateQListModel();
   private selectedJobProfile: JobPosterModel = new JobPosterModel();
   private filterMeta: QCardFilter;
+  private isRecruitingForSelf: boolean;
 
   constructor(public refrence: ReferenceService,
               private activatedRoute: ActivatedRoute,
@@ -61,6 +62,7 @@ export class JobDashboardComponent implements OnInit {
     this.jobDashboardService.getPostedJobDetails(this.jobId)
       .subscribe(
         (data: any) => {
+          this.isRecruitingForSelf = data.data.industry.isRecruitingForself;
           this.selectedJobProfile = data.data.industry.postedJobs[0];
 
           for (let item of data.data.industry.postedJobs[0].candidate_list) {

@@ -15,11 +15,10 @@ export class JobQCard {
   interestedIndustries: string[];
   proficiencies: string[];
   company_logo: string;
-  company_age: string;
   joiningPeriod: string;
   postingDate: Date;
   industry: string;
   jobTitle: string;
   _id: string;
-
+  hideCompanyName: boolean;
 }
