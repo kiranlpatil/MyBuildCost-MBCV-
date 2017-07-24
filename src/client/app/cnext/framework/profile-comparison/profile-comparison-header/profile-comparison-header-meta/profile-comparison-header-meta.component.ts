@@ -13,6 +13,7 @@ import {ProfileComparisonHeaderMeta} from "./profile-comparison-header-meta";
 export class ProfileComparisonHeaderMetaComponent {
 
    @Input() profileMeta: ProfileComparisonHeaderMeta;
+  @Input() matchingPercentage: number;
    @Output() actionOnComparisonList = new EventEmitter();
   constructor() {}
 

@@ -11,6 +11,6 @@ import {ProfileComparisonData} from "../../model/profile-comparison";
 
 export class ProfileCapabilityComparisonComponent {
   //@Input() capabilityList: string[];
-  @Input() profileComparisionResult:ProfileComparisonData[];
+  @Input() profileComparisonResult: ProfileComparisonData[];
   constructor() {}
 }

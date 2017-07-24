@@ -161,6 +161,9 @@ import {ReleventIndustryListService} from "./cnext/framework/relevent-industry-l
 import {MultipleQuestionAnswerComponent} from "./cnext/framework/multiple-question-answer/multiple-question-answer.component";
 import {ProfileComparisonComponent} from "./cnext/framework/profile-comparison/profile-comparison.component";
 import {ProfileComparisonService} from "./cnext/framework/profile-comparison/profile-comparison.service";
+import {ProfileComparisonHeaderComponent} from "./cnext/framework/profile-comparison/profile-comparison-header/profile-comparison-header.component";
+import {ProfileCapabilityComparisonComponent} from "./cnext/framework/profile-comparison/profile-capability-comparison/profile-capability-comparison.component";
+import {ProfileCapabilityComparisonMetaComponent} from "./cnext/framework/profile-comparison/profile-capability-comparison/profile-capability-comparison-meta/profile-capability-comparison-meta.component";
 //C-NEXT IMPORTS
 
 
@@ -274,7 +277,10 @@ import {ProfileComparisonService} from "./cnext/framework/profile-comparison/pro
     MaxRangeValidation,
     JobDashboardComponent,
     ReleventIndustryListComponent,
-    ProfileComparisonComponent
+    ProfileComparisonComponent,
+    ProfileComparisonHeaderComponent,
+    ProfileCapabilityComparisonComponent,
+    ProfileCapabilityComparisonMetaComponent
 
   ],
   providers: [

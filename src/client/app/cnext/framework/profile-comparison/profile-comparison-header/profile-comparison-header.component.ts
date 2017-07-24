@@ -12,7 +12,7 @@ import {ProfileComparisonData} from "../../model/profile-comparison";
 
 export class ProfileComparisonHeaderComponent {
 
-   @Input() profileComparisionResult: ProfileComparisonData[];
+  @Input() profileComparisonResult: ProfileComparisonData[];
    @Output() actionOnComparisonList = new EventEmitter();
    constructor() {}
 

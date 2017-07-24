@@ -61,6 +61,10 @@
         <a (click)="getSelectedListData('rejectedList')" data-toggle="tab" href="#rejected-job"><span
           class="rejected-count count"><span>{{recruiterJobView.numberOfCandidatesrejected}}</span></span> Rejected</a>
       </li>
+      <li class="rejected-job-tabs">
+        <a (click)="getCompareDetail()" data-toggle="tab" href="#rejected-job"><span
+          class="rejected-count count"><span>{{recruiterJobView.numberOfCandidatesInCompare}}</span></span>Compare</a>
+      </li>
     </ul>
     <div id="matched-job" class="tab-pane fade in active ">
       <cn-q-card-view [progress_bar_color]="'#0d75fa'" (addedTocart)="AddedToCart($event)" *ngIf="whichListVisible[0]" [candidateQlist]="candidateQlist" [filterMeta]="filterMeta"
@@ -88,7 +92,15 @@
       <cn-q-card-view (addedTocart)="AddedToCart($event)" [progress_bar_color]="'#e91d62'" *ngIf="whichListVisible[3]" [candidateQlist]="candidateQlist" [filterMeta]="filterMeta"
                       [candidates]="candidateQlist.rejectedCandidates" [type]="'rejectedList'" [jobId]="jobId"
                       [recuirterListCountModel]="recruiterJobView"></cn-q-card-view>
-      <p class="empty-list-message" *ngIf="recruiterJobView.numberOfCandidatesrejected==0">There are no candidates Rejected by you for this job posting.</p>
+      <p class="empty-list-message" *ngIf="recruiterJobView.numberOfCandidatesrejected==0">There are no candidates to
+        compare.</p>
+    </div>
+
+    <div id="compare-candidates" class="tab-pane fade">
+      <cn-profile-comparison (performActionOnComparisonList)="performActionOnComparisonList($event)"
+                             *ngIf="whichListVisible[4]"></cn-profile-comparison>
+      <p class="empty-list-message" *ngIf="recruiterJobView.numberOfCandidatesInCompare==0">There are no candidates
+        Rejected by you for this job posting.</p>
     </div>
 
   </div>

@@ -1,5 +1,4 @@
-import {Component, Input} from "@angular/core";
-import {ProfileComparisonData} from "../../model/profile-comparison";
+import {Component} from "@angular/core";
 
 @Component({
   moduleId:module.id,
@@ -10,6 +9,6 @@ import {ProfileComparisonData} from "../../model/profile-comparison";
 })
 
 export class ProfileAttributeComparisonComponent {
-  @Input() profileComparisionResult:ProfileComparisonData[];
+  //@Input() profileComparisonResult:ProfileComparisonData[];
  constructor() {}
 }

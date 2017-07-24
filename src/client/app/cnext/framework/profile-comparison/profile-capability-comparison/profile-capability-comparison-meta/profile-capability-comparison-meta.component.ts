@@ -1,4 +1,5 @@
-import {Component} from "@angular/core";
+import {Component, Input} from "@angular/core";
+import {ProfileComparisonData} from "../../../model/profile-comparison";
 
 @Component({
 
@@ -11,5 +12,6 @@ import {Component} from "@angular/core";
 
 export class ProfileCapabilityComparisonMetaComponent {
 
+  @Input() profileComparisonResult: ProfileComparisonData[];
   constructor() {}
 }

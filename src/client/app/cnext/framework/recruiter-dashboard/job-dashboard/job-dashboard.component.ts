@@ -1,13 +1,15 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { JobDashboardService } from './job-dashboard.service';
-import { RecruiterJobView } from '../../model/recruiter-job-view';
-import { ValueConstant } from '../../../../framework/shared/constants';
-import { CandidateQListModel } from './q-cards-candidates';
-import { JobPosterModel } from '../../model/jobPoster';
-import { ReferenceService } from '../../model/newClass';
-import { QCardFilterService } from '../../filters/q-card-filter.service';
-import { QCardFilter } from '../../model/q-card-filter';
+import {Component, OnInit} from "@angular/core";
+import {ActivatedRoute, Router} from "@angular/router";
+import {JobDashboardService} from "./job-dashboard.service";
+import {RecruiterJobView} from "../../model/recruiter-job-view";
+import {ValueConstant} from "../../../../framework/shared/constants";
+import {CandidateQListModel} from "./q-cards-candidates";
+import {JobPosterModel} from "../../model/jobPoster";
+import {ReferenceService} from "../../model/newClass";
+import {QCardFilterService} from "../../filters/q-card-filter.service";
+import {QCardFilter} from "../../model/q-card-filter";
+import {ProfileComparisonService} from "../../profile-comparison/profile-comparison.service";
+import {ProfileComparison} from "../../model/profile-comparison";
 
 @Component({
   moduleId: module.id,
@@ -28,11 +30,13 @@ export class JobDashboardComponent implements OnInit {
   private candidateQlist: CandidateQListModel = new CandidateQListModel();
   private selectedJobProfile: JobPosterModel = new JobPosterModel();
   private filterMeta: QCardFilter;
+  private profileComparison: ProfileComparison;
+  private listOfCandidateIdToCompare: string[];
 
   constructor(public refrence: ReferenceService,
               private activatedRoute: ActivatedRoute,
               private jobDashboardService: JobDashboardService,
-              private _router:Router,private qcardFilterService:QCardFilterService) {
+              private _router: Router, private qcardFilterService: QCardFilterService, private profileComparisonService: ProfileComparisonService) {
     this.qcardFilterService.candidateFilterValue$.subscribe(
       (data: QCardFilter) => {
         this.filterMeta = data;
@@ -50,7 +54,7 @@ export class JobDashboardComponent implements OnInit {
     });
 
     this.getJobProfile();
-    this.whichListVisible = new Array(4);
+    this.whichListVisible = new Array(5);
     this.getMatchingProfiles();
 
   }
@@ -182,6 +186,24 @@ export class JobDashboardComponent implements OnInit {
 
   closeJob() {
     this.showModalStyle = !this.showModalStyle;
+  }
+
+  performActionOnComparisonList(value: any) {
+
+  }
+
+  getCompareDetail() {
+    this.whichListVisible[4] = true;
+    if (this.listOfCandidateIdToCompare.length) {
+      this.profileComparisonService.getCompareDetail(this.listOfCandidateIdToCompare, this.jobId)
+        .subscribe(
+          data => this.OnCompareSuccess(data),
+          error => console.log(error));
+    }
+  }
+
+  OnCompareSuccess(data: any) {
+    this.profileComparison = data.data;
   }
 
 }
