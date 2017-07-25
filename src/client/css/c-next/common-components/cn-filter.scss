@@ -1,9 +1,8 @@
 $white: #fff;
-$border-color: #ddd;
 $text-color: #333;
 $bg-tab-content: #f9f9f9;
 $profile-section-shadow: rgba(204, 204, 204, 1);
-$border-color: #e8e8e8;
+$border-color: #d1dce4;
 $filter-bg: #edf1f5;
 $theme-color: #0d75fa;
 
@@ -11,7 +10,7 @@ $theme-color: #0d75fa;
   padding-bottom: 60px;
   position: fixed;
   top: 127px;
-  left: 0;
+  right: 0;
   height: 100vh;
   overflow: auto;
   border: 1px solid $border-color;
@@ -19,7 +18,7 @@ $theme-color: #0d75fa;
   //box-shadow: 0 0 1px 0 $profile-section-shadow;
   text-align: left;
   width: 200px;
-  background: $white;
+  background: $filter-bg;
   z-index: 998;
 
   p {
@@ -34,15 +33,15 @@ $theme-color: #0d75fa;
     font-family: 'gothamrnd-book';
     position: fixed;
     top: 50px;
-    left: 0;
-    background-color: $white;
+    right: 0;
+    background-color: $filter-bg;
     width: 200px;
     z-index: 10;
-    border-right: 1px solid $border-color;
+    border-left: 1px solid $border-color;
   }
 
   .inner {
-    padding: 0px 15px 15px;
+    padding: 0 15px 15px;
 
     h5 {
       margin: 20px 0 5px;

@@ -16,7 +16,7 @@ $active-tab-border: #b2bcc3;
     margin: 0;
 
     a {
-      background: $active-tab;
+      background: $white;
       border: 0 solid transparent;
       border-bottom: 3px solid transparent;
       border-radius: 0;
@@ -58,7 +58,7 @@ $active-tab-border: #b2bcc3;
       color: $text-color;
       font-family: 'gothamrnd-book';
       font-size: 13px;
-      padding: 4px 15px;
+      padding: 14px 15px 4px;
       top: 0;
 
       &:focus,
@@ -78,8 +78,6 @@ $active-tab-border: #b2bcc3;
       //border: 1px solid $active-tab-border !important;
       border-bottom: 4px solid $theme-color !important;
       color: $theme-color !important;
-      padding: 4px 15px;
-      top: 0;
     }
   }
 }
