@@ -1,17 +1,7 @@
-$theme-color: #0d75fa;
-$heading-color: #dbeef6;
-$border-color: #e8e8e8;
-$text-color: #333;
-$light-green: #B1D669;
-$orange: #EAA83D;
-$gray: #ccc;
-$green: #7E9B5D;
-$blue: #3694d1;
-$red: #EF5C48;
-$white: #ffffff;
+@import '../../../../../../css/variables';
 
 .exact {
-  background: $light-green !important;
+  background: $green2 !important;
   padding: 5px 5px 0px;
   height: 57px;
   line-height: 16px;
@@ -83,7 +73,7 @@ $white: #ffffff;
   .complexity-scenarios-description {
     white-space: inherit;
     position: absolute;
-    background: $light-green;
+    background: $green2;
     padding: 5px;
     bottom: inherit;
     min-height: 59px;
@@ -347,7 +337,7 @@ $white: #ffffff;
     margin: 0 auto;
     word-wrap: break-word;
     padding: 0;
-    color: #777;
+    color: $capability-label;
   }
 }
 
@@ -407,19 +397,19 @@ $white: #ffffff;
     }
 
     .legend-above {
-      background: $green;
+      background: $green2;
     }
 
     .legend-exact {
-      background: $light-green;
+      background: $light-green2;
     }
 
     .legend-below {
-      background: $orange;
+      background: $orange2;
     }
 
     .legend-missing {
-      background: $red;
+      background: $red2;
     }
 
     .legend-extra {
@@ -428,7 +418,7 @@ $white: #ffffff;
   }
 
   .heading {
-    border-bottom: 1px solid $border-color;
+    border-bottom: 1px solid $border-color1;
     border-radius: 0;
     margin: 0;
     width: 100%;
@@ -443,7 +433,7 @@ $white: #ffffff;
   }
 
   .content {
-    border-bottom: 1px solid $border-color;
+    border-bottom: 1px solid $border-color1;
     margin: 10px 0;
     padding-bottom: 10px;
 

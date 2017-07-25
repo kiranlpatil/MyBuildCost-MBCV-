@@ -1,13 +1,5 @@
 @import '../../../css/common';
-
-$border-color: #e8e8e8;
-$orange: #ff9700;
-$theme-color: #0d75fa;
-$white: #fff;
-$purple: #7366ad;
-$profile-section-shadow: rgba(0, 0, 0, 0.04);
-$active-color: #edf1f5;
-$pink: #e91d62;
+@import '../../../css/variables';
 
 .card-view {
   clear: both;
@@ -125,7 +117,7 @@ $pink: #e91d62;
       font-family: 'gothamrnd-light';
       font-weight: 600;
       font-size: 13px;
-      color: #666;
+      color: $name;
       margin: 0 0 5px;
       @extend %text-ellipsis;
     }
@@ -259,7 +251,7 @@ header {
 
     select {
       border: 0;
-      border-bottom: 1px solid #ccc;
+      border-bottom: 1px solid $gray;
       -moz-appearance: none;
       -webkit-appearance: none;
       background: transparent url(../assets/framework/images/form/drop-down.png) no-repeat 95% 50%;

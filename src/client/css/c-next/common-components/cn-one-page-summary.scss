@@ -1,7 +1,4 @@
-$white: #fff;
-$theme-color: #3694d1;
-$border-color: #e8e8e8;
-$text-color: #333;
+@import '../../../css/variables';
 
 .page-header {
   background: $theme-color;
