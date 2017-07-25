@@ -78,7 +78,6 @@ export class CandidateProfileComponent implements OnInit, DoCheck {
         this.getRoles();
         return;
       } else if (this.highlightedSection.name === 'Capabilities') {
-        this.getRoles();
         this.getCapability();
         return;
       } else if (this.highlightedSection.name === 'Complexities') {
@@ -100,7 +99,6 @@ export class CandidateProfileComponent implements OnInit, DoCheck {
     if (newIndustry !== undefined && newIndustry.name !== '') {
       this.candidate.industry = newIndustry;
       this.saveCandidateDetails();
-      this.getRoles();
       this.isRolesShow = false;
       this.candidateForRole = this.candidate.industry.roles;
       this.candidateForCapability = this.candidate.industry.roles;
@@ -113,7 +111,6 @@ export class CandidateProfileComponent implements OnInit, DoCheck {
     this.candidateForCapability = this.candidate.industry.roles;
     this.candidateForComplexity = this.candidate.industry.roles;
     this.rolesForCapability = new Array(0);
-    this.getCapability();
     this.showCapability = true;
     this.whichStepsVisible[1] = true;
     this.whichStepsVisible[3] = false;
@@ -125,7 +122,6 @@ export class CandidateProfileComponent implements OnInit, DoCheck {
     this.candidateForRole = this.candidate.industry.roles;
     this.candidateForComplexity = this.candidate.industry.roles;
     this.saveCandidateDetails();
-    this.getComplexity();
     this.whichStepsVisible[2] = true;
   }
 
@@ -318,7 +314,6 @@ export class CandidateProfileComponent implements OnInit, DoCheck {
             //this.getComplexity();
             this.showComplexity = true;
             this.whichStepsVisible[2] = true;
-            console.log('capability matrix',this.candidate.capability_matrix);
             if(this.candidate.capability_matrix){
               var capbilityMatrix:any = Object.keys(this.candidate.capability_matrix);
               for(let index of capbilityMatrix){

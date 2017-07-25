@@ -56,7 +56,6 @@ export class CapabilityCompareComponent  implements OnChanges {
 
     if(changes.rowsToShow && changes.rowsToShow.currentValue) {
       this.rowsToShow = changes.rowsToShow.currentValue;
-      console.log(this.rowsToShow);
     }
     //  console.log("in compare view",this.roles);
   }
