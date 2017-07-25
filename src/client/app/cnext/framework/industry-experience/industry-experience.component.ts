@@ -1,9 +1,10 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
-import { Industry } from '../model/industry';
-import { CandidateProfileService } from '../candidate-profile/candidate-profile.service';
-import { Section } from '../model/candidate';
-import { LocalStorageService } from '../../../framework/shared/localstorage.service';
-import {LocalStorage, ValueConstant, Messages} from '../../../framework/shared/constants';
+import {Component, EventEmitter, Input, OnChanges, OnInit, Output} from "@angular/core";
+import {Industry} from "../model/industry";
+import {CandidateProfileService} from "../candidate-profile/candidate-profile.service";
+import {Section} from "../model/candidate";
+import {LocalStorageService} from "../../../framework/shared/localstorage.service";
+import {LocalStorage, Messages, ValueConstant} from "../../../framework/shared/constants";
+import {IndustryDataService} from "../industry-data-service";
 
 @Component({
   moduleId: module.id,
@@ -35,9 +36,16 @@ export class IndustryExperienceListComponent implements OnInit,OnChanges {
   private submitStatus: boolean;
   private requiedIndustryExposureValidationMessage = Messages.MSG_ERROR_VALIDATION_INDUSTRY_EXPOSURE_REQUIRED;
   private suggestionMessageAboutDomain:string;
+  private suggestionMessageAboutCandidateDomain:string;
 
-  constructor(private candidateProfileService: CandidateProfileService) {
-    this.getIndustries();
+  constructor(private candidateProfileService: CandidateProfileService,
+              private industryDetailsService: IndustryDataService) {
+    this.industryDetailsService.makeCall$.subscribe(
+      data => {
+        if (data && this.industries.length === 0) {
+          this.getIndustries();
+        }
+      });
     this.candidateExperiencedIndustry = new Array(0);
   }
   ngOnInit() {
@@ -57,8 +65,8 @@ export class IndustryExperienceListComponent implements OnInit,OnChanges {
 
     if (changes.choosedIndustry !== undefined && changes.choosedIndustry.currentValue !== undefined) {
       this.choosedIndustry = changes.choosedIndustry.currentValue;
-      this.suggestionMessageAboutDomain = "In addition to "+ this.choosedIndustry + " industry, do you want the candidate to have mandatory experience in any specific Domain? If yes, select such MUST HAVE DOMAINS from below.";
-      this.getIndustries();
+      this.suggestionMessageAboutDomain = "In addition to "+ this.choosedIndustry + " industry, do you want the candidate to have mandatory experience in any specific domain? If yes, select such must have domains from below.";
+      this.suggestionMessageAboutCandidateDomain = "In addition to "+ this.choosedIndustry + " industry, do you have exposure to any of the domains mentioned below? If yes, select relevant domains.";
     }
     if (this.candidateExperiencedIndustry === undefined) {
       this.candidateExperiencedIndustry = new Array(0);

@@ -1,9 +1,6 @@
 @import '../../common';
+@import '../../../css/variables';
 
-$bg-wrapper: #f8f8f8;
-$white: #fff;
-$text-color: #666;
-$heading-color: #333;
 
 .main-form-wrapper {
   height: 100vh;
@@ -22,14 +19,14 @@ $heading-color: #333;
     box-shadow: -1px 3px 10px rgba(0, 0, 0, 0.15);
 
     h5 {
-      color: $heading-color;
+      color: $name;
       font-family: 'helvlightregular';
       font-size: 20px;
       font-weight: bold;
       margin: 0;
       padding: 15px 0 10px 15px;
       background: transparent !important;
-      border-bottom: 0px solid $border-color;
+      border-bottom: 0 solid $border-color;
       font-family: gothamrnd-light;
     }
 
@@ -44,7 +41,7 @@ $heading-color: #333;
 
     p {
       text-align: left;
-      margin: 0px 0 20px;
+      margin: 0 0 15px;
     }
   }
 

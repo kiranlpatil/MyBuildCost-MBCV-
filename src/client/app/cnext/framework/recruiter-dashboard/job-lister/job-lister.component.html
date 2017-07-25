@@ -21,7 +21,7 @@
 
   <div class="card-view clearfix">
     <div class="col-md-3" *ngFor="let item of jobListInput | orderBy:format;let i = index"
-         (click)="onJobClicked(item._id)">
+         (click)="onJobClicked(item._id,item.isJobPosted)">
       <div class="panel clearfix">
        <!-- <span class="glyphicon glyphicon-trash"></span>-->
         <div class="job-posted clearfix">
@@ -34,7 +34,8 @@
           </div>
           <div class="col-xs-10 padding-left15">
             <h4 title="Job Title">{{item.jobTitle}}</h4>
-            <span title="Hiring Department">{{item.department}}</span>
+            <span title="Hiring Department" *ngIf="recruiter.isRecruitingForself">{{item.department}}</span>
+            <span title="Hiring Company" *ngIf="!recruiter.isRecruitingForself">{{item.department}}</span>
           </div>
           <div class="contact-info clearfix">
             <div class="col-sm-12 no-padding" title="Date Posted">
@@ -55,8 +56,8 @@
             </div>
           </div>
         </div>
-        <button class="btn-edit-job" title="Post Job" (click)="onJobEdit(item._id)" *ngIf="!item.isJobPosted">Post Job
-        </button>
+        <!--<button class="btn-edit-job" title="Post Job" (click)="onJobEdit(item._id,item.isJobPosted)" *ngIf="!item.isJobPosted">Post Job
+        </button>-->
       </div>
     </div>
   </div>

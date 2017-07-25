@@ -3,7 +3,7 @@
   <!--
     <cn-tool-tip [message]="tooltipMessage"></cn-tool-tip>
   -->
-  <div class="main-content clearfix edit-modal-content">
+  <div class="main-content clearfix edit-modal-content" industrydetails>
     <h4 class="heading" *ngIf="isCandidate">Select your Industry (Any One)</h4>
     <h4 class="heading" *ngIf="!isCandidate">Select industry in which candidate is expected to work (Any One)</h4>
     <div class="error-messages edit-error-msg" *ngIf="!isValid"><p>{{requiredFieldMessage}}</p></div>
@@ -11,7 +11,7 @@
       <div class="select-option" *ngFor="let item of industries;let i = index">
         <label>
           <input type="radio" name="item.name" id="{{item.name}}" value="{{item.name}}"
-                 (click)="onValueChange(item)" [checked]="item.name===selectedIndustry.name">
+                 (click)="onValueChange(item)" [checked]="item.code===selectedIndustry.code">
           <span>{{item.name}}</span>
         </label>
       </div>

@@ -1,7 +1,7 @@
 <div class="vertical-view" *ngIf="data != undefined">
   <div *ngIf="type=='employment history'">
     <div>  <!--*ngIf="data[0].designation!=undefined && data[0].designation !=''"-->
-      <img src="assets/c-next/icons/employment-icon.png" alt="employment"/>
+      <div titile="employment" class="employment-icon"></div>
       <span>{{type}}</span>
       <ul *ngIf="calledFrom=='singlepageview'">
           <li *ngFor="let item of data;let i = index" >
@@ -30,7 +30,7 @@
   </div>
   <div *ngIf="type=='academic details'">
     <div> <!--*ngIf="data[0].specialization!=undefined && data[0].specialization !=''"-->
-      <img src="assets/c-next/icons/education-icon.png" alt="education"/>
+      <div titile="education" class="education-icon"></div>
       <span>{{type}}</span>
       <ul *ngIf="calledFrom=='singlepageview'">
         <li *ngFor="let item of data;let i = index">
@@ -59,8 +59,10 @@
   </div>
   <div *ngIf="type=='awards'|| type=='certifications'">
     <div><!--*ngIf="data[0].specialization!=undefined && data[0].specialization !=''"-->
-      <img src="assets/c-next/icons/certificates.png" alt="certifications" *ngIf="type=='certifications'"/>
-      <img src="assets/c-next/icons/awards.png" alt="awards" *ngIf="type=='awards'"/>
+      <div titile="certifications" *ngIf="type=='certifications'" class="certificates-icon"></div>
+      <div titile="awards" *ngIf="type=='awards'" class="awards-icon"></div>
+      <!--<img src="assets/c-next/icons/certificates.png" alt="certifications" *ngIf="type=='certifications'"/>
+      <img src="assets/c-next/icons/awards.png" alt="awards" *ngIf="type=='awards'"/>-->
       <span>{{type}}</span>
       <ul  *ngIf="calledFrom =='singlepageview'">
           <li *ngFor="let item of data;let i = index">

@@ -5,6 +5,7 @@ interface ComplexityModel {
   code : string;
   scenarios: ScenarioModel[];
   match: string;
+  sort_order: number;
 
 }
 export = ComplexityModel;

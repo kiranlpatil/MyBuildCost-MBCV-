@@ -43,6 +43,10 @@ export class CompanyDetailsComponent implements OnInit {
   private fileName3: string;
   private buttonId: string;
   private submitStatus: boolean;
+  private isUploadedImages : boolean[] = [false,false,false];
+  private isLoaderImages : boolean[] = [true,true,true];
+  tooltipMessage: string = '<ul><li>' +
+    '<p>1. Company Details Message</p></li></ul>';
 
   constructor(private commonService: CommonService, private _router: Router, private http: Http,
               private companyDetailsService: CompanyDetailsService, private profileService: ProfileService,
@@ -112,10 +116,16 @@ export class CompanyDetailsComponent implements OnInit {
     if (this.filesToUpload[0].size <= 5242880) {
       if (this.buttonId === 'file-upload1') {
         this.fileName1 = this.filesToUpload[0].name;
+        this.isLoaderImages[0]=false;
+        this.isUploadedImages[0]=false;
       } else if (this.buttonId === 'file-upload2') {
         this.fileName2 = this.filesToUpload[0].name;
+        this.isUploadedImages[1]=false;
+        this.isLoaderImages[1]=false;
       } else {
         this.fileName3 = this.filesToUpload[0].name;
+        this.isUploadedImages[2]=false;
+        this.isLoaderImages[2]=false;
       }
       /*this.dashboardService.makeDocumentUpload(this.filesToUpload, []).then((result: any) => {
         if (result !== null) {
@@ -128,9 +138,15 @@ export class CompanyDetailsComponent implements OnInit {
         if (result !== null) {
           if (this.buttonId === 'file-upload1') {
             this.setOfDocuments[0] = result.data.document;
+            this.isLoaderImages[0]=true;
+            this.isUploadedImages[0]=true;
           } else if (this.buttonId === 'file-upload2') {
+            this.isUploadedImages[1]=true;
+            this.isLoaderImages[1]=true;
             this.setOfDocuments[1] = result.data.document;
           } else {
+            this.isUploadedImages[2]=true;
+            this.isLoaderImages[2]=true;
             this.setOfDocuments[2] = result.data.document;
           }
           this.fileChangeSuccess(result);

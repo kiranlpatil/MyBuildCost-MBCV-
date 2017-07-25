@@ -1,9 +1,9 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
-import {Role} from '../model/role';
-import {Capability} from '../model/capability';
-import {LocalStorage, ValueConstant, Messages} from '../../../framework/shared/constants';
-import {Section} from '../model/candidate';
-import {LocalStorageService} from '../../../framework/shared/localstorage.service';
+import {Component, EventEmitter, Input, Output} from "@angular/core";
+import {Role} from "../model/role";
+import {Capability} from "../model/capability";
+import {LocalStorage, Messages, ValueConstant} from "../../../framework/shared/constants";
+import {Section} from "../model/candidate";
+import {LocalStorageService} from "../../../framework/shared/localstorage.service";
 
 @Component({
   moduleId: module.id,
@@ -200,7 +200,7 @@ export class CapabilitiesComponent {
               if (mainRole.capabilities) {
                 for (let mainCap of mainRole.capabilities) {
                   if (cap.code === mainCap.code) {
-                    cap.isPrimary ? this.primaryNames.push(cap.name) : (cap.isSecondary ? this.secondaryNames.push(cap.name) : console.log(""));
+                    cap.isPrimary ? this.primaryNames.push(cap.code) : (cap.isSecondary ? this.secondaryNames.push(cap.code) : console.log(""));
                     mainCap.isPrimary = cap.isPrimary;
                     mainCap.isSecondary = cap.isSecondary;
                     if (cap.complexities && cap.complexities.length > 0) {

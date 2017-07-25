@@ -159,6 +159,17 @@ import {ComplexityComponentService} from "./cnext/framework/complexities/complex
 import {ReleventIndustryListComponent} from "./cnext/framework/relevent-industry-list/relevent-industry-list.component";
 import {ReleventIndustryListService} from "./cnext/framework/relevent-industry-list/relevent-industry-list.service";
 import {MultipleQuestionAnswerComponent} from "./cnext/framework/multiple-question-answer/multiple-question-answer.component";
+import {ProfessionalDetailsService} from "./cnext/framework/professional-detail-service";
+import {ProfessionalDetailsDirective} from "./cnext/framework/shared-directives/professional-details.directive";
+import {ProfileDetailsService} from "./cnext/framework/profile-detail-service";
+import {ProfileDetailsDirective} from "./cnext/framework/shared-directives/profile-details.directive";
+import {ProficiencyDetailsDirective} from "./cnext/framework/shared-directives/proficiency-details.directive";
+import {ProficiencyDetailsService} from "./cnext/framework/proficiency-detail-service";
+import {IndustryDetailsService} from "./cnext/framework/industry-detail-service";
+import {IndustryDetailsDirective} from "./cnext/framework/shared-directives/industry-details.directive";
+import {IndustryDataDirective} from "./cnext/framework/shared-directives/industry-data.directive";
+import {IndustryDataService} from "./cnext/framework/industry-data-service";
+
 import {ProfileComparisonComponent} from "./cnext/framework/profile-comparison/profile-comparison.component";
 import {ProfileComparisonService} from "./cnext/framework/profile-comparison/profile-comparison.service";
 import {ProfileComparisonHeaderComponent} from "./cnext/framework/profile-comparison/profile-comparison-header/profile-comparison-header.component";
@@ -166,6 +177,7 @@ import {ProfileCapabilityComparisonComponent} from "./cnext/framework/profile-co
 import {ProfileCapabilityComparisonMetaComponent} from "./cnext/framework/profile-comparison/profile-capability-comparison/profile-capability-comparison-meta/profile-capability-comparison-meta.component";
 import {ProfileComparisonHeaderMetaComponent} from "./cnext/framework/profile-comparison/profile-comparison-header/profile-comparison-header-meta/profile-comparison-header-meta.component";
 import {ProfileAttributeComparisonComponent} from "./cnext/framework/profile-comparison/profile-attribute-comparison/profile-attribute-comparison.component";
+
 //C-NEXT IMPORTS
 
 
@@ -220,6 +232,8 @@ import {ProfileAttributeComparisonComponent} from "./cnext/framework/profile-com
     VericalListViewComponent,
     TabularListViewComponent,
     AcademicsComponent,
+    ProfileDetailsDirective,
+    ProfessionalDetailsDirective,
     RecruiterSharedHeaderComponent,
     AdditionalDetailsComponent,
     HorizontalListViewComponent,
@@ -241,6 +255,7 @@ import {ProfileAttributeComparisonComponent} from "./cnext/framework/profile-com
     CandidateJobListComponent,
     CandidateDashboardComponent,
     ProfessionalDataComponent,
+    ProficiencyDetailsDirective,
     EmploymentHistoryComponent,
     CandidateCompareViewComponent,
     ProficiencyCompareComponent,
@@ -259,6 +274,8 @@ import {ProfileAttributeComparisonComponent} from "./cnext/framework/profile-com
     ProgressBarComponent,
     CandidateViewComponent,
     WorkAreaComponent,
+    IndustryDetailsDirective,
+    IndustryDataDirective,
     JobViewComponent,
     JobCompareViewComponent,
     QcardListComponent,
@@ -340,13 +357,18 @@ import {ProfileAttributeComparisonComponent} from "./cnext/framework/profile-com
     ShowQcardviewService,
     CandidateAwardService,
     MultiSelectService,
+    ProfileDetailsService,
     AboutCandidateService,
     JobPosterService,
+    ProfessionalDetailsService,
     CandidateAcademyDetailService,
     CandidateProfileService,
     RecruiterDashboardService,
     QCardViewService,
+    IndustryDetailsService,
+    ProficiencyDetailsService,
     FilterService,
+    IndustryDataService,
     RecruiteQCardView2Service,
     RecruiterCandidatesListsService,
     CandidateInCartService,

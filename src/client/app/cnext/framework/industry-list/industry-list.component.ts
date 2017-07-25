@@ -1,9 +1,10 @@
-import {Component, EventEmitter, Input, OnChanges, Output} from "@angular/core";
-import {Industry} from "../model/industry";
-import {CandidateProfileService} from "../candidate-profile/candidate-profile.service";
-import {Section} from "../model/candidate";
-import {LocalStorageService} from "../../../framework/shared/localstorage.service";
-import {LocalStorage, Messages} from "../../../framework/shared/constants";
+import {Component, EventEmitter, Input, OnChanges, Output} from '@angular/core';
+import {Industry} from '../model/industry';
+import {CandidateProfileService} from '../candidate-profile/candidate-profile.service';
+import {Section} from '../model/candidate';
+import {LocalStorageService} from '../../../framework/shared/localstorage.service';
+import {LocalStorage, Messages} from '../../../framework/shared/constants';
+import {IndustryDetailsService} from '../industry-detail-service';
 
 @Component({
   moduleId: module.id,
@@ -27,9 +28,16 @@ export class IndustryListComponent implements OnChanges {
   private choosedIndustry: Industry = new Industry();
   private isValid:boolean = true;
   private requiredFieldMessage = Messages.MSG_ERROR_VALIDATION_INDUSTRY_REQUIRED;
-  constructor(private candidateProfileService: CandidateProfileService) {
-    this.candidateProfileService.getIndustries()
-      .subscribe(industries => this.industries = industries.data);
+
+  constructor(private candidateProfileService: CandidateProfileService,
+              private industryDetailsService: IndustryDetailsService) {
+    this.industryDetailsService.makeCall$.subscribe(
+      data => {
+        if (data && this.industries.length === 0) {
+          this.getIndustry();
+        }
+      }
+    );
     if (LocalStorageService.getLocalValue(LocalStorage.IS_CANDIDATE) === 'true') {
       this.isCandidate = true;
     }
@@ -48,14 +56,13 @@ export class IndustryListComponent implements OnChanges {
   }
 
   onNext() {
-    if(this.choosedIndustry.name == ''){
+    if(this.choosedIndustry.code == ''){
       this.isValid = false;
       return;
     }
-    if (this.choosedIndustry.name === this.selectedIndustry.name) {
+    if (this.choosedIndustry.code === this.selectedIndustry.code) {
 
-    }
-    else {
+    } else {
       this.valueChange.emit(this.choosedIndustry);
     }
     this.highlightedSection.name = 'Work-Area';
@@ -63,7 +70,7 @@ export class IndustryListComponent implements OnChanges {
   }
 
   onPrevious() {
-    if (this.choosedIndustry.name !== this.selectedIndustry.name) {
+    if (this.choosedIndustry.code !== this.selectedIndustry.code) {
       this.choosedIndustry = Object.assign(this.selectedIndustry);
     }
     if (LocalStorageService.getLocalValue(LocalStorage.IS_CANDIDATE) === 'true') {
@@ -71,6 +78,12 @@ export class IndustryListComponent implements OnChanges {
     } else {
       this.highlightedSection.name = 'JobProfile';
     }
+  }
+
+  getIndustry() {
+    console.log('called from industry list component');
+    this.candidateProfileService.getIndustries()
+      .subscribe(industries => this.industries = industries.data);
   }
 }
 

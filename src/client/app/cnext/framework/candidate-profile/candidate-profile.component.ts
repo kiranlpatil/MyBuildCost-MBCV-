@@ -1,11 +1,11 @@
-import {Component, OnInit} from "@angular/core";
-import {NavigationRoutes} from "../../../framework/shared/constants";
-import {Router} from "@angular/router";
-import {ComplexityService} from "../complexity.service";
-import {Candidate, Section} from "../model/candidate";
-import {CandidateProfileService} from "./candidate-profile.service";
-import {Role} from "../model/role";
-import {Industry} from "../model/industry";
+import {Component, DoCheck, KeyValueDiffers, OnInit} from '@angular/core';
+import {NavigationRoutes} from '../../../framework/shared/constants';
+import {Router} from '@angular/router';
+import {ComplexityService} from '../complexity.service';
+import {Candidate, Section} from '../model/candidate';
+import {CandidateProfileService} from './candidate-profile.service';
+import {Role} from '../model/role';
+import {Industry} from '../model/industry';
 
 @Component({
   moduleId: module.id,
@@ -14,7 +14,7 @@ import {Industry} from "../model/industry";
   styleUrls: ['candidate-profile.component.css']
 })
 
-export class CandidateProfileComponent implements OnInit {
+export class CandidateProfileComponent implements OnInit, DoCheck {
   whichStepsVisible:boolean[] = new Array(7);
   private rolesForMain:Role[] = new Array(0);
   private rolesForCapability:Role[] = new Array(0);
@@ -49,9 +49,10 @@ export class CandidateProfileComponent implements OnInit {
   private isComplexityFilled:boolean = true;
   private isPresentDefaultcomplexity:boolean = false;
   private highlightedSection:Section = new Section();
-
+  differ: any;
   constructor(private _router:Router,
               private complexityService:ComplexityService,
+              private differs: KeyValueDiffers,
               private profileCreatorService:CandidateProfileService) {
 
     complexityService.showTest$.subscribe(
@@ -61,12 +62,30 @@ export class CandidateProfileComponent implements OnInit {
       }
     );
     this.getCandidateProfile();
+    this.differ = differs.find({}).create(null);
+
   }
 
   ngOnInit() {
     this.whichStepsVisible[0] = true;
   }
 
+  ngDoCheck() {
+    let changes: any = this.differ.diff(this.highlightedSection);
+
+    if (changes) {
+      if (this.highlightedSection.name === 'Work-Area') {
+        this.getRoles();
+        return;
+      } else if (this.highlightedSection.name === 'Capabilities') {
+        this.getCapability();
+        return;
+      } else if (this.highlightedSection.name === 'Complexities') {
+        this.getComplexity();
+        return;
+      }
+    }
+  }
   onSkip() {
     this.highlightedSection.name = 'Profile';
   }
@@ -80,7 +99,6 @@ export class CandidateProfileComponent implements OnInit {
     if (newIndustry !== undefined && newIndustry.name !== '') {
       this.candidate.industry = newIndustry;
       this.saveCandidateDetails();
-      this.getRoles();
       this.isRolesShow = false;
       this.candidateForRole = this.candidate.industry.roles;
       this.candidateForCapability = this.candidate.industry.roles;
@@ -93,7 +111,6 @@ export class CandidateProfileComponent implements OnInit {
     this.candidateForCapability = this.candidate.industry.roles;
     this.candidateForComplexity = this.candidate.industry.roles;
     this.rolesForCapability = new Array(0);
-    this.getCapability();
     this.showCapability = true;
     this.whichStepsVisible[1] = true;
     this.whichStepsVisible[3] = false;
@@ -105,7 +122,6 @@ export class CandidateProfileComponent implements OnInit {
     this.candidateForRole = this.candidate.industry.roles;
     this.candidateForComplexity = this.candidate.industry.roles;
     this.saveCandidateDetails();
-    this.getComplexity();
     this.whichStepsVisible[2] = true;
   }
 
@@ -121,7 +137,6 @@ export class CandidateProfileComponent implements OnInit {
     this.highlightedSection.date = date;
     this.saveCandidateDetails();
     this.showProficiency = true;
-    this.getProficiency();
   }
 
   onProficiencySelect(proficiency:string[]) {
@@ -176,7 +191,7 @@ export class CandidateProfileComponent implements OnInit {
   }
 
   getRoles() {
-    this.profileCreatorService.getRoles(this.candidate.industry.name)
+    this.profileCreatorService.getRoles(this.candidate.industry.code)
       .subscribe(
         rolelist => this.rolesForMain = rolelist.data);
   }
@@ -184,10 +199,10 @@ export class CandidateProfileComponent implements OnInit {
   getCapability() {
     this.roleList = new Array(0);
     for (let role of this.candidate.industry.roles) {
-      this.roleList.push(role.name);
+      this.roleList.push(role.code);
     }
     if (this.candidate.industry.name !== undefined && this.roleList !== undefined) {
-      this.profileCreatorService.getCapability(this.candidate.industry.name, this.roleList)
+      this.profileCreatorService.getCapability(this.candidate.industry.code, this.roleList)
         .subscribe(
           rolelist => {
             this.rolesForCapability = rolelist.data;
@@ -216,13 +231,13 @@ export class CandidateProfileComponent implements OnInit {
       if (role.capabilities && role.capabilities.length > 0) {
         for (let capability of role.capabilities) {
           if (capability.isPrimary) {
-            this.primaryCapability.push(capability.name);
+            this.primaryCapability.push(capability.code);
           }
         }
       }
     }
     if (this.candidate.industry.name !== undefined && this.roleList !== undefined) {
-      this.profileCreatorService.getComplexity(this.candidate.industry.name, this.roleList, this.primaryCapability)
+      this.profileCreatorService.getComplexity(this.candidate.industry.code, this.roleList, this.primaryCapability)
         .subscribe(
           rolelist => {
             this.rolesForComplexity = rolelist.data;
@@ -253,15 +268,6 @@ export class CandidateProfileComponent implements OnInit {
           this.showComplexity = true;
         });
   }
-
-  getProficiency() {
-    this.profileCreatorService.getProficiency()
-      .subscribe(
-        data => {
-          this.proficiencies = data.data[0].proficiencies;
-        });
-  }
-
   OnCandidateDataSuccess(candidateData:any) {
     this.candidate = candidateData.data[0];
     this.candidate.basicInformation = candidateData.metadata;
@@ -287,15 +293,15 @@ export class CandidateProfileComponent implements OnInit {
     }
 
     if (this.highlightedSection.name !== 'GuideTour') {
-      if (this.candidate.industry.name !== undefined) {
+      if (this.candidate.jobTitle !== undefined && this.candidate.jobTitle !== '') {
         this.isIndustryShow = false;
+        if (this.candidate.industry.name !== undefined && this.candidate.industry.name !== '') {
         this.isRolesShow = false;
-        this.getRoles();
+        //this.getRoles();
         if (this.candidate.industry.roles.length > 0) {
           this.showCapability = true;
-          this.getCapability();
+          //this.getCapability();
           this.whichStepsVisible[1] = true;
-          this.getProficiency();
           for (let role of this.candidate.industry.roles) {
             if (role.default_complexities[0] !== undefined && role.default_complexities[0].complexities.length > 0) {
               this.isPresentDefaultcomplexity = true;
@@ -305,9 +311,9 @@ export class CandidateProfileComponent implements OnInit {
             }
           }
           if (this.isPresentCapability || this.isPresentDefaultcomplexity) {
-            this.getComplexity();
+            //this.getComplexity();
+            this.showComplexity = true;
             this.whichStepsVisible[2] = true;
-            console.log("capability matrix",this.candidate.capability_matrix);
             if(this.candidate.capability_matrix){
               var capbilityMatrix:any = Object.keys(this.candidate.capability_matrix);
               for(let index of capbilityMatrix){
@@ -324,7 +330,7 @@ export class CandidateProfileComponent implements OnInit {
                 this.whichStepsVisible[4] = true;
                 if (this.candidate.interestedIndustries !== undefined && this.candidate.interestedIndustries.length > 0) {
                   this.showIndustryExperience = true;
-                  if (this.candidate.professionalDetails !== undefined && this.candidate.professionalDetails.education !== '') {
+                  if (this.candidate.professionalDetails !== undefined && this.candidate.professionalDetails.noticePeriod !== '') {
                     this.showProfessionalData = true;
                     this.whichStepsVisible[5] = true;
                     this.candidate.isCompleted=true;
@@ -352,6 +358,9 @@ export class CandidateProfileComponent implements OnInit {
         } else {
           this.highlightedSection.name = 'Work-Area';
         }
+      } else {
+        this.highlightedSection.name = 'Industry';
+      }
       } else {
         this.highlightedSection.name = 'Profile';
       }
@@ -381,31 +390,6 @@ export class CandidateProfileComponent implements OnInit {
     if (this.candidate.aboutMyself !== undefined && this.candidate.aboutMyself !== '') {
       this.whichStepsVisible[6] = true;
     }
-    /*
-     Do not remove this code it will in use after capability bug
-     if (this.candidate.proficiencies !== undefined && this.candidate.proficiencies.length > 0) {
-     this.highlightedSection.isProficiencyFilled = true;
-     this.showProficiency = true;
-     this.whichStepsVisible[4] = true;
-     if (this.candidate.interestedIndustries !== undefined && this.candidate.interestedIndustries.length > 0) {
-     this.showIndustryExperience = true;
-     if (this.candidate.professionalDetails !== undefined && this.candidate.professionalDetails.education !== '') {
-     this.showProfessionalData = true;
-     this.whichStepsVisible[5] = true;
-     } else {
-     this.showProfessionalData = true;
-     this.whichStepsVisible[5] = true;
-     this.highlightedSection.name = 'Professional-Details';
-     }
-     } else {
-     this.showIndustryExperience = true;
-     this.highlightedSection.name = 'IndustryExposure';
-     }
-     } else {
-     this.showProficiency = true;
-     this.whichStepsVisible[4] = true;
-     this.highlightedSection.name = 'Proficiencies';
-     }*/
   }
   isContains(element:any) {
   return this.candidate.capability_matrix[element] === -1;
@@ -418,7 +402,7 @@ export class CandidateProfileComponent implements OnInit {
   }
 
   showOrHide(type:string, event:any) {
-    if (type == "show") {
+    if (type == 'show') {
       if (event.target.checked) {
         this.candidate.isVisible = true;
       }
@@ -471,5 +455,4 @@ export class CandidateProfileComponent implements OnInit {
       return 'none';
     }
   }
-
 }

@@ -8,8 +8,8 @@
     <div class="job-info-labal pull-left">
       <div class="user-job-label">
         <span *ngIf="recruiter.postedJobs[0]">{{recruiter.postedJobs[0].jobTitle}}</span>
-        <label>at</label>
-        <span class="company-name">{{recruiter.company_name}}</span>
+        <label *ngIf="!recruiter.postedJobs[0].hideCompanyName">at</label>
+        <span *ngIf="!recruiter.postedJobs[0].hideCompanyName" class="company-name">{{recruiter.company_name}}</span>
       </div>
     </div>
     <img src="/assets/c-next/card-view/close-white.png" (click)="closeThis()" class="close"/>
@@ -22,7 +22,7 @@
     <div class="job-info-labal">
       <div class="user-job-label pull-left">
         <span class="name">{{candidateDetails.first_name}} {{candidateDetails.last_name}}</span>
-        <label>at</label>
+        <label>as</label>
         <span class="jobTitle-name">{{candidate.jobTitle}}</span>
       </div>
     </div>
@@ -118,13 +118,14 @@
                 <div class="details clearfix" *ngFor="let postedJob of recruiter.postedJobs">
                   <!-- <label class="first-label">Job Title </label>
                    <span>{{postedJob.jobTitle}}</span>-->
-                  <label>Hiring Manager</label>
-                  <span>{{postedJob.hiringManager}}</span>
-                  <label>Department</label>
-                  <span>{{postedJob.department}}</span>
+                  <label *ngIf="candidate == undefined">Hiring Manager</label>
+                  <span *ngIf="candidate == undefined">{{postedJob.hiringManager}}</span>
+                  <label *ngIf="recruiter.isRecruitingForself">Department</label>
+                  <label *ngIf="!recruiter.isRecruitingForself && !postedJob.hideCompanyName">Company</label>
+                  <span *ngIf="!postedJob.hideCompanyName">{{postedJob.department}}</span>
                   <label>Industry</label>
                   <span>{{postedJob.industry.name}}</span>
-                  <label>Specialization area</label>
+                  <label>Area of Work</label>
                   <span *ngFor="let role of postedJob.industry.roles;let i = index">{{role.name}}
             <span *ngIf="postedJob.industry.roles.length>1 &&  i!=postedJob.industry.roles.length-1">,</span>
           </span>
@@ -178,8 +179,6 @@
                   <span>{{postedJob.joiningPeriod}}</span>
                   <label>Location</label>
                   <span>{{postedJob.location.city}}</span>
-                  <label>Current company</label>
-                  <span>{{candidate.professionalDetails.currentCompany}}</span>
                   <label>About Job</label>
                   <span>
                     {{postedJob.competencies}}
@@ -231,7 +230,7 @@
           </h4>
           <h4 class="pull-left col-xs-3 no-padding text-left"
               *ngIf="(typeOfView =='spa_candidate' && data && data.proficiencies && data.proficiencies.length>0)">
-            These are candidates extra key skills
+            These are candidate's extra key skills
           </h4>
           <div class="pull-left col-xs-8 no-padding text-left">
             <div class="pull-left" *ngFor="let item of data.proficiencies;let i = index"
@@ -249,7 +248,7 @@
           >Your additional capabilities </h4>
           <h4 class="pull-left col-xs-3 no-padding text-left"
               *ngIf="(typeOfView =='spa_candidate'&& data && data.additionalCapabilites && data.additionalCapabilites.length>0)"
-          >Candidate additional capabilities </h4>
+          >Candidate's additional capabilities </h4>
           <div *ngIf="data != undefined">
             <div class="pull-left col-xs-8 no-padding text-left">
               <div class="pull-left" *ngFor="let cap of data.additionalCapabilites" style="padding-top: 7px;padding-right: 7px;">
@@ -273,23 +272,27 @@
 
     </div>
     <div class="col-sm-12 proficiency-compare-section-area">
-      <h4 class="pull-left col-xs-3 no-padding text-left">Key skills</h4>
-      <div class="pull-left col-xs-7 no-padding text-left">
-        <div class="option exact" *ngFor="let item of data.proficienciesMatch;let i = index">
-          <span>{{item}}</span> <img class="" src="assets/framework/images/dashboard/right-tick.svg"/>
-        </div>
-        <div class="option missing" *ngFor="let item of data.proficienciesUnMatch;let i = index">
-          <span>{{item}}</span><img class="" src="assets/framework/images/dashboard/missing.svg"/>
+      <div class="col-sm-12 no-padding">
+        <h4 class="pull-left col-xs-3 no-padding text-left">Key skills</h4>
+        <div class="pull-left col-xs-7 no-padding text-left">
+          <div class="option exact" *ngFor="let item of data.proficienciesMatch;let i = index">
+            <span>{{item}}</span> <img class="" src="assets/framework/images/dashboard/right-tick.svg"/>
+          </div>
+          <div class="option missing" *ngFor="let item of data.proficienciesUnMatch;let i = index">
+            <span>{{item}}</span><img class="" src="assets/framework/images/dashboard/missing.svg"/>
+          </div>
         </div>
       </div>
-      <h4 class="pull-left col-xs-3 no-padding text-left"
-          *ngIf="( data && data.proficiencies && data.proficiencies.length>0)">
-        These are candidates extra key skills
-      </h4>
-      <div class="pull-left col-xs-8 no-padding text-left">
-        <div class="pull-left" *ngFor="let item of data.proficiencies;let i = index"
-             style="padding-top: 6px;padding-right: 7px;">
-          <span *ngIf="data.proficienciesMatch.indexOf(item)==-1">{{item}}<b *ngIf="i!=data.proficiencies.length-1">,</b></span>
+      <div class="col-sm-12 no-padding">
+        <h4 class="pull-left col-xs-3 no-padding text-left"
+            *ngIf="( data && data.proficiencies && data.proficiencies.length>0)">
+          These are candidate's extra key skills
+        </h4>
+        <div class="pull-left col-xs-8 no-padding text-left">
+          <div class="pull-left" *ngFor="let item of data.proficiencies;let i = index"
+               style="padding-top: 6px;padding-right: 7px;">
+            <span *ngIf="data.proficienciesMatch.indexOf(item)==-1">{{item}}<b *ngIf="i!=data.proficiencies.length-1">,</b></span>
+          </div>
         </div>
       </div>
     </div>

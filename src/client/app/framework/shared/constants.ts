@@ -1,9 +1,9 @@
 export class AppSettings {
-   //public static IP = 'http://localhost:8080';
+  //public static IP = 'http://localhost:8080';
   // public static IP = 'http://ee802b7f.ngrok.io';
-  //public static IP = 'http://10.192.33.252:8087';
-    public static IP = 'http://52.89.221.23:8080';
- // public static IP = 'http://52.41.194.37:8080';
+  public static IP = 'http://10.192.33.77:8080';
+  //public static IP = 'http://52.89.221.23:8080';
+  // public static IP = 'http://52.41.194.37:8080';
   //public static IP = '';
 
 
@@ -80,6 +80,8 @@ export class Messages {
   public static MSG_ERROR_VALIDATION_COMPANYNAME_REQUIRED = "You can't leave this empty.";
   public static MSG_ERROR_VALIDATION_OTP_REQUIRED = 'Enter received OTP.';
   public static MSG_ERROR_VALIDATION_INVALID_EMAIL_REQUIRED = 'Enter valid email address.';
+  public static MSG_ERROR_VALIDATION_INVALID_NAME = 'Enter valid name.';
+  public static MSG_ERROR_VALIDATION_INVALID_DATA = 'Enter valid data.';
   public static MSG_ERROR_VALIDATION_PASSWORD_MISMATCHED = 'Passwords does not match.';
   public static MSG_ERROR_VALIDATION_BIRTHYEAR_REQUIRED = "You can't leave this empty.";
   public static MSG_ERROR_VALIDATION_LOCATION_REQUIRED = "You can't leave this empty.";
@@ -115,8 +117,10 @@ export class Messages {
   public static MSG_ERROR_VALIDATION_AWARD_AUTHORITY_REQUIRED = 'Authority name is required.';
   public static MSG_ERROR_VALIDATION_AWARD_YEAR_REQUIRED = 'Issued year is required.';
   public static MSG_ERROR_VALIDATION_JOB_TITLE_REQUIRED = 'Enter job title.';
+  public static MSG_ERROR_JOB_TITLE_INVALID_BLANK_SPACE = 'Enter valid job title.';
   public static MSG_ERROR_VALIDATION_HIRING_MANAGER_REQUIRED = 'Enter hiring manager name.';
   public static MSG_ERROR_VALIDATION_HIRING_DEPARTMENT_REQUIRED = 'Enter hiring department.';
+  public static MSG_ERROR_VALIDATION_HIRING_COMPANY_REQUIRED = 'Enter hiring company name.';
   public static MSG_ERROR_VALIDATION_EDUCATIONAL_QUALIFICATION_REQUIRED = 'Select educational qualification.';
   public static MSG_ERROR_VALIDATION_MIN_EXPERIENCE_REQUIRED = 'Select minimum experience expected.';
   public static MSG_ERROR_VALIDATION_MAX_EXPERIENCE_REQUIRED = 'Select maximum experience expected.';
@@ -131,6 +135,8 @@ export class Messages {
   public static MSG_ERROR_VALIDATION_PIN_NUMBER = 'Pin code should not be greater than 20 characters.';
   public static SUGGESTION_MSG_FOR_RELEVENT_INDUSTRY = 'Based on the profile you have selected, we suggest to search candidate from following industries for matching profiles. Remove if you dont want to search candidates from any specific industry.';
   public static SUGGESTION_MSG_ABOUT_DOMAIN =  "In addition to "+ "this.choosedIndeustry" + " industry, do you want the candidate to have mandatory experience in any specific Domain? If yes, select such MUST HAVE DOMAINS from below.";
+  public static MSG_ERROR_VALIDATION_MAX_PROFICIENCIES =  " key skills. Click the cross sign to deselect existing one and add a new skill.";
+
 
 }
 
@@ -184,6 +190,7 @@ export class LocalStorage {
 
 export class ValueConstant {
   public static MAX_CAPABILITIES: number = 10;
+  public static MAX_CAPABILITIES_TO_SHOW: number = 5;
   public static MATCHING_PERCENTAGE: number = 10;
   public static MAX_WORKAREA: number = 3;
   public static MAX_INTERESTEDINDUSTRY: number = 7;
@@ -256,7 +263,7 @@ export class API {
 }
 
 export class ImagePath {
-  public static FAV_ICON = './assets/framework/images/logo/cnext-favicon.ico';
+  public static FAV_ICON = './assets/framework/images/logo/favicon.ico';
   public static BODY_BACKGROUND = './assets/framework/images/page_background/page-bg.png';
   public static MY_COLOR_LOGO = './assets/framework/images/logo/logo-color.png';
   public static MY_WHITE_LOGO = './assets/framework/images/logo/job-mosis-logo.png';
@@ -290,7 +297,7 @@ export class ImagePath {
 }
 
 export class ProjectAsset {
-  public static APP_NAME = 'Job Mosis';
+  public static APP_NAME = 'JobMosis';
   public static TAG_LINE = 'The Awesome Web Experience';
   public static UNDER_LICENECE = '&#169; 2017 Techprimelab Software Pvt. Ltd.';
 }

@@ -1,9 +1,7 @@
-$btn-color: #0d75fa;
-$text-color: #333;
-$border-color: #e8e8e8;
+@import '../../../../css/variables';
 
 .error-messages {
-  color: #f66761;
+  color: $red;
   font-size: 10px;
   font-style: italic;
   margin: 3px 0 0;
@@ -18,6 +16,11 @@ $border-color: #e8e8e8;
   }
 }
 
+.company-details-form {
+  padding-bottom: 10px;
+  display: inline-block;
+}
+
 .company-details {
   background-position: 0 0;
   display: table;
@@ -28,7 +31,7 @@ $border-color: #e8e8e8;
     position: absolute;
     top: 18%;
     transform: translate(-50%, 0);
-    width: 40%;
+    width: 75%;
   }
 
   form {
@@ -42,15 +45,12 @@ $border-color: #e8e8e8;
   }
 
   .upload-documents {
-    clear: both;
+    //clear: both;
     float: left;
-    margin-top: 20px;
-    border: 1px solid $border-color;
-    width: 100%;
-
-    label {
-      margin-top: 15px;
-    }
+    padding-left: 50px;
+    padding-right: 0;
+    //border: 1px solid $border-color;
+    //width: 100%;
 
     [type='file'] {
       display: none;
@@ -72,29 +72,41 @@ $border-color: #e8e8e8;
     }
 
     .custom-file-upload {
-      background: #0d75fa;
-      border-radius: 4px;
+      border-radius: 0px;
       cursor: pointer;
       display: inline-block;
       float: left;
-      margin: 0 10px 0 0;
-      padding: 2px;
+      margin: 9px 10px 0 0;
+      height: 25px;
+      padding: 0px;
+      background: url(../assets/c-next/card-view/sprite.png) no-repeat -2px -395px;
+      width: 26px;
     }
 
     .file-name {
-      margin: 7px 0 0;
-      font-size: 12px;
+      margin: 37px 7px 0;
+      font-size: 10px;
       color: $btn-color;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
       height: 20px;
+      position: absolute;
+      right: 36px;
     }
+  }
+
+  .describe-error-message {
+    left: 0px;
+    position: absolute;
+    top: 118px;
+    width: 100%;
   }
 
   .button-group {
     float: left;
     margin: 15px 0;
+    width: 75%;
   }
 
   .about-company {
@@ -105,49 +117,60 @@ $border-color: #e8e8e8;
 
   input {
     border-radius: 0;
+    border-top: 0;
+    border-left: 0;
+    border-right: 0;
+    box-shadow: 0 0 0;
+    padding: 6px 12px 6px 0px;
   }
 
   label {
     font-weight: 100;
     color: $text-color;
     margin: 5px 0;
+    word-break: keep-all;
+  }
+  .company-name {
+    color: $btn-color;
+    font-weight: 600;
   }
 }
 
-@media only screen and (max-width: 1366px) {
-  .company-details {
-    .content {
-      width: 50%;
-    }
+.company-image {
+  height: 385px;
+  position: relative;
+  border-right: 1px solid #e8e8e8;
+  z-index: 3;
+  .company-description-container {
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%,-50%);
+    transform: translate(-50%,-50%);
+    position: absolute;
   }
 }
 
-@media only screen and (max-width: 1280px) {
-  .company-details {
-    .content {
-      width: 60%;
-    }
+.main-form-wrapper {
+  h5.heading-text {
+    color: $btn-color;
+    font-weight: 600;
+    font-size: 24px;
+    font-family: gothamrnd-light;
   }
 }
 
-@media only screen and (max-width: 1024px) {
-  .company-details {
-    .content {
-      width: 70%;
-    }
-
-    form {
-      padding: 15px;
-    }
-  }
+.loader-icon {
+  margin-top: -20px;
+  margin-right: 4px;
 }
 
-@media only screen and (max-width: 980px) {
-  .company-details {
-    .content {
-      width: 80%;
-    }
-  }
+.file-uploaded-icon {
+  display: inline-block;
+  width: 24px;
+  height: 23px;
+  margin-top: -22px;
+  margin-right: 0px;
+  background: url(../assets/c-next/card-view/sprite.png) no-repeat -106px -399px;
 }
 
 @media only screen and (max-width: 768px) {

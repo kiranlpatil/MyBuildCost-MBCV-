@@ -8,6 +8,8 @@ import {JobLocation} from "../model/job-location";
 import {MyGoogleAddress} from "../../../framework/registration/candidate/google-our-place/my-google-address";
 import {FilterService} from "../filters/filter/filter.service";
 import {Messages} from "../../../framework/shared/constants";
+import {RecruiterDashboard} from "../model/recruiter-dashboard";
+import {ValidationService} from "../../../framework/shared/customvalidations/validation.service";
 
 @Component({
   moduleId: module.id,
@@ -19,6 +21,8 @@ import {Messages} from "../../../framework/shared/constants";
 export class BasicJobInformationComponent implements OnInit, OnChanges {
   @Input() jobPosterModel: any;
   @Input() highlightedSection: Section;
+  @Input() recruiter: RecruiterDashboard;
+
   @Output() onComplete = new EventEmitter();
   private savedjobPosterModel: JobPosterModel = new JobPosterModel();
   private jobPostForm: FormGroup;
@@ -30,7 +34,6 @@ export class BasicJobInformationComponent implements OnInit, OnChanges {
   private fromValue: string = '';
   private toValue: string = '';
   private noticePeriodList: any = [];
-  private address: string;
   private showButton: boolean = true;
   private submitStatus: boolean;
   private storedIndustry: Industry;
@@ -48,10 +51,12 @@ export class BasicJobInformationComponent implements OnInit, OnChanges {
   private experienceValidationMessage = Messages.MSG_ERROR_VALIDATION_EXPERIENCE;
   private educationalValidationMessage = Messages.MSG_ERROR_VALIDATION_EDUCATIONAL_QUALIFICATION_REQUIRED;
   private hiringDepartmentValidationMessage = Messages.MSG_ERROR_VALIDATION_HIRING_DEPARTMENT_REQUIRED;
+  private hiringCompanyValidationMessage = Messages.MSG_ERROR_VALIDATION_HIRING_COMPANY_REQUIRED;
   private hiringManagerValidationMessage = Messages.MSG_ERROR_VALIDATION_HIRING_MANAGER_REQUIRED;
   private titleValidationMessage = Messages.MSG_ERROR_VALIDATION_JOB_TITLE_REQUIRED;
+  private titleSpaceValidationMessage = Messages.MSG_ERROR_JOB_TITLE_INVALID_BLANK_SPACE;
 
-  tooltipMessage: string =  '<ul>' +
+  tooltipMessage: string = '<ul>' +
     '<li><p>1. This job name would be displayed in the posting.</p></li>' +
     '<li><p>2. Name of the manager who has given the requirement for this job.</p></li>' +
     '<li><p>3. Name of the department for which the candidate is being hired.</p></li>' +
@@ -66,7 +71,7 @@ export class BasicJobInformationComponent implements OnInit, OnChanges {
               private formBuilder: FormBuilder, private _filterService: FilterService,) {
 
     this.jobPostForm = this.formBuilder.group({
-      'jobTitle': ['', Validators.required],
+      'jobTitle': ['', [Validators.required, ValidationService.noWhiteSpaceValidator]],
       'hiringManager': ['', Validators.required],
       'department': ['', Validators.required],
       'education': ['', Validators.required],
@@ -76,8 +81,10 @@ export class BasicJobInformationComponent implements OnInit, OnChanges {
       'salaryMinValue': ['', Validators.required],
       'joiningPeriod': ['', Validators.required],
       'location': ['', Validators.required],
+      'hideCompanyName': ['']
     });
   }
+
   ngOnInit() {
     this.professionalDataService.getEducationList()
       .subscribe(
@@ -129,13 +136,13 @@ export class BasicJobInformationComponent implements OnInit, OnChanges {
       return;
     }
 
-    if(Number(this.jobPosterModel.experienceMaxValue) <= Number(this.jobPosterModel.experienceMinValue)){
+    if (Number(this.jobPosterModel.experienceMaxValue) <= Number(this.jobPosterModel.experienceMinValue)) {
       this.minExperienceValidationMessage = Messages.MSG_ERROR_VALIDATION_EXPERIENCE;
       this.isExperienceValid = false;
       return;
     }
 
-    if(Number(this.jobPosterModel.salaryMaxValue) <= Number(this.jobPosterModel.salaryMinValue)){
+    if (Number(this.jobPosterModel.salaryMaxValue) <= Number(this.jobPosterModel.salaryMinValue)) {
       this.minSalaryValidationMessage = Messages.MSG_ERROR_VALIDATION_SALARY;
       this.isSalaryValid = false;
       return;

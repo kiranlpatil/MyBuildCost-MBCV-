@@ -1,12 +1,9 @@
-import RecruiterSchema = require("../schemas/recruiter.schema");
-import RepositoryBase = require("./base/repository.base");
-import IRecruiter = require("../mongoose/recruiter");
-import RecruiterModel = require("../model/recruiter.model");
-import { JobQCard } from "../../search/model/job-q-card";
-import { ConstVariables } from "../../shared/sharedconstants";
-import IndustryModel = require("../model/industry.model");
-import CandidateRepository = require("./candidate.repository");
-import CandidateModel = require("../model/candidate.model");
+import RecruiterSchema = require('../schemas/recruiter.schema');
+import RepositoryBase = require('./base/repository.base');
+import IRecruiter = require('../mongoose/recruiter');
+import {JobQCard} from "../../search/model/job-q-card";
+import {ConstVariables} from "../../shared/sharedconstants";
+import CandidateModel = require('../model/candidate.model');
 
 class RecruiterRepository extends RepositoryBase<IRecruiter> {
   constructor() {
@@ -16,7 +13,7 @@ class RecruiterRepository extends RepositoryBase<IRecruiter> {
   getJobProfileQCard(recruiters: any[], candidate: CandidateModel, jobProfileIds: string[], callback: (error: any, result: any) => void) {
     let isSend : boolean = false;
     let jobs_cards: JobQCard[] = new Array(0);
-    if(recruiters.length==0) {
+    if(recruiters.length === 0) {
       callback(null, jobs_cards);
     }
     for (let recruiter of recruiters) {
@@ -26,9 +23,13 @@ class RecruiterRepository extends RepositoryBase<IRecruiter> {
         }
         let isPresent: boolean = false;
         for (let proficiency of candidate.proficiencies) {
-          if (job.proficiencies.indexOf(proficiency) != -1) {
+          if (job.proficiencies.indexOf(proficiency) !== -1) {
+            if(job.interestedIndustries.indexOf('None') !== -1) {
+              isPresent = true;
+              break;
+            }
             for (let industry of candidate.interestedIndustries) {
-              if (job.interestedIndustries.indexOf(industry) != -1) {
+              if (job.interestedIndustries.indexOf(industry) !== -1) {
                 isPresent = true;
               }
             }
@@ -55,7 +56,7 @@ class RecruiterRepository extends RepositoryBase<IRecruiter> {
           job_qcard.matching = 0;
           let count : number = 0;
           for (let cap in job.capability_matrix) {
-            if (job.capability_matrix[cap] === -1 || job.capability_matrix[cap] === 0 || job.capability_matrix[cap] === undefined) {
+            if (job.capability_matrix[cap] == -1 || job.capability_matrix[cap] == 0 || job.capability_matrix[cap] == undefined) {
             } else if (job.capability_matrix[cap] == candidate.capability_matrix[cap]) {
               job_qcard.exact_matching += 1;
               count++;
@@ -90,12 +91,13 @@ class RecruiterRepository extends RepositoryBase<IRecruiter> {
           job_qcard.jobTitle = job.jobTitle;
           job_qcard.joiningPeriod = job.joiningPeriod;
           job_qcard.postingDate = job.postingDate;
-          if ((job_qcard.above_one_step_matching+job_qcard.exact_matching) >= ConstVariables.LOWER_LIMIT_FOR_SEARCH_RESULT) {
+          job_qcard.hideCompanyName = job.hideCompanyName;
+          if ((job_qcard.above_one_step_matching + job_qcard.exact_matching) >= ConstVariables.LOWER_LIMIT_FOR_SEARCH_RESULT) {
             jobs_cards.push(job_qcard);
           }
         }
       }
-      if(recruiters.indexOf(recruiter) == recruiters.length-1) {
+      if(recruiters.indexOf(recruiter) == recruiters.length - 1) {
           isSend= true;
           callback(null, jobs_cards);
         }

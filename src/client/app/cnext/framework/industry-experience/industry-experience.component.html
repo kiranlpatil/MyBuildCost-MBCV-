@@ -1,13 +1,14 @@
 <div class="modal-bg" *ngIf="highlightedSection.name=='IndustryExposure'"></div>
 <div class="section-container profeiciency-domain" *ngIf="highlightedSection.name=='IndustryExposure'">
 
-  <div class="main-content edit-modal-content clearfix">
+  <div class="main-content edit-modal-content clearfix" industrydata>
     <!--Additional Industry Exposure-->
-    <h4 class="heading">Should candidate need to have exposure is any of these domains?<!-- <span class="sub-heading">(In additional to your core industry, select Industries In which you have work exposure / experience)</span>-->
+    <h4 class="heading">Additional domain exposure<!-- <span class="sub-heading">(In additional to your core industry, select Industries In which you have work exposure / experience)</span>-->
     </h4>
     <div class="error-messages edit-error-msg" *ngIf="submitStatus"><p>{{requiedIndustryExposureValidationMessage}}</p> </div>
     <div class="scrollable-content">
-      <p>{{suggestionMessageAboutDomain}}</p>
+      <p *ngIf="isCandidate">{{suggestionMessageAboutCandidateDomain}}</p>
+      <p *ngIf="!isCandidate">{{suggestionMessageAboutDomain}}</p>
       <div class="select-option" *ngFor="let choice of industries;let i = index">
         <label>
           <input type="checkbox" name="choice.name" value="{{choice.name}}"

@@ -10,9 +10,10 @@ import {Section} from "../model/candidate";
 import {LocalStorage} from "../../../framework/shared/constants";
 import {LocalStorageService} from "../../../framework/shared/localstorage.service";
 import {ShowQcardviewService} from "../showQCard.service";
-import {ActivatedRoute, Router} from "@angular/router";
+import {Router} from "@angular/router";
 import {Industry} from "../model/industry";
 import {RecruiterDashboardService} from "../recruiter-dashboard/recruiter-dashboard.service";
+import {RecruiterDashboard} from "../model/recruiter-dashboard";
 
 @Component({
   moduleId: module.id,
@@ -24,6 +25,8 @@ import {RecruiterDashboardService} from "../recruiter-dashboard/recruiter-dashbo
 export class JobPosterComponent implements OnInit, OnChanges {
   @Input() noOfJobPosted: number;
   @Input() currentjobId: string;
+  @Input() recruiter: RecruiterDashboard;
+
   private roleList: string[] = new Array(0);
   private primaryCapability: string[] = new Array(0);
   private proficiencies: Proficiences = new Proficiences();
@@ -59,7 +62,6 @@ export class JobPosterComponent implements OnInit, OnChanges {
   constructor(private profileCreatorService: CandidateProfileService,
               private recruiterDashboardService: RecruiterDashboardService,
               private messageService: MessageService,
-              private activatedRoute: ActivatedRoute,
               private showQCardView: ShowQcardviewService,
               private jobPostService: JobPosterService,
               private _router: Router) {
@@ -94,7 +96,7 @@ export class JobPosterComponent implements OnInit, OnChanges {
           // this.OnRecruiterDataSuccess(data.data.industry);
           console.log(data.data.industry.postedJobs[0]);
           this.jobPosterModel = data.data.industry.postedJobs[0];
-          console.log("job poster model", this.jobPosterModel);
+          console.log('job poster model', this.jobPosterModel);
           this.onGetJobDetailsSuccess(this.jobPosterModel);
 
         });
@@ -136,7 +138,7 @@ export class JobPosterComponent implements OnInit, OnChanges {
           this.getComplexity();
           this.setCapabilityMatrix = true;
           if (jobmodel.capability_matrix) {
-            var capbilityMatrix: any = Object.keys(jobmodel.capability_matrix);
+            let capbilityMatrix: any = Object.keys(jobmodel.capability_matrix);
             for (let index of capbilityMatrix) {
               if (jobmodel.capability_matrix[index] === -1) {
                 this.isComplexityFilled = false;
@@ -240,6 +242,7 @@ export class JobPosterComponent implements OnInit, OnChanges {
     this.jobPosterModel.salaryMaxValue = jobModel.salaryMaxValue;
     this.jobPosterModel.salaryMinValue = jobModel.salaryMinValue;
     this.isShowIndustryList = true;
+    this.jobPosterModel.hideCompanyName = jobModel.hideCompanyName;
     this.updateJob();
   }
 
@@ -283,7 +286,7 @@ export class JobPosterComponent implements OnInit, OnChanges {
     this.updateJob();
   }
 
-  selectRoleFromComplexity(roles: Role[]) {
+  selectRoleFromComplexity() {
     this.updateJob();
     this.getProficiency();
     this.isShowProficiency = true;
@@ -299,7 +302,7 @@ export class JobPosterComponent implements OnInit, OnChanges {
     this.updateJob();
   }
 
-  onProficiencyComplete(event: any) {
+  onProficiencyComplete() {
     this.showIndustryExposure = true;
   }
 
@@ -309,7 +312,7 @@ export class JobPosterComponent implements OnInit, OnChanges {
     this.updateJob();
   }
 
-  onIndustryExposureComplete(event: any) {
+  onIndustryExposureComplete() {
     //this.showCompentensies = true;
     if (this.isShowReleventIndustryListStep) {
       this.highlightedSection.name = 'ReleventIndustry';
@@ -334,7 +337,7 @@ export class JobPosterComponent implements OnInit, OnChanges {
   }
 
   onError(error: any) {
-    var message = new Message();
+    let message = new Message();
     message.error_msg = error.err_msg;
     message.isError = true;
     this.messageService.message(message);
@@ -342,7 +345,7 @@ export class JobPosterComponent implements OnInit, OnChanges {
 
   getRoles() {
     if (this.jobPosterModel.industry.name !== undefined) {
-      this.profileCreatorService.getRoles(this.jobPosterModel.industry.name)
+      this.profileCreatorService.getRoles(this.jobPosterModel.industry.code)
         .subscribe(
           rolelist => this.rolesForMain = rolelist.data,
           error => this.onError(error));
@@ -354,10 +357,10 @@ export class JobPosterComponent implements OnInit, OnChanges {
     // this.flag = false;
     this.roleList = new Array(0);
     for (let role of this.jobPosterModel.industry.roles) {
-      this.roleList.push(role.name);
+      this.roleList.push(role.code);
     }
     if (this.jobPosterModel.industry.name != undefined && this.roleList != undefined) {
-      this.profileCreatorService.getCapability(this.jobPosterModel.industry.name, this.roleList)
+      this.profileCreatorService.getCapability(this.jobPosterModel.industry.code, this.roleList)
         .subscribe(
           rolelist => {
             this.rolesForCapability = rolelist.data;
@@ -396,7 +399,7 @@ export class JobPosterComponent implements OnInit, OnChanges {
       }
     }
     if (this.jobPosterModel.industry.name != undefined && this.roleList != undefined) {
-      this.profileCreatorService.getComplexity(this.jobPosterModel.industry.name, this.roleList, this.primaryCapability)
+      this.profileCreatorService.getComplexity(this.jobPosterModel.industry.code, this.roleList, this.primaryCapability)
         .subscribe(
           rolelist => {
             this.rolesForComplexity = rolelist.data;

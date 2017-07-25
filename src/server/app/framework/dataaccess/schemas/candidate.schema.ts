@@ -64,6 +64,7 @@ class CandidateSchema {
       }],
       industry: {
         name: String,
+        code: String,
         roles: [{
           name: String,
           sort_order: Number,

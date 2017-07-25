@@ -2,9 +2,9 @@
 <div class="section-container clear clearfix" *ngIf="highlightedSection.name=='Capabilities'">
 
   <div class="main-content clearfix edit-modal-content">
-    <h4 class="heading" *ngIf="isCandidate">Select those capabilities that describe your current strenght
+    <h4 class="heading" *ngIf="isCandidate">Select those capabilities that describe your current strength.
     </h4>
-    <h4 class="heading" *ngIf="!isCandidate">Capabilities that are required in the candidate
+    <h4 class="heading" *ngIf="!isCandidate">Capabilities that are required in the candidate?
     </h4>
     <div class="error-messages edit-error-msg" *ngIf="!isValid">{{validationMessage}}</div>
     <div class="scrollable-content capabilities">
@@ -13,12 +13,12 @@
           <!--<h5 class="sub-areas">Area Of Work - {{role.name}}</h5>-->
           <div class="select-option"
                *ngFor="let item of role.capabilities;let i = index"
-               [class.primary]="item.isPrimary || primaryNames.indexOf(item.name)!=-1"
-               [class.secondary]="item.isSecondary || secondaryNames.indexOf(item.name)!=-1">
+               [class.primary]="item.isPrimary || primaryNames.indexOf(item.code)!=-1"
+               [class.secondary]="item.isSecondary || secondaryNames.indexOf(item.code)!=-1">
             <label *ngIf="capabilitiesCodes.indexOf(item.code)!=-1">
               <input type="checkbox" name="checkbox" (click)="selectedCapability(role,item,$event)" id="{{item.name}}"
                      value="{{item.name}}"
-                     [checked]="secondaryNames.indexOf(item.name)!=-1||primaryNames.indexOf(item.name)!=-1">
+                     [checked]="secondaryNames.indexOf(item.code)!=-1||primaryNames.indexOf(item.code)!=-1">
               <span>{{item.name}}</span>
             </label>
           </div>
@@ -37,8 +37,7 @@
       <button class="btn btn-primary" scrollTo scrollTargetSelector="#complexity-area"
               (click)="onNext()" [hidden]="!showButton">Next
       </button>
-      <button class="btn btn-primary" (click)="onCancel()" [hidden]="showButton">Cancel</button>
-      <button class="btn btn-primary"  (click)="onSave()"  [hidden]="showButton">Save</button>
+      <button class="btn btn-primary" (click)="onSave()" [hidden]="showButton">Next</button>
     </div>
   </div>
 </div>

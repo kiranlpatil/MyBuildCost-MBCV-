@@ -2,7 +2,7 @@ import {Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, V
 import {Role} from "../model/role";
 import {ComplexityService} from "../complexity.service";
 import {LocalStorageService} from "../../../framework/shared/localstorage.service";
-import {LocalStorage, Messages} from "../../../framework/shared/constants";
+import {LocalStorage, Messages, ValueConstant} from "../../../framework/shared/constants";
 import {Section} from "../model/candidate";
 import {ComplexityDetails} from "../model/complexity-detail";
 import {ComplexityComponentService} from "./complexity.service";
@@ -36,9 +36,10 @@ export class ComplexitiesComponent implements OnInit, OnChanges {
   private slideToLeft: boolean = false;
   private capabilities: Capability[] = [];
   private complexityData: any;
-  private isValid: boolean =true;
+  private isValid: boolean = true;
   private currentCapability: Capability = new Capability();
   private currentCapabilityNumber: number;
+  private singleComplexity: boolean = false;
   private requiedValidationMessageCandidate = Messages.MSG_ERROR_VALIDATION_COMPLEXITY_REQUIRED_CANDIDATE;
   private requiedValidationMessageRecruiter = Messages.MSG_ERROR_VALIDATION_COMPLEXITY_REQUIRED_RECRUITER;
   tooltipCandidateMessage: string = "<ul><li>" +
@@ -53,6 +54,7 @@ export class ComplexitiesComponent implements OnInit, OnChanges {
     '</li></ul>';
   @ViewChild("save")
   private _inputElement1: ElementRef;
+  private maxCapabilitiesToShow = ValueConstant.MAX_CAPABILITIES_TO_SHOW;
 
   constructor(private complexityService: ComplexityService,
               private complexityComponentService: ComplexityComponentService,
@@ -72,9 +74,9 @@ export class ComplexitiesComponent implements OnInit, OnChanges {
     }
     if (changes.complexities && changes.complexities.currentValue) {
       this.complexities = changes.complexities.currentValue;
-      let jobId : string;
-      if(!this.isCandidate) {
-        jobId=LocalStorageService.getLocalValue(LocalStorage.POSTED_JOB);
+      let jobId: string;
+      if (!this.isCandidate) {
+        jobId = LocalStorageService.getLocalValue(LocalStorage.POSTED_JOB);
       }
       this.complexityComponentService.getCapabilityMatrix(jobId).subscribe(
         capa => {
@@ -87,11 +89,11 @@ export class ComplexitiesComponent implements OnInit, OnChanges {
   }
 
   getCurrentComplexityPosition() {
-   for (let i = 0; i < this.complexityIds.length; i++) {
-   if(this.complexityList[i].userChoice===undefined || this.complexityList[i].userChoice === ''){
-     return i;
-   }
-   }
+    for (let i = 0; i < this.complexityIds.length; i++) {
+      if (this.complexityList[i].userChoice === undefined || this.complexityList[i].userChoice === '') {
+        return i;
+      }
+    }
     return 0;
   }
 
@@ -107,14 +109,15 @@ export class ComplexitiesComponent implements OnInit, OnChanges {
     }
     this.getCapabilityDetail(this.currentCapabilityNumber);
     this.currentComplexity = this.getCurrentComplexityPosition();
+    console.log("NOW AT", this.currentComplexity);
     this.getComplexityDetails(this.complexityIds[this.currentComplexity]);
   }
 
   saveComplexity() {
     this.isValid = true;
-    let jobId : string;
-    if(!this.isCandidate) {
-      jobId=LocalStorageService.getLocalValue(LocalStorage.POSTED_JOB);
+    let jobId: string;
+    if (!this.isCandidate) {
+      jobId = LocalStorageService.getLocalValue(LocalStorage.POSTED_JOB);
     }
     this.complexityComponentService.getCapabilityMatrix(jobId).subscribe(
       capa => {
@@ -122,7 +125,7 @@ export class ComplexitiesComponent implements OnInit, OnChanges {
       });
     this.isComplexityButtonEnable = false;
     if (this.isCandidate) {
-     // this.showModalStyle = !this.showModalStyle;
+      // this.showModalStyle = !this.showModalStyle;
       this.highlightedSection.isLocked = true;
     }
     this.complexityService.change(true);
@@ -146,11 +149,12 @@ export class ComplexitiesComponent implements OnInit, OnChanges {
   onCapabilityAnswered(capability: Capability) {
     this.capabilities[this.currentCapabilityNumber] = capability;
     let currentNumber = this.currentCapabilityNumber;
-    if (currentNumber + 1 === this.capabilities.length) {
-      this.saveComplexity();
-    }
-    else if(this.currentCapabilityNumber< this.capabilities.length){
-      this.onNextCapability();
+    if (this.singleComplexity === false) {
+      if (currentNumber + 1 === this.capabilities.length) {
+        this.saveComplexity();
+      } else if (this.currentCapabilityNumber < this.capabilities.length) {
+        this.onNextCapability();
+      }
     }
   }
 
@@ -169,17 +173,17 @@ export class ComplexitiesComponent implements OnInit, OnChanges {
 
   onNextCapability() {
     //this.currentCapabilityNumber++;
-    for(let complexity of this.capabilities[this.currentCapabilityNumber].complexities){
-      if(complexity.complexityDetails.userChoice == undefined){
+    for (let complexity of this.capabilities[this.currentCapabilityNumber].complexities) {
+      if (complexity.complexityDetails.userChoice === undefined) {
         this.isValid = false;
         return;
       }
     }
 
     let currentCapability = this.currentCapabilityNumber;
-    if(currentCapability + 1 == this.capabilities.length){
+    if (currentCapability + 1 === this.capabilities.length) {
       this.isValid = true;
-      this.highlightedSection.name ='Proficiencies';
+      this.highlightedSection.name = 'Proficiencies';
       return;
     }
     this.isValid = true;
@@ -188,17 +192,18 @@ export class ComplexitiesComponent implements OnInit, OnChanges {
 
   onPreviousCapability() {
     this.isValid = true;
-    if(this.currentCapabilityNumber == 0){
-      this.highlightedSection.name ='Capabilities';
+    if (this.currentCapabilityNumber === 0) {
+      this.highlightedSection.name = 'Capabilities';
       return;
     }
     this.getCapabilityDetail(--this.currentCapabilityNumber);
   }
+
   onNext() {
     this.isValid = true;
-    if(this.complexities[this.complexityIds[this.currentComplexity]] == -1){
-        this.isValid = false;
-        return;
+    if (this.complexities[this.complexityIds[this.currentComplexity]] === -1) {
+      this.isValid = false;
+      return;
     }
 
     this.onComplextyAnswered.emit(this.complexities);
@@ -213,9 +218,11 @@ export class ComplexitiesComponent implements OnInit, OnChanges {
         this.saveComplexity();
       }
     } else if (this.currentComplexity <= this.complexityIds.length - 1) {
-      setTimeout(() => {
-        this.getComplexityDetails(this.complexityIds[++this.currentComplexity]);
-      }, 1002);
+      if (this.singleComplexity === false) {
+        setTimeout(() => {
+          this.getComplexityDetails(this.complexityIds[++this.currentComplexity]);
+        }, 1002);
+      }
     }
     setTimeout(() => {
       this.slideToRight = false;
@@ -224,8 +231,8 @@ export class ComplexitiesComponent implements OnInit, OnChanges {
 
   onPrevious() {
     this.isValid = true;
-    if (this.currentComplexity == 0) {
-      this.highlightedSection.name ='Capabilities';
+    if (this.currentComplexity === 0) {
+      this.highlightedSection.name = 'Capabilities';
       return;
     }
     if (this.currentComplexity > 0) {
@@ -239,6 +246,16 @@ export class ComplexitiesComponent implements OnInit, OnChanges {
     setTimeout(() => {
       this.slideToLeft = false;
     }, 3000);
+  }
+
+  onDone() {
+    if (this.isCandidate) {
+      this.saveComplexity();
+    } else {
+      this.saveComplexity();
+      this.highlightedSection.name = 'None';
+    }
+    this.singleComplexity = false;
   }
 
   getComplexityDetails(complexityId: string) {  //TODO remove after amits call of updated get API
@@ -265,5 +282,16 @@ export class ComplexitiesComponent implements OnInit, OnChanges {
     this.highlightedSection.name = 'Complexities';
     this.highlightedSection.isDisable = true;
     this.showMore = false;
+  }
+
+  SelectedComplexity(selectedComplexity: any) {
+    this.singleComplexity = true;
+    if (this.isCandidate) {
+      this.currentComplexity = this.complexityIds.indexOf(selectedComplexity.complexityDetails.code);
+      this.getComplexityDetails(selectedComplexity.complexityDetails.code);
+    } else {
+      this.currentCapability = selectedComplexity;
+    }
+    this.highlightedSection.name = 'Complexities';
   }
 }

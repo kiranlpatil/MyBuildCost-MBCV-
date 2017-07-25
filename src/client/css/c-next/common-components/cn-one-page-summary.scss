@@ -1,7 +1,4 @@
-$white: #fff;
-$theme-color: #3694d1;
-$border-color: #e8e8e8;
-$text-color: #333;
+@import '../../../css/variables';
 
 .page-header {
   background: $theme-color;
@@ -47,7 +44,7 @@ $text-color: #333;
 .one-page-summary {
   margin-top: 55px;
   text-align: left;
-  padding: 15px 0 0px !important;
+  padding: 15px 0 !important;
   background: #fff;
 
   .left-content {
@@ -59,6 +56,12 @@ $text-color: #333;
     font-family: gothamrnd-book;
     margin: 0;
     padding: 10px 0;
+  }
+
+  .capability-of-capabilities-section {
+    .btn-edit {
+      display: none !important;
+    }
   }
 }
 
@@ -82,7 +85,7 @@ $text-color: #333;
     width: 200px;
     white-space: inherit;
     font-family: 'gothamrnd-book';
-    font-weight: 500;
+    font-weight: 600;
     color: #0d75fa;
   }
   span {

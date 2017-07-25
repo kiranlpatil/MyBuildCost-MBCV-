@@ -1,3 +1,5 @@
+@import '../../../../../css/variables';
+
 .panel {
   padding: 0;
   border: 0;
@@ -8,4 +10,33 @@
   .modal-content {
     margin: 7px 15px;
   }
+}
+
+.company-profile-picture-col {
+  div {
+    float: left;
+    width: calc(100% - 40px);
+  }
+  .company-name-label {
+    color: $text-color;
+    padding-top: 4px;
+  }
+}
+
+.company-profile-picture {
+  position: absolute;
+  right: 20px;
+  bottom: 15px;
+  text-align: center;
+  width: 78px;
+  img {
+    width: 50px;
+  }
+}
+
+.company-date {
+  position: absolute;
+  right: 8px;
+  font-size: 10px;
+  color: #b7b7b7;
 }

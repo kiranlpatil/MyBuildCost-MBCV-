@@ -1,12 +1,11 @@
 import {Component, EventEmitter, Input, OnInit, Output} from "@angular/core";
-import {Industry} from "../model/industry";
 import {Candidate, Section} from "../model/candidate";
 import {AppSettings, Messages} from "../../../framework/shared/constants";
-import {DashboardService} from "../../../framework/dashboard/dashboard.service";
 import {CandidateDetail} from "../../../framework/registration/candidate/candidate";
 import {ProfessionalDataService} from "../professional-data/professional-data.service";
 import {Location} from "../../../framework/registration/location";
 import {MyGoogleAddress} from "../../../framework/registration/candidate/google-our-place/my-google-address";
+import {ProfileDetailsService} from "../profile-detail-service";
 
 @Component({
   moduleId: module.id,
@@ -24,8 +23,6 @@ export class ProfileDescriptionComponent implements OnInit {
   @Output() onComplete = new EventEmitter();
 
   // private compactView:boolean=true;
-  private savedIndustry: string = '';
-  private changedIndustry: Industry = new Industry();
   private disableButton: boolean = true;
   private showButton: boolean = true;
   private experienceList: any = [];
@@ -51,30 +48,19 @@ export class ProfileDescriptionComponent implements OnInit {
     '<li><p>3. Provide your current or latest company name.Freshers should enter "Fresher" as their company name.</p></li>' +
     '</ul>';
 
-  constructor(private userProfileService: DashboardService, private professionalDataService: ProfessionalDataService) {
+  constructor(private professionalDataService: ProfessionalDataService,
+              private profileDetailService: ProfileDetailsService) {
+    this.profileDetailService.makeCall$.subscribe(
+      data => {
+        if (data && this.educationList.length === 0 && this.experienceList.length === 0) {
+          this.getprofileDetails();
+        }
+      }
+    );
   }
 
   ngOnInit() {
-    this.userProfileService.getUserProfile()
-      .subscribe(
-        userprofile => {
-          this.candidateDetails = userprofile.data;
-          if (this.candidateDetails.picture != undefined) {
-            this.image_path = AppSettings.IP + this.candidateDetails.picture.substring(4).replace('"', '');
-          }
-        });
 
-    this.professionalDataService.getExperienceList()
-      .subscribe(
-        data => {
-          this.onExperienceListSuccess(data);
-        });
-
-    this.professionalDataService.getEducationList()
-      .subscribe(
-        data => {
-          this.onEducationListSuccess(data);
-        });
   }
 
 
@@ -82,13 +68,8 @@ export class ProfileDescriptionComponent implements OnInit {
     if (changes.candidate !== undefined && changes.candidate.currentValue !== undefined) {
       this.candidate = changes.candidate.currentValue;
     }
-    if (this.candidate.jobTitle !== undefined && this.candidate.jobTitle !== ""
-      && this.candidate.industry.name !== undefined && this.candidate.industry.name !== "") {
-      this.savedIndustry = this.candidate.industry.name;
+    if (this.candidate.jobTitle !== undefined && this.candidate.jobTitle !== "") {
       this.savedJobTitle = this.candidate.jobTitle;
-      this.changedIndustry = new Industry();
-      this.changedIndustry.name = this.savedIndustry;
-      console.log(this.savedIndustry);
     }
   }
 
@@ -124,41 +105,29 @@ export class ProfileDescriptionComponent implements OnInit {
       this.isValid = false;
       return;
     }
-    console.log("from next");
     this.candidate.location = this.storedLocation;
-    this.candidate.industry = this.changedIndustry;
-    this.candidate.industry.roles = [];
     this.disableButton = false;
-    this.savedIndustry = this.candidate.industry.name;
-//    this.compactView = true;
     this.highlightedSection.name = 'Industry';
     this.highlightedSection.isDisable = false;
-
     this.onComplete.emit(this.candidate);
-    let height = screen.height;
-    var p = document.getElementById('work-area');
-    var top = p.offsetTop;
-    window.scrollBy(0, -(top - 50));
   }
 
   onSave() {
-    if (this.storedLocation.city == undefined) {
+    if (this.storedLocation.city === undefined) {
       this.storedLocation.city = 'pune';
       this.storedLocation.state = 'maharashtra';
       this.storedLocation.country = 'india';
     }
-    if((this.candidate.jobTitle == '' || this.candidate.jobTitle == undefined ) ||
-      (this.candidate.professionalDetails.currentCompany == '' ||
-      this.candidate.professionalDetails.currentCompany== undefined ) ||
-      (this.candidate.professionalDetails.education == '' ||
-      this.candidate.professionalDetails.education == undefined ) ||
-      (this.candidate.professionalDetails.experience == '' ||
-      this.candidate.professionalDetails.experience == undefined ) || this.storedLocation.city == undefined ){
+    if((this.candidate.jobTitle === '' || this.candidate.jobTitle === undefined ) ||
+      (this.candidate.professionalDetails.currentCompany === '' ||
+      this.candidate.professionalDetails.currentCompany=== undefined ) ||
+      (this.candidate.professionalDetails.education === '' ||
+      this.candidate.professionalDetails.education === undefined ) ||
+      (this.candidate.professionalDetails.experience === '' ||
+      this.candidate.professionalDetails.experience === undefined ) || this.storedLocation.city === undefined ){
       this.isValid = false;
       return;
     }
-    console.log("from save");
-//    this.compactView = true;
     this.candidate.location = this.storedLocation;
     this.savedJobTitle = this.candidate.jobTitle ;
     this.highlightedSection.name = 'none';
@@ -169,11 +138,6 @@ export class ProfileDescriptionComponent implements OnInit {
   onJobTitleChange() {
     if (this.candidate && this.candidate.jobTitle === '') {
       this.disableButton = true;
-    } else {
-      if ((this.candidate.industry && this.candidate.industry.name !== '') || (this.changedIndustry && this.changedIndustry.name !== '')) {
-        this.disableButton = false;
-      }
-      console.log("hello");
     }
   }
 
@@ -190,12 +154,9 @@ export class ProfileDescriptionComponent implements OnInit {
   }
 
   onCancel() {
-    console.log("from cancel");
     this.highlightedSection.name = 'none';
     this.highlightedSection.isDisable = false;
     this.candidate.jobTitle = this.savedJobTitle;
-    this.changedIndustry = new Industry();
-    this.changedIndustry.name = this.savedIndustry;
   }
 
   keyboardInput(event: KeyboardEvent) {
@@ -213,6 +174,19 @@ export class ProfileDescriptionComponent implements OnInit {
     this.storedLocation.country = address.country;
   }
 
+  getprofileDetails() {
+    this.professionalDataService.getExperienceList()
+      .subscribe(
+        data => {
+          this.onExperienceListSuccess(data);
+        });
+
+    this.professionalDataService.getEducationList()
+      .subscribe(
+        data => {
+          this.onEducationListSuccess(data);
+        });
+  }
 
 
 

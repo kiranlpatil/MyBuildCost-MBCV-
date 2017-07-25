@@ -1,13 +1,5 @@
 @import '../../../css/common';
-
-$border-color: #e8e8e8;
-$orange: #ff9700;
-$theme-color: #0d75fa;
-$white: #fff;
-$purple: #7366ad;
-$profile-section-shadow: rgba(0, 0, 0, 0.04);
-$active-color: #edf1f5;
-$pink: #e91d62;
+@import '../../../css/variables';
 
 .card-view {
   clear: both;
@@ -82,9 +74,9 @@ $pink: #e91d62;
         top: 5px;
       }
 
-      &:last-child {
+      /*&:last-child {
         border-bottom: 0 solid $border-color;
-      }
+      }*/
 
       span {
         width: 100%;
@@ -125,7 +117,7 @@ $pink: #e91d62;
       font-family: 'gothamrnd-light';
       font-weight: 600;
       font-size: 13px;
-      color: #666;
+      color: $name;
       margin: 0 0 5px;
       @extend %text-ellipsis;
     }
@@ -194,6 +186,7 @@ $pink: #e91d62;
       color: $theme-color;
       font-size: 10px;
       padding: 0;
+      border: 0;
     }
   }
 
@@ -258,7 +251,7 @@ header {
 
     select {
       border: 0;
-      border-bottom: 1px solid #ccc;
+      border-bottom: 1px solid $gray;
       -moz-appearance: none;
       -webkit-appearance: none;
       background: transparent url(../assets/framework/images/form/drop-down.png) no-repeat 95% 50%;
@@ -317,7 +310,7 @@ header {
   }
 }
 
-#matched-job {
+/*#matched-job {
   .empty-list-message {
     margin-top: 120px !important;
   }
@@ -339,7 +332,7 @@ header {
   .empty-list-message {
     margin-top: 120px !important;
   }
-}
+}*/
 
 
 #matched {
@@ -349,8 +342,15 @@ header {
 }
 
 .empty-list-message {
-  width: 80%;
+  width: 600px;
   margin: 0 auto;
+  background: #fff;
+  padding: 20px;
+  border: 1px solid #e8e8e8;
+  box-shadow: -1px 3px 10px rgba(0, 0, 0, 0.15);
+  position: fixed;
+  left: 35%;
+  top: 45%;
 
   h4 {
     color: $theme-color;
@@ -562,8 +562,11 @@ header {
     }
   }
   .proficiencies-icon {
-    background: url("../assets/c-next/card-view/pink-icons/proficiency.png") no-repeat 5px 1px;
-    min-height: 53px !important;
+    background: url("../assets/c-next/card-view/sprite.png") no-repeat  -103px -143px;
+
+  }
+  .company-date {
+    right: 30px;
   }
 }
 

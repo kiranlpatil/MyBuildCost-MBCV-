@@ -1,8 +1,9 @@
-import {Component, EventEmitter, Input, OnChanges, OnDestroy, Output} from "@angular/core";
-import {QCardsortBy} from "../../model/q-cardview-sortby";
-import {Router} from "@angular/router";
-import {RecruiterHeaderDetails} from "../../model/recuirterheaderdetails";
-import {ReferenceService} from "../../model/newClass";
+import { Component, EventEmitter, Input, OnChanges, OnDestroy, Output } from '@angular/core';
+import { QCardsortBy } from '../../model/q-cardview-sortby';
+import { Router } from '@angular/router';
+import { RecruiterHeaderDetails } from '../../model/recuirterheaderdetails';
+import { ReferenceService } from '../../model/newClass';
+import { RecruiterDashboard } from '../../model/recruiter-dashboard';
 
 
 @Component({
@@ -16,6 +17,7 @@ export class JobListerComponent implements  OnDestroy, OnChanges {
   @Input() jobListInput: any[] = new Array(0);
   @Input() headerInfoForJob: RecruiterHeaderDetails;
   @Input() screenType:string;
+  @Input() recruiter: RecruiterDashboard;
   @Output() jobEventEmitter: EventEmitter<any> = new EventEmitter();
   //public jobList:JobPosterModel[] = new Array(0);
   //public jobListToCheck:JobPosterModel[] = new Array(0);
@@ -55,19 +57,18 @@ export class JobListerComponent implements  OnDestroy, OnChanges {
     this.toggleFormat();
   }
 
-  onJobClicked(item: any) {
-    if (!this.isJobeditted) {
+  onJobClicked(item: any,isJobSubmit:boolean) {
+    if (isJobSubmit) {
       this._router.navigate(['jobdashboard/', item]);
     } else {
-      this.isJobeditted = false;
+      this.jobEventEmitter.emit(item);
     }
   }
 
-  onJobEdit(item: any) {
-    this.jobEventEmitter.emit(item);
-    this.isJobeditted = true;
-
-    //this._router.navigate(['jobpost/', item]);
+  onJobEdit(item: any,isJobSubmit:boolean) {
+    if (isJobSubmit) {
+      this.jobEventEmitter.emit(item);
+    }
   }
   get format() {
     return this.toggle ? this.qCardModel.name : 'Date';

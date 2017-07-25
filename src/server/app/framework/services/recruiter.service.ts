@@ -1,20 +1,20 @@
-import * as mongoose from "mongoose";
-import {Recruiter} from "../dataaccess/model/recruiter-final.model";
-import {ConstVariables} from "../shared/sharedconstants";
-import {JobCountModel} from "../dataaccess/model/job-count.model";
+import * as mongoose from 'mongoose';
+import {Recruiter} from '../dataaccess/model/recruiter-final.model';
+import {ConstVariables} from '../shared/sharedconstants';
+import {JobCountModel} from '../dataaccess/model/job-count.model';
 var config = require('config');
 
-import Messages = require("../shared/messages");
-import ProjectAsset = require("../shared/projectasset");
-import UserRepository = require("../dataaccess/repository/user.repository");
-import LocationRepository = require("../dataaccess/repository/location.repository");
-import RecruiterRepository = require("../dataaccess/repository/recruiter.repository");
-import JobProfileModel = require("../dataaccess/model/jobprofile.model");
-import CandidateRepository = require("../dataaccess/repository/candidate.repository");
-import RecruiterModel = require("../dataaccess/model/recruiter.model");
-import CapabilityMatrixService = require("./capbility-matrix.builder");
-import IndustryModel = require("../dataaccess/model/industry.model");
-import IndustryRepository = require("../dataaccess/repository/industry.repository");
+import Messages = require('../shared/messages');
+import ProjectAsset = require('../shared/projectasset');
+import UserRepository = require('../dataaccess/repository/user.repository');
+import LocationRepository = require('../dataaccess/repository/location.repository');
+import RecruiterRepository = require('../dataaccess/repository/recruiter.repository');
+import JobProfileModel = require('../dataaccess/model/jobprofile.model');
+import CandidateRepository = require('../dataaccess/repository/candidate.repository');
+import RecruiterModel = require('../dataaccess/model/recruiter.model');
+import CapabilityMatrixService = require('./capbility-matrix.builder');
+import IndustryModel = require('../dataaccess/model/industry.model');
+import IndustryRepository = require('../dataaccess/repository/industry.repository');
 
 class RecruiterService {
   private recruiterRepository: RecruiterRepository;
@@ -128,7 +128,6 @@ class RecruiterService {
       },
       function (err, record) {
         if (record) {
-          console.log("Updated record " + JSON.stringify(record));
           callback(null, record);
         } else {
           let error: any;
@@ -223,7 +222,6 @@ class RecruiterService {
           },
           function (err, record) {
             if (record) {
-              console.log("Updated record " + JSON.stringify(record));
               callback(null, record);
             } else {
               let error: any;

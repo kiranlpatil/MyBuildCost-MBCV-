@@ -27,9 +27,13 @@
           <div class="col-md-5 col-sm-6 no-padding">
             <ul class="pull-right job-info">
               <li class="contact-info"><label>Industry</label><p>{{selectedJobProfile.industry.name}}</p></li>
-              <li class="contact-info">
+              <li *ngIf="isRecruitingForSelf" class="contact-info">
                 <label>Hiring Manager</label>
                 <p>{{selectedJobProfile.hiringManager}}</p>
+              </li>
+              <li *ngIf="!isRecruitingForSelf" class="contact-info">
+                <label>Hiring Company</label>
+                <p>{{selectedJobProfile.department}}</p>
               </li>
               <li class="contact-info">
                 <label>Date Posted</label>

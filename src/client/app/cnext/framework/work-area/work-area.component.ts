@@ -41,7 +41,7 @@ export class WorkAreaComponent implements OnInit,OnChanges {
   }
 
     ngOnChanges(changes:any) {
-      if(changes.selectedRoles !== undefined && changes.selectedRoles.currentValue !== undefined){
+      if(changes.selectedRoles !== undefined && changes.selectedRoles.currentValue !== undefined) {
         this.selectedRoles=changes.selectedRoles.currentValue;
         this.savedSelectedRoles=new Array(0);
         for(let role of this.selectedRoles){
@@ -58,7 +58,7 @@ export class WorkAreaComponent implements OnInit,OnChanges {
       if (this.savedSelectedRoles.length < ValueConstant.MAX_WORKAREA) {
         let isFound: boolean = false;
         for (let selrole of this.savedSelectedRoles) {
-          if (role.name === selrole.name) {
+          if (role.code === selrole.code) {
             isFound = true;
           }
         }
@@ -73,7 +73,7 @@ export class WorkAreaComponent implements OnInit,OnChanges {
     } else {
       let tempRole: Role;
       for (let selrole of this.savedSelectedRoles) {
-        if (role.name === selrole.name) {
+        if (role.code === selrole.code) {
           tempRole = selrole;
         }
       }
@@ -95,7 +95,7 @@ export class WorkAreaComponent implements OnInit,OnChanges {
   }
 
   onNext() {
-    if(this.savedSelectedRoles.length == 0){
+    if(this.savedSelectedRoles.length === 0){
       this.validationMessage = Messages.MSG_ERROR_VALIDATION_AREAS_WORKED_REQUIRED;
       this.isValid = false;
       return;
@@ -121,10 +121,10 @@ export class WorkAreaComponent implements OnInit,OnChanges {
       var goNext:boolean;
       if(this.selectedRoles.length === this.savedSelectedRoles.length ) {
         for (let role of this.selectedRoles) {
-          roleId.push(role.name);
+          roleId.push(role.code);
       }
         for(let selectedRole of this.savedSelectedRoles){
-          if(roleId.indexOf(selectedRole.name)=== -1) {
+          if(roleId.indexOf(selectedRole.code)=== -1) {
             goNext=true;
           }
         }
@@ -148,7 +148,7 @@ onCancel() {
 }
   isSelected(value: string) {
     return this.selectedRoles.filter(function (el: Role) {
-        return el.name === value;
+        return el.code === value;
       }).length !== 0;
   }
   getStyleModal() {
