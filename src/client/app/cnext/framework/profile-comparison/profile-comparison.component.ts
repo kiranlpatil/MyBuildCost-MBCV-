@@ -7,7 +7,7 @@ import {EventEmitter} from "@angular/common/src/facade/async";
   moduleId:module.id,
   selector:'cn-profile-comparison',
   templateUrl:'profile-comparison.component.html',
-  styleUrls:['profile-comparison.component.scss']
+    styleUrls: ['profile-comparison.component.css']
 })
 
 export class ProfileComparisonComponent implements OnChanges {

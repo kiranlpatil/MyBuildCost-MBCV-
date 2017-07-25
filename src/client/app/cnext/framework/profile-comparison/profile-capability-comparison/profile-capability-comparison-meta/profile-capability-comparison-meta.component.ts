@@ -6,7 +6,7 @@ import {ProfileComparisonData} from "../../../model/profile-comparison";
   moduleId:module.id,
   selector:'cn-profile-capability-comparison-meta',
   templateUrl:'profile-capability-comparison-meta.component.html',
-  styleUrls:['app/cnext/framework/model/profile-capability-comparison-meta.component.scss']
+  styleUrls: ['profile-capability-comparison-meta.component.css']
 
 })
 

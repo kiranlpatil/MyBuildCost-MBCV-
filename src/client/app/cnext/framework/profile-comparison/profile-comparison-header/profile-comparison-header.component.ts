@@ -6,7 +6,7 @@ import {ProfileComparisonData} from "../../model/profile-comparison";
   moduleId:module.id,
   selector:'cn-profile-comparison-header',
   templateUrl:'profile-comparison-header.component.html',
-  styleUrls:['profile-comparison-header.component.scss']
+    styleUrls: ['profile-comparison-header.component.css']
 
 })
 

@@ -1,14 +1,15 @@
-import {Component} from "@angular/core";
+import {Component, Input} from "@angular/core";
+import {ProfileComparisonData} from "../../model/profile-comparison";
 
 @Component({
   moduleId:module.id,
   selector:'cn-profile-attribute-comparison',
   templateUrl:'profile-attribute-comparison.component.html',
-  styleUrls:['profile-attribute-comparison.component.scss']
+  styleUrls: ['profile-attribute-comparison.component.css']
 
 })
 
 export class ProfileAttributeComparisonComponent {
-  //@Input() profileComparisonResult:ProfileComparisonData[];
+  @Input() profileComparisonResult: ProfileComparisonData[];
  constructor() {}
 }
