@@ -1,11 +1,11 @@
-import * as express from "express";
-import AuthInterceptor = require("../interceptor/auth.interceptor");
-import Messages = require("../shared/messages");
-import ResponseService = require("../shared/response.service");
-import RoleModel = require("../dataaccess/model/role.model");
-import RoleService = require("../services/role.service");
-import IndustryService = require("../services/industry.service");
-import CapabilityService = require("../services/capability.service");
+import * as express from 'express';
+import AuthInterceptor = require('../interceptor/auth.interceptor');
+import Messages = require('../shared/messages');
+import ResponseService = require('../shared/response.service');
+import RoleModel = require('../dataaccess/model/role.model');
+import RoleService = require('../services/role.service');
+import IndustryService = require('../services/industry.service');
+import CapabilityService = require('../services/capability.service');
 
 
 export function retrieve(req: express.Request, res: express.Response, next: any) {
@@ -13,10 +13,10 @@ export function retrieve(req: express.Request, res: express.Response, next: any)
     var capabilityService = new CapabilityService();
     var rolesparam = req.query.roles;
     let item: any = {
-      name: req.params.id,
+      code: req.params.id,
       roles: JSON.parse(rolesparam)
     };
-    console.time("getCapability");
+    console.time('getCapability');
     capabilityService.findByName(item, (error, result) => {
       if (error) {
         next({
@@ -26,10 +26,10 @@ export function retrieve(req: express.Request, res: express.Response, next: any)
         });
       }
       else {
-        console.timeEnd("getCapability");
+        console.timeEnd('getCapability');
         res.send({
-          "status": "success",
-          "data": result
+          'status': 'success',
+          'data': result
         });
       }
     });

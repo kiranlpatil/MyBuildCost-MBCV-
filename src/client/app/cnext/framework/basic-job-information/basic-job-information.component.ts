@@ -9,6 +9,7 @@ import {MyGoogleAddress} from "../../../framework/registration/candidate/google-
 import {FilterService} from "../filters/filter/filter.service";
 import {Messages} from "../../../framework/shared/constants";
 import {RecruiterDashboard} from "../model/recruiter-dashboard";
+import {ValidationService} from "../../../framework/shared/customvalidations/validation.service";
 
 @Component({
   moduleId: module.id,
@@ -33,7 +34,6 @@ export class BasicJobInformationComponent implements OnInit, OnChanges {
   private fromValue: string = '';
   private toValue: string = '';
   private noticePeriodList: any = [];
-  private address: string;
   private showButton: boolean = true;
   private submitStatus: boolean;
   private storedIndustry: Industry;
@@ -51,8 +51,10 @@ export class BasicJobInformationComponent implements OnInit, OnChanges {
   private experienceValidationMessage = Messages.MSG_ERROR_VALIDATION_EXPERIENCE;
   private educationalValidationMessage = Messages.MSG_ERROR_VALIDATION_EDUCATIONAL_QUALIFICATION_REQUIRED;
   private hiringDepartmentValidationMessage = Messages.MSG_ERROR_VALIDATION_HIRING_DEPARTMENT_REQUIRED;
+  private hiringCompanyValidationMessage = Messages.MSG_ERROR_VALIDATION_HIRING_COMPANY_REQUIRED;
   private hiringManagerValidationMessage = Messages.MSG_ERROR_VALIDATION_HIRING_MANAGER_REQUIRED;
   private titleValidationMessage = Messages.MSG_ERROR_VALIDATION_JOB_TITLE_REQUIRED;
+  private titleSpaceValidationMessage = Messages.MSG_ERROR_JOB_TITLE_INVALID_BLANK_SPACE;
 
   tooltipMessage: string = '<ul>' +
     '<li><p>1. This job name would be displayed in the posting.</p></li>' +
@@ -69,7 +71,7 @@ export class BasicJobInformationComponent implements OnInit, OnChanges {
               private formBuilder: FormBuilder, private _filterService: FilterService,) {
 
     this.jobPostForm = this.formBuilder.group({
-      'jobTitle': ['', Validators.required],
+      'jobTitle': ['', [Validators.required, ValidationService.noWhiteSpaceValidator]],
       'hiringManager': ['', Validators.required],
       'department': ['', Validators.required],
       'education': ['', Validators.required],
@@ -79,6 +81,7 @@ export class BasicJobInformationComponent implements OnInit, OnChanges {
       'salaryMinValue': ['', Validators.required],
       'joiningPeriod': ['', Validators.required],
       'location': ['', Validators.required],
+      'hideCompanyName': ['']
     });
   }
 

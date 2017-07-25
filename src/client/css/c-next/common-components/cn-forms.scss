@@ -29,7 +29,7 @@ $heading-color: #333;
       margin: 0;
       padding: 15px 0 10px 15px;
       background: transparent !important;
-      border-bottom: 0px solid $border-color;
+      border-bottom: 0 solid $border-color;
       font-family: gothamrnd-light;
     }
 
@@ -44,7 +44,7 @@ $heading-color: #333;
 
     p {
       text-align: left;
-      margin: 0px 0 20px;
+      margin: 0 0 15px;
     }
   }
 

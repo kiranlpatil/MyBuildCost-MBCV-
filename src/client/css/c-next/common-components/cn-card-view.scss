@@ -318,7 +318,7 @@ header {
   }
 }
 
-#matched-job {
+/*#matched-job {
   .empty-list-message {
     margin-top: 120px !important;
   }
@@ -340,7 +340,7 @@ header {
   .empty-list-message {
     margin-top: 120px !important;
   }
-}
+}*/
 
 
 #matched {
@@ -350,8 +350,15 @@ header {
 }
 
 .empty-list-message {
-  width: 80%;
+  width: 600px;
   margin: 0 auto;
+  background: #fff;
+  padding: 20px;
+  border: 1px solid #e8e8e8;
+  box-shadow: -1px 3px 10px rgba(0, 0, 0, 0.15);
+  position: fixed;
+  left: 35%;
+  top: 45%;
 
   h4 {
     color: $theme-color;

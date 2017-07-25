@@ -1,8 +1,8 @@
 export class AppSettings {
-   //public static IP = 'http://localhost:8080';
+  public static IP = 'http://localhost:8080';
   // public static IP = 'http://ee802b7f.ngrok.io';
-  //public static IP = 'http://10.192.33.82:8080';
-   public static IP = 'http://52.89.221.23:8080';
+  //public static IP = 'http://10.192.33.37:8080';
+  //public static IP = 'http://52.89.221.23:8080';
   // public static IP = 'http://52.41.194.37:8080';
   //public static IP = '';
 
@@ -117,8 +117,10 @@ export class Messages {
   public static MSG_ERROR_VALIDATION_AWARD_AUTHORITY_REQUIRED = 'Authority name is required.';
   public static MSG_ERROR_VALIDATION_AWARD_YEAR_REQUIRED = 'Issued year is required.';
   public static MSG_ERROR_VALIDATION_JOB_TITLE_REQUIRED = 'Enter job title.';
+  public static MSG_ERROR_JOB_TITLE_INVALID_BLANK_SPACE = 'Enter valid job title.';
   public static MSG_ERROR_VALIDATION_HIRING_MANAGER_REQUIRED = 'Enter hiring manager name.';
   public static MSG_ERROR_VALIDATION_HIRING_DEPARTMENT_REQUIRED = 'Enter hiring department.';
+  public static MSG_ERROR_VALIDATION_HIRING_COMPANY_REQUIRED = 'Enter hiring company name.';
   public static MSG_ERROR_VALIDATION_EDUCATIONAL_QUALIFICATION_REQUIRED = 'Select educational qualification.';
   public static MSG_ERROR_VALIDATION_MIN_EXPERIENCE_REQUIRED = 'Select minimum experience expected.';
   public static MSG_ERROR_VALIDATION_MAX_EXPERIENCE_REQUIRED = 'Select maximum experience expected.';
@@ -133,7 +135,7 @@ export class Messages {
   public static MSG_ERROR_VALIDATION_PIN_NUMBER = 'Pin code should not be greater than 20 characters.';
   public static SUGGESTION_MSG_FOR_RELEVENT_INDUSTRY = 'Based on the profile you have selected, we suggest to search candidate from following industries for matching profiles. Remove if you dont want to search candidates from any specific industry.';
   public static SUGGESTION_MSG_ABOUT_DOMAIN =  "In addition to "+ "this.choosedIndeustry" + " industry, do you want the candidate to have mandatory experience in any specific Domain? If yes, select such MUST HAVE DOMAINS from below.";
-  public static MSG_ERROR_VALIDATION_MAX_PROFICIENCIES =  "key skills. Click the cross sign to deselect existing one and add a new skill";
+  public static MSG_ERROR_VALIDATION_MAX_PROFICIENCIES =  " key skills. Click the cross sign to deselect existing one and add a new skill.";
 
 
 }

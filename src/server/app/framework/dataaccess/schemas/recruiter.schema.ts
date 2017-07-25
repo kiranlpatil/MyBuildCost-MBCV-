@@ -1,13 +1,13 @@
-import DataAccess = require("../dataaccess");
-import User = require("../mongoose/user");
-import IRecruiter = require("../mongoose/recruiter");
+import DataAccess = require('../dataaccess');
+import User = require('../mongoose/user');
+import IRecruiter = require('../mongoose/recruiter');
 
-var mongoose = DataAccess.mongooseInstance;
-var mongooseConnection = DataAccess.mongooseConnection;
+let mongoose = DataAccess.mongooseInstance;
+let mongooseConnection = DataAccess.mongooseConnection;
 
 class RecruiterSchema {
   static get schema() {
-    var schema = mongoose.Schema({
+    let schema = mongoose.Schema({
       userId: {
         type: mongoose.Schema.Types.ObjectId, ref: 'User'
       },
@@ -33,12 +33,16 @@ class RecruiterSchema {
         type: [String]
       },
       postedJobs: [{
-        isJobPosted:{
+        isJobPosted: {
           type: Boolean,
           default: false
         },
-        capability_matrix : {
-          type : Object
+        hideCompanyName: {
+          type: Boolean,
+          default: false
+        },
+        capability_matrix: {
+          type: Object
         },
         candidate_list: [{
           name: String,
@@ -68,8 +72,8 @@ class RecruiterSchema {
           type: String
         },
         /*experience: {
-          type: String
-        },*/
+         type: String
+         },*/
         experienceMinValue: {
           type: String
         },
@@ -77,14 +81,14 @@ class RecruiterSchema {
           type: String
         },
         salaryMinValue: {
-         type: String
-         },
-         salaryMaxValue: {
-         type: String
-         },
-        /*salary: {
           type: String
-        },*/
+        },
+        salaryMaxValue: {
+          type: String
+        },
+        /*salary: {
+         type: String
+         },*/
         proficiencies: {
           type: [String]
         },
@@ -97,6 +101,7 @@ class RecruiterSchema {
 
         industry: {
           name: String,
+          code: String,
           roles: [{
             code: String,
             name: String,
@@ -145,12 +150,12 @@ class RecruiterSchema {
         expiringDate: {
           type: Date
         },
-        releventIndustries:[{type:String}]
+        releventIndustries: [{type: String}]
       }]
     }, {versionKey: false});
 
     return schema;
   }
 }
-var schema = mongooseConnection.model<IRecruiter>("Recruiter", RecruiterSchema.schema);
+let schema = mongooseConnection.model<IRecruiter>('Recruiter', RecruiterSchema.schema);
 export = schema;

@@ -2,6 +2,8 @@ import IndustrySchema = require('../schemas/industry.schema');
 import RepositoryBase = require('./base/repository.base');
 import IIndustry = require('../mongoose/industry');
 import RoleModel = require('../model/role.model');
+import CapabilityModel = require("../model/capability.model");
+import ComplexityModel = require("../model/complexity.model");
 
 class IndustryRepository extends RepositoryBase<IIndustry> {
   private items: RoleModel[];
@@ -10,43 +12,74 @@ class IndustryRepository extends RepositoryBase<IIndustry> {
     super(IndustrySchema);
   }
 
-  findRoles(name: string, callback: (error: any, result: any) => void) {
+  findRoles(code: string, callback: (error: any, result: any) => void) {
     this.items = new Array(0);
     console.time('findRole');
-    IndustrySchema.find({'name': name},{'roles.capabilities':0,'roles.default_complexities':0}).lean().exec((err: any, industry: any)=> {
-      if (err) {
-        callback(err, null);
-      } else {
-        if (industry.length <= 0) {
-          callback(new Error('Records are not found'), null);
+      IndustrySchema.find({'code': code},{'roles.capabilities':0,'roles.default_complexities':0}).lean().exec((err: any, industry: any)=> {
+        if (err) {
+          callback(err, null);
         } else {
-          for (let role of industry[0].roles) {
-            let obj: any = {
-              'industryName': industry[0].name,
-              '_id': role._id,
-              'name': role.name,
-              'code': role.code,
-            };
-            this.items.push(obj);
+          if (industry.length <= 0) {
+            callback(new Error('Records are not found'), null);
+          } else {
+            industry[0].roles.sort((r1 : RoleModel, r2 : RoleModel) : number => {
+              if(!r1.sort_order){
+                r1.sort_order=999;
+              }
+              if(!r2.sort_order){
+                r2.sort_order=999;
+              }
+              if(r1.sort_order < r2.sort_order) {
+                return -1;
+              }
+              if(r1.sort_order > r2.sort_order) {
+                return 1;
+              }
+              return -1;
+            });
+            for (let role of industry[0].roles) {
+              let obj: any = {
+                'industryName': industry[0].name,
+                '_id': role._id,
+                'sort_order': role.sort_order,
+                'name': role.name,
+                'code': role.code,
+              };
+              this.items.push(obj);
+            }
+            console.timeEnd('findRole');
+            callback(null, this.items);
           }
-          console.timeEnd('findRole');
-          callback(null, this.items);
         }
-      }
-    });
+      });
   }
 
   findCapabilities(item: any, callback: (error: any, result: any) => void) {
     this.items = new Array(0);
     console.time('findCapability');
 
-    IndustrySchema.find({'name': item.name},{'roles.capabilities.complexities':0}).lean().exec((err: any, industry: any)=> {
+    IndustrySchema.find({'code': item.code},{'roles.capabilities.complexities':0}).lean().exec((err: any, industry: any)=> {
       if (err) {
         callback(err, null);
       } else {
         if (industry.length <= 0) {
           callback(new Error('Records are not found'), null);
         } else {
+          industry[0].roles.sort((r1 : RoleModel, r2 : RoleModel) : number => {
+            if(!r1.sort_order){
+              r1.sort_order=999;
+            }
+            if(!r2.sort_order) {
+              r2.sort_order = 999;
+            }
+            if(r1.sort_order < r2.sort_order) {
+              return -1;
+            }
+            if(r1.sort_order > r2.sort_order) {
+              return 1;
+            }
+            return -1;
+          });
           for (let role of industry[0].roles) {
             for (let code of item.roles) {
               if (code == role.code) {
@@ -57,6 +90,21 @@ class IndustryRepository extends RepositoryBase<IIndustry> {
                   default_complexities: role.default_complexities
                 };
                 role_object.capabilities = new Array(0);
+                role.capabilities.sort((r1 : CapabilityModel, r2 : CapabilityModel) : number => {
+                  if(!r1.sort_order){
+                    r1.sort_order=999;
+                  }
+                  if(!r2.sort_order){
+                    r2.sort_order=999;
+                  }
+                  if(r1.sort_order < r2.sort_order) {
+                    return -1;
+                  }
+                  if(r1.sort_order > r2.sort_order) {
+                    return 1;
+                  }
+                  return -1;
+                });
                 for (let capability of role.capabilities) {
                   let obj: any = {
                     'industryName': industry[0].name,
@@ -81,13 +129,28 @@ class IndustryRepository extends RepositoryBase<IIndustry> {
   findComplexities(item: any, callback: (error: any, result: any) => void) {
     this.items = new Array(0);
     console.time('findComplexity');
-    IndustrySchema.find({'name': item.name}).lean().exec((err: any, industry: any)=> {
+    IndustrySchema.find({'code': item.code}).lean().exec((err: any, industry: any)=> {
       if (err) {
         callback(err, null);
       } else {
         if (industry.length <= 0) {
           callback(new Error('Records are not found'), null);
         } else {
+          industry[0].roles.sort((r1 : RoleModel, r2 : RoleModel) : number => {
+            if(!r1.sort_order){
+              r1.sort_order=999;
+            }
+            if(!r2.sort_order){
+              r2.sort_order=999;
+            }
+            if(r1.sort_order < r2.sort_order) {
+              return -1;
+            }
+            if(r1.sort_order > r2.sort_order) {
+              return 1;
+            }
+            return -1;
+          });
           for (let role of industry[0].roles) {
             for (let code of item.roles) {
               if (code == role.code) {
@@ -97,6 +160,21 @@ class IndustryRepository extends RepositoryBase<IIndustry> {
                   capabilities: [],
                   default_complexities: role.default_complexities
                 };
+                role.capabilities.sort((r1 : CapabilityModel, r2 : CapabilityModel) : number => {
+                  if(!r1.sort_order){
+                    r1.sort_order=999;
+                  }
+                  if(!r2.sort_order){
+                    r2.sort_order=999;
+                  }
+                  if(r1.sort_order < r2.sort_order) {
+                    return -1;
+                  }
+                  if(r1.sort_order > r2.sort_order) {
+                    return 1;
+                  }
+                  return -1;
+                });
                 for (let capability of role.capabilities) {
                   for (let ob of item.capabilities) {
                     if (ob == capability.code) {
@@ -105,6 +183,21 @@ class IndustryRepository extends RepositoryBase<IIndustry> {
                         code: capability.code,
                         complexities: []
                       };
+                      capability.complexities.sort((r1 : ComplexityModel, r2 : ComplexityModel) : number => {
+                        if(!r1.sort_order){
+                          r1.sort_order=999;
+                        }
+                        if(!r2.sort_order){
+                          r2.sort_order=999;
+                        }
+                        if(r1.sort_order < r2.sort_order) {
+                          return -1;
+                        }
+                        if(r1.sort_order > r2.sort_order) {
+                          return 1;
+                        }
+                        return -1;
+                      });
                       for (let complexity of capability.complexities) {
                         let complexity_object: any = {
                           name: complexity.name,

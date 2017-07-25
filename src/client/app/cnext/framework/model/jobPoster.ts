@@ -16,7 +16,7 @@ export class JobPosterModel {
   proficiencies: string[] = new Array(0);
   additionalProficiencies: string[] = new Array(0);
   industry: Industry = new Industry();
-  capability_matrix:any;
+  capability_matrix: any;
   location: JobLocation = new JobLocation();
   competencies: string = '';
   responsibility: string = '';
@@ -28,5 +28,6 @@ export class JobPosterModel {
   interestedIndustries: string[] = new Array(0);
   candidate_list: any = [];
   numberOfCandidatesInList: CandidatesInDiffList = new CandidatesInDiffList();
-  releventIndustries:string[] = new Array(0);
+  releventIndustries: string[] = new Array(0);
+  hideCompanyName: boolean;
 }
