@@ -420,6 +420,9 @@ header {
     height: 30px;
     display: block;
   }
+  p:last-child {
+    border-bottom: 0 solid $border-color;
+  }
 }
 
 .proficiencies-icon {
