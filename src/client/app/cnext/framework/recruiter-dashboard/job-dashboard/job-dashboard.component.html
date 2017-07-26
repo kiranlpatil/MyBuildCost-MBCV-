@@ -101,10 +101,14 @@
     </div>
 
     <div id="compare-candidates" class="tab-pane fade">
-      <cn-profile-comparison (performActionOnComparisonList)="performActionOnComparisonList($event)"
-                             *ngIf="whichListVisible[4]"></cn-profile-comparison>
-      <p class="empty-list-message" *ngIf="recruiterJobView.numberOfCandidatesInCompare==0">There are no candidates to
-        compare.</p>
+      <cn-profile-comparison></cn-profile-comparison>
+      <!--add below to cn-profile-comparison tag -->
+      <!--(performActionOnComparisonList)="performActionOnComparisonList($event)"
+      *ngIf="whichListVisible[4]"-->
+
+      <!-- uncomment below code -->
+      <!--<p class="empty-list-message" *ngIf="recruiterJobView.numberOfCandidatesInCompare==0">There are no candidates to
+        compare.</p>-->
     </div>
 
   </div>
