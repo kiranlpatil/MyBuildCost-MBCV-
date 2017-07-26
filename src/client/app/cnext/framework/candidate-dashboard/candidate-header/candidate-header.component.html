@@ -54,6 +54,12 @@
                   </a>
                 </li>
                 <li role="menuitem" [routerLinkActive]="['active']" *ngIf="candidate.isCompleted==true">
+                  <a class="dropdown-item" [routerLink]="['profile-summary']"
+                     (click)="navigateTo('/value-portrait');">
+                    <span class="glyphicon glyphicon-user"></span>Value Portrait
+                  </a>
+                </li>
+                <li role="menuitem" [routerLinkActive]="['active']" *ngIf="candidate.isCompleted==true">
                   <a class="dropdown-item" [routerLink]="['profile-edit']"
                      (click)="navigateTo('/create_profile');">
                     <span class="	glyphicon glyphicon-edit"></span>Edit Profile

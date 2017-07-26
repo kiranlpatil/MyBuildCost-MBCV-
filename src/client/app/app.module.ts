@@ -114,8 +114,6 @@ import {MultiSelectService} from "./cnext/framework/multi-select/multi-select.se
 import {JobProficienciesComponent} from "./cnext/framework/job-proficiency/job-proficiencies.component";
 import {RecruiteQCardView2Service} from "./cnext/framework/recruiter-dashboard/recruiter-q-card-view2/recruiter-q-card-view2.service";
 import {RecruiterQCardview2Component} from "./cnext/framework/recruiter-dashboard/recruiter-q-card-view2/recruiter-q-card-view2.component";
-
-
 import {RecruiterCandidatesListsService} from "./cnext/framework/candidate-lists.service";
 import {CandidateDashboardComponent} from "./cnext/framework/candidate-dashboard/candidate-dashboard.component";
 import {CandidateDashboardService} from "./cnext/framework/candidate-dashboard/candidate-dashboard.service";
@@ -127,6 +125,7 @@ import {JobViewComponent} from "./cnext/framework/one-page-summary/recruiter-job
 import {CandidateJobListComponent} from "./cnext/framework/candidate-dashboard/candidate-job-list/candidate-job-list.component";
 import {CandidateJobListService} from "./cnext/framework/candidate-dashboard/candidate-job-list/candidate-job-list.service";
 import {CandidateViewComponent} from "./cnext/framework/one-page-summary/candidate-summary/candidate-view/candidate-view.component";
+import {ValuePortraitContainerComponent} from "./cnext/framework/value-portrait/value-portrait-container.component";
 import {CandidateInCartService} from "./cnext/framework/candidate-in-cart.service";
 import {FilterService} from "./cnext/framework/filters/filter/filter.service";
 import {RecruiterSharedHeaderComponent} from "./cnext/framework/recruiter-dashboard/recruiter-shared-header/recruiter-shared-header.component";
@@ -264,6 +263,7 @@ import {IndustryDataService} from "./cnext/framework/industry-data-service";
     RecruiterDashboardComponent,
     ProgressBarComponent,
     CandidateViewComponent,
+    ValuePortraitContainerComponent,
     WorkAreaComponent,
     IndustryDetailsDirective,
     IndustryDataDirective,
