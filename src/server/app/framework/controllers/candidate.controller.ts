@@ -12,9 +12,9 @@ import SearchService = require('../search/services/search.service');
 export function create(req: express.Request, res: express.Response, next: any) {
   try {
     console.log('USer is', req.body);
-    var newUser: CandidateModel = <CandidateModel>req.body;
+    let newUser: CandidateModel = <CandidateModel>req.body;
     console.log('USer is', newUser);
-    var candidateService = new CandidateService();
+    let candidateService = new CandidateService();
     candidateService.createUser(newUser, (error, result) => {
       if (error) {
         console.log('crt user error', error);
@@ -41,8 +41,8 @@ export function create(req: express.Request, res: express.Response, next: any) {
         }
       }
       else {
-        var auth: AuthInterceptor = new AuthInterceptor();
-        var token = auth.issueTokenWithUid(newUser);
+        let auth: AuthInterceptor = new AuthInterceptor();
+        let token = auth.issueTokenWithUid(newUser);
         res.status(200).send({
           'status': Messages.STATUS_SUCCESS,
           'data': {
@@ -62,16 +62,16 @@ export function create(req: express.Request, res: express.Response, next: any) {
 
 export function updateDetails(req: express.Request, res: express.Response, next: any) {
   try {
-    var updatedCandidate: CandidateModel = <CandidateModel>req.body;
-    var params = req.query;
+    let updatedCandidate: CandidateModel = <CandidateModel>req.body;
+    let params = req.query;
     delete params.access_token;
-    var userId: string = req.params.id;
-    var auth: AuthInterceptor = new AuthInterceptor();
+    let userId: string = req.params.id;
+    let auth: AuthInterceptor = new AuthInterceptor();
 
-    var userService = new UserService();
-    var query = {"_id": userId};
-    var updateData = {"location": updatedCandidate.professionalDetails.location};
-    var candidateService = new CandidateService();
+    /*let userService = new UserService();
+     let query = {"_id": userId};
+     let updateData = {"location": updatedCandidate.professionalDetails.location};*/
+    let candidateService = new CandidateService();
     candidateService.update(userId, updatedCandidate, (error, result) => {
       if (error) {
         next(error);
@@ -84,7 +84,7 @@ export function updateDetails(req: express.Request, res: express.Response, next:
               code: 401
             });
           } else {
-            var token = auth.issueTokenWithUid(updatedCandidate);
+            let token = auth.issueTokenWithUid(updatedCandidate);
             res.send({
               'status': 'success',
               'data': result,
@@ -112,8 +112,8 @@ export function updateDetails(req: express.Request, res: express.Response, next:
 
 export function getCapabilityMatrix(req: express.Request, res: express.Response, next: any) {
   try {
-    var candidateId: string = req.params.id;
-    var candidateService = new CandidateService();
+    let candidateId: string = req.params.id;
+    let candidateService = new CandidateService();
     candidateService.getCapabilityValueKeyMatrix(candidateId, (error, result) => {
       if (error) {
         next(error);
@@ -134,8 +134,8 @@ export function getCapabilityMatrix(req: express.Request, res: express.Response,
 
 export function retrieve(req: express.Request, res: express.Response, next: any) { //todo authentication is remaining
   try {
-    var userService = new UserService();
-    var candidateService = new CandidateService();
+    let userService = new UserService();
+    let candidateService = new CandidateService();
     let params = req.params.id;
     let candidateId = req.params.candidateId;
     if (candidateId) {
@@ -210,11 +210,96 @@ export function retrieve(req: express.Request, res: express.Response, next: any)
   }
 }
 
+export function get(req: express.Request, res: express.Response, next: any) { //todo authentication is remaining
+  try {
+    let userService = new UserService();
+    let candidateService = new CandidateService();
+    let params = req.params.id;
+    let candidateId = req.params.candidateId;
+    if (candidateId) {
+      candidateService.findById(candidateId, (error, resu) => {
+        if (error) {
+          next({
+            reason: 'User Not Available',//Messages.MSG_ERROR_RSN_INVALID_CREDENTIALS,
+            message: 'User is not available',//Messages.MSG_ERROR_WRONG_TOKEN,
+            code: 401
+          })
+        }
+        else {
+          userService.findById(resu.userId, (error, result) => {
+            if (error) {
+              next({
+                reason: 'User Not Available',//Messages.MSG_ERROR_RSN_INVALID_CREDENTIALS,
+                message: 'User is not available',//Messages.MSG_ERROR_WRONG_TOKEN,
+                code: 401
+              })
+            } else {
+              candidateService.getCapabilityValueKeyMatrix(candidateId, (error, capabilityResult) => {
+                if (error) {
+                  next(error);
+                }
+                else {
+                  resu["capability_matrix"] = capabilityResult;
+                  res.send({
+                    'status': 'success',
+                    'data': resu,
+                    'metadata': result
+                  });
+                }
+              });
 
+            }
+
+          });
+        }
+      });
+    } else {
+      userService.findById(params, (error, result) => {
+        if (error) {
+          next({
+            reason: Messages.MSG_ERROR_RSN_INVALID_CREDENTIALS,
+            message: Messages.MSG_ERROR_WRONG_TOKEN,
+            code: 401
+          });
+        }
+        else {
+          if (result.length <= 0) {
+            next({
+              reason: 'User Not Available',//Messages.MSG_ERROR_RSN_INVALID_CREDENTIALS,
+              message: 'User is not available',//Messages.MSG_ERROR_WRONG_TOKEN,
+              code: 401
+            });
+          } else {
+            candidateService.retrieve({'userId': new mongoose.Types.ObjectId(result._id)}, (error, resu) => {
+              if (error) {
+                next({
+                  reason: 'User Not Available',//Messages.MSG_ERROR_RSN_INVALID_CREDENTIALS,
+                  message: 'User is not available',//Messages.MSG_ERROR_WRONG_TOKEN,
+                  code: 401
+                })
+              }
+              else {
+                res.send({
+                  'status': 'success',
+                  'data': resu,
+                  'metadata': result
+                });
+              }
+            });
+          }
+        }
+      });
+    }
+
+  }
+  catch (e) {
+    res.status(403).send({message: e.message});
+  }
+}
 
 export function metchResult(req: express.Request, res: express.Response, next: any) {
   try {
-    var searchService = new SearchService();
+    let searchService = new SearchService();
     let jobId = req.params.jobId;
     let candidateId = req.params.candidateId;
     searchService.getMatchingResult(candidateId, jobId, true, (error: any, result: any) => {
