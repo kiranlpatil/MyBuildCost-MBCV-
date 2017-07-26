@@ -6,6 +6,7 @@ import CandidateModel = require('../../dataaccess/model/candidate.model');
 import JobProfileService = require('../../services/jobprofile.service');
 import {ConstVariables} from "../../shared/sharedconstants";
 import {ProfileComparisonDataModel} from "../../dataaccess/model/profile-comparison-data.model";
+import {CapabilityMatrixModel} from "../../dataaccess/model/capability-matrix.model";
 import MatchViewModel = require('../../dataaccess/model/match-view.model');
 import Match = require('../../dataaccess/model/match-enum');
 import IndustryRepository = require('../../dataaccess/repository/industry.repository');
@@ -270,9 +271,8 @@ class SearchService {
     }
 //        let match_map: Map<string,MatchViewModel> = new Map<string,MatchViewModel>();
     //newCandidate.match_map = {};
-    //newCandidate = this.buildCompareCapability(job, newCandidate, industries, isCandidate);
+    newCandidate = this.buildMultiCompareCapabilityView(job, newCandidate, industries, isCandidate);
     newCandidate = this.buildCompareView(job, newCandidate, industries, isCandidate);
-    //newCandidate = this.buildCompareView(job, newCandidate, industries, isCandidate);
     newCandidate = this.getAdditionalCapabilities(job, newCandidate, industries);
 
     return newCandidate;
@@ -288,7 +288,7 @@ class SearchService {
     //profileComparisonResult.additionalCapabilites = candidate.additionalCapabilites;
     profileComparisonResult.awards = candidate.awards;
     profileComparisonResult.capability_matrix = candidate.capability_matrix;
-    profileComparisonResult.capabilityMap = [];
+    //profileComparisonResult.capabilityMap = [];
     profileComparisonResult.experienceMatch = '';
     profileComparisonResult.certifications = candidate.certifications;
     //profileComparisonResult.companyCulture = '';
@@ -309,6 +309,7 @@ class SearchService {
     profileComparisonResult.secondaryCapability = candidate.secondaryCapability;
     profileComparisonResult.lockedOn = candidate.lockedOn;
     profileComparisonResult.match_map = {};
+    profileComparisonResult.capabilityMap = {};
     //profileComparisonResult.proficienciesUnMatch = [];
     //profileComparisonResult.interestedIndustryMatch = [];
     //profileComparisonResult.releaseMatch = '';
@@ -320,9 +321,68 @@ class SearchService {
 
   }
 
-  /*buildCompareCapability(job : any, newCandidate : ProfileComparisonDataModel , industries : any) {
+  buildMultiCompareCapabilityView(job: any, newCandidate: ProfileComparisonDataModel, industries: any, isCandidate: any) {
 
-   }*/
+    var capabilityPercentage: number[] = new Array(0);
+    var capabilityKeys: string[] = new Array(0);
+    for (let cap in job.capability_matrix) {
+      var capabilityKey = cap.split("_");
+      if (capabilityKeys.indexOf(capabilityKey[0]) == -1) {
+        capabilityKeys.push(capabilityKey[0]);
+      }
+    }
+
+    //for(let _cap in capbilityKeys) {
+    for (let _cap of capabilityKeys) {
+      var capabilityQuestionCount: number = 0;
+      var matchCount = 0;
+      for (let cap in job.capability_matrix) {
+
+        //calculate total number of questions in capability
+
+        if (_cap == cap.split("_")[0]) {
+
+          capabilityQuestionCount++;
+          if (job.capability_matrix[cap] == -1 || job.capability_matrix[cap] == 0 || job.capability_matrix[cap] == undefined) {
+
+            //match_view.match = Match.MissMatch;
+          } else if (job.capability_matrix[cap] == newCandidate.capability_matrix[cap]) {
+            matchCount++;
+            //match_view.match = Match.Exact;
+          } else if (job.capability_matrix[cap] == (Number(newCandidate.capability_matrix[cap]) - ConstVariables.DIFFERENCE_IN_COMPLEXITY_SCENARIO)) {
+            matchCount++
+            //match_view.match = Match.Above;
+          } else if (job.capability_matrix[cap] == (Number(newCandidate.capability_matrix[cap]) + ConstVariables.DIFFERENCE_IN_COMPLEXITY_SCENARIO)) {
+            //match_view.match = Match.Below;
+          } else {
+            //match_view.match = Match.MissMatch;
+          }
+        }
+      }
+      var capabilityModel = new CapabilityMatrixModel();
+      for (let role of industries[0].roles) {
+        for (let capability of role.capabilities) {
+          if (_cap == capability.code) {
+            var capName = capability.name;
+            var complex = capability.complexities;
+            break;
+          }
+        }
+      }
+      var percentage: number = (matchCount / capabilityQuestionCount) * 100;
+      capabilityModel.capabilityName = capName;
+      capabilityModel.capabilityPercentage = percentage;
+      capabilityModel.complexities = complex;
+      capabilityPercentage.push(percentage);
+      newCandidate['capabilityMap'][_cap] = capabilityModel;
+    }
+    var avgPercentage = 0;
+    for (let percent of capabilityPercentage) {
+      avgPercentage += percent;
+    }
+    newCandidate.matchingPercentage = (avgPercentage / capabilityPercentage.length);
+    return newCandidate;
+  }
 
   getAdditionalCapabilities(job : any, newCandidate : any , industries : any) : any {
     newCandidate.additionalCapabilites = new Array(0);

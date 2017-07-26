@@ -1,10 +1,10 @@
-import ProfileComparisonDataModel = require("./profile-comparison-data.model");
+//import ProfileComparisonDataModel = require("./profile-comparison-data.model");
+import {ProfileComparisonDataModel} from "./profile-comparison-data.model";
 
-
-interface ProfileComparisonModel {
+export class ProfileComparisonModel {
 
   jobTitle: string;
   profileComparisonData: ProfileComparisonDataModel[];
 
 }
-export = ProfileComparisonModel;
+//export = ProfileComparisonModel;

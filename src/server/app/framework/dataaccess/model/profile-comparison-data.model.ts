@@ -9,7 +9,7 @@ import AcademicModel = require("./academic.model");
 import ProfessionalDetailsModel = require("./professional-details.model");
 import EmployeeHistoryModel = require("./employee-history.model");
 import JobListModel = require("./job-list.model");
-import CapabilityMatrixModel = require("./capability-matrix.model");
+//import CapabilityMatrixModel = require("./capability-matrix.model");
 import ProfileComparisonHeaderModel = require("./profile-comparison-header.model");
 
 export class ProfileComparisonDataModel {
@@ -39,7 +39,7 @@ export class ProfileComparisonDataModel {
   proficienciesMatch: string[];
 
   profileComparisonHeader: ProfileComparisonHeaderModel;
-  capabilityMap: CapabilityMatrixModel[];
+  capabilityMap: any;
 
   matchingPercentage: number;
   status: string;
