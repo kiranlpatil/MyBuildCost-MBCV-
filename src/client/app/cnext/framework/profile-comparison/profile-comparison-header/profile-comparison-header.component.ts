@@ -16,7 +16,8 @@ export class ProfileComparisonHeaderComponent {
    @Output() actionOnComparisonList = new EventEmitter();
    constructor() {}
 
-   actionToPerformOnCompare() {
-     this.actionOnComparisonList.emit();
+  actionToPerformOnCompareList(action: string, value: any) {
+    var data = {'action': action, 'value': value};
+    this.actionOnComparisonList.emit(data);
    }
 }

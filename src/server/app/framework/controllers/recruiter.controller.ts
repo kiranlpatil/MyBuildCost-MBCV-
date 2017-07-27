@@ -216,7 +216,7 @@ export function getCompareDetailsOfCandidate(req: express.Request, res: express.
   try {
     var searchService = new SearchService();
     var params = req.query;
-    let jobId = JSON.parse(req.params.jobId);
+    let jobId = req.params.jobId;
     let candidateId: string[] = JSON.parse(params.candidateId);
     searchService.getMultiCompareResult(candidateId, jobId, false, (error: any, result: any) => {
       if (error) {
