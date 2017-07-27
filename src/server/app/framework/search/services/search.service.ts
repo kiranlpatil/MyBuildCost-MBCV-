@@ -12,6 +12,7 @@ import Match = require('../../dataaccess/model/match-enum');
 import IndustryRepository = require('../../dataaccess/repository/industry.repository');
 import IndustryModel = require('../../dataaccess/model/industry.model');
 import ScenarioModel = require('../../dataaccess/model/scenario.model');
+import {ProfileComparisonModel} from "../../dataaccess/model/profile-comparison.model";
 
 class SearchService {
   APP_NAME: string;
@@ -355,21 +356,24 @@ class SearchService {
         }
       }
       var capabilityModel = new CapabilityMatrixModel();
+      var capName:string;
       for (let role of industries[0].roles) {
         for (let capability of role.capabilities) {
           if (_cap == capability.code) {
-            var capName = capability.name;
+            capName = capability.name;
             var complex = capability.complexities;
             break;
           }
         }
       }
+      if(capName) {
       var percentage: number = (matchCount / capabilityQuestionCount) * 100;
       capabilityModel.capabilityName = capName;
       capabilityModel.capabilityPercentage = percentage;
       capabilityModel.complexities = complex;
       capabilityPercentage.push(percentage);
       newCandidate['capabilityMap'][_cap] = capabilityModel;
+      }
     }
     var avgPercentage = 0;
     for (let percent of capabilityPercentage) {
@@ -547,12 +551,15 @@ class SearchService {
                 if (err) {
                   callback(err, null);
                 } else {
-                  var compareResult: any[] = new Array(0);
+                  var compareResult: ProfileComparisonDataModel[] = new Array(0);
                   for (let candidate of candidateRes) {
                     var newCandidate = this.getCompareData(candidate, job, isCandidate, industries);
                     compareResult.push(newCandidate);
                   }
-                  callback(null, compareResult);
+                  let profileComparisonModel:ProfileComparisonModel = new ProfileComparisonModel();
+                  profileComparisonModel.jobTitle = jobName;
+                  profileComparisonModel.profileComparisonData = compareResult;
+                  callback(null, profileComparisonModel);
                 }
               });
             }
