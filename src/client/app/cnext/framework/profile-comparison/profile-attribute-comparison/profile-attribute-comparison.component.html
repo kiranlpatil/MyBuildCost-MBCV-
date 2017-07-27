@@ -1,248 +1,115 @@
 <div class="attribute-container">
-  <div class="candidate-compare-attribute clearfix">
-    <div class="matching-attribute-name">
+  <div class="candidate-compare-attribute clearfix" *ngFor="let item of profileComparisonResult;let i = index">
+    <div *ngIf="i == 0" class="matching-attribute-name">
       <h6>Key skills Matching</h6>
     </div>
-    <div class="matching-candidate-attributes">
+    <!--<div class="matching-candidate-attributes">-->
       <!-- Start: repeat this div using for loop -->
       <div class="candidate-attribute-list">
-        <div>
+        <div *ngFor="let value of item.proficiencies">
           <p class="matching-attribute">
             <span class="matching-attribute-icon"></span>
-            my key skills
-          </p>
-        </div>
-        <div>
-          <p class="mismatch-attribute">
-            <span class="mismatch-attribute-icon"></span>
-            my key skills
-          </p>
-        </div>
-        <div>
-          <p class="matching-attribute">
-            <span class="matching-attribute-icon"></span>
-            my key skills
-          </p>
-        </div>
-        <div>
-          <p class="matching-attribute">
-            <span class="matching-attribute-icon"></span>
-            my key skills
-          </p>
-        </div>
-        <div>
-          <p class="mismatch-attribute">
-            <span class="mismatch-attribute-icon"></span>
-            my key skills
+            {{value}}
           </p>
         </div>
       </div>
-      <div class="candidate-attribute-list">
-        <div>
-          <p class="matching-attribute">
-            <span class="matching-attribute-icon"></span>
-            my key skills
-          </p>
-        </div>
-        <div>
-          <p class="mismatch-attribute">
-            <span class="mismatch-attribute-icon"></span>
-            my key skills
-          </p>
-        </div>
-        <div>
-          <p class="matching-attribute">
-            <span class="matching-attribute-icon"></span>
-            my key skills
-          </p>
-        </div>
-        <div>
-          <p class="matching-attribute">
-            <span class="matching-attribute-icon"></span>
-            my key skills
-          </p>
-        </div>
-        <div>
-          <p class="mismatch-attribute">
-            <span class="mismatch-attribute-icon"></span>
-            my key skills
-          </p>
-        </div>
-      </div>
-      <div class="candidate-attribute-list">
-        <div>
-          <p class="matching-attribute">
-            <span class="matching-attribute-icon"></span>
-            my key skills
-          </p>
-        </div>
-        <div>
-          <p class="mismatch-attribute">
-            <span class="mismatch-attribute-icon"></span>
-            my key skills
-          </p>
-        </div>
-        <div>
-          <p class="matching-attribute">
-            <span class="matching-attribute-icon"></span>
-            my key skills
-          </p>
-        </div>
-        <div>
-          <p class="matching-attribute">
-            <span class="matching-attribute-icon"></span>
-            my key skills
-          </p>
-        </div>
-        <div>
-          <p class="mismatch-attribute">
-            <span class="mismatch-attribute-icon"></span>
-            my key skills
-          </p>
-        </div>
-      </div>
-      <div class="candidate-attribute-list">
-        <div>
-          <p class="matching-attribute">
-            <span class="matching-attribute-icon"></span>
-            my key skills
-          </p>
-        </div>
-        <div>
-          <p class="mismatch-attribute">
-            <span class="mismatch-attribute-icon"></span>
-            my key skills
-          </p>
-        </div>
-        <div>
-          <p class="matching-attribute">
-            <span class="matching-attribute-icon"></span>
-            my key skills
-          </p>
-        </div>
-        <div>
-          <p class="matching-attribute">
-            <span class="matching-attribute-icon"></span>
-            my key skills
-          </p>
-        </div>
-        <div>
-          <p class="mismatch-attribute">
-            <span class="mismatch-attribute-icon"></span>
-            my key skills
-          </p>
-        </div>
-      </div>
-      <div class="candidate-attribute-list">
-        <div>
-          <p class="matching-attribute">
-            <span class="matching-attribute-icon"></span>
-            my key skills
-          </p>
-        </div>
-        <div>
-          <p class="mismatch-attribute">
-            <span class="mismatch-attribute-icon"></span>
-            my key skills
-          </p>
-        </div>
-        <div>
-          <p class="matching-attribute">
-            <span class="matching-attribute-icon"></span>
-            my key skills
-          </p>
-        </div>
-        <div>
-          <p class="matching-attribute">
-            <span class="matching-attribute-icon"></span>
-            my key skills
-          </p>
-        </div>
-        <div>
-          <p class="mismatch-attribute">
-            <span class="mismatch-attribute-icon"></span>
-            my key skills
-          </p>
-        </div>
-      </div>
-    </div>
+
+    <!--</div>-->
   </div>
-  <div class="candidate-compare-attribute clearfix">
-    <div class="matching-attribute-name">
+  <div class="candidate-compare-attribute clearfix" *ngFor="let item of profileComparisonResult;let i = index">
+    <div *ngIf="i == 0" class="matching-attribute-name">
       <h6>Current Salary</h6>
     </div>
-    <div class="matching-candidate-attributes">
+    <!--<div class="matching-candidate-attributes" >-->
       <!-- Start: repeat this div using for loop -->
       <div class="candidate-attribute-list">
         <div>
           <p class="matching-attribute">
             <span class="matching-attribute-icon"></span>
-            my key skills
-          </p>
-        </div>
-        <div>
-          <p class="mismatch-attribute">
-            <span class="mismatch-attribute-icon"></span>
-            my key skills
+            {{item?.professionalDetails.currentSalary}}
           </p>
         </div>
       </div>
-      <div class="candidate-attribute-list">
-        <div>
-          <p class="matching-attribute">
-            <span class="matching-attribute-icon"></span>
-            my key skills
-          </p>
-        </div>
-        <div>
-          <p class="mismatch-attribute">
-            <span class="mismatch-attribute-icon"></span>
-            my key skills
-          </p>
-        </div>
-      </div>
-      <div class="candidate-attribute-list">
-        <div>
-          <p class="matching-attribute">
-            <span class="matching-attribute-icon"></span>
-            my key skills
-          </p>
-        </div>
-        <div>
-          <p class="mismatch-attribute">
-            <span class="mismatch-attribute-icon"></span>
-            my key skills
-          </p>
-        </div>
-      </div>
-      <div class="candidate-attribute-list">
-        <div>
-          <p class="matching-attribute">
-            <span class="matching-attribute-icon"></span>
-            my key skills
-          </p>
-        </div>
-        <div>
-          <p class="mismatch-attribute">
-            <span class="mismatch-attribute-icon"></span>
-            my key skills
-          </p>
-        </div>
-      </div>
-      <div class="candidate-attribute-list">
-        <div>
-          <p class="matching-attribute">
-            <span class="matching-attribute-icon"></span>
-            my key skills
-          </p>
-        </div>
-        <div>
-          <p class="mismatch-attribute">
-            <span class="mismatch-attribute-icon"></span>
-            my key skills
-          </p>
-        </div>
+    <!-- </div>-->
+  </div>
+  <div class="candidate-compare-attribute clearfix" *ngFor="let item of profileComparisonResult;let i = index">
+    <div *ngIf="i == 0" class="matching-attribute-name">
+      <h6>Total Experience</h6>
+    </div>
+    <!--<div class="matching-candidate-attributes">-->
+    <!-- Start: repeat this div using for loop -->
+    <div class="candidate-attribute-list">
+      <div>
+        <p class="matching-attribute">
+          <span class="matching-attribute-icon"></span>
+          {{item?.professionalDetails.experience}}
+        </p>
       </div>
     </div>
+    <!--</div>-->
   </div>
+  <div class="candidate-compare-attribute clearfix" *ngFor="let item of profileComparisonResult;let i = index">
+    <div *ngIf="i == 0" class="matching-attribute-name">
+      <h6>Notice Period</h6>
+    </div>
+    <!--<div class="matching-candidate-attributes" >-->
+    <!-- Start: repeat this div using for loop -->
+    <div class="candidate-attribute-list">
+      <div>
+        <p class="matching-attribute">
+          <span class="matching-attribute-icon"></span>
+          {{item?.professionalDetails.noticePeriod}}
+        </p>
+      </div>
+    </div>
+    <!--</div>-->
+  </div>
+  <div class="candidate-compare-attribute clearfix" *ngFor="let item of profileComparisonResult;let i = index">
+    <div *ngIf="i == 0" class="matching-attribute-name">
+      <h6>Current Location</h6>
+    </div>
+    <!--<div class="matching-candidate-attributes" >-->
+    <!-- Start: repeat this div using for loop -->
+    <div class="candidate-attribute-list">
+      <div>
+        <p>
+          {{item?.location.city}}
+        </p>
+      </div>
+    </div>
+    <!-- </div>-->
+  </div>
+  <div class="candidate-compare-attribute clearfix" *ngFor="let item of profileComparisonResult">
+    <div class="matching-attribute-name">
+      <h6>Domain</h6>
+    </div>
+    <!--<div class="matching-candidate-attributes">-->
+    <!-- Start: repeat this div using for loop -->
+    <div class="candidate-attribute-list">
+      <div *ngFor="let value of item.interestedIndustries">
+        <p>
+          {{value}}
+        </p>
+      </div>
+    </div>
+
+    <!--</div>-->
+  </div>
+  <div class="candidate-compare-attribute clearfix" *ngFor="let item of profileComparisonResult">
+    <div class="matching-attribute-name">
+      <h6>Additional Capabilities</h6>
+    </div>
+    <!--<div class="matching-candidate-attributes" >-->
+    <!-- Start: repeat this div using for loop -->
+    <div class="candidate-attribute-list">
+      <div *ngFor="let value of item.additionalCapabilites">
+        <p>
+          {{value}}
+        </p>
+      </div>
+    </div>
+
+    <!--</div>-->
+  </div>
+
 </div>

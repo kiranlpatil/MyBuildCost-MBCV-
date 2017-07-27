@@ -10,6 +10,7 @@
     <cn-profile-comparison-header [profileComparisonResult]="profileComparisonData"
                                   (actionOnComparisonList)="actionOnComparisonList($event)"></cn-profile-comparison-header>
 
-    <cn-profile-attribute-comparison></cn-profile-attribute-comparison>
+    <cn-profile-attribute-comparison
+      [profileComparisonResult]="profileComparisonData"></cn-profile-attribute-comparison>
   </div>
 </div>
