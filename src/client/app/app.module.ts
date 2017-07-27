@@ -128,6 +128,7 @@ import {CandidateViewComponent} from "./cnext/framework/one-page-summary/candida
 import {ValuePortraitContainerComponent} from "./cnext/framework/value-portrait/value-portrait-container.component";
 import {ValuePortraitComponent} from "./cnext/framework/value-portrait/value-portrait-component/value-portrait.component";
 import {ValuePortraitHeader} from "./cnext/framework/value-portrait/value-portrait-component/value-portrait-header/value-portrait-header.component";
+import {CandidateInfoBlock} from "./cnext/framework/value-portrait/value-portrait-component/candidate-info-block/candidate-info-block.component";
 import {CandidateCapabilityPortrait} from "./cnext/framework/value-portrait/value-portrait-component/candidate-capability-portrait/candidate-capability-portrait.component";
 import {CandidateInCartService} from "./cnext/framework/candidate-in-cart.service";
 import {FilterService} from "./cnext/framework/filters/filter/filter.service";
@@ -269,6 +270,7 @@ import {IndustryDataService} from "./cnext/framework/industry-data-service";
     ValuePortraitContainerComponent,
     ValuePortraitComponent,
     ValuePortraitHeader,
+    CandidateInfoBlock,
     CandidateCapabilityPortrait,
     WorkAreaComponent,
     IndustryDetailsDirective,

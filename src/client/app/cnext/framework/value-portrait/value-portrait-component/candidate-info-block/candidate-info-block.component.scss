@@ -1,0 +1,115 @@
+@import '../../../../../../css/variables';
+
+.value-portraot-candidate-info-block {
+  ul {
+    background: $white;
+    float: left;
+    margin: 0;
+    padding: 50px 0;
+    width: 100%;
+
+    li {
+      display: block;
+      float: left;
+      margin: 0;
+      padding: 0;
+      position: relative;
+      width: 16.6%;
+      .current-location-tabs {
+        background: $orange3;
+        border-radius: 7px;
+        box-shadow: 0 0 4px 2px rgba(125, 125, 125, 0.28), 0 0 1px 0 rgba(0, 0, 0, 0.16);
+        margin: 0 10px;
+        padding: 10px;
+        span {
+          color: $white;
+        }
+      }
+      .experience-level-tabs {
+        background: $light-orange;
+        border-radius: 7px;
+        box-shadow: 0 0 4px 2px rgba(125, 125, 125, 0.28), 0 0 1px 0 rgba(0, 0, 0, 0.16);
+        margin: 0 10px;
+        padding: 10px;
+        span {
+          color: $white;
+        }
+      }
+      .education-tabs {
+        background: $dark-orange;
+        border-radius: 7px;
+        box-shadow: 0 0 4px 2px rgba(125, 125, 125, 0.28), 0 0 1px 0 rgba(0, 0, 0, 0.16);
+        margin: 0 10px;
+        padding: 10px;
+        span {
+          color: $white;
+        }
+      }
+      .employment-tabs {
+        background: $light-red;
+        border-radius: 7px;
+        box-shadow: 0 0 4px 2px rgba(125, 125, 125, 0.28), 0 0 1px 0 rgba(0, 0, 0, 0.16);
+        margin: 0 10px;
+        padding: 10px;
+        span {
+          color: $white;
+        }
+      }
+      .certification-tabs {
+        background: $light-red1;
+        border-radius: 7px;
+        box-shadow: 0 0 4px 2px rgba(125, 125, 125, 0.28), 0 0 1px 0 rgba(0, 0, 0, 0.16);
+        margin: 0 10px;
+        padding: 10px;
+        span {
+          color: $white;
+        }
+      }
+      .awards-tabs {
+        background: $dark-red1;
+        border-radius: 7px;
+        box-shadow: 0 0 4px 2px rgba(125, 125, 125, 0.28), 0 0 1px 0 rgba(0, 0, 0, 0.16);
+        margin: 0 10px;
+        padding: 10px;
+        span {
+          color: $white;
+        }
+      }
+      &:first-child {
+        width: 17%;
+      }
+    }
+  }
+}
+
+.info-block-tabs > .tooltip-content2 {
+  opacity: 0;
+  display: inline-block;
+  position: absolute;
+  width: 220px;
+  margin-left: -148px;
+  top: 52px;
+  background-color: $gray;
+  padding: 10px;
+  transition: all .5s linear;
+  box-shadow: 3px 3px 15px 1px #ccc;
+  border-radius: 4px;
+  visibility: hidden;
+  right: 10px;
+}
+
+.info-block-tabs:hover > .tooltip-content2 {
+  opacity: 1;
+  visibility: visible;
+}
+
+.tooltip-content2:after {
+  content: "";
+  border-bottom: 10px solid $gray;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  position: absolute;
+  top: -10px;
+  right: 30px;
+  margin-left: -10px;
+}

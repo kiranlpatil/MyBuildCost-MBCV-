@@ -1,0 +1,142 @@
+@import '../../../../../../css/variables';
+
+header {
+  h1 {
+    border-left: 6px solid $white;
+    color: $white;
+    float: left;
+    font-size: 26px;
+    font-family: 'gothamrnd-light';
+    font-weight: 600;
+    margin: 30px 0;
+    padding: 0 0 0 16px;
+
+    span {
+      float: left;
+      font-size: 18px;
+      padding: 5px 0 0 0;
+      width: 100%;
+    }
+  }
+  .job-mosis-white-logo {
+    float: right;
+    margin: 29px 0;
+    padding-top: 3px;
+    img {
+      height: 50px;
+      width: 50px;
+    }
+  }
+}
+
+.value-portraot-candidate-profile-section {
+  background: #ddd;
+  display: inline-block;
+  min-height: 166px;
+  padding: 20px;
+  .value-portraot-candidate-profile-img {
+    img {
+      border-radius: 50%;
+      box-shadow: 0 0 4px 2px rgba(125, 125, 125, 0.28), 0 0 1px 0 rgba(0, 0, 0, 0.16);
+      float: left;
+      margin: 16px 0 -55px 0;
+      position: relative;
+      z-index: 9;
+    }
+  }
+  .value-portraot-candidate-name {
+    background: $orange3;
+    display: inline-block;
+    font-size: 20px;
+    font-family: 'gothamrnd-book';
+    width: calc(100% - 160px);
+    padding: 10px 25px;
+    margin: 58px 0 0 -15px;
+  }
+  .value-portraot-candidate-job-title {
+    background: $orange4;
+    display: inline-block;
+    width: calc(100% - 160px);
+    padding: 5px 25px;
+    margin-left: -15px;
+  }
+}
+
+.value-portraot-candidate-number {
+  display: inline-block;
+  margin: 58px 0 10px 0;
+  width: 100%;
+  .phone-icon {
+    background: url(../assets/c-next/card-view/sprite.png) no-repeat -134px -439px;
+    float: left;
+    height: 25px;
+    margin: 0;
+    width: 50px;
+  }
+  span {
+    float: left;
+    margin-top: 5px;
+  }
+}
+
+.value-portraot-candidate-email {
+  display: inline-block;
+  width: 100%;
+  .email-icon {
+    background: url(../assets/c-next/card-view/sprite.png) no-repeat 6px -477px;
+    float: left;
+    height: 25px;
+    margin: 0;
+    width: 50px;
+  }
+  span {
+    float: left;
+    margin-top: 5px;
+  }
+}
+
+.value-portraot-candidate-industry {
+  display: inline-block;
+  margin: 58px 0 10px 0;
+  width: 100%;
+  .industry-icon {
+    background: url(../assets/c-next/card-view/sprite.png) no-repeat  -40px -475px;
+    float: left;
+    height: 29px;
+    width: 50px;
+  }
+  label {
+    color: $black1;
+    float: left;
+    font-family: 'gothamrnd-book';
+    font-weight: bold;
+    margin: 3px 5px 0 0;
+  }
+  span {
+    display: block;
+    padding-top: 4px;
+  }
+}
+
+.value-portraot-candidate-area-work {
+  display: inline-block;
+  width: 100%;
+  .area-work-icon {
+    background: url(../assets/c-next/card-view/sprite.png) no-repeat -91px -476px;
+    float: left;
+    height: 25px;
+    width: 50px;
+  }
+  label {
+    color: $black1;
+    float: left;
+    font-family: 'gothamrnd-book';
+    font-weight: bold;
+    margin: 3px 5px 25px 0;
+    width: 90px;
+  }
+  span {
+    display: block;
+    padding-top: 4px;
+  }
+}
