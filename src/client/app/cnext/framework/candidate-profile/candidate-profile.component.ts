@@ -185,15 +185,13 @@ export class CandidateProfileComponent implements OnInit, DoCheck {
 
   onCertificationsComplete() {
     this.showAwards = true;
-    this.checkdataFilled();
   }
 
   onAwardsComplete() {
-    this.checkdataFilled();
   }
 
   checkdataFilled() {
-    if (this.candidate.employmentHistory && this.candidate.employmentHistory.length > 0 && this.candidate.certifications && this.candidate.certifications.length > 0 && this.candidate.awards && this.candidate.awards.length > 0 && this.candidate.academics && this.candidate.academics.length > 0 && this.candidate.aboutMyself && this.candidate.aboutMyself !== ''){
+    if (this.candidate.employmentHistory && this.candidate.employmentHistory.length > 0 && this.candidate.academics && this.candidate.academics.length > 0 && this.candidate.aboutMyself && this.candidate.aboutMyself !== ''){
       this.whichStepsVisible[6]=true;
     }else {
       this.whichStepsVisible[6]=false;
