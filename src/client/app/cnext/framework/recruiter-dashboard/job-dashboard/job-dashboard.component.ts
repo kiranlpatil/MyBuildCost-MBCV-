@@ -33,7 +33,7 @@ export class JobDashboardComponent implements OnInit {
   private filterMeta: QCardFilter;
   private isRecruitingForSelf: boolean;
   private profileComparison: ProfileComparison;
-  private listOfCandidateIdToCompare: string[];
+  private listOfCandidateIdToCompare: string[] = new Array(0);
 
   constructor(public refrence: ReferenceService,
               private activatedRoute: ActivatedRoute,
@@ -209,6 +209,12 @@ export class JobDashboardComponent implements OnInit {
 
   OnCompareSuccess(data: ProfileComparison) {
     this.profileComparison = data;
+  }
+
+  addForCompare(value: any) {
+    if (this.listOfCandidateIdToCompare.indexOf(value) == -1) {
+      this.listOfCandidateIdToCompare.push(value);
+    }
   }
 
 }

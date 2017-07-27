@@ -1,11 +1,11 @@
 <div class="attribute-container">
-  <div class="candidate-compare-attribute clearfix" *ngFor="let item of profileComparisonResult;let i = index">
-    <div *ngIf="i == 0" class="matching-attribute-name">
+  <div class="candidate-compare-attribute clearfix">
+    <div class="matching-attribute-name">
       <h6>Key skills Matching</h6>
     </div>
-    <!--<div class="matching-candidate-attributes">-->
+    <div class="matching-candidate-attributes">
       <!-- Start: repeat this div using for loop -->
-      <div class="candidate-attribute-list">
+      <div class="candidate-attribute-list" *ngFor="let item of profileComparisonResult">
         <div *ngFor="let value of item.proficiencies">
           <p class="matching-attribute">
             <span class="matching-attribute-icon"></span>
@@ -14,15 +14,15 @@
         </div>
       </div>
 
-    <!--</div>-->
+    </div>
   </div>
-  <div class="candidate-compare-attribute clearfix" *ngFor="let item of profileComparisonResult;let i = index">
-    <div *ngIf="i == 0" class="matching-attribute-name">
+  <div class="candidate-compare-attribute clearfix">
+    <div class="matching-attribute-name">
       <h6>Current Salary</h6>
     </div>
-    <!--<div class="matching-candidate-attributes" >-->
+    <div class="matching-candidate-attributes">
       <!-- Start: repeat this div using for loop -->
-      <div class="candidate-attribute-list">
+      <div class="candidate-attribute-list" *ngFor="let item of profileComparisonResult">
         <div>
           <p class="matching-attribute">
             <span class="matching-attribute-icon"></span>
@@ -30,15 +30,15 @@
           </p>
         </div>
       </div>
-    <!-- </div>-->
+    </div>
   </div>
-  <div class="candidate-compare-attribute clearfix" *ngFor="let item of profileComparisonResult;let i = index">
-    <div *ngIf="i == 0" class="matching-attribute-name">
+  <div class="candidate-compare-attribute clearfix">
+    <div class="matching-attribute-name">
       <h6>Total Experience</h6>
     </div>
-    <!--<div class="matching-candidate-attributes">-->
+    <div class="matching-candidate-attributes">
     <!-- Start: repeat this div using for loop -->
-    <div class="candidate-attribute-list">
+      <div class="candidate-attribute-list" *ngFor="let item of profileComparisonResult">
       <div>
         <p class="matching-attribute">
           <span class="matching-attribute-icon"></span>
@@ -46,15 +46,15 @@
         </p>
       </div>
     </div>
-    <!--</div>-->
+    </div>
   </div>
-  <div class="candidate-compare-attribute clearfix" *ngFor="let item of profileComparisonResult;let i = index">
-    <div *ngIf="i == 0" class="matching-attribute-name">
+  <div class="candidate-compare-attribute clearfix">
+    <div class="matching-attribute-name">
       <h6>Notice Period</h6>
     </div>
-    <!--<div class="matching-candidate-attributes" >-->
+    <div class="matching-candidate-attributes">
     <!-- Start: repeat this div using for loop -->
-    <div class="candidate-attribute-list">
+      <div class="candidate-attribute-list" *ngFor="let item of profileComparisonResult">
       <div>
         <p class="matching-attribute">
           <span class="matching-attribute-icon"></span>
@@ -62,30 +62,30 @@
         </p>
       </div>
     </div>
-    <!--</div>-->
+    </div>
   </div>
-  <div class="candidate-compare-attribute clearfix" *ngFor="let item of profileComparisonResult;let i = index">
-    <div *ngIf="i == 0" class="matching-attribute-name">
+  <div class="candidate-compare-attribute clearfix">
+    <div class="matching-attribute-name">
       <h6>Current Location</h6>
     </div>
-    <!--<div class="matching-candidate-attributes" >-->
+    <div class="matching-candidate-attributes">
     <!-- Start: repeat this div using for loop -->
-    <div class="candidate-attribute-list">
+      <div class="candidate-attribute-list" *ngFor="let item of profileComparisonResult">
       <div>
         <p>
           {{item?.location.city}}
         </p>
       </div>
     </div>
-    <!-- </div>-->
+    </div>
   </div>
-  <div class="candidate-compare-attribute clearfix" *ngFor="let item of profileComparisonResult">
+  <div class="candidate-compare-attribute clearfix">
     <div class="matching-attribute-name">
       <h6>Domain</h6>
     </div>
-    <!--<div class="matching-candidate-attributes">-->
+    <div class="matching-candidate-attributes">
     <!-- Start: repeat this div using for loop -->
-    <div class="candidate-attribute-list">
+      <div class="candidate-attribute-list" *ngFor="let item of profileComparisonResult">
       <div *ngFor="let value of item.interestedIndustries">
         <p>
           {{value}}
@@ -93,15 +93,15 @@
       </div>
     </div>
 
-    <!--</div>-->
+    </div>
   </div>
-  <div class="candidate-compare-attribute clearfix" *ngFor="let item of profileComparisonResult">
+  <div class="candidate-compare-attribute clearfix">
     <div class="matching-attribute-name">
       <h6>Additional Capabilities</h6>
     </div>
-    <!--<div class="matching-candidate-attributes" >-->
+    <div class="matching-candidate-attributes">
     <!-- Start: repeat this div using for loop -->
-    <div class="candidate-attribute-list">
+      <div class="candidate-attribute-list" *ngFor="let item of profileComparisonResult">
       <div *ngFor="let value of item.additionalCapabilites">
         <p>
           {{value}}
@@ -109,7 +109,7 @@
       </div>
     </div>
 
-    <!--</div>-->
+    </div>
   </div>
 
 </div>

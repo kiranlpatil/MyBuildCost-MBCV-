@@ -38,7 +38,8 @@
       <div class="panel clearfix" (click)="viewProfile(item)">
         <ul>
           <li>
-            <span class="compare-candidate-icon" title="Compare the Candidates"></span>
+            <span class="compare-candidate-icon" (click)="addForCompareView(item._id)"
+                  title="Compare the Candidates"></span>
           </li>
           <li *ngIf="type=='matchedList'">
             <span class="glyphicon glyphicon-star" *ngIf="emailsOfShrortListedCandidates.indexOf(item.email)==-1"
