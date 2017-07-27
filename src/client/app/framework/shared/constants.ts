@@ -1,7 +1,7 @@
 export class AppSettings {
-  //public static IP = 'http://localhost:8080';
+  public static IP = 'http://localhost:8080';
   // public static IP = 'http://ee802b7f.ngrok.io';
-  public static IP = 'http://10.192.33.82:8080';
+//  public static IP = 'http://10.192.33.77:8080';
   //public static IP = 'http://52.89.221.23:8080';
   // public static IP = 'http://52.41.194.37:8080';
   //public static IP = '';
@@ -214,6 +214,7 @@ export class API {
   public static SEND_MAIL = 'sendmail';
   public static USER_PROFILE = 'users';
   public static CANDIDATE_PROFILE = 'candidate';
+  public static CANDIDATE_DETAIL_PROFILE = 'candidateDetails';
   public static RECRUITER_PROFILE = 'recruiter';
   public static PROFESSIONAL_DATA = 'professionaldata';
   public static EMPLOYMENTHISTORY = 'employmentdata';

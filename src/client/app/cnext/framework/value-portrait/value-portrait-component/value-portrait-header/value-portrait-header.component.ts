@@ -1,4 +1,5 @@
-import {Component} from "@angular/core";
+import {Component, Input} from "@angular/core";
+import {Candidate} from "../../../model/candidate";
 
 @Component({
   moduleId: module.id,
@@ -8,5 +9,7 @@ import {Component} from "@angular/core";
 })
 
 export class ValuePortraitHeader {
+
+  @Input() private candidate: Candidate;
 
 }

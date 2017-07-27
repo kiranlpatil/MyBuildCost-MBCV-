@@ -1,7 +1,7 @@
 <div class="value-portraot-candidate-capability">
   <h3> Core Capabilities </h3>
   <div class="value-portraot-candidate-capability-circle">
-    <div class="circle" *ngFor="let capability of capabilities;let i=index;" [class.after-five]="i>4">
+    <div class="circle" *ngFor="let capability of candidate.capabilities;let i=index;" [class.after-five]="i>4">
       <div class="inner-circle">
         <span>
           {{capability.name}}
@@ -10,7 +10,7 @@
       <div class="tooltip-content">
         <div class="complexities-list" *ngFor="let complexity of capability.complexities"> {{complexity.name}}
           <span class="tooltip-content1">
-            {{capability.name}}
+            {{complexity.answer}}
           </span>
         </div>
       </div>

@@ -1,4 +1,6 @@
 import {Component, OnInit} from "@angular/core";
+import {CandidateProfileService} from "../../candidate-profile/candidate-profile.service";
+import {Candidate} from "../../model/candidate";
 
 @Component({
   moduleId: module.id,
@@ -9,14 +11,18 @@ import {Component, OnInit} from "@angular/core";
 
 export class ValuePortraitComponent implements OnInit {
 
-  candidate: any;
+  private candidate: Candidate = new Candidate();
 
-  constructor() {
+  constructor(private candidateProfileService: CandidateProfileService) {
 
   }
 
   ngOnInit(): void {
-
+    this.candidateProfileService.getCandidateAllDetails()
+      .subscribe(
+        candidateData => {
+          this.candidate = candidateData.data;
+        });
   }
 
 }

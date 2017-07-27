@@ -38,7 +38,7 @@ export function cnextInit(app: express.Application) { //todo add interceptor to 
   app.get('/api/recruiter/jobProfile/:id', jobProfileController.retrieve);
   app.get('/api/candidate/:id/jobProfile', searchController.getMatchingJobProfiles);
   app.get('/api/candidate/:id/:candidateId', candidateController.retrieve);
-  app.get('/api/candidate/:id/candidate/:candidateId', candidateController.get);
+  app.get('/api/candidateDetails/:id', candidateController.get);
   app.get('/api/candidate/:candidateId/matchresult/:jobId', candidateController.metchResult);
   app.get('/api/recruiter/jobProfile/:jobId/matchresult/:candidateId', jobProfileController.metchResultForJob);
   app.get('/api/candidate/:id/list/:listName', candidateController.getList);

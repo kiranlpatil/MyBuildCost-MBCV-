@@ -6,6 +6,7 @@ interface ComplexityModel {
   scenarios: ScenarioModel[];
   match: string;
   sort_order: number;
-
+  questionForCandidate: string;
+  answer: string;
 }
 export = ComplexityModel;

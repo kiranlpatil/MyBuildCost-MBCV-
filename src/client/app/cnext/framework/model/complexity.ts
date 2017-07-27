@@ -8,5 +8,5 @@ export class Complexity {
   isChecked: boolean = false;
   questionForCandidate: string = '';
   questionForRecruiter: string = '';
-  answer: string;
+  match: string;
 }

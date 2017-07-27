@@ -4,7 +4,7 @@
       <div class="current-location-tabs info-block-tabs">
         <span> Current Location </span>
         <div class="tooltip-content2">
-          Current Location
+          {{candidate.location.city}}
         </div>
       </div>
     </li>
@@ -12,39 +12,51 @@
       <div class="experience-level-tabs info-block-tabs">
         <span> Experience Level </span>
         <div class="tooltip-content2">
-          Experience Level
+          {{candidate.professionalDetails.experience}}
         </div>
       </div>
     </li>
     <li>
       <div class="education-tabs info-block-tabs">
         <span> Education </span>
-        <div class="tooltip-content2">
-          Education
+        <div *ngFor="let academic of candidate.academics" class="tooltip-content2">
+          <b>{{academic.yearOfPassing}}</b>
+          <b>{{academic.specialization}}</b>
+          <b>{{academic.board}}</b>
+          <b>{{academic.schoolName}}</b>
         </div>
       </div>
     </li>
     <li>
       <div class="employment-tabs info-block-tabs">
         <span> Employment </span>
-        <div class="tooltip-content2">
-          Employment
+        <div *ngFor="let history of candidate.employmentHistory" class="tooltip-content2">
+          <b>{{history.from.toString()}} - {{history.to.toString()}}</b>
+          <b>{{history.designation}}</b>
+          <b>{{history.remarks}}</b>
+          <b>{{history.companyName}}</b>
         </div>
       </div>
     </li>
     <li>
       <div class="certification-tabs info-block-tabs">
         <span> Certification </span>
-        <div class="tooltip-content2">
-          Certification
+        <div *ngFor="let certification of candidate.certifications" class="tooltip-content2">
+          <b>{{certification.year}}</b>
+          <b>{{certification.name}}</b>
+          <b>{{certification.remark}}</b>
+          <b>{{certification.issuedBy}}</b>
         </div>
       </div>
     </li>
     <li>
       <div class="awards-tabs info-block-tabs">
         <span> Awards </span>
-        <div class="tooltip-content2">
-          Awards
+        <div *ngFor="let award of candidate.awards" class="tooltip-content2">
+          <b>{{award.year}}</b>
+          <b>{{award.name}}</b>
+          <b>{{award.remark}}</b>
+          <b>{{award.issuedBy}}</b>
         </div>
       </div>
     </li>

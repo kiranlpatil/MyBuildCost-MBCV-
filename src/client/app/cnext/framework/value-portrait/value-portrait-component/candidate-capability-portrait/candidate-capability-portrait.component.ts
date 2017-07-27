@@ -1,5 +1,5 @@
-import {Component, OnInit} from "@angular/core";
-import Capabilities = protractor.Capabilities;
+import {Component, OnInit, Input} from "@angular/core";
+import {Candidate} from "../../../model/candidate";
 
 @Component({
   moduleId: module.id,
@@ -10,11 +10,12 @@ import Capabilities = protractor.Capabilities;
 
 export class CandidateCapabilityPortrait implements OnInit {
 
-  private candidate: any;
-  private capabilities: Capabilities[] = new Array(0);
+  @Input() private candidate: Candidate;
+  //private candidate: any;
+  //private capabilities: Capability[] = new Array(0);
 
   ngOnInit(): void {
-    this.candidate = {
+    /*this.candidate = {
       "jobTitle": "Sr. Software Engineer",
       "isVisible": true,
       "location": {
@@ -493,13 +494,15 @@ export class CandidateCapabilityPortrait implements OnInit {
         "temp_mobile": 0,
         "picture": "/assets/framework/images/dashboard/default-profile.png"
       }
-    };
-    for (let role of this.candidate.industry.roles) {
-      for (let capability of role.capabilities) {
-        this.capabilities.push(capability);
-      }
-    }
+     };*/
+
+    /*if(this.candidate.industry.name != ''){
+     for (let role of this.candidate.industry.roles) {
+     for (let capability of role.capabilities) {
+     this.capabilities.push(capability);
+     }
+     }
+     }*/
+
   }
-
-
 }
