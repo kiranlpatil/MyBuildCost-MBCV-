@@ -1,3 +1,5 @@
-<div *ngFor="let data of profileComparisonValue.capabilityMap | keys;let i = index">
-  <h2>{{profileComparisonValue.capabilityMap[data].capabilityPercentage}}</h2>
+<div class="candidate-capability-container">
+  <div class="capability-percentage" *ngFor="let data of profileComparisonValue.capabilityMap | keys;let i = index">
+    <p>{{profileComparisonValue.capabilityMap[data].capabilityPercentage}}</p>
+  </div>
 </div>
