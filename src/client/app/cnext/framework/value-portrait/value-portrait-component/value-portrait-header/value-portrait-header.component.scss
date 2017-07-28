@@ -94,6 +94,10 @@ header {
   span {
     float: left;
     margin-top: 5px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: calc(100% - 50px);
   }
 }
 
