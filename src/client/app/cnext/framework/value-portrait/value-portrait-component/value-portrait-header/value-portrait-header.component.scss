@@ -33,14 +33,16 @@ header {
   background: #ddd;
   display: inline-block;
   min-height: 166px;
-  padding: 20px;
+  padding: 10px 20px;
   .value-portraot-candidate-profile-img {
     img {
       border-radius: 50%;
       box-shadow: 0 0 4px 2px rgba(125, 125, 125, 0.28), 0 0 1px 0 rgba(0, 0, 0, 0.16);
       float: left;
-      margin: 16px 0 -55px 0;
+      height: 174px;
+      margin: 0px 0 -55px 0;
       position: relative;
+      width: 174px;
       z-index: 9;
     }
   }
@@ -51,7 +53,7 @@ header {
     font-family: 'gothamrnd-book';
     width: calc(100% - 160px);
     padding: 10px 25px;
-    margin: 58px 0 0 -15px;
+    margin: 40px 0 0 -15px;
   }
   .value-portraot-candidate-job-title {
     background: $orange4;
@@ -64,7 +66,7 @@ header {
 
 .value-portraot-candidate-number {
   display: inline-block;
-  margin: 58px 0 10px 0;
+  margin: 40px 0 10px 0;
   width: 100%;
   .phone-icon {
     background: url(../assets/c-next/card-view/sprite.png) no-repeat -134px -439px;
@@ -97,7 +99,7 @@ header {
 
 .value-portraot-candidate-industry {
   display: inline-block;
-  margin: 58px 0 10px 0;
+  margin: 40px 0 10px 0;
   width: 100%;
   .industry-icon {
     background: url(../assets/c-next/card-view/sprite.png) no-repeat  -40px -475px;

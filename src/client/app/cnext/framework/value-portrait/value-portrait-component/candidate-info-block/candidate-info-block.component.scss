@@ -5,7 +5,7 @@
     background: $white;
     float: left;
     margin: 0;
-    padding: 50px 0;
+    padding: 40px 0 40px;
     width: 100%;
 
     li {
@@ -96,6 +96,12 @@
   border-radius: 4px;
   visibility: hidden;
   right: 10px;
+  z-index: 9;
+  b {
+    float: left;
+    width: 100%;
+    text-align: left;
+  }
 }
 
 .info-block-tabs:hover > .tooltip-content2 {
