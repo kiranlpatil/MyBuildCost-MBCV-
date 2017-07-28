@@ -213,6 +213,7 @@ class CandidateService {
                 }
 
               }
+              newComplexities = this.getSortedList(newComplexities, "sort_order");
               newCapability.complexities = newComplexities;
               capabilities.push(newCapability);
             } else {
@@ -243,6 +244,7 @@ class CandidateService {
                         newComplexity.answer = scenario.name;
                       }
                     }
+                    foundedDefaultCapability.complexities = this.getSortedList(foundedDefaultCapability.complexities, "sort_order");
                     foundedDefaultCapability.complexities.push(newComplexity);
                   }
 
@@ -295,6 +297,7 @@ class CandidateService {
                 }
 
               }
+              newComplexities = this.getSortedList(newComplexities, "sort_order");
               newCapability.complexities = newComplexities;
               capabilities.push(newCapability);
             } else {
@@ -325,6 +328,7 @@ class CandidateService {
                         newComplexity.answer = scenario.name;
                       }
                     }
+                    foundedCapability.complexities = this.getSortedList(foundedCapability.complexities, "sort_order");
                     foundedCapability.complexities.push(newComplexity);
                   }
 
@@ -338,7 +342,20 @@ class CandidateService {
       }
     }
 
+    capabilities = this.getSortedList(capabilities, "sort_order");
+
     return capabilities;
+  }
+
+  getSortedList(list: any, field: string): any {
+
+    if (list.length > 0) {
+      list = list.sort(function (a: any, b: any) {
+        return b[field] - a[field];
+      });
+    }
+
+    return list;
   }
 
   getCapabilityValueKeyMatrix(_id: string, callback: (error: any, result: any) => void) {
