@@ -35,6 +35,4 @@ export class ColorShadeDirective implements OnChanges {
     this.el.nativeElement.style.backgroundColor = value;
   }
 
-  //this.el.nativeElement.style.fontSize = fontSize;
-}
 }

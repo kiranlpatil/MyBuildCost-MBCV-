@@ -6,12 +6,14 @@
     <div class="matching-candidate-attributes">
       <!-- Start: repeat this div using for loop -->
       <div class="candidate-attribute-list" *ngFor="let item of profileComparisonResult">
-        <div *ngFor="let value of item.proficiencies">
-          <p *ngIf="item.proficienciesMatch.indexOf(value) !== -1" class="matching-attribute">
+        <div *ngFor="let value of item.proficienciesMatch">
+          <p class="matching-attribute">
             <span class="matching-attribute-icon"></span>
             {{value}}
           </p>
-          <p *ngIf="item.proficienciesMatch.indexOf(value) == -1" class="mismatch-attribute">
+        </div>
+        <div *ngFor="let value of item.proficienciesUnMatch">
+          <p class="mismatch-attribute">
             <span class="mismatch-attribute-icon"></span>
             {{value}}
           </p>
@@ -44,7 +46,6 @@
       <h6>Total Experience</h6>
     </div>
     <div class="matching-candidate-attributes">
-    <!-- Start: repeat this div using for loop -->
       <div class="candidate-attribute-list" *ngFor="let item of profileComparisonResult">
         <div>
           <p *ngIf="item?.experienceMatch == 'exact'" class="matching-attribute">
@@ -64,7 +65,6 @@
       <h6>Notice Period</h6>
     </div>
     <div class="matching-candidate-attributes">
-    <!-- Start: repeat this div using for loop -->
       <div class="candidate-attribute-list" *ngFor="let item of profileComparisonResult">
         <div>
           <p class="matching-attribute">
@@ -80,7 +80,6 @@
       <h6>Current Location</h6>
     </div>
     <div class="matching-candidate-attributes">
-    <!-- Start: repeat this div using for loop -->
       <div class="candidate-attribute-list" *ngFor="let item of profileComparisonResult">
         <div>
           <p>
@@ -95,13 +94,21 @@
       <h6>Domain</h6>
     </div>
     <div class="matching-candidate-attributes">
-    <!-- Start: repeat this div using for loop -->
       <div class="candidate-attribute-list" *ngFor="let item of profileComparisonResult">
-      <div *ngFor="let value of item.interestedIndustries">
-        <p>
-          {{value}}
-        </p>
-      </div>
+        <!--<div *ngIf="item.proficienciesMatch.indexOf(value) !== -1">-->
+        <div *ngFor="let value of item.interestedIndustryMatch">
+          <p class="matching-attribute">
+            <!--<span class="matching-attribute-icon"></span>-->
+            {{value}}
+          </p>
+        </div>
+        <!--</div>-->
+        <div *ngFor="let value of item.interestedIndustries">
+          <p *ngIf="item.interestedIndustryMatch.indexOf(value) == -1" class="mismatch-attribute">
+            <!--<span class="mismatch-attribute-icon"></span>-->
+            {{value}}
+          </p>
+        </div>
     </div>
 
     </div>
@@ -111,7 +118,6 @@
       <h6>Additional Capabilities</h6>
     </div>
     <div class="matching-candidate-attributes">
-    <!-- Start: repeat this div using for loop -->
       <div class="candidate-attribute-list" *ngFor="let item of profileComparisonResult">
         <div *ngFor="let value of item.additionalCapabilites">
           <p>
