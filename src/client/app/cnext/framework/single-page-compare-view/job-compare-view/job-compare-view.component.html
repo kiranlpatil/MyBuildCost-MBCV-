@@ -56,7 +56,7 @@
                 <span *ngFor="let role of candidate.industry.roles;let i = index">{{role.name}}
           <span *ngIf="candidate.industry.roles.length>1 &&  i!=candidate.industry.roles.length-1">,</span>
         </span>
-                <label>Industry Exposure</label>
+                <label>Domain Exposure</label>
                 <span *ngFor="let industry of candidate.interestedIndustries;let i = index">{{industry}}
           <span *ngIf="candidate.interestedIndustries.length>1 && i<candidate.interestedIndustries.length-1">,</span>
         </span>
@@ -129,7 +129,7 @@
                   <span *ngFor="let role of postedJob.industry.roles;let i = index">{{role.name}}
             <span *ngIf="postedJob.industry.roles.length>1 &&  i!=postedJob.industry.roles.length-1">,</span>
           </span>
-                  <label>Additional Industry</label>
+                  <label>Additional domain exposure</label>
                   <span *ngFor="let industry of postedJob.interestedIndustries;let i = index">{{industry}}<span
                     *ngIf="recruiter.postedJobs[0].interestedIndustries.length>1 && i!=postedJob.interestedIndustries.length-1">,</span>
           </span>
