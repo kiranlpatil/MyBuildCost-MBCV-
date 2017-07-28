@@ -1,5 +1,6 @@
-import {Component, Input} from "@angular/core";
+import {Component, Input, OnInit} from "@angular/core";
 import {ProfileComparisonData} from "../../model/profile-comparison";
+declare let $: any;
 
 @Component({
   moduleId:module.id,
@@ -9,7 +10,13 @@ import {ProfileComparisonData} from "../../model/profile-comparison";
 
 })
 
-export class ProfileAttributeComparisonComponent {
+export class ProfileAttributeComparisonComponent implements OnInit {
   @Input() profileComparisonResult: ProfileComparisonData[];
  constructor() {}
+
+    ngOnInit() {
+        $('.compare-candidate-container').scroll(function () {
+            $(this).find('.matching-attribute-name').css('left', $(this).scrollLeft());
+        });
+    }
 }

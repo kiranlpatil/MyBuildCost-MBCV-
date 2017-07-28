@@ -2,52 +2,62 @@
 
 .attribute-container {
   margin: 8px 0;
-  //box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.08);
+  box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.08);
   //background: #fff;
   //padding: 0 15px;
+  float: left;
 }
 
 .candidate-compare-attribute {
   position: relative;
   clear: both;
   text-align: left;
-  padding: 0 15px;
+  padding: 0 10px;
   background: #fff;
   float: left;
+  box-sizing: border-box;
+  display: table;
 
   .matching-attribute-name {
-    height: auto;
-    width: 247px;
+    width: 267px;
     float: left;
-    margin-right: 4px;
+    margin-right: 0;
     position: absolute;
+    top: inherit;
+    left: 0;
     z-index: 20;
+    display: table-cell;
+    height: 100%;
+    background: #fff;
 
     h6 {
       color: #29b6f6;
       font-size: 14px;
-      width: 100%;
+      //width: 100%;
       font-weight: bold;
       text-align: left;
-      padding: 0 5px;
-      margin: 12px 0 0;
+      //padding: 0 5px;
+      margin: 12px 0 0 10px;
+      border-bottom: 1px solid #e8e8e8;
+      height: calc(100% - 12px);
     }
   }
 
   .matching-candidate-attributes {
     float: left;
     width: auto;
-    padding-left: 260px;
+    padding-left: 259px;
     background: #fff;
     border-bottom: 1px solid #e8e8e8;
     min-height: 38px;
 
     .candidate-attribute-list {
       display: inline-block;
-      margin: 0 8px 8px 0;
+      margin: 0 3px 8px;
       width: 140px;
       position: relative;
-      padding: 0 3px;
+      padding: 0;
+      background: #fff;
     }
 
     .candidate-attribute-list p {
@@ -58,21 +68,22 @@
       line-height: 14px;
       text-align: left;
       position: relative;
-      max-width: 100%;
+      max-width: calc(100% - 10px);
+      margin: 12px 5px 0;
     }
 
     .candidate-attribute-list .matching-attribute {
       border: 1px solid #7ba015;
       border-radius: 25px;
       padding: 5px 10px 5px 25px;
-      margin: 8px 0 0;
+      margin: 8px 5px 0;
     }
 
     .candidate-attribute-list .mismatch-attribute {
       border: 1px solid #fe3d01;
       border-radius: 25px;
       padding: 5px 10px 5px 27px;
-      margin: 8px 0 0;
+      margin: 8px 5px 0;
     }
 
     .mismatch-attribute-icon {

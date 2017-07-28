@@ -1,7 +1,7 @@
-import {Component, Input, Output} from "@angular/core";
+import {Component, Input, OnInit, Output} from "@angular/core";
 import {EventEmitter} from "@angular/common/src/facade/async";
 import {ProfileComparisonData} from "../../model/profile-comparison";
-
+declare let $: any;
 @Component({
   moduleId:module.id,
   selector:'cn-profile-comparison-header',
@@ -10,11 +10,17 @@ import {ProfileComparisonData} from "../../model/profile-comparison";
 
 })
 
-export class ProfileComparisonHeaderComponent {
+export class ProfileComparisonHeaderComponent implements OnInit {
 
   @Input() profileComparisonResult: ProfileComparisonData[];
    @Output() actionOnComparisonList = new EventEmitter();
    constructor() {}
+
+    ngOnInit() {
+        $('.compare-candidate-container').scroll(function () {
+            $(this).find('.matching-capabilities').css('left', $(this).scrollLeft());
+        });
+    }
 
   actionToPerformOnCompareList(action: string, value: any) {
     var data = {'action': action, 'value': value};
