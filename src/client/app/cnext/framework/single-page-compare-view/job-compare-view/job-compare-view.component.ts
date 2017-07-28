@@ -42,21 +42,12 @@ export class JobCompareViewComponent implements OnChanges {
     if (this.candiadteId != undefined && this.recruiterId != undefined && this.typeOfView ) {
       this.getCompareDetail(this.candiadteId, this.recruiterId);
       this.candiadteId = changes.candiadteId.currentValue;
-      switch (this.typeOfView) {
-        case 'spa_candidate' :
-          this.getCandidateProfile(this.candiadteId);
-          break;
-        case 'compact' :
-          this.getCandidateProfile(this.candiadteId);
-          break;
-        case 'spa_job' :
-          this.recruiterDashboardService.getPostedJobDetails(this.jobId)
-            .subscribe(
-              data => {
-                this.OnRecruiterDataSuccess(data.data.industry);
-              });
-          break;
-      }
+      this.getCandidateProfile(this.candiadteId);
+      this.recruiterDashboardService.getPostedJobDetails(this.jobId)
+        .subscribe(
+          data => {
+            this.OnRecruiterDataSuccess(data.data.industry);
+          });
     }
   }
 
@@ -100,7 +91,7 @@ export class JobCompareViewComponent implements OnChanges {
 
   getImagePath(imagePath: string) {
     if (imagePath !== undefined) {
-      return AppSettings.IP + imagePath.substring(4).replace('"', '');
+      return 'http://52.89.221.23:8080' + imagePath.substring(4).replace('"', '');
     }
     return null;
   }
