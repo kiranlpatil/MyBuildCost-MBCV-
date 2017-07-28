@@ -83,7 +83,8 @@ export class ComplexitiesComponent implements OnInit, OnChanges {
           this.complexityData = capa.data;
           let savedCapabilities:Capability[]=new Array(0);
           for( let i=0;i<this.capabilities.length;i++ ) {
-            savedCapabilities.push(this.capabilities[i]);
+            let originalcapability =Object.assign({}, this.capabilities[i]);
+            savedCapabilities.push(originalcapability);
           }
           this.capabilities = this.jobCompareService.getStandardMatrix(capa.data);
           if(!this.isEqualArrays(this.capabilities,savedCapabilities)) {
@@ -131,7 +132,6 @@ export class ComplexitiesComponent implements OnInit, OnChanges {
     }
     this.getCapabilityDetail(this.currentCapabilityNumber);
     this.currentComplexity = this.getCurrentComplexityPosition();
-    console.log("NOW AT", this.currentComplexity);
     this.getComplexityDetails(this.complexityIds[this.currentComplexity]);
   }
 
@@ -149,9 +149,10 @@ export class ComplexitiesComponent implements OnInit, OnChanges {
     if (this.isCandidate) {
       // this.showModalStyle = !this.showModalStyle;
       this.highlightedSection.isLocked = true;
+
     }
     this.complexityService.change(true);
-    if (this.highlightedSection.isProficiencyFilled) {
+    if (this.highlightedSection.isProficiencyFilled && this.highlightedSection.iscompleted) {
       this.highlightedSection.name = 'none';
     } else {
       this.highlightedSection.name = 'Proficiencies';
@@ -161,23 +162,22 @@ export class ComplexitiesComponent implements OnInit, OnChanges {
   }
 
   onAnswered(complexityDetail: ComplexityDetails) {
-
     this.isValid = true;
     this.complexities[this.complexityIds[this.currentComplexity]] = complexityDetail.userChoice;
     this.complexityData[this.complexityIds[this.currentComplexity]] = complexityDetail;
-    this.onNext();
+    //this.onNext();
   }
 
   onCapabilityAnswered(capability: Capability) {
     this.capabilities[this.currentCapabilityNumber] = capability;
-    let currentNumber = this.currentCapabilityNumber;
+    /*let currentNumber = this.currentCapabilityNumber;
     if (this.singleComplexity === false) {
       if (currentNumber + 1 === this.capabilities.length) {
         this.saveComplexity();
       } else if (this.currentCapabilityNumber < this.capabilities.length) {
         this.onNextCapability();
       }
-    }
+    }*/
   }
 
   oncurrentComplexityAnswered(complexityDetails: ComplexityDetails) {
@@ -205,6 +205,7 @@ export class ComplexitiesComponent implements OnInit, OnChanges {
     let currentCapability = this.currentCapabilityNumber;
     if (currentCapability + 1 === this.capabilities.length) {
       this.isValid = true;
+      this.saveComplexity();
       this.highlightedSection.name = 'Proficiencies';
       return;
     }
@@ -241,14 +242,12 @@ export class ComplexitiesComponent implements OnInit, OnChanges {
       }
     } else if (this.currentComplexity <= this.complexityIds.length - 1) {
       if (this.singleComplexity === false) {
-        setTimeout(() => {
           this.getComplexityDetails(this.complexityIds[++this.currentComplexity]);
-        }, 1002);
       }
     }
-    setTimeout(() => {
+   /* setTimeout(() => {
       this.slideToRight = false;
-    }, 3000);
+    }, 3000);*/
   }
 
   onPrevious() {

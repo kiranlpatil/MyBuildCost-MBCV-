@@ -1,0 +1,27 @@
+<div class="value-portraot-candidate-capability">
+  <h3> Core Capabilities </h3>
+  <div class="value-portraot-candidate-capability-circle">
+    <div class="circle-list" *ngFor="let capability of candidate.capabilities;let i=index;" [class.five-element]="i==4"
+         [class.six-element]="i==5" [class.eleven-element]="i==10" [class.fifteen-element]="i==14">
+      <div *ngIf="i < 10 || showMore" class="circle" [class.second-line]="i>4 && i < 10">
+      <div class="inner-circle">
+        <span>
+          {{capability.name}}
+        </span>
+      </div>
+      <div class="tooltip-content">
+        <div *ngFor="let complexity of capability.complexities">
+          <div class="complexities-list" *ngIf="complexity.answer != 'Not Applicable'">{{complexity.name}}
+            <span class="tooltip-content1">
+              {{complexity.answer}}
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+      <div style="width: 100%;display: inline-block;" *ngIf="((i+1)%5==0)">
+      </div>
+    </div>
+  </div>
+  <button *ngIf="showToggleButton" (click)="showMore = !showMore" class="show-more-btn">Show More</button>
+</div>

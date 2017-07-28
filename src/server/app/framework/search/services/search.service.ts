@@ -462,11 +462,7 @@ class SearchService {
               if(scenarios[0]) {
                 match_view.candidate_scenario_name=scenarios[0].name;
               }
-              if(isCandidate) {
-                match_view.scenario_name = match_view.candidate_scenario_name;
-              }else {
                 match_view.scenario_name = match_view.job_scenario_name;
-              }
               break;
             }
           }
@@ -507,13 +503,7 @@ class SearchService {
               if(scenarios[0]) {
                 match_view.candidate_scenario_name=scenarios[0].name;
               }
-              if(isCandidate) {
-                console.log("in isCandidate");
-                match_view.scenario_name = match_view.candidate_scenario_name;
-              }else {
-                console.log("in Not isCandidate");
                 match_view.scenario_name = match_view.job_scenario_name;
-              }
               break;
             }
           }

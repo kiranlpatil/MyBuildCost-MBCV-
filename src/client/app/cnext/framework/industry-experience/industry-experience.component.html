@@ -26,9 +26,9 @@
     <div class="button-group clearfix">
       <!--<div class="saving-loader">Saving...</div>-->
       <button class="btn btn-primary" scrollTo scrollTargetSelector="#professional-details"
-              (click)="onNext()" [hidden]="!showButton">Next
+              (click)="onNext()" [hidden]="!showButton">NEXT
       </button>
-      <button class="btn btn-primary" (click)="onSave()" [hidden]="showButton">Done
+      <button class="btn btn-primary" (click)="onSave()" [hidden]="showButton">DONE
       </button>
     </div>
   </div>
@@ -40,7 +40,7 @@
               (click)="highlightedSection.name='IndustryExposure';disableButton=false;highlightedSection.isDisable=true;showButton=false"
               [hidden]="highlightedSection.isDisable" title="Edit Industry Exposure"></button>
       <div class="col-sm-3 padding-right15">
-        <h4 class="heading-compact">Domain</h4>
+        <h4 class="heading-compact">Domain Exposure</h4>
       </div>
       <div class="col-sm-9 padding-left15">
         <div class="option-list" *ngFor="let item of candidateExperiencedIndustry;let i = index">
