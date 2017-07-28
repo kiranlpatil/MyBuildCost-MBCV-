@@ -39,6 +39,7 @@
     color: $black1;
     border-radius: 80px;
     border: 0;
+    box-shadow: 1px 1px 9px 1px rgba(0, 0, 0, 0.26), 0 2px 10px 0 rgba(0, 0, 0, 0.16);
   }
 }
 
@@ -122,7 +123,7 @@
         }
         .complexities-list {
           &:hover {
-            border-right: 5px solid $theme-color;
+            border-left: 5px solid $theme-color;
           }
         }
       }
@@ -180,16 +181,13 @@
   visibility: hidden;
   .complexities-list {
     border-left: 5px solid transparent;
-    border-bottom: 1px solid $gray;
+    border-bottom: 1px solid $gray-border-bg;
     color: #000;
     font-size: 14px;
     margin: 0;
     padding: 7px 0 7px 7px;
     text-align: left;
     width: 100%;
-    &:last-child {
-      border-bottom: 0;
-    }
     &:hover {
       background: $white;
       border-left: 5px solid $theme-color;
