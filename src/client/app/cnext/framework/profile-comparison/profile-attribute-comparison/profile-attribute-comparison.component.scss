@@ -1,7 +1,7 @@
 @import '../../../../../css/common';
 
 .attribute-container {
-  margin: 8px 0;
+  margin: 3px 0;
   box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.08);
   //background: #fff;
   //padding: 0 15px;
@@ -58,6 +58,7 @@
       position: relative;
       padding: 0;
       background: #fff;
+      float: left;
     }
 
     .candidate-attribute-list p {

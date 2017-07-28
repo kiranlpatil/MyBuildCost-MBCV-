@@ -127,14 +127,14 @@
         <!--<div *ngIf="item.proficienciesMatch.indexOf(value) !== -1">-->
         <div *ngFor="let value of item.interestedIndustryMatch">
           <p class="matching-attribute">
-            <!--<span class="matching-attribute-icon"></span>-->
+            <span class="matching-attribute-icon"></span>
             {{value}}
           </p>
         </div>
         <!--</div>-->
         <div *ngFor="let value of item.interestedIndustries">
           <p *ngIf="item.interestedIndustryMatch.indexOf(value) == -1" class="mismatch-attribute">
-            <!--<span class="mismatch-attribute-icon"></span>-->
+            <span class="mismatch-attribute-icon"></span>
             {{value}}
           </p>
         </div>
