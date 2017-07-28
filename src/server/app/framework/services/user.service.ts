@@ -222,27 +222,31 @@ class UserService {
 
     this.userRepository.retrieve({"email": field.email}, (err, res) => {
       if (res.length > 0) {
-        var auth = new AuthInterceptor();
-        var token = auth.issueTokenWithUid(field);
-        var host = config.get('TplSeed.mail.host');
-        var link = host + "company_details?access_token=" + token + "&_id=" + res[0]._id;
-        var header1 = fs.readFileSync("./src/server/app/framework/public/header1.html").toString();
-        var content = fs.readFileSync("./src/server/app/framework/public/recruiter.mail.html").toString();
-        var footer1 = fs.readFileSync("./src/server/app/framework/public/footer1.html").toString();
-        var mid_content = content.replace('$link$', link);
-        var mailOptions = {
-          to: field.email,
-          subject: Messages.EMAIL_SUBJECT_REGISTRATION,
-          html: header1 + mid_content + footer1
-          , attachments: MailAttachments.AttachmentArray
-        };
-        var sendMailService = new SendMailService();
-        sendMailService.sendMail(mailOptions, callback);
+        this.recruiterRepository.retrieve({"userId": new mongoose.Types.ObjectId(res[0]._id)}, (err, recruiter) => {
+          if (err) {
+            callback(err, null);
+          } else {
+            this.company_name = recruiter[0].company_name;
 
-      }
-
-      else {
-
+            var auth = new AuthInterceptor();
+            var token = auth.issueTokenWithUid(field);
+            var host = config.get('TplSeed.mail.host');
+            var link = host + "company_details?access_token=" + token + "&_id=" + res[0]._id+ "&companyName=" +this.company_name;
+            var header1 = fs.readFileSync("./src/server/app/framework/public/header1.html").toString();
+            var content = fs.readFileSync("./src/server/app/framework/public/recruiter.mail.html").toString();
+            var footer1 = fs.readFileSync("./src/server/app/framework/public/footer1.html").toString();
+            var mid_content = content.replace('$link$', link);
+            var mailOptions = {
+              to: field.email,
+              subject: Messages.EMAIL_SUBJECT_REGISTRATION,
+              html: header1 + mid_content + footer1
+              , attachments: MailAttachments.AttachmentArray
+            };
+            var sendMailService = new SendMailService();
+            sendMailService.sendMail(mailOptions, callback);
+          }
+        });
+      } else {
         callback(new Error(Messages.MSG_ERROR_USER_NOT_FOUND), res);
       }
     });

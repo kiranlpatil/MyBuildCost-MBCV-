@@ -62,13 +62,16 @@ export class CompanyDetailsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.company_name = LocalStorageService.getLocalValue(LocalStorage.COMPANY_NAME);
 
     this.activatedRoute.queryParams.subscribe((params: Params) => {
       let access_token = params['access_token'];
       let id = params['_id'];
+      let company_name = params['companyName'];
+      this.company_name = company_name;
+
       LocalStorageService.setLocalValue(LocalStorage.ACCESS_TOKEN, access_token);
       LocalStorageService.setLocalValue(LocalStorage.USER_ID, id);
+      LocalStorageService.setLocalValue(LocalStorage.COMPANY_NAME, company_name);
       this.companyDetailsService.activateAccount()
         .subscribe(
           res => (console.log("account activated")),
