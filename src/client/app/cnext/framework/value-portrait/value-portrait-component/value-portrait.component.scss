@@ -4,6 +4,7 @@
   padding: 50px 0;
   background: $white;
   .value-portraot-candidate-industry {
+    padding-top: 10px;
     .icon {
       background: url(../assets/c-next/card-view/sprite.png) no-repeat -40px -477px;
       float: left;
@@ -21,11 +22,15 @@
       float: left;
       padding-top: 3px;
       text-align: left;
+      overflow: hidden;
+      text-overflow: ellipsis;
       width: calc(100% - 329px);
+      white-space: nowrap;
     }
   }
 
   .value-portraot-candidate-keyskills {
+    padding-top: 10px;
     .icon {
       background: url(../assets/c-next/card-view/sprite.png) no-repeat -91px -476px;
       float: left;
@@ -41,7 +46,7 @@
     }
     span {
       float: left;
-      padding-top: 3px;
+      padding-top: 2px;
       text-align: left;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -95,14 +100,14 @@
   margin-left: -10px;
 }
 
-.key-skill-block > .tooltip-content4 {
+.hover-block > .tooltip-content4 {
   color: $theme-color;
   opacity: 0;
   display: inline-block;
   position: absolute;
   width: 405px;
   margin-left: -148px;
-  top: 32px;
+  top: 42px;
   background-color: $white;
   padding: 10px;
   transition: all .1s linear;
@@ -117,7 +122,7 @@
   }
 }
 
-.key-skill-block:hover > .tooltip-content4 {
+.hover-block:hover > .tooltip-content4 {
   opacity: 1;
   visibility: visible;
 }
