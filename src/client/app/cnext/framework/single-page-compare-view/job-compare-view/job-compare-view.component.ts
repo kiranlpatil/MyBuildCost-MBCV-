@@ -91,7 +91,7 @@ export class JobCompareViewComponent implements OnChanges {
 
   getImagePath(imagePath: string) {
     if (imagePath !== undefined) {
-      return 'http://52.89.221.23:8080' + imagePath.substring(4).replace('"', '');
+      return AppSettings.IP + imagePath.substring(4).replace('"', '');
     }
     return null;
   }
