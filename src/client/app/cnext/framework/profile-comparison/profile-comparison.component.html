@@ -9,8 +9,9 @@
   <div class="container">
     <cn-profile-comparison-header [profileComparisonResult]="profileComparisonData"
                                   (actionOnComparisonList)="actionOnComparisonList($event)"></cn-profile-comparison-header>
-
     <cn-profile-attribute-comparison
       [profileComparisonResult]="profileComparisonData"></cn-profile-attribute-comparison>
+    <cn-profile-capability-comparison
+      [profileComparisonResult]="profileComparisonData"></cn-profile-capability-comparison>
   </div>
 </div>

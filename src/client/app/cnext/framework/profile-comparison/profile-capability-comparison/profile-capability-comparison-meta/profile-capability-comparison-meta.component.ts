@@ -1,4 +1,4 @@
-import {Component, Input} from "@angular/core";
+import {Component, Input, OnChanges} from "@angular/core";
 import {ProfileComparisonData} from "../../../model/profile-comparison";
 
 @Component({
@@ -10,8 +10,14 @@ import {ProfileComparisonData} from "../../../model/profile-comparison";
 
 })
 
-export class ProfileCapabilityComparisonMetaComponent {
+export class ProfileCapabilityComparisonMetaComponent implements OnChanges {
 
-  @Input() profileComparisonResult: ProfileComparisonData[];
+  @Input() profileComparisonValue: ProfileComparisonData;
   constructor() {}
+
+  ngOnChanges(changes: any) {
+    if (changes.profileComparisonValue.currentValue != undefined) {
+
+    }
+  }
 }

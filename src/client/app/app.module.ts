@@ -177,6 +177,7 @@ import {ProfileCapabilityComparisonComponent} from "./cnext/framework/profile-co
 import {ProfileCapabilityComparisonMetaComponent} from "./cnext/framework/profile-comparison/profile-capability-comparison/profile-capability-comparison-meta/profile-capability-comparison-meta.component";
 import {ProfileComparisonHeaderMetaComponent} from "./cnext/framework/profile-comparison/profile-comparison-header/profile-comparison-header-meta/profile-comparison-header-meta.component";
 import {ProfileAttributeComparisonComponent} from "./cnext/framework/profile-comparison/profile-attribute-comparison/profile-attribute-comparison.component";
+import {ProfileComparisonPipe} from "./cnext/framework/profile-comparison/profile-capability-comparison/profile-comparison.pipe";
 
 //C-NEXT IMPORTS
 
@@ -301,7 +302,8 @@ import {ProfileAttributeComparisonComponent} from "./cnext/framework/profile-com
     ProfileCapabilityComparisonComponent,
     ProfileCapabilityComparisonMetaComponent,
     ProfileComparisonHeaderMetaComponent,
-    ProfileAttributeComparisonComponent
+    ProfileAttributeComparisonComponent,
+    ProfileComparisonPipe
 
   ],
   providers: [

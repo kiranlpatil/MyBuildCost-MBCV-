@@ -1,6 +1,10 @@
+<div *ngFor="let item of profileComparisonResult ;let i = index">
+  <div *ngIf="i == 0">
+    <div *ngFor="let data of item.capabilityMap | keys">
+      <h2>{{item.capabilityMap[data].capabilityName}}</h2>
+    </div>
+  </div>
 
-
-<div>
   <cn-profile-capability-comparison-meta
-    [profileComparisonResult]="profileComparisonResult"></cn-profile-capability-comparison-meta>
+    [profileComparisonValue]="item"></cn-profile-capability-comparison-meta>
 </div>
