@@ -32,6 +32,15 @@ export class CandidateProfileService extends BaseService {
       .catch(this.handleError);
   }
 
+  getCandidateAllDetails(): Observable<any> {
+    let headers = new Headers({'Content-Type': 'application/json'});
+    let options = new RequestOptions({headers: headers});
+    let url: string = API.CANDIDATE_DETAIL_PROFILE + '/' + LocalStorageService.getLocalValue(LocalStorage.USER_ID);
+    return this.http.get(url, options)
+      .map(this.extractData)
+      .catch(this.handleError);
+  }
+
   getMasterIndustry(): Observable<any> {
     let headers = new Headers({'Content-Type': 'application/json'});
     let options = new RequestOptions({headers: headers});
@@ -55,7 +64,7 @@ export class CandidateProfileService extends BaseService {
   getIndustries(): Observable<any> {
     let headers = new Headers({'Content-Type': 'application/json'});
     let options = new RequestOptions({headers: headers});
-    var url = API.INDUSTRY_LIST;
+    let url = API.INDUSTRY_LIST;
     return this.http.get(url, options)
       .map(this.extractData)
       .catch(this.handleError);
@@ -68,7 +77,7 @@ export class CandidateProfileService extends BaseService {
     if (industry == undefined) {
       return null;
     }
-    var url = 'industry/' + industry + '/role';
+    let url = 'industry/' + industry + '/role';
     return this.http.get(url, options)
       .map(this.extractData)
       .catch(this.handleError);
@@ -77,7 +86,7 @@ export class CandidateProfileService extends BaseService {
   getRoleTypes(): Observable<any> {
     let headers = new Headers({'Content-Type': 'application/json'});
     let options = new RequestOptions({headers: headers});
-    var url = API.ROLE_TYPE;
+    let url = API.ROLE_TYPE;
     return this.http.get(url, options)
       .map(this.extractData)
       .catch(this.handleError);
@@ -86,7 +95,7 @@ export class CandidateProfileService extends BaseService {
   getCapability(industry: string, roles: Array<string>): Observable<any> {
     let headers = new Headers({'Content-Type': 'application/json'});
     let options = new RequestOptions({headers: headers});
-    var url = API.INDUSTRY_LIST + '/' + industry + '/' + API.ROLE_LIST + '/' + API.CAPABILITY_LIST + '?roles=' + JSON.stringify(roles);
+    let url = API.INDUSTRY_LIST + '/' + industry + '/' + API.ROLE_LIST + '/' + API.CAPABILITY_LIST + '?roles=' + JSON.stringify(roles);
     return this.http.get(url, options)
       .map(this.extractData)
       .catch(this.handleError);
@@ -95,7 +104,7 @@ export class CandidateProfileService extends BaseService {
   getComplexity(industry: string, roles: Array<any>, capabilities: Array<any>): Observable<any> {
     let headers = new Headers({'Content-Type': 'application/json'});
     let options = new RequestOptions({headers: headers});
-    var url = API.INDUSTRY_LIST + '/' + industry + '/' + API.ROLE_LIST + '/' + API.CAPABILITY_LIST + '/complexity?roles=' + JSON.stringify(roles) + '&capability=' + JSON.stringify(capabilities);
+    let url = API.INDUSTRY_LIST + '/' + industry + '/' + API.ROLE_LIST + '/' + API.CAPABILITY_LIST + '/complexity?roles=' + JSON.stringify(roles) + '&capability=' + JSON.stringify(capabilities);
     return this.http.get(url, options)
       .map(this.extractData)
       .catch(this.handleError);
@@ -104,7 +113,7 @@ export class CandidateProfileService extends BaseService {
   getProficiency(): Observable<any> {
     let headers = new Headers({'Content-Type': 'application/json'});
     let options = new RequestOptions({headers: headers});
-    var url = API.PROFICIENCYLIST;
+    let url = API.PROFICIENCYLIST;
     return this.http.get(url, options)
       .map(this.extractData)
       .catch(this.handleError);

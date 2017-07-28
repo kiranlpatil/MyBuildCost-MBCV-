@@ -1,0 +1,139 @@
+@import '../../../../../css/variables';
+
+.value-portraot-bottom-section {
+  padding: 50px 0;
+  background: $white;
+  .value-portraot-candidate-industry {
+    padding-top: 10px;
+    .icon {
+      background: url(../assets/c-next/card-view/sprite.png) no-repeat -40px -477px;
+      float: left;
+      height: 25px;
+      width: 50px;
+    }
+    label {
+      color: $black1;
+      float: left;
+      font-family: 'gothamrnd-book';
+      font-weight: bold;
+      margin: 3px 5px 25px 0;
+    }
+    span {
+      float: left;
+      padding-top: 3px;
+      text-align: left;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      width: calc(100% - 329px);
+      white-space: nowrap;
+    }
+  }
+
+  .value-portraot-candidate-keyskills {
+    padding-top: 10px;
+    .icon {
+      background: url(../assets/c-next/card-view/sprite.png) no-repeat -91px -476px;
+      float: left;
+      height: 25px;
+      width: 50px;
+    }
+    label {
+      color: $black1;
+      float: left;
+      font-family: 'gothamrnd-book';
+      font-weight: bold;
+      margin: 3px 5px 25px 0;
+    }
+    span {
+      float: left;
+      padding-top: 2px;
+      text-align: left;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      width: calc(100% - 130px);
+      white-space: nowrap;
+    }
+  }
+}
+
+.about-myself-btn {
+  background: $gray;
+  border-radius: 7px;
+  box-shadow: 0 0 4px 2px rgba(125, 125, 125, 0.28), 0 0 1px 0 rgba(0, 0, 0, 0.16);
+  margin: 0 10px;
+  padding: 10px;
+  width: 200px;
+}
+
+.about-myself-btn > .tooltip-content3 {
+  color: $theme-color;
+  opacity: 0;
+  display: inline-block;
+  position: absolute;
+  width: 600px;
+  margin-left: -148px;
+  top: 52px;
+  background-color: $white;
+  padding: 10px;
+  transition: all .1s linear;
+  box-shadow: 3px 3px 15px 1px #ccc;
+  border-radius: 4px;
+  visibility: hidden;
+  right: 10px;
+  text-align: left;
+  z-index: 9;
+}
+
+.about-myself-btn:hover > .tooltip-content3 {
+  opacity: 1;
+  visibility: visible;
+}
+
+.tooltip-content3:after {
+  content: "";
+  border-bottom: 10px solid $white;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  margin-left: -10px;
+}
+
+.hover-block > .tooltip-content4 {
+  color: $theme-color;
+  opacity: 0;
+  display: inline-block;
+  position: absolute;
+  width: 405px;
+  margin-left: -148px;
+  top: 42px;
+  background-color: $white;
+  padding: 10px;
+  transition: all .1s linear;
+  box-shadow: 3px 3px 15px 1px #ccc;
+  border-radius: 4px;
+  visibility: hidden;
+  right: 10px;
+  text-align: left;
+  z-index: 9;
+  b {
+    float: left;
+  }
+}
+
+.hover-block:hover > .tooltip-content4 {
+  opacity: 1;
+  visibility: visible;
+}
+
+.tooltip-content4:after {
+  content: "";
+  border-bottom: 10px solid $white;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  margin-left: -10px;
+}

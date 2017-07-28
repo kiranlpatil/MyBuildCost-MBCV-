@@ -12,28 +12,26 @@ import AwardModel = require("./award.model");
 import IndustryModel = require("./industry.model");
 import JobListModel = require("./job-list.model");
 import CapabilityClassModel = require("./capability-class.model");
+import CapabilitiesClassModel = require("./capabilities-class.model");
 
 
-interface CandidateModel {
-
+class CandidateClassModel {
   jobTitle: string;
   isVisible: boolean;
   isSubmitted: boolean;
   aboutMyself: string;
   certifications: CertificationModel[];
   awards: AwardModel[];
-  userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' };
+  userId: {type: mongoose.Schema.Types.ObjectId, ref: 'User'};
   location: LocationModel;
-  areaOfWork: string[];
   industry: IndustryModel;
+  capabilities: CapabilitiesClassModel[];
   interestedIndustries: string[];
   roleType: string;
   academics: AcademicModel[];
   professionalDetails: ProfessionalDetailsModel;
   employmentHistory: EmployeeHistoryModel[];
   proficiencies: string[];
-  secondaryCapability: string[];
-  lockedOn: Date;
   job_list: JobListModel[];
   capability_matrix: any;
   salaryMatch: string;
@@ -44,4 +42,4 @@ interface CandidateModel {
   proficienciesMatch: string[];
   personalDetails: User;
 }
-export = CandidateModel;
+export = CandidateClassModel;

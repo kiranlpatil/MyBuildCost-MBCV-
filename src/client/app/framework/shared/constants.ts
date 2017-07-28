@@ -215,6 +215,7 @@ export class API {
   public static SEND_MAIL = 'sendmail';
   public static USER_PROFILE = 'users';
   public static CANDIDATE_PROFILE = 'candidate';
+  public static CANDIDATE_DETAIL_PROFILE = 'candidateDetails';
   public static RECRUITER_PROFILE = 'recruiter';
   public static PROFESSIONAL_DATA = 'professionaldata';
   public static EMPLOYMENTHISTORY = 'employmentdata';
