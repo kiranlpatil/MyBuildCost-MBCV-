@@ -7,7 +7,6 @@ import {EmployementHistory} from "./employment-history";
 import {CandidateDetail} from "../../../framework/registration/candidate/candidate";
 import {Location} from "../../../framework/registration/location";
 import {Capability} from "./capability";
-import CapabilityModel = require("../../../../../server/app/framework/dataaccess/model/capability.model");
 export class Candidate {
   personalDetails: CandidateDetail = new CandidateDetail();
   jobTitle: string;

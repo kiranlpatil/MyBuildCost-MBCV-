@@ -1,8 +1,6 @@
 import {Component, Input, OnChanges} from "@angular/core";
 import {Candidate} from "../../../model/candidate";
 import {Capability} from "../../../model/capability";
-import CapabilitiesClassModel = require("../../../../../../../server/app/framework/dataaccess/model/capabilities-class.model");
-import CapabilityModel = require("../../../../../../../server/app/framework/dataaccess/model/capability.model");
 
 @Component({
   moduleId: module.id,
