@@ -45,9 +45,9 @@
                           </div>
                           <div class="clearfix bottom-div"></div>
                           <div class="col-xs-2 no-padding">
-                            <span> <img style="width: 24px;height: 24px;" src="/assets/framework/images/dashboard/profile.png" alt="User Profile"
+                            <span> <img style="width: 24px;height: 24px;" src="/assets/c-next/company-details/company-logo-default.png" alt="User Profile"
                                               *ngIf="job_picture==undefined"/>
-                              <img style="width: 24px;height: 24px;" src="/assets/framework/images/dashboard/profile.png" alt="User Profile"
+                              <img style="width: 24px;height: 24px;" [src]="getImagePath(job_picture)"  alt="User Profile"
                                    *ngIf="job_picture!=undefined"/>
                             </span>
                           </div>
