@@ -29,6 +29,9 @@ export class ProfileComparisonComponent implements OnChanges {
 
   actionOnComparisonList(value:any) {
     this.performActionOnComparisonList.emit(value);
+    /*if(data.action = 'Remove') {
+     this.profileComparisonData.splice(data.value,1);
+     }*/
   }
 
 }

@@ -193,8 +193,10 @@ export class JobDashboardComponent implements OnInit {
     this.showModalStyle = !this.showModalStyle;
   }
 
-  performActionOnComparisonList(value: any) {
-
+  performActionOnComparisonList(data: any) {
+    if (data.action = 'Remove') {
+      this.profileComparison.profileComparisonData.splice(data.value, 1);
+    }
   }
 
   getCompareDetail() {

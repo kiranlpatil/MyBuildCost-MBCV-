@@ -6,15 +6,16 @@ declare let $: any;
   moduleId:module.id,
   selector:'cn-profile-comparison-header',
   templateUrl:'profile-comparison-header.component.html',
-    styleUrls: ['profile-comparison-header.component.css']
-
+  styleUrls: ['profile-comparison-header.component.css']
 })
 
 export class ProfileComparisonHeaderComponent implements OnInit {
 
   @Input() profileComparisonResult: ProfileComparisonData[];
-   @Output() actionOnComparisonList = new EventEmitter();
-   constructor() {}
+  @Output() actionOnComparisonList = new EventEmitter();
+
+  constructor() {
+  }
 
     ngOnInit() {
         $('.compare-candidate-container').scroll(function () {

@@ -178,6 +178,7 @@ import {ProfileCapabilityComparisonMetaComponent} from "./cnext/framework/profil
 import {ProfileComparisonHeaderMetaComponent} from "./cnext/framework/profile-comparison/profile-comparison-header/profile-comparison-header-meta/profile-comparison-header-meta.component";
 import {ProfileAttributeComparisonComponent} from "./cnext/framework/profile-comparison/profile-attribute-comparison/profile-attribute-comparison.component";
 import {ProfileComparisonPipe} from "./cnext/framework/profile-comparison/profile-capability-comparison/profile-comparison.pipe";
+import {ColorShadeDirective} from "./cnext/framework/profile-comparison/profile-capability-comparison/color-shade.directive";
 
 //C-NEXT IMPORTS
 
@@ -303,8 +304,8 @@ import {ProfileComparisonPipe} from "./cnext/framework/profile-comparison/profil
     ProfileCapabilityComparisonMetaComponent,
     ProfileComparisonHeaderMetaComponent,
     ProfileAttributeComparisonComponent,
-    ProfileComparisonPipe
-
+    ProfileComparisonPipe,
+    ColorShadeDirective
   ],
   providers: [
     {
