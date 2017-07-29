@@ -27,6 +27,7 @@ export class MultiSelectComponent implements OnChanges {
   private validationMessage: string;
   private showAlert: boolean = false;
   private alreadyPresent: boolean = false;
+  private alreadyPresentinselected: boolean = false;
   private showModalStyle: boolean = false;
   private otherProficiency: string = '';
   private disableTextField: boolean = false;
@@ -38,12 +39,6 @@ export class MultiSelectComponent implements OnChanges {
 
   }
 
-  /* ngOnInit() {
-
-   document.getElementById('save-button').focus();
-
-   }
-   */
   ngOnChanges(changes: any) {
     if (this.data !== undefined) {
       if (this.data.length > 0) {
@@ -116,8 +111,11 @@ export class MultiSelectComponent implements OnChanges {
   }
 
   deleteSelectedProfeciency(newVal: any) {
-    if (this.Proficiencies.indexOf(newVal) !== -1) {
-      this.Proficiencies.splice(this.Proficiencies.indexOf(newVal), 1);
+    for (let i = 0; i < this.Proficiencies.length; i++) {
+      if (this.Proficiencies[i].toUpperCase().trim() === newVal.toUpperCase().trim()) {
+        this.Proficiencies.splice(i, 1);
+        break;
+      }
     }
   }
 
@@ -155,18 +153,20 @@ export class MultiSelectComponent implements OnChanges {
   }
 
   addProficiencyToMasterData() {
-    this.profileCreatorService.getProficiency()
-      .subscribe(
-        data => {
-          this.masterDataProficiencies = data.data[0].proficiencies;
-        });
-    this.showModalStyle = false;    // popup box related.
     if (this.otherProficiency !== undefined && this.otherProficiency.trim() !== ' ') {
-      for (let i = 0; i < this.masterDataProficiencies.length; i++) {
-        if (this.masterDataProficiencies[i].toUpperCase().trim() === this.otherProficiency.toUpperCase().trim()) {
-          this.alreadyPresent = true;
-          if( this.otherProficiency.length===1) {
-            this.selectedProficiencyModel(this.otherProficiency);
+      for (let i = 0; i < this.selectedProficiencies.length; i++) {
+        if (this.selectedProficiencies[i].toUpperCase().trim() === this.otherProficiency.toUpperCase().trim()) {
+          this.alreadyPresentinselected = true;
+          this.alreadyPresent=true;
+          break;
+        }
+      }
+      if(!this.alreadyPresentinselected){
+        for (let i = 0; i < this.masterDataProficiencies.length; i++) {
+          if (this.masterDataProficiencies[i].toUpperCase().trim() === this.otherProficiency.toUpperCase().trim()) {
+            this.alreadyPresent = true;
+            this.selectedProficiencyModel(this.otherProficiency.trim());
+            break;
           }
         }
       }
@@ -178,12 +178,8 @@ export class MultiSelectComponent implements OnChanges {
         this.selectedProficiencyModel(this.otherProficiency);
       }
     }
-    this.profileCreatorService.getProficiency()
-      .subscribe(
-        data => {
-          this.masterDataProficiencies = data.data[0].proficiencies;
-        });
     this.alreadyPresent = false;
+    this.alreadyPresentinselected=false;
     let emptyInputField: any = document.getElementById(this.type);
     emptyInputField.value = '';
   }
