@@ -21,14 +21,14 @@ export class Messages {
   public static MSG_SUCCESS_LOGIN: string = 'You are successfully signed in.';
   public static MSG_SUCCESS_REGISTRATION: string = 'Kindly verify your account.';
   public static MSG_SUCCESS_CHANGE_MOBILE_NUMBER: string = 'Mobile number updated successfully.';
-  public static MSG_SUCCESS_RESEND_VERIFICATION_CODE: string = 'New OTP(One Time Password) is sent to your registered mobile number';
+  public static MSG_SUCCESS_RESEND_VERIFICATION_CODE: string = 'New OTP (One Time Password) has been sent to your registered mobile number';
   public static MSG_SUCCESS_MAIL_VERIFICATION: string = 'Verification e-mail sent successfully to your e-mail account. Kindly proceed by clicking on the link pProvided in your e-mail';
   public static MSG_SUCCESS_NEWREGISTRATION: string = 'Registration successful. Mobile number verified. Kindly sign in.';
   public static MSG_SUCCESS_RESET_PASSWORD: string = 'Your password is reset successfully.';
   public static MSG_SUCCESS_CHANGE_PASSWORD: string = 'Your password has been changed successfully.';
   public static MSG_SUCCESS_CHANGE_EMAIL: string = 'Kindly click on the link sent to your new email for email verification.';
   public static MSG_SUCCESS_CHANGE_MOBILE: string = 'Verify your new mobile number by entering OTP sent on your mobile number.';
-  public static MSG_SUCCESS_FORGOT_PASSWORD: string = 'E-mail has been sent successfully on your registered email to reset password.';
+  public static MSG_SUCCESS_FORGOT_PASSWORD: string = 'Email for password reset has been sent successfully on your registered email id.';
   public static MSG_SUCCESS_DASHBOARD_PROFILE: string = 'Your profile updated successfully.';
   public static MSG_SUCCESS_DASHBOARD_PROFILE_PIC: string = 'Your profile picture updated successfully.';
   public static MSG_SUCCESS_ATTACH_DOCUMENT: string = 'Your document attached successfully.';
@@ -75,11 +75,11 @@ export class Messages {
   public static MSG_ERROR_VALIDATION_LASTNAME_REQUIRED = 'This field can\'t be left blank';
   public static MSG_ERROR_VALIDATION_MOBILE_NUMBER_REQUIRED = 'This field can\'t be left blank.';
   public static MSG_ERROR_VALIDATION_PIN_REQUIRED = 'Enter your pin code.';
-  public static MSG_ERROR_VALIDATION_DESCRIPTION_REQUIRED = 'Enter description value or title.';
-  public static MSG_ERROR_VALIDATION_ABOUT_COMPANY_REQUIRED = 'Please describe your company.';
+  public static MSG_ERROR_VALIDATION_DESCRIPTION_REQUIRED = 'Enter the name of the document you are uploading.';
+  public static MSG_ERROR_VALIDATION_ABOUT_COMPANY_REQUIRED = 'Give a brief description about your company. This will be seen by candidates as a part of the job profile.';
   public static MSG_ERROR_VALIDATION_COMPANYNAME_REQUIRED = 'This field can\'t be left blank.';
   public static MSG_ERROR_VALIDATION_OTP_REQUIRED = 'Enter received OTP.';
-  public static MSG_ERROR_VALIDATION_INVALID_EMAIL_REQUIRED = 'Enter valid e-mail address.';
+  public static MSG_ERROR_VALIDATION_INVALID_EMAIL_REQUIRED = 'Enter a valid email address.';
   public static MSG_ERROR_VALIDATION_INVALID_NAME = 'Enter valid name.';
   public static MSG_ERROR_VALIDATION_INVALID_DATA = 'Enter valid data.';
   public static MSG_ERROR_VALIDATION_PASSWORD_MISMATCHED = 'Passwords do not match.';
@@ -98,7 +98,7 @@ export class Messages {
   public static MSG_ERROR_VALIDATION_CAPABILITIES_REQUIRED_RECRUITER = 'Select capabilities that are required in the candidate';
   public static MSG_ERROR_VALIDATION_MAX_CAPABILITIES_CROSSED = 'You can select maximum 10 capabilities. To select a new capability, deselect any of the earlier selected capability.';
   public static MSG_ERROR_VALIDATION_COMPLEXITY_REQUIRED_CANDIDATE = 'Answer this question';
-  public static MSG_ERROR_VALIDATION_COMPLEXITY_REQUIRED_RECRUITER = 'Answer all these questions.';
+  public static MSG_ERROR_VALIDATION_COMPLEXITY_REQUIRED_RECRUITER = 'Do not leave any question blank. If a question is not relevant, select "Not applicable".';
   public static MSG_ERROR_VALIDATION_MAX_SKILLS_CROSSED = 'You can select maximum ';
   public static MSG_NO_MATCH_FOUND_TEXT ='This skill is not listed in our skills repository but you can still add this skill by pressing Add button on right.';
   public static MSG_ERROR_VALIDATION_KEYSKILLS_REQUIRED = 'Select a value from drop down.';
@@ -131,13 +131,15 @@ export class Messages {
   public static MSG_ERROR_VALIDATION_SALARY = 'Select valid Minimum and Maximum salary band.';
   public static MSG_ERROR_VALIDATION_JOINING_PERIOD_REQUIRED = 'Select joining period.';
   public static MSG_ERROR_VALIDATION_OTP_MOBILE_NUMBER = 'Please provide a valid mobile number.';
-  public static MSG_ERROR_VALIDATION_PASSWORD = 'Password must be alfa- numeric having 8 characters.';
+  public static MSG_ERROR_VALIDATION_PASSWORD = 'Password Must be Alfa- Numeric having minimum 8 Characters.';
   public static MSG_ERROR_VALIDATION_BIRTH_YEAR = `This field can't be left blank.`;
   public static MSG_ERROR_VALIDATION_PIN_NUMBER = 'Pin code should not be greater than 20 characters.';
-  public static SUGGESTION_MSG_FOR_RELEVENT_INDUSTRY = 'Based on the profile you have selected, we suggest to search candidate from following industries for matching profiles. Remove if you dont want to search candidates from any specific industry.';
-  public static SUGGESTION_MSG_ABOUT_DOMAIN =  'In addition to '+ 'this.choosedIndeustry' + ' industry, do you want the candidate to have mandatory experience in any specific Domain? If yes, select such MUST HAVE DOMAINS from below.';
+  public static SUGGESTION_MSG_FOR_RELEVENT_INDUSTRY = 'Based on the profile you have selected, we suggest to search ' +
+    'candidate from following industries for matching profiles. Remove if you dont want to search candidates from any specific industry.';
+  public static SUGGESTION_MSG_ABOUT_DOMAIN =  'In addition to '+ 'this.choosedIndeustry' + ' industry, do you want the ' +
+    'candidate to have mandatory experience in any specific Domain? If yes, select such MUST HAVE DOMAINS from below.';
   public static MSG_ERROR_VALIDATION_MAX_PROFICIENCIES =  ' Key skills. Click the cross sign to deselect existing one and add a new skill.';
-  public static MSG_ERROR_VALIDATION_EMPLOYMENTHISTORY = "Provide valid employment start and end date"
+  public static MSG_ERROR_VALIDATION_EMPLOYMENTHISTORY = 'Provide valid employment start and end date';
 
 }
 

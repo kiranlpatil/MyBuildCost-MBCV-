@@ -42,8 +42,8 @@ export class CapabilitiesComponent {
 
     "<ul>" +
     "<li>" +
-    "<p>1. Select those capabilities that are required in the candidate." +
-    "These capabilities will help find your best candidate</p>" +
+    "<p>1.These capabilities would form the core of the job profile." +
+    " In next section, you would get to define these capabilities in detail</p>" +
     "</li>" +
     "</ul>";
 

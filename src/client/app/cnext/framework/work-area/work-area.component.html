@@ -2,7 +2,7 @@
 <div class="section-container" *ngIf="highlightedSection.name=='Work-Area'">
   <div class="main-content clearfix edit-modal-content">
     <h4 class="heading" *ngIf="isCandidate">Select area of work that describes your current focus.</h4>
-    <h4 class="heading" *ngIf="!isCandidate">In which area candidate is expected to work? </h4>
+    <h4 class="heading" *ngIf="!isCandidate">In which area(s) is the candidate expected to work? </h4>
     <div class="error-messages edit-error-msg" *ngIf="!isValid">{{validationMessage}}</div>
     <div class="scrollable-content">
       <div class="select-option" *ngFor="let item of roles;let i = index">

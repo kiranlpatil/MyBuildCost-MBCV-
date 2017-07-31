@@ -24,7 +24,7 @@ export class WorkAreaComponent implements OnInit,OnChanges {
 
   tooltipRecruiterMessage: string =
     '<ul>' +
-    '<li><p>1. Select those areas in which the candidate is expected to work.</p></li>' +
+    '<li><p>1. Select Those Areas in Which the Candidate is Expected to Work. You can select maximum 3 areas of work for a job profile in order to make your search more relevant.</p></li>' +
     '</ul>';
   private savedSelectedRoles: Role[] = new Array(0);
   private isCandidate: boolean = false;

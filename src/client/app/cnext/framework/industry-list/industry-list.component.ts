@@ -21,7 +21,7 @@ export class IndustryListComponent implements OnChanges {
 
   tooltipMessage: string =
       '<ul>' +
-      '<li><p>1. Enter your industry. This industry forms the core of your current professional profile. In next sections, you shall be shown questions and parameters that are relevant to this industry.</p></li><li><p>2. If you have worked in multiple industries, choose the one that is most relevent as on date. You shall get option to include additional industries in later section.</p></li>' +
+      '<li><p>1. Enter the industry from which you wish to hire the candidate. This Industry forms the core of your Job Profile posting. In next sections, you shall be shown questions and parameters that are relevant to this Industry.</p></li><li><p>2. If you wish the candidate to have worked in multiple Industries, choose the one that is most relevent as on date. You shall get option to include additional industries in later section.</p></li>' +
       '</ul>';
 
   private industries: Industry[] = new Array(0);
