@@ -114,16 +114,12 @@
               <div class="pull-right">
                 <span class="switch-label" *ngIf="candidate.isVisible == true">Yes</span>
                 <span class="switch-label" *ngIf="candidate.isVisible == false">No</span>
-                <div class="switch" [class.switch-elnabled]="candidate.isVisible == true" [class.switch-disabled]="candidate.isVisible == false">
-                  <label class="radio-inline">
-                    <input type="radio" name="profile-visibility"
-                           (change)="showOrHide('show',$event)" value=true [checked]="candidate.isVisible == true">
-                    <span></span>
-                  </label>
-                  <label class="radio-inline">
-                    <input type="radio" name="profile-visibility"
-                           (change)="showOrHide('hide',$event)" value=false [checked]="candidate.isVisible == false">
-                    <span></span>
+                <div class="toggle-switch">
+                  <label class="switch">
+                    <input type="checkbox" name="profile-visibility"
+                           (change)="showOrHide('show',$event)" value="candidate.isVisible"
+                           [checked]="candidate.isVisible">
+                    <span class="slider round"></span>
                   </label>
                 </div>
               </div>

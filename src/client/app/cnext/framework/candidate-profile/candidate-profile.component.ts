@@ -417,16 +417,10 @@ export class CandidateProfileComponent implements OnInit, DoCheck {
   }
 
   showOrHide(type: string, event: any) {
-    if (type == 'show') {
-      if (event.target.checked) {
-        this.candidate.isVisible = true;
-      }
+    if (event.target.checked) {
+      this.candidate.isVisible = true;
     } else {
-      if (type === 'hide') {
-        if (event.target.checked) {
-          this.candidate.isVisible = false;
-        }
-      }
+      this.candidate.isVisible = false;
     }
     this.saveCandidateDetails();
   }
