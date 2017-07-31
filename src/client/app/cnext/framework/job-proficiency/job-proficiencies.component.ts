@@ -19,9 +19,11 @@ export class JobProficienciesComponent implements OnInit {
   @Output() onNextComplete = new EventEmitter();
   private showButton: boolean = true;
   private disablebutton: boolean = true;
+  private submitStatus: boolean = false;
   private showAdditional: boolean = false;
   private maxNumberOfMandatory: number;
   private maxNumberOfAdditional: number;
+  private requiredKeySkillsValidationMessage = Messages.MSG_ERROR_VALIDATION_KEYSKILLS_REQUIRED;
   private maxKeySkillsValidationMessage = Messages.MSG_ERROR_VALIDATION_MAX_SKILLS_CROSSED + ValueConstant.MAX_MANDATORY_PROFECIENCES;
   tooltipMessage: string = '<ul><li>' +
       '<p>1. Enter key words for specialization in Technologies, Products, Tools, Domains etc. E.g Java, Oracle, SAP, Cognos, AWS, Agile, DevOps, CMM, Telecom Billing, Retail Banking etc.</p>' +
@@ -34,14 +36,10 @@ export class JobProficienciesComponent implements OnInit {
 
   onMandatoryProficiencyComplete(mandatory: string[]) {
     this.jobPosterModel.proficiencies = mandatory;
+    this.submitStatus=false;
     this.onComplete.emit(this.jobPosterModel);
     if (this.jobPosterModel.proficiencies.length >= ValueConstant.MAX_MANDATORY_PROFECIENCES) {
       this.showAdditional = true;
-    }
-    if (mandatory.length > 0) {
-      this.disablebutton = false;
-    } else {
-      this.disablebutton = true;
     }
   }
 
@@ -54,12 +52,20 @@ export class JobProficienciesComponent implements OnInit {
   }
 
   onNext() {
+    if (this.jobPosterModel.proficiencies.length <= 0) {
+      this.submitStatus = true
+      return;
+    }
     this.highlightedSection.name = 'IndustryExposure';
     this.highlightedSection.isDisable = false;
     this.onNextComplete.emit();
   }
 
   onSave() {
+    if (this.jobPosterModel.proficiencies.length <= 0) {
+      this.submitStatus = true
+      return;
+    }
     this.highlightedSection.name = 'none';
     this.highlightedSection.isDisable = false;
     this.onNextComplete.emit();

@@ -9,7 +9,7 @@
             <label>Mandatory Key Skills</label>
           </div>
         <cn-multi-select [type]="'Mandatory'" [data]="proficiencies" [maxLength]="maxNumberOfMandatory"
-                         [selectedData]="jobPosterModel.proficiencies"
+                         [selectedData]="jobPosterModel.proficiencies" [requiredKeySkillsValidationMessage] = "requiredKeySkillsValidationMessage" [submitStatus] = "submitStatus"
                          (onComplete)="onMandatoryProficiencyComplete($event)" [maxKeySkillsValidationMessage] = "maxKeySkillsValidationMessage"></cn-multi-select>
         <div class="clearfix">&nbsp;</div>
         <div class="col-sm-12 no-padding">
@@ -26,9 +26,9 @@
               class="glyphicon glyphicon-chevron-left"></span></button>
       <div class="button-group clearfix">
         <button class="btn btn-success" scrollTo scrollTargetSelector="#industry-experience"
-                (click)="onNext()" [disabled]="disablebutton" [hidden]="!showButton">Next
+                (click)="onNext()"  [hidden]="!showButton">Next
         </button>
-        <button class="btn btn-success" (click)="onSave()" [hidden]="showButton">Done</button>
+        <button class="btn btn-success" (click)="onSave()"  [hidden]="showButton">Done</button>
       </div>
     </div>
   </div>
