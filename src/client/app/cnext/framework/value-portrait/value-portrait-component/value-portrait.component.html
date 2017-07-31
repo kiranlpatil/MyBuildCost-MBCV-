@@ -7,7 +7,7 @@
     <div class="hover-block">
       <span class="icon"> </span>
       <label>
-        Additional Industry Exposure :
+        Additional Industry Exposure:
       </label>
       <span>
         <b>{{candidate.interestedIndustries}}</b>
@@ -21,13 +21,18 @@
     <div class="hover-block">
       <span class="icon"> </span>
       <label>
-        Key Skills :
+        Key Skills:
       </label>
       <span>
-        <b *ngFor="let proficiency of candidate.proficiencies"> {{proficiency}} </b>
+        <b *ngFor="let proficiency of candidate.proficiencies;let i=index">{{proficiency}}
+          <b *ngIf="candidate.proficiencies.length -1 != i">,</b>
+        </b>
       </span>
       <div class="tooltip-content4">
-        <b *ngFor="let proficiency of candidate.proficiencies"> {{proficiency}} </b>
+        <b *ngFor="let proficiency of candidate.proficiencies;let i=index">
+          <b>{{proficiency}}</b>
+          <b *ngIf="candidate.proficiencies.length -1 != i">,</b>
+        </b>
       </div>
     </div>
   </div>
