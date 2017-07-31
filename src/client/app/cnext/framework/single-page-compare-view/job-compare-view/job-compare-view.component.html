@@ -121,8 +121,9 @@
                   <label *ngIf="candidate == undefined">Hiring Manager</label>
                   <span *ngIf="candidate == undefined">{{postedJob.hiringManager}}</span>
                   <label *ngIf="recruiter.isRecruitingForself">Department</label>
-                  <label *ngIf="!recruiter.isRecruitingForself && !postedJob.hideCompanyName">Company</label>
+                  <label *ngIf="!recruiter.isRecruitingForself">Company</label>
                   <span *ngIf="!postedJob.hideCompanyName">{{postedJob.department}}</span>
+                  <span *ngIf="postedJob.hideCompanyName">Not Disclosed</span>
                   <label>Industry</label>
                   <span>{{postedJob.industry.name}}</span>
                   <label>Area of Work</label>
