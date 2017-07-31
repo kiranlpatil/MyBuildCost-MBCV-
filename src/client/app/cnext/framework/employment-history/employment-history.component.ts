@@ -24,7 +24,7 @@ export class EmploymentHistoryComponent {
   private isButtonShow: boolean = false;
   private showButton: boolean = true;
   private showAddButton: boolean = true;
-  tooltipMessage: string = "<ul><li><p>1. An individual may be exposed to multiple industries during the professional life.</p></li></ul>";
+  tooltipMessage: string = "<ul><li><p>1. An individual may be exposed to multiple industries during his professional life.</p></li></ul>";
   private submitStatus: boolean;
   private isValidservicePeriod: boolean = true;
   private serviceValidMessage: string = Messages.MSG_ERROR_VALIDATION_EMPLOYMENTHISTORY;

@@ -43,7 +43,7 @@ export class CapabilitiesComponent {
     "<ul>" +
     "<li>" +
     "<p>1. Select those capabilities that are required in the candidate." +
-    "These Capabilities are going to help you find best candidate you desire.</p>" +
+    "These capabilities will help find your best candidate</p>" +
     "</li>" +
     "</ul>";
 

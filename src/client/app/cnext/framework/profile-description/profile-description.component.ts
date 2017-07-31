@@ -48,7 +48,7 @@ export class ProfileDescriptionComponent implements OnInit {
     '<ul>' +
     '<li><p>1. Enter your current or latest job title. </p></li>' +
     '<li><p>2. A profile photo helps the recruiter to associate a face to the name.</p></li>' +
-    '<li><p>3. Provide your current or latest company name.Freshers should enter "Fresher" as their company name.</p></li>' +
+    '<li><p>3. Provide your current or latest company name.Freshers should mention "Fresher" as their company name.</p></li>' +
     '</ul>';
 
   constructor(private professionalDataService: ProfessionalDataService,

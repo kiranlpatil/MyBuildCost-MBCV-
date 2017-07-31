@@ -15,7 +15,7 @@ class Messages {
   //Sendmail
   public static MSG_SUCCESS_EMAIL_REGISTRATION: string = 'Email sent on registered email address.';
   public static MSG_SUCCESS_EMAIL_CHANGE_EMAILID: string = 'Email sent on new email address.';
-  public static MSG_SUCCESS_EMAIL_FORGOT_PASSWORD: string = 'Email has been sent successfully on your registered email to reset password.';
+  public static MSG_SUCCESS_EMAIL_FORGOT_PASSWORD: string = 'E-mail has been sent successfully on your registered email to reset password.';
   public static MSG_ERROR_EMAIL: string = 'Email could not be sent.';
   public static MSG_SUCCESS_EMAIL: string = 'Email has been sent successfully';
   public static MSG_SUCCESS_LOGIN: string = 'You are successfully logged in';
@@ -29,9 +29,9 @@ class Messages {
   public static MSG_ERROR_MESSAGE_SENDING: string = 'Message sending failed by server';
   public static MSG_ERROR_CREATING_USER: string = 'User registration failed';
   public static MSG_ERROR_REGISTRATION: string = 'User already present with this email address ';
-  public static MSG_ERROR_REGISTRATION_MOBILE_NUMBER: string = 'User already present with this mobile number.';//Dont Change It
-  public static MSG_ERROR_USER_NOT_FOUND: string = 'There is no user registered with this email address.';//Dont Change it
-  public static MSG_ERROR_USER_NOT_FOUND_Mail_SEND: string = 'Email has been sent successfully on your registered email to reset password.';//Dont Change it
+  public static MSG_ERROR_REGISTRATION_MOBILE_NUMBER: string = 'User already exists with this mobile number.';//Dont Change It
+  public static MSG_ERROR_USER_NOT_FOUND: string = 'Sorry, no user is registered with this e-mail address';//Dont Change it
+  public static MSG_ERROR_USER_NOT_FOUND_Mail_SEND: string = 'E-mail has been sent successfully on your registered email to reset password.';//Dont Change it
   public static MSG_ERROR_EMAIL_ACTIVE_NOW: string = 'User already has an account associated with this email address.';//DontChnge It
   public static MSG_ERROR_TOKEN_SESSION: string = 'Your session has expired.';
   public static MSG_ERROR_WRONG_TOKEN: string = 'Invalid access token';
@@ -45,15 +45,15 @@ class Messages {
   public static MSG_ERROR_VERIFY_ACCOUNT: string = 'Please click on the link sent to your email in order to activate your account.';//Dont CHange It
   public static MSG_ERROR_VERIFY_CANDIDATE_ACCOUNT: string = 'Please contact the administrator to activate your account.';//Dont CHange It
   public static MSG_ERROR_INVALID_ID: string = 'Invalid Userid';
-  public static MSG_ERROR_USER_NOT_PRESENT: string = 'Please enter valid login email or password.';
-  public static MSG_ERROR_USER_WITH_EMAIL_PRESENT: string = 'You are already registered. Kindly click on sign in.';
+  public static MSG_ERROR_USER_NOT_PRESENT: string = 'Enter a valid login ID / password.';
+  public static MSG_ERROR_USER_WITH_EMAIL_PRESENT: string = 'You are registered user. Kindly click on login.';
   public static MSG_ERROR_DIRECTORY_NOT_FOUND: string = 'Image directory not found.';
   public static MSG_ERROR_INVALID_TOKEN: string = 'Invalid access token';
-  public static MSG_ERROR_WRONG_OTP: string = 'The OTP you have entered is incorrect.';
+  public static MSG_ERROR_WRONG_OTP: string = 'The OTP entered is incorrect.';
   public static MSG_ERROR_WRONG_MOBILE_NUMBER: string = 'Please enter appropriate mobile number';
   public static MSG_ERROR_PROVIDE_EMAIL: string = 'Please provide email address';
   public static MSG_ERROR_INVALID_CREDENTIALS: string = 'The email address or phone number that you have entered does not match any account.';
-  public static MSG_ERROR_WRONG_PASSWORD: string = 'Please enter valid login email or password.';
+  public static MSG_ERROR_WRONG_PASSWORD: string = 'Enter a valid login ID / password.';
   public static MSG_ERROR_NOT_USER: string = 'An access token is expired or is invalid';
   public static MSG_ERROR_FIELD_VERIFICATION: string = 'Fields Verification Failed';
   public static MSG_ERROR_FACEBOOK_AUTH: string = 'Facebook Authentication Failed';
@@ -81,8 +81,8 @@ class Messages {
   public static MSG_ERROR_CHECK_EMAIL_ACCOUNT: string = "Error: User already has an account associated with this email address."; //should be same to MSG_ERROR_EMAIL_ACTIVE_NOW
 
   public static MSG_ERROR_CHECK_INACTIVE_ACCOUNT: string = "Error: Your account is still inactive. Verify your account by clicking the verification link sent on your email."; //should be same to MSG_ERROR_ACCOUNT_STATUS
-  public static MSG_ERROR_CHECK_INVALID_ACCOUNT: string = "Error: There is no user registered with this email address."; // should be same to MSG_ERROR_USER_NOT_FOUND
-  public static MSG_ERROR_CHECK_MOBILE_PRESENT: string = "Error: User already present with this mobile number."; //should be same to MSG_ERROR_REGISTRATION_MOBILE_NUMBER
+  public static MSG_ERROR_CHECK_INVALID_ACCOUNT: string = "Error: Sorry, no user is registered with this e-mail address."; // should be same to MSG_ERROR_USER_NOT_FOUND
+  public static MSG_ERROR_CHECK_MOBILE_PRESENT: string = "Error: User already exists with this mobile number."; //should be same to MSG_ERROR_REGISTRATION_MOBILE_NUMBER
   public static MSG_ERROR_CHECK_EMAIL_PRESENT: string = "Error: Please click on the link sent to your email in order to activate your account. "
 }
 export=Messages;

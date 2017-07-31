@@ -88,7 +88,7 @@
                       [filterMeta]="filterMeta"
                       [candidates]="candidateQlist.cartCandidates" [type]="'cartListed'" [jobId]="jobId"
                       [recuirterListCountModel]="recruiterJobView"></cn-q-card-view>
-      <p class="empty-list-message" *ngIf="recruiterJobView.numberOfCandidatesInCart==0">You have not added any candidates to the Cart for this job posting.</p>
+      <p class="empty-list-message" *ngIf="recruiterJobView.numberOfCandidatesInCart==0">There are no pending applications from the candidate for this job posting.</p>
     </div>
     <div id="applied-job" class="tab-pane fade">
       <cn-q-card-view (addForCompare)="addForCompare($event)" (addedTocart)="AddedToCart($event)"

@@ -64,7 +64,7 @@ export class BasicJobInformationComponent implements OnInit, OnChanges {
     '<li><p>4. Choose from dropdown.</p></li>' +
     '<li><p>5. The target salary that you wish to offer for the job. </p></li>' +
     '<li><p>6. How much lead time are you willing to provide to the candidate for joining.</p></li>' +
-    '<li><p>7. Where the candidate will be required to work.</p></li>' +
+    '<li><p>7. The location where the candidate will be required to work.</p></li>' +
     '<li><p>8. The industry for which you are hiring.</p></li>' +
     '</ul>';
 

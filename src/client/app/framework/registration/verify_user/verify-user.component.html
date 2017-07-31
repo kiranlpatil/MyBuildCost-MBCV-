@@ -20,8 +20,8 @@
 
     <form [formGroup]="userForm" (submit)="onSubmit()" [hidden]="chkMobile" novalidate>
       <p>You are almost done!</p>
-      <p> We just need to verify your account before you can start using the system.</p>
-      <p>One Time Password (OTP) will be sent on the following mobile number.</p>
+      <p> We need to verify your account before you can start using the system.</p>
+      <p> One Time Password(OTP) will be sent on registered mobile number.</p>
 
       <div class="input-group form-group" id="inputMobile">
         <control-messages [control]="userForm.controls.mobile_number" [submitStatus]="submitMobileStatus"></control-messages>
@@ -36,8 +36,8 @@
     </form>
 
     <form [formGroup]="userForm" (submit)="onSubmit()" [hidden]="chkEmail" novalidate>
-      <p><b>You are almost done! We just need to verify your account before you can start using the system.</b></p>
-      <p>Verification link will be emailed on the following email address.</p>
+      <p><b>You are almost done! We need to verify your account before you can start using the system.</b></p>
+      <p> Verification link will be e-mailed to the registered e-mail address.</p>
 
       <div class="form-group" id="inputEmail">
         <control-messages [control]="userForm.controls.email" [submitStatus]="submitEmailStatus"></control-messages>

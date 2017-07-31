@@ -26,8 +26,8 @@ export class JobProficienciesComponent implements OnInit {
   private requiredKeySkillsValidationMessage = Messages.MSG_ERROR_VALIDATION_KEYSKILLS_REQUIRED;
   private maxKeySkillsValidationMessage = Messages.MSG_ERROR_VALIDATION_MAX_SKILLS_CROSSED + ValueConstant.MAX_MANDATORY_PROFECIENCES;
   tooltipMessage: string = '<ul><li>' +
-      '<p>1. Enter key words for specialization in Technologies, Products, Tools, Domains etc. E.g Java, Oracle, SAP, Cognos, AWS, Agile, DevOps, CMM, Telecom Billing, Retail Banking etc.</p>' +
-      '<p>2. Use the Top 5 "Must Have" key words to describe the most important skills. You can provide additional 20 key words that are "Nice to Have".</p></li></ul>';
+      '<p>1. Enter keywords for specialization in Technologies, Products, Tools, Domains etc. E.g Java, Oracle, SAP, Cognos, AWS, Agile, DevOps, CMM, Telecom Billing, Retail Banking etc.</p>' +
+      '<p>2.  Use the Top 5 "Must Have" keywords to describe the most important skills. You can provide additional 20 keywords that are "Nice to Have"</p></li></ul>';
 
   ngOnInit() {
     this.maxNumberOfMandatory = ValueConstant.MAX_MANDATORY_PROFECIENCES;
