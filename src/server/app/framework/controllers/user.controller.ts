@@ -131,6 +131,13 @@ export function login(req: express.Request, res: express.Response, next: any) {
           }
         });
       }
+      else {
+        next({
+          reason: Messages.MSG_ERROR_RSN_USER_NOT_FOUND,
+          message: Messages.MSG_ERROR_USER_NOT_PRESENT,
+          code: 403
+        });
+      }
     });
   }
   catch (e) {
