@@ -317,76 +317,85 @@ class SearchService {
     return profileComparisonResult;
   }
 
-  buildMultiCompareCapabilityView(job: any, newCandidate: ProfileComparisonDataModel, industries: any, isCandidate: any) {
+  buildMultiCompareCapabilityView(job:any, newCandidate:ProfileComparisonDataModel, industries:any, isCandidate:any) {
 
-    var capabilityPercentage: number[] = new Array(0);
-    var capabilityKeys: string[] = new Array(0);
+    var capabilityPercentage:number[] = new Array(0);
+    var capabilityKeys:string[] = new Array(0);
+    var correctQestionCountForAvgPercentage:number = 0;
+    var qestionCountForAvgPercentsge:number = 0;
     for (let cap in job.capability_matrix) {
+      qestionCountForAvgPercentsge++;
       var capabilityKey = cap.split("_");
       if (capabilityKeys.indexOf(capabilityKey[0]) == -1) {
         capabilityKeys.push(capabilityKey[0]);
       }
     }
-
     //for(let _cap in capbilityKeys) {
     for (let _cap of capabilityKeys) {
-      var capabilityQuestionCount: number = 0;
-      var matchCount = 0;
+      var capabilityQuestionCount:number = 0;
+      var matchCount:number = 0;
       for (let cap in job.capability_matrix) {
-
         //calculate total number of questions in capability
 
         if (_cap == cap.split("_")[0]) {
-
-          capabilityQuestionCount++;
+          console.log(cap + '=>' + job.capability_matrix[cap] + '==' + newCandidate.capability_matrix[cap]);
           if (job.capability_matrix[cap] == -1 || job.capability_matrix[cap] == 0 || job.capability_matrix[cap] == undefined) {
-
             //match_view.match = Match.MissMatch;
           } else if (job.capability_matrix[cap] == newCandidate.capability_matrix[cap]) {
             matchCount++;
+            capabilityQuestionCount++;
+            correctQestionCountForAvgPercentage++;
             //match_view.match = Match.Exact;
           } else if (job.capability_matrix[cap] == (Number(newCandidate.capability_matrix[cap]) - ConstVariables.DIFFERENCE_IN_COMPLEXITY_SCENARIO)) {
             matchCount++
+            capabilityQuestionCount++;
+            correctQestionCountForAvgPercentage++;
             //match_view.match = Match.Above;
           } else if (job.capability_matrix[cap] == (Number(newCandidate.capability_matrix[cap]) + ConstVariables.DIFFERENCE_IN_COMPLEXITY_SCENARIO)) {
             //match_view.match = Match.Below;
+            capabilityQuestionCount++;
           } else {
+            capabilityQuestionCount++;
             //match_view.match = Match.MissMatch;
           }
         }
       }
       var capabilityModel = new CapabilityMatrixModel();
       var capName:string;
+      var complexity:any;
       for (let role of industries[0].roles) {
         for (let capability of role.capabilities) {
           if (_cap == capability.code) {
             capName = capability.name;
-            var complex = capability.complexities;
+            complexity = capability.complexities;
             break;
           }
         }
         for (let capability of role.default_complexities) {
           if (_cap == capability.code) {
             capName = capability.name;
-            var complex = capability.complexities;
+            complexity = capability.complexities;
             break;
           }
         }
       }
-      if(capName) {
-      var percentage: number = (matchCount / capabilityQuestionCount) * 100;
+      var percentage:number = 0;
+      if (capabilityQuestionCount) {
+        var percentage:number = (matchCount / capabilityQuestionCount) * 100;
+      }
+
       capabilityModel.capabilityName = capName;
       capabilityModel.capabilityPercentage = percentage;
-      capabilityModel.complexities = complex;
+      capabilityModel.complexities = complexity;
       capabilityPercentage.push(percentage);
       newCandidate['capabilityMap'][_cap] = capabilityModel;
-      }
+      //}
     }
-    var avgPercentage = 0;
-    for (let percent of capabilityPercentage) {
-      avgPercentage += percent;
+    var avgPercentage:number = 0;
+    if (qestionCountForAvgPercentsge) {
+      avgPercentage = ((correctQestionCountForAvgPercentage / qestionCountForAvgPercentsge) * 100);
     }
-    newCandidate.matchingPercentage = (avgPercentage / capabilityPercentage.length);
+    newCandidate.matchingPercentage = avgPercentage;
     return newCandidate;
   }
 
