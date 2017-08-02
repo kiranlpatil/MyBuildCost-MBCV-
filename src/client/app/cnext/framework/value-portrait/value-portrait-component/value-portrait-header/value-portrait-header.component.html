@@ -49,8 +49,7 @@
           <label> Area of Work: </label>
           <span>
             <b *ngFor="let role of candidate.industry.roles;let i=index">
-              {{role.name}}
-            <b *ngIf="candidate.industry.roles.length -1 != i">,</b>
+              {{role.name}}<small *ngIf="candidate.industry.roles.length -1 != i">,</small>
             </b>
           </span>
         </div>

@@ -10,10 +10,14 @@
         Additional Domain Exposure:
       </label>
       <span>
-        <b>{{candidate.interestedIndustries}}</b>
+         <b *ngFor="let industry of candidate.interestedIndustries;let i = index">
+           <b>{{industry}}<small *ngIf="candidate.interestedIndustries.length -1 != i">, </small></b>
+          </b>
       </span>
       <div class="tooltip-content4">
-        <b>{{candidate.interestedIndustries}}</b>
+        <b *ngFor="let industry of candidate.interestedIndustries;let i = index"><b>{{industry}}</b>
+          <small *ngIf="candidate.interestedIndustries.length -1 != i"> ,</small>
+        </b>
       </div>
     </div>
   </div>
@@ -24,14 +28,14 @@
         Key Skills:
       </label>
       <span>
-        <b *ngFor="let proficiency of candidate.proficiencies;let i=index">{{proficiency}}
-          <b *ngIf="candidate.proficiencies.length -1 != i">,</b>
+        <b *ngFor="let proficiency of candidate.proficiencies;let i=index">{{proficiency}}<small
+          *ngIf="candidate.proficiencies.length -1 != i">,</small>
         </b>
       </span>
       <div class="tooltip-content4">
         <b *ngFor="let proficiency of candidate.proficiencies;let i=index">
           <b>{{proficiency}}</b>
-          <b *ngIf="candidate.proficiencies.length -1 != i">,</b>
+          <small *ngIf="candidate.proficiencies.length -1 != i">,&nbsp;</small>
         </b>
       </div>
     </div>
@@ -41,6 +45,9 @@
       About Myself
       <div class="tooltip-content3">
         {{candidate.aboutMyself}}
+      </div>
+      <div *ngIf="candidate.aboutMyself == ''" class="tooltip-content3">
+        Not Available
       </div>
     </div>
 
