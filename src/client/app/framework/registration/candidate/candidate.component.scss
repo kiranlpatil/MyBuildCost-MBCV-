@@ -1,14 +1,13 @@
 @import '../../../../css/common';
 @import '../../../../css/variables';
 
-
 .error-messages {
-  color: $red;
+  color: $error-messages;
   font-size: 10px;
   font-style: italic;
   margin: 0;
   position: absolute;
-  line-height: 11px;
+  line-height: 12px;
 }
 
 .alert {

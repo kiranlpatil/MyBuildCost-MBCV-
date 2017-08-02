@@ -2,12 +2,12 @@
 @import '../../../../css/variables';
 
 .error-messages {
-  color: #f66761;
+  color: $error-messages;
   font-size: 10px;
   font-style: italic;
   margin: 0;
   position: absolute;
-  line-height: 11px;
+  line-height: 15px;
 }
 
 .alert {

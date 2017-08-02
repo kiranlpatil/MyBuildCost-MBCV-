@@ -50,7 +50,7 @@ $message: #0d75fa;
   position: absolute;
 
   p {
-    color: #f66761;
+    color: $error-messages;
     font-size: 10px;
     line-height: 12px;
     margin: 2px 0;
@@ -113,7 +113,6 @@ $message: #0d75fa;
   min-height: 62px !important;
 }
 
-
 .keyskill-popup {
   .button-group {
     width: 100% !important;
@@ -121,8 +120,6 @@ $message: #0d75fa;
     z-index: 3;
   }
 }
-
-
 
 @media screen and (max-width: 767px) {
   .list {

@@ -1,11 +1,11 @@
-$border-color: #ccc;
+@import '../../../../../css/variables';
 
 .error-messages {
   position: absolute;
   top: 54px;
 
   p {
-    color: #e82c0c;
+    color: $error-messages;
     font-size: 10px;
     padding-left: 0;
     font-style: italic;

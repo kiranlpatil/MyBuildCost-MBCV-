@@ -202,13 +202,13 @@
 
   .error-messages {
     padding-left: 0;
-    color: $error;
+    color: $error-messages;
     font-size: 11px;
     padding-left: 0;
     position: absolute;
 
     p {
-      color: $error;
+      color: $error-messages;
       font-size: 11px;
       padding-left: 0;
     }
