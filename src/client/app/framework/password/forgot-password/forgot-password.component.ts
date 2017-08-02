@@ -27,6 +27,8 @@ export class ForgotPasswordComponent {
   BODY_BACKGROUND: string;
   forgotPasswordButtonLabel: string;
   private submitStatus: boolean;
+  private isShowLoader: boolean = false;
+
 
   constructor(private commonService: CommonService, private _router: Router,
               private forgotPasswordService: ForgotPasswordService, private messageService: MessageService,
@@ -53,10 +55,18 @@ export class ForgotPasswordComponent {
       this.submitStatus = true;
       return;
     }
+    this.isShowLoader = true;
     this.forgotPasswordService.forgotPassword(this.model)
       .subscribe(
-        body => this.forgotPasswordSuccess(body),
-        error => this.forgotPasswordFail(error));
+        body => {
+          this.forgotPasswordSuccess(body);
+          this.isShowLoader = false;
+        },
+        error => {
+          this.isShowLoader = false;
+          this.forgotPasswordFail(error)
+        }
+      );
   }
 
   forgotPasswordSuccess(body: ForgotPassword) {
