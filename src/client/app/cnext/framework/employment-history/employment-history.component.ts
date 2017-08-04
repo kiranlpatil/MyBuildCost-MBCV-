@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, Output} from "@angular/core";
+import {Component, ElementRef, EventEmitter, Input, Output, ViewChild} from "@angular/core";
 import {CandidateProfileService} from "../candidate-profile/candidate-profile.service";
 import {Candidate, Section} from "../model/candidate";
 import {FormArray, FormBuilder, FormGroup, Validators} from "@angular/forms";
@@ -15,6 +15,10 @@ export class EmploymentHistoryComponent {
   @Input() candidate: Candidate;
   @Input() highlightedSection: Section;
   @Output() onComplete = new EventEmitter();
+  @ViewChild('EmloymentHostoryParent') parentContainer: ElementRef;
+  @ViewChild('EmloymentHostoryInner') innerContainer: ElementRef;
+  isScrollActive: boolean = false;
+  temp: number = 20;
 
   public employeeHistory: FormGroup;
 
@@ -40,6 +44,13 @@ export class EmploymentHistoryComponent {
     this.employeeHistory.controls['employeeHistories'].valueChanges.subscribe(x => {
       this.isButtonShow = true;
     });
+  }
+
+  ngAfterViewChecked() {
+    if (this.isScrollActive) {
+      this.scrollToBottom();
+      this.isScrollActive = false;
+    }
   }
 
   ngOnChanges(changes: any) {
@@ -86,7 +97,31 @@ export class EmploymentHistoryComponent {
       control.push(addrCtrl);
       this.showAddButton = false;
     }
+
+    this.isScrollActive = true;
   }
+
+  scrollToBottom(): void {
+    try {
+      this.scroll(this.parentContainer.nativeElement, 0);
+    } catch (err) {
+    }
+  }
+
+  scroll(c: any, i: any) {
+    const control = <FormArray>this.employeeHistory.controls['employeeHistories'];
+    i++;
+    if (i > control.length * 50) {
+      this.temp = 40;
+      return;
+    }
+    c.scrollTop = this.temp + 20;
+    this.temp = c.scrollTop;
+    setTimeout(() => {
+      this.scroll(c, i);
+    }, 20);
+  }
+
 
   removeEmployeeHistory(i: number) {
     const control = <FormArray>this.employeeHistory.controls['employeeHistories'];

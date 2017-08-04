@@ -1,7 +1,18 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
-import { CandidateProfileService } from '../candidate-profile/candidate-profile.service';
-import { Candidate, Section } from '../model/candidate';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  AfterViewChecked,
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnInit,
+  Output,
+  Renderer,
+  ViewChild
+} from "@angular/core";
+import {CandidateProfileService} from "../candidate-profile/candidate-profile.service";
+import {Candidate, Section} from "../model/candidate";
+import {FormArray, FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Tooltip} from "../../../framework/shared/constants";
 
 @Component({
@@ -11,17 +22,23 @@ import {Tooltip} from "../../../framework/shared/constants";
   styleUrls: ['academic-details.component.css']
 })
 
-export class AcademicDetailComponent implements OnInit, OnChanges {
+export class AcademicDetailComponent implements OnInit, OnChanges, AfterViewChecked {
   @Input() candidate: Candidate;
   @Input() highlightedSection: Section;
   @Output() onComplete = new EventEmitter();
+  @ViewChild('parentDiv') parentContainer: ElementRef;
+  @ViewChild('innerDiv') innerContainer: ElementRef;
+  isScrollActive: boolean = false;
+  temp: number = 20;
+
 
   public academicDetail: FormGroup;
   tooltipMessage: string = '<ul><li><p>1. '+Tooltip.ACADEMIC_DETAIL_TOOLTIP+'</p></li></ul>';
   public showButton: boolean = true;
   private isButtonShow: boolean = false;
   private submitStatus: boolean;
-  constructor(private _fb: FormBuilder, private profileCreatorService: CandidateProfileService) {
+
+  constructor(private _fb: FormBuilder, private profileCreatorService: CandidateProfileService, private renderer: Renderer) {
     this.academicDetail = this._fb.group({
       academicDetails: this._fb.array([])
     });
@@ -32,6 +49,13 @@ export class AcademicDetailComponent implements OnInit, OnChanges {
     this.academicDetail.controls['academicDetails'].valueChanges.subscribe(x => {
       this.isButtonShow = true;
     });
+  }
+
+  ngAfterViewChecked() {
+    if (this.isScrollActive) {
+      this.scrollToBottom();
+      this.isScrollActive = false;
+    }
   }
 
   ngOnChanges(changes: any) {
@@ -68,7 +92,30 @@ export class AcademicDetailComponent implements OnInit, OnChanges {
       const addrCtrl = this.initAcademicDetails();
       control.push(addrCtrl);
     }
+    this.isScrollActive = true;
   }
+
+  scrollToBottom(): void {
+    try {
+      this.scroll(this.parentContainer.nativeElement, 0);
+    } catch (err) {
+    }
+  }
+
+  scroll(c: any, i: any) {
+    const control = <FormArray>this.academicDetail.controls['academicDetails'];
+    i++;
+    if (i > control.length * 50) {
+      this.temp = 20;
+      return;
+    }
+    c.scrollTop = this.temp + 20;
+    this.temp = c.scrollTop;
+    setTimeout(() => {
+      this.scroll(c, i);
+    }, 20);
+  }
+
 
   removeAcademicDetail(i: number) {
     const control = <FormArray>this.academicDetail.controls['academicDetails'];

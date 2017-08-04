@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, Output} from "@angular/core";
+import {Component, ElementRef, EventEmitter, Input, Output, ViewChild} from "@angular/core";
 import {CandidateProfileService} from "../candidate-profile/candidate-profile.service";
 import {Candidate, Section} from "../model/candidate";
 import {FormArray, FormBuilder, FormGroup, Validators} from "@angular/forms";
@@ -16,6 +16,11 @@ export class CertificationAccreditationComponent {
   @Input() candidate: Candidate;
   @Input() highlightedSection: Section;
   @Output() onComplete = new EventEmitter();
+  @ViewChild('certficationParentDiv') parentContainer: ElementRef;
+  @ViewChild('certificationInnerDiv') innerContainer: ElementRef;
+  isScrollActive: boolean = false;
+  temp: number = 20;
+
   tooltipMessage: string = '<ul><li><p>1. '+Tooltip.CERTIFICATE_TOOLTIP+'</p></li></ul>';
 
   public certificationDetail: FormGroup;
@@ -36,6 +41,13 @@ export class CertificationAccreditationComponent {
     this.certificationDetail.controls['certifications'].valueChanges.subscribe(x => {
       this.isButtonShow = true;
     });
+  }
+
+  ngAfterViewChecked() {
+    if (this.isScrollActive) {
+      this.scrollToBottom();
+      this.isScrollActive = false;
+    }
   }
 
   ngOnChanges(changes: any) {
@@ -73,7 +85,31 @@ export class CertificationAccreditationComponent {
       const addrCtrl = this.initCertificateDetails();
       control.push(addrCtrl);
     }
+
+    this.isScrollActive = true;
   }
+
+  scrollToBottom(): void {
+    try {
+      this.scroll(this.parentContainer.nativeElement, 0);
+    } catch (err) {
+    }
+  }
+
+  scroll(c: any, i: any) {
+    const control = <FormArray>this.certificationDetail.controls['certifications'];
+    i++;
+    if (i > control.length * 50) {
+      this.temp = 20;
+      return;
+    }
+    c.scrollTop = this.temp + 20;
+    this.temp = c.scrollTop;
+    setTimeout(() => {
+      this.scroll(c, i);
+    }, 20);
+  }
+
 
   removeCertification(i: number) {
     const control = <FormArray>this.certificationDetail.controls['certifications'];

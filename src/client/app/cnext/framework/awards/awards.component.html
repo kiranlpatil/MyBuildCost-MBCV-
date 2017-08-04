@@ -2,10 +2,10 @@
 <div class="section-container clear"  *ngIf="highlightedSection.name =='Awards'">
   <div class="main-content edit-modal-content clearfix">
     <h4 class="heading">Awards (Optional)</h4>
-    <div class="scrollable-content">
+    <div class="scrollable-content" #awardParentDiv>
       <form class="description-form" [formGroup]="awardDetail" novalidate>
         <div class="row">
-          <div class="col-sm-8 no-padding" formArrayName="awards">
+          <div class="col-sm-8 no-padding" formArrayName="awards" #awardInnerDiv>
             <div *ngFor="let history of awardDetail.controls.awards.controls; let i=index"
                      class="panel panel-default">
               <div>

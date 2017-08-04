@@ -6,10 +6,10 @@
     <div class="error-messages edit-error-msg" *ngIf="!isValidservicePeriod">
       <p>{{serviceValidMessage}}</p>
     </div>
-    <div class="scrollable-content">
+    <div class="scrollable-content" #EmloymentHostoryParent>
       <form class="description-form" [formGroup]="employeeHistory" novalidate>
         <div class="row">
-          <div class="col-sm-8 no-padding" formArrayName="employeeHistories">
+          <div class="col-sm-8 no-padding" formArrayName="employeeHistories" #EmloymentHostoryInner>
             <div *ngFor="let history of employeeHistory.controls.employeeHistories.controls; let i=index"
                  class="panel panel-default">
               <div>
