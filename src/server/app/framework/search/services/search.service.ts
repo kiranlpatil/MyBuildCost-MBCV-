@@ -613,6 +613,9 @@ class SearchService {
          }
       }
     }
+    if(candidateListStatus.length == 0) {
+      candidateListStatus.push('matchedList');
+    }
     newCandidate.candidateListStatus = candidateListStatus;
     return newCandidate;
   }
