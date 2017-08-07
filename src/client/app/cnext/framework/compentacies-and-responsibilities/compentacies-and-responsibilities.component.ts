@@ -17,7 +17,8 @@ export class CompetenciesAndResponsibilitiesComponent {
   @Output() onComplete = new EventEmitter();
 
   tooltipMessage: string = '<ul><li>' +
-      '<p>'+ Tooltip.COMPETENCIES_AND_RESPONSIBILITIES_TOOLTIP+'</p></li></ul>';
+      '<p>1. '+ Tooltip.COMPETENCIES_AND_RESPONSIBILITIES_TOOLTIP_1+'</p>' +
+      '<p>'+ Tooltip.COMPETENCIES_AND_RESPONSIBILITIES_TOOLTIP_2+'</p></li></ul>';
 
   onCompetenciesComplete(data: string) {
     this.jobPosterModel.competencies = data;
