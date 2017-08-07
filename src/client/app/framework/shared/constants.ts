@@ -22,7 +22,8 @@ export class Messages {
   public static MSG_SUCCESS_REGISTRATION: string = 'Kindly verify your account.';
   public static MSG_SUCCESS_CHANGE_MOBILE_NUMBER: string = 'Mobile number updated successfully.';
   public static MSG_SUCCESS_RESEND_VERIFICATION_CODE: string = 'New OTP (One Time Password) has been sent to your registered mobile number';
-  public static MSG_SUCCESS_MAIL_VERIFICATION: string = 'Verification e-mail sent successfully to your e-mail account. Kindly proceed by clicking on the link pProvided in your e-mail';
+  //public static MSG_SUCCESS_MAIL_VERIFICATION: string = 'Verification e-mail sent successfully to your e-mail account. Kindly proceed by clicking on the link pProvided in your e-mail';
+  public static MSG_SUCCESS_MAIL_VERIFICATION: string = 'Verification e-mail sent successfully to your e-mail account.';
   public static MSG_SUCCESS_NEWREGISTRATION: string = 'Registration successful. Mobile number verified. Kindly sign in.';
   public static MSG_SUCCESS_RESET_PASSWORD: string = 'Your password is reset successfully.';
   public static MSG_SUCCESS_CHANGE_PASSWORD: string = 'Your password has been changed successfully.';
