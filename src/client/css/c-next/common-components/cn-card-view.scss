@@ -329,12 +329,11 @@ header {
 
 #compare-candidates {
   .compare-candidate-view {
-    margin-bottom: 20px;
+    margin-bottom: 0;
     position: absolute;
     top: 190px;
+    left: 15px;
     max-width: calc(100% - 30px);
-    left: 50%;
-    transform: translate(-50%, 0);
   }
 }
 

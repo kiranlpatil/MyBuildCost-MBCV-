@@ -40,13 +40,18 @@ class CandidateService {
 
   createUser(item: any, callback: (error: any, result: any) => void) {
     console.log('USer is', item);
-    this.userRepository.retrieve({'email': item.email}, (err, res) => {
+    this.userRepository.retrieve({ $or: [ { 'email': item.email }, {'mobile_number': item.mobile_number } ]}, (err, res) => {
       if (err) {
         callback(new Error(err), null);
       }
       else if (res.length > 0) {
         if (res[0].isActivated === true) {
-          callback(new Error(Messages.MSG_ERROR_REGISTRATION), null);
+          if(res[0].email===item.email) {
+            callback(new Error(Messages.MSG_ERROR_REGISTRATION), null);
+          }
+          if(res[0].mobile_number===item.mobile_number) {
+            callback(new Error(Messages.MSG_ERROR_REGISTRATION_MOBILE_NUMBER), null);
+          }
         } else if (res[0].isActivated === false) {
           callback(new Error(Messages.MSG_ERROR_VERIFY_ACCOUNT), null);
         }
@@ -212,6 +217,7 @@ class CandidateService {
                       let newComplexity: ComplexitiesClassModel = new ComplexitiesClassModel();
                       newComplexity.name = complexity.name;
                       newComplexity.sort_order = complexity.sort_order;
+                      newComplexity.code = complexity.code;
                       if (complexity.questionForCandidate !== undefined && complexity.questionForCandidate !== null && complexity.questionForCandidate !== '') {
                         newComplexity.questionForCandidate = complexity.questionForCandidate;
                       } else {
@@ -248,6 +254,7 @@ class CandidateService {
                         let newComplexity: ComplexitiesClassModel = new ComplexitiesClassModel();
                         newComplexity.name = complexity.name;
                         newComplexity.sort_order = complexity.sort_order;
+                        newComplexity.code = complexity.code;
                         if (complexity.questionForCandidate !== undefined && complexity.questionForCandidate !== null && complexity.questionForCandidate !== '') {
                           newComplexity.questionForCandidate = complexity.questionForCandidate;
                         } else {
@@ -296,6 +303,7 @@ class CandidateService {
                       let newComplexity: ComplexitiesClassModel = new ComplexitiesClassModel();
                       newComplexity.name = complexity.name;
                       newComplexity.sort_order = complexity.sort_order;
+                      newComplexity.code = complexity.code;
                       if (complexity.questionForCandidate !== undefined && complexity.questionForCandidate !== null && complexity.questionForCandidate !== '') {
                         newComplexity.questionForCandidate = complexity.questionForCandidate;
                       } else {
@@ -332,6 +340,7 @@ class CandidateService {
                         let newComplexity: ComplexitiesClassModel = new ComplexitiesClassModel();
                         newComplexity.name = complexity.name;
                         newComplexity.sort_order = complexity.sort_order;
+                        newComplexity.code = complexity.code;
                         if (complexity.questionForCandidate !== undefined && complexity.questionForCandidate !== null && complexity.questionForCandidate !== '') {
                           newComplexity.questionForCandidate = complexity.questionForCandidate;
                         } else {
@@ -446,7 +455,7 @@ class CandidateService {
             }
           }
           if (isFound) {
-            break;
+            //break;
           }
         }
         if (role.default_complexities) {
@@ -494,12 +503,12 @@ class CandidateService {
               }
             }
             if (isFound) {
-              break;
+              //break;
             }
           }
         }
         if (isFound) {
-          break;
+          //break;
         }
       }
     }
@@ -542,14 +551,26 @@ class CandidateService {
                   if (capability.code.toString() === mainCap.code.toString()) {
                     for (let mainComp of mainCap.complexities) {
                       let itemcode = mainCap.code + '_' + mainComp.code;
+
+
                       if (item.capability_matrix[itemcode] === undefined) {
-                        new_capability_matrix[itemcode] = -1;
-                        item.capability_matrix[itemcode] = -1;
+                        if (new_capability_matrix != undefined && new_capability_matrix[itemcode] == undefined) {
+                          new_capability_matrix[itemcode] = -1;
+                          item.capability_matrix[itemcode] = -1;
+                        }
                       } else if (item.capability_matrix[itemcode] !== -1) {
-                        new_capability_matrix[itemcode] = item.capability_matrix[itemcode];
+                        if (new_capability_matrix != undefined && new_capability_matrix[itemcode] == undefined) {
+                          new_capability_matrix[itemcode] = item.capability_matrix[itemcode];
+                        }
                       } else {
-                        new_capability_matrix[itemcode] = -1;
+                        if (new_capability_matrix != undefined && new_capability_matrix[itemcode] == undefined) {
+                          new_capability_matrix[itemcode] = -1;
+                        }
                       }
+
+
+
+
                     }
                   }
                 }

@@ -4,10 +4,10 @@
   <div class="main-content edit-modal-content clearfix">
 
     <h4 class="heading">Certification/Accreditation (Optional)</h4>
-    <div class="scrollable-content">
+    <div class="scrollable-content" #certficationParentDiv>
       <form class="description-form" [formGroup]="certificationDetail" novalidate>
         <div class="row">
-          <div class="col-sm-8 no-padding" formArrayName="certifications">
+          <div class="col-sm-8 no-padding" formArrayName="certifications" #certficationInnerDiv>
             <div *ngFor="let history of certificationDetail.controls.certifications.controls; let i=index"
                  class="panel panel-default">
               <div>

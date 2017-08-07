@@ -1,8 +1,8 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { CandidateProfileService } from '../candidate-profile/candidate-profile.service';
-import { Candidate, Section } from '../model/candidate';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Tooltip } from '../../../framework/shared/constants';
+import {Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild} from "@angular/core";
+import {CandidateProfileService} from "../candidate-profile/candidate-profile.service";
+import {Candidate, Section} from "../model/candidate";
+import {FormArray, FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {Tooltip} from "../../../framework/shared/constants";
 
 
 @Component({
@@ -17,6 +17,10 @@ export class AwardsComponent implements OnInit {
   @Input() candidate: Candidate;
   @Input() highlightedSection: Section;
   @Output() onComplete = new EventEmitter();
+  @ViewChild('awardParentDiv') parentContainer: ElementRef;
+  @ViewChild('awardInnerDiv') innerContainer: ElementRef;
+  isScrollActive: boolean = false;
+  temp: number = 20;
 
   public awardDetail: FormGroup;
 
@@ -37,6 +41,13 @@ export class AwardsComponent implements OnInit {
     this.awardDetail.controls['awards'].valueChanges.subscribe(x => {
       this.isButtonShow = true;
     });
+  }
+
+  ngAfterViewChecked() {
+    if (this.isScrollActive) {
+      this.scrollToBottom();
+      this.isScrollActive = false;
+    }
   }
 
   ngOnChanges(changes: any) {
@@ -74,7 +85,30 @@ export class AwardsComponent implements OnInit {
       const addrCtrl = this.initAwardDetails();
       control.push(addrCtrl);
     }
+    this.isScrollActive = true;
   }
+
+  scrollToBottom(): void {
+    try {
+      this.scroll(this.parentContainer.nativeElement, 0);
+    } catch (err) {
+    }
+  }
+
+  scroll(c: any, i: any) {
+    const control = <FormArray>this.awardDetail.controls['awards'];
+    i++;
+    if (i > control.length * 50) {
+      this.temp = 20;
+      return;
+    }
+    c.scrollTop = this.temp + 20;
+    this.temp = c.scrollTop;
+    setTimeout(() => {
+      this.scroll(c, i);
+    }, 20);
+  }
+
 
   removeAward(i: number) {
     const control = <FormArray>this.awardDetail.controls['awards'];
