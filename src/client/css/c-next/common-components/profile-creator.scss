@@ -2,7 +2,7 @@
 
 .section-container {
   text-align: left;
-  position: relative;
+  //position: relative;
 
   .tooltip-message {
     background: $theme-color;
@@ -81,9 +81,9 @@
 
 .scrollable-content {
   overflow: auto;
-  height: 496px;
-  padding: 70px 250px 75px 70px;
-  position: fixed;
+  height: auto;
+  padding: 0px 250px 75px 70px;
+  position: relative;
   top: 0;
   left: 0;
   width: 100%;
@@ -242,7 +242,7 @@
   }
 
   textarea {
-    height: 100px;
+    height: 300px;
     resize: vertical;
     width: 100%;
     border-radius: 0;
