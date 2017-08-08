@@ -171,6 +171,9 @@
     <div class="matching-attribute-name">
       <div class="inner">
         <h6>Domain</h6>
+        <p *ngFor="let value of profileComparisonJobData.interestedIndustries">
+          {{value}}
+        </p>
       </div>
     </div>
     <div class="matching-candidate-attributes">
