@@ -4,7 +4,8 @@ export class AppSettings {
   //public static IP = 'http://10.192.33.77:8080';
   //public static IP = 'http://52.89.221.23';
   // public static IP = 'app.jobmosis.com';
-  public static IP = 'http://52.89.221.23:3000';
+ // public static IP = 'http://52.89.221.23:3000';
+  public static IP = 'http://52.43.220.29:3000';
 
 
   public static get API_ENDPOINT(): string {
