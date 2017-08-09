@@ -4,7 +4,7 @@
       <li *ngIf="type=='block'" (click)="deleteItem(job._id)" title='Remove job from "Not Interested" list' ><img src="assets/c-next/card-view/close-grey.png" /></li>
     </ul>
     <header class="clearfix">
-      <div class="col-md-8 col-sm-7 col-xs-6 no-padding">
+      <div class="col-md-8 col-sm-7 col-xs-5 no-padding">
         <h6 *ngIf="!job.hideCompanyName" class="username company-profile-picture-col">
           <div class="" title="Job Title: {{job.jobTitle}}">{{job.jobTitle}}</div>
           <div class="company-name-label" title="Company Name: {{job.company_name}}">{{job.company_name}}, {{job.location}}</div>
@@ -44,7 +44,7 @@
       </div>
     </header>
     <div class="col-sm-8 no-padding">
-      <div class="col-sm-12 details icons-section">
+      <div class="col-md-12 col-sm-11 col-xs-7 details icons-section">
         <p title="Industry">
           <span class="industry"></span>
           {{job.industry}}
