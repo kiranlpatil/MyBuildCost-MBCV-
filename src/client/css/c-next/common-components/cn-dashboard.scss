@@ -340,6 +340,23 @@
         }
       }
     }
+    .candidate-listing {
+      .q-card-header {
+        width: 100%;
+        border-bottom: 1px solid $filter-border;
+
+        ul {
+          margin: 0 !important;
+        }
+      }
+    }
+
+    .sub-tabs {
+      a {
+        padding: 10px 5px 10px 40px;
+        text-align: left;
+      }
+    }
   }
 }
 
