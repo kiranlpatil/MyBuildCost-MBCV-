@@ -5,7 +5,7 @@
     <h4 class="heading">Professional Preferences (Mandatory)</h4>
     <!-- <form [formGroup]="professionalDetailForm" (ngSubmit)="onNext(jobPostForm.value)">-->
     <div class="scrollable-content clearfix">
-      <div class="col-sm-8 no-padding">
+      <div class="col-md-8 col-sm-10 no-padding">
         <div class="form-group">
           <label>Current Salary</label>
           <!-- <control-messages [control]="professionalDetailForm.controls.currentSalary"></control-messages>-->
@@ -82,10 +82,22 @@
         <button class="btn-edit" (click)="onEdit()"
                 [hidden]="highlightedSection.isDisable" title="Edit Professional Preferences & Experience Summary"></button>
       </h4>
-      <p><label>Current Salary</label> {{candidate.professionalDetails.currentSalary}}</p>
-      <p><label>Ready To Relocate?</label> {{candidate.professionalDetails.relocate}}</p>
-      <p><label>Company Culture</label> {{candidate.professionalDetails.industryExposure}}</p>
-      <p><label>Notice Period</label> {{candidate.professionalDetails.noticePeriod}}</p>
+      <div class="col-sm-6 no-padding">
+        <div class="col-xs-6 no-padding"><p><label>Current Salary</label></p></div>
+        <div class="col-xs-6 no-padding"><p> {{candidate.professionalDetails.currentSalary}}</p></div>
+      </div>
+      <div class="col-sm-6 no-padding">
+        <div class="col-xs-6 no-padding"><p><label>Ready To Relocate?</label></p></div>
+        <div class="col-xs-6 no-padding"><p> {{candidate.professionalDetails.relocate}}</p></div>
+      </div>
+      <div class="col-sm-6 no-padding">
+        <div class="col-xs-6 no-padding"><p><label>Company Culture</label></p></div>
+        <div class="col-xs-6 no-padding"><p> {{candidate.professionalDetails.industryExposure}}</p></div>
+      </div>
+      <div class="col-sm-6 no-padding">
+        <div class="col-xs-6 no-padding"><p><label>Notice Period</label></p></div>
+        <div class="col-xs-6 no-padding"><p> {{candidate.professionalDetails.noticePeriod}}</p></div>
+      </div>
     </div>
   </div>
 </div>

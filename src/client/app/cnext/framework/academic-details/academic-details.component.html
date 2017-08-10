@@ -1,11 +1,12 @@
+<div class="clearfix divider clear visible-xs">&nbsp;</div>
 <div class="modal-bg" *ngIf="highlightedSection.name=='AcademicDetails'"></div>
-<div class="section-container clear"  *ngIf="highlightedSection.name =='AcademicDetails'">
+<div class="section-container clear" *ngIf="highlightedSection.name =='AcademicDetails'">
   <div class="main-content edit-modal-content clearfix">
     <h4 class="heading">Academic Details (Optional)</h4>
     <div class="scrollable-content" #parentDiv>
       <form class="description-form" [formGroup]="academicDetail" novalidate>
         <div class="row">
-          <div class="col-sm-8 no-padding" formArrayName="academicDetails" #innerDiv>
+          <div class="col-md-8 col-sm-10 no-padding" formArrayName="academicDetails" #innerDiv>
             <div *ngFor="let history of academicDetail.controls.academicDetails.controls; let i=index"
                  class="panel panel-default">
               <div>
@@ -34,7 +35,7 @@
       </button>
     </div>
     <button class="btn-prev" (click)="onPrevious()"><span
-      class="glyphicon glyphicon-chevron-left"></span></button>
+            class="glyphicon glyphicon-chevron-left"></span></button>
   </div>
 </div>
 

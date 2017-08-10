@@ -9,7 +9,7 @@
     <div class="scrollable-content" #EmloymentHostoryParent>
       <form class="description-form" [formGroup]="employeeHistory" novalidate>
         <div class="row">
-          <div class="col-sm-8 no-padding" formArrayName="employeeHistories" #EmloymentHostoryInner>
+          <div class="col-md-8 col-sm-10 no-padding" formArrayName="employeeHistories" #EmloymentHostoryInner>
             <div *ngFor="let history of employeeHistory.controls.employeeHistories.controls; let i=index"
                  class="panel panel-default">
               <div>

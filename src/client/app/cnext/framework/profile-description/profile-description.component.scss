@@ -65,9 +65,21 @@
     margin-top: 30px;
   }
 }
+
+@media only screen and (max-width: 980px) {
+  .scrollable-content {
+    padding: 0 !important;
+    width: 58.3% !important;
+
+    .form-container {
+      padding: 0 15px;
+    }
+  }
+}
 @media only screen and (max-width: 767px) {
   .user-name {
-    .profile-name-first, .profile-name-last {
+    .profile-name-first,
+    .profile-name-last {
       font-size: 16px;
     }
   }

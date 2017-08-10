@@ -121,6 +121,17 @@ $message: #0d75fa;
   }
 }
 
+@media screen and (max-width: 768px) {
+  .keyskill-form-group {
+    .form-control {
+      padding: 6px 160px 0 0;
+    }
+    .add-keyskill {
+      width: 150px;
+    }
+  }
+}
+
 @media screen and (max-width: 767px) {
   .list {
     padding: 0;

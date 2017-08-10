@@ -82,7 +82,7 @@
 .scrollable-content {
   overflow: auto;
   height: auto;
-  padding: 0px 250px 75px 70px;
+  padding: 0 250px 75px 70px;
   position: relative;
   top: 0;
   left: 0;
@@ -470,6 +470,14 @@
 
 @media only screen and (max-width: 980px) {
   .main-content {
+    .heading {
+      font-size: 20px;
+      padding: 8px 15px;
+      width: calc(100% - 190px) !important;
+    }
+    .button-group {
+      width: calc(100% - 190px);
+    }
     .btn-default {
       float: none;
       margin: 0;
@@ -479,11 +487,22 @@
       margin-top: 10px;
     }
   }
+
+  .section-container {
+    .tooltip-message {
+      width: 190px;
+      padding: 15px 10px;
+    }
+  }
+
+  .scrollable-content {
+    padding: 0 205px 75px 45px;
+  }
 }
 
 @media only screen and (max-width: 767px) {
   .main-content {
-    padding: 5px;
+    padding: 0;
 
     .info {
       font-size: 10px;
@@ -510,6 +529,34 @@
         }
       }
     }
+  }
+
+  .create-profile {
+    .page-header {
+      margin-top: 0 !important;
+      background: $black1 !important;
+
+      .last-child {
+        .dropdown-menu {
+          margin-top: 0 !important;
+        }
+      }
+    }
+    .navbar {
+      margin: 0 !important;
+    }
+  }
+
+  .profile-info {
+    width: 100%;
+  }
+
+  .wrapper {
+    margin-bottom: 10px;
+  }
+
+  .profile-visibility-wrapper {
+    margin-bottom: 0;
   }
 }
 
