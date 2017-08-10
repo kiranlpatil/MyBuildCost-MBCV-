@@ -5,7 +5,7 @@
       "name": "Jobmosis-internal-staging"
     },
     "mail": {
-      "host":"http://52.89.221.23:8080/",
+      "host":"http://34.208.115.60:3000/",
       "MAIL_SENDER": "notifications@jobmosis.com",
       "MAIL_SENDER_PASSWORD": "notifications@123",
       "ADMIN_MAIL": "notifications@jobmosis.com"
