@@ -19,6 +19,8 @@
     .option-list {
       position: relative;
       margin-left: 17px;
+      display: block;
+      width: 100%;
 
       &::before {
         display: block;
