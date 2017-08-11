@@ -20,11 +20,9 @@ class DataAccess {
     var name = config.get('TplSeed.database.name');
     //var name = 'JobMosis-staging';
     Mongoose.set('debug',true);
-    this.mongooseInstance = Mongoose.connect('mongodb://user:usbAdmin' + host + '/' + name,{auth:{authdb:"tplsubadmin123"}});
+    this.mongooseInstance = Mongoose.connect('mongodb://' + host + '/' + name);
     return this.mongooseInstance;
   }
 }
 DataAccess.connect();
 export = DataAccess;
-//'mongodb://waqar:waqar@'
-// this.mongooseInstance = Mongoose.connect('mongodb://waqar:waqar@' + 'localhost' + ':' + 27017 + '/' + name,{auth:{authdb:"admin"}});
