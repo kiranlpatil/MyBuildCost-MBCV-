@@ -18,8 +18,9 @@
     <button class="btn-prev" (click)="onPrevious()"><span
       class="glyphicon glyphicon-chevron-left"></span></button>
 
+    <div class="error-messages edit-error-msg" *ngIf="!isValid">{{validationMessage}}</div>
+
     <div class="button-group clearfix">
-      <div class="error-messages edit-error-msg" *ngIf="!isValid">{{validationMessage}}</div>
       <!--<div class="saving-loader">Saving...</div>-->
       <button class="btn btn-primary" scrollTo scrollTargetSelector="#capability-area" (click)="onSave()"
               [hidden]="!showButton">Next</button>

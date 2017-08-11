@@ -27,6 +27,10 @@
       font-size: 12px;
       display: block;
       color: $white;
+
+      &:last-child {
+        margin: 0;
+      }
     }
 
     h5 {
@@ -525,10 +529,10 @@
     }
 
     .heading {
-      font-size: 18px;
+      font-size: 16px;
       width: 100% !important;
       margin: 0;
-      padding: 8px 15px 8px 30px;
+      padding: 7px 7px 7px 30px;
 
       .close-dialog {
         visibility: hidden;
@@ -541,7 +545,7 @@
     .button-group {
       width: 100%;
       position: relative;
-      padding: 55px 15px 15px;
+      padding: 7px 7px 7px 15px;
       float: left;
     }
 
@@ -552,10 +556,11 @@
     }
 
     .edit-error-msg {
-      max-width: calc(100% - 30px);
-      top: 5px !important;
-      bottom: inherit !important;
-      position: absolute !important;
+      position: relative !important;
+      bottom: 0 !important;
+      left: 0 !important;
+      max-width: calc(100% - 45px);
+      margin-left: 30px;
       text-align: left;
     }
   }
@@ -598,14 +603,16 @@
   }
 
   .scrollable-content {
-    overflow: visible;
-    padding: 0 15px 0 30px;
+    overflow-x: hidden;
+    overflow-y: visible;
+    padding: 0 7px 0 30px;
   }
 
   .description-form {
     .panel-default {
       .glyphicon-trash {
-        right: 30px;
+        right: 15px;
+        top: -25px;
       }
     }
   }
