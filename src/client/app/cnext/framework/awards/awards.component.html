@@ -1,3 +1,10 @@
+<div class="guided-tour-section"
+     *ngIf="guidedTourStatus.indexOf(guidedTourImgOverlayScreensProfile) == -1 && isGuideImg == true">
+  <img src={{guidedTourImgOverlayScreensProfilePath}} alt="Profile Picture">
+  <div class="got-it-btn" (click)="onGotItGuideTour()">
+    <span>OK, Got it</span>
+  </div>
+</div>
 <div class="clearfix divider clear visible-xs">&nbsp;</div>
 <div class="modal-bg" *ngIf="highlightedSection.name=='Awards'"></div>
 <div class="section-container clear" *ngIf="highlightedSection.name =='Awards'">

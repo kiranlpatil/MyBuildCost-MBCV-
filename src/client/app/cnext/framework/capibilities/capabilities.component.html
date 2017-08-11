@@ -1,3 +1,10 @@
+<div class="guided-tour-section"
+     *ngIf="guidedTourStatus.indexOf(guidedTourImgOverlayScreensComplexities) == -1 && isCandidate && isGuideImg == true">
+  <img src={{guidedTourImgOverlayScreensComplexitiesPath}} alt="Profile Picture">
+  <div class="got-it-btn" (click)="onGotItGuideTour()">
+    <span>OK, Got it</span>
+  </div>
+</div>
 <div class="modal-bg" *ngIf="highlightedSection.name=='Capabilities'"></div>
 <div class="section-container clear clearfix" *ngIf="highlightedSection.name=='Capabilities'">
 
