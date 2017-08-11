@@ -189,6 +189,7 @@ export class AcademicDetailComponent implements OnInit, OnChanges, AfterViewChec
     } else if (type === 'save') {
       this.onSave();
     }
+
     let _body: any = document.getElementsByTagName('BODY')[0];
     _body.scrollTop = -1;
   }

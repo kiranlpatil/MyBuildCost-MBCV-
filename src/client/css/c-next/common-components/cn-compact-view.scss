@@ -307,6 +307,10 @@
 
 @media only screen and (max-width: 767px) {
 
+  .edit-modal-content {
+    margin: 0 auto;
+  }
+
   .modal-content {
     margin: 5px;
   }
@@ -380,6 +384,14 @@
 
       .avtar > img {
         height: 48px !important;
+      }
+    }
+
+    ul {
+      li {
+        &::before {
+          left: -13px;
+        }
       }
     }
   }

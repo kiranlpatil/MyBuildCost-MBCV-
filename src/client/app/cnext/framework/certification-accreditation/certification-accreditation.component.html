@@ -62,7 +62,7 @@
           Certifications <span class="optional-field">(Optional)</span>
           <button class="btn-edit" (click)="onEdit()" title="Edit Certifications"></button>
         </h4>
-        <ul>
+        <ul class="clearfix">
           <div *ngFor="let item of candidate.certifications;let i = index">
             <div *ngIf="i == 0">
               <li>

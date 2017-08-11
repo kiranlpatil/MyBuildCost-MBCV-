@@ -540,11 +540,18 @@
     .button-group {
       width: 100%;
       position: relative;
+      padding: 55px 15px 7px;
+      float: left;
     }
 
     .btn-prev {
       left: 9px;
       padding: 7px 8px;
+    }
+
+    .edit-error-msg {
+      max-width: calc(100% - 30px);
+      bottom: 50px !important;
     }
   }
 
@@ -586,6 +593,14 @@
     overflow: visible;
     padding: 0 15px 0 30px;
   }
+
+  .description-form {
+    .panel-default {
+      .glyphicon-trash {
+        right: 30px;
+      }
+    }
+  }
 }
 
 .icons-section {
@@ -595,6 +610,7 @@
     height: 20px;
     position: absolute;
     left: 5px;
+    top: 8px;
   }
 
   .certification {
@@ -603,6 +619,7 @@
     height: 20px;
     position: absolute;
     left: 5px;
+    top: 8px;
   }
 
   .employment-history {
@@ -611,6 +628,7 @@
     height: 20px;
     position: absolute;
     left: 5px;
+    top: 8px;
   }
 
   .award {
@@ -619,6 +637,7 @@
     height: 20px;
     position: absolute;
     left: 5px;
+    top: 8px;
   }
 }
 

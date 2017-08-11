@@ -67,7 +67,7 @@
                   (click)="onEdit()"
                   title="Edit Employment History"></button>
         </h4>
-        <ul>
+        <ul class="clearfix">
           <div *ngFor="let item of candidate.employmentHistory;let i = index">
             <div *ngIf="i == 0">
               <li>
