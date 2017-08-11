@@ -2,7 +2,7 @@
   "TplSeed": {
     "database": {
       "host":"127.0.0.1",
-      "name": "Jobmosis-internal-staging"
+      "name": "Jobmosis-staging"
     },
     "mail": {
       "host":"http://34.208.115.60:3000/",
