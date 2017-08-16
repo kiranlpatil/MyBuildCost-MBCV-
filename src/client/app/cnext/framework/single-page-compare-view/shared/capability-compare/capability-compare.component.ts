@@ -1,9 +1,9 @@
-import { Component, Input, Output, OnChanges, EventEmitter } from '@angular/core';
-import { Capability } from '../../../model/capability';
-import { Scenario } from '../../../model/scenario';
-import { AppSettings, LocalStorage, Tooltip } from '../../../../../framework/shared/constants';
-import { LocalStorageService } from '../../../../../framework/shared/localstorage.service';
-import { Complexity } from '../../../model/complexity';
+import {Component, EventEmitter, Input, OnChanges, Output} from "@angular/core";
+import {Capability} from "../../../model/capability";
+import {Scenario} from "../../../model/scenario";
+import {AppSettings, LocalStorage, Tooltip} from "../../../../../framework/shared/constants";
+import {LocalStorageService} from "../../../../../framework/shared/localstorage.service";
+import {Complexity} from "../../../model/complexity";
 
 @Component({
   moduleId: module.id,
@@ -64,6 +64,8 @@ export class CapabilityCompareComponent  implements OnChanges {
   }
 
   onComplexitySelect(complexity:Complexity,capability:Capability) {
+    let _body: any = document.getElementsByTagName('BODY')[0];
+    _body.scrollTop = -1;
     if(this.isCandidate) {
     this.SelectedComplexity.emit(complexity);
     } else {
