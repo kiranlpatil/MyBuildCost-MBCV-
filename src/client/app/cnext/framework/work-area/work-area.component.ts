@@ -25,7 +25,7 @@ export class WorkAreaComponent implements OnInit,OnChanges {
 
   tooltipRecruiterMessage: string =
     '<ul>' +
-    '<li><p>1. Select Those Areas in Which the Candidate is Expected to Work. You can select maximum 3 areas of work for a job profile in order to make your search more relevant.</p></li>' +
+    '<li><p>1. '+ Tooltip.RECRUITER_AREA_OF_WORK_TOOLTIP+'</p></li>' +
     '</ul>';
   private savedSelectedRoles: Role[] = new Array(0);
   private isCandidate: boolean = false;
@@ -115,7 +115,7 @@ export class WorkAreaComponent implements OnInit,OnChanges {
     this.guidedTourStatus = this.guidedTourService.getTourStatus();
     if(this.guidedTourStatus.indexOf(this.guidedTourImgOverlayScreensCapabilities) !== -1 && this.isCandidate) {
       this.onNextAction();
-    } 
+    }
     if(this.isCandidate == false){
       this.onNextAction();
     }
@@ -127,7 +127,11 @@ export class WorkAreaComponent implements OnInit,OnChanges {
 
   onNextAction() {
     if(this.savedSelectedRoles.length === 0){
-      this.validationMessage = Messages.MSG_ERROR_VALIDATION_AREAS_WORKED_REQUIRED;
+      if(this.isCandidate) {
+        this.validationMessage = Messages.MSG_ERROR_VALIDATION_AREAS_WORKED_REQUIRED;
+      } else {
+        this.validationMessage = Messages.MSG_ERROR_VALIDATION_FOR_RECRUITER_AREAS_WORKED_REQUIRED;
+      }
       this.isValid = false;
       return;
     }
@@ -143,8 +147,12 @@ export class WorkAreaComponent implements OnInit,OnChanges {
 
   onSave() {
     this.isValid = true;
-    if(this.savedSelectedRoles.length == 0){
-      this.validationMessage = Messages.MSG_ERROR_VALIDATION_AREAS_WORKED_REQUIRED;
+    if(this.savedSelectedRoles.length == 0) {
+      if(this.isCandidate) {
+        this.validationMessage = Messages.MSG_ERROR_VALIDATION_AREAS_WORKED_REQUIRED;
+      } else {
+        this.validationMessage = Messages.MSG_ERROR_VALIDATION_FOR_RECRUITER_AREAS_WORKED_REQUIRED;
+      }
       this.isValid = false;
       return;
     }
