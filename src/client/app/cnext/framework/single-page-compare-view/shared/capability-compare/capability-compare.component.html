@@ -80,11 +80,11 @@
         <div class="row-list" *ngFor="let capability of capabilities;let j=index">
           <div class="content clearfix" [class.hide-capability]="j >= rowsToShow">
             <div class="col-sm-3">
-              <div class="heading visible-xs"><h4>Core Capabilities</h4></div>
+              <!--<div class="heading visible-xs"><h4>Core Capabilities</h4></div>-->
               <span class="capability-label-name">{{capability.name}}</span>
             </div>
-            <div class="col-sm-9">
-              <div class="heading visible-xs"><h4>Complexities Handled</h4></div>
+            <div class="col-sm-9 complexities-handled">
+              <!--<div class="heading visible-xs"><h4>Complexities Handled</h4></div>-->
               <div class="complexities-col" *ngFor="let complexity of capability.complexities;let i=index">
                 <div class="col-sm-4 capability-edit" (click)="onComplexitySelect(complexity,capability)">
                   <button class="btn-edit" (click)="onComplexitySelect(complexity,capability)" title="Edit this Capability Detail"></button>
@@ -99,21 +99,21 @@
               </div>
             </div>
           </div>
-          <div class="see-more" *ngIf="j === rowsToShow" (click)="isShowMore()" [hidden]="showMore" >
-            <p>Show more</p>
-            <span class="glyphicon glyphicon-chevron-down"></span>
+          <div class="see-more" *ngIf="j+1 === rowsToShow" (click)="isShowMore()" [hidden]="showMore" >
+            <p [hidden]="!showMoreUnable">Show more</p>
+            <span [class.hide-capability]="!showMoreUnable" class="glyphicon glyphicon-chevron-down"></span>
           </div>
         </div>
       </div>
     <div class="capability-of-capabilities" [hidden]="!showMore">
     <div class="row-list" *ngFor="let capability of capabilities;let j=index" >
-      <div class="content clearfix" [class.hide-capability]="j <= rowsToShow">
+      <div class="content clearfix" [class.hide-capability]="j < rowsToShow">
         <div class="col-sm-3">
-          <div class="heading visible-xs"><h4>Core Capabilities</h4></div>
+          <!--<div class="heading visible-xs"><h4>Core Capabilities</h4></div>-->
           <span class="capability-label-name">{{capability.name}}</span>
         </div>
-        <div class="col-sm-9">
-          <div class="heading visible-xs"><h4>Complexities Handled</h4></div>
+        <div class="col-sm-9 complexities-handled">
+          <!-- <div class="heading visible-xs"><h4>Complexities Handled</h4></div>-->
           <div class="complexities-col" *ngFor="let complexity of capability.complexities;let i=index">
             <div class="col-sm-4 capability-edit" (click)="onComplexitySelect(complexity,capability)">
               <button class="btn-edit" (click)="onComplexitySelect(complexity,capability)" title="Edit this Capability Detail"></button>
