@@ -1,10 +1,10 @@
 export class AppSettings {
-  public static IP = 'http://localhost:8080';
+  //public static IP = 'http://localhost:8080';
   // public static IP = 'http://ee802b7f.ngrok.io';
   //public static IP = 'http://10.192.33.77:8080';
   //public static IP = 'http://52.89.221.23';
   // public static IP = 'app.jobmosis.com';
-  //public static IP = '';
+  public static IP = '';
 
 
   public static get API_ENDPOINT(): string {
@@ -93,8 +93,9 @@ export class Messages {
   public static MSG_ERROR_VALIDATION_CURRENTCOMPANY_REQUIRED = 'This field can\'t be left blank.';
   public static MSG_ERROR_VALIDATION_EDUCATION_REQUIRED = 'This field can\'t be left blank.';
   public static MSG_ERROR_VALIDATION_EXPERIENCE_REQUIRED = 'This field can\'t be left blank.';
-  public static MSG_ERROR_VALIDATION_INDUSTRY_REQUIRED = 'This field can\'t be left blank.';
+  public static MSG_ERROR_VALIDATION_INDUSTRY_REQUIRED = 'Please select an Industry';
   public static MSG_ERROR_VALIDATION_AREAS_WORKED_REQUIRED = 'Select areas you have worked.';
+  public static MSG_ERROR_VALIDATION_FOR_RECRUITER_AREAS_WORKED_REQUIRED = 'Select areas in which the candidate is expected to work.';
   public static MSG_ERROR_VALIDATION_MAX_AREAS_WORKED_CROSSED = 'You have selected maximum work areas. To select a new work area, deselect any of the earlier ones.';
   public static MSG_ERROR_VALIDATION_CAPABILITIES_REQUIRED_CANDIDATE = 'Select your capabilities.';
   public static MSG_ERROR_VALIDATION_CAPABILITIES_REQUIRED_RECRUITER = 'Select capabilities that are required in the candidate';
@@ -388,6 +389,7 @@ export class Tooltip {
   public static SAVE_ROLES_MESSAGE: string = 'Saving role details. Once saved, you cannot change it for 3 months.';
   public static AREA_OF_WORK_TOOLTIP_1: string = 'Select those areas of work that best describe your current focus.';
   public static AREA_OF_WORK_TOOLTIP_2: string = 'If there are areas that you have worked in past but are no more relevent, you should not select such areas as they may fetch jobs that are no more relevant to you.';
+  public static RECRUITER_AREA_OF_WORK_TOOLTIP: string = 'Select Those Areas in Which the Candidate is Expected to Work. You can select maximum 3 areas of work for a job profile in order to make your search more relevant.';
   public static EMPTY_LIST_MESSAGE: string = 'Currently there are no candidates matching to your job posting.' +
     'This is because the currently available candidates possess different set of capabilities than' +
     'what your job expects. This dashboard shows candidates that have best matches with your desired' +

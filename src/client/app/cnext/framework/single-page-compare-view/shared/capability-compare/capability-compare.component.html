@@ -99,15 +99,15 @@
               </div>
             </div>
           </div>
-          <div class="see-more" *ngIf="j === rowsToShow" (click)="isShowMore()" [hidden]="showMore" >
-            <p>Show more</p>
-            <span class="glyphicon glyphicon-chevron-down"></span>
+          <div class="see-more" *ngIf="j+1 === rowsToShow" (click)="isShowMore()" [hidden]="showMore" >
+            <p [hidden]="!showMoreUnable">Show more</p>
+            <span [class.hide-capability]="!showMoreUnable" class="glyphicon glyphicon-chevron-down"></span>
           </div>
         </div>
       </div>
     <div class="capability-of-capabilities" [hidden]="!showMore">
     <div class="row-list" *ngFor="let capability of capabilities;let j=index" >
-      <div class="content clearfix" [class.hide-capability]="j <= rowsToShow">
+      <div class="content clearfix" [class.hide-capability]="j < rowsToShow">
         <div class="col-sm-3">
           <!--<div class="heading visible-xs"><h4>Core Capabilities</h4></div>-->
           <span class="capability-label-name">{{capability.name}}</span>

@@ -115,6 +115,7 @@
       top: 0;
       left: 0;
       @extend %text-ellipsis;
+      min-height: 32px;
     }
 
     h5 {
@@ -704,7 +705,6 @@ header {
     }
   }
 }
-
 
 @media only screen and (min-width: 1367px) {
   .card-view {

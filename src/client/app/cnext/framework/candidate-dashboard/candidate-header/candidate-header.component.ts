@@ -40,7 +40,8 @@ export class CandidateHeaderComponent {
 
   logOut() {
     window.localStorage.clear();
-    this._router.navigate([NavigationRoutes.APP_START]);
+    let host='http://'+window.location.hostname;
+    this._router.navigate([host]);
   }
 
   navigateTo(nav: string) {

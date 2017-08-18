@@ -689,7 +689,8 @@ control-messages {
     max-width: 1200px;
     width: 100%;
     position: relative !important;
-    z-index: 1 !important;
+    z-index: 5 !important;
+    float: left;
   }
 }
 
@@ -721,6 +722,11 @@ control-messages {
       text-align: center;
     }
   }
+}
+
+.dashboard-view,
+.card-view {
+  margin-bottom: 20px;
 }
 
 // Media Queries
