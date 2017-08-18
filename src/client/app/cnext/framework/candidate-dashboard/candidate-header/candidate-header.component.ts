@@ -40,7 +40,8 @@ export class CandidateHeaderComponent {
 
   logOut() {
     window.localStorage.clear();
-    this._router.navigate([NavigationRoutes.APP_START]);
+    window.location.href='http://www.jobmosis.com';
+    //this._router.navigate([NavigationRoutes.APP_START]);
   }
 
   navigateTo(nav: string) {
