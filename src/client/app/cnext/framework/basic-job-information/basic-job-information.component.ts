@@ -164,13 +164,13 @@ export class BasicJobInformationComponent implements OnInit, OnChanges {
       return;
     }
 
-    if (Number(this.jobPosterModel.experienceMaxValue) <= Number(this.jobPosterModel.experienceMinValue)) {
+    if (Number(this.jobPosterModel.experienceMaxValue) < Number(this.jobPosterModel.experienceMinValue)) {
       this.minExperienceValidationMessage = Messages.MSG_ERROR_VALIDATION_EXPERIENCE;
       this.isExperienceValid = false;
       return;
     }
 
-    if (Number(this.jobPosterModel.salaryMaxValue) <= Number(this.jobPosterModel.salaryMinValue)) {
+    if (Number(this.jobPosterModel.salaryMaxValue) < Number(this.jobPosterModel.salaryMinValue)) {
       this.minSalaryValidationMessage = Messages.MSG_ERROR_VALIDATION_SALARY;
       this.isSalaryValid = false;
       return;
