@@ -28,7 +28,6 @@ export class DescriptionFieldComponent {
 
   ngOnChanges() {
     if (this.description != undefined && this.description !== '') {
-      this.description = this.description.toString().replace(/,/g, " ");
       this.wordCount();
     }
   }
