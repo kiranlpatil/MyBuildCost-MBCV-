@@ -448,12 +448,12 @@ class CandidateService {
               if (complexity.questionHeaderForCandidate !== undefined && complexity.questionHeaderForCandidate !== null && complexity.questionHeaderForCandidate !== '') {
                 match_view.questionHeaderForCandidate = complexity.questionHeaderForCandidate;
               } else {
-                match_view.questionHeaderForCandidate='Tell us about your experience in';
+                match_view.questionHeaderForCandidate= Messages.MSG_HEADER_QUESTION_CANDIDATE;
               }
               if (complexity.questionHeaderForRecruiter !== undefined && complexity.questionHeaderForRecruiter !== null && complexity.questionHeaderForRecruiter !== '') {
                 match_view.questionHeaderForRecruiter = complexity.questionHeaderForRecruiter;
               } else {
-                match_view.questionHeaderForRecruiter = 'Which is the most appropriate level that candidate is required to handle as a part of';
+                match_view.questionHeaderForRecruiter = Messages.MSG_HEADER_QUESTION_RECRUITER;
               }
               match_view.complexity_name = complexity.name;
               if (scenarios[0]) {
@@ -507,12 +507,12 @@ class CandidateService {
                 if (complexity.questionHeaderForCandidate !== undefined && complexity.questionHeaderForCandidate !== null && complexity.questionHeaderForCandidate !== '') {
                   match_view.questionHeaderForCandidate = complexity.questionHeaderForCandidate;
                 } else {
-                  match_view.questionHeaderForCandidate = 'Tell us about your experience in';
+                  match_view.questionHeaderForCandidate = Messages.MSG_HEADER_QUESTION_CANDIDATE;
                 }
                 if (complexity.questionHeaderForRecruiter !== undefined && complexity.questionHeaderForRecruiter !== null && complexity.questionHeaderForRecruiter !== '') {
                   match_view.questionHeaderForRecruiter = complexity.questionHeaderForRecruiter;
                 } else {
-                  match_view.questionHeaderForRecruiter = 'Which is the most appropriate level that candidate is required to handle as a part of';
+                  match_view.questionHeaderForRecruiter = Messages.MSG_HEADER_QUESTION_RECRUITER;
                 }
                 if (scenarios[0]) {
                   match_view.scenario_name = scenarios[0].name;
