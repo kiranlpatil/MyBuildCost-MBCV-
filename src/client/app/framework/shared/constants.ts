@@ -329,7 +329,7 @@ export class ImagePath {
   public static GOOGLE_ICON = './assets/framework/images/footer/google-plus.svg';
   public static LINKEDIN_ICON = './assets/framework/images/footer/linked-in.svg';
   public static PROFILE_IMG_ICON = './assets/framework/images/dashboard/default-profile.png';
-  public static COMPANY_LOGO_IMG_ICON = './assets/framework/images/dashboard/logo-Icon.png';
+  public static COMPANY_LOGO_IMG_ICON = './assets/framework/images/dashboard/default-company-logo.png';
   public static EMAIL_ICON = './assets/framework/images/icons/e-mail.svg';
   public static EMAIL_ICON_GREY = './assets/framework/images/icons/e-mail-grey.svg';
   public static NEW_EMAIL_ICON = './assets/framework/images/icons/new-e-mail.svg';
