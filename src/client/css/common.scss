@@ -711,7 +711,7 @@ control-messages {
     width: 118px;
     height: 32px;
     right: 82px;
-    bottom: 25px;
+    bottom: 50px;
     background: #fe5722;
     span {
       color: $white;
@@ -727,6 +727,10 @@ control-messages {
 .dashboard-view,
 .card-view {
   margin-bottom: 20px;
+}
+
+.small-label {
+  font-size: 11px;
 }
 
 // Media Queries

@@ -415,7 +415,9 @@
     float: left;
     list-style: none;
     margin: 0 0 10px 0;
-    padding: 0;
+    padding: 4px 0;
+    z-index: 99;
+    top: 8px;
 
     li {
       float: left;
@@ -560,7 +562,7 @@
 .capability-complexity-container{
   min-width:320px;
   width: 100%;
-  margin: 0px auto;
+  margin: 0 auto;
   display: inline-block;
 }
 .row-section {

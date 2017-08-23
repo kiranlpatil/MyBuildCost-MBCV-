@@ -154,9 +154,14 @@ export class Messages {
     'number you have entered.';
   public static MSG_RESET_EMAIL_ADDRESS = 'Enter your new account email address and we will send you a link to reset your email' +
     'address.';
-  public static MSG_EMAIL_ACTIVATION = 'You may start using your account with new email address' +
+  public static MSG_EMAIL_ACTIVATION = 'Your email has been activated. You may start using your account with new email address' +
     'immediately.';
   public static MSG_CONTACT_US = 'Please provide the following details and we will get back to you soon.';
+  public static MSG_YEAR_NO_MATCH_FOUND = 'The year doesn\'t look right. Be sure to use your actual year of birth.';
+  public static MSG_FORGOT_PASSWORD = 'Enter your account e-mail address and we\'ll help you create a new password.';
+  public static MSG_READY_FOR_JOB_SEARCH_FOR_FIRST_TIME = 'You are now ready to find your dream job. In a few seconds you will be taken to the job matching dashboard.';
+  public static MSG_READY_FOR_JOB_SEARCH = 'Your profile edited successfully.You will be taken to the job matching dashboard.';
+  public static MSG_JOB_POST = 'This job post will now be published. You can see matching candidates for this job in your dashboard view. Proceed?';
   public static MSG_CONFIRM_PASSWORD = 'Confirm your password.';
   public static MSG_CHANGE_PASSWORD_SUCCESS = 'Password changed successfully.You can Sign In again with new password by clicking on "yes" button, please' +
     'click on "No" button to continue the session.';
@@ -172,6 +177,10 @@ export class Messages {
   public static MSG_MOBILE_NUMBER_NOT_MATCH = 'Mobile Number does not match.';
   public static MSG_MOBILE_NUMBER_Change_SUCCESS = 'Mobile number changed successfully.You can Sign In again by clicking on "yes" button, please click on "No"' +
     'button to continue the session.';
+  public static MSG_MOBILE_VERIFICATION_TITLE = 'Verify Your Mobile Number';
+  public static MSG_MOBILE_VERIFICATION_MESSAGE = 'Please enter the verification code sent to your phone number.';
+  public static MSG_MOBILE_VERIFICATION_SUCCUSS_1 = 'Congratulations!';
+  public static MSG_MOBILE_VERIFICATION_SUCCUSS_2 = 'Registration successful. Kindly Sign In';
   public static CONTACT_US_ADDRESS = 'Blog. No. 14, 1st Floor, Electronic Estate, Parvati, Pune-Satara Road, Pune 411009, MH, INDIA.';
   public static CONTACT_US_CONTACT_NUMBER_1 = '+91 (20) 2421 8865';
   public static CONTACT_US_CONTACT_NUMBER_2 = '+91 98233 18865';
@@ -329,7 +338,7 @@ export class ImagePath {
   public static GOOGLE_ICON = './assets/framework/images/footer/google-plus.svg';
   public static LINKEDIN_ICON = './assets/framework/images/footer/linked-in.svg';
   public static PROFILE_IMG_ICON = './assets/framework/images/dashboard/default-profile.png';
-  public static COMPANY_LOGO_IMG_ICON = './assets/framework/images/dashboard/logo-Icon.png';
+  public static COMPANY_LOGO_IMG_ICON = './assets/framework/images/dashboard/default-company-logo.png';
   public static EMAIL_ICON = './assets/framework/images/icons/e-mail.svg';
   public static EMAIL_ICON_GREY = './assets/framework/images/icons/e-mail-grey.svg';
   public static NEW_EMAIL_ICON = './assets/framework/images/icons/new-e-mail.svg';
@@ -447,4 +456,29 @@ export class Tooltip {
   public static CAPABILITY_COMPARE_BELOW_MATCH: string = 'Candidate capabilities slightly less than desired';
   public static CAPABILITY_COMPARE_MISSING_MATCH: string = 'Large mismatch of capabilities';
   public static COMPANY_DETAILS_TOOLTIP: string = 'Company Details Message';
+}
+
+export class Headings {
+  public static ACADAMIC_DETAILS: string = 'Academic Details (Optional)';
+  public static AWARDS: string = 'Awards (Optional)';
+  public static JOB_DISCRIPTION: string = 'Job Description';
+  public static HIDE_COMPANY_NAME: string = 'Hide company Name from applicant';
+  public static GOT_IT: string = 'OK, Got it';
+  public static CAPABILITIES_FOR_CANDIDATE: string = 'Select those capabilities that describe your current strength.';
+  public static CAPABILITIES_FOR_RECRUITER: string = 'Select core capabilities that are required in the candidate.';
+  public static CERTIFICATE_ACCREDITATION: string = 'Certification/Accreditation (Optional)';
+  public static ADDITIONAL_INFORMATION: string = 'Additional information about the job';
+  public static OPTIONAL: string = '(Optional)';
+  public static CAPABITITIES_HEADING: string = 'Capabilities';
+  public static EMPLOYMENT_HISTORY: string = 'Employment History';
+  public static ADDITIONAL_DOMAIN_EXPOSURE: string = 'Additional domain exposure';
+  public static INDUSTRY_FOR_CANDIDATE: string = 'Select your Industry (Any One)';
+  public static INDUSTRY_FOR_RECRUITER: string = 'Select industry in which candidate is expected to work (Any One)';
+  public static JOB_PROFICIENCIES: string = 'Keywords that describe candidate\'s area of expertise';
+  public static MANDATORY_PROFICIENCIES: string = 'Mandatory Key Skills';
+  public static ADDITIONAL_PROFICIENCIES: string = 'Additional Key Skills';
+  public static ABOUT_MYSELF: string = 'About Myself';
+  public static SUPPLIMENTARY_CAPABILITIES: string = 'Supplimentary Capabilities';
+  public static ADDITIONAL_INFORMATION_TEXT: string = 'Additional Information';
+  public static KEY_SKILLS: string = 'Key Skills';
 }

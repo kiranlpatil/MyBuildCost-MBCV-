@@ -1,5 +1,5 @@
 import {Component, DoCheck, KeyValueDiffers, OnDestroy, OnInit} from "@angular/core";
-import {NavigationRoutes, Tooltip} from "../../../framework/shared/constants";
+import {LocalStorage,NavigationRoutes, Tooltip, Messages} from "../../../framework/shared/constants";
 import {Router} from "@angular/router";
 import {ComplexityService} from "../complexity.service";
 import {Candidate, Section} from "../model/candidate";
@@ -9,6 +9,7 @@ import {Industry} from "../model/industry";
 import {Message} from "../../../framework/shared/message";
 import {MessageService} from "../../../framework/shared/message.service";
 import {ErrorService} from "../error.service";
+import {LocalStorageService} from "../../../framework/shared/localstorage.service";
 
 @Component({
   moduleId: module.id,
@@ -19,6 +20,8 @@ import {ErrorService} from "../error.service";
 
 export class CandidateProfileComponent implements OnInit, DoCheck, OnDestroy {
   whichStepsVisible: boolean[] = new Array(7);
+  jobSearchForFirstTimeMessage:string = Messages.MSG_READY_FOR_JOB_SEARCH_FOR_FIRST_TIME;
+  jobSearchMessage:string = Messages.MSG_READY_FOR_JOB_SEARCH;
   private rolesForMain: Role[] = new Array(0);
   private rolesForCapability: Role[] = new Array(0);
   private rolesForComplexity: Role[] = new Array(0);
@@ -478,6 +481,7 @@ export class CandidateProfileComponent implements OnInit, DoCheck, OnDestroy {
 
 
   showHideModal() {
+    LocalStorageService.setLocalValue(LocalStorage.IS_CANDIDATE_FILLED, true);
     this.showModalStyle = !this.showModalStyle;
     this.setTimeoutId = setTimeout(() => {
       this.onSubmit();
