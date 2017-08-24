@@ -172,7 +172,6 @@ import {IndustryDetailsService} from "./cnext/framework/industry-detail-service"
 import {IndustryDetailsDirective} from "./cnext/framework/shared-directives/industry-details.directive";
 import {IndustryDataDirective} from "./cnext/framework/shared-directives/industry-data.directive";
 import {IndustryDataService} from "./cnext/framework/industry-data-service";
-
 import {ProfileComparisonComponent} from "./cnext/framework/profile-comparison/profile-comparison.component";
 import {ProfileComparisonService} from "./cnext/framework/profile-comparison/profile-comparison.service";
 import {ProfileComparisonHeaderComponent} from "./cnext/framework/profile-comparison/profile-comparison-header/profile-comparison-header.component";
@@ -187,6 +186,7 @@ import {ValueSortFilterPipe} from "./cnext/framework/profile-comparison/value-so
 import {RegistrationService} from "./framework/shared/registration.service";
 import {GuidedTourService} from "./cnext/framework/guided-tour.service";
 import {ErrorService} from "./cnext/framework/error.service";
+import {CandidateSearchComponent} from "./cnext/framework/candidate-search/candidate-search.component";
 
 //C-NEXT IMPORTS
 
@@ -320,7 +320,8 @@ import {ErrorService} from "./cnext/framework/error.service";
     ProfileComparisonPipe,
     ColorShadeDirective,
     AttributeFilterPipe,
-    ValueSortFilterPipe
+    ValueSortFilterPipe,
+    CandidateSearchComponent
   ],
   providers: [
     {

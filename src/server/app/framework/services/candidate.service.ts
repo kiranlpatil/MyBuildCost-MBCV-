@@ -19,6 +19,7 @@ import ComplexityClassModel = require("../dataaccess/model/complexity-class.mode
 import ComplexitiesClassModel = require("../dataaccess/model/complexities-class.model");
 import CapabilityModel = require("../dataaccess/model/capability.model");
 import RoleModel = require("../dataaccess/model/role.model");
+import CandidateInfoSearch = require("../dataaccess/model/candidate-info-search");
 var bcrypt = require('bcrypt');
 class CandidateService {
   private candidateRepository: CandidateRepository;
@@ -623,6 +624,28 @@ class CandidateService {
     });
   }
 
+  getCandidateInfo(candidate:string[], callback:(error:any, result:any) => void) {
+    this.candidateRepository.retrieveByMultiRefrenceIdsAndPopulate(candidate, {capability_matrix: 0}, (err, result) => {
+      if (err) {
+        callback(err, null);
+      } else {
+        callback(null, result);
+      }
+    });
+  }
+
+  buidResultOnCandidateSearch(dataArray:CandidateModel[]) {
+    var searchResult:CandidateInfoSearch[] = new Array(0);
+    for (let obj of dataArray) {
+      var data:CandidateInfoSearch = new CandidateInfoSearch();
+      data.first_name = obj.userId.first_name;
+      data.last_name = obj.userId.last_name;
+      data.id = obj._id;
+      data.display_string = data.first_name + " " + data.last_name + " " + obj.professionalDetails.currentCompany;
+      searchResult.push(data);
+    }
+    return searchResult;
+  }
 }
 
 Object.seal(CandidateService);

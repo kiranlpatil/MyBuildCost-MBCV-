@@ -1,0 +1,7 @@
+<div class="search-container" style="margin-top:70px; text-align:center;">
+  <div><p>Candidate search</p></div>
+  <input auto-complete [(ngModel)]="searchValue" [source]="candidateList" placeholder="select" class="search"/>
+  <div class="pull-left col-xs-3 no-padding clear-all-btn">
+    <button (click)="searchCandidate()">Show</button>
+  </div>
+</div>

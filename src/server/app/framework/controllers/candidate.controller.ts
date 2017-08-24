@@ -7,6 +7,7 @@ import CandidateService = require('../services/candidate.service');
 import UserService = require('../services/user.service');
 import RecruiterService = require('../services/recruiter.service');
 import SearchService = require('../search/services/search.service');
+import CandidateInfoSearch = require("../dataaccess/model/candidate-info-search");
 
 
 export function create(req: express.Request, res: express.Response, next: any) {
@@ -311,4 +312,56 @@ export function getList(req: express.Request, res: express.Response, next: any) 
   } catch (e) {
     res.status(403).send({message: e.message});
   }
+}
+
+export function getCandidatesByName(req:express.Request, res:express.Response, next:any) {
+  try {
+    let userService = new UserService();
+    let candidateService = new CandidateService();
+    //let jobId = req.params.jobId;
+    //let candidateId = req.params.candidateId;
+    var userName = req.params.searchvalue;
+    var exp = eval('/^' + userName + '/i');
+    //var eventstring = new String();
+    var eventstring:string = exp.toString().replace(/'/g, "");
+
+    var query = {$or: [{'first_name': {$regex: eval(eventstring)}}, {'last_name': {$regex: eval(eventstring)}}]};
+    //console.log('---------------data------------------',query);
+    userService.retrieve(query, (error:any, result:any) => {
+      if (error) {
+        next({
+          reason: 'Problem in Search user details',
+          message: 'Problem in Search user details',
+          code: 401
+        });
+      }
+      else {
+        var candidateId:string[] = new Array(0);
+        for (let obj of result) {
+          candidateId.push(obj._id);
+        }
+        console.log('---------------candidateIds---------------------------', candidateId);
+        candidateService.getCandidateInfo(candidateId, (error:any, candidateInfo:CandidateModel[]) => {
+          if (error) {
+            next({
+              reason: 'Problem in Search user details',
+              message: 'Problem in Search user details',
+              code: 401
+            });
+          } else {
+            var searchArray:CandidateInfoSearch[] = candidateService.buidResultOnCandidateSearch(candidateInfo);
+            res.send({
+              'status': 'success',
+              'data': searchArray,
+            });
+          }
+        });
+      }
+    });
+
+  }
+  catch (e) {
+    res.status(403).send({message: e.message});
+  }
+
 }
