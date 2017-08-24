@@ -84,7 +84,7 @@
 }
 
 .scrollable-content {
-  overflow: auto;
+  overflow: visible;
   height: auto;
   padding: 0 250px 75px 70px;
   position: relative;
@@ -183,11 +183,16 @@
     box-shadow: 0 0 1px 0 $theme-color inset, 0 0 1px 0 $theme-color;
     color: $white;
     font-size: 13px;
-    padding: 1px 15px;
+    padding: 1px 30px 1px 15px;
     height: auto !important;
     margin: 0 5px 0 0;
     font-family: 'gothamrnd-book';
     text-transform: none !important;
+    word-wrap: break-word;
+    white-space: normal;
+    text-align: left;
+    position: relative;
+    min-width: 100px;
 
     &:focus,
     &:active,
