@@ -1,7 +1,19 @@
 <div class="search-container" style="margin-top:70px; text-align:center;">
   <div><p>Candidate search</p></div>
-  <input auto-complete [(ngModel)]="searchValue" [source]="candidateList" placeholder="select" class="search"/>
+  <!--
+    <input auto-complete (keypress)="searchCandidate()" [(ngModel)]="searchValue" [source]="candidateDataList" placeholder="select" class="search"/>
+  -->
+  <input (keyup)="searchCandidate($event.target.value)">
   <div class="pull-left col-xs-3 no-padding clear-all-btn">
-    <button (click)="searchCandidate()">Show</button>
+    <button>Show</button>
   </div>
+  <li *ngFor="let item of candidateDataList">
+    <div (click)="getJobProfileMatching(item.id)">
+      {{item.display_string}}
+    </div>
+  </li>
+  <div *ngFor="let job of listOfJobs">
+    <cn-candidate-q-card [progress_bar_color]="'#29b6f6'" [job]="job" [type]="'matched'"></cn-candidate-q-card>
+  </div>
+  <button (click)="viewProfile()">View Profile</button>
 </div>

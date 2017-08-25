@@ -624,8 +624,9 @@ class CandidateService {
     });
   }
 
-  getCandidateInfo(candidate:string[], callback:(error:any, result:any) => void) {
-    this.candidateRepository.retrieveByMultiRefrenceIdsAndPopulate(candidate, {capability_matrix: 0}, (err, result) => {
+//in below method we use user ids for search in candidate repository
+  getCandidateInfo(userId:string[], callback:(error:any, result:any) => void) {
+    this.candidateRepository.retrieveByMultiRefrenceIdsAndPopulate(userId, {capability_matrix: 0}, (err, result) => {
       if (err) {
         callback(err, null);
       } else {

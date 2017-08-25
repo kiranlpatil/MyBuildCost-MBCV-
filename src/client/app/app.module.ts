@@ -187,7 +187,8 @@ import {RegistrationService} from "./framework/shared/registration.service";
 import {GuidedTourService} from "./cnext/framework/guided-tour.service";
 import {ErrorService} from "./cnext/framework/error.service";
 import {CandidateSearchComponent} from "./cnext/framework/candidate-search/candidate-search.component";
-
+import {CandidateSearchService} from "./cnext/framework/candidate-search/candidate-search.service";
+//import { NguiAutoCompleteModule } from '@ngui/auto-complete';
 //C-NEXT IMPORTS
 
 
@@ -400,7 +401,8 @@ import {CandidateSearchComponent} from "./cnext/framework/candidate-search/candi
     RedirectRecruiterDashboardService,
     ReleventIndustryListService,
     ProfileComparisonService,
-    GuidedTourService
+    GuidedTourService,
+    CandidateSearchService
 
   ],
   bootstrap: [AppComponent]

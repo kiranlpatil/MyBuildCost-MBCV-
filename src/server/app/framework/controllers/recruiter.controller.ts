@@ -9,6 +9,9 @@ import RecruiterService = require('../services/recruiter.service');
 import JobProfileModel = require('../dataaccess/model/jobprofile.model');
 import CNextMessages = require('../shared/cnext-messages');
 import SearchService = require("../search/services/search.service");
+import CandidateInfoSearch = require("../dataaccess/model/candidate-info-search");
+import CandidateModel = require("../dataaccess/model/candidate.model");
+import UserService = require("../services/user.service");
 
 
 export function create(req: express.Request, res: express.Response, next: any) {
@@ -232,6 +235,58 @@ export function getCompareDetailsOfCandidate(req: express.Request, res: express.
           "data": result,
         });
 
+      }
+    });
+
+  }
+  catch (e) {
+    res.status(403).send({message: e.message});
+  }
+
+}
+
+export function getCandidatesByName(req:express.Request, res:express.Response, next:any) {
+  try {
+    let userService = new UserService();
+    let candidateService = new CandidateService();
+    //let jobId = req.params.jobId;
+    //let candidateId = req.params.candidateId;
+    var userName = req.params.searchvalue;
+    var exp = eval('/^' + userName + '/i');
+    //var eventstring = new String();
+    var eventstring:string = exp.toString().replace(/'/g, "");
+
+    var query = {$or: [{'first_name': {$regex: eval(eventstring)}}, {'last_name': {$regex: eval(eventstring)}}]};
+    //console.log('---------------data------------------',query);
+    userService.retrieve(query, (error:any, result:any) => {
+      if (error) {
+        next({
+          reason: 'Problem in Search user details',
+          message: 'Problem in Search user details',
+          code: 401
+        });
+      }
+      else {
+        var candidateId:string[] = new Array(0);
+        for (let obj of result) {
+          candidateId.push(obj._id);
+        }
+        console.log('---------------candidateIds---------------------------', candidateId);
+        candidateService.getCandidateInfo(candidateId, (error:any, candidateInfo:CandidateModel[]) => {
+          if (error) {
+            next({
+              reason: 'Problem in Search user details',
+              message: 'Problem in Search user details',
+              code: 401
+            });
+          } else {
+            var searchArray:CandidateInfoSearch[] = candidateService.buidResultOnCandidateSearch(candidateInfo);
+            res.send({
+              'status': 'success',
+              'data': searchArray,
+            });
+          }
+        });
       }
     });
 

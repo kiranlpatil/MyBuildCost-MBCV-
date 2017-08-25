@@ -4,6 +4,7 @@ import JobProfileModel = require("../../dataaccess/model/jobprofile.model");
 import SearchService = require("../services/search.service");
 import CandidateService = require("../../services/candidate.service");
 import RecruiterService = require("../../services/recruiter.service");
+import CandidateSearchService = require("../../services/candidate-search.service");
 
 export class SearchController {
   //searchService : SearchService;
@@ -37,6 +38,27 @@ export class SearchController {
         res.status(304).send(error);
       } else {
         searchService.getMatchingJobProfile(candiRes, (error: Error, result: any) => {
+          if (error) {
+            res.status(304).send(error);
+          } else {
+            res.status(200).send(result);
+          }
+        });
+      }
+    });
+  }
+
+  searchCandidateJobProfiles(req:express.Request, res:express.Response) {
+    let candidateSearchService = new CandidateSearchService();
+    let candidateService = new CandidateService();
+    let candidateId = req.params.candidateId;
+    let recruiterId = req.params.recruiterId;
+    console.log('------------------------recruiter-ids-----------------------------', recruiterId);
+    candidateService.findById(candidateId, (error:Error, candiRes:any) => {
+      if (error) {
+        res.status(304).send(error);
+      } else {
+        candidateSearchService.searchMatchingJobProfile(candiRes, recruiterId, (error:Error, result:any) => {
           if (error) {
             res.status(304).send(error);
           } else {
