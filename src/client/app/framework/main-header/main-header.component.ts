@@ -30,9 +30,10 @@ export class MainHeaderComponent {
   }
 
     onHomePage() {
-      window.localStorage.clear();
+      /*window.localStorage.clear();
       let host = 'http://' + window.location.hostname + ':80';
-      this._router.navigate([host]);
+       this._router.navigate([host]);*/
+      window.location.href = 'http://www.jobmosis.com';
     }
 }
 

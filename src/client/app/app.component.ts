@@ -117,8 +117,9 @@ export class AppComponent implements OnInit {
     this.isShowSuccessMessage = true;
   }
   logOut() {
-    window.localStorage.clear();
+    /*window.localStorage.clear();
     let host = 'http://' + window.location.hostname + ':80';
-    this._router.navigate([host]);
+     this._router.navigate([host]);*/
+    window.location.href = 'http://www.jobmosis.com';
   }
 }
