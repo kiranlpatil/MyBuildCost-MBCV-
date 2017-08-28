@@ -7,6 +7,7 @@ import {CandidateProfileMeta} from "../model/candidate-profile-meta";
 import {CandidateProfileService} from "../candidate-profile/candidate-profile.service";
 import {Candidate} from "../model/candidate";
 import {CandidateDetail} from "../../../framework/registration/candidate/candidate";
+import {Router} from "@angular/router";
 
 @Component({
   moduleId: module.id,
@@ -24,8 +25,9 @@ export class CandidateSearchComponent implements OnChanges {
   //private candidateDataList:string[] = new Array(0);
   private candidateDetails:CandidateDetail = new CandidateDetail();
   private candidate:Candidate = new Candidate();
+  private userId:string;
 
-  constructor(private candidateSearchService:CandidateSearchService, private errorService:ErrorService, private profileCreatorService:CandidateProfileService) {
+  constructor(private _router:Router, private candidateSearchService:CandidateSearchService, private errorService:ErrorService, private profileCreatorService:CandidateProfileService) {
 
   }
 
@@ -76,16 +78,13 @@ export class CandidateSearchComponent implements OnChanges {
   OnCandidateDataSuccess(candidateData:any) {
     this.candidate = candidateData.data;
     this.candidateDetails = candidateData.metadata;
+    this.userId = this.candidateDetails._id;
     //this.getSecondaryData();
   }
 
-  viewProfile() {
-    /*this.candidateSearchService.viewProfile()
-     .subscribe(
-     (res:any) => { debugger
-     this.listOfJobs = res;
-     },
-     error => this.errorService.onError(error)
-     );*/
+  viewProfile(nav:string) {
+    if (nav !== undefined) {
+      this._router.navigate([nav, this.userId]);
+    }
   }
 }
