@@ -39,10 +39,8 @@ export class CandidateHeaderComponent {
   }
 
   logOut() {
-    /*window.localStorage.clear();
-    let host = 'http://' + window.location.hostname + ':80';
-     this._router.navigate([host]);*/
-    window.location.href = 'http://www.jobmosis.com';
+    window.localStorage.clear();
+    window.location.href = window.location.hostname;
   }
 
   navigateTo(nav: string) {
