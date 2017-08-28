@@ -44,16 +44,14 @@ export class CapabilitiesComponent {
   tooltipCandidateMessage: string =
 
     '<ul>' +
-    '<li>' +
-    '<p>1. '+ Tooltip.CANDIDATE_CAPABILITY_TOOLTIP_1 +'</p></li><li><p>2. '+Tooltip.CANDIDATE_CAPABILITY_TOOLTIP_2+'</p>'+'</li>' +
+    '<li><p>1. ' + Tooltip.CANDIDATE_CAPABILITY_TOOLTIP_1 + '</p></li>' +
+    '<li><p>2. ' + Tooltip.CANDIDATE_CAPABILITY_TOOLTIP_2 + '</p>' + '</li>' +
     '</ul>';
 
   tooltipRecruiterMessage: string =
 
     '<ul>' +
-    '<li>' +
-    '<p>1. ' + Tooltip.RECRUITER_CAPABILITY_TOOLTIP + '</p>' +
-    '</li>' +
+    '<li><p>1. ' + Tooltip.RECRUITER_CAPABILITY_TOOLTIP + '</p></li>' +
     '</ul>';
 
   constructor(private guidedTourService:GuidedTourService, private errorService:ErrorService) {
