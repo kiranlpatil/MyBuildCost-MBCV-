@@ -273,7 +273,7 @@ export function writeXlsx() {
   ];
   var csv = json2csv({ data: myCars, fields: fields, fieldNames: fieldNames, unwindPath: ['roles', 'roles.default_complexities','roles.default_complexities.complexities','roles.default_complexities.complexities.scenarios'] });
 
-  fs.writeFile('E://test32.csv', csv, function(err) {
+  fs.writeFile('E://test32.csv', csv, function(err:any) {
     if (err) throw err;
     console.log('file saved');
   });

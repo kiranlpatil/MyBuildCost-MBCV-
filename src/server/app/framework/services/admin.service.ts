@@ -48,8 +48,8 @@ class AdminService {
       var users:UsersClassModel = new UsersClassModel;
 
       let candidateService = new CandidateService();
-      var candidates = [];
-      var recruiters = [];
+      var candidates:any = [];
+      var recruiters:any = [];
       var goNext:boolean = false;
       var value = 0;
       for (let i = 0; i < item.length; i++) {

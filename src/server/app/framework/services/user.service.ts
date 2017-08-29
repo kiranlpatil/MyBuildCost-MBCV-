@@ -324,36 +324,6 @@ class UserService {
       }
     });
   };
-  seperateUsers(item: any, callback: (error: any, result: any) => void) {
-    /*this.userRepository.retrieve(item, (err, res) => {
-      if (err) {
-        callback(new Error(Messages.MSG_ERROR_REGISTRATION_MOBILE_NUMBER), null);
-      } else  {
-        callback(null, res);
-      }
-    });*/
- var users:UsersClassModel=new UsersClassModel;
-    var candidates=[];
-    var recruiters=[];
-    for(let i=0;i<item.length;i++) {
-      if(item[i].isCandidate) {
-        candidates.push(item[i]);
-      } else if(!item[i].isCandidate) {
-        recruiters.push(item[i]);
-      }
-    }
-    users.candidate=candidates;
-    users.recruiter=recruiters;
-    console.log("call success");
-    callback(null, users);
-  };
-
-  createXlsx(result: any, callback: (err: any, res: any) => void){
-    var xls = json2xls(result);
-    fs.writeFileSync('E://data162.xlsx', xls, 'binary');
-    console.log("Success");
-    callback(null,result);
-  };
 
   update(_id: string, item: any, callback: (error: any, result: any) => void) {
 
