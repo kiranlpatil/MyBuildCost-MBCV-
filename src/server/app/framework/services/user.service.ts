@@ -85,7 +85,7 @@ class UserService {
             var Data = {
               mobileNo: field.new_mobile_number,
               otp: otp
-            }
+            };
             var sendMessageService = new SendMessageService();
             sendMessageService.sendMessageDirect(Data, callback);
           }
@@ -113,7 +113,7 @@ class UserService {
           current_mobile_number: field.current_mobile_number,
           mobileNo: field.new_mobile_number,
           otp: otp
-        }
+        };
         var sendMessageService = new SendMessageService();
         sendMessageService.sendChangeMobileMessage(Data, callback);
 
@@ -199,7 +199,7 @@ class UserService {
         var auth = new AuthInterceptor();
         var token = auth.issueTokenWithUid(result);
         var host = config.get('TplSeed.mail.host');
-        var link = host + "activate_user?access_token=" + token + "&_id=" + result._id;
+        var link = host + "verifychangedemailid?access_token=" + token + "&_id=" + result._id;
         var header1 = fs.readFileSync("./src/server/app/framework/public/header1.html").toString();
         var content = fs.readFileSync("./src/server/app/framework/public/change.mail.html").toString();
         var footer1 = fs.readFileSync("./src/server/app/framework/public/footer1.html").toString();
@@ -274,7 +274,7 @@ class UserService {
           subject: Messages.EMAIL_SUBJECT_REGISTRATION,
           html: header1 + mid_content + footer1
           , attachments: MailAttachments.AttachmentArray
-        }
+        };
         var sendMailService = new SendMailService();
         sendMailService.sendMail(mailOptions, callback);
 
@@ -300,7 +300,7 @@ class UserService {
       subject: Messages.EMAIL_SUBJECT_USER_CONTACTED_YOU,
       html: header1 + mid_content + footer1
       , attachments: MailAttachments.AttachmentArray
-    }
+    };
     var sendMailService = new SendMailService();
     sendMailService.sendMail(mailOptions, callback);
 
