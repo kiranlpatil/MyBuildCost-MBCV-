@@ -117,9 +117,8 @@ class AdminService {
     }
     var recruiterData=result.recruiter;
     if(result.recruiter && result.recruiter.length>0){
-      var fields = ['data.company_name','data.jobCountModel.numberOfJobposted','mobile_number','email','isActivated','data.postedJobs.jobTitle','data.postedJobs.hiringManager','data.postedJobs.department','data.postedJobs.postingDate','data.postedJobs.expiringDate'];
-      var fieldNames = ['Company Name','Number of Job Posted','Mobile Number','Email','Is Activated','Job Title','Hiring Manager','Department','Job Posting Date','Expiring Data'];
-
+      var fields = ['data.company_name','data.company_size','data.isRecruitingForself','data.jobCountModel.numberOfJobposted','mobile_number','email','isActivated','data.postedJobs.isJobPosted','data.postedJobs.jobTitle','data.postedJobs.hiringManager','data.postedJobs.department','data.postedJobs.education','data.postedJobs.experienceMinValue','data.postedJobs.experienceMaxValue','data.postedJobs.salaryMinValue','data.postedJobs.salaryMaxValue','data.postedJobs.joiningPeriod','data.postedJobs.postingDate','data.postedJobs.expiringDate'];
+      var fieldNames = ['Company Name','company size','Recruiting For Self','Number of Job Posted','Mobile Number','Email','Is Activated','Job Posted','Job Title','Hiring Manager','Department','Education','Minimum Experience','Maximum Experience','Minimum Salary','Maximum Salary','Joining Period','Job Posting Date','Job Expiry Date'];
       var csv = json2csv({ data: result.recruiter, fields: fields, fieldNames: fieldNames, unwindPath: ['data.postedJobs']});
       fs.writeFile('./src/server/app/framework/public/admin-data/recruiter.csv', csv, function(err:any){
         if (err) throw err;
