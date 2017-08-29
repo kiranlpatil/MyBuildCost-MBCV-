@@ -1,5 +1,7 @@
 import {Component, OnInit} from "@angular/core";
 import {Router, ActivatedRoute} from "@angular/router";
+import {LocalStorage} from "../../../framework/shared/constants";
+import {LocalStorageService} from "../../../framework/shared/localstorage.service";
 
 
 @Component({
@@ -15,9 +17,12 @@ export class ValuePortraitContainerComponent implements OnInit {
   constructor(private _router:Router, private activatedRoute:ActivatedRoute) {
   }
 
-  navigateTo(nav: string) {
-    if (nav !== undefined) {
-      this._router.navigate([nav]);
+  navigateTo() {
+    var role = LocalStorageService.getLocalValue(LocalStorage.IS_CANDIDATE);
+    if (role == 'true') {
+      this._router.navigate(['/candidate_dashboard']);
+    } else {
+      this._router.navigate(['/recruiterdashboard']);
     }
   }
 
