@@ -13,7 +13,7 @@
     li {
       background: $white;
       display: block;
-      padding: 2px 10px 6px;
+      padding: 5px 10px 3px;
       .suggestion-lists {
         label {
           font-family: 'gothamrnd-book';
@@ -23,6 +23,9 @@
         span {
           color: #989898;
         }
+      }
+      &:hover {
+        background: #f2f2f2;
       }
     }
   }
@@ -61,6 +64,10 @@
   margin-top: 100px;
   .card-view {
     margin-top: 40px;
+  }
+  .empty-list-message {
+    left: 53%;
+    text-align: center;
   }
   .view-profile-btn {
     background: $theme-color;
