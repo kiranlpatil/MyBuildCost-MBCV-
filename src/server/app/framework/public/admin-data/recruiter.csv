@@ -1,4 +1,15 @@
-"User ID","Company Name","Number of Job Posted","Mobile Number","Email","Is Candidate","Is Activated","Temp Mobile"
-"5982d11c12e64d301c00b61f","Tech Riders",12,7349234793,"neha33keshatwar@gmail.com",false,true,0
-"598c0a216d0dcd1003511bbc","Mind Triggers",0,7934797492,"neha.keshatwar@techprimelab.com",false,false,0
-"598d9b6fa94191c808a447e2","smdlkm",0,2435874923,"keshatwarneha@sggs.ac.in",false,false,0
+"Company Name","Number of Job Posted","Mobile Number","Email","Is Activated","Job Title","Hiring Manager","Department","Job Posting Date","Expiring Data"
+"Tech Riders",12,7349234793,"neha33keshatwar@gmail.com",true,"srf","rft","rft","2017-08-04T08:24:59.531Z","2017-09-03T08:24:59.531Z"
+"Tech Riders",12,7349234793,"neha33keshatwar@gmail.com",true,"ds","asf","sfas","2017-08-03T13:40:48.836Z","2017-09-02T13:40:48.836Z"
+"Tech Riders",12,7349234793,"neha33keshatwar@gmail.com",true,"d","sdf","df","2017-08-08T12:08:16.493Z","2017-09-07T12:08:16.493Z"
+"Tech Riders",12,7349234793,"neha33keshatwar@gmail.com",true,"sd","sad","sd","2017-08-09T06:30:37.215Z","2017-09-08T06:30:37.215Z"
+"Tech Riders",12,7349234793,"neha33keshatwar@gmail.com",true,"ret","dgfdg","fgdfg","2017-08-09T07:36:34.117Z","2017-09-08T07:36:34.117Z"
+"Tech Riders",12,7349234793,"neha33keshatwar@gmail.com",true,"fg","dfg","fd","2017-08-09T06:43:24.053Z","2017-09-08T06:43:24.053Z"
+"Tech Riders",12,7349234793,"neha33keshatwar@gmail.com",true,"dfd","df","dfdsf","2017-08-09T10:00:38.338Z","2017-09-08T10:00:38.338Z"
+"Tech Riders",12,7349234793,"neha33keshatwar@gmail.com",true,"fsd","dfsd","dfdsf","2017-08-10T12:36:36.026Z","2017-09-09T12:36:36.026Z"
+"Tech Riders",12,7349234793,"neha33keshatwar@gmail.com",true,"Software Engineer","Neha Keshatwar","Development","2017-08-17T09:53:19.332Z","2017-09-16T09:53:19.332Z"
+"Tech Riders",12,7349234793,"neha33keshatwar@gmail.com",true,"Software Engineer","Neha Keshatwar","Development","2017-08-18T07:00:39.836Z","2017-09-17T07:00:39.836Z"
+"Tech Riders",12,7349234793,"neha33keshatwar@gmail.com",true,"Software Engineer","Development","Neha Keshatwar","2017-08-18T12:30:53.030Z","2017-09-17T12:30:53.030Z"
+"Tech Riders",12,7349234793,"neha33keshatwar@gmail.com",true,"dfsa","asfd","sadx","2017-08-18T12:58:06.799Z","2017-09-17T12:58:06.799Z"
+"Mind Triggers",0,7934797492,"neha.keshatwar@techprimelab.com",false,,,,,
+"smdlkm",0,2435874923,"keshatwarneha@sggs.ac.in",false,,,,,

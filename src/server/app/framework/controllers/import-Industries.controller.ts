@@ -44,57 +44,6 @@ export function readXlsx(req: express.Request, res: express.Response) {
 }
 
 export function writeXlsx() {
-/*  var json2xls = require('json2xls');
-  var jsonArr =[
-    {
-      "carModel":"Audi",
-      "price":0,
-      "colors":"blue"
-    },
-    {
-      "carModel":"Audi",
-      "price":0,
-      "colors":"green"
-    },
-    {
-      "carModel":"Audi",
-      "price":0,
-      "colors":"yellow"
-    },
-    {
-      "carModel":"BMW",
-      "price":15000,
-      "colors":"red"
-    },
-    {
-      "carModel":"BMW",
-      "price":15000,
-      "colors":"blue"
-    },
-    {
-      "carModel":"Mercedes",
-      "price":20000,
-      "colors":"yellow"
-    },
-    {
-      "carModel":"Porsche",
-      "price":30000,
-      "colors":"green"
-    },
-    {
-      "carModel":"Porsche",
-      "price":30000,
-      "colors":"teal"
-    },
-    {
-      "carModel":"Porsche",
-      "price":30000,
-      "colors":"aqua"
-    }
-  ];
-
-  var xls = json2xls(jsonArr);
-  fs.writeFileSync('E://logexcelfile.xlsx', xls, 'binary');*/
   var json2csv = require("json2csv");
   var fs = require('fs');
   var fields = ['name', 'code', 'sort_order','roles.name','roles.code','roles.sort_order','roles.default_complexities.name',
@@ -107,19 +56,6 @@ export function writeXlsx() {
     'roles.default_complexitiescomplexitiesscenariosscenarios_name','rolesdefault_complexitiescomplexitiesscenariosscenarios_code'];
 
   var myCars = [
-    /*{
-      "car": "Audi",
-      "price": 10000,
-      "color": "blue"
-    }, {
-      "car": "BMW",
-      "price": 20000,
-      "color": "black"
-    }, {
-      "car": "Porsche",
-      "price": 30000,
-      "color": "green"
-    }*/
     {
       "name" : "IT",
       "code" : "4",

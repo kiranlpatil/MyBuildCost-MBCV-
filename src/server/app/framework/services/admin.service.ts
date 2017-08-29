@@ -105,30 +105,23 @@ class AdminService {
     var json2csv = require("json2csv");
     var fs = require('fs');
     if(result.candidate && result.candidate.length>0){
-      var fields = ['_id', 'first_name', 'last_name','mobile_number','email','password','current_theme',
-        'isCandidate','notifications','otp','isActivated','temp_mobile'];
-      var fieldNames = ['User ID', 'First Name', 'Last Name','Mobile Number','Email','Password','Current Theme',
-        'Is Candidate','Notifications','Otp','Is Activated','Temp Mobile'];
+      var fields = ['first_name', 'last_name','mobile_number','email','isActivated'];
+      var fieldNames = ['First Name', 'Last Name','Mobile Number','Email','Is Activated'];
 
       var csv = json2csv({ data: result.candidate, fields: fields, fieldNames: fieldNames});
       //unwindPath: ['roles', 'roles.default_complexities','roles.default_complexities.complexities','roles.default_complexities.complexities.scenarios']
       fs.writeFile('./src/server/app/framework/public/admin-data/candidate.csv', csv, function(err:any) {
-      //fs.writeFile('E://candidate.csv', csv, function(err:any) {
         if (err) throw err;
         console.log('candidate file saved');
       });
     }
     var recruiterData=result.recruiter;
     if(result.recruiter && result.recruiter.length>0){
-      var fields = ['_id','data.company_name','data.jobCountModel.numberOfJobposted','mobile_number','email',
-        'isCandidate','isActivated','temp_mobile'];
-      var fieldNames = ['User ID','Company Name','Number of Job Posted','Mobile Number','Email',
-        'Is Candidate','Is Activated','Temp Mobile'];
+      var fields = ['data.company_name','data.jobCountModel.numberOfJobposted','mobile_number','email','isActivated','data.postedJobs.jobTitle','data.postedJobs.hiringManager','data.postedJobs.department','data.postedJobs.postingDate','data.postedJobs.expiringDate'];
+      var fieldNames = ['Company Name','Number of Job Posted','Mobile Number','Email','Is Activated','Job Title','Hiring Manager','Department','Job Posting Date','Expiring Data'];
 
-      var csv = json2csv({ data: result.recruiter, fields: fields, fieldNames: fieldNames});
-      //unwindPath: ['roles', 'roles.default_complexities','roles.default_complexities.complexities','roles.default_complexities.complexities.scenarios']
+      var csv = json2csv({ data: result.recruiter, fields: fields, fieldNames: fieldNames, unwindPath: ['data.postedJobs']});
       fs.writeFile('./src/server/app/framework/public/admin-data/recruiter.csv', csv, function(err:any){
-      //fs.writeFile('E://recruiter.csv', csv, function(err:any) {
         if (err) throw err;
         console.log('recuiter file saved');
       });
