@@ -55,7 +55,7 @@ export class CandidateSearchComponent implements OnChanges {
   }
 
   getJobProfileMatching(item:CandidateSearch) {
-    this.searchValue = item.first_name + "" + item.last_name;
+    this.searchValue = item.first_name + " " + item.last_name;
     this.getJobProfiles(item.id);
     this.getCandidateProfile(item.id)
   }
