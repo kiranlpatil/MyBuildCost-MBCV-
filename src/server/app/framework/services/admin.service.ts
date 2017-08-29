@@ -105,8 +105,8 @@ class AdminService {
     var json2csv = require("json2csv");
     var fs = require('fs');
     if(result.candidate && result.candidate.length>0){
-      var fields = ['first_name', 'last_name','mobile_number','email','isActivated'];
-      var fieldNames = ['First Name', 'Last Name','Mobile Number','Email','Is Activated'];
+      var fields = ['first_name', 'last_name','mobile_number','email','isActivated','data.location.city','data.professionalDetails.education','data.professionalDetails.experience','data.professionalDetails.currentSalary','data.professionalDetails.noticePeriod','data.professionalDetails.relocate','data.professionalDetails.industryExposure','data.professionalDetails.currentCompany'];
+      var fieldNames = ['First Name', 'Last Name','Mobile Number','Email','Is Activated','Location','Education','Experience','Current Salary','Notice Period','Relocate','Industry Exposure','Current Company'];
 
       var csv = json2csv({ data: result.candidate, fields: fields, fieldNames: fieldNames});
       //unwindPath: ['roles', 'roles.default_complexities','roles.default_complexities.complexities','roles.default_complexities.complexities.scenarios']
