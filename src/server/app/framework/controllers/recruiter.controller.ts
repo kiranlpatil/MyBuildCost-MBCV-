@@ -252,13 +252,29 @@ export function getCandidatesByName(req:express.Request, res:express.Response, n
     let candidateService = new CandidateService();
     let candidateSearchService = new CandidateSearchService();
     var userName = req.params.searchvalue;
-    var exp = eval('/^' + userName + '/i');
-    var eventstring:string = exp.toString().replace(/'/g, "");
+    var query:any;
+    var searchValueArray:string[] = userName.split(" ");
+    if (searchValueArray.length > 1) {
+      var exp1 = eval('/^' + searchValueArray[0] + '/i');
+      var exp2 = eval('/^' + searchValueArray[1] + '/i');
+      var searchString1:string = exp1.toString().replace(/'/g, "");
+      var searchString2:string = exp2.toString().replace(/'/g, "");
+      query = {
+        'isCandidate': true,
+        $or: [{
+          'first_name': {$regex: eval(searchString1)},
+          'last_name': {$regex: eval(searchString2)}
+        }, {'first_name': {$regex: eval(searchString2)}, 'last_name': {$regex: eval(searchString1)}}]
+      };
+    } else {
+      var exp = eval('/^' + searchValueArray[0] + '/i');
+      var searchString:string = exp.toString().replace(/'/g, "");
 
-    var query = {
-      'isCandidate': true,
-      $or: [{'first_name': {$regex: eval(eventstring)}}, {'last_name': {$regex: eval(eventstring)}}]
-    };
+      query = {
+        'isCandidate': true,
+        $or: [{'first_name': {$regex: eval(searchString)}}, {'last_name': {$regex: eval(searchString)}}]
+      };
+    }
     userService.retrieve(query, (error:any, result:any) => {
       if (error) {
         next({
