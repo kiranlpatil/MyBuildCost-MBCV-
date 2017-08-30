@@ -1,6 +1,6 @@
 import {Location} from "../location";
 export class CandidateDetail {
-  id: any;
+  _id:any;
   isCandidate: boolean;
   isActivated: boolean;
   isAdmin: boolean;

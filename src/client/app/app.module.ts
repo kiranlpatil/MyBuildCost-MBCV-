@@ -195,6 +195,8 @@ import {CandidateDetailListComponent} from "./cnext/framework/admin-dashboard/ca
 import {KeyskillsDetailListComponent} from "./cnext/framework/admin-dashboard/keyskills-detail-list/keyskills-detail-list.component";
 import {AdminDashboardService} from "./cnext/framework/admin-dashboard/admin-dashboard.service";
 
+import {CandidateSearchComponent} from "./cnext/framework/candidate-search/candidate-search.component";
+import {CandidateSearchService} from "./cnext/framework/candidate-search/candidate-search.service";
 //C-NEXT IMPORTS
 
 
@@ -332,7 +334,8 @@ import {AdminDashboardService} from "./cnext/framework/admin-dashboard/admin-das
     ProfileComparisonPipe,
     ColorShadeDirective,
     AttributeFilterPipe,
-    ValueSortFilterPipe
+    ValueSortFilterPipe,
+    CandidateSearchComponent
   ],
   providers: [
     {
@@ -413,7 +416,8 @@ import {AdminDashboardService} from "./cnext/framework/admin-dashboard/admin-das
     RedirectRecruiterDashboardService,
     ReleventIndustryListService,
     ProfileComparisonService,
-    GuidedTourService
+    GuidedTourService,
+    CandidateSearchService
 
   ],
   bootstrap: [AppComponent]

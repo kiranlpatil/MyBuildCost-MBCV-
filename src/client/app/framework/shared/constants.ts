@@ -1,8 +1,8 @@
 export class AppSettings {
-  public static IP = 'http://localhost:8080';
+  //public static IP = 'http://localhost:8080';
   // public static IP = 'http://ee802b7f.ngrok.io';
   //public static IP = 'http://10.192.33.77:8080';
-  //public static IP = 'http://34.208.115.60:3000';
+  public static IP = 'http://34.208.115.60:3000';
   // public static IP = 'app.jobmosis.com';
   // public static IP = '';
 
@@ -17,6 +17,8 @@ export class AppSettings {
 }
 
 export class Messages {
+  public static MSG_CNADIDATE_SEARCH_NOT_FOUD = "The profile details of selected applicant are not displayed, since this profile does not match with any of your open job profiles.";
+  public static MSG_CNADIDATE_VISIBILITY_OFF = "The selected applicant profile details are not displayed, since the applicant has marked it as private.";
   public static MSG_SUCCESS_LOGIN: string = 'You are successfully signed in.';
   public static MSG_SUCCESS_REGISTRATION: string = 'Kindly verify your account.';
   public static MSG_SUCCESS_CHANGE_MOBILE_NUMBER: string = 'Mobile number updated successfully.';
@@ -424,7 +426,7 @@ export class Tooltip {
   public static INDUSTRY_LIST_TOOLTIP_1: string = 'Enter the industry from which you wish to hire the candidate. This Industry forms the core of your Job Profile posting. In next sections, you shall be shown questions and parameters that are relevant to this Industry.';
   public static INDUSTRY_LIST_TOOLTIP_2: string = 'If you wish the candidate to have worked in multiple Industries, choose the one that is most relevent as on date. You shall get option to include additional industries in Relevant Industry section.';
   public static JOB_PROFICIENCIES_TOOLTIP_1: string = 'Enter keywords for specialization in Technologies, Products, Tools, Domains etc. E.g Java, Oracle, SAP, Cognos, AWS, Agile, DevOps, CMM, Telecom Billing, Retail Banking etc.';
-  public static JOB_PROFICIENCIES_TOOLTIP_2: string = 'Use the Top 5 "Must Have" keywords to describe the most important skills. You can provide additional 20 keywords that are "Nice to Have".';
+  public static JOB_PROFICIENCIES_TOOLTIP_2: string = 'Use the Top 5 "Must Have" keywords to describe the mandatory skills. You can provide additional 5 keywords that are "Nice to Have".';
   public static MORE_ABOUT_MYSELF_TOOLTIP: string = 'Please mention additional details about your personal and professional journey that would help the recruiter to know you better.';
   public static PROFESSIONAL_DATA_TOOLTIP_1: string = 'Please mention your current salary (CTC).';
   public static PROFESSIONAL_DATA_TOOLTIP_2: string = 'Select if you are open to relocate from your current location as per job demand.';
