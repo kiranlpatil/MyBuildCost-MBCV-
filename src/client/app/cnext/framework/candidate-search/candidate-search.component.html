@@ -57,8 +57,10 @@
       </ul>
     </div>
     <div class="card-view">
-      <div *ngFor="let job of listOfJobs" (click)="showJobCompareView(job)">
-        <cn-candidate-q-card [progress_bar_color]="'#29b6f6'" [job]="job" [type]="'searchView'"></cn-candidate-q-card>
+      <div *ngFor="let job of listOfJobs">
+        <div (click)="showJobCompareView(job)">
+          <cn-candidate-q-card [progress_bar_color]="'#29b6f6'" [job]="job" [type]="'searchView'"></cn-candidate-q-card>
+        </div>
       </div>
     </div>
     <!--<div *ngIf="candidateProfileMeta._id">
@@ -72,7 +74,18 @@
     {{msgCandidateVisibilityOff}}
   </div>
 
-  <div *ngIf="isShowJobCompareView">
-    <cn-job-compare-view [candiadteId]="candidateId" [jobId]="jobId"></cn-job-compare-view>
+
+</div>
+
+
+<div class="modal dashboard-modal" [style.display]="getModal()">
+  <div class="modal-bg">
+    <div class="modal-dialog modal-md">
+      <div class="modal-content job-dashboard-modal-content">
+        <div class="modal-body">
+          <cn-job-compare-view [candiadteId]="candidateId" [jobId]="jobId" (close)="closeJob()"></cn-job-compare-view>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

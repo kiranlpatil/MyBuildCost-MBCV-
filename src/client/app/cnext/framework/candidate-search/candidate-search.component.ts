@@ -20,6 +20,7 @@ import {Messages} from "../../../framework/shared/constants";
 export class CandidateSearchComponent implements OnChanges {
 
   private searchValue:string = "";
+  private showModalStyle: boolean = false;
   private candidateDataList:CandidateSearch[] = new Array(0);
   private candidateProfileMeta:CandidateProfileMeta = new CandidateProfileMeta();
   private listOfJobs:JobQcard[] = new Array(0);
@@ -99,10 +100,24 @@ export class CandidateSearchComponent implements OnChanges {
   }
 
   showJobCompareView(job:JobQcard) {
-    debugger;
     this.jobId = job._id;
     var canId:any = this.candidate._id;
     this.candidateId = canId;
     this.isShowJobCompareView = true;
+    this.showModalStyle = !this.showModalStyle;
   }
+
+  getModal() {//TODO remove this from all model
+    if (this.showModalStyle) {
+      return 'block';
+    } else {
+      return 'none';
+    }
+  }
+
+  closeJob() {
+    debugger;
+    this.showModalStyle = !this.showModalStyle;
+  }
+
 }
