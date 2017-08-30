@@ -82,7 +82,7 @@
   <div class="modal-bg">
     <div class="modal-dialog modal-md">
       <div class="modal-content job-dashboard-modal-content">
-        <div class="modal-body">
+        <div class="modal-body" *ngIf="isShowJobCompareView">
           <cn-job-compare-view [candiadteId]="candidateId" [jobId]="jobId" (close)="closeJob()"></cn-job-compare-view>
         </div>
       </div>

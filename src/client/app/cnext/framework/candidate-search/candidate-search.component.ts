@@ -3,7 +3,6 @@ import {CandidateSearchService} from "./candidate-search.service";
 import {ErrorService} from "../error.service";
 import {CandidateSearch} from "../model/candidate-search";
 import {JobQcard} from "../model/JobQcard";
-import {CandidateProfileMeta} from "../model/candidate-profile-meta";
 import {CandidateProfileService} from "../candidate-profile/candidate-profile.service";
 import {Candidate} from "../model/candidate";
 import {CandidateDetail} from "../../../framework/registration/candidate/candidate";
@@ -22,7 +21,6 @@ export class CandidateSearchComponent implements OnChanges {
   private searchValue:string = "";
   private showModalStyle: boolean = false;
   private candidateDataList:CandidateSearch[] = new Array(0);
-  private candidateProfileMeta:CandidateProfileMeta = new CandidateProfileMeta();
   private listOfJobs:JobQcard[] = new Array(0);
   //private candidateDataList:string[] = new Array(0);
   private candidateDetails:CandidateDetail = new CandidateDetail();
@@ -107,7 +105,7 @@ export class CandidateSearchComponent implements OnChanges {
     this.showModalStyle = !this.showModalStyle;
   }
 
-  getModal() {//TODO remove this from all model
+  getModal() {
     if (this.showModalStyle) {
       return 'block';
     } else {
@@ -116,7 +114,7 @@ export class CandidateSearchComponent implements OnChanges {
   }
 
   closeJob() {
-    debugger;
+    this.isShowJobCompareView = false;
     this.showModalStyle = !this.showModalStyle;
   }
 
