@@ -1,4 +1,4 @@
-import {Component, OnInit} from "@angular/core";
+import {Component, OnInit, ViewChild, ElementRef} from "@angular/core";
 import {Router} from "@angular/router";
 import {CandidateService} from "./candidate.service";
 import {CandidateDetail} from "./candidate";
@@ -9,6 +9,7 @@ import {ImagePath, LocalStorage, Messages} from "../../shared/constants";
 import {LocalStorageService} from "../../shared/localstorage.service";
 import {DateService} from "../../../cnext/framework/date.service";
 import {Location} from "../location";
+import {SharedService} from "../../shared/shared-service";
 @Component({
   moduleId: module.id,
   selector: 'cn-candidate-registration',
@@ -17,6 +18,8 @@ import {Location} from "../location";
 })
 
 export class CandidateComponent implements OnInit {
+
+  @ViewChild('toaster') toaster: ElementRef;
   yearMatchNotFoundMessage: string= Messages.MSG_YEAR_NO_MATCH_FOUND;
   private model = new CandidateDetail();
   private storedLocation: Location = new Location();
@@ -34,9 +37,11 @@ export class CandidateComponent implements OnInit {
   private submitStatus: boolean;
   private birthYearErrorMessage: string;
   private passwordMismatchMessage: string;
+  private isChrome: boolean;
 
   constructor(private commonService: CommonService, private _router: Router, private dateService: DateService,
-              private candidateService: CandidateService, private messageService: MessageService, private formBuilder: FormBuilder) {
+              private candidateService: CandidateService, private messageService: MessageService, private formBuilder: FormBuilder,
+  private sharedService: SharedService) {
 
     this.userForm = this.formBuilder.group({
       'first_name': ['', [ValidationService.requireFirstNameValidator, ValidationService.noWhiteSpaceValidator, ValidationService.nameValidator]],
@@ -52,6 +57,8 @@ export class CandidateComponent implements OnInit {
     this.BODY_BACKGROUND = ImagePath.BODY_BACKGROUND;
     this.currentDate = new Date();
     this.year = this.currentDate.getUTCFullYear() - 18;
+    this.isChrome = this.sharedService.getUserBrowser();
+    console.log('isChrome value in registration', this.isChrome);
   }
 
   ngOnInit() {
@@ -63,6 +70,9 @@ export class CandidateComponent implements OnInit {
     this.mainHeaderMenuHideShow = 'applicant';
   }
 
+  closeToaster() {
+    this.toaster.nativeElement.style.visibility = "hidden";
+  }
 
   selectYearModel(year: any) {
     this.birthYearErrorMessage = undefined;

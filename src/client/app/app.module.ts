@@ -188,6 +188,7 @@ import {RegistrationService} from "./framework/shared/registration.service";
 import {GuidedTourService} from "./cnext/framework/guided-tour.service";
 import {ErrorService} from "./cnext/framework/error.service";
 import {LoggerService, MyErrorHandler} from "./cnext/framework/my-error-handler.service";
+import {SharedService} from "./framework/shared/shared-service";
 
 //C-NEXT IMPORTS
 
@@ -401,7 +402,8 @@ import {LoggerService, MyErrorHandler} from "./cnext/framework/my-error-handler.
     RedirectRecruiterDashboardService,
     ReleventIndustryListService,
     ProfileComparisonService,
-    GuidedTourService
+    GuidedTourService,
+    SharedService
 
   ],
   bootstrap: [AppComponent]

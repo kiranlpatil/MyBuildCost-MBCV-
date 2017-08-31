@@ -1,4 +1,4 @@
-import {Component, OnInit} from "@angular/core";
+import {Component} from "@angular/core";
 import {ImagePath} from "../shared/index";
 import {Messages} from "../shared/constants";
 
@@ -8,7 +8,7 @@ import {Messages} from "../shared/constants";
   templateUrl: 'landing-page.component.html',
   styleUrls: ['landing-page.component.css'],
 })
-export class LandingPageComponent implements OnInit{
+export class LandingPageComponent {
   BODY_BACKGROUND: string;
   landingPageText: string= Messages.MSG_LANDING_PAGE;
   isChrome: boolean;
@@ -17,12 +17,4 @@ export class LandingPageComponent implements OnInit{
     this.BODY_BACKGROUND = ImagePath.BODY_BACKGROUND;
   }
 
-  ngOnInit() {
-     this.isChrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
-    console.log('isChrome = ', this.isChrome);
-  }
-
-  closeToaster() {
-     document.getElementById("snackbar").style.visibility = "hidden";
-  }
 }
