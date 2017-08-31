@@ -782,7 +782,7 @@ export function changeEmailId(req: express.Request, res: express.Response, next:
       else {
 
         var emailId = {
-          current_email: user.email,
+          current_email: req.body.current_email,
           new_email: req.body.new_email
         };
 
@@ -805,6 +805,7 @@ export function changeEmailId(req: express.Request, res: express.Response, next:
             }
           }
           else {
+            console.log("email change success");
             res.status(200).send({
               "status": Messages.STATUS_SUCCESS,
               "data": {"message": Messages.MSG_SUCCESS_EMAIL_CHANGE_EMAILID}
