@@ -148,13 +148,23 @@ class JobProfileService {
                       action: Actions.DEFAULT_VALUE
                     };
                     let sharedService: SharedService = new SharedService();
-                    uses_data.action = sharedService.constructData(item.listName);
+                    uses_data.action = sharedService.constructAddActionData(item.listName);
                     this.usesTrackingController.create(uses_data);
                     let index = list.ids.indexOf(item.candidateId);    // <-- Not supported in <IE9
                     if (index == -1) {
                       list.ids.push(item.candidateId);
                     }
                   } else {
+                    let uses_data = {
+                      recruiterId: res[0]._id,
+                      candidateId: item.candidateId,
+                      jobProfileId: job._id,
+                      timestamp: new Date(),
+                      action: Actions.DEFAULT_VALUE
+                    };
+                    let sharedService: SharedService = new SharedService();
+                    uses_data.action = sharedService.constructRemoveActionData(item.listName);
+                    this.usesTrackingController.create(uses_data);
                     let index = list.ids.indexOf(item.candidateId);    // <-- Not supported in <IE9
                     if (index !== -1) {
                       list.ids.splice(index, 1);
@@ -218,11 +228,20 @@ class JobProfileService {
                     action: Actions.DEFAULT_VALUE
                   };
                   let sharedService: SharedService = new SharedService();
-                  uses_data.action = sharedService.constructData(item.listName);
+                  uses_data.action = sharedService.constructAddActionData(item.listName);
                   this.usesTrackingController.create(uses_data);
                   list.ids.push(item.profileId);
                 }
               } else if (item.action == 'remove' && item.listName != 'applied') {
+                let uses_data = {
+                  candidateId: item.candidateId,
+                  jobProfileId: item.profileId,
+                  timestamp: new Date(),
+                  action: Actions.DEFAULT_VALUE
+                };
+                let sharedService: SharedService = new SharedService();
+                uses_data.action = sharedService.constructRemoveActionData(item.listName);
+                this.usesTrackingController.create(uses_data);
                 let index = list.ids.indexOf(item.profileId);
                 if (index !== -1) {
                   list.ids.splice(index, 1);

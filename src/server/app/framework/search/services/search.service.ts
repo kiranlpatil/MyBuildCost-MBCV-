@@ -4,7 +4,7 @@ import ProjectAsset = require('../../shared/projectasset');
 import RecruiterRepository = require('../../dataaccess/repository/recruiter.repository');
 import CandidateModel = require('../../dataaccess/model/candidate.model');
 import JobProfileService = require('../../services/jobprofile.service');
-import {ConstVariables} from "../../shared/sharedconstants";
+import {Actions, ConstVariables} from "../../shared/sharedconstants";
 import {ProfileComparisonDataModel, SkillStatus} from "../../dataaccess/model/profile-comparison-data.model";
 import {CapabilityMatrixModel} from "../../dataaccess/model/capability-matrix.model";
 import {ProfileComparisonModel} from "../../dataaccess/model/profile-comparison.model";
@@ -157,6 +157,17 @@ class SearchService {
   }
 
   getMatchingResult(candidateId: string, jobId: string, isCandidate : boolean,callback: (error: any, result: any) => void) {
+    let uses_data = {
+      candidateId: candidateId,
+      jobProfileId: jobId,
+      timestamp: new Date(),
+      action: Actions.DEFAULT_VALUE
+    };
+    if (isCandidate) {
+      uses_data.action = Actions.VIEWED_JOB_PROFILE_BY_CANDIDATE;
+    } else {
+      uses_data.action = Actions.VIEWED_FULL_PROFILE_BY_RECRUITER;
+    }
     this.candidateRepository.findByIdwithExclude(candidateId,{'industry':0}, (err: any, candidateRes: any) => {
       if (err) {
         callback(err, null);
