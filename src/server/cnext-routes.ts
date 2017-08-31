@@ -49,4 +49,8 @@ export function cnextInit(app: express.Application) { //todo add interceptor to 
   app.get('/api/filterlist',this.authInterceptor.requiresAuth, recruiterController.getFilterList);
   app.get('/api/releventindustries',this.authInterceptor.requiresAuth, industryController.getReleventIndustryList);
   app.get('/api/recruiter/:id/jobprofile/:jobId',this.authInterceptor.requiresAuth, recruiterController.getCompareDetailsOfCandidate);
+
+  // API for Uses Tracking
+  app.put('/api/usesTracking/:recruiterId/:jobProfileId/:candidateId/:action', jobProfileController.createUsesTracking);
+
 }
