@@ -24,7 +24,7 @@ export function create(req: express.Request, res: express.Response, next: any) {
     newUser.email='admin@jobmosis.com';
     newUser.mobile_number=8669601616;
     newUser.isActivated=true;
-    newUser.password='Admin@123';
+    newUser.password='$2a$10$5SBFt0BpQPp/15N5J38nZuh2zMSL1gbFmnEe4xRLIltlQn56bNcZq';
     var userService = new UserService();
     // newUser.isActivated=true;
     userService.createUser(newUser, (error, result) => {
