@@ -7,6 +7,7 @@ import {Message} from "../../../../framework/shared/message";
 import {MessageService} from "../../../../framework/shared/message.service";
 import {JobCompareViewComponent} from "../../single-page-compare-view/job-compare-view/job-compare-view.component";
 import {CandidateList} from "../../model/candidate-list";
+import {ErrorService} from "../../error.service";
 
 
 @Component({
@@ -35,7 +36,7 @@ export class CandidateQCardComponent implements OnInit {
   private jobId: string;
   @ViewChild(JobCompareViewComponent) checkForGuidedTour: JobCompareViewComponent;
 
-  constructor(private candidateDashboardService: CandidateDashboardService,private messageService: MessageService) {
+  constructor(private candidateDashboardService: CandidateDashboardService,private messageService: MessageService,private errorService:ErrorService) {
   }
 
   ngOnChanges(changes: any) {
@@ -101,7 +102,7 @@ export class CandidateQCardComponent implements OnInit {
         this.onAction.emit('apply');
         this.displayMsg('APPLY');
       },
-      error => (console.log(error)));//TODO remove on error
+      error => (this.errorService.onError(error)));//TODO remove on error
   }
 
   displayMsg(condition: string) {
