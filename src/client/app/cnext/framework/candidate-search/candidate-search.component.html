@@ -92,8 +92,13 @@
           <cn-job-compare-view [candiadteId]="candidateId" [jobId]="jobId" (close)="closeJob()"></cn-job-compare-view>
         </div>
         <div class="button-group">
-          <button class="btn btn-primary" (click)="applyJob()">Add to cart</button>
-          <button class="btn btn-danger" (click)="blockJob() ">Reject</button>
+          <button class="btn btn-primary"
+                  *ngIf="inCartListedStatusForSearchView == false && inRejectListedStatusForSearchView == false"
+                  (click)="actionOnCard('cartListed')">Add to cart
+          </button>
+          <button class="btn btn-danger" *ngIf="inRejectListedStatusForSearchView == false"
+                  (click)="actionOnCard('rejectedList') ">Reject
+          </button>
         </div>
       </div>
     </div>

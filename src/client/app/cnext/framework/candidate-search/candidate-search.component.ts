@@ -7,7 +7,7 @@ import {CandidateProfileService} from "../candidate-profile/candidate-profile.se
 import {Candidate} from "../model/candidate";
 import {CandidateDetail} from "../../../framework/registration/candidate/candidate";
 import {Router} from "@angular/router";
-import {Messages} from "../../../framework/shared/constants";
+import {Messages, ValueConstant} from "../../../framework/shared/constants";
 import {QCardViewService} from "../recruiter-dashboard/q-card-view/q-card-view.service";
 
 @Component({
@@ -34,6 +34,9 @@ export class CandidateSearchComponent implements OnChanges {
   private jobId:string;
   private isShowJobCompareView:boolean = false;
   private checkButttons:boolean;
+
+  inCartListedStatusForSearchView:boolean = false;
+  inRejectListedStatusForSearchView:boolean = false;
 
   constructor(private _router:Router, private candidateSearchService:CandidateSearchService,
               private errorService:ErrorService, private profileCreatorService:CandidateProfileService, private qCardViewService:QCardViewService) {
@@ -111,7 +114,14 @@ export class CandidateSearchComponent implements OnChanges {
   }
 
   showJobCompareView(data:any) {
+    /*var data = {
+     'jobId': jobId,
+     'inCartStatus': this.inCartListedStatusForSearchView,
+     'inRejectedStatus': this.inRejectListedStatusForSearchView
+     };*/
     this.jobId = data.jobId;
+    this.inCartListedStatusForSearchView = data.inCartStatus;
+    this.inRejectListedStatusForSearchView = data.inRejectedStatus;
     var canId:any = this.candidate._id;
     this.candidateId = canId;
     this.isShowJobCompareView = true;
@@ -131,19 +141,32 @@ export class CandidateSearchComponent implements OnChanges {
     this.showModalStyle = !this.showModalStyle;
   }
 
-  workFlowAction(actionData:any) {
-    /* if(ValueConstant.CART_LISTED_CANDIDATE == actionData.name ) {
+  /* workFlowAction(actionData:any) {
+   /!* if(ValueConstant.CART_LISTED_CANDIDATE == actionData.name ) {
      this.makeActionOnCard(actionData);
-     }*/
+   }*!/
     this.makeActionOnCard(actionData);
-  }
+   }*/
 
-  makeActionOnCard(actionData:any) {
+  workFlowAction(actionData:any) {
     this.qCardViewService.updateCandidateLists(actionData.jobId, this.candidateId, actionData.name, 'add').subscribe(
       data => {
         this.getJobProfiles(this.candidateId);
       }, error => this.errorService.onError(error)
     );
+  }
+
+  actionOnCard(value:string) {
+    //var data = {'name': value, 'jobId': jobId};
+    if ('cartListed' == ValueConstant.CART_LISTED_CANDIDATE) {
+      var data = {'name': 'cartListed', 'jobId': this.jobId};
+      this.workFlowAction(data);
+    }
+    if ('rejectedList' == ValueConstant.REJECTED_LISTED_CANDIDATE) {
+      var data = {'name': 'rejectedList', 'jobId': this.jobId};
+      this.workFlowAction(data);
+    }
+
   }
 
 }
