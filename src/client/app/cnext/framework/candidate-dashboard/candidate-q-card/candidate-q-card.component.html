@@ -50,13 +50,24 @@
           <span class="industry"></span>
           {{job.industry}}
         </p>
-        <p title="Salary : ₹ {{job.salaryMinValue}} - {{job.salaryMaxValue}} lakh">
+        <p *ngIf="job.salaryMinValue !=job.salaryMaxValue"
+           title="Salary : ₹ {{job.salaryMinValue}} - {{job.salaryMaxValue}} lakh">
           <span class="salary"></span>
           ₹ {{job.salaryMinValue}} - {{job.salaryMaxValue}} lakh
         </p>
-        <p title="Experience : {{job.experienceMinValue}} - {{job.experienceMaxValue}} year">
+        <p *ngIf="job.salaryMinValue ==job.salaryMaxValue" title="Salary : ₹ {{job.salaryMinValue}} lakh">
+          <span class="salary"></span>
+          ₹ {{job.salaryMinValue}} lakh
+        </p>
+        <p *ngIf="job.experienceMinValue !=job.experienceMaxValue"
+           title="Experience : {{job.experienceMinValue}} - {{job.experienceMaxValue}} year(s)">
           <span class="experience"></span>
-          {{job.experienceMinValue}} - {{job.experienceMaxValue}} year
+          {{job.experienceMinValue}} - {{job.experienceMaxValue}} year(s)
+        </p>
+        <p *ngIf="job.experienceMinValue ==job.experienceMaxValue"
+           title="Experience : {{job.experienceMinValue}} year(s)">
+          <span class="experience"></span>
+          {{job.experienceMinValue}} year(s)
         </p>
         <!--<p title="Current Location">
           <span class="current-location"></span>
