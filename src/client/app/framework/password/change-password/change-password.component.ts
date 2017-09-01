@@ -36,9 +36,9 @@ export class ChangePasswordComponent {
               private formBuilder: FormBuilder, private loaderService: LoaderService) {
 
     this.userForm = this.formBuilder.group({
-      'new_password': ['', ValidationService.requireNewPasswordValidator, ValidationService.passwordValidator],
+      'new_password': ['', ValidationService.requireNewPasswordValidator],
       'confirm_password': ['', [ValidationService.requireConfirmPasswordValidator]],
-      'current_password': ['', [ValidationService.requireCurrentPasswordValidator, ValidationService.passwordValidator]]
+      'current_password': ['', [ValidationService.requireCurrentPasswordValidator]]
     });
 
     this.PASSWORD_ICON = ImagePath.PASSWORD_ICON_GREY;
@@ -96,7 +96,8 @@ export class ChangePasswordComponent {
 
   logOut() {
     window.localStorage.clear();
-    this._router.navigate([NavigationRoutes.APP_START]);
+    let host = 'http://' + window.location.hostname;
+    window.location.href = host;
   }
 
   getStyle() {
