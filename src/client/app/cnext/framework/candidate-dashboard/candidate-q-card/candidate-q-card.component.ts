@@ -162,7 +162,6 @@ export class CandidateQCardComponent implements OnInit {
 
 
           if (item.ids.indexOf(candidateIDFromSearchView) !== -1) {
-            console.log('-------------------------------c-----------------', candidateIDFromSearchView, item.ids.indexOf(candidateIDFromSearchView) == -1);
             this.inCartListedStatusForSearchView = true;
           }
           /*else {
@@ -174,7 +173,6 @@ export class CandidateQCardComponent implements OnInit {
         case ValueConstant.REJECTED_LISTED_CANDIDATE:
 
           if (item.ids.indexOf(candidateIDFromSearchView) !== -1) {
-            console.log('-------------------------------r-----------------', candidateIDFromSearchView, item.ids.indexOf(candidateIDFromSearchView) == -1);
             this.inRejectListedStatusForSearchView = true;
           }
           /*else {

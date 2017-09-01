@@ -76,6 +76,7 @@ export class CandidateSearchComponent implements OnChanges {
           this.checkButttons = false;
           this.checkButttons = true;
           this.listOfJobs = res.jobData;
+          this.showModalStyle = false;
           this.candidateDataList = new Array(0);
         },
         error => this.errorService.onError(error)
