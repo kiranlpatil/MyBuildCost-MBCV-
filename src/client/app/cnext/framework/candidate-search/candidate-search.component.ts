@@ -93,12 +93,13 @@ export class CandidateSearchComponent implements OnChanges {
     this.candidate = candidateData.data;
     this.candidateDetails = candidateData.metadata;
     this.candidateId = this.candidate._id;
+    this.userId = this.candidateDetails._id;
     //this.getSecondaryData();
   }
 
   viewProfile(nav:string) {
     if (nav !== undefined) {
-      this._router.navigate([nav, this.candidateId]);
+      this._router.navigate([nav, this.userId]);
     }
   }
 
