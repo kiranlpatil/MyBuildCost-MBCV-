@@ -33,6 +33,7 @@ export class CandidateSearchComponent implements OnChanges {
   private candidateId:string;
   private jobId:string;
   private isShowJobCompareView:boolean = false;
+  private checkButttons:boolean;
 
   constructor(private _router:Router, private candidateSearchService:CandidateSearchService,
               private errorService:ErrorService, private profileCreatorService:CandidateProfileService, private qCardViewService:QCardViewService) {
@@ -69,6 +70,8 @@ export class CandidateSearchComponent implements OnChanges {
     this.candidateSearchService.getJobProfileMatching(candidateId)
       .subscribe(
         (res:any) => {
+          this.checkButttons = false;
+          this.checkButttons = true;
           this.listOfJobs = res.jobData;
           this.candidateDataList = new Array(0);
         },
@@ -86,7 +89,7 @@ export class CandidateSearchComponent implements OnChanges {
   OnCandidateDataSuccess(candidateData:any) {
     this.candidate = candidateData.data;
     this.candidateDetails = candidateData.metadata;
-    this.candidateId = this.candidateDetails._id;
+    this.candidateId = this.candidate._id;
     //this.getSecondaryData();
   }
 
@@ -107,8 +110,8 @@ export class CandidateSearchComponent implements OnChanges {
     }
   }
 
-  showJobCompareView(jobId:string) {
-    this.jobId = jobId;
+  showJobCompareView(data:any) {
+    this.jobId = data.jobId;
     var canId:any = this.candidate._id;
     this.candidateId = canId;
     this.isShowJobCompareView = true;
