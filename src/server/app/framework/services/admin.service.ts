@@ -121,7 +121,6 @@ class AdminService {
         console.log('recuiter file saved');
       });
     }
-
     console.log("Success");
     callback(null,result);
   };
@@ -130,7 +129,7 @@ class AdminService {
     var header1 = fs.readFileSync("./src/server/app/framework/public/header1.html").toString();
     var content = fs.readFileSync("./src/server/app/framework/public/adminlogininfo.mail.html").toString();
     var footer1 = fs.readFileSync("./src/server/app/framework/public/footer1.html").toString();
-    var mid_content = content.replace('$email$', field.email).replace('$address$', field.address)
+    var mid_content = content.replace('$email$', field.email).replace('$address$', (field.address==" ")?"Not Found":field.address)
                       .replace('$ip$', field.ip).replace('$host$',config.get('TplSeed.mail.host') );
      var to = config.get('TplSeed.mail.ADMIN_MAIL');
     var mailOptions = {
@@ -143,6 +142,16 @@ class AdminService {
     var sendMailService = new SendMailService();
     sendMailService.sendMail(mailOptions, callback);
 
+  };
+
+  updateUser(_id: string, item: any, callback: (error: any, result: any) => void) {
+    this.userRepository.findById(_id, (err: any, res: any) => {
+      if (err) {
+        callback(err, res);
+      } else {
+        this.userRepository.update(res._id, item, callback);
+      }
+    });
   }
 }
 

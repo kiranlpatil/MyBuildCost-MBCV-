@@ -1,5 +1,5 @@
-<cn-candidate-dashboard-header [candidate]="candidate" ></cn-candidate-dashboard-header>
-
+<cn-candidate-dashboard-header *ngIf="role==='candidate'" [candidate]="candidate" ></cn-candidate-dashboard-header>
+<cn-recruiter-shared-header *ngIf="role==='recruiter'"></cn-recruiter-shared-header>
 <section class="dashboard-profile col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
   <div>
 
@@ -14,7 +14,7 @@
         <div class="image-container">
           <cn-profile-picture (onPictureUpload)="onPictureUpload($event)"></cn-profile-picture>
         </div>
-        <div class="user-name">
+        <div *ngIf="role==='candidate'" class="user-name">
           <span class="profile-name-first">{{candidate.basicInformation.first_name}}&nbsp;</span><span
                 class="profile-name-last">{{candidate.basicInformation.last_name}}</span>
         </div>
