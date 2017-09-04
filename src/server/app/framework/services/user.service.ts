@@ -306,7 +306,26 @@ class UserService {
     sendMailService.sendMail(mailOptions, callback);
 
   }
+  sendMailOnError(errorInfo: any, callback: (error: any, result: any) => void) {
+    var header1 = fs.readFileSync("./src/server/app/framework/public/header1.html").toString();
+    var content = fs.readFileSync("./src/server/app/framework/public/error.mail.html").toString();
+    var footer1 = fs.readFileSync("./src/server/app/framework/public/footer1.html").toString();
+    var mid_content = content.replace('$error$', errorInfo);
+/*
+    var to = config.get('TplSeed.mail.ADMIN_MAIL');
+*/
+    var to='lucky.vaishnav@techprimelab.com';
+    var mailOptions = {
+      from:config.get('TplSeed.mail.MAIL_SENDER'),
+      to: to,
+      subject: Messages.EMAIL_SUBJECT_SERVER_ERROR,
+      html: header1 + mid_content + footer1
+      , attachments: MailAttachments.AttachmentArray
+    }
+    var sendMailService = new SendMailService();
+    sendMailService.sendMail(mailOptions, callback);
 
+  }
   findById(id: any, callback: (error: any, result: any) => void) {
     this.userRepository.findById(id, callback);
   }
