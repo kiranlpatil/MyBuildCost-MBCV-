@@ -128,13 +128,15 @@ export function getAllUser(req: express.Request, res: express.Response, next: an
 }
 export function adminLoginInfoMail(req: express.Request, res: express.Response, next: any) {
   try {
-    var address;
-    request('http://maps.googleapis.com/maps/api/geocode/json?latlng='+req.body.lattitude+','+req.body.longitude+'&sensor=true', function (error, response, body) {
-      if (!error && response.statusCode == 200) {
-        address=JSON.parse(body).results[0].formatted_address;
-        req.body.address=address;
-        req.body.ip=req.connection.remoteAddress;
-        var adminService = new AdminService();
+    var address:any;
+    req.body.ip=req.connection.remoteAddress;
+    var adminService = new AdminService();
+    request('http://maps.googleapis.com/maps/api/geocode/json?latlng='+req.body.lattitude+','+req.body.longitude+'&sensor=true', function (error:any, response:any, body:any) {
+      if (!error || response.statusCode == 200) {
+        if(response.statusCode == 200) {
+          address = JSON.parse(body).results[0].formatted_address;
+          req.body.address = address;
+        }
         var params = req.body;
         adminService.sendAdminLoginInfoMail(params, (error, result) => {
           if (error) {
@@ -152,6 +154,7 @@ export function adminLoginInfoMail(req: express.Request, res: express.Response, 
           }
         });
       }
+
     })
 
   }

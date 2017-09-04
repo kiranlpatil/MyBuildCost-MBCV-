@@ -37,6 +37,7 @@ export class CandidateSearchComponent implements OnChanges {
 
   inCartListedStatusForSearchView:boolean = false;
   inRejectListedStatusForSearchView:boolean = false;
+  isCandidateFound:boolean;
 
   constructor(private _router:Router, private candidateSearchService:CandidateSearchService,
               private errorService:ErrorService, private profileCreatorService:CandidateProfileService, private qCardViewService:QCardViewService) {
@@ -59,12 +60,14 @@ export class CandidateSearchComponent implements OnChanges {
         );
     } else {
       this.candidateDataList = new Array(0);
+
       //this.listOfJobs = new Array(0);
     }
   }
 
   getJobProfileMatching(item:CandidateSearch) {
     this.searchValue = item.first_name + " " + item.last_name;
+    this.isCandidateFound = true;
     this.getJobProfiles(item.id);
     this.getCandidateProfile(item.id)
   }
@@ -91,11 +94,15 @@ export class CandidateSearchComponent implements OnChanges {
   }
 
   OnCandidateDataSuccess(candidateData:any) {
+    debugger;
     this.candidate = candidateData.data;
     this.candidateDetails = candidateData.metadata;
     this.candidateId = this.candidate._id;
     this.userId = this.candidateDetails._id;
     //this.getSecondaryData();
+    /*if(this.candidate == false) {
+
+     }*/
   }
 
   viewProfile(nav:string) {
@@ -106,12 +113,14 @@ export class CandidateSearchComponent implements OnChanges {
 
   showSearchResult() {
     if (this.candidateDataList.length) {
+      this.isCandidateFound = true;
       this.getJobProfileMatching(this.candidateDataList[0]);
     }
     else {
       this.candidateDetails = new CandidateDetail();
       this.candidate = new Candidate();
       this.listOfJobs = new Array(0);
+      this.isCandidateFound = false;
     }
   }
 
