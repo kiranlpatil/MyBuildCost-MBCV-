@@ -106,7 +106,7 @@ class AdminService {
 
       var csv = json2csv({ data: result.candidate, fields: fields, fieldNames: fieldNames});
       //unwindPath: ['roles', 'roles.default_complexities','roles.default_complexities.complexities','roles.default_complexities.complexities.scenarios']
-      fs.writeFile('./src/server/public/candidate.csv', csv, function(err:any) {
+      fs.writeFile('/home/bitnami/apps/jobmosis-staging/c-next/dist/prod/server/public/candidate.csv', csv, function(err:any) {
         if (err) throw err;
         console.log('candidate file saved');
       });
@@ -116,7 +116,7 @@ class AdminService {
       var fields = ['data.company_name','data.company_size','data.isRecruitingForself','data.jobCountModel.numberOfJobposted','mobile_number','email','isActivated','data.postedJobs.isJobPosted','data.postedJobs.jobTitle','data.postedJobs.hiringManager','data.postedJobs.department','data.postedJobs.education','data.postedJobs.experienceMinValue','data.postedJobs.experienceMaxValue','data.postedJobs.salaryMinValue','data.postedJobs.salaryMaxValue','data.postedJobs.joiningPeriod','data.postedJobs.postingDate','data.postedJobs.expiringDate'];
       var fieldNames = ['Company Name','company size','Recruiting For Self','Number of Job Posted','Mobile Number','Email','Is Activated','Job Posted','Job Title','Hiring Manager','Department','Education','Minimum Experience','Maximum Experience','Minimum Salary','Maximum Salary','Joining Period','Job Posting Date','Job Expiry Date'];
       var csv = json2csv({ data: result.recruiter, fields: fields, fieldNames: fieldNames, unwindPath: ['data.postedJobs']});
-      fs.writeFile('./src/server/public/recruiter.csv', csv, function(err:any){
+      fs.writeFile('/home/bitnami/apps/jobmosis-staging/c-next/dist/prod/server/public/recruiter.csv', csv, function(err:any){
         if (err) throw err;
         console.log('recuiter file saved');
       });
@@ -125,6 +125,25 @@ class AdminService {
     console.log("Success");
     callback(null,result);
   };
+
+  sendAdminLoginInfoMail(field: any, callback: (error: any, result: any) => void) {
+    var header1 = fs.readFileSync("./src/server/app/framework/public/header1.html").toString();
+    var content = fs.readFileSync("./src/server/app/framework/public/adminlogininfo.mail.html").toString();
+    var footer1 = fs.readFileSync("./src/server/app/framework/public/footer1.html").toString();
+    var mid_content = content.replace('$email$', field.email).replace('$address$', field.address)
+                      .replace('$ip$', field.ip).replace('$host$',config.get('TplSeed.mail.host') );
+     var to = config.get('TplSeed.mail.ADMIN_MAIL');
+    var mailOptions = {
+      from:config.get('TplSeed.mail.MAIL_SENDER'),
+      to: to,
+      subject: Messages.EMAIL_SUBJECT_ADMIN_LOGGED_ON+" "+config.get('TplSeed.mail.host'),
+      html: header1 + mid_content + footer1
+      , attachments: MailAttachments.AttachmentArray
+    }
+    var sendMailService = new SendMailService();
+    sendMailService.sendMail(mailOptions, callback);
+
+  }
 }
 
 Object.seal(AdminService);

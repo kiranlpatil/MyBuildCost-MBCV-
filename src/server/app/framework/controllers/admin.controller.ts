@@ -13,6 +13,8 @@ import UserService = require("../services/user.service");
 import AdminService = require("../services/admin.service");
 import CandidateModel = require("../dataaccess/model/candidate.model");
 import UserModel = require("../dataaccess/model/user.model");
+var request = require('request');
+
 let importIndustriesService = new ImportIndustryService();
 
 
@@ -123,4 +125,41 @@ export function getAllUser(req: express.Request, res: express.Response, next: an
   catch (e) {
     res.status(403).send({message: e.message});
   }
-};
+}
+export function adminLoginInfoMail(req: express.Request, res: express.Response, next: any) {
+  try {
+    var address:any;
+    req.body.ip=req.connection.remoteAddress;
+    var adminService = new AdminService();
+    request('http://maps.googleapis.com/maps/api/geocode/json?latlng='+req.body.lattitude+','+req.body.longitude+'&sensor=true', function (error:any, response:any, body:any) {
+      if (!error || response.statusCode == 200) {
+        if(response.statusCode == 200) {
+          address = JSON.parse(body).results[0].formatted_address;
+          req.body.address = address;
+        }
+        var params = req.body;
+        adminService.sendAdminLoginInfoMail(params, (error, result) => {
+          if (error) {
+            next({
+              reason: Messages.MSG_ERROR_RSN_WHILE_CONTACTING,
+              message: Messages.MSG_ERROR_WHILE_CONTACTING,
+              code: 403
+            });
+          }
+          else {
+            res.status(200).send({
+              "status": Messages.STATUS_SUCCESS,
+              "data": {"message": Messages.MSG_SUCCESS_SUBMITTED}
+            });
+          }
+        });
+      }
+
+    })
+
+  }
+  catch (e) {
+    res.status(403).send({message: e.message});
+
+  }
+}
