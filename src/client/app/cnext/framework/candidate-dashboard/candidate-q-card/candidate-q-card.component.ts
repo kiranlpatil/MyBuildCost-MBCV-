@@ -193,16 +193,16 @@ export class CandidateQCardComponent implements OnInit {
       }
     }
     if (this.inCartListedStatusForSearchView && this.inRejectListedStatusForSearchView == false) {
-      this.progress_bar_color = "'#7264b5'";
+      this.progress_bar_color = "#7264b5";
     }
     if (this.inRejectListedStatusForSearchView) {
-      this.progress_bar_color = "''#ff5722'";
+      this.progress_bar_color = "#ff5722";
     }
     if (this.inShortListedStatusForSearchView) {
       //this.progress_bar_color="'#7264b5'"
     }
     if (this.inAppliedListedStatusForSearchView && this.inCartListedStatusForSearchView == false) {
-      this.progress_bar_color = "'#f7c72d'";
+      this.progress_bar_color = "#f7c72d";
     }
   }
 

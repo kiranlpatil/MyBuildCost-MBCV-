@@ -290,6 +290,7 @@ select,
     &:focus {
       box-shadow: none;
       outline: 0;
+      border-bottom: 2px solid $theme-color;
     }
 
     &:-webkit-autofill,

@@ -4,7 +4,7 @@
   box-shadow: 0 3px 8px 0 rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(0, 0, 0, 0.08);
   left: 31px;
   position: absolute;
-  top: 37px;
+  top: 49px;
   width: 498px;
   z-index: 99;
   ul {
@@ -38,9 +38,8 @@
   background: $active-color;
   height: 50px;
   padding-top: 10px;
-  position: fixed;
-  top: 90px;
-  z-index: 99;
+  position: relative;
+  z-index: 10;
   input {
     border: 1px solid $gray;
     float: left;
@@ -82,3 +81,5 @@
     padding: 7px 25px;
   }
 }
+
+
