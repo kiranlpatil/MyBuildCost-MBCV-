@@ -24,6 +24,7 @@ export class JobCompareViewComponent implements OnChanges,OnInit {
   capabilities: Capability[];
   candidate : Candidate= new Candidate();
   candidateDetails : CandidateDetail = new CandidateDetail();
+  private isCandidateHaveExtraKeySkill: boolean
   @Input() typeOfView : string ='compact';
   @Output() close : EventEmitter<boolean> = new EventEmitter();
   private recruiterId: string;
@@ -122,6 +123,12 @@ export class JobCompareViewComponent implements OnChanges,OnInit {
 
   OnCompareSuccess(data: any) {
     this.data = data.data;
+    this.isCandidateHaveExtraKeySkill = false;
+    for (let proficiency of this.data.proficiencies) {
+      if (this.data.proficienciesMatch.indexOf(proficiency) == -1) {
+        this.isCandidateHaveExtraKeySkill = true;
+      }
+    }
     this.capabilities= this.jobCompareService.getStandardMatrix(this.data.match_map);
   }
 
