@@ -31,6 +31,13 @@ export class CandidateProfileService extends BaseService {
       .map(this.extractData)
       .catch(this.handleError);
   }
+  getRecruiterDetails() :Observable<any> {
+    let headers = new Headers({'Content-Type': 'application/json'});
+    let url: string = API.RECRUITER_PROFILE + '/' + LocalStorageService.getLocalValue(LocalStorage.USER_ID);
+    return this.http.get(url)
+      .map(this.extractData)
+      .catch(this.handleError);
+  }
 
   getCandidateAllDetails(userId:string):Observable<any> {
     let headers = new Headers({'Content-Type': 'application/json'});
