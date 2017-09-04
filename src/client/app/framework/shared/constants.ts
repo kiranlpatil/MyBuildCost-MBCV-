@@ -14,6 +14,7 @@ export class AppSettings {
   public static LIGHT_THEM = 'container-fluid light-theme';
   public static IS_SOCIAL_LOGIN_YES = 'YES';
   public static IS_SOCIAL_LOGIN_NO = 'NO';
+  public static HTTP_CLIENT = 'http://';
 }
 
 export class Messages {
@@ -282,6 +283,7 @@ export class ValueConstant {
 export class API {
   public static NOTIFICATION = 'notification';
   public static SEND_MAIL = 'sendmail';
+  public static SEND_TO_ADMIN_MAIL = 'sendmailtoadmin';
   public static USER_PROFILE = 'users';
   public static ALL_USER_PROFILE = 'alluser';
   public static CANDIDATE_PROFILE = 'candidate';
