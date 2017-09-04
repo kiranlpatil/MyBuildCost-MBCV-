@@ -98,6 +98,15 @@
   z-index: 99;
 }
 
+.current-user-staus {
+  position: absolute;
+  right: 26px;
+  bottom: 103px;
+  font-size: 11px;
+  width: 78px;
+  text-align: center;
+}
+
 @media only screen and (max-width: 1280px) {
   .skills-lists {
     width: 200px;

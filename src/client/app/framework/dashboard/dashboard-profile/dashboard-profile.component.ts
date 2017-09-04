@@ -114,14 +114,18 @@ export class DashboardProfileComponent implements OnInit, OnDestroy {
             }, error => this.errorService.onError(error));
   }
 
+  getRecruiter() {
+    this.candidateProfileService.getRecruiterDetails()
+      .subscribe(
+        recruiterData => {
+          this.OnCandidateDataSuccess(recruiterData);
+        }, error => this.errorService.onError(error));
+  }
+
   OnCandidateDataSuccess(candidateData: any) {
     this.candidate = candidateData.data[0];
     this.candidate.basicInformation = candidateData.metadata;
     this.candidate.summary = new Summary();
-  }
-
-  getRecruiter() {
-
   }
 
   ngOnDestroy() {
@@ -227,8 +231,19 @@ export class DashboardProfileComponent implements OnInit, OnDestroy {
   }
 
   onPictureUpload(imagePath: string) {
-    this.candidate.basicInformation.picture = imagePath;
+    if(this.role ==='candidate') {
+      this.candidate.basicInformation.picture = imagePath;
     this.image_path = AppSettings.IP + imagePath.substring(4).replace('"', '');
+    } else if (this.role ==='recruiter') {
+      this.candidate.basicInformation.picture = LocalStorageService.getLocalValue(LocalStorage.PROFILE_PICTURE); //TODO:Get it from get user call.
+      this.image_path = AppSettings.IP + imagePath.substring(4).replace('"', '');
+      if (this.candidate.basicInformation.picture === 'undefined' || this.candidate.basicInformation.picture === null) {
+        this.candidate.basicInformation.picture = ImagePath.COMPANY_LOGO_IMG_ICON;
+      } else {
+        this.candidate.basicInformation.picture = this.candidate.basicInformation.picture.substring(4, this.candidate.basicInformation.picture.length - 1).replace('"', '');
+        this.candidate.basicInformation.picture = AppSettings.IP + this.candidate.basicInformation.picture;
+      }
+    }
   }
 
 }

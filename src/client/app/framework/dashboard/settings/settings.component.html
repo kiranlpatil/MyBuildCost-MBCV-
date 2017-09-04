@@ -1,5 +1,6 @@
 <cn-candidate-dashboard-header [candidate]="candidate" *ngIf="role==='candidate'"></cn-candidate-dashboard-header>
-
+<cn-recruiter-shared-header *ngIf="role==='recruiter'"></cn-recruiter-shared-header>
+<cn-admin-dashboard-header *ngIf="role==='admin'" [candidate]="candidate"></cn-admin-dashboard-header>
 <section class="settings">
 
   <ul>

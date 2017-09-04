@@ -92,6 +92,13 @@
       <img *ngIf="!job.company_logo" src="assets/c-next/company-details/company-logo-default.png" />
     </div>
   </div>
+  <div *ngIf="type == 'searchView'" class="current-user-staus">
+    <span *ngIf="inCartListedStatusForSearchView && !inRejectListedStatusForSearchView">Added In Cart</span>
+    <span *ngIf="inRejectListedStatusForSearchView && !inCartListedStatusForSearchView">Rejected</span>
+    <span
+      *ngIf="inAppliedListedStatusForSearchView && !inCartListedStatusForSearchView && !inRejectListedStatusForSearchView">Applied</span>
+  </div>
+
   <div class="button-group btn-hover" *ngIf="type == 'searchView'">
     <button *ngIf="inCartListedStatusForSearchView == false && inRejectListedStatusForSearchView == false"
             class="btn btn-primary" (click)="actionForSearchView('cartListed',job._id)">Add to cart
