@@ -876,6 +876,13 @@ control-messages {
   .body-wrapper {
     overflow: hidden;
   }
+
+  %text-ellipsis {
+    overflow: visible;
+    text-overflow: clip;
+    white-space: normal;
+    width: 100%;
+  }
 }
 
 @media screen and (min-width: 300px) and (max-width: 766px) {
