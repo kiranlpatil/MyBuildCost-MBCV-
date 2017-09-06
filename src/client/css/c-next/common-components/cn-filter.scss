@@ -5,7 +5,7 @@
   position: fixed;
   top: 127px;
   right: 0;
-  height: calc(100vh - 127px);
+  height: calc(100vh - 150px);
   overflow: auto;
   border-left: 1px solid #ccc;
   text-align: left;
@@ -19,12 +19,12 @@
 
   h4 {
     margin: 0;
-    color: #666;
+    color: $name;
     padding: 55px 15px 15px;
     font-size: 13px;
     font-family: 'gothamrnd-book';
     position: fixed;
-    top: 50px;
+    top: 43px;
     right: 0;
     background-color: $filter-bg;
     width: 200px;
@@ -108,19 +108,19 @@
     box-shadow: none;
     left: 0;
     right: inherit;
-    top: 163px;
+    top: 162px;
     border-right: 1px solid $filter-border;
     width: 0;
     transition: .5s ease;
     visibility: hidden;
     opacity: 0;
-    height: calc(100vh - 163px);
+    height: calc(100vh - 185px);
 
     h4 {
       left: 0;
       right: inherit;
       padding: 10px;
-      top: 129px;
+      top: 128px;
       border-left: 0;
       border-right: 1px solid $filter-border;
       width: 0;

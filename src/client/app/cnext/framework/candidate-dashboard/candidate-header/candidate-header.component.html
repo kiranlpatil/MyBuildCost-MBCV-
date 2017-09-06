@@ -22,8 +22,6 @@
       <!-- Collect the nav links, forms, and other content for toggling -->
       <div class="bg-overlay" [class.show]="isClassVisible" (click)="isClassVisible = false;"></div>
       <div class="collapse navbar-collapse" [class.open-nav]="isClassVisible">
-
-
         <ul class="nav navbar-nav navbar-right">
           <li class="dropdown last-child">
             <div class="dropdown">
@@ -56,12 +54,12 @@
                     <span class="glyphicon glyphicon-user"></span>Value Portrait
                   </a>
                 </li>
-                <li role="menuitem" [routerLinkActive]="['active']" *ngIf="candidate.isCompleted==true">
+                <!--<li role="menuitem" [routerLinkActive]="['active']" *ngIf="candidate.isCompleted==true">
                   <a class="dropdown-item" [routerLink]="['profile-summary']"
                      (click)="navigateTo('/profile_summary');">
                     <span class="glyphicon glyphicon-eye-open"></span>View Profile
                   </a>
-                </li>
+                </li>-->
                 <li role="menuitem" [routerLinkActive]="['active']" *ngIf="candidate.isCompleted==true">
                   <a class="dropdown-item" [routerLink]="['profile-edit']"
                      (click)="navigateTo('/create_profile');">
@@ -71,7 +69,7 @@
                 <li role="menuitem" [routerLinkActive]="['active']">
                   <a class="dropdown-item" [routerLink]="['profile']"
                      (click)="navigateTo('/profile/candidate'); toggleMenu();">
-                    <span class="glyphicon glyphicon-list-alt"></span>Personal Information
+                    <span class="glyphicon glyphicon-list-alt"></span>Account Details
                   </a>
                 </li>
                 <li role="menuitem" [routerLinkActive]="['active']">

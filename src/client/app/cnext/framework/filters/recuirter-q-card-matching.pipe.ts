@@ -1,6 +1,6 @@
-import { Pipe, PipeTransform } from '@angular/core';
-import { CandidateQCard } from '../model/candidateQcard';
-import { ValueConstant } from '../../../framework/shared/constants';
+import {Pipe, PipeTransform} from "@angular/core";
+import {CandidateQCard} from "../model/candidateQcard";
+import {ValueConstant} from "../../../framework/shared/constants";
 
 @Pipe({name: 'qcardmatching', pure: false})
 
@@ -8,7 +8,7 @@ export class RecuirterQCardMatchingPipe implements PipeTransform {
 
   transform(array: Array<CandidateQCard>, args: any, totalQCardMatches: any, cartType: any): Array<any> {
 
-    var defaultMatch = ValueConstant.VALUE_FOR_CNDIDATES_PERCENT_MATCHING_LOWER_BOUND;
+    var defaultMatch = ValueConstant.VALUE_FOR_CANDIDATES_PERCENT_MATCHING_LOWER_BOUND;
     var result: CandidateQCard[];
     if (array === null) {
       return null;

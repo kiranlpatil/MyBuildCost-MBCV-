@@ -18,6 +18,7 @@ import {ActivatedRoute} from "@angular/router";
 import {Candidate, Summary} from "../../../cnext/framework/model/candidate";
 import {CandidateProfileService} from "../../../cnext/framework/candidate-profile/candidate-profile.service";
 import {ErrorService} from "../../../cnext/framework/error.service";
+import {AdminDashboardService} from "../../../cnext/framework/admin-dashboard/admin-dashboard.service";
 
 @Component({
   moduleId: module.id,
@@ -43,7 +44,8 @@ export class SettingsComponent implements OnInit, OnDestroy {
                 private candidateProfileService: CandidateProfileService,
                 private errorService: ErrorService,
                 private themeChangeService: ThemeChangeService, private changeThemeServie: SettingsService,
-                private messageService: MessageService, private formBuilder: FormBuilder, private loaderService: LoaderService) {
+                private messageService: MessageService, private formBuilder: FormBuilder, private loaderService: LoaderService,
+                private adminDashboardService: AdminDashboardService) {
 
     //this.themeIs = LocalStorageService.getLocalValue(LocalStorage.MY_THEME);
     this.themeIs = AppSettings.INITIAL_THEM;
@@ -89,9 +91,29 @@ export class SettingsComponent implements OnInit, OnDestroy {
         this.candidate.summary = new Summary();
     }
 
-    getRecruiter() {
+  OnRecruiterDataSuccess(candidateData: any) {
+    this.candidate = candidateData.data[0];
+    this.candidate.basicInformation = candidateData.metadata;
+    this.candidate.summary = new Summary();
+  }
 
-    }
+  getRecruiter() {
+    this.candidateProfileService.getRecruiterDetails()
+      .subscribe(
+        recruiterData => {
+          this.OnRecruiterDataSuccess(recruiterData);
+        }, error => this.errorService.onError(error));
+  }
+  getAdminProfile() {
+    this.adminDashboardService.getUserProfile()
+      .subscribe(
+        userprofile => this.onAdminProfileSuccess(userprofile),
+        error => this.errorService.onError(error));
+  }
+  onAdminProfileSuccess(candidateData: any) {
+    this.candidate.basicInformation = candidateData.data;
+  }
+
   ngOnDestroy() {
     //this.loaderService.stop();
   }

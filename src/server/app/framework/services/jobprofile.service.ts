@@ -1,6 +1,7 @@
-import * as mongoose from 'mongoose';
-import {Recruiter} from '../dataaccess/model/recruiter-final.model';
-import {Actions, ConstVariables} from '../shared/sharedconstants';
+import * as mongoose from "mongoose";
+import {Recruiter} from "../dataaccess/model/recruiter-final.model";
+import {Actions, ConstVariables} from "../shared/sharedconstants";
+import {SharedService} from "../shared/services/shared-service";
 import ProjectAsset = require('../shared/projectasset');
 import RecruiterRepository = require('../dataaccess/repository/recruiter.repository');
 import JobProfileRepository = require('../dataaccess/repository/job-profile.repository');
@@ -10,7 +11,6 @@ import CandidateSearchRepository = require('../search/candidate-search.repositor
 import IndustryModel = require('../dataaccess/model/industry.model');
 import IndustryRepository = require('../dataaccess/repository/industry.repository');
 import CandidateService = require('./candidate.service');
-import {SharedService} from '../shared/services/shared-service';
 let usestracking = require('uses-tracking');
 
 
@@ -90,7 +90,7 @@ class JobProfileService {
           if (err) {
             callback(err, res);
           } else {
-            let candidateService: CandidateService = new CandidateService();
+            let candidateService: any = new CandidateService();
             let new_capability_matrix: any =  candidateService.getCapabilityValueKeyMatrixBuild(res.postedJobs[0].capability_matrix,industries);
             callback(null, new_capability_matrix);
           }
@@ -147,12 +147,24 @@ class JobProfileService {
                       timestamp: new Date(),
                       action: Actions.DEFAULT_VALUE
                     };
-                    let sharedService: SharedService = new SharedService();
+                    let sharedService:SharedService = new SharedService();
                     uses_data.action = sharedService.constructAddActionData(item.listName);
                     this.usesTrackingController.create(uses_data);
+
+                    if (list.name == ConstVariables.REJECTED_LISTED_CANDIDATE) {
+                      for (let _list of job.candidate_list) {
+                        if (_list.name == ConstVariables.CART_LISTED_CANDIDATE) {
+                          let index = _list.ids.indexOf(item.candidateId);    // <-- Not supported in <IE9
+                          if (index !== -1) {
+                            _list.ids.splice(index, 1);
+                          }
+                        }
+                      }
+                    }
                     let index = list.ids.indexOf(item.candidateId);    // <-- Not supported in <IE9
                     if (index == -1) {
                       list.ids.push(item.candidateId);
+
                     }
                   } else {
                     let uses_data = {

@@ -54,6 +54,7 @@
   position: fixed;
   left: 0;
   overflow: auto;
+  z-index: -1;
 }
 
 @media only screen and (max-width: 767px) {

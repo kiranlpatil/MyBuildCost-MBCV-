@@ -18,8 +18,8 @@ export class AppSettings {
 }
 
 export class Messages {
-  public static MSG_CANDIDATE_NOT_FOUND = "Candidate Not Found";
-  public static MSG_CANDIDATE_SEARCH_NOT_FOUND = "The profile details of selected applicant are not displayed, since this profile does not match with any of your open job profiles.";
+  public static MSG_CANDIDATE_NOT_FOUND = "No registered applicant with this name. Avoid using multiple spaces while searching with complete names.";
+  public static MSG_CANDIDATE_SEARCH_NOT_FOUND = "Applicant's profile does not match with any of your open job profiles.";
   public static MSG_CNADIDATE_VISIBILITY_OFF = "The selected applicant profile details are not displayed, since the applicant has marked it as private.";
   public static MSG_SUCCESS_LOGIN: string = 'You are successfully signed in.';
   public static MSG_SUCCESS_REGISTRATION: string = 'Kindly verify your account.';
@@ -165,7 +165,7 @@ export class Messages {
   public static MSG_READY_FOR_JOB_SEARCH_FOR_FIRST_TIME = 'You are now ready to find your dream job. In a few seconds you will be taken to the job matching dashboard.';
   public static MSG_READY_FOR_JOB_SEARCH = 'Your profile edited successfully.You will be taken to the job matching dashboard.';
   public static MSG_JOB_POST = 'This job post will now be published. You can see matching candidates for this job in your dashboard view. Proceed?';
-  public static MSG_CONFIRM_PASSWORD = 'Confirm your password.';
+  public static MSG_CONFIRM_PASSWORD = ' Passwords do not match.';
   public static MSG_CHANGE_PASSWORD_SUCCESS = 'Password changed successfully.You can Sign In again with new password by clicking on "yes" button, Please' +
       ' click on "No" button to continue the session.';
   public static MSG_VERIFY_USER_1 = 'You are almost done!';
@@ -276,7 +276,7 @@ export class ValueConstant {
   public static APPLIED_CANDIDATE: string = 'applied';
   public static BLOCKED_CANDIDATE: string = 'blocked';
   public static MATCHED_CANDIDATE: string = 'matchedList';
-  public static VALUE_FOR_CNDIDATES_PERCENT_MATCHING_LOWER_BOUND = 40;
+  public static VALUE_FOR_CANDIDATES_PERCENT_MATCHING_LOWER_BOUND = 10;
 }
 
 
@@ -285,6 +285,7 @@ export class API {
   public static SEND_MAIL = 'sendmail';
   public static SEND_TO_ADMIN_MAIL = 'sendmailtoadmin';
   public static USER_PROFILE = 'users';
+  public static UPDATE_USER = 'updateUser';
   public static ALL_USER_PROFILE = 'alluser';
   public static CANDIDATE_PROFILE = 'candidate';
   public static CANDIDATE_DETAIL_PROFILE = 'candidateDetails';

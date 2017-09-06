@@ -98,6 +98,15 @@
   z-index: 99;
 }
 
+.current-user-staus {
+  position: absolute;
+  right: 26px;
+  bottom: 103px;
+  font-size: 11px;
+  width: 78px;
+  text-align: center;
+}
+
 @media only screen and (max-width: 1280px) {
   .skills-lists {
     width: 200px;
@@ -107,5 +116,24 @@
 @media only screen and (max-width: 1023px) {
   .skills-lists {
     width: 160px;
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .company-profile-picture-col {
+    div {
+      white-space: normal;
+      text-overflow: clip;
+      overflow: visible;
+      word-break: keep-all;
+    }
+  }
+
+  .skills-lists {
+    white-space: normal;
+    overflow: visible;
+    text-overflow: clip;
+    padding: 2px 0 2px 27px;
+    width: 100%;
   }
 }

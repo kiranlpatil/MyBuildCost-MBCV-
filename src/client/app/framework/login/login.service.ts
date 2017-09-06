@@ -3,7 +3,6 @@ import {Headers, Http, RequestOptions} from "@angular/http";
 import {Observable} from "rxjs/Observable";
 import "rxjs/add/operator/map";
 import "rxjs/add/operator/catch";
-import {Login} from "./login";
 import {API, BaseService, MessageService} from "../shared/index";
 import {GoogleToken} from "./googletoken";
 import {Login} from "./login";
@@ -42,7 +41,7 @@ export class LoginService extends BaseService {
       .map(this.extractData)
       .catch(this.handleError);
   }
-  sendMailToAdmin(data:Login): Observable<any> {
+  sendMailToAdmin(data:any): Observable<any> {
     var body = JSON.stringify(data);
     let headers = new Headers({'Content-Type': 'application/json'});
     let options = new RequestOptions({headers: headers});
