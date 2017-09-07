@@ -35,7 +35,6 @@ export class SettingsComponent implements OnInit, OnDestroy {
   INITIAL_THEME = AppSettings.INITIAL_THEM;
   LIGHT_THEME = AppSettings.LIGHT_THEM;
   APP_NAME: string;
-  changePasswordMessage:string= Messages.MSG_CHANGE_PASSWORD;
   changeThemeMessage:string= Messages.MSG_CHANGE_THEME;
     role: string;
     private candidate: Candidate = new Candidate();
