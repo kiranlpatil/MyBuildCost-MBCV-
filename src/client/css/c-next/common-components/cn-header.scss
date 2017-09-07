@@ -45,7 +45,7 @@ $overlay: rgba(0, 0, 0, .4);
       font-size: 13px;
       margin-top: 10px;
       overflow: visible;
-      padding: 0 10px 5px 65px;
+      padding: 0 10px 5px;
       text-align: left;
       text-overflow: clip;
       text-transform: capitalize;
@@ -61,7 +61,7 @@ $overlay: rgba(0, 0, 0, .4);
       font-size: 12px;
       margin: 0;
       overflow: visible;
-      padding: 0 10px 5px 65px;
+      padding: 0 10px 5px;
       text-align: left;
       text-overflow: clip;
       text-transform: capitalize;
@@ -296,6 +296,7 @@ $overlay: rgba(0, 0, 0, .4);
       h4,
       h5 {
         color: #fff;
+        padding: 0 10px 5px 65px;
       }
     }
 
