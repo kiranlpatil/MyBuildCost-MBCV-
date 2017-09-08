@@ -31,7 +31,7 @@ export class VerifyPhoneComponent {
   mobileverificationTitle: string= Messages.MSG_MOBILE_VERIFICATION_TITLE;
   mobileverificationSuccess_1: string= Messages.MSG_MOBILE_VERIFICATION_SUCCUSS_1;
   mobileverificationMessage: string= Messages.MSG_MOBILE_VERIFICATION_MESSAGE;
-  mobileverificationTitle_2: string= Messages.MSG_MOBILE_VERIFICATION_SUCCUSS_2;
+  mobileverificationSuccess_2: string= Messages.MSG_MOBILE_VERIFICATION_SUCCUSS_2;
   private loginModel = new Login();
   private submitStatus: boolean;
 
@@ -148,14 +148,12 @@ export class VerifyPhoneComponent {
   }
 
   navigateTo() {
-      //this.loginModel.email=LocalStorageService.getLocalValue(LocalStorage.EMAIL_ID);
-      //this.loginModel.password=LocalStorageService.getLocalValue(LocalStorage.PASSWORD);
-      window.localStorage.clear();
-      this._router.navigate([NavigationRoutes.APP_LOGIN]);
-      //this.loginService.userLogin(this.loginModel)
-      //.subscribe(
-      // res => (this.registrationService.onSuccess(res)),
-      // error => (this.registrationService.loginFail(error)));
+    this.loginModel.email=LocalStorageService.getLocalValue(LocalStorage.EMAIL_ID);
+    this.loginModel.password=LocalStorageService.getLocalValue(LocalStorage.PASSWORD);
+    this.loginService.userLogin(this.loginModel)
+      .subscribe(
+        res => (this.registrationService.onSuccess(res)),
+        error => (this.registrationService.loginFail(error)));
   }
 
   getStyleModal() {
