@@ -314,6 +314,28 @@ server {
 # MongoDB
 
  - In progress
+ 
+# MongoDB update scripts
+
+ - Version : 1.1.1
+ - Date : 7 Sept 2017
+ - Scenario : Industry code for 'IT' updated in master data so that need to update for candidates and recruiters who are consuming it.
+ - Update Script :
+ db.candidates.update({"industry.code" : "4"},
+   {$set:{"industry.code" : "1000"}},
+   { multi: true }
+ );
+ 
+ db.recruiters.find({}).forEach(function(recruiter) {
+       recruiter.postedJobs.forEach(function(job){
+           if(job.industry.code=="4"){
+               job.industry.code = "1000"
+           }
+       })
+ 	db.recruiters.save(recruiter);
+ })
+ 
+ 
 
 # MySQL
 
@@ -349,6 +371,9 @@ server {
  1. SLA for ShowStopper: Item should be fixed and solution should be deployed on production server within 24 hours.
  2. SLA for HighPriority: Item should be fixed and solution should be deployed on production server within 48 hours. 
  Deployment on production server could be differed on case by case but fix need to be made available within 48 hours so that it is ready to deploy on production server/branch.
+ 
+ # Schedule of deployment on production:
+ Every last day of week we will deploy new certified & verified version on production server and send a release note to all stake holders.
   
  # Contributors
 
