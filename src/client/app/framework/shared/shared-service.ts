@@ -22,7 +22,7 @@ export class SharedService {
 
   }
 
-  detectIE () {
+  detectIE () : any {
     let ua = window.navigator.userAgent;
 
     let msie = ua.indexOf('MSIE ');
@@ -36,7 +36,7 @@ export class SharedService {
     if (trident > 0) {
       this.isChrome = false;
       // IE 11 => return version number
-      var rv = ua.indexOf('rv:');
+      let rv = ua.indexOf('rv:');
       return parseInt(ua.substring(rv + 3, ua.indexOf('.', rv)), 10);
     }
 
