@@ -307,11 +307,14 @@ class UserService {
 
   }
   sendMailOnError(errorInfo: any, callback: (error: any, result: any) => void) {
+    var date = new Date();
+    var current_Time=new Date().toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'})
     var header1 = fs.readFileSync("./src/server/app/framework/public/header1.html").toString();
     var content = fs.readFileSync("./src/server/app/framework/public/error.mail.html").toString();
     var footer1 = fs.readFileSync("./src/server/app/framework/public/footer1.html").toString();
-    var mid_content = content.replace('$host$',config.get('TplSeed.mail.host')).replace('$reason$', errorInfo.reason).replace('$code$', errorInfo.code).replace('$message$', errorInfo.message);
-    var to = config.get('TplSeed.mail.ADMIN_MAIL');
+    var mid_content = content.replace('$time$',current_Time).replace('$host$',config.get('TplSeed.mail.host')).replace('$reason$', errorInfo.reason).replace('$code$', errorInfo.code).replace('$message$', errorInfo.message);
+
+    var to = config.get('TplSeed.mail.SUPPORT_MAIL');
     var mailOptions = {
       from:config.get('TplSeed.mail.MAIL_SENDER'),
       to: to,
