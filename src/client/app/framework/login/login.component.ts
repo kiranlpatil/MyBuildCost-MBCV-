@@ -17,10 +17,11 @@ import {
 import {FacebookService} from "./facebook.service";
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {ValidationService} from "../shared/customvalidations/validation.service";
-import {ProjectAsset} from "../shared/constants";
+import {ProjectAsset, Messages} from "../shared/constants";
 import {SharedService} from "../shared/shared-service";
 import {AdminLogin} from "./adminlogininfo";
 import {ErrorService} from "../../cnext/framework/error.service";
+
 
 @Component({
   moduleId: module.id,
@@ -75,6 +76,7 @@ export class LoginComponent implements OnInit {
     if (parseInt(LocalStorageService.getLocalValue(LocalStorage.IS_LOGGED_IN)) === 1) {
       this._router.navigate([NavigationRoutes.APP_CANDIDATE_DASHBOARD]);
     }
+
   }
 
   closeToaster() {
@@ -95,10 +97,9 @@ export class LoginComponent implements OnInit {
     }
 
     this.model.email = this.model.email.toLowerCase();
-    this.loginService.userLogin(this.model)
-      .subscribe(
-        res => (this.loginSuccess(res)),
-        error => (this.loginFail(error)));
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(this.currentPosition.bind(this), this.locationError.bind(this));
+    }
   }
 
   loginSuccess(res: any) { debugger
@@ -129,20 +130,18 @@ export class LoginComponent implements OnInit {
     this.successRedirect(res);
   }
   currentPosition(position:any) {
-    this.adminModel.lattitude=position.coords.latitude;;
-    this.adminModel.longitude=position.coords.longitude;
-    this.adminModel.email=this.model.email;
-    this.loginService.sendMailToAdmin( this.adminModel)
+    this.model.latitude=position.coords.latitude;
+    this.model.longitude=position.coords.longitude;
+    this.loginService.userLogin(this.model)
       .subscribe(
-        body => console.log("sending mail to admin"),
-        error => this.errorService.onError(error));
+        res => (this.loginSuccess(res)),
+        error => (this.loginFail(error)));
   }
   locationError(error: any) {
-    this.adminModel.email=this.model.email;
-    this.loginService.sendMailToAdmin( this.adminModel)
+    this.loginService.userLogin(this.model)
       .subscribe(
-        body => console.log("sending mail to admin"),
-        error => this.errorService.onError(error));
+        res => (this.loginSuccess(res)),
+        error => (this.loginFail(error)));
     console.log("location access is disable");
   }
 
@@ -158,9 +157,6 @@ export class LoginComponent implements OnInit {
     LocalStorageService.setLocalValue(LocalStorage.PROFILE_PICTURE, res.data.picture);
     LocalStorageService.setLocalValue(LocalStorage.ISADMIN, res.data.isAdmin);
     if(res.data.isAdmin === true) {
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(this.currentPosition.bind(this), this.locationError.bind(this));
-      }
       this._router.navigate([NavigationRoutes.APP_ADMIN_DASHBOARD]);
     }
     else if (res.data.isCandidate === true) {
@@ -197,6 +193,10 @@ export class LoginComponent implements OnInit {
   }
 
   onFailure(error: any) {
+  }
+
+  getMessages() {
+    return Messages;
   }
 
 }

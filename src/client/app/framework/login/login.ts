@@ -3,4 +3,6 @@ export class Login {
   email: String;
   password: String;
   mobile_number: Number;
+  latitude:number=0;
+  longitude:number=0;
 }

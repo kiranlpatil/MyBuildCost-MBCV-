@@ -314,6 +314,28 @@ server {
 # MongoDB
 
  - In progress
+ 
+# MongoDB update scripts
+
+ - Version : 1.1.1
+ - Date : 7 Sept 2017
+ - Scenario : Industry code for 'IT' updated in master data so that need to update for candidates and recruiters who are consuming it.
+ - Update Script :
+ db.candidates.update({"industry.code" : "4"},
+   {$set:{"industry.code" : "1000"}},
+   { multi: true }
+ );
+ 
+ db.recruiters.find({}).forEach(function(recruiter) {
+       recruiter.postedJobs.forEach(function(job){
+           if(job.industry.code=="4"){
+               job.industry.code = "1000"
+           }
+       })
+ 	db.recruiters.save(recruiter);
+ })
+ 
+ 
 
 # MySQL
 
@@ -323,6 +345,42 @@ server {
 
  - we have used msg91 to send sms for otp verification.[https://msg91.com/].Purchase sms on this site and enter the Auth key in the file(/home/nilesh/Projects/tpl-web-fullstack-seed/src/server/app/services/user.service.ts) as follows,
  var msg91 = require("msg91")("AUTHKEY", "TPLSID", "4");//(4 -Transactional route,1-Promotional route)[https://www.npmjs.com/package/msg91]
+
+# Deployment Process for Master Data :
+I) Use Following steps to connect AWS server for uploading new Industry Json file :
+
+Download FileZilla FTP Client.
+1). Open the FileZilla client.
+2). From the top of the home screen, click on Edit and select Settings.
+3). On the left side of the menu, expand the Connection section and highlight SFTP.
+4). Click on the [Add keyfile...] button and browse your local machine's directories and select your Private
+Key file.                                                
+5). Then, again from the top of FileZilla's home screen, click on File and select Site Manager.
+6). Finally, on the left side of the Site Manager, click on the New Site button and type a unique name
+under My Sites that will allow you to easily identify this particular remote server in the future.
+7). Now, under the General tab, fill in the Host (an IP address) and Port fields (default is 22).
+8). In the Protocol drop-down menu, select SFTP - SSH File Transfer Protocol.
+9). In the Logon Type drop-down menu, select Normal.
+10). Click on Connect button.
+
+
+II) Use Following steps and call API for upload new Industry :
+File upload steps:-
+1). The interface is split in half -- the left side shows the files on your PC, the right side will show the files
+on your hosted web space.
+To transfer files from your computer to our hosted web space, you'll want to locate your website files on
+your computer on the left side of the FTP client, then right-click on a file, then select the option to
+'upload.'
+( Excel name must be- NewIndustryDataExcel.xlsx )
+
+Path for excel file upload:-(for right hand side i.e.server side)
+bitnami/apps/CNext/c-next/src/server/app/framework/public/config
+now select file from left side(your local PC files) and right click on the file to be upload and select
+"upload". The file will be get uploaded to server(right hand side).
+2). Hit the api http://ServerAddress/api/readxlsx from postman.
+replace the ServerAddress with address you wish to work on(stagging IP address)
+
+
   
 # Definition of DONE for developers:
  
@@ -349,6 +407,9 @@ server {
  1. SLA for ShowStopper: Item should be fixed and solution should be deployed on production server within 24 hours.
  2. SLA for HighPriority: Item should be fixed and solution should be deployed on production server within 48 hours. 
  Deployment on production server could be differed on case by case but fix need to be made available within 48 hours so that it is ready to deploy on production server/branch.
+ 
+ # Schedule of deployment on production:
+ Every last day of week we will deploy new certified & verified version on production server and send a release note to all stake holders.
   
  # Contributors
 
@@ -419,51 +480,6 @@ server {
 [<img alt="ultrasonicsoft" src="https://avatars.githubusercontent.com/u/4145169?v=3&s=117" width="117">](https://github.com/ultrasonicsoft) |[<img alt="inkidotcom" src="https://avatars.githubusercontent.com/u/100466?v=3&s=117" width="117">](https://github.com/inkidotcom) |
 :---: |:---: |
 [ultrasonicsoft](https://github.com/ultrasonicsoft) |[inkidotcom](https://github.com/inkidotcom) |
-
-## Wiki Contributors
-
-Here are all the awesome guys who are helping to make the project's wiki even better!
-
-```
-37  Minko Gechev
-22  Clayton K. N. Passos
-15  Shyam-Chen
-14  Vincent van Proosdij
- 8  Christian Dobert
- 8  Robert van Kints
- 8  matthew harwood
- 6  Ludovic HENIN
- 5  Attila Egyed
- 3  Stefan Schüller
- 3  Patrick Hillert
- 3  Ezequiel Cicala
- 2  Nathan Walker
- 2  Yannick Koehler
- 2  Giovanni Candido da Silva
- 2  Simon Hampton
- 2  Cy Klassen
- 2  Joshua Wiens
- 2  Drake Wilson
- 2  Dinsitro
- 1  zcsongor
- 1  BouncingBit
- 1  Brian Kotek
- 1  Chris Kapilla
- 1  Dang Tung
- 1  Eddie Sun
- 1  Enrico Secondulfo
- 1  Eugene Serkin
- 1  Ishara Samantha
- 1  Myrmex
- 1  Pol Stafford
- 1  Raphael Schmitt
- 1  Sebastian Fuss
- 1  Sebastien de Salvador
- 1  The Ult
- 1  graham
- 1  kiuka
- 1  Ankit Kamboj
-```
 
 
 # Change Log

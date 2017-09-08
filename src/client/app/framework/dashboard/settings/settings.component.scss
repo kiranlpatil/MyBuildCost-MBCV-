@@ -1,16 +1,47 @@
 @import '../../../../css/common';
+@import '../../../../css/variables';
 
 .settings {
   text-align: left;
-  width: 25%;
-  margin: 100px auto 0;
+  display: table-cell;
+  vertical-align: middle;
 
-  h4 {
-    border-bottom: $border-color 1px solid;
-    padding-bottom: 15px;
+  .settings-content {
+    transform: inherit;
+    margin: 0 auto;
+    float: none;
+    left: 0;
+    top: 0;
+    position: relative;
+    background: $white;
+    padding: 0;
+    text-align: left;
+    border: 1px solid $gray;
+    box-shadow: -1px 3px 10px $content-box-shadow;
 
-    span {
-      margin-right: 15px;
+    h5 {
+      color: $name;
+      font-size: 20px;
+      font-weight: bold;
+      margin: 0;
+      padding: 15px 0 10px 15px;
+      background: transparent !important;
+      border-bottom: 0 solid $border-color;
+      font-family: gothamrnd-light;
+    }
+
+    h5 > .glyphicon-remove {
+      color: $white;
+      font-size: 13px;
+      position: absolute;
+      right: 15px;
+      top: 12px;
+      cursor: pointer;
+    }
+
+    p {
+      text-align: left;
+      margin: 0 0 15px;
     }
   }
 
@@ -34,39 +65,21 @@
     display: none;
   }
 
-  label {
-    color: $text-color;
-    font-size: 15px;
-    font-weight: normal;
-    margin-bottom: 0;
-    padding: 15px 15px 15px 0;
-    width: 25%;
-
-    input {
-      float: left;
-      margin-right: 10px;
-    }
-  }
-
   .account {
     padding: 15px;
   }
 }
 
-@media (max-width: 1280px) {
+@media (max-width: 1280px) and (min-width: 981px) {
   .settings {
-    width: 40%;
+    .settings-content {
+      width: 50%;
+    }
   }
 }
 
 @media (max-width: 980px) {
   .settings {
-    width: 70%;
-
-    .password-heading {
-      margin-top: 15px;
-    }
-
     label {
       width: 50%;
     }
@@ -75,8 +88,12 @@
 
 @media (max-width: 767px) {
   .settings {
-    width: 100%;
-    margin-top: 50px;
+    vertical-align: top;
+
+    .settings-content {
+      top: 65px;
+      margin-bottom: 15px;
+    }
   }
 }
 

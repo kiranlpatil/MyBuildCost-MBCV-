@@ -8,6 +8,7 @@ var request = require('request');
 
 
 
+
 export function create(req: express.Request, res: express.Response, next: any) {
   try {
     var newUser: UserModel = <UserModel>req.body;
@@ -70,41 +71,51 @@ export function getAllUser(req: express.Request, res: express.Response, next: an
     var userService = new UserService();
     var adminService = new AdminService();
     var params = {};
-    userService.retrieveAll(params, (error, result) => {
-      if (error) {
-        next({
-          reason: 'Error In Retrieving',//Messages.MSG_ERROR_RSN_INVALID_CREDENTIALS,
-          message: 'error in create excel',
-          code: 403
-        });
-      } else {
-        adminService.seperateUsers(result,(error, resp) => {
-          if (error) {
-            next({
-              reason: 'Error In Retrieving',//Messages.MSG_ERROR_RSN_INVALID_CREDENTIALS,
-              message: 'error in create excel',
-              code: 403
-            });
-          }else {
-            adminService.createXlsx(resp, (err, respo)=> {
-              if (err) {
-                next({
-                  reason: 'Error In Retrieving',//Messages.MSG_ERROR_RSN_INVALID_CREDENTIALS,
-                  message: 'error in create excel',
-                  code: 403
-                });
-              } else {
-                res.status(200).send({
-                  'status': 'success',
-                  'data': resp
-                });
-              }
-            });
-          }
+    if(req.user.isAdmin){
+      userService.retrieveAll(params, (error, result) => {
+        if (error) {
+          next({
+            reason: 'Error In Retrieving',//Messages.MSG_ERROR_RSN_INVALID_CREDENTIALS,
+            message: 'error in create excel',
+            code: 403
+          });
+        } else {
+          adminService.seperateUsers(result,(error, resp) => {
+            if (error) {
+              next({
+                reason: 'Error In Retrieving',//Messages.MSG_ERROR_RSN_INVALID_CREDENTIALS,
+                message: 'error in create excel',
+                code: 403
+              });
+            }else {
+              adminService.createXlsx(resp, (err, respo)=> {
+                if (err) {
+                  next({
+                    reason: 'Error In Retrieving',//Messages.MSG_ERROR_RSN_INVALID_CREDENTIALS,
+                    message: 'error in create excel',
+                    code: 403
+                  });
+                } else {
+                  res.status(200).send({
+                    'status': 'success',
+                    'data': resp
+                  });
+                }
+              });
+            }
 
-        });
-      }
-    });
+          });
+        }
+      });
+    }else{
+      res.status(401).send({
+        'error': {
+          reason: 'Unauthorized User',
+          message:'You are unauthorized user',
+          code: 401
+        }
+      });
+    }
   } catch (e) {
     res.status(403).send({message: e.message});
   }
@@ -153,35 +164,27 @@ export function updateDetailOfUser(req: express.Request, res: express.Response, 
     res.status(403).send({message: e.message});
   }
 }
-export function adminLoginInfoMail(req: express.Request, res: express.Response, next: any) {
-  try {
+export function sendLoginInfoToAdmin(email:any,ip:any,latitude:any,longitude:any) {
+  try{
+    var params:any={email:undefined,ip:undefined,location:undefined};
     var address:any;
-    req.body.ip=req.connection.remoteAddress;
+    params.ip=ip;
+    params.email=email;
     var adminService = new AdminService();
-    request('http://maps.googleapis.com/maps/api/geocode/json?latlng='+req.body.lattitude+','+req.body.longitude+'&sensor=true', function (error:any, response:any, body:any) {
+    request('http://maps.googleapis.com/maps/api/geocode/json?latlng='+latitude+','+longitude+'&sensor=true', function (error:any, response:any, body:any) {
       if (!error || response.statusCode == 200) {
         if(response.statusCode == 200) {
           address = JSON.parse(body).results[0].formatted_address;
-          req.body.address = address;
+          params.location = address;
         }
-        var params = req.body;
         adminService.sendAdminLoginInfoMail(params, (error, result) => {
           if (error) {
-            next({
-              reason: Messages.MSG_ERROR_RSN_WHILE_CONTACTING,
-              message: Messages.MSG_ERROR_WHILE_CONTACTING,
-              code: 403
-            });
-          } else {
-            res.status(200).send({
-              'status': Messages.STATUS_SUCCESS,
-              'data': {'message': Messages.MSG_SUCCESS_SUBMITTED}
-            });
+           console.log(error);
           }
         });
       }
     });
   } catch (e) {
-    res.status(403).send({message: e.message});
+console.log(e);
   }
 }

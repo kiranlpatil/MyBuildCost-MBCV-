@@ -23,7 +23,7 @@ export class Messages {
   public static MSG_CNADIDATE_VISIBILITY_OFF = "The selected applicant profile details are not displayed, since the applicant has marked it as private.";
   public static MSG_SUCCESS_LOGIN: string = 'You are successfully signed in.';
   public static MSG_SUCCESS_REGISTRATION: string = 'Kindly verify your account.';
-  public static MSG_SUCCESS_CHANGE_MOBILE_NUMBER: string = 'Mobile number updated successfully.';
+  public static MSG_SUCCESS_CHANGE_MOBILE_NUMBER: string = 'Mobile number updated successfully.Kindly sign in';
   public static MSG_SUCCESS_RESEND_VERIFICATION_CODE: string = 'New OTP (One Time Password) has been sent to your registered mobile number';
   //public static MSG_SUCCESS_MAIL_VERIFICATION: string = 'Verification e-mail sent successfully to your e-mail account. Kindly proceed by clicking on the link pProvided in your e-mail';
   public static MSG_SUCCESS_MAIL_VERIFICATION: string = 'Verification e-mail sent successfully to your e-mail account.';
@@ -40,6 +40,7 @@ export class Messages {
   public static MSG_SUCCESS_CONTACT: string = 'Email sent successfully.';
   public static MSG_SUCCESS_CHANGE_THEME: string = 'Theme changed successfully.';
   public static MSG_SUCCESS_MAIL_VERIFICATION_RESULT_STATUS: string = 'Congratulations!';
+  public static MSG_CHANGE_PASSWORD_SUCCESS_HEADER: string = 'Password changed successfully';
   public static MSG_SUCCESS_MAIL_VERIFICATION_BODY: string = 'Your account verified successfully.' +
     'You may start using it immediately by clicking on Sign In!';
 
@@ -182,8 +183,8 @@ export class Messages {
     'button to continue the session.';
   public static MSG_MOBILE_VERIFICATION_TITLE = 'Verify Your Mobile Number';
   public static MSG_MOBILE_VERIFICATION_MESSAGE = 'Please enter the verification code sent to your phone number.';
-  public static MSG_MOBILE_VERIFICATION_SUCCUSS_1 = 'Congratulations!';
-  public static MSG_MOBILE_VERIFICATION_SUCCUSS_2 = 'Registration successful. Kindly Sign In';
+  public static MSG_MOBILE_VERIFICATION_SUCCUSS_HEADING = 'Congratulations!';
+  public static MSG_MOBILE_VERIFICATION_SUCCUSS_TEXT = 'Registration successful. Kindly Sign In';
   public static CONTACT_US_ADDRESS = 'Blog. No. 14, 1st Floor, Electronic Estate, Parvati, Pune-Satara Road, Pune 411009, MH, INDIA.';
   public static CONTACT_US_CONTACT_NUMBER_1 = '+91 (20) 2421 8865';
   public static CONTACT_US_CONTACT_NUMBER_2 = '+91 98233 18865';
@@ -201,6 +202,7 @@ export class Messages {
   'unchanged. ' +
   'It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages,' +
   'and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.';
+  public static BROWSER_ALERT_MSG = 'This application is certified on Google chrome browser. Switch to chrome for better experience.';
 
 }
 
@@ -384,9 +386,11 @@ export class ImagePath {
 }
 
 export class ProjectAsset {
+  static _year:Date = new Date();
+  static currentYear = ProjectAsset._year.getFullYear();
   public static APP_NAME = 'JobMosis';
   public static TAG_LINE = 'The Awesome Web Experience';
-  public static UNDER_LICENECE = '© 2017 www.jobmosis.com';
+  public static UNDER_LICENECE = '© ' + ProjectAsset.currentYear + ' www.jobmosis.com';
 }
 
 export class Tooltip {
@@ -489,4 +493,14 @@ export class Headings {
   public static SUPPLIMENTARY_CAPABILITIES: string = 'Supplimentary Capabilities';
   public static ADDITIONAL_INFORMATION_TEXT: string = 'Additional Information';
   public static KEY_SKILLS: string = 'Key Skills';
+}
+
+export class Label {
+  public static CURRENT_PASSWORD_LABEL: string = 'Current Password';
+  public static NEW_PASSWORD_LABEL: string = 'New Password';
+  public static CONFIRM_PASSWORD_LABEL: string = 'Confirm Password';
+}
+
+export class Button {
+  public static CHANGE_PASSWORD_BUTTON: string = 'Change Password';
 }
