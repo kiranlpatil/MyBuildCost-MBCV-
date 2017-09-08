@@ -183,8 +183,8 @@ export class Messages {
     'button to continue the session.';
   public static MSG_MOBILE_VERIFICATION_TITLE = 'Verify Your Mobile Number';
   public static MSG_MOBILE_VERIFICATION_MESSAGE = 'Please enter the verification code sent to your phone number.';
-  public static MSG_MOBILE_VERIFICATION_SUCCUSS_1 = 'Congratulations!';
-  public static MSG_MOBILE_VERIFICATION_SUCCUSS_2 = 'Registration successful. Kindly Sign In';
+  public static MSG_MOBILE_VERIFICATION_SUCCUSS_HEADING = 'Congratulations!';
+  public static MSG_MOBILE_VERIFICATION_SUCCUSS_TEXT = 'Registration successful. Kindly Sign In';
   public static CONTACT_US_ADDRESS = 'Blog. No. 14, 1st Floor, Electronic Estate, Parvati, Pune-Satara Road, Pune 411009, MH, INDIA.';
   public static CONTACT_US_CONTACT_NUMBER_1 = '+91 (20) 2421 8865';
   public static CONTACT_US_CONTACT_NUMBER_2 = '+91 98233 18865';

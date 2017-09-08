@@ -28,10 +28,6 @@ export class VerifyPhoneComponent {
   UNDER_LICENCE: string;
   BODY_BACKGROUND: string;
   showModalStyle: boolean = false;
-  mobileverificationTitle: string= Messages.MSG_MOBILE_VERIFICATION_TITLE;
-  mobileverificationSuccess_1: string= Messages.MSG_MOBILE_VERIFICATION_SUCCUSS_1;
-  mobileverificationMessage: string= Messages.MSG_MOBILE_VERIFICATION_MESSAGE;
-  mobileverificationSuccess_2: string= Messages.MSG_MOBILE_VERIFICATION_SUCCUSS_2;
   private loginModel = new Login();
   private submitStatus: boolean;
 
@@ -69,6 +65,9 @@ export class VerifyPhoneComponent {
           res => (this.mobileVerificationSuccess(res)),
           error => (this.verifyFail(error)));
     }
+  }
+  getMessages() {
+    return Messages;
   }
 
   resendVerificationCode() {
