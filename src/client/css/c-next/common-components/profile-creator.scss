@@ -636,7 +636,8 @@
   }
 
   .wrapper {
-    margin-bottom: 10px;
+    margin-bottom: 0;
+    box-shadow: none;
   }
 
   .profile-visibility-wrapper {
@@ -666,6 +667,10 @@
       }
     }
   }
+
+  .divider {
+    margin: 0 15px;
+  }
 }
 
 .icons-section {
@@ -674,7 +679,7 @@
     width: 20px !important;
     height: 20px;
     position: absolute;
-    left: 5px;
+    left: 15px;
     top: 8px;
   }
 
@@ -683,7 +688,7 @@
     width: 20px !important;
     height: 20px;
     position: absolute;
-    left: 5px;
+    left: 15px;
     top: 8px;
   }
 
@@ -692,7 +697,7 @@
     width: 20px !important;
     height: 20px;
     position: absolute;
-    left: 5px;
+    left: 15px;
 
   }
 
@@ -701,7 +706,7 @@
     width: 20px !important;
     height: 20px;
     position: absolute;
-    left: 5px;
+    left: 15px;
   }
 }
 

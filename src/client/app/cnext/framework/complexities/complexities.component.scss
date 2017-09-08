@@ -7,8 +7,6 @@
 }
 
 .compact-view {
-  padding: 0;
-
   .heading-compact {
     background: $theme-color;
     color: $white;
@@ -83,7 +81,7 @@
 
 @media only screen and (max-width: 767px) {
   .capability-edit {
-    top: 2px !important;
+    top: 7px !important;
   }
 
   .main-content {

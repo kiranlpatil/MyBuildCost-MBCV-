@@ -300,6 +300,10 @@
 }
 
 @media only screen and (max-width: 767px) {
+  .create-profile {
+    background: $white;
+  }
+
   .bar-container {
     height: 35px;
     padding-top: 0;

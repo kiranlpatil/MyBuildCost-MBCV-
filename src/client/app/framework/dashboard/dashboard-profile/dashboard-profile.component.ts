@@ -4,16 +4,16 @@ import {DashboardService} from "../dashboard.service";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {ValidationService} from "../../shared/customvalidations/validation.service";
 import {
-  AppSettings,
-  CommonService,
-  ImagePath,
-  LocalStorage,
-  LocalStorageService,
-  Message,
-  Messages,
-  MessageService,
-  ProfileService,
-  ThemeChangeService
+    AppSettings,
+    CommonService,
+    ImagePath,
+    LocalStorage,
+    LocalStorageService,
+    Message,
+    Messages,
+    MessageService,
+    ProfileService,
+    ThemeChangeService
 } from "../../shared/index";
 import {NavigationRoutes} from "../../shared/constants";
 import {LoaderService} from "../../shared/loader/loader.service";
@@ -82,7 +82,6 @@ export class DashboardProfileComponent implements OnInit, OnDestroy {
     this.activatedRoute.params.subscribe(params => {
       this.role = params['role'];
       if (this.role) {
-        debugger;
         if (this.role === 'candidate') {
           this.getCandidate();
         } else if (this.role === 'recruiter') {

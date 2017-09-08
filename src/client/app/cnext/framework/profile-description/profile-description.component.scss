@@ -109,10 +109,19 @@
     .profile-details {
       display: block;
       width: 100%;
+      margin-bottom: 5px;
+      font-size: 12px;
+
+      label {
+        min-width: 100%;
+        display: block;
+        color: $theme-color;
+        font-size: 12px;
+      }
     }
 
     .job-title {
-      font-size: 14px;
+      font-size: 12px;
       display: block;
     }
   }
@@ -124,5 +133,9 @@
 
   .scrollable-content {
     width: 100% !important;
+  }
+
+  .divider {
+    margin: 0 0 10px;
   }
 }

@@ -585,7 +585,7 @@
   }
 }
 
-.capability-complexity-container{
+.capability-complexity-container {
   min-width:320px;
   width: 100%;
   margin: 30px auto;
@@ -757,6 +757,7 @@ and (max-width: 840px) {
 @media screen and (max-width: 767px) {
   .capability-complexity-container {
     min-width: 100%;
+    margin-top: 0;
   }
 
   .complexities-handled {
@@ -767,18 +768,35 @@ and (max-width: 840px) {
     padding: 0;
   }
 
-  .capability-label-name {
-    margin-left: 5px;
-    display: block;
-  }
-
   .capability-of-capabilities-section {
     .content {
       .btn-edit {
         top: 6px !important;
-        right: 5px !important;
+        right: 10px !important;
+      }
+
+      .capability-edit > .inner {
+        padding: 5px 25px 5px 10px;
+      }
+
+      .capability-label-name {
+        display: block;
+        margin-left: 0;
+        padding: 0 10px;
+        font-size: 12px;
       }
     }
+  }
+
+  .capability-label-name {
+    display: block;
+    margin-left: 0;
+    padding: 0 10px;
+    font-size: 12px;
+  }
+
+  .row-section {
+    padding-right: 0;
   }
 }
 

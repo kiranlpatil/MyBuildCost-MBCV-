@@ -327,7 +327,7 @@
   }
 
   .compact-view {
-    padding: 5px;
+    padding: 5px 15px;
 
     label {
       min-width: 50px;
@@ -367,6 +367,7 @@
 
     .btn-edit {
       top: 8px;
+      right: 15px;
     }
 
     .option-list {
@@ -385,16 +386,16 @@
 
     .img-container {
       border: 0;
-      height: 50px;
-      width: 50px;
+      height: 40px;
+      width: 40px;
 
       .avtar {
-        height: 48px !important;
-        width: 48px !important;
+        height: 38px !important;
+        width: 38px !important;
       }
 
       .avtar > img {
-        height: 48px !important;
+        height: 38px !important;
       }
     }
 
