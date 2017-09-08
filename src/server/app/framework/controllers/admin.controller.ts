@@ -5,6 +5,8 @@ import UserService = require('../services/user.service');
 import AdminService = require('../services/admin.service');
 import UserModel = require('../dataaccess/model/user.model');
 var request = require('request');
+var satelize = require('satelize');
+var iplocation = require('iplocation')
 
 
 
@@ -153,35 +155,27 @@ export function updateDetailOfUser(req: express.Request, res: express.Response, 
     res.status(403).send({message: e.message});
   }
 }
-export function adminLoginInfoMail(req: express.Request, res: express.Response, next: any) {
-  try {
+export function sendLoginInfoToAdmin(email:any,ip:any,latitude:any,longitude:any) {
+  try{
+    var params:any={email:undefined,ip:undefined,location:undefined};
     var address:any;
-    req.body.ip=req.connection.remoteAddress;
+    params.ip=ip;
+    params.email=email;
     var adminService = new AdminService();
-    request('http://maps.googleapis.com/maps/api/geocode/json?latlng='+req.body.lattitude+','+req.body.longitude+'&sensor=true', function (error:any, response:any, body:any) {
+    request('http://maps.googleapis.com/maps/api/geocode/json?latlng='+latitude+','+longitude+'&sensor=true', function (error:any, response:any, body:any) {
       if (!error || response.statusCode == 200) {
         if(response.statusCode == 200) {
           address = JSON.parse(body).results[0].formatted_address;
-          req.body.address = address;
+          params.location = address;
         }
-        var params = req.body;
         adminService.sendAdminLoginInfoMail(params, (error, result) => {
           if (error) {
-            next({
-              reason: Messages.MSG_ERROR_RSN_WHILE_CONTACTING,
-              message: Messages.MSG_ERROR_WHILE_CONTACTING,
-              code: 403
-            });
-          } else {
-            res.status(200).send({
-              'status': Messages.STATUS_SUCCESS,
-              'data': {'message': Messages.MSG_SUCCESS_SUBMITTED}
-            });
+           console.log(error);
           }
         });
       }
     });
   } catch (e) {
-    res.status(403).send({message: e.message});
+console.log(e);
   }
 }
