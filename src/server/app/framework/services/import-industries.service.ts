@@ -95,19 +95,21 @@ class ImportIndustryService {
             let complexities:any = [];
             for (let j = 0; j < result.length; j++) {
               let currentRow = result[j];
+              if (rolesArray[i].name === currentRow.area_of_work) {
               if (rolesArray[i].capabilities[capIndex].name === currentRow.capability) {
-                if(result[j].complexity_code == '') {
-                  if(result[j].area_of_work == '' && result[j].capability =='' && result[j].complexity=='') {
-                  }else {
-                    console.log(' role name '+i+result[i].area_of_work);
-                    if(!isSend) {
-                      isSend=true;
-                      callback(new Error('Code is not given for complexity - '+result[j].complexity),null);
+                if (result[j].complexity_code == '') {
+                  if (result[j].area_of_work == '' && result[j].capability == '' && result[j].complexity == '') {
+                  } else {
+                    console.log(' role name ' + i + result[i].area_of_work);
+                    if (!isSend) {
+                      isSend = true;
+                      callback(new Error('Code is not given for complexity - ' + result[j].complexity), null);
                     }
                   }
                 }
                 complexities = ComplexitiesService.addComplexities(result[j], complexities);
               }
+            }
             }
             rolesArray[i].capabilities[capIndex].complexities = complexities;
           }

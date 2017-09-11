@@ -2,11 +2,11 @@ import {Component} from "@angular/core";
 import {Router} from "@angular/router";
 import {ChangePasswordService} from "./change-password.service";
 import {ChangePassword} from "./changepassword";
-import {CommonService, ImagePath, Message, MessageService, NavigationRoutes} from "../../shared/index";
+import {CommonService, ImagePath, Message, MessageService} from "../../shared/index";
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {LoaderService} from "../../shared/loader/loader.service";
 import {ValidationService} from "../../shared/customvalidations/validation.service";
-import {Messages, AppSettings} from "../../shared/constants";
+import {AppSettings, Messages, Label, Button} from "../../shared/constants";
 
 
 @Component({
@@ -28,6 +28,12 @@ export class ChangePasswordComponent {
   CONFIRM_PASSWORD_ICON: string;
   confirmPassword: string= Messages.MSG_CONFIRM_PASSWORD;
   changePasswordSuccessMessage: string= Messages.MSG_CHANGE_PASSWORD_SUCCESS;
+  changePasswordMessage: string = Messages.MSG_CHANGE_PASSWORD;
+  passwordChangeSuccessHeader: string = Messages.MSG_CHANGE_PASSWORD_SUCCESS_HEADER;
+  currentPasswordLabel: string= Label.CURRENT_PASSWORD_LABEL;
+  confirmPasswordLabel: string= Label.CONFIRM_PASSWORD_LABEL;
+  newPasswordLabel: string= Label.NEW_PASSWORD_LABEL;
+  changePasswordButton: string= Button.CHANGE_PASSWORD_BUTTON;
 
   constructor(private commonService: CommonService,
               private _router: Router,
@@ -71,7 +77,6 @@ export class ChangePasswordComponent {
   changePasswordSuccess(body: ChangePassword) {
     this.loaderService.stop();
     this.showHideModal();
-    this.userForm.reset();
   }
 
   changePasswordFail(error: any) {

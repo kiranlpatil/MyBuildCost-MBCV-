@@ -1,7 +1,8 @@
 @import '../../../../../../css/variables';
 
 .exact {
-  background: $light-green2 !important;
+  background: $bg-container !important;
+  border-left: 4px solid $light-green2 !important;
   padding: 5px 5px 0px;
   height: 57px;
   line-height: 16px;
@@ -35,13 +36,13 @@
   .complexity-scenarios-description {
     white-space: inherit;
     position: absolute;
-    background: #3694d1;
+    background: $primary-option;
     padding: 5px;
     bottom: inherit;
     min-height: 59px;
-    width: 220px;
+    width: 280px;
     left: 0px;
-    box-shadow: 0px 0px 4px 0px #757575;
+    box-shadow: 0px 0px 4px 0px $hover-shadow;
     color : white !important;
     font-size: 12px;
     z-index: 999;
@@ -74,13 +75,14 @@
   .complexity-scenarios-description {
     white-space: inherit;
     position: absolute;
-    background: $light-green2;
+    background: $bg-container;
+    border-left: 4px solid $light-green2 !important;
     padding: 5px;
     bottom: inherit;
     min-height: 59px;
-    width: 220px;
+    width: 280px;
     left: 0px;
-    box-shadow: 0px 0px 4px 0px #757575;
+    box-shadow: 0px 0px 4px 0px $hover-shadow;
     font-size: 12px;
     z-index: 999;
     top: 0;
@@ -106,7 +108,8 @@
 }
 
 .above {
-  background: $green2 !important;
+  background: $bg-container !important;
+  border-left: 4px solid $green2 !important;
   padding: 5px 5px 0px;
   height: 57px;
   line-height: 16px;
@@ -117,13 +120,14 @@
   .complexity-scenarios-description {
     white-space: inherit;
     position: absolute;
-    background: $green2;
+    background: $bg-container;
+    border-left: 4px solid $green2 !important;
     padding: 5px;
     bottom: inherit;
     min-height: 59px;
-    width: 220px;
+    width: 280px;
     left: 0px;
-    box-shadow: 0px 0px 4px 0px #757575;
+    box-shadow: 0px 0px 4px 0px $hover-shadow;
     font-size: 12px;
     z-index: 999;
     top: 0;
@@ -149,7 +153,8 @@
 }
 
 .below {
-  background: $orange !important;
+  background: $bg-container !important;
+  border-left: 4px solid $orange !important;
   padding: 5px 5px 0px;
   height: 57px;
   line-height: 16px;
@@ -160,13 +165,14 @@
   .complexity-scenarios-description {
     white-space: inherit;
     position: absolute;
-    background: $orange;
+    background: $bg-container;
+    border-left: 4px solid $orange !important;
     padding: 5px;
     bottom: inherit;
     min-height: 59px;
-    width: 220px;
+    width: 280px;
     left: 0px;
-    box-shadow: 0px 0px 4px 0px #757575;
+    box-shadow: 0px 0px 4px 0px $hover-shadow;
     font-size: 12px;
     z-index: 999;
     top: 0;
@@ -178,6 +184,8 @@
       display: block;
       position: relative;
       word-break: keep-all;
+      color: #262626;
+      font-size: 12px;
     }
     .not-match-overlay {
       display: none;
@@ -192,7 +200,8 @@
 }
 
 .missing {
-  background: $red2 !important;
+  background: $bg-container !important;
+  border-left: 4px solid $red2 !important;
   padding: 5px 5px 0px;
   height: 57px;
   line-height: 16px;
@@ -203,13 +212,14 @@
   .complexity-scenarios-description {
     white-space: inherit;
     position: absolute;
-    background: $red2;
+    background: $bg-container;
+    border-left: 4px solid $red2 !important;
     padding: 5px;
     bottom: inherit;
     min-height: 59px;
-    width: 220px;
+    width: 280px;
     left: 0px;
-    box-shadow: 0px 0px 4px 0px #757575;
+    box-shadow: 0px 0px 4px 0px $hover-shadow;
     font-size: 12px;
     z-index: 999;
     top: 0;
@@ -238,6 +248,11 @@
   word-break: keep-all;
   font-family: 'gothamrnd-book';
   font-style: normal !important;
+  font-size: 12px;
+  color: $black1;
+  max-height: 30px;
+  overflow: hidden;
+  display: inline-block;
 }
 
 .extra {
@@ -257,7 +272,7 @@
     min-height: 59px;
     width: 220px;
     left: 0px;
-    box-shadow: 0px 0px 4px 0px #757575;
+    box-shadow: 0px 0px 4px 0px $hover-shadow;
     font-size: 12px;
     z-index: 999;
     top: 0;
@@ -286,8 +301,13 @@
   color: $white;
   font-size: 11px;
   text-align: left;
-  border-bottom: 1px solid #e6e6e6;
+  border-bottom: 1px solid #dbdbdb;
   height: 58px;
+  overflow: hidden;
+}
+
+.row-background:hover {
+  overflow: inherit;
 }
 
 /*.complexity-scenarios-description {
@@ -388,7 +408,8 @@
     white-space: nowrap;
     display: table-cell;
     position: absolute;
-    font-style: italic;
+    font-size: 12px;
+    color: #262626;
     img {
       border-radius: 30px;
       border: 2px solid #e6e6e6;
@@ -516,6 +537,10 @@
   }
 }
 
+.padding-left20 {
+  padding-left: 20px;
+}
+
 @media only screen and (max-width: 767px) {
   .capability-complexity {
     border-top: 1px solid $theme-color;
@@ -577,7 +602,7 @@
 }
 .column1{
   /*width: 10%;*/
-  max-width: 200px;
+  max-width: 263px;
   display: table-cell;
   padding: 0px;
   background: #fff;

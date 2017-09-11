@@ -9,8 +9,8 @@
       //"host":"http://7a4647ae.ngrok.io/"
       "MAIL_SENDER": "notifications@jobmosis.com",
       "MAIL_SENDER_PASSWORD": "notifications@123",
-      "ADMIN_MAIL": "notifications@jobmosis.com"
-
+      "ADMIN_MAIL": "notifications@jobmosis.com",
+      "SUPPORT_MAIL": "Jobmosis_TPL@techprimelab.com"
     },
     "facebookIds":{
       "clientId" : "1802774049959105",

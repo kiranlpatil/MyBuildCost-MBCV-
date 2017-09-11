@@ -597,8 +597,6 @@ control-messages {
   }
 }
 
-.dashboard-profile,
-.settings,
 .change-email,
 .change-mobile {
   label {
@@ -829,7 +827,6 @@ control-messages {
     }
   }
 
-  .dashboard-profile,
   .settings,
   .change-email,
   .change-mobile {
@@ -1110,3 +1107,8 @@ control-messages {
   }
   /* value portrait css */
 }
+
+select:focus {
+  border-bottom: 2px solid $theme-color !important;
+}
+
