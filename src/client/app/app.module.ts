@@ -3,7 +3,7 @@ import {AppComponent} from "./app.component";
 import {BrowserModule} from "@angular/platform-browser";
 import {APP_BASE_HREF} from "@angular/common";
 import {RouterModule} from "@angular/router";
-import {RecaptchaModule} from "ng2-recaptcha";
+import {RecaptchaModule} from "ng-recaptcha";
 import {routes} from "./app.routes";
 import {Http, HttpModule, RequestOptions, XHRBackend} from "@angular/http";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
@@ -50,6 +50,7 @@ import {ChangeMobileComponent} from "./framework/dashboard/settings/change-mobil
 import {ChangeMobileService} from "./framework/dashboard/settings/change-mobile/change-mobile.service";
 import {LandingPageComponent} from "./framework/landing-page/landing-page.component";
 import {Ng2AutoCompleteModule} from "ng2-auto-complete/dist/ng2-auto-complete.module";
+import {NgAutoCompleteModule} from "ng-auto-complete/ng-autocomplete.module";
 import {CandidateComponent} from "./framework/registration/candidate/candidate.component";
 import {RecruiterComponent} from "./framework/registration/recruiter/recruiter.component";
 import {CandidateService} from "./framework/registration/candidate/candidate.service";
