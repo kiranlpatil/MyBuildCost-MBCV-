@@ -30,6 +30,7 @@ $body-bg: #edf1f5;
 $required-field: #e82c0c;
 $optional-field: #29b6f6;
 $btn-focus: #009de4;
+$value-portrait-bg: #f3f3f3;
 
 .btn-logout {
   margin-top: 15px;
@@ -695,7 +696,7 @@ control-messages {
   }
 }
 
-.value-portraot-footer {
+.value-portrait-footer {
   footer {
     display: inline-block;
     margin: 0 auto;
@@ -908,202 +909,68 @@ control-messages {
 
   /* value portrait css */
   #core-capabilities-tabs {
-    h3,
+    h3 {
+      display: block;
+      background: transparent;
+      color: #000;
+      box-shadow: 0 0 0;
+      text-align: left;
+      font-size: 16px;
+      font-weight: 600;
+      margin: 0;
+      width: 100%;
+      padding-left: 15px;
+    }
     .circle::after,
     .circle::before {
       display: none;
     }
-    .value-portraot-candidate-capability-circle {
-      width: 100%;
+    .value-portrait-candidate-capability-circle {
+      width: auto;
       overflow-x: scroll;
-      display: flex;
+      display: block;
       overflow-y: hidden;
+      .circle-list {
+        display: inline-table;
+      }
+      .six-element,
+      .ten-element {
+        .circle {
+          margin: 19px 10px 16px;
+        }
+      }
+      .tooltip-content {
+        display: none;
+      }
     }
     .second-line {
-      margin: 19px 20px;
+      margin: 19px 10px 10px;
     }
     .circle {
       background: #F7B82B;
-      width: 175px;
-      height: 175px;
+      float: left;
+      height: 160px;
+      margin: 19px 9px 0px;
+      width: 160px;
       span {
         color: #fff;
         font-size: 14px;
-        height: 150px;
-        width: 150px;
+        height: 130px;
+        width: 130px;
       }
     }
     .inner-circle {
       box-shadow: 0 0 0 transparent;
-      height: 150px;
-      width: 150px;
+      height: 130px;
+      margin: 0;
+      width: 130px;
     }
   }
-  #current-location-tabs {
-    ul {
-      padding: 0;
-      li {
-        display: none;
-        .current-location-tabs {
-          box-shadow: 0 0 0 transparent;
-        }
-      }
-      li:nth-child(1) {
-        background: #f3f3f3;
-        display: block !important;
-        span {
-          display: none;
-        }
-        .tooltip-content2 {
-          display: block;
-          background: none;
-          border: 0;
-          box-shadow: 0 0 0 transparent;
-          &:after {
-            display: none;
-          }
-        }
-      }
-    }
+  .value-portrait-about-myself {
+    background: $value-portrait-bg;
   }
-
-  #experience-level-tabs {
-    ul {
-      padding: 0;
-      li {
-        display: none;
-        .current-location-tabs {
-          box-shadow: 0 0 0 transparent;
-        }
-      }
-      li:nth-child(2) {
-        background: #f3f3f3;
-        display: block !important;
-        span {
-          display: none;
-        }
-        .tooltip-content2 {
-          display: block;
-          background: none;
-          border: 0;
-          box-shadow: 0 0 0 transparent;
-          &:after {
-            display: none;
-          }
-        }
-      }
-    }
-  }
-  #education-tabs {
-    ul {
-      padding: 0;
-      li {
-        display: none;
-        .current-location-tabs {
-          box-shadow: 0 0 0 transparent;
-        }
-      }
-      li:nth-child(3) {
-        background: #f3f3f3;
-        display: block !important;
-        span {
-          display: none;
-        }
-        .tooltip-content2 {
-          display: block;
-          background: none;
-          border: 0;
-          box-shadow: 0 0 0 transparent;
-          &:after {
-            display: none;
-          }
-        }
-      }
-    }
-  }
-  #employment-tabs {
-    ul {
-      padding: 0;
-      li {
-        display: none;
-        .current-location-tabs {
-          box-shadow: 0 0 0 transparent;
-        }
-      }
-      li:nth-child(4) {
-        background: #f3f3f3;
-        display: block !important;
-        span {
-          display: none;
-        }
-        .tooltip-content2 {
-          display: block;
-          background: none;
-          border: 0;
-          box-shadow: 0 0 0 transparent;
-          &:after {
-            display: none;
-          }
-        }
-      }
-    }
-  }
-  #certification-tabs {
-    ul {
-      padding: 0;
-      li {
-        display: none;
-        .current-location-tabs {
-          box-shadow: 0 0 0 transparent;
-        }
-      }
-      li:nth-child(5) {
-        background: #f3f3f3;
-        display: block !important;
-        span {
-          display: none;
-        }
-        .tooltip-content2 {
-          display: block;
-          background: none;
-          border: 0;
-          box-shadow: 0 0 0 transparent;
-          &:after {
-            display: none;
-          }
-        }
-      }
-    }
-  }
-  #awards-tabs {
-    ul {
-      padding: 0;
-      li {
-        display: none;
-        .current-location-tabs {
-          box-shadow: 0 0 0 transparent;
-        }
-      }
-      li:nth-child(6) {
-        background: #f3f3f3;
-        display: block !important;
-        span {
-          display: none;
-        }
-        .tooltip-content2 {
-          display: block;
-          background: none;
-          border: 0;
-          box-shadow: 0 0 0 transparent;
-          &:after {
-            display: none;
-          }
-        }
-      }
-    }
-  }
-  .value-portraot-about-myself {
-    background: #f3f3f3;
+  .show-more-btn {
+    display: none;
   }
   /* value portrait css */
 }
@@ -1112,3 +979,44 @@ select:focus {
   border-bottom: 2px solid $theme-color !important;
 }
 
+@media (min-width: 361px) and (max-width: 375px) {
+  .value-portrait-candidate-capability-circle {
+    width: 96%;
+  }
+}
+
+@media (min-width: 321px) and (max-width: 360px) {
+  .value-portrait-candidate-capability-circle {
+    width: 100% !important;
+  }
+  #core-capabilities-tabs .circle {
+    height: 140px;
+    width: 140px;
+    #core-capabilities-tabs .inner-circle {
+      height: 130px;
+      width: 130px;
+    }
+    span {
+      height: 130px;
+      width: 130px;
+    }
+  }
+}
+
+@media (min-width: 240px) and (max-width: 320px) {
+  .value-portrait-candidate-capability-circle {
+    width: 100% !important;
+  }
+  #core-capabilities-tabs .circle {
+    height: 130px;
+    width: 130px;
+    #core-capabilities-tabs .inner-circle {
+      height: 115px;
+      width: 115px;
+    }
+    span {
+      height: 115px;
+      width: 115px;
+    }
+  }
+}

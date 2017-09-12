@@ -1,11 +1,11 @@
 @import '../../../../../../css/variables';
 
-.value-portraot-candidate-profile-section {
-  background: #ddd;
+.value-portrait-candidate-profile-section {
+  background: $filter-border;
   display: inline-block;
   min-height: 166px;
   padding: 10px 20px;
-  .value-portraot-candidate-profile-img {
+  .value-portrait-candidate-profile-img {
     img {
       border-radius: 50%;
       box-shadow: 0 0 4px 2px rgba(125, 125, 125, 0.28), 0 0 1px 0 rgba(0, 0, 0, 0.16);
@@ -17,7 +17,7 @@
       z-index: 9;
     }
   }
-  .value-portraot-candidate-name {
+  .value-portrait-candidate-name {
     background: $orange3;
     display: inline-block;
     font-size: 20px;
@@ -27,7 +27,7 @@
     margin: 50px 0 0 -15px;
     text-transform: capitalize;
   }
-  .value-portraot-candidate-job-title {
+  .value-portrait-candidate-job-title {
     background: $orange4;
     display: inline-block;
     width: calc(100% - 160px);
@@ -37,7 +37,7 @@
   }
 }
 
-.value-portraot-candidate-number {
+.value-portrait-candidate-number {
   display: inline-block;
   margin: 45px 0 10px 0;
   width: 100%;
@@ -52,10 +52,13 @@
     float: left;
     font-size: 14px;
     margin-top: 5px;
+    a {
+      color: $black1;
+    }
   }
 }
 
-.value-portraot-candidate-email {
+.value-portrait-candidate-email {
   display: inline-block;
   margin: 45px 0 10px 0;
   width: 100%;
@@ -74,10 +77,13 @@
     text-overflow: ellipsis;
     white-space: nowrap;
     width: calc(100% - 50px);
+    a {
+      color: $black1;
+    }
   }
 }
 
-.value-portraot-candidate-industry {
+.value-portrait-candidate-industry {
   display: inline-block;
   width: 100%;
   .industry-icon {
@@ -102,7 +108,7 @@
   }
 }
 
-.value-portraot-candidate-area-work {
+.value-portrait-candidate-area-work {
   display: inline-block;
   width: 100%;
   .area-work-icon {
@@ -134,22 +140,23 @@
 }
 
 @media only screen and (max-width: 767px) {
-  .value-portraot-candidate-profile-section {
+  .value-portrait-candidate-profile-section {
     background: $white;
-    .value-portraot-candidate-name {
+    padding: 10px 15px;
+    .value-portrait-candidate-name {
       background: transparent;
       margin: 0;
       padding: 0 15px;
       width: calc(100% - 100px);
     }
-    .value-portraot-candidate-job-title {
+    .value-portrait-candidate-job-title {
       background: transparent;
       float: left;
       margin: 0;
-      padding: 0 15px;
+      padding: 0 0 0 15px;
       width: calc(100% - 100px);
     }
-    .value-portraot-candidate-profile-img {
+    .value-portrait-candidate-profile-img {
       float: left;
       img {
         width: 100px;
@@ -159,8 +166,8 @@
         float: none;
       }
     }
-    .value-portraot-candidate-number {
-      margin: 12px 0 0px 0;
+    .value-portrait-candidate-number {
+      margin: 12px 0 0 0;
       .phone-icon {
         height: 24px;
         width: 40px;
@@ -172,7 +179,7 @@
         margin: 0;
       }
     }
-    .value-portraot-candidate-email {
+    .value-portrait-candidate-email {
       margin: 0;
       .email-icon {
         height: 24px;
@@ -185,14 +192,14 @@
         margin: 0;
       }
     }
-    .value-portraot-candidate-industry {
+    .value-portrait-candidate-industry {
       margin: 10px 0;
       span, label {
         padding: 0;
         margin: 0 5px 0 0;
       }
     }
-    .value-portraot-candidate-area-work {
+    .value-portrait-candidate-area-work {
       label {
         margin: 0;
         width: auto;
@@ -206,7 +213,7 @@
       padding: 0;
     }
     .border-top {
-      border-top: 1px solid #ccc;
+      border-top: 1px solid $gray;
       margin: 10px 0 0;
     }
   }
