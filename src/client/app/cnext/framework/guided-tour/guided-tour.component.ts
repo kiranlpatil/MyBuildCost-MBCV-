@@ -13,11 +13,10 @@ export class GuidedTourComponent implements OnInit {
     private isShowPrev: boolean = false;
 
     ngOnInit() {
-        let item: any = $('#myCarousel');
+        /*TODO Abhijeet let item: any = $('#myCarousel');
         item.carousel({
             interval: false
-        });
-
+        }); */
     }
 
     showHide(isPrev: boolean) {

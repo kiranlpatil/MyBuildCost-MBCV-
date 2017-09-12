@@ -1,5 +1,4 @@
-import {Component, Input, OnChanges, OnInit, Output} from "@angular/core";
-import {EventEmitter} from "@angular/common/src/facade/async";
+import {Component, Input, OnChanges, OnInit, Output, EventEmitter} from "@angular/core";
 import {ProfileComparisonHeaderMeta} from "./profile-comparison-header-meta";
 import {AppSettings} from "../../../../../framework/shared/constants";
 
@@ -13,9 +12,9 @@ import {AppSettings} from "../../../../../framework/shared/constants";
 
 export class ProfileComparisonHeaderMetaComponent implements OnChanges, OnInit {
 
-   @Input() profileMeta: ProfileComparisonHeaderMeta;
+  @Input() profileMeta: ProfileComparisonHeaderMeta;
   @Input() matchingPercentage: number;
-   @Output() actionOnComparisonList = new EventEmitter();
+  @Output() actionOnComparisonList = new EventEmitter();
   imagePath: string;
 
   constructor() {}

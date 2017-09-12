@@ -1,7 +1,7 @@
-import {Component, Input, OnChanges, Output} from "@angular/core";
+import {Component, Input, OnChanges, Output, EventEmitter} from "@angular/core";
 import {ProfileComparisonService} from "./profile-comparison.service";
 import {ProfileComparison, ProfileComparisonData, CompareEntityDetails} from "../model/profile-comparison";
-import {EventEmitter} from "@angular/common/src/facade/async";
+//TODO Abhijeet import {EventEmitter} from "@angular/common/src/facade/async";
 
 @Component({
   moduleId:module.id,

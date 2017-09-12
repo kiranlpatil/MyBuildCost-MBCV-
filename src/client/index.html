@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <base href="<%= APP_BASE %>">
-  <link rel="shortcut icon" type="image/x-icon" href="<%= FAV_ICON %>"/>
+
   <link rel="manifest" href="./manifest.json">
   <meta name="mobile-web-app-capable" content="yes">
   <script async type="text/javascript"
@@ -24,7 +24,7 @@
 <!--<script src="cordova.js"></script>-->
 <% } %>
 
-<tpl-app></tpl-app>
+<tpl-app>Loading...</tpl-app>
 
 <script>
   // Fixes undefined module function in SystemJS bundle
@@ -35,9 +35,9 @@
 <!-- shims:js -->
 <!-- endinject -->
 
-<% if (BUILD_TYPE === 'dev') { %>
-<script src="<%= APP_BASE %>app/system-config.js"></script>
-<% } %>
+  <% if (BUILD_TYPE === 'dev') { %>
+  <script src="<%= APP_BASE %>system-config.js"></script>
+  <% } %>
 
 <!-- libs:js -->
 <!-- endinject -->
@@ -58,10 +58,12 @@
 
 <% if (BUILD_TYPE === 'dev') { %>
 <script>
+  console.log("Cannot Load 01");
   System.import('<%= BOOTSTRAP_MODULE %>')
     .catch(function (e) {
+      console.log("Cannot Load 02");
       console.error(e.stack || e,
-        'Not expecting this error? Report it at https://github.com/mgechev/angular2-seed/issues');
+        'Not expecting this error? Report it at https://github.com/mgechev/angular2-  seed/issues');
     });
 </script>
 <% } %>

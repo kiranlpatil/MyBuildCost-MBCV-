@@ -1,52 +1,11 @@
-#JobMosis job portal QUICK START:
-
-Steps for JobMosis Inshort:-
-
-JobMosis has both http and https configuration.In below context we discuss about how we can use that configuration.
-
-pre for JobMosis Requirements:- 1. latest node version
-                                2. latest npm version
-                                3. mongodb
-
-steps: 1.npm install    //npm install --unsafe -perm
-       2.typings install (1) for install specific package defination -----> typings install dt~mongoose --save --global
-                                   (2)for the installation of specific type file---> sudo npm install --save @types/crypto-js 
-       3.start mongodb:  1. ~mongod
-       4.For Development Environment:
-                            1. ~npm start
-                            2. ~node app.server.dev.js --NODE_ENV=development  //Default. for backend configuration (ubuntu) which is using http protocol. 
-                                                         OR 
-                                                       for http2
-                                ~node app.server.dev.http2.js --NODE_ENV=development //Default. for backend configuration (ubuntu) which is using http2 protocol.
-                                 
-       5.For Staging Environment:
-                            1. ~npm start
-                            2. ~node app.server.dev.js --NODE_ENV=staging  //Default. for backend configuration (ubuntu) which is using http protocol. 
-                                                         OR 
-                                                       for http2
-                                ~node app.server.dev.http2.js --NODE_ENV=development //Default. for backend configuration (ubuntu) which is using http2 protocol.
-                                                                  
-       6.For Production Environment:
-                            1. ~gulp build.prod or ~npm run build.prod
-                            2. ~node app.server.prod.js --NODE_ENV=production //for backend configurations(ubuntu)which is using http protocol. 
-                                                         OR
-                                                       for http2
-                               ~node app.server.prod.js --NODE_ENV=production //for backend configurations(ubuntu)which is using http2 protocol
-         
-        
-
-Typings is the simple way to manage and install TypeScript definitions. It uses typings.json, which can resolve to the Typings Registry, 
-GitHub, NPM, Bower, HTTP and local files. Packages can use type definitions from various sources and different versions, 
-knowing they will never conflict for users.
-1.npm install typings --global
-
 # Introduction
 
 [![Angular 2 Style Guide](https://mgechev.github.io/angular2-style-guide/images/badge.svg)](https://angular.io/styleguide)
 [![MIT license](http://img.shields.io/badge/license-MIT-brightgreen.svg)](http://opensource.org/licenses/MIT)
-[![Build Status](https://travis-ci.org/vyakymenko/angular2-seed-express.svg?branch=master)](https://travis-ci.org/vyakymenko/angular2-seed-express)
-[![Dependency Status](https://david-dm.org/vyakymenko/angular2-seed-express.svg)](https://david-dm.org/vyakymenko/angular2-seed-express)
-[![devDependency Status](https://david-dm.org/vyakymenko/angular2-seed-express/dev-status.svg)](https://david-dm.org/vyakymenko/angular2-seed-express#info=devDependencies)
+[![Build status](https://ci.appveyor.com/api/projects/status/lh1m985431jm79o3?svg=true)](https://ci.appveyor.com/project/vyakymenko/angular-seed-express)
+[![Build Status](https://travis-ci.org/vyakymenko/angular-seed-express.svg?branch=master)](https://travis-ci.org/vyakymenko/angular-seed-express)
+[![Dependency Status](https://david-dm.org/vyakymenko/angular-seed-express.svg)](https://david-dm.org/vyakymenko/angular-seed-express)
+[![devDependency Status](https://david-dm.org/vyakymenko/angular-seed-express/dev-status.svg)](https://david-dm.org/vyakymenko/angular-seed-express#info=devDependencies)
 
 **Want to feel like a full-stack Angular 2 developer but know only Express?**
 
@@ -63,7 +22,7 @@ Include:
 For Angular 2 development information and wiki, look here:
  - [Angular2-Seed](https://github.com/mgechev/angular2-seed) Wow wow it's our parent :)
  - [Angular2-Seed-WIKI](https://github.com/mgechev/angular2-seed/wiki) Wiki Information about Seed!
- - [Angular2-Seed-Advanced](https://github.com/mgechev/angular2-seed-advanced) It's a [Nathan's Walker](https://github.com/NathanWalker) child seed for multi-platform Angular2 apps.
+ - [Angular2-Seed-Advanced](https://github.com/NathanWalker/angular-seed-advanced) It's a [Nathan's Walker](https://github.com/NathanWalker) child seed for multi-platform Angular2 apps.
 
 ```bash
 git clone --depth 1 https://github.com/vyakymenko/angular2-seed-express.git
@@ -94,37 +53,6 @@ $ node app.server.dev.js
 # run server in daemon mode
 $ pm2 start app.server.prod.js
 ```
-#Cordova
-[Check more about cordova ](https://cordova.apache.org/docs/en/latest/guide/cli/)
-
-```bash
-#cordova build
-npm run build.prod
-
-#Run on device
-cordova run android --device
-or
-cordova run device
-```
-#Create self signed ssl certificate to Run website on https
-1) install the npm package by the command "npm install localhost-ssl"
-2) Copy paste the below commands one by one in Terminal
-
-    Step 1. openssl genrsa -des3 -passout pass:x -out server.pass.key 2048 
-
-    Step 2. openssl rsa -passin pass:x -in server.pass.key -out server.key 
-
-    Step 3. rm server.pass.key 
-
-    Step 4. openssl req -new -key server.key -out server.csr                   (<----- Hit Enter to accept default values or enter your own)
-
-    Step 5. openssl x509 -req -days 365 -in server.csr -signkey server.key -out server.crt
-
-3) To run the site on https,Follow the steps mentioned in #TPl Mobile Seed QICK START:
- 
-
-#Backend Debugging
- Create a Node.js run configuration by attaching the .js file 'app.server.dev.js'.put the breakpoints in .js files of your dist folder in order to debug the server side code.
 
 # Need to know
 
@@ -161,7 +89,6 @@ $ pm2 restart all
 
 # in cluster mode ( example 4 workers )
 $ pm2 start app.server.prod.js -i 4
-
 ```
 
 More details about [PM2](http://pm2.keymetrics.io/)
@@ -290,7 +217,7 @@ require('./server')(9001, 'dev');
  */
 require('./server')(9000);
 ```
- 
+
 # Reverse Proxy NginX Config Example
 ```
 server {
@@ -311,71 +238,34 @@ server {
 }
 ```
 
+# Redis Download/Install
+
+ - About [Redis](http://redis.io/).
+ - [Download](http://redis.io/download#download) and [install](http://redis.io/download#installation) latest stable version of Redis.
+ - [Documentation](http://redis.io/documentation) about Redis.
+
+# Redis Start
+
+After installation we need to start our server:
+```sh
+# start server
+$ src/redis-server
+```
+
+# Redis More Settings + Daemonize
+
+ - Redis [Persistence](http://redis.io/topics/quickstart#redis-persistence)
+ - Redis [More Properties](http://redis.io/topics/quickstart#installing-redis-more-properly)
+
 # MongoDB
 
  - In progress
- 
-# MongoDB update scripts
-
- - Version : 1.1.1
- - Date : 7 Sept 2017
- - Scenario : Industry code for 'IT' updated in master data so that need to update for candidates and recruiters who are consuming it.
- - Update Script :
- db.candidates.update({"industry.code" : "4"},
-   {$set:{"industry.code" : "1000"}},
-   { multi: true }
- );
- 
- db.recruiters.find({}).forEach(function(recruiter) {
-       recruiter.postedJobs.forEach(function(job){
-           if(job.industry.code=="4"){
-               job.industry.code = "1000"
-           }
-       })
- 	db.recruiters.save(recruiter);
- })
- 
- 
 
 # MySQL
 
  - In progress
- 
-# Messaging System Details:
 
- - we have used msg91 to send sms for otp verification.[https://msg91.com/].Purchase sms on this site and enter the Auth key in the file(/home/nilesh/Projects/tpl-web-fullstack-seed/src/server/app/services/user.service.ts) as follows,
- var msg91 = require("msg91")("AUTHKEY", "TPLSID", "4");//(4 -Transactional route,1-Promotional route)[https://www.npmjs.com/package/msg91]
-  
-# Definition of DONE for developers:
- 
- 1. Every story should have acceptance criteria.
- 2. When all the conditions mentioned in "Acceptance Criteria" is satisfied.
- 3. Must follow best practices for coding.
- 4. Must follow UI/UX best practices.
- 5. Had done code review.
- 6. Unit tests are written.
- 7. Static code analysis.
- 8. There should be zero code duplication.
- 9. Time complexity should be minimum.
- 10. Performance testing must be completed.
- 11. Solution approach must be discussed before development.
- 
- # Definition of DONE for QA:
- 
- 1. Functional testing is completed.
- 2. All tests are written in Test Suite.
- 3. Change is verified on staging.
- 4. Sanity test on demo is completed.
- 
- # Service Level Agreement (SLA):
- 1. SLA for ShowStopper: Item should be fixed and solution should be deployed on production server within 24 hours.
- 2. SLA for HighPriority: Item should be fixed and solution should be deployed on production server within 48 hours. 
- Deployment on production server could be differed on case by case but fix need to be made available within 48 hours so that it is ready to deploy on production server/branch.
- 
- # Schedule of deployment on production:
- Every last day of week we will deploy new certified & verified version on production server and send a release note to all stake holders.
-  
- # Contributors
+# Contributors
 
 [<img alt="mgechev" src="https://avatars.githubusercontent.com/u/455023?v=3&s=117" width="117">](https://github.com/mgechev) |[<img alt="ludohenin" src="https://avatars.githubusercontent.com/u/1011516?v=3&s=117" width="117">](https://github.com/ludohenin) |[<img alt="d3viant0ne" src="https://avatars.githubusercontent.com/u/8420490?v=3&s=117" width="117">](https://github.com/d3viant0ne) |[<img alt="Shyam-Chen" src="https://avatars.githubusercontent.com/u/13535256?v=3&s=117" width="117">](https://github.com/Shyam-Chen) |[<img alt="tarlepp" src="https://avatars.githubusercontent.com/u/595561?v=3&s=117" width="117">](https://github.com/tarlepp) |[<img alt="NathanWalker" src="https://avatars.githubusercontent.com/u/457187?v=3&s=117" width="117">](https://github.com/NathanWalker) |
 :---: |:---: |:---: |:---: |:---: |:---: |

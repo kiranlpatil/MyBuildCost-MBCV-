@@ -49,7 +49,6 @@ import {ActiveEmailService} from "./framework/dashboard/settings/activate-email/
 import {ChangeMobileComponent} from "./framework/dashboard/settings/change-mobile/change-mobile.component";
 import {ChangeMobileService} from "./framework/dashboard/settings/change-mobile/change-mobile.service";
 import {LandingPageComponent} from "./framework/landing-page/landing-page.component";
-import {Ng2AutoCompleteModule} from "ng2-auto-complete/dist/ng2-auto-complete.module";
 import {NgAutoCompleteModule} from "ng-auto-complete/ng-autocomplete.module";
 import {CandidateComponent} from "./framework/registration/candidate/candidate.component";
 import {RecruiterComponent} from "./framework/registration/recruiter/recruiter.component";
@@ -57,7 +56,6 @@ import {CandidateService} from "./framework/registration/candidate/candidate.ser
 import {RecruiterService} from "./framework/registration/recruiter/recruiter.service";
 import {ScrollToModule} from "ng2-scroll-to";
 import {ProfilePictureComponent} from "./cnext/framework/profile-picture/profile-picture.component";
-import {MainHeaderComponent} from "./framework/main-header/main-header.component";
 import {ComplexityService} from "./cnext/framework/complexity.service";
 import {ProfessionalDataComponent} from "./cnext/framework/professional-data/professional-data.component";
 import {ProfessionalDataService} from "./cnext/framework/professional-data/professional-data.service";
@@ -199,8 +197,9 @@ import {AdminDashboardService} from "./cnext/framework/admin-dashboard/admin-das
 import {SharedService} from "./framework/shared/shared-service";
 import {CandidateSearchComponent} from "./cnext/framework/candidate-search/candidate-search.component";
 import {CandidateSearchService} from "./cnext/framework/candidate-search/candidate-search.service";
+import {MainHeaderComponent} from "./framework/main-header/main-header.component";
+import {Ng2AutoCompleteModule} from "ng2-auto-complete";
 //C-NEXT IMPORTS
-
 
 @NgModule({
   imports: [
@@ -209,9 +208,9 @@ import {CandidateSearchService} from "./cnext/framework/candidate-search/candida
     RouterModule.forRoot(routes),
     HttpModule,
     ReactiveFormsModule,
-    RecaptchaModule.forRoot(), // Keep in mind the 'forRoot'-magic nuances!
-    Ng2AutoCompleteModule,
-    ScrollToModule.forRoot()
+    //RecaptchaModule.forRoot(), // Keep in mind the 'forRoot'-magic nuances!
+    //Ng2AutoCompleteModule,
+    //ScrollToModule.forRoot()
   ],
   declarations: [
     AppComponent,
@@ -219,10 +218,10 @@ import {CandidateSearchService} from "./cnext/framework/candidate-search/candida
     MyGoogleDirective,
     LoaderComponent,
     LandingPageComponent,
-    MainHeaderComponent,
     TooltipComponent,
     LoginComponent,
-    CandidateComponent,
+    MainHeaderComponent,
+    /*CandidateComponent,
     RecruiterComponent,
     CandidateDashboardHeaderComponent,
     ActivateUserComponent,
@@ -243,11 +242,11 @@ import {CandidateSearchService} from "./cnext/framework/candidate-search/candida
     HeaderComponent,
     FooterComponent,
     NotificationComponent,
-    SocialIconComponent,
+    SocialIconComponent,*/
 
     //C-NEXT COMPONENT
 
-    ProfilePictureComponent,
+    /*ProfilePictureComponent,
     CandidateSummaryComponent,
     CandidateBasicInformationComponent,
     VericalListViewComponent,
@@ -337,7 +336,7 @@ import {CandidateSearchService} from "./cnext/framework/candidate-search/candida
     ColorShadeDirective,
     AttributeFilterPipe,
     ValueSortFilterPipe,
-    CandidateSearchComponent
+    CandidateSearchComponent*/
   ],
   providers: [
     {
@@ -421,7 +420,6 @@ import {CandidateSearchService} from "./cnext/framework/candidate-search/candida
     GuidedTourService,
     CandidateSearchService,
     SharedService
-
   ],
   bootstrap: [AppComponent]
 })

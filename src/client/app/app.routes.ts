@@ -34,7 +34,7 @@ import {AdminDashboard} from "./cnext/framework/admin-dashboard/admin-dashboard.
 export const routes: Routes = [
   ...LandingPageRoutes,
   ...LoginRoutes,
-  ...CandidateRoutes,
+  /* ...CandidateRoutes,
   ...RecruiterRoutes,
   ...ActivateUserRoutes,
   ...ActivateEmailRoutes,
@@ -60,7 +60,7 @@ export const routes: Routes = [
   ...ValuePortrait,
   ...CompanyDetailsRoutes,
   ...JobDashboardRoutes,
-  ...JobPosterRoutes,
+  ...JobPosterRoutes,*/
   ...StartRoutes,
 
 ];

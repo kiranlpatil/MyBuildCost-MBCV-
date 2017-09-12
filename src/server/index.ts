@@ -44,7 +44,7 @@ export function init(port: number, mode: string, protocol: string) {
     cnextRoutes.cnextInit(app);
 
     let root = path.resolve(process.cwd());
-    let clientRoot = path.resolve(process.cwd(), './dist/dev/client');
+    let clientRoot = path.resolve(process.cwd(), './dist/client/dev');
     app.use(express.static(root));
     app.use(express.static(clientRoot));
     app.use('/public', express.static(path.resolve(__dirname+'/public')));
@@ -67,6 +67,11 @@ export function init(port: number, mode: string, protocol: string) {
      */
     routes.init(app);
     cnextRoutes.cnextInit(app);
+    /**
+     * Client Dir
+     */
+    _clientDir = '../../client/prod';
+
     /**
      * Static.
      */
@@ -98,7 +103,7 @@ export function init(port: number, mode: string, protocol: string) {
    */
   //HTTP START:
   if (protocol == 'http') {
-    return new Promise<http.Server>((resolve: any, reject: any) => {
+    return new Promise<http.Server>((resolve, reject) => {
       let server = app.listen(port, () => {
         var port = server.address().port;
         console.log('App is listening on port:' + port);
