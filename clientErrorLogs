@@ -27,3 +27,21 @@
 {"level":"error","message":"Something went wrong. Try again.","timestamp":"2017-09-13T12:24:48.160Z"}
 {"level":"error","message":"Something went wrong. Try again.","timestamp":"2017-09-13T12:24:48.164Z"}
 {"level":"error","message":"Something went wrong. Try again.","timestamp":"2017-09-13T12:24:48.182Z"}
+{"reason":"Invalid Credentials","message":"Fields cannot be empty","code":401,"level":"info","timestamp":"2017-09-13T13:15:07.446Z"}
+{"reason":"Invalid Credentials","message":"Fields cannot be empty","code":401,"level":"info","timestamp":"2017-09-13T13:15:07.478Z"}
+{"level":"info","message":"{\"status\":\"Error\",\"error\":{\"reason\":\"Invalid Credentials\",\"message\":\"Fields cannot be empty\",\"code\":401}}","timestamp":"2017-09-13T13:15:07.485Z"}
+{"level":"error","message":"Something went wrong. Try again.","timestamp":"2017-09-13T13:15:09.455Z"}
+{"level":"error","message":"Something went wrong. Try again.","timestamp":"2017-09-13T13:15:09.457Z"}
+{"level":"error","message":"Something went wrong. Try again.","timestamp":"2017-09-13T13:15:09.508Z"}
+{"reason":"Invalid Credentials","message":"Current and new passwords can't be same.","code":401,"level":"info","timestamp":"2017-09-13T13:16:40.418Z"}
+{"reason":"Invalid Credentials","message":"Current and new passwords can't be same.","code":401,"level":"info","timestamp":"2017-09-13T13:16:40.425Z"}
+{"level":"info","message":"{\"status\":\"Error\",\"error\":{\"reason\":\"Invalid Credentials\",\"message\":\"Current and new passwords can't be same.\",\"code\":401}}","timestamp":"2017-09-13T13:16:40.430Z"}
+{"level":"error","message":"Something went wrong. Try again.","timestamp":"2017-09-13T13:16:42.418Z"}
+{"level":"error","message":"Something went wrong. Try again.","timestamp":"2017-09-13T13:16:42.424Z"}
+{"level":"error","message":"Something went wrong. Try again.","timestamp":"2017-09-13T13:16:42.433Z"}
+{"reason":"Invalid Credentials","message":"Incorrect current password entered.","code":401,"level":"info","timestamp":"2017-09-13T13:16:49.477Z"}
+{"reason":"Invalid Credentials","message":"Incorrect current password entered.","code":401,"level":"info","timestamp":"2017-09-13T13:16:49.480Z"}
+{"level":"info","message":"{\"status\":\"Error\",\"error\":{\"reason\":\"Invalid Credentials\",\"message\":\"Incorrect current password entered.\",\"code\":401}}","timestamp":"2017-09-13T13:16:49.487Z"}
+{"level":"error","message":"Something went wrong. Try again.","timestamp":"2017-09-13T13:16:51.484Z"}
+{"level":"error","message":"Something went wrong. Try again.","timestamp":"2017-09-13T13:16:51.525Z"}
+{"level":"error","message":"Something went wrong. Try again.","timestamp":"2017-09-13T13:16:51.533Z"}

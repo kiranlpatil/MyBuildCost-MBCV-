@@ -175,6 +175,7 @@
     "@types/winston": "^2.3.5",
     "bcrypt": "^1.0.2",
     "body-parser": "^1.15.2",
+    "bootstrap": "^3.3.7",
     "compression": "^1.6.2",
     "config": "^1.26.2",
     "core-js": "^2.5.1",
