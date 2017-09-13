@@ -120,6 +120,37 @@ export function getAllUser(req: express.Request, res: express.Response, next: an
     res.status(403).send({message: e.message});
   }
 }
+
+/*
+export function getUsageDetails(req: express.Request, res: express.Response, next: any) {
+  try {
+    var adminService = new AdminService();
+    var params = {};
+    if(req.user.isAdmin){
+      adminService.getUsageDetails(params, (error, result) => {
+        if (error) {
+          next({
+            reason: 'Error In Retrieving',//Messages.MSG_ERROR_RSN_INVALID_CREDENTIALS,
+            message: 'error in create excel',
+            code: 403
+          });
+        } else {
+        }
+      });
+    }else{
+      res.status(401).send({
+        'error': {
+          reason: 'Unauthorized User',
+          message:'You are unauthorized user',
+          code: 401
+        }
+      });
+    }
+  } catch (e) {
+    res.status(403).send({message: e.message});
+  }
+}
+*/
 export function updateDetailOfUser(req: express.Request, res: express.Response, next: any) {
   try {
     var newUserData: UserModel = <UserModel>req.body;

@@ -35,7 +35,6 @@ export class CandidateHeaderComponent {
     if (imagePath !== undefined) {
       return AppSettings.IP + imagePath.substring(4).replace('"', '');
     }
-
     return null;
   }
 

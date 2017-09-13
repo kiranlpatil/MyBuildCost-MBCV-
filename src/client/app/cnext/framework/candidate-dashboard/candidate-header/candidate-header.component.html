@@ -14,7 +14,10 @@
           <span class="icon-bar"></span>
         </button>
 
-        <a class="navbar-brand" (click)="navigateTo('/candidate_dashboard'); closeMenu($event);">
+        <a class="navbar-brand" (click)="navigateTo('/create_profile'); closeMenu($event);" *ngIf="!candidate.isCompleted">
+          <img src={{MY_LOGO}}/>
+        </a>
+        <a class="navbar-brand" (click)="navigateTo('/candidate_dashboard'); closeMenu($event);" *ngIf="candidate.isCompleted">
           <img src={{MY_LOGO}}/>
         </a>
       </div>

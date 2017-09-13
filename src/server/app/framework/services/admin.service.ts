@@ -21,6 +21,7 @@ import CandidateService = require("./candidate.service");
 import RecruiterService = require("./recruiter.service");
 import CNextMessages = require("../shared/cnext-messages");
 import {Recruiter} from "../dataaccess/model/recruiter-final.model";
+let usestracking = require('uses-tracking');
 
 class AdminService {
   private userRepository: UserRepository;
@@ -28,11 +29,15 @@ class AdminService {
   APP_NAME: string;
   company_name: string;
   mid_content: any;
+  private usesTrackingController: any;
+
 
   constructor() {
     this.userRepository = new UserRepository();
     this.recruiterRepository = new RecruiterRepository();
     this.APP_NAME = ProjectAsset.APP_NAME;
+    let obj: any = new usestracking.MyController();
+    this.usesTrackingController = obj._controller;
   }
 
   seperateUsers(item: any, callback: (error: any, result: any) => void) {
@@ -101,8 +106,8 @@ class AdminService {
     var json2csv = require("json2csv");
     var fs = require('fs');
     if(result.candidate && result.candidate.length>0){
-      var fields = ['first_name', 'last_name','mobile_number','email','isActivated','data.location.city','data.professionalDetails.education','data.professionalDetails.experience','data.professionalDetails.currentSalary','data.professionalDetails.noticePeriod','data.professionalDetails.relocate','data.professionalDetails.industryExposure','data.professionalDetails.currentCompany'];
-      var fieldNames = ['First Name', 'Last Name','Mobile Number','Email','Is Activated','Location','Education','Experience','Current Salary','Notice Period','Relocate','Industry Exposure','Current Company'];
+      var fields = ['first_name', 'last_name','mobile_number','email','isActivated','data.location.city','data.professionalDetails.education','data.professionalDetails.experience','data.professionalDetails.currentSalary','data.professionalDetails.noticePeriod','data.professionalDetails.relocate','data.professionalDetails.industryExposure','data.professionalDetails.currentCompany','data.isCompleted','data.isSubmitted'];
+      var fieldNames = ['First Name', 'Last Name','Mobile Number','Email','Is Activated','Location','Education','Experience','Current Salary','Notice Period','Relocate','Industry Exposure','Current Company','IsCompleted','IsSubmitted'];
 
       var csv = json2csv({ data: result.candidate, fields: fields, fieldNames: fieldNames});
       //unwindPath: ['roles', 'roles.default_complexities','roles.default_complexities.complexities','roles.default_complexities.complexities.scenarios']
@@ -152,7 +157,20 @@ class AdminService {
         this.userRepository.update(res._id, item, callback);
       }
     });
+  };
+
+/*
+  getUsageDetails(field: any, callback: (error: any, result: any) => void) {
+    this.usesTrackingController.retrieveAll( (err: any, res: any) => {
+      if (err) {
+        callback(err, res);
+      } else {
+callback(null,res)
+      }
+    });
+
   }
+*/
 }
 
 Object.seal(AdminService);
