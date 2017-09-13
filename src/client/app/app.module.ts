@@ -198,6 +198,9 @@ import {AdminDashboardService} from "./cnext/framework/admin-dashboard/admin-das
 import {SharedService} from "./framework/shared/shared-service";
 import {CandidateSearchComponent} from "./cnext/framework/candidate-search/candidate-search.component";
 import {CandidateSearchService} from "./cnext/framework/candidate-search/candidate-search.service";
+import { CeiboShare } from 'ng2-social-share';
+import {ShareComponent} from "./cnext/framework/share/share.component";
+
 //C-NEXT IMPORTS
 
 
@@ -214,6 +217,7 @@ import {CandidateSearchService} from "./cnext/framework/candidate-search/candida
   ],
   declarations: [
     AppComponent,
+    CeiboShare,
     ControlMessagesComponent,
     MyGoogleDirective,
     LoaderComponent,
@@ -336,7 +340,8 @@ import {CandidateSearchService} from "./cnext/framework/candidate-search/candida
     ColorShadeDirective,
     AttributeFilterPipe,
     ValueSortFilterPipe,
-    CandidateSearchComponent
+    CandidateSearchComponent,
+    ShareComponent
   ],
   providers: [
     {

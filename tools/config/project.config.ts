@@ -3,6 +3,7 @@ import { join } from 'path';
 import { SeedConfig } from './seed.config';
 // import { ExtendPackages } from './seed.config.interfaces';
 import { ImagePath } from '../../src/client/app/framework/shared/constants';
+import {ExtendPackages} from "./seed.config.interfaces";
 
 /**
  * This class extends the basic seed configuration, allowing for project specific overrides. A few examples can be found
@@ -41,6 +42,18 @@ export class ProjectConfig extends SeedConfig {
       // {src: `${this.APP_CLIENT_SRC}/your-path-to-lib/libs/jquery-ui.js`, inject: true, vendor: false}
       // {src: `${this.CSS_SRC}/path-to-lib/test-lib.css`, inject: true, vendor: false},
     ];
+
+    let additionalPackages: ExtendPackages[] = [{
+      name: 'ng2-social-share',
+      // Path to the package's bundle
+      path: 'node_modules/ng2-social-share',
+      packageMeta: {
+        defaultExtension: 'js'
+      }
+
+    }];
+
+    this.addPackagesBundles(additionalPackages);
 
     // Add packages (e.g. lodash)
     // let additionalPackages: ExtendPackages[] = [{
