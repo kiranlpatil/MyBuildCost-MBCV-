@@ -76,7 +76,7 @@ export class CandidateHeaderComponent {
     this.isClassVisible = false;
   }
 
-  goTOGuidedTour() {
+  goToGuidedTour() {
     this.highlightedSection.name = 'GuideTour';
     this.closeMenu();
   }

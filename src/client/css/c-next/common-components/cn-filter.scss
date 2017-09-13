@@ -7,10 +7,10 @@
   right: 0;
   height: calc(100vh - 115px);
   overflow: auto;
-  border-left: 1px solid #ccc;
+  border-left: 1px solid $gray;
   text-align: left;
   width: 200px;
-  background: #edf1f5;
+  background: $filter-bg;
   z-index: 1000;
 
   p {
@@ -46,7 +46,7 @@
     }
 
     label {
-      color: #999;
+      color: $text-color4;
       font-size: 12px;
       margin: 0;
       width: 100%;
@@ -134,7 +134,7 @@
     width: 0;
     transition: 0.5s ease;
     visibility: hidden;
-    opacity: 0;
+    opacity: 1;
     height: calc(100vh - 148px);
 
     h4 {
@@ -160,11 +160,11 @@
       border: 0;
       background: transparent;
       box-shadow: none;
+      width: 200px;
     }
   }
 
   .open-filter {
-    opacity: 1 !important;
     visibility: visible !important;
     width: 200px !important;
   }
@@ -172,19 +172,10 @@
   .glyphicon-filter {
     position: fixed;
     top: 100px;
-    left: 9px;
+    right: 9px;
     font-size: 17px;
     z-index: 1000;
     color: $filter-icon;
-
-    span {
-      font-family: 'gothamrnd-book';
-      font-size: 14px;
-      font-weight: 600;
-      left: -10px;
-      top: -3px;
-      position: relative;
-    }
   }
 
   button {

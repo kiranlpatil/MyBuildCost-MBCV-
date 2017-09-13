@@ -1,5 +1,5 @@
 <div>
-  <span class="glyphicon glyphicon-filter visible-xs" (click)="isFilterVisible = !isFilterVisible"> <span>Filter</span></span>
+  <span class="glyphicon glyphicon-filter visible-xs" (click)="isFilterVisible = !isFilterVisible"></span>
   <a *ngIf="showClearFilter" class="clear-filter" [class.recruiter-clear-filter]="isRecuirter" (click)="clearFilter()" >Clear all filters</a>
   <form [formGroup]="userForm" (submit)="clearFilter()">
     <div [class.filter-bg]="isFilterVisible" (click)="isFilterVisible = false"></div>

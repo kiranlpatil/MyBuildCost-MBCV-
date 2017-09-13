@@ -33,8 +33,8 @@
       }
 
       .glyphicon {
-        background: #fff;
-        color: #999;
+        background: $white;
+        color: $text-color4;
         cursor: pointer;
         font-size: 12px;
       }
@@ -291,7 +291,7 @@ header {
     .btn-search {
       background: transparent;
       border-radius: 0;
-      color: #fff;
+      color: $white;
       padding: 0;
       margin: -3px 0 0 -37px;
     }
@@ -366,9 +366,9 @@ header {
 .empty-list-message {
   width: 600px;
   margin: 0 auto;
-  background: #fff;
+  background: $white;
   padding: 20px;
-  border: 1px solid #e8e8e8;
+  border: 1px solid $border-color1;
   box-shadow: -1px 3px 10px rgba(0, 0, 0, 0.15);
   position: fixed;
   left: 50%;
@@ -790,7 +790,7 @@ header {
   .card-view {
     max-height: inherit;
     overflow: auto;
-    margin-bottom: 10px;
+    margin-bottom: 0;
 
     .col-sm-4 {
       width: 100%;
@@ -804,6 +804,10 @@ header {
         text-overflow: clip;
       }
     }
+
+    .panel-container {
+      padding: 0 5px;
+    }
   }
 
   header {
@@ -811,8 +815,7 @@ header {
       margin: 0 !important;
     }
     .sort-by {
-      margin-left: 0;
-      margin-top: 0;
+      margin: 0 20px 0 0;
     }
 
     .sort-by > select {
@@ -829,14 +832,17 @@ header {
   #matched {
     .card-view {
       margin-top: 88px;
-      margin-bottom: 10px;
+      margin-bottom: 0;
     }
   }
 
   .clear-filter {
+    background: transparent;
+    color: $theme-color;
+    left: 0;
+    padding: 7px;
     position: fixed;
-    top: 155px;
-    left: 9px;
+    top: 92px;
   }
 }
 

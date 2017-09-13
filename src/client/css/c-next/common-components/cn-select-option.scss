@@ -139,7 +139,7 @@
   }
 
   &:hover {
-    & > input {
+    & > input[type='radio'] {
       & + span {
         cursor: pointer;
       }
@@ -147,6 +147,26 @@
       &:checked {
         & + span {
           color: $white;
+        }
+
+        & ~ .check {
+          border: 1px solid $primary-option1;
+
+          &::before {
+            background: $primary-option1;
+          }
+        }
+      }
+    }
+
+    & > input[type='checkbox'] {
+      & + span {
+        cursor: pointer;
+      }
+
+      &:checked {
+        & + span {
+          color: $primary-option1;
         }
 
         & ~ .check {

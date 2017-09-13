@@ -30,7 +30,7 @@
   }
 
   .glyphicon-lock {
-    background-color: #dbeef6;
+    background-color: $heading-color;
   }
 
   .add-more {
@@ -84,6 +84,7 @@
       .capability-name {
         font-size: 16px !important;
         line-height: 25px;
+        margin-left: 0;
       }
     }
   }

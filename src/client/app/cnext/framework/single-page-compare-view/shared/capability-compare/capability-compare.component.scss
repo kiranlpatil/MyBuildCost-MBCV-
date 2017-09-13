@@ -10,7 +10,7 @@
 }
 
 .compact-view {
-  background: #64a1ca !important;
+  background: $background-color !important;
   padding: 5px 5px 0;
   height: 57px;
   line-height: 16px;
@@ -184,7 +184,7 @@
       display: block;
       position: relative;
       word-break: keep-all;
-      color: #262626;
+      color: $text-color3;
       font-size: 12px;
     }
     .not-match-overlay {
@@ -301,7 +301,7 @@
   color: $white;
   font-size: 11px;
   text-align: left;
-  border-bottom: 1px solid #dbdbdb;
+  border-bottom: 1px solid $border-color3;
   height: 58px;
   overflow: hidden;
 }
@@ -399,10 +399,10 @@
     display: table-cell;
     position: absolute;
     font-size: 12px;
-    color: #262626;
+    color: $text-color3;
     img {
       border-radius: 30px;
-      border: 2px solid #e6e6e6;
+      border: 2px solid $border-color1;
       width: 34px !important;
       height: 34px !important;
     }
@@ -410,7 +410,7 @@
 }
 
 .empty-divs {
-  border: 1px solid #e6e6e6;
+  border: 1px solid $border-color1;
   height: 58px;
   width: 100%;
   float: left;
@@ -584,7 +584,7 @@
   display: table;
   margin: 0;
   border-collapse: separate;
-  border: 1px solid #e6e6e6;
+  border: 1px solid $border-color1;
   padding-right: 20px;
   width: 100%;
 }
@@ -593,8 +593,8 @@
   max-width: 263px;
   display: table-cell;
   padding: 0;
-  background: #fff;
-  border-right: 2px solid #fff;
+  background: $white;
+  border-right: 2px solid $white;
   vertical-align: bottom;
   word-break: break-all;
 }
@@ -609,7 +609,7 @@
   .content {
     font-size: 14px;
     padding: 10px 0;
-    border-top: 1px solid #e6e6e6;
+    border-top: 1px solid $border-color1;
     display: inline-block;
     width: 100%;
     .capability-label-name {
@@ -665,7 +665,7 @@
   .content {
     font-size: 14px;
     padding: 10px 0;
-    border-top: 1px solid #e6e6e6;
+    border-top: 1px solid $border-color1;
     display: inline-block;
     width: 100%;
     .capability-label-name {
@@ -743,6 +743,10 @@
 
       .capability-edit > .inner {
         padding: 5px 25px 5px 0;
+
+        &:hover {
+          border: 0;
+        }
       }
 
       .capability-label-name {

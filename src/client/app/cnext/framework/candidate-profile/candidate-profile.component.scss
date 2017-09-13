@@ -231,7 +231,7 @@
 }
 
 .glyphicon-info-sign {
-  color: #ccc;
+  color: $gray;
 }
 
 .get-set-go {
@@ -305,7 +305,7 @@
   }
 
   .bar-container {
-    background: #383838;
+    background: $bg-bar-container;
     float: left;
     height: 35px;
     margin-top: 0;
@@ -369,13 +369,19 @@
   }
 
   .toggle-switch-container {
-    float: left;
+    position: absolute;
+    top: 13px;
+    right: 10px;
   }
 
   .profile-visibility {
+    padding: 15px 15px 0;
+
     .profile-info {
-      min-height: initial;
       float: left;
+      margin: 0;
+      min-height: 60px;
+      padding: 15px 0 0;
     }
   }
 }

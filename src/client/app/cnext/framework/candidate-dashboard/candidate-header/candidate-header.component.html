@@ -1,8 +1,6 @@
 <header class="page-header">
   <nav class="navbar navbar-fixed-top">
     <div class="container-fluid">
-      <!-- Brand and toggle get grouped for better mobile display -->
-
       <div class="navbar-header">
 
         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
@@ -21,8 +19,20 @@
           <img src={{MOBILE_LOGO}}/>
         </a>
       </div>
-
-      <!-- Collect the nav links, forms, and other content for toggling -->
+      <ul class="header-links visible-xs">
+        <li>
+          <a class="dropdown-item" [routerLink]="['value-portrait']"
+             (click)="navigateToWithId('/value-portrait');">
+            <span class="glyphicon glyphicon-user"></span>
+          </a>
+        </li>
+        <li>
+          <a class="dropdown-item" [routerLink]="['profile-edit']"
+             (click)="navigateTo('/create_profile');">
+            <span class="	glyphicon glyphicon-edit"></span>
+          </a>
+        </li>
+      </ul>
       <div class="bg-overlay" [class.show]="isClassVisible" (click)="isClassVisible = false;"></div>
       <div class="collapse navbar-collapse" [class.open-nav]="isClassVisible">
         <ul class="nav navbar-nav navbar-right">
@@ -57,12 +67,6 @@
                     <span class="glyphicon glyphicon-user"></span>Value Portrait
                   </a>
                 </li>
-                <!--<li role="menuitem" [routerLinkActive]="['active']" *ngIf="candidate.isCompleted==true">
-                  <a class="dropdown-item" [routerLink]="['profile-summary']"
-                     (click)="navigateTo('/profile_summary');">
-                    <span class="glyphicon glyphicon-eye-open"></span>View Profile
-                  </a>
-                </li>-->
                 <li role="menuitem" [routerLinkActive]="['active']" *ngIf="candidate.isCompleted==true">
                   <a class="dropdown-item" [routerLink]="['profile-edit']"
                      (click)="navigateTo('/create_profile');">
@@ -83,13 +87,12 @@
                 </li>
                 <li role="menuitem">
                   <a class="dropdown-item"
-                     (click)="goTOGuidedTour()">
+                     (click)="goToGuidedTour()">
                     <span class="glyphicon glyphicon-road"></span>Guided Tour
                   </a>
                 </li>
                 <li role="menuitem">
                   <a class="dropdown-item" (click)="logOut()">
-                    <!--<a class="dropdown-item" (click)="navigateTo('/')">-->
                     <span class="glyphicon glyphicon-log-out"></span>Sign Out
                   </a>
                 </li>
@@ -98,8 +101,8 @@
           </li>
         </ul>
 
-      </div><!-- /.navbar-collapse -->
-    </div><!-- /.container-fluid -->
+      </div>
+    </div>
   </nav>
 </header>
 
