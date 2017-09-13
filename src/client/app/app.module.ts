@@ -221,7 +221,7 @@ import {Ng2AutoCompleteModule} from "ng2-auto-complete";
     TooltipComponent,
     LoginComponent,
     MainHeaderComponent,
-    /*CandidateComponent,
+    CandidateComponent,
     RecruiterComponent,
     CandidateDashboardHeaderComponent,
     ActivateUserComponent,
@@ -242,11 +242,11 @@ import {Ng2AutoCompleteModule} from "ng2-auto-complete";
     HeaderComponent,
     FooterComponent,
     NotificationComponent,
-    SocialIconComponent,*/
+    SocialIconComponent,
 
     //C-NEXT COMPONENT
 
-    /*ProfilePictureComponent,
+    ProfilePictureComponent,
     CandidateSummaryComponent,
     CandidateBasicInformationComponent,
     VericalListViewComponent,
@@ -336,7 +336,7 @@ import {Ng2AutoCompleteModule} from "ng2-auto-complete";
     ColorShadeDirective,
     AttributeFilterPipe,
     ValueSortFilterPipe,
-    CandidateSearchComponent*/
+    CandidateSearchComponent
   ],
   providers: [
     {

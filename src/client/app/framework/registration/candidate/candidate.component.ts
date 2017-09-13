@@ -51,7 +51,7 @@ export class CandidateComponent implements OnInit {
       'email': ['', [ValidationService.requireEmailValidator, ValidationService.emailValidator]],
       'password': ['', [ValidationService.requirePasswordValidator, ValidationService.passwordValidator]],
       'confirm_password': ['', ValidationService.requireConfirmPasswordValidator],
-      'birth_year': ['', [Validators.required, ValidationService.birthYearValidator]],
+      /*TODO Abhijeet'birth_year': ['', [Validators.required, ValidationService.birthYearValidator]],*/
     });
 
 
@@ -71,6 +71,7 @@ export class CandidateComponent implements OnInit {
     this.validBirthYearList = this.dateService.createBirthYearList(this.year);
     this.mainHeaderMenuHideShow = 'applicant';
     //console.log("toaster visible", this.isToasterVisible);
+    this.model.birth_year = 1980; //TODO Abhijeet
   }
 
   closeToaster() {
@@ -109,6 +110,7 @@ export class CandidateComponent implements OnInit {
     this.model.isCandidate = true;
     //this.model.location = this.storedLocation;
     this.model.email = this.model.email.toLowerCase();
+    this.model.birth_year = 1980; //TODO Abhijeet
 
     if (!this.makePasswordConfirm()) {
 
