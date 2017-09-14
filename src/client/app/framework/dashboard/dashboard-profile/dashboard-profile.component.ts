@@ -1,6 +1,6 @@
 import {Component, NgZone, OnDestroy, OnInit} from "@angular/core";
 import {ActivatedRoute, Router} from "@angular/router";
-import {DashboardService} from "../dashboard.service";
+import {DashboardService} from "../../../user/dashboard.service";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {ValidationService} from "../../../shared/customvalidations/validation.service";
 import {
@@ -17,7 +17,7 @@ import {
 } from "../../../shared/index";
 import {NavigationRoutes} from "../../../shared/constants";
 import {LoaderService} from "../../../shared/loader/loaders.service";
-import {CandidateDetail} from "../../../user/candidate-sign-up/candidate";
+import {CandidateDetail} from "../../../user/models/candidate";
 import {Candidate, Summary} from "../../../cnext/framework/model/candidate";
 import {CandidateProfileService} from "../../../cnext/framework/candidate-profile/candidate-profile.service";
 import {ErrorService} from "../../../cnext/framework/error.service";

@@ -1,4 +1,4 @@
-@import '../../../../css/variables';
+@import '../../../css/variables';
 
 .error-messages {
   color: $error-messages;
@@ -144,8 +144,8 @@
   .company-description-container {
     top: 50%;
     left: 50%;
-    -webkit-transform: translate(-50%,-50%);
-    transform: translate(-50%,-50%);
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
     position: absolute;
   }
 }

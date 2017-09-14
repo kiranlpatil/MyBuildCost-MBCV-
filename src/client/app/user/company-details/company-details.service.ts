@@ -1,10 +1,10 @@
 import {Injectable} from "@angular/core";
 import {Observable} from "rxjs/Observable";
-import {API, BaseService} from "../../../shared/index";
+import {API, BaseService} from "../../shared/index";
 import {Headers, Http, RequestOptions} from "@angular/http";
-import {CompanyDetails} from "../../../user/models/company-details";
-import {AppSettings, LocalStorage} from "../../../shared/constants";
-import {LocalStorageService} from "../../../shared/services/localstorage.service";
+import {CompanyDetails} from "../../user/models/company-details";
+import {AppSettings, LocalStorage} from "../../shared/constants";
+import {LocalStorageService} from "../../shared/services/localstorage.service";
 
 
 @Injectable()

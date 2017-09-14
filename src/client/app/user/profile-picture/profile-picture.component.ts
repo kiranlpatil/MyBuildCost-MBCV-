@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Output} from "@angular/core";
-import {UserProfile} from "../../../framework/dashboard/user";
-import {DashboardService} from "../../../framework/dashboard/dashboard.service";
+import {UserProfile} from "../models/user";
+import {DashboardService} from "../dashboard.service";
 import {
   AppSettings,
   ImagePath,
@@ -10,7 +10,7 @@ import {
   Messages,
   MessageService,
   ProfileService
-} from "../../../shared/index";
+} from "../../shared/index";
 
 
 @Component({

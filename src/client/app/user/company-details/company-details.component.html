@@ -35,7 +35,8 @@
           <div class="col-sm-12 no-padding">
             <div [class.hide-list]="isSocialLogin">
               <div class="col-xs-10 no-padding">
-                <cn-control-messages [control]="companyDetailsForm.controls.description1" [submitStatus]="submitStatus"></cn-control-messages>
+                <cn-control-messages [control]="companyDetailsForm.controls.description1"
+                                     [submitStatus]="submitStatus"></cn-control-messages>
                 <input type="text" formControlName="description1" id="description1" maxlength="250"
                        placeholder="Company TAN" class="form-control" required/>
                 <span
@@ -61,7 +62,8 @@
           <div class="col-sm-12 no-padding">
             <div [class.hide-list]="isSocialLogin">
               <div class="col-xs-10 no-padding">
-                <cn-control-messages [control]="companyDetailsForm.controls.description2" [submitStatus]="submitStatus"></cn-control-messages>
+                <cn-control-messages [control]="companyDetailsForm.controls.description2"
+                                     [submitStatus]="submitStatus"></cn-control-messages>
                 <input type="text" formControlName="description2" id="description2" maxlength="250"
                        placeholder="GST Certificate" class="form-control" value="description2" required/>
                 <span
@@ -89,11 +91,13 @@
           <div class="col-sm-12 no-padding">
             <div [class.hide-list]="isSocialLogin">
               <div class="col-xs-10 no-padding">
-                <cn-control-messages [control]="companyDetailsForm.controls.description3" [submitStatus]="submitStatus"></cn-control-messages>
+                <cn-control-messages [control]="companyDetailsForm.controls.description3"
+                                     [submitStatus]="submitStatus"></cn-control-messages>
                 <input type="text" formControlName="description3" id="description3" maxlength="250"
                        placeholder="Shop Act" class="form-control" required/>
-                <span *ngIf="!setOfDocuments[2] && companyDetailsForm.value.description3 != '' && isDocumentUploaded && submitStatus"
-                      class="error-messages">{{uploadFileMessage}}</span>
+                <span
+                  *ngIf="!setOfDocuments[2] && companyDetailsForm.value.description3 != '' && isDocumentUploaded && submitStatus"
+                  class="error-messages">{{uploadFileMessage}}</span>
               </div>
               <div class="col-sm-2 padding-left5">
                 <div class="clearfix">
@@ -116,7 +120,8 @@
             </div>
             <div class="about-company">
               <div class="describe-error-message">
-                <cn-control-messages [control]="companyDetailsForm.controls.about_company" [submitStatus]="submitStatus"></cn-control-messages>
+                <cn-control-messages [control]="companyDetailsForm.controls.about_company"
+                                     [submitStatus]="submitStatus"></cn-control-messages>
               </div>
               <textarea formControlName="about_company" id="about_company" placeholder="Describe your company"
                         class="form-control about-company" required></textarea>
@@ -130,7 +135,7 @@
           </div>
         </div>
         <div class="button-group">
-          <button type="submit" class="btn btn-success">Submit for activation </button>
+          <button type="submit" class="btn btn-success">Submit for activation</button>
           <!--<button type="submit" class="btn btn-success" >Submit Documents</button>-->
         </div>
       </div>

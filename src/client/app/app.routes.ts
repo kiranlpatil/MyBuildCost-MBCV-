@@ -15,8 +15,8 @@ import {ChangeEmailRoutes} from "./framework/dashboard/settings/change-email/cha
 import {ActivateEmailRoutes} from "./framework/dashboard/settings/activate-email/activate-email.routes";
 import {ChangeMobileRoutes} from "./framework/dashboard/settings/change-mobile/change-mobile.routes";
 import {CandidateSignUpRoutes} from "./user/candidate-sign-up/candidate-sign-up.routes";
-import {RecruiterSignUpRoutes} from "./user/recruiter/recruiter.routes";
-import {CompanyDetailsRoutes} from "./framework/registration/company_details/company-details.routes";
+import {RecruiterSignUpRoutes} from "./user/recruiter-sign-up/recruiter.routes";
+import {CompanyDetailsRoutes} from "./user/company-details/company-details.routes";
 import {RecruiterDashboard} from "./cnext/framework/recruiter-dashboard/recruiter-dashboard.routes";
 import {CandidateSummary} from "./cnext/framework/one-page-summary/candidate-summary/candidate-summary.routes";
 import {ProfileCreator} from "./cnext/framework/candidate-profile/candidate-profile.routes";

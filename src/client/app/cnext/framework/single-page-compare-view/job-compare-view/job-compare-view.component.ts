@@ -2,7 +2,7 @@ import {Component, EventEmitter, Input, OnChanges, Output, OnInit} from "@angula
 import {JobCompareService} from "./job-compare-view.service";
 import {Capability} from "../../model/capability";
 import {Candidate} from "../../model/candidate";
-import {CandidateDetail} from "../../../../user/candidate-sign-up/candidate";
+import {CandidateDetail} from "../../../../user/models/candidate";
 import {CandidateProfileService} from "../../candidate-profile/candidate-profile.service";
 import {RecruiterDashboardService} from "../../recruiter-dashboard/recruiter-dashboard.service";
 import {Recruiter} from "../../../../user/models/recruiter";

@@ -1,5 +1,5 @@
 import {Component, Input, OnChanges} from '@angular/core';
-import {CandidateDetail} from '../../../../../user/candidate-sign-up/candidate';
+import {CandidateDetail} from '../../../../../user/models/candidate';
 import {Candidate} from '../../../model/candidate';
 import {CandidateProfileService} from '../../../candidate-profile/candidate-profile.service';
 import {ComplexityComponentService} from '../../../complexities/complexity.service';

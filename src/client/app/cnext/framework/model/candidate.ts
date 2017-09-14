@@ -4,7 +4,7 @@ import {AcademicDetails} from "./academic-details";
 import {Certifications} from "./certification-accreditation";
 import {ProfessionalData} from "./professional-data";
 import {EmployementHistory} from "./employment-history";
-import {CandidateDetail} from "../../../user/candidate-sign-up/candidate";
+import {CandidateDetail} from "../../../user/models/candidate";
 import {Location} from "../../../user/models/location";
 import {Capability} from "./capability";
 export class Candidate {

@@ -1,7 +1,7 @@
 import {Component, OnInit, ViewChild, ElementRef} from "@angular/core";
 import {Router} from "@angular/router";
 import {CandidateSignUpService} from "./candidate-sign-up.service";
-import {CandidateDetail} from "./candidate";
+import {CandidateDetail} from "../models/candidate";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {ValidationService} from "../../shared/customvalidations/validation.service";
 import {AppSettings, CommonService, Message, MessageService, NavigationRoutes} from "../../shared/index";
