@@ -183,7 +183,7 @@ export class SeedConfig {
    * `index.html`.
    * @type {string}
    */
-  APP_TITLE = 'Welcome to angular4-seed!';
+  APP_TITLE = 'JobMosis-Job-Portal';
 
   /**
    * Tracking ID.

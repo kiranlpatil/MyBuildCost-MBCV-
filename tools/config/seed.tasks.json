@@ -12,6 +12,7 @@
     "build.html_css",
     "build.js.dev",
     "build.index.dev",
+    "build.bundle.rxjs",
     "sw.manifest.static"
   ],
 
@@ -31,7 +32,7 @@
     "initialize",
     "check.tools",
     "clean.prod",
-    "tslint",
+
     "build.server",
     "copy.server.assets",
     "build.assets.prod",
@@ -127,7 +128,7 @@
     "build.prod.rollup.aot",
     "server.prod"
   ],
-  
+
   "sme.prod": [
     "build.prod",
     "build.sme.prod"

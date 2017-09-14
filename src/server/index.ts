@@ -49,6 +49,7 @@ export function init(port: number, mode: string, protocol: string) {
     app.use(express.static(clientRoot));
     app.use('/public', express.static(path.resolve(__dirname+'/public')));
     var renderIndex = (req: express.Request, res: express.Response) => {
+      console.log(__dirname, _clientDir + '/index.html');
       res.sendFile(path.resolve(__dirname, _clientDir + '/index.html'));
     };
     app.get('/*', renderIndex);

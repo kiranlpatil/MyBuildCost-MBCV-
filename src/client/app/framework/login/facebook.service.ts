@@ -6,7 +6,7 @@ import {Injectable} from "@angular/core";
 export class FacebookService {
 
   constructor() {
-    if (!window.fbAsyncInit) {
+   /* TODO Abhijeet if (!window.fbAsyncInit) {
       window.fbAsyncInit = function () {
         FB.init({
           appId: '1000308350087499',
@@ -14,7 +14,7 @@ export class FacebookService {
           version: 'v2.7'
         });
       };
-    }
+    }*/
   }
 
   loadAndInitFBSDK() {
