@@ -5,7 +5,7 @@ import {JobPosterModel} from '../model/jobPoster';
 import {ProfessionalDataService} from '../professional-data/professional-data.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {JobLocation} from '../model/job-location';
-import {MyGoogleAddress} from '../../../shared/location/my-google-address';
+import {MyGoogleAddress} from '../../../shared/models/my-google-address';
 import { FilterService} from '../filters/filter/filter.service';
 import { Headings, Messages, Tooltip} from '../../../shared/constants';
 import { RecruiterDashboard} from '../model/recruiter-dashboard';

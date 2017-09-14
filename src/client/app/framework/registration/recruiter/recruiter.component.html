@@ -1,5 +1,5 @@
 <section class="main-form-wrapper registration">
-  <user-header [MainHeaderMenuHideShow]="mainHeaderMenuHideShow"></user-header>
+  <cn-user-header [MainHeaderMenuHideShow]="mainHeaderMenuHideShow"></cn-user-header>
 
     <div *ngIf="!isChrome && isToasterVisible" #toaster id="snackbar">{{getMessages().BROWSER_ALERT_MSG}}
         <button class="button-style" (click)="closeToaster()">x</button>
@@ -30,7 +30,7 @@
       </div>
       <div class="row clearfix">
         <div class="form-group">
-          <control-messages [control]="recruiterForm.controls.company_name" [submitStatus] = "submitStatus"></control-messages>
+          <cn-control-messages [control]="recruiterForm.controls.company_name" [submitStatus] = "submitStatus"></cn-control-messages>
           <input type="text" formControlName="company_name" id="company_name" class="form-control" maxlength="40" autocomplete="off" required/>
           <label>Company Name</label>
         </div>
@@ -47,13 +47,13 @@
         </div>
 
         <div class="form-group">
-          <control-messages [control]="recruiterForm.controls.email" [submitStatus] = "submitStatus"></control-messages>
+          <cn-control-messages [control]="recruiterForm.controls.email" [submitStatus] = "submitStatus"></cn-control-messages>
           <input type="email" formControlName="email" id="email" maxlength="40" class="form-control" autocomplete="off" required/>
           <label>Email</label>
         </div>
 
         <div class="input-group form-group">
-          <control-messages [control]="recruiterForm.controls.mobile_number" [submitStatus] = "submitStatus"></control-messages>
+          <cn-control-messages [control]="recruiterForm.controls.mobile_number" [submitStatus] = "submitStatus"></cn-control-messages>
           <span class="input-group-addon">+91</span>
           <!--<input type="text" formControlName="mobile_number" id="mobile_number" class="form-control" pattern="/[^0-9]/g" />-->
           <input type="number" formControlName="mobile_number" id="mobile_number" class="form-control" />
@@ -62,14 +62,14 @@
 
 
         <div class="form-group">
-          <control-messages [control]="recruiterForm.controls.password" [submitStatus] = "submitStatus"></control-messages>
+          <cn-control-messages [control]="recruiterForm.controls.password" [submitStatus] = "submitStatus"></cn-control-messages>
           <input type="password" formControlName="password" id="password" [(ngModel)]="model.password"
                  class="form-control" (focus)="showMessage()" [(ngModel)]="myPassword" (ngModelChange)="selectPassword($event)" required/>
           <label>Password</label>
         </div>
 
         <div class="form-group">
-          <control-messages [control]="recruiterForm.controls.confirm_password" [submitStatus] = "submitStatus"></control-messages>
+          <cn-control-messages [control]="recruiterForm.controls.confirm_password" [submitStatus] = "submitStatus"></cn-control-messages>
           <input type="password" formControlName="confirm_password" id="confirm_password" [(ngModel)]="model.confirm_password"
                  (blur)="makePasswordConfirm()" class="form-control" required/>
           <label>Confirm Password</label>

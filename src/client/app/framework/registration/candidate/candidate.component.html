@@ -1,48 +1,48 @@
 <section class="main-form-wrapper registration">
-  <user-header [MainHeaderMenuHideShow]="mainHeaderMenuHideShow"></user-header>
+  <cn-user-header [MainHeaderMenuHideShow]="mainHeaderMenuHideShow"></cn-user-header>
 
     <div *ngIf="!isChrome && isToasterVisible" #toaster id="snackbar">{{getMessages().BROWSER_ALERT_MSG}}
         <button class="button-style" (click)="closeToaster()">x</button>
     </div>
-  <!--<app-loader></app-loader>-->
+  <!--<cn-app-loader></cn-app-loader>-->
   <div class="content">
     <h5>Register </h5>
     <form [formGroup]="userForm" (submit)="onSubmit()" class="employee-form" novalidate>
 
       <div class="form-group">
-        <control-messages [control]="userForm.controls.first_name" [submitStatus] = "submitStatus"></control-messages>
+        <cn-control-messages [control]="userForm.controls.first_name" [submitStatus] = "submitStatus"></cn-control-messages>
         <input type="text" formControlName="first_name" id="first_name" class="form-control" maxlength="20" autocomplete="off" required/>
         <label>First Name</label>
       </div>
 
       <div class="form-group">
-        <control-messages [control]="userForm.controls.last_name" [submitStatus] = "submitStatus"></control-messages>
+        <cn-control-messages [control]="userForm.controls.last_name" [submitStatus] = "submitStatus"></cn-control-messages>
         <input type="text" formControlName="last_name" id="last_name" class="form-control" autocomplete="off" maxlength="20" required/>
         <label>Last Name</label>
       </div>
 
       <div class="form-group">
-        <control-messages [control]="userForm.controls.email" [submitStatus] = "submitStatus"></control-messages>
+        <cn-control-messages [control]="userForm.controls.email" [submitStatus] = "submitStatus"></cn-control-messages>
         <input type="email" formControlName="email" id="email" maxlength="40" class="form-control" autocomplete="off" required/>
         <label>Email</label>
       </div>
 
       <div class="input-group form-group">
-        <control-messages [control]="userForm.controls.mobile_number" [submitStatus] = "submitStatus"></control-messages>
+        <cn-control-messages [control]="userForm.controls.mobile_number" [submitStatus] = "submitStatus"></cn-control-messages>
         <span class="input-group-addon">+91</span>
         <input type="number" formControlName="mobile_number" id="mobile_number" class="form-control" required/>
         <label>Mobile</label>
       </div>
 
       <div class="form-group">
-        <control-messages [control]="userForm.controls.password" [submitStatus] = "submitStatus"></control-messages>
+        <cn-control-messages [control]="userForm.controls.password" [submitStatus] = "submitStatus"></cn-control-messages>
         <input type="password" formControlName="password" id="password" [(ngModel)]="model.password"
                class="form-control"(blur)="makePasswordConfirm()" required/>
         <label>Password</label>
       </div>
 
       <div class="form-group">
-        <control-messages [control]="userForm.controls.confirm_password" [submitStatus] = "submitStatus"></control-messages>
+        <cn-control-messages [control]="userForm.controls.confirm_password" [submitStatus] = "submitStatus"></cn-control-messages>
         <input type="password" formControlName="confirm_password" id="confirm_password"
                [(ngModel)]="model.confirm_password" (blur)="makePasswordConfirm()" class="form-control" required/>
         <label>Confirm Password</label>
