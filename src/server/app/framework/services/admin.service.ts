@@ -147,16 +147,18 @@ class AdminService {
   };
 
   sendAdminLoginInfoMail(field: any, callback: (error: any, result: any) => void) {
-    let header1 = fs.readFileSync("./src/server/app/framework/public/header1.html").toString();
-    let content = fs.readFileSync("./src/server/app/framework/public/adminlogininfo.mail.html").toString();
+    let  header1 = fs.readFileSync("./src/server/app/framework/public/header1.html").toString();
+    let  content = fs.readFileSync("./src/server/app/framework/public/adminlogininfo.mail.html").toString();
     let footer1 = fs.readFileSync("./src/server/app/framework/public/footer1.html").toString();
-    let mid_content = content.replace('$email$', field.email).replace('$address$', (field.location == " ") ? "Not Found" : field.location)
-      .replace('$ip$', field.ip).replace('$host$', config.get('TplSeed.mail.host'));
-    let to = config.get('TplSeed.mail.SUPPORT_MAIL');
+    let mid_content = content.replace('$email$', field.email).replace('$address$', (field.location== undefined)?"Not Found":field.location)
+                      .replace('$ip$', field.ip).replace('$host$',config.get('TplSeed.mail.host') );
+
+
     let mailOptions = {
-      from: config.get('TplSeed.mail.MAIL_SENDER'),
-      to: to,
-      subject: Messages.EMAIL_SUBJECT_ADMIN_LOGGED_ON + " " + config.get('TplSeed.mail.host'),
+      from:config.get('TplSeed.mail.MAIL_SENDER'),
+      to: config.get('TplSeed.mail.ADMIN_MAIL'),
+      cc: config.get('TplSeed.mail.TPLGROUP_MAIL'),
+      subject: Messages.EMAIL_SUBJECT_ADMIN_LOGGED_ON+" "+config.get('TplSeed.mail.host'),
       html: header1 + mid_content + footer1
       , attachments: MailAttachments.AttachmentArray
     }

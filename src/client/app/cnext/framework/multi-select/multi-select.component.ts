@@ -1,8 +1,8 @@
-import {Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, ViewChild} from "@angular/core";
-import {MultiSelectService} from "./multi-select.service";
-import {CandidateProfileService} from "../candidate-profile/candidate-profile.service";
-import {Messages} from "../../../shared/constants";
-import {ErrorService} from "../error.service";
+import {Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, ViewChild} from '@angular/core';
+import {MultiSelectService} from './multi-select.service';
+import {CandidateProfileService} from '../candidate-profile/candidate-profile.service';
+import {Messages} from '../../../shared/constants';
+import {ErrorService} from '../error.service';
 
 
 @Component({
