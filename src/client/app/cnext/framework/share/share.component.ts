@@ -1,5 +1,7 @@
-import {Component} from "@angular/core";
+import {Component, OnInit} from "@angular/core";
 import {ShareService} from "./share.service";
+import {SeoService} from "./seo.service";
+import {ErrorService} from "../error.service";
 
 @Component({
   moduleId: module.id,
@@ -8,23 +10,39 @@ import {ShareService} from "./share.service";
   styleUrls: ['share.component.css'],
 })
 
-export class ShareComponent {
+export class ShareComponent implements OnInit {
 
-  public repoUrl = 'https://github.com/Epotignano/ng2-social-share';
+  public repoUrl:string;
 
-  constructor(private shareService:ShareService) {
+  constructor(private shareService:ShareService, private seoService:SeoService, private errorService:ErrorService) {
+  }
+
+  ngOnInit() {
+    this.buildValuePortraitUrl();
   }
 
   buildValuePortraitUrl() {
     this.shareService.buildValuePortraitUrl()
       .subscribe(
         user=> {
-          console.log('------', user);
+          //console.log('------', user);
+          this.changeMeta(user);
+          this.repoUrl = user.shareUrl;
         },
         error=> {
-          console.log('------', error);
+          this.errorService.onError(error);
         }
       );
   }
+
+  changeMeta(user:any) {
+    this.seoService.setTitle('Check out value portrait of ' + user.first_name);
+    this.seoService.setMetaDescription('My Description');
+    this.seoService.setMetaRobots('Index, Follow');
+    this.seoService.setMetaOgDescription('This is value portrait of ' + user.first_name);
+    this.seoService.setMetaOgTitle(user.first_name);
+    this.seoService.setMetaOgImage('https://media.licdn.com/mpr/mpr/shrink_200_200/AAEAAQAAAAAAAAv4AAAAJDQwZGMxZjdhLTkwYWUtNDEzNS04Y2NlLTE0OWU0NDZkODQ4MQ.png');
+  }
+
 
 }

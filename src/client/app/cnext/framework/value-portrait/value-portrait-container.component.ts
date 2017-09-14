@@ -12,6 +12,7 @@ import {LocalStorageService} from "../../../framework/shared/localstorage.servic
 })
 
 export class ValuePortraitContainerComponent implements OnInit,OnDestroy {
+
   _userId:string;
   isShareView:boolean = false;
 
@@ -28,7 +29,9 @@ export class ValuePortraitContainerComponent implements OnInit,OnDestroy {
   }
 
   ngOnDestroy() {
-    LocalStorageService.removeLocalValue(LocalStorage.ACCESS_TOKEN);
+    if (this.isShareView) {
+      LocalStorageService.removeLocalValue(LocalStorage.ACCESS_TOKEN);
+    }
   }
 
   ngOnInit() {

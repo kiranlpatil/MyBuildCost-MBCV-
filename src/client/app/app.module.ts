@@ -1,6 +1,6 @@
 import {ErrorHandler, NgModule} from "@angular/core";
 import {AppComponent} from "./app.component";
-import {BrowserModule} from "@angular/platform-browser";
+import {BrowserModule, Title} from "@angular/platform-browser";
 import {APP_BASE_HREF} from "@angular/common";
 import {RouterModule} from "@angular/router";
 import {RecaptchaModule} from "ng2-recaptcha";
@@ -199,7 +199,7 @@ import {CandidateSearchService} from "./cnext/framework/candidate-search/candida
 import {CeiboShare} from "ng2-social-share";
 import {ShareComponent} from "./cnext/framework/share/share.component";
 import {ShareService} from "./cnext/framework/share/share.service";
-
+import {SeoService} from "./cnext/framework/share/seo.service";
 //C-NEXT IMPORTS
 
 
@@ -424,7 +424,9 @@ import {ShareService} from "./cnext/framework/share/share.service";
     GuidedTourService,
     CandidateSearchService,
     SharedService,
-    ShareService
+    ShareService,
+    SeoService,
+    Title
 
   ],
   bootstrap: [AppComponent]
