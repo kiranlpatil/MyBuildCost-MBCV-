@@ -1337,7 +1337,7 @@ export function updatePicture(req: express.Request, res: express.Response, next:
                         }
                         else {
                           var auth: AuthInterceptor = new AuthInterceptor();
-                          var token = auth.issueTokenWithUid(response);
+                          var token = auth.issueTokenWithUid(result);
                           res.status(200).send({access_token: token, data: response});
                         }
                       });
@@ -1352,7 +1352,7 @@ export function updatePicture(req: express.Request, res: express.Response, next:
                     }
                     else {
                       var auth: AuthInterceptor = new AuthInterceptor();
-                      var token = auth.issueTokenWithUid(response);
+                      var token = auth.issueTokenWithUid(result);
                       res.status(200).send({access_token: token, data: response});
                     }
                   });

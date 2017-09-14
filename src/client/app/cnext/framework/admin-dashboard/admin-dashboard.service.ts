@@ -29,6 +29,18 @@ export class AdminDashboardService extends BaseService {
       .map(this.extractData)
       .catch(this.handleError);
   }
+  getUsageDetails(): Observable<any> {
+    var url = API.USAGE_DETAIL;
+    return this.http.get(url);
+  }
+  generateCandidateDetailFile(): Observable<any> {
+    var url = API.CANDIDATE_DETAIL_PROFILE;
+    return this.http.get(url);
+  }
+  generateRecruiterDetailFile(): Observable<any> {
+    var url = API.RECRUITER_DETAIL_PROFILE;
+    return this.http.get(url);
+  }
 
   updateProfile(model: CandidateDetail): Observable<CandidateDetail> {
     var url = API.USER_PROFILE + '/' + LocalStorageService.getLocalValue(LocalStorage.USER_ID);

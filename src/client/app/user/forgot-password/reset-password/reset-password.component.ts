@@ -3,7 +3,7 @@ import {MessageService} from "../../../shared/services/message.service";
 import {LocalStorageService} from "../../../shared/services/localstorage.service";
 import {LocalStorage, NavigationRoutes} from "../../../shared/index";
 import {ResetPasswordService} from "./reset-password.service";
-import {ImagePath, Messages, ProjectAsset} from "../../../shared/constants";
+import {ImagePath, Messages, ProjectAsset, Label, Button, Headings} from "../../../shared/constants";
 import {Message} from "../../../shared/models/message";
 import {ResetPassword} from "../../models/reset-password";
 import {FormBuilder, FormGroup} from "@angular/forms";
@@ -31,7 +31,6 @@ export class ResetPasswordComponent implements OnInit {
   UNDER_LICENCE: string;
   BODY_BACKGROUND: string;
   submitStatus: boolean;
-  passwordMismatchMessage: string;
 
   constructor(private activatedRoute: ActivatedRoute, private _router: Router, private messageService: MessageService,
               private resetPasswordService: ResetPasswordService, private formBuilder: FormBuilder) {
@@ -102,12 +101,23 @@ export class ResetPasswordComponent implements OnInit {
   makePasswordConfirm(): boolean {
     if (this.model.confirm_password !== this.model.new_password) {
       this.isPasswordConfirm = true;
-      this.passwordMismatchMessage = Messages.MSG_ERROR_VALIDATION_PASSWORD_MISMATCHED;
       return true;
     } else {
       this.isPasswordConfirm = false;
       return false;
     }
+  }
+  getLabels() {
+    return Label;
+  }
+  getButtons() {
+    return Button;
+  }
+  getHeadings() {
+    return Headings;
+  }
+  getMessages() {
+    return Messages;
   }
 
 }
