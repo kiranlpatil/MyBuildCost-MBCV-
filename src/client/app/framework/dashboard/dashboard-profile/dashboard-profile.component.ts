@@ -17,7 +17,7 @@ import {
 } from "../../../shared/index";
 import {NavigationRoutes} from "../../../shared/constants";
 import {LoaderService} from "../../../shared/loader/loaders.service";
-import {CandidateDetail} from "../../registration/candidate/candidate";
+import {CandidateDetail} from "../../../user/candidate-sign-up/candidate";
 import {Candidate, Summary} from "../../../cnext/framework/model/candidate";
 import {CandidateProfileService} from "../../../cnext/framework/candidate-profile/candidate-profile.service";
 import {ErrorService} from "../../../cnext/framework/error.service";

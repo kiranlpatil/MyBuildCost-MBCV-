@@ -14,7 +14,7 @@ import {VerifyPhoneRoutes} from "./framework/registration/verify_phone/verify-ph
 import {ChangeEmailRoutes} from "./framework/dashboard/settings/change-email/change-email.routes";
 import {ActivateEmailRoutes} from "./framework/dashboard/settings/activate-email/activate-email.routes";
 import {ChangeMobileRoutes} from "./framework/dashboard/settings/change-mobile/change-mobile.routes";
-import {CandidateRoutes} from "./framework/registration/candidate/candidate.routes";
+import {CandidateSignUpRoutes} from "./user/candidate-sign-up/candidate-sign-up.routes";
 import {RecruiterRoutes} from "./framework/registration/recruiter/recruiter.routes";
 import {CompanyDetailsRoutes} from "./framework/registration/company_details/company-details.routes";
 import {RecruiterDashboard} from "./cnext/framework/recruiter-dashboard/recruiter-dashboard.routes";
@@ -34,7 +34,7 @@ import {LandingPageRoutes} from "./framework/landing-page/landing-page.routes";
 export const routes: Routes = [
   ...LandingPageRoutes,
   ...LoginRoutes,
-  ...CandidateRoutes,
+  ...CandidateSignUpRoutes,
   ...RecruiterRoutes,
   ...ActivateUserRoutes,
   ...ActivateEmailRoutes,

@@ -1,26 +1,26 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { Router } from '@angular/router';
-import { CandidateService } from './candidate.service';
-import { CandidateDetail } from './candidate';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ValidationService } from '../../../shared/customvalidations/validation.service';
-import { AppSettings, CommonService, Message, MessageService, NavigationRoutes } from '../../../shared/index';
-import { ImagePath, LocalStorage, Messages } from '../../../shared/constants';
-import { LocalStorageService } from '../../../shared/services/localstorage.service';
-import { DateService } from '../../../cnext/framework/date.service';
-import { Location } from '../location';
-import { SharedService } from '../../../shared/services/shared-service';
+import {Component, OnInit, ViewChild, ElementRef} from "@angular/core";
+import {Router} from "@angular/router";
+import {CandidateSignUpService} from "./candidate-sign-up.service";
+import {CandidateDetail} from "./candidate";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {ValidationService} from "../../shared/customvalidations/validation.service";
+import {AppSettings, CommonService, Message, MessageService, NavigationRoutes} from "../../shared/index";
+import {ImagePath, LocalStorage, Messages} from "../../shared/constants";
+import {LocalStorageService} from "../../shared/services/localstorage.service";
+import {DateService} from "../../cnext/framework/date.service";
+import {Location} from "../models/location";
+import {SharedService} from "../../shared/services/shared-service";
 @Component({
   moduleId: module.id,
   selector: 'cn-candidate-registration',
-  templateUrl: 'candidate.component.html',
-  styleUrls: ['candidate.component.css'],
+  templateUrl: 'candidate-sign-up.component.html',
+  styleUrls: ['candidate-sign-up.component.css'],
 })
 
-export class CandidateComponent implements OnInit {
+export class CandidateSignUpComponent implements OnInit {
 
   @ViewChild('toaster') toaster: ElementRef;
-  yearMatchNotFoundMessage: string= Messages.MSG_YEAR_NO_MATCH_FOUND;
+  yearMatchNotFoundMessage: string = Messages.MSG_YEAR_NO_MATCH_FOUND;
   private model = new CandidateDetail();
   private storedLocation: Location = new Location();
   private isPasswordConfirm: boolean;
@@ -41,8 +41,8 @@ export class CandidateComponent implements OnInit {
   private isToasterVisible: boolean = true;
 
   constructor(private commonService: CommonService, private _router: Router, private dateService: DateService,
-              private candidateService: CandidateService, private messageService: MessageService, private formBuilder: FormBuilder,
-  private sharedService: SharedService) {
+              private candidateService: CandidateSignUpService, private messageService: MessageService, private formBuilder: FormBuilder,
+              private sharedService: SharedService) {
 
     this.userForm = this.formBuilder.group({
       'first_name': ['', [ValidationService.requireFirstNameValidator, ValidationService.noWhiteSpaceValidator, ValidationService.nameValidator]],
@@ -65,16 +65,14 @@ export class CandidateComponent implements OnInit {
 
   ngOnInit() {
     let val = LocalStorageService.getLocalValue(LocalStorage.AFTER_CANDIDATE_REGISTRATION_FORM);
-    if(val!==null) {
+    if (val !== null) {
       this._router.navigate([NavigationRoutes.VERIFY_USER]);
     }
     this.validBirthYearList = this.dateService.createBirthYearList(this.year);
     this.mainHeaderMenuHideShow = 'applicant';
-    //console.log("toaster visible", this.isToasterVisible);
   }
 
   closeToaster() {
-    //this.toaster.nativeElement.style.visibility = "hidden";
     this.isToasterVisible = false;
     this.sharedService.setToasterVisiblity(this.isToasterVisible);
   }

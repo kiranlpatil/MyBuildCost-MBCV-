@@ -1,9 +1,9 @@
 import {Component, EventEmitter, Input, OnInit, Output} from "@angular/core";
 import {Candidate, Section} from "../model/candidate";
 import {AppSettings, Messages, Tooltip, LocalStorage} from "../../../shared/constants";
-import {CandidateDetail} from "../../../framework/registration/candidate/candidate";
+import {CandidateDetail} from "../../../user/candidate-sign-up/candidate";
 import {ProfessionalDataService} from "../professional-data/professional-data.service";
-import {Location} from "../../../framework/registration/location";
+import {Location} from "../../../user/models/location";
 import {MyGoogleAddress} from "../../../shared/models/my-google-address";
 import {ProfileDetailsService} from "../profile-detail-service";
 import {ErrorService} from "../error.service";

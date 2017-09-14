@@ -2,7 +2,7 @@ import {Injectable} from "@angular/core";
 import {Headers, Http, RequestOptions} from "@angular/http";
 import {Observable} from "rxjs/Observable";
 import {API, AppSettings, BaseService, LocalStorage, LocalStorageService, MessageService} from "../../shared/index";
-import {CandidateDetail} from "../registration/candidate/candidate";
+import {CandidateDetail} from "../../user/candidate-sign-up/candidate";
 
 @Injectable()
 export class DashboardService extends BaseService {

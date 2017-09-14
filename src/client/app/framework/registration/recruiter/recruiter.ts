@@ -1,4 +1,4 @@
-import {Location} from "../location";
+import {Location} from "../../../user/models/location";
 import {CompanyDetails} from "../company_details/company-details";
 import {JobPosterModel} from "../../../cnext/framework/model/jobPoster";
 

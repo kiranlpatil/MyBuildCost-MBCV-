@@ -8,7 +8,7 @@ import {AppSettings, CommonService, Message, MessageService, NavigationRoutes} f
 import {ImagePath, LocalStorage, Messages} from "../../../shared/constants";
 import {LocalStorageService} from "../../../shared/services/localstorage.service";
 import {Headers, Http, RequestOptions, Response} from "@angular/http";
-import {Location} from "../location";
+import {Location} from "../../../user/models/location";
 import {MyGoogleAddress} from "../../../shared/models/my-google-address";
 import {SharedService} from "../../../shared/services/shared-service";
 
