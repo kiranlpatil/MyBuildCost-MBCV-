@@ -42,19 +42,14 @@ class UserService {
           callback(new Error(Messages.MSG_ERROR_VERIFY_ACCOUNT), null);
         }
 
-      }
-      else {
-
+      } else {
         this.userRepository.create(item, (err, res) => {
           if (err) {
             callback(new Error(Messages.MSG_ERROR_REGISTRATION_MOBILE_NUMBER), null);
           }
           else {
-
             callback(null, res);
-
           }
-
         });
       }
 
@@ -132,7 +127,7 @@ class UserService {
         var footer1 = fs.readFileSync("./src/server/app/framework/public/footer1.html").toString();
 
         var auth = new AuthInterceptor();
-        var token = auth.issueTokenWithUid(field);
+        var token = auth.issueTokenWithUid(res[0]);
         var host = config.get('TplSeed.mail.host');
         console.log("frgt pwd host", host);
         var link = host + "reset_password?access_token=" + token + "&_id=" + res[0]._id;
@@ -262,7 +257,7 @@ class UserService {
     this.userRepository.retrieve({"email": field.email}, (err, res) => {
       if (res.length > 0) {
         var auth = new AuthInterceptor();
-        var token = auth.issueTokenWithUid(field);
+        var token = auth.issueTokenWithUid(res[0]);
         var host = config.get('TplSeed.mail.host');
         var link = host + "activate_user?access_token=" + token + "&_id=" + res[0]._id;
         var header1 = fs.readFileSync("./src/server/app/framework/public/header1.html").toString();
