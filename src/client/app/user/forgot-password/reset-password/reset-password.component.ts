@@ -1,19 +1,19 @@
 import {Component, OnInit} from "@angular/core";
-import {MessageService} from "../../../../shared/services/message.service";
-import {LocalStorageService} from "../../../../shared/services/localstorage.service";
-import {LocalStorage, NavigationRoutes} from "../../../../shared/index";
+import {MessageService} from "../../../shared/services/message.service";
+import {LocalStorageService} from "../../../shared/services/localstorage.service";
+import {LocalStorage, NavigationRoutes} from "../../../shared/index";
 import {ResetPasswordService} from "./reset-password.service";
-import {ImagePath, Messages, ProjectAsset} from "../../../../shared/constants";
-import {Message} from "../../../../shared/models/message";
-import {ResetPassword} from "./reset-password";
+import {ImagePath, Messages, ProjectAsset, Label, Button, Headings} from "../../../shared/constants";
+import {Message} from "../../../shared/models/message";
+import {ResetPassword} from "../../models/reset-password";
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {ActivatedRoute, Params, Router} from "@angular/router";
-import {ValidationService} from "../../../../shared/customvalidations/validation.service";
+import {ValidationService} from "../../../shared/customvalidations/validation.service";
 
 
 @Component({
   moduleId: module.id,
-  selector: 'tpl-reset-password',
+  selector: 'reset-password',
   templateUrl: 'reset-password.component.html',
   styleUrls: ['reset-password.component.css'],
 })
@@ -21,7 +21,6 @@ export class ResetPasswordComponent implements OnInit {
   error_msg: string;
   isShowErrorMessage: boolean = true;
   token: string;
-  idPosition: number;
   id: string;
   model = new ResetPassword();
   userForm: FormGroup;
@@ -31,8 +30,7 @@ export class ResetPasswordComponent implements OnInit {
   MY_TAG_LINE: string;
   UNDER_LICENCE: string;
   BODY_BACKGROUND: string;
-  submitStatus:boolean;
-  passwordMismatchMessage: string;
+  submitStatus: boolean;
 
   constructor(private activatedRoute: ActivatedRoute, private _router: Router, private messageService: MessageService,
               private resetPasswordService: ResetPasswordService, private formBuilder: FormBuilder) {
@@ -62,7 +60,7 @@ export class ResetPasswordComponent implements OnInit {
   }
 
   onSubmit() {
-    if(!this.userForm.valid){
+    if (!this.userForm.valid) {
       this.submitStatus = true;
       return;
     }
@@ -103,12 +101,23 @@ export class ResetPasswordComponent implements OnInit {
   makePasswordConfirm(): boolean {
     if (this.model.confirm_password !== this.model.new_password) {
       this.isPasswordConfirm = true;
-      this.passwordMismatchMessage = Messages.MSG_ERROR_VALIDATION_PASSWORD_MISMATCHED;
       return true;
     } else {
       this.isPasswordConfirm = false;
       return false;
     }
+  }
+  getLabels() {
+    return Label;
+  }
+  getButtons() {
+    return Button;
+  }
+  getHeadings() {
+    return Headings;
+  }
+  getMessages() {
+    return Messages;
   }
 
 }

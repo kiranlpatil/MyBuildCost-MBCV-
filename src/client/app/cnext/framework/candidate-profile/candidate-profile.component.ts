@@ -330,7 +330,7 @@ export class CandidateProfileComponent implements OnInit, DoCheck, OnDestroy {
     this.candidateForComplexity = candidateData.data[0].industry.roles;
     if (this.candidate.jobTitle === undefined) {
       //TODO: Shrikant write logic which should be the active section
-      this.highlightedSection.name = 'GuideTour';
+      this.highlightedSection.name = 'Profile';
     }
     if (this.candidate.isCompleted !== undefined) {
       this.highlightedSection.iscompleted = this.candidate.isCompleted;
