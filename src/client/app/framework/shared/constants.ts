@@ -289,6 +289,7 @@ export class API {
   public static USER_PROFILE = 'users';
   public static UPDATE_USER = 'updateUser';
   public static ALL_USER_PROFILE = 'alluser';
+  public static USAGE_DETAIL = 'usageDetails';
   public static CANDIDATE_PROFILE = 'candidate';
   public static CANDIDATE_DETAIL_PROFILE = 'candidateDetails';
   public static RECRUITER_PROFILE = 'recruiter';

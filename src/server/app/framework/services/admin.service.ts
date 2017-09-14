@@ -6,11 +6,12 @@ import UserModel = require("../dataaccess/model/user.model");
 import IUserService = require("./user.service");
 import SendMailService = require("./sendmail.service");
 import SendMessageService = require("./sendmessage.service");
-import * as fs from "fs";
 import * as mongoose from "mongoose";
 //import * as config from 'config';
 var config = require('config');
 var bcrypt = require('bcrypt');
+var json2csv = require("json2csv");
+var fs = require('fs');
 import Messages = require("../shared/messages");
 import AuthInterceptor = require("../../framework/interceptor/auth.interceptor");
 import ProjectAsset = require("../shared/projectasset");
@@ -103,9 +104,7 @@ class AdminService {
   };
 
   createXlsx(result: any, callback: (err: any, res: any) => void){
-    var json2csv = require("json2csv");
-    var fs = require('fs');
-    if(result.candidate && result.candidate.length>0){
+    if(result.candidate && result.candidate.length>0) {
       var fields = ['first_name', 'last_name','mobile_number','email','isActivated','data.location.city','data.professionalDetails.education','data.professionalDetails.experience','data.professionalDetails.currentSalary','data.professionalDetails.noticePeriod','data.professionalDetails.relocate','data.professionalDetails.industryExposure','data.professionalDetails.currentCompany','data.isCompleted','data.isSubmitted'];
       var fieldNames = ['First Name', 'Last Name','Mobile Number','Email','Is Activated','Location','Education','Experience','Current Salary','Notice Period','Relocate','Industry Exposure','Current Company','IsCompleted','IsSubmitted'];
 
@@ -128,6 +127,24 @@ class AdminService {
     }
     console.log("Success");
     callback(null,result);
+  };
+  generateUsageDetailFile(result: any, callback: (err: any, res: any) => void) {
+    console.log(result);
+    if(result && result.length>0) {
+      var fields = ['candidateId', 'recruiterId','jobProfileId','action','timestamp'];
+      var fieldNames = ['Candidate Id', 'RecruiterId','Job Profile Id','Action','TimeStamp'];
+
+      var csv = json2csv({ data: result, fields: fields, fieldNames: fieldNames});
+      fs.writeFile('/home/bitnami/apps/jobmosis-staging/c-next/dist/prod/server/public/usagedetail.csv', csv, function(err:any) {
+        if (err) throw err;
+        console.log('usagedetail file saved');
+        console.log('Success');
+        callback(null,result);
+        console.log('after callback');
+      });
+    }else{
+      callback(null,result);
+    }
   };
 
   sendAdminLoginInfoMail(field: any, callback: (error: any, result: any) => void) {
@@ -159,18 +176,16 @@ class AdminService {
     });
   };
 
-/*
   getUsageDetails(field: any, callback: (error: any, result: any) => void) {
     this.usesTrackingController.retrieveAll( (err: any, res: any) => {
       if (err) {
-        callback(err, res);
+        callback(err, null);
       } else {
-callback(null,res)
+        callback(null,res);
       }
     });
 
   }
-*/
 }
 
 Object.seal(AdminService);

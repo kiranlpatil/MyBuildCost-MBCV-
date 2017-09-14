@@ -121,12 +121,11 @@ export function getAllUser(req: express.Request, res: express.Response, next: an
   }
 }
 
-/*
 export function getUsageDetails(req: express.Request, res: express.Response, next: any) {
   try {
     var adminService = new AdminService();
     var params = {};
-    if(req.user.isAdmin){
+    if(req.user.isAdmin) {
       adminService.getUsageDetails(params, (error, result) => {
         if (error) {
           next({
@@ -135,9 +134,22 @@ export function getUsageDetails(req: express.Request, res: express.Response, nex
             code: 403
           });
         } else {
+          adminService.generateUsageDetailFile(result, (err, respo)=> {
+            if (err) {
+              next({
+                reason: 'Error In Retrieving',//Messages.MSG_ERROR_RSN_INVALID_CREDENTIALS,
+                message: 'error in create excel',
+                code: 403
+              });
+            } else {
+              var file = './src/server/public/usagedetail.csv';
+             res.download(file); // Set disposition and send it.
+
+            }
+          });
         }
       });
-    }else{
+    } else {
       res.status(401).send({
         'error': {
           reason: 'Unauthorized User',
@@ -150,7 +162,6 @@ export function getUsageDetails(req: express.Request, res: express.Response, nex
     res.status(403).send({message: e.message});
   }
 }
-*/
 export function updateDetailOfUser(req: express.Request, res: express.Response, next: any) {
   try {
     var newUserData: UserModel = <UserModel>req.body;

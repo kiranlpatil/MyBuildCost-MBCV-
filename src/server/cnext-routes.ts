@@ -59,5 +59,5 @@ export function cnextInit(app: express.Application) { //todo add interceptor to 
 
   // API for Uses Tracking
   app.put('/api/usesTracking/:recruiterId/:jobProfileId/:candidateId/:action', jobProfileController.createUsesTracking);
-
+  app.get('/api/usageDetails',this.authInterceptor.requiresAuth, adminController.getUsageDetails);
 }
