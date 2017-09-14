@@ -182,7 +182,7 @@ export class Messages {
   public static MSG_MOBILE_NUMBER_Change_SUCCESS = 'Mobile number changed successfully.You can Sign In again by clicking on "yes" button, please click on "No"' +
     'button to continue the session.';
   public static MSG_MOBILE_VERIFICATION_TITLE = 'Verify Your Mobile Number';
-  public static MSG_MOBILE_VERIFICATION_MESSAGE = 'Please enter the verification code sent to your phone number.';
+  public static MSG_MOBILE_VERIFICATION_MESSAGE = 'Please enter the verification code sent to your mobile number.';
   public static MSG_MOBILE_VERIFICATION_SUCCUSS_HEADING = 'Congratulations!';
   public static MSG_MOBILE_VERIFICATION_SUCCUSS_TEXT = 'Registration successful. Kindly Sign In';
   public static CONTACT_US_ADDRESS = 'Blog. No. 14, 1st Floor, Electronic Estate, Parvati, Pune-Satara Road, Pune 411009, MH, INDIA.';
@@ -496,6 +496,10 @@ export class Headings {
   public static ADDITIONAL_INFORMATION_TEXT: string = 'Additional Information';
   public static KEY_SKILLS: string = 'Key Skills';
   public static CHANGE_PASSWORD: string = 'Change Password';
+  public static ACCOUNT_DETAILS_HEADING: string = 'Account Details';
+  public static CHANGE_EMAIL_HEADING: string = 'Change your Email';
+  public static CHANGE_MOBILE_NUMBER_HEADING: string = 'Change Your Mobile Number';
+  public static RESET_PASSWORD_HEADING: string = 'RESET PASSWORD';
 
 }
 
@@ -503,8 +507,15 @@ export class Label {
   public static CURRENT_PASSWORD_LABEL: string = 'Current Password';
   public static NEW_PASSWORD_LABEL: string = 'New Password';
   public static CONFIRM_PASSWORD_LABEL: string = 'Confirm Password';
+  public static FIRST_NAME_LABEL: string = 'First Name';
+  public static LAST_NAME_LABEL: string = 'Last Name';
+  public static EMAIL_FIELD_LABEL: string = 'Email';
+  public static CONTACT_FIELD_LABEL: string = 'Contact';
+  public static SAVE_PROFILE_LABEL: string = 'Save Profile';
+  public static RESET_PASSWORD_MESSAGE: string = 'Please set new password for your';
 }
 
 export class Button {
   public static CHANGE_PASSWORD_BUTTON: string = 'Change Password';
+  public static RESET_PASSWORD_BUTTON: string = 'RESET PASSWORD';
 }
