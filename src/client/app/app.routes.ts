@@ -10,7 +10,7 @@ import {SettingsRoutes} from "./framework/dashboard/settings/index";
 import {ActivateUserRoutes} from "./framework/registration/activate-user/activate-user.routes";
 import {ResetPasswordRoutes} from "./user/forgot-password/reset-password/index";
 import {VerifyUserRoutes} from "./framework/registration/verify_user/index";
-import {VerifyPhoneRoutes} from "./framework/registration/verify_phone/verify-phone.routes";
+import {CandidateSignUpVerificationRoutes} from "./user/candidate-sign-up-verification/candidate-sign-up-verification.routes";
 import {ChangeEmailRoutes} from "./framework/dashboard/settings/change-email/change-email.routes";
 import {ActivateEmailRoutes} from "./framework/dashboard/settings/activate-email/activate-email.routes";
 import {ChangeMobileRoutes} from "./framework/dashboard/settings/change-mobile/change-mobile.routes";
@@ -39,7 +39,7 @@ export const routes: Routes = [
   ...ActivateUserRoutes,
   ...ActivateEmailRoutes,
   ...VerifyUserRoutes,
-  ...VerifyPhoneRoutes,
+  ...CandidateSignUpVerificationRoutes,
   ...DashboardRoutes,
   ...AdminDashboard,
   ...CandidateDashboard,

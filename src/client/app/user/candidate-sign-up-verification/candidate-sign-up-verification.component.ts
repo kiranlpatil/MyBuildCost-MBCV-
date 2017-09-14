@@ -1,25 +1,24 @@
 import {Component} from "@angular/core";
-import {Router} from "@angular/router";
 import {FormBuilder, FormGroup} from "@angular/forms";
-import {ImagePath, LocalStorage, Messages, NavigationRoutes, ProjectAsset, AppSettings} from "../../../shared/constants";
-import {VerifyUser} from "./verify_phone";
-import {VerifyPhoneService} from "./verify-phone.service";
-import {MessageService} from "../../../shared/services/message.service";
-import {Message} from "../../../shared/models/message";
-import {LocalStorageService} from "../../../shared/services/localstorage.service";
-import {ValidationService} from "../../../shared/customvalidations/validation.service";
-import {Login} from "../../../user/login/login";
-import {LoginService} from "../../../user/login/login.service";
-import {RegistrationService} from "../../shared/registration.service";
+import {ImagePath, LocalStorage, Messages, ProjectAsset, AppSettings} from "../../shared/constants";
+import {VerifyCandidate} from "../models/verify-candidate";
+import {CandidateSignUpVerificationService} from "./candidate-sign-up-verification.service";
+import {MessageService} from "../../shared/services/message.service";
+import {Message} from "../../shared/models/message";
+import {LocalStorageService} from "../../shared/services/localstorage.service";
+import {ValidationService} from "../../shared/customvalidations/validation.service";
+import {Login} from "../../user/login/login";
+import {LoginService} from "../../user/login/login.service";
+import {RegistrationService} from "../registration.service";
 
 @Component({
   moduleId: module.id,
-  selector: 'tpl-verify-phone',
-  templateUrl: 'verify-phone.component.html',
-  styleUrls: ['verify-phone.component.css'],
+  selector: 'cn-candidate-sign-up-verification',
+  templateUrl: 'candidate-sign-up-verification.component.html',
+  styleUrls: ['candidate-sign-up-verification.component.css'],
 })
-export class VerifyPhoneComponent {
-  model = new VerifyUser();
+export class CandidateSignUpVerificationComponent {
+  model = new VerifyCandidate();
   userForm: FormGroup;
   error_msg: string;
   isShowErrorMessage: boolean = true;
@@ -31,8 +30,9 @@ export class VerifyPhoneComponent {
   private loginModel = new Login();
   private submitStatus: boolean;
 
-  constructor(private _router: Router, private formBuilder: FormBuilder,private loginService: LoginService,
-              private verifyPhoneService: VerifyPhoneService, private messageService: MessageService, private registrationService: RegistrationService) {
+  constructor(private formBuilder: FormBuilder, private loginService: LoginService,
+              private verifyPhoneService: CandidateSignUpVerificationService, private messageService: MessageService,
+              private registrationService: RegistrationService) {
 
     this.userForm = this.formBuilder.group({
       'otp': ['', ValidationService.requireOtpValidator]
@@ -46,11 +46,11 @@ export class VerifyPhoneComponent {
 
   onSubmit() {
     this.model = this.userForm.value;
-    if(this.model.otp === '') {
+    if (this.model.otp === '') {
       this.submitStatus = true;
       return;
     }
-    if(!this.userForm.valid) {
+    if (!this.userForm.valid) {
       return;
     }
 
@@ -66,6 +66,7 @@ export class VerifyPhoneComponent {
           error => (this.verifyFail(error)));
     }
   }
+
   getMessages() {
     return Messages;
   }
@@ -85,15 +86,9 @@ export class VerifyPhoneComponent {
 
   verifySuccess(res: any) {
     this.showModalStyle = !this.showModalStyle;
-    /* var message = new Message();
-     message.isError = false;
-     message.custom_message = Messages.MSG_SUCCESS_NEWREGISTRATION;
-     this.messageService.message(message);
-     this.navigateTo();*/
   }
 
   mobileVerificationSuccess(res: any) {
-    //this.showModalStyle = !this.showModalStyle;
     var message = new Message();
     message.isError = false;
     message.custom_message = Messages.MSG_SUCCESS_CHANGE_MOBILE_NUMBER;
@@ -152,8 +147,8 @@ export class VerifyPhoneComponent {
   }
 
   navigateTo() {
-    this.loginModel.email=LocalStorageService.getLocalValue(LocalStorage.EMAIL_ID);
-    this.loginModel.password=LocalStorageService.getLocalValue(LocalStorage.PASSWORD);
+    this.loginModel.email = LocalStorageService.getLocalValue(LocalStorage.EMAIL_ID);
+    this.loginModel.password = LocalStorageService.getLocalValue(LocalStorage.PASSWORD);
     this.loginService.userLogin(this.loginModel)
       .subscribe(
         res => (this.registrationService.onSuccess(res)),

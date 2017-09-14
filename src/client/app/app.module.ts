@@ -27,8 +27,6 @@ import {ActivateUserComponent} from "./framework/registration/activate-user/acti
 import {ActiveUserService} from "./framework/registration/activate-user/activate-user.service";
 import {VerifyUserComponent} from "./framework/registration/verify_user/verify-user.component";
 import {VerifyUserService} from "./framework/registration/verify_user/verify-user.service";
-import {VerifyPhoneComponent} from "./framework/registration/verify_phone/verify-phone.component";
-import {VerifyPhoneService} from "./framework/registration/verify_phone/verify-phone.service";
 import {ChangeEmailComponent} from "./framework/dashboard/settings/change-email/change-email.component";
 import {ChangeEmailService} from "./framework/dashboard/settings/change-email/change-email.service";
 import {ActivateEmailComponent} from "./framework/dashboard/settings/activate-email/activate-email.component";
@@ -164,7 +162,7 @@ import {ProfileComparisonPipe} from "./cnext/framework/profile-comparison/profil
 import {ColorShadeDirective} from "./cnext/framework/profile-comparison/profile-capability-comparison/color-shade.directive";
 import {AttributeFilterPipe} from "./cnext/framework/profile-comparison/profile-attribute-comparison/attribute-filter.pipe";
 import {ValueSortFilterPipe} from "./cnext/framework/profile-comparison/value-sort.pipe";
-import {RegistrationService} from "./framework/shared/registration.service";
+import {RegistrationService} from "./user/registration.service";
 import {GuidedTourService} from "./cnext/framework/guided-tour.service";
 import {ErrorService} from "./cnext/framework/error.service";
 import {LoggerService, MyErrorHandler} from "./cnext/framework/my-error-handler.service";
@@ -207,7 +205,6 @@ import {LandingPageComponent} from "./framework/landing-page/landing-page.compon
     ActivateUserComponent,
     ActivateEmailComponent,
     VerifyUserComponent,
-    VerifyPhoneComponent,
     DashboardComponent,
     ChangePasswordComponent,
     ChangeEmailComponent,
@@ -346,7 +343,6 @@ import {LandingPageComponent} from "./framework/landing-page/landing-page.compon
     ActiveEmailService,
     VerifyUserService,
     BasicJobInformationService,
-    VerifyPhoneService,
     ErrorService,
     IndustryListService,
     CandidateJobListService,

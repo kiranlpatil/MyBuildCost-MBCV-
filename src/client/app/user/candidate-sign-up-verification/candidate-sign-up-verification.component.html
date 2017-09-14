@@ -6,8 +6,7 @@
 
   <div class="col-lg-4 col-md-4 col-sm-6 col-xs-11 content">
 
-    <h5>{{getMessages().MSG_MOBILE_VERIFICATION_TITLE}}
-      <!--<span class="glyphicon glyphicon-remove" (click)="navigateTo('/landing')"></span>--></h5>
+    <h5>{{getMessages().MSG_MOBILE_VERIFICATION_TITLE}}</h5>
 
     <div class="alert alert-danger clearfix" [hidden]="isShowErrorMessage">
       <div class="col-sm-1 hidden-xs"><span class="glyphicon glyphicon-warning-sign"></span></div>
@@ -23,7 +22,7 @@
       <p>{{getMessages().MSG_MOBILE_VERIFICATION_MESSAGE}}</p>
 
       <div class="form-group">
-        <cn-control-messages [control]="userForm.controls.otp" [submitStatus] = "submitStatus"></cn-control-messages>
+        <cn-control-messages [control]="userForm.controls.otp" [submitStatus]="submitStatus"></cn-control-messages>
         <input type="number" formControlName="otp" id="otp" class="form-control" required/>
         <label>One Time Password(OTP)</label>
       </div>
