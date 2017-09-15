@@ -21,6 +21,9 @@ export class GuidedTourService extends BaseService {
     var dataString = LocalStorageService.getLocalValue(LocalStorage.GUIDED_TOUR);
     var dataArray:string[] = new Array(0);
     dataArray = JSON.parse(dataString);
+    if (dataArray == null) {
+      dataArray = new Array(0);
+    }
     if(dataArray.indexOf(imgName) == -1) {
       dataArray.push(imgName);
     }
