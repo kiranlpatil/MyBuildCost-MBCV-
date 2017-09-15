@@ -14,6 +14,7 @@ export class ValuePortraitComponent implements OnInit {
 
   private candidate: Candidate = new Candidate();
   @Input() userId:string;
+  @Input() isShareView:boolean;
 
   constructor(private candidateProfileService: CandidateProfileService,private errorService:ErrorService) {
 
