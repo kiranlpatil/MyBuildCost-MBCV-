@@ -25,7 +25,7 @@ import {Ng2AutoCompleteModule} from "ng2-auto-complete";
 import {ProfilePictureComponent} from "./profile-picture/profile-picture.component";
 
 @NgModule({
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, SharedModule, Ng2AutoCompleteModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, SharedModule, /*TODO Abhijeet Ng2AutoCompleteModule*/],
   declarations: [UserHeaderComponent, LoginComponent, ResetPasswordComponent, ForgotPasswordComponent,
     CandidateSignUpComponent, CandidateSignUpVerificationComponent, UserVerificationComponent, RecruiterSignUpComponent,
     CompanyDetailsComponent, ProfilePictureComponent],

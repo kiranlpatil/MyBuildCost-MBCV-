@@ -1,10 +1,6 @@
 import {join} from "path";
 import * as slash from "slash";
 import {argv} from "yargs";
-import {BuildType, ExtendPackages, InjectableDependency} from "./seed.config.interfaces";
-import { join } from 'path';
-import * as slash from 'slash';
-import { argv } from 'yargs';
 
 import {
   BuildType,

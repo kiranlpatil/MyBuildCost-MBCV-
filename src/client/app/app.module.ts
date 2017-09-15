@@ -171,10 +171,11 @@ import {SharedModule} from "./shared/shared.module";
 import {CustomHttp} from "./shared/services/httpservices/custom.http";
 import {ProfileService} from "./framework/shared/profileservice/profile.service";
 import {LandingPageComponent} from "./framework/landing-page/landing-page.component";
-import {ShareComponent} from "./cnext/framework/share/share.component";
+//import {ShareComponent} from "./cnext/framework/share/share.component";
 import {ShareService} from "./cnext/framework/share/share.service";
-import {SeoService} from "./cnext/framework/share/seo.service";
+//import {SeoService} from "./cnext/framework/share/seo.service";
 import {SharedService} from "./shared/services/shared-service";
+import {NgAutoCompleteModule} from "ng-auto-complete";
 
 //C-NEXT IMPORTS
 
@@ -186,9 +187,10 @@ import {SharedService} from "./shared/services/shared-service";
     RouterModule.forRoot(routes),
     HttpModule,
     ReactiveFormsModule,
-    RecaptchaModule.forRoot(), // Keep in mind the 'forRoot'-magic nuances!
-    Ng2AutoCompleteModule,
-    ScrollToModule.forRoot(),
+    NgAutoCompleteModule,
+    //RecaptchaModule.forRoot(), // Keep in mind the 'forRoot'-magic nuances!
+    //Ng2AutoCompleteModule,
+    //ScrollToModule.forRoot(),
     SharedModule,
     user,
   ],
@@ -303,7 +305,7 @@ import {SharedService} from "./shared/services/shared-service";
     AttributeFilterPipe,
     ValueSortFilterPipe,
     CandidateSearchComponent,
-    ShareComponent
+    //ShareComponent
   ],
   providers: [
     {
@@ -371,9 +373,9 @@ import {SharedService} from "./shared/services/shared-service";
     ProfileComparisonService,
     GuidedTourService,
     CandidateSearchService,
-    SharedService,
-    ShareService,
-    SeoService,
+    //SharedService,
+    //ShareService,
+    //SeoService,
     Title
   ],
   bootstrap: [AppComponent]

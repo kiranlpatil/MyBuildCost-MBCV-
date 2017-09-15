@@ -1,3 +1,4 @@
+/* TODO Abhijeet
 import {Injectable} from "@angular/core";
 import {Title} from "@angular/platform-browser";
 import {getDOM} from "@angular/platform-browser-dynamic/testing/private_import_platform-browser";
@@ -6,39 +7,39 @@ import {getDOM} from "@angular/platform-browser-dynamic/testing/private_import_p
 @Injectable()
 
 export class SeoService {
-  /**
+  /!**
    * Angular 2 Title Service
-   */
+   *!/
   private titleServiceMeta:Title;
-  /**
+  /!**
    * <head> Element of the HTML document
-   */
+   *!/
   private headElement:HTMLElement;
-  /**
+  /!**
    * <head> Element of the HTML document
-   */
+   *!/
   private metaDescription:HTMLElement;
   private metaOgDescription:HTMLElement;
   private metaOgTitle:HTMLElement;
   private metaOgImage:HTMLElement;
-  /**
+  /!**
    * <head> Element of the HTML document
-   */
+   *!/
   private robots:HTMLElement;
   private DOM:any;
 
-  /**
+  /!**
    * Inject the Angular 2 Title Service
    * @param titleService
-   */
+   *!/
   constructor(private titleService:Title) {
     this.titleServiceMeta = titleService;
     this.DOM = getDOM();
 
-    /**
+    /!**
      * get the <head> Element
      * @type {any}
-     */
+     *!/
     this.headElement = this.DOM.query('head');
     this.metaDescription = this.getOrCreateMetaElement('description');
     this.metaOgDescription = this.getOrCreateMetaElement("'og:description'");
@@ -95,11 +96,11 @@ export class SeoService {
     this.robots.setAttribute('content', robots);
   }
 
-  /**
+  /!**
    * get the HTML Element when it is in the markup, or create it.
    * @param name
    * @returns {HTMLElement}
-   */
+   *!/
   private getOrCreateMetaElement(name:string):HTMLElement {
     let el:HTMLElement;
     el = this.DOM.query('meta[name=' + name + ']');
@@ -112,3 +113,4 @@ export class SeoService {
   }
 
 }
+*/
