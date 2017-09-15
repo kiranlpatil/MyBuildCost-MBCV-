@@ -18,7 +18,7 @@ class ShareService {
     if (res[0].isVisible) {
       this.shareDetails.shareUrl = urlForShare;
     } else {
-      this.shareDetails.shareUrl = '';
+      this.shareDetails.shareUrl = host;
     }
     //this.shareDetails._id = res._id;
     callback(null, this.shareDetails);

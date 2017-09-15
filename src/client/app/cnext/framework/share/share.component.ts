@@ -13,7 +13,9 @@ import {Share} from "../model/share";
 
 export class ShareComponent implements OnInit {
 
-  public repoUrl:string;
+  public repoUrlFacebook:string;
+  public repoUrlLinkedin:string;
+  public repoUrlTwitter:string;
 
   constructor(private shareService:ShareService, private seoService:SeoService, private errorService:ErrorService) {
   }
@@ -27,8 +29,10 @@ export class ShareComponent implements OnInit {
       .subscribe(
         (data:Share) => {
           //console.log('------', user);
-          this.changeMeta(data);
-          this.repoUrl = 'http://www.facebook.com/sharer.php?u=' + data.shareUrl;
+          //this.changeMeta(data);
+          this.repoUrlFacebook = 'http://www.facebook.com/sharer.php?u=' + data.shareUrl;
+          this.repoUrlLinkedin = 'https://www.linkedin.com/cws/share?url=' + data.shareUrl;
+          this.repoUrlTwitter = 'https://twitter.com/share?url=' + data.shareUrl;
           //this.isShareProfile = data.isVisible;
         },
         error=> {
