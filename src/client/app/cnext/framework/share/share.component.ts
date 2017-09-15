@@ -2,6 +2,7 @@ import {Component, OnInit} from "@angular/core";
 import {ShareService} from "./share.service";
 import {SeoService} from "./seo.service";
 import {ErrorService} from "../error.service";
+import {Share} from "../model/share";
 
 @Component({
   moduleId: module.id,
@@ -24,10 +25,11 @@ export class ShareComponent implements OnInit {
   buildValuePortraitUrl() {
     this.shareService.buildValuePortraitUrl()
       .subscribe(
-        user=> {
+        (data:Share) => {
           //console.log('------', user);
-          this.changeMeta(user);
-          this.repoUrl = 'http://www.facebook.com/sharer.php?u=' + user.shareUrl;
+          this.changeMeta(data);
+          this.repoUrl = 'http://www.facebook.com/sharer.php?u=' + data.shareUrl;
+          //this.isShareProfile = data.isVisible;
         },
         error=> {
           this.errorService.onError(error);
