@@ -27,7 +27,7 @@ export class ShareComponent implements OnInit {
         user=> {
           //console.log('------', user);
           this.changeMeta(user);
-          this.repoUrl = user.shareUrl;
+          this.repoUrl = 'http://www.facebook.com/sharer.php?u=' + user.shareUrl;
         },
         error=> {
           this.errorService.onError(error);

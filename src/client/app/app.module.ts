@@ -125,7 +125,6 @@ import {CertificatesComponent} from "./cnext/framework/certification-accreditati
 import {AwardComponent} from "./cnext/framework/awards/award/award.component";
 import {ProficiencyCompareComponent} from "./cnext/framework/single-page-compare-view/shared/proficiency-compare/proficiency-compare.component";
 import {CandidateCompareService} from "./cnext/framework/single-page-compare-view/candidate-compare-view/candidate-compare-view.service";
-import {TooltipComponent} from "./shared/tool-tip-component/tool-tip-component";
 import {JobCompareService} from "./cnext/framework/single-page-compare-view/job-compare-view/job-compare-view.service";
 import {JobCompareViewComponent} from "./cnext/framework/single-page-compare-view/job-compare-view/job-compare-view.component";
 import {GuidedTourComponent} from "./cnext/framework/guided-tour/guided-tour.component";
@@ -170,11 +169,8 @@ import {CandidateSearchService} from "./cnext/framework/candidate-search/candida
 import {user} from "./user/user.module";
 import {SharedModule} from "./shared/shared.module";
 import {CustomHttp} from "./shared/services/httpservices/custom.http";
-import {ProfilePictureComponent} from "./user/profile-picture/profile-picture.component";
 import {ProfileService} from "./framework/shared/profileservice/profile.service";
 import {LandingPageComponent} from "./framework/landing-page/landing-page.component";
-
-import {CeiboShare} from "ng2-social-share";
 import {ShareComponent} from "./cnext/framework/share/share.component";
 import {ShareService} from "./cnext/framework/share/share.service";
 import {SeoService} from "./cnext/framework/share/seo.service";
@@ -378,9 +374,7 @@ import {SharedService} from "./shared/services/shared-service";
     SharedService,
     ShareService,
     SeoService,
-    Title,
-    CeiboShare
-
+    Title
   ],
   bootstrap: [AppComponent]
 })

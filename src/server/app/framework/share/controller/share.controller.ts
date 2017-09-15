@@ -1,7 +1,8 @@
 import express= require('express');
 import ShareService = require('../services/share.service');
 import AuthInterceptor = require('../../interceptor/auth.interceptor');
-import config = require('config');
+//import config = require('config');
+var config = require('config');
 
 class ShareController {
 
