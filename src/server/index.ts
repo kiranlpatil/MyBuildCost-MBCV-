@@ -10,7 +10,8 @@ import * as cors from "cors";
 import * as fs from "fs";
 var spdy = require('spdy');
 
-var _clientDir = '../client';
+ __dirname = './';
+var _clientDir = '/dist/client/dev';
 var app = express();
 
 export function init(port: number, mode: string, protocol: string) {
@@ -49,8 +50,7 @@ export function init(port: number, mode: string, protocol: string) {
     app.use(express.static(clientRoot));
     app.use('/public', express.static(path.resolve(__dirname+'/public')));
     var renderIndex = (req: express.Request, res: express.Response) => {
-      console.log(__dirname, _clientDir + '/index.html');
-      res.sendFile(path.resolve(__dirname, _clientDir + '/index.html'));
+      res.sendFile(path.resolve(__dirname + _clientDir + '/index.html'));
     };
     app.get('/*', renderIndex);
     /**
@@ -71,7 +71,7 @@ export function init(port: number, mode: string, protocol: string) {
     /**
      * Client Dir
      */
-    _clientDir = '../../client/prod';
+    _clientDir = '/dist/client/prod';
 
     /**
      * Static.
@@ -87,7 +87,7 @@ export function init(port: number, mode: string, protocol: string) {
      * @param res {any}
      */
     var renderIndex = function (req: express.Request, res: express.Response) {
-      res.sendFile(path.resolve(__dirname, _clientDir + '/index.html'));
+      res.sendFile(path.resolve(__dirname + _clientDir + '/index.html'));
     };
     //app.get('*', function(req,res) {
     //  res.sendFile(process.cwd() + '/dist/prod/client/index.html');
