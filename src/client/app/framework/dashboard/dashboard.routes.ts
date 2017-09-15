@@ -1,6 +1,6 @@
 import {Route} from "@angular/router";
 import {DashboardComponent} from "./dashboard.component";
-import {ChangePasswordComponent} from "../../framework/password/change-password/index";
+import {ChangePasswordComponent} from "../../user/change-password/index";
 import {DashboardHomeComponent} from "./dashboard-home/index";
 import {DashboardProfileComponent} from "./dashboard-profile/index";
 import {SettingsComponent} from "./settings/index";

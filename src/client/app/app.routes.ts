@@ -4,7 +4,7 @@ import {DashboardRoutes} from "./framework/dashboard/index";
 import {ForgotPasswordRoutes} from "./user/forgot-password/index";
 import {StartRoutes} from "./framework/start/start.routes";
 import {DashboardProfileRoutes} from "./framework/dashboard/dashboard-profile/index";
-import {ChangePasswordRoutes} from "./framework/password/change-password/index";
+import {ChangePasswordRoutes} from "./user/change-password/index";
 import {AboutRoutes} from "./framework/dashboard/about/index";
 import {SettingsRoutes} from "./framework/dashboard/settings/index";
 import {ActivateUserRoutes} from "./framework/registration/activate-user/activate-user.routes";

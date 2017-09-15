@@ -23,18 +23,20 @@ import {CompanyDetailsComponent} from "./company-details/company-details.compone
 import {CompanyDetailsService} from "./company-details/company-details.service";
 import {Ng2AutoCompleteModule} from "ng2-auto-complete";
 import {ProfilePictureComponent} from "./profile-picture/profile-picture.component";
+import {ChangePasswordComponent} from "./change-password/change-password.component";
+import {ChangePasswordService} from "./change-password/change-password.service";
 
 @NgModule({
   imports: [CommonModule, FormsModule, ReactiveFormsModule, SharedModule, Ng2AutoCompleteModule],
   declarations: [UserHeaderComponent, LoginComponent, ResetPasswordComponent, ForgotPasswordComponent,
     CandidateSignUpComponent, CandidateSignUpVerificationComponent, UserVerificationComponent, RecruiterSignUpComponent,
-    CompanyDetailsComponent, ProfilePictureComponent],
+    CompanyDetailsComponent, ProfilePictureComponent, ChangePasswordComponent],
   exports: [UserHeaderComponent, LoginComponent, ResetPasswordComponent, ForgotPasswordComponent,
     CandidateSignUpComponent, CandidateSignUpVerificationComponent, UserVerificationComponent, RecruiterSignUpComponent,
-    CompanyDetailsComponent, ProfilePictureComponent],
+    CompanyDetailsComponent, ProfilePictureComponent, ChangePasswordComponent],
   providers: [LoginService, FacebookService, ForgotPasswordService, ResetPasswordService, CandidateSignUpService,
     CandidateSignUpVerificationService, RegistrationService, UserVerificationService, RecruiterSignUpService,
-    CompanyDetailsService]
+    CompanyDetailsService, ChangePasswordService]
 })
 
 export class user {

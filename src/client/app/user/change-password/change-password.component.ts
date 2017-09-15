@@ -1,17 +1,16 @@
-import { Component } from '@angular/core';
-import { Router } from '@angular/router';
-import { ChangePasswordService } from './change-password.service';
-import { ChangePassword } from './changepassword';
-import { CommonService, ImagePath, Message, MessageService } from '../../../shared/index';
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { LoaderService } from '../../../shared/loader/loaders.service';
-import { ValidationService } from '../../../shared/customvalidations/validation.service';
-import { AppSettings, Messages, Label, Button } from '../../../shared/constants';
+import {Component} from "@angular/core";
+import {ChangePasswordService} from "./change-password.service";
+import {ChangePassword} from "../models/changepassword";
+import {CommonService, ImagePath, Message, MessageService} from "../../shared/index";
+import {FormBuilder, FormGroup} from "@angular/forms";
+import {LoaderService} from "../../shared/loader/loaders.service";
+import {ValidationService} from "../../shared/customvalidations/validation.service";
+import {AppSettings, Messages, Label, Button} from "../../shared/constants";
 
 
 @Component({
   moduleId: module.id,
-  selector: 'tpl-change-password',
+  selector: 'cn-change-password',
   templateUrl: 'change-password.component.html',
   styleUrls: ['change-password.component.css'],
 })
@@ -28,7 +27,6 @@ export class ChangePasswordComponent {
   CONFIRM_PASSWORD_ICON: string;
 
   constructor(private commonService: CommonService,
-              private _router: Router,
               private passwordService: ChangePasswordService,
               private messageService: MessageService,
               private formBuilder: FormBuilder, private loaderService: LoaderService) {
@@ -109,12 +107,15 @@ export class ChangePasswordComponent {
       return 'none';
     }
   }
+
   getMessages() {
     return Messages;
   }
+
   getLabels() {
     return Label;
   }
+
   getButtons() {
     return Button;
   }

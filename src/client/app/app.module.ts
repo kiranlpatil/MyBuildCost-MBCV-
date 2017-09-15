@@ -9,7 +9,6 @@ import {Http, HttpModule, RequestOptions, XHRBackend} from "@angular/http";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {AppRequestOptions, LoaderService, MessageService} from "./shared/index";
 import {DashboardComponent} from "./framework/dashboard/dashboard.component";
-import {ChangePasswordComponent} from "./framework/password/change-password/change-password.component";
 import {DashboardProfileComponent} from "./framework/dashboard/dashboard-profile/dashboard-profile.component";
 import {AboutComponent} from "./framework/dashboard/about/about.component";
 import {ContactComponent} from "./framework/dashboard/contact/contact.component";
@@ -17,7 +16,6 @@ import {SettingsComponent} from "./framework/dashboard/settings/settings.compone
 import {DashboardHomeComponent} from "./framework/dashboard/dashboard-home/dashboard-home.component";
 import {FooterComponent} from "./framework/shared/footer/footer.component";
 import {HeaderComponent} from "./framework/shared/header/header.component";
-import {ChangePasswordService} from "./framework/password/change-password/change-password.service";
 import {NotificationService} from "./framework/shared/notification/notification.service";
 import {NotificationComponent} from "./framework/shared/notification/notification.component";
 import {SocialIconComponent} from "./framework/shared/footer/social-icon/social-icon.component";
@@ -125,7 +123,6 @@ import {CertificatesComponent} from "./cnext/framework/certification-accreditati
 import {AwardComponent} from "./cnext/framework/awards/award/award.component";
 import {ProficiencyCompareComponent} from "./cnext/framework/single-page-compare-view/shared/proficiency-compare/proficiency-compare.component";
 import {CandidateCompareService} from "./cnext/framework/single-page-compare-view/candidate-compare-view/candidate-compare-view.service";
-import {TooltipComponent} from "./shared/tool-tip-component/tool-tip-component";
 import {JobCompareService} from "./cnext/framework/single-page-compare-view/job-compare-view/job-compare-view.service";
 import {JobCompareViewComponent} from "./cnext/framework/single-page-compare-view/job-compare-view/job-compare-view.component";
 import {GuidedTourComponent} from "./cnext/framework/guided-tour/guided-tour.component";
@@ -170,7 +167,6 @@ import {CandidateSearchService} from "./cnext/framework/candidate-search/candida
 import {user} from "./user/user.module";
 import {SharedModule} from "./shared/shared.module";
 import {CustomHttp} from "./shared/services/httpservices/custom.http";
-import {ProfilePictureComponent} from "./user/profile-picture/profile-picture.component";
 import {ProfileService} from "./framework/shared/profileservice/profile.service";
 import {LandingPageComponent} from "./framework/landing-page/landing-page.component";
 //C-NEXT IMPORTS
@@ -196,7 +192,6 @@ import {LandingPageComponent} from "./framework/landing-page/landing-page.compon
     ActivateUserComponent,
     ActivateEmailComponent,
     DashboardComponent,
-    ChangePasswordComponent,
     ChangeEmailComponent,
     ChangeMobileComponent,
     DashboardProfileComponent,
@@ -317,7 +312,6 @@ import {LandingPageComponent} from "./framework/landing-page/landing-page.compon
     ComplexityComponentService,
     ComplexityService,
     JobCompareService,
-    ChangePasswordService,
     ChangeEmailService,
     ChangeMobileService,
     NotificationService,
