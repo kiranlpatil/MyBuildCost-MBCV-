@@ -1,7 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from "@angular/core";
 import {Candidate, Section} from "../../../user/models/candidate";
 import {AppSettings, Headings, ImagePath, LocalStorage, Messages, Tooltip} from "../../../shared/constants";
-import {CandidateDetail} from "../../../user/models/candidate";
 import {ProfessionalDataService} from "../professional-data/professional-data.service";
 import {Location} from "../../../user/models/location";
 import {MyGoogleAddress} from "../../../shared/models/my-google-address";
@@ -9,6 +8,7 @@ import {ProfileDetailsService} from "../profile-detail-service";
 import {ErrorService} from "../error.service";
 import {LocalStorageService} from "../../../shared/services/localstorage.service";
 import {GuidedTourService} from "../guided-tour.service";
+import {CandidateDetail} from "../../../user/models/candidate-details";
 
 @Component({
   moduleId: module.id,
