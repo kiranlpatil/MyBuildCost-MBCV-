@@ -178,6 +178,7 @@ import {CeiboShare} from "ng2-social-share";
 import {ShareComponent} from "./cnext/framework/share/share.component";
 import {ShareService} from "./cnext/framework/share/share.service";
 import {SeoService} from "./cnext/framework/share/seo.service";
+import {SharedService} from "./shared/services/shared-service";
 
 //C-NEXT IMPORTS
 
