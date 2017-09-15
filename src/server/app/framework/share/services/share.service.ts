@@ -15,12 +15,7 @@ class ShareService {
     this.shareDetails.first_name = user.first_name;
     this.shareDetails.last_name = user.last_name;
     this.shareDetails.isVisible = res[0].isVisible;
-    if (res[0].isVisible) {
-      this.shareDetails.shareUrl = urlForShare;
-    } else {
-      this.shareDetails.shareUrl = host;
-    }
-    //this.shareDetails._id = res._id;
+    this.shareDetails.shareUrl = urlForShare;
     callback(null, this.shareDetails);
   }
 
