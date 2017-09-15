@@ -1,11 +1,11 @@
-import { Component, EventEmitter, Input, OnChanges,  Output } from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, Output} from "@angular/core";
 import {JobPosterService} from "../job-poster/job-poster.service";
 
 @Component({
   moduleId: module.id,
   selector: 'cn-job-clone',
   templateUrl: 'job-clone.component.html',
-  styleUrls: ['job-clone.component.scss']
+  styleUrls: ['job-clone.component.css']
 })
 export class JobCloneComponent implements OnChanges {
   @Input() selectedJobId:string;
