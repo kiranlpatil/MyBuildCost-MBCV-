@@ -32,16 +32,13 @@ export function readXlsx(req: express.Request, res: express.Response) {
             'error': error.message
           });
       } else {
-          var auth:AuthInterceptor = new AuthInterceptor();
-          var token = auth.issueTokenWithUid(result);
           res.status(200).send({
             'status': Messages.STATUS_SUCCESS,
             'data': {
               'reason': 'Data inserted Successfully in Industry',
               'code': 200,
               'result': result,
-            },
-            access_token: token
+            }
           });
       }
       });

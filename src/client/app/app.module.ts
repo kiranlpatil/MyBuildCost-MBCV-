@@ -21,14 +21,10 @@ import {ChangePasswordService} from "./framework/password/change-password/change
 import {NotificationService} from "./framework/shared/notification/notification.service";
 import {NotificationComponent} from "./framework/shared/notification/notification.component";
 import {SocialIconComponent} from "./framework/shared/footer/social-icon/social-icon.component";
-import {DashboardService} from "./framework/dashboard/dashboard.service";
+import {DashboardService} from "./user/dashboard.service";
 import {ContactService} from "./framework/dashboard/contact/contact.service";
 import {ActivateUserComponent} from "./framework/registration/activate-user/activate-user.component";
 import {ActiveUserService} from "./framework/registration/activate-user/activate-user.service";
-import {VerifyUserComponent} from "./framework/registration/verify_user/verify-user.component";
-import {VerifyUserService} from "./framework/registration/verify_user/verify-user.service";
-import {VerifyPhoneComponent} from "./framework/registration/verify_phone/verify-phone.component";
-import {VerifyPhoneService} from "./framework/registration/verify_phone/verify-phone.service";
 import {ChangeEmailComponent} from "./framework/dashboard/settings/change-email/change-email.component";
 import {ChangeEmailService} from "./framework/dashboard/settings/change-email/change-email.service";
 import {ActivateEmailComponent} from "./framework/dashboard/settings/activate-email/activate-email.component";
@@ -36,10 +32,6 @@ import {ActiveEmailService} from "./framework/dashboard/settings/activate-email/
 import {ChangeMobileComponent} from "./framework/dashboard/settings/change-mobile/change-mobile.component";
 import {ChangeMobileService} from "./framework/dashboard/settings/change-mobile/change-mobile.service";
 import {Ng2AutoCompleteModule} from "ng2-auto-complete/dist/ng2-auto-complete.module";
-import {CandidateComponent} from "./framework/registration/candidate/candidate.component";
-import {RecruiterComponent} from "./framework/registration/recruiter/recruiter.component";
-import {CandidateService} from "./framework/registration/candidate/candidate.service";
-import {RecruiterService} from "./framework/registration/recruiter/recruiter.service";
 import {ScrollToModule} from "ng2-scroll-to";
 import {ComplexityService} from "./cnext/framework/complexity.service";
 import {ProfessionalDataComponent} from "./cnext/framework/professional-data/professional-data.component";
@@ -52,8 +44,6 @@ import {AwardsComponent} from "./cnext/framework/awards/awards.component";
 import {MoreAboutMyselfComponent} from "./cnext/framework/more-about-myself/more-about-myself.component";
 import {JobPosterComponent} from "./cnext/framework/job-poster/job-poster.component";
 import {DescriptionFieldComponent} from "./cnext/framework/description-field/description-field.component";
-import {CompanyDetailsComponent} from "./framework/registration/company_details/company-details.component";
-import {CompanyDetailsService} from "./framework/registration/company_details/company-details.service";
 import {RecruiterDashboardComponent} from "./cnext/framework/recruiter-dashboard/recruiter-dashboard.component";
 import {IndustryListComponent} from "./cnext/framework/industry-list/industry-list.component";
 import {IndustryListService} from "./cnext/framework/industry-list/industry-list.service";
@@ -135,7 +125,7 @@ import {CertificatesComponent} from "./cnext/framework/certification-accreditati
 import {AwardComponent} from "./cnext/framework/awards/award/award.component";
 import {ProficiencyCompareComponent} from "./cnext/framework/single-page-compare-view/shared/proficiency-compare/proficiency-compare.component";
 import {CandidateCompareService} from "./cnext/framework/single-page-compare-view/candidate-compare-view/candidate-compare-view.service";
-import {TooltipComponent} from "./cnext/framework/tool-tip-component/tool-tip-component";
+import {TooltipComponent} from "./shared/tool-tip-component/tool-tip-component";
 import {JobCompareService} from "./cnext/framework/single-page-compare-view/job-compare-view/job-compare-view.service";
 import {JobCompareViewComponent} from "./cnext/framework/single-page-compare-view/job-compare-view/job-compare-view.component";
 import {GuidedTourComponent} from "./cnext/framework/guided-tour/guided-tour.component";
@@ -166,7 +156,6 @@ import {ProfileComparisonPipe} from "./cnext/framework/profile-comparison/profil
 import {ColorShadeDirective} from "./cnext/framework/profile-comparison/profile-capability-comparison/color-shade.directive";
 import {AttributeFilterPipe} from "./cnext/framework/profile-comparison/profile-attribute-comparison/attribute-filter.pipe";
 import {ValueSortFilterPipe} from "./cnext/framework/profile-comparison/value-sort.pipe";
-import {RegistrationService} from "./framework/shared/registration.service";
 import {GuidedTourService} from "./cnext/framework/guided-tour.service";
 import {ErrorService} from "./cnext/framework/error.service";
 import {LoggerService, MyErrorHandler} from "./cnext/framework/my-error-handler.service";
@@ -181,7 +170,7 @@ import {CandidateSearchService} from "./cnext/framework/candidate-search/candida
 import {user} from "./user/user.module";
 import {SharedModule} from "./shared/shared.module";
 import {CustomHttp} from "./shared/services/httpservices/custom.http";
-import {ProfilePictureComponent} from "./cnext/framework/profile-picture/profile-picture.component";
+import {ProfilePictureComponent} from "./user/profile-picture/profile-picture.component";
 import {ProfileService} from "./framework/shared/profileservice/profile.service";
 import {LandingPageComponent} from "./framework/landing-page/landing-page.component";
 
@@ -209,14 +198,9 @@ import {SeoService} from "./cnext/framework/share/seo.service";
   declarations: [
     AppComponent,
     LandingPageComponent,
-    TooltipComponent,
-    CandidateComponent,
-    RecruiterComponent,
     CandidateDashboardHeaderComponent,
     ActivateUserComponent,
     ActivateEmailComponent,
-    VerifyUserComponent,
-    VerifyPhoneComponent,
     DashboardComponent,
     ChangePasswordComponent,
     ChangeEmailComponent,
@@ -233,7 +217,6 @@ import {SeoService} from "./cnext/framework/share/seo.service";
 
     //C-NEXT COMPONENT
 
-    ProfilePictureComponent,
     CandidateSummaryComponent,
     CandidateBasicInformationComponent,
     VericalListViewComponent,
@@ -276,7 +259,6 @@ import {SeoService} from "./cnext/framework/share/seo.service";
     CertificationAccreditationComponent,
     AwardsComponent,
     DescriptionFieldComponent,
-    CompanyDetailsComponent,
     MoreAboutMyselfComponent,
     CandidateHeaderComponent,
     FilterComponent,
@@ -339,7 +321,6 @@ import {SeoService} from "./cnext/framework/share/seo.service";
       provide: APP_BASE_HREF,
       useValue: '<%= APP_BASE %>'
     },
-    RegistrationService,
     ComplexityComponentService,
     ComplexityService,
     JobCompareService,
@@ -347,24 +328,19 @@ import {SeoService} from "./cnext/framework/share/seo.service";
     ChangeEmailService,
     ChangeMobileService,
     NotificationService,
-    CandidateService,
-    RecruiterService,
     DashboardService,
     ProfileService,
     ContactService,
     CandidateCompareService,
     ActiveUserService,
     ActiveEmailService,
-    VerifyUserService,
     BasicJobInformationService,
-    VerifyPhoneService,
     ErrorService,
     IndustryListService,
     CandidateJobListService,
     ProfessionalDataService,
     EmploymentHistoryService,
     ProficiencyDomainService,
-    CompanyDetailsService,
     EmploymentHistoryService,
     DateService,
     CandidateDashboardService,

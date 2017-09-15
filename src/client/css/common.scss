@@ -528,7 +528,7 @@ h4 {
   }
 }
 
-control-messages {
+cn-control-messages {
   div {
     color: $toaster-error;
     font-size: 10px;
@@ -543,7 +543,7 @@ control-messages {
 }
 
 .dashboard {
-  control-messages {
+  cn-control-messages {
     div {
       margin: 35px 0 0;
     }
@@ -552,7 +552,7 @@ control-messages {
 
 .employee-form,
 .employer-form {
-  control-messages {
+  cn-control-messages {
     div {
       padding: 0 0 0 15px;
     }
@@ -560,14 +560,14 @@ control-messages {
 }
 
 .job-info {
-  control-messages {
+  cn-control-messages {
     div {
       padding: 0 0 0 15px;
     }
   }
 
   .form-group {
-    control-messages {
+    cn-control-messages {
       div {
         margin: 53px 0 0;
       }
@@ -576,7 +576,7 @@ control-messages {
 }
 
 .min-range {
-  control-messages {
+  cn-control-messages {
     div {
       padding: 0;
     }
@@ -584,7 +584,7 @@ control-messages {
 }
 
 .contact {
-  control-messages {
+  cn-control-messages {
     div {
       margin: 7px 5px 0;
     }
@@ -592,7 +592,7 @@ control-messages {
 }
 
 .company-details {
-  .about-company > control-messages {
+  .about-company > cn-control-messages {
     div {
       margin: 120px 0 0;
     }
@@ -605,7 +605,7 @@ control-messages {
     margin-bottom: 0;
   }
 
-  control-messages {
+  cn-control-messages {
     div {
       left: 0;
       margin-top: 57px;
@@ -819,7 +819,7 @@ control-messages {
       margin-top: 25px;
     }
 
-    control-messages {
+    cn-control-messages {
       div {
         left: 0;
         margin: -18px 0 0 15px;
@@ -849,7 +849,7 @@ control-messages {
   }
 
   .company-details {
-    control-messages {
+    cn-control-messages {
       div {
         margin: 120px 0 0;
       }
@@ -895,7 +895,7 @@ control-messages {
 @media screen and (min-width: 300px) and (max-width: 768px) {
   .employee-form,
   .employer-form {
-    control-messages {
+    cn-control-messages {
       div {
         padding: 0 !important;
       }
@@ -909,7 +909,7 @@ control-messages {
     font-size: 14px;
   }
   #recruiter-form {
-    control-messages {
+    cn-control-messages {
       div {
         padding: 0 0 0 15px !important;
       }

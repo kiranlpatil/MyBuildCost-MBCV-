@@ -5,7 +5,7 @@ import {ComplexityService} from "../complexity.service";
 import {Candidate, Section} from "../model/candidate";
 import {CandidateProfileService} from "./candidate-profile.service";
 import {Role} from "../model/role";
-import {Industry} from "../model/industry";
+import {Industry} from "../../../user/models/industry";
 import {Message} from "../../../shared/models/message";
 import {MessageService} from "../../../shared/services/message.service";
 import {ErrorService} from "../error.service";
@@ -330,7 +330,7 @@ export class CandidateProfileComponent implements OnInit, DoCheck, OnDestroy {
     this.candidateForComplexity = candidateData.data[0].industry.roles;
     if (this.candidate.jobTitle === undefined) {
       //TODO: Shrikant write logic which should be the active section
-      this.highlightedSection.name = 'GuideTour';
+      this.highlightedSection.name = 'Profile';
     }
     if (this.candidate.isCompleted !== undefined) {
       this.highlightedSection.iscompleted = this.candidate.isCompleted;

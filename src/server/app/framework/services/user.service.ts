@@ -42,19 +42,14 @@ class UserService {
           callback(new Error(Messages.MSG_ERROR_VERIFY_ACCOUNT), null);
         }
 
-      }
-      else {
-
+      } else {
         this.userRepository.create(item, (err, res) => {
           if (err) {
             callback(new Error(Messages.MSG_ERROR_REGISTRATION_MOBILE_NUMBER), null);
           }
           else {
-
             callback(null, res);
-
           }
-
         });
       }
 
@@ -262,7 +257,7 @@ class UserService {
     this.userRepository.retrieve({"email": field.email}, (err, res) => {
       if (res.length > 0) {
         let  auth = new AuthInterceptor();
-        let token = auth.issueTokenWithUid(field);
+        let token = auth.issueTokenWithUid(res[0]);
         let  host = config.get('TplSeed.mail.host');
         let  link = host + "activate_user?access_token=" + token + "&_id=" + res[0]._id;
         let  header1 = fs.readFileSync("./src/server/app/framework/public/header1.html").toString();

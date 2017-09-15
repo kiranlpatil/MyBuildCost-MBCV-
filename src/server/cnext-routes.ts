@@ -57,11 +57,12 @@ export function cnextInit(app: express.Application) { //todo add interceptor to 
   app.get('/api/recruiter/:id/jobprofile/:jobId', this.authInterceptor.requiresAuth, this.authInterceptor.secureApiCheck, recruiterController.getCompareDetailsOfCandidate);
   app.get('/api/recruiter/:id/candidatesearch/:searchvalue', this.authInterceptor.requiresAuth, this.authInterceptor.secureApiCheck, recruiterController.getCandidatesByName);
   app.get('/api/candidate/:candidateId/recruiter/:recruiterId/jobprofile', this.authInterceptor.requiresAuth, this.authInterceptor.secureApiCheck, searchController.searchCandidateJobProfiles);
-
+  app.get('/api/candidateDetails',this.authInterceptor.requiresAuth, adminController.getCandidateDetails);
+  app.get('/api/recruiterDetails',this.authInterceptor.requiresAuth, adminController.getRecruiterDetails);
   //Share api
   app.get('/api/buildValuePortraitUrl', this.authInterceptor.requiresAuth, shareController.buildValuePortraitUrl);
 
   // API for Uses Tracking
   app.put('/api/usesTracking/:recruiterId/:jobProfileId/:candidateId/:action', jobProfileController.createUsesTracking);
-
+  app.get('/api/usageDetails',this.authInterceptor.requiresAuth, adminController.getUsageDetails);
 }
