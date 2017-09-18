@@ -44,7 +44,7 @@ class AdminService {
     this.usesTrackingController = obj._controller;
   }
 
-  seperateUsers(item: any, callback: (error: any, result: any) => any) {
+  seperateUsers(item: any, callback: (error: any, result: any) => void) {
     try {
       let users: UsersClassModel = new UsersClassModel;
 
@@ -58,19 +58,10 @@ class AdminService {
             if (error) {
               callback(error, null);
             } else {
+              value++;
               if (!item[i].isAdmin) {
-
-                this.industryRepositiry.retrieve({'code': resu[0].industry.code}, (error: any, industries: IndustryModel[]) => {
-                  if (error) {
-                    callback(error, null);
-                  } else {
-                    let candidateService = new CandidateService();
-                    let response: any = candidateService.getCandidateDetail(resu[0], item[i], industries);
-                    item[i].data = response;
-                    value++;
-                    candidates.push(item[i]);
-                  }
-                });
+                item[i].data = resu[0];
+                candidates.push(item[i]);
               }
               if (value && item.length === value) {
                 users.candidate = candidates;
