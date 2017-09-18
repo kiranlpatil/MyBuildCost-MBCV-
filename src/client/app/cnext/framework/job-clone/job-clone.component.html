@@ -6,9 +6,10 @@
         <div class="modal-body">
           <div class="row">
             <div class="col-sm-12">
+              Job Title
+              <input type="text" maxlength="40" [(ngModel)]="selectedJobTitle"/>
+
               <div class="button-group">
-                Job Title
-                <input type="text" maxlength="40" [(ngModel)]="selectedJobTitle"/>
                 <button (click)="onClone()">Clone</button>
                 <button (click)="onCancel()">Cancel</button>
               </div>
