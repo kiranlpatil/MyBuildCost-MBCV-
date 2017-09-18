@@ -1,4 +1,4 @@
-/* TODO Abhijeet
+ // TODO Abhijeet
 import {Component, OnInit} from "@angular/core";
 import {ShareService} from "./share.service";
 import {ErrorService} from "../error.service";
@@ -38,4 +38,3 @@ export class ShareComponent implements OnInit {
       );
   }
 }
-*/
