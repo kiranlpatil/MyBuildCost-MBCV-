@@ -1,8 +1,5 @@
 
 <div class="value-portrait-section">
-    <div *ngIf="!isShareView">
-  <cn-share></cn-share>
-    </div>
   <div class="top-header">
     <div class="col-md-5 col-xs-10 no-padding">
       <h1>
@@ -20,7 +17,7 @@
     </div>
   </div>
     <div class="value-portrait-container">
-    <cn-value-portrait [userId]="_userId"></cn-value-portrait>
+        <cn-value-portrait [isShareView]="isShareView" [userId]="_userId"></cn-value-portrait>
     </div>
 
 </div>

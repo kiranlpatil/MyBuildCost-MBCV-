@@ -153,6 +153,7 @@ import {AdminDashboardService} from "./cnext/framework/admin-dashboard/admin-das
 import {CandidateSearchComponent} from "./cnext/framework/candidate-search/candidate-search.component";
 import {CandidateSearchService} from "./cnext/framework/candidate-search/candidate-search.service";
 import {UserModule} from "./user/user.module";
+import {JobCloneComponent} from "./cnext/framework/job-clone/job-clone.component";
 import {SharedModule} from "./shared/shared.module";
 import {CustomHttp} from "./shared/services/http/custom.http";
 import {ProfileService} from "./framework/shared/profileservice/profile.service";
@@ -277,7 +278,8 @@ import {SharedService} from "./shared/services/shared-service";
     AttributeFilterPipe,
     ValueSortFilterPipe,
     CandidateSearchComponent,
-    ShareComponent
+    ShareComponent,
+    JobCloneComponent
   ],
   providers: [
     {

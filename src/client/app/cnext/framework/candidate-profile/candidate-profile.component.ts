@@ -111,6 +111,11 @@ export class CandidateProfileComponent implements OnInit, DoCheck, OnDestroy {
       } else if (this.highlightedSection.name === 'Complexities') {
         this.getComplexity();
         return;
+      } else if (this.highlightedSection.name === 'Proficiencies') {
+        if (this.candidate.proficiencies == undefined || this.candidate.proficiencies == null || this.candidate.proficiencies.length == 0) {
+          this.candidate.proficiencies = [];
+        }
+        return;
       }
     }
   }

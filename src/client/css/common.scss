@@ -34,7 +34,6 @@ $value-portrait-bg: #f3f3f3;
 $circle-bg: #F7B82B;
 $modal-border: #ff927f;
 $modal-content-bg: #EB6B56;
-$got-it-btn-bg: #fe5722;
 $black: #000000;
 $facebook-share: #3b5998;
 $twitter-share: #55acee;
@@ -711,36 +710,6 @@ cn-control-messages {
   }
 }
 
-.guided-tour-section {
-  position: fixed;
-  height: 100%;
-  width: 100%;
-  z-index: 99999;
-  top: 0;
-  left: 0;
-  img {
-    height: 100%;
-    width: 100%;
-  }
-  .got-it-btn {
-    cursor: pointer;
-    position: absolute;
-    width: 118px;
-    height: 32px;
-    right: 82px;
-    bottom: 50px;
-    background: $got-it-btn-bg;
-    span {
-      color: $white;
-      padding: 6px 9px;
-      display: inline-block;
-      font-size: 16px;
-      width: 100%;
-      text-align: center;
-    }
-  }
-}
-
 .dashboard-view,
 .card-view {
   margin-bottom: 20px;
@@ -1188,14 +1157,15 @@ select:focus {
 
 .btn-facebook {
   background: url(../assets/c-next/card-view/sprite.png) no-repeat 0px -697px;
-  position: fixed;
+  /*position: fixed;
   right: 24px;
-  top: 88px;
+  top: 88px;*/
   background-color: $facebook-share;
   border: 1px solid $facebook-share;
   border-radius: 0;
-  padding: 20px;
+  padding: 22px 20px 8px;
   z-index: 1000;
+  margin: 0 4px;
 
   &:hover, &:active, &:focus {
     background-color: $facebook-share;
@@ -1205,14 +1175,15 @@ select:focus {
 
 .btn-linkedin {
   background: url(../assets/c-next/card-view/sprite.png) no-repeat -41px -697px;
-  position: fixed;
+  /*position: fixed;
   right: 24px;
-  top: 137px;
+  top: 137px;*/
   background-color: $linkedin-share;
   border: 1px solid $linkedin-share;
   border-radius: 0;
-  padding: 20px;
+  padding: 22px 20px 8px;
   z-index: 1000;
+  margin: 0 4px;
 
   &:hover, &:active, &:focus {
     background-color: $linkedin-share;
@@ -1222,14 +1193,15 @@ select:focus {
 
 .btn-twitter {
   background: url(../assets/c-next/card-view/sprite.png) no-repeat -79px -697px;
-  position: fixed;
+  /*position: fixed;
   right: 24px;
-  top: 185px;
+  top: 185px;*/
   background-color: $twitter-share;
   border: 1px solid $twitter-share;
   border-radius: 0;
-  padding: 20px;
+  padding: 22px 20px 8px;
   z-index: 1000;
+  margin: 0 4px;
 
   &:hover, &:active, &:focus {
     background-color: $twitter-share;
@@ -1238,11 +1210,9 @@ select:focus {
 }
 
 .share-button-container {
-  background: $white;
-  width: 54px;
-  height: 153px;
-  position: fixed;
-  right: 18px;
-  top: 81px;
-  z-index: 999;
+  width: 100%;
+  text-align: center;
+  height: auto;
+  margin: 30px auto;
+  display: inline-block;
 }

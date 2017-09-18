@@ -24,6 +24,14 @@ export class JobPosterService extends BaseService {
       .map(this.extractData)
       .catch(this.handleError);
   }
-
+  cloneJob(jobId: any,title:any): Observable<any> {
+    let headers = new Headers({'Content-Type': 'application/json'});
+    let options = new RequestOptions({headers: headers});
+    let body = JSON.stringify({'postedJobs': jobId});
+    let url: string = API.CLONE_JOB + '/' +jobId+ '/clone'+'?newJobTitle=' + title;
+    return this.http.put(url, body, options)
+      .map(this.extractData)
+      .catch(this.handleError);
+  }
 
 }
