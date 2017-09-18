@@ -2,6 +2,8 @@ import {Component, OnInit, Input} from "@angular/core";
 import {CandidateProfileService} from "../../candidate-profile/candidate-profile.service";
 import {Candidate} from "../../../../user/models/candidate";
 import {ErrorService} from "../../error.service";
+import {LocalStorage} from "../../../../shared/constants";
+import {LocalStorageService} from "../../../../shared/services/localstorage.service";
 
 @Component({
   moduleId: module.id,
@@ -15,9 +17,11 @@ export class ValuePortraitComponent implements OnInit {
   private candidate: Candidate = new Candidate();
   @Input() userId:string;
   @Input() isShareView:boolean;
-
+private isCandidate:boolean;
   constructor(private candidateProfileService: CandidateProfileService,private errorService:ErrorService) {
-
+    if (LocalStorageService.getLocalValue(LocalStorage.IS_CANDIDATE) === 'true') {
+      this.isCandidate = true;
+    }
   }
 
   ngOnInit(): void {
