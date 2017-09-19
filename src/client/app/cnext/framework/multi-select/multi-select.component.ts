@@ -74,7 +74,7 @@ export class MultiSelectComponent implements OnChanges, OnInit {
     }
   }
 
-  selectedProficiencyModel(newVal: any) {
+  selectedProficiencyModel(newVal: any) { debugger
     this.validationMessage='';
     let setOfCapabilityNumber=[4,3,2,1];
     if (newVal.trim() !== '') {

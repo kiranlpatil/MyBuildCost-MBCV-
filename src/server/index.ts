@@ -71,7 +71,7 @@ export function init(port: number, mode: string, protocol: string) {
     /**
      * Client Dir
      */
-    _clientDir = '/dist/client/prod';
+    _clientDir = './dist/client/prod';
 
     /**
      * Static.
@@ -86,9 +86,11 @@ export function init(port: number, mode: string, protocol: string) {
      * @param req {any}
      * @param res {any}
      */
-    var renderIndex = function (req: express.Request, res: express.Response) {
-      res.sendFile(path.resolve(__dirname + _clientDir + '/index.html'));
-    };
+     var renderIndex = function (req: express.Request, res: express.Response) {
+      _clientDir = '/dist/client/prod';
+       res.sendFile(path.resolve(__dirname + _clientDir + '/index.html'));
+     };
+
     //app.get('*', function(req,res) {
     //  res.sendFile(process.cwd() + '/dist/prod/client/index.html');
     //});

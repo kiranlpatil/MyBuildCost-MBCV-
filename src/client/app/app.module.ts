@@ -3,7 +3,6 @@ import {AppComponent} from "./app.component";
 import {BrowserModule, Title} from "@angular/platform-browser";
 import {APP_BASE_HREF} from "@angular/common";
 import {RouterModule} from "@angular/router";
-import {RecaptchaModule} from "ng2-recaptcha";
 import {routes} from "./app.routes";
 import {Http, HttpModule, RequestOptions, XHRBackend} from "@angular/http";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
@@ -20,8 +19,6 @@ import {DashboardService} from "./user/services/dashboard.service";
 import {ContactService} from "./framework/dashboard/contact/contact.service";
 import {ActivateUserComponent} from "./framework/registration/activate-user/activate-user.component";
 import {ActiveUserService} from "./framework/registration/activate-user/activate-user.service";
-import {Ng2AutoCompleteModule} from "ng2-auto-complete/dist/ng2-auto-complete.module";
-import {ScrollToModule} from "ng2-scroll-to";
 import {ComplexityService} from "./cnext/framework/complexity.service";
 import {ProfessionalDataComponent} from "./cnext/framework/professional-data/professional-data.component";
 import {ProfessionalDataService} from "./cnext/framework/professional-data/professional-data.service";
@@ -170,10 +167,7 @@ import {SharedService} from "./shared/services/shared-service";
     RouterModule.forRoot(routes),
     HttpModule,
     ReactiveFormsModule,
-    //NgAutoCompleteModule,
-    //RecaptchaModule.forRoot(), // Keep in mind the 'forRoot'-magic nuances!
-    //Ng2AutoCompleteModule,
-    //ScrollToModule.forRoot(),
+
     SharedModule,
     UserModule
   ],

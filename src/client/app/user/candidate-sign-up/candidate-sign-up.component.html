@@ -57,7 +57,8 @@
       </div>
 
       <div class="form-group">
-       <!-- TODO Abhijeet<div id="yearf" ng2-auto-complete
+       <!-- TODO Abhijeet
+       <div id="yearf" ng2-auto-complete
              [source]="validBirthYearList"
              min-chars="2"
              max-num-list="10"
@@ -69,15 +70,14 @@
           <label class="select-label">Year of Birth</label>
           <div class="error-messages" *ngIf='userForm.get("birth_year").value == undefined'>{{birthYearErrorMessage}}
           </div>
-        </div>-->
+       </div>-->
         <div id="yearf">
-          <input type="number" formControlName="birth_year" (change)='selectYearModel(validBirthYear)' [ngModel]="validBirthYear"
+          <input type="number" formControlName="birth_year" (change)='selectYearModel($event.target.value)' [ngModel]="passingYear"
                  id="birth_year" class="form-control" placeholder="" list="validBirthYearList"
                  name="birthYear" required/>
           <label>Year of Birth</label>
           <datalist id="validBirthYearList" >
-            <option *ngFor="let validBirthYear of validBirthYearList" value="{{validBirthYear}}">
-            </option>
+            <option *ngFor="let validBirthYear of validBirthYearList" value="{{validBirthYear}}"></option>
           </datalist>
           <div class="error-messages" *ngIf='userForm.get("birth_year").value == undefined'>{{birthYearErrorMessage}}
           </div>

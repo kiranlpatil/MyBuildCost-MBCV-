@@ -29,7 +29,6 @@ export class CandidateSignUpComponent implements OnInit {
   private BODY_BACKGROUND: string;
   private passingYear: string;
   private validBirthYearList = new Array(0);
-  private validBirthYear = FormControl;
   private mainHeaderMenuHideShow: string;
   private year: any;
   private currentDate: any;
@@ -76,15 +75,13 @@ export class CandidateSignUpComponent implements OnInit {
     this.sharedService.setToasterVisiblity(this.isToasterVisible);
   }
 
-  selectYearModel(year: any) {
+  selectYearModel(year: any) { debugger
     this.birthYearErrorMessage = undefined;
     if (year === '') {
       this.userForm.controls['birth_year'].setValue(undefined);
     }
     this.passingYear = year;
-    console.log("passingYear", this.passingYear);
     this.model.birth_year = year;
-    console.log("birth_year", this.model.birth_year);
   }
 
   onSubmit() {

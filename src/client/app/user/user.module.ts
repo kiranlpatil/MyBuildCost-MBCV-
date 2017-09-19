@@ -21,7 +21,6 @@ import {RecruiterSignUpComponent} from "./recruiter-sign-up/recruiter-sign-up.co
 import {RecruiterSignUpService} from "./recruiter-sign-up/recruiter-sign-up.service";
 import {CompanyDetailsComponent} from "./company-details/company-details.component";
 import {CompanyDetailsService} from "./company-details/company-details.service";
-import {Ng2AutoCompleteModule} from "ng2-auto-complete";
 import {ProfilePictureComponent} from "./profile-picture/profile-picture.component";
 import {ChangePasswordComponent} from "./change-password/change-password.component";
 import {ChangePasswordService} from "./change-password/change-password.service";
