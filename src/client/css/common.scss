@@ -346,7 +346,7 @@ select,
 
   &:focus,
   &:active {
-    background: $btn-focus !important;
+    background: $btn-focus;
   }
 }
 
@@ -719,6 +719,43 @@ cn-control-messages {
   font-size: 11px;
 }
 
+.share-button-container {
+  width: 100%;
+  text-align: center;
+  height: auto;
+  margin: 30px auto;
+  display: inline-block;
+  padding: 0 20px;
+
+  .btn-share {
+    border-radius: 0;
+    padding: 30px 20px 0;
+    z-index: 1000;
+    margin: 0 4px;
+    background-color: transparent;
+    border: 1px solid transparent;
+
+    &:hover,
+    &:active,
+    &:focus {
+      background-color: transparent;
+      border: 1px solid transparent;
+    }
+  }
+
+  .btn-facebook {
+    background: url(../assets/c-next/card-view/sprite.png) no-repeat 0 -697px;
+  }
+
+  .btn-linkedin {
+    background: url(../assets/c-next/card-view/sprite.png) no-repeat -38px -697px;
+  }
+
+  .btn-twitter {
+    background: url(../assets/c-next/card-view/sprite.png) no-repeat -75px -697px;
+  }
+}
+
 // Media Queries
 @media only screen and (max-width: 1024px) {
   .logout-dropdown {
@@ -852,6 +889,56 @@ cn-control-messages {
     text-overflow: clip;
     white-space: normal;
     width: 100%;
+  }
+
+  .dashboard-view {
+    margin-bottom: 0;
+  }
+
+  .share-button-container {
+    .btn-share {
+      border-radius: 50%;
+      padding: 13px 15px 0;
+    }
+
+    .btn-facebook {
+      background-color: $facebook-share;
+      background-position: -6px -706px;
+      border: 1px solid $facebook-share;
+
+      &:hover,
+      &:active,
+      &:focus {
+        background-color: $facebook-share;
+        border: 1px solid $facebook-share;
+      }
+    }
+
+    .btn-twitter {
+      background-color: $twitter-share;
+      background-position: -81px -706px;
+      border: 1px solid $twitter-share;
+
+      &:hover,
+      &:active,
+      &:focus {
+        background-color: $twitter-share;
+        border: 1px solid $twitter-share;
+      }
+    }
+
+    .btn-linkedin {
+      background-color: $linkedin-share;
+      background-position: -44px -706px;
+      border: 1px solid $linkedin-share;
+
+      &:hover,
+      &:active,
+      &:focus {
+        background-color: $linkedin-share;
+        border: 1px solid $linkedin-share;
+      }
+    }
   }
 }
 
@@ -1155,64 +1242,3 @@ select:focus {
   }
 }
 
-.btn-facebook {
-  background: url(../assets/c-next/card-view/sprite.png) no-repeat 0px -697px;
-  /*position: fixed;
-  right: 24px;
-  top: 88px;*/
-  background-color: $facebook-share;
-  border: 1px solid $facebook-share;
-  border-radius: 0;
-  padding: 22px 20px 8px;
-  z-index: 1000;
-  margin: 0 4px;
-
-  &:hover, &:active, &:focus {
-    background-color: $facebook-share;
-    border: 1px solid $facebook-share;
-  }
-}
-
-.btn-linkedin {
-  background: url(../assets/c-next/card-view/sprite.png) no-repeat -41px -697px;
-  /*position: fixed;
-  right: 24px;
-  top: 137px;*/
-  background-color: $linkedin-share;
-  border: 1px solid $linkedin-share;
-  border-radius: 0;
-  padding: 22px 20px 8px;
-  z-index: 1000;
-  margin: 0 4px;
-
-  &:hover, &:active, &:focus {
-    background-color: $linkedin-share;
-    border: 1px solid $linkedin-share;
-  }
-}
-
-.btn-twitter {
-  background: url(../assets/c-next/card-view/sprite.png) no-repeat -79px -697px;
-  /*position: fixed;
-  right: 24px;
-  top: 185px;*/
-  background-color: $twitter-share;
-  border: 1px solid $twitter-share;
-  border-radius: 0;
-  padding: 22px 20px 8px;
-  z-index: 1000;
-  margin: 0 4px;
-
-  &:hover, &:active, &:focus {
-    background-color: $twitter-share;
-    border: 1px solid $twitter-share;
-  }
-}
-
-.share-button-container {
-  width: 100%;
-  text-align: center;
-  height: auto;
-  margin: 30px auto;
-  display: inline-block;
-}
