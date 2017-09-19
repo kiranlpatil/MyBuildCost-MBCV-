@@ -1,8 +1,8 @@
 export class AppSettings {
-  public static IP = 'http://localhost:8080';
+ // public static IP = 'http://localhost:8080';
   // public static IP = 'http://ee802b7f.ngrok.io';
   //public static IP = 'http://10.192.33.77:8080';
-  //public static IP = 'http://34.208.115.60:3000';
+  public static IP = 'http://34.208.115.60:3000';
   // public static IP = 'app.jobmosis.com';
   // public static IP = '';
 
@@ -207,6 +207,7 @@ export class Messages {
   public static KEYSKILLS_PLACEHOLDER_MOBILE = 'E.g. for IT:- Java, C++';
   public static FAQ_CONTACT_NUMBER = '+91-8669601612';
   public static FAQ_MESSAGE = 'Have any questions?';
+  public static GUIDE_MESSAGE_FOR_NEW_VIEWER = 'Thank you for showing interest, we will need your basic information to create your value portrait on JobMosis. Go ahead, fill the form and get your value portrait!'
 }
 
 export class NavigationRoutes {

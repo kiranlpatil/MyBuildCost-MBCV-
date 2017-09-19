@@ -56,7 +56,7 @@ export class ValuePortraitContainerComponent implements OnInit,OnDestroy {
   }
 
   routeToSignUpPage() {
-    this._router.navigate(['/applicant-signup']);
+    this._router.navigate(['/applicant-signup','new_user']);
   }
-  
+
 }
