@@ -1216,3 +1216,17 @@ select:focus {
   margin: 30px auto;
   display: inline-block;
 }
+
+.note-modal {
+  .modal-dialog {
+    min-width: 800px;
+    top: 10%;
+  }
+  .modal-body {
+    padding: 20px;
+    p {
+      font-size: 14px;
+      text-align: left;
+    }
+  }
+}
