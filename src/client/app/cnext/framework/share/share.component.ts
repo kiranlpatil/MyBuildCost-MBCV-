@@ -52,11 +52,11 @@ export class ShareComponent implements OnInit {
 
   bootTabAction(socialActionValue:string) {
     if (socialActionValue === 'facebook') {
-      window.open(unescape(encodeURIComponent(this.repoUrlFacebook)), 'popupwindow', 'width=800,height=500,left=200,top=5,scrollbars,toolbar=0,resizable');
+      window.open(this.repoUrlFacebook, 'popupwindow', 'width=800,height=500,left=200,top=5,scrollbars,toolbar=0,resizable');
     } else if (socialActionValue === 'linkedin') {
-      window.open(unescape(encodeURIComponent(this.repoUrlLinkedin)), 'popupwindow', 'width=800,height=500,left=200,top=5,scrollbars,toolbar=0,resizable');
+      window.open(this.repoUrlLinkedin, 'popupwindow', 'width=800,height=500,left=200,top=5,scrollbars,toolbar=0,resizable');
     } else if (socialActionValue === 'twitter') {
-      window.open(unescape(encodeURIComponent(this.repoUrlTwitter)), 'popupwindow', 'width=800,height=500,left=200,top=5,scrollbars,toolbar=0,resizable');
+      window.open(this.repoUrlTwitter, 'popupwindow', 'width=800,height=500,left=200,top=5,scrollbars,toolbar=0,resizable');
     }
   }
 }
