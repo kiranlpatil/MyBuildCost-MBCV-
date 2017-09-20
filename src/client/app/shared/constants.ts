@@ -293,6 +293,7 @@ export class ValueConstant {
   public static BLOCKED_CANDIDATE: string = 'blocked';
   public static MATCHED_CANDIDATE: string = 'matchedList';
   public static VALUE_FOR_CANDIDATES_PERCENT_MATCHING_LOWER_BOUND = 10;
+  public static JOB__EXPIRIY_PERIOD= 2592000000;
 }
 
 
