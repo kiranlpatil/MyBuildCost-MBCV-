@@ -13,8 +13,10 @@
           <cn-profile-picture (onPictureUpload)="onPictureUpload($event)"></cn-profile-picture>
         </div>
         <div *ngIf="role==='candidate'" class="user-name">
-          <span class="profile-name-first">{{candidate.basicInformation.first_name}}&nbsp;</span><span
-          class="profile-name-last">{{candidate.basicInformation.last_name}}</span>
+         <!-- <span class="profile-name-first">{{candidate.basicInformation.first_name}}&nbsp;</span> -->
+          <span class="profile-name-first">{{model.first_name}}&nbsp;</span>
+          <!--<span class="profile-name-last">{{candidate.basicInformation.last_name}}</span>-->
+          <span class="profile-name-last">{{model.last_name}}</span>
         </div>
       </div>
     </div>
@@ -78,11 +80,11 @@
           <button type="button" class="close" (click)="showHideEmailModal()">
             <span aria-hidden="true">&times;</span>
           </button>
-          <h5>{{getHeadings().CHANGE_EMAIL_HEADING}}</h5>
+          <h5 class="modal-title">{{getHeadings().CHANGE_EMAIL_HEADING}}</h5>
         </div>
         <div class="modal-body">
+          <p>{{getMessages().MSG_RESET_EMAIL_ADDRESS}}</p>
           <div class="col-sm-12">
-            <p>{{getMessages().MSG_RESET_EMAIL_ADDRESS}}</p>
             <cn-change-email></cn-change-email>
           </div>
         </div>
@@ -99,11 +101,11 @@
           <button type="button" class="close" (click)="showHideMobileModal()">
             <span aria-hidden="true">&times;</span>
           </button>
-          <h5>{{getHeadings().CHANGE_MOBILE_NUMBER_HEADING}}</h5>
+          <h5 class="modal-title">{{getHeadings().CHANGE_MOBILE_NUMBER_HEADING}}</h5>
         </div>
         <div class="modal-body">
+          <p>{{getMessages().MSG_RESET_MOBILE_NUMBER}}</p>
           <div class="col-sm-12">
-            <p>{{getMessages().MSG_RESET_MOBILE_NUMBER}}</p>
             <cn-change-mobile></cn-change-mobile>
           </div>
         </div>
