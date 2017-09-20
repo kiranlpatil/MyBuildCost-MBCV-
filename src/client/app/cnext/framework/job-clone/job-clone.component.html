@@ -15,10 +15,10 @@
                 <input class="form-control" type="text" maxlength="40" [(ngModel)]="selectedJobTitle"/>
                 <p class="error-messages" *ngIf="isShowEmptyTitleError">Job Title can not be Empty</p>
               </div>
-              <div class="button-group">
-                <button (click)="onClone()" class="btn btn-primary">{{getButtonLabel().CLONE_BUTTON}}</button>
-                <button (click)="onCancel()" class="btn btn-default">{{getButtonLabel().CANCEL_BUTTON}}</button>
-              </div>
+            </div>
+          <div class="button-group">
+            <button (click)="onClone()" class="btn btn-primary">{{getButtonLabel().CLONE_BUTTON}}</button>
+            <button (click)="onCancel()" class="btn btn-default">{{getButtonLabel().CANCEL_BUTTON}}</button>
             </div>
         </div>
       </div>
