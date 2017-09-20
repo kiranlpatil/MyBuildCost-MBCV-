@@ -98,20 +98,21 @@
   }
 
   .dropdown-menu {
-    right: 0;
     left: inherit;
+    padding: 0;
+    right: 0;
 
     li {
-      float:none;
+      float: none;
     }
 
     li > a {
-      padding: 5px 15px 0;
+      padding: 5px 15px;
 
       &:active,
       &:hover,
       &:focus {
-        color: $theme-color;
+        background: $contact-info;
       }
     }
   }
