@@ -157,6 +157,8 @@ import {LandingPageComponent} from "./framework/landing-page/landing-page.compon
 import {ShareComponent} from "./cnext/framework/share/share.component";
 import {ShareService} from "./cnext/framework/share/share.service";
 import {SharedService} from "./shared/services/shared-service";
+import {ShareContainerComponent} from "./cnext/framework/share-container/share-container.component";
+import {ShareContainerService} from "./cnext/framework/share-container/share-container.service";
 //C-NEXT IMPORTS
 
 
@@ -272,7 +274,8 @@ import {SharedService} from "./shared/services/shared-service";
     ValueSortFilterPipe,
     CandidateSearchComponent,
     ShareComponent,
-    JobCloneComponent
+    JobCloneComponent,
+    ShareContainerComponent
   ],
   providers: [
     {
@@ -338,7 +341,8 @@ import {SharedService} from "./shared/services/shared-service";
     CandidateSearchService,
     SharedService,
     ShareService,
-    Title
+    Title,
+    ShareContainerService
   ],
   bootstrap: [AppComponent]
 })

@@ -1,10 +1,10 @@
-import { Component, EventEmitter, Input, OnChanges, OnDestroy, Output } from '@angular/core';
-import { QCardsortBy } from '../../model/q-cardview-sortby';
-import { Router } from '@angular/router';
-import { RecruiterHeaderDetails } from '../../model/recuirterheaderdetails';
-import { ReferenceService } from '../../model/newClass';
-import { RecruiterDashboard } from '../../model/recruiter-dashboard';
-import { Tooltip } from '../../../../shared/constants';
+import {Component, EventEmitter, Input, OnChanges, OnDestroy, Output} from "@angular/core";
+import {QCardsortBy} from "../../model/q-cardview-sortby";
+import {Router} from "@angular/router";
+import {RecruiterHeaderDetails} from "../../model/recuirterheaderdetails";
+import {ReferenceService} from "../../model/newClass";
+import {RecruiterDashboard} from "../../model/recruiter-dashboard";
+import {Button, Headings, ImagePath, Label, Messages, Tooltip} from "../../../../shared/constants";
 
 
 @Component({
@@ -19,41 +19,23 @@ export class JobListerComponent implements  OnDestroy, OnChanges {
   @Input() headerInfoForJob: RecruiterHeaderDetails;
   @Input() screenType:string;
   @Input() recruiter: RecruiterDashboard;
-  @Output() jobEventEmitter: EventEmitter<any> = new EventEmitter();
+  @Output() jobPostEventEmitter: EventEmitter<string> = new EventEmitter();
+  @Output() jobListCloneSuccessEmitter: EventEmitter<boolean> = new EventEmitter();
   //public jobList:JobPosterModel[] = new Array(0);
   //public jobListToCheck:JobPosterModel[] = new Array(0);
   private selectedJobId:string;
   private selectedJobTitle:string;
-  private clone:boolean;
+  private isCloneButtonClicked:boolean;
   private toggle: boolean = false;
   private isJobeditted: boolean = false;
   private initialMessageToDisplay: string= Tooltip.RECRUITER_ENTRY_MESSAGE;
   private dashboardWelcomeMessage: string= Tooltip.RECRUITER_DASHBOARD_MESSAGE;
   private qCardModel: QCardsortBy = new QCardsortBy();
-  // private candidatesInList : CandidateNumberDifferentList= new CandidateNumberDifferentList();
-  //private candidatesInLists : RecruiterDashboard= new RecruiterDashboard();
   constructor(private _router: Router, public refrence: ReferenceService) {
     this.qCardModel.name = 'Date';
   }
 
   ngOnChanges(changes: any) {
-    /*if (changes.jobListInput.currentValue != undefined && changes.jobListInput.currentValue.length > 0) {
-     this.jobListInput = changes.jobListInput.currentValue;
-     //this.candidatesInLists= new CandidateNumberDifferentList();
-     this.candidatesInLists= new RecruiterDashboard();
-     for (let i = 0; i < this.jobListInput.length; i++) {
-     for (let list of this.jobListInput[i].candidate_list) {
-     if (list.name == ValueConstant.CART_LISTED_CANDIDATE) {
-     this.jobListInput[i].candidateInCart = list.ids.length;
-     //this.candidatesInLists.totalNumberOfCandidateInCart+= list.ids.length;
-     }
-     if (list.name == ValueConstant.APPLIED_CANDIDATE) {
-     //this.candidatesInLists.totalNumberOfCandidatesApplied+= list.ids.length;
-     }
-     }
-     }
-     this.candidateInCartService.change(this.candidatesInLists);
-     }*/
   }
   ngOnDestroy() {
     this.refrence.data = this.headerInfoForJob;
@@ -63,27 +45,28 @@ export class JobListerComponent implements  OnDestroy, OnChanges {
     this.toggleFormat();
   }
 
-  getIdToCloneJob(item:any) {
+  raiseCloneEvent(item:any) {
     this.selectedJobId=item._id;
     this.selectedJobTitle=item.jobTitle;
-    this.clone=!this.clone;
+    this.isCloneButtonClicked=!this.isCloneButtonClicked;
   }
   onJobClicked(item: any,isJobSubmit:boolean) {
     if (isJobSubmit) {
       this._router.navigate(['jobdashboard/', item]);
     } else {
-      this.jobEventEmitter.emit(item);
+      this.jobPostEventEmitter.emit(item);
     }
   }
 
   onJobEdit(item: any,isJobSubmit:boolean) {
     if (isJobSubmit) {
-      this.jobEventEmitter.emit(item);
+      this.jobPostEventEmitter.emit(item);
     }
   }
 
-  jobCloned(event:any) {
-    this.jobEventEmitter.emit(event);
+  onJobCloned(event:any) {
+    this.jobPostEventEmitter.emit(event);
+    this.jobListCloneSuccessEmitter.emit();
   }
   get format() {
     return this.toggle ? this.qCardModel.name : 'Date';
@@ -91,6 +74,26 @@ export class JobListerComponent implements  OnDestroy, OnChanges {
 
   toggleFormat() {
     this.toggle = true;
+  }
+
+  getMessage() {
+    return Messages;
+  }
+
+  getHeading() {
+    return Headings;
+  }
+
+  getLabel() {
+    return Label;
+  }
+
+  getButtonLabel() {
+    return Button;
+  }
+
+  getImagePath() {
+    return ImagePath;
   }
 
 }
