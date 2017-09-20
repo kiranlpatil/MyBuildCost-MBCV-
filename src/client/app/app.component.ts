@@ -36,7 +36,7 @@ export class AppComponent implements OnInit {
     this.appTheme = AppSettings.INITIAL_THEM;
 
 
-    if (window.location.href.indexOf('?access_token=') === -1) {
+    if (window.location.href.indexOf('/share/') === -1) {
       if (parseInt(LocalStorageService.getLocalValue(LocalStorage.IS_LOGGED_IN)) === 1) {
         if (LocalStorageService.getLocalValue(LocalStorage.ISADMIN) === 'true') {
           this._router.navigate([NavigationRoutes.APP_ADMIN_DASHBOARD]);
