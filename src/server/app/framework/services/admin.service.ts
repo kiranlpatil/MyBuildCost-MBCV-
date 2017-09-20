@@ -24,7 +24,6 @@ import CandidateClassModel = require('../dataaccess/model/candidate-class.model'
 let usestracking = require('uses-tracking');
 
 class AdminService {
-  APP_NAME:string;
   company_name:string;
   private userRepository:UserRepository;
   private industryRepositiry:IndustryRepository;
@@ -36,7 +35,6 @@ class AdminService {
     this.userRepository = new UserRepository();
     this.industryRepositiry = new IndustryRepository();
     this.recruiterRepository = new RecruiterRepository();
-    this.APP_NAME = ProjectAsset.APP_NAME;
     let obj:any = new usestracking.MyController();
     this.usesTrackingController = obj._controller;
   }
