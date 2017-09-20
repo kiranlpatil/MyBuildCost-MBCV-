@@ -13,8 +13,10 @@
           <cn-profile-picture (onPictureUpload)="onPictureUpload($event)"></cn-profile-picture>
         </div>
         <div *ngIf="role==='candidate'" class="user-name">
-          <span class="profile-name-first">{{candidate.basicInformation.first_name}}&nbsp;</span><span
-          class="profile-name-last">{{candidate.basicInformation.last_name}}</span>
+         <!-- <span class="profile-name-first">{{candidate.basicInformation.first_name}}&nbsp;</span> -->
+          <span class="profile-name-first">{{model.first_name}}&nbsp;</span>
+          <!--<span class="profile-name-last">{{candidate.basicInformation.last_name}}</span>-->
+          <span class="profile-name-last">{{model.last_name}}</span>
         </div>
       </div>
     </div>

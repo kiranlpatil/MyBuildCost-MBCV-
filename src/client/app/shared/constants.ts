@@ -26,6 +26,7 @@ export class Messages {
   public static MSG_SUCCESS_REGISTRATION: string = 'Kindly verify your account.';
   public static MSG_SUCCESS_CHANGE_MOBILE_NUMBER: string = 'Mobile number updated successfully.Kindly sign in';
   public static MSG_SUCCESS_RESEND_VERIFICATION_CODE: string = 'New OTP (One Time Password) has been sent to your registered mobile number';
+  public static MSG_SUCCESS_RESEND_VERIFICATION_CODE_RESEND_OTP: string = 'New OTP (One Time Password) has been sent to your new mobile number';
   //public static MSG_SUCCESS_MAIL_VERIFICATION: string = 'Verification e-mail sent successfully to your e-mail account. Kindly proceed by clicking on the link pProvided in your e-mail';
   public static MSG_SUCCESS_MAIL_VERIFICATION: string = 'Verification e-mail sent successfully to your e-mail account.';
   public static MSG_SUCCESS_NEWREGISTRATION: string = 'Registration successful. Mobile number verified. Kindly sign in.';
@@ -158,7 +159,7 @@ export class Messages {
     'Vivamus auctor quam a lobortis tincidunt. Aliquam faucibus nulla lorem, sed imperdiet justo bibendum ac. In' +
     'semper rutrum metus fringilla mollis.';
   public static MSG_RESET_MOBILE_NUMBER = 'Enter your new mobile number and we will send you a verification code on mobile' +
-    'number you have entered.';
+    ' number you have entered.';
   public static MSG_RESET_EMAIL_ADDRESS = 'Enter your new account email address and we will send you a link to reset your email' +
     'address.';
   public static MSG_EMAIL_ACTIVATION = 'Your email has been activated. You may start using your account with new email address' +

@@ -119,7 +119,7 @@ export class CandidateSignUpVerificationComponent {
 
     var message = new Message();
     message.isError = false;
-    message.custom_message = Messages.MSG_SUCCESS_RESEND_VERIFICATION_CODE;
+    message.custom_message = Messages.MSG_SUCCESS_RESEND_VERIFICATION_CODE_RESEND_OTP;
     this.messageService.message(message);
   }
 
