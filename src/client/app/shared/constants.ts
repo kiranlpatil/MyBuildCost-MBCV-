@@ -262,6 +262,7 @@ export class LocalStorage {
   public static IS_CANDIDATE = 'is_candidate';
   public static IS_CANDIDATE_FILLED = 'is_candidate_filled';
   public static MOBILE_NUMBER = 'mobile_number';
+  public static VERIFIED_MOBILE_NUMBER = 'verified_mobile_number';
   public static COMPANY_NAME = 'company_name';
   public static COMPANY_SIZE = 'company_size';
   public static FIRST_NAME = 'first_name';

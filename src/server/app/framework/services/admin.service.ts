@@ -78,18 +78,15 @@ class AdminService {
 
               value++;
               if (!item[i].isAdmin) {
-                for (let j = 0; j < result[0].postedJobs.length; j++) {
-                  this.industryRepositiry.retrieve({'code': result[0].postedJobs[j].industry.code}, (error:any, industries:IndustryModel[]) => {
-                    if (error) {
-                      callback(error, null);
-                    } else {
-                      this.getRecruiterDetails(result, industries, item, i, recruiters);
+                item[i].data = result[0]
+                recruiters.push(item[i]);
                     }
-                  });
+              if (value && item.length === value) {
+                users.candidate = candidates;
+                users.recruiter = recruiters;
+                callback(null, users);
                 }
               }
-              this.extractedForValueIncrement(value, item, users, candidates, recruiters, callback);
-            }
           });
         }
       }
@@ -182,21 +179,13 @@ class AdminService {
 
   generateRecruiterDetailFile(result:any, callback:(err:any, res:any) => void) {
     if (result.recruiter && result.recruiter.length > 0) {
-      let fields = ['data.company_name', 'mobile_number',
-        'email', 'isActivated', 'data.postedJobs.isJobPosted', 'data.postedJobs.jobTitle', 'data.postedJobs.hiringManager', 'data.postedJobs.department',
-        'data.postedJobs.education', 'data.postedJobs.experienceMinValue', 'data.postedJobs.experienceMaxValue', 'data.postedJobs.salaryMinValue',
-        'data.postedJobs.salaryMaxValue', 'data.postedJobs.joiningPeriod','data.jobCountModel.numberOfJobposted','data.postedJobs.postingDate','data.postedJobs.expiringDate', 'data.postedJobs.keySkills','data.postedJobs.additionalKeySkills',
-        'data.postedJobs.industry.name', 'data.postedJobs.industry.roles.name', 'data.postedJobs.industry.roles.default_complexities.name',
-        'data.postedJobs.industry.roles.default_complexities.complexities.name', 'data.postedJobs.industry.roles.default_complexities.complexities.scenarios.name',
-        'data.postedJobs.capability.name', 'data.postedJobs.capability.complexities.name', 'data.postedJobs.capability.complexities.answer'];
-      let fieldNames = ['Company Name', 'Mobile Number', 'Email', 'Is Activated', 'Job Posted', 'Job Title', 'Hiring Manager',
-        'Department', 'Education', 'Minimum Experience', 'Maximum Experience', 'Minimum Salary', 'Maximum Salary', 'Joining Period','Number Of Job Posted','Posting Date','Expiring Date', 'Key Skills','Aditional Key Skills', 'Industry',
-        'Area of work', 'Default Complexity', 'Scenarios', 'Complexities', 'Capabilities', 'Complexity', 'SCENAIO'];
+      let fields = ['data.company_name', 'data.company_size', 'data.isRecruitingForself', 'data.jobCountModel.numberOfJobposted', 'mobile_number', 'email', 'isActivated', 'data.postedJobs.isJobPosted', 'data.postedJobs.jobTitle', 'data.postedJobs.hiringManager', 'data.postedJobs.department', 'data.postedJobs.education', 'data.postedJobs.experienceMinValue', 'data.postedJobs.experienceMaxValue', 'data.postedJobs.salaryMinValue', 'data.postedJobs.salaryMaxValue', 'data.postedJobs.joiningPeriod', 'data.postedJobs.postingDate', 'data.postedJobs.expiringDate','data.postedJobs.proficiencies','data.postedJobs.industry.name','data.postedJobs.industry.roles.name','data.postedJobs.industry.roles.postedJobs.default_complexities.name','data.postedJobs.industry.roles.default_complexities.complexities.name','data.postedJobs.industry.roles.default_complexities.complexities.scenarios.name'];
+      let fieldNames = ['Company Name', 'company size', 'Recruiting For Self', 'Number of Job Posted', 'Mobile Number', 'Email', 'Is Activated', 'Job Posted', 'Job Title', 'Hiring Manager', 'Department', 'Education', 'Minimum Experience', 'Maximum Experience', 'Minimum Salary', 'Maximum Salary', 'Joining Period', 'Job Posting Date', 'Job Expiry Date','Key Skills','Industry','Area of work','Default Complexity','Scenarios','Complexities'];
       let csv = json2csv({
         data: result.recruiter,
         fields: fields,
         fieldNames: fieldNames,
-        unwindPath: ['data','data.postedJobs','data.postedJobs.keySkills','data.postedJobs.additionalKeySkills', 'data.postedJobs.industry.roles', 'data.postedJobs.industry.roles.default_complexities', 'data.postedJobs.industry.roles.default_complexities.complexities', 'data.postedJobs.industry.roles.default_complexities.complexities.scenarios','data.postedJobs.capability','data.postedJobs.capability.complexities']
+        unwindPath: ['data.postedJobs','data.postedJobs.proficiencies','data.postedJobs.industry.roles','data.postedJobs.industry.roles.default_complexities','data.postedJobs.industry.roles.default_complexities.complexities','data.postedJobs.industry.roles.default_complexities.complexities.scenarios','data.postedJobs.industry.roles.capabilities','data.postedJobs.industry.roles.capabilities.complexities','data.postedJobs.industry.roles.capabilities.complexities.scenarios']
       });
       //fs.writeFile('./src/server/public/recruiter.csv', csv, function (err: any) {
       fs.writeFile('/home/bitnami/apps/jobmosis-staging/c-next/dist/prod/server/public/recruiter.csv', csv, function (err: any) {
