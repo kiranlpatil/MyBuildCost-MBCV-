@@ -218,10 +218,7 @@ export class Messages {
       'parties due to false / incorrect information provided in the individual and job profiles. We believe that ' +
       'individual acts of trust and faith add up to make the world a better place. We appeal to each user to uphold ' +
       'the sanctity of the JobMosis platform by providing truthful information about their profiles.';
-  public static GUIDE_MESSAGE_FOR_NEW_VIEWER = 'Thank you for showing interest, ' +
-      'we will need your basic information to create your value portrait on JobMosis. Go ahead, ' +
-      'fill the form and get your value portrait!';
-
+  public static GUIDE_MESSAGE_FOR_NEW_VIEWER = 'Thank you for showing interest';
 }
 export class AdminPanel {
   public static PUBLIC_PROFILE='Profile is public';
@@ -566,6 +563,14 @@ export class Label {
   public static VALUE_PORTRAIT_TITLE: string = 'Experience is what it\'s all about';
   public static CORE_CAPABILITIES_TITLE: string = 'Core Capabilities';
   public static NOTE_OF_TRUST: string = 'Note of Trust';
+  public static JOB_TITLE_LABEL: string = 'Job Title';
+  public static CURRENT_LOCATION: string = 'Current Location';
+  public static PROFILE_STATUS: string = 'Profile Status';
+  public static ACTIVATION_STATUS: string = 'Activation Status';
+  public static NAME: string = 'Name';
+  public static ACTIONS: string = 'Actions';
+  public static TOTAL_POSTED_JOB: string = 'Total Posted Jobs';
+  public static COMPANY_NAME: string = 'Company Name (Size)';
 }
 
 export class Button {
