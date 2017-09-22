@@ -60,8 +60,6 @@ export class CandidateSearchComponent implements OnChanges {
         );
     } else {
       this.candidateDataList = new Array(0);
-
-      //this.listOfJobs = new Array(0);
     }
   }
 
@@ -69,7 +67,6 @@ export class CandidateSearchComponent implements OnChanges {
     this.searchValue = item.first_name + " " + item.last_name;
     this.isCandidateFound = true;
     this.getJobProfiles(item.id);
-    this.getCandidateProfile(item.id)
   }
 
   getJobProfiles(candidateId:string) {
@@ -78,7 +75,8 @@ export class CandidateSearchComponent implements OnChanges {
         (res:any) => {
           this.checkButttons = false;
           this.checkButttons = true;
-          this.listOfJobs = res.jobData;
+          this.listOfJobs = res.data.jobData;
+          this.OnCandidateDataSuccess(res.data.candidateDetails);
           this.showModalStyle = false;
           this.candidateDataList = new Array(0);
         },
@@ -86,23 +84,12 @@ export class CandidateSearchComponent implements OnChanges {
       );
   }
 
-  getCandidateProfile(candidateId:string) {
-    this.profileCreatorService.getCandidateDetailsOfParticularId(candidateId)
-      .subscribe(
-        candidateData => this.OnCandidateDataSuccess(candidateData),
-        error => this.errorService.onError(error));
-  }
-
   OnCandidateDataSuccess(candidateData:any) {
-    debugger;
-    this.candidate = candidateData.data;
-    this.candidateDetails = candidateData.metadata;
+    debugger
+    this.candidate = candidateData;
+    this.candidateDetails = <CandidateDetail>candidateData.userId;
     this.candidateId = this.candidate._id;
     this.userId = this.candidateDetails._id;
-    //this.getSecondaryData();
-    /*if(this.candidate == false) {
-
-     }*/
   }
 
   viewProfile(nav:string) {
@@ -125,11 +112,6 @@ export class CandidateSearchComponent implements OnChanges {
   }
 
   showJobCompareView(data:any) {
-    /*var data = {
-     'jobId': jobId,
-     'inCartStatus': this.inCartListedStatusForSearchView,
-     'inRejectedStatus': this.inRejectListedStatusForSearchView
-     };*/
     this.jobId = data.jobId;
     this.inCartListedStatusForSearchView = data.inCartStatus;
     this.inRejectListedStatusForSearchView = data.inRejectedStatus;
@@ -152,13 +134,6 @@ export class CandidateSearchComponent implements OnChanges {
     this.showModalStyle = !this.showModalStyle;
   }
 
-  /* workFlowAction(actionData:any) {
-   /!* if(ValueConstant.CART_LISTED_CANDIDATE == actionData.name ) {
-     this.makeActionOnCard(actionData);
-   }*!/
-    this.makeActionOnCard(actionData);
-   }*/
-
   workFlowAction(actionData:any) {
     this.qCardViewService.updateCandidateLists(actionData.jobId, this.candidateId, actionData.name, 'add').subscribe(
       data => {
@@ -168,7 +143,6 @@ export class CandidateSearchComponent implements OnChanges {
   }
 
   actionOnCard(value:string) {
-    //var data = {'name': value, 'jobId': jobId};
     if (value == ValueConstant.CART_LISTED_CANDIDATE) {
       var data = {'name': 'cartListed', 'jobId': this.jobId};
       this.workFlowAction(data);

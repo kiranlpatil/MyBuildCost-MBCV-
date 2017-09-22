@@ -4,11 +4,11 @@ import ProjectAsset = require('../../shared/projectasset');
 import RecruiterRepository = require('../../dataaccess/repository/recruiter.repository');
 import CandidateModel = require('../../dataaccess/model/candidate.model');
 import JobProfileService = require('../../services/jobprofile.service');
-import { Actions, ConstVariables } from '../../shared/sharedconstants';
-import { ProfileComparisonDataModel, SkillStatus } from '../../dataaccess/model/profile-comparison-data.model';
-import { CapabilityMatrixModel } from '../../dataaccess/model/capability-matrix.model';
-import { ProfileComparisonModel } from '../../dataaccess/model/profile-comparison.model';
-import { ProfileComparisonJobModel } from '../../dataaccess/model/profile-comparison-job.model';
+import {Actions, ConstVariables} from "../../shared/sharedconstants";
+import {ProfileComparisonDataModel, SkillStatus} from "../../dataaccess/model/profile-comparison-data.model";
+import {CapabilityMatrixModel} from "../../dataaccess/model/capability-matrix.model";
+import {ProfileComparisonModel} from "../../dataaccess/model/profile-comparison.model";
+import {ProfileComparisonJobModel} from "../../dataaccess/model/profile-comparison-job.model";
 import MatchViewModel = require('../../dataaccess/model/match-view.model');
 import Match = require('../../dataaccess/model/match-enum');
 import IndustryRepository = require('../../dataaccess/repository/industry.repository');
@@ -664,6 +664,64 @@ class SearchService {
     newCandidate.candidateSkillStatus = skillStatusData;
     return newCandidate;
   }
+
+  getCandidateVisibilityAgainstRecruiter(candidateDetails:CandidateModel, jobProfiles:JobProfileModel[]) {
+    let isGotIt = false;
+    for (let job of jobProfiles) {
+      for (let item of job.candidate_list) {
+        if (item.name === 'cartListed') {
+          var x = new String(candidateDetails._id);
+          if (item.ids.indexOf(x) !== -1) {
+            //console.log('-------in got it------');
+            isGotIt = true;
+            break;
+          }
+        }
+      }
+      if (isGotIt) {
+        break;
+      }
+    }
+
+
+    if (!isGotIt) {
+      candidateDetails.userId.mobile_number = this.mobileNumberHider(candidateDetails.userId.mobile_number);
+      candidateDetails.userId.email = this.emailValueHider(candidateDetails.userId.email);
+      candidateDetails.academics = [];
+      candidateDetails.employmentHistory = [];
+      candidateDetails.areaOfWork = [];
+      candidateDetails.proficiencies = [];
+      candidateDetails.awards = [];
+      candidateDetails.proficiencies = [];
+      candidateDetails.professionalDetails.education = this.valueHide(candidateDetails.professionalDetails.education)
+      candidateDetails.professionalDetails.experience = this.valueHide(candidateDetails.professionalDetails.experience)
+      candidateDetails.professionalDetails.industryExposure = this.valueHide(candidateDetails.professionalDetails.industryExposure);
+      candidateDetails.professionalDetails.currentSalary = this.valueHide(candidateDetails.professionalDetails.currentSalary);
+      candidateDetails.professionalDetails.noticePeriod = this.valueHide(candidateDetails.professionalDetails.noticePeriod);
+      candidateDetails.professionalDetails.relocate = this.valueHide(candidateDetails.professionalDetails.relocate);
+    }
+    return candidateDetails
+  }
+
+  valueHide(value:string) {
+    var result = new Array(value.length).join('X');
+    return result;
+  }
+
+  emailValueHider(_email:string) {
+    if (_email.indexOf('@') !== -1) {
+      var hideEmail = new Array(_email.split('@')[0].length).join('X');
+      return _email[0].toUpperCase() + hideEmail + '@' + _email.split('@')[1];
+    } else {
+      return _email;
+    }
+  }
+
+  mobileNumberHider(_mobileNumber:number) {
+    var hideMobileNumber = _mobileNumber.toString()[0] + _mobileNumber.toString().substr(_mobileNumber.toLocaleString().length - 4);
+    return Number(hideMobileNumber);
+  }
+
 }
 
 Object.seal(SearchService);

@@ -1,4 +1,4 @@
-import * as express from 'express';
+import * as express from "express";
 import JobProfileModel = require('../../dataaccess/model/jobprofile.model');
 import SearchService = require('../services/search.service');
 import CandidateService = require('../../services/candidate.service');
@@ -47,6 +47,7 @@ export class SearchController {
     let candidateSearchService = new CandidateSearchService();
     let candidateService = new CandidateService();
     let candidateId = req.params.candidateId;
+    let searchService = new SearchService();
     let recruiterId = req.params.recruiterId;
     candidateService.findById(candidateId, (error:Error, candiRes:any) => {
       if (error) {
@@ -56,19 +57,22 @@ export class SearchController {
           if (error) {
             res.status(304).send(error);
           } else {
-            let candidateIdarray:string[] = new Array(0);
-            candidateIdarray.push(candidateId);
-            candidateSearchService.getCandidateInfoById(candidateIdarray, (error:Error, candidateInfo:any) => {
+            candidateSearchService.getCandidateInfoById([candidateId], (error, candidateDetails) => {
               if (error) {
                 res.status(304).send(error);
-              } else {
+              }
+              else {
+                let _candidateDetails = searchService.getCandidateVisibilityAgainstRecruiter(candidateDetails[0], result);
                 let data: any;
-                if (candidateInfo[0].isVisible === true) {
-                  data = {'jobData': result};
+                if (candidateDetails[0].isVisible === true) {
+                  data = {'jobData': result, 'candidateDetails': _candidateDetails};
                 } else {
-                  data = {'jobData': []};
+                  data = {'jobData': [], 'candidateDetails': _candidateDetails};
                 }
-                res.status(200).send(data);
+                res.send({
+                  'status': 'success',
+                  'data': data
+                });
               }
             });
           }

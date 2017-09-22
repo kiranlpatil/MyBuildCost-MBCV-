@@ -9,7 +9,8 @@
 
   <div class="details clearfix">
     <label>Mobile Number</label>
-    <span>+91 {{candidateDetails.mobile_number}}</span>
+    <span *ngIf="viewType !== 'OnSearchView'">+91 {{candidateDetails.mobile_number}}</span>
+    <span *ngIf="viewType === 'OnSearchView'">+91 {{candidateDetails.mobile_number.toString[0]+'********'+candidateDetails.mobile_number.toString[1]}}</span>
     <label>Email Id</label>
     <span>{{candidateDetails.email}}</span>
     <label>Area of Work</label>

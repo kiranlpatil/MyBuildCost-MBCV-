@@ -19,8 +19,7 @@ class CandidateSearchService {
     let data = {
       '_id': recruiterId,
       'postedJobs.industry.name': candidate.industry.name,
-      'postedJobs.proficiencies': {$in: candidate.proficiencies},
-      'postedJobs.expiringDate': {$gte: currentDate}
+      'postedJobs.proficiencies': {$in: candidate.proficiencies}
     };
     let excluded_fields = {
       'postedJobs.industry.roles': 0,

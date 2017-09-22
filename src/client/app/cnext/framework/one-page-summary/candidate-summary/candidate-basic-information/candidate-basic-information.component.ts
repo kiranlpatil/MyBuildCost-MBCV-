@@ -15,6 +15,7 @@ export class CandidateBasicInformationComponent {
 
   @Input() candidateDetails: CandidateDetail = new CandidateDetail();
   @Input() candidate: Candidate = new Candidate();
+  @Input() viewType:string;
 
   private image_path: string = ImagePath.PROFILE_IMG_ICON;
   ngOnChanges() {
