@@ -1,8 +1,8 @@
 export class AppSettings {
-  //public static IP = 'http://localhost:8080';
+  public static IP = 'http://localhost:8080';
   // public static IP = 'http://ee802b7f.ngrok.io';
   //public static IP = 'http://10.192.33.77:8080';
-  public static IP = 'http://52.10.145.87:3000';
+  //public static IP = 'http://52.10.145.87:3000';
   // public static IP = 'app.jobmosis.com';
   // public static IP = '';
 
@@ -240,6 +240,55 @@ export class Messages {
   public static GUIDE_MESSAGE_FOR_NEW_VIEWER = 'Thank you for showing interest, ' +
       'we will need your basic information to create your value portrait on JobMosis. Go ahead, ' +
       'fill the form and get your value portrait!';
+  public static GUIDED_TOUR_COMPATIBILITY_SCORES_MESSAGE = 'The Dashboard shows Job Postings based on Compatibility Scores.';
+  public static GUIDED_TOUR_MATCHING_EXPERTISE_MESSAGE = 'Click on a job and see its degree of matching to your expertise.' +
+    '<br/> Using that, helps you understand the profile better.';
+  public static GUIDED_TOUR_MATCHING_MENU_HELP_MESSAGE = 'The Dropdown Menu will help you to ' +
+    '<br/> view & edit your profile, view your ' +
+    '<br/> Value Portrait or go to Dashboard.';
+  public static GUIDED_TOUR_COMPATIBILITY_FILTERS_MESSAGE = 'You can adjust the filters here.' +
+    '<br /><br /> The professional parameters will help you sort/filter through jobs.';
+  public static GUIDED_TOUR_MISMATCHES_COMPATIBILITY_MESSAGE = 'This view shows you the precise degree of matches and ' +
+    '<br/> mismatches between the capabilities and job expectations.';
+  public static GUIDED_TOUR_JOB_PROFILE_SCENARIO_HELP_MESSAGE ='Each tile within a tower represents a scenario and how you' +
+    '<br/> compare against it as specified in the job profile';
+  public static GUIDED_TOUR_MATCHING_KEY_SKILLS_MESSAGE ='Shows matching of your key-skills with that required for the job';
+  public static GUIDED_TOUR_WELCOME_MESSAGE ='<h1> Welcome to JobMosis!</h1>' +
+    '<p> You are taking your first step to<br>Add Job to Life! </p>' +
+    '<p>Let\'s start by capturing your basic profile details and the industry in which you work.</p>';
+  public static GUIDED_TOUR_DESCRIBE_CAPABILITIES_MESSAGE ='Select the different Capabilities that describe your Current Strength.' +
+    '<br/>These Capabilities would define you in the best' +
+    '<br/> way and align you with the best suitable job.';
+  public static GUIDED_TOUR_SELECTED_CAPABILITY_MESSAGE ='You can select maximum 10 Capabilities. To select a new ' +
+    '<br/> Capability, deselect any of the earlier selected Capability.';
+  public static GUIDED_TOUR_CAPABILITY_NOTE_MESSAGE ='<span>Note:</span> If there are Capabilities that you have ' +
+    'developed in past but are no longer relevent, you should not select such Capabilities as this would dilute the ' +
+    'matching and alignment with the best job Opportunity.';
+  public static GUIDED_TOUR_COMPLEXITY_SCENARIOS_MESSAGE ='This section provides a list of Complexity Scenarios for' +
+    ' your selected Capabilities';
+  public static GUIDED_TOUR_COMPLEXITY_SCENARIO_NOTE_MESSAGE ='<span>Note:</span> If a scenario was applicable to you in past but ' +
+    'is no more relevant to you, avoid choosing such scenarios. In such cases, choose' +
+    ' "Not Applicable".';
+  public static GUIDED_TOUR_KEY_SKILLS_NOTE_MESSAGE ='<span>Note:</span> Selecting too many Key Skills dilutes the' +
+    ' matching and alignment with the best Job Opportunity.';
+  public static GUIDED_TOUR_DESCRIBE_YOUR_WORK_MESSAGE ='Select Key Skills, maximum 25.<br clear="all"/>' +
+    '<br clear="all"/>' +
+    'Enter all key words that describe your area of expertise or specialization.<br />' +
+    'Ensure that you cover all relevant aspects of Technologies, Products, <br /> Methodologies, Models, Processes, ' +
+    'Tools, Domain expertise and any <br />' +
+    'additional keywords that describe your work.';
+  public static GUIDED_TOUR_ABOUT_MYSELF_MESSAGE ='In next 4 subsections, tell us more about your Educational and ' +
+    '<br/> Professional milestones, Certifications and Awards.';
+  public static GUIDED_TOUR_ABOUT_MYSELF_NOTE_MESSAGE ='<span>Note:</span> You can add multiple number of companies, ' +
+    'qualifications, certifications and awards';
+  public static GUIDED_TOUR_PROFILE_SUBMISSION_MESSAGE ='Now you have reached the final step of Profile Submission.' +
+    '<br/><br/> Here you will select your Profile Visibility for the Recruiter.<br/><br/>' +
+    'On selecting "Yes", your profile will be available for Recruiter.<br/> ' +
+    'On selecting "No", your profile will not be visible to any Recruiter.';
+  public static GUIDED_TOUR_PROFILE_SUBMISSION_NOTE_MESSAGE ='<span>Note:</span> If you wish to edit your profile before ' +
+    'submitting, you can edit by clicking on relevant section ' +
+    '<br/> It is recommended that you keep the settings to "Yes". If you wish a job change, You can <br/>' +
+  'change this setting later.';
 
 }
 export class AdminPanel {
