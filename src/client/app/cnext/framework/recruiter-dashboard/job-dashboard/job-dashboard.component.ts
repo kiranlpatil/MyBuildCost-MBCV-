@@ -296,7 +296,7 @@ export class JobDashboardComponent implements OnInit {
 
   jobcloned(event:any) {
 
-    this.navigateTo('recruiterdashboardedit',event);
+    this.navigateTo('recruiterdashboard/edit',event);
 
   }
 
