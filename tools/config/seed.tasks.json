@@ -5,6 +5,7 @@
 
   "build.dev": [
     "initialize",
+    "check.versions",
     "clean.once",
     "build.server",
     "copy.server.assets",
@@ -13,7 +14,8 @@
     "build.js.dev",
     "build.index.dev",
     "build.bundle.rxjs",
-    "sw.manifest.static"
+    "sw.manifest.static",
+    "webdriver"
   ],
 
   "build.dev.watch": [
@@ -30,6 +32,7 @@
 
   "build.prod": [
     "initialize",
+    "check.versions",
     "check.tools",
     "clean.prod",
 
@@ -43,15 +46,19 @@
     "build.bundles.app",
     "minify.bundles",
     "build.index.prod",
+    "build.bundle.rxjs",
     "sw.manifest.static",
-    "minify.index"
+    "minify.index",
+    "build.config.copy.prod",
+    "build-root-json.copy.prod",
+    "webdriver"
   ],
 
   "build.prod.aot": [
     "initialize",
     "check.tools",
     "clean.prod",
-    "tslint",
+
     "build.server",
     "copy.server.assets",
     "build.assets.prod",
