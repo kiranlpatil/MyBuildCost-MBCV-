@@ -1,4 +1,5 @@
 import * as express from "express";
+import {CandidateDetailsWithJobMatching} from "../../dataaccess/model/candidatedetailswithjobmatching";
 import JobProfileModel = require('../../dataaccess/model/jobprofile.model');
 import SearchService = require('../services/search.service');
 import CandidateService = require('../../services/candidate.service');
@@ -62,16 +63,11 @@ export class SearchController {
                 res.status(304).send(error);
               }
               else {
-                let _candidateDetails = searchService.getCandidateVisibilityAgainstRecruiter(candidateDetails[0], result);
-                let data: any;
-                if (candidateDetails[0].isVisible === true) {
-                  data = {'jobData': result, 'candidateDetails': _candidateDetails};
-                } else {
-                  data = {'jobData': [], 'candidateDetails': _candidateDetails};
-                }
+                let _candidateDetails:CandidateDetailsWithJobMatching = searchService.getCandidateVisibilityAgainstRecruiter(candidateDetails[0], result);
+                _candidateDetails.jobQCardMatching = candidateDetails[0].isVisible ? result : [];
                 res.send({
                   'status': 'success',
-                  'data': data
+                  'data': _candidateDetails
                 });
               }
             });

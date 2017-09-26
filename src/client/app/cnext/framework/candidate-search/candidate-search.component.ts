@@ -7,8 +7,9 @@ import {CandidateProfileService} from "../candidate-profile/candidate-profile.se
 import {Candidate} from "../../../user/models/candidate";
 import {CandidateDetail} from "../../../user/models/candidate-details";
 import {Router} from "@angular/router";
-import {Messages, ValueConstant} from "../../../shared/constants";
+import {Messages} from "../../../shared/constants";
 import {QCardViewService} from "../recruiter-dashboard/q-card-view/q-card-view.service";
+import {CandidateDetailsJobMatching} from "../model/candidate-details-jobmatching";
 
 @Component({
   moduleId: module.id,
@@ -23,21 +24,22 @@ export class CandidateSearchComponent implements OnChanges {
   private showModalStyle: boolean = false;
   private candidateDataList:CandidateSearch[] = new Array(0);
   private listOfJobs:JobQcard[] = new Array(0);
-  //private candidateDataList:string[] = new Array(0);
   private candidateDetails:CandidateDetail = new CandidateDetail();
   private candidate:Candidate = new Candidate();
   private userId:string;
   private msgSearchResultNotFound:string = Messages.MSG_CANDIDATE_SEARCH_NOT_FOUND;
   private msgCandidateNotFound:string = Messages.MSG_CANDIDATE_NOT_FOUND;
   private msgCandidateVisibilityOff:string = Messages.MSG_CNADIDATE_VISIBILITY_OFF;
+  private msgCandidateIfNotInCart:string = Messages.MSG_CNADIDATE_IF_NOT_IN_CART;
   private candidateId:string;
   private jobId:string;
   private isShowJobCompareView:boolean = false;
   private checkButttons:boolean;
-
-  inCartListedStatusForSearchView:boolean = false;
-  inRejectListedStatusForSearchView:boolean = false;
-  isCandidateFound:boolean;
+  private candidateDetailsJobMatching:CandidateDetailsJobMatching = new CandidateDetailsJobMatching();
+  private inCartListedStatusForSearchView:boolean = false;
+  private inRejectListedStatusForSearchView:boolean = false;
+  private isCandidateFound:boolean;
+  private isShowSuggestionTosterMsg:boolean = false;
 
   constructor(private _router:Router, private candidateSearchService:CandidateSearchService,
               private errorService:ErrorService, private profileCreatorService:CandidateProfileService, private qCardViewService:QCardViewService) {
@@ -73,10 +75,11 @@ export class CandidateSearchComponent implements OnChanges {
     this.candidateSearchService.getJobProfileMatching(candidateId)
       .subscribe(
         (res:any) => {
+          this.candidateDetailsJobMatching = <CandidateDetailsJobMatching>res.data;
           this.checkButttons = false;
           this.checkButttons = true;
-          this.listOfJobs = res.data.jobData;
-          this.OnCandidateDataSuccess(res.data.candidateDetails);
+          this.listOfJobs = this.candidateDetailsJobMatching.jobQCardMatching;
+          this.onCandidateDataSuccess(this.candidateDetailsJobMatching.candidateDetails);
           this.showModalStyle = false;
           this.candidateDataList = new Array(0);
         },
@@ -84,8 +87,7 @@ export class CandidateSearchComponent implements OnChanges {
       );
   }
 
-  OnCandidateDataSuccess(candidateData:any) {
-    debugger
+  onCandidateDataSuccess(candidateData:any) {
     this.candidate = candidateData;
     this.candidateDetails = <CandidateDetail>candidateData.userId;
     this.candidateId = this.candidate._id;
@@ -93,8 +95,10 @@ export class CandidateSearchComponent implements OnChanges {
   }
 
   viewProfile(nav:string) {
-    if (nav !== undefined) {
+    if (!this.candidateDetailsJobMatching.isShowCandidateDetails) {
       this._router.navigate([nav, this.userId]);
+    } else {
+      this.isShowSuggestionTosterMsg = !this.isShowSuggestionTosterMsg;
     }
   }
 
@@ -115,8 +119,7 @@ export class CandidateSearchComponent implements OnChanges {
     this.jobId = data.jobId;
     this.inCartListedStatusForSearchView = data.inCartStatus;
     this.inRejectListedStatusForSearchView = data.inRejectedStatus;
-    var canId:any = this.candidate._id;
-    this.candidateId = canId;
+    this.candidateId = this.candidate._id;
     this.isShowJobCompareView = true;
     this.showModalStyle = !this.showModalStyle;
   }
@@ -143,15 +146,8 @@ export class CandidateSearchComponent implements OnChanges {
   }
 
   actionOnCard(value:string) {
-    if (value == ValueConstant.CART_LISTED_CANDIDATE) {
-      var data = {'name': 'cartListed', 'jobId': this.jobId};
-      this.workFlowAction(data);
-    }
-    if (value == ValueConstant.REJECTED_LISTED_CANDIDATE) {
-      var data = {'name': 'rejectedList', 'jobId': this.jobId};
-      this.workFlowAction(data);
-    }
-
+    var data = {'name': value, 'jobId': this.jobId};
+    this.workFlowAction(data);
   }
 
 }

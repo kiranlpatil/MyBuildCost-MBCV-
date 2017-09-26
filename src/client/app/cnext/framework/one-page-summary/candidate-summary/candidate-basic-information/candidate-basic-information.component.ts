@@ -16,6 +16,7 @@ export class CandidateBasicInformationComponent {
   @Input() candidateDetails: CandidateDetail = new CandidateDetail();
   @Input() candidate: Candidate = new Candidate();
   @Input() viewType:string;
+  @Input() isShowCandidateDetails:boolean;
 
   private image_path: string = ImagePath.PROFILE_IMG_ICON;
   ngOnChanges() {
@@ -31,5 +32,9 @@ export class CandidateBasicInformationComponent {
       return AppSettings.IP + imagePath.substring(4).replace('"', '');
     }
     return null;
+  }
+
+  maskingToMobileNumber(mobile_number:number) {
+    return mobile_number.toString()[0] + '*****' + mobile_number.toString().substr(mobile_number.toString().length - 4);
   }
 }

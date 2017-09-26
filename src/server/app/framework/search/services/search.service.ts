@@ -9,6 +9,9 @@ import {ProfileComparisonDataModel, SkillStatus} from "../../dataaccess/model/pr
 import {CapabilityMatrixModel} from "../../dataaccess/model/capability-matrix.model";
 import {ProfileComparisonModel} from "../../dataaccess/model/profile-comparison.model";
 import {ProfileComparisonJobModel} from "../../dataaccess/model/profile-comparison-job.model";
+import * as mongoose from "mongoose";
+import {CandidateDetailsWithJobMatching} from "../../dataaccess/model/candidatedetailswithjobmatching";
+import {UtilityFunctions} from "../../uitility/utility-functions";
 import MatchViewModel = require('../../dataaccess/model/match-view.model');
 import Match = require('../../dataaccess/model/match-enum');
 import IndustryRepository = require('../../dataaccess/repository/industry.repository');
@@ -303,34 +306,25 @@ class SearchService {
     profileComparisonResult.aboutMyself = candidate.aboutMyself;
     profileComparisonResult.academics = candidate.academics;
     profileComparisonResult.professionalDetails = candidate.professionalDetails;
-    //profileComparisonResult.additionalCapabilites = candidate.additionalCapabilites;
     profileComparisonResult.awards = candidate.awards;
     profileComparisonResult.capability_matrix = candidate.capability_matrix;
-    //profileComparisonResult.capabilityMap = [];
     profileComparisonResult.experienceMatch = '';
     profileComparisonResult.certifications = candidate.certifications;
-    //profileComparisonResult.companyCulture = '';
     profileComparisonResult.employmentHistory = candidate.employmentHistory;
     profileComparisonResult.interestedIndustries = candidate.interestedIndustries;
     profileComparisonResult.isSubmitted = candidate.isSubmitted;
     profileComparisonResult.isVisible = candidate.isVisible;
     profileComparisonResult.location = candidate.location;
     profileComparisonResult.job_list = candidate.job_list;
-    //profileComparisonResult.matchingPercentage = 0;
     profileComparisonResult.educationMatch = '';
     profileComparisonResult.proficiencies = candidate.proficiencies;
-    //profileComparisonResult.proficienciesMatch = [];
     profileComparisonResult.profileComparisonHeader = candidate.userId;
     profileComparisonResult.roleType = candidate.roleType;
     profileComparisonResult.salaryMatch = '';
-    //profileComparisonResult.status = candidate.status;
     profileComparisonResult.secondaryCapability = candidate.secondaryCapability;
     profileComparisonResult.lockedOn = candidate.lockedOn;
     profileComparisonResult.match_map = {};
     profileComparisonResult.capabilityMap = {};
-    //profileComparisonResult.proficienciesUnMatch = [];
-    //profileComparisonResult.interestedIndustryMatch = [];
-    //profileComparisonResult.releaseMatch = '';
     return profileComparisonResult;
   }
 
@@ -590,14 +584,11 @@ class SearchService {
                     var newCandidate = this.getCompareData(candidate, job, isCandidate, industries);
                         newCandidate = this.getListStatusOfCandidate(newCandidate,job);
                         newCandidate = this.sortCandidateSkills(newCandidate);
-                    //console.log('----------------data-status---------------',newCandidate);
                     compareResult.push(newCandidate);
                   }
                   let profileComparisonModel:ProfileComparisonModel = new ProfileComparisonModel();
                   profileComparisonModel.profileComparisonData = compareResult;
                   var jobDetails:ProfileComparisonJobModel = this.getJobDetailsForComparison(job);
-                  //console.log('----------------------jobDetails-----------------------------------------',jobDetails);
-
                   profileComparisonModel.profileComparisonJobData = jobDetails;
                   callback(null, profileComparisonModel);
                 }
@@ -652,76 +643,55 @@ class SearchService {
       skillStatus.name = value;
       skillStatus.status = 'Match';
       skillStatusData.push(skillStatus);
-      //newCandidate.candidateSkillStatus.push(skillStatus);
     }
     for(let value of newCandidate.proficienciesUnMatch) {
       var skillStatus:SkillStatus = new SkillStatus();
       skillStatus.name = value;
       skillStatus.status = 'UnMatch';
       skillStatusData.push(skillStatus);
-      //newCandidate.candidateSkillStatus.push(skillStatus);
     }
     newCandidate.candidateSkillStatus = skillStatusData;
     return newCandidate;
   }
 
   getCandidateVisibilityAgainstRecruiter(candidateDetails:CandidateModel, jobProfiles:JobProfileModel[]) {
-    let isGotIt = false;
+    let isGotIt = true;
+    var _canDetailsWithJobMatching:CandidateDetailsWithJobMatching = new CandidateDetailsWithJobMatching();
     for (let job of jobProfiles) {
       for (let item of job.candidate_list) {
         if (item.name === 'cartListed') {
-          var x = new String(candidateDetails._id);
-          if (item.ids.indexOf(x) !== -1) {
-            //console.log('-------in got it------');
-            isGotIt = true;
+          if (item.ids.indexOf(new mongoose.Types.ObjectId(candidateDetails._id).toString()) !== -1) {
+            isGotIt = false;
             break;
           }
         }
       }
-      if (isGotIt) {
+      if (!isGotIt) {
         break;
       }
     }
 
-
-    if (!isGotIt) {
-      candidateDetails.userId.mobile_number = this.mobileNumberHider(candidateDetails.userId.mobile_number);
-      candidateDetails.userId.email = this.emailValueHider(candidateDetails.userId.email);
+    if (isGotIt) {
+      candidateDetails.userId.mobile_number = UtilityFunctions.mobileNumberHider(candidateDetails.userId.mobile_number);
+      candidateDetails.userId.email = UtilityFunctions.emailValueHider(candidateDetails.userId.email);
       candidateDetails.academics = [];
       candidateDetails.employmentHistory = [];
       candidateDetails.areaOfWork = [];
       candidateDetails.proficiencies = [];
       candidateDetails.awards = [];
       candidateDetails.proficiencies = [];
-      candidateDetails.professionalDetails.education = this.valueHide(candidateDetails.professionalDetails.education)
-      candidateDetails.professionalDetails.experience = this.valueHide(candidateDetails.professionalDetails.experience)
-      candidateDetails.professionalDetails.industryExposure = this.valueHide(candidateDetails.professionalDetails.industryExposure);
-      candidateDetails.professionalDetails.currentSalary = this.valueHide(candidateDetails.professionalDetails.currentSalary);
-      candidateDetails.professionalDetails.noticePeriod = this.valueHide(candidateDetails.professionalDetails.noticePeriod);
-      candidateDetails.professionalDetails.relocate = this.valueHide(candidateDetails.professionalDetails.relocate);
+      candidateDetails.professionalDetails.education = UtilityFunctions.valueHide(candidateDetails.professionalDetails.education)
+      candidateDetails.professionalDetails.experience = UtilityFunctions.valueHide(candidateDetails.professionalDetails.experience)
+      candidateDetails.professionalDetails.industryExposure = UtilityFunctions.valueHide(candidateDetails.professionalDetails.industryExposure);
+      candidateDetails.professionalDetails.currentSalary = UtilityFunctions.valueHide(candidateDetails.professionalDetails.currentSalary);
+      candidateDetails.professionalDetails.noticePeriod = UtilityFunctions.valueHide(candidateDetails.professionalDetails.noticePeriod);
+      candidateDetails.professionalDetails.relocate = UtilityFunctions.valueHide(candidateDetails.professionalDetails.relocate);
     }
-    return candidateDetails
+    candidateDetails.userId.password = '';
+    _canDetailsWithJobMatching.candidateDetails = candidateDetails;
+    _canDetailsWithJobMatching.isShowCandidateDetails = isGotIt;
+    return _canDetailsWithJobMatching;
   }
-
-  valueHide(value:string) {
-    var result = new Array(value.length).join('X');
-    return result;
-  }
-
-  emailValueHider(_email:string) {
-    if (_email.indexOf('@') !== -1) {
-      var hideEmail = new Array(_email.split('@')[0].length).join('X');
-      return _email[0].toUpperCase() + hideEmail + '@' + _email.split('@')[1];
-    } else {
-      return _email;
-    }
-  }
-
-  mobileNumberHider(_mobileNumber:number) {
-    var hideMobileNumber = _mobileNumber.toString()[0] + _mobileNumber.toString().substr(_mobileNumber.toLocaleString().length - 4);
-    return Number(hideMobileNumber);
-  }
-
 }
 
 Object.seal(SearchService);

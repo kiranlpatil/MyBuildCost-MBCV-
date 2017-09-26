@@ -83,3 +83,33 @@
     padding: 7px 25px;
   }
 }
+
+.profile-visibility-message {
+  position: relative;
+
+  .message-content {
+    position: absolute;
+    top: 40px;
+    left: 50%;
+    background: $white;
+    border: 1px solid $border-color1;
+    box-shadow: 1px 1px;
+    width: 200px;
+    display: none;
+    color: $light-black;
+    box-shadow: 0 2px 4px 0 $gray-light1;
+    padding: 10px 0;
+    z-index: 998;
+    width: 230px;
+    transform: translate(-50%, 0);
+
+    img {
+      display: block;
+      width: 20px;
+    }
+  }
+
+  .display-message {
+    display: block !important;
+  }
+}
