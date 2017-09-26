@@ -8,6 +8,7 @@
   </div>
 </div>
 <div class="modal-header">
+  <cn-print-screen [screenIdForPrint]="'printOverlayCompact'"></cn-print-screen>
   <div *ngIf="typeOfView =='spa_job' && recruiter != undefined">
     <img src="/assets/framework/images/dashboard/profile.png" alt="User Profile"
          *ngIf="recruiter.company_logo==undefined"/>
@@ -41,7 +42,7 @@
     <img src="/assets/c-next/card-view/close-white.png" (click)="closeThis()" class="close"/>
   </div>
 </div>
-
+<section id="printOverlayCompact">
 <div class="col-sm-12 no-padding">
   <div class="guided-tour-description"
        *ngIf="guidedTourStatus?.indexOf(guidedTourImgOverlayScreensStackView) == -1 && isCandidate">
@@ -387,4 +388,5 @@
       </div>
     </div>
   </div>
+</section>
 </section>

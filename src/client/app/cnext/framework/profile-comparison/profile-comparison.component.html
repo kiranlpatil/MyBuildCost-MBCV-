@@ -1,6 +1,7 @@
 <div *ngIf="profileComparisonData.length">
-  <div class="compare-candidate-view">
+  <div id="printProfileComparison" class="compare-candidate-view">
     <div class="compare-candidate-container">
+      <cn-print-screen [screenIdForPrint]="'printProfileComparison'"></cn-print-screen>
       <cn-profile-comparison-header [profileComparisonResult]="profileComparisonData"
                                     (actionOnComparisonList)="actionOnComparisonList($event)"></cn-profile-comparison-header>
       <cn-profile-capability-comparison
