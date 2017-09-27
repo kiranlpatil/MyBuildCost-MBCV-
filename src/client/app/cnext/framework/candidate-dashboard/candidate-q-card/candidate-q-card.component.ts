@@ -7,7 +7,7 @@ import {Message} from "../../../../shared/models/message";
 import {MessageService} from "../../../../shared/services/message.service";
 import {JobCompareViewComponent} from "../../single-page-compare-view/job-compare-view/job-compare-view.component";
 import {CandidateList} from "../../model/candidate-list";
-import {ErrorService} from "../../error.service";
+import {ErrorService} from "../../../../shared/services/error.service";
 
 
 @Component({

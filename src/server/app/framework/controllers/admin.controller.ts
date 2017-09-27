@@ -1,4 +1,4 @@
-import * as express from 'express';
+import * as express from "express";
 import AuthInterceptor = require('../interceptor/auth.interceptor');
 import Messages = require('../shared/messages');
 import UserService = require('../services/user.service');
@@ -7,17 +7,15 @@ import UserModel = require('../dataaccess/model/user.model');
 var request = require('request');
 
 
-
-
 export function create(req: express.Request, res: express.Response, next: any) {
   try {
     var newUser: UserModel = <UserModel>req.body;
-    newUser.isAdmin=true;
-    newUser.first_name='Admin';
-    newUser.email='support@jobmosis.com';
-    newUser.mobile_number=8669601616;
-    newUser.isActivated=true;
-    newUser.password='$2a$10$5SBFt0BpQPp/15N5J38nZuh2zMSL1gbFmnEe4xRLIltlQn56bNcZq';
+    newUser.isAdmin = true;
+    newUser.first_name = 'Admin';
+    newUser.email = 'support@jobmosis.com';
+    newUser.mobile_number = 8669601616;
+    newUser.isActivated = true;
+    newUser.password = '$2a$10$5SBFt0BpQPp/15N5J38nZuh2zMSL1gbFmnEe4xRLIltlQn56bNcZq';
     var userService = new UserService();
     userService.createUser(newUser, (error, result) => {
       if (error) {
@@ -44,7 +42,7 @@ export function create(req: express.Request, res: express.Response, next: any) {
         }
       } else {
         var auth: AuthInterceptor = new AuthInterceptor();
-        console.log('result',JSON.stringify(result));
+        console.log('result', JSON.stringify(result));
         var token = auth.issueTokenWithUid(result);
         res.status(200).send({
           'status': Messages.STATUS_SUCCESS,
@@ -70,9 +68,18 @@ export function getAllUser(req: express.Request, res: express.Response, next: an
   try {
     var userService = new UserService();
     var adminService = new AdminService();
-    var params = {};
-    if(req.user.isAdmin) {
-      userService.retrieveAll(params, (error, result) => {
+
+    let letterToSearch = '^' + req.params.letter;
+    let regEx = new RegExp(letterToSearch);
+    let findQuery = {
+      'first_name': {
+        $regex: regEx
+      }
+    }
+    let sortingQuery = {'first_name': 1};
+
+    if (req.user.isAdmin) {
+      userService.retrieveBySortedOrder(findQuery, sortingQuery, (error, result) => {
         if (error) {
           next({
             reason: Messages.MSG_ERROR_RETRIEVING_USER,//Messages.MSG_ERROR_RSN_INVALID_CREDENTIALS,
@@ -80,27 +87,35 @@ export function getAllUser(req: express.Request, res: express.Response, next: an
             code: 403
           });
         } else {
-          adminService.seperateUsers(result,(error, resp) => {
-            if (error) {
-              next({
-                reason: Messages.MSG_ERROR_SEPERATING_USER,//Messages.MSG_ERROR_RSN_INVALID_CREDENTIALS,
-                message: Messages.MSG_ERROR_SEPERATING_USER,
-                code: 403
-              });
-            }else {
-              res.status(200).send({
-                'status': 'success',
-                'data': resp
-              });
-            }
-          });
+          if (result.length == 0) {
+            res.status(200).send({
+              'status': 'success',
+              'data': result
+            });
+          } else {
+            adminService.seperateUsers(result, (error, resp) => {
+              if (error) {
+                next({
+                  reason: Messages.MSG_ERROR_SEPERATING_USER,//Messages.MSG_ERROR_RSN_INVALID_CREDENTIALS,
+                  message: Messages.MSG_ERROR_SEPERATING_USER,
+                  code: 403
+                });
+              } else {
+                res.status(200).send({
+                  'status': 'success',
+                  'data': resp
+                });
+              }
+            });
+
+          }
         }
       });
-    }else {
+    } else {
       res.status(401).send({
         'error': {
           reason: Messages.MSG_ERROR_UNAUTHORIZED_USER,
-          message:Messages.MSG_ERROR_UNAUTHORIZED_USER,
+          message: Messages.MSG_ERROR_UNAUTHORIZED_USER,
           code: 401
         }
       });
@@ -114,7 +129,7 @@ export function getCandidateDetails(req: express.Request, res: express.Response,
     var userService = new UserService();
     var adminService = new AdminService();
     var params = {};
-    if(req.user.isAdmin) {
+    if (req.user.isAdmin) {
       userService.retrieveAll(params, (error, result) => {
         if (error) {
           next({
@@ -123,15 +138,15 @@ export function getCandidateDetails(req: express.Request, res: express.Response,
             code: 403
           });
         } else {
-          adminService.seperateUsers(result,(error, resp) => {
+          adminService.seperateUsers(result, (error, resp) => {
             if (error) {
               next({
-                reason:  Messages.MSG_ERROR_SEPERATING_USER,//Messages.MSG_ERROR_RSN_INVALID_CREDENTIALS,
-                message:  Messages.MSG_ERROR_SEPERATING_USER,
+                reason: Messages.MSG_ERROR_SEPERATING_USER,//Messages.MSG_ERROR_RSN_INVALID_CREDENTIALS,
+                message: Messages.MSG_ERROR_SEPERATING_USER,
                 code: 403
               });
-            }else {
-              adminService.generateCandidateDetailFile(resp, (err, respo)=> {
+            } else {
+              adminService.generateCandidateDetailFile(resp, (err, respo) => {
                 if (err) {
                   next({
                     reason: Messages.MSG_ERROR_CREATING_EXCEL,//Messages.MSG_ERROR_RSN_INVALID_CREDENTIALS,
@@ -149,11 +164,11 @@ export function getCandidateDetails(req: express.Request, res: express.Response,
           });
         }
       });
-    }else{
+    } else {
       res.status(401).send({
         'error': {
           reason: Messages.MSG_ERROR_UNAUTHORIZED_USER,
-          message:Messages.MSG_ERROR_UNAUTHORIZED_USER,
+          message: Messages.MSG_ERROR_UNAUTHORIZED_USER,
           code: 401
         }
       });
@@ -167,7 +182,7 @@ export function getRecruiterDetails(req: express.Request, res: express.Response,
     var userService = new UserService();
     var adminService = new AdminService();
     var params = {};
-    if(req.user.isAdmin){
+    if (req.user.isAdmin) {
       userService.retrieveAll(params, (error, result) => {
         if (error) {
           next({
@@ -176,15 +191,15 @@ export function getRecruiterDetails(req: express.Request, res: express.Response,
             code: 403
           });
         } else {
-          adminService.seperateUsers(result,(error, resp) => {
+          adminService.seperateUsers(result, (error, resp) => {
             if (error) {
               next({
-                reason:  Messages.MSG_ERROR_SEPERATING_USER,//Messages.MSG_ERROR_RSN_INVALID_CREDENTIALS,
-                message:  Messages.MSG_ERROR_SEPERATING_USER,
+                reason: Messages.MSG_ERROR_SEPERATING_USER,//Messages.MSG_ERROR_RSN_INVALID_CREDENTIALS,
+                message: Messages.MSG_ERROR_SEPERATING_USER,
                 code: 403
               });
-            }else {
-              adminService.generateRecruiterDetailFile(resp, (err, respo)=> {
+            } else {
+              adminService.generateRecruiterDetailFile(resp, (err, respo) => {
                 if (err) {
                   next({
                     reason: Messages.MSG_ERROR_CREATING_EXCEL,//Messages.MSG_ERROR_RSN_INVALID_CREDENTIALS,
@@ -202,11 +217,11 @@ export function getRecruiterDetails(req: express.Request, res: express.Response,
           });
         }
       });
-    }else{
+    } else {
       res.status(401).send({
         'error': {
           reason: Messages.MSG_ERROR_UNAUTHORIZED_USER,
-          message:Messages.MSG_ERROR_UNAUTHORIZED_USER,
+          message: Messages.MSG_ERROR_UNAUTHORIZED_USER,
           code: 401
         }
       });
@@ -220,7 +235,7 @@ export function getUsageDetails(req: express.Request, res: express.Response, nex
   try {
     var adminService = new AdminService();
     var params = {};
-    if(req.user.isAdmin) {
+    if (req.user.isAdmin) {
       adminService.getUsageDetails(params, (error, result) => {
         if (error) {
           next({
@@ -229,15 +244,15 @@ export function getUsageDetails(req: express.Request, res: express.Response, nex
             code: 403
           });
         } else {
-          adminService.addUsageDetailsValue(result,(error, resp) => {
+          adminService.addUsageDetailsValue(result, (error, resp) => {
             if (error) {
               next({
                 reason: Messages.MSG_ERROR_ADDING_USAGE_DETAIL,//Messages.MSG_ERROR_RSN_INVALID_CREDENTIALS,
                 message: Messages.MSG_ERROR_ADDING_USAGE_DETAIL,
                 code: 403
               });
-            }else {
-              adminService.generateUsageDetailFile(resp, (err, respo)=> {
+            } else {
+              adminService.generateUsageDetailFile(resp, (err, respo) => {
                 if (err) {
                   next({
                     reason: Messages.MSG_ERROR_CREATING_EXCEL,//Messages.MSG_ERROR_RSN_INVALID_CREDENTIALS,
@@ -260,7 +275,7 @@ export function getUsageDetails(req: express.Request, res: express.Response, nex
       res.status(401).send({
         'error': {
           reason: Messages.MSG_ERROR_UNAUTHORIZED_USER,
-          message:Messages.MSG_ERROR_UNAUTHORIZED_USER,
+          message: Messages.MSG_ERROR_UNAUTHORIZED_USER,
           code: 401
         }
       });
@@ -296,7 +311,7 @@ export function updateDetailOfUser(req: express.Request, res: express.Response, 
             res.send({
               'status': 'success',
               'data': {
-                'updateUser':result,
+                'updateUser': result,
                 'first_name': resu[0].first_name,
                 'email': resu[0].email,
                 'mobile_number': resu[0].mobile_number,
@@ -313,27 +328,27 @@ export function updateDetailOfUser(req: express.Request, res: express.Response, 
     res.status(403).send({message: e.message});
   }
 }
-export function sendLoginInfoToAdmin(email:any,ip:any,latitude:any,longitude:any) {
-  try{
-    var params:any={email:undefined,ip:undefined,location:undefined};
-    var address:any;
-    params.ip=ip;
-    params.email=email;
+export function sendLoginInfoToAdmin(email: any, ip: any, latitude: any, longitude: any) {
+  try {
+    var params: any = {email: undefined, ip: undefined, location: undefined};
+    var address: any;
+    params.ip = ip;
+    params.email = email;
     var adminService = new AdminService();
-    request('http://maps.googleapis.com/maps/api/geocode/json?latlng='+latitude+','+longitude+'&sensor=true', function (error:any, response:any, body:any) {
+    request('http://maps.googleapis.com/maps/api/geocode/json?latlng=' + latitude + ',' + longitude + '&sensor=true', function (error: any, response: any, body: any) {
       if (!error || response.statusCode == 200) {
-        if(response.statusCode == 200) {
+        if (response.statusCode == 200) {
           address = JSON.parse(body).results[0].formatted_address;
           params.location = address;
         }
         adminService.sendAdminLoginInfoMail(params, (error, result) => {
           if (error) {
-           console.log(error);
+            console.log(error);
           }
         });
       }
     });
   } catch (e) {
-console.log(e);
+    console.log(e);
   }
 }

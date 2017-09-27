@@ -1,11 +1,11 @@
 import {Injectable} from "@angular/core";
 import {Headers, Http, RequestOptions} from "@angular/http";
 import {Observable} from "rxjs/Observable";
-import {BaseService} from "../../../shared/services/http/base.service";
-import {MessageService} from "../../../shared/services/message.service";
-import {API, LocalStorage} from "../../../shared/constants";
-import {LocalStorageService} from "../../../shared/services/localstorage.service";
-import {CandidateDetail} from "../../../user/models/candidate-details";
+import {BaseService} from "../../shared/services/http/base.service";
+import {MessageService} from "../../shared/services/message.service";
+import {API, LocalStorage} from "../../shared/constants";
+import {LocalStorageService} from "../../shared/services/localstorage.service";
+import {CandidateDetail} from "../../user/models/candidate-details";
 
 
 @Injectable()
@@ -24,7 +24,7 @@ export class AdminDashboardService extends BaseService {
       .catch(this.handleError);
   }
   getAllUsers(): Observable<any> {
-    var url = API.ALL_USER_PROFILE;
+    var url = API.ALL_USER_PROFILE + '/' + "b";
     return this.http.get(url)
       .map(this.extractData)
       .catch(this.handleError);

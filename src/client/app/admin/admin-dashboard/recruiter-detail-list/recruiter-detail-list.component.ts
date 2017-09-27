@@ -1,11 +1,11 @@
 import { Component, Input } from '@angular/core';
-import { ErrorService } from '../../error.service';
+import { ErrorService } from '../../../shared/services/error.service';
 import { AdminDashboardService } from '../admin-dashboard.service';
 import { Router } from '@angular/router';
-import { LoaderService} from '../../../../shared/loader/loaders.service';
-import { MessageService } from '../../../../shared/services/message.service';
-import { Message } from '../../../../shared/models/message';
-import { Messages } from '../../../../shared/constants';
+import { LoaderService} from '../../../shared/loader/loaders.service';
+import { MessageService } from '../../../shared/services/message.service';
+import { Message } from '../../../shared/models/message';
+import { Messages } from '../../../shared/constants';
 
 @Component({
   moduleId: module.id,

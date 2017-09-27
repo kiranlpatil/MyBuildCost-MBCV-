@@ -1,9 +1,9 @@
 import {Component} from '@angular/core';
-import {Candidate} from '../../../user/models/candidate';
-import {ErrorService} from '../error.service';
-import {UserData} from '../model/userData';
+import {Candidate} from '../../user/models/candidate';
+import {ErrorService} from '../../shared/services/error.service';
+import {UserData} from '../models/userData';
 import {AdminDashboardService} from './admin-dashboard.service';
-import {LoaderService} from '../../../shared/loader/loaders.service';
+import {LoaderService} from '../../shared/loader/loaders.service';
 
 
 @Component({
