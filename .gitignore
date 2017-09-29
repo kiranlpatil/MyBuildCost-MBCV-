@@ -39,6 +39,7 @@ ts-node
 .typingsrc
 
 #IDE configuration files
+dist
 .idea
 *.iml
 
