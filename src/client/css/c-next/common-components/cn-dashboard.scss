@@ -142,7 +142,7 @@
     width: 100%;
     position: fixed;
     top: 132px;
-    z-index: 1001;
+    z-index: 99;
     padding: 0 15px;
     left: 0;
 
@@ -281,6 +281,28 @@
       text-overflow: clip;
     }
   }
+}
+.compare-candidate-container {
+  .print-btn {
+    background: transparent;
+    border: 0;
+    color: $black1;
+    margin: 0;
+    padding: 1px;
+    position: fixed;
+    right: 53px;
+    top: 142px;
+    z-index: 99;
+  }
+}
+
+.print-btn {
+  background: transparent;
+  border: 0;
+  color: $white;
+  float: right;
+  font-weight: normal;
+  margin: 4px 13px 0 0;
 }
 
 @media only screen and (max-width: 1024px) {
