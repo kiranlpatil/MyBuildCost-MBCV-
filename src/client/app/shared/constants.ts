@@ -52,6 +52,7 @@ export class Messages {
   public static MSG_SUCCESS_RESET_PASSWORD: string = 'Your password is reset successfully.Kindly login';
   public static MSG_SUCCESS_CHANGE_PASSWORD: string = 'Your password has been changed successfully.';
   public static MSG_SUCCESS_CHANGE_EMAIL: string = 'Kindly click on the link sent to your new email for email verification.';
+  public static MSG_SUCCESS_COMPANY_WEBSITE: string = 'Company website updated successfully';
   public static MSG_SUCCESS_CHANGE_MOBILE: string = 'Verify your new mobile number by entering OTP sent on your mobile number.';
   public static MSG_SUCCESS_FORGOT_PASSWORD: string = 'Email for password reset has been sent successfully on your registered email id.';
   public static MSG_SUCCESS_DASHBOARD_PROFILE: string = 'Your profile updated successfully.';
@@ -110,7 +111,7 @@ export class Messages {
   public static MSG_ERROR_VALIDATION_COMPANYNAME_REQUIRED = 'This field can\'t be left blank.';
   public static MSG_ERROR_VALIDATION_OTP_REQUIRED = 'Enter received OTP.';
   public static MSG_ERROR_VALIDATION_INVALID_EMAIL_REQUIRED = 'Enter a valid email address.';
-  public static MSG_ERROR_VALIDATION_INVALID_URL_REQUIRED = 'Enter a valid company website.';
+  public static MSG_ERROR_VALIDATION_INVALID_URL_REQUIRED = 'Website should be start with www';
   public static MSG_ERROR_VALIDATION_INVALID_NAME = 'Enter valid name.';
   public static MSG_ERROR_VALIDATION_INVALID_DATA = 'Enter valid data.';
   public static MSG_ERROR_VALIDATION_PASSWORD_MISMATCHED = 'Passwords do not match.';
@@ -174,6 +175,7 @@ export class Messages {
     'candidate to have mandatory experience in any specific Domain? If yes, select such MUST HAVE DOMAINS from below.';
   public static MSG_ERROR_VALIDATION_MAX_PROFICIENCIES =  ' Key skills. Click the cross sign to deselect existing one and add a new skill.';
   public static MSG_ERROR_VALIDATION_EMPLOYMENTHISTORY = 'Provide valid employment start and end date';
+  public static MSG_ERROR_VALIDATION_TERMS_AND_CONDITIONS_REQUIRED = 'I agree to the terms and conditions.';
 
 
   public static MSG_LANDING_PAGE = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.' +
@@ -201,6 +203,7 @@ export class Messages {
   public static MSG_VERIFY_USER_3 = 'One Time Password(OTP) will be sent on following mobile number.';
   public static MSG_VERIFY_USER_4 = 'You are almost done! We need to verify your email id before you can start using the system.';
   public static MSG_EMAIL_NOT_MATCH = 'E-mail does not match.';
+  public static MSG_WEBSITE_SAME = 'Website is same as current website.';
   public static MSG_CHANGE_PASSWORD = 'Your password protects your account so password must be strong.' +
     'Changing your password will sign you out of all your devices, including your phone.' +
     'You will need to enter your new password on all your devices.';
@@ -293,6 +296,7 @@ export class Messages {
     'submitting, you can edit by clicking on relevant section ' +
     '<br/> It is recommended that you keep the settings to "Yes". If you wish a job change, You can <br/>' +
   'change this setting later.';
+
 
 }
 export class AdminPanel {
@@ -402,6 +406,7 @@ export class API {
   public static CHANGE_PASSWORD = 'changepassword';
   public static CHANGE_MOBILE = 'changemobilenumber';
   public static CHANGE_EMAIL = 'changeemailid';
+  public static CHANGE_COMPANY_WEBSITE = 'changecompanywebsite';
   public static VERIFY_CHANGED_EMAIL = 'verifychangedemailid';
   public static VERIFY_USER = 'verifyAccount';
   public static VERIFY_EMAIL = 'verifyEmail';
@@ -440,6 +445,7 @@ export class API {
   public static RElEVENT_INDUSTRIES = 'releventindustries';
   public static CLONE_JOB = 'job';
   public static FAQ = '/blog/index.php/faq/';
+  public static ACCEPT_TERMS = '/terms-and-conditions.php';
 }
 
 export class ImagePath {
@@ -631,7 +637,7 @@ export class Label {
   public static FIRST_NAME_LABEL: string = 'First Name';
   public static LAST_NAME_LABEL: string = 'Last Name';
   public static EMAIL_FIELD_LABEL: string = 'Email';
-  public static COMPANY_WEBSITE_FIELD_LABEL: string = 'Company Website';
+  public static COMPANY_WEBSITE_FIELD_LABEL: string = 'Website';
   public static CONTACT_FIELD_LABEL: string = 'Contact';
   public static SAVE_PROFILE_LABEL: string = 'Save Profile';
   public static RESET_PASSWORD_MESSAGE: string = 'Please set new password for your';
@@ -650,6 +656,8 @@ export class Label {
   public static ACTIONS: string = 'Actions';
   public static TOTAL_POSTED_JOB: string = 'Total Posted Jobs';
   public static COMPANY_NAME: string = 'Company Name (Size)';
+  public static ACCEPT_NAME: string = 'Accept';
+  public static TERMS_AND_CONDITIONS_NAME: string = 'Terms and Conditions.';
 }
 
 export class Button {
