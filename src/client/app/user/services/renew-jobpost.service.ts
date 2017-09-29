@@ -24,13 +24,13 @@ export class RenewJobPostService {
     }
   }
 
-  onRenewJob(selectedJobProfile: JobPosterModel) { debugger
+  onRenewJob(selectedJobProfile: JobPosterModel) {
     this.selectedJobProfile = selectedJobProfile;
     if (this.selectedJobProfile.daysRemainingForExpiring > -31) {
       this.selectedJobProfile.expiringDate = new Date(this.selectedJobProfile.expiringDate);
       this.selectedJobProfile.expiringDate.setDate(this.selectedJobProfile.expiringDate.getDate() + 30);
       this.updateJob();
-    }else { debugger
+    }else { 
       this.messageService.message(new Message(Messages.UNABLE_TO_RENEW_JOB_POST_MSG));
     }
 

@@ -77,9 +77,9 @@ export function postJob(req: express.Request, res: express.Response, next: any) 
     var userId = req.params.id;
     if (newJob.postedJobs._id !== undefined && newJob.postedJobs._id !== null && newJob.postedJobs._id !== '') {
 
-      let currentDate = <any>new Date();
-      let expiringDate = <any>new Date(newJob.postedJobs.expiringDate);
-      let daysRemainingForExpiring = Math.round(<any>new Date(expiringDate - currentDate)/(1000*60*60*24));
+      let currentDate  = Number(new Date());
+      let expiringDate  = Number(new Date(newJob.postedJobs.expiringDate));
+      let daysRemainingForExpiring = Math.round(Number(new Date(expiringDate - currentDate))/(1000*60*60*24));
       newJob.postedJobs.daysRemainingForExpiring=daysRemainingForExpiring;
       if (daysRemainingForExpiring <= 0) {
         newJob.postedJobs.isJobPostExpired=true;
@@ -87,7 +87,6 @@ export function postJob(req: express.Request, res: express.Response, next: any) 
       } else {
         newJob.postedJobs.isJobPostExpired = false;
       }
-
       recruiterService.updateJob(userId, newJob, (err, result) => {
         if (err) {
           next({
@@ -174,9 +173,9 @@ export function retrieve(req: express.Request, res: express.Response, next: any)
           });
         } else {
 
-          let currentDate = <any>new Date();
-          let expiringDate = <any>new Date(result[0].postedJobs[0].expiringDate);
-          let daysRemainingForExpiring = Math.round(<any>new Date(expiringDate - currentDate)/(1000*60*60*24));
+          let currentDate = Number(new Date());
+          let expiringDate = Number(new Date(result[0].postedJobs[0].expiringDate));
+          let daysRemainingForExpiring = Math.round(Number(new Date(expiringDate - currentDate))/(1000*60*60*24));
           result[0].postedJobs[0].daysRemainingForExpiring=daysRemainingForExpiring;
           if (daysRemainingForExpiring <= 0) {
             result[0].postedJobs[0].isJobPostExpired=true;
