@@ -4,7 +4,9 @@ import {MessageService} from "../../shared/services/message.service";
 import {Message} from "../../shared/models/message";
 import {JobPosterService} from "../../cnext/framework/job-poster/job-poster.service";
 import {ErrorService} from "../../cnext/framework/error.service";
-import {Messages} from "../../shared/constants";
+import {Messages, UsageActions, LocalStorage} from "../../shared/constants";
+import {UsageTrackingService} from "../../cnext/framework/usage-tracking.service";
+import {LocalStorageService} from "../../shared/services/localstorage.service";
 
 
 @Injectable()
@@ -14,7 +16,7 @@ export class RenewJobPostService {
   private selectedJobProfile: JobPosterModel = new JobPosterModel();
 
   constructor(private errorService: ErrorService, private messageService: MessageService,
-              private jobPostService: JobPosterService ) {
+              private jobPostService: JobPosterService, private usageTrackingService : UsageTrackingService ) {
 
   }
 
@@ -24,13 +26,22 @@ export class RenewJobPostService {
     }
   }
 
-  onRenewJob(selectedJobProfile: JobPosterModel) {
+  onRenewJob(selectedJobProfile: JobPosterModel) { 
     this.selectedJobProfile = selectedJobProfile;
     if (this.selectedJobProfile.daysRemainingForExpiring > -31) {
       this.selectedJobProfile.expiringDate = new Date(this.selectedJobProfile.expiringDate);
       this.selectedJobProfile.expiringDate.setDate(this.selectedJobProfile.expiringDate.getDate() + 30);
       this.updateJob();
-    }else { 
+      this.usageTrackingService.addUsesTrackingData(UsageActions.RENEWED_JOB_POST_BY_RECRUITER,
+        LocalStorageService.getLocalValue(LocalStorage.END_USER_ID),LocalStorageService.getLocalValue(LocalStorage.CURRENT_JOB_POSTED_ID), undefined).subscribe(
+        data=> {
+          console.log('');
+        },
+        err=> {
+          this.errorService.onError(err);
+        }
+      );
+    }else {
       this.messageService.message(new Message(Messages.UNABLE_TO_RENEW_JOB_POST_MSG));
     }
 
