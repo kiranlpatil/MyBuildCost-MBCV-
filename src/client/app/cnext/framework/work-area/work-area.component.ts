@@ -108,9 +108,7 @@ export class WorkAreaComponent implements OnInit,OnChanges {
       this.selectedRoles.push(savetempRole);
     }
     this.highlightedSection.name = 'Industry';
-
-    let _body: any = document.getElementsByTagName('BODY')[0];
-    _body.scrollTop = -1;
+    window.scrollTo(0, 0);
   }
 
   onNext() {
@@ -210,8 +208,7 @@ export class WorkAreaComponent implements OnInit,OnChanges {
       } else {
         this.onNext();
       }
-    let _body: any = document.getElementsByTagName('BODY')[0];
-    _body.scrollTop = -1;
+    window.scrollTo(0, 0);
   }
 onCancel() {
   this.highlightedSection.name='none';
@@ -255,7 +252,6 @@ onCancel() {
     this.highlightedSection.name = 'Work-Area';
     this.showButton = false;
     this.highlightedSection.isDisable = true;
-    let _body: any = document.getElementsByTagName('BODY')[0];
-    _body.scrollTop = -1;
+    window.scrollTo(0, 0);
   }
 }
