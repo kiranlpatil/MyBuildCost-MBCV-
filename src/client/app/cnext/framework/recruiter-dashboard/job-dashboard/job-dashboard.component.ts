@@ -1,22 +1,23 @@
-import {Component, OnInit, ViewChild, ElementRef} from "@angular/core";
-import {ActivatedRoute, Router} from "@angular/router";
-import {JobDashboardService} from "./job-dashboard.service";
-import {RecruiterJobView} from "../../model/recruiter-job-view";
-import {ValueConstant, Tooltip} from "../../../../shared/constants";
-import {CandidateQListModel} from "./q-cards-candidates";
-import {JobPosterModel} from "../../../../user/models/jobPoster";
-import {ReferenceService} from "../../model/newClass";
-import {QCardFilterService} from "../../filters/q-card-filter.service";
-import {QCardFilter} from "../../model/q-card-filter";
-import {LoaderService} from "../../../../shared/loader/loaders.service";
-import {ProfileComparisonService} from "../../profile-comparison/profile-comparison.service";
-import {ProfileComparison} from "../../model/profile-comparison";
-import {QCardviewComponent} from "../q-card-view/q-card-view.component";
-import {ErrorService} from "../../error.service";
-import {Label} from "../../../../shared/constants";
-import {JobPosterService} from "../../job-poster/job-poster.service";
-import {MessageService} from "../../../../shared/services/message.service";
-import {RenewJobPostService} from "../../../../user/services/renew-jobpost.service";
+import {Component, OnInit, ViewChild, ElementRef} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
+import {JobDashboardService} from './job-dashboard.service';
+import {RecruiterJobView} from '../../model/recruiter-job-view';
+import {ValueConstant, Tooltip, UsageActions} from '../../../../shared/constants';
+import {CandidateQListModel} from './q-cards-candidates';
+import {JobPosterModel} from '../../../../user/models/jobPoster';
+import {ReferenceService} from '../../model/newClass';
+import {QCardFilterService} from '../../filters/q-card-filter.service';
+import {QCardFilter} from '../../model/q-card-filter';
+import {LoaderService} from '../../../../shared/loader/loaders.service';
+import {ProfileComparisonService} from '../../profile-comparison/profile-comparison.service';
+import {ProfileComparison} from '../../model/profile-comparison';
+import {QCardviewComponent} from '../q-card-view/q-card-view.component';
+import {ErrorService} from '../../error.service';
+import {Label} from '../../../../shared/constants';
+import {UsageTrackingService} from '../../usage-tracking.service';
+import {JobPosterService} from '../../job-poster/job-poster.service';
+import {MessageService} from '../../../../shared/services/message.service';
+import {RenewJobPostService} from '../../../../user/services/renew-jobpost.service';
 
 @Component({
   moduleId: module.id,
@@ -49,10 +50,12 @@ export class JobDashboardComponent implements OnInit {
   private emptyRejectedList: string = Tooltip.EMPTY_REJECTED_LIST_MESSAGE;
   @ViewChild(QCardviewComponent) acaQcardClassObject: QCardviewComponent;
 
+
   constructor(public refrence: ReferenceService,
               private activatedRoute: ActivatedRoute,
               private errorService: ErrorService,
               private jobDashboardService: JobDashboardService,
+              private usageTracking : UsageTrackingService,
               private _router:Router,private qcardFilterService:QCardFilterService,
               private loaderService: LoaderService,private profileComparisonService: ProfileComparisonService,
               private renewJobPostService: RenewJobPostService) {
@@ -216,6 +219,11 @@ export class JobDashboardComponent implements OnInit {
       this.profileComparison.profileComparisonData.splice(this.profileComparison.profileComparisonData.indexOf(data.item), 1);
       this.listOfCandidateIdToCompare.splice(this.profileComparison.profileComparisonData.indexOf(data.item._id), 1);
       this.recruiterJobView.numberOfCandidatesInCompare--;
+      this.usageTracking.addUsesTrackingData(UsageActions.REMOVED_FROM_COMPARE_VIEW_BY_RECRUITER,
+        this.recruiterId, this.jobId, data.item._id ).subscribe(
+        data  => {
+          console.log(''+data);
+        }, error => this.errorService.onError(error));
     } else if (data.action == 'AddToCart') {
       //matchedList cartListed applied rejectedList
       var compareAction:any;
@@ -282,17 +290,18 @@ export class JobDashboardComponent implements OnInit {
 
   addForCompare(obj: any) {
 
-    this.jobDashboardService.addUsesTrackingData(this.recruiterId, this.jobId, obj.id, 'add').subscribe(
-      data => {
-      }
-      , error => this.errorService.onError(error));
-    if (this.listOfCandidateIdToCompare.indexOf(obj.id) == -1) {
+    this.usageTracking.addUsesTrackingData(UsageActions.ADDED_IN_TO_COMPARE_VIEW_BY_RECRUITER,
+      this.recruiterId, this.jobId, obj.id ).subscribe(
+      data  => {
+        console.log(''+data);
+      }, error => this.errorService.onError(error));
+    if (this.listOfCandidateIdToCompare.indexOf(obj.id) === -1) {
       //this.listOfCandidateStatus.push(obj);
       this.listOfCandidateIdToCompare.push(obj.id);
       this.recruiterJobView.numberOfCandidatesInCompare++;
     }
   }
-  raiseCloneEvent(){
+  raiseCloneEvent() {
     this.selectedJobId= this.selectedJobProfile._id;
     this.selectedJobTitle=this.selectedJobProfile.jobTitle;
     this.isCloneButtonClicked=!this.isCloneButtonClicked;
@@ -300,7 +309,7 @@ export class JobDashboardComponent implements OnInit {
 
   jobcloned(event:any) {
 
-    this.navigateTo('recruiterdashboardedit',event);
+    this.navigateTo('recruiterdashboard/edit',event);
 
   }
 

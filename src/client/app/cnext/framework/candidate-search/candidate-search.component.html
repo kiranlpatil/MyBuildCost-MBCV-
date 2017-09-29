@@ -1,10 +1,20 @@
 <div class="search-container">
-
   <div class="col-sm-3 left-content">
     <div *ngIf="candidate.isVisible == true">
     <div *ngIf="candidateDetails._id" class="col-sm-3 left-content search-left-content">
-      <button class="btn view-profile-btn" (click)="viewProfile('/value-portrait')">View Profile</button>
-      <cn-candidate-description [candidateDetails]="candidateDetails"
+      <div class="profile-visibility-message">
+        <button class="btn view-profile-btn" (click)="viewProfile('/value-portrait')">View Profile</button>
+        <div *ngIf="candidateDetailsJobMatching.isShowCandidateDetails && isShowSuggestionTosterMsg"
+             class="message-content" [class.display-message]="true">
+          <div class="col-xs-1"><img src="../../asstes/framework/images/dashboard/info-red.svg"></div>
+          <div class="col-xs-8 padding-left15">{{msgCandidateIfNotInCart}}</div>
+          <div class="col-xs-2 padding-left5">
+            <button (click)="viewProfile('/value-portrait')" type="button" class="close">&times;</button>
+          </div>
+        </div>
+      </div>
+      <cn-candidate-description [isShowCandidateDetails]="candidateDetailsJobMatching.isShowCandidateDetails"
+                                [viewType]="'OnSearchView'" [candidateDetails]="candidateDetails"
                                 [candidate]="candidate"></cn-candidate-description>
       <div *ngIf="candidate.employmentHistory.length>0">
         <cn-vertical-list-view [data]="candidate.employmentHistory" [type]="'employment history'"
@@ -86,8 +96,6 @@
        *ngIf="candidateDataList.length == 0 && searchValue !== '' && isCandidateFound == false">
     {{msgCandidateNotFound}}
   </div>
-
-
 </div>
 
 

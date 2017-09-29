@@ -5,6 +5,7 @@
 
   "build.dev": [
     "initialize",
+    "check.versions",
     "clean.once",
     "build.server",
     "copy.server.assets",
@@ -30,6 +31,7 @@
 
   "build.prod": [
     "initialize",
+    "check.versions",
     "check.tools",
     "clean.prod",
 
@@ -43,6 +45,7 @@
     "build.bundles.app",
     "minify.bundles",
     "build.index.prod",
+    "build.bundle.rxjs",
     "sw.manifest.static",
     "minify.index",
     "build.config.copy.prod",
@@ -53,7 +56,7 @@
     "initialize",
     "check.tools",
     "clean.prod",
-    "tslint",
+
     "build.server",
     "copy.server.assets",
     "build.assets.prod",
