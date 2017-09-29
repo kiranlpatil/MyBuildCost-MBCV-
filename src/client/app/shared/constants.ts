@@ -1,8 +1,8 @@
 export class AppSettings {
-  //public static IP = 'http://localhost:8080';
+  public static IP = 'http://localhost:8080';
   // public static IP = 'http://ee802b7f.ngrok.io';
   //public static IP = 'http://10.192.33.77:8080';
-  public static IP = 'http://52.10.145.87:3000';
+  //public static IP = 'http://52.10.145.87:3000';
   // public static IP = 'app.jobmosis.com';
   // public static IP = '';
 
@@ -174,6 +174,7 @@ export class Messages {
     'candidate to have mandatory experience in any specific Domain? If yes, select such MUST HAVE DOMAINS from below.';
   public static MSG_ERROR_VALIDATION_MAX_PROFICIENCIES =  ' Key skills. Click the cross sign to deselect existing one and add a new skill.';
   public static MSG_ERROR_VALIDATION_EMPLOYMENTHISTORY = 'Provide valid employment start and end date';
+  public static MSG_ERROR_VALIDATION_TERMS_AND_CONDITIONS_REQUIRED = 'I agree to the terms and conditions.';
 
 
   public static MSG_LANDING_PAGE = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.' +
@@ -201,6 +202,7 @@ export class Messages {
   public static MSG_VERIFY_USER_3 = 'One Time Password(OTP) will be sent on following mobile number.';
   public static MSG_VERIFY_USER_4 = 'You are almost done! We need to verify your email id before you can start using the system.';
   public static MSG_EMAIL_NOT_MATCH = 'E-mail does not match.';
+  public static MSG_WEBSITE_SAME = 'Website is same as current website.';
   public static MSG_CHANGE_PASSWORD = 'Your password protects your account so password must be strong.' +
     'Changing your password will sign you out of all your devices, including your phone.' +
     'You will need to enter your new password on all your devices.';
@@ -293,6 +295,7 @@ export class Messages {
     'submitting, you can edit by clicking on relevant section ' +
     '<br/> It is recommended that you keep the settings to "Yes". If you wish a job change, You can <br/>' +
   'change this setting later.';
+
 
 }
 export class AdminPanel {
@@ -440,6 +443,7 @@ export class API {
   public static RElEVENT_INDUSTRIES = 'releventindustries';
   public static CLONE_JOB = 'job';
   public static FAQ = '/blog/index.php/faq/';
+  public static ACCEPT_TERMS = '/terms-and-conditions.php';
 }
 
 export class ImagePath {
@@ -650,6 +654,8 @@ export class Label {
   public static ACTIONS: string = 'Actions';
   public static TOTAL_POSTED_JOB: string = 'Total Posted Jobs';
   public static COMPANY_NAME: string = 'Company Name (Size)';
+  public static ACCEPT_NAME: string = 'Accept';
+  public static TERMS_AND_CONDITIONS_NAME: string = 'Terms and Conditions.';
 }
 
 export class Button {
