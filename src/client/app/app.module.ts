@@ -158,6 +158,8 @@ import {UsageDetailsComponent} from "./cnext/framework/admin-dashboard/usage-det
 import {RenewJobPostService} from "./user/services/renew-jobpost.service";
 import {PrintScreenComponent} from "./cnext/framework/print-screen/print-screen.component";
 import {AdminModule} from "./admin/admin.module";
+import {JobShareContainerComponent} from "./cnext/framework/job-share-container/job-share-container.component";
+import {JobShareContainerService} from "./cnext/framework/job-share-container/job-share-container.service";
 
 //C-NEXT IMPORTS
 
@@ -223,6 +225,7 @@ import {AdminModule} from "./admin/admin.module";
     AcademicDetailComponent,
     CertificationAccreditationComponent,
     AwardsComponent,
+    JobShareContainerComponent,
     DescriptionFieldComponent,
     MoreAboutMyselfComponent,
     FilterComponent,
@@ -315,6 +318,7 @@ import {AdminModule} from "./admin/admin.module";
     ProfileDetailsService,
     AboutCandidateService,
     JobPosterService,
+    JobShareContainerService,
     ProfessionalDetailsService,
     CandidateAcademyDetailService,
     CandidateProfileService,

@@ -344,7 +344,7 @@ class AdminService {
       });
       console.log("writing into file file");
       //fs.writeFile('./src/server/public/candidate.csv', csv, function (err: any) {
-        fs.writeFile('/home/bitnami/apps/jobmosis-staging/c-next/dist/prod/server/public/candidate.csv', csv, function (err: any) {
+       fs.writeFile('/home/bitnami/apps/jobmosis-staging/c-next/dist/prod/server/public/candidate.csv', csv, function (err: any) {
         if (err) throw err;
         callback(null, result);
       });

@@ -11,8 +11,12 @@ import {Industry} from "../../../user/models/industry";
 import {RecruiterDashboardService} from "../recruiter-dashboard/recruiter-dashboard.service";
 import {RecruiterDashboard} from "../model/recruiter-dashboard";
 import { ErrorService } from '../../../shared/services/error.service';
-import {Headings, Label, LocalStorage, Messages, ValueConstant} from "../../../shared/constants";
+import {AppSettings,Headings, Label, LocalStorage, Messages, ValueConstant} from "../../../shared/constants";
 import {LocalStorageService} from "../../../shared/services/localstorage.service";
+import {Share} from "../model/share";
+import {ShareService} from "../share/share.service";
+import {Message} from "../../../shared/models/message";
+import {MessageService} from "../../../shared/services/message.service";
 
 @Component({
   moduleId: module.id,
@@ -24,7 +28,7 @@ import {LocalStorageService} from "../../../shared/services/localstorage.service
 export class JobPosterComponent implements OnInit, OnChanges {
   @Input() noOfJobPosted: number;
   @Input() currentjobId: string;
-  @Input() recruiter: RecruiterDashboard;
+  @Input() role: string;
   @Output() jobPostEventEmitter: EventEmitter<string> = new EventEmitter();
   @Output() jobPostCloneSuccessEmitter: EventEmitter<boolean> = new EventEmitter();
 
@@ -42,6 +46,7 @@ export class JobPosterComponent implements OnInit, OnChanges {
   private setCapabilityMatrix: boolean = true;
   private isShowComplexity: boolean = false;
   private isShowRoleList: boolean = false;
+  private isshow: boolean = false;
   private isShowIndustryList: boolean = false;
   private isShowCapability: boolean = false;
   private isShowProficiency: boolean = false;
@@ -60,11 +65,16 @@ export class JobPosterComponent implements OnInit, OnChanges {
   private isComplexityFilled: boolean = true;
   private isPresentDefaultcomplexity: boolean = false;
   private flag: boolean = true;
+  private isRecruitingForSelf: boolean=true;
   private highlightedSection: Section = new Section();
   private selectedJobTitle:string;
   private selectedJobId:string;
+  private sharedLink:string;
   private isCloneButtonClicked:boolean;
+  private share=new Share();
   constructor(private profileCreatorService: CandidateProfileService,
+              private shareService:ShareService,
+              private messageService: MessageService,
               private recruiterDashboardService: RecruiterDashboardService,
               private errorService: ErrorService,
               private showQCardView: ShowQcardviewService,
@@ -82,7 +92,7 @@ export class JobPosterComponent implements OnInit, OnChanges {
     if (changes.currentjobId !== undefined && changes.currentjobId.currentValue !== undefined) {
       this.jobId = changes.currentjobId.currentValue;
       this.getJobProfile();
-    } else if((changes.recruiter==undefined )|| (changes.currentjobId !== undefined )) {
+    } else if(changes.currentjobId !== undefined ) {
       this.jobPosterModel = new JobPosterModel();
       this.highlightedSection.name = 'JobProfile';
     }
@@ -92,6 +102,7 @@ export class JobPosterComponent implements OnInit, OnChanges {
     this.recruiterDashboardService.getPostedJobDetails(this.jobId)
       .subscribe(
         data => {
+          this.isRecruitingForSelf=data.data.industry.isRecruitingForself;
           this.jobPosterModel = data.data.industry.postedJobs[0];
           this.onGetJobDetailsSuccess(this.jobPosterModel);
         }, error => this.errorService.onError(error));
@@ -214,7 +225,45 @@ export class JobPosterComponent implements OnInit, OnChanges {
   closeJob() {
     this.showModalStyle = !this.showModalStyle;
   }
+  sendMailToRecruiter() {
+    this.jobPostService.sendMailToRecruiter(this.jobPosterModel)
+      .subscribe(
+        res => {
+          this.messageService.message(new Message(Messages.MSG_SUCCESS_FOR_HIRING_MANAGER_JOB_CREATION_STATUS));
+          window.localStorage.clear();
+          let host = AppSettings.HTTP_CLIENT + window.location.hostname;
+          window.location.href = host;
+        },
+        error => (this.errorService.onError(error)));
+  }
 
+  buildJobShareUrl() {
+   if(this.jobPosterModel && this.jobPosterModel._id) {
+     this.shareService.buildJobShareUrl(this.jobPosterModel._id)
+       .subscribe(
+         (data:Share) => {
+           this.share=data;
+           this.sharedLink=data.shareUrl;
+           this.isshow=true;
+           this.jobPosterModel.isJobShared=true;
+           this.updateJob();
+           if(this.sharedLink) {
+             //document.getElementById('mail_link').click();
+            // let link='<a href='+this.sharedLink+'>JOB EDIT</a>';
+             window.location.href = 'mailto:user@example.com?subject=Subject&body='+this.sharedLink;
+
+             console.log('linkclicked',this.sharedLink);
+           }
+           console.log('data',data);
+         },
+         error=> {
+           this.errorService.onError(error);
+         }
+       );
+   }else {
+     console.log('You havent created job yet');
+   }
+  }
   mockupSearch() {
     this.isShowCandidateQCardView = true;
     this.showQCardView.change(this.jobPosterModel);

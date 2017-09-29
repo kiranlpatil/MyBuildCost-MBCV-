@@ -194,7 +194,7 @@ export class RecruiterSignUpComponent implements OnInit {
     }
 
     if (!this.recruiterForm.valid) {
-      return
+      return;
     }
 
 

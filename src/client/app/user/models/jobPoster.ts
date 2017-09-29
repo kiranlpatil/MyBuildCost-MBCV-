@@ -32,4 +32,5 @@ export class JobPosterModel {
   hideCompanyName: boolean;
   daysRemainingForExpiring: number;
   isJobPostExpired: boolean;
+  isJobShared: boolean;
 }

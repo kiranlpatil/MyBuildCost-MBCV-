@@ -8,6 +8,7 @@ interface JobProfileModel extends mongoose.Document {
   jobTitle: string;
   isJobPosted: boolean;
   isJobPostExpired: boolean;
+  isJobShared: boolean;
   hiringManager: string;
   department: string;
   education: string;
