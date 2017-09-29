@@ -1,6 +1,9 @@
 import {Component, Input, ViewChild, ElementRef} from "@angular/core";
 import * as html2canvas from "html2canvas";
-import * as jsPDF from "jspdf";
+import {Message} from "../../../shared/models/message";
+import {Messages} from "../../../shared/constants";
+import {MessageService} from "../../../shared/services/message.service";
+//import * as jsPDF from "jspdf";
 
 @Component({
   moduleId: module.id,
@@ -12,34 +15,34 @@ import * as jsPDF from "jspdf";
 export class PrintScreenComponent {
   @ViewChild('fileToDownload') fileToDownload:ElementRef;
   @Input() screenIdForPrint:string;
+  @Input() fileName:string;
 
-  constructor() {
+  constructor(private messageService: MessageService) {
 
   }
 
   createFile(_value:string) {
-    if (this.screenIdForPrint !== '' && this.screenIdForPrint !== undefined) {
       html2canvas(document.getElementById(this.screenIdForPrint))
         .then((canvas:any) => {
-          var dataURL = canvas.toDataURL("image/jpeg");
-          if (_value == 'pdf') {
-            var doc = new jsPDF("p", "mm", "a4");
-            var width = doc.internal.pageSize.width;
-            var height = doc.internal.pageSize.height;
-            doc.addImage(dataURL, 'JPEG', 0, 0, width, height);
-            doc.save('two-by-four.pdf')
-          } else {
+          let dataURL = canvas.toDataURL("image/jpeg");
+          if (_value == 'img') {
             this.fileToDownload.nativeElement.href = dataURL;
-            this.fileToDownload.nativeElement.download = 'xyzabc.jpeg';
+            this.fileToDownload.nativeElement.download = this.fileName;
             this.fileToDownload.nativeElement.click();
+          } else {
             //doc.setFontSize(40);
             //doc.text(35, 25, "Octonyan loves jsPDF");
+            /*let doc = new jsPDF("p", "mm", "a4");
+             doc.addImage(dataURL, 'JPEG', 0, 0, doc.internal.pageSize.width, doc.internal.pageSize.height);
+             doc.save('two-by-four.pdf')*/
           }
         })
         .catch((err:any) => {
-          console.log("error canvas", err);
+          var message = new Message();
+          message.custom_message = Messages.MSG_ON_FILE_CREATION_FAILED;
+          message.isError = true;
+          this.messageService.message(message);
         });
-    }
   }
 
 }

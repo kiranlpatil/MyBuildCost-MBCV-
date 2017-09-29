@@ -556,9 +556,8 @@ export class SeedConfig {
         'node_modules/@angular/platform-browser-dynamic/bundles/platform-browser-dynamic-testing.umd.js',
       '@angular/router/testing':
         'node_modules/@angular/router/bundles/router-testing.umd.js',
-      'html2canvas': 'node_modules/html2canvas/dist/html2canvas.js',
-      'canvas2image': 'node_modules/canvas2image/canvas2image.js',
-      'jspdf': 'node_modules/jspdf/dist/jspdf.min.js',
+      'html2canvas': 'node_modules/html2canvas/dist/html2canvas.min.js',
+      //'jspdf': 'node_modules/jspdf/dist/jspdf.min.js',
       'app/': `${this.APP_BASE}app/`,
       // For test config
       'dist/dev/': '/base/dist/dev/',
@@ -656,17 +655,13 @@ export class SeedConfig {
         defaultExtension: 'js'
       },
       html2canvas: {
-        main: 'html2canvas.js',
+        main: 'dist/html2canvas.min.js',
         defaultExtension: 'js'
-      },
-      canvas2image: {
-        main: 'canvas2image.js',
-        defaultExtension: 'js'
-      },
+      }/*,
       jspdf: {
-        main: 'jspdf.min.js',
+        main: 'dist/jspdf.min.js',
         defaultExtension: 'js'
-      }
+      }*/
     }
   };
 
