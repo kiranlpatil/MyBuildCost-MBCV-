@@ -1,11 +1,11 @@
 import {Component, OnInit} from '@angular/core';
-import {ErrorService} from '../error.service';
 import {JobShareContainerService} from './job-share-container.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ShareLink} from '../model/share-link';
 import {RecruiterDashboard} from '../model/recruiter-dashboard';
 import {LocalStorage} from "../../../shared/constants";
 import {LocalStorageService} from "../../../shared/services/localstorage.service";
+import {ErrorService} from "../../../shared/services/error.service";
 
 @Component({
   moduleId: module.id,
