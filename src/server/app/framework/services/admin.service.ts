@@ -49,7 +49,7 @@ class AdminService {
       if (userType == 'candidate') {
         findQuery = {'isCandidate': true};
       } else {
-        let findQuery = {'isCandidate': false};
+        findQuery = {'isCandidate': false};
       }
 
       let included_fields = {
@@ -99,7 +99,7 @@ class AdminService {
                         resu[0].capabilityMatrix = candidateService.loadCapabilitiDetails(resu[0].capability_matrix);
                         result[i].data = resu[0];
                         candidates.push(result[i]);
-                        if (value && result.length - 1 === value) {
+                        if (value && result.length === value) {
                           users.candidate = candidates;
                           console.log("fetch all records" + value);
                           callback(null, users);
