@@ -5,7 +5,7 @@ import {Messages, UsageActions, LocalStorage} from "../../../shared/constants";
 import {MessageService} from "../../../shared/services/message.service";
 import {UsageTrackingService} from "../usage-tracking.service";
 import {LocalStorageService} from "../../../shared/services/localstorage.service";
-import {ErrorService} from "../error.service";
+import {ErrorService} from "../../../shared/services/error.service";
 //import * as jsPDF from 'jspdf';
 
 @Component({
