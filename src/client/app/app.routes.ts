@@ -27,7 +27,6 @@ export const routes: Routes = [
   ...LandingPageRoutes,
   ...ActivateUserRoutes,
   ...DashboardRoutes,
-  ...AdminDashboard,
   ...CandidateDashboard,
   ...RecruiterDashboard,
   ...RecruiterSummary,
