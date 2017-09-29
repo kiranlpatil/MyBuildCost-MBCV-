@@ -343,8 +343,8 @@ class AdminService {
         unwindPath: ['data.capabilityMatrix']
       });
       console.log("writing into file file");
-      fs.writeFile('./src/server/public/candidate.csv', csv, function (err: any) {
-      //  fs.writeFile('/home/bitnami/apps/jobmosis-staging/c-next/dist/prod/server/public/candidate.csv', csv, function (err: any) {
+      //fs.writeFile('./src/server/public/candidate.csv', csv, function (err: any) {
+       fs.writeFile('/home/bitnami/apps/jobmosis-staging/c-next/dist/prod/server/public/candidate.csv', csv, function (err: any) {
         if (err) throw err;
         callback(null, result);
       });
@@ -376,8 +376,8 @@ class AdminService {
         fieldNames: fieldNames,
         unwindPath: ['data.postedJobs', 'data.postedJobs.capabilityMatrix']
       });
-      fs.writeFile('./src/server/public/recruiter.csv', csv, function (err: any) {
-      //  fs.writeFile('/home/bitnami/apps/jobmosis-staging/c-next/dist/prod/server/public/recruiter.csv', csv, function (err: any) {
+      //fs.writeFile('./src/server/public/recruiter.csv', csv, function (err: any) {
+        fs.writeFile('/home/bitnami/apps/jobmosis-staging/c-next/dist/prod/server/public/recruiter.csv', csv, function (err: any) {
         if (err) throw err;
         callback(null, result);
       });

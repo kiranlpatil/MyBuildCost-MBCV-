@@ -199,8 +199,8 @@ export function exportCandidateDetails(req: express.Request, res: express.Respon
                 code: 403
               });
             } else {
-              var file = './src/server/public/candidate.csv';
-              //var file = '/home/bitnami/apps/jobmosis-staging/c-next/dist/prod/server/public/candidate.csv';
+              //var file = './src/server/public/candidate.csv';
+              var file = '/home/bitnami/apps/jobmosis-staging/c-next/dist/prod/server/public/candidate.csv';
               res.download(file);
             }
           });
@@ -243,8 +243,8 @@ export function exportRecruiterDetails(req: express.Request, res: express.Respon
                 code: 403
               });
             } else {
-              var file = './src/server/public/recruiter.csv';
-              //var file = '/home/bitnami/apps/jobmosis-staging/c-next/dist/prod/server/public/recruiter.csv';
+              //var file = './src/server/public/recruiter.csv';
+              var file = '/home/bitnami/apps/jobmosis-staging/c-next/dist/prod/server/public/recruiter.csv';
               res.download(file);
             }
           });
