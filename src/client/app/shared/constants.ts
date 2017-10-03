@@ -676,6 +676,7 @@ export class Label {
   public static TERMS_AND_CONDITIONS_NAME: string = 'Terms and Conditions.';
   public static REGISTER_AS_APPLICANT: string = 'Register as an applicant';
   public static REGISTER_AS_RECRUITER: string = 'Register as a recruiter';
+  public static ASK_EXPERT: string = 'Ask Expert';
 }
 
 export class Button {
