@@ -192,8 +192,9 @@ export function init(port: number, mode: string, protocol: string, dist_runner: 
     });
   } else {
     const options = {
-      key: fs.readFileSync("./server.key"),
-      cert: fs.readFileSync("./server.crt"),
+      key: fs.readFileSync("./staging.jobmosis.com.key"),
+      cert: fs.readFileSync("./staging.jobmosis.com.crt"),
+      passphrase: 'tpl123',
 
       spdy: {
         protocols: ['h2']
