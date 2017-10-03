@@ -624,7 +624,7 @@ export class Headings {
   public static ADDITIONAL_INFORMATION: string = 'Additional information about the job';
   public static OPTIONAL: string = '(Optional)';
   public static CAPABITITIES_HEADING: string = 'Capabilities';
-  public static EMPLOYMENT_HISTORY: string = 'Employment History';
+  public static EMPLOYMENT_HISTORY: string = 'Employment History (Optional)';
   public static ADDITIONAL_DOMAIN_EXPOSURE: string = 'Additional domain exposure';
   public static INDUSTRY_FOR_CANDIDATE: string = 'Select your Industry (Any One)';
   public static INDUSTRY_FOR_RECRUITER: string = 'Select industry in which candidate is expected to work (Any One)';
