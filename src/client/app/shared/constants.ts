@@ -181,7 +181,7 @@ export class Messages {
     'candidate to have mandatory experience in any specific Domain? If yes, select such MUST HAVE DOMAINS from below.';
   public static MSG_ERROR_VALIDATION_MAX_PROFICIENCIES =  ' Key skills. Click the cross sign to deselect existing one and add a new skill.';
   public static MSG_ERROR_VALIDATION_EMPLOYMENTHISTORY = 'Provide valid employment start and end date';
-  public static MSG_ERROR_VALIDATION_TERMS_AND_CONDITIONS_REQUIRED = 'I agree to the terms and conditions.';
+  public static MSG_ERROR_VALIDATION_TERMS_AND_CONDITIONS_REQUIRED = 'Please accept the terms and conditions.';
 
 
   public static MSG_LANDING_PAGE = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.' +
@@ -672,8 +672,10 @@ export class Label {
   public static ACTIONS: string = 'Actions';
   public static TOTAL_POSTED_JOB: string = 'Total Posted Jobs';
   public static COMPANY_NAME: string = 'Company Name (Size)';
-  public static ACCEPT_NAME: string = 'Accept';
+  public static ACCEPT_NAME: string = 'I Accept';
   public static TERMS_AND_CONDITIONS_NAME: string = 'Terms and Conditions.';
+  public static REGISTER_AS_APPLICANT: string = 'Register as an applicant';
+  public static REGISTER_AS_RECRUITER: string = 'Register as a recruiter';
 }
 
 export class Button {

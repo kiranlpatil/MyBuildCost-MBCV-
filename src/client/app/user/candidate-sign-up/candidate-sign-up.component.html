@@ -9,7 +9,7 @@
           <h3>Welcome !</h3>
           <p>{{getMessages().GUIDE_MESSAGE_FOR_NEW_VIEWER}}</p>
       </div>
-    <h5>Register </h5>
+    <h5>{{getLabel().REGISTER_AS_APPLICANT}}</h5>
     <form [formGroup]="userForm" (submit)="onSubmit()" class="employee-form" novalidate>
 
       <div class="form-group">
