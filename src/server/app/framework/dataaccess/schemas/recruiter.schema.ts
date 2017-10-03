@@ -69,6 +69,9 @@ class RecruiterSchema {
         jobTitle: {
           type: String
         },
+        sharedLink: {
+          type: String
+        },
         hiringManager: {
           type: String
         },
