@@ -68,7 +68,7 @@
               <div class="col-xs-10 padding-left15" [class.posted-job]="!item.isJobPosted">
                 <p class="active" *ngIf="item.daysRemainingForExpiring > 7" title="{{item.daysRemainingForExpiring}} days remaining for expiry">{{item.daysRemainingForExpiring}} days remaining for expiry</p>
                 <p class="about-to-expire" *ngIf="item.daysRemainingForExpiring <= 7 && item.daysRemainingForExpiring >= 1" title="{{item.daysRemainingForExpiring}} days remaining for expiry">{{item.daysRemainingForExpiring}} days remaining for expiry</p>
-                <p class="expired" *ngIf="item.daysRemainingForExpiring <= 0"><span class="glyphicon glyphicon-refresh" title="Expired"></span>Expired</p>
+                <p class="expired" *ngIf="item.daysRemainingForExpiring <= 0">Expired</p>
               </div>
             </div>
           </div>
