@@ -30,7 +30,7 @@
       <div *ngIf="candidate.isVisible == true">
         <div class="profile-visibility-message" *ngIf="candidateDetails._id">
           <button class="btn view-profile-btn" (click)="viewProfile('/value-portrait')">View Profile</button>
-          <div *ngIf="candidateDetailsJobMatching.isShowCandidateDetails && isShowSuggestionTosterMsg"
+          <div *ngIf="candidateDetailsJobMatching.isShowCandidateDetails && isShowSuggestionToasterMsg"
                class="message-content" [class.display-message]="true">
             <div class="col-xs-1 padding-left5"><img src="{{getImagePath().INFO_RED}}"></div>
             <div class="col-xs-10 no-padding padding-left15">{{msgCandidateIfNotInCart}}</div>
