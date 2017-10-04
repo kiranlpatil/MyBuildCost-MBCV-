@@ -367,13 +367,9 @@ export function requestToAdvisor(req:express.Request, res:express.Response, next
 
 export function responseToRecruiter(req:express.Request, res:express.Response, next:any) {
   try {
-console.log("in controller")
     let recruiterService = new RecruiterService();
     let user=req.user;
-    console.log("in controller user",user);
     var params = req.body;
-    console.log("in controller params",params);
-
     recruiterService.sendMailToRecruiter(user,params, (error, result) => {
       if (error) {
         console.log("Error : " + error);
