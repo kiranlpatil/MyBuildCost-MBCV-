@@ -36,7 +36,7 @@ export class PrintScreenComponent {
             this.fileToDownload.nativeElement.href = dataURL;
             this.fileToDownload.nativeElement.download = this.fileName;
             this.fileToDownload.nativeElement.click();
-            if(this.screenIdForPrint === 'Candidate-Profile-Comparision') {
+            if(this.screenIdForPrint === 'printProfileComparison') {
               this.trackUsage(UsageActions.PRINT_COMPARISON_VIEW_BY_RECRUITER,undefined,undefined);
             } else {
               this.trackUsage(UsageActions.PRINT_OVERLAY_VIEW_BY_RECRUITER,this.candidateId,this.jobId);
