@@ -47,6 +47,13 @@ export class RecruiterDashboardComponent implements OnInit, AfterViewInit {
         (data: any) => {
           this.recruiterDashboard = <RecruiterDashboard>data.data[0];
           this.recruiterHeaderDetails = <RecruiterHeaderDetails>data.jobCountModel;
+          for(let postedJob of this.recruiterDashboard.postedJobs) {
+            let currentDate = Number(new Date());
+            let expiringDate = Number(new Date(postedJob.expiringDate));
+            let daysRemainingForExpiring = Math.round(Number(new Date(expiringDate - currentDate))/(1000*60*60*24));
+            postedJob.daysRemainingForExpiring = daysRemainingForExpiring;
+            console.log('daysRemaining',postedJob._id + this.recruiterDashboard.postedJobs);
+          }
           if(this.recruiterDashboard !== undefined && this.recruiterDashboard.postedJobs !== undefined && this.recruiterDashboard.postedJobs.length>0) {
             this.screenType='jobList';
           } else {
