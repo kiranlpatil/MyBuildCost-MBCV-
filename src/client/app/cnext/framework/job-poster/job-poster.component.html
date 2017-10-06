@@ -57,7 +57,6 @@
       -->
       <cn-job-clone [selectedJobId]="selectedJobId"  [selectedJobTitle]="selectedJobTitle"
                     [isCloneButtonClicked]="isCloneButtonClicked"  (raiseJobEditViewEventEmitter)="onJobCloned($event)" ></cn-job-clone>
-      <div class="button-group text-right">
 
       <button type="submit" class="btn btn-primary btn-post-job" (click)="showHideModal()">Post Job</button>
       <div class="dropup clone-job-menu">
