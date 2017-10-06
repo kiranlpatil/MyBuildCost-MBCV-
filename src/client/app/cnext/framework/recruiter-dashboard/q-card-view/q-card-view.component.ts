@@ -51,7 +51,7 @@ export class QCardviewComponent implements OnChanges {
   private showModalStyle: boolean = false;
   private isAlreadyPresentInCart: boolean = false;
   private isShortlistedclicked: boolean = false;
-  private isShowPrintView: boolean = true;
+  isShowPrintView: boolean = true;
 
 
 
