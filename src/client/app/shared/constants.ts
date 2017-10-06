@@ -311,6 +311,8 @@ export class Messages {
   public static NO_CANDIDATES_AVAILABLE = 'No candidates available for selected alphabet.';
   public static NO_RECRUITERS_AVAILABLE = 'No recruiters available for selected alphabet.';
   public static OTHERS_AOW_MESSAGE = 'Thank you for your interest in our Job post but currently we do not have your Area of Work, we will get back to you after building your Area of Work';
+  public static ASK_EXPERT_MESSAGE = 'You can copy and share this link to hiring manager to independently define the job description.\n' +
+      'On his completion you will receive an email.';
 }
 export class AdminPanel {
   public static PUBLIC_PROFILE='Profile is public';
@@ -647,6 +649,7 @@ export class Headings {
   public static RESET_PASSWORD_HEADING: string = 'RESET PASSWORD';
   public static CLONE_JOB: string = 'Clone Job';
   public static POST_JOB: string = 'Post New Job';
+  public static ASK_EXPERT: string = 'Copy and Send Link';
 }
 
 export class Label {
@@ -680,7 +683,7 @@ export class Label {
   public static TERMS_AND_CONDITIONS_NAME: string = 'Terms and Conditions.';
   public static REGISTER_AS_APPLICANT: string = 'Register as an applicant';
   public static REGISTER_AS_RECRUITER: string = 'Register as a recruiter';
-  public static ASK_EXPERT: string = 'Ask Expert';
+  public static ASK_EXPERT: string = 'Share job with hiring manager for edit';
 }
 
 export class Button {
