@@ -759,9 +759,11 @@ class CandidateService {
   }
 
   loadRoles(roles: any[]) {
-    let selectedRoles : string[] = new Array();
+    //let selectedRoles : string[] = new Array();
+    let selectedRoles : string = '';
     for(let role of roles) {
-      selectedRoles.push(role.name);
+      selectedRoles = selectedRoles +' $'+ role.name;
+      //selectedRoles.push(role.name);
     }
     return selectedRoles;
   }
