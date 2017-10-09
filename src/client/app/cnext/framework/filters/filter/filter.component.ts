@@ -39,6 +39,15 @@ export class FilterComponent {
   userForm: FormGroup;
   isRecuirter: boolean;
   showClearFilter: boolean;
+  openEducationPanel: boolean = false;
+  openExperiencePanel: boolean = false;
+  openSalaryPanel: boolean = false;
+  openCompanySizePanel: boolean = false;
+  openLocationPanel: boolean = false;
+  openCurrentLocationPanel: boolean = false;
+  openKeyskillsPanel: boolean = false;
+  openJoiningPeriodPanel: boolean = false;
+  openDomainPanel: boolean = false;
 
   constructor(private formBuilder: FormBuilder,
               private errorService:ErrorService,
