@@ -339,7 +339,10 @@ header {
     margin-bottom: 0;
     position: absolute;
     top: 150px;
-    /*max-width: calc(100% - 30px);*/
+  }
+
+  .empty-list-message {
+    left: 50%;
   }
 }
 
