@@ -301,3 +301,10 @@
     }
   }
 }
+
+.checkbox {
+  position: absolute;
+  right: 10px;
+  z-index: 1000;
+  top: -16px;
+}

@@ -160,6 +160,7 @@ import {AdminModule} from "./admin/admin.module";
 import {JobShareContainerComponent} from "./cnext/framework/job-share-container/job-share-container.component";
 import {JobShareContainerService} from "./cnext/framework/job-share-container/job-share-container.service";
 import {JobCloseComponent} from "./cnext/framework/job-close/job-close.component";
+import {ClosedJobFilter} from "./cnext/framework/filters/closed-job-filter.pipe";
 //C-NEXT IMPORTS
 
 
@@ -256,6 +257,7 @@ import {JobCloseComponent} from "./cnext/framework/job-close/job-close.component
     RecruiterJobInformation,
     RecruiterQCardview2Component,
     QCardListFilterPipe,
+    ClosedJobFilter,
     RecuirterQCardMatchingPipe,
     MinRangeValidation,
     MaxRangeValidation,

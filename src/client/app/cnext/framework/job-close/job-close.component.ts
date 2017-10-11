@@ -15,8 +15,8 @@ import {ErrorService} from "../../../shared/services/error.service";
 
 export class JobCloseComponent implements OnChanges {
 
-  @Input() selectedJobIdForClose: string;
-  @Input() selectedJobTitleForClose: string;
+ /* @Input() selectedJobIdForClose: string;
+  @Input() selectedJobTitleForClose: string;*/
   @Input() selectedJobProfile: any;
   @Input() isJobCloseButtonClicked:boolean;
 
@@ -28,35 +28,24 @@ export class JobCloseComponent implements OnChanges {
   }
 
   ngOnChanges(changes:any) {
-    if (changes.selectedJobId!== undefined
-      && changes.selectedJobId.currentValue !== undefined) {
+    /*if (changes.selectedJobIdForClose!== undefined
+      && changes.selectedJobIdForClose.currentValue !== undefined) {
       this.showCloseDialogue=true;
-    }
-    if(changes.isJobCloseButtonClicked.currentValue!==undefined) {
+    }*/
+    if(changes.isJobCloseButtonClicked !== undefined && changes.isJobCloseButtonClicked.currentValue !== undefined) {
       this.showCloseDialogue = true;
     }
   }
 
-  onCloseJob() { debugger  
-    /*this.jobPosterService.closeJob(this.selectedJobId).subscribe(
-      data => {
-        console.log('close job component', data.isJobPostClosed);
-      },error => this.onCloseFail(error));*/
+
+  onCloseJob() { debugger
+    this.showCloseDialogue = false;
     this.selectedJobProfile.isJobPostClosed = true;
     this.jobPosterService.postJob(this.selectedJobProfile).subscribe(
       data => {
         this.selectedJobProfile = data.data.postedJobs[0];
       }, error => this.errorService.onError(error))
   }
-
- /* onCloseFail(error: any) {
-    if (error.err_code === 403 || error.err_code === 0) {
-      var message = new Message();
-      message.error_msg =error.err_msg ;
-      message.isError = true;
-      this.messageService.message(message);
-    }
-  }*/
 
   setStyleForDialogueBox() {
     if (this.showCloseDialogue) {

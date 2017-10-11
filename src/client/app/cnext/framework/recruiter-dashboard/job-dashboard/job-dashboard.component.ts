@@ -48,6 +48,7 @@ export class JobDashboardComponent implements OnInit {
   private emptyListMessage: string = Tooltip.EMPTY_LIST_MESSAGE;
   private emptyCartMessage: string = Tooltip.EMPTY_CART_MESSAGE;
   private emptyRejectedList: string = Tooltip.EMPTY_REJECTED_LIST_MESSAGE;
+  private isJobCloseButtonClicked:boolean;
   @ViewChild(QCardviewComponent) acaQcardClassObject: QCardviewComponent;
 
 
@@ -324,6 +325,12 @@ export class JobDashboardComponent implements OnInit {
 
   updateJob() {
     this.renewJobPostService.updateJob();
+  }
+
+  closeJobPost() {
+    this.selectedJobProfile;
+    this.isJobCloseButtonClicked=!this.isJobCloseButtonClicked;
+
   }
 
 }

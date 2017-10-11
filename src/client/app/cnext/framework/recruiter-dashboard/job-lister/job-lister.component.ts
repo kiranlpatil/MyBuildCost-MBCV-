@@ -15,11 +15,12 @@ import {RenewJobPostService} from "../../../../user/services/renew-jobpost.servi
   styleUrls: ['job-lister.component.css'],
  })
 
-export class JobListerComponent implements  OnDestroy, OnChanges {
+export class JobListerComponent implements  OnDestroy {
   @Input() jobListInput: any[] = new Array(0);
   @Input() headerInfoForJob: RecruiterHeaderDetails;
   @Input() screenType:string;
   @Input() recruiter: RecruiterDashboard;
+//  @Input() showClosedJobs: boolean;
   @Output() jobPostEventEmitter: EventEmitter<string> = new EventEmitter();
   @Output() jobListCloneSuccessEmitter: EventEmitter<boolean> = new EventEmitter();
   @Output() selectedJobProfileEmitter: EventEmitter<string> = new EventEmitter();
@@ -31,17 +32,40 @@ export class JobListerComponent implements  OnDestroy, OnChanges {
   private isCloneButtonClicked:boolean;
   private isJobCloseButtonClicked:boolean;
   private toggle: boolean = false;
+  private closedJobs: any[] = new Array(0);
   private isJobeditted: boolean = false;
   private initialMessageToDisplay: string= Tooltip.RECRUITER_ENTRY_MESSAGE;
   private dashboardWelcomeMessage: string= Tooltip.RECRUITER_DASHBOARD_MESSAGE;
   private qCardModel: QCardsortBy = new QCardsortBy();
+  private showClosedJobs: boolean = true;
 
-  constructor(private _router: Router, public refrence: ReferenceService, private renewJobPostService: RenewJobPostService) {
+  constructor(private _router: Router, public refrence: ReferenceService,
+              private renewJobPostService: RenewJobPostService) {
     this.qCardModel.name = 'Date';
+
   }
 
-  ngOnChanges(changes: any) {
-  }
+  /*ngOnChanges() {
+    if(!this.showClosedJobs) {
+      for (let job of this.jobListInput) {
+        if(job.isJobPostClosed) {
+          const index: number = this.jobListInput.indexOf(job);
+          if(index !== -1) {
+            this.closedJobs.push(job);
+            this.jobListInput.splice(index, 1);
+          }
+        }
+      }
+    } else {
+      for(let jobClosed of this.closedJobs) {
+        if (this.jobListInput.indexOf(jobClosed) === -1) {
+          this.jobListInput.push(jobClosed);
+        }
+      }
+    }
+  }*/
+
+
   ngOnDestroy() {
     this.refrence.data = this.headerInfoForJob;
   }
@@ -106,11 +130,16 @@ export class JobListerComponent implements  OnDestroy, OnChanges {
     this.selectedJobProfileEmitter.emit(selectedJobProfile);
   }
 
-  closeJobPost(selectedJobProfile: any) {
+  closeJobPost(selectedJobProfile: any) { debugger
     this.selectedJobProfile = selectedJobProfile;
-   /* this.selectedJobId=selectedJobProfile._id;
-    this.selectedJobTitle=selectedJobProfile.jobTitle;*/
+    /*this.selectedJobId = selectedJobProfile._id;
+    this.selectedJobTitle = selectedJobProfile.jobTitle;*/
     this.isJobCloseButtonClicked=!this.isJobCloseButtonClicked;
+    //this.isJobCloseButtonClicked = true;
+  }
+
+  displayClosedJobs() {
+    this.showClosedJobs = !this.showClosedJobs;
   }
 
 }

@@ -92,7 +92,7 @@
       <ul class="dropdown-menu">
         <li (click)="raiseCloneEvent()"><a>{{getLabel().CLONE_JOB}}</a></li>
         <li (click)="onRenewJob()"><a>Renew Job Post</a></li>
-        <li><a disabled>{{getLabel().CLOSE_JOB}}</a></li>
+        <li (click)="closeJobPost()"><a>{{getLabel().CLOSE_JOB}}</a></li>
       </ul>
     </div>
     <div id="matched-job" class="tab-pane fade in active "  *ngIf="selectedJobProfile!=undefined">
@@ -100,7 +100,9 @@
                       (addedTocart)="AddedToCart($event)" *ngIf="whichListVisible[0]" [candidateQlist]="candidateQlist"
                       [filterMeta]="filterMeta"
                       [candidates]="candidateQlist.matchedCandidates" [type]="'matchedList'" [jobId]="jobId"
-                      [recuirterListCountModel]="recruiterJobView" [isJobPostExpired]="selectedJobProfile.isJobPostExpired"></cn-q-card-view>
+                      [recuirterListCountModel]="recruiterJobView"
+                      [isJobPostExpired]="selectedJobProfile.isJobPostExpired"
+      [isJobPostClosed]="selectedJobProfile.isJobPostClosed"></cn-q-card-view>
       <p class="empty-list-message" *ngIf="recruiterJobView.numberOfMatchedCandidates==0">{{emptyListMessage}}</p>
 
     </div>
@@ -148,6 +150,7 @@
     <cn-job-clone [selectedJobId]="selectedJobId"  [selectedJobTitle]="selectedJobTitle"
                   [isCloneButtonClicked]="isCloneButtonClicked"  (raiseJobEditViewEventEmitter)="jobcloned($event)" ></cn-job-clone>
 
+      <cn-job-close [isJobCloseButtonClicked]="isJobCloseButtonClicked"  [selectedJobProfile]="selectedJobProfile"></cn-job-close>
   </div>
   <tpl-footer></tpl-footer>
 </div>
@@ -158,7 +161,7 @@
         <div class="modal-body">
           <div class="modal-header">
             <h4>Job Description</h4>
-            <img src="/assets/c-next/card-view/close-white.png" (click)="closeJob()" class="close"/>
+           <!-- <img src="/assets/c-next/card-view/close-white.png" (click)="closeJob()" class="close"/>-->
           </div>
           <cn-job-view [jobId]="selectedJobProfile._id" [calledFrom]="'jobDashboard'"></cn-job-view>
         </div>

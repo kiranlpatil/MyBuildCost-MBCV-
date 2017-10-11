@@ -9,6 +9,10 @@
 
 <div class="job-list clearfix" *ngIf="screenType=='jobList'">
   <header class="col-sm-12">
+      <label class="checkbox">
+          <input type="checkbox" [checked]="showClosedJobs" (change)="displayClosedJobs()" />
+          Show Closed Jobs
+      </label>
   </header>
 
   <div class="card-view clearfix">
@@ -16,15 +20,15 @@
     <cn-job-clone [selectedJobId]="selectedJobId"  [selectedJobTitle]="selectedJobTitle"
                   [isCloneButtonClicked]="isCloneButtonClicked"
                   (raiseJobEditViewEventEmitter)="onJobCloned($event)" ></cn-job-clone>
-      <cn-job-close [selectedJobProfile]="selectedJobProfile" [selectedJobIdForClose]="selectedJobId" [selectedJobTitleForClose]="selectedJobTitle"
+      <cn-job-close [selectedJobProfile]="selectedJobProfile"
       [isJobCloseButtonClicked]="isJobCloseButtonClicked"></cn-job-close>
-    <div  class="col-md-3" *ngFor="let item of jobListInput | orderBy:format;let i = index">
+    <div  class="col-md-3" *ngFor="let item of jobListInput | orderBy:format | closedJobFilter : showClosedJobs;let i = index">
       <div class="dropdown clone-job-menu">
         <button class="btn dropdown-toggle btn-menu" type="button" data-toggle="dropdown"><span
                 class="glyphicon glyphicon-option-vertical"></span></button>
         <ul class="dropdown-menu">
           <li (click)="raiseCloneEvent(item)"><a>{{getLabel().CLONE_JOB}}</a></li>
-          <li (click)="renewJobPost(item)"><a>Renew Job Post</a></li>
+          <li *ngIf="!item.isJobPostClosed" (click)="renewJobPost(item)"><a>Renew Job Post</a></li>
           <li (click)="closeJobPost(item)"><a>{{getLabel().CLOSE_JOB}}</a></li>
         </ul>
       </div>

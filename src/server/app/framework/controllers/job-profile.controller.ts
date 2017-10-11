@@ -268,7 +268,7 @@ export function cloneJob(req: express.Request, res: express.Response, next: any)
   }
 }
 
-export function closeJob(req : express.Request, res: express.Response, next: any) {
+/*export function closeJob(req : express.Request, res: express.Response, next: any) {
 
   try {
     var jobProfileService = new JobProfileService();
@@ -310,5 +310,5 @@ export function closeJob(req : express.Request, res: express.Response, next: any
   } catch (e) {
     res.status(403).send({message: e.message});
   }
-}
+}*/
 
