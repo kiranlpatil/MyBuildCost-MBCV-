@@ -59,6 +59,7 @@ export class JobCloseComponent implements OnChanges, OnInit {
       data => {
         this.selectedJobProfile = data.data.postedJobs[0];
       }, error => this.errorService.onError(error))
+    this.messageService.message(new Message("This Job Post is closed"));
   }
 
   setStyleForDialogueBox() {
