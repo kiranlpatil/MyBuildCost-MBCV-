@@ -6,9 +6,19 @@
                     <button type="button" class="close" (click)="onCancel()">
                         <span>&times;</span>
                     </button>
-                    <h5 class="modal-title">{{getHeading().CLOSE_JOB}}</h5>
+                    <h5 class="modal-title" *ngIf="reasonForClosingJob && reasonForClosingJob.length>0">{{reasonForClosingJob[0].question}}</h5>
                 </div>
-                <div class="modal-body">
+                <div class="modal-body" *ngIf="reasonForClosingJob && reasonForClosingJob.length>0">
+                    <div class="scenarios">
+                        <div class="item-radio" *ngFor="let answer of reasonForClosingJob[0].answers">
+                            <label>
+                                <input type="radio" name="ccc" value="{{answer}}"
+                                       (change)="onJobCloseReason(answer)">
+                                <span>{{answer}}</span>
+                                <div class="check"></div>
+                            </label>
+                        </div>
+                    </div>
                     <div class="col-sm-12">
                         <div class="form-group">
                             <!--<label>{{getLabel().CLOSE_JOB}}</label>

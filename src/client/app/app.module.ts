@@ -161,6 +161,7 @@ import {JobShareContainerComponent} from "./cnext/framework/job-share-container/
 import {JobShareContainerService} from "./cnext/framework/job-share-container/job-share-container.service";
 import {JobCloseComponent} from "./cnext/framework/job-close/job-close.component";
 import {ClosedJobFilter} from "./cnext/framework/filters/closed-job-filter.pipe";
+import {JobCloseComponentService} from "./cnext/framework/job-close/job-close.component.service";
 //C-NEXT IMPORTS
 
 
@@ -346,7 +347,8 @@ import {ClosedJobFilter} from "./cnext/framework/filters/closed-job-filter.pipe"
     SharedService,
     ShareService,
     Title,
-    ShareContainerService
+    ShareContainerService,
+    JobCloseComponentService
   ],
   bootstrap: [AppComponent]
 })

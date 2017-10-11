@@ -62,6 +62,9 @@ class RecruiterSchema {
         capability_matrix: {
           type: Object
         },
+        jobCloseReason:{
+          type: String
+        },
         candidate_list: [{
           name: String,
           ids: [{

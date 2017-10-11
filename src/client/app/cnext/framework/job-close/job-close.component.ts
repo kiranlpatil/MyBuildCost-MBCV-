@@ -1,9 +1,10 @@
-import {Component, Input, OnChanges} from '@angular/core';
+import {Component, Input, OnChanges, OnInit} from '@angular/core';
 import {JobPosterService} from "../job-poster/job-poster.service";
 import {MessageService} from "../../../shared/services/message.service";
 import {Message} from "../../../shared/models/message";
 import {Headings, Label, Button} from "../../../shared/constants";
 import {ErrorService} from "../../../shared/services/error.service";
+import {JobCloseComponentService} from "./job-close.component.service";
 
 @Component ({
 
@@ -13,7 +14,7 @@ import {ErrorService} from "../../../shared/services/error.service";
   styleUrls: ['job-close.component.scss']
 })
 
-export class JobCloseComponent implements OnChanges {
+export class JobCloseComponent implements OnChanges, OnInit {
 
  /* @Input() selectedJobIdForClose: string;
   @Input() selectedJobTitleForClose: string;*/
@@ -22,9 +23,21 @@ export class JobCloseComponent implements OnChanges {
 
 
   private showCloseDialogue:boolean = false;
+  private selectedJobCloseReason: string;
+  private reasonForClosingJob: any[];
   private isShowNoSelectionError: boolean = false;
 
-  constructor(private errorService: ErrorService, private jobPosterService: JobPosterService, private messageService: MessageService) {
+  constructor(private errorService: ErrorService, private jobPosterService: JobPosterService,
+              private messageService: MessageService, private jobCloseComponentService: JobCloseComponentService) {
+  }
+
+  ngOnInit() {
+    this.jobCloseComponentService.getReasonsForClosingJob()
+      .subscribe(data => {
+        this.reasonForClosingJob = data.questions;
+      }, error=> {
+        this.errorService.onError(error);
+      });
   }
 
   ngOnChanges(changes:any) {
@@ -38,9 +51,10 @@ export class JobCloseComponent implements OnChanges {
   }
 
 
-  onCloseJob() { debugger
+  onCloseJob() {
     this.showCloseDialogue = false;
     this.selectedJobProfile.isJobPostClosed = true;
+    this.selectedJobProfile.jobCloseReason = this.selectedJobCloseReason;
     this.jobPosterService.postJob(this.selectedJobProfile).subscribe(
       data => {
         this.selectedJobProfile = data.data.postedJobs[0];
@@ -69,6 +83,10 @@ export class JobCloseComponent implements OnChanges {
 
   getButtonLabel() {
     return Button;
+  }
+
+  onJobCloseReason(selectedReason: string) {
+    this.selectedJobCloseReason = selectedReason;
   }
 
 }
