@@ -378,4 +378,8 @@ export class QCardviewComponent implements OnChanges {
     message.custom_message = 'Candidate' + ' ' + value.first_name + ' ' + value.last_name + ' added to compare view.';
     this.messageService.message(message);
   }
+
+  /*getMustHaveCandidates() {
+    console.log("getMustHaveCandidates called");
+  }*/
 }

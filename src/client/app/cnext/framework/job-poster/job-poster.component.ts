@@ -104,6 +104,9 @@ export class JobPosterComponent implements OnInit, OnChanges {
         data => {
           this.isRecruitingForSelf=data.data.industry.isRecruitingForself;
           this.jobPosterModel = data.data.industry.postedJobs[0];
+          if(this.jobPosterModel.complexity_musthave_matrix == undefined) {
+            this.jobPosterModel.complexity_musthave_matrix = {};
+          }
           this.onGetJobDetailsSuccess(this.jobPosterModel);
         }, error => this.errorService.onError(error));
   }
@@ -327,6 +330,11 @@ export class JobPosterComponent implements OnInit, OnChanges {
 
   onComplextyAnswered(capability_matrix: any) {
     this.jobPosterModel.capability_matrix = capability_matrix;
+    this.updateJob();
+  }
+
+  onMustHave(mustHaveMatrix: any) {
+    this.jobPosterModel.complexity_musthave_matrix = mustHaveMatrix;
     this.updateJob();
   }
 

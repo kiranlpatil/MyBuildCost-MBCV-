@@ -21,7 +21,9 @@ import {ErrorService} from "../../../shared/services/error.service";
 export class ComplexitiesComponent implements OnInit, OnChanges {
   @Input() roles: Role[] = new Array(0); //TODO remove this
   @Input() complexities: any; //TODO why this is of type of ANY
+  @Input() complexitiesIsMustHave: any; //TODO why this is of type of ANY
   @Output() onComplete = new EventEmitter();
+  @Output() onMustHave = new EventEmitter();
   @Output() onComplextyAnswered = new EventEmitter();
   @Input() highlightedSection: Section;
   @Input() isComplexityPresent: boolean = true;
@@ -235,6 +237,11 @@ export class ComplexitiesComponent implements OnInit, OnChanges {
     this.isValid=true;
     this.complexities[complexityDetails.code] = complexityDetails.userChoice;
     this.onComplextyAnswered.emit(this.complexities);
+  }
+
+  onMustHaveSelect(complexityDetails: ComplexityDetails) {
+      this.complexitiesIsMustHave[complexityDetails.code] = complexityDetails.complexityIsMustHave;
+      this.onMustHave.emit(this.complexitiesIsMustHave);
   }
 
   getCapabilityDetail(currentCapability: number) {
