@@ -1,10 +1,10 @@
-import {Component, Input, OnChanges, OnInit} from '@angular/core';
-import {JobPosterService} from "../job-poster/job-poster.service";
-import {MessageService} from "../../../shared/services/message.service";
-import {Message} from "../../../shared/models/message";
-import {Headings, Label, Button} from "../../../shared/constants";
-import {ErrorService} from "../../../shared/services/error.service";
-import {JobCloseComponentService} from "./job-close.component.service";
+import { Component, Input, OnChanges, OnInit } from '@angular/core';
+import { JobPosterService } from '../job-poster/job-poster.service';
+import { MessageService } from '../../../shared/services/message.service';
+import { Message } from '../../../shared/models/message';
+import { Headings, Label, Button, Messages } from '../../../shared/constants';
+import { ErrorService } from '../../../shared/services/error.service';
+import { JobCloseComponentService } from './job-close.component.service';
 
 @Component ({
 
@@ -83,6 +83,10 @@ export class JobCloseComponent implements OnChanges, OnInit {
     return Headings;
   }
 
+    getMessages() {
+        return Messages;
+    }
+
   getLabel() {
     return Label;
   }
@@ -94,5 +98,4 @@ export class JobCloseComponent implements OnChanges, OnInit {
   onJobCloseReason(selectedReason: string) {
     this.selectedJobCloseReason = selectedReason;
   }
-
 }

@@ -20,6 +20,7 @@
                                 </label>
                             </div>
                         </div>
+                        <div class="error-messages" *ngIf="isShowNoSelectionError">{{getMessages().SELECT_REASON_FOR_JOB_CLOSE}}</div>
                     </div>
                     <div class="button-group">
                         <button (click)="onCloseJob()" class="btn btn-primary">{{getButtonLabel().CLOSE_BUTTON}}</button>
