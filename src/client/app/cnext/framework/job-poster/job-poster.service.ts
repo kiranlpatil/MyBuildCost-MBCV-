@@ -42,7 +42,7 @@ export class JobPosterService extends BaseService {
       .catch(this.handleError);
   }
 
-  closeJob(jobId: JobPosterModel): Observable<any> {
+  /*closeJob(jobId: JobPosterModel): Observable<any> {
     let headers = new Headers({'Content-Type': 'application/json'});
     let options = new RequestOptions({headers: headers});
     let body = JSON.stringify({'postedJobs': jobId});
@@ -50,5 +50,5 @@ export class JobPosterService extends BaseService {
     return this.http.put(url, body, options)
       .map(this.extractData)
       .catch(this.handleError);
-  }
+  }*/
 }
