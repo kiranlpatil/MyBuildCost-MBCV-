@@ -688,6 +688,8 @@ export class Label {
   public static REGISTER_AS_RECRUITER: string = 'Register as a recruiter';
   public static ASK_EXPERT: string = 'Share job with hiring manager for edit';
   public static SHOW_CLOSED_JOBS: string = 'Show Closed Jobs';
+  public static POST_JOB: string = 'POST JOB';
+  public static CLOSED_JOB: string = 'CLOSED JOB';
 }
 
 export class Button {
