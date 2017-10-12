@@ -281,11 +281,11 @@ import {JobCloseComponentService} from "./cnext/framework/job-close/job-close.co
     PrintScreenComponent,
     JobCloseComponent
   ],
+
   providers: [
     {
       provide: Http,
-      useFactory: (backend: XHRBackend, defaultOptions: RequestOptions, messageService: MessageService,
-                   loaderService: LoaderService) => new CustomHttp(backend, defaultOptions, messageService, loaderService),
+      useFactory: httpFactory,
       deps: [XHRBackend, RequestOptions, MessageService, LoaderService]
     },
     {provide: RequestOptions, useClass: AppRequestOptions},
@@ -352,6 +352,12 @@ import {JobCloseComponentService} from "./cnext/framework/job-close/job-close.co
   ],
   bootstrap: [AppComponent]
 })
+
 export class AppModule {
+}
+
+export function httpFactory(backend: XHRBackend, defaultOptions: RequestOptions, messageService: MessageService,
+                            loaderService: LoaderService) {
+  return  new CustomHttp(backend, defaultOptions, messageService, loaderService);
 }
 

@@ -1,5 +1,5 @@
 import {Component, DoCheck, HostListener, KeyValueDiffers, OnDestroy, OnInit} from "@angular/core";
-import {ImagePath, Label, LocalStorage, Messages, NavigationRoutes, Tooltip} from "../../../shared/constants";
+import {Button, ImagePath, Label, LocalStorage, Messages, NavigationRoutes, Tooltip} from "../../../shared/constants";
 import {Router} from "@angular/router";
 import {ComplexityService} from "../complexity.service";
 import {Candidate, Section} from "../../../user/models/candidate";
@@ -22,30 +22,30 @@ export class CandidateProfileComponent implements OnInit, DoCheck, OnDestroy {
   whichStepsVisible: boolean[] = new Array(7);
   jobSearchForFirstTimeMessage:string = Messages.MSG_READY_FOR_JOB_SEARCH_FOR_FIRST_TIME;
   jobSearchMessage:string = Messages.MSG_READY_FOR_JOB_SEARCH;
-  private rolesForMain: Role[] = new Array(0);
-  private rolesForCapability: Role[] = new Array(0);
-  private rolesForComplexity: Role[] = new Array(0);
+  rolesForMain: Role[] = new Array(0);
+  rolesForCapability: Role[] = new Array(0);
+  rolesForComplexity: Role[] = new Array(0);
   private roleList: string[] = [];
   private primaryCapability: string[] = [];
   private proficiencies: string[] = [];
-  private isComplexityPresent: boolean = false;
+  isComplexityPresent: boolean = false;
   private isShowNext: boolean = true;
   private isShowPrev: boolean = false;
-  private showCapability: boolean = false;
-  private showComplexity: boolean = false;
-  private showProficiency: boolean = false;
+  showCapability: boolean = false;
+  showComplexity: boolean = false;
+  showProficiency: boolean = false;
   private showIndustryExperience: boolean = false;
-  private showProfessionalData: boolean = false;
-  private showEmploymentHistory: boolean = false;
+  showProfessionalData: boolean = false;
+  showEmploymentHistory: boolean = false;
   private showAcademicsDetails: boolean = false;
-  private showCertificationDetails: boolean = false;
-  private showAwards: boolean = false;
-  private showAboutMySelf: boolean = false;
-  private isRolesShow: boolean = true;
-  private isIndustryShow: boolean = true;
-  private candidate: Candidate = new Candidate();
-  private candidateForRole: Role[];
-  private candidateForCapability: Role[];
+  showCertificationDetails: boolean = false;
+  showAwards: boolean = false;
+  showAboutMySelf: boolean = false;
+  isRolesShow: boolean = true;
+  isIndustryShow: boolean = true;
+  candidate: Candidate = new Candidate();
+  candidateForRole: Role[];
+  candidateForCapability: Role[];
   private candidateForComplexity: Role[];
   // private showTooltip: boolean = false;
   private setTimeoutId: any;
@@ -54,7 +54,7 @@ export class CandidateProfileComponent implements OnInit, DoCheck, OnDestroy {
   private isPresentCapability: boolean = false;
   private isComplexityFilled: boolean = true;
   private isPresentDefaultcomplexity: boolean = false;
-  private highlightedSection: Section = new Section();
+  highlightedSection: Section = new Section();
   private visiblitySetToYesMessage : string = Tooltip.PROFILE_INFO_VISIBILIT_SET_TO_YES;
   private visiblitySetToNoMessage : string = Tooltip.PROFILE_INFO_VISIBILIT_SET_TO_NO;
   differ: any;
@@ -522,5 +522,9 @@ export class CandidateProfileComponent implements OnInit, DoCheck, OnDestroy {
 
   getLabel() {
     return Label;
+  }
+
+  getButton() {
+    return Button;
   }
 }

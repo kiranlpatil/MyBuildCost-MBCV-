@@ -34,7 +34,7 @@ export class ComplexitiesComponent implements OnInit, OnChanges {
   private currentComplexityDetails: ComplexityDetails = new ComplexityDetails();
   private isComplexityButtonEnable: boolean = false;
   private showModalStyle: boolean = false;
-  private isCandidate: boolean = false;
+  isCandidate: boolean = false;
   private currentComplexity: number;
   private showMore: boolean = false;
   private slideToRight: boolean = false;
@@ -59,10 +59,10 @@ export class ComplexitiesComponent implements OnInit, OnChanges {
   @ViewChild('save')
   private _inputElement1: ElementRef;
   private maxCapabilitiesToShow = ValueConstant.MAX_CAPABILITIES_TO_SHOW;
-  private guidedTourStatus:string[] = new Array(0);
-  private guidedTourImgOverlayScreensComplexities: string;
+  guidedTourStatus:string[] = new Array(0);
+  guidedTourImgOverlayScreensComplexities: string;
   private guidedTourImgOverlayScreensKeySkillsPath:string;
-  private isGuideImg:boolean = false;
+  isGuideImg:boolean = false;
 
   constructor(private complexityService: ComplexityService,
               private complexityComponentService: ComplexityComponentService,
@@ -232,7 +232,6 @@ export class ComplexitiesComponent implements OnInit, OnChanges {
   }
 
   oncurrentComplexityAnswered(complexityDetails: ComplexityDetails) {
-      debugger;
     this.isValid=true;
     this.complexities[complexityDetails.code] = complexityDetails.userChoice;
     this.onComplextyAnswered.emit(this.complexities);
@@ -246,7 +245,6 @@ export class ComplexitiesComponent implements OnInit, OnChanges {
 
   onNextCapability() {
     //this.currentCapabilityNumber++;
-    window.scrollTo(0, 0);
     for (let complexity of this.capabilities[this.currentCapabilityNumber].complexities) {
       if (complexity.complexityDetails.userChoice === undefined) {
         this.isValid = false;
@@ -259,8 +257,10 @@ export class ComplexitiesComponent implements OnInit, OnChanges {
       this.isValid = true;
       this.onSaveComplexity();
       this.highlightedSection.name = 'Proficiencies';
+      window.scrollTo(0, 0);
       return;
     }
+    window.scrollTo(0, 0);
     this.isValid = true;
     this.getCapabilityDetail(++this.currentCapabilityNumber);
   }
@@ -277,12 +277,11 @@ export class ComplexitiesComponent implements OnInit, OnChanges {
 
   onNext() {
     this.isValid = true;
-    window.scrollTo(0, 0);
     if (this.complexities[this.complexityIds[this.currentComplexity]] === -1) {
       this.isValid = false;
       return;
     }
-
+    window.scrollTo(0, 0);
     this.onComplextyAnswered.emit(this.complexities);
     if (this.slideToLeft === true) {
       this.slideToLeft = !this.slideToLeft;
