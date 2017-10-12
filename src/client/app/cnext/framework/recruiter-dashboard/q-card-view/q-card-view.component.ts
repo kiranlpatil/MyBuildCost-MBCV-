@@ -359,10 +359,10 @@ export class QCardviewComponent implements OnChanges {
     }
   }
 
-  /*closeJob() {
+  closeJob() {
     this.isShowPrintView = false;
     this.showModalStyle = !this.showModalStyle;
-  }*/
+  }
 
   getImagePath(imagePath: string) {
     if (imagePath !== undefined) {
