@@ -31,7 +31,7 @@
                 class="glyphicon glyphicon-option-vertical"></span></button>
         <ul class="dropdown-menu">
           <li (click)="raiseCloneEvent(item)"><a>{{getLabel().CLONE_JOB}}</a></li>
-          <li *ngIf="!item.isJobPostClosed" (click)="renewJobPost(item)"><a>Renew Job Post</a></li>
+          <li  *ngIf="!item.isJobPostClosed" (click)="renewJobPost(item)"><a>Renew Job Post</a></li>
           <li *ngIf="item.isJobPosted && !item.isJobPostClosed" (click)="closeJobPost(item)"><a>{{getLabel().CLOSE_JOB}}</a></li>
         </ul>
       </div>
