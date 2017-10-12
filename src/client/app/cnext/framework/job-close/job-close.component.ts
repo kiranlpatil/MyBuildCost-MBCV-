@@ -53,7 +53,7 @@ export class JobCloseComponent implements OnChanges, OnInit {
 
   onCloseJob() {
     if(this.selectedJobCloseReason === undefined || this.selectedJobCloseReason === '' || this.selectedJobCloseReason === null) {
-      //this.showCloseDialogue = false;
+      this.isShowNoSelectionError = true;
       return;
     } else {
       this.showCloseDialogue = false;
