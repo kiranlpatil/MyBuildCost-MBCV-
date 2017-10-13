@@ -23,7 +23,8 @@
     </div>
    <div class="add-complexity-notes">
      <label> Notes (if any) </label>
-     <textarea type="text" (change)="onNoteChange()" [(ngModel)]="complexityDetails.complexityNote"> </textarea>
+     <textarea type="text" (change)="onNoteChange()" [(ngModel)]="complexityDetails.complexityNote" maxlength="140"> </textarea>
+     <label class="notes-max-charcter">Max charcters length 140.</label>
    </div>
   </div>
 </div>

@@ -216,8 +216,8 @@ export class ComplexitiesComponent implements OnInit, OnChanges {
       let tempIndex = "d" + this.complexityIds[this.currentComplexity];
       this.complexities[tempIndex] = complexityDetail.userChoice;
      }*/
-    if(this.isCandidate) {
-      this.complexityNotes[this.complexityIds[this.currentComplexity]] = complexityDetail.complexityNote;
+    if(this.isCandidate && complexityDetail.complexityNote !== undefined) {
+      this.complexityNotes[this.complexityIds[this.currentComplexity]] = complexityDetail.complexityNote.substring(0,140);
     }
     this.complexityData[this.complexityIds[this.currentComplexity]] = complexityDetail;
     //this.onNext();
