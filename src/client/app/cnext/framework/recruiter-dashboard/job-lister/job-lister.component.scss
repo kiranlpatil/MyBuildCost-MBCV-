@@ -148,6 +148,10 @@
         width: 30px;
       }
 
+      .closed {
+        background: $closed_job !important;
+      }
+
       span {
         color: $white;
         font-size: 13px;
