@@ -31,7 +31,7 @@
                 class="glyphicon glyphicon-option-vertical"></span></button>
         <ul class="dropdown-menu">
           <li (click)="raiseCloneEvent(item)"><a>{{getLabel().CLONE_JOB}}</a></li>
-          <li *ngIf="!item.isJobPostClosed" (click)="renewJobPost(item)"><a>Renew Job Post</a></li>
+          <li *ngIf="item.isJobPosted && !item.isJobPostClosed" (click)="renewJobPost(item)"><a>Renew Job Post</a></li>
           <li *ngIf="item.isJobPosted && !item.isJobPostClosed" (click)="closeJobPost(item)"><a>{{getLabel().CLOSE_JOB}}</a></li>
         </ul>
       </div>
@@ -61,14 +61,14 @@
               </div>
             </div>
             <div class="col-sm-12 no-padding" title="Hiring Manager : {{item.hiringManager}}">
-              <div class="col-xs-2 no-padding">
+                <div class="col-xs-2 no-padding">
                 <img src="{{getImagePath().CONTACT_PERSON}}" alt="Hiring Manager"/>
               </div>
               <div class="col-xs-10 padding-left15" title="Hiring Manager : {{item.hiringManager}}">
                 <p class="hiring-manager">{{item.hiringManager}}</p>
               </div>
             </div>
-            <div class="col-sm-12 no-padding renew-job">
+            <div *ngIf="item.isJobPosted && !item.isJobPostClosed" class="col-sm-12 no-padding renew-job">
               <div class="col-xs-12" [class.posted-job]="!item.isJobPosted" [class.closed-job]="item.isJobPostClosed">
                 <p class="active" *ngIf="item.daysRemainingForExpiring > 7" title="{{item.daysRemainingForExpiring}} days remaining for expiry">{{item.daysRemainingForExpiring}} days remaining for expiry</p>
                 <p class="about-to-expire" *ngIf="item.daysRemainingForExpiring <= 7 && item.daysRemainingForExpiring >= 1" title="{{item.daysRemainingForExpiring}} days remaining for expiry">{{item.daysRemainingForExpiring}} days remaining for expiry</p>

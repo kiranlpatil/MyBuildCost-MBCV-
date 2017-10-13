@@ -16,14 +16,13 @@ import { JobCloseComponentService } from './job-close.component.service';
 
 export class JobCloseComponent implements OnChanges, OnInit {
 
-  //@Input() selectedJobIdForClose: string;
   @Input() selectedJobTitleForClose: string;
   @Input() selectedJobProfile: any;
   @Input() isJobCloseButtonClicked:boolean;
 
 
   private showCloseDialogue:boolean = false;
-  private selectedJobCloseReason: string;
+  private selectedJobCloseReason: number;
   private reasonForClosingJob: any = new Array(0);
   private isShowNoSelectionError: boolean = false;
 
@@ -41,10 +40,6 @@ export class JobCloseComponent implements OnChanges, OnInit {
   }
 
   ngOnChanges(changes:any) {
-    /*if (changes.selectedJobTitleForClose!== undefined
-      && changes.selectedJobTitleForClose.currentValue !== undefined) {
-      this.showCloseDialogue=true;
-    }*/
     if(changes.isJobCloseButtonClicked !== undefined && changes.isJobCloseButtonClicked.currentValue !== undefined) {
       this.showCloseDialogue = true;
     }
@@ -52,7 +47,7 @@ export class JobCloseComponent implements OnChanges, OnInit {
 
 
   onCloseJob() {
-    if(this.selectedJobCloseReason === undefined || this.selectedJobCloseReason === '' || this.selectedJobCloseReason === null) {
+    if(this.selectedJobCloseReason === undefined || this.selectedJobCloseReason === null) {
       this.isShowNoSelectionError = true;
       return;
     } else {
@@ -96,6 +91,6 @@ export class JobCloseComponent implements OnChanges, OnInit {
   }
 
   onJobCloseReason(selectedReason: string) {
-    this.selectedJobCloseReason = selectedReason;
+    this.selectedJobCloseReason = this.reasonForClosingJob[0].answers.indexOf(selectedReason);
   }
 }
