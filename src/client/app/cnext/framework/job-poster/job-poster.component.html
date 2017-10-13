@@ -80,7 +80,6 @@
         <ul class="dropdown-menu">
           <!--<li (click)="raiseCloneEvent(item)"><a>{{getLabel().CLONE_JOB}}</a></li>-->
           <li><a>{{getLabel().CLONE_JOB}}</a></li>
-          <li><a disabled>{{getLabel().CLOSE_JOB}}</a></li>
         </ul>
       </div>
     </div>
@@ -89,7 +88,8 @@
     </div>
 
   </div>
-  <div class="dropup ask-expert" *ngIf="role==='recruiter' && jobPosterModel && jobPosterModel._id !==''">
+  <div class="dropup ask-expert" *ngIf="role==='recruiter' && jobId !== undefined && jobId !==''">
+
     <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown" type="button" (click)="buildJobShareUrl()" >
       <span class="label">{{getLabel().ASK_EXPERT}}</span>
     </button>

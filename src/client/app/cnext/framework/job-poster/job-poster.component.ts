@@ -59,7 +59,7 @@ export class JobPosterComponent implements OnInit, OnChanges {
   private jobForComplexity: Role[] = new Array(0);
   jobForRole: Role[] = new Array(0);
   jobForCapability: Role[] = new Array(0);
-  private jobId: string;
+  jobId: string;
   isShowReleventIndustryListStep: boolean = false;
   private isPresentCapability: boolean = false;
   private isComplexityFilled: boolean = true;
@@ -195,6 +195,7 @@ export class JobPosterComponent implements OnInit, OnChanges {
     this.jobPostService.postJob(this.jobPosterModel).subscribe(
       data => {
         this.jobPosterModel._id = data.data.postedJobs[0]._id;
+        this.jobId=data.data.postedJobs[0]._id;
         LocalStorageService.setLocalValue(LocalStorage.POSTED_JOB, this.jobPosterModel._id);
         if (this.setCapabilityMatrix) {
           this.jobPosterModel.capability_matrix = data.data.postedJobs[0].capability_matrix;
