@@ -337,7 +337,7 @@ export class NavigationRoutes {
   public static APP_PROFILESUMMURY: string = '/profile_summary';
   public static APP_JOB_SUMMURY: string = '/job_summary';
   public static APP_COMPANYDETAILS: string = '/company_details';
-
+  public static APP_VLAUEPORTRAIT: string = '/value-portrait';
 }
 
 export class LocalStorage {
@@ -517,6 +517,7 @@ export class ImagePath {
   public static CANDIDATE_OERLAY_SCREENS_PROFILE='candidate_overlay-screens-profile.jpg';
   public static CANDIDATE_OVERLAY_SCREENS_BASIC_INFO = 'candidate_overlay-screens-basic-info.jpg';
   public static CANDIDATE_OERLAY_SCREENS_STACK_VIEW='candidate_overlay-screens-stack-view.jpg';
+  public static CANDIDATE_VALUE_PORTRAIT_VIEW='candidate_value_portrait_view.jpg';
 
 
 }
@@ -693,5 +694,5 @@ export class Button {
   public static CLONE_BUTTON: string = 'CLONE';
   public static CANCEL_BUTTON: string = 'CANCEL';
   public static VALUE_PORTRAIT_BUTTON: string = 'Create your Own Value Portrait';
-  public static SUBMIT_VIEW_JOB: string = 'Submit & View Job';
+  public static SUBMIT_PROFILE: string = 'Submit Profile';
 }
