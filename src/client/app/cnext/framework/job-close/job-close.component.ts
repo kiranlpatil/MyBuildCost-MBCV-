@@ -24,7 +24,7 @@ export class JobCloseComponent implements OnChanges, OnInit {
 
   private showCloseDialogue:boolean = false;
   private selectedJobCloseReason: string;
-  private reasonForClosingJob: any = new Array(0);
+  reasonForClosingJob: any = new Array(0);
   private isShowNoSelectionError: boolean = false;
 
   constructor(private errorService: ErrorService, private jobPosterService: JobPosterService,
