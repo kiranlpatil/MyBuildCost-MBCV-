@@ -1,6 +1,11 @@
 @import '../../../../../css/common';
 @import '../../../../../css/variables';
 
+.disable-option {
+  pointer-events: none;
+  background-color: #d0d0d0;
+  opacity: 0.3;
+}
 .welcome-text {
   height: 100vh;
   text-align: left;
@@ -141,6 +146,10 @@
         margin: 0 auto 5px;
         position: relative;
         width: 30px;
+      }
+
+      .closed {
+        background: $closed_job !important;
       }
 
       span {

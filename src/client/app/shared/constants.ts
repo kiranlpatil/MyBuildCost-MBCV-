@@ -231,6 +231,7 @@ export class Messages {
   public static MSG_ACTIVATE_USER_1 = 'Congratulations! Welcome To JobMosis.';
   public static MSG_ACTIVATE_USER_2 = 'You can now find candidates using the highly accurate, simpler, faster and powerful solution.';
   public static MSG_ACTIVATE_USER_3 = 'Your account has been created successfully. Kindly click Sign In.';
+  public static MSG_VERIFICATION_EMAIL= 'Your account has been created successfully. Kindly click Sign In.';
   public static MSG_COMPANY_DOCUMENTS = 'Please upload relevant company documents to activate your account.';
   public static MSG_UPLOAD_FILE = 'Please select a file to upload.';
   public static MSG_ABOUT_US_DISCRIPTION = 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.' +
@@ -338,7 +339,7 @@ export class NavigationRoutes {
   public static APP_PROFILESUMMURY: string = '/profile_summary';
   public static APP_JOB_SUMMURY: string = '/job_summary';
   public static APP_COMPANYDETAILS: string = '/company_details';
-
+  public static APP_VLAUEPORTRAIT: string = '/value-portrait';
 }
 
 export class LocalStorage {
@@ -519,6 +520,7 @@ export class ImagePath {
   public static CANDIDATE_OERLAY_SCREENS_PROFILE='candidate_overlay-screens-profile.jpg';
   public static CANDIDATE_OVERLAY_SCREENS_BASIC_INFO = 'candidate_overlay-screens-basic-info.jpg';
   public static CANDIDATE_OERLAY_SCREENS_STACK_VIEW='candidate_overlay-screens-stack-view.jpg';
+  public static CANDIDATE_VALUE_PORTRAIT_VIEW='candidate_value_portrait_view.jpg';
 
 
 }
@@ -672,7 +674,7 @@ export class Label {
   public static CLONE_JOB: string = 'Clone Job';
   public static CLOSE_JOB: string = 'Close Job';
   public static VALUE_PORTRAIT_HEADER: string = 'Value Portrait';
-  public static VALUE_PORTRAIT_TITLE: string = 'Experience is what it\'s all about';
+  public static VALUE_PORTRAIT_TITLE: string = 'Bring Value to Work Add Job to Life';
   public static CORE_CAPABILITIES_TITLE: string = 'Core Capabilities';
   public static NOTE_OF_TRUST: string = 'Note of Trust';
   public static JOB_TITLE_LABEL: string = 'Job Title';
