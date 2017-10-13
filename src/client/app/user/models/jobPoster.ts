@@ -35,5 +35,5 @@ export class JobPosterModel {
   isJobPostExpired: boolean;
   isJobShared: boolean;
   isJobPostClosed: boolean;
-  jobCloseReason: string;
+  jobCloseReason: number;
 }

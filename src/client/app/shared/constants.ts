@@ -674,7 +674,7 @@ export class Label {
   public static CLONE_JOB: string = 'Clone Job';
   public static CLOSE_JOB: string = 'Close Job';
   public static VALUE_PORTRAIT_HEADER: string = 'Value Portrait';
-  public static VALUE_PORTRAIT_TITLE: string = 'Experience is what it\'s all about';
+  public static VALUE_PORTRAIT_TITLE: string = 'Bring Value to Work Add Job to Life';
   public static CORE_CAPABILITIES_TITLE: string = 'Core Capabilities';
   public static NOTE_OF_TRUST: string = 'Note of Trust';
   public static JOB_TITLE_LABEL: string = 'Job Title';
