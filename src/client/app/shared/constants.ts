@@ -305,6 +305,8 @@ export class Messages {
     'submitting, you can edit by clicking on relevant section ' +
     '<br/> It is recommended that you keep the settings to "Yes". If you wish a job change, You can <br/>' +
   'change this setting later.';
+  public static GUIDED_TOUR_VALUE_PORTRAIT_MWSSAGE = 'You can share your value portrait on Social Media.';
+  public static GUIDED_TOUR_VALUE_PORTRAIT_GO_TO_DASHBOARD = 'Proceed to Job Matching Dashboard.';
 
   public static UNABLE_TO_RENEW_JOB_POST_MSG = 'Cannot renew your job post kindly click on "Clone" button to clone the same job';
   public static RENEW_JOB_POST_MSG = 'Your job post has been expired to renew your job click on "Renew Job Post" button';
@@ -674,7 +676,7 @@ export class Label {
   public static CLONE_JOB: string = 'Clone Job';
   public static CLOSE_JOB: string = 'Close Job';
   public static VALUE_PORTRAIT_HEADER: string = 'Value Portrait';
-  public static VALUE_PORTRAIT_TITLE: string = 'Experience is what it\'s all about';
+  public static VALUE_PORTRAIT_TITLE: string = 'Bring Value to Work Add Job to Life';
   public static CORE_CAPABILITIES_TITLE: string = 'Core Capabilities';
   public static NOTE_OF_TRUST: string = 'Note of Trust';
   public static JOB_TITLE_LABEL: string = 'Job Title';

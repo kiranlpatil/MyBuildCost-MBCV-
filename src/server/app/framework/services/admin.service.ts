@@ -82,6 +82,7 @@ class AdminService {
                 'professionalDetails': 1,
                 'capability_matrix': 1,
                 'isVisible': 1,
+                'industry.name': 1,
                 'industry.roles.name': 1
               };
               candidateService.retrieveWithLean({}, candidateFields, (error, candidatesResult) => {
@@ -252,8 +253,10 @@ class AdminService {
               } else {
                 console.log("Fetched all recruiters from users:" + recruiterResult.length);
                 for (let user of result) {
-                  user.data = usersMap.get(user._id.toString());
-                  recruiters.push(user);
+                  if(usersMap.get(user._id.toString())){
+                    user.data = usersMap.get(user._id.toString());
+                    recruiters.push(user);
+                  }
                 }
 
                 users.recruiter = recruiters;
@@ -409,7 +412,12 @@ class AdminService {
           unwindPath: ['data.capabilityMatrix']
         }, (err: any, result: any) => {
           count++;
-          tempString += result;
+          if(count == 1){
+            tempString += result;
+          }else{
+            /*Always check for this last column for spliting the records*/
+            tempString += result.split('Scenario Code"')[1];
+          }
           if (count == candidateLength) {
             console.log("writing into file file");
             //fs.writeFile('./src/server/public/candidate.csv', tempString, (err: any) => {
@@ -493,7 +501,12 @@ class AdminService {
           unwindPath: ['data.postedJobs', 'data.postedJobs.capabilityMatrix']
         }, (err: any, result: any) => {
           count++;
-          tempString += result;
+          if(count == 1){
+            tempString += result;
+          }else{
+            /*Always check for this last column for spliting the records*/
+            tempString += result.split('Expiring Date"')[1];
+          }
           if (count == recruiterLength) {
             console.log("writing into file file");
             //fs.writeFile('./src/server/public/recruiter.csv', tempString, function (err: any) {
