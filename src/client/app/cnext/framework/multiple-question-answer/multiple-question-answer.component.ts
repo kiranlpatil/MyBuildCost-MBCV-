@@ -66,7 +66,6 @@ export class MultipleQuestionAnswerComponent implements OnInit, OnChanges {
       }
     }
     complexityDetails.complexityIsMustHave = event.toElement.checked;
-    // console.log(complexityDetails.complexityIsMustHave);
     this.onMustHaveSelect.emit(complexityDetails);
   }
 
