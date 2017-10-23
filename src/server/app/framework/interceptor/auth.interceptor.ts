@@ -54,11 +54,7 @@ class AuthInterceptor {
           }
           return done(null, user, isShareApi);
         });
-      } /*else {
-        var err = new Error();
-        err.message = 'Issuer in token is not available';
-        return done(err, false, null);
-      }*/
+      }
     }));
 
     passport.use(new FacebookTokenStrategy({
@@ -213,31 +209,28 @@ class AuthInterceptor {
       function (err:any, myuser:any, isShareApi:boolean) {
         if (err) {
           console.log('errorr in error', JSON.stringify(err));
-          return res.status(401).send({
-            'error': {
+          next({
               reason: err.message,
               message: err.message,
               code: 401
             }
-          });
+          );
         } else {
           if (req.headers.authorization.split(' ')[0].toLowerCase() !== 'bearer' || req.headers.authorization.split(' ').length !== 2) {
-            return res.status(401).send({
-              'error': {
+            next( {
                 reason: Messages.MSG_ERROR_IS_BEARER,
                 message: Messages.MSG_ERROR_IS_BEARER,
                 code: 401
               }
-            });
+            );
           } else {
             if (!myuser) {
-              return res.status(401).send({
-                'error': {
+              next({
                   reason: Messages.MSG_ERROR_INVALID_TOKEN_2,
                   message: Messages.MSG_ERROR_INVALID_TOKEN_2,
                   code: 401
                 }
-              });
+              );
             } else {
               req.user = myuser;
               (isShareApi) ? req.isShareApi = true : req.isShareApi = false;
@@ -329,7 +322,7 @@ class AuthInterceptor {
                     req.user = {'email': user[0].email, 'password': user[0].password};
                     next();
                   }
-                })
+                });
               }
 
             }
@@ -373,7 +366,7 @@ class AuthInterceptor {
           message: Messages.MSG_ERROR_API_CHECK,
           code: 401
         }
-      })
+      });
     } else {
       next();
     }

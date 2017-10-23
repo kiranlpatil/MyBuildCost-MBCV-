@@ -1,10 +1,13 @@
+import LoggerService = require("./logger/LoggerService");
 var Messages = require('./messages');
 var logger = require('./logger/logger');
 import UserService = require('../services/user.service');
 
 export function logHandler(err: any, req: any, res: any, next: any) {
+  let _loggerService: LoggerService = new LoggerService("log LOGGER");
   if (err.code) {
-    logger.info(err);
+    _loggerService.logInfo(err);
+    //_loggerService.logInfo('error :', err);
     console.log('***Client error = ', err);
   } else {
     console.log('***Server error = ', err);
@@ -15,8 +18,9 @@ export function logHandler(err: any, req: any, res: any, next: any) {
 
 
 export function errorHandler(err: any, req: any, res: any, next: any) {
+  let _loggerService: LoggerService = new LoggerService('xxx');
   if (err.code) {
-    logger.info(err);
+    _loggerService.logError(err);
     console.log('Error Handler');
     next(err);
   } else {
@@ -29,20 +33,21 @@ export function errorHandler(err: any, req: any, res: any, next: any) {
       }
     };
     var responseObject = JSON.stringify(errObject);
-    logger.info(responseObject);
+    _loggerService.logInfo(responseObject);
     res.status(500).send(responseObject);
 
   }
 };
 
 export function clientHandler(err: any, req: any, res: any, next: any) {
+  let _loggerService: LoggerService = new LoggerService('xxx');
   console.log('Client Handler');
   var errObject = {
     status: Messages.STATUS_ERROR,
     error: err
   };
   var responseObject = JSON.stringify(errObject);
-  logger.info(responseObject);
+  _loggerService.logError(responseObject);
   mailToAdmin(err);
   console.log('responseObject in client errorHandler:', responseObject);
   res.status(err.code).send(responseObject);

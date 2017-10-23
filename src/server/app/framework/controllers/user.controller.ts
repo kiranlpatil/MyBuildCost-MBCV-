@@ -23,7 +23,6 @@ export function login(req: express.Request, res: express.Response, next: any) {
       if (error) {
         next(error);
       }
-
       else if (result.length > 0 && result[0].isActivated === true) {
         bcrypt.compare(params.password, result[0].password, (err : any, isSame : any)=> {
           if(err) {
@@ -114,7 +113,7 @@ export function login(req: express.Request, res: express.Response, next: any) {
                   });
                 }
               }
-            }else{
+            }else {
               next({
                 reason: Messages.MSG_ERROR_RSN_INVALID_CREDENTIALS,
                 message: Messages.MSG_ERROR_WRONG_PASSWORD,
@@ -167,7 +166,11 @@ export function login(req: express.Request, res: express.Response, next: any) {
     });
   }
   catch (e) {
-    res.status(403).send({message: e.message});
+    next({
+      reason: e.message,
+      message: e.message,
+      code: 403
+    });
   }
 }
 export function generateOtp(req: express.Request, res: express.Response, next: any) {
