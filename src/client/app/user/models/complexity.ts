@@ -11,4 +11,5 @@ export class Complexity {
   match: string;
   answer: string;
   isMustHave: boolean;
+  complexityNote:string;
 }

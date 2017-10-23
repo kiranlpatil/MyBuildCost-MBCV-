@@ -24,6 +24,7 @@ class MatchViewModel {
   complexity_sort_order: string;
   main_sort_order: number;
   complexityIsMustHave: boolean;
+  complexityNote:string;
 }
 
 export = MatchViewModel;

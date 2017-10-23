@@ -16,4 +16,5 @@ export class ComplexityDetails {
   defaultComplexityName:string='';
   code:string='';
   complexityIsMustHave: boolean = false;
+  complexityNote:string='';
 }
