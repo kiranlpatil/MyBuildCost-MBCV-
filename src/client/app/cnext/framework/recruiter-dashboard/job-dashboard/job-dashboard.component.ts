@@ -49,7 +49,7 @@ export class JobDashboardComponent implements OnInit {
   private emptyListMessage: string = Tooltip.EMPTY_LIST_MESSAGE;
   private emptyCartMessage: string = Tooltip.EMPTY_CART_MESSAGE;
   private emptyRejectedList: string = Tooltip.EMPTY_REJECTED_LIST_MESSAGE;
-  private isJobCloseButtonClicked:boolean;
+  isJobCloseButtonClicked:boolean;
 
 
   constructor(public refrence: ReferenceService,

@@ -63,7 +63,7 @@ class RecruiterSchema {
           type: Object
         },
         jobCloseReason:{
-          type: String
+          type: Number
         },
         candidate_list: [{
           name: String,

@@ -3,7 +3,7 @@ export class AppSettings {
   // public static IP = 'http://ee802b7f.ngrok.io';
   //public static IP = 'http://10.192.33.77:8080';
   //public static IP = 'http://52.10.145.87:3000';
-  //public static IP = 'https://34.215.90.153:3000';
+ // public static IP = 'https://34.215.90.153:3000';
   // public static IP = 'app.jobmosis.com';
   // public static IP = '';
 
@@ -231,6 +231,7 @@ export class Messages {
   public static MSG_ACTIVATE_USER_1 = 'Congratulations! Welcome To JobMosis.';
   public static MSG_ACTIVATE_USER_2 = 'You can now find candidates using the highly accurate, simpler, faster and powerful solution.';
   public static MSG_ACTIVATE_USER_3 = 'Your account has been created successfully. Kindly click Sign In.';
+  public static MSG_VERIFICATION_EMAIL= 'Your account has been created successfully. Kindly click Sign In.';
   public static MSG_COMPANY_DOCUMENTS = 'Please upload relevant company documents to activate your account.';
   public static MSG_UPLOAD_FILE = 'Please select a file to upload.';
   public static MSG_ABOUT_US_DISCRIPTION = 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.' +
@@ -304,13 +305,15 @@ export class Messages {
     'submitting, you can edit by clicking on relevant section ' +
     '<br/> It is recommended that you keep the settings to "Yes". If you wish a job change, You can <br/>' +
   'change this setting later.';
+  public static GUIDED_TOUR_VALUE_PORTRAIT_MWSSAGE = 'You can share your value portrait on Social Media.';
+  public static GUIDED_TOUR_VALUE_PORTRAIT_GO_TO_DASHBOARD = 'Proceed to Job Matching Dashboard.';
 
   public static UNABLE_TO_RENEW_JOB_POST_MSG = 'Cannot renew your job post kindly click on "Clone" button to clone the same job';
   public static RENEW_JOB_POST_MSG = 'Your job post has been expired to renew your job click on "Renew Job Post" button';
 
   public static NO_CANDIDATES_AVAILABLE = 'No candidates available for selected alphabet.';
   public static NO_RECRUITERS_AVAILABLE = 'No recruiters available for selected alphabet.';
-  public static OTHERS_AOW_MESSAGE = 'Thank you for your interest in our Job post but currently we do not have your Area of Work, we will get back to you after building your Area of Work';
+  public static OTHERS_AOW_MESSAGE = 'Thank you for your interest in our Job post but currently we do not have your Area of Work, we will get back to you after building your Area of Work. For any query mail us on support@jobmosis.com or contact us on +91-8669601612 .';
   public static SELECT_REASON_FOR_JOB_CLOSE = 'Please select a reason.';
   public static ASK_EXPERT_MESSAGE = 'You can copy and share this link to hiring manager to independently define the job description.\n' +
       'On completion by hiring manager you will receive an email.';
@@ -673,7 +676,7 @@ export class Label {
   public static CLONE_JOB: string = 'Clone Job';
   public static CLOSE_JOB: string = 'Close Job';
   public static VALUE_PORTRAIT_HEADER: string = 'Value Portrait';
-  public static VALUE_PORTRAIT_TITLE: string = 'Experience is what it\'s all about';
+  public static VALUE_PORTRAIT_TITLE: string = 'Bring Value to Work Add Job to Life';
   public static CORE_CAPABILITIES_TITLE: string = 'Core Capabilities';
   public static NOTE_OF_TRUST: string = 'Note of Trust';
   public static JOB_TITLE_LABEL: string = 'Job Title';

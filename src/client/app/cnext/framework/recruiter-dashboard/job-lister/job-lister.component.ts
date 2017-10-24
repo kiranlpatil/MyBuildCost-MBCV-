@@ -40,7 +40,7 @@ export class JobListerComponent implements  OnDestroy {
   private initialMessageToDisplay: string= Tooltip.RECRUITER_ENTRY_MESSAGE;
   private dashboardWelcomeMessage: string= Tooltip.RECRUITER_DASHBOARD_MESSAGE;
   private qCardModel: QCardsortBy = new QCardsortBy();
-  private showClosedJobs: boolean = true;
+  private showClosedJobs: boolean = false;
 
   constructor(private _router: Router, public refrence: ReferenceService,
               private renewJobPostService: RenewJobPostService, private messageService: MessageService) {
