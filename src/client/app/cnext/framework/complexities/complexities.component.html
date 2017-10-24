@@ -78,6 +78,9 @@
       <cn-tool-tip [message]="tooltipRecruiterMessage" *ngIf="!isCandidate"></cn-tool-tip>
     </div>
   </div>
+    <div>
+        <cn-value-portrait [isShareView]="false" [userId]="userId" *ngIf="isCandidate"></cn-value-portrait>
+    </div>
 </div>
 <div class="section-container " *ngIf="highlightedSection.name!='Complexities'">
   <div class="main-content clearfix">

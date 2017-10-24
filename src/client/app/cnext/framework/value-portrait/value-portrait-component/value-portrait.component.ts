@@ -1,10 +1,11 @@
-import {AfterViewChecked, Component, Input, OnInit} from "@angular/core";
+import {AfterViewChecked, Component, Input, OnInit, OnChanges} from "@angular/core";
 import {CandidateProfileService} from "../../candidate-profile/candidate-profile.service";
 import {Candidate} from "../../../../user/models/candidate";
 import {ErrorService} from "../../../../shared/services/error.service";
 import {Headings, ImagePath, LocalStorage, Messages} from "../../../../shared/constants";
 import {LocalStorageService} from "../../../../shared/services/localstorage.service";
 import {GuidedTourService} from "../../guided-tour.service";
+import {ComplexityAnsweredService} from "../../complexity-answered.service";
 
 @Component({
   moduleId: module.id,
@@ -20,9 +21,11 @@ export class ValuePortraitComponent implements OnInit {
   @Input() isShareView:boolean;
   gotItMessage: string= Headings.GOT_IT;
   isCandidate:boolean;
+  isAnswered: boolean;
   valuePortraitImgName:string;
   guidedTourStatus:string[] = new Array(0);
-  constructor(private guidedTourService:GuidedTourService,private candidateProfileService: CandidateProfileService,private errorService:ErrorService) {
+  constructor(private guidedTourService:GuidedTourService,private candidateProfileService: CandidateProfileService,
+              private errorService:ErrorService,private complexityAnsweredService: ComplexityAnsweredService) {
     if (LocalStorageService.getLocalValue(LocalStorage.IS_CANDIDATE) === 'true') {
       this.isCandidate = true;
     }
@@ -33,6 +36,14 @@ export class ValuePortraitComponent implements OnInit {
     if(this.isCandidate) {
       this.isRequireGuidedTourImg();
     }
+    this.complexityAnsweredService.makeCall()
+      .subscribe(isAnswered => {
+        this.isAnswered = isAnswered;
+        this.getCandidateAllDetails();
+      });
+  }
+
+  getCandidateAllDetails() {
     this.candidateProfileService.getCandidateAllDetails(this.userId)
       .subscribe(
         candidateData => {

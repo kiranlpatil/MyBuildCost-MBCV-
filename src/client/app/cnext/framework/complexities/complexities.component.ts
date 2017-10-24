@@ -10,6 +10,7 @@ import {JobCompareService} from "../single-page-compare-view/job-compare-view/jo
 import {Capability} from "../../../user/models/capability";
 import {GuidedTourService} from "../guided-tour.service";
 import {ErrorService} from "../../../shared/services/error.service";
+import {ComplexityAnsweredService} from "../complexity-answered.service";
 
 @Component({
   moduleId: module.id,
@@ -64,17 +65,18 @@ export class ComplexitiesComponent implements OnInit, OnChanges {
   guidedTourImgOverlayScreensComplexities: string;
   private guidedTourImgOverlayScreensKeySkillsPath:string;
   isGuideImg:boolean = false;
-
+  userId:string;
   constructor(private complexityService: ComplexityService,
               private complexityComponentService: ComplexityComponentService,
               private jobCompareService: JobCompareService,
               private errorService: ErrorService,
-              private guidedTourService:GuidedTourService) {
+              private guidedTourService:GuidedTourService, private complexityAnsweredService: ComplexityAnsweredService ) {
   }
 
   ngOnInit() {
     if (LocalStorageService.getLocalValue(LocalStorage.IS_CANDIDATE) === 'true') {
       this.isCandidate = true;
+      this.userId=LocalStorageService.getLocalValue(LocalStorage.USER_ID);
     }
   }
 
@@ -210,6 +212,7 @@ export class ComplexitiesComponent implements OnInit, OnChanges {
   }
 
   onAnswered(complexityDetail: ComplexityDetails) {
+    this.complexityAnsweredService.change(true);
     this.isValid = true;
     this.complexities[this.complexityIds[this.currentComplexity]] = complexityDetail.userChoice;
     /*if (this.duplicateComplexityIds.indexOf("d" + this.complexityIds[this.currentComplexity]) > -1) {
