@@ -3,26 +3,19 @@ var Messages = require('./messages');
 var logger = require('./logger/logger');
 import UserService = require('../services/user.service');
 
-export function logHandler(err: any, req: any, res: any, next: any) {
-  let _loggerService: LoggerService = new LoggerService("log LOGGER");
-  if (err.code) {
-    _loggerService.logInfo(err);
-    //_loggerService.logInfo('error :', err);
-    console.log('***Client error = ', err);
-  } else {
-    console.log('***Server error = ', err);
-    logger.info(err);
-  }
-  next(err);
-};
-
 
 export function errorHandler(err: any, req: any, res: any, next: any) {
-  let _loggerService: LoggerService = new LoggerService('xxx');
+  let _loggerService: LoggerService = new LoggerService('errorHandler');
   if (err.code) {
+    var errObject = {
+      status: Messages.STATUS_ERROR,
+      error: err
+    };
+    var responseObject = JSON.stringify(errObject);
     _loggerService.logError(err);
-    console.log('Error Handler');
-    next(err);
+    mailToAdmin(err);
+    console.log('responseObject in client errorHandler:', responseObject);
+    res.status(err.code).send(responseObject);
   } else {
     var errObject = {
       'status': Messages.STATUS_ERROR,
@@ -33,25 +26,11 @@ export function errorHandler(err: any, req: any, res: any, next: any) {
       }
     };
     var responseObject = JSON.stringify(errObject);
-    _loggerService.logInfo(responseObject);
+    _loggerService.logError(err);
     res.status(500).send(responseObject);
-
   }
-};
+}
 
-export function clientHandler(err: any, req: any, res: any, next: any) {
-  let _loggerService: LoggerService = new LoggerService('xxx');
-  console.log('Client Handler');
-  var errObject = {
-    status: Messages.STATUS_ERROR,
-    error: err
-  };
-  var responseObject = JSON.stringify(errObject);
-  _loggerService.logError(responseObject);
-  mailToAdmin(err);
-  console.log('responseObject in client errorHandler:', responseObject);
-  res.status(err.code).send(responseObject);
-};
 
 function mailToAdmin(errorInfo:any) {
   console.log('mail the errorrs Handler');
@@ -62,4 +41,4 @@ function mailToAdmin(errorInfo:any) {
     }
   });
 
-};
+}

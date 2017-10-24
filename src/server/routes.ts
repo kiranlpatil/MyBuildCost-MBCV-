@@ -63,7 +63,5 @@ export function init(app: express.Application) {
   app.get("/api/readxlsx",loggerInterceptor.logDetail,  importIndustryController.readXlsx);
   //app.post("/api/createImportIndusry", importIndustriesController.create);
 
-  app.use(sharedService.logHandler);
   app.use(sharedService.errorHandler);
-  app.use(sharedService.clientHandler);
 }

@@ -80,7 +80,6 @@ export function cnextInit(app: express.Application) {
   app.put('/api/usageTracking',loggerInterceptor.logDetail, jobProfileController.createUsesTracking);
   app.get('/api/usageDetails',loggerInterceptor.logDetail, this.authInterceptor.requiresAuth, this.authInterceptor.secureApiCheck, adminController.getUsageDetails);
 
-  app.use(sharedService.logHandler);
+
   app.use(sharedService.errorHandler);
-  app.use(sharedService.clientHandler);
 }

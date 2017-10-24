@@ -166,9 +166,6 @@ class AuthInterceptor {
   }
 
   issueTokenWithUid(user: any,role?:string) {
-    console.log("In issue token",role);
-    console.log('user', JSON.stringify(user));
-    console.log('user', user.isCandidate);
     var issuer: string;
     if (user.userId) {
       issuer = user.userId;
@@ -208,7 +205,6 @@ class AuthInterceptor {
     passport.authenticate('bearer', {session: false},
       function (err:any, myuser:any, isShareApi:boolean) {
         if (err) {
-          console.log('errorr in error', JSON.stringify(err));
           next({
               reason: err.message,
               message: err.message,
@@ -272,7 +268,6 @@ class AuthInterceptor {
 
   googleAuth(req: any, res: any, next: any) {
     var request = require('request');
-    console.log('got token from g+ in body  ');
     request('https://www.googleapis.com/oauth2/v3/tokeninfo?id_token=' + req.body.googleToken, (error: any, response: any, body: any) => {
       if (error) {
         if (error.code == "ETIMEDOUT") {
