@@ -19,6 +19,7 @@ export class ValuePortraitComponent implements OnInit {
   candidate: Candidate = new Candidate();
   @Input() userId:string;
   @Input() isShareView:boolean;
+  @Input() isMiniView:boolean;
   gotItMessage: string= Headings.GOT_IT;
   isCandidate:boolean;
   isAnswered: boolean;
@@ -36,18 +37,23 @@ export class ValuePortraitComponent implements OnInit {
     if(this.isCandidate) {
       this.isRequireGuidedTourImg();
     }
-    this.complexityAnsweredService.makeCall()
-      .subscribe(isAnswered => {
-        this.isAnswered = isAnswered;
-        this.getCandidateAllDetails();
-      });
+   // this.getCandidateAllDetails();
+    if(this.isMiniView) {
+      this.complexityAnsweredService.makeCall()
+        .subscribe(isAnswered => {
+          this.isAnswered = isAnswered;
+          this.getCandidateAllDetails();
+        });
+    }
+    this.getCandidateAllDetails();
   }
 
-  getCandidateAllDetails() {
+  getCandidateAllDetails() { debugger
     this.candidateProfileService.getCandidateAllDetails(this.userId)
       .subscribe(
         candidateData => {
           this.candidate = this.updateCapabilityData(candidateData.data);
+          console.log("capability details = ",this.candidate );
         },error => this.errorService.onError(error));
   }
 
@@ -68,8 +74,13 @@ export class ValuePortraitComponent implements OnInit {
 
   }
 
-  updateCapabilityData(candidate: Candidate) {
+  updateCapabilityData(candidate: Candidate) { debugger
     for (var i = candidate.capabilities.length - 1; i >= 0; i--) {
+      /////////////////
+        if(candidate.capabilities.length > 0 && this.isMiniView) { debugger
+          return candidate;
+        }
+      ////////////////////
       for (var j = candidate.capabilities[i].complexities.length - 1; j >= 0; j--) {
         if (candidate.capabilities[i].complexities[j].answer == undefined || candidate.capabilities[i].complexities[j].answer == 'Not Applicable') {
           candidate.capabilities[i].complexities.splice(j, 1);

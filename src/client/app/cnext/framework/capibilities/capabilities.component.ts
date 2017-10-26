@@ -6,6 +6,7 @@ import {Section} from "../../../user/models/candidate";
 import {LocalStorageService} from "../../../shared/services/localstorage.service";
 import {GuidedTourService} from "../guided-tour.service";
 import {ErrorService} from "../../../shared/services/error.service";
+import {ComplexityAnsweredService} from "../complexity-answered.service";
 
 @Component({
   moduleId: module.id,
@@ -40,6 +41,7 @@ export class CapabilitiesComponent {
   //private guidedTourImgOverlayScreensComplexitiesPath:string;
   isGuideImg:boolean = false;
   private isInfoMessage: boolean = false;
+  userId: string;
 
   tooltipCandidateMessage: string =
 
@@ -54,13 +56,15 @@ export class CapabilitiesComponent {
     '<li><p>1. ' + Tooltip.RECRUITER_CAPABILITY_TOOLTIP + '</p></li>' +
     '</ul>';
 
-  constructor(private guidedTourService:GuidedTourService, private errorService:ErrorService) {
+  constructor(private guidedTourService:GuidedTourService, private errorService:ErrorService,
+              private complexityAnsweredService: ComplexityAnsweredService) {
 
   }
 
   ngOnInit() {
     if (LocalStorageService.getLocalValue(LocalStorage.IS_CANDIDATE) === 'true') {
       this.isCandidate = true;
+      this.userId=LocalStorageService.getLocalValue(LocalStorage.USER_ID);
     }
   }
 
@@ -94,7 +98,7 @@ export class CapabilitiesComponent {
     this.primaryCapabilitiesNumber = this.primaryNames.length;
   }
 
-  selectedCapability(selectedRole: Role, selectedCapability: Capability, event: any) {
+  selectedCapability(selectedRole: Role, selectedCapability: Capability, event: any) { debugger
     this.isValid = true;
     this.isInfoMessage = false;
     this.validationMessage = '';
@@ -113,6 +117,7 @@ export class CapabilitiesComponent {
         }
         selectedCapability.isPrimary = true;
         this.primaryNames.push(selectedCapability.name);
+        this.complexityAnsweredService.change(true);
 
       } else {
         event.target.checked=false;
@@ -183,6 +188,8 @@ export class CapabilitiesComponent {
       });
     }
     this.onComplete.emit(newselectedRoles);
+    this.complexityAnsweredService.change(true);
+
       window.scrollTo(0, 0);
   }
 

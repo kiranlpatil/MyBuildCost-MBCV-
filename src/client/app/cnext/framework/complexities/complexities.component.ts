@@ -140,6 +140,7 @@ export class ComplexitiesComponent implements OnInit, OnChanges {
   }
 
   getComplexityIds(complexities: any) {
+   // this.complexityAnsweredService.change(true);
     this.currentComplexity = 0;
     this.currentCapabilityNumber = 0;
     this.complexityIds = [];
@@ -228,6 +229,7 @@ export class ComplexitiesComponent implements OnInit, OnChanges {
 
   onCapabilityAnswered(capability: Capability) {
     this.capabilities[this.currentCapabilityNumber] = capability;
+
     /*let currentNumber = this.currentCapabilityNumber;
     if (this.singleComplexity === false) {
       if (currentNumber + 1 === this.capabilities.length) {
@@ -245,7 +247,6 @@ export class ComplexitiesComponent implements OnInit, OnChanges {
   }
 
   getCapabilityDetail(currentCapability: number) {
-
     this.currentCapability = this.capabilities[this.currentCapabilityNumber];
     this.currentRecruiterQuestion = this.currentCapability.complexities[0].complexityDetails.questionHeaderForRecruiter;
   }

@@ -77,6 +77,9 @@
     <cn-tool-tip [message]="tooltipCandidateMessage" *ngIf="isCandidate"></cn-tool-tip>
     <cn-tool-tip [message]="tooltipRecruiterMessage" *ngIf="!isCandidate"></cn-tool-tip>
   </div>
+    <div>
+        <cn-value-portrait [isShareView]="false" [isMiniView]="true" [userId]="userId" *ngIf="isCandidate"></cn-value-portrait>
+    </div>
 </div>
 
 

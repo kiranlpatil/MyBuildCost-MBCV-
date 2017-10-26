@@ -76,12 +76,12 @@
 
       <div class="tooltip-message">
 
-        <div class="mini-value-portrait-section">
+        <div class="mini-value-portrait-section" *ngIf="highlightedSection.name=='Complexities'">
           <h3>
-            Your Value Portrait is getting ready <br />
+            Your Value Portrait is getting ready <br/>
             Click here to Preview
           </h3>
-          <cn-value-portrait [isShareView]="false" [userId]="userId" *ngIf="isCandidate"></cn-value-portrait>
+          <cn-value-portrait [isShareView]="false" [isMiniView]="true" [userId]="userId" *ngIf="isCandidate"></cn-value-portrait>
         </div>
         <cn-tool-tip id="candidate-tooltip" [message]="tooltipCandidateMessage" *ngIf="isCandidate"></cn-tool-tip>
 
@@ -89,8 +89,6 @@
         <cn-tool-tip [message]="tooltipRecruiterMessage" *ngIf="!isCandidate"></cn-tool-tip>
       </div>
     </div>
-  </div>
-  <div class="mini-value-portrait-section">
   </div>
 </div>
 <div class="section-container " *ngIf="highlightedSection.name!='Complexities'">
