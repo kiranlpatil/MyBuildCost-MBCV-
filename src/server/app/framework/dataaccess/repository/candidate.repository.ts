@@ -58,10 +58,12 @@ class CandidateRepository extends RepositoryBase<ICandidate> {
         } else if (jobProfile.capability_matrix[cap] == (Number(candidate.capability_matrix[cap]) + ConstVariables.DIFFERENCE_IN_COMPLEXITY_SCENARIO)) {
           candidate_card_view.below_one_step_matching += 1;
           count++;
+        } else if (jobProfile.complexity_musthave_matrix == -1 || jobProfile.complexity_musthave_matrix == undefined) {
+          candidate_card_view.complexityIsMustHave = false;
         } else if(jobProfile.complexity_musthave_matrix[cap]) {
           if(jobProfile.capability_matrix[cap] != candidate.capability_matrix[cap]) {
             candidate_card_view.complexityIsMustHave = jobProfile.complexity_musthave_matrix[cap];
-            console.log('candidate_card_view.complexityIsMustHave9: ', candidate_card_view.complexityIsMustHave);
+            console.log('candidate_card_view.complexityIsMustHave109: ', candidate_card_view.complexityIsMustHave);
             console.log('jobProfile.complexity_musthave_matrix[cap]9: ', jobProfile.complexity_musthave_matrix[cap]);
             console.log('if1 called');
           } else {

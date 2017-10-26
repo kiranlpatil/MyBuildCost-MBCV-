@@ -273,10 +273,12 @@ class SearchService {
     newCandidate.releaseMatch = this.compareTwoOptions(this.getPeriodSwitchCase(newCandidate.professionalDetails.noticePeriod), this.getPeriodSwitchCase(job.joiningPeriod));
     newCandidate.interestedIndustryMatch = new Array(0);
 
+    if(job.complexity_musthave_matrix && job.complexity_musthave_matrix.length > 0) {
     for (let isComplexity of job.complexity_musthave_matrix) {
       if (newCandidate.complexity_musthave_matrix.indexOf(isComplexity) !== -1) {
         newCandidate.complexity_musthave_matrix.push(isComplexity);
       }
+    }
     }
     for (let industry of job.interestedIndustries) {
       if (newCandidate.interestedIndustries.indexOf(industry) !== -1) {
