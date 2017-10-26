@@ -11,9 +11,10 @@
     background: url(../assets/c-next/card-view/sprite.png) no-repeat -33px -735px;
     float: left;
     height: 32px;
-    width: 19px;
-    position: absolute;
     left: 4px;
+    position: absolute;
+    top: -7px;
+    width: 19px;
   }
 }
 
@@ -108,6 +109,12 @@
     .unmatch-overlay-show {
       display: block;
     }
+    .filled-star {
+      left: unset !important;
+      position: absolute;
+      right: 18px !important;
+      top: 5px !important;
+    }
   }
   .complexity-name {
     display: block;
@@ -124,10 +131,11 @@
   .match-icon {
     background: url(../assets/c-next/card-view/sprite.png) no-repeat -8px -735px;
     float: left;
-    height: 32px;
-    width: 19px;
-    position: absolute;
     left: 4px;
+    height: 32px;
+    position: absolute;
+    top: -7px;
+    width: 19px;
   }
 }
 
@@ -160,6 +168,12 @@
     .unmatch-overlay-show {
       display: block;
     }
+    .filled-star {
+      left: unset !important;
+      position: absolute;
+      right: 18px !important;
+      top: 5px !important;
+    }
   }
   .complexity-name {
     display: block;
@@ -177,9 +191,10 @@
     background: url(../assets/c-next/card-view/sprite.png) no-repeat -58px -735px;
     float: left;
     height: 32px;
-    width: 19px;
-    position: absolute;
     left: 4px;
+    position: absolute;
+    top: -7px;
+    width: 19px;
   }
 }
 
@@ -214,6 +229,12 @@
     .unmatch-overlay-show {
       display: block;
     }
+    .filled-star {
+      left: unset !important;
+      position: absolute;
+      right: 18px !important;
+      top: 5px !important;
+    }
   }
   .complexity-name {
     display: block;
@@ -231,9 +252,10 @@
     background: url(../assets/c-next/card-view/sprite.png) no-repeat -83px -735px;
     float: left;
     height: 32px;
-    width: 19px;
-    position: absolute;
     left: 4px;
+    position: absolute;
+    top: -7px;
+    width: 19px;
   }
 }
 
@@ -265,6 +287,12 @@
     }
     .unmatch-overlay-show {
       display: block;
+    }
+    .filled-star {
+      left: unset !important;
+      position: absolute;
+      right: 18px !important;
+      top: 5px !important;
     }
   }
   .complexity-name {
@@ -434,6 +462,12 @@
       width: 34px !important;
       height: 34px !important;
     }
+  }
+
+  .filled-star {
+    position: absolute;
+    top: 35px;
+    left: 5px;
   }
 }
 
@@ -709,9 +743,7 @@
     }
 
     .capability-edit > .inner > .filled-star {
-      position: absolute;
-      top: 4px;
-      left: -17px;
+      display: none;
     }
 
     .btn-edit {
