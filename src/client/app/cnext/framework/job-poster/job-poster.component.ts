@@ -45,6 +45,7 @@ export class JobPosterComponent implements OnInit, OnChanges {
   private disableButton: boolean = true;
   private isShowCandidateQCardView: boolean = false;
   private setCapabilityMatrix: boolean = true;
+  private setComplexityMustHaveMatrix: boolean = true;
   isShowComplexity: boolean = false;
   isShowRoleList: boolean = false;
   isShowIndustryList: boolean = false;
@@ -150,6 +151,15 @@ export class JobPosterComponent implements OnInit, OnChanges {
               }
             }
           }
+          this.setComplexityMustHaveMatrix = true;
+          if (jobmodel.complexity_musthave_matrix) {
+            let complexityMustHaveMatrix: any = Object.keys(jobmodel.complexity_musthave_matrix);
+            for (let index of complexityMustHaveMatrix) {
+              if (jobmodel.complexity_musthave_matrix[index] === -1) {
+                this.isComplexityFilled = false;
+              }
+            }
+          }
           if (this.isComplexityFilled) {
             this.getProficiency();
             this.isShowProficiency = true;
@@ -203,6 +213,10 @@ export class JobPosterComponent implements OnInit, OnChanges {
         if (this.setCapabilityMatrix) {
           this.jobPosterModel.capability_matrix = data.data.postedJobs[0].capability_matrix;
           this.setCapabilityMatrix = false;
+        }
+        if (this.setComplexityMustHaveMatrix) {
+          this.jobPosterModel.complexity_musthave_matrix = data.data.postedJobs[0].complexity_musthave_matrix;
+          this.setComplexityMustHaveMatrix = false;
         }
       }, error => this.errorService.onError(error));
   }
@@ -326,6 +340,7 @@ export class JobPosterComponent implements OnInit, OnChanges {
     this.updateJob();
     this.getComplexity();
     this.setCapabilityMatrix = true;
+    this.setComplexityMustHaveMatrix = true;
   }
 
   onComplextyAnswered(capability_matrix: any) {

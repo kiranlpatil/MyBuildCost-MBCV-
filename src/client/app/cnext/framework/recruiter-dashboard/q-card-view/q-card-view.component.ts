@@ -380,7 +380,4 @@ export class QCardviewComponent implements OnChanges {
     this.messageService.message(message);
   }
 
-  getMustHaveCandidates() {
-    console.log("getMustHaveCandidates called");
-  }
 }

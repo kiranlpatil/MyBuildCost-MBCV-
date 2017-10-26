@@ -58,10 +58,25 @@ class CandidateRepository extends RepositoryBase<ICandidate> {
         } else if (jobProfile.capability_matrix[cap] == (Number(candidate.capability_matrix[cap]) + ConstVariables.DIFFERENCE_IN_COMPLEXITY_SCENARIO)) {
           candidate_card_view.below_one_step_matching += 1;
           count++;
+        } else if(jobProfile.complexity_musthave_matrix[cap]) {
+          if(jobProfile.capability_matrix[cap] != candidate.capability_matrix[cap]) {
+            candidate_card_view.complexityIsMustHave = jobProfile.complexity_musthave_matrix[cap];
+            console.log('candidate_card_view.complexityIsMustHave9: ', candidate_card_view.complexityIsMustHave);
+            console.log('jobProfile.complexity_musthave_matrix[cap]9: ', jobProfile.complexity_musthave_matrix[cap]);
+            console.log('if1 called');
+          } else {
+            candidate_card_view.complexityIsMustHave = false;
+            console.log('else1 called');
+            console.log('candidate_card_view.complexityIsMustHave10: ', candidate_card_view.complexityIsMustHave);
+            console.log('jobProfile.complexity_musthave_matrix[cap]10: ', jobProfile.complexity_musthave_matrix[cap]);
+          }
         } else {
           count++;
         }
       }
+      /*this.candidateSatisfyMustHaveCriteria(jobProfile.capability_matrix, candidate.capability_matrix,
+        jobProfile.complexity_musthave_matrix, jobProfile);*/
+      console.log('candidate_card_view.above_one_step_matching:', candidate_card_view.above_one_step_matching);
       candidate_card_view.above_one_step_matching = (candidate_card_view.above_one_step_matching / count) * 100;
       candidate_card_view.below_one_step_matching = (candidate_card_view.below_one_step_matching / count) * 100;
       candidate_card_view.exact_matching = (candidate_card_view.exact_matching / count) * 100;
@@ -73,6 +88,8 @@ class CandidateRepository extends RepositoryBase<ICandidate> {
       candidate_card_view.interestedIndustries = candidate.interestedIndustries;
       candidate_card_view._id = candidate._id;//todo solve the problem of location from front end
       candidate_card_view.isVisible = candidate.isVisible;
+      console.log('candidate_card_view.complexityIsMustHave1: ', candidate_card_view.complexityIsMustHave);
+      //console.log('candidate.complexityIsMustHave1: ', candidate.complexityIsMustHave);
       if(candidate.location) {
         candidate_card_view.location = candidate.location.city;
       }else {
@@ -102,6 +119,9 @@ class CandidateRepository extends RepositoryBase<ICandidate> {
             candidateQcard.last_name=user.last_name;
             candidateQcard.mobile_number=user.mobile_number;
             candidateQcard.picture=user.picture;
+            //candidateQcard.complexityIsMustHave=user.complexityIsMustHave;
+            //console.log('user.complexityIsMustHave:', user.complexityIsMustHave);
+            console.log('candidateQcard.complexityIsMustHave:', candidateQcard.complexityIsMustHave);
             candidates_q_cards_send.push(candidateQcard);
           }
           candidates_q_cards_send.sort((first: CandidateQCard,second : CandidateQCard):number=> {
@@ -123,6 +143,32 @@ class CandidateRepository extends RepositoryBase<ICandidate> {
 
 
   }
+
+  /*candidateSatisfyMustHaveCriteria(recr_capability_matrix: any, canp_capability_matrix: any, complexity_musthave_matrix: any,
+                                   jobProfile: any) {
+    console.log('candidateSatisfyMustHaveCriteria called');
+    let candidateQcard: CandidateQCard;
+    for (let cap in jobProfile.complexity_musthave_matrix) {
+      if (jobProfile.complexity_musthave_matrix[cap] == -1 || jobProfile.capability_matrix[cap] == 0 || jobProfile.capability_matrix[cap] == undefined) {
+        console.log('if called');
+      }
+      else if(jobProfile.complexity_musthave_matrix[cap]) {
+        console.log('else if called');
+        console.log('cap:', cap, 'and', jobProfile.complexity_musthave_matrix[cap]);
+        if(recr_capability_matrix[cap] == canp_capability_matrix[cap]) {
+          candidateQcard.complexityIsMustHave = jobProfile.complexity_musthave_matrix[cap];
+          console.log('candidateQcard.complexityIsMustHave: ', candidateQcard.complexityIsMustHave);
+        }
+      }
+      else {
+        console.log('else called');
+        console.log('cap:', cap, 'and', jobProfile.complexity_musthave_matrix[cap]);
+      }
+    }
+        //console.log('recr_capability_matrix: ', recr_capability_matrix);
+    //console.log('canp_capability_matrix: ', canp_capability_matrix);
+    //console.log('complexity_musthave_matrix: ', complexity_musthave_matrix);
+  }*/
 
   getCodesFromindustry(industry: IndustryModel): string[] {
     console.time('getCodesFromindustry');

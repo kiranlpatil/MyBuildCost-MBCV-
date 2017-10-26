@@ -22,9 +22,8 @@
       </li>
     </ul>
     <div class="sort-by">
-      <input type="checkbox" (click)="getMustHaveCandidates()">Must have
-      <label>Sort by</label>
       <div class="form-group">
+      <label>Sort by</label>
         <select id="menu" [(ngModel)]="qCardModel.sortValue" (change)="changeSort()" >
           <option value="{{itemList}}" *ngFor="let itemList of qCardModel.listOfMatchings">{{itemList}}</option>
         </select>

@@ -244,8 +244,10 @@ export class ComplexitiesComponent implements OnInit, OnChanges {
   }
 
   onMustHaveSelect(complexityDetails: ComplexityDetails) {
+    if(this.complexitiesIsMustHave) {
       this.complexitiesIsMustHave[complexityDetails.code] = complexityDetails.complexityIsMustHave;
       this.onMustHave.emit(this.complexitiesIsMustHave);
+  }
   }
 
   getCapabilityDetail(currentCapability: number) {

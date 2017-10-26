@@ -75,6 +75,15 @@
                           <p>{{complexity?.complexityNote}}</p>
                         </div>
                       </div>
+
+                      <div *ngIf="complexity.complexityDetails.complexityIsMustHave">
+                        <div title="View Complexity Notes" class="notes-triangle"></div>
+                        <div class="complexity-notes-description">
+                          <h4>Must Have Complexity</h4>
+                          {{complexity.complexityDetails.complexityIsMustHave}}
+                        </div>
+                      </div>
+
                     </div>
                   </div>
                 </div>
@@ -101,6 +110,8 @@
                   <button class="btn-edit" (click)="onComplexitySelect(complexity,capability)" title="Edit this Capability Detail"></button>
                   <div class="inner">
                     <span class="complexity-name">{{complexity.name}}</span>
+                    hello1
+                    {{complexity.complexityDetails.complexityIsMustHave}}
                     <div class="scenario-row" *ngFor="let scenario of complexity.scenarios">
                       <span>{{scenario.name}}</span>
                     </div>
@@ -130,6 +141,8 @@
               <button class="btn-edit" (click)="onComplexitySelect(complexity,capability)" title="Edit this Capability Detail"></button>
               <div class="inner">
                 <span class="complexity-name">{{complexity.name}}</span>
+                hello2
+                {{complexity.complexityDetails.complexityIsMustHave}}
                 <div class="scenario-row" *ngFor="let scenario of complexity.scenarios">
                   <span>{{scenario.name}}</span>
                 </div>

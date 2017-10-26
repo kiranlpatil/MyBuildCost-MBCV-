@@ -48,6 +48,7 @@ export class FilterComponent {
   openKeyskillsPanel: boolean = false;
   openJoiningPeriodPanel: boolean = false;
   openDomainPanel: boolean = false;
+  mustHaveComplexityPanel: boolean = false;
 
   constructor(private formBuilder: FormBuilder,
               private errorService:ErrorService,
@@ -65,7 +66,7 @@ export class FilterComponent {
 
     this.userForm = this.formBuilder.group({
       eduction: '', experienceMin: '', experienceMax: '', salaryMin: '', salaryMax: '', location: '',
-      proficiencies: '', timetojoin: '', industry: '', companysize: ''
+      proficiencies: '', timetojoin: '', industry: '', companysize: '', mustHaveComplexity: ''
     });
   }
 
@@ -366,6 +367,20 @@ export class FilterComponent {
         (<HTMLInputElement>document.getElementById('radio-button-2')).checked = false;
       }
     }
+    this.qCardFilterService.filterby(this.qCardFilter);
+  }
+
+  filterByMustHaveComplexity(event: any) {
+    console.log('filterByMustHaveComplexity called1');
+    let value = event.target.checked;
+    if(value){
+      this.qCardFilter.filterByMustHaveComplexity = value;
+      this.queryListPush('((args.filterByMustHaveComplexity && item.complexityIsMustHave) && (args.filterByMustHaveComplexity === item.complexityIsMustHave))');
+      this.showClearFilter = true;
+    } else {
+      this.queryListRemove('((args.filterByMustHaveComplexity && item.complexityIsMustHave) && (args.filterByMustHaveComplexity === item.complexityIsMustHave))');
+    }
+    this.buildQuery();
     this.qCardFilterService.filterby(this.qCardFilter);
   }
 }
