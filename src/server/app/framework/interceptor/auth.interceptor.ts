@@ -208,6 +208,7 @@ class AuthInterceptor {
           next({
               reason: err.message,
               message: err.message,
+            stackTrace: new Error(),
               code: 401
             }
           );
@@ -216,6 +217,7 @@ class AuthInterceptor {
             next( {
                 reason: Messages.MSG_ERROR_IS_BEARER,
                 message: Messages.MSG_ERROR_IS_BEARER,
+              stackTrace: new Error(),
                 code: 401
               }
             );
@@ -224,6 +226,7 @@ class AuthInterceptor {
               next({
                   reason: Messages.MSG_ERROR_INVALID_TOKEN_2,
                   message: Messages.MSG_ERROR_INVALID_TOKEN_2,
+                stackTrace: new Error(),
                   code: 401
                 }
               );
@@ -248,6 +251,7 @@ class AuthInterceptor {
           next({
             reason: Messages.MSG_ERROR_FACEBOOK_AUTH,
             message: Messages.MSG_ERROR_RSN_NOT_ALLOW,
+            stackTrace: new Error(),
             code: 401
           });
         }
@@ -259,6 +263,7 @@ class AuthInterceptor {
           next({
             reason: Messages.MSG_ERROR_RSN_INVALID_CREDENTIALS,
             message: Messages.MSG_ERROR_FACEBOOK_AUTH,
+            stackTrace: new Error(),
             code: 401
           });
 
@@ -275,6 +280,7 @@ class AuthInterceptor {
           next({
             reason: Messages.MSG_ERROR_RSN_WHILE_CONTACTING,
             message: Messages.MSG_ERROR_CONNECTION_TIMEOUT,
+            stackTrace: new Error(),
             code: 401
           });
 
@@ -355,13 +361,12 @@ class AuthInterceptor {
 
   secureApiCheck(req:any, res:any, next:any) {
     if (req.isShareApi) {
-      return res.status(401).send({
-        'error': {
+      next( {
           reason: Messages.MSG_ERROR_API_CHECK,
           message: Messages.MSG_ERROR_API_CHECK,
+          stackTrace: new Error(),
           code: 401
-        }
-      });
+        });
     } else {
       next();
     }
