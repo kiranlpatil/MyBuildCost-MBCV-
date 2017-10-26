@@ -77,6 +77,30 @@
   z-index: 3;
 }
 
+.main-content {
+  .mini-value-portrait-section {
+    zoom: 0.3;
+    z-index: 999;
+    .value-portrait-candidate-capability-circle {
+      .inner-circle {
+        span {
+          line-height: 21px;
+          text-align: center;
+          letter-spacing: -2px;
+        }
+      }
+    }
+    .value-portrait-candidate-capability {
+      h3 {
+        display: table !important;
+        margin: 0 auto !important;
+        text-align: center !important;
+      }
+    }
+  }
+}
+
+
 @media only screen and (max-width: 767px) {
   .main-content {
     .heading {

@@ -1564,3 +1564,40 @@ select:focus {
     font-size: 12px;
   }
 }
+
+#candidate-tooltip {
+  .tooltip-message {
+    height: auto;
+    position: relative;
+    width: auto;
+  }
+}
+
+.mini-value-portrait-section {
+  h3 {
+    color: $white;
+    font-size: 50px;
+    font-weight: bold;
+    margin: 0 0 26px;
+    text-align: center;
+  }
+  .value-portrait-candidate-capability-circle {
+    .inner-circle {
+      span {
+        line-height: 21px;
+        letter-spacing: -2px;
+        text-align: center;
+      }
+    }
+  }
+  .value-portrait-candidate-capability {
+    h3 {
+      display: table !important;
+      margin: 0 auto !important;
+      text-align: center !important;
+    }
+  }
+  .value-portrait-footer {
+    display: none;
+  }
+}
