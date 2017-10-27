@@ -152,6 +152,15 @@ $print-golden-star: #927b01;
   }
 }
 
+.complexity-star {
+  color: #e2c702 !important;
+  font-size: 17px !important;
+  display: inline-block !important;
+  padding-right: 5px;
+  margin: 0;
+  text-shadow: 0 0 1px #42441d;
+}
+
 .required-field {
   color: $required-field;
   font-size: 14px;
@@ -1641,8 +1650,7 @@ select:focus {
     }
   }
 
-  .filled-star {
-    color: $print-golden-star;
+  .complexity-star {
     text-shadow: none;
   }
 }
