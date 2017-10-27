@@ -1,8 +1,8 @@
 export class AppSettings {
-  public static IP = 'http://localhost:8080';
+  // public static IP = 'http://localhost:8080';
   // public static IP = 'http://ee802b7f.ngrok.io';
-  //public static IP = 'http://10.192.33.77:8080';
-  //public static IP = 'http://52.10.145.87:3000';
+  // public static IP = 'http://10.192.33.77:8080';
+  public static IP = 'http://52.10.145.87:3000';
  // public static IP = 'https://34.215.90.153:3000';
   // public static IP = 'app.jobmosis.com';
   // public static IP = '';
@@ -49,6 +49,7 @@ export class Messages {
   public static MSG_CANDIDATE_SEARCH_NOT_FOUND = "Applicant's profile does not match with any of your open job profiles.";
   public static MSG_CNADIDATE_VISIBILITY_OFF = 'The selected applicant profile details are not displayed, since the applicant has marked it as private.';
   public static MSG_CNADIDATE_IF_NOT_IN_CART = 'To view profile details of this candidate you need to add this candidate in cart of at least one job post..';
+  public static MSG_ABOUT_SCREEN_PRINT_IF_NOT_IN_CART = 'Add this candidate to cart to enable profile download.';
   public static MSG_SUCCESS_LOGIN: string = 'You are successfully signed in.';
   public static MSG_SUCCESS_REGISTRATION: string = 'Kindly verify your account.';
   public static MSG_SUCCESS_CHANGE_MOBILE_NUMBER: string = 'Mobile number updated successfully.Kindly sign in';
@@ -119,7 +120,7 @@ export class Messages {
   public static MSG_ERROR_VALIDATION_COMPANYNAME_REQUIRED = 'This field can\'t be left blank.';
   public static MSG_ERROR_VALIDATION_OTP_REQUIRED = 'Enter received OTP.';
   public static MSG_ERROR_VALIDATION_INVALID_EMAIL_REQUIRED = 'Enter a valid email address.';
-  public static MSG_ERROR_VALIDATION_INVALID_URL_REQUIRED = 'Website is not valid';
+  public static MSG_ERROR_VALIDATION_INVALID_URL_REQUIRED = 'Website should be start with www';
   public static MSG_ERROR_VALIDATION_INVALID_NAME = 'Enter valid name.';
   public static MSG_ERROR_VALIDATION_INVALID_DATA = 'Enter valid data.';
   public static MSG_ERROR_VALIDATION_PASSWORD_MISMATCHED = 'Passwords do not match.';
@@ -282,6 +283,9 @@ export class Messages {
     'matching and alignment with the best job Opportunity.';
   public static GUIDED_TOUR_COMPLEXITY_SCENARIOS_MESSAGE ='This section provides a list of Complexity Scenarios for' +
     ' your selected Capabilities';
+    public static GUIDED_TOUR_COMPLEXITY_RIGHT_FIT_MESSAGE ='This section has questions designed by industry ' +
+        'stalwarts and experts by investing more than <b>10,000</b> person hours with a view to help the candidates and ' +
+        'recruiters get the 100% right fit.';
   public static GUIDED_TOUR_COMPLEXITY_SCENARIO_NOTE_MESSAGE ='<span>Note:</span> If a scenario was applicable to you in past but ' +
     'is no more relevant to you, avoid choosing such scenarios. In such cases, choose' +
     ' "Not Applicable".';
@@ -695,6 +699,7 @@ export class Label {
   public static SHOW_CLOSED_JOBS: string = 'Show Closed Jobs';
   public static POST_JOB: string = 'POST JOB';
   public static CLOSED_JOB: string = 'CLOSED JOB';
+  public static PROFILE_VISIBILITY: string = 'Profile Visibility for Recruiter';
 }
 
 export class Button {
@@ -705,4 +710,6 @@ export class Button {
   public static CANCEL_BUTTON: string = 'Cancel';
   public static VALUE_PORTRAIT_BUTTON: string = 'Create your Own Value Portrait';
   public static SUBMIT_PROFILE: string = 'Submit Profile';
+  public static VIEW_AND_EDIT: string = 'View and Edit';
+  public static PROCEED: string = 'Proceed';
 }
