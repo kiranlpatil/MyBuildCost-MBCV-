@@ -81,22 +81,6 @@
   .mini-value-portrait-section {
     zoom: 0.3;
     z-index: 999;
-    .value-portrait-candidate-capability-circle {
-      .inner-circle {
-        span {
-          line-height: 21px;
-          text-align: center;
-          letter-spacing: -2px;
-        }
-      }
-    }
-    .value-portrait-candidate-capability {
-      h3 {
-        display: table !important;
-        margin: 0 auto !important;
-        text-align: center !important;
-      }
-    }
   }
 }
 
@@ -118,4 +102,31 @@
       right: 20px;
     }
   }
+}
+
+.complexities-section {
+  padding: 0 0 75px 40px;
+  width: 58.333333%;
+  h4 {
+    padding: 8px 15px 8px 0;
+    width: 100% !important;
+  }
+  .scrollable-content {
+    padding: 0;
+  }
+}
+
+.button-group {
+  width: calc(100% - 410px);
+}
+.complexities {
+  .complexities-help-section {
+    background: $theme-color;
+  }
+}
+.bg-empty-class {
+  background: $theme-color;
+  height: 100%;
+  position: fixed;
+  right: 0;
 }

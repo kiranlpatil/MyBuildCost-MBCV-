@@ -10,11 +10,12 @@
     font-size: 13px;
     height: 100%;
     overflow-y: auto;
+    overflow-x: hidden;
     padding: 15px;
     position: fixed;
     right: 0;
     top: 0;
-    width: 435px;
+    width: 370px;
     z-index: 9;
 
     ul {
@@ -74,7 +75,7 @@
   height: auto;
   left: 0;
   overflow: visible;
-  padding: 0 450px 75px 70px;
+  padding: 0 370px 75px 70px;
   position: relative;
   top: 0;
   width: 100%;
@@ -100,7 +101,7 @@
     text-align: left;
     text-overflow: clip !important;
     white-space: normal !important;
-    width: calc(100% - 435px) !important;
+    width: calc(100% - 370px) !important;
     z-index: 2;
 
     span {
@@ -293,7 +294,7 @@
     padding: 7px 15px;
     position: absolute;
     text-align: right;
-    width: calc(100% - 435px);
+    width: calc(100% - 370px);
     z-index: 2;
 
     button[hidden] {

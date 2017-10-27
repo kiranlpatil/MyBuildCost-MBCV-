@@ -1672,8 +1672,10 @@ select:focus {
     color: $white;
     font-size: 50px;
     font-weight: bold;
-    margin: 0 0 26px;
+    margin: 20px 0 26px;
+    position: relative;
     text-align: center;
+    z-index: 9;
   }
   .value-portrait-candidate-capability-circle {
     .inner-circle {
@@ -1693,5 +1695,37 @@ select:focus {
   }
   .value-portrait-footer {
     display: none;
+  }
+  .value-portrait-candidate-info-block {
+    ul {
+      li {
+        width: 14.6% !important;
+      }
+      li:first-child {
+        width: 19% !important;
+      }
+      li:nth-child(2) {
+        width: 21.6% !important;
+      }
+    }
+  }
+  .value-portrait-bottom-section {
+    .value-portrait-candidate-industry,
+    .value-portrait-candidate-keyskills {
+      span {
+        b {
+          display: none !important;
+        }
+      }
+      .icon {
+        width: 26px !important;
+        margin-right: 8px;
+      }
+    }
+  }
+  .value-portrait-candidate-number {
+    .phone-icon {
+      width: 40px !important;
+    }
   }
 }
