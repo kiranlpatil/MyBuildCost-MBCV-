@@ -32,6 +32,7 @@ export class ValuePortraitContainerComponent implements OnInit {
     }
     if (role === 'true') {
       if(this.isFromCreate) {
+        this.isFromCreate=false;
         this._router.navigate(['/create_profile']);
       }
       else {
@@ -44,13 +45,17 @@ export class ValuePortraitContainerComponent implements OnInit {
 
   }
 
-  ngOnInit() { debugger
+  ngOnInit() {
     this.activatedRoute.params.subscribe(params => {
       this._userId = params['id'];
+      this.isFromCreate=false;
     });
     this.activatedRoute.params.subscribe(params => {
-      this._userId = params['userId'];
-      this.isFromCreate = true;
+      console.log(params['userId']);
+      if(params['userId']){
+        this.isFromCreate = true;
+        this._userId = params['userId'];
+      }
     });
 
     this.activatedRoute.queryParams.subscribe(params => {

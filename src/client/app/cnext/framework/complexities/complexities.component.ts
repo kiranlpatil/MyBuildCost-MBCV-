@@ -429,7 +429,6 @@ export class ComplexitiesComponent implements OnInit, OnChanges {
       let x = nav+'/'+ userId + '/create';
      // this._router.navigate([nav, userId]);
       this._router.navigate([x]);
-     // this.complexityAnsweredService.change(true);
     }
   }
 
