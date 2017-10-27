@@ -50,6 +50,7 @@ export class FilterComponent {
   openJoiningPeriodPanel: boolean = false;
   openDomainPanel: boolean = false;
   mustHaveComplexityPanel: boolean = false;
+  isComplexityMustHaveMatrixPresent : boolean;
 
   constructor(private formBuilder: FormBuilder,
               private errorService:ErrorService,
@@ -72,6 +73,19 @@ export class FilterComponent {
   }
 
   ngOnChanges(changes: any) {
+    if((changes.selectedJob && changes.selectedJob.currentValue)) {
+      this.selectedJob = changes.selectedJob.currentValue;
+      if(this.selectedJob.complexity_musthave_matrix) {
+        for(let cap in this.selectedJob.complexity_musthave_matrix) {
+          if(this.selectedJob.complexity_musthave_matrix[cap]) {
+            this.isComplexityMustHaveMatrixPresent = true;
+            break;
+          } else {
+            this.isComplexityMustHaveMatrixPresent = false;
+          }
+        }
+      }
+    }
     if (changes.candidate) {
       if (changes.candidate.currentValue) {
         this.proficiencyList = changes.candidate.currentValue.proficiencies;
