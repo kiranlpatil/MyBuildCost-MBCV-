@@ -49,6 +49,7 @@ export class Messages {
   public static MSG_CANDIDATE_SEARCH_NOT_FOUND = "Applicant's profile does not match with any of your open job profiles.";
   public static MSG_CNADIDATE_VISIBILITY_OFF = 'The selected applicant profile details are not displayed, since the applicant has marked it as private.';
   public static MSG_CNADIDATE_IF_NOT_IN_CART = 'To view profile details of this candidate you need to add this candidate in cart of at least one job post..';
+  public static MSG_ABOUT_SCREEN_PRINT_IF_NOT_IN_CART = 'Add this candidate to cart to enable profile download.';
   public static MSG_SUCCESS_LOGIN: string = 'You are successfully signed in.';
   public static MSG_SUCCESS_REGISTRATION: string = 'Kindly verify your account.';
   public static MSG_SUCCESS_CHANGE_MOBILE_NUMBER: string = 'Mobile number updated successfully.Kindly sign in';
