@@ -25,11 +25,11 @@ let spawn = require('child_process').spawn;
 
 let mongoExport = '/usr/bin/mongoexport';
 //let db = config.get('TplSeed.database.name');
-
-let db = 'Jobmosis-staging';
 let username = config.get('TplSeed.database.name');
 let password = 'jobmosisadmin';
 
+//let db = 'Jobmosis-staging';
+let db = 'c-next-backend';
 class AdminService {
   company_name: string;
   private userRepository: UserRepository;
