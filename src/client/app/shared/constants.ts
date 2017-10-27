@@ -1,8 +1,8 @@
 export class AppSettings {
-  // public static IP = 'http://localhost:8080';
+  public static IP = 'http://localhost:8080';
   // public static IP = 'http://ee802b7f.ngrok.io';
-  // public static IP = 'http://10.192.33.77:8080';
-  public static IP = 'http://52.10.145.87:3000';
+  //public static IP = 'http://10.192.33.77:8080';
+  //public static IP = 'http://52.10.145.87:3000';
  // public static IP = 'https://34.215.90.153:3000';
   // public static IP = 'app.jobmosis.com';
   // public static IP = '';
@@ -578,6 +578,7 @@ export class Tooltip {
   public static COMPLEXITIES_RECRUITER_TOOLTIP_1: string = 'This section provides a list of complexity scenarios for selected capabilities.' +
     'For each scenario, select the most appropriate level that candidate is required to handle.';
   public static COMPLEXITIES_RECRUITER_TOOLTIP_2: string = 'For scenarios that are not relevant to your job profile, choose "Not Applicable".';
+  public static COMPLEXITIES_RECRUITER_TOOLTIP_3: string = 'Please click on &#9733; to select a must have capability for candidate to fulfilled this job.';
   public static EMPLOYMENT_HISTORY_TOOLTIP: string = 'An individual may be exposed to multiple industries during his professional life.';
   public static INDUSTRY_EXPERIENCE_CANDIDATE_TOOLTIP_1: string = 'An individual may be exposed to multiple industries during their professional life. ' +
     'At times, organisations need individuals who have cross industry expertise.';
@@ -627,6 +628,8 @@ export class Tooltip {
   public static CAPABILITY_COMPARE_BELOW_MATCH: string = 'Candidate capabilities slightly less than desired';
   public static CAPABILITY_COMPARE_MISSING_MATCH: string = 'Large mismatch of capabilities';
   public static COMPANY_DETAILS_TOOLTIP: string = 'Company Details Message';
+    public static MUST_TO_HAVE_TOOLTIP: string = 'Is this a must have capability for candidate to fulfilled this job?';
+    public static MUST_TO_HAVE_CAPABILITY_COMPARE_MESSAGE: string = 'This is a capability that a candidate must have to perform this job.';
 }
 
 export class Headings {
@@ -699,6 +702,7 @@ export class Label {
   public static SHOW_CLOSED_JOBS: string = 'Show Closed Jobs';
   public static POST_JOB: string = 'POST JOB';
   public static CLOSED_JOB: string = 'CLOSED JOB';
+  public static MUST_TO_HAVE_FILTER_LABEL: string = 'Hide candidates missing must to have capabilities';
   public static PROFILE_VISIBILITY: string = 'Profile Visibility for Recruiter';
 }
 
