@@ -1726,6 +1726,13 @@ select:focus {
   }
 }
 
+.bg-empty-class {
+  background: $optional-field;
+  height: 100%;
+  position: fixed;
+  right: 0;
+}
+
 .mini-value-portrait-section {
   h3 {
     color: $white;
