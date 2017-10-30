@@ -247,14 +247,14 @@ class AdminService {
 
   exportCandidateCollection(callback: (err: any, res: any) => void) {
     console.log("inside exportCandidateCollection");
-    /*let candidateChild = spawn('mongoexport', ['--db', db, '--collection', 'candidates', '--type', 'csv', '--fields',
+    let candidateChild = spawn('mongoexport', ['--host', '52.10.145.87', '--db', db, '--collection', 'candidates', '--type', 'csv', '--fields',
       '_id,userId,job_list,proficiencies,employmentHistory,academics,industry,awards,interestedIndustries,certifications,profile_update_tracking,isVisible,isSubmitted,isCompleted,complexity_note_matrix,professionalDetails,aboutMyself,jobTitle,location,lastUpdateAt',
-      '--out', '/home/kapil/JavaProject/ng4-cnext/c-next/dist/server/prod/public/candidates.csv']);*/
+      '--out', '/home/kapil/JavaProject/ng4-cnext/c-next/dist/server/prod/public/candidates.csv']);
 
-    let candidateChild = spawn('mongoexport', ['--username', username, '--password', password,'--db', db, '--collection',
+    /*let candidateChild = spawn('mongoexport', ['--username', username, '--password', password,'--db', db, '--collection',
      'candidates', '--type', 'csv', '--fields',
      '_id,userId,job_list,proficiencies,employmentHistory,academics,industry,awards,interestedIndustries,certifications,profile_update_tracking,isVisible,isSubmitted,isCompleted,complexity_note_matrix,professionalDetails,aboutMyself,jobTitle,location,lastUpdateAt',
-     '--out', '/home/bitnami/apps/jobmosis-staging/c-next/dist/server/prod/public/candidates.csv']);
+     '--out', '/home/bitnami/apps/jobmosis-staging/c-next/dist/server/prod/public/candidates.csv']);*/
 
     candidateChild.on('exit', function (code: any) {
       if (code != 0) {
@@ -271,13 +271,12 @@ class AdminService {
 
   exportCandidateOtherDetailsCollection(callback: (err: any, res: any) => void) {
     console.log("inside exportCandidateDetailsCollection");
-    /*let candidateOtherDetailsChild = spawn('mongoexport', ['--db', db, '--collection', 'candidates',
+    let candidateOtherDetailsChild = spawn('mongoexport', ['--db', db, '--collection', 'candidates',
       '--type', 'csv', '--fields', 'userId,capability_matrix', '--out',
       '/home/kapil/JavaProject/ng4-cnext/c-next/dist/server/prod/public/candidates-other-details.csv']);
-*/
-    let candidateOtherDetailsChild = spawn('mongoexport', ['--username', username, '--password', password, '--db', db, '--collection', 'candidates',
+    /*let candidateOtherDetailsChild = spawn('mongoexport', ['--username', username, '--password', password, '--db', db, '--collection', 'candidates',
      '--type', 'csv', '--fields', 'userId,capability_matrix', '--out',
-     '/home/bitnami/apps/jobmosis-staging/c-next/dist/server/prod/public/candidates-other-details.csv']);
+     '/home/bitnami/apps/jobmosis-staging/c-next/dist/server/prod/public/candidates-other-details.csv']);*/
 
     candidateOtherDetailsChild.on('exit', function (code: any) {
       if (code != 0) {
@@ -296,7 +295,7 @@ class AdminService {
     console.log("inside exportUserCollection");
     let userChild: any;
 
-    /*if (userType == 'candidate') {
+    if (userType == 'candidate') {
       userChild = spawn('mongoexport', ['--db', db, '--collection', 'users', '--type', 'csv', '--fields',
         '_id,first_name,last_name,mobile_number,email,current_theme,isCandidate,guide_tour,notifications,complexityIsMustHave,isAdmin,otp,isActivated,temp_mobile',
         '--out', '/home/kapil/JavaProject/ng4-cnext/c-next/dist/server/prod/public/users.csv', '--query',
@@ -306,9 +305,9 @@ class AdminService {
         '_id,mobile_number,email,current_theme,isCandidate,guide_tour,notifications,isAdmin,otp,isActivated,temp_mobile,location,picture', '--out',
         '/home/kapil/JavaProject/ng4-cnext/c-next/dist/server/prod/public/users.csv',
         '--query', '{"isCandidate": false}']);
-    }*/
+    }
 
-    if (userType == 'candidate') {
+    /*if (userType == 'candidate') {
      userChild = spawn('mongoexport', ['--username', username, 'password', password, '--db', db, '--collection', 'users', '--type', 'csv', '--fields',
      '_id,first_name,last_name,mobile_number,email,current_theme,isCandidate,guide_tour,notifications,complexityIsMustHave,isAdmin,otp,isActivated,temp_mobile',
      '--out', '/home/bitnami/apps/jobmosis-staging/c-next/dist/server/prod/public/users.csv', '--query',
@@ -318,7 +317,7 @@ class AdminService {
      '_id,mobile_number,email,current_theme,isCandidate,guide_tour,notifications,isAdmin,otp,isActivated,temp_mobile,location,picture', '--out',
      '/home/bitnami/apps/jobmosis-staging/c-next/dist/server/prod/public/users.csv',
      '--query', '{"isCandidate": false}']);
-     }
+     }*/
 
 
     userChild.on('exit', function (code: any) {
@@ -335,14 +334,9 @@ class AdminService {
 
   exportRecruiterCollection(callback: (err: any, res: any) => void) {
     console.log("inside exportRecruiterCollection");
-    /*let recruiterChild = spawn('mongoexport', ['--db', db, '--collection', 'recruiters', '--type', 'csv',
-      '--fields', '_id,userId,isRecruitingForself,company_name,company_size,company_website,postedJobs,setOfDocuments,company_logo', '--out',
-      '/home/kapil/JavaProject/ng4-cnext/c-next/dist/server/prod/public/recruiters.csv']);*/
+    /*let recruiterChild = spawn('mongoexport',['--host','52.10.145.87','--db',db,'--collection','recruiters','--type','csv','--fields','_id,userId,isRecruitingForself,company_name,company_size,company_website,postedJobs,setOfDocuments,company_logo','--out','/home/kapil/JavaProject/ng4-cnext/c-next/dist/server/prod/public/recruiters.csv']);*/
 
-    let recruiterChild = spawn('mongoexport', ['--username', username, 'password', password, '--db', db, '--collection', 'recruiters', '--type', 'csv',
-     '--fields', '_id,userId,isRecruitingForself,company_name,company_size,company_website,postedJobs,setOfDocuments,company_logo', '--out',
-     '/home/bitnami/apps/jobmosis-staging/c-next/dist/server/prod/public/recruiters.csv']);
-
+    let recruiterChild = spawn('mongoexport',['--username',username,'password',password,'--db',db,'--collection','recruiters','--type','csv','--fields','_id','--out','/home/bitnami/apps/jobmosis-staging/c-next/dist/server/prod/public/recruiters.csv']);
     recruiterChild.on('exit', function (code: any) {
       if (code != 0) {
         recruiterChild.kill();
@@ -358,13 +352,13 @@ class AdminService {
 
   exportUsageDetailsCollection(callback: (err: any, res: any) => void) {
     console.log("inside exportUsageDetailsCollection");
-    /*let usageDetailsChild = spawn('mongoexport', ['--db', db, '--collection', 'usestrackings', '--type', 'csv',
-      '--fields', '_id,candidateId,jobProfileId,timestamp,action,__v', '--out',
-      '/home/kapil/JavaProject/ng4-cnext/c-next/dist/server/prod/public/usagedetail.csv']);*/
-
     let usageDetailsChild = spawn('mongoexport', ['--db', db, '--collection', 'usestrackings', '--type', 'csv',
+      '--fields', '_id,candidateId,jobProfileId,timestamp,action,__v', '--out',
+      '/home/kapil/JavaProject/ng4-cnext/c-next/dist/server/prod/public/usagedetail.csv']);
+
+    /*let usageDetailsChild = spawn('mongoexport', ['--db', db, '--collection', 'usestrackings', '--type', 'csv',
      '--fields', '_id,candidateId,jobProfileId,timestamp,action,__v', '--out',
-     '/home/bitnami/apps/jobmosis-staging/c-next/dist/server/prod/public/usagedetail.csv']);
+     '/home/bitnami/apps/jobmosis-staging/c-next/dist/server/prod/public/usagedetail.csv']);*/
 
     usageDetailsChild.on('exit', function (code: any) {
       if (code != 0) {
