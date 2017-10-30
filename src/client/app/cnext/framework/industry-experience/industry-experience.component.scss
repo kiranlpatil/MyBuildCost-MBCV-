@@ -57,3 +57,13 @@
     width: calc(100% - 400px);
   }
 }
+
+@media only screen and (max-width: 767px) {
+  .industry-domin-left-section {
+    padding: 0 0 75px 30px;
+    width: 94%;
+  }
+  .button-group  {
+    width: 100% !important;
+  }
+}

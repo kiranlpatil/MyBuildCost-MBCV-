@@ -73,3 +73,13 @@
   background: $theme-color;
 }
 
+
+@media only screen and (max-width: 767px) {
+  .capabilities {
+    padding: 0 0 75px 30px;
+    width: 98%;
+  }
+  .button-group  {
+    width: 100% !important;
+  }
+}
