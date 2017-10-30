@@ -7,7 +7,6 @@ import AdminService = require('../services/admin.service');
 import UserModel = require('../dataaccess/model/user.model');
 var request = require('request');
 
-
 export function create(req: express.Request, res: express.Response, next: any) {
   try {
     var newUser: UserModel = <UserModel>req.body;
@@ -70,56 +69,6 @@ export function create(req: express.Request, res: express.Response, next: any) {
   }
 }
 
-export function getAllUser(req: express.Request, res: express.Response, next: any) {
-  try {
-    var userService = new UserService();
-    var adminService = new AdminService();
-    var params = {};
-    if (req.user.isAdmin) {
-      userService.retrieveAll(params, (error, result) => {
-        if (error) {
-          next({
-            reason: Messages.MSG_ERROR_RETRIEVING_USER,//Messages.MSG_ERROR_RSN_INVALID_CREDENTIALS,
-            message: Messages.MSG_ERROR_RETRIEVING_USER,
-            stackTrace: new Error(),
-            code: 403
-          });
-        } else {
-          adminService.getUserDetails(result, (error, resp) => {
-            if (error) {
-              next({
-                reason: Messages.MSG_ERROR_SEPERATING_USER,//Messages.MSG_ERROR_RSN_INVALID_CREDENTIALS,
-                message: Messages.MSG_ERROR_SEPERATING_USER,
-                stackTrace: new Error(),
-                code: 403
-              });
-            } else {
-              res.status(200).send({
-                'status': 'success',
-                'data': resp
-              });
-            }
-          });
-        }
-      });
-    } else {
-      next({
-        reason: Messages.MSG_ERROR_UNAUTHORIZED_USER,
-        message: Messages.MSG_ERROR_UNAUTHORIZED_USER,
-        stackTrace: new Error(),
-        code: 401
-      });
-    }
-  } catch (e) {
-    next({
-      reason: e.message,
-      message: e.message,
-      stackTrace: new Error(),
-      code: 403
-    });
-  }
-}
-
 export function getCountOfUsers(req: express.Request, res: express.Response, next: any) {
   try {
     var adminService = new AdminService();
@@ -128,8 +77,8 @@ export function getCountOfUsers(req: express.Request, res: express.Response, nex
       adminService.getCountOfUsers(params, (error, result) => {
         if (error) {
           next({
-            reason: Messages.MSG_ERROR_RETRIEVING_USER,//Messages.MSG_ERROR_RSN_INVALID_CREDENTIALS,
-            message: Messages.MSG_ERROR_RETRIEVING_USER,
+            reason: Messages.MSG_ERROR_RETRIEVING_USERS_COUNT,//Messages.MSG_ERROR_RSN_INVALID_CREDENTIALS,
+            message: Messages.MSG_ERROR_RETRIEVING_USERS_COUNT,
             stackTrace: new Error(),
             code: 403
           });
@@ -241,7 +190,6 @@ export function exportCandidateDetails(req: express.Request, res: express.Respon
   try {
     var userService = new UserService();
     var adminService = new AdminService();
-    var params = {};
     let userType = 'candidate';
     if (req.user.isAdmin) {
       adminService.exportCandidateCollection((err, respo) => {
@@ -249,8 +197,8 @@ export function exportCandidateDetails(req: express.Request, res: express.Respon
           next({
             reason: Messages.MSG_ERROR_CREATING_EXCEL,//Messages.MSG_ERROR_RSN_INVALID_CREDENTIALS,
             message: Messages.MSG_ERROR_CREATING_EXCEL,
-            stackTrace: new Error(),
-            code: 403
+            stackTrace: err,
+            code: 500
           });
         } else {
           adminService.exportCandidateOtherDetailsCollection((err, respo) => {
@@ -258,8 +206,8 @@ export function exportCandidateDetails(req: express.Request, res: express.Respon
               next({
                 reason: Messages.MSG_ERROR_CREATING_EXCEL,//Messages.MSG_ERROR_RSN_INVALID_CREDENTIALS,
                 message: Messages.MSG_ERROR_CREATING_EXCEL,
-                stackTrace: new Error(),
-                code: 403
+                stackTrace: err,
+                code: 500
               });
             } else {
               adminService.exportUserCollection(userType, (err, respo) => {
@@ -267,8 +215,8 @@ export function exportCandidateDetails(req: express.Request, res: express.Respon
                   next({
                     reason: Messages.MSG_ERROR_CREATING_EXCEL,//Messages.MSG_ERROR_RSN_INVALID_CREDENTIALS,
                     message: Messages.MSG_ERROR_CREATING_EXCEL,
-                    stackTrace: new Error(),
-                    code: 403
+                    stackTrace: err,
+                    code: 500
                   });
                 } else {
                   console.log("success");
@@ -295,7 +243,7 @@ export function exportCandidateDetails(req: express.Request, res: express.Respon
       reason: e.message,
       message: e.message,
       stackTrace: new Error(),
-      code: 403
+      code: 500
     });
   }
 }
@@ -304,7 +252,6 @@ export function exportRecruiterDetails(req: express.Request, res: express.Respon
   try {
     var userService = new UserService();
     var adminService = new AdminService();
-    var params = {};
     let userType = 'recruiter';
     if (req.user.isAdmin) {
       adminService.exportRecruiterCollection((err, respo) => {
@@ -312,8 +259,8 @@ export function exportRecruiterDetails(req: express.Request, res: express.Respon
           next({
             reason: Messages.MSG_ERROR_CREATING_EXCEL,//Messages.MSG_ERROR_RSN_INVALID_CREDENTIALS,
             message: Messages.MSG_ERROR_CREATING_EXCEL,
-            stackTrace: new Error(),
-            code: 403
+            stackTrace: err,
+            code: 500
           });
         } else {
           adminService.exportUserCollection(userType, (err, respo) => {
@@ -321,8 +268,8 @@ export function exportRecruiterDetails(req: express.Request, res: express.Respon
               next({
                 reason: Messages.MSG_ERROR_CREATING_EXCEL,//Messages.MSG_ERROR_RSN_INVALID_CREDENTIALS,
                 message: Messages.MSG_ERROR_CREATING_EXCEL,
-                stackTrace: new Error(),
-                code: 403
+                stackTrace: err,
+                code: 500
               });
             } else {
               console.log("success");
@@ -333,58 +280,41 @@ export function exportRecruiterDetails(req: express.Request, res: express.Respon
           });
         }
       });
+    } else {
+      next({
+        reason: Messages.MSG_ERROR_UNAUTHORIZED_USER,
+        message: Messages.MSG_ERROR_UNAUTHORIZED_USER,
+        stackTrace: new Error(),
+        code: 401
+      });
     }
   } catch (e) {
     next({
       reason: e.message,
       message: e.message,
       stackTrace: new Error(),
-      code: 403
+      code: 500
     });
   }
 }
 
-export function getUsageDetails(req: express.Request, res: express.Response, next: any) {
+export function exportUsageDetails(req: express.Request, res: express.Response, next: any) {
   try {
     var adminService = new AdminService();
-    var params = {};
     if (req.user.isAdmin) {
-      adminService.getUsageDetails(params, (error, result) => {
+      adminService.exportUsageDetailsCollection((error, result) => {
         if (error) {
           next({
             reason: Messages.MSG_ERROR_RETRIEVING_USAGE_DETAIL,//Messages.MSG_ERROR_RSN_INVALID_CREDENTIALS,
             message: Messages.MSG_ERROR_RETRIEVING_USAGE_DETAIL,
-            stackTrace: new Error(),
-            code: 403
+            stackTrace: error,
+            code: 500
           });
         } else {
-          adminService.addUsageDetailsValue(result, (error, resp) => {
-            if (error) {
-              next({
-                reason: Messages.MSG_ERROR_ADDING_USAGE_DETAIL,//Messages.MSG_ERROR_RSN_INVALID_CREDENTIALS,
-                message: Messages.MSG_ERROR_ADDING_USAGE_DETAIL,
-                stackTrace: new Error(),
-                code: 403
-              });
-            } else {
-              adminService.generateUsageDetailFile(resp, (err, respo) => {
-                if (err) {
-                  next({
-                    reason: Messages.MSG_ERROR_CREATING_EXCEL,//Messages.MSG_ERROR_RSN_INVALID_CREDENTIALS,
-                    message: Messages.MSG_ERROR_CREATING_EXCEL,
-                    stackTrace: new Error(),
-                    code: 403
-                  });
-                } else {
-                  //var file = './src/server/public/usagedetail.csv';
-                  var file = '/home/bitnami/apps/jobmosis-staging/c-next/dist/server/prod/public/usagedetail.csv';
-                  res.download(file); // Set disposition and send it.
-                }
-              });
-            }
-
+          console.log("success");
+          res.status(200).send({
+            'status': 'success'
           });
-
         }
       });
     } else {
@@ -401,7 +331,7 @@ export function getUsageDetails(req: express.Request, res: express.Response, nex
       reason: e.message,
       message: e.message,
       stackTrace: new Error(),
-      code: 403
+      code: 500
     });
   }
 }
@@ -452,7 +382,7 @@ export function updateDetailOfUser(req: express.Request, res: express.Response, 
       reason: e.message,
       message: e.message,
       stackTrace: new Error(),
-      code: 403
+      code: 500
     });
   }
 }
@@ -482,7 +412,7 @@ export function sendLoginInfoToAdmin(email: any, ip: any, latitude: any, longitu
       reason: e.message,
       message: e.message,
       stackTrace: new Error(),
-      code: 403
+      code: 500
     });
   }
 }
