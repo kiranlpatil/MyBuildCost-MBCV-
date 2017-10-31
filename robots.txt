@@ -6,7 +6,6 @@ Allow: /
 User-agent:LinkedInBot
 Allow:/
 
-# disallow all
-User-agent: *
-Disallow: /
-Crawl-delay: 600
+#allow facebook
+User-agent:facebookexternalhit
+Allow:/
