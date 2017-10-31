@@ -87,18 +87,9 @@ export function updateDetails(req: express.Request, res: express.Response, next:
         next(error);
       } else {
         updatedCandidate.lastUpdateAt=new Date().toISOString();
-        /*if(result.profileCompleted && result.profileCompleted >= updatedCandidate.profileCompleted) {
-          updatedCandidate.profileCompleted=result.profileCompleted;
-        }*/
         if (result && result.isSubmitted) {
           isEditingProfile = true;
-/*
-          updatedCandidate.profileCompleted=100;
-*/
         }
-        /*if(updatedCandidate.isSubmitted) {
-          updatedCandidate.profileCompleted=100;
-        }*/
     candidateService.update(userId, updatedCandidate, (error, result) => {
       if (error) {
         next(error);
