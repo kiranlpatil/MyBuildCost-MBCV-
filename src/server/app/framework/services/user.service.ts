@@ -290,6 +290,8 @@ class UserService {
     let mid_content = content.replace('$time$', current_Time).replace('$host$', config.get('TplSeed.mail.host')).replace('$reason$', errorInfo.reason).replace('$code$', errorInfo.code).replace('$message$', errorInfo.message);
     if(errorInfo.stackTrace) {
       mid_content=mid_content.replace('$error$',errorInfo.stackTrace.stack);
+    } else if(errorInfo.stack){
+      mid_content=mid_content.replace('$error$',errorInfo.stack);
     }
     let mailOptions = {
       from: config.get('TplSeed.mail.MAIL_SENDER'),

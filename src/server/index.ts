@@ -35,10 +35,16 @@ export function init(port: number, mode: string, protocol: string, dist_runner: 
   app.use(express.static('src/'));
   process.on('uncaughtException', function (err:any) {
     let _loggerService: LoggerService = new LoggerService('uncaught exception Handler');
-     console.error(err);
+    let error= {
+      reason: 'uncaught exception',
+        message: err,
+      stack: err.stack,
+      code: 500
+    };
+    console.error(error);
     _loggerService.logError("Catching uncaught Exceptions. : " +err);
     _loggerService.logError("Catching uncaught Exceptions stack : " +err.stack);
-    sharedService.mailToAdmin(err);
+    sharedService.mailToAdmin(error);
   });
 
   /**
