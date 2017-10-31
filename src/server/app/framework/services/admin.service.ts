@@ -22,7 +22,8 @@ let spawn = require('child_process').spawn;
 
 let mongoExport = '/usr/bin/mongoexport';
 ///let db = config.get('TplSeed.database.name');
-let db = 'Jobmosis-staging';
+//let db = 'Jobmosis-staging';
+let db = 'c-next-backend';
 let username = 'admin';
 let password = 'jobmosisadmin123';
 
