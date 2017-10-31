@@ -55,6 +55,7 @@ $light-red: #eb6b56;
 $light-red1: #e14938;
 $dark-red1: #b8312f;
 $light-gray-bg: #d1d1d1;
+$active-green: #419441;
 
 .btn-logout {
   margin-top: 15px;
@@ -888,7 +889,7 @@ cn-control-messages {
 
 .mini-value-portrait-section {
   .greenCircle {
-    background: #419441;
+    background: $active-green;
     .inner-circle {
       span {
         color: $white;

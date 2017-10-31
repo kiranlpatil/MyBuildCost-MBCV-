@@ -181,5 +181,10 @@ export class IndustryExperienceListComponent implements OnInit,OnChanges {
     }
   }
 
+
+  getMessage() {
+    return Messages;
+  }
+
 }
 
