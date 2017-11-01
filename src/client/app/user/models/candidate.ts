@@ -33,6 +33,7 @@ export class Candidate {
   basicInformation: CandidateDetail = new CandidateDetail();
   profile_update_tracking:number;
   _id: string;
+  popUpQuestions: number[] = new Array(0);
 }
 
 
