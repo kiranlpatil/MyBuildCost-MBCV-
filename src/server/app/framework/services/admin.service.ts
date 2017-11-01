@@ -382,6 +382,31 @@ class AdminService {
 
   }
 
+  exportKeySkillsCollection(callback: (err: any, res: any) => void) {
+    console.log("inside exportKeyskillsCollection");
+    let stderr: any = '';
+    /*let keySkillsChild = spawn('mongoexport',['--db',db,'--collection','proficiencies','--type','csv','--fields','_id,proficiencies','--out','/home/kapil/JavaProject/ng4-cnext/c-next/dist/server/prod/public/key-skills.csv']);*/
+
+    let keySkillsChild = spawn('mongoexport', ['--username', username, '--password', password, '--db', db, '--collection', 'proficiencies', '--type', 'csv', '--fields', '_id,proficiencies', '--out', '/home/bitnami/apps/jobmosis-staging/c-next/dist/server/prod/public/key-skills.csv']);
+
+    keySkillsChild.on('exit', function (code: any) {
+      if (code != 0) {
+        keySkillsChild.kill();
+        callback(new Error(), null);
+      } else {
+        console.log('keySkillsChild process closed with code ' + code);
+        keySkillsChild.kill();
+        callback(null, 'success');
+      }
+    });
+
+    keySkillsChild.stderr.on('data', function (buf: any) {
+      console.log('[STR] stderr "%s"', String(buf));
+      stderr += buf;
+    });
+
+  }
+
 }
 
 Object.seal(AdminService);

@@ -420,6 +420,7 @@ export class API {
   public static UPDATE_USER = 'updateUser';
   public static ALL_USER_PROFILE = 'alluser';
   public static USAGE_DETAIL = 'usageDetails';
+  public static KEY_SKILLS = 'keySkills';
   public static CANDIDATE_PROFILE = 'candidate';
   public static CANDIDATE_DETAIL_PROFILE = 'candidateDetails';
   public static RECRUITER_DETAIL_PROFILE = 'recruiterDetails';
