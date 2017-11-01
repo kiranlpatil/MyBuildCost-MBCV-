@@ -163,6 +163,7 @@ import {JobCloseComponent} from "./cnext/framework/job-close/job-close.component
 import {ClosedJobFilter} from "./cnext/framework/filters/closed-job-filter.pipe";
 import {JobCloseComponentService} from "./cnext/framework/job-close/job-close.component.service";
 import {ComplexityAnsweredService} from "./cnext/framework/complexity-answered.service";
+import {CandidateFeedbackComponent} from "./cnext/framework/candidate-feedback/candidate-feedback.component";
 //C-NEXT IMPORTS
 
 
@@ -280,7 +281,8 @@ import {ComplexityAnsweredService} from "./cnext/framework/complexity-answered.s
     JobCloneComponent,
     ShareContainerComponent,
     PrintScreenComponent,
-    JobCloseComponent
+    JobCloseComponent,
+    CandidateFeedbackComponent
   ],
 
   providers: [
