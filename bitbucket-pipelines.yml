@@ -6,8 +6,7 @@
 image: node:6.9.4
 
 pipelines:
-  branches:
-    development-ng4-aot-compilation:
+  default:
     - step:
         caches:
           - node
