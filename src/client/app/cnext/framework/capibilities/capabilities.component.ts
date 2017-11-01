@@ -100,7 +100,7 @@ export class CapabilitiesComponent {
     this.primaryCapabilitiesNumber = this.primaryNames.length;
   }
 
-  selectedCapability(selectedRole: Role, selectedCapability: Capability, event: any) { debugger
+  selectedCapability(selectedRole: Role, selectedCapability: Capability, event: any) {
     this.isValid = true;
     this.isInfoMessage = false;
     this.validationMessage = '';
