@@ -301,13 +301,13 @@ class AdminService {
     let stderr: any = '';
 
     /*if (userType == 'candidate') {
-     userChild = spawn('mongoexport', ['--db',db,'--collection','users','--type','csv','--fields','_id,first_name,last_name,mobile_number,email,current_theme,isCandidate,guide_tour,notifications,complexityIsMustHave,isAdmin,otp,isActivated,temp_mobile','--out','/home/kapil/JavaProject/ng4-cnext/c-next/dist/server/prod/public/users.csv','--query','{"isCandidate":true}']);
+     userChild = spawn('mongoexport', ['--db',db,'--collection','users','--type','csv','--fields','_id,first_name,last_name,mobile_number,email,current_theme,isCandidate,guide_tour,notifications,isAdmin,otp,isActivated,temp_mobile','--out','/home/kapil/JavaProject/ng4-cnext/c-next/dist/server/prod/public/users.csv','--query','{"isCandidate":true}']);
      } else {
      userChild = spawn('mongoexport', ['--db',db,'--collection','users','--type','csv','--fields','_id,mobile_number,email,current_theme,isCandidate,guide_tour,notifications,isAdmin,otp,isActivated,temp_mobile,location,picture','--out','/home/kapil/JavaProject/ng4-cnext/c-next/dist/server/prod/public/users.csv','--query','{"isCandidate":false}']);
      }*/
 
     if (userType == 'candidate') {
-      userChild = spawn('mongoexport', ['--username', username, '--password', password, '--db', db, '--collection', 'users', '--type', 'csv', '--fields', '_id,first_name,last_name,mobile_number,email,current_theme,isCandidate,guide_tour,notifications,complexityIsMustHave,isAdmin,otp,isActivated,temp_mobile', '--out', '/home/bitnami/apps/jobmosis-staging/c-next/dist/server/prod/public/users.csv', '--query', '{"isCandidate":true}']);
+      userChild = spawn('mongoexport', ['--username', username, '--password', password, '--db', db, '--collection', 'users', '--type', 'csv', '--fields', '_id,first_name,last_name,mobile_number,email,current_theme,isCandidate,guide_tour,notifications,isAdmin,otp,isActivated,temp_mobile', '--out', '/home/bitnami/apps/jobmosis-staging/c-next/dist/server/prod/public/users.csv', '--query', '{"isCandidate":true}']);
     } else {
       userChild = spawn('mongoexport', ['--username', username, '--password', password, '--db', db, '--collection', 'users', '--type', 'csv', '--fields', '_id,mobile_number,email,current_theme,isCandidate,guide_tour,notifications,isAdmin,otp,isActivated,temp_mobile,location,picture', '--out', '/home/bitnami/apps/jobmosis-staging/c-next/dist/server/prod/public/users.csv', '--query', '{"isCandidate":false}']);
     }
