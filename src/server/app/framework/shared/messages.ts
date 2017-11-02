@@ -51,6 +51,7 @@ class Messages {
   public static MSG_ERROR_WRONG_CURRENT_EMAIL: string = 'Incorrect current email address entered.';
   public static MSG_ERROR_PROVIDE_TOKEN: string = 'Provide access token';
   public static MSG_ERROR_IS_BEARER: string = 'Invalid token strategy';
+  public static MSG_ERROR_TOKEN_NOT_PROVIDED: string = 'Access token is not provided';
   public static MSG_ERROR_PROVIDE_ID: string = 'Provide user ID';
   public static MSG_ERROR_ACCOUNT_STATUS: string = 'Your account is still inactive. Verify your account by clicking the verification link sent on your email.';//dont change It
   public static MSG_ERROR_VERIFY_ACCOUNT: string = 'Please click on the link sent to your email in order to activate your account.';//Dont CHange It
