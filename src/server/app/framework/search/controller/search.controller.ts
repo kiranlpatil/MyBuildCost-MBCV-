@@ -5,6 +5,7 @@ import SearchService = require('../services/search.service');
 import CandidateService = require('../../services/candidate.service');
 import RecruiterService = require('../../services/recruiter.service');
 import CandidateSearchService = require('../../services/candidate-search.service');
+import { FilterSort} from "../../dataaccess/model/filter";
 
 export class SearchController {
 
@@ -12,10 +13,10 @@ export class SearchController {
     console.time('getMatchingCandidatesController');
     let searchService = new SearchService();
     let profileId = req.params.id;
-    let sortBy = req.query.sortBy;
+    let appliedFilters : FilterSort = req.body.obj;
     let recruiterService = new RecruiterService();
     recruiterService.getJobById(profileId, (err: any, jobRes: JobProfileModel) => {
-      searchService.getMatchingCandidates(jobRes, sortBy, {}, (error: Error, result: any) => {
+      searchService.getMatchingCandidates(jobRes, appliedFilters, (error: Error, result: any) => {
         if (error) {
          next(error);
         } else {

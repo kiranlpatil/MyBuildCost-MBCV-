@@ -5,6 +5,7 @@ import {API, UsageActions} from "../../../../shared/constants";
 import {BaseService} from "../../../../shared/services/http/base.service";
 import {LoaderService} from "../../../../shared/loader/loaders.service";
 import {UsageTracking} from "../../model/usage-tracking";
+import {QCardFilter} from "../../model/q-card-filter";
 
 @Injectable()
 
@@ -25,14 +26,16 @@ export class JobDashboardService extends BaseService {
       .catch(this.handleError);
   }
 
-  getSearchedcandidate(jobId: string, sortBy : string) {
+  getSearchedcandidate(jobId: string, obj : QCardFilter) {
     let headers = new Headers({'Content-Type': 'application/json'});
     let options = new RequestOptions({headers: headers});
-    var url = 'recruiter/jobProfile/' + jobId + '/candidates?sortBy='+sortBy;
+    var url = 'recruiter/jobProfile/' + jobId + '/candidates?sortBy='+obj;
     this.loaderService.start();
-    return this.http.get(url, options)
+    let body = JSON.stringify({obj});
+    return this.http.post(url, body, options)
       .map(this.extractData)
-      .catch(this.errorHandle);
+      .catch(this.handleError);
+
   }
 
   errorHandle(error: any) {

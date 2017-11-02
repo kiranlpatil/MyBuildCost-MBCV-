@@ -1,4 +1,4 @@
-export class QCardFilter {
+export class FilterSort {
   salaryMaxValue: string;
   salaryMinValue: string;
   experienceMaxValue: string;

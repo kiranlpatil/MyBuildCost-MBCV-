@@ -42,7 +42,7 @@ export function cnextInit(app: express.Application) {
   app.get('/api/recruiter/:id',loggerInterceptor.logDetail, this.authInterceptor.requiresAuth, this.authInterceptor.secureApiCheck, recruiterController.retrieve);
   app.get('/api/capabilitymatrix/candidate/:id',loggerInterceptor.logDetail, this.authInterceptor.requiresAuth, this.authInterceptor.secureApiCheck, candidateController.getCapabilityMatrix);
   app.get('/api/capabilitymatrix/recruiter/jobProfile/:id/',loggerInterceptor.logDetail, this.authInterceptor.requiresAuth, this.authInterceptor.secureApiCheck, jobProfileController.getCapabilityMatrix);
-  app.get('/api/recruiter/jobProfile/:id/candidates',loggerInterceptor.logDetail, this.authInterceptor.requiresAuth, this.authInterceptor.secureApiCheck, searchController.getMatchingCandidates);
+  app.post('/api/recruiter/jobProfile/:id/candidates',loggerInterceptor.logDetail, this.authInterceptor.requiresAuth, this.authInterceptor.secureApiCheck, searchController.getMatchingCandidates);
   app.get('/api/recruiter/jobProfile/:id',loggerInterceptor.logDetail, this.authInterceptor.requiresAuth, this.authInterceptor.secureApiCheck, jobProfileController.retrieve);
   app.get('/api/candidate/:id/jobProfile',loggerInterceptor.logDetail, this.authInterceptor.requiresAuth, this.authInterceptor.secureApiCheck, searchController.getMatchingJobProfiles);
   app.get('/api/candidate/:id/:candidateId',loggerInterceptor.logDetail, this.authInterceptor.requiresAuth, this.authInterceptor.secureApiCheck, candidateController.retrieve);

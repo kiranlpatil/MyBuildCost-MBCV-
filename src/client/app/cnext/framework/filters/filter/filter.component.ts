@@ -1,4 +1,4 @@
-import {Component, Input} from "@angular/core";
+import {Component, Input, EventEmitter,Output} from "@angular/core";
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {JobPosterModel} from "../../../../user/models/jobPoster";
 import {ShowQcardviewService} from "../../showQCard.service";
@@ -21,7 +21,7 @@ export class FilterComponent {
   @Input() private locations: any[];
   @Input() private role: boolean;
   @Input() private selectedJob: JobPosterModel;
-
+  @Output() private changeFilter: EventEmitter = new EventEmitter(QCardFilter);
 
   private isShowJobFilter: boolean = false;
   isFilterVisible: boolean = false;
@@ -139,17 +139,12 @@ export class FilterComponent {
   filterByProficiency(event: any) {
     var value = event.target.value;
     if (event.target.checked) {
-      this.qCardFilter.proficiencyDataForFilter.push(value.toLowerCase())
+      this.qCardFilter.proficiencyDataForFilter.push(value.toLowerCase());
     } else {
       var index = this.qCardFilter.proficiencyDataForFilter.indexOf(value.toLowerCase());
       if (index > -1) {
         this.qCardFilter.proficiencyDataForFilter.splice(index, 1);
       }
-    }
-    if (this.qCardFilter.proficiencyDataForFilter.length) {
-      this.queryListPush('(item.proficiencies.filter(function (obj) {return args.proficiencyDataForFilter.indexOf(obj.toLowerCase()) !== -1;}).length == args.proficiencyDataForFilter.length)');
-    } else {
-      this.queryListRemove('(item.proficiencies.filter(function (obj) {return args.proficiencyDataForFilter.indexOf(obj.toLowerCase()) !== -1;}).length == args.proficiencyDataForFilter.length)');
     }
     this.showClearFilter = true;
     this.buildQuery();
@@ -308,7 +303,7 @@ export class FilterComponent {
     }
   }
 
-  jobsFilterByLocation(value: any) {
+  jobsFilterByLocation(value: any) {debugger
     if(value == ''){
       this.queryListRemove('(((args.filterByLocation && item.location))&&(args.filterByLocation.toLowerCase() === item.location.toLowerCase()))');
     }else if (value) {
@@ -320,7 +315,7 @@ export class FilterComponent {
     this.qCardFilterService.filterby(this.qCardFilter);
   }
 
-  candidatesFilterByLocation(value: any) {
+  candidatesFilterByLocation(value: any) {debugger
     this.qCardFilter.filterByLocation = value;
     if (value == 'All') {
       this.queryListPush('((args.filterByLocation && item.location) && ((args.filterByLocation.toLowerCase() === item.location.toLowerCase()) || (args.filterByLocation.toLowerCase() !== item.location.toLowerCase())))');
@@ -331,6 +326,7 @@ export class FilterComponent {
     }
     this.showClearFilter = true;
     this.buildQuery();
+    this.changeFilter.emit(this.qCardFilter);
     this.qCardFilterService.filterby(this.qCardFilter);
 
   }

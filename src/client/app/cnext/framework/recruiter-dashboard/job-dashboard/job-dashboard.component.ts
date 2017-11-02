@@ -44,6 +44,7 @@ export class JobDashboardComponent implements OnInit {
   private recruiterId: string;
   private showModalStyle: boolean = false;
   private filterMeta: QCardFilter;
+  private appliedFilters :QCardFilter;
   private isRecruitingForSelf: boolean;
   private profileComparison: ProfileComparison;
   private listOfCandidateIdToCompare: string[] = new Array(0);
@@ -111,7 +112,9 @@ export class JobDashboardComponent implements OnInit {
     if(this.candidateQlist.matchedCandidates.length>0) {
       return;
     }
-    this.jobDashboardService.getSearchedcandidate(this.jobId,this.sortBy)
+    this.appliedFilters = new QCardFilter();
+    this.appliedFilters.sortBy = this.sortBy;
+    this.jobDashboardService.getSearchedcandidate(this.jobId,this.appliedFilters)
       .subscribe(
         (data: any) => {
           this.jobDashboardService.getSelectedListData(this.jobId, ValueConstant.SHORT_LISTED_CANDIDATE)
@@ -278,8 +281,18 @@ export class JobDashboardComponent implements OnInit {
   }
 
   changeSorting(sortBy : string) {
-    this.sortBy= sortBy;
-    this.jobDashboardService.getSearchedcandidate(this.jobId,this.sortBy)
+    this.appliedFilters = new QCardFilter();
+    this.appliedFilters.sortBy = sortBy;
+    this.getCandidatesWithSort();
+  }
+
+  changeFilter(obj : QCardFilter) {
+    this.appliedFilters= obj;
+    this.getCandidatesWithSort();
+  }
+
+  getCandidatesWithSort() {
+    this.jobDashboardService.getSearchedcandidate(this.jobId,this.appliedFilters)
       .subscribe(
         (data: any) => {
           this.jobDashboardService.getSelectedListData(this.jobId, ValueConstant.SHORT_LISTED_CANDIDATE)

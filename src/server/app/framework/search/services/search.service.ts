@@ -4,19 +4,20 @@ import ProjectAsset = require('../../shared/projectasset');
 import RecruiterRepository = require('../../dataaccess/repository/recruiter.repository');
 import CandidateModel = require('../../dataaccess/model/candidate.model');
 import JobProfileService = require('../../services/jobprofile.service');
-import {Actions, ConstVariables} from "../../shared/sharedconstants";
-import {ProfileComparisonDataModel, SkillStatus} from "../../dataaccess/model/profile-comparison-data.model";
-import {CapabilityMatrixModel} from "../../dataaccess/model/capability-matrix.model";
-import {ProfileComparisonModel} from "../../dataaccess/model/profile-comparison.model";
-import {ProfileComparisonJobModel} from "../../dataaccess/model/profile-comparison-job.model";
-import * as mongoose from "mongoose";
-import {CandidateDetailsWithJobMatching} from "../../dataaccess/model/candidatedetailswithjobmatching";
-import {UtilityFunction} from "../../uitility/utility-function";
+import {Actions, ConstVariables} from '../../shared/sharedconstants';
+import {ProfileComparisonDataModel, SkillStatus} from '../../dataaccess/model/profile-comparison-data.model';
+import {CapabilityMatrixModel} from '../../dataaccess/model/capability-matrix.model';
+import {ProfileComparisonModel} from '../../dataaccess/model/profile-comparison.model';
+import {ProfileComparisonJobModel} from '../../dataaccess/model/profile-comparison-job.model';
+import * as mongoose from 'mongoose';
+import {CandidateDetailsWithJobMatching} from '../../dataaccess/model/candidatedetailswithjobmatching';
+import {UtilityFunction} from '../../uitility/utility-function';
 import MatchViewModel = require('../../dataaccess/model/match-view.model');
 import Match = require('../../dataaccess/model/match-enum');
 import IndustryRepository = require('../../dataaccess/repository/industry.repository');
 import IndustryModel = require('../../dataaccess/model/industry.model');
 import ScenarioModel = require('../../dataaccess/model/scenario.model');
+import { FilterSort} from "../../dataaccess/model/filter";
 let usestracking = require('uses-tracking');
 
 class SearchService {
@@ -35,7 +36,7 @@ class SearchService {
     this.usesTrackingController = obj._controller;
   }
 
-  getMatchingCandidates(jobProfile: JobProfileModel, sortBy: string, filterBy : Object,callback: (error: any, result: any) => void) {
+  getMatchingCandidates(jobProfile: JobProfileModel, appliedFilters : FilterSort,callback: (error: any, result: any) => void) {
     console.time('getMatching Candidate');
     let data: any;
     let isFound: boolean = false;
@@ -64,20 +65,12 @@ class SearchService {
           industries.push(jobProfile.industry.name);
           data = {
             'industry.name': {$in: industries},
-            $or: [
-              {'professionalDetails.relocate': 'Yes'},
-              {'location.city': jobProfile.location.city}
-            ],
             'proficiencies': {$in: jobProfile.proficiencies},
             'isVisible': true,
           };
         } else {
           data = {
             'industry.name': jobProfile.industry.name,
-            $or: [
-              {'professionalDetails.relocate': 'Yes'},
-              {'location.city': jobProfile.location.city}
-            ],
             'proficiencies': {$in: jobProfile.proficiencies},
             'isVisible': true,
           };
@@ -88,10 +81,6 @@ class SearchService {
           industries.push(jobProfile.industry.name);
           data = {
             'industry.name': {$in: industries},
-            $or: [
-              {'professionalDetails.relocate': 'Yes'},
-              {'location.city': jobProfile.location.city}
-            ],
             'proficiencies': {$in: jobProfile.proficiencies},
             'interestedIndustries': {$in: jobProfile.interestedIndustries},
             'isVisible': true,
@@ -99,10 +88,6 @@ class SearchService {
         } else {
           data = {
             'industry.name': jobProfile.industry.name,
-            $or: [
-              {'professionalDetails.relocate': 'Yes'},
-              {'location.city': jobProfile.location.city}
-            ],
             'proficiencies': {$in: jobProfile.proficiencies},
             'interestedIndustries': {$in: jobProfile.interestedIndustries},
             'isVisible': true,
@@ -114,11 +99,7 @@ class SearchService {
       data = {
         'isVisible': true,
         'industry.name': jobProfile.industry.name,
-        'proficiencies': {$in: jobProfile.proficiencies},
-        $or: [
-          {'professionalDetails.relocate': 'Yes'},
-          {'location.city': jobProfile.location.city}
-        ]
+        'proficiencies': {$in: jobProfile.proficiencies}
       };
     }
     let included_fields = {
@@ -135,7 +116,15 @@ class SearchService {
       'complexity_musthave_matrix': 1
     };
     let query: Object;
-    switch (sortBy) {
+    if(appliedFilters.filterByLocation !== undefined  && appliedFilters.filterByLocation !== '') {
+      data.$or =[{'location.city': appliedFilters.filterByLocation}];
+    }else {
+      data.$or = [
+        {'professionalDetails.relocate': 'Yes'},
+        {'location.city': jobProfile.location.city}
+      ];
+    }
+    switch (appliedFilters.sortBy) {
       case 'Salary':
         query = {'$query':data,'$orderby':{'professionalDetails.currentSalary':-1}};
         break;
@@ -150,7 +139,7 @@ class SearchService {
       if (err) {
         callback(err, null);
       } else {
-        this.candidateRepository.getCandidateQCard(res, jobProfile, undefined, sortBy, callback);
+        this.candidateRepository.getCandidateQCard(res, jobProfile, undefined, appliedFilters.sortBy, callback);
       }
     });
   }
