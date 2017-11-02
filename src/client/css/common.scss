@@ -45,9 +45,7 @@ $exact-bg: #edf7c4;
 $higher-bg: #b1d669;
 $less-bg: #ffe180;
 $missmatch-bg: #ffc3bb;
-$golden-star: #e2c702;
-$golden-star-shadow: #42441d;
-$print-golden-star: #927b01;
+$golden-star: #9a8a17;
 $orange3: #fac51c;
 $light-orange: #fba026;
 $dark-orange: #f48c37;
@@ -57,6 +55,9 @@ $dark-red1: #b8312f;
 $light-gray-bg: #d1d1d1;
 $active-green: #419441;
 $green: #8dc63f;
+$red-gradient-light: rgba(255,0,0,0);
+$red-gradient-dark: rgb(235, 107, 86);
+$close-button-shadow: rgba(0,0,0,0.3);
 
 .btn-logout {
   margin-top: 15px;
@@ -142,7 +143,6 @@ $green: #8dc63f;
     content: "\2605";
     left: 0;
     position: absolute;
-    text-shadow: 0 0 1px $golden-star-shadow;
     top: -5px;
   }
 }
@@ -151,7 +151,6 @@ $green: #8dc63f;
   color: $golden-star;
   font-size: 20px;
   margin: 0;
-  text-shadow: 0 0 1px $golden-star-shadow;
 
   &:before {
     content: "\2605";
@@ -167,7 +166,6 @@ $green: #8dc63f;
   font-size: 17px !important;
   margin: 0;
   padding-right: 3px;
-  text-shadow: 0 0 1px #42441d;
 }
 
 .required-field {
@@ -1424,7 +1422,7 @@ select:focus {
       }
       .modal-content {
         border: 1px solid $modal-content-bg;
-        border-radius: 6px;
+        border-radius: 10px;
         background-color: $modal-content-bg;
         height: 100%;
         margin: 0;
@@ -1440,26 +1438,26 @@ select:focus {
         }
       }
       .modal-body {
-        padding: 0;
         color: $white;
-        height: calc(100% - 110px);
+        height: 100%;
         overflow-y: auto;
         overflow-x: hidden;
+        padding: 0;
         .complexities-list {
           border-bottom: 1px solid $modal-border;
-          text-align: left;
           padding: 15px;
+          text-align: left;
           label {
+            font-family: 'gothamrnd-book';
             font-size: 14px;
             font-weight: bold;
-            font-family: 'gothamrnd-book';
             width: 100%;
           }
           span {
             display: inline-block;
-            width: 100%;
             font-weight: normal;
             height: auto;
+            width: 100%;
           }
         }
       }
@@ -1467,19 +1465,24 @@ select:focus {
       .close-modal {
         background: $white;
         border: 0;
-        width: 49px;
-        height: 49px;
         border-radius: 49px;
+        bottom: -10%;
+        box-shadow: 3px 3px 10px $close-button-shadow;
         font-size: 34px;
-        margin: 0 0 0 -23px;
-        text-align: center;
+        height: 49px;
+        left: 50%;
+        margin: 0 auto;
         padding: 0;
-        position: fixed;
-        bottom: 15px;
+        position: absolute;
+        text-align: center;
+        transform: translate(-50%, -50%);
+        width: 49px;
         span {
           color: $modal-content-bg;
           font-family: 'gothamrnd-book';
-          font-size: 31px;
+          font-size: 40px;
+          position: relative;
+          top: -3px;
         }
       }
 
@@ -1487,6 +1490,16 @@ select:focus {
         border: 0;
         margin: 0 auto;
         display: table;
+        height: 75px;
+        background: $close-button-shadow;
+        width: 100%;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        background: -webkit-linear-gradient($red-gradient-light 0%, $red-gradient-dark 75%);
+        background: -o-linear-gradient($red-gradient-light 0%, $red-gradient-dark 75%);
+        background: -moz-linear-gradient($red-gradient-light 0%, $red-gradient-dark 75%);
+        background: linear-gradient($red-gradient-light 0%, $red-gradient-dark 75%);
       }
     }
   }

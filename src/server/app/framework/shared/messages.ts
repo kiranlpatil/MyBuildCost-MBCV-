@@ -94,7 +94,7 @@ class Messages {
   public static MSG_ERROR_RSN_NOT_ALLOW: string = 'Insufficient user permission to access public profile';
   public static MSG_ERROR_RSN_EXISTING_USER: string = 'User already exists.';
   public static MSG_ERROR_RSN_WHILE_CONTACTING: string = 'There may be a network problem.';
-  
+
   public static MSG_ERROR_FAILED_TO_UPDATE_CANDIDATE_FIELD: string = 'Failed to update candidate field';
 
   //Verify errors
@@ -121,6 +121,7 @@ class Messages {
   public static MSG_ERROR_RETRIEVING_USER = 'Error In Retrieving the Users';
   public static MSG_ERROR_RETRIEVING_USERS_COUNT = 'Error In Retrieving the Users Count';
   public static MSG_ERROR_RETRIEVING_USAGE_DETAIL = 'Error In Retrieving the Usage Detail';
+  public static MSG_ERROR_RETRIEVING_KEY_SKILLS = 'Error In Retrieving the Key Skills';
   public static MSG_ERROR_ADDING_USAGE_DETAIL = 'Error In editing the Usage Detail';
   public static MSG_ERROR_SEPERATING_USER = 'Error In Seperating the Users';
   public static MSG_ERROR_CREATING_EXCEL = 'Error In creating csv file';
