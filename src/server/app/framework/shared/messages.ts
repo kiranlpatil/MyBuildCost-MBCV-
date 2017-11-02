@@ -85,6 +85,8 @@ class Messages {
   // Error Reason
   // public static MSG_ERROR_RSN_MESSAGE_NOT_SENT:string = 'message could not send';
   public static MSG_ERROR_RSN_USER_NOT_FOUND: string = 'User not found';
+  public static MSG_ERROR_CREATE_JOB: string = 'error while creating job';
+  public static MSG_ERROR_UPDATE_JOB: string = 'error while updating job';
   public static MSG_ERROR_USER_NOT_ACTIVATED: string = 'User account is not activated';
   public static MSG_ERROR_RSN_DIRECTORY_NOT_FOUND: string = 'Directory not found';
   //MSG_ERROR_RSN_REGISTRATION
