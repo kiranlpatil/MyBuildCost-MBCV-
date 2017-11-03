@@ -63,7 +63,7 @@ export class RecruiterDashboardComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    this.getRecruiterData();
+    //this.getRecruiterData();
   }
 
   ngAfterViewInit() {
@@ -71,11 +71,11 @@ export class RecruiterDashboardComponent implements OnInit, AfterViewInit {
       this.tabName = params['id'];
       if (this.tabName === 'post_new_job') {
           let matchElement: any = document.getElementById('post_job');
-          matchElement.click();
+          //matchElement.click();
       }
       if (this.tabName === 'applicant_search') {
         let matchElement:any = document.getElementById('applicant_search');
-        matchElement.click();
+        //matchElement.click();
       }
       if( params['jobid']) {
         this.jobId = params['jobid'];
@@ -84,7 +84,7 @@ export class RecruiterDashboardComponent implements OnInit, AfterViewInit {
         message.custom_message=Messages.MSG_MSG_CLONED_SUCCESSFULLY;
         this.messageService.message(message);
         let matchElement: any = document.getElementById('post_job');
-        matchElement.click();
+        //matchElement.click();
       }
     });
   }

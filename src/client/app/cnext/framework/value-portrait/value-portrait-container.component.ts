@@ -17,7 +17,7 @@ export class ValuePortraitContainerComponent implements OnInit {
   isShareView:boolean = false;
   private isCandidate: boolean;
   private isFromCreate: boolean = false;
-
+  candidateId:string;
   constructor(private _router:Router, private activatedRoute:ActivatedRoute) {
     if (LocalStorageService.getLocalValue(LocalStorage.IS_CANDIDATE) === 'true') {
       this.isCandidate = true;
@@ -40,7 +40,7 @@ export class ValuePortraitContainerComponent implements OnInit {
       }
     }
     if (role === 'false') {
-      this._router.navigate(['/recruiterdashboard', 'applicant_search']);
+      this._router.navigate(['/recruiterdashboard/applicant_search', this.candidateId]);
     }
 
   }
@@ -77,5 +77,9 @@ export class ValuePortraitContainerComponent implements OnInit {
 
   getButtons() {
     return Button;
+  }
+
+  updateCanidateId(value:string) {
+    this.candidateId = value;
   }
 }

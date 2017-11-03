@@ -311,10 +311,9 @@ export class JobDashboardComponent implements OnInit {
     this.isCloneButtonClicked=!this.isCloneButtonClicked;
   }
 
-  jobcloned(event:any) {
-
-    this.navigateTo('recruiterdashboard/edit',event);
-
+  jobcloned(event:any) { debugger
+    //this.navigateTo('recruiterdashboard/jobpost',event);
+    this._router.navigate(['/recruiterdashboard/jobpost', event]);
   }
 
   getLabel() {
