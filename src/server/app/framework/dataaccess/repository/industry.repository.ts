@@ -118,7 +118,13 @@ class IndustryRepository extends RepositoryBase<IIndustry> {
                       sort_order: capability.sort_order,
                       'allcomplexities': capability.complexities.map((complexity:any)=> complexity.name)
                     };
-                    role_object.capabilities.push(obj);
+                    if(this.items.length > 0) {
+                      if(this.removeDuplicateCapbility(this.items,obj)) {
+                        role_object.capabilities.push(obj);
+                      }
+                    }else {
+                      role_object.capabilities.push(obj);
+                    }
                   }
                 }
                 this.items.push(role_object);
@@ -130,6 +136,14 @@ class IndustryRepository extends RepositoryBase<IIndustry> {
         }
       }
     });
+  }
+  removeDuplicateCapbility(roles:any,obj:any):boolean {
+        for(let k of roles) {
+          if(k.capabilities.findIndex((x:any) => x.code === obj.code) >= 0) {
+            return false;
+          }
+        }
+    return true;
   }
   findComplexities(item: any, callback: (error: any, result: any) => void) {
     this.items = new Array(0);
