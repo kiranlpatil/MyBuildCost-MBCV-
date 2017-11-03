@@ -23,6 +23,7 @@ export class ValuePortraitComponent implements OnInit {
   @Output() candidateId: EventEmitter<string> = new EventEmitter<string>();
   gotItMessage: string= Headings.GOT_IT;
   isCandidate:boolean;
+  isSubmitted:boolean;
   isAnswered: boolean;
   valuePortraitImgName:string;
   guidedTourStatus:string[] = new Array(0);
@@ -30,6 +31,9 @@ export class ValuePortraitComponent implements OnInit {
               private errorService:ErrorService,private complexityAnsweredService: ComplexityAnsweredService) {
     if (LocalStorageService.getLocalValue(LocalStorage.IS_CANDIDATE) === 'true') {
       this.isCandidate = true;
+    }
+    if (LocalStorageService.getLocalValue(LocalStorage.IS_CANDIDATE_SUBMITTED) === 'true') {
+      this.isSubmitted = true;
     }
   }
 
