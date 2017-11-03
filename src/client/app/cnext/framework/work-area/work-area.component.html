@@ -1,7 +1,7 @@
 <div class="modal-bg" *ngIf="highlightedSection.name=='Work-Area'"></div>
 <div class="section-container" *ngIf="highlightedSection.name=='Work-Area'">
   <div class="main-content clearfix edit-modal-content">
-    <div class="scrollable-content col-xs-7 candidate-work-area" style="padding: 0 0 75px 50px;width: 58.33333333%;">
+    <div class="scrollable-content col-xs-7 candidate-work-area">
       <h4 class="heading title" *ngIf="isCandidate">Select area of work that describes your current focus.</h4>
       <h4 class="heading" *ngIf="!isCandidate">In which area(s) is the candidate expected to work? </h4>
       <div class="select-option" *ngFor="let item of roles;let i = index">
@@ -40,7 +40,7 @@
       </div>
     <div class="col-xs-5 work-area-section">
       <div class="bg-empty-class col-xs-5"></div>
-      <div class="jobs-available-message">
+      <div class="jobs-available-message" *ngIf="isCandidate">
         <span class="jobs-count">
           18056
         </span>
