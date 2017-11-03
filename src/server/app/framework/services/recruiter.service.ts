@@ -17,6 +17,7 @@ import SendMailService = require("./sendmail.service");
 import RecruiterModel = require('../dataaccess/model/recruiter.model');
 import RecruiterClassModel = require('../dataaccess/model/recruiterClass.model');
 import CandidateService = require('./candidate.service');
+import {FilterSort} from "../dataaccess/model/filter";
 var bcrypt = require('bcrypt');
 
 class RecruiterService {
@@ -251,7 +252,7 @@ class RecruiterService {
     });
   }
 
-  getCandidateList(item: any, callback: (error: any, result: any) => void) {
+  getCandidateList(item: any, appliedFilters : FilterSort, callback: (error: any, result: any) => void) {
     let query = {
       'postedJobs': {$elemMatch: {'_id': new mongoose.Types.ObjectId(item.jobProfileId)}}
     };
@@ -272,12 +273,49 @@ class RecruiterService {
               }
             }
           }
-          this.candidateRepository.retrieveByMultiIds(candidateIds, {}, (err: any, res: any) => {
+          let query : any = {_id: {$in: candidateIds}};
+          if(appliedFilters.filterByLocation !== undefined  && appliedFilters.filterByLocation !== '') {
+            query.$or =[{'location.city': appliedFilters.filterByLocation}];
+          }
+          if(appliedFilters.educationDataForFilter && appliedFilters.educationDataForFilter.length > 0 ) {
+            query['professionalDetails.education'] = {$in: appliedFilters.educationDataForFilter};
+          }
+          if(appliedFilters.proficiencyDataForFilter && appliedFilters.proficiencyDataForFilter.length > 0 ) {
+            query['proficiencies'] = {$in: appliedFilters.proficiencyDataForFilter};
+          }
+          if(appliedFilters.industryExposureDataForFilter && appliedFilters.industryExposureDataForFilter.length > 0 ) {
+            query['interestedIndustries'] = {$in: appliedFilters.industryExposureDataForFilter};
+          }
+          if(appliedFilters.filterByJoinTime !== undefined  && appliedFilters.filterByJoinTime !== '') {
+            query['professionalDetails.noticePeriod'] = appliedFilters.filterByJoinTime;
+          }
+          if(appliedFilters.salaryMinValue !== undefined  && appliedFilters.salaryMinValue !== '' &&
+            appliedFilters.salaryMaxValue !== undefined  && appliedFilters.salaryMaxValue !== '') {
+            query['professionalDetails.currentSalary'] = {$gte:Number(appliedFilters.salaryMinValue),
+              $lte:Number(appliedFilters.salaryMaxValue)};
+          }
+          if(appliedFilters.experienceMinValue !== undefined  && appliedFilters.experienceMinValue !== '' &&
+            appliedFilters.experienceMaxValue !== undefined  && appliedFilters.experienceMaxValue !== '') {
+            query['professionalDetails.experience'] = {$gte:Number(appliedFilters.experienceMinValue),
+              $lte:Number(appliedFilters.experienceMaxValue)};
+          }
+          let mainQuery : any;
+          switch (appliedFilters.sortBy) {
+            case 'Salary':
+              mainQuery = {'$query':query,'$orderby':{'professionalDetails.currentSalary':-1}};
+              break;
+            case 'Experience':
+              mainQuery = {'$query':query,'$orderby':{'professionalDetails.experience':-1}};
+              break;
+            default :
+              mainQuery= query;
+              break;
+          }
+          this.candidateRepository.retrieveWithLean(mainQuery, {}, (err: any, res: any) => {
             if (err) {
               callback(new Error('Candidates are not founds'), null);
             } else {
-              let sortBy = 'Experience';
-              this.candidateRepository.getCandidateQCard(res, jobProfile, candidateIds, sortBy, callback);
+              this.candidateRepository.getCandidateQCard(res, jobProfile, candidateIds, appliedFilters.sortBy, callback);
             }
           });
         }

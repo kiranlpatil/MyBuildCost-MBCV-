@@ -1,4 +1,4 @@
-import {Component, Input, EventEmitter, Output, OnChanges, OnInit} from '@angular/core';
+import { Component, Input, EventEmitter, Output, OnChanges, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { JobPosterModel } from '../../../../user/models/jobPoster';
 import { ShowQcardviewService } from '../../showQCard.service';
@@ -230,12 +230,12 @@ export class FilterComponent implements OnChanges, OnInit {
 
   selectSalaryMinModel(value: any) {
     if(value == ''){
-      this.qCardFilter.salaryMinValue = this.salaryRangeList[0];
+      this.qCardFilter.salaryMinValue = Number(this.salaryRangeList[0]);
       return;
     }
     this.qCardFilter.salaryMinValue = value;
     if(this.isRecuirter) {
-      this.qCardFilter.salaryMinValue = Number(this.qCardFilter.salaryMinValue) * 100000;
+      this.qCardFilter.salaryMinValue = Number(this.qCardFilter.salaryMinValue.toString()) * 100000;
     }
     this.salaryFilterBy();
   }
@@ -250,12 +250,12 @@ export class FilterComponent implements OnChanges, OnInit {
           'Number(item.salaryMinValue) <= Number(args.salaryMaxValue)) || (Number(args.salaryMinValue) ' +
           '<= Number(item.salaryMaxValue)  && Number(item.salaryMaxValue) <= Number(args.salaryMaxValue)))');
       }
-      this.qCardFilter.salaryMaxValue = this.salaryRangeList[this.salaryRangeList.length -1];
+      this.qCardFilter.salaryMaxValue = Number(this.salaryRangeList[this.salaryRangeList.length -1]);
       return;
     }
     this.qCardFilter.salaryMaxValue = value;
     if(this.isRecuirter) {
-      this.qCardFilter.salaryMaxValue = Number(this.qCardFilter.salaryMaxValue) * 100000;
+      this.qCardFilter.salaryMaxValue = Number(this.qCardFilter.salaryMaxValue.toString()) * 100000;
     }
     this.salaryFilterBy();
   }
@@ -286,7 +286,7 @@ export class FilterComponent implements OnChanges, OnInit {
           'Number(item.experienceMinValue) <= Number(args.experienceMaxValue)) || (Number(args.experienceMinValue) ' +
           '<= Number(item.experienceMaxValue)  && Number(item.experienceMaxValue) <= Number(args.experienceMaxValue)))');
       }
-      this.qCardFilter.experienceMaxValue = this.experienceRangeList[this.experienceRangeList.length -1];
+      this.qCardFilter.experienceMaxValue = Number(this.experienceRangeList[this.experienceRangeList.length -1]);
       return;
     }
     this.qCardFilter.experienceMaxValue = value;
@@ -296,8 +296,8 @@ export class FilterComponent implements OnChanges, OnInit {
 
   selectExperiencesMinModel(value: any) {
     if(value == ''){
-      this.qCardFilter.experienceMinValue = this.experienceRangeList[0];
-      return
+      this.qCardFilter.experienceMinValue = Number(this.experienceRangeList[0]);
+      return;
     }
     this.qCardFilter.experienceMinValue = value;
     this.experienceFilterBy();

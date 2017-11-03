@@ -13,6 +13,7 @@ import CandidateInfoSearch = require("../dataaccess/model/candidate-info-search"
 import CandidateModel = require("../dataaccess/model/candidate.model");
 import UserService = require("../services/user.service");
 import CandidateSearchService = require("../services/candidate-search.service");
+import {FilterSort} from "../dataaccess/model/filter";
 
 
 export function create(req: express.Request, res: express.Response, next: any) {
@@ -232,8 +233,9 @@ export function getList(req: express.Request, res: express.Response, next: any) 
       'jobProfileId': req.params.id,
       'listName': req.params.listName
     };
+    let appliedFilters : FilterSort = req.body.obj;
     let recruiterService = new RecruiterService();
-    recruiterService.getCandidateList(data, (error: any, response: any) => {
+    recruiterService.getCandidateList(data,appliedFilters, (error: any, response: any) => {
       if (error) {
         next({
           reason: Messages.MSG_ERROR_RSN_EXISTING_USER,

@@ -29,7 +29,7 @@ export class JobDashboardService extends BaseService {
   getSearchedcandidate(jobId: string, obj : QCardFilter) {
     let headers = new Headers({'Content-Type': 'application/json'});
     let options = new RequestOptions({headers: headers});
-    var url = 'recruiter/jobProfile/' + jobId + '/candidates?sortBy='+obj;
+    var url = 'recruiter/jobProfile/' + jobId + '/candidates';
     this.loaderService.start();
     let body = JSON.stringify({obj});
     return this.http.post(url, body, options)
@@ -43,11 +43,12 @@ export class JobDashboardService extends BaseService {
     return Observable.throw(error);
   }
 
-  getSelectedListData(jobId: string, listName: string) {
+  getSelectedListData(jobId: string, listName: string, obj : QCardFilter) {
     var url = 'recruiter/jobProfile/' + jobId + '/list/' + listName;
     let headers = new Headers({'Content-Type': 'application/json'});
     let options = new RequestOptions({headers: headers});
-    return this.http.get(url, options)
+    let body = JSON.stringify({obj});
+    return this.http.post(url, body, options)
       .map(this.extractData)
       .catch(this.handleError);
   }

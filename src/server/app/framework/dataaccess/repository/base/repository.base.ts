@@ -55,8 +55,8 @@ class RepositoryBase<T extends mongoose.Document> implements IRead<T>, IWrite<T>
     });
   }
 
-  retrieveByMultiIds(ids: string[], excluded: any, callback: (error: any, result: T) => void) {
-    this._model.find({_id: {$in: ids}}, excluded, callback);
+  retrieveByMultiIds(query: any, excluded: any, callback: (error: any, result: T) => void) {
+    this._model.find(query, excluded, callback);
   }
 
   retrieveByMultiIdsForComplexity(ids: string[], excluded: any, callback: (error: any, result: T) => void) {

@@ -50,7 +50,7 @@ export function cnextInit(app: express.Application) {
   app.get('/api/candidate/:candidateId/matchresult/:jobId',loggerInterceptor.logDetail, this.authInterceptor.requiresAuth, this.authInterceptor.secureApiCheck, candidateController.metchResult);
   app.get('/api/recruiter/jobProfile/:jobId/matchresult/:candidateId',loggerInterceptor.logDetail, this.authInterceptor.requiresAuth, this.authInterceptor.secureApiCheck, jobProfileController.metchResultForJob);
   app.get('/api/candidate/:id/list/:listName',loggerInterceptor.logDetail, this.authInterceptor.requiresAuth, this.authInterceptor.secureApiCheck, candidateController.getList);
-  app.get('/api/recruiter/jobProfile/:id/list/:listName',loggerInterceptor.logDetail, this.authInterceptor.requiresAuth, this.authInterceptor.secureApiCheck, recruiterController.getList);
+  app.post('/api/recruiter/jobProfile/:id/list/:listName',loggerInterceptor.logDetail, this.authInterceptor.requiresAuth, this.authInterceptor.secureApiCheck, recruiterController.getList);
   app.put('/api/candidate/:id/jobProfile/:profileId/:listName/:action',loggerInterceptor.logDetail, this.authInterceptor.requiresAuth, this.authInterceptor.secureApiCheck, jobProfileController.apply);
   app.post('/api/recruiter/jobProfile/:id/candidates',loggerInterceptor.logDetail, this.authInterceptor.requiresAuth, this.authInterceptor.secureApiCheck, jobProfileController.getQCardDetails);
   app.put('/api/recruiter/:recruiterId/jobProfile/:profileId/:listName/:candidateId/:action',loggerInterceptor.logDetail, this.authInterceptor.requiresAuth, this.authInterceptor.secureApiCheck, jobProfileController.update);
