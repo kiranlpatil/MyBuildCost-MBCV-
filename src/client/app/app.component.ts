@@ -14,6 +14,7 @@ import {
 } from "./shared/index";
 
 
+
 @Component({
   moduleId: module.id,
   selector: 'tpl-app',
@@ -95,7 +96,7 @@ export class AppComponent implements OnInit {
   }
 
   showError(message: Message) {
-    this.isShowErrorMessage = true;
+    this.isShowErrorMessage = false;
     this.errorMessage = message.error_msg;
     this.customMessage = message.custom_message;
     if(message.error_code===401) {
