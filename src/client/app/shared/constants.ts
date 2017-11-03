@@ -229,11 +229,11 @@ export class Messages {
   public static CONTACT_US_CONTACT_NUMBER_2 = '+91 98233 18865';
   public static CONTACT_US_EMAIL_1 = 'sales@techprimelab.com';
   public static CONTACT_US_EMAIL_2 = 'careers@techprimelab.com';
-  public static MSG_EMAIL_VERIFICATION_1 = 'Your email is updated successfully.';
-  public static MSG_EMAIL_VERIFICATION_2= 'Kindly click on SIGN IN to use JobMosis.';
-  public static MSG_ACTIVATE_USER_1 = 'Congratulations! Welcome To JobMosis.';
-  public static MSG_ACTIVATE_USER_2 = 'You can now find candidates using the highly accurate, simpler, faster and powerful solution.';
-  public static MSG_ACTIVATE_USER_3 = 'Your account has been created successfully. Kindly click Sign In.';
+  public static MSG_EMAIL_VERIFICATION_HEADING = 'Your email is updated successfully.';
+  public static MSG_EMAIL_VERIFICATION_MESSAGE= 'Kindly click on SIGN IN to use JobMosis.';
+  public static MSG_ACTIVATE_USER_HEADING = 'Congratulations! Welcome To JobMosis.';
+  public static MSG_ACTIVATE_USER_SUB_HEADING = 'You can now find candidates using the highly accurate, simpler, faster and powerful solution.';
+  public static MSG_ACTIVATE_USER_MESSAGE = 'Your account has been created successfully. Kindly click Sign In.';
   public static MSG_VERIFICATION_EMAIL= 'Your account has been created successfully. Kindly click Sign In.';
   public static MSG_COMPANY_DOCUMENTS = 'Please upload relevant company documents to activate your account.';
   public static MSG_UPLOAD_FILE = 'Please select a file to upload.';
@@ -314,7 +314,7 @@ export class Messages {
   public static GUIDED_TOUR_VALUE_PORTRAIT_MWSSAGE = 'You can share your value portrait on Social Media.';
   public static GUIDED_TOUR_VALUE_PORTRAIT_GO_TO_DASHBOARD = 'Proceed to Job Matching Dashboard.';
 
-  public static UNABLE_TO_RENEW_JOB_POST_MSG = 'Cannot renew your job post kindly click on "Clone" button to clone the same job';
+  public static UNABLE_TO_RENEW_JOB_POST_MSG = 'Can not renew your job post kindly click on "Clone" button to clone the same job';
   public static RENEW_JOB_POST_MSG = 'Your job post has been expired to renew your job click on "Renew Job Post" button';
 
   public static NO_CANDIDATES_AVAILABLE = 'No candidates available for selected alphabet.';
