@@ -241,7 +241,7 @@ export class JobPosterComponent implements OnInit, OnChanges {
           }, error => this.errorService.onError(error));
       }
       LocalStorageService.setLocalValue(LocalStorage.CURRENT_JOB_POSTED_ID, jobModel._id);
-      this._router.navigate(['jobdashboard/', jobModel._id]);
+      this._router.navigate(['recruiterdashboard/jobdashboard/', jobModel._id]);
     }
   }
 
@@ -502,8 +502,9 @@ export class JobPosterComponent implements OnInit, OnChanges {
 
   }
 
-  onJobCloned(event:any) {
-    this.jobPostEventEmitter.emit(event);
+  onJobCloned(id:any) {
+    //this.jobPostEventEmitter.emit(event);
+    this._router.navigate(['/recruiterdashboard/jobpost', id]);
     this.jobPostCloneSuccessEmitter.emit();
   }
 
