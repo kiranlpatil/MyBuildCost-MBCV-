@@ -104,9 +104,11 @@
                 <span class="salary"></span>
                 ₹ {{item.salary}}
               </p>
-              <p class="border-bottom" title="Experience : {{item.experience}}">
+              <p class="border-bottom" title="Experience : {{item.experience}} years ">
                 <span class="experience"></span>
                 {{item.experience}}
+                <span *ngIf="item.experience == 1">year</span>
+                <span *ngIf="item.experience > 1">years</span>
               </p>
               <p title="Current Location : {{item.location}}">
                 <span class="current-location"></span>

@@ -313,7 +313,7 @@ class RecruiterService {
               mainQuery= query;
               break;
           }
-          this.candidateRepository.retrieveWithLean(mainQuery, {}, (err: any, res: any) => {
+          this.candidateRepository.retrieveAndPopulate(mainQuery, {}, (err: any, res: any) => {
             if (err) {
               callback(new Error('Candidates are not founds'), null);
             } else {
