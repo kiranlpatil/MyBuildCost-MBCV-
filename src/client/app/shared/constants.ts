@@ -328,6 +328,7 @@ export class Messages {
 
   public static CLICK_BELOW_FOR_PREVIEW_MSG = 'Your Value Portrait is getting ready<br/>' +
   'Click below to Preview';
+  public static PLEASE_COMPLETE_THE_PROFILE_MSG = 'Please complete the profile before sharing';
 }
 export class AdminPanel {
   public static PUBLIC_PROFILE='Profile is public';
