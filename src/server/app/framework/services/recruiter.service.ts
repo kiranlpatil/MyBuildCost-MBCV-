@@ -261,14 +261,16 @@ class RecruiterService {
         callback(new Error('Not Found Any Job posted'), null);
       } else {
         if (res.length > 0) {
-          let candidateIds: string[] = new Array(0);
+          let candidateIds: any[] = new Array(0);
           let jobProfile: JobProfileModel;
           for (let job of res[0].postedJobs) {
             if (job._id.toString() === item.jobProfileId) {
               jobProfile = job;
               for (let list of job.candidate_list) {
                 if (list.name.toString() === item.listName.toString()) {
-                  candidateIds = list.ids;
+                  for(let id of list.ids) {
+                    candidateIds.push(new mongoose.Types.ObjectId(id));
+                  }
                 }
               }
             }

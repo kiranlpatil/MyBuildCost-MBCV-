@@ -387,8 +387,10 @@ export class FilterComponent implements OnChanges, OnInit {
     this.qCardFilter = new QCardFilter();
     this.queryList = new Array(0);
     this.qCardFilter.query = query;
+    this.changeFilter.emit(this.qCardFilter);
     if (this.role) {
-      if((<HTMLInputElement>document.getElementById('radio-button-1'))!=null && (<HTMLInputElement>document.getElementById('radio-button-2'))!=null){
+      if((<HTMLInputElement>document.getElementById('radio-button-1')) !== null &&
+        (<HTMLInputElement>document.getElementById('radio-button-2')) !== null) {
         (<HTMLInputElement>document.getElementById('radio-button-1')).checked = false;
         (<HTMLInputElement>document.getElementById('radio-button-2')).checked = false;
       }

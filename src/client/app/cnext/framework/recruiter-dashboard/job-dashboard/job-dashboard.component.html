@@ -114,6 +114,7 @@
     <div id="cart-job" class="tab-pane fade"  *ngIf="selectedJobProfile!=undefined">
       <cn-q-card-view (addForCompare)="addForCompare($event)" [progress_bar_color]="'#7264b5'"
                       (addedTocart)="AddedToCart($event)" *ngIf="whichListVisible[1]" [candidateQlist]="candidateQlist"
+                      (changeSorting)="changeSorting($event)"
                       [filterMeta]="filterMeta"
                       [candidates]="candidateQlist.cartCandidates" [type]="'cartListed'" [jobId]="jobId"
                       [recuirterListCountModel]="recruiterJobView" [isJobPostExpired]="selectedJobProfile.isJobPostExpired"></cn-q-card-view>
@@ -123,6 +124,7 @@
       <cn-q-card-view (addForCompare)="addForCompare($event)" (addedTocart)="AddedToCart($event)"
                       [progress_bar_color]="'#f7c72d'" *ngIf="whichListVisible[2]" [candidateQlist]="candidateQlist"
                       [filterMeta]="filterMeta"
+                      (changeSorting)="changeSorting($event)"
                       [candidates]="candidateQlist.appliedCandidates" [type]="'applied'" [jobId]="jobId"
                       [recuirterListCountModel]="recruiterJobView" [isJobPostExpired]="selectedJobProfile.isJobPostExpired"></cn-q-card-view>
       <p class="empty-list-message" *ngIf="recruiterJobView.numberOfCandidatesApplied==0">There are no pending applications from candidates for this job posting.</p>
@@ -131,6 +133,7 @@
       <cn-q-card-view (addForCompare)="addForCompare($event)" (addedTocart)="AddedToCart($event)"
                       [progress_bar_color]="'#ff5722'" *ngIf="whichListVisible[3]" [candidateQlist]="candidateQlist"
                       [filterMeta]="filterMeta"
+                      (changeSorting)="changeSorting($event)"
                       [candidates]="candidateQlist.rejectedCandidates" [type]="'rejectedList'" [jobId]="jobId"
                       [recuirterListCountModel]="recruiterJobView"
       [isJobPostExpired]="selectedJobProfile.isJobPostExpired"></cn-q-card-view>

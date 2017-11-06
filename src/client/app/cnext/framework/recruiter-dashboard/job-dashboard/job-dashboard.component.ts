@@ -45,7 +45,7 @@ export class JobDashboardComponent implements OnInit {
   private recruiterId: string;
   private showModalStyle: boolean = false;
   private filterMeta: QCardFilter;
-  private appliedFilters :QCardFilter;
+  private appliedFilters :QCardFilter = new QCardFilter();
   private isRecruitingForSelf: boolean;
   private profileComparison: ProfileComparison;
   private listOfCandidateIdToCompare: string[] = new Array(0);
@@ -152,7 +152,7 @@ export class JobDashboardComponent implements OnInit {
       case ValueConstant.CART_LISTED_CANDIDATE :
         if(this.candidateQlist.cartCandidates.length>0) {
           this.whichListVisible[1] = true;
-          if(!isFromFilter){
+          if(!isFromFilter) {
             return;
           }
         }
@@ -160,14 +160,14 @@ export class JobDashboardComponent implements OnInit {
       case ValueConstant.REJECTED_LISTED_CANDIDATE :
         if(this.candidateQlist.rejectedCandidates.length>0) {
           this.whichListVisible[3] = true;
-          if(!isFromFilter){
+          if(!isFromFilter) {
             return;
           }
         }
         break;
       case ValueConstant.SHORT_LISTED_CANDIDATE :
         if(this.candidateQlist.shortListedCandidates.length>0) {
-          if(!isFromFilter){
+          if(!isFromFilter) {
             return;
           }
         }
@@ -175,7 +175,7 @@ export class JobDashboardComponent implements OnInit {
       case ValueConstant.APPLIED_CANDIDATE :
         if(this.candidateQlist.appliedCandidates.length>0) {
           this.whichListVisible[2] = true;
-          if(!isFromFilter){
+          if(!isFromFilter) {
             return;
           }
         }
@@ -187,10 +187,12 @@ export class JobDashboardComponent implements OnInit {
           switch (listName) {
             case ValueConstant.CART_LISTED_CANDIDATE :
               this.candidateQlist.cartCandidates = data.data;
+              this.recruiterJobView.numberOfCandidatesInCart = this.candidateQlist.cartCandidates.length;
               this.whichListVisible[1] = true;
               break;
             case ValueConstant.REJECTED_LISTED_CANDIDATE :
               this.candidateQlist.rejectedCandidates = data.data;
+              this.recruiterJobView.numberOfCandidatesrejected = this.candidateQlist.rejectedCandidates.length;
               this.whichListVisible[3] = true;
               break;
             case ValueConstant.SHORT_LISTED_CANDIDATE :
@@ -198,6 +200,7 @@ export class JobDashboardComponent implements OnInit {
               break;
             case ValueConstant.APPLIED_CANDIDATE :
               this.candidateQlist.appliedCandidates = data.data;
+              this.recruiterJobView.numberOfCandidatesApplied = this.candidateQlist.appliedCandidates.length;
               this.whichListVisible[2] = true;
               break;
           }
@@ -292,12 +295,15 @@ export class JobDashboardComponent implements OnInit {
   }
 
   changeSorting(sortBy : string) {
-    this.appliedFilters = new QCardFilter();
     this.appliedFilters.sortBy = sortBy;
-    this.getCandidatesWithSort();
+    if(ValueConstant.MATCHED_CANDIDATE === this.listName) {
+      this.getCandidatesWithSort();
+    }else {
+      this.getSelectedListData(this.listName,true);
+    }
   }
 
-  changeFilter(obj : QCardFilter) {debugger
+  changeFilter(obj : QCardFilter) {
     this.appliedFilters= obj;
     if(ValueConstant.MATCHED_CANDIDATE === this.listName) {
       this.getCandidatesWithSort();

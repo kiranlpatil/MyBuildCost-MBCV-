@@ -1,6 +1,7 @@
 import CandidateSchema = require("../schemas/candidate.schema");
 import RepositoryBase = require("./base/repository.base");
 import ICandidate = require("../mongoose/candidate");
+import * as mongoose from "mongoose";
 import {CandidateQCard} from "../../search/model/candidate-q-card";
 import {ConstVariables} from "../../shared/sharedconstants";
 import JobProfileModel = require("../model/jobprofile.model");
@@ -17,7 +18,7 @@ class CandidateRepository extends RepositoryBase<ICandidate> {
     super(CandidateSchema);
   }
 
-  getCandidateQCard(candidates: any[], jobProfile: JobProfileModel, candidatesIds: string[], sortBy: string, callback: (err: any, res: any) => void) {
+  getCandidateQCard(candidates: any[], jobProfile: JobProfileModel, candidatesIds: any[], sortBy: string, callback: (err: any, res: any) => void) {
     console.time('getCandidateQCardForLoop');
     let candidates_q_cards_send : CandidateQCard[] = new Array(0);
     let candidate_q_card_map :any = { };
@@ -25,7 +26,13 @@ class CandidateRepository extends RepositoryBase<ICandidate> {
     for (let candidate of candidates) {
       let isFound: boolean = false;
       if (candidatesIds) {
-        if (candidatesIds.indexOf(candidate._id.toString()) === -1) {
+        let isIdFound : boolean = false;
+        for(let id of candidatesIds){
+          if (id.toString() === candidate._id.toString()) {
+            isIdFound = true;
+          }
+        }
+        if(!isIdFound) {
           continue;
         }
       } else {
