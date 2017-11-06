@@ -65,11 +65,15 @@
       <button type="submit" class="btn btn-primary" scrollTo scrollTargetSelector="#Employment-History"
               (click)="onNext()" [hidden]="!showButton">Next
       </button>
+
       <button class="btn btn-primary" (click)="onSave()" [hidden]="showButton">Done</button>
     </div>
 
     <button class="btn-prev" (click)="onPrevious()"><span
       class="glyphicon glyphicon-chevron-left"></span></button>
+
+      <cn-value-portrait (click)="navigateToWithId('/value-portrait');" [isShareView]="false" [isMiniView]="true"
+                         [userId]="userId" *ngIf="isCandidate"></cn-value-portrait>
 
     <cn-tool-tip [message]="tooltipMessage"></cn-tool-tip>
   </div>
