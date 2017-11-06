@@ -192,7 +192,6 @@ export class ComplexitiesComponent implements OnInit, OnChanges {
     this.milestonesForPopUp[this.currentFeedbackQuestion].isAnswered = true;
     this.milestonesForPopUp[this.currentFeedbackQuestion].answer = answer;
     this.milestonesForPopUp[this.currentFeedbackQuestion].indexOfQuestion = this.currentFeedbackQuestion;
-    console.log('this.milestonesForPopUp[this.currentFeedbackQuestion]1: ', this.milestonesForPopUp[this.currentFeedbackQuestion]);
     this.popUpFeedBackAnswer.emit(this.milestonesForPopUp[this.currentFeedbackQuestion]);
   }
 

@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnInit, Output} from '@angular/core';
 import {ErrorService} from "../../../shared/services/error.service";
 import {MessageService} from "../../../shared/services/message.service";
 import {UserFeedbackComponentService} from "./user-feedback.component.service";
@@ -10,7 +10,7 @@ import {UserFeedbackComponentService} from "./user-feedback.component.service";
   styleUrls: ['user-feedback.component.css']
 })
 
-export class UserFeedbackComponent {
+export class UserFeedbackComponent implements OnInit, OnChanges {
   feedbackQuestions: string[] = new Array(0);
   @Input() currentFeedbackQuestion: number;
   @Output() onFeedbackAnswer:EventEmitter<number> = new EventEmitter<number>();
@@ -21,9 +21,6 @@ export class UserFeedbackComponent {
   }
 
   ngOnInit() {
-
-
-
     this.userFeedbackComponentService.getFeedbackForCandidate()
       .subscribe(data => {
         this.feedbackQuestions = data.questions;
@@ -41,7 +38,6 @@ export class UserFeedbackComponent {
   }
 
   onSelect(answer: number) {
-    console.log(answer);
     this.onFeedbackAnswer.emit(answer);
     this.isOpen = false;
   }

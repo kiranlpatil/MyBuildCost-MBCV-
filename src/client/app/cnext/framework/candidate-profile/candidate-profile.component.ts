@@ -530,8 +530,6 @@ export class CandidateProfileComponent implements OnInit, DoCheck, OnDestroy {
   popUpFeedBackAnswer(currentFeedbackQuestion: UserFeedback) {
     console.log('currentFeedbackQuestion2: ', currentFeedbackQuestion);
     this.candidate.popUpFeedBacks[currentFeedbackQuestion.indexOfQuestion] = currentFeedbackQuestion.answer;
-    console.log('currentFeedbackQuestion.answer;: ', currentFeedbackQuestion.answer);
-    console.log('this.candidate.popUpFeedBacks[currentFeedbackQuestion.indexOfQuestion]: ', this.candidate.popUpFeedBacks[currentFeedbackQuestion.indexOfQuestion]);
     this.saveCandidateDetails();
   }
 
