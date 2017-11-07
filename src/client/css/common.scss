@@ -54,6 +54,7 @@ $light-red1: #e14938;
 $dark-red1: #b8312f;
 $light-gray-bg: #d1d1d1;
 $active-green: #419441;
+$green: #8dc63f;
 $red-gradient-light: rgba(255,0,0,0);
 $red-gradient-dark: rgb(235, 107, 86);
 $close-button-shadow: rgba(0,0,0,0.3);
@@ -969,6 +970,34 @@ cn-control-messages {
   }
 }
 
+.work-area-section {
+  .tooltip-message {
+    height: auto;
+    position: relative;
+    width: auto;
+  }
+}
+
+.jobs-available-message {
+  background: $white;
+  border-radius: 0 8px 0 0;
+  display: inline-block;
+  margin: 10px 0;
+  padding: 10px;
+  position: relative;
+  text-align: center;
+  width: 100%;
+  z-index: 99;
+  span {
+    color: $green;
+    font-size: 36px;
+    line-height: 36px;
+  }
+  p {
+    margin: 5px 0 7px;
+  }
+}
+
 // Media Queries
 @media only screen and (max-width: 1024px) {
   .logout-dropdown {
@@ -1846,7 +1875,7 @@ select:focus {
   display: inline-block;
   height: 100%;
   h3 {
-    color: $white;
+    color: $white !important;
     font-size: 50px;
     font-weight: bold;
     margin: 20px 0 26px;
@@ -1858,7 +1887,8 @@ select:focus {
     .inner-circle {
       span {
         line-height: 21px;
-        letter-spacing: -2px;
+        letter-spacing: -4px;
+        padding: 0px 8px 0;
         text-align: center;
       }
     }
@@ -1887,6 +1917,7 @@ select:focus {
     }
   }
   .value-portrait-bottom-section {
+    margin: -5px 0 0;
     .value-portrait-candidate-industry,
     .value-portrait-candidate-keyskills {
       span {
@@ -1955,6 +1986,12 @@ select:focus {
         }
       }
     }
+  }
+}
+
+.edit-compact-view {
+  .row-section {
+    padding-right: 0 !important;
   }
 }
 

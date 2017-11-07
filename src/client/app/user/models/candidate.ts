@@ -7,6 +7,7 @@ import {EmployementHistory} from "./employment-history";
 import {CandidateDetail} from "./candidate-details";
 import {Location} from "./location";
 import {Capability} from "./capability";
+import {UserFeedback} from "../../cnext/framework/user-feedback/userFeedback";
 export class Candidate {
   personalDetails: CandidateDetail = new CandidateDetail();
   jobTitle: string;
@@ -34,6 +35,7 @@ export class Candidate {
   profile_update_tracking:number;
   _id: string;
   candidateId:string;
+  userFeedBack: number[] = new Array(3);
 }
 
 

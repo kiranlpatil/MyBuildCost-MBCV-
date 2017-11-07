@@ -319,13 +319,15 @@ export class Messages {
 
   public static NO_CANDIDATES_AVAILABLE = 'No candidates available for selected alphabet.';
   public static NO_RECRUITERS_AVAILABLE = 'No recruiters available for selected alphabet.';
-  public static OTHERS_AOW_MESSAGE = 'Thank you for your interest in our Job post but currently we do not have your Area of Work, we will get back to you after building your Area of Work. For any query mail us on support@jobmosis.com or contact us on +91-8669601612 .';
+  public static OTHERS_AOW_MESSAGE = 'Thank you for your interest in our Job post but currently we do not have your Area of Work, we will get back to you after building your Area of Work. For any query mail us on '+Messages.FAQ_CONTACT_EMAIL +' or contact us on '+ Messages.FAQ_CONTACT_NUMBER+'.';
   public static SELECT_REASON_FOR_JOB_CLOSE = 'Please select a reason.';
   public static ASK_EXPERT_MESSAGE = 'You can copy and share this link to hiring manager to independently define the job description.\n' +
       'On completion by hiring manager you will receive an email.';
 
   public static CLICK_BELOW_FOR_PREVIEW_MSG = 'Your Value Portrait is getting ready<br/>' +
   'Click below to Preview';
+  public static PLEASE_COMPLETE_THE_PROFILE_MSG = 'Please complete the profile before sharing';
+  public static JOBS_AVALLABLE_MESSAGE = 'Jobs are avallable in your industry.';
 }
 export class AdminPanel {
   public static PUBLIC_PROFILE='Profile is public';
@@ -409,6 +411,7 @@ export class ValueConstant {
   public static MATCHED_CANDIDATE: string = 'matchedList';
   public static VALUE_FOR_CANDIDATES_PERCENT_MATCHING_LOWER_BOUND = 10;
   public static JOB__EXPIRIY_PERIOD= 2592000000;
+  public static MILESTONES_FOR_POPUP: number[]= [0.25, 0.50, 0.75];
 }
 
 
@@ -431,6 +434,7 @@ export class API {
   public static EXPORT_CANDIDATE_DETAIL_PROFILE = 'exportCandidateDetails';
   public static EXPORT_RECRUITER_DETAIL_PROFILE = 'exportRecruiterDetails';
   public static RECRUITER_PROFILE = 'recruiter';
+  public static JOBS = 'jobs';
   public static PROFESSIONAL_DATA = 'professionaldata';
   public static EMPLOYMENTHISTORY = 'employmentdata';
   public static LOGIN = 'login';
@@ -481,6 +485,7 @@ export class API {
   public static FAQ = '/blog/index.php/faq/';
   public static ACCEPT_TERMS = '/terms-and-conditions.php';
   public static COUNT_OF_USERS = 'countofusers';
+  public static FEEDBACK_QUESTIONS = 'userFeedback';
 
 }
 
