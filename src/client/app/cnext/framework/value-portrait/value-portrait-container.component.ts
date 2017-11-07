@@ -37,14 +37,14 @@ export class ValuePortraitContainerComponent implements OnInit {
     if (role === 'true') {
       if(this.isFromCreate) {
         this.isFromCreate=false;
-        this._router.navigate(['/create_profile']);
+        this._router.navigate(['/candidate/profile']);
       }
       else {
-        this._router.navigate(['/candidate_dashboard']);
+        this._router.navigate(['/candidate/dashboard']);
       }
     }
     if (role === 'false') {
-      this._router.navigate(['/recruiterdashboard/applicant_search', this.candidateId]);
+      this._router.navigate(['/recruiter/search', this.candidateId]);
     }
 
   }
