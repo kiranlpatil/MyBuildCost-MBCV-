@@ -191,6 +191,7 @@ export class CandidateProfileComponent implements OnInit, DoCheck, OnDestroy {
     this.candidateForCapability = this.candidate.industry.roles;
     this.candidateForRole = this.candidate.industry.roles;
     this.candidateForComplexity = this.candidate.industry.roles;
+    this.candidate.userFeedBack = new Array();
     this.saveCandidateDetails();
     this.whichStepsVisible[2] = true;
   }
@@ -528,7 +529,6 @@ export class CandidateProfileComponent implements OnInit, DoCheck, OnDestroy {
   }
 
   popUpFeedBackAnswer(currentFeedbackQuestion: UserFeedback) {
-    console.log('currentFeedbackQuestion2: ', currentFeedbackQuestion);
     this.candidate.userFeedBack[currentFeedbackQuestion.indexOfQuestion] = currentFeedbackQuestion.answer;
     this.saveCandidateDetails();
   }

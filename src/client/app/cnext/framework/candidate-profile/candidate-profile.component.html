@@ -57,7 +57,7 @@
 
       <div class="wrapper">
         <cn-complexities [roles]="rolesForComplexity" [complexities]="candidate.capability_matrix"
-                         [highlightedSection]="highlightedSection"
+                         [highlightedSection]="highlightedSection" [userFeedBack]="candidate.userFeedBack"
                          [isComplexityPresent]="isComplexityPresent" [complexityNotes]="candidate.complexity_note_matrix"
                          (onComplextyAnswered)="onComplextyAnswered($event)"
                          (onComplete)="onComplexityComplete($event)" [hidden]="!showComplexity"
