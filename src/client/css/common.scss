@@ -54,6 +54,7 @@ $light-red1: #e14938;
 $dark-red1: #b8312f;
 $light-gray-bg: #d1d1d1;
 $active-green: #419441;
+$green: #8dc63f;
 $red-gradient-light: rgba(255,0,0,0);
 $red-gradient-dark: rgb(235, 107, 86);
 $close-button-shadow: rgba(0,0,0,0.3);
@@ -966,6 +967,34 @@ cn-control-messages {
         }
       }
     }
+  }
+}
+
+.work-area-section {
+  .tooltip-message {
+    height: auto;
+    position: relative;
+    width: auto;
+  }
+}
+
+.jobs-available-message {
+  background: $white;
+  border-radius: 0 8px 0 0;
+  display: inline-block;
+  margin: 10px 0;
+  padding: 10px;
+  position: relative;
+  text-align: center;
+  width: 100%;
+  z-index: 99;
+  span {
+    color: $green;
+    font-size: 36px;
+    line-height: 36px;
+  }
+  p {
+    margin: 5px 0 7px;
   }
 }
 
@@ -1914,11 +1943,13 @@ select:focus {
     background: $hover-bg;
     border: 1px solid #e4e4e4;
     box-shadow: 1px 1px 4px #9c9c9c;
-    display: none;
     min-width: 415px;
     margin: 5px 373px 0 0;
+    opacity: 0;
     padding: 10px;
     position: fixed;
+    transition: 0s;
+    visibility: hidden;
     z-index: 999;
     &:after {
       content: "";
@@ -1944,7 +1975,9 @@ select:focus {
       color: $white;
     }
     .hover-list {
-      display: block;
+      opacity: 1;
+      transition-delay: 0.5s;
+      visibility: visible;
       .lists-item {
         float: left;
         margin: 0 0 5px 5px;
