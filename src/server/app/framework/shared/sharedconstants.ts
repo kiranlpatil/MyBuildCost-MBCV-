@@ -1,5 +1,6 @@
 export class ConstVariables {
   public static LOWER_LIMIT_FOR_SEARCH_RESULT = 10;
+  public static MAXIMUM_QCARD_FOR_SEARCH_RESULT_RESPONSE = 10;
   public static DIFFERENCE_IN_COMPLEXITY_SCENARIO = 10;
   public static JOB__EXPIRIY_PERIOD= 2592000000;
   public static SHORT_LISTED_CANDIDATE: string = 'shortListed';
@@ -9,6 +10,8 @@ export class ConstVariables {
   public static BLOCKED_CANDIDATE: string = 'blocked';
   public static AUTHENTICATION_JWT_KEY: string = 'thisisjwtsecret#@$#&(*0)%';
   public static AUTHENTICATION_ENCODED_SHARE_KEY:string = '$$$socialShare@$#*';
+  public static BEST_MATCH_SORT='Best match';
+
   public static ActionsArray: Array<string> = [
     'ADDED_IN_TO_CART_BY_RECRUITER',
     'ADDED_IN_TO_REJECT_BY_RECRUITER',
@@ -24,6 +27,7 @@ export class ConstVariables {
     'REMOVED_FROM_COMPARE_VIEW_BY_RECRUITER',
     'REMOVED_FROM_NOT_INTERESTED',
   ];
+
 }
 export enum Actions  {
   ADDED_IN_TO_CART_BY_RECRUITER,

@@ -1,7 +1,7 @@
 import {ConstVariables} from '../../shared/sharedconstants';
 
 export class CommonSearchService {
-  static setQcardData(qcard : any, jobProfile : any, candidate : any) {
+  static getCalculatedQcardData(qcard : any, jobProfile : any, candidate : any) {
     let count =0;
     for (let cap in jobProfile.capability_matrix) {
       if (jobProfile.capability_matrix[cap] == -1 || jobProfile.capability_matrix[cap] == 0 ||

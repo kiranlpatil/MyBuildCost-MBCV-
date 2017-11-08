@@ -34,13 +34,13 @@ class CandidateRepository extends RepositoryBase<ICandidate> {
         }
       }
       let candidate_card_view: CandidateQCard = new CandidateQCard();
-      candidate_card_view = CommonSearchService.setQcardData(candidate_card_view, jobProfile, candidate);
+      candidate_card_view = CommonSearchService.getCalculatedQcardData(candidate_card_view, jobProfile, candidate);
       candidate_card_view = CommonSearchService.setMustHaveMatrix(jobProfile, candidate, candidate_card_view);
       this.setQcardData(candidate_card_view, candidate);
       if ((candidate_card_view.above_one_step_matching + candidate_card_view.exact_matching) >=
         ConstVariables.LOWER_LIMIT_FOR_SEARCH_RESULT) {
-        if ('Best match' !== sortBy) {
-          if (candidates_q_cards_send.length < 100) {
+        if ( ConstVariables.BEST_MATCH_SORT !== sortBy) {
+          if (candidates_q_cards_send.length < ConstVariables.MAXIMUM_QCARD_FOR_SEARCH_RESULT_RESPONSE ) {
             candidates_q_cards_send.push(candidate_card_view);
           } else {
             break;
@@ -50,11 +50,11 @@ class CandidateRepository extends RepositoryBase<ICandidate> {
         }
       }
     }
-    if ('Best match' !== sortBy.toString()) {
+    if (ConstVariables.BEST_MATCH_SORT !== sortBy.toString()) {
       callback(null, candidates_q_cards_send);
     } else {
       candidates_q_cards_send = this.getSortedQCard(candidates_q_cards_send);
-      let q_cards = candidates_q_cards_send.slice(0, 100);
+      let q_cards = candidates_q_cards_send.slice(0, ConstVariables.MAXIMUM_QCARD_FOR_SEARCH_RESULT_RESPONSE);
       callback(null, q_cards);
     }
   }

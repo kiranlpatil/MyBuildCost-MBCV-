@@ -1,8 +1,8 @@
 import RecruiterSchema = require('../schemas/recruiter.schema');
 import RepositoryBase = require('./base/repository.base');
 import IRecruiter = require('../mongoose/recruiter');
-import {JobQCard} from "../../search/model/job-q-card";
-import {ConstVariables} from "../../shared/sharedconstants";
+import { JobQCard } from '../../search/model/job-q-card';
+import { ConstVariables } from '../../shared/sharedconstants';
 import CandidateModel = require('../model/candidate.model');
 
 class RecruiterRepository extends RepositoryBase<IRecruiter> {

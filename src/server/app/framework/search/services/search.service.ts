@@ -17,8 +17,8 @@ import Match = require('../../dataaccess/model/match-enum');
 import IndustryRepository = require('../../dataaccess/repository/industry.repository');
 import IndustryModel = require('../../dataaccess/model/industry.model');
 import ScenarioModel = require('../../dataaccess/model/scenario.model');
-import { FilterSort } from "../../dataaccess/model/filter";
-import {QueryBuilder} from "./query-builder.service";
+import { FilterSort } from '../../dataaccess/model/filter';
+import {QueryBuilder} from './query-builder.service';
 let usestracking = require('uses-tracking');
 
 class SearchService {

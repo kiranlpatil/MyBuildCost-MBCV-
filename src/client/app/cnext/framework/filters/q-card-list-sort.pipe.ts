@@ -9,7 +9,7 @@ let lastObject: any = undefined;
 export class QCardListSortPipe implements PipeTransform {
 
 
-  transform(array: Array<CandidateQCard>, args: string[]): Array<CandidateQCard> { 
+  transform(array: Array<CandidateQCard>, args: string[]): Array<CandidateQCard> {
     if (array === null) {
       return null;
     }
@@ -21,33 +21,15 @@ export class QCardListSortPipe implements PipeTransform {
     }
     if (args[0] === 'Best match') {
       array.sort((a: CandidateQCard, b: CandidateQCard) => {
-
-        switch (args[1]) {
-          case 'aboveMatch':
-            if ((Number(a.exact_matching) + Number(a.above_one_step_matching)) > (Number(b.exact_matching) + Number(b.above_one_step_matching))) {
+            if ((Number(a.exact_matching) + Number(a.above_one_step_matching)) > (Number(b.exact_matching) +
+              Number(b.above_one_step_matching))) {
               return -1;
-            } else if ((Number(a.exact_matching) + Number(a.above_one_step_matching)) < (Number(b.exact_matching) + Number(b.above_one_step_matching))) {
+            } else if ((Number(a.exact_matching) + Number(a.above_one_step_matching)) < (Number(b.exact_matching) +
+              Number(b.above_one_step_matching))) {
               return 1;
             } else {
               return 0;
             }
-          case 'belowMatch':
-            if (Number(a.matching) > Number(b.matching)) {
-              return -1;
-            } else if (Number(a.matching) < Number(b.matching)) {
-              return 1;
-            } else {
-              return 0;
-            }
-          default:
-            if (Number(a.matching) > Number(b.matching)) {
-              return -1;
-            } else if (Number(a.matching) < Number(b.matching)) {
-              return 1;
-            } else {
-              return 0;
-            }
-        }
       });
     }
     if (args[0] === 'Experience' && args[2]==='candidate') {
