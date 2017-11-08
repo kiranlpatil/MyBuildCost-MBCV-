@@ -96,7 +96,7 @@ export class AppComponent implements OnInit {
   }
 
   showError(message: Message) {
-    /*this.isShowErrorMessage = false;*/
+    this.isShowErrorMessage = false;
     this.errorMessage = message.error_msg;
     this.customMessage = message.custom_message;
     if(message.error_code===401) {
