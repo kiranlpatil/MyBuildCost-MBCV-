@@ -49,7 +49,7 @@
                                      (onQuestionComplete)="oncurrentComplexityAnswered($event)"></cn-multiple-question-answer>
       </div>
         <div *ngIf="isCandidate">
-          <cn-user-feedback [currentFeedbackQuestion]="currentFeedbackQuestion" *ngIf="isShowFeedback(currentComplexity+1)"
+          <cn-user-feedback [currentFeedbackQuestion]="milestonesForPopUp[currentFeedbackQuestion]" *ngIf="isShowFeedback(currentComplexity+1)"
             (onFeedbackAnswer)="onFeedbackAnswer($event)">
           </cn-user-feedback>
         </div>
