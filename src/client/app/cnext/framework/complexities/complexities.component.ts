@@ -13,6 +13,7 @@ import {ErrorService} from "../../../shared/services/error.service";
 import {ComplexityAnsweredService} from "../complexity-answered.service";
 import {Router} from "@angular/router";
 import {UserFeedback} from "../user-feedback/userFeedback";
+import {UserFeedbackComponentService} from "../user-feedback/user-feedback.component.service";
 
 @Component({
   moduleId: module.id,
@@ -23,6 +24,7 @@ import {UserFeedback} from "../user-feedback/userFeedback";
 
 export class ComplexitiesComponent implements OnInit, OnChanges {
   @Input() roles: Role[] = new Array(0); //TODO remove this
+  @Input() userFeedBack: number[] = new Array(0); //TODO remove this
   @Input() complexities: any; //TODO why this is of type of ANY
   @Input() complexityNotes: any; //TODO why this is of type of ANY
   @Input() complexitiesIsMustHave: any; //TODO why this is of type of ANY
@@ -75,23 +77,35 @@ export class ComplexitiesComponent implements OnInit, OnChanges {
   milestonesForPopUp: UserFeedback[] = new Array();
   currentFeedbackQuestion: number;
   @Output() popUpFeedBackAnswer: EventEmitter<UserFeedback> = new EventEmitter<UserFeedback>();
+  feedbackQuestions: string[] = new Array(0);
   constructor(private complexityService: ComplexityService,
               private complexityComponentService: ComplexityComponentService,
               private jobCompareService: JobCompareService,
               private errorService: ErrorService,
               private guidedTourService:GuidedTourService,
               private complexityAnsweredService: ComplexityAnsweredService,
-              private _router: Router) {
+              private _router: Router,
+              private userFeedbackComponentService: UserFeedbackComponentService) {
   }
 
   ngOnInit() {
     if (LocalStorageService.getLocalValue(LocalStorage.IS_CANDIDATE) === 'true') {
       this.isCandidate = true;
       this.userId=LocalStorageService.getLocalValue(LocalStorage.USER_ID);
+      this.userFeedbackComponentService.getFeedbackForCandidate()
+        .subscribe(data => {
+          this.feedbackQuestions = data.questions;
+          console.log('feedbackQuestions: ', this.feedbackQuestions);
+        }, error => {
+          this.errorService.onError(error);
+        });
     }
   }
 
   ngOnChanges(changes: any) {
+    if(changes.userFeedBack && changes.userFeedBack.currentValue) {
+      this.userFeedBack = changes.userFeedBack.currentValue;
+    }
 
     if (changes.roles && changes.roles.currentValue) {
       this.roles = changes.roles.currentValue;
@@ -172,10 +186,16 @@ export class ComplexitiesComponent implements OnInit, OnChanges {
   }
 
   generateMilestonePopUp(totalQuestions: number) {
+    this.milestonesForPopUp = new Array();
     for(let value of ValueConstant.MILESTONES_FOR_POPUP) {
       let userFeedback: UserFeedback = new UserFeedback();
       userFeedback.questionNumber = Math.floor(totalQuestions * value);
+      userFeedback.question = this.feedbackQuestions[this.milestonesForPopUp.length];
       this.milestonesForPopUp.push(userFeedback);
+    }
+    for(let i = 0; i < this.userFeedBack.length; i++) {
+      this.milestonesForPopUp[i].answer =  this.userFeedBack[i];
+      this.milestonesForPopUp[i].isAnswered = true;
     }
   }
 

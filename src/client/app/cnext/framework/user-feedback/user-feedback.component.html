@@ -1,7 +1,7 @@
 <div class="feedback-modal" [hidden]="!isOpen">
   <div class="feedback-section">
     <p>
-      {{feedbackQuestions[currentFeedbackQuestion]}}
+      {{currentFeedbackQuestion.question}}
     </p>
     <div class="thumbs-section">
       <i class="glyphicon glyphicon-thumbs-up" (click)="onSelect(1)"></i>
