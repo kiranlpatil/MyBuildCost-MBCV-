@@ -377,6 +377,53 @@ $ src/redis-server
  })
  
  
+ - Version : 1.1.3
+ - Date : 3 Nov 2017
+ - Extend job expiry date for all current jobs in production to 30th April 2018 [CN-1806]
+ - Update Script
+ db.getCollection('recruiters').find({}).forEach(function(recruiter) {
+  for(var i = 0;i <= recruiter.postedJobs.length-1; i++){
+      if(recruiter.postedJobs[i].isJobPostClosed == true){
+  		print("skip");
+  	}else {
+ 	 	recruiter.postedJobs[i].expiringDate = ISODate("2018-04-30T18:29:59.414Z");
+ 		 db.getCollection('recruiters').update(
+ 		 {"postedJobs._id":recruiter.postedJobs[i]._id},recruiter)
+ 		 print("success:" + recruiter.postedJobs[i]._id);
+ 	}
+  }
+ })
+ 
+ //script for demo and staging
+ db.getCollection('recruiters').find({}).forEach(function(recruiter) {
+   for(var i = 0;i <= recruiter.postedJobs.length-1; i++){
+       if(recruiter.postedJobs[i].isJobPostClosed == true){
+   		print("skip");
+   	}else {
+  	 	recruiter.postedJobs[i].isJobPostExpired = false;
+  		 db.getCollection('recruiters').update(
+  		 {"postedJobs._id":recruiter.postedJobs[i]._id},recruiter)
+  		 print("success:" + recruiter.postedJobs[i]._id);
+  	}
+   }
+  })
+  
+  //Updated script for production
+  db.getCollection('recruiters').find({}).forEach(function(recruiter) {
+    for(var i = 0;i <= recruiter.postedJobs.length-1; i++){
+        if(recruiter.postedJobs[i].isJobPostClosed == true){
+    		print("skip");
+    	}else {
+   	 	recruiter.postedJobs[i].expiringDate = ISODate("2018-04-30T18:29:59.414Z");
+   	 	recruiter.postedJobs[i].isJobPostExpired = false;
+   		 db.getCollection('recruiters').update(
+   		 {"postedJobs._id":recruiter.postedJobs[i]._id},recruiter)
+   		 print("success:" + recruiter.postedJobs[i]._id);
+   	}
+    }
+   })
+ 
+ 
 
 # MySQL
 
@@ -481,6 +528,9 @@ replace the ServerAddress with address you wish to work on(stagging IP address)
  9. Time complexity should be minimum.
  10. Performance testing must be completed.
  11. Solution approach must be discussed before development.
+ 12. Before check in on development branch build prod aot. (gulp build.prod.aot)
+ 13. Handle exception in backend with proper error handling.
+ 14. If have any schema change, do changes in admin export functionality.
  
  # Definition of DONE for QA:
  

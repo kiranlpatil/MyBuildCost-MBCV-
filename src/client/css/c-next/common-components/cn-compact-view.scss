@@ -211,22 +211,27 @@
 }
 
 .see-more {
+  bottom: 5px;
   clear: both;
-  position: relative;
-  top: -3px;
+  position: absolute;
+  width: 100%;
 
   p {
-    color: $theme-color;
+    color: $theme-color !important;
     font-size: 10px;
+    margin: 0 !important;
     text-align: center;
-    margin: 0;
   }
 
   span {
     color: $theme-color;
     font-size: 8px;
-    text-align: center;
     display: block;
+    margin: 5px 0 0;
+    text-align: center;
+  }
+  .glyphicon-chevron-down {
+    margin: 0 !important;
   }
 }
 
@@ -412,5 +417,8 @@
   .my-info {
     height: 200px;
     border-right: 0;
+  }
+  .see-more {
+    bottom: -15px;
   }
 }

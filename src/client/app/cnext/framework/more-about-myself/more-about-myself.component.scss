@@ -23,8 +23,37 @@
   }
 }
 
+.main-content {
+  .mini-value-portrait-section {
+    zoom: 0.3;
+    z-index: 999;
+  }
+  .button-group {
+    width: calc(100% - 400px);
+  }
+}
+
+.about-myself-section {
+  padding: 0 0 75px 50px;
+  width: 58.33333333%;
+  h4 {
+    padding: 8px 15px 8px 0;
+    width: 100% !important;
+  }
+}
+
+.about-myself-help-section {
+  background: $theme-color;
+  border-radius: 0 9px 9px 0;
+}
+
 @media only screen and (max-width: 767px) {
   .more-about-myself {
     padding: 0 0 20px;
+  }
+  .about-myself-section {
+    height: 100vh;
+    padding: 0 0 75px 30px;
+    width: 98%;
   }
 }

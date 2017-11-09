@@ -37,6 +37,13 @@ class RepositoryBase<T extends mongoose.Document> implements IRead<T>, IWrite<T>
       callback(err, res);
     });
   }
+  countWithLean(field: any,projection:any, callback: (error: any, result: any) => void) {
+    console.time('count time');
+    this._model.find(field, projection).lean().exec((err, res) => {
+      console.timeEnd('count time');
+      callback(err, res);
+    });
+  }
 
 
   update(_id: mongoose.Types.ObjectId, item: T, callback: (error: any, result: any) => void) {

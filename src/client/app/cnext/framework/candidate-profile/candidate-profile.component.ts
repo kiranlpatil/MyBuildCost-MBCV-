@@ -13,6 +13,7 @@ import {Message} from "../../../shared/models/message";
 import {MessageService} from "../../../shared/services/message.service";
 import {ErrorService} from "../../../shared/services/error.service";
 import {LocalStorageService} from "../../../shared/services/localstorage.service";
+import {UserFeedback} from "../user-feedback/userFeedback";
 
 @Component({
   moduleId: module.id,
@@ -190,6 +191,7 @@ export class CandidateProfileComponent implements OnInit, DoCheck, OnDestroy {
     this.candidateForCapability = this.candidate.industry.roles;
     this.candidateForRole = this.candidate.industry.roles;
     this.candidateForComplexity = this.candidate.industry.roles;
+    this.candidate.userFeedBack = new Array();
     this.saveCandidateDetails();
     this.whichStepsVisible[2] = true;
   }
@@ -365,6 +367,9 @@ export class CandidateProfileComponent implements OnInit, DoCheck, OnDestroy {
 
   OnCandidateDataSuccess(candidateData: any) {
     this.candidate = candidateData.data[0];
+    if(!this.candidate.userFeedBack && this.candidate.userFeedBack == undefined){
+      this.candidate.userFeedBack = [];
+    }
     if(this.candidate.complexity_note_matrix == undefined) {
       this.candidate.complexity_note_matrix = {};
     }
@@ -521,6 +526,11 @@ export class CandidateProfileComponent implements OnInit, DoCheck, OnDestroy {
   logOut() {
     window.localStorage.clear();
     this._router.navigate([NavigationRoutes.APP_START]);
+  }
+
+  popUpFeedBackAnswer(currentFeedbackQuestion: UserFeedback) {
+    this.candidate.userFeedBack[currentFeedbackQuestion.indexOfQuestion] = currentFeedbackQuestion.answer;
+    this.saveCandidateDetails();
   }
 
   saveCandidateDetails() {

@@ -23,6 +23,30 @@
   margin-top: 20px;
 }
 
+.main-content {
+  .mini-value-portrait-section {
+    zoom: 0.3;
+    z-index: 999;
+  }
+  .button-group {
+    width: calc(100% - 400px);
+  }
+}
+
+.awards-section {
+  padding: 0 0 75px 50px;
+  width: 58.33333333%;
+  h4 {
+    padding: 8px 15px 8px 0;
+    width: 100% !important;
+  }
+}
+
+.awards-help-section {
+  background: $theme-color;
+  border-radius: 0 9px 9px 0;
+}
+
 @media only screen and (max-width: 1024px) {
   .compact-view {
     ul {
@@ -59,5 +83,10 @@
     .row {
       margin: 0;
     }
+  }
+  .awards-section {
+    height: calc(100vh - 72px);
+    padding: 0 0 75px 30px;
+    width: 98%;
   }
 }

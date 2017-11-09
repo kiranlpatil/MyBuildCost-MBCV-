@@ -54,6 +54,7 @@ $light-red1: #e14938;
 $dark-red1: #b8312f;
 $light-gray-bg: #d1d1d1;
 $active-green: #419441;
+$green: #8dc63f;
 $red-gradient-light: rgba(255,0,0,0);
 $red-gradient-dark: rgb(235, 107, 86);
 $close-button-shadow: rgba(0,0,0,0.3);
@@ -969,6 +970,7 @@ cn-control-messages {
   }
 }
 
+
 // Media Queries
 @media only screen and (max-width: 1024px) {
   .logout-dropdown {
@@ -1836,6 +1838,7 @@ select:focus {
 
 .bg-empty-class {
   background: $optional-field;
+  border-radius: 0 9px 9px 0;
   height: 100%;
   position: fixed;
   right: 0;
@@ -1846,7 +1849,7 @@ select:focus {
   display: inline-block;
   height: 100%;
   h3 {
-    color: $white;
+    color: $white !important;
     font-size: 50px;
     font-weight: bold;
     margin: 20px 0 26px;
@@ -1858,7 +1861,8 @@ select:focus {
     .inner-circle {
       span {
         line-height: 21px;
-        letter-spacing: -2px;
+        letter-spacing: -4px;
+        padding: 0px 8px 0;
         text-align: center;
       }
     }
@@ -1887,6 +1891,7 @@ select:focus {
     }
   }
   .value-portrait-bottom-section {
+    margin: -5px 0 0;
     .value-portrait-candidate-industry,
     .value-portrait-candidate-keyskills {
       span {
@@ -1912,11 +1917,13 @@ select:focus {
     background: $hover-bg;
     border: 1px solid #e4e4e4;
     box-shadow: 1px 1px 4px #9c9c9c;
-    display: none;
     min-width: 415px;
     margin: 5px 373px 0 0;
+    opacity: 0;
     padding: 10px;
     position: fixed;
+    transition: 0s;
+    visibility: hidden;
     z-index: 999;
     &:after {
       content: "";
@@ -1942,7 +1949,9 @@ select:focus {
       color: $white;
     }
     .hover-list {
-      display: block;
+      opacity: 1;
+      transition-delay: 0.5s;
+      visibility: visible;
       .lists-item {
         float: left;
         margin: 0 0 5px 5px;
@@ -1958,11 +1967,42 @@ select:focus {
   }
 }
 
+.edit-compact-view {
+  .row-section {
+    padding-right: 0 !important;
+  }
+}
+
+img[alt] {
+  font-size: 0;
+}
+
 @media only screen and (max-width: 767px) {
   .add-complexity-notes {
     textarea {
       height: 80px !important;
       max-width: 100%;
+    }
+  }
+  .bg-empty-class {
+    display: none;
+  }
+}
+
+
+@media only screen and (device-width: 768px) {
+  .section-container {
+    .col-xs-7 {
+      height: auto !important;
+      width: 100% !important;
+    }
+    .col-xs-5 {
+      display: none;
+    }
+    .main-content {
+      .button-group {
+        width: 100% !important;
+      }
     }
   }
 }

@@ -98,8 +98,8 @@
       </div>
     </div>
       <div class="capability-of-capabilities-section" *ngIf="isCompact">
-        <div class="row-list" *ngFor="let capability of capabilities;let j=index">
-          <div class="content clearfix" [class.hide-capability]="j >= rowsToShow">
+        <div class="row-list" [class.hide-capability]="j >= rowsToShow" *ngFor="let capability of capabilities;let j=index">
+          <div class="content clearfix">
             <div class="col-sm-3">
               <!--<div class="heading visible-xs"><h4>Core Capabilities</h4></div>-->
               <span class="capability-label-name">{{capability.name}}</span>
@@ -135,8 +135,8 @@
         </div>
       </div>
     <div class="capability-of-capabilities" [hidden]="!showMore">
-    <div class="row-list" *ngFor="let capability of capabilities;let j=index" >
-      <div class="content clearfix" [class.hide-capability]="j < rowsToShow">
+    <div class="row-list" [class.hide-capability]="j < rowsToShow" *ngFor="let capability of capabilities;let j=index" >
+      <div class="content clearfix">
         <div class="col-sm-3">
           <!--<div class="heading visible-xs"><h4>Core Capabilities</h4></div>-->
           <span class="capability-label-name">{{capability.name}}</span>
@@ -147,7 +147,11 @@
             <div class="col-sm-4 capability-edit" (click)="onComplexitySelect(complexity,capability)">
               <button class="btn-edit" (click)="onComplexitySelect(complexity,capability)" title="Edit this Capability Detail"></button>
               <div class="inner">
-                <span class="complexity-name">{{complexity.name}}</span>
+                <span class="complexity-name">
+                  <div class="complexity-star" title="{{getTooltip().MUST_TO_HAVE_CAPABILITY_COMPARE_MESSAGE}}"
+                       *ngIf="complexity.complexityDetails.complexityIsMustHave">&#9733;</div>
+                  {{complexity.name}}
+                </span>
                 <div class="scenario-row" *ngFor="let scenario of complexity.scenarios">
                   <span>{{scenario.name}}</span>
                 </div>

@@ -326,6 +326,8 @@ export class Messages {
 
   public static CLICK_BELOW_FOR_PREVIEW_MSG = 'Your Value Portrait is getting ready<br/>' +
   'Click below to Preview';
+  public static PLEASE_COMPLETE_THE_PROFILE_MSG = 'Please complete the profile before sharing';
+  public static JOBS_AVALLABLE_MESSAGE = 'Jobs are available in your industry.';
 }
 export class AdminPanel {
   public static PUBLIC_PROFILE='Profile is public';
@@ -336,9 +338,9 @@ export class NavigationRoutes {
   public static APP_REGISTRATION: string = '/registration';
   public static APP_FORGOTPASSWORD: string = '/forgotpassword';
   public static APP_DASHBOARD: string = '/dashboard';
-  public static APP_CANDIDATE_DASHBOARD: string = '/candidate_dashboard';
+  public static APP_CANDIDATE_DASHBOARD: string = '/candidate';
   public static APP_ADMIN_DASHBOARD: string = '/admin_dashboard';
-  public static APP_RECRUITER_DASHBOARD: string = '/recruiterdashboard';
+  public static APP_RECRUITER_DASHBOARD: string = '/recruiter';
   public static APP_LOGIN: string = '/signin';
   public static APP_START: string = '/';
   public static APP_LANDING: string = '/landing';
@@ -346,7 +348,7 @@ export class NavigationRoutes {
   public static ACTIVATE_USER: string = '/activate_user';
   public static VERIFY_PHONE: string = '/verify_phone';
   public static APP_CHANGEEMAIL: string = '/change_email';
-  public static APP_CREATEPROFILE: string = '/create_profile';
+  public static APP_CREATEPROFILE: string = '/candidate/profile';
   public static APP_PROFILESUMMURY: string = '/profile_summary';
   public static APP_JOB_SUMMURY: string = '/job_summary';
   public static APP_COMPANYDETAILS: string = '/company_details';
@@ -409,6 +411,7 @@ export class ValueConstant {
   public static MATCHED_CANDIDATE: string = 'matchedList';
   public static VALUE_FOR_CANDIDATES_PERCENT_MATCHING_LOWER_BOUND = 10;
   public static JOB__EXPIRIY_PERIOD= 2592000000;
+  public static MILESTONES_FOR_POPUP: number[]= [0.25, 0.50, 0.75];
 }
 
 
@@ -431,6 +434,7 @@ export class API {
   public static EXPORT_CANDIDATE_DETAIL_PROFILE = 'exportCandidateDetails';
   public static EXPORT_RECRUITER_DETAIL_PROFILE = 'exportRecruiterDetails';
   public static RECRUITER_PROFILE = 'recruiter';
+  public static JOBS = 'jobs';
   public static PROFESSIONAL_DATA = 'professionaldata';
   public static EMPLOYMENTHISTORY = 'employmentdata';
   public static LOGIN = 'login';
@@ -481,6 +485,7 @@ export class API {
   public static FAQ = '/blog/index.php/faq/';
   public static ACCEPT_TERMS = '/terms-and-conditions.php';
   public static COUNT_OF_USERS = 'countofusers';
+  public static FEEDBACK_QUESTIONS = 'userFeedback';
 
 }
 
@@ -711,6 +716,7 @@ export class Label {
   public static MUST_TO_HAVE_FILTER_LABEL: string = 'Show candidate with must have complexity';
   public static PROFILE_VISIBILITY: string = 'Profile Visibility for Recruiter';
   public static SUBMIT_PROFILE: string = 'Submit Your Profile';
+  public static MORE: string = 'More';
 }
 
 export class Button {
