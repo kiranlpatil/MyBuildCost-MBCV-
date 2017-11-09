@@ -1,11 +1,12 @@
 import { ESort } from './sort-enum';
 import { EList } from './list-enum';
 export class AppliedFilter {
-  maxalary : string;
+  maxSalary : string;
   minSalary : string;
   minExperience : string;
   maxExperience : string;
   proficiencies: string[] = new Array(0);
+  interestedIndustries : string[]= new Array();
   education : string[] = new Array(0);
   industry : string[] = new Array(0);
   joinTime: string;

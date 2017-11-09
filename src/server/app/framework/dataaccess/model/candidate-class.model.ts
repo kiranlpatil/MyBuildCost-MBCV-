@@ -22,7 +22,7 @@ class CandidateClassModel {
   aboutMyself: string;
   certifications: CertificationModel[];
   awards: AwardModel[];
-  userId: {type: mongoose.Schema.Types.ObjectId, ref: 'User'};
+  userId: any;
   location: LocationModel;
   industry: IndustryModel;
   capabilities: CapabilitiesClassModel[];
@@ -43,5 +43,6 @@ class CandidateClassModel {
   personalDetails: User;
   isCompleted: boolean;
   keySkills: string;
+  _id: string;
 }
 export = CandidateClassModel;

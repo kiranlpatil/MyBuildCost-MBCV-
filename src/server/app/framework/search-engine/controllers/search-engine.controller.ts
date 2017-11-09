@@ -1,13 +1,46 @@
 import * as express from 'express';
-import {SearchEngine} from '../engines/search';
-import {JobSearchEngine} from '../engines/job-search';
+import { SearchService } from '../services/search.service';
+import { CandidateSearchService } from '../services/candidate-search.service';
+import { CandidateSearchEngine } from '../engines/candidate-search.engine';
+import { AppliedFilter } from '../models/input-model/applied-filter';
+import { EList } from '../models/input-model/list-enum';
+import { JobDetail } from '../models/output-model/job-detail';
+import { ESort } from '../models/input-model/sort-enum';
 
 export class SearchEngineController {
     getMatchingProfile(req: express.Request, res: express.Response, next: any) : void {
-      //let searchEngine : SearchEngine = new CandidateSearchEngine();
-      let searchEngine : SearchEngine = new JobSearchEngine();
+      let searchEngine = new CandidateSearchEngine();
+      //let searchEngine = new JobSearchEngine();
       //searchEngine.getMatchingObjects();
-      searchEngine.buildCriteria(searchEngine);
-      searchEngine.computePercentage();
+      let jobId: string = '59f7123643226039446e9ff0';
+      let appliedFilter : AppliedFilter = new AppliedFilter();
+      appliedFilter.listName = EList.CAN_MATCHED;
+      appliedFilter.sortBy = ESort.SALARY;
+      appliedFilter.minExperience =2;
+      appliedFilter.maxExperience =4;
+      let searchService : SearchService = new CandidateSearchService();
+      searchService.getUserDetails(jobId, (err: Error, jobDetails: JobDetail) => {
+        if(err) {
+          res.send();
+        } else {
+          let criteria : any;
+          if(appliedFilter.listName === EList.CAN_MATCHED) {
+            criteria = searchEngine.buildBusinessCriteria(jobDetails, appliedFilter.listName);
+          }else {
+            criteria = {_id: {$in: ['A','B']}};
+          }
+          let mainCriteria =searchEngine.buildUserCriteria(appliedFilter,criteria);
+          searchEngine.getMatchingObjects(mainCriteria, (error : any, response : any) => {
+            if(error) {
+              res.send();
+            }else {
+              let q_cards = searchEngine.buildQCards(response,jobDetails,appliedFilter.sortBy);
+              res.status(200).send({
+                'data': q_cards
+              });
+            }
+          });
+        }
+      });
     }
 }

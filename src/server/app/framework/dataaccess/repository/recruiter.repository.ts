@@ -3,7 +3,10 @@ import RepositoryBase = require('./base/repository.base');
 import IRecruiter = require('../mongoose/recruiter');
 import { JobQCard } from '../../search/model/job-q-card';
 import { ConstVariables } from '../../shared/sharedconstants';
+import * as mongoose from "mongoose";
 import CandidateModel = require('../model/candidate.model');
+import RecruiterModel = require('../model/recruiter.model');
+import JobProfileModel = require("../model/jobprofile.model");
 
 class RecruiterRepository extends RepositoryBase<IRecruiter> {
   constructor() {
@@ -128,7 +131,26 @@ class RecruiterRepository extends RepositoryBase<IRecruiter> {
 
   }
 
-
+  getJobById(jobId : string, callback : (err : any, res : any)=> void) {
+    let query = {
+      'postedJobs': {$elemMatch: {'_id': new mongoose.Types.ObjectId(jobId)}}
+    };
+    RecruiterSchema.find(query, (err: any, res: RecruiterModel[]) => {
+      if (err) {
+        callback(new Error('Problem in Job Retrieve'), null);
+      } else {
+        let jobProfile: JobProfileModel;
+        if (res.length > 0) {
+          for (let job of res[0].postedJobs) {
+            if (job._id.toString() === jobId) {
+              jobProfile = job;
+            }
+          }
+        }
+        callback(null, jobProfile);
+      }
+    });
+  }
 }
 
 Object.seal(RecruiterRepository);
