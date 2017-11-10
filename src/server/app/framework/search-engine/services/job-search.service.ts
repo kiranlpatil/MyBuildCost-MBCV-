@@ -2,8 +2,8 @@ import { SearchService } from './search.service';
 import { CandidateDetail } from '../models/output-model/candidate-detail';
 import CandidateRepository = require('../../dataaccess/repository/candidate.repository');
 import CandidateClassModel = require('../../dataaccess/model/candidate-class.model');
-import RecruiterClassModel = require("../../dataaccess/model/recruiterClass.model");
-import JobProfileModel = require("../../dataaccess/model/jobprofile.model");
+import RecruiterClassModel = require('../../dataaccess/model/recruiterClass.model');
+import JobProfileModel = require('../../dataaccess/model/jobprofile.model');
 export class JobSearchService extends SearchService {
   candidateRepository : CandidateRepository;
   constructor() {
@@ -12,7 +12,7 @@ export class JobSearchService extends SearchService {
   }
 
   getUserDetails(canId: string,callback : (err : Error, res : CandidateDetail)=> void) : any {
-    this.candidateRepository.findById(jobId, (myError: Error, response : CandidateClassModel) => {
+    this.candidateRepository.findById(canId, (myError: Error, response : any) => {
       if(myError) {
         callback(myError,null);
         return ;
@@ -24,12 +24,13 @@ export class JobSearchService extends SearchService {
     });
    }
 
-   getJobsByCriteria (recruiters : RecruiterClassModel[], candidateDetail : CandidateDetail) : JobProfileModel {
-        for(let recruiter of recruiters){
+   getJobsByCriteria (recruiters : RecruiterClassModel[], candidateDetail : CandidateDetail) : any {
+    let  jobProfiles : JobProfileModel[] = new Array(0);
+    for(let recruiter of recruiters){
           for(let job of recruiter.postedJobs){
             let isRelevantIndustryMatch = false;
             if (job.releventIndustries.indexOf(candidateDetail.industryName) !== -1) {
-              isreleventIndustryMatch = true;
+              isRelevantIndustryMatch = true;
             }
             if ( !job.isJobPosted || job.isJobPostClosed
               || (candidateDetail.industryName !== job.industry.name && !isRelevantIndustryMatch)
@@ -43,10 +44,14 @@ export class JobSearchService extends SearchService {
                 isPresent = true;
               }
             }
-            if (job.interestedIndustries.indexOf('None') !== -1) {
+            if (candidateDetail.interestedIndustries.indexOf('None') !== -1) {
               isPresent = true;
               break;
             }
+            if(!isPresent) {
+              continue;
+            }
+            jobProfiles.push(job);
           }
         }
    }

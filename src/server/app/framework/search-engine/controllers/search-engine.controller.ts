@@ -40,8 +40,8 @@ export class SearchEngineController {
             if(error) {
               res.send();
             }else {
-              searchService.getJobsByCriteria(response,againstDetails); //todo send this response to buildQcard
-              let q_cards = searchEngine.buildQCards(response,jobDetails,appliedFilter.sortBy);
+              let jobs = searchService.getJobsByCriteria(response,againstDetails); //todo handle it for recruiter dashboard
+              let q_cards = searchEngine.buildQCards(jobs,againstDetails,appliedFilter.sortBy);
               res.status(200).send({
                 'data': q_cards
               });

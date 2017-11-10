@@ -20,8 +20,8 @@ export class JobCard extends QCard {
               salaryMaxValue : string, experienceMinValue : string,
               experienceMaxValue : string, education : string,
               company_size : string, company_logo : string,
-              postingDate : string, industry : string,
-              jobTitle : string, hideCompanyName : string,
+              postingDate : Date, industry : string,
+              jobTitle : string, hideCompanyName : boolean,
               candidate_list : CandidateListModel[], isJobPostClosed : boolean,
               _id : string, above_one_step_matching : number,
               exact_matching : number, location : string, proficiencies : string[]) {
@@ -38,7 +38,7 @@ export class JobCard extends QCard {
     this.industry = industry;
     this.jobTitle = jobTitle;
     this.hideCompanyName = hideCompanyName;
-    this.candidate_list = candidate_list[];
+    this.candidate_list = candidate_list;
     this.isJobPostClosed = isJobPostClosed;
   }
 }

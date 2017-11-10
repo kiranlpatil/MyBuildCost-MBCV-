@@ -3,6 +3,7 @@ import { BaseDetail } from '../models/output-model/base-detail';
 import { EList } from '../models/input-model/list-enum';
 import { ConstVariables } from '../../shared/sharedconstants';
 import { QCard } from '../models/output-model/q-card';
+import {ESort} from "../models/input-model/sort-enum";
 export abstract class SearchEngine {
 
   search() {
@@ -38,7 +39,7 @@ export abstract class SearchEngine {
     return q_card;
   }
 
-  abstract buildQCards(objects : any[], jobDetails : BaseDetail) : any ;
+  abstract buildQCards(objects : any[], jobDetails : BaseDetail,sortBy : ESort) : any ;
 
   abstract getMatchingObjects(criteria : any, callback : (error : any, response : any) => void) : void;
 

@@ -6,7 +6,7 @@ import { ESort } from '../models/input-model/sort-enum';
 import RecruiterRepository = require('../../dataaccess/repository/recruiter.repository');
 import { JobCard } from '../models/output-model/job-card';
 import RecruiterClassModel = require('../../dataaccess/model/recruiterClass.model');
-import {CandidateDetail} from '../models/output-model/candidate-detail';
+import { CandidateDetail } from '../models/output-model/candidate-detail';
 import JobProfileModel = require('../../dataaccess/model/jobprofile.model');
 export class JobSearchEngine extends SearchEngine {
   job_q_cards : JobCard[] = new Array(0);
@@ -64,10 +64,10 @@ export class JobSearchEngine extends SearchEngine {
       });
   }
 
-  buildQCards(jobs : any[], candidateDetails : CandidateDetail) : any {
+  buildQCards(jobs : any[], candidateDetails : CandidateDetail, sortBy : ESort) : any {
     for(let job of jobs) {
       let job_q_card : JobCard;
-      job_q_card = <JobCard> this.computePercentage(job.capability_matrix, jobDetails.capability_matrix);
+      job_q_card = <JobCard> this.computePercentage(job.capability_matrix, candidateDetails.capability_matrix);
       if(sortBy !== ESort.BEST_MATCH) {
         if(this.job_q_cards.length < 100) {
           this.createQCard(job_q_card,job);
@@ -78,18 +78,44 @@ export class JobSearchEngine extends SearchEngine {
         this.createQCard(job_q_card,job);
       }
     }
-    if(sortBy === ESort.BEST_MATCH) {
-      this.job_q_cards.sort((first: JobCard, second : JobCard):number=> {
-        if((first.above_one_step_matching+first.exact_matching) >(second.above_one_step_matching+second.exact_matching) ) {
-          return -1;
-        }
-        if((first.above_one_step_matching+first.exact_matching) < (second.above_one_step_matching+second.exact_matching) ) {
-          return 1;
-        }
-        return 0;
-      });
+    switch (sortBy) {
+
+      case ESort.EXPERIENCE :
+        this.job_q_cards.sort((first: JobCard, second : JobCard):number=> {
+          if(first.experienceMinValue >second.experienceMinValue ) {
+            return -1;
+          }
+          if(first.experienceMinValue < second.experienceMinValue ) {
+            return 1;
+          }
+          return 0;
+        });
+        break;
+      case ESort.SALARY :
+        this.job_q_cards.sort((first: JobCard, second : JobCard):number=> {
+          if(first.salaryMaxValue >second.salaryMaxValue ) {
+            return -1;
+          }
+          if(first.salaryMaxValue < second.salaryMaxValue ) {
+            return 1;
+          }
+          return 0;
+        });
+        break;
+      case ESort.BEST_MATCH :
+        this.job_q_cards.sort((first: JobCard, second : JobCard):number=> {
+          if((first.above_one_step_matching+first.exact_matching) >(second.above_one_step_matching+second.exact_matching) ) {
+            return -1;
+          }
+          if((first.above_one_step_matching+first.exact_matching) < (second.above_one_step_matching+second.exact_matching) ) {
+            return 1;
+          }
+          return 0;
+        });
+        break;
+
     }
-    return this.candidate_q_cards.slice(0,100);
+    return this.job_q_cards.slice(0,100);
   }
 
   createQCard(job_q_card : JobCard, job : any): any {
