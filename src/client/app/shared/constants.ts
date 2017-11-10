@@ -371,6 +371,7 @@ export class LocalStorage {
   public static MOBILE_NUMBER = 'mobile_number';
   public static VERIFIED_MOBILE_NUMBER = 'verified_mobile_number';
   public static COMPANY_NAME = 'company_name';
+  public static IS_RECRUITING_FOR_SELF = 'is_recruiting_for_self';
   public static COMPANY_SIZE = 'company_size';
   public static FIRST_NAME = 'first_name';
   public static LAST_NAME = 'last_name';
