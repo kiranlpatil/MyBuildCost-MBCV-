@@ -111,6 +111,9 @@ class RepositoryBase<T extends mongoose.Document> implements IRead<T>, IWrite<T>
       callback(err, items);
     });
   }
+  findOneAndUpdate(){
+
+  }
 
   findOneAndUpdate(query: any, newData: any, options: any, callback: (err: any, result: any) => void) {
     this._model.findOneAndUpdate(query, newData, options, function (err, result) {

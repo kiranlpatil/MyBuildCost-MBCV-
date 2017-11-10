@@ -5,7 +5,6 @@ export class CandidateCard extends QCard {
   private salary: string;
   private experience: string;
   private picture: string;
-
   constructor(first_name : string, last_name : string,
               salary : string, experience : string,
               picture : string, _id : string, above_one_step_matching : number,

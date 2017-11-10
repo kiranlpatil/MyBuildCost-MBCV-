@@ -332,11 +332,12 @@ export class FilterComponent implements OnChanges, OnInit {
   }
 
   candidatesFilterByLocation(value: any) {
-    this.qCardFilter.location = value;
     if (value == 'All') {
+      this.qCardFilter.location = undefined;
       this.queryListPush('((args.filterByLocation && item.location) && ((args.filterByLocation.toLowerCase() === item.location.toLowerCase()) || (args.filterByLocation.toLowerCase() !== item.location.toLowerCase())))');
       this.queryListRemove('(((args.filterByLocation && item.location))&&(args.filterByLocation.toLowerCase() === item.location.toLowerCase()))');
     } else {
+      this.qCardFilter.location = value;
       this.queryListPush('(((args.filterByLocation && item.location))&&(args.filterByLocation.toLowerCase() === item.location.toLowerCase()))');
       this.queryListRemove('((args.filterByLocation && item.location) && ((args.filterByLocation.toLowerCase() === item.location.toLowerCase()) || (args.filterByLocation.toLowerCase() !== item.location.toLowerCase())))');
     }
@@ -399,16 +400,19 @@ export class FilterComponent implements OnChanges, OnInit {
   }
 
   filterByMustHaveComplexity(event: any) {
-    console.log('filterByMustHaveComplexity called1');
     let value = event.target.checked;
-    if(value){
+    if(value) {
       this.qCardFilter.mustHaveComplexity = value;
-      this.queryListPush('((args.filterByMustHaveComplexity && item.complexityIsMustHave) && (args.filterByMustHaveComplexity === item.complexityIsMustHave))');
+      this.queryListPush('((args.filterByMustHaveComplexity && item.complexityIsMustHave) && ' +
+        '(args.filterByMustHaveComplexity === item.complexityIsMustHave))');
       this.showClearFilter = true;
     } else {
-      this.queryListRemove('((args.filterByMustHaveComplexity && item.complexityIsMustHave) && (args.filterByMustHaveComplexity === item.complexityIsMustHave))');
+      this.qCardFilter.mustHaveComplexity = value;
+      this.queryListRemove('((args.filterByMustHaveComplexity && item.complexityIsMustHave) && ' +
+        '(args.filterByMustHaveComplexity === item.complexityIsMustHave))');
     }
     this.buildQuery();
+    this.changeFilter.emit(this.qCardFilter);
     this.qCardFilterService.filterby(this.qCardFilter);
   }
 
