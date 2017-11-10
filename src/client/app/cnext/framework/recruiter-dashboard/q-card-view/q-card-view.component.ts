@@ -307,6 +307,7 @@ export class QCardviewComponent implements OnChanges {
   }
 
   changeSort() {
+
     switch(this.qCardModel.sortValue) {
       case 'Best match':
         this.changeSorting.emit(ESort.BEST_MATCH);

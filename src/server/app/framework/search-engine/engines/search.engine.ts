@@ -1,9 +1,8 @@
 import { AppliedFilter } from '../models/input-model/applied-filter';
 import { BaseDetail } from '../models/output-model/base-detail';
-import { EList } from '../models/input-model/list-enum';
 import { ConstVariables } from '../../shared/sharedconstants';
 import { QCard } from '../models/output-model/q-card';
-import {ESort} from "../models/input-model/sort-enum";
+import { ESort } from '../models/input-model/sort-enum';
 export abstract class SearchEngine {
 
   search() {
@@ -12,7 +11,7 @@ export abstract class SearchEngine {
 
   abstract buildUserCriteria(filter : AppliedFilter, criteria : any) : any;
 
-  abstract buildBusinessCriteria(details : BaseDetail, listName : EList): any;
+  abstract buildBusinessCriteria(details : BaseDetail): any;
 
   computePercentage(candidate_capability_matrix : any , job_capability_matrix :any) : QCard {
     let q_card = new QCard();

@@ -10,7 +10,7 @@ import { CandidateDetail } from '../models/output-model/candidate-detail';
 import JobProfileModel = require('../../dataaccess/model/jobprofile.model');
 export class JobSearchEngine extends SearchEngine {
   job_q_cards : JobCard[] = new Array(0);
-  buildBusinessCriteria(details : BaseDetail, listName : EList): any {
+  buildBusinessCriteria(details : BaseDetail): any {
     let criteria = {
       'postedJobs.industry.name': details.industryName,
       //'postedJobs.expiringDate': {$gte: currentDate}

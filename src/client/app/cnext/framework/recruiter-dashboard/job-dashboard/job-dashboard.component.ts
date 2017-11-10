@@ -121,6 +121,7 @@ export class JobDashboardComponent implements OnInit {
     }
     this.appliedFilters = new QCardFilter();
     this.appliedFilters.sortBy = this.sortBy;
+    this.appliedFilters.listName= this.listName;
     this.jobDashboardService.getSearchedcandidate(this.jobId,this.appliedFilters)
       .subscribe(
         (data: any) => {
@@ -191,20 +192,20 @@ export class JobDashboardComponent implements OnInit {
         (data: any) => {
           switch (this.listName) {
             case EList.CAN_CART :
-              this.candidateQlist.cartCandidates = data.data;
+              this.candidateQlist.cartCandidates = data;
               this.recruiterJobView.numberOfCandidatesInCart = this.candidateQlist.cartCandidates.length;
               this.whichListVisible[1] = true;
               break;
             case EList.CAN_REJECTED :
-              this.candidateQlist.rejectedCandidates = data.data;
+              this.candidateQlist.rejectedCandidates = data;
               this.recruiterJobView.numberOfCandidatesrejected = this.candidateQlist.rejectedCandidates.length;
               this.whichListVisible[3] = true;
               break;
             case EList.CAN_SHORT_LIST :
-              this.candidateQlist.shortListedCandidates = data.data;
+              this.candidateQlist.shortListedCandidates = data;
               break;
             case EList.CAN_APPLIED :
-              this.candidateQlist.appliedCandidates = data.data;
+              this.candidateQlist.appliedCandidates = data;
               this.recruiterJobView.numberOfCandidatesApplied = this.candidateQlist.appliedCandidates.length;
               this.whichListVisible[2] = true;
               break;

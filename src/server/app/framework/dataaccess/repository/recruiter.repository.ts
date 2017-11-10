@@ -135,15 +135,16 @@ class RecruiterRepository extends RepositoryBase<IRecruiter> {
     let query = {
       'postedJobs': {$elemMatch: {'_id': new mongoose.Types.ObjectId(jobId)}}
     };
-    RecruiterSchema.find(query, (err: any, res: RecruiterModel[]) => {
+    RecruiterSchema.find(query).lean().exec((err: any, response : IRecruiter[]) => {
       if (err) {
         callback(new Error('Problem in Job Retrieve'), null);
       } else {
         let jobProfile: JobProfileModel;
-        if (res.length > 0) {
-          for (let job of res[0].postedJobs) {
+        if (response.length > 0) {
+          for (let job of response[0].postedJobs) {
             if (job._id.toString() === jobId) {
               jobProfile = job;
+              break;
             }
           }
         }

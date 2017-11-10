@@ -4,6 +4,9 @@ import CandidateRepository = require('../../dataaccess/repository/candidate.repo
 import CandidateClassModel = require('../../dataaccess/model/candidate-class.model');
 import RecruiterClassModel = require('../../dataaccess/model/recruiterClass.model');
 import JobProfileModel = require('../../dataaccess/model/jobprofile.model');
+import {EList} from '../models/input-model/list-enum';
+import * as mongoose from 'mongoose';
+
 export class JobSearchService extends SearchService {
   candidateRepository : CandidateRepository;
   constructor() {
@@ -55,6 +58,11 @@ export class JobSearchService extends SearchService {
           }
         }
    }
+
+  getIdsByList(candidateDetails: CandidateDetail, listName : EList) : mongoose.Types.ObjectId [] {
+    return [];
+  }
+
 
 
 }

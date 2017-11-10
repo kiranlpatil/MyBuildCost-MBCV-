@@ -28,6 +28,7 @@ export class JobDashboardService extends BaseService {
   }
 
   getSearchedcandidate(jobId: string, obj : QCardFilter) {
+    obj.listName = EList.CAN_MATCHED;
     let headers = new Headers({'Content-Type': 'application/json'});
     let options = new RequestOptions({headers: headers});
     var url = 'recruiter/jobProfile/' + jobId + '/candidates';
@@ -45,6 +46,7 @@ export class JobDashboardService extends BaseService {
   }
 
   getSelectedListData(jobId: string, listName: EList, obj : QCardFilter) {
+    obj.listName= listName;
     var url = 'recruiter/jobProfile/' + jobId + '/list/' + listName;
     let headers = new Headers({'Content-Type': 'application/json'});
     let options = new RequestOptions({headers: headers});

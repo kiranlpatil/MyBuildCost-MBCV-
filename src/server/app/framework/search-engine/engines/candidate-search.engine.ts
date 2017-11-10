@@ -68,15 +68,15 @@ export class CandidateSearchEngine extends SearchEngine {
     if (filter.joinTime !== undefined && filter.joinTime !== '') {
       criteria['professionalDetails.noticePeriod'] = filter.joinTime;
     }
-    if (filter.minSalary !== undefined && filter.minSalary !== '' &&
-      filter.maxSalary !== undefined && filter.maxSalary !== '') {
+    if (filter.minSalary !== undefined && filter.minSalary.toString() !== '' &&
+      filter.maxSalary !== undefined && filter.maxSalary.toString() !== '') {
       criteria['professionalDetails.currentSalary'] = {
         $gte: Number(filter.minSalary),
         $lte: Number(filter.maxSalary)
       };
     }
-    if (filter.minExperience !== undefined && filter.minExperience !== '' &&
-      filter.maxExperience !== undefined && filter.maxExperience !== '') {
+    if (filter.minExperience !== undefined && filter.minExperience.toString() !== '' &&
+      filter.maxExperience !== undefined && filter.maxExperience.toString() !== '') {
       criteria['professionalDetails.experience'] = {
         $gte: Number(filter.minExperience),
         $lte: Number(filter.maxExperience)
@@ -99,7 +99,7 @@ export class CandidateSearchEngine extends SearchEngine {
     return mainQuery;
   }
 
-  buildBusinessCriteria(details : JobDetail, listName : EList) : any {
+  buildBusinessCriteria(details : JobDetail) : any {
       let criteria : any = {
         'industry.name': details.industryName,
         'isVisible': true,
@@ -117,6 +117,7 @@ export class CandidateSearchEngine extends SearchEngine {
         {'location.city': details.city}];
       return criteria;
   }
+
 
   createQCard(candidate_q_card : CandidateCard, candidate : any): void {
     let candidate_card = new CandidateCard(candidate.userId.first_name,

@@ -44,7 +44,7 @@ export function cnextInit(app: express.Application) {
   app.get('/api/recruiter/:id',loggerInterceptor.logDetail, this.authInterceptor.requiresAuth, this.authInterceptor.secureApiCheck, recruiterController.retrieve);
   app.get('/api/capabilitymatrix/candidate/:id',loggerInterceptor.logDetail, this.authInterceptor.requiresAuth, this.authInterceptor.secureApiCheck, candidateController.getCapabilityMatrix);
   app.get('/api/capabilitymatrix/recruiter/jobProfile/:id/',loggerInterceptor.logDetail, this.authInterceptor.requiresAuth, this.authInterceptor.secureApiCheck, jobProfileController.getCapabilityMatrix);
-  app.post('/api/recruiter/jobProfile/:id/candidates',loggerInterceptor.logDetail, this.authInterceptor.requiresAuth, this.authInterceptor.secureApiCheck, searchController.getMatchingCandidates);
+  app.post('/api/recruiter/jobProfile/:id/candidates',loggerInterceptor.logDetail, this.authInterceptor.requiresAuth, this.authInterceptor.secureApiCheck, searchEngineController.getMatchingProfile);
   app.get('/api/recruiter/jobProfile/:id',loggerInterceptor.logDetail, this.authInterceptor.requiresAuth, this.authInterceptor.secureApiCheck, jobProfileController.retrieve);
   app.get('/api/candidate/:id/jobProfile',loggerInterceptor.logDetail, this.authInterceptor.requiresAuth, this.authInterceptor.secureApiCheck, searchController.getMatchingJobProfiles);
   app.get('/api/jobs/:id',loggerInterceptor.logDetail, this.authInterceptor.requiresAuth, this.authInterceptor.secureApiCheck, searchController.getJobsInIndustry);
@@ -53,7 +53,7 @@ export function cnextInit(app: express.Application) {
   app.get('/api/candidate/:candidateId/matchresult/:jobId',loggerInterceptor.logDetail, this.authInterceptor.requiresAuth, this.authInterceptor.secureApiCheck, candidateController.metchResult);
   app.get('/api/recruiter/jobProfile/:jobId/matchresult/:candidateId',loggerInterceptor.logDetail, this.authInterceptor.requiresAuth, this.authInterceptor.secureApiCheck, jobProfileController.metchResultForJob);
   app.get('/api/candidate/:id/list/:listName',loggerInterceptor.logDetail, this.authInterceptor.requiresAuth, this.authInterceptor.secureApiCheck, candidateController.getList);
-  app.post('/api/recruiter/jobProfile/:id/list/:listName',loggerInterceptor.logDetail, this.authInterceptor.requiresAuth, this.authInterceptor.secureApiCheck, recruiterController.getList);
+  app.post('/api/recruiter/jobProfile/:id/list/:listName',loggerInterceptor.logDetail, this.authInterceptor.requiresAuth, this.authInterceptor.secureApiCheck, searchEngineController.getMatchingProfile);
   app.put('/api/candidate/:id/jobProfile/:profileId/:listName/:action',loggerInterceptor.logDetail, this.authInterceptor.requiresAuth, this.authInterceptor.secureApiCheck, jobProfileController.apply);
   app.post('/api/recruiter/jobProfile/:id/candidates',loggerInterceptor.logDetail, this.authInterceptor.requiresAuth, this.authInterceptor.secureApiCheck, jobProfileController.getQCardDetails);
   app.put('/api/recruiter/:recruiterId/jobProfile/:profileId/:listName/:candidateId/:action',loggerInterceptor.logDetail, this.authInterceptor.requiresAuth, this.authInterceptor.secureApiCheck, jobProfileController.update);
