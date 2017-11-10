@@ -28,8 +28,7 @@ export class UsageDetailsComponent {
       .subscribe(
         UsageDetails => {
           this.loaderService.stop();
-          this.usageDetailsCSV = UsageDetails.path;
-          document.getElementById('link_usage').click();
+          window.open('http://localhost:8080/'+UsageDetails.path,'_self');
           this.messageService.message(new Message(Messages.MSG_SUCCESS_FOR_FILE_DOWNLOAD));
           },
         error => {

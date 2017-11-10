@@ -28,8 +28,7 @@ export class KeySkillsDetailListComponent {
       .subscribe(
         data => {
           this.loaderService.stop();
-          this.keySkillCSV = data.path;
-          document.getElementById('link-keySkills').click();
+          window.open('http://localhost:8080/'+data.path,'_self');
           this.messageService.message(new Message(Messages.MSG_SUCCESS_FOR_FILE_DOWNLOAD));
           },
         error => {

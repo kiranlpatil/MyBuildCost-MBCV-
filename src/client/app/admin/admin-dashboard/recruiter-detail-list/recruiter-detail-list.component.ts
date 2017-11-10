@@ -62,8 +62,8 @@ export class RecruiterDetailListComponent {
           this.loaderService.stop();
           this.recruitersCSV = recruiterDetails.candidatesOtherDetailsFilePath;
           this.recruitersUsersCSV = recruiterDetails.usersFilePath;
-          document.getElementById('link_recruiter').click();
-          document.getElementById('link_recruiter1').click();
+          window.open('http://localhost:8080/'+this.recruitersCSV,'_self');
+          window.open('http://localhost:8080/'+this.recruitersUsersCSV,'_self');
           this.messageService.message(new Message(Messages.MSG_SUCCESS_FOR_FILE_DOWNLOAD));
         },
         error => this.errorService.onError(error));

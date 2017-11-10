@@ -67,9 +67,9 @@ export class CandidateDetailListComponent implements OnInit {
           this.candidateCSV = CandidateDetails.candidatesFilePath;
           this.candidateOtherDetailsCSV = CandidateDetails.candidatesOtherDetailsFilePath;
           this.usersCSV = CandidateDetails.usersFilePath;
-          document.getElementById('link_candidate').click();
-          document.getElementById('link_candidate1').click();
-          document.getElementById('link_candidate2').click();
+          window.open('http://localhost:8080/'+this.candidateCSV,'_self');
+          window.open('http://localhost:8080/'+this.candidateOtherDetailsCSV,'_self');
+          window.open('http://localhost:8080/'+this.usersCSV,'_self');
           this.messageService.message(new Message(Messages.MSG_SUCCESS_FOR_FILE_DOWNLOAD));
         },
         error => {
