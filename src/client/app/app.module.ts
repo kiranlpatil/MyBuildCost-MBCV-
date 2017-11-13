@@ -139,7 +139,6 @@ import {AttributeFilterPipe} from "./cnext/framework/profile-comparison/profile-
 import {ValueSortFilterPipe} from "./cnext/framework/profile-comparison/value-sort.pipe";
 import {GuidedTourService} from "./cnext/framework/guided-tour.service";
 import {LoggerService, MyErrorHandler} from "./cnext/framework/my-error-handler.service";
-import {AdminDashboardService} from "./admin/admin-dashboard/admin-dashboard.service";
 import {CandidateSearchComponent} from "./cnext/framework/candidate-search/candidate-search.component";
 import {CandidateSearchService} from "./cnext/framework/candidate-search/candidate-search.service";
 import {UserModule} from "./user/user.module";
@@ -155,7 +154,6 @@ import {ShareContainerComponent} from "./cnext/framework/share-container/share-c
 import {ShareContainerService} from "./cnext/framework/share-container/share-container.service";
 import {RenewJobPostService} from "./user/services/renew-jobpost.service";
 import {PrintScreenComponent} from "./cnext/framework/print-screen/print-screen.component";
-import {AdminModule} from "./admin/admin.module";
 import {JobShareContainerComponent} from "./cnext/framework/job-share-container/job-share-container.component";
 import {JobShareContainerService} from "./cnext/framework/job-share-container/job-share-container.service";
 import {JobCloseComponent} from "./cnext/framework/job-close/job-close.component";
@@ -179,8 +177,7 @@ import {PageNotFoundComponent} from "./shared/page-not-found/page-not-found.comp
     ReactiveFormsModule,
 
     SharedModule,
-    UserModule,
-    AdminModule
+    UserModule
   ],
   declarations: [
     AppComponent,
@@ -337,7 +334,6 @@ import {PageNotFoundComponent} from "./shared/page-not-found/page-not-found.comp
     QCardViewService,
     IndustryDetailsService,
     ProficiencyDetailsService,
-    AdminDashboardService,
     FilterService,
     IndustryDataService,
     RecruiteQCardView2Service,

@@ -7,7 +7,7 @@ import {CandidateDetailListComponent} from "./candidate-detail-list/candidate-de
 
 export const AdminDashboard: Route[] = [
   {
-    path: 'admin',
+    path: '',
     component: AdminDashboardComponent,
     children:[
       {path: '',redirectTo: 'candidates',pathMatch: 'full'},

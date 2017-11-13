@@ -9,6 +9,7 @@ import {RecruiterDetailListComponent} from "./admin-dashboard/recruiter-detail-l
 import {KeySkillsDetailListComponent} from "./admin-dashboard/keyskills-detail-list/keyskills-detail-list.component";
 import {UsageDetailsComponent} from "./admin-dashboard/usage-details/usage-details.component";
 import {FilterBarComponent} from "./admin-dashboard/filter-bar/filter-bar.component";
+import {AdminDashboardService} from "./admin-dashboard/admin-dashboard.service";
 
 @NgModule({
   imports : [CommonModule, SharedModule, UserModule, AdminModuleRoutes],
@@ -18,7 +19,7 @@ import {FilterBarComponent} from "./admin-dashboard/filter-bar/filter-bar.compon
     KeySkillsDetailListComponent,
     UsageDetailsComponent, FilterBarComponent],
   exports : [],
-  providers : []
+  providers : [AdminDashboardService]
 })
 
 export class AdminModule {
