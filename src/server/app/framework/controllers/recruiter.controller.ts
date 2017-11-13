@@ -84,20 +84,20 @@ export function create(req: express.Request, res: express.Response, next: any) {
 
 export function postJob(req: express.Request, res: express.Response, next: any) {
   try {
-    var newJob: JobProfileModel = <JobProfileModel>req.body;
+    var newJob: JobProfileModel = <JobProfileModel>req.body.postedJobs;
     var recruiterService = new RecruiterService();
     var userId = req.params.id;
-    if (newJob.postedJobs._id !== undefined && newJob.postedJobs._id !== null && newJob.postedJobs._id !== '') {
+    if (newJob._id !== undefined && newJob._id !== null && newJob._id !== '') {
 
       let currentDate = Number(new Date());
-      let expiringDate = Number(new Date(newJob.postedJobs.expiringDate));
+      let expiringDate = Number(new Date(newJob.expiringDate));
       let daysRemainingForExpiring = Math.round(Number(new Date(expiringDate - currentDate)) / (1000 * 60 * 60 * 24));
-      newJob.postedJobs.daysRemainingForExpiring = daysRemainingForExpiring;
+      newJob.daysRemainingForExpiring = daysRemainingForExpiring;
       if (daysRemainingForExpiring <= 0) {
-        newJob.postedJobs.isJobPostExpired = true;
+        newJob.isJobPostExpired = true;
 
       } else {
-        newJob.postedJobs.isJobPostExpired = false;
+        newJob.isJobPostExpired = false;
       }
       recruiterService.updateJob(userId, newJob, (err, result) => {
         if (err) {
@@ -115,8 +115,7 @@ export function postJob(req: express.Request, res: express.Response, next: any) 
           });
         }
       });
-    }
-    else {
+    }else {
       recruiterService.addJob(userId, newJob, (err, result) => {
         if (err) {
           next({

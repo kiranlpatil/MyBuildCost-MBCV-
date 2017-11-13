@@ -7,7 +7,8 @@ class JobProfileSchema {
   static get schema() {
     var schema = mongoose.Schema({
         recruiterId : {
-          type: mongoose.Schema.Types.ObjectId, ref: 'Recruiter'
+          type: mongoose.Schema.Types.ObjectId, ref: 'Recruiter',
+          required: true,
         },
         isJobPosted: {
           type: Boolean,

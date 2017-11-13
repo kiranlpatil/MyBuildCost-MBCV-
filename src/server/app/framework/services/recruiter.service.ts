@@ -19,6 +19,8 @@ import RecruiterModel = require('../dataaccess/model/recruiter.model');
 import RecruiterClassModel = require('../dataaccess/model/recruiterClass.model');
 import CandidateService = require('./candidate.service');
 import { FilterSort } from '../dataaccess/model/filter';
+import JobProfileRepository = require('../dataaccess/repository/job-profile.repository');
+import IJobProfile = require('../dataaccess/mongoose/job-profile');
 var bcrypt = require('bcrypt');
 
 class RecruiterService {
@@ -26,11 +28,13 @@ class RecruiterService {
   private recruiterRepository: RecruiterRepository;
   private candidateRepository: CandidateRepository;
   private userRepository: UserRepository;
+  private jobProfileRepository: JobProfileRepository;
   private industryRepository: IndustryRepository;
 
   constructor() {
     this.recruiterRepository = new RecruiterRepository();
     this.userRepository = new UserRepository();
+    this.jobProfileRepository = new JobProfileRepository();
     this.industryRepository = new IndustryRepository();
     this.candidateRepository = new CandidateRepository();
   }
@@ -125,27 +129,26 @@ class RecruiterService {
   }
 
   addJob(_id: string, item: any, callback: (error: any, result: any) => void) { //Todo change with candidate_id now it is a user_id operation
-    this.recruiterRepository.findOneAndUpdate({'userId': new mongoose.Types.ObjectId(_id)},
-      {$push: {postedJobs: item.postedJobs}},
-      {
-        'new': true, select: {
-        postedJobs: {
-          $elemMatch: {'postingDate': item.postedJobs.postingDate}
-        }
-      }
-      },
-      function (err, record) {
-        if (record) {
-          callback(null, record);
-        } else {
-          let error: any;
-          if (record === null) {
-            error = new Error('Unable to update posted job maybe recruiter not found. ');
-            callback(error, null);
-          } else {
-            callback(err, null);
+    this.jobProfileRepository.create(item.postedJobs, (err : Error, res : IJobProfile)=> {
+      if(err) {
+        callback(err,null);
+      }else {
+        this.recruiterRepository.findOneAndUpdate({'userId': new mongoose.Types.ObjectId(_id)},
+          {$push: {postedJobs: res._id}},
+          {
+            'new': true, select: {
+            postedJobs: {
+              $elemMatch: {'postingDate': item.postedJobs.postingDate}
+            }
           }
-        }
+          },(err, response) => {
+            if (err) {
+              callback(err,null);
+            } else {
+              callback(null, response);
+            }
+          });
+      }
       });
   }
 
@@ -173,35 +176,27 @@ class RecruiterService {
         }
       });
   }
-
-  updateJob(_id: string, item: any, callback: (error: any, result: any) => void) { //Todo change with candidate_id now it is a user_id operation
+//Todo change with candidate_id now it is a user_id operation
+  updateJob(_id: string, job: IJobProfile, callback: (error: any, result: any) => void) {
 
     let capabilityMatrixService: CapabilityMatrixService = new CapabilityMatrixService();
-    this.industryRepository.retrieve({'name': item.postedJobs.industry.name}, (error: any, industries: IndustryModel[]) => {
+    this.industryRepository.retrieve({'name': job.industry.name}, (error: any, industries: IndustryModel[]) => {
       if (error) {
         callback(error, null);
       } else {
-        if (item.postedJobs.capability_matrix === undefined) {
-          item.postedJobs.capability_matrix = {};
+        if (job.capability_matrix === undefined) {
+          job.capability_matrix = {};
         }
         let new_capability_matrix: any = {};
         let new_complexity_musthave_matrix: any = {};
-        item.postedJobs.capability_matrix = capabilityMatrixService.getCapabilityMatrix(item.postedJobs, industries, new_capability_matrix);
-        item.postedJobs.complexity_musthave_matrix = capabilityMatrixService.getComplexityMustHaveMatrix(item.postedJobs, industries, new_complexity_musthave_matrix);
-        this.recruiterRepository.findOneAndUpdate(
-          {
-            'userId': new mongoose.Types.ObjectId(_id),
-            'postedJobs._id': new mongoose.Types.ObjectId(item.postedJobs._id)
-          },
-          {$set: {'postedJobs.$': item.postedJobs}},
-          {
-            'new': true, select: {
-            postedJobs: {
-              $elemMatch: {'postingDate': item.postedJobs.postingDate}
-            }
-          }
-          },
-          function (err, record) {
+        job.capability_matrix = capabilityMatrixService.getCapabilityMatrix(job, industries,
+          new_capability_matrix);
+        job.complexity_musthave_matrix = capabilityMatrixService.getComplexityMustHaveMatrix(job,
+          industries, new_complexity_musthave_matrix);
+        let query = {
+            '_id': new mongoose.Types.ObjectId(job._id)
+          };
+        this.jobProfileRepository.update(query,job,(err, record) => {
             if (record) {
               callback(null, record);
             } else {

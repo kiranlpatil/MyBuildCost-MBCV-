@@ -9,7 +9,7 @@ import * as industryController from './app/framework/controllers/industry.contro
 import * as recruiterController from './app/framework/controllers/recruiter.controller';
 import * as jobProfileController from './app/framework/controllers/job-profile.controller';
 import * as userInterceptor from './app/framework/interceptor/user.interceptor';
-import {SearchController} from './app/framework/search/controller/search.controller';
+import { SearchController } from './app/framework/search/controller/search.controller';
 import * as adminController from './app/framework/controllers/admin.controller';
 let AuthInterceptor = require('./app/framework/interceptor/auth.interceptor');
 import ShareController = require('./app/framework/share/controller/share.controller');
@@ -20,7 +20,6 @@ this.authInterceptor = new AuthInterceptor();
 
 
 export function cnextInit(app: express.Application) {
-  //todo add interceptor to authenticate
   let searchController = new SearchController();
   let shareController = new ShareController();
   let searchEngineController = new SearchEngineController();
@@ -57,7 +56,7 @@ export function cnextInit(app: express.Application) {
 //  app.post('/api/recruiter/jobProfile/:id/candidates',loggerInterceptor.logDetail, this.authInterceptor.requiresAuth, this.authInterceptor.secureApiCheck, jobProfileController.getQCardDetails);
   app.put('/api/recruiter/:recruiterId/jobProfile/:profileId/:listName/:candidateId/:action',loggerInterceptor.logDetail, this.authInterceptor.requiresAuth, this.authInterceptor.secureApiCheck, jobProfileController.update);
   app.get('/api/filterlist',loggerInterceptor.logDetail,  recruiterController.getFilterList);
-  app.get('/api/releventindustries',loggerInterceptor.logDetail, this.authInterceptor.requiresAuth, this.authInterceptor.secureApiCheck, industryController.getReleventIndustryList);
+  app.get('/api/releventindustries',logg1erInterceptor.logDetail, this.authInterceptor.requiresAuth, this.authInterceptor.secureApiCheck, industryController.getReleventIndustryList);
   app.get('/api/recruiter/:id/jobprofile/:jobId',loggerInterceptor.logDetail, this.authInterceptor.requiresAuth, this.authInterceptor.secureApiCheck, recruiterController.getCompareDetailsOfCandidate);
   app.get('/api/recruiter/:id/candidatesearch/:searchvalue',loggerInterceptor.logDetail, this.authInterceptor.requiresAuth, this.authInterceptor.secureApiCheck, recruiterController.getCandidatesByName);
   app.get('/api/candidate/:candidateId/recruiter/:recruiterId/jobprofile',loggerInterceptor.logDetail, this.authInterceptor.requiresAuth, this.authInterceptor.secureApiCheck, searchController.searchCandidateJobProfiles);
@@ -77,8 +76,8 @@ export function cnextInit(app: express.Application) {
   app.get('/api/share/:shortUrl',loggerInterceptor.logDetail, shareController.getActualUrlForShare);
   app.get('/api/testing',searchEngineController.getMatchingProfile);
   app.put('/api/share/:shortUrl',loggerInterceptor.logDetail, this.authInterceptor.requiresAuth,shareController.resetActualUrlForShare);
-  app.get("/api/closeJob",loggerInterceptor.logDetail,this.authInterceptor.requiresAuth, this.authInterceptor.secureApiCheck, userController.getCloseJobReasons);
-  app.get("/api/userFeedback",loggerInterceptor.logDetail,this.authInterceptor.requiresAuth, this.authInterceptor.secureApiCheck, userController.getUserFeedback);
+  app.get('/api/closeJob',loggerInterceptor.logDetail,this.authInterceptor.requiresAuth, this.authInterceptor.secureApiCheck, userController.getCloseJobReasons);
+  app.get('/api/userFeedback',loggerInterceptor.logDetail,this.authInterceptor.requiresAuth, this.authInterceptor.secureApiCheck, userController.getUserFeedback);
 
   // API for Uses Tracking
   app.put('/api/usageTracking',loggerInterceptor.logDetail, jobProfileController.createUsesTracking);

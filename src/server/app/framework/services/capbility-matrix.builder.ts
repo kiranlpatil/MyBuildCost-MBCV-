@@ -5,22 +5,19 @@ import UserRepository = require('../dataaccess/repository/user.repository');
 import LocationRepository = require('../dataaccess/repository/location.repository');
 import RecruiterRepository = require('../dataaccess/repository/recruiter.repository');
 import IndustryRepository = require('../dataaccess/repository/industry.repository');
-import IndustryModel = require("../dataaccess/model/industry.model");
+import IndustryModel = require('../dataaccess/model/industry.model');
 class CapabilityMatrixService {
+  APP_NAME: string;
   private candidateRepository: CandidateRepository;
   private recruiterRepository: RecruiterRepository;
-  private industryRepositiry: IndustryRepository;
   private userRepository: UserRepository;
   private locationRepository: LocationRepository;
-
-  APP_NAME: string;
 
   constructor() {
     this.candidateRepository = new CandidateRepository();
     this.userRepository = new UserRepository();
     this.recruiterRepository = new RecruiterRepository();
     this.locationRepository = new LocationRepository();
-    this.industryRepositiry = new IndustryRepository();
     this.APP_NAME = ProjectAsset.APP_NAME;
   }
 
