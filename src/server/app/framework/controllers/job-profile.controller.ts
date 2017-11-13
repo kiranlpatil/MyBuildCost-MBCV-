@@ -1,12 +1,13 @@
-import * as express from "express";
-import {UsageTracking} from "../dataaccess/model/usage-tracking";
-import {ConstVariables} from "../shared/sharedconstants";
+import * as express from 'express';
+import {UsageTracking} from '../dataaccess/model/usage-tracking';
+import {ConstVariables} from '../shared/sharedconstants';
 import Messages = require('../shared/messages');
 import JobProfileModel = require('../dataaccess/model/jobprofile.model');
 import JobProfileService = require('../services/jobprofile.service');
 import CNextMessages = require('../shared/cnext-messages');
 import SearchService = require('../search/services/search.service');
 import RecruiterService = require('../services/recruiter.service');
+import IJobProfile = require('../dataaccess/mongoose/job-profile');
 let usestracking = require('uses-tracking');
 
 
@@ -44,10 +45,7 @@ export function searchCandidatesByJobProfile(req: express.Request, res: express.
 export function retrieve(req: express.Request, res: express.Response, next: any) {
   try {
     var jobProfileService = new JobProfileService();
-    let data = {
-      'postedJob': req.params.id
-    };
-    jobProfileService.retrieve(data, (error, result) => {
+    jobProfileService.retrieveByJobId(req.params.id, (error, result: IJobProfile) => {
       if (error) {
         next({
           reason: CNextMessages.PROBLEM_IN_RETRIEVE_JOB_PROFILE,
@@ -57,21 +55,17 @@ export function retrieve(req: express.Request, res: express.Response, next: any)
         });
       } else {
         let currentDate = Number(new Date());
-        let expiringDate = Number(new Date(result.postedJobs[0].expiringDate));
+        let expiringDate = Number(new Date(result.expiringDate));
         let daysRemainingForExpiring = Math.round(Number(new Date(expiringDate - currentDate)) / (1000 * 60 * 60 * 24));
-        result.postedJobs[0].daysRemainingForExpiring = daysRemainingForExpiring;
+        result.daysRemainingForExpiring = daysRemainingForExpiring;
         if (daysRemainingForExpiring <= 0) {
-          result.postedJobs[0].isJobPostExpired = true;
+          result.isJobPostExpired = true;
 
         } else {
-          result.postedJobs[0].isJobPostExpired = false;
+          result.isJobPostExpired = false;
 
         }
-        res.status(200).send({
-          'data': {
-            'industry': result
-          }
-        });
+        res.status(200).send({result});
       }
 
 
@@ -89,9 +83,6 @@ export function retrieve(req: express.Request, res: express.Response, next: any)
 export function getCapabilityMatrix(req: express.Request, res: express.Response, next: any) {
   try {
     var jobProfileService = new JobProfileService();
-    let data = {
-      'postedJob': req.params.id
-    };
     jobProfileService.getCapabilityValueKeyMatrix(req.params.id, (error, result) => {
       if (error) {
         next({
@@ -269,10 +260,7 @@ export function cloneJob(req: express.Request, res: express.Response, next: any)
   try {
     var newJobTitle = req.query.newJobTitle;
     var jobProfileService = new JobProfileService();
-    let data = {
-      'postedJob': req.params.id
-    };
-    jobProfileService.retrieve(data, (error, result) => {
+    jobProfileService.retrieveByJobId(req.params.id, (error: any, result : IJobProfile) => { //todo use
       if (error) {
         next({
           reason: CNextMessages.PROBLEM_IN_RETRIEVE_JOB_PROFILE,
@@ -281,7 +269,7 @@ export function cloneJob(req: express.Request, res: express.Response, next: any)
           code: 401
         });
       } else {
-        var newJob: any = result.postedJobs[0];
+        var newJob: any = result;
 
         delete newJob._id;
         newJob.jobTitle = newJobTitle;
@@ -295,7 +283,7 @@ export function cloneJob(req: express.Request, res: express.Response, next: any)
 
         newJob.expiringDate = new Date((new Date().getTime() + ConstVariables.JOB__EXPIRIY_PERIOD));
         var recruiterService = new RecruiterService();
-        recruiterService.addCloneJob(result.userId, newJob, (err, result) => {
+        recruiterService.addCloneJob(result._id, newJob, (err, result) => {
           if (err) {
             next({
               reason: err,

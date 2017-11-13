@@ -4,21 +4,22 @@ import ProjectAsset = require('../../shared/projectasset');
 import RecruiterRepository = require('../../dataaccess/repository/recruiter.repository');
 import CandidateModel = require('../../dataaccess/model/candidate.model');
 import JobProfileService = require('../../services/jobprofile.service');
-import {Actions, ConstVariables} from '../../shared/sharedconstants';
-import {ProfileComparisonDataModel, SkillStatus} from '../../dataaccess/model/profile-comparison-data.model';
-import {CapabilityMatrixModel} from '../../dataaccess/model/capability-matrix.model';
-import {ProfileComparisonModel} from '../../dataaccess/model/profile-comparison.model';
-import {ProfileComparisonJobModel} from '../../dataaccess/model/profile-comparison-job.model';
+import { Actions, ConstVariables } from '../../shared/sharedconstants';
+import { ProfileComparisonDataModel, SkillStatus } from '../../dataaccess/model/profile-comparison-data.model';
+import { CapabilityMatrixModel } from '../../dataaccess/model/capability-matrix.model';
+import { ProfileComparisonModel } from '../../dataaccess/model/profile-comparison.model';
+import { ProfileComparisonJobModel } from '../../dataaccess/model/profile-comparison-job.model';
 import * as mongoose from 'mongoose';
-import {CandidateDetailsWithJobMatching} from '../../dataaccess/model/candidatedetailswithjobmatching';
-import {UtilityFunction} from '../../uitility/utility-function';
+import { CandidateDetailsWithJobMatching } from '../../dataaccess/model/candidatedetailswithjobmatching';
+import { UtilityFunction } from '../../uitility/utility-function';
 import MatchViewModel = require('../../dataaccess/model/match-view.model');
 import Match = require('../../dataaccess/model/match-enum');
 import IndustryRepository = require('../../dataaccess/repository/industry.repository');
 import IndustryModel = require('../../dataaccess/model/industry.model');
 import ScenarioModel = require('../../dataaccess/model/scenario.model');
 import { FilterSort } from '../../dataaccess/model/filter';
-import {QueryBuilder} from './query-builder.service';
+import { QueryBuilder } from './query-builder.service';
+import IJobProfile = require('../../dataaccess/mongoose/job-profile');
 let usestracking = require('uses-tracking');
 
 class SearchService {
@@ -75,12 +76,12 @@ class SearchService {
 
     let currentDate = new Date();
     let data = {
-      'postedJobs.industry.name': candidate.industry.name,
-      'postedJobs.proficiencies': {$in: candidate.proficiencies},
-      'postedJobs.expiringDate': {$gte: currentDate}
+      'industry.name': candidate.industry.name,
+      'proficiencies': {$in: candidate.proficiencies},
+      'expiringDate': {$gte: currentDate}
     };
     let excluded_fields = {
-      'postedJobs.industry.roles': 0,
+      'industry.roles': 0,
     };
     this.recruiterRepository.retrieveWithLean(data,excluded_fields, (err, res) => {
       if (err) {
@@ -92,11 +93,11 @@ class SearchService {
   }
   getJobsInIndustry(industryCode: string, callback: (error: any, result: any) => void) {
     let data = {
-      'postedJobs.industry.code': industryCode,
-      'postedJobs.isJobPosted':true
+      'industry.code': industryCode,
+      'isJobPosted':true
     };
     let excluded_fields = {
-      'postedJobs.industry.roles': 0,
+      'industry.roles': 0,
     };
       this.recruiterRepository.countWithLean(data,excluded_fields, (err, res) => {
       if (err) {
@@ -142,15 +143,12 @@ class SearchService {
         callback(err, null);
       } else {
         if (candidateRes) {
-          let data = {
-            'postedJob': jobId
-          };
           let jobProfileService: JobProfileService = new JobProfileService();
-          jobProfileService.retrieve(data, (errInJob, resOfRecruiter) => {
+          jobProfileService.retrieveByJobId(jobId, (errInJob, jobProfile : IJobProfile) => {
             if (errInJob) {
               callback(errInJob, null);
             } else {
-              this.getResult(candidateRes, resOfRecruiter.postedJobs[0], isCandidate, callback);
+              this.getResult(candidateRes, jobProfile, isCandidate, callback);
             }
           });
         }
@@ -545,16 +543,13 @@ class SearchService {
         callback(err, null);
       } else {
         if (candidateRes.length > 0) {
-          let data = {
-            'postedJob': jobId
-          };
           let jobProfileService: JobProfileService = new JobProfileService();
-          jobProfileService.retrieve(data, (errInJob, resOfRecruiter) => {
+          jobProfileService.retrieveByJobId(jobId, (errInJob, jobProfile : IJobProfile) => {
             if (errInJob) {
               callback(errInJob, null);
             } else {
-              var jobName = resOfRecruiter.postedJobs[0].industry.name;
-              var job = resOfRecruiter.postedJobs[0];
+              var jobName = jobProfile.industry.name;
+              var job = jobProfile;
               this.industryRepository.retrieve({'name': jobName}, (err: any, industries: IndustryModel[]) => {
                 if (err) {
                   callback(err, null);

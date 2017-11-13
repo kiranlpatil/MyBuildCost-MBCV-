@@ -13,10 +13,9 @@ import {SearchController} from './app/framework/search/controller/search.control
 import * as adminController from './app/framework/controllers/admin.controller';
 let AuthInterceptor = require('./app/framework/interceptor/auth.interceptor');
 import ShareController = require('./app/framework/share/controller/share.controller');
-//import * as shareController from './app/framework/share/controller/share.controller';
 import * as sharedService from './app/framework/shared/logger/shared.service';
 import * as loggerInterceptor from './app/framework/interceptor/logger.interceptor';
-import {SearchEngineController} from './app/framework/search-engine/controllers/search-engine.controller';
+import { SearchEngineController } from './app/framework/search-engine/controllers/search-engine.controller';
 this.authInterceptor = new AuthInterceptor();
 
 
@@ -55,7 +54,7 @@ export function cnextInit(app: express.Application) {
   app.get('/api/candidate/:id/list/:listName',loggerInterceptor.logDetail, this.authInterceptor.requiresAuth, this.authInterceptor.secureApiCheck, candidateController.getList);
   app.post('/api/recruiter/jobProfile/:id/list/:listName',loggerInterceptor.logDetail, this.authInterceptor.requiresAuth, this.authInterceptor.secureApiCheck, searchEngineController.getMatchingProfile);
   app.put('/api/candidate/:id/jobProfile/:profileId/:listName/:action',loggerInterceptor.logDetail, this.authInterceptor.requiresAuth, this.authInterceptor.secureApiCheck, jobProfileController.apply);
-  app.post('/api/recruiter/jobProfile/:id/candidates',loggerInterceptor.logDetail, this.authInterceptor.requiresAuth, this.authInterceptor.secureApiCheck, jobProfileController.getQCardDetails);
+//  app.post('/api/recruiter/jobProfile/:id/candidates',loggerInterceptor.logDetail, this.authInterceptor.requiresAuth, this.authInterceptor.secureApiCheck, jobProfileController.getQCardDetails);
   app.put('/api/recruiter/:recruiterId/jobProfile/:profileId/:listName/:candidateId/:action',loggerInterceptor.logDetail, this.authInterceptor.requiresAuth, this.authInterceptor.secureApiCheck, jobProfileController.update);
   app.get('/api/filterlist',loggerInterceptor.logDetail,  recruiterController.getFilterList);
   app.get('/api/releventindustries',loggerInterceptor.logDetail, this.authInterceptor.requiresAuth, this.authInterceptor.secureApiCheck, industryController.getReleventIndustryList);

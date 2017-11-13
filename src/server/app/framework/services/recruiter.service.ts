@@ -1,7 +1,7 @@
-import * as mongoose from "mongoose";
-import {Recruiter} from "../dataaccess/model/recruiter-final.model";
-import {ConstVariables} from "../shared/sharedconstants";
-import {JobCountModel} from "../dataaccess/model/job-count.model";
+import * as mongoose from 'mongoose';
+import { Recruiter } from '../dataaccess/model/recruiter-final.model';
+import { ConstVariables } from '../shared/sharedconstants';
+import { JobCountModel } from '../dataaccess/model/job-count.model';
 import Messages = require('../shared/messages');
 import UserRepository = require('../dataaccess/repository/user.repository');
 import RecruiterRepository = require('../dataaccess/repository/recruiter.repository');
@@ -13,12 +13,12 @@ let path = require('path');
 import CapabilityMatrixService = require('./capbility-matrix.builder');
 import IndustryModel = require('../dataaccess/model/industry.model');
 import IndustryRepository = require('../dataaccess/repository/industry.repository');
-import MailAttachments = require("../shared/sharedarray");
-import SendMailService = require("./sendmail.service");
+import MailAttachments = require('../shared/sharedarray');
+import SendMailService = require('./sendmail.service');
 import RecruiterModel = require('../dataaccess/model/recruiter.model');
 import RecruiterClassModel = require('../dataaccess/model/recruiterClass.model');
 import CandidateService = require('./candidate.service');
-import {FilterSort} from "../dataaccess/model/filter";
+import { FilterSort } from '../dataaccess/model/filter';
 var bcrypt = require('bcrypt');
 
 class RecruiterService {
@@ -150,7 +150,7 @@ class RecruiterService {
   }
 
   addCloneJob(_id: string, item: any, callback: (error: any, result: any) => void) { //Todo change with candidate_id now it is a user_id operation
-    this.recruiterRepository.findOneAndUpdate({'userId': new mongoose.Types.ObjectId(_id)},
+    this.recruiterRepository.findOneAndUpdate({'_id': new mongoose.Types.ObjectId(_id)},
       {$push: {postedJobs: item}},
       {
         'new': true, select: {

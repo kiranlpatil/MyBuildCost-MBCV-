@@ -1,7 +1,7 @@
-import * as mongoose from "mongoose";
-import {Recruiter} from "../dataaccess/model/recruiter-final.model";
-import {Actions, ConstVariables} from "../shared/sharedconstants";
-import {SharedService} from "../shared/services/shared-service";
+import * as mongoose from 'mongoose';
+import { Recruiter } from '../dataaccess/model/recruiter-final.model';
+import { Actions, ConstVariables } from '../shared/sharedconstants';
+import { SharedService } from '../shared/services/shared-service';
 import ProjectAsset = require('../shared/projectasset');
 import RecruiterRepository = require('../dataaccess/repository/recruiter.repository');
 import JobProfileRepository = require('../dataaccess/repository/job-profile.repository');
@@ -11,11 +11,12 @@ import CandidateSearchRepository = require('../search/candidate-search.repositor
 import IndustryModel = require('../dataaccess/model/industry.model');
 import IndustryRepository = require('../dataaccess/repository/industry.repository');
 import CandidateService = require('./candidate.service');
+import IJobProfile = require('../dataaccess/mongoose/job-profile');
 let usestracking = require('uses-tracking');
 
 
 class JobProfileService {
-  private jobprofileRepository: JobProfileRepository;
+  private jobProfileRepository: JobProfileRepository;
   private candidateSearchRepository: CandidateSearchRepository;
   private industryRepository: IndustryRepository;
   private recruiterRepository: RecruiterRepository;
@@ -24,7 +25,7 @@ class JobProfileService {
   private usesTrackingController: any;
 
   constructor() {
-    this.jobprofileRepository = new JobProfileRepository();
+    this.jobProfileRepository = new JobProfileRepository();
     this.candidateSearchRepository = new CandidateSearchRepository();
     this.recruiterRepository = new RecruiterRepository();
     this.industryRepository = new IndustryRepository();
@@ -34,8 +35,8 @@ class JobProfileService {
     this.usesTrackingController = obj._controller;
   }
 
-  create(item: any, callback: (error: any, result: any) => void) {
-    this.jobprofileRepository.create(item, (err, res) => {
+  create(item: any, callback: (error: any, result: IJobProfile) => void) {
+    this.jobProfileRepository.create(item, (err, res : IJobProfile) => {
       if (err) {
         callback(new Error(err), null);
       } else {
@@ -55,43 +56,41 @@ class JobProfileService {
     });
   }
 
-  retrieve(data: any, callback: (error: any, result: any) => void) {
-    let query = {
-      'postedJobs': {$elemMatch: {'_id': new mongoose.Types.ObjectId(data.postedJob)}}
-    };
-    this.recruiterRepository.retrieve(query, (err, res) => {
+  retrieve(data: any, callback: (error: any, result: IJobProfile ) => void) {
+    this.jobProfileRepository.retrieve(data, (err, res : IJobProfile) => {
       if (err) {
         callback(new Error('Not Found Any Job posted'), null);
+        return;
       } else {
-        if (res.length > 0) {
-          let recruiter: Recruiter = new Recruiter();
-          recruiter = res[0];
-          for (let job of res[0].postedJobs) {
-            if (job._id.toString() === data.postedJob) {
-              recruiter.postedJobs = new Array(0);
-              recruiter.postedJobs.push(job);
-              callback(null, recruiter);
-            }
-          }
-        }
+        callback(null,res);
       }
     });
   }
 
-  getCapabilityValueKeyMatrix(_id: string,  callback: (error: any, result: any) => void) {
-    let data: any = {
-      'postedJob': _id
-    };
-    this.retrieve(data, (err: any, res:Recruiter) => {
+  retrieveByJobId(id: any, callback: (error: any, result: IJobProfile ) => void) {
+    this.jobProfileRepository.findById(new mongoose.Types.ObjectId(id), (err, res : IJobProfile) => {
       if (err) {
-        callback(err, res);
+        callback(new Error('Not Found Any Job posted'), null);
+        return;
       } else {
-        this.industryRepository.retrieve({'name': res.postedJobs[0].industry.name}, (error: any, industries: IndustryModel[]) => {
+        callback(null,res);
+      }
+    });
+  }
+
+
+  getCapabilityValueKeyMatrix(_id: string,  callback: (error: any, result: any) => void) {
+    this.retrieveByJobId(_id, (err: any, res: IJobProfile) => {
+      if (err) {
+        callback(err, null);
+      } else {
+        this.industryRepository.retrieve({'name': res.industry.name}, (error: any, industries: IndustryModel[]) => {
           if (err) {
             callback(err, res);
           } else {
             let candidateService: any = new CandidateService();
-            let new_capability_matrix: any =  candidateService.getCapabilityValueKeyMatrixBuild(res.postedJobs[0].capability_matrix, industries, res.postedJobs[0].complexity_musthave_matrix);
+            let new_capability_matrix: any =  candidateService.getCapabilityValueKeyMatrixBuild(res.capability_matrix,
+              industries, res.complexity_musthave_matrix);
             callback(null, new_capability_matrix);
           }
         });
@@ -349,8 +348,7 @@ class JobProfileService {
                     }
                   }
                 });
-              }
-              else {
+              }else {
                 callback(null, record);
               }
             } else {

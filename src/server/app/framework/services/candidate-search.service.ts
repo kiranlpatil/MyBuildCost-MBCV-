@@ -19,12 +19,12 @@ class CandidateSearchService {
     let currentDate = new Date();
     let data = {
       '_id': recruiterId,
-      'postedJobs.industry.name': candidate.industry.name,
-      'postedJobs.proficiencies': {$in: candidate.proficiencies},
-      'postedJobs.expiringDate': {$gte: currentDate}
+      'industry.name': candidate.industry.name,
+      'proficiencies': {$in: candidate.proficiencies},
+      'expiringDate': {$gte: currentDate}
     };
     let excluded_fields = {
-      'postedJobs.industry.roles': 0,
+      'industry.roles': 0,
     };
     this.recruiterRepository.retrieveWithLean(data, excluded_fields, (err, res) => {
       if (err) {

@@ -91,7 +91,7 @@ class AdminService {
         'userId': 1,
         'company_name': 1,
         'company_size': 1,
-        'postedJobs.isJobPosted': 1
+        'isJobPosted': 1
       };
 
       recruiterService.retrieveBySortedOrder(findQuery, recruiterFields, sortingQuery, (error, recruiterResult) => {

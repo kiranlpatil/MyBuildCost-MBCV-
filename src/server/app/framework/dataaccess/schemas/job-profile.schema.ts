@@ -1,98 +1,154 @@
-import DataAccess = require("../dataaccess");
-import User = require("../mongoose/user");
-import ICandidate = require("../mongoose/candidate");
-import ICapability = require("../mongoose/capability");
-import IAcademic = require("../mongoose/academics");
-import IProficiency = require("../mongoose/proficiency");
-import IProfessionalDetails = require("../mongoose/professional-details");
-import IEmploymentHistory = require("../mongoose/employment-history");
-import IJobProfile = require("../mongoose/job-profile");
-import ILocation = require("../mongoose/location");
-import IDomain = require("../mongoose/domain");
+import DataAccess = require('../dataaccess');
+import IJobProfile = require('../mongoose/job-profile');
 var mongoose = DataAccess.mongooseInstance;
 var mongooseConnection = DataAccess.mongooseConnection;
 
 class JobProfileSchema {
   static get schema() {
     var schema = mongoose.Schema({
-      jobTitle: {
-        type: String
-      },
-      sharedLink: {
-        type: String
-      },
-      hiringManager: {
-        type: String
-      },
-      department: {
-        type: String
-      },
-      education: {
-        type: String
-      },
-      experience: {
-        type: String
-      },
-      salary: {
-        type: String
-      },
-      proficiencies: {
-        names: [String]
-      },
-      mandatoryProficiencies: {
-        names: [String]
-      },
-      industry: {
-        name: String,
-        roles: [{
+        recruiterId : {
+          type: mongoose.Schema.Types.ObjectId, ref: 'Recruiter'
+        },
+        isJobPosted: {
+          type: Boolean,
+          default: false
+        },
+        daysRemainingForExpiring: {
+          type: Number
+        },
+        isJobPostExpired: {
+          type: Boolean,
+          default: false
+        },
+        isJobPostClosed: {
+          type: Boolean,
+          default: false
+        },
+        isJobShared: {
+          type: Boolean,
+          default: false
+        },
+        hideCompanyName: {
+          type: Boolean,
+          default: false
+        },
+        capability_matrix: {
+          type: Object
+        },
+        complexity_musthave_matrix: {
+          type: Object
+        },
+        jobCloseReason:{
+          type: Number
+        },
+        candidate_list: [{
           name: String,
-          capabilities: [{
-            complexities: [{
-              scenarios: {
-                isChecked: Boolean,
-                name: String,
-                code: String
-              },
-              name: String
-            }],
-            name: String
+          ids: [{
+            type: String
           }]
-        }]
-      },
-      competencies: {
-        type: String
-      },
-      isJobPosted: {
-        type: Boolean,
-        default: false
-      },
-      isJobPostExpired: {
-        type: Boolean,
-        default: false
-      },
-      isJobPostClosed: {
-        type: Boolean,
-        default: false
-      },
-      isJobShared: {
-        type: Boolean,
-        default: false
-      },
-      responsibility: {
-        type: String
-      },
-      postingDate: {
-        type: Date
-      },
-      daysRemainingForExpiring: {
-        type: Number
-      },
-      interestedIndustries: [{type: String}]
+        }],
+        location: {
+          city: String,
+          state: String,
+          country: String,
+          pin: String
+        },
+        joiningPeriod: {
+          type: String
+        },
+        jobTitle: {
+          type: String
+        },
+        sharedLink: {
+          type: String
+        },
+        hiringManager: {
+          type: String
+        },
+        department: {
+          type: String
+        },
+        education: {
+          type: String
+        },
+        experienceMinValue: {
+          type: String
+        },
+        experienceMaxValue: {
+          type: String
+        },
+        salaryMinValue: {
+          type: String
+        },
+        salaryMaxValue: {
+          type: String
+        },
+        proficiencies: {
+          type: [String]
+        },
+        additionalProficiencies: {
+          type: [String]
+        },
+        interestedIndustries: {
+          type: [String]
+        },
 
-    }, {versionKey: false});
+        industry: {
+          name: String,
+          code: String,
+          roles: [{
+            code: String,
+            name: String,
+            sort_order: Number,
+            capabilities: [{
+              code: String,
+              sort_order: Number,
+              complexities: [{
+                code: String,
+                sort_order: Number,
+                scenarios: [{
+                  name: String,
+                  isChecked: Boolean,
+                  code: String
+                }],
+                name: String
+              }],
+              name: String,
+              isPrimary: Boolean,
+              isSecondary: Boolean
+            }],
+            default_complexities: [{
+              code: String,
+              complexities: [{
+                code: String,
+                scenarios: [{
+                  name: String,
+                  isChecked: Boolean,
+                  code: String
+                }],
+                name: String
+              }],
+              name: String
+            }]
+          }]
+        },
+        competencies: {
+          type: String
+        },
+        responsibility: {
+          type: String
+        },
+        postingDate: {
+          type: Date
+        },
+        expiringDate: {
+          type: Date
+        },
+        releventIndustries: [{type: String}]
+      }, {versionKey: false});
 
     return schema;
   }
 }
-var schema = mongooseConnection.model<IJobProfile>("JobProfile", JobProfileSchema.schema);
+var schema = mongooseConnection.model<IJobProfile>('JobProfile', JobProfileSchema.schema);
 export = schema;

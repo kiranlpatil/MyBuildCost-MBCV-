@@ -1,6 +1,6 @@
-import User = require("../mongoose/user");
-import JobProfileSchema = require("../schemas/job-profile.schema");
-import RepositoryBase = require("./base/repository.base");
+import User = require('../mongoose/user');
+import JobProfileSchema = require('../schemas/job-profile.schema');
+import RepositoryBase = require('./base/repository.base');
 
 class JobProfileRepository extends RepositoryBase<User> {
   constructor() {
