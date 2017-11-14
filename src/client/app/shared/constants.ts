@@ -595,7 +595,7 @@ export class Tooltip {
   public static COMPLEXITIES_RECRUITER_TOOLTIP_1: string = 'This section provides a list of complexity scenarios for selected capabilities.' +
     'For each scenario, select the most appropriate level that candidate is required to handle.';
   public static COMPLEXITIES_RECRUITER_TOOLTIP_2: string = 'For scenarios that are not relevant to your job profile, choose "Not Applicable".';
-  public static COMPLEXITIES_RECRUITER_TOOLTIP_3: string = 'Please click on &#9733; to select a must have capability for candidate to fulfilled this job.';
+  public static COMPLEXITIES_RECRUITER_TOOLTIP_MESSAGE: string = 'Please click on &#9733; to select must have capability details required in candidate for this job profile.';
   public static EMPLOYMENT_HISTORY_TOOLTIP: string = 'An individual may be exposed to multiple industries during his professional life.';
   public static INDUSTRY_EXPERIENCE_CANDIDATE_TOOLTIP_1: string = 'An individual may be exposed to multiple industries during their professional life. ' +
     'At times, organisations need individuals who have cross industry expertise.';
