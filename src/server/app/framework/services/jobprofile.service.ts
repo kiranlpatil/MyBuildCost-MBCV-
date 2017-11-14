@@ -67,7 +67,7 @@ class JobProfileService {
   }
 
   retrieveByJobId(id: any, callback: (error: any, result: IJobProfile ) => void) {
-    this.jobProfileRepository.findById(new mongoose.Types.ObjectId(id), (err, res : IJobProfile) => {
+    this.jobProfileRepository.findById(id, (err: any, res : any) => {
       if (err) {
         callback(new Error('Not Found Any Job posted'), null);
         return;
@@ -116,17 +116,17 @@ class JobProfileService {
       'new': true, 'upsert': true
     };
 
-    this.jobProfileRepository.findById(item.profileId, (err, job : IJobProfile) => {
+    this.jobProfileRepository.findById(item.profileId, (err, job : any) => {
       if (err) {
         callback(new Error('Not Found Any Job posted'), null);
       } else {
-        if (res) {
+        if (job) {
               for (let list of job.candidate_list) {
                 if (list.name === item.listName) {
                   updateFlag = true;
                   if (item.action === 'add') {
                     let uses_data = {
-                      recruiterId: res[0]._id,
+                      recruiterId: item.recruiterId,
                       candidateId: item.candidateId,
                       jobProfileId: job._id,
                       timestamp: new Date(),
@@ -151,7 +151,6 @@ class JobProfileService {
                     }
                   } else {
                     let uses_data = {
-                      recruiterId: res[0]._id,
                       candidateId: item.candidateId,
                       jobProfileId: job._id,
                       timestamp: new Date(),

@@ -38,9 +38,24 @@ export abstract class SearchEngine {
     return q_card;
   }
 
+  getSortedObjectsByMatchingPercentage( q_cards : QCard [] ) : QCard[] {
+    q_cards.sort((first: QCard, second: QCard): number => {
+      if ((first.above_one_step_matching + first.exact_matching) > (second.above_one_step_matching + second.exact_matching)) {
+        return -1;
+      }
+      if ((first.above_one_step_matching + first.exact_matching) < (second.above_one_step_matching + second.exact_matching)) {
+        return 1;
+      }
+      return 0;
+    });
+    return q_cards;
+  }
+
+  abstract getSortedCriteria(sortBy : ESort, criteria : any) : Object ;
+
   abstract buildQCards(objects : any[], jobDetails : BaseDetail,sortBy : ESort) : any ;
 
-  abstract getMatchingObjects(criteria : any, callback : (error : any, response : any) => void) : void;
+  abstract getMatchingObjects(criteria : any, callback : (error : any, response : any[]) => void) : void;
 
   abstract createQCard(q_card : QCard, user : any): void;
 }

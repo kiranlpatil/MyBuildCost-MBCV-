@@ -18,9 +18,9 @@ import SendMailService = require('./sendmail.service');
 import RecruiterModel = require('../dataaccess/model/recruiter.model');
 import RecruiterClassModel = require('../dataaccess/model/recruiterClass.model');
 import CandidateService = require('./candidate.service');
-import { FilterSort } from '../dataaccess/model/filter';
 import JobProfileRepository = require('../dataaccess/repository/job-profile.repository');
 import IJobProfile = require('../dataaccess/mongoose/job-profile');
+import IRecruiter = require('../dataaccess/mongoose/recruiter');
 var bcrypt = require('bcrypt');
 
 class RecruiterService {
@@ -86,6 +86,16 @@ class RecruiterService {
     });
   }
 
+  retrieve(query : any, callback : (err: any, res : IRecruiter[]) => void) {
+      this.recruiterRepository.retrieve(query,(error : Error, result: IRecruiter[]) =>{
+        if(error) {
+          callback(error, null);
+        }else {
+          callback(null, result);
+        }
+      });
+  }
+
   findOneAndUpdate(query: any, newData: any, options: any, callback: (error: any, result: any) => void) {
     this.recruiterRepository.findOneAndUpdate(query, newData, options, callback);
   }
@@ -101,13 +111,13 @@ class RecruiterService {
     });
   }
 
-  getJobsByRecruiterIdAndItsCount(id: string, callback :(err: Error, res : IJobProfile[]) => void) {
+  getJobsByRecruiterIdAndItsCount(id: string, callback :(err: Error, res : any) => void) {
     this.getJobsByRecruiterId(id, (error : Error, jobs : IJobProfile[]) => {
       if(error) {
         callback(error,null);
         return;
       }
-      let jobWithCount = {
+      let jobWithCount : any = {
         jobs : jobs
       };
       jobWithCount.jobCountModel = new JobCountModel();
@@ -192,7 +202,7 @@ class RecruiterService {
         let query = {
             '_id': new mongoose.Types.ObjectId(job._id)
           };
-        this.jobProfileRepository.update(query,job,(err, record) => {
+        this.jobProfileRepository.updateWithQuery(query, job, (err: Error, record: IJobProfile) => {
             if (record) {
               callback(null, record);
             } else {

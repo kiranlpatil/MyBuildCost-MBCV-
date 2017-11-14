@@ -11,6 +11,7 @@ import CandidateService = require('../services/candidate.service');
 import adminController= require('./admin.controller');
 import RecruiterModel = require('../dataaccess/model/recruiter.model');
 import { MailChimpMailerService } from '../services/mailchimp-mailer.service';
+import IRecruiter = require("../dataaccess/mongoose/recruiter");
 
 var bcrypt = require('bcrypt');
 
@@ -58,7 +59,7 @@ export function login(req: express.Request, res: express.Response, next: any) {
                 if (result[0].isCandidate === false) {
                   var recruiterService = new RecruiterService();
 
-                  recruiterService.retrieve({"userId": result[0]._id}, (error, recruiter) => {
+                  recruiterService.retrieve({"userId": result[0]._id}, (error : Error, recruiter : IRecruiter[]) => {
                     if (error) {
                       next(error);
                     }

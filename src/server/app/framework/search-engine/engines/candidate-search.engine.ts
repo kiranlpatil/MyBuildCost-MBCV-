@@ -11,7 +11,7 @@ import CandidateClassModel = require('../../dataaccess/model/candidate-class.mod
 export class CandidateSearchEngine extends SearchEngine {
   candidate_q_cards: CandidateCard[] = new Array(0);
 
-  getMatchingObjects(criteria: any, callback: (error: any, response: any) => void): any {
+  getMatchingObjects(criteria: any, callback: (error: any, response: any[]) => void): any {
     let candidateRepository: CandidateRepository = new CandidateRepository();
     candidateRepository.retrieveAndPopulate(criteria, {}, (err, res) => {
       if (err) {
@@ -22,10 +22,10 @@ export class CandidateSearchEngine extends SearchEngine {
     });
   }
 
-  buildQCards(objects: any[], jobDetails: BaseDetail, sortBy: ESort): any {
+  buildQCards(objects: any[], jobDetails: JobDetail, sortBy: ESort): any {
     for (let obj of objects) {
       let candidate_q_card: CandidateCard;
-      if (!this.setMustHaveMatrix(jobDetails.capability_matrix, obj.capability_matrix)) {
+      if (!this.setMustHaveMatrix(jobDetails.capability_matrix, obj.capability_matrix, jobDetails.complexity_must_have_matrix)) {
         continue;
       } else {
         candidate_q_card = <CandidateCard> this.computePercentage(obj.capability_matrix, jobDetails.capability_matrix);
@@ -41,31 +41,24 @@ export class CandidateSearchEngine extends SearchEngine {
       }
     }
     if (sortBy === ESort.BEST_MATCH) {
-      this.candidate_q_cards.sort((first: CandidateCard, second: CandidateCard): number => {
-        if ((first.above_one_step_matching + first.exact_matching) > (second.above_one_step_matching + second.exact_matching)) {
-          return -1;
-        }
-        if ((first.above_one_step_matching + first.exact_matching) < (second.above_one_step_matching + second.exact_matching)) {
-          return 1;
-        }
-        return 0;
-      });
+     this.candidate_q_cards = <CandidateCard[]>this.getSortedObjectsByMatchingPercentage(this.candidate_q_cards);
     }
     return this.candidate_q_cards.slice(0, 100);
   }
+
 
   setMustHaveMatrix(jobProfile_capability_matrix: any, candidate_capability_matrix: any, complexity_musthave_matrix: any) {
     let isNotSatisfy: boolean = false;
     for (let cap in jobProfile_capability_matrix) {
       if (complexity_musthave_matrix[cap]) {
         if (jobProfile_capability_matrix[cap] !== candidate_capability_matrix[cap] &&
-          jobProfile_capability_matrix[cap] !== (Number(candidate_capability_matrix[cap].toString())) {
+          jobProfile_capability_matrix[cap] !== (Number(candidate_capability_matrix[cap].toString()))) {
           isNotSatisfy = true;
           break;
         }
       }
     }
-    return !isNotSatify;
+    return !isNotSatisfy;
   }
 
   buildUserCriteria(filter: AppliedFilter, criteria: any): any {
@@ -99,7 +92,12 @@ export class CandidateSearchEngine extends SearchEngine {
         $lte: Number(filter.maxExperience)
       };
     }
-    switch (filter.sortBy) {
+    return this.getSortedCriteria(filter.sortBy, criteria);
+  }
+
+  getSortedCriteria(sortBy : ESort, criteria : any) : Object {
+    let mainQuery: any;
+    switch (sortBy) {
       case ESort.SALARY:
         mainQuery = {'$query': criteria, '$orderby': {'professionalDetails.currentSalary': -1}};
         break;
@@ -115,6 +113,7 @@ export class CandidateSearchEngine extends SearchEngine {
     }
     return mainQuery;
   }
+
 
   buildBusinessCriteria(details: JobDetail): any {
     let criteria: any = {

@@ -100,11 +100,10 @@ class SearchService {
       'isJobPosted':true,
       'isJobPostClosed': false
     };
-    this.jobProfileRepository.getCount(data,excluded_fields, (err: Error, jobs : number) => {
+    this.jobProfileRepository.getCount(data, (err: Error, jobs : number) => {
       if (err) {
         callback(err, null);
       } else {
-        console.log(res);
         callback(null,jobs);
       }
     });

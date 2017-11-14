@@ -6,6 +6,7 @@ import RecruiterClassModel = require('../../dataaccess/model/recruiterClass.mode
 import JobProfileModel = require('../../dataaccess/model/jobprofile.model');
 import {EList} from '../models/input-model/list-enum';
 import * as mongoose from 'mongoose';
+import {ConstVariables} from "../../shared/sharedconstants";
 
 export class JobSearchService extends SearchService {
   candidateRepository : CandidateRepository;
@@ -23,44 +24,33 @@ export class JobSearchService extends SearchService {
       let canDetail = new CandidateDetail();
       canDetail.industryName= response.industry.name;
       canDetail.capability_matrix = response.capability_matrix;
+      canDetail.job_list = response.job_list;
       callback(null,canDetail);
     });
    }
 
-   getJobsByCriteria (recruiters : RecruiterClassModel[], candidateDetail : CandidateDetail) : any {
-  /*  let  jobProfiles : JobProfileModel[] = new Array(0);
-    for(let recruiter of recruiters){
-          for(let job of recruiter.postedJobs){
-            let isRelevantIndustryMatch = false;
-            if (job.releventIndustries.indexOf(candidateDetail.industryName) !== -1) {
-              isRelevantIndustryMatch = true;
-            }
-            if ( !job.isJobPosted || job.isJobPostClosed
-              || (candidateDetail.industryName !== job.industry.name && !isRelevantIndustryMatch)
-              || job.isJobPostExpired
-              || (job.expiringDate < new Date())) {
-              continue;
-            }
-            let isPresent : boolean = false;
-            for (let industry of candidateDetail.interestedIndustries) {
-              if (job.interestedIndustries.indexOf(industry) !== -1) {
-                isPresent = true;
-              }
-            }
-            if (candidateDetail.interestedIndustries.indexOf('None') !== -1) {
-              isPresent = true;
-              break;
-            }
-            if(!isPresent) {
-              continue;
-            }
-            jobProfiles.push(job);
-          }
-        }*/
-   }
 
-  getIdsByList(candidateDetails: CandidateDetail, listName : EList) : mongoose.Types.ObjectId [] {
-    return [];
+  getObjectIdsByList(candidateDetails: CandidateDetail, listName : EList) : mongoose.Types.ObjectId [] {
+    let list : string;
+    switch (listName) {
+      case EList.JOB_APPLIED :
+        list = ConstVariables.APPLIED_CANDIDATE;
+        break;
+      case EList.JOB_NOT_INTERESTED :
+        list = ConstVariables.BLOCKED_CANDIDATE;
+        break;
+    }
+    let send_ids : mongoose.Types.ObjectId[];
+    send_ids  = new Array(0);
+    for(let obj of candidateDetails.job_list) {
+      if (list === obj.name) {
+        for(let id of obj.ids) {
+          send_ids.push(mongoose.Types.ObjectId(id));
+        }
+        break;
+      }
+    }
+    return send_ids;
   }
 
 

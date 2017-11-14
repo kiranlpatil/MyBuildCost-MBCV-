@@ -12,6 +12,7 @@ import CandidateInfoSearch = require('../dataaccess/model/candidate-info-search'
 import CandidateModel = require('../dataaccess/model/candidate.model');
 import UserService = require('../services/user.service');
 import CandidateSearchService = require('../services/candidate-search.service');
+import IJobProfile = require("../dataaccess/mongoose/job-profile");
 
 
 export function create(req: express.Request, res: express.Response, next: any) {
@@ -153,7 +154,7 @@ export function updateDetails(req: express.Request, res: express.Response, next:
 export function retrieve(req: express.Request, res: express.Response, next: any) {
   try {
     let recruiterService = new RecruiterService();
-    recruiterService.getJobsByRecruiterIdAndItsCount(req.params.id, (error: any, result: Recruiter[]) => {
+    recruiterService.getJobsByRecruiterIdAndItsCount(req.params.id, (error: any, result: any) => {
       if (error) {
         next({
           reason: CNextMessages.PROBLEM_IN_RETRIEVE_JOB_PROFILE,
@@ -162,11 +163,11 @@ export function retrieve(req: express.Request, res: express.Response, next: any)
           code: 401
         });
       } else {
-        if (result[0]) {
+        if (result) {
           res.status(200).send({
             'status': Messages.STATUS_SUCCESS,
             'data': result,
-            'jobCountModel': result[0].jobCountModel
+            'jobCountModel': result.jobCountModel
           });
         } else { //todo reviewed by Rahul and then remove this todo
           res.status(500).send({

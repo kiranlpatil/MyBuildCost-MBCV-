@@ -1,5 +1,5 @@
 import { QCard } from './q-card';
-import CandidateListModel = require('../../../dataaccess/model/candidate-list.model');
+import { CandidateListModel } from '../../../dataaccess/model/candidate-list.model';
 
 export class JobCard extends QCard {
   company_name: string;

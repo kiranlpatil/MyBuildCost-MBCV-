@@ -1,61 +1,67 @@
 import { SearchEngine } from './search.engine';
 import { AppliedFilter } from '../models/input-model/applied-filter';
 import { BaseDetail } from '../models/output-model/base-detail';
-import { EList } from '../models/input-model/list-enum';
 import { ESort } from '../models/input-model/sort-enum';
 import RecruiterRepository = require('../../dataaccess/repository/recruiter.repository');
 import { JobCard } from '../models/output-model/job-card';
 import RecruiterClassModel = require('../../dataaccess/model/recruiterClass.model');
 import { CandidateDetail } from '../models/output-model/candidate-detail';
 import JobProfileModel = require('../../dataaccess/model/jobprofile.model');
+import JobProfileRepository = require('../../dataaccess/repository/job-profile.repository');
+import IJobProfile = require('../../dataaccess/mongoose/job-profile');
 export class JobSearchEngine extends SearchEngine {
   job_q_cards : JobCard[] = new Array(0);
+
   buildBusinessCriteria(details : BaseDetail): any {
-    let criteria = {
-     // 'postedJobs.industry.name': details.industryName,
-      //'postedJobs.expiringDate': {$gte: currentDate}
+    let today = new Date();
+    if (details.interestedIndustries && details.interestedIndustries.indexOf('None')) {
+      details.interestedIndustries.push('None');
+    }
+    let criteria: any = {
+      $or:[ {'industry.name': details.industryName},{'releventIndustries': { $in : [details.industryName] }}],
+      'isJobPosted' : true,
+      'isJobPostClosed': false,
+      'isJobPostExpired' : false,
+      'expiringDate': {$gte: today},
+      'interestedIndustries': {$in: details.interestedIndustries}
     };
     return criteria;
   }
 
   buildUserCriteria(filter : AppliedFilter, criteria : any) : any {
-   /* if (filter.location !== undefined && filter.location !== '') {
-      criteria.$or = [{'postedJobs.location.city': filter.location}];
+    if (filter.location !== undefined && filter.location !== '') {
+      criteria['location.city'] =  filter.location;
     }
     if (filter.education && filter.education.length > 0) {
-      criteria['postedJobs.education'] = {$in: filter.education};
+      criteria['education'] = {$in: filter.education};
     }
     if (filter.proficiencies && filter.proficiencies.length > 0) {
-      criteria['postedJobs.proficiencies'] = {$in: filter.proficiencies};
+      criteria['proficiencies'] = {$in: filter.proficiencies};
     }
     if (filter.interestedIndustries && filter.interestedIndustries.length > 0) {
-      criteria['postedJobs.interestedIndustries'] = {$in: filter.interestedIndustries};
+      criteria['interestedIndustries'] = {$in: filter.interestedIndustries};
     }
     if (filter.joinTime !== undefined && filter.joinTime !== '') {
-      criteria['postedJobs.joiningPeriod'] = filter.joinTime;
+      criteria['joiningPeriod'] = filter.joinTime;
     }
-/!*
-    if (filter.minSalary !== undefined && filter.minSalary !== '' &&
+    /*if (filter.minSalary !== undefined && filter.minSalary !== '' &&
       filter.maxSalary !== undefined && filter.maxSalary !== '') {
-      criteria['postedJobs.currentSalary'] = {
-        $gte: Number(filter.minSalary),
+      criteria['salaryMaxValue'] = {
         $lte: Number(filter.maxSalary)
       };
     }
     if (filter.minExperience !== undefined && filter.minExperience !== '' &&
       filter.maxExperience !== undefined && filter.maxExperience !== '') {
-      criteria['postedJobs.experienceMinValue'] = {
+      criteria['experienceMinValue'] = {
         $gte: Number(filter.minExperience),
-        $lte: Number(filter.maxExperience)
       };
-    }
-*!/*/
-    return criteria;
+    }*/
+    return this.getSortedCriteria(filter.sortBy, criteria);
   }
 
-  getMatchingObjects(criteria : any, callback : (error : any, response : any) => void) : void {
-      let recruiterRepository : RecruiterRepository = new RecruiterRepository();
-      recruiterRepository.retrieveWithLean(criteria, {}, (err, res) => {
+  getMatchingObjects(criteria : any, callback : (error : any, response : any[]) => void) : void {
+    let jobProfileRepository : JobProfileRepository = new JobProfileRepository();
+    jobProfileRepository.retrieveWithLean(criteria, {}, (err : Error, res: any[]) => {
         if (err) {
           callback(err, null);
         } else {
@@ -78,44 +84,29 @@ export class JobSearchEngine extends SearchEngine {
         this.createQCard(job_q_card,job);
       }
     }
-    switch (sortBy) {
-
-      case ESort.EXPERIENCE :
-        this.job_q_cards.sort((first: JobCard, second : JobCard):number=> {
-          if(first.experienceMinValue >second.experienceMinValue ) {
-            return -1;
-          }
-          if(first.experienceMinValue < second.experienceMinValue ) {
-            return 1;
-          }
-          return 0;
-        });
-        break;
-      case ESort.SALARY :
-        this.job_q_cards.sort((first: JobCard, second : JobCard):number=> {
-          if(first.salaryMaxValue >second.salaryMaxValue ) {
-            return -1;
-          }
-          if(first.salaryMaxValue < second.salaryMaxValue ) {
-            return 1;
-          }
-          return 0;
-        });
-        break;
-      case ESort.BEST_MATCH :
-        this.job_q_cards.sort((first: JobCard, second : JobCard):number=> {
-          if((first.above_one_step_matching+first.exact_matching) >(second.above_one_step_matching+second.exact_matching) ) {
-            return -1;
-          }
-          if((first.above_one_step_matching+first.exact_matching) < (second.above_one_step_matching+second.exact_matching) ) {
-            return 1;
-          }
-          return 0;
-        });
-        break;
-
+    if (sortBy === ESort.BEST_MATCH) {
+      this.job_q_cards = <JobCard[]>this.getSortedObjectsByMatchingPercentage(this.job_q_cards);
     }
     return this.job_q_cards.slice(0,100);
+  }
+
+  getSortedCriteria(sortBy : ESort, criteria : any) : Object {
+    let mainQuery: any;
+    switch (sortBy) {
+      case ESort.SALARY:
+        mainQuery = {'$query': criteria, '$orderby': {'salaryMaxValue': -1}};
+        break;
+      case ESort.EXPERIENCE:
+        mainQuery = {'$query': criteria, '$orderby': {'experienceMinValue': -1}};
+        break;
+      case ESort.BEST_MATCH :
+        mainQuery = criteria;
+        break;
+      default :
+        mainQuery = criteria;
+        break;
+    }
+    return mainQuery;
   }
 
   createQCard(job_q_card : JobCard, job : any): any {

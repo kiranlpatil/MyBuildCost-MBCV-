@@ -8,7 +8,6 @@ export class AppliedFilter {
   proficiencies: string[] = new Array(0);
   interestedIndustries: string[]= new Array();
   education: string[] = new Array(0);
-  //industry: string[] = new Array(0);
   joinTime: string;
   location: string;
   companySize: string;

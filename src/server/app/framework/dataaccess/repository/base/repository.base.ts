@@ -50,6 +50,10 @@ class RepositoryBase<T extends mongoose.Document> implements IRead<T>, IWrite<T>
     this._model.update({_id: _id}, item, callback);
   }
 
+  updateWithQuery(query: any, item: T, callback: (error: any, result: any) => void) {
+    this._model.update(query, item, callback);
+  }
+
 //TODO:CODE MOVE TO CANDIDATE REPOSITEORY
   updateByUserId(_id: mongoose.Types.ObjectId, item: T, callback: (error: any, result: any) => void) {
     this._model.update({'userId': _id}, item, callback);
@@ -111,9 +115,6 @@ class RepositoryBase<T extends mongoose.Document> implements IRead<T>, IWrite<T>
       callback(err, items);
     });
   }
-  findOneAndUpdate(){
-
-  }
 
   findOneAndUpdate(query: any, newData: any, options: any, callback: (err: any, result: any) => void) {
     this._model.findOneAndUpdate(query, newData, options, function (err, result) {
@@ -149,7 +150,7 @@ class RepositoryBase<T extends mongoose.Document> implements IRead<T>, IWrite<T>
     });
   }
 
-  getCount(query: any, callback: (error: any, result: any) => void) {
+  getCount(query: any,  callback: (error: any, result: any) => void) {
     this._model.find(query).count().lean().exec(function (err, items) {
       callback(err, items);
     });
