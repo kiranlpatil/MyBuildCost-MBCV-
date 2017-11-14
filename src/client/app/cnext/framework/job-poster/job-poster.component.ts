@@ -66,7 +66,7 @@ export class JobPosterComponent implements OnInit, OnChanges {
   private isComplexityFilled: boolean = true;
   private isPresentDefaultcomplexity: boolean = false;
   private flag: boolean = true;
-  isRecruitingForSelf: boolean=true;
+  isRecruitingForSelf: boolean= (LocalStorageService.getLocalValue(LocalStorage.IS_RECRUITING_FOR_SELF) == 'true');
   highlightedSection: Section = new Section();
   private selectedJobTitle:string;
   private selectedJobId:string;
@@ -267,7 +267,7 @@ export class JobPosterComponent implements OnInit, OnChanges {
           this.messageService.message(new Message(Messages.MSG_SUCCESS_FOR_HIRING_MANAGER_JOB_CREATION_STATUS));
           window.localStorage.clear();
           setTimeout(() => {
-            let host = AppSettings.HTTP_CLIENT + window.location.hostname;
+            let host = AppSettings.HTTP_CLIENT + AppSettings.HOST_NAME;
             window.location.href = host;
             }, 5002);
         },

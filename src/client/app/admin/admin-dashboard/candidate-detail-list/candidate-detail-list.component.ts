@@ -1,7 +1,7 @@
 import {Component, OnInit} from "@angular/core";
 import {AdminDashboardService} from "../admin-dashboard.service";
 import {Router} from "@angular/router";
-import {Messages, Label} from "../../../shared/constants";
+import {Messages, Label, AppSettings} from "../../../shared/constants";
 import {Message} from "../../../shared/models/message";
 import {MessageService} from "../../../shared/services/message.service";
 import {LoaderService} from "../../../shared/loader/loaders.service";
@@ -64,12 +64,12 @@ export class CandidateDetailListComponent implements OnInit {
       .subscribe(
         CandidateDetails => {
           this.loaderService.stop();
-          this.candidateCSV = CandidateDetails.candidatesFilePath;
-          this.candidateOtherDetailsCSV = CandidateDetails.candidatesOtherDetailsFilePath;
-          this.usersCSV = CandidateDetails.usersFilePath;
-          document.getElementById('link_candidate').click();
-          document.getElementById('link_candidate1').click();
-          document.getElementById('link_candidate2').click();
+          this.candidateCSV = CandidateDetails.path.candidatesFilePath;
+          this.candidateOtherDetailsCSV = CandidateDetails.path.candidatesOtherDetailsFilePath;
+          this.usersCSV = CandidateDetails.path.usersFilePath;
+          window.open( AppSettings.IP + this.candidateCSV,'_blank');
+          window.open(AppSettings.IP + this.candidateOtherDetailsCSV,'_blank');
+          window.open(AppSettings.IP + this.usersCSV,'_blank');
           this.messageService.message(new Message(Messages.MSG_SUCCESS_FOR_FILE_DOWNLOAD));
         },
         error => {

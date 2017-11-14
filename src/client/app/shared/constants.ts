@@ -6,7 +6,7 @@ export class AppSettings {
  // public static IP = 'https://34.215.90.153:3000';
   // public static IP = 'app.jobmosis.com';
   // public static IP = '';
-
+  public static HOST_NAME = 'localhost:8080';
 
   public static get API_ENDPOINT(): string {
     return this.IP + '/api/';
@@ -328,6 +328,11 @@ export class Messages {
   'Click below to Preview';
   public static PLEASE_COMPLETE_THE_PROFILE_MSG = 'Please complete the profile before sharing';
   public static JOBS_AVALLABLE_MESSAGE = 'Jobs are available in your industry.';
+  public static NOT_FOUND_INFORMATION = 'The page you are looking for doesn\t exist<br/>' +
+    'or an other error accoured.';
+  public static PAGE_NOT_FOUND = 'Page Not Found';
+
+
 }
 export class AdminPanel {
   public static PUBLIC_PROFILE='Profile is public';
@@ -336,22 +341,22 @@ export class AdminPanel {
 
 export class NavigationRoutes {
   public static APP_REGISTRATION: string = '/registration';
-  public static APP_FORGOTPASSWORD: string = '/forgotpassword';
+  public static APP_FORGOTPASSWORD: string = '/forgot-password';
   public static APP_DASHBOARD: string = '/dashboard';
   public static APP_CANDIDATE_DASHBOARD: string = '/candidate';
   public static APP_ADMIN_DASHBOARD: string = '/admin';
   public static APP_RECRUITER_DASHBOARD: string = '/recruiter';
   public static APP_LOGIN: string = '/signin';
   public static APP_START: string = '/';
-  public static APP_LANDING: string = '/landing';
-  public static VERIFY_USER: string = '/verify_user';
+  public static APP_LANDING: string = '/signin';
+  public static VERIFY_USER: string = '/verify-user';
   public static ACTIVATE_USER: string = '/activate_user';
-  public static VERIFY_PHONE: string = '/verify_phone';
-  public static APP_CHANGEEMAIL: string = '/change_email';
+  public static VERIFY_PHONE: string = '/verify-phone';
+  public static APP_CHANGEEMAIL: string = '/change-email';
   public static APP_CREATEPROFILE: string = '/candidate/profile';
   public static APP_PROFILESUMMURY: string = '/profile_summary';
   public static APP_JOB_SUMMURY: string = '/job_summary';
-  public static APP_COMPANYDETAILS: string = '/company_details';
+  public static APP_COMPANYDETAILS: string = '/company-details';
   public static APP_VLAUEPORTRAIT: string = '/value-portrait';
 }
 
@@ -371,6 +376,7 @@ export class LocalStorage {
   public static MOBILE_NUMBER = 'mobile_number';
   public static VERIFIED_MOBILE_NUMBER = 'verified_mobile_number';
   public static COMPANY_NAME = 'company_name';
+  public static IS_RECRUITING_FOR_SELF = 'is_recruiting_for_self';
   public static COMPANY_SIZE = 'company_size';
   public static FIRST_NAME = 'first_name';
   public static LAST_NAME = 'last_name';
@@ -717,6 +723,11 @@ export class Label {
   public static PROFILE_VISIBILITY: string = 'Profile Visibility for Recruiter';
   public static SUBMIT_PROFILE: string = 'Submit Your Profile';
   public static MORE: string = 'More';
+  public static CURRENT_ANNUAL_SALARY: string = 'Current Annual Salary';
+  public static READY_TO_RELOCATE: string = 'Ready To Relocate?';
+  public static COMPANY_CULTURE: string = 'Company Culture';
+  public static NOTICE_PERIOD: string = 'Notice Period';
+  public static NOT_FOUND_ERROR: string = '404';
 }
 
 export class Button {
@@ -732,6 +743,7 @@ export class Button {
   public static NEXT: string = 'Next';
   public static SUBMIT: string = 'Submit';
   public static DOWNLOAD: string = 'Download';
+  public static BACK_TO_HOME: string = 'Back to home';
 }
 //These constant is used to track profile completion of candiate.(Having total 14 steps to complete)
 export enum CandidateProfileUpdateTrack {
