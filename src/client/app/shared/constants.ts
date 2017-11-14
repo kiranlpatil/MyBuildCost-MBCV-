@@ -331,6 +331,9 @@ export class Messages {
   public static NOT_FOUND_INFORMATION = 'The page you are looking for doesn\t exist<br/>' +
     'or an other error accoured.';
   public static PAGE_NOT_FOUND = 'Page Not Found';
+  public static MATCH_AGAINST_ALL_JOB = 'Match Against All Jobs';
+  public static MATCH_AGAINST_THIS_JOB = 'Match Against This Job';
+  public static SHOW_VALUE_PORTRAIT = 'Show Value Portrait';
 
 
 }
