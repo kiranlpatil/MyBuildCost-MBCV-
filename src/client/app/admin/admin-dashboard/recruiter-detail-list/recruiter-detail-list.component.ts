@@ -6,6 +6,7 @@ import {LoaderService} from "../../../shared/loader/loaders.service";
 import {MessageService} from "../../../shared/services/message.service";
 import {Message} from "../../../shared/models/message";
 import {Label, Messages} from "../../../shared/constants";
+import {JobPosterModel} from "../../../user/models/jobPoster";
 
 @Component({
   moduleId: module.id,
@@ -16,6 +17,7 @@ import {Label, Messages} from "../../../shared/constants";
 
 export class RecruiterDetailListComponent {
   @Input() recruiters:any[]=new Array(0);
+  @Input() jobs: string[] = new Array(0);
   private successMessage:string;
   recruitersCSV: string = '';
   recruitersUsersCSV: string = '';

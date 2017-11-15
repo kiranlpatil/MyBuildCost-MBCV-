@@ -30,7 +30,7 @@
             <select formControlName="experienceMin" (change)="selectExperiencesMinModel($event.target.value)">
               <option value="" selected></option>
               <option value="{{itemList}}"
-                      *ngFor="let itemList of experienceRangeList | minrange:qCardFilter.experienceMaxValue">
+                      *ngFor="let itemList of experienceRangeList | minrange:qCardFilter.maxExperience">
                 {{itemList}}
               </option>
             </select>
@@ -40,7 +40,7 @@
             <select formControlName="experienceMax" (change)="selectExperiencesMaxModel($event.target.value)">
               <option value="" selected></option>
               <option value="{{itemList}}"
-                      *ngFor="let itemList of experienceRangeList | maxrange:qCardFilter.experienceMinValue">
+                      *ngFor="let itemList of experienceRangeList | maxrange:qCardFilter.minExperience">
                 {{itemList}}
               </option>
             </select>

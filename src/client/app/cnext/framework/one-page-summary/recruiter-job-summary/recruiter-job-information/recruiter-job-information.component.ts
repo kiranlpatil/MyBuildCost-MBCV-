@@ -1,6 +1,7 @@
 import {Component, Input} from "@angular/core";
 import {JobSummary} from "../../../model/jobSummary";
 import {AppSettings, ImagePath} from "../../../../../shared/constants";
+import {JobPosterModel} from "../../../../../user/models/jobPoster";
 
 @Component({
   moduleId: module.id,
@@ -10,7 +11,8 @@ import {AppSettings, ImagePath} from "../../../../../shared/constants";
 })
 
 export class RecruiterJobInformation {
-  @Input() recruiter: JobSummary = new JobSummary();
+  @Input() recruiter: JobSummary = new JobSummary(); // todo Get this API For recruiter information -- Abhijeet
+  job: JobPosterModel; // todo integrate with @input -- Abhijeet
   private image_path: string = ImagePath.PROFILE_IMG_ICON;
 
   ngOnChanges(changes: any) {

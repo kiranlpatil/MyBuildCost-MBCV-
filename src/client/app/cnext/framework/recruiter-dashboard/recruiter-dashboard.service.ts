@@ -15,8 +15,16 @@ export class RecruiterDashboardService extends BaseService {
   getJobList(): Observable<any> {
     let headers = new Headers({'Content-Type': 'application/json'});
     let options = new RequestOptions({headers: headers});
-    let url: string = API.JOB_LIST + '/' + LocalStorageService.getLocalValue(LocalStorage.USER_ID);
+    let url: string = API.JOB_LIST + '/' + LocalStorageService.getLocalValue(LocalStorage.END_USER_ID);
     return this.http.get(url, options)
+      .map(this.extractData)
+      .catch(this.handleError);
+  }
+
+  getJobsByRecruiterId(): Observable<any> {
+    // let recruiterId: string;
+    var url = API.JOB_LIST + '/' + LocalStorageService.getLocalValue(LocalStorage.END_USER_ID) + '/jobs';
+    return this.http.get(url)
       .map(this.extractData)
       .catch(this.handleError);
   }

@@ -113,8 +113,8 @@ export class JobPosterComponent implements OnInit, OnChanges {
     this.recruiterDashboardService.getPostedJobDetails(this.jobId)
       .subscribe(
         data => {
-          this.isRecruitingForSelf=data.data.industry.isRecruitingForself;
-          this.jobPosterModel = data.data.industry.postedJobs[0];
+          this.isRecruitingForSelf=data.data.industry.isRecruitingForself; // todo solve it
+          this.jobPosterModel = data;
           if(this.jobPosterModel.complexity_musthave_matrix == undefined) {
             this.jobPosterModel.complexity_musthave_matrix = {};
           }
@@ -206,7 +206,7 @@ export class JobPosterComponent implements OnInit, OnChanges {
     this.jobPosterModel.expiringDate = new Date((new Date().getTime() + ValueConstant.JOB__EXPIRIY_PERIOD * 6));
     this.jobPostService.postJob(this.jobPosterModel).subscribe(
       data => {
-        this.onSuccess(data.data.postedJobs[0]);
+        this.onSuccess(data);
       }, error => this.errorService.onError(error));
   }
 
@@ -217,15 +217,15 @@ export class JobPosterComponent implements OnInit, OnChanges {
     this.jobPosterModel.isJobPostExpired = false;
     this.jobPostService.postJob(this.jobPosterModel).subscribe(
       data => {
-        this.jobPosterModel._id = data.data.postedJobs[0]._id;
-        this.jobId=data.data.postedJobs[0]._id;
+        this.jobPosterModel._id = data._id;
+        this.jobId=data._id;
         LocalStorageService.setLocalValue(LocalStorage.POSTED_JOB, this.jobPosterModel._id);
         if (this.setCapabilityMatrix) {
-          this.jobPosterModel.capability_matrix = data.data.postedJobs[0].capability_matrix;
+          this.jobPosterModel.capability_matrix = data.capability_matrix;
           this.setCapabilityMatrix = false;
         }
         if (this.setComplexityMustHaveMatrix) {
-          this.jobPosterModel.complexity_musthave_matrix = data.data.postedJobs[0].complexity_musthave_matrix;
+          this.jobPosterModel.complexity_musthave_matrix = data.complexity_musthave_matrix;
           this.setComplexityMustHaveMatrix = false;
         }
         this._router.navigate(['/recruiter/jobpost', this.jobPosterModel._id]);

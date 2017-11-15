@@ -4,6 +4,7 @@ import {ErrorService} from "../../shared/services/error.service";
 import {UserData} from "../models/userData";
 import {AdminDashboardService} from "./admin-dashboard.service";
 import {LoaderService} from "../../shared/loader/loaders.service";
+import {RecruiterDashboardService} from "../../cnext/framework/recruiter-dashboard/recruiter-dashboard.service";
 
 
 @Component({
@@ -16,13 +17,15 @@ import {LoaderService} from "../../shared/loader/loaders.service";
 export class AdminDashboardComponent implements OnInit{
   candidate: Candidate = new Candidate();
   userData: UserData = new UserData();
+  jobs: string[] = new Array(0);
   numberOfCandidates: number = 0;
   numberOfRecruiters: number = 0;
   public filterData: string[] = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q",
     "r", "s", "t", "u", "v", "w", "x", "y", "z"]
 
   constructor(private errorService: ErrorService, private loaderService: LoaderService,
-              private adminDashboardService: AdminDashboardService,) {
+              private adminDashboardService: AdminDashboardService,
+              private recruiterDashboardService: RecruiterDashboardService) {
 
   }
 
@@ -32,6 +35,7 @@ export class AdminDashboardComponent implements OnInit{
     this.getAllCandidates();
     this.getAllRecruiters();
     this.getCountOfAllUsers();
+    this.getJobsByRecruiterId();
   }
 
   getAllCandidates() {
@@ -52,6 +56,13 @@ export class AdminDashboardComponent implements OnInit{
     this.adminDashboardService.getAllRecruiters("a")
       .subscribe(
         recruiterProfile => this.onGetAllRecruiterSuccess(recruiterProfile),
+        error => this.errorService.onError(error));
+  }
+
+  getJobsByRecruiterId() {
+    this.recruiterDashboardService.getJobsByRecruiterId()
+      .subscribe(
+        data => this.jobs = data,
         error => this.errorService.onError(error));
   }
 

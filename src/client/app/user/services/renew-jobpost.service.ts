@@ -48,7 +48,7 @@ export class RenewJobPostService {
   updateJob() {
     this.jobPostService.postJob(this.selectedJobProfile).subscribe(
       data => {
-        this.selectedJobProfile = data.data.postedJobs[0];
+        this.selectedJobProfile = data;
         this.messageService.message(new Message('You have successfully renewed ' + this.selectedJobProfile.jobTitle + 'Job by '+ '30 days'));
       }, error => this.errorService.onError(error));
     this.usageTrackingService.addUsesTrackingData(UsageActions.RENEWED_JOB_POST_BY_RECRUITER,

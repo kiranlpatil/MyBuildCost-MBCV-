@@ -1,5 +1,7 @@
 <div *ngIf="recruiterDashboard">
-  <cn-recruiter-header [headerInfo]="recruiterHeaderDetails" [jobCount]="recruiterDashboard.postedJobs.length"
+  <!--<cn-recruiter-header [headerInfo]="recruiterHeaderDetails" [jobCount]="recruiterDashboard.postedJobs.length"
+                       [companyName]="recruiterDashboard.company_name"></cn-recruiter-header>-->
+  <cn-recruiter-header [headerInfo]="recruiterHeaderDetails" [jobCount]="jobs.length"
                        [companyName]="recruiterDashboard.company_name"></cn-recruiter-header>
 </div>
 <div *ngIf="!recruiterDashboard">

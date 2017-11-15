@@ -10,6 +10,7 @@ import {AppSettings, Headings, ImagePath, LocalStorage, Messages} from "../../..
 import {GuidedTourService} from "../../guided-tour.service";
 import {LocalStorageService} from "../../../../shared/services/localstorage.service";
 import {ErrorService} from "../../../../shared/services/error.service";
+import {JobPosterModel} from "../../../../user/models/jobPoster";
 
 @Component({
   moduleId: module.id,
@@ -31,7 +32,8 @@ export class JobCompareViewComponent implements OnChanges,OnInit {
   @Output() close : EventEmitter<boolean> = new EventEmitter();
   private recruiterId: string;
   data: any;
-  recruiter : Recruiter;
+  recruiter : Recruiter;//TODO remove this
+  job : JobPosterModel;
   private secondaryCapabilities: string[] = new Array(0);
   private guidedTourImgOverlayScreensStackViewPath:string;
   guidedTourImgOverlayScreensStackView:string;
@@ -58,7 +60,7 @@ export class JobCompareViewComponent implements OnChanges,OnInit {
       this.recruiterDashboardService.getPostedJobDetails(this.jobId)
         .subscribe(
           data => {
-            this.OnRecruiterDataSuccess(data.data.industry);
+            this.OnRecruiterDataSuccess(data);
           },error => this.errorService.onError(error));
     }
   }
@@ -90,7 +92,7 @@ export class JobCompareViewComponent implements OnChanges,OnInit {
   }
 
   OnRecruiterDataSuccess(data: any) {
-    this.recruiter = data;
+    this.job = data;
   }
 
   getCandidateProfile(candidateId: string) {

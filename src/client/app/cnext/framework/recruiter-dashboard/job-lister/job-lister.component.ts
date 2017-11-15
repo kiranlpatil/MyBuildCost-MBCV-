@@ -13,6 +13,7 @@ import {Message} from "../../../../shared/models/message";
 import {MessageService} from "../../../../shared/services/message.service";
 import {RecruiterDashboardService} from "../recruiter-dashboard.service";
 import {ErrorService} from "../../../../shared/services/error.service";
+import {JobPosterModel} from "../../../../user/models/jobPoster";
 
 
 @Component({
@@ -27,6 +28,7 @@ export class JobListerComponent implements  OnInit, OnDestroy {
   headerInfoForJob: RecruiterHeaderDetails;
   screenType:string;
   recruiter: RecruiterDashboard;
+  job: JobPosterModel;
 //  @Input() showClosedJobs: boolean;
   @Output() jobPostEventEmitter: EventEmitter<string> = new EventEmitter();
   @Output() jobListCloneSuccessEmitter: EventEmitter<boolean> = new EventEmitter();
@@ -48,6 +50,7 @@ export class JobListerComponent implements  OnInit, OnDestroy {
   private showClosedJobs: boolean = false;
 
   recruiterDashboard: RecruiterDashboard = new RecruiterDashboard();
+  jobs: JobPosterModel[] = new Array(0);
   private recruiterHeaderDetails: RecruiterHeaderDetails = new RecruiterHeaderDetails();
   private jobId: string;
 
@@ -65,22 +68,23 @@ export class JobListerComponent implements  OnInit, OnDestroy {
     this.recruiterDashboardService.getJobList()
       .subscribe(
         (data: any) => {
-          this.recruiterDashboard = <RecruiterDashboard>data.data[0];
+          this.recruiterDashboard = <RecruiterDashboard>data.data[0]; //todo remove this if not necessary --abhijeet
+          this.jobs = data;
           this.recruiterHeaderDetails = <RecruiterHeaderDetails>data.jobCountModel;
-          for(let postedJob of this.recruiterDashboard.postedJobs) {
+          for(let postedJob of this.jobs) {
             let currentDate = Number(new Date());
             let expiringDate = Number(new Date(postedJob.expiringDate));
             let daysRemainingForExpiring = Math.round(Number(new Date(expiringDate - currentDate))/(1000*60*60*24));
             postedJob.daysRemainingForExpiring = daysRemainingForExpiring;
           }
-          if(this.recruiterDashboard !== undefined && this.recruiterDashboard.postedJobs !== undefined && this.recruiterDashboard.postedJobs.length>0) {
+          if(this.recruiterDashboard !== undefined && this.jobs !== undefined && this.jobs.length>0) {
             this.screenType='jobList';
           } else {
             this.screenType='welcomescreen';
           }
 
           this.headerInfoForJob = this.recruiterHeaderDetails;
-          this.jobListInput = this.recruiterDashboard.postedJobs;
+          this.jobListInput = this.jobs;
           this.recruiter = this.recruiterDashboard;
         },error => this.errorService.onError(error));
   }

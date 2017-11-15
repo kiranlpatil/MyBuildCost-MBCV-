@@ -94,10 +94,10 @@ export class JobDashboardComponent implements OnInit {
       .subscribe(
         (data: any) => {
           this.isRecruitingForSelf = data.data.industry.isRecruitingForself;
-          this.selectedJobProfile = data.data.industry.postedJobs[0];
+          this.selectedJobProfile = data;
           this.recruiterId = data.data.industry._id;
           this.renewJobPostService.checkJobPostExpiryDate(this.selectedJobProfile);
-          for (let item of data.data.industry.postedJobs[0].candidate_list) {
+          for (let item of data.candidate_list) {
             if (item.name === ValueConstant.APPLIED_CANDIDATE)
               this.recruiterJobView.numberOfCandidatesApplied = item.ids.length;
             if (item.name === ValueConstant.CART_LISTED_CANDIDATE)

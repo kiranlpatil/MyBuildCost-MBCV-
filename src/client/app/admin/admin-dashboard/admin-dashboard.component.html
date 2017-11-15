@@ -14,7 +14,8 @@
       <cn-candidate-detail-list [candidates]="userData.candidate"></cn-candidate-detail-list>
     </div>
     <div id="recruiter-list-view" class="tab-pane fade clearfix">
-      <cn-recruiter-detail-list [recruiters]="userData.recruiter"></cn-recruiter-detail-list>
+      <cn-recruiter-detail-list [recruiters]="userData.recruiter"
+      [jobs]="jobs"></cn-recruiter-detail-list>
     </div>
     <div id="keyskills-list-view" class="tab-pane fade clearfix">
       <cn-key-skills-detail-list></cn-key-skills-detail-list>

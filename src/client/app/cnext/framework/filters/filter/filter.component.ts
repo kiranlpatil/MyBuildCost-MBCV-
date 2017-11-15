@@ -279,12 +279,12 @@ export class FilterComponent implements OnChanges, OnInit {
   selectExperiencesMaxModel(value: any) {
     if(value == ''){
       if (this.isRecuirter) {
-        this.queryListRemove('((Number(item.experience.split(" ")[0]) >= Number(args.experienceMinValue)) && ' +
-          '(Number(item.experience.split(" ")[0]) <= Number(args.experienceMaxValue)))');
+        this.queryListRemove('((Number(item.experience.split(" ")[0]) >= Number(args.minExperience)) && ' +
+          '(Number(item.experience.split(" ")[0]) <= Number(args.maxExperience)))');
       }else if(!this.isRecuirter) {
-        this.queryListRemove('((Number(args.experienceMinValue) <= Number(item.experienceMinValue)  && ' +
-          'Number(item.experienceMinValue) <= Number(args.experienceMaxValue)) || (Number(args.experienceMinValue) ' +
-          '<= Number(item.experienceMaxValue)  && Number(item.experienceMaxValue) <= Number(args.experienceMaxValue)))');
+        this.queryListRemove('((Number(args.minExperience) <= Number(item.minExperience)  && ' +
+          'Number(item.minExperience) <= Number(args.maxExperience)) || (Number(args.minExperience) ' +
+          '<= Number(item.maxExperience)  && Number(item.maxExperience) <= Number(args.maxExperience)))');
       }
       this.qCardFilter.maxExperience = Number(this.experienceRangeList[this.experienceRangeList.length -1]);
       return;
@@ -306,9 +306,9 @@ export class FilterComponent implements OnChanges, OnInit {
   experienceFilterBy() {
     if (Number(this.qCardFilter.minExperience) != undefined && Number(this.qCardFilter.maxExperience) != undefined) {
       if(this.isRecuirter === false) {
-        this.queryListPush('((Number(args.experienceMinValue) <= Number(item.experienceMinValue)  && ' +
-          'Number(item.experienceMinValue) <= Number(args.experienceMaxValue)) || (Number(args.experienceMinValue) ' +
-          '<= Number(item.experienceMaxValue)  && Number(item.experienceMaxValue) <= Number(args.experienceMaxValue)))');
+        this.queryListPush('((Number(args.minExperience) <= Number(item.minExperience)  && ' +
+          'Number(item.minExperience) <= Number(args.maxExperience)) || (Number(args.minExperience) ' +
+          '<= Number(item.maxExperience)  && Number(item.maxExperience) <= Number(args.maxExperience)))');
       }
       this.showClearFilter = true;
       this.buildQuery();

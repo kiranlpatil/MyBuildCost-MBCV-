@@ -17,6 +17,7 @@ import {ErrorService} from "../../../../shared/services/error.service";
 import {UsageTrackingService} from "../../usage-tracking.service";
 import {LocalStorageService} from "../../../../shared/services/localstorage.service";
 import {ESort} from "../../model/sort-type";
+import {JobPosterModel} from "../../../../user/models/jobPoster";
 /*import underline = Chalk.underline;*/
 
 
@@ -280,12 +281,14 @@ export class QCardviewComponent implements OnChanges {
     );
   }
 
-  updateCountModel(data: any) {
-    var _jobId = this.jobId;
-    var item = data.data.postedJobs.filter(function (item: any) {
+  updateCountModel(data: JobPosterModel) { //todo remove this unwanted code --abhijeet
+    //var _jobId = this.jobId;
+    let job = data;
+    /*var item = data.data.postedJobs.filter(function (item: any) {*/
+   /* var item = data.filter(function (item: any) {
       return (item._id === _jobId);
-    });
-    for (let candidateItem of item[0].candidate_list) {
+    });*/
+    for (let candidateItem of job.candidate_list) {
       if (candidateItem.name === ValueConstant.APPLIED_CANDIDATE) {
         this.recuirterListCountModel.numberOfCandidatesApplied = candidateItem.ids.length;
       }
