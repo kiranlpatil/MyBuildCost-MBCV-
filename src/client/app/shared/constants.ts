@@ -127,6 +127,7 @@ export class Messages {
   public static MSG_ERROR_VALIDATION_INVALID_DATA = 'Enter valid data.';
   public static MSG_ERROR_VALIDATION_PASSWORD_MISMATCHED = 'Passwords do not match.';
   public static MSG_ERROR_VALIDATION_BIRTHYEAR_REQUIRED = 'This field can\'t be left blank.';
+  public static MSG_ERROR_VALIDATION_BIRTHYEAR_INVALID = 'Enter valid birth-year';
   public static MSG_ERROR_VALIDATION_LOCATION_REQUIRED = 'This field can\'t be left blank.';
   public static MSG_ERROR_VALIDATION_INVALID_LOCATION = 'Enter valid location';
   public static MSG_ERROR_VALIDATION_HEADQUARTER_REQUIRED = 'This field can\'t be left blank.';
