@@ -846,6 +846,54 @@ class CandidateService {
     return candidateDetails;
   }
 
+
+  maskCandidateDetails(candidateUserId: string,recruiterUserId: string, callback: (error: any, result: any) => void) {
+    let candidateDetails :any;
+    console.log('recruiter user id = '+ recruiterUserId);
+    this.get(candidateUserId, (err, res ) => {
+      if(err) {
+        callback(err, null);
+      } else {
+        this.recruiterRepository.retrieve({'userId':recruiterUserId}, (err, recruiterDetails)=> {
+          if(err) {
+            callback(err, null);
+          } else {
+                  console.log('Recruiter Details from candidate service in maskCandidateDetails function = ', recruiterDetails[0]);
+            let isGotIt = true;
+            for (let job of recruiterDetails[0].postedJobs) {
+              for (let item of job.candidate_list) {
+                if (item.name === 'cartListed') {
+                  if (item.ids.indexOf(new mongoose.Types.ObjectId(res.candidateId).toString()) !== -1) {
+                    console.log('isGot it');
+                    isGotIt = false;
+                    break;
+                  }
+                }
+              }
+              if (!isGotIt) {
+                break;
+              }
+            }
+            if (isGotIt) {
+              console.log('isNotGotIt');
+              candidateDetails.personalDetails.last_name = UtilityFunction.valueHide(candidateDetails.personalDetails.last_name);
+              candidateDetails.personalDetails.email = UtilityFunction.emailValueHider(candidateDetails.personalDetails.email);
+              candidateDetails.personalDetails.mobile_number = UtilityFunction.mobileNumberHider(candidateDetails.personalDetails.mobile_number);
+
+            }
+            console.log('candidate service details = ',candidateDetails);
+            //return candidateDetails;
+            callback(err, candidateDetails);
+          }
+        });
+
+        //////////
+         candidateDetails = res;
+        console.log('Candidate Details from candidate service in maskCandidateDetails function = ', candidateDetails);
+      }
+    });
+  }
+
 }
 
 Object.seal(CandidateService);
