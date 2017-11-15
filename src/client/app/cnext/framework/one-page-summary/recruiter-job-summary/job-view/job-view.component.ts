@@ -40,7 +40,7 @@ export class JobViewComponent implements OnChanges ,OnInit {
       this.recruiterDashboardService.getPostedJobDetails(this.jobId)
         .subscribe(
           data => {
-            this.OnRecruiterDataSuccess(data);
+            this.OnRecruiterDataSuccess(data.result);
           },error => this.errorService.onError(error));
     }
     if (changes.calledFrom !== undefined && changes.calledFrom.currentValue !== undefined) {

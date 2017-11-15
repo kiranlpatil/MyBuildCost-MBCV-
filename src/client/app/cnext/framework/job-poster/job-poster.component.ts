@@ -116,7 +116,7 @@ export class JobPosterComponent implements OnInit, OnChanges {
       .subscribe(
         data => {
           //this.isRecruitingForSelf=data.data.industry.isRecruitingForself; // todo solve it
-          this.jobPosterModel = data;
+          this.jobPosterModel = data.result;
           if(this.jobPosterModel.complexity_musthave_matrix == undefined) {
             this.jobPosterModel.complexity_musthave_matrix = {};
           }

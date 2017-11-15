@@ -276,7 +276,7 @@ class JobProfileService {
                   }
                 };
                 let updateExistingQuery: any;
-                this.jobProfileRepository.findById(item.profileId, (err: Error, job : IJobProfile) => {
+                this.jobProfileRepository.findById(item.profileId, (err: any, job : any) => {
                   if (err) {
                     callback(new Error('Not Found Any Job posted'), null);
                   }else {

@@ -195,7 +195,7 @@ export class CandidateDashboardComponent implements OnInit{
       .subscribe(
         data => {
           this.loaderService.stop();
-          this.jobList = data;
+          this.jobList = data.result;
           console.log("Candidate matched job list", this.jobList);
           this.candidate.summary.numberOfmatched= this.jobList.length;
           this.extractList(this.jobList);
