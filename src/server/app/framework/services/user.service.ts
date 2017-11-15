@@ -3,7 +3,7 @@ import SendMailService = require('./sendmail.service');
 import SendMessageService = require('./sendmessage.service');
 import * as fs from "fs";
 import * as mongoose from "mongoose";
-var config = require('config');
+let config = require('config');
 let path = require('path');
 import Messages = require('../shared/messages');
 import AuthInterceptor = require('../../framework/interceptor/auth.interceptor');
@@ -62,7 +62,7 @@ class UserService {
 
         let query = {'_id': field._id};
         let otp = Math.floor((Math.random() * 99999) + 100000);
-        // var otp = Math.floor(Math.random() * (10000 - 1000) + 1000);
+        // let otp = Math.floor(Math.random() * (10000 - 1000) + 1000);
         let updateData = {'mobile_number': field.new_mobile_number, 'otp': otp};
         this.userRepository.findOneAndUpdate(query, updateData, {new: true}, (error, result) => {
           if (error) {
@@ -85,7 +85,7 @@ class UserService {
   changeMobileNumber(field: any, callback: (error: any, result: any) => void) {
 
     let query = {'_id': field._id};
-    // var otp = Math.floor(Math.random() * (10000 - 1000) + 1000);
+    // let otp = Math.floor(Math.random() * (10000 - 1000) + 1000);
     let otp = Math.floor((Math.random() * 99999) + 100000);
     let updateData = {'otp': otp, 'temp_mobile': field.new_mobile_number};
 
@@ -117,7 +117,7 @@ class UserService {
         let auth = new AuthInterceptor();
         let token = auth.issueTokenWithUid(res[0]);
         let host = config.get('TplSeed.mail.host');
-        let link = host + 'reset_password?access_token=' + token + '&_id=' + res[0]._id;
+        let link = host + 'reset-password?access_token=' + token + '&_id=' + res[0]._id;
         if (res[0].isCandidate === true) {
           this.mid_content = content.replace('$link$', link).replace('$first_name$', res[0].first_name).replace('$app_name$', this.APP_NAME);
           let mailOptions = {
@@ -148,14 +148,12 @@ class UserService {
               };
               let sendMailService = new SendMailService();
               sendMailService.sendMail(mailOptions, callback);
-
             }
           });
         }
       } else if (res.length > 0 && res[0].isActivated === false) {
         callback(new Error(Messages.MSG_ERROR_ACCOUNT_STATUS), res);
       } else {
-
         callback(new Error(Messages.MSG_ERROR_USER_NOT_FOUND), res);
       }
     });
@@ -168,11 +166,8 @@ class UserService {
     let updateData = {'temp_email': field.new_email};
     this.userRepository.findOneAndUpdate(query, updateData, {new: true}, (error, result) => {
       if (error) {
-
         callback(new Error(Messages.MSG_ERROR_EMAIL_ACTIVE_NOW), null);
-
       } else {
-
         let auth = new AuthInterceptor();
         let token = auth.issueTokenWithUid(result);
         let host = config.get('TplSeed.mail.host');
@@ -187,7 +182,6 @@ class UserService {
           to: field.new_email,
           subject: Messages.EMAIL_SUBJECT_CHANGE_EMAILID,
           html: header1 + mid_content + footer1
-
           , attachments: MailAttachments.AttachmentArray
         };
         let sendMailService = new SendMailService();
@@ -211,7 +205,7 @@ class UserService {
             let auth = new AuthInterceptor();
             let token = auth.issueTokenWithUid(recruiter[0]);
             let host = config.get('TplSeed.mail.host');
-            let link = host + 'company_details?access_token=' + token + '&_id=' + res[0]._id + '&companyName=' + this.company_name;
+            let link = host + 'company-details?access_token=' + token + '&_id=' + res[0]._id + '&companyName=' + this.company_name;
             let header1 = fs.readFileSync(path.resolve() +config.get('TplSeed.publicPath')+'header1.html').toString();
             let content = fs.readFileSync(path.resolve() +config.get('TplSeed.publicPath')+'recruiter.mail.html').toString();
             let footer1 = fs.readFileSync(path.resolve() +config.get('TplSeed.publicPath')+'footer1.html').toString();

@@ -62,10 +62,7 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
     this.mainHeaderMenuHideShow = 'signin';
     window.history.forward();
-    if (parseInt(LocalStorageService.getLocalValue(LocalStorage.IS_LOGGED_IN)) === 1) {
-      this._router.navigate([NavigationRoutes.APP_CANDIDATE_DASHBOARD]);
-    }
-
+    //this._validateUserNavigation.validate();
   }
 
   closeToaster() {
@@ -159,6 +156,7 @@ export class LoginComponent implements OnInit {
       }
     } else {
       LocalStorageService.setLocalValue(LocalStorage.COMPANY_NAME, res.data.company_name);
+      LocalStorageService.setLocalValue(LocalStorage.IS_RECRUITING_FOR_SELF, res.data.isRecruitingForself);
       this._router.navigate([NavigationRoutes.APP_RECRUITER_DASHBOARD]);
     }
   }

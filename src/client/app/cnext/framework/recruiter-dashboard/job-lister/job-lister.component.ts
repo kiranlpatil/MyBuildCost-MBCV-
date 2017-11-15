@@ -5,7 +5,6 @@ import {
 import {QCardsortBy} from "../../model/q-cardview-sortby";
 import {Router} from "@angular/router";
 import {RecruiterHeaderDetails} from "../../model/recuirterheaderdetails";
-import {ReferenceService} from "../../model/newClass";
 import {RecruiterDashboard} from "../../model/recruiter-dashboard";
 import {Button, Headings, ImagePath, Label, Messages, Tooltip} from "../../../../shared/constants";
 import {RenewJobPostService} from "../../../../user/services/renew-jobpost.service";
@@ -54,7 +53,7 @@ export class JobListerComponent implements  OnInit, OnDestroy {
   private recruiterHeaderDetails: RecruiterHeaderDetails = new RecruiterHeaderDetails();
   private jobId: string;
 
-  constructor(private _router: Router, public refrence: ReferenceService,
+  constructor(private _router: Router,
               private renewJobPostService: RenewJobPostService, private messageService: MessageService,
               private recruiterDashboardService: RecruiterDashboardService,
               private errorService:ErrorService
@@ -95,7 +94,6 @@ export class JobListerComponent implements  OnInit, OnDestroy {
 
 
   ngOnDestroy() {
-    this.refrence.data = this.headerInfoForJob;
   }
 
   sortBy() {
@@ -111,7 +109,6 @@ export class JobListerComponent implements  OnInit, OnDestroy {
     if (isJobSubmit) {
       this._router.navigate(['recruiter/job/', item]);
     } else {
-      //this.jobPostEventEmitter.emit(item);
       this._router.navigate(['recruiter/jobpost/', item]);
     }
   }
@@ -125,7 +122,7 @@ export class JobListerComponent implements  OnInit, OnDestroy {
   onJobCloned(event:any) {
     //this.jobPostEventEmitter.emit(event);
     this.jobListCloneSuccessEmitter.emit();
-    this._router.navigate(['/recruiterdashboard/jobpost', event]);
+    this._router.navigate(['/recruiter/jobpost', event]);
   }
   get format() {
     return this.toggle ? this.qCardModel.name : 'Date';

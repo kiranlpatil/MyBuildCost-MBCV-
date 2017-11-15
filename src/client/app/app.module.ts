@@ -43,7 +43,6 @@ import {AboutCandidateService} from "./cnext/framework/more-about-myself/more-ab
 import {CandidateAcademyDetailService} from "./cnext/framework/academic-details/academic-details.service";
 import {JobPosterService} from "./cnext/framework/job-poster/job-poster.service";
 import {CandidateSummaryComponent} from "./cnext/framework/one-page-summary/candidate-summary/candidate-summary.component";
-import {CandidateBasicInformationComponent} from "./cnext/framework/one-page-summary/candidate-summary/candidate-basic-information/candidate-basic-information.component";
 import {VericalListViewComponent} from "./cnext/framework/one-page-summary/shared/vertical-list-view/vertical-list-view.component";
 import {TabularListViewComponent} from "./cnext/framework/one-page-summary/shared/tabular-list-view/tabular-list-view.component";
 import {HorizontalListViewComponent} from "./cnext/framework/one-page-summary/shared/horizontal-list-view/horizontal-list-view.component";
@@ -100,7 +99,6 @@ import {EmployeeHistoryComponent} from "./cnext/framework/employment-history/emp
 import {QCardListFilterPipe} from "./cnext/framework/filters/q-card-list-filter.pipe";
 import {JobDashboardComponent} from "./cnext/framework/recruiter-dashboard/job-dashboard/job-dashboard.component";
 import {JobDashboardService} from "./cnext/framework/recruiter-dashboard/job-dashboard/job-dashboard.service";
-import {ReferenceService} from "./cnext/framework/model/newClass";
 import {AcademicsComponent} from "./cnext/framework/academic-details/academics/academics.component";
 import {CandidateCompareViewComponent} from "./cnext/framework/single-page-compare-view/candidate-compare-view/candidate-compare-view.component";
 import {CapabilityCompareComponent} from "./cnext/framework/single-page-compare-view/shared/capability-compare/capability-compare.component";
@@ -140,7 +138,6 @@ import {AttributeFilterPipe} from "./cnext/framework/profile-comparison/profile-
 import {ValueSortFilterPipe} from "./cnext/framework/profile-comparison/value-sort.pipe";
 import {GuidedTourService} from "./cnext/framework/guided-tour.service";
 import {LoggerService, MyErrorHandler} from "./cnext/framework/my-error-handler.service";
-import {AdminDashboardService} from "./admin/admin-dashboard/admin-dashboard.service";
 import {CandidateSearchComponent} from "./cnext/framework/candidate-search/candidate-search.component";
 import {CandidateSearchService} from "./cnext/framework/candidate-search/candidate-search.service";
 import {UserModule} from "./user/user.module";
@@ -156,7 +153,6 @@ import {ShareContainerComponent} from "./cnext/framework/share-container/share-c
 import {ShareContainerService} from "./cnext/framework/share-container/share-container.service";
 import {RenewJobPostService} from "./user/services/renew-jobpost.service";
 import {PrintScreenComponent} from "./cnext/framework/print-screen/print-screen.component";
-import {AdminModule} from "./admin/admin.module";
 import {JobShareContainerComponent} from "./cnext/framework/job-share-container/job-share-container.component";
 import {JobShareContainerService} from "./cnext/framework/job-share-container/job-share-container.service";
 import {JobCloseComponent} from "./cnext/framework/job-close/job-close.component";
@@ -166,6 +162,8 @@ import {ComplexityAnsweredService} from "./cnext/framework/complexity-answered.s
 import {UserFeedbackComponent} from "./cnext/framework/user-feedback/user-feedback.component";
 import {UserFeedbackComponentService} from "./cnext/framework/user-feedback/user-feedback.component.service";
 import {CandidateRouteSwitchComponent} from "./cnext/framework/candidate-dashboard/candidate-route-switch.component";
+import {CandidateBasicInformationComponent} from "./cnext/framework/one-page-summary/candidate-summary/candidate-basic-information/candidate-basic-information.component";
+import {PageNotFoundComponent} from "./shared/page-not-found/page-not-found.component";
 //C-NEXT IMPORTS
 
 
@@ -178,8 +176,7 @@ import {CandidateRouteSwitchComponent} from "./cnext/framework/candidate-dashboa
     ReactiveFormsModule,
 
     SharedModule,
-    UserModule,
-    AdminModule
+    UserModule
   ],
   declarations: [
     AppComponent,
@@ -285,7 +282,8 @@ import {CandidateRouteSwitchComponent} from "./cnext/framework/candidate-dashboa
     PrintScreenComponent,
     JobCloseComponent,
     UserFeedbackComponent,
-    CandidateRouteSwitchComponent
+    CandidateRouteSwitchComponent,
+    PageNotFoundComponent
   ],
 
   providers: [
@@ -335,7 +333,6 @@ import {CandidateRouteSwitchComponent} from "./cnext/framework/candidate-dashboa
     QCardViewService,
     IndustryDetailsService,
     ProficiencyDetailsService,
-    AdminDashboardService,
     FilterService,
     IndustryDataService,
     RecruiteQCardView2Service,
@@ -344,7 +341,6 @@ import {CandidateRouteSwitchComponent} from "./cnext/framework/candidate-dashboa
     RecruiterCandidatesListsService,
     QCardFilterService,
     JobDashboardService,
-    ReferenceService,
     RedirectRecruiterDashboardService,
     ReleventIndustryListService,
     ProfileComparisonService,

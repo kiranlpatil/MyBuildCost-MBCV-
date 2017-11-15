@@ -14,11 +14,11 @@
           <span class="icon-bar"></span>
         </button>
 
-       <!--TODO Abhijeet <a class="navbar-brand" (click)="navigateTo('/admin_dashboard'); closeMenu($event);">
+       <!--TODO Abhijeet <a class="navbar-brand" (click)="navigateTo('/admin'); closeMenu($event);">
           <img src={{MY_LOGO}}/>
           <span>Admin Panel</span>
         </a>-->
-        <a class="navbar-brand" (click)="navigateTo('/admin_dashboard'); closeMenu();">
+        <a class="navbar-brand" (click)="closeMenu();" [routerLink]="['/admin/']">
           <img src={{MY_LOGO}}/>
           <span>Admin Panel</span>
         </a>
@@ -48,13 +48,12 @@
                 <li class="divider"></li>
 
                 <li role="menuitem" [routerLinkActive]="['active']">
-                  <a class="dropdown-item" [routerLink]="['admin_dashboard']"
-                     (click)="navigateTo('/admin_dashboard');">
+                  <a class="dropdown-item" [routerLink]="['/admin/']">
                     <span class="glyphicon glyphicon-th"></span>My Dashboard
                   </a>
                 </li>
                 <li role="menuitem" [routerLinkActive]="['active']">
-                  <a class="dropdown-item" [routerLink]="['/user/changepassword']" [queryParams]="{ role: 'admin'}"
+                  <a class="dropdown-item" [routerLink]="['/user/change-password']" [queryParams]="{ role: 'admin'}"
                      (click)="toggleMenu();">
                     <span class="glyphicon glyphicon-lock"></span>Change Password
                   </a>

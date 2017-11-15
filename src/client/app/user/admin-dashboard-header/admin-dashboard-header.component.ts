@@ -39,14 +39,8 @@ export class AdminDashboardHeaderComponent {
 
   logOut() {
     window.localStorage.clear();
-    let host = AppSettings.HTTP_CLIENT + window.location.hostname;
+    let host = AppSettings.HTTP_CLIENT + AppSettings.HOST_NAME;
     window.location.href = host;
-  }
-
-  navigateTo(nav: string) {
-    if (nav !== undefined) {
-      this._router.navigate([nav]);
-    }
   }
 
   onSkip() {

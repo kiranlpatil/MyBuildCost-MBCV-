@@ -28,6 +28,11 @@ export class RecruiterDetailListComponent {
               private _router:Router) {
 
   }
+
+  ngOnInit() {
+    this.loaderService.start();
+    this.getAllRecruiters();
+  }
   updateDetail(index:number,recruiter:any,activated:boolean) {
     this.loaderService.start();
     recruiter.isActivated=!activated;
@@ -57,10 +62,10 @@ export class RecruiterDetailListComponent {
       .subscribe(
         recruiterDetails => {
           this.loaderService.stop();
-          this.recruitersCSV = recruiterDetails.candidatesOtherDetailsFilePath;
-          this.recruitersUsersCSV = recruiterDetails.usersFilePath;
-          document.getElementById('link_recruiter').click();
-          document.getElementById('link_recruiter1').click();
+          this.recruitersCSV = recruiterDetails.path.recruitersFilePath;
+          this.recruitersUsersCSV = recruiterDetails.path.usersFilePath;
+          window.open(AppSettings.IP + this.recruitersCSV,'_blank');
+          window.open(AppSettings.IP + this.recruitersUsersCSV,'_blank');
           this.messageService.message(new Message(Messages.MSG_SUCCESS_FOR_FILE_DOWNLOAD));
         },
         error => this.errorService.onError(error));
@@ -70,6 +75,25 @@ export class RecruiterDetailListComponent {
       this._router.navigate([nav, recruiter._id]);
     }
   }
+
+  getAllRecruiters() {
+    this.adminDashboardService.getAllRecruiters("a")
+      .subscribe(
+        recruiterProfile => this.onGetAllRecruiterSuccess(recruiterProfile),
+        error => this.errorService.onError(error));
+  }
+  onGetAllRecruiterSuccess(recruiterProfile: any) {
+    this.recruiters = recruiterProfile.data.recruiter;
+    this.loaderService.stop();
+  }
+
+  loadUser(letter: string) {
+   this.loaderService.start();
+   this.adminDashboardService.getAllRecruiters(letter)
+   .subscribe(
+   recruiterProfile => this.onGetAllRecruiterSuccess(recruiterProfile),
+   error => this.errorService.onError(error));
+   }
 
   getLabel() {
     return Label;

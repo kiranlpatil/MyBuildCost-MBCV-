@@ -264,6 +264,8 @@
                   <label>Job Location</label>
                   <span>{{job.location.city}}</span>
                   <label>About Job</label>
+                  <span>{{postedJob.location.city}}</span>
+                  <label  *ngIf="postedJob.competencies && postedJob.competencies !== ''">About Job</label>
                   <span>
                     {{job.competencies}}
                   </span>
@@ -276,7 +278,7 @@
               </div>
             </div>
 
-            <div class="about-company-label" *ngIf="recruiter != undefined">
+            <div class="about-company-label" *ngIf="recruiter != undefined && recruiter.about_company && recruiter.about_company !== ''">
               <label>About Company</label>
               <cn-additional-details [data]="recruiter.about_company"></cn-additional-details>
             </div>
@@ -377,7 +379,7 @@
         <h4 class="pull-left col-xs-3 no-padding text-left">Key skills</h4>
         <div class="pull-left col-xs-7 no-padding text-left">
           <div class="option exact" *ngFor="let item of data.proficienciesMatch;let i = index">
-            <span>{{item}}</span> <img class="" src="assets/framework/images/dashboard/right-tick.svg"/>
+            <span>{{item}}</span> <div class="right-tick"></div>
           </div>
           <div class="option missing" *ngFor="let item of data.proficienciesUnMatch;let i = index">
             <span>{{item}}</span><img class="" src="assets/framework/images/dashboard/missing.svg"/>

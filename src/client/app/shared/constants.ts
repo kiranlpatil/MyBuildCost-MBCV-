@@ -6,7 +6,7 @@ export class AppSettings {
   //public static IP = 'https://34.215.90.153:3000';
   // public static IP = 'app.jobmosis.com';
   // public static IP = '';
-
+  public static HOST_NAME = 'localhost:8080';
 
   public static get API_ENDPOINT(): string {
     return this.IP + '/api/';
@@ -41,6 +41,8 @@ export enum UsageActions  {
 
 
 export class Messages {
+  public static FROM_REGISTRATION = 'registration';
+  public static FROM_ACCOUNT_DETAIL = 'accountdetail';
   public static MSG_ON_FILE_CREATION_FAILED: string = 'Failed to create image of this page';
   public static MSG_MSG_CLONED_SUCCESSFULLY = 'New Job is been added successfully';
   public static MSG_PRESENTLY_WORKING = 'Presently Working';
@@ -52,7 +54,7 @@ export class Messages {
   public static MSG_ABOUT_SCREEN_PRINT_IF_NOT_IN_CART = 'Add this candidate to cart to enable profile download.';
   public static MSG_SUCCESS_LOGIN: string = 'You are successfully signed in.';
   public static MSG_SUCCESS_REGISTRATION: string = 'Kindly verify your account.';
-  public static MSG_SUCCESS_CHANGE_MOBILE_NUMBER: string = 'Mobile number updated successfully.Kindly sign in';
+  public static MSG_SUCCESS_CHANGE_MOBILE_NUMBER: string = 'Mobile number updated successfully.';
   public static MSG_SUCCESS_RESEND_VERIFICATION_CODE: string = 'New OTP (One Time Password) has been sent to your registered mobile number';
   public static MSG_SUCCESS_RESEND_VERIFICATION_CODE_RESEND_OTP: string = 'New OTP (One Time Password) has been sent to your new mobile number';
   //public static MSG_SUCCESS_MAIL_VERIFICATION: string = 'Verification e-mail sent successfully to your e-mail account. Kindly proceed by clicking on the link pProvided in your e-mail';
@@ -221,7 +223,9 @@ export class Messages {
   public static MSG_MOBILE_NUMBER_Change_SUCCESS = 'Mobile number changed successfully.You can Sign In again by clicking on "yes" button, please click on "No"' +
     'button to continue the session.';
   public static MSG_MOBILE_VERIFICATION_TITLE = 'Verify Your Mobile Number';
+  public static MSG_MOBILE_NUMBER_CHANGE_VERIFICATION_TITLE = 'Verify Your  New Mobile Number';
   public static MSG_MOBILE_VERIFICATION_MESSAGE = 'Please enter the verification code sent to your mobile number.';
+  public static MSG_MOBILE_NUMBER_CHANGE_VERIFICATION_MESSAGE= 'Please enter the verification code sent to your new mobile number.';
   public static MSG_MOBILE_VERIFICATION_SUCCUSS_HEADING = 'Congratulations!';
   public static MSG_MOBILE_VERIFICATION_SUCCUSS_TEXT = 'Registration successful. Kindly Sign In';
   public static CONTACT_US_ADDRESS = 'Blog. No. 14, 1st Floor, Electronic Estate, Parvati, Pune-Satara Road, Pune 411009, MH, INDIA.';
@@ -328,6 +332,11 @@ export class Messages {
   'Click below to Preview';
   public static PLEASE_COMPLETE_THE_PROFILE_MSG = 'Please complete the profile before sharing';
   public static JOBS_AVALLABLE_MESSAGE = 'Jobs are available in your industry.';
+  public static NOT_FOUND_INFORMATION = 'The page you are looking for doesn\t exist<br/>' +
+    'or an other error accoured.';
+  public static PAGE_NOT_FOUND = 'Page Not Found';
+
+
 }
 export class AdminPanel {
   public static PUBLIC_PROFILE='Profile is public';
@@ -336,22 +345,22 @@ export class AdminPanel {
 
 export class NavigationRoutes {
   public static APP_REGISTRATION: string = '/registration';
-  public static APP_FORGOTPASSWORD: string = '/forgotpassword';
+  public static APP_FORGOTPASSWORD: string = '/forgot-password';
   public static APP_DASHBOARD: string = '/dashboard';
   public static APP_CANDIDATE_DASHBOARD: string = '/candidate';
-  public static APP_ADMIN_DASHBOARD: string = '/admin_dashboard';
+  public static APP_ADMIN_DASHBOARD: string = '/admin';
   public static APP_RECRUITER_DASHBOARD: string = '/recruiter';
   public static APP_LOGIN: string = '/signin';
   public static APP_START: string = '/';
-  public static APP_LANDING: string = '/landing';
-  public static VERIFY_USER: string = '/verify_user';
+  public static APP_LANDING: string = '/signin';
+  public static VERIFY_USER: string = '/verify-user';
   public static ACTIVATE_USER: string = '/activate_user';
-  public static VERIFY_PHONE: string = '/verify_phone';
-  public static APP_CHANGEEMAIL: string = '/change_email';
+  public static VERIFY_PHONE: string = '/verify-phone';
+  public static APP_CHANGEEMAIL: string = '/change-email';
   public static APP_CREATEPROFILE: string = '/candidate/profile';
   public static APP_PROFILESUMMURY: string = '/profile_summary';
   public static APP_JOB_SUMMURY: string = '/job_summary';
-  public static APP_COMPANYDETAILS: string = '/company_details';
+  public static APP_COMPANYDETAILS: string = '/company-details';
   public static APP_VLAUEPORTRAIT: string = '/value-portrait';
 }
 
@@ -371,6 +380,7 @@ export class LocalStorage {
   public static MOBILE_NUMBER = 'mobile_number';
   public static VERIFIED_MOBILE_NUMBER = 'verified_mobile_number';
   public static COMPANY_NAME = 'company_name';
+  public static IS_RECRUITING_FOR_SELF = 'is_recruiting_for_self';
   public static COMPANY_SIZE = 'company_size';
   public static FIRST_NAME = 'first_name';
   public static LAST_NAME = 'last_name';
@@ -589,7 +599,7 @@ export class Tooltip {
   public static COMPLEXITIES_RECRUITER_TOOLTIP_1: string = 'This section provides a list of complexity scenarios for selected capabilities.' +
     'For each scenario, select the most appropriate level that candidate is required to handle.';
   public static COMPLEXITIES_RECRUITER_TOOLTIP_2: string = 'For scenarios that are not relevant to your job profile, choose "Not Applicable".';
-  public static COMPLEXITIES_RECRUITER_TOOLTIP_3: string = 'Please click on &#9733; to select a must have capability for candidate to fulfilled this job.';
+  public static COMPLEXITIES_RECRUITER_TOOLTIP_MESSAGE: string = 'Please click on &#9733; to select must have capability details required in candidate for this job profile.';
   public static EMPLOYMENT_HISTORY_TOOLTIP: string = 'An individual may be exposed to multiple industries during his professional life.';
   public static INDUSTRY_EXPERIENCE_CANDIDATE_TOOLTIP_1: string = 'An individual may be exposed to multiple industries during their professional life. ' +
     'At times, organisations need individuals who have cross industry expertise.';
@@ -687,7 +697,7 @@ export class Label {
   public static LAST_NAME_LABEL: string = 'Last Name';
   public static EMAIL_FIELD_LABEL: string = 'Email';
   public static COMPANY_WEBSITE_FIELD_LABEL: string = 'Website';
-  public static CONTACT_FIELD_LABEL: string = 'Contact';
+  public static CONTACT_FIELD_LABEL: string = 'Mobile Number';
   public static SAVE_PROFILE_LABEL: string = 'Save Profile';
   public static RESET_PASSWORD_MESSAGE: string = 'Please set new password for your';
   public static JOB_TITLE: string = 'New Job Title';
@@ -717,6 +727,11 @@ export class Label {
   public static PROFILE_VISIBILITY: string = 'Profile Visibility for Recruiter';
   public static SUBMIT_PROFILE: string = 'Submit Your Profile';
   public static MORE: string = 'More';
+  public static CURRENT_ANNUAL_SALARY: string = 'Current Annual Salary';
+  public static READY_TO_RELOCATE: string = 'Ready To Relocate?';
+  public static COMPANY_CULTURE: string = 'Company Culture';
+  public static NOTICE_PERIOD: string = 'Notice Period';
+  public static NOT_FOUND_ERROR: string = '404';
 }
 
 export class Button {
@@ -726,12 +741,13 @@ export class Button {
   public static CLOSE_BUTTON: string = 'CLOSE';
   public static CANCEL_BUTTON: string = 'Cancel';
   public static VALUE_PORTRAIT_BUTTON: string = 'Create your Own Value Portrait';
-  public static SUBMIT_PROFILE: string = 'Submit Profile';
+  public static SUBMIT_PROFILE: string = 'Submit My Profile';
   public static VIEW_AND_EDIT: string = 'View and Edit';
   public static PROCEED: string = 'Proceed';
   public static NEXT: string = 'Next';
   public static SUBMIT: string = 'Submit';
   public static DOWNLOAD: string = 'Download';
+  public static BACK_TO_HOME: string = 'Back to home';
 }
 //These constant is used to track profile completion of candiate.(Having total 14 steps to complete)
 export enum CandidateProfileUpdateTrack {

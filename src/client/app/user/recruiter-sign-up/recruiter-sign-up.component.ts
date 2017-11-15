@@ -63,7 +63,7 @@ export class RecruiterSignUpComponent implements OnInit {
 
 
     this.recruiterForm = this.formBuilder.group({
-      'company_name': ['', [ValidationService.noWhiteSpaceValidator, ValidationService.requireCompanyNameValidator, ValidationService.nameValidator]],
+      'company_name': ['', [ ValidationService.requireCompanyNameValidator]],
       'company_size': ['', Validators.required],
       'company_website': [''],
       'mobile_number': ['', [ValidationService.requireMobileNumberValidator, ValidationService.mobileNumberValidator]],
@@ -216,6 +216,7 @@ export class RecruiterSignUpComponent implements OnInit {
       this.model.company_headquarter_country = this.companyHeadquarter;
       this.model.isRecruitingForself = this.isRecruitingForself;
       this.model.email = this.model.email.toLowerCase();
+      this.model.company_name = this.model.company_name.trim();
       if (!this.makePasswordConfirm()) {
         this.isFormSubmitted = true;
         this.recruiterService.addRecruiter(this.model)
@@ -300,7 +301,7 @@ export class RecruiterSignUpComponent implements OnInit {
   }
 
   goToAcceptTerms() {
-    let host = AppSettings.HTTP_CLIENT + window.location.hostname + API.ACCEPT_TERMS;
+    let host = AppSettings.HTTP_CLIENT + AppSettings.HOST_NAME + API.ACCEPT_TERMS;
     window.open(host, '_blank');
   }
   gtag_report_conversion(sendTo:any) {

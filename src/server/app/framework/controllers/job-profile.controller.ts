@@ -112,7 +112,7 @@ export function getCapabilityMatrix(req: express.Request, res: express.Response,
 export function update(req: express.Request, res: express.Response, next: any) {
   try {
 
-    var jobProfileService = new JobProfileService();
+    let jobProfileService = new JobProfileService();
     let data = {
       'recruiterId': req.params.recruiterId,
       'profileId': req.params.profileId,
@@ -148,7 +148,7 @@ export function update(req: express.Request, res: express.Response, next: any) {
 
 export function apply(req: express.Request, res: express.Response, next: any) {
   try {
-    var jobProfileService = new JobProfileService();
+    let jobProfileService = new JobProfileService();
     let data = {
       'candidateId': req.params.id,
       'profileId': req.params.profileId,
@@ -184,7 +184,7 @@ export function apply(req: express.Request, res: express.Response, next: any) {
 
 export function metchResultForJob(req: express.Request, res: express.Response, next: any) {
   try {
-    var searchService = new SearchService();
+    let searchService = new SearchService();
     let jobId = req.params.jobId;
     let candidateId = req.params.candidateId;
     searchService.getMatchingResult(candidateId, jobId, false, (error: any, result: any) => {
@@ -235,7 +235,7 @@ export function createUsesTracking(req: express.Request, res: express.Response, 
 
 export function getQCardDetails(req: express.Request, res: express.Response, next: any) {
   try {
-    var jobProfileService = new JobProfileService();
+    let jobProfileService = new JobProfileService();
     let data = {
       'jobId': req.params.id,
       'candidateIds': req.body.candidateIds
