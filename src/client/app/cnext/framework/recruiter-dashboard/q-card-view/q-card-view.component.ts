@@ -4,7 +4,7 @@ import {QCardsortBy} from "../../model/q-cardview-sortby";
 import {MatchCandidate} from "../../model/match-candidate";
 import {QCardViewService} from "./q-card-view.service";
 import {QCardFilterService} from "../../filters/q-card-filter.service";
-import {AppSettings, LocalStorage, UsageActions, ValueConstant} from "../../../../shared/constants";
+import {AppSettings, LocalStorage, UsageActions, ValueConstant, Messages} from "../../../../shared/constants";
 import {QCardFilter} from "../../model/q-card-filter";
 import {CandidateQListModel} from "../job-dashboard/q-cards-candidates";
 import {RecruiterJobView} from "../../model/recruiter-job-view";
@@ -16,6 +16,7 @@ import {MessageService} from "../../../../shared/services/message.service";
 import {ErrorService} from "../../../../shared/services/error.service";
 import {UsageTrackingService} from "../../usage-tracking.service";
 import {LocalStorageService} from "../../../../shared/services/localstorage.service";
+import {Router, ActivatedRoute} from '@angular/router';
 /*import underline = Chalk.underline;*/
 
 
@@ -61,7 +62,8 @@ export class QCardviewComponent implements OnChanges {
               private errorService:ErrorService,
               private profileCreatorService: CandidateProfileService,
               private qCardViewService: QCardViewService,
-              private messageService: MessageService) {
+              private messageService: MessageService,
+              private _router:Router) {
 
     this.qCardFilterService.aboveMatch$.subscribe(
       () => {
@@ -344,6 +346,7 @@ export class QCardviewComponent implements OnChanges {
   }
 
   OnCandidateDataSuccess(candidate: any) {
+    console.log('onCandidateSuccess = ',candidate);
     this.selectedCandidate = candidate.data;
     this.candidateDetails = candidate.metadata;
     this.showModalStyle = !this.showModalStyle;
@@ -380,4 +383,18 @@ export class QCardviewComponent implements OnChanges {
     this.messageService.message(message);
   }
 
+  navigateWithId(nav: string, candidate: CandidateQCard) {
+    this.profileCreatorService.getCandidateDetailsOfParticularId(candidate._id).subscribe(
+      candidateData => {
+        this._router.navigate([nav, candidateData.data.userId,{jobId: this.jobId}]); //todo Rahul get only userId
+      });
+  }
+
+  navigateToApplicantSearch(nav: string, candidate: CandidateQCard) {
+    this._router.navigate([nav, candidate._id]);
+  }
+
+  getMessage() {
+    return Messages;
+  }
 }
