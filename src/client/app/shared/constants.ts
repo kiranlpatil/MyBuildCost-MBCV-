@@ -335,11 +335,6 @@ export class Messages {
   public static JOBS_AVALLABLE_MESSAGE = 'Jobs are available in your industry.';
   public static NOT_FOUND_INFORMATION = 'The page you are looking for doesn\t exist<br/>' +
     'or an other error accoured.';
-  public static PAGE_NOT_FOUND = 'Page Not Found';
-  public static MATCH_AGAINST_ALL_JOB = 'Match Against All Jobs';
-  public static MATCH_AGAINST_THIS_JOB = 'Match Against This Job';
-  public static SHOW_VALUE_PORTRAIT = 'Show Value Portrait';
-
 
 }
 export class AdminPanel {
@@ -743,6 +738,10 @@ export class Label {
   public static NOTICE_PERIOD: string = 'Notice Period';
   public static NOT_FOUND_ERROR: string = '404';
   public static CURRENT_JOB: string = 'Current Job';
+  public static PAGE_NOT_FOUND = 'Page Not Found';
+  public static MATCH_AGAINST_ALL_JOB = 'Match Against All Jobs';
+  public static MATCH_AGAINST_THIS_JOB = 'Match Against This Job';
+  public static SHOW_VALUE_PORTRAIT = 'Show Value Portrait';
 }
 
 export class Button {
