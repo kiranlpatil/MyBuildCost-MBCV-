@@ -151,6 +151,49 @@ export function updateDetails(req: express.Request, res: express.Response, next:
   }
 }
 
+export function getRecruiterDetails(req: express.Request, res: express.Response, next: any) {
+  try {
+    let recruiterService = new RecruiterService();
+    let userService = new UserService();
+    recruiterService.retrieve({'_id': req.params.id}, (error: any, result: any) => {
+      if (error) {
+        next({
+          reason: CNextMessages.PROBLEM_IN_RETRIEVE_JOB_PROFILE,
+          message: CNextMessages.PROBLEM_IN_RETRIEVE_JOB_PROFILE,
+          stackTrace: new Error(),
+          code: 401
+        });
+      } else {
+        userService.retrieve({'_id': result[0].userId}, (error: any, userDetails: any) => {
+          if (error) {
+            next({
+              reason: CNextMessages.PROBLEM_IN_RETRIEVE_JOB_PROFILE,
+              message: CNextMessages.PROBLEM_IN_RETRIEVE_JOB_PROFILE,
+              stackTrace: new Error(),
+              code: 401
+            });
+          } else {
+            let _details = userDetails[0];
+            delete _details['password'] ;
+            delete _details['isActivated'] ;
+            delete _details['otp'] ;
+            delete _details['isAdmin'] ;
+            delete _details['guide_tour'] ;
+            res.send({
+              'status': 'success',
+              'data': result[0],
+              'metadata':_details
+            });
+          }
+
+        });
+      }
+   });
+  } catch (e) {
+  next({reason: e.message, message: e.message, stackTrace: new Error(), code: 500});
+ }
+}
+
 export function retrieve(req: express.Request, res: express.Response, next: any) {
   try {
     let recruiterService = new RecruiterService();

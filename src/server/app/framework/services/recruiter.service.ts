@@ -88,7 +88,7 @@ class RecruiterService {
   }
 
   retrieve(query : any, callback : (err: any, res : IRecruiter[]) => void) {
-      this.recruiterRepository.retrieve(query,(error : Error, result: IRecruiter[]) =>{
+      this.recruiterRepository.retrieve(query,(error : Error, result: IRecruiter[]) => {
         if(error) {
           callback(error, null);
         }else {
@@ -122,7 +122,9 @@ class RecruiterService {
         jobs : jobs
       };
       jobWithCount.jobCountModel = new JobCountModel();
+
       for (let job of jobs) {
+        job.numberOfCandidatesInList = new CandidatesInLists();
         for (let list of job.candidate_list) {
           switch (list.name) {
             case ConstVariables.APPLIED_CANDIDATE :
