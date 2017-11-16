@@ -868,34 +868,25 @@ class CandidateService {
     }
 
 
-
-  maskCandidateDetails(candidateUserId: string,recruiterUserId: string, callback: (error: any, result: any) => void) {
-    this.get(candidateUserId, (err, candidateDetails ) => {
-      if(err) {
+  maskCandidateDetails(candidateUserId:string, recruiterUserId:string, callback:(error:any, result:any) => void) {
+    this.get(candidateUserId, (err, candidateDetails) => {
+      if (err) {
         callback(err, null);
       } else {
-        this.recruiterRepository.retrieve({'userId':recruiterUserId}, (err, recruiterDetails)=> {
-          if(err) {
+        let isInCart:boolean;
+        this.checkIsCarted(candidateUserId, recruiterUserId, (err, isCarted) => {
+          if (err) {
             callback(err, null);
           } else {
-            let isInCart: boolean;
-           // let isInCart = this.isCandidateInCart(candidateDetails, recruiterDetails[0].postedJobs);
-            this.checkIsCarted(candidateUserId,recruiterUserId, (err, isCarted) => {
-              if(err) {
-                callback(err,null);
-              } else {
-                isInCart = isCarted;
-                console.log('isInCart',isCarted);
-                if (!isCarted) {
-                  candidateDetails.personalDetails.last_name = UtilityFunction.valueHide(candidateDetails.personalDetails.last_name);
-                  candidateDetails.personalDetails.email = UtilityFunction.emailValueHider(candidateDetails.personalDetails.email);
-                  candidateDetails.personalDetails.mobile_number = UtilityFunction.mobileNumberHider(candidateDetails.personalDetails.mobile_number);
+            isInCart = isCarted;
+            console.log('isInCart', isCarted);
+            if (!isCarted) {
+              candidateDetails.personalDetails.last_name = UtilityFunction.valueHide(candidateDetails.personalDetails.last_name);
+              candidateDetails.personalDetails.email = UtilityFunction.emailValueHider(candidateDetails.personalDetails.email);
+              candidateDetails.personalDetails.mobile_number = UtilityFunction.mobileNumberHider(candidateDetails.personalDetails.mobile_number);
 
-                }
-                callback(err, candidateDetails);
-              }
-            });
-            //callback(err, candidateDetails);
+            }
+            callback(err, candidateDetails);
           }
         });
       }
