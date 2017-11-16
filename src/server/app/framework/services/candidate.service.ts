@@ -866,30 +866,16 @@ class CandidateService {
 
 
   maskCandidateDetails(candidateUserId: string,recruiterUserId: string, callback: (error: any, result: any) => void) {
-    let candidateDetails :CandidateClassModel = new CandidateClassModel();
-    this.get(candidateUserId, (err, res ) => {
+   // let candidateDetails :CandidateClassModel = new CandidateClassModel();
+    this.get(candidateUserId, (err, candidateDetails ) => {
       if(err) {
         callback(err, null);
       } else {
-        candidateDetails = res;
+       // candidateDetails = res;
         this.recruiterRepository.retrieve({'userId':recruiterUserId}, (err, recruiterDetails)=> {
           if(err) {
             callback(err, null);
           } else {
-            /*let isInCart = true;
-            for (let job of recruiterDetails[0].postedJobs) {
-              for (let item of job.candidate_list) {
-                  if (item.name === 'cartListed') {
-                  if (item.ids.indexOf(new mongoose.Types.ObjectId(res.candidateId).toString()) !== -1) {
-                    isInCart = false;
-                    break;
-                  }
-                }
-              }
-              if (!isInCart) {
-                break;
-              }
-            }*/
             let isInCart = this.isCandidateInCart(candidateDetails, recruiterDetails[0].postedJobs);
             if (!isInCart) {
               candidateDetails.personalDetails.last_name = UtilityFunction.valueHide(candidateDetails.personalDetails.last_name);
