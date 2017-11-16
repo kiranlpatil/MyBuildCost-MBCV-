@@ -819,7 +819,7 @@ class CandidateService {
     this.candidateRepository.updateByUserId( new mongoose.Types.ObjectId(_id), item, callback);
   }
 
-  isCandidateInCart(candidateDetails:CandidateClassModel, jobProfiles:JobProfileModel[]): boolean {
+  /*isCandidateInCart(candidateDetails:CandidateClassModel, jobProfiles:JobProfileModel[]): boolean {
     let isInCart = false;
     for (let job of jobProfiles) {
       for (let item of job.candidate_list) {
@@ -835,7 +835,7 @@ class CandidateService {
       }
     }
     return isInCart;
-  }
+  }*/
 
     checkIsCarted(candidateUserId: string,recruiterUserId: string, callback: (error: any, result: any) => void) {
       this.get(candidateUserId, (err, candidateDetails ) => {
