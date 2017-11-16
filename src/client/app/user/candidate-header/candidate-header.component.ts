@@ -1,7 +1,7 @@
 import {Component, ElementRef, HostListener, Input} from "@angular/core";
 import {Router} from "@angular/router";
 import {Candidate, Section} from "../models/candidate";
-import {AppSettings, ImagePath, LocalStorage} from "../../shared/constants";
+import {AppSettings, ImagePath, LocalStorage, Label} from "../../shared/constants";
 import {LocalStorageService} from "../../shared/services/localstorage.service";
 
 @Component({
@@ -35,7 +35,7 @@ export class CandidateHeaderComponent {
 
   getImagePath(imagePath: string) {
     if (imagePath !== undefined) {
-      return AppSettings.IP + imagePath.substring(4).replace('"', '');
+      return AppSettings.IP + imagePath.replace('"', '');
     }
     return null;
   }
@@ -74,5 +74,8 @@ export class CandidateHeaderComponent {
   goToGuidedTour() {
     this.highlightedSection.name = 'GuideTour';
     this.closeMenu();
+  }
+  getLabel() {
+    return Label;
   }
 }
