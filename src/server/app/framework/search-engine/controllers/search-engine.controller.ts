@@ -51,6 +51,9 @@ export class SearchEngineController {
               res.send();
             }else {
               let q_cards = searchEngine.buildQCards(response,againstDetails,appliedFilters.sortBy);
+              if(appliedFilters.listName !== EList.CAN_CART) {
+                q_cards = searchEngine.maskQCards(q_cards);
+              } 
               res.status(200).send(q_cards);
             }
           });

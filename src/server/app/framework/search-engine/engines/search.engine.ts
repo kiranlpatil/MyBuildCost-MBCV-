@@ -3,6 +3,8 @@ import { BaseDetail } from '../models/output-model/base-detail';
 import { ConstVariables } from '../../shared/sharedconstants';
 import { QCard } from '../models/output-model/q-card';
 import { ESort } from '../models/input-model/sort-enum';
+import {CandidateCard} from "../models/output-model/candidate-card";
+import {UtilityFunction} from "../../uitility/utility-function";
 export abstract class SearchEngine {
 
   search() {
@@ -52,6 +54,14 @@ export abstract class SearchEngine {
       }
       return 0;
     });
+    return q_cards;
+  }
+
+  maskQCards(q_cards: any []): any[] {
+    for(let qCard in q_cards) {
+      q_cards[qCard].last_name =  UtilityFunction.valueHide(q_cards[qCard].last_name);
+    }
+    console.log('maskQCards', q_cards);
     return q_cards;
   }
 
