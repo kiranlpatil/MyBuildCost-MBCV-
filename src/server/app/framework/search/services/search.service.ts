@@ -202,11 +202,11 @@ class SearchService {
     } else {
       uses_data.action = Actions.VIEWED_FULL_PROFILE_BY_RECRUITER;
     }
-    usageTrackingService.create(uses_data, (err, result) => {
+    /*usageTrackingService.create(uses_data, (err, result) => {
       if (err) {
         callback(err, null);
       }
-    });
+    });*/
     this.candidateRepository.findByIdwithExclude(candidateId,{'industry':0}, (err: any, candidateRes: any) => {
       if (err) {
         callback(err, null);
