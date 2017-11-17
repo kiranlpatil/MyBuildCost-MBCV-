@@ -19,8 +19,6 @@ export class RecruiterDetailListComponent {
   @Input() recruiters:any[]=new Array(0);
   @Input() jobs: string[] = new Array(0);
   private successMessage:string;
-  recruitersCSV: string = '';
-  recruitersUsersCSV: string = '';
   constructor(private adminDashboardService:AdminDashboardService,
               private loaderService: LoaderService,
               private errorService: ErrorService,
@@ -62,10 +60,9 @@ export class RecruiterDetailListComponent {
       .subscribe(
         recruiterDetails => {
           this.loaderService.stop();
-          this.recruitersCSV = recruiterDetails.path.recruitersFilePath;
-          this.recruitersUsersCSV = recruiterDetails.path.usersFilePath;
-          window.open(AppSettings.IP + this.recruitersCSV,'_blank');
-          window.open(AppSettings.IP + this.recruitersUsersCSV,'_blank');
+          window.open(AppSettings.IP + recruiterDetails.path.recruitersFilePath,'_blank');
+          window.open(AppSettings.IP + recruiterDetails.path.jobDetailsFilePath,'_blank');
+          window.open(AppSettings.IP + recruiterDetails.path.usersFilePath,'_blank');
           this.messageService.message(new Message(Messages.MSG_SUCCESS_FOR_FILE_DOWNLOAD));
         },
         error => this.errorService.onError(error));

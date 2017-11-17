@@ -222,7 +222,8 @@ export function exportCandidateDetails(req: express.Request, res: express.Respon
                     code: 500
                   });
                 } else {
-                  files['usersFilePath'] = config.get('TplSeed.adminExportFilePathForClient.candidateAccountDetailsCSV');
+                  files['usersFilePath'] = config.get('TplSeed.downloadFilePathClient')
+                    + config.get('TplSeed.exportFileNames.candidateAccountDetailsCSV');
                   res.status(200).send({
                     'path': files,
                     'status': 'success'
@@ -254,9 +255,7 @@ export function exportCandidateDetails(req: express.Request, res: express.Respon
 
 export function exportRecruiterDetails(req: express.Request, res: express.Response, next: any) {
   try {
-    let userService = new UserService();
     let adminService = new AdminService();
-    let userType = 'recruiter';
     let files: any = {};
     if (req.user.isAdmin) {
       adminService.exportRecruiterCollection((err, respo) => {
@@ -269,7 +268,7 @@ export function exportRecruiterDetails(req: express.Request, res: express.Respon
           });
         } else {
           files['recruitersFilePath'] = respo;
-          adminService.exportUserCollection(userType, (err, respo) => {
+          adminService.exportJobDetailsCollection((err, respo) => {
             if (err) {
               next({
                 reason: Messages.MSG_ERROR_CREATING_EXCEL,//Messages.MSG_ERROR_RSN_INVALID_CREDENTIALS,
@@ -278,10 +277,23 @@ export function exportRecruiterDetails(req: express.Request, res: express.Respon
                 code: 500
               });
             } else {
-              files['usersFilePath'] = config.get('TplSeed.adminExportFilePathForClient.recruiterAccountDetailsCSV');
-              res.status(200).send({
-                'path': files,
-                'status': 'success'
+              files['jobDetailsFilePath'] = respo;
+              adminService.exportUserCollection('recruiter', (err, respo) => {
+                if (err) {
+                  next({
+                    reason: Messages.MSG_ERROR_CREATING_EXCEL,//Messages.MSG_ERROR_RSN_INVALID_CREDENTIALS,
+                    message: Messages.MSG_ERROR_CREATING_EXCEL,
+                    stackTrace: err,
+                    code: 500
+                  });
+                } else {
+                  files['usersFilePath'] = config.get('TplSeed.downloadFilePathClient')
+                    + config.get('TplSeed.exportFileNames.companyAccountDetailsCSV');
+                  res.status(200).send({
+                    'path': files,
+                    'status': 'success'
+                  });
+                }
               });
             }
           });

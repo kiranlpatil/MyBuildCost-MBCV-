@@ -66,6 +66,16 @@ class JobProfileService {
     });
   }
 
+  retrieveAll(item: any, callback: (error: any, result: any) => void) {
+    this.jobProfileRepository.retrieve(item, (err, res) => {
+      if (err) {
+        callback(new Error('Not Found Any Job posted'), null);
+      } else {
+        callback(null, res);
+      }
+    });
+  };
+
   retrieveByJobId(id: any, callback: (error: any, result: IJobProfile ) => void) {
     this.jobProfileRepository.findById(id, (err: any, res : any) => {
       if (err) {

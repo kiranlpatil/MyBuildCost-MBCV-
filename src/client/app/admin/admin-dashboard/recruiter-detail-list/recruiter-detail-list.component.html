@@ -42,7 +42,7 @@
           <p *ngIf="recruiter.location && recruiter.location.city">{{recruiter.location.city}}</p>
         </li>
         <li>
-          <span *ngIf="recruiter.data && jobs">{{jobs.length}}</span>
+          <span *ngIf="recruiter.data">{{recruiter.data.totalNumberOfJobsPosted}}</span>
         </li>
         <li>
           <div *ngIf="recruiter.isActivated"><span class="activated" title="User account is active."></span><span>Active</span></div>
