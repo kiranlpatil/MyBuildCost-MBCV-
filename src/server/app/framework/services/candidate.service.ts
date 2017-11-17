@@ -17,6 +17,8 @@ import RoleModel = require('../dataaccess/model/role.model');
 import CandidateModel = require("../dataaccess/model/candidate.model");
 import JobProfileModel = require("../dataaccess/model/jobprofile.model");
 import {UtilityFunction} from "../uitility/utility-function";
+import JobProfileRepository = require("../dataaccess/repository/job-profile.repository");
+import RecruiterService = require("./recruiter.service");
 let bcrypt = require('bcrypt');
 class CandidateService {
   private candidateRepository: CandidateRepository;
@@ -24,6 +26,8 @@ class CandidateService {
   private industryRepositiry: IndustryRepository;
   private userRepository: UserRepository;
   private locationRepository: LocationRepository;
+  private jobProfileRepository: JobProfileRepository;
+
 
 
   constructor() {
@@ -32,6 +36,7 @@ class CandidateService {
     this.recruiterRepository = new RecruiterRepository();
     this.locationRepository = new LocationRepository();
     this.industryRepositiry = new IndustryRepository();
+    this.jobProfileRepository =new JobProfileRepository();
   }
 
   createUser(item: any, callback: (error: any, result: any) => void) {
@@ -829,21 +834,27 @@ class CandidateService {
             if(err) {
               callback(err, null);
             } else {
-              let isInCart = false;
-              for (let job of recruiterDetails[0].postedJobs) {
-                for (let item of job.candidate_list) {
-                  if (item.name === 'cartListed') {
-                    if (item.ids.indexOf(new mongoose.Types.ObjectId(candidateDetails.candidateId).toString()) !== -1) {
-                      isInCart = true;
-                      break;
-                    }
-                  }
-                }
-                if (isInCart) {
-                  break;
-                }
-              }
-              callback(err, isInCart);
+             this.jobProfileRepository.retrieve({'recruiterId': recruiterDetails[0]._id},(error:any, jobs:any[])=> {
+               if(error){
+                 callback(error, null);
+               }
+               let isInCart = false;
+             for (let job of jobs) {
+               for (let item of job.candidate_list) {
+                 if (item.name === 'cartListed') {
+                   if (item.ids.indexOf(new mongoose.Types.ObjectId(candidateDetails.candidateId).toString()) !== -1) {
+                     isInCart = true;
+                     break;
+                   }
+                 }
+               }
+               if (isInCart) {
+                 break;
+               }
+             }
+             callback(err, isInCart);
+             });
+
             }
           });
         }
