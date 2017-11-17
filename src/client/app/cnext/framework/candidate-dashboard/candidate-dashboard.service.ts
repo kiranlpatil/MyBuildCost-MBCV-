@@ -5,6 +5,7 @@ import {API, LocalStorage, ValueConstant} from "../../../shared/constants";
 import {BaseService} from "../../../shared/services/http/base.service";
 import {LocalStorageService} from "../../../shared/services/localstorage.service";
 import {LoaderService} from "../../../shared/loader/loaders.service";
+import {QCardFilter} from "../model/q-card-filter";
 
 @Injectable()
 export class CandidateDashboardService extends BaseService {//todo THIS CODE SHOULD FIT IN 30 LINE:SHRIKANT
@@ -14,12 +15,13 @@ export class CandidateDashboardService extends BaseService {//todo THIS CODE SHO
     super();
   }
 
-  getJobList(): Observable<any> {
+  getJobList(obj:QCardFilter): Observable<any> {
     let headers = new Headers({'Content-Type': 'application/json'});
     let options = new RequestOptions({headers: headers});
+    let body = JSON.stringify({obj});
     let url: string = API.CANDIDATE_PROFILE + '/' + LocalStorageService.getLocalValue(LocalStorage.END_USER_ID) + '/jobProfile';
     this.loaderService.start();
-    return this.http.get(url, options)
+    return this.http.post(url,body,options)
       .map(this.extractData)
       .catch(this.errorHandle);
   }

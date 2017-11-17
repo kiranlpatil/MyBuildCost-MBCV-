@@ -14,7 +14,8 @@ export class JobSearchEngine extends SearchEngine {
 
   buildBusinessCriteria(details : BaseDetail): any {
     let today = new Date();
-    if (details.interestedIndustries && details.interestedIndustries.indexOf('None')) {
+    if (details.interestedIndustries === undefined) {
+      details.interestedIndustries = [];
       details.interestedIndustries.push('None');
     }
     let criteria: any = {
@@ -61,6 +62,7 @@ export class JobSearchEngine extends SearchEngine {
 
   getMatchingObjects(criteria : any, callback : (error : any, response : any[]) => void) : void {
     let jobProfileRepository : JobProfileRepository = new JobProfileRepository();
+    console.log('-------------criteria----------------------------------',criteria);
     jobProfileRepository.retrieveWithLean(criteria, {}, (err : Error, res: any[]) => {
         if (err) {
           callback(err, null);
