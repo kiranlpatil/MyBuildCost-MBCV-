@@ -1,17 +1,11 @@
 import { SearchService } from './search.service';
 import RecruiterRepository = require('../../dataaccess/repository/recruiter.repository');
 import { JobDetail } from '../models/output-model/job-detail';
-import JobProfileModel = require('../../dataaccess/model/jobprofile.model');
 import { BaseDetail } from '../models/output-model/base-detail';
 import { EList } from '../models/input-model/list-enum';
-import CandidateRepository = require('../../dataaccess/repository/candidate.repository');
-import ICandidate = require('../../dataaccess/mongoose/candidate');
-import CandidateModel = require('../../dataaccess/model/candidate.model');
-import RecruiterClassModel = require('../../dataaccess/model/recruiterClass.model');
 import { ConstVariables } from '../../shared/sharedconstants';
 import * as mongoose from 'mongoose';
 import JobProfileRepository = require('../../dataaccess/repository/job-profile.repository');
-import IJobProfile = require('../../dataaccess/mongoose/job-profile');
 
 export class CandidateSearchService extends SearchService {
   recruiterRepository : RecruiterRepository;

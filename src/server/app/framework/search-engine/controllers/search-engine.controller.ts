@@ -2,12 +2,10 @@ import * as express from 'express';
 import { CandidateSearchEngine } from '../engines/candidate-search.engine';
 import { AppliedFilter } from '../models/input-model/applied-filter';
 import { EList } from '../models/input-model/list-enum';
-import { JobDetail } from '../models/output-model/job-detail';
 import { JobSearchService } from '../services/job-search.service';
 import { BaseDetail } from '../models/output-model/base-detail';
 import { CandidateSearchService } from '../services/candidate-search.service';
 import {JobSearchEngine} from '../engines/job-search.engine';
-import {CandidateDetail} from "../models/output-model/candidate-detail";
 import {SearchEngine} from "../engines/search.engine";
 import {SearchService} from "../services/search.service";
 

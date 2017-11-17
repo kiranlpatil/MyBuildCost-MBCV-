@@ -2,11 +2,10 @@ import { SearchEngine } from './search.engine';
 import { AppliedFilter } from '../models/input-model/applied-filter';
 import { JobDetail } from '../models/output-model/job-detail';
 import { ESort } from '../models/input-model/sort-enum';
+import { EList } from '../models/input-model/list-enum';
 import { CandidateCard } from '../models/output-model/candidate-card';
-import { BaseDetail } from '../models/output-model/base-detail';
 import CandidateRepository = require('../../dataaccess/repository/candidate.repository');
-import CandidateModelClass = require('../../dataaccess/model/candidateClass.model');
-import CandidateClassModel = require('../../dataaccess/model/candidate-class.model');
+import {ConstVariables} from "../../shared/sharedconstants";
 
 export class CandidateSearchEngine extends SearchEngine {
   candidate_q_cards: CandidateCard[] = new Array(0);
@@ -22,8 +21,25 @@ export class CandidateSearchEngine extends SearchEngine {
     });
   }
 
-  buildQCards(objects: any[], jobDetails: JobDetail, sortBy: ESort): any {
+  buildQCards(objects: any[], jobDetails: JobDetail, sortBy: ESort, listName: EList): any {
     for (let obj of objects) {
+      let isFound: boolean = false;
+      if (listName === EList.CAN_MATCHED) {
+        if (jobDetails.candidateList) {
+          for (let list of jobDetails.candidateList) {
+            if (list.name === ConstVariables.SHORT_LISTED_CANDIDATE) {
+              continue;
+            }
+            if (list.ids.indexOf(obj._id.toString()) !== -1) {
+              isFound = true;
+              break;
+            }
+          }
+        }
+        if (isFound) {
+          continue;
+        }
+      }
       let candidate_q_card: CandidateCard;
       if (!this.setMustHaveMatrix(jobDetails.capability_matrix, obj.capability_matrix, jobDetails.complexity_must_have_matrix)) {
         continue;

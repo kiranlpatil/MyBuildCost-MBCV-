@@ -188,20 +188,19 @@ export class QCardviewComponent implements OnChanges {
     if (action === 'add' && !isMatchList && sourceListName !== ValueConstant.APPLIED_CANDIDATE) {
       this.qCardViewService.updateCandidateLists(this.jobId, candidate._id, sourceListName, 'remove').subscribe(
         data => {
-          this.updateCountModel(data);
+          this.updateCountModel(data.data);
         }
       );
     } else if (action === 'remove') {
-      if ((candidate.isVisible == undefined || !candidate.isVisible) && (destinationListName === 'cartListed' ||
+      this.recuirterListCountModel.numberOfMatchedCandidates++;
+      /*if ((candidate.isVisible == undefined || !candidate.isVisible) && (destinationListName === 'cartListed' ||
         destinationListName === 'rejectedList')) {
-
       } else {
-        this.recuirterListCountModel.numberOfMatchedCandidates++;
-      }
+      }*/
     }
     this.qCardViewService.updateCandidateLists(this.jobId, candidate._id, destinationListName, action).subscribe(
       data => {
-        this.updateCountModel(data);
+        this.updateCountModel(data.data);
       }
     );
     this.showModalStyle = false;
@@ -278,7 +277,7 @@ export class QCardviewComponent implements OnChanges {
     }
     this.qCardViewService.updateCandidateLists(this.jobId, candidate._id, ValueConstant.SHORT_LISTED_CANDIDATE, action).subscribe(
       data => {
-        this.updateCountModel(data);
+        this.updateCountModel(data.data);
       },error => this.errorService.onError(error)
     );
   }

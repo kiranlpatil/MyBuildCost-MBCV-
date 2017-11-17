@@ -3,6 +3,7 @@ import { BaseDetail } from '../models/output-model/base-detail';
 import { ConstVariables } from '../../shared/sharedconstants';
 import { QCard } from '../models/output-model/q-card';
 import { ESort } from '../models/input-model/sort-enum';
+import { EList } from '../models/input-model/list-enum';
 import {CandidateCard} from "../models/output-model/candidate-card";
 import {UtilityFunction} from "../../uitility/utility-function";
 export abstract class SearchEngine {
@@ -66,7 +67,7 @@ export abstract class SearchEngine {
 
   abstract getSortedCriteria(sortBy : ESort, criteria : any) : Object ;
 
-  abstract buildQCards(objects : any[], jobDetails : BaseDetail,sortBy : ESort) : any ;
+  abstract buildQCards(objects : any[], jobDetails : BaseDetail,sortBy : ESort, listName: EList) : any ;
 
   abstract getMatchingObjects(criteria : any, callback : (error : any, response : any[]) => void) : void;
 

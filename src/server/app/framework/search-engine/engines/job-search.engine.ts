@@ -2,13 +2,10 @@ import { SearchEngine } from './search.engine';
 import { AppliedFilter } from '../models/input-model/applied-filter';
 import { BaseDetail } from '../models/output-model/base-detail';
 import { ESort } from '../models/input-model/sort-enum';
-import RecruiterRepository = require('../../dataaccess/repository/recruiter.repository');
+import { EList } from '../models/input-model/list-enum';
 import { JobCard } from '../models/output-model/job-card';
-import RecruiterClassModel = require('../../dataaccess/model/recruiterClass.model');
 import { CandidateDetail } from '../models/output-model/candidate-detail';
-import JobProfileModel = require('../../dataaccess/model/jobprofile.model');
 import JobProfileRepository = require('../../dataaccess/repository/job-profile.repository');
-import IJobProfile = require('../../dataaccess/mongoose/job-profile');
 export class JobSearchEngine extends SearchEngine {
   job_q_cards : JobCard[] = new Array(0);
 
@@ -72,7 +69,7 @@ export class JobSearchEngine extends SearchEngine {
       });
   }
 
-  buildQCards(jobs : any[], candidateDetails : CandidateDetail, sortBy : ESort) : any {
+  buildQCards(jobs : any[], candidateDetails : CandidateDetail, sortBy : ESort, listName: EList) : any {
     for(let job of jobs) {
       let job_q_card : JobCard;
       job_q_card = <JobCard> this.computePercentage(job.capability_matrix, candidateDetails.capability_matrix);
