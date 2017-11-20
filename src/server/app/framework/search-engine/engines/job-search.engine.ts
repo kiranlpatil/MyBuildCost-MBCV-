@@ -1,12 +1,12 @@
-import { SearchEngine } from './search.engine';
-import { AppliedFilter } from '../models/input-model/applied-filter';
-import { BaseDetail } from '../models/output-model/base-detail';
-import { ESort } from '../models/input-model/sort-enum';
-import { EList } from '../models/input-model/list-enum';
-import { JobCard } from '../models/output-model/job-card';
-import { CandidateDetail } from '../models/output-model/candidate-detail';
-import JobProfileRepository = require('../../dataaccess/repository/job-profile.repository');
+import {SearchEngine} from "./search.engine";
+import {AppliedFilter} from "../models/input-model/applied-filter";
+import {BaseDetail} from "../models/output-model/base-detail";
+import {ESort} from "../models/input-model/sort-enum";
+import {EList} from "../models/input-model/list-enum";
+import {JobCard} from "../models/output-model/job-card";
+import {CandidateDetail} from "../models/output-model/candidate-detail";
 import {ConstVariables} from "../../shared/sharedconstants";
+import JobProfileRepository = require('../../dataaccess/repository/job-profile.repository');
 export class JobSearchEngine extends SearchEngine {
   job_q_cards : JobCard[] = new Array(0);
 
@@ -46,13 +46,13 @@ export class JobSearchEngine extends SearchEngine {
     if (filter.joinTime !== undefined && filter.joinTime !== '') {
       criteria['joiningPeriod'] = filter.joinTime;
     }
-    if (filter.minSalary && filter.minSalary.toString() !== undefined && filter.minSalary.toString() !== '' &&
+    if (filter.minSalary && filter.minSalary.toString() !== undefined && filter.minSalary.toString() !== '' && filter.maxSalary &&
       filter.maxSalary.toString() !== undefined && filter.maxSalary.toString() !== '') {
       criteria['salaryMaxValue'] = {
         $lte: Number(filter.maxSalary)
       };
     }
-    if (filter.minExperience && filter.minExperience.toString() !== undefined && filter.minExperience.toString() !== '' &&
+    if (filter.minExperience && filter.minExperience.toString() !== undefined && filter.minExperience.toString() !== '' && filter.maxExperience &&
       filter.maxExperience.toString() !== undefined && filter.maxExperience.toString() !== '') {
       criteria['experienceMinValue'] = {
         $gte: Number(filter.minExperience),

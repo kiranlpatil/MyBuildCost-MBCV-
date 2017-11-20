@@ -1,7 +1,5 @@
-import {Component, Input} from '@angular/core';
-import { RecruiterDashboard } from '../model/recruiter-dashboard';
-import {Router} from "@angular/router";
-import {JobPosterModel} from "../../../user/models/jobPoster";
+import {Component, Input} from "@angular/core";
+import {RecruiterDashboard} from "../model/recruiter-dashboard";
 
 @Component({
   moduleId: module.id,
