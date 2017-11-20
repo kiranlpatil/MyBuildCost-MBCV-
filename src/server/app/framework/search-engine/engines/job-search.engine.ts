@@ -43,18 +43,18 @@ export class JobSearchEngine extends SearchEngine {
     if (filter.joinTime !== undefined && filter.joinTime !== '') {
       criteria['joiningPeriod'] = filter.joinTime;
     }
-    /*if (filter.minSalary !== undefined && filter.minSalary !== '' &&
-      filter.maxSalary !== undefined && filter.maxSalary !== '') {
+    if (filter.minSalary && filter.minSalary.toString() !== undefined && filter.minSalary.toString() !== '' &&
+      filter.maxSalary.toString() !== undefined && filter.maxSalary.toString() !== '') {
       criteria['salaryMaxValue'] = {
         $lte: Number(filter.maxSalary)
       };
     }
-    if (filter.minExperience !== undefined && filter.minExperience !== '' &&
-      filter.maxExperience !== undefined && filter.maxExperience !== '') {
+    if (filter.minExperience && filter.minExperience.toString() !== undefined && filter.minExperience.toString() !== '' &&
+      filter.maxExperience.toString() !== undefined && filter.maxExperience.toString() !== '') {
       criteria['experienceMinValue'] = {
         $gte: Number(filter.minExperience),
       };
-    }*/
+    }
     return this.getSortedCriteria(filter.sortBy, criteria);
   }
 
