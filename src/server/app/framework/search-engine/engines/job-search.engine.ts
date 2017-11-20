@@ -6,6 +6,7 @@ import { EList } from '../models/input-model/list-enum';
 import { JobCard } from '../models/output-model/job-card';
 import { CandidateDetail } from '../models/output-model/candidate-detail';
 import JobProfileRepository = require('../../dataaccess/repository/job-profile.repository');
+import {ConstVariables} from "../../shared/sharedconstants";
 export class JobSearchEngine extends SearchEngine {
   job_q_cards : JobCard[] = new Array(0);
 
@@ -73,14 +74,16 @@ export class JobSearchEngine extends SearchEngine {
     for(let job of jobs) {
       let job_q_card : JobCard;
       job_q_card = <JobCard> this.computePercentage(job.capability_matrix, candidateDetails.capability_matrix);
-      if(sortBy !== ESort.BEST_MATCH) {
-        if(this.job_q_cards.length < 100) {
-          this.createQCard(job_q_card,job);
-        }else {
-          break;
+      if(job_q_card.exact_matching >= ConstVariables.LOWER_LIMIT_FOR_SEARCH_RESULT) {
+        if (sortBy !== ESort.BEST_MATCH) {
+          if (this.job_q_cards.length < 100) {
+            this.createQCard(job_q_card, job);
+          } else {
+            break;
+          }
+        } else {
+          this.createQCard(job_q_card, job);
         }
-      }else {
-        this.createQCard(job_q_card,job);
       }
     }
     if (sortBy === ESort.BEST_MATCH) {

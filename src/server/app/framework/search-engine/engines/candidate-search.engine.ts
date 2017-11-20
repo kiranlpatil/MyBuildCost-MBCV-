@@ -45,14 +45,16 @@ export class CandidateSearchEngine extends SearchEngine {
         continue;
       } else {
         candidate_q_card = <CandidateCard> this.computePercentage(obj.capability_matrix, jobDetails.capability_matrix);
-        if (sortBy !== ESort.BEST_MATCH) {
-          if (this.candidate_q_cards.length < 100) {
-            this.createQCard(candidate_q_card, obj);
+        if(candidate_q_card.exact_matching >= ConstVariables.LOWER_LIMIT_FOR_SEARCH_RESULT) {
+          if (sortBy !== ESort.BEST_MATCH) {
+            if (this.candidate_q_cards.length < 100) {
+              this.createQCard(candidate_q_card, obj);
+            } else {
+              break;
+            }
           } else {
-            break;
+            this.createQCard(candidate_q_card, obj);
           }
-        } else {
-          this.createQCard(candidate_q_card, obj);
         }
       }
     }

@@ -20,24 +20,25 @@ export abstract class SearchEngine {
     let q_card = new QCard();
     let count =0;
     for (let cap in job_capability_matrix) {
-      if(candidate_capability_matrix[cap]) {
+      console.log('(candidate_capability_matrix:' , JSON.stringify((candidate_capability_matrix)));
+      console.log('(candidate_capability_matrix[cap]:' , (candidate_capability_matrix[cap]));
         if (job_capability_matrix[cap] === -1 || job_capability_matrix[cap] === 0 ||
           job_capability_matrix[cap] === undefined) {
-        } else if (Number(job_capability_matrix[cap].toString()) === Number(candidate_capability_matrix[cap].toString())) {
+        } else if (candidate_capability_matrix[cap] && (Number(job_capability_matrix[cap].toString()) === Number(candidate_capability_matrix[cap].toString()))) {
           q_card.exact_matching += 1;
           count++;
-        } else if (Number(job_capability_matrix[cap].toString()) === (Number(candidate_capability_matrix[cap].toString()) -
-            ConstVariables.DIFFERENCE_IN_COMPLEXITY_SCENARIO)) {
+        } else if (candidate_capability_matrix[cap] && (Number(job_capability_matrix[cap].toString()) === (Number(candidate_capability_matrix[cap].toString()) -
+            ConstVariables.DIFFERENCE_IN_COMPLEXITY_SCENARIO))) {
           q_card.above_one_step_matching += 1;
           count++;
-        } else if (Number(job_capability_matrix[cap].toString()) === (Number(candidate_capability_matrix[cap].toString()) +
-            ConstVariables.DIFFERENCE_IN_COMPLEXITY_SCENARIO)) {
+        } else if (candidate_capability_matrix[cap] && (Number(job_capability_matrix[cap].toString()) === (Number(candidate_capability_matrix[cap].toString()) +
+            ConstVariables.DIFFERENCE_IN_COMPLEXITY_SCENARIO))) {
           count++;
         } else {
           count++;
         }
-      }
     }
+    console.log('count print: ', count);
     q_card.above_one_step_matching = (q_card.above_one_step_matching / count) * 100;
     q_card.exact_matching = (q_card.exact_matching / count) * 100;
     return q_card;
@@ -58,12 +59,12 @@ export abstract class SearchEngine {
     return q_cards;
   }
 
-  maskQCards(q_cards: any []): any[] {
+  /*maskQCards(q_cards: any []): any[] {
     for(let qCard in q_cards) {
       q_cards[qCard].last_name =  UtilityFunction.valueHide(q_cards[qCard].last_name);
     }
     return q_cards;
-  }
+  }*/
 
   abstract getSortedCriteria(sortBy : ESort, criteria : any) : Object ;
 

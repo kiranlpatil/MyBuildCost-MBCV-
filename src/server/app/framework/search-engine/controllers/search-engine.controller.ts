@@ -43,6 +43,8 @@ export class SearchEngineController {
             let ids = searchService.getObjectIdsByList(againstDetails, appliedFilters.listName);
             criteria = { '_id': { $in: ids}};
           }
+
+
           let mainCriteria =searchEngine.buildUserCriteria(appliedFilters,criteria);
           searchEngine.getMatchingObjects(mainCriteria, (error : any, response : any[]) => {
             if(error) {
