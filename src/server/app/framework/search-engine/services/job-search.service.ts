@@ -49,7 +49,4 @@ export class JobSearchService extends SearchService {
     }
     return send_ids;
   }
-
-
-
 }

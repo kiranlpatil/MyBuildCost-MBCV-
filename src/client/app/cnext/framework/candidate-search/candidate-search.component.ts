@@ -16,6 +16,9 @@ import { MessageService } from '../../../shared/services/message.service';
 import { Message } from '../../../shared/models/message';
 import { SearchEvent } from '../model/search-event';
 import { SearchEventCompare } from '../model/search-event-compare';
+import {QCardFilter} from "../model/q-card-filter";
+import {ESort} from "../model/sort-type";
+import {EList} from "../model/list-type";
 
 @Component({
   moduleId: module.id,
@@ -27,6 +30,7 @@ import { SearchEventCompare } from '../model/search-event-compare';
 export class CandidateSearchComponent implements OnChanges {
 
   searchValue:string = '';
+  sortBy : ESort = ESort.BEST_MATCH;
   private showModalStyle: boolean = false;
   candidateDataList:CandidateSearch[] = new Array(0);
   listOfJobs:JobQcard[] = new Array(0);
@@ -47,6 +51,7 @@ export class CandidateSearchComponent implements OnChanges {
   inRejectListedStatusForSearchView:boolean = false;
   isCandidateFound:boolean;
   private isShowSuggestionToasterMsg:boolean = false;
+  private appliedFilters :QCardFilter = new QCardFilter();
 
 
   constructor(private _router:Router, private activatedRoute:ActivatedRoute, private candidateSearchService:CandidateSearchService,
@@ -92,14 +97,19 @@ export class CandidateSearchComponent implements OnChanges {
   }
 
   getJobProfiles(candidateId:string) {
-    this.candidateSearchService.getJobProfileMatching(candidateId)
+    this.appliedFilters = new QCardFilter();
+    this.appliedFilters.sortBy = this.sortBy;
+    this.appliedFilters.listName= EList.JOB_MATCHED;
+    this.appliedFilters.recruiterId = LocalStorageService.getLocalValue(LocalStorage.END_USER_ID);
+    this.candidateSearchService.getJobProfileMatching(candidateId, this.appliedFilters)
       .subscribe(
         (res:any) => {
-          this.candidateDetailsJobMatching = <CandidateDetailsJobMatching>res.data;
+          this.candidateDetailsJobMatching.jobQCardMatching = <any>res;
           this.checkButttons = false;
           this.checkButttons = true;
+          /*this.listOfJobs = this.candidateDetailsJobMatching.jobQCardMatching*/;
           this.listOfJobs = this.candidateDetailsJobMatching.jobQCardMatching;
-          this.onCandidateDataSuccess(this.candidateDetailsJobMatching.candidateDetails);
+          //this.onCandidateDataSuccess(this.candidateDetailsJobMatching.candidateDetails);
           this.showModalStyle = false;
           this.candidateDataList = new Array(0);
         },

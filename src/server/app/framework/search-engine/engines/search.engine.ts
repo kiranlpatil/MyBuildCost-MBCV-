@@ -20,8 +20,6 @@ export abstract class SearchEngine {
     let q_card = new QCard();
     let count =0;
     for (let cap in job_capability_matrix) {
-      console.log('(candidate_capability_matrix:' , JSON.stringify((candidate_capability_matrix)));
-      console.log('(candidate_capability_matrix[cap]:' , (candidate_capability_matrix[cap]));
         if (job_capability_matrix[cap] === -1 || job_capability_matrix[cap] === 0 ||
           job_capability_matrix[cap] === undefined) {
         } else if (candidate_capability_matrix[cap] && (Number(job_capability_matrix[cap].toString()) === Number(candidate_capability_matrix[cap].toString()))) {
@@ -38,7 +36,6 @@ export abstract class SearchEngine {
           count++;
         }
     }
-    console.log('count print: ', count);
     q_card.above_one_step_matching = (q_card.above_one_step_matching / count) * 100;
     q_card.exact_matching = (q_card.exact_matching / count) * 100;
     return q_card;

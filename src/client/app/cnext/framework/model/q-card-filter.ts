@@ -15,4 +15,5 @@ export class QCardFilter {
   query: any;
   sortBy: ESort= ESort.BEST_MATCH;
   listName: EList;
+  recruiterId: string;
 }

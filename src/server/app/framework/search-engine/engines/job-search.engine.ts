@@ -31,6 +31,9 @@ export class JobSearchEngine extends SearchEngine {
     if (filter.location !== undefined && filter.location !== '') {
       criteria['location.city'] =  filter.location;
     }
+    if (filter.recruiterId !== undefined && filter.recruiterId !== '') {
+      criteria['recruiterId'] =  filter.recruiterId;
+    }
     if (filter.education && filter.education.length > 0) {
       criteria['education'] = {$in: filter.education};
     }

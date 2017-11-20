@@ -14,4 +14,5 @@ export class AppliedFilter {
   mustHaveComplexity: boolean = false;
   sortBy: ESort = ESort.BEST_MATCH;
   listName: EList;
+  recruiterId: string;
 }

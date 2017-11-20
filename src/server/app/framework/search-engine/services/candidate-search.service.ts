@@ -59,5 +59,4 @@ export class CandidateSearchService extends SearchService {
       }
       return send_ids;
   }
-
 }
