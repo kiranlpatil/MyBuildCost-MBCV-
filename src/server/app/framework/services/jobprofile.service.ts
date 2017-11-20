@@ -11,7 +11,7 @@ import IndustryModel = require('../dataaccess/model/industry.model');
 import IndustryRepository = require('../dataaccess/repository/industry.repository');
 import CandidateService = require('./candidate.service');
 import IJobProfile = require('../dataaccess/mongoose/job-profile');
-let usestracking = require('uses-tracking');
+//let usestracking = require('uses-tracking');
 import UsageTrackingService = require('./usage-tracking.service');
 
 
@@ -144,7 +144,7 @@ class JobProfileService {
                     };
                     let sharedService:SharedService = new SharedService();
                     uses_data.action = sharedService.constructAddActionData(item.listName);
-                    this.usesTrackingController.create(uses_data);
+                    //this.usesTrackingController.create(uses_data);
 
                     if (list.name === ConstVariables.REJECTED_LISTED_CANDIDATE) {
                       for (let _list of job.candidate_list) {
@@ -168,7 +168,7 @@ class JobProfileService {
                     };
                     let sharedService: SharedService = new SharedService();
                     uses_data.action = sharedService.constructRemoveActionData(item.listName);
-                    this.usesTrackingController.create(uses_data);
+                    //this.usesTrackingController.create(uses_data);
                     let index = list.ids.indexOf(item.candidateId);    // <-- Not supported in <IE9
                     if (index !== -1) {
                       list.ids.splice(index, 1);
@@ -231,7 +231,7 @@ class JobProfileService {
                   };
                   let sharedService: SharedService = new SharedService();
                   uses_data.action = sharedService.constructAddActionData(item.listName);
-                  this.usesTrackingController.create(uses_data);
+                  //this.usesTrackingController.create(uses_data);
                   list.ids.push(item.profileId);
                 }
               } else if (item.action === 'remove' && item.listName !== 'applied') {
@@ -243,7 +243,7 @@ class JobProfileService {
                 };
                 let sharedService: SharedService = new SharedService();
                 uses_data.action = sharedService.constructRemoveActionData(item.listName);
-                this.usesTrackingController.create(uses_data);
+                //this.usesTrackingController.create(uses_data);
                 let index = list.ids.indexOf(item.profileId);
                 if (index !== -1) {
                   list.ids.splice(index, 1);
