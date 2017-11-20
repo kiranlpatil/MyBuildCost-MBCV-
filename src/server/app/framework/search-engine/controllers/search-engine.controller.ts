@@ -48,7 +48,7 @@ export class SearchEngineController {
             if(error) {
               res.send();
             }else {
-              let q_cards = searchEngine.buildQCards(response,againstDetails,appliedFilters.sortBy);
+              let q_cards = searchEngine.buildQCards(response,againstDetails,appliedFilters.sortBy, appliedFilters.listName );
               /*if(appliedFilters.listName !== EList.CAN_CART) {
                 q_cards = searchEngine.maskQCards(q_cards);
               }*/
