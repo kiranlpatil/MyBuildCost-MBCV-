@@ -4,6 +4,10 @@ import CandidateRepository = require('../../dataaccess/repository/candidate.repo
 import {EList} from '../models/input-model/list-enum';
 import * as mongoose from 'mongoose';
 import { ConstVariables } from '../../shared/sharedconstants';
+import { UtilityFunction } from '../../uitility/utility-function';
+import CandidateModel = require('../../dataaccess/model/candidate.model');
+import JobProfileModel = require('../../dataaccess/model/jobprofile.model');
+import { CandidateDetailsWithJobMatching } from '../../dataaccess/model/candidatedetailswithjobmatching';
 
 export class JobSearchService extends SearchService {
   candidateRepository : CandidateRepository;
@@ -22,10 +26,20 @@ export class JobSearchService extends SearchService {
       canDetail.industryName= response.industry.name;
       canDetail.capability_matrix = response.capability_matrix;
       canDetail.job_list = response.job_list;
+      canDetail.userId = response.userId;
       callback(null,canDetail);
     });
    }
 
+  getCandidateDetails(canId: string, callback: (err: Error, res: any) => void): any {
+     this.candidateRepository.findById(canId, (myErr: any, response: any) => {
+       if (myErr) {
+         callback(myErr, null);
+         return;
+       }
+       callback(null,response);
+     });
+   }
 
   getObjectIdsByList(candidateDetails: CandidateDetail, listName : EList) : mongoose.Types.ObjectId [] {
     let list : string;
@@ -48,5 +62,44 @@ export class JobSearchService extends SearchService {
       }
     }
     return send_ids;
+  }
+
+  getCandidateVisibilityAgainstRecruiter(candidateDetails:CandidateModel, jobProfiles:JobProfileModel[]) {
+    let isGotIt = true;
+    let _canDetailsWithJobMatching:CandidateDetailsWithJobMatching = new CandidateDetailsWithJobMatching();
+    for (let job of jobProfiles) {
+      for (let item of job.candidate_list) {
+        if (item.name === 'cartListed') {
+          if (item.ids.indexOf(new mongoose.Types.ObjectId(candidateDetails._id).toString()) !== -1) {
+            isGotIt = false;
+            break;
+          }
+        }
+      }
+      if (!isGotIt) {
+        break;
+      }
+    }
+
+    if (isGotIt) {
+      candidateDetails.personalDetails.mobile_number = UtilityFunction.mobileNumberHider(candidateDetails.personalDetails.mobile_number);
+      candidateDetails.personalDetails.email = UtilityFunction.emailValueHider(candidateDetails.personalDetails.email);
+      candidateDetails.academics = [];
+      candidateDetails.employmentHistory = [];
+      candidateDetails.areaOfWork = [];
+      candidateDetails.proficiencies = [];
+      candidateDetails.awards = [];
+      candidateDetails.proficiencies = [];
+      candidateDetails.professionalDetails.education = UtilityFunction.valueHide(candidateDetails.professionalDetails.education)
+      candidateDetails.professionalDetails.experience = UtilityFunction.valueHide(candidateDetails.professionalDetails.experience)
+      candidateDetails.professionalDetails.industryExposure = UtilityFunction.valueHide(candidateDetails.professionalDetails.industryExposure);
+      candidateDetails.professionalDetails.currentSalary = UtilityFunction.valueHide(candidateDetails.professionalDetails.currentSalary);
+      candidateDetails.professionalDetails.noticePeriod = UtilityFunction.valueHide(candidateDetails.professionalDetails.noticePeriod);
+      candidateDetails.professionalDetails.relocate = UtilityFunction.valueHide(candidateDetails.professionalDetails.relocate);
+    }
+    candidateDetails.personalDetails.password = '';
+    _canDetailsWithJobMatching.candidateDetails = candidateDetails;
+    _canDetailsWithJobMatching.isShowCandidateDetails = isGotIt;
+    return _canDetailsWithJobMatching;
   }
 }

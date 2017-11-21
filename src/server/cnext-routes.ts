@@ -77,7 +77,7 @@ export function cnextInit(app: express.Application) {
   app.post('/api/candidate/:candidateId/jobProfile',loggerInterceptor.logDetail, this.authInterceptor.requiresAuth, this.authInterceptor.secureApiCheck, searchEngineController.getMatchingProfile);
   app.post('/api/candidate/:candidateId/list/:listName',loggerInterceptor.logDetail, this.authInterceptor.requiresAuth, this.authInterceptor.secureApiCheck, searchEngineController.getMatchingProfile);
   app.post('/api/recruiter/jobProfile/:id/list/:listName',loggerInterceptor.logDetail, this.authInterceptor.requiresAuth, this.authInterceptor.secureApiCheck, searchEngineController.getMatchingProfile);
-  app.post('/api/jobs/candidate/:candidateId',this.authInterceptor.requiresAuth, searchEngineController.getMatchingProfile);
+  app.post('/api/jobs/candidate/:candidateId',this.authInterceptor.requiresAuth, searchEngineController.getMatchingJobProfiles);
 
     //Share api
   app.get('/api/buildValuePortraitUrl',loggerInterceptor.logDetail, this.authInterceptor.requiresAuth, shareController.buildValuePortraitUrl);

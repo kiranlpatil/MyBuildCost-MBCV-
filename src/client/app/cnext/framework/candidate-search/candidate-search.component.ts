@@ -104,12 +104,12 @@ export class CandidateSearchComponent implements OnChanges {
     this.candidateSearchService.getJobProfileMatching(candidateId, this.appliedFilters)
       .subscribe(
         (res:any) => {
-          this.candidateDetailsJobMatching.jobQCardMatching = <any>res;
+          this.candidateDetailsJobMatching = <any>res.data;
           this.checkButttons = false;
           this.checkButttons = true;
           /*this.listOfJobs = this.candidateDetailsJobMatching.jobQCardMatching*/;
           this.listOfJobs = this.candidateDetailsJobMatching.jobQCardMatching;
-          //this.onCandidateDataSuccess(this.candidateDetailsJobMatching.candidateDetails);
+          this.onCandidateDataSuccess(this.candidateDetailsJobMatching.candidateDetails);
           this.showModalStyle = false;
           this.candidateDataList = new Array(0);
         },
@@ -119,9 +119,9 @@ export class CandidateSearchComponent implements OnChanges {
 
   onCandidateDataSuccess(candidateData:any) {
     this.candidate = candidateData;
-    this.candidateDetails = <CandidateDetail>candidateData.userId;
+    this.candidateDetails = candidateData.personalDetails;
     this.searchValue = this.candidateDetails.first_name + ' ' + this.candidateDetails.last_name;
-    this.candidateId = this.candidate._id;
+    this.candidateId = this.candidate.candidateId;
     this.userId = this.candidateDetails._id;
   }
 
