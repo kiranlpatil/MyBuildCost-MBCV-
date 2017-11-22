@@ -156,7 +156,7 @@ export class CandidateSearchComponent implements OnChanges {
     this.job = data.job;
     this.inCartListedStatusForSearchView = data.inCartStatus;
     this.inRejectListedStatusForSearchView = data.inRejectedStatus;
-    this.candidateId = this.candidate._id;
+    this.candidateId = this.candidate.candidateId;
     this.isShowJobCompareView = true;
     this.showModalStyle = !this.showModalStyle;
   }

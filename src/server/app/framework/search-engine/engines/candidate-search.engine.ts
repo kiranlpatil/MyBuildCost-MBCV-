@@ -73,8 +73,8 @@ export class CandidateSearchEngine extends SearchEngine {
     let isNotSatisfy: boolean = false;
     for (let cap in jobProfile_capability_matrix) {
       if (candidate_capability_matrix && candidate_capability_matrix[cap] && complexity_musthave_matrix && complexity_musthave_matrix[cap]) {
-        if (jobProfile_capability_matrix[cap] !== candidate_capability_matrix[cap] /*&&
-          jobProfile_capability_matrix[cap] !== (Number(candidate_capability_matrix[cap].toString()))*/) {
+        if (jobProfile_capability_matrix[cap] !== candidate_capability_matrix[cap] &&
+          jobProfile_capability_matrix[cap] !== (Number(candidate_capability_matrix[cap].toString()))) {
           isNotSatisfy = true;
           break;
         }
