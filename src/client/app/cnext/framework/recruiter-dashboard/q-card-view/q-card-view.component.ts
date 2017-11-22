@@ -303,6 +303,7 @@ export class QCardviewComponent implements OnChanges {
         this.recuirterListCountModel.numberOfCandidatesrejected = candidateItem.ids.length;
       }
     }
+    //this.recuirterListCountModel.numberOfMatchedCandidates -= (this.recuirterListCountModel.numberOfCandidatesrejected + this.recuirterListCountModel.numberOfCandidatesInCart);
   }
 
   clearFilter() {
@@ -414,7 +415,7 @@ export class QCardviewComponent implements OnChanges {
     this._router.navigate([nav, candidate._id]);
   }
 
-  getLabels() {
+  getButtons() {
     return Button;
   }
 }
