@@ -104,7 +104,7 @@
           <button class="btn btn-cart btn-block" type="button" >View</button>
         </div>-->
         <div class="col-sm-12 text-right">
-          <button *ngIf="!candidates.isVisible" class="btn btn-cart" type="button" [class.hidden]="(isJobPostExpired || isJobPostClosed) || (isJobPostExpired && isJobPostClosed)"
+          <button *ngIf="!candidates.isVisible" class="btn btn-cart match-job" type="button" [class.hidden]="(isJobPostExpired || isJobPostClosed) || (isJobPostExpired && isJobPostClosed)"
                     (click)="viewProfile(item)" [innerHTML]="getButtons().MATCH_AGAINST_THIS_JOB">
           </button>
             <button *ngIf="!candidates.isVisible" class="btn btn-cart" type="button" [class.hidden]="(isJobPostExpired || isJobPostClosed) || (isJobPostExpired && isJobPostClosed)"
@@ -138,6 +138,11 @@
             <button class="btn btn-danger" [class.hidden]="(isJobPostExpired || isJobPostClosed) || (isJobPostExpired && isJobPostClosed)" (click)="actionOnQCard('add','applied','rejectedList', modelCandidate)">
               Reject
             </button>
+            <div class="action-button">
+              <button class="btn btn-cart add-cart-btn" type="button">Add to cart</button>
+              <button class="btn btn-cart" type="button">Match against all jobs</button>
+              <button class="btn btn-cart reject-btn" type="button">Reject</button>
+            </div>
           </div>
           <div class="button-group" *ngIf="type=='matchedList'">
             <button  class="btn btn-primary" type="button"

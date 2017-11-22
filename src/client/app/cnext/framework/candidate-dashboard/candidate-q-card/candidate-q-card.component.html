@@ -105,12 +105,14 @@
   </div>
 
   <div class="button-group btn-hover" *ngIf="type == 'searchView'">
+    <div class="col-sm-12 text-right">
     <button *ngIf="inCartListedStatusForSearchView == false && inRejectListedStatusForSearchView == false"
-            class="btn btn-primary" (click)="actionForSearchView('cartListed',job)">Add to cart
+            class="btn btn-cart" (click)="actionForSearchView('cartListed',job)">Add to cart
     </button>
-    <button *ngIf="inRejectListedStatusForSearchView == false" class="btn btn-danger"
+    <button *ngIf="inRejectListedStatusForSearchView == false" class="btn btn-cart"
             (click)="actionForSearchView('rejectedList',job) ">Reject
     </button>
+    </div>
   </div>
 </div>
 
