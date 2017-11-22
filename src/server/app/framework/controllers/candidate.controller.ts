@@ -107,7 +107,8 @@ export function updateDetails(req: express.Request, res: express.Response, next:
             });
           } else {
             let token = auth.issueTokenWithUid(result[0]);
-                mailChimpMailerService.onCandidatePofileSubmitted(req.body.basicInformation,updatedCandidate.isSubmitted, isEditingProfile);
+            if(!isEditingProfile && updatedCandidate.isSubmitted) {
+                mailChimpMailerService.onCandidatePofileSubmitted(req.body.basicInformation);}
             res.send({
               'status': 'success',
               'data': result,
