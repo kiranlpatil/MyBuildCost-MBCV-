@@ -108,9 +108,7 @@ class JobProfileService {
   }
 
   update(item: any, callback: (error: any, result: any) => void) {
-
     let updateFlag = false;
-
     let updatedQuery2 = {
       $push: {
         'candidate_list': {

@@ -1,5 +1,5 @@
 <div class="list clearfix">
-  <div class="col-sm-12 no-padding">
+  <div class="col-sm-12 padding-left0">
     <div class="keyskill-form-group">
       <div>
           <input class="form-control" [id]="type" (ngModelChange)="proficiencyChanged($event)" (keyup.enter)="addProficiency($event)"
@@ -22,7 +22,7 @@
       </div>
     </div>
 
-    <div class="btn-container clearfix" [class.job-proficiency-container]="type==='Mandatory'||type==='Additional'">
+    <div class="btn-container clearfix">
       <div *ngFor="let item of selectedProficiencies; let i = index">
         <button type="button" class="btn btn-create-profile" id={{item}} (click)="deleteItem($event)">
           {{item}} <span class="glyphicon glyphicon-remove" (click)="deleteItem($event)"></span>
