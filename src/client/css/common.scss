@@ -2062,6 +2062,11 @@ img[alt] {
   font-size: 0;
 }
 
+.line-break {
+  word-break: keep-all;
+  word-wrap: break-word;
+}
+
 @media only screen and (max-width: 767px) {
   .add-complexity-notes {
     textarea {
