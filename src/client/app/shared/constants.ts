@@ -412,7 +412,7 @@ export class ValueConstant {
   public static MAX_WORKAREA: number = 3;
   public static MAX_INTERESTEDINDUSTRY: number = 7;
   public static MAX_PROFECIENCES: number = 25;
-  public static MAX_MANDATORY_PROFECIENCES: number = 5;
+  public static MAX_MANDATORY_PROFECIENCES: number = 25;
   public static MAX_ADDITIONAL_PROFECIENCES: number = 5;
   public static MAX_YEAR_LIST: number = 60;
   public static MAX_ACADEMIC_YEAR_LIST: number = 50;
@@ -673,7 +673,7 @@ export class Headings {
   public static ADDITIONAL_DOMAIN_EXPOSURE: string = 'Additional domain exposure';
   public static INDUSTRY_FOR_CANDIDATE: string = 'Select your Industry (Any One)';
   public static INDUSTRY_FOR_RECRUITER: string = 'Select industry in which candidate is expected to work (Any One)';
-  public static JOB_PROFICIENCIES: string = 'Keywords that describe candidate\'s area of expertise';
+  public static JOB_PROFICIENCIES: string = 'Keywords that describe candidate\'s area of expertise (Optional)';
   public static MANDATORY_PROFICIENCIES: string = 'Mandatory Key Skills';
   public static ADDITIONAL_PROFICIENCIES: string = 'Additional Key Skills';
   public static ABOUT_MYSELF: string = 'About Myself';

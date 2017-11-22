@@ -175,17 +175,13 @@ export class JobPosterComponent implements OnInit, OnChanges {
           if (this.isComplexityFilled) {
             this.getProficiency();
             this.isShowProficiency = true;
-            if (jobmodel.proficiencies !== undefined && jobmodel.proficiencies.length > 0) {
               this.showIndustryExposure = true;
               if (jobmodel.interestedIndustries !== undefined && jobmodel.interestedIndustries.length > 0) {
                 this.showReleventIndustryList = true;
                 this.showCompentensies = true;
                 this.highlightedSection.name = 'None';
-              } else {
-                this.highlightedSection.name = 'IndustryExposure';
-              }
             } else {
-              this.highlightedSection.name = 'Proficiencies';
+              this.highlightedSection.name = 'IndustryExposure';
             }
           } else {
             this.highlightedSection.name = 'Complexities';

@@ -83,7 +83,6 @@ export class JobDashboardComponent implements OnInit {
 
     this.getJobProfile();
     this.whichListVisible = new Array(5);
-    this.getMatchingProfiles();
 
   }
 
@@ -94,6 +93,7 @@ export class JobDashboardComponent implements OnInit {
           this.isRecruitingForSelf = true; // todo remove this hardcode //data.data.industry.isRecruitingForself;
           this.selectedJobProfile = data.result;
           this.recruiterId = data.result.recruiterId;
+          this.getMatchingProfiles();
           this.renewJobPostService.checkJobPostExpiryDate(this.selectedJobProfile);
           for (let item of this.selectedJobProfile.candidate_list) {
             if (item.name === ValueConstant.APPLIED_CANDIDATE)
@@ -120,6 +120,7 @@ export class JobDashboardComponent implements OnInit {
     this.appliedFilters = new QCardFilter();
     this.appliedFilters.sortBy = this.sortBy;
     this.appliedFilters.listName= this.listName;
+    this.appliedFilters.proficiencies=this.selectedJobProfile.proficiencies;
     this.jobDashboardService.getSearchedcandidate(this.jobId,this.appliedFilters)
       .subscribe(
         (data: any) => {
