@@ -71,45 +71,45 @@ export class ActionOnQCardService {
     return this.actionOnValuePortrait.asObservable();
   }
 
-  actionFromValuePortrait(data: any, candidateQlist: CandidateQListModel) {debugger
+  actionFromValuePortrait(id: any, candidateQlist: CandidateQListModel) {debugger
     let candidate: CandidateQCard;
-    let type: string;
+    let source: string;
     let isFound: boolean = false;
     candidateQlist.rejectedCandidates.forEach(item => {
-      if (data.candidateId == item._id) {
+      if (id == item._id) {
         candidate = item;
         isFound = true;
-        type = 'rejectedList';
+        source = 'rejectedList';
       }
     });
     if (!isFound) {
       candidateQlist.appliedCandidates.forEach(item => {
-        if (data.candidateId == item._id) {
+        if (id == item._id) {
           candidate = item;
           isFound = true;
-          type = 'applied';
+          source = 'applied';
         }
       })
     }
     if (!isFound) {
       candidateQlist.cartCandidates.forEach(item => {
-        if (data.candidateId == item._id) {
+        if (id == item._id) {
           candidate = item;
           isFound = true;
-          type = 'cartListed';
+          source = 'cartListed';
         }
       })
     }
     if (!isFound) {
       candidateQlist.matchedCandidates.forEach(item => {
-        if (data.candidateId == item._id) {
+        if (id == item._id) {
           candidate = item;
           isFound = true;
-          type = 'matchedList';
+          source = 'matchedList';
         }
       })
     }
-    let result = {'candidate': candidate, 'type': type};
+    let result = {'candidate': candidate, 'source': source};
      return result;
   }
 

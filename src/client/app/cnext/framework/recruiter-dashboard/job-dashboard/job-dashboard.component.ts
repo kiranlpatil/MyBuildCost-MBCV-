@@ -275,18 +275,18 @@ export class JobDashboardComponent implements OnInit, OnChanges {
       if (this.candidateQlist.matchedCandidates.filter(function (obj) {
           return data.item._id == obj._id;
         }).length && (data.item.candidateListStatus.indexOf('applied') !== -1)) {
-        compareAction = {'action': 'add', 'source': 'matchedList', 'destination': 'cartListed', 'id': data.item._id};
-        //compareAction = {'id': data.item._id};
+        compareAction = {'action': 'add', 'destination': 'cartListed', 'id': data.item._id};
+       // compareAction = {'action': 'add', 'source': 'matchedList', 'destination': 'cartListed', 'id': data.item._id};
       } else if (this.candidateQlist.matchedCandidates.filter(function (obj) {
           return data.item._id == obj._id;
         }).length) {
-        //compareAction = {'id': data.item._id};
-        compareAction = {'action': 'add', 'source': 'matchedList', 'destination': 'cartListed', 'id': data.item._id};
+        compareAction = {'action': 'add', 'destination': 'cartListed', 'id': data.item._id};
+       // compareAction = {'action': 'add', 'source': 'matchedList', 'destination': 'cartListed', 'id': data.item._id};
       } else if (this.candidateQlist.appliedCandidates.filter(function (obj) {
           return data.item._id == obj._id;
         }).length) {
-        //compareAction = {'id': data.item._id};
-        compareAction = {'action': 'add', 'source': 'applied', 'destination': 'cartListed', 'id': data.item._id};
+        compareAction = {'action': 'add', 'destination': 'cartListed', 'id': data.item._id};
+       // compareAction = {'action': 'add', 'source': 'applied', 'destination': 'cartListed', 'id': data.item._id};
       }
 
       this.profileComparison.profileComparisonData.splice(this.profileComparison.profileComparisonData.indexOf(data.item), 1);
@@ -300,21 +300,22 @@ export class JobDashboardComponent implements OnInit, OnChanges {
       if (this.candidateQlist.matchedCandidates.filter(function (obj) {
           return data.item._id == obj._id;
         }).length && (data.item.candidateListStatus.indexOf('applied') !== -1)) {
-        compareAction = {'action': 'add', 'source': 'matchedList', 'destination': 'rejectedList', 'id': data.item._id};
+        compareAction = {'action': 'add', 'destination': 'rejectedList', 'id': data.item._id};
+       // compareAction = {'action': 'add', 'source': 'matchedList', 'destination': 'rejectedList', 'id': data.item._id};
       } else if (this.candidateQlist.matchedCandidates.filter(function (obj) {
           return data.item._id == obj._id;
         }).length) {
-       // compareAction = {'id': data.item._id};
-        compareAction = {'action': 'add', 'source': 'matchedList', 'destination': 'rejectedList', 'id': data.item._id};
+        compareAction = {'action': 'add', 'destination': 'rejectedList', 'id': data.item._id};
+       // compareAction = {'action': 'add', 'source': 'matchedList', 'destination': 'rejectedList', 'id': data.item._id};
       } else if ((data.item.candidateListStatus.indexOf('cartListed') !== -1) && (data.item.candidateListStatus.indexOf('applied') == -1)) {
-        //compareAction = {'id': data.item._id};
-          compareAction = {'action': 'add', 'source': 'cartListed', 'destination': 'rejectedList', 'id': data.item._id};
+          compareAction = {'action': 'add', 'destination': 'rejectedList', 'id': data.item._id};
+        //  compareAction = {'action': 'add', 'source': 'cartListed', 'destination': 'rejectedList', 'id': data.item._id};
       } else if ((data.item.candidateListStatus.indexOf('applied') !== -1) && (data.item.candidateListStatus.indexOf('cartListed') == -1)) {
-       // compareAction = {'id': data.item._id};
-        compareAction = {'action': 'add', 'source': 'applied', 'destination': 'rejectedList', 'id': data.item._id};
+        compareAction = {'action': 'add', 'destination': 'rejectedList', 'id': data.item._id};
+      //  compareAction = {'action': 'add', 'source': 'applied', 'destination': 'rejectedList', 'id': data.item._id};
       } else if ((data.item.candidateListStatus.indexOf('cartListed') !== -1) && (data.item.candidateListStatus.indexOf('applied') !== -1)) {
-        //compareAction = {'id': data.item._id};
-         compareAction = {'action': 'add', 'source': 'cartListed', 'destination': 'rejectedList', 'id': data.item._id};
+         compareAction = {'action': 'add', 'destination': 'rejectedList', 'id': data.item._id};
+        // compareAction = {'action': 'add', 'source': 'cartListed', 'destination': 'rejectedList', 'id': data.item._id};
       }
 
       this.profileComparison.profileComparisonData.splice(this.profileComparison.profileComparisonData.indexOf(data.item), 1);

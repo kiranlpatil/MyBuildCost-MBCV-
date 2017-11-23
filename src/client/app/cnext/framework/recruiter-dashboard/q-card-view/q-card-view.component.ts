@@ -85,9 +85,9 @@ export class QCardviewComponent implements OnChanges {
         this.selectedCandidate = selectedCandidate
       });
     this.actionOnQCardService.getActionOnValuePortrait().subscribe(actionOnValuePortrait => { debugger
-      let result = this.actionOnQCardService.actionFromValuePortrait(actionOnValuePortrait.item,this.candidateQlist);
+      let result = this.actionOnQCardService.actionFromValuePortrait(actionOnValuePortrait.item.candidateId,this.candidateQlist);
       console.log('response from valuePortrait = ', result);
-      this.actionOnQCard('add', result.type, 'cartListed', result.candidate);
+      this.actionOnQCard(actionOnValuePortrait.action, result.source, actionOnValuePortrait.destination, result.candidate);
     });
   }
 
@@ -111,7 +111,7 @@ export class QCardviewComponent implements OnChanges {
 
 //TODO: refactor below code proper ->use service for logic ->by krishna ghatul
   actionOnQCardFromParent(data: any) {
-    var candidate: CandidateQCard;
+    /*var candidate: CandidateQCard;
     var isFound: boolean = false;
     this.candidateQlist.rejectedCandidates.forEach(item => {
       if (data.id == item._id) {
@@ -142,8 +142,9 @@ export class QCardviewComponent implements OnChanges {
           isFound = true;
         }
       })
-    }
-    this.actionOnQCard(data.action, data.source, data.destination, candidate);
+    }*/
+    let result = this.actionOnQCardService.actionFromValuePortrait(data.id, this.candidateQlist);
+    this.actionOnQCard(data.action, result.source, data.destination, result.candidate);
 
   }
 

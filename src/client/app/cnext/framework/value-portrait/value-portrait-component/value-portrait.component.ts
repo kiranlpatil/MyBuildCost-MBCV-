@@ -27,6 +27,7 @@ export class ValuePortraitComponent implements OnInit {
   @Output() actionOnValuePortrait = new EventEmitter();
   gotItMessage: string = Headings.GOT_IT;
   isCandidate: boolean;
+  isAdmin: boolean;
   isSubmitted: boolean;
   isAnswered: boolean;
   valuePortraitImgName: string;
@@ -38,6 +39,9 @@ export class ValuePortraitComponent implements OnInit {
   private actionOnQCardService: ActionOnQCardService) {
     if (LocalStorageService.getLocalValue(LocalStorage.IS_CANDIDATE) === 'true') {
       this.isCandidate = true;
+    }
+    if (LocalStorageService.getLocalValue(LocalStorage.ISADMIN) === 'true') {
+      this.isAdmin = true;
     }
     if (LocalStorageService.getLocalValue(LocalStorage.IS_CANDIDATE_SUBMITTED) === 'true') {
       this.isSubmitted = true;
@@ -136,8 +140,8 @@ export class ValuePortraitComponent implements OnInit {
     return Label;
   }
 
-  actionToBePerformedOnValuePortrait(action:string, item: any) {
-    let data = {'action': action, 'item': item};
+  actionToBePerformedOnValuePortrait(action:string, destination:string, item: any) {
+    let data = {'action': action, 'destination': destination, 'item': item};
     this.actionOnQCardService.actionToBePerformedOnValuePortrait(data);
   }
 
