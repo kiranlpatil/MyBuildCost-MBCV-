@@ -2,10 +2,8 @@ import CandidateSchema = require('../schemas/candidate.schema');
 import RepositoryBase = require('./base/repository.base');
 import ICandidate = require('../mongoose/candidate');
 import { CandidateQCard } from '../../search/model/candidate-q-card';
-//import { ConstVariables } from '../../shared/sharedconstants';
 import {
-  CandidateProfileCompletionInPercentage, CandidateProfileUpdateTrackServerSide,
-  ConstVariables
+  CandidateProfileCompletionInPercentage, CandidateProfileUpdateTrackServerSide, ConstVariables
 } from '../../shared/sharedconstants';
 import JobProfileModel = require('../model/jobprofile.model');
 import CandidateModel = require('../model/candidate.model');
