@@ -57,3 +57,9 @@ export enum CandidateProfileUpdateTrackServerSide {
   STEP_IS_ENTER_AWARDS_DETAILS,
   STEP_IS_SUBMIT_DETAILS
 }
+export enum CandidateProfileCompletionInPercentage {
+  COMPLETED_25_PERCENT='25%',
+  COMPLETED_50_PERCENT='50%',
+  COMPLETED_75_PERCENT='75%',
+  COMPLETED_95_PERCENT='95%'
+}
