@@ -89,6 +89,9 @@ export class QCardviewComponent implements OnChanges {
       console.log('response from valuePortrait = ', result);
       this.actionOnQCard(actionOnValuePortrait.action, result.source, actionOnValuePortrait.destination, result.candidate);
     });
+    this.actionOnQCardService.getActionOnViewProfile().subscribe(actionOnViewProfile => {
+      this.viewProfile(actionOnViewProfile);
+    });
   }
 
   ngOnInit() {
@@ -110,7 +113,7 @@ export class QCardviewComponent implements OnChanges {
   }
 
 //TODO: refactor below code proper ->use service for logic ->by krishna ghatul
-  actionOnQCardFromParent(data: any) {
+  actionOnQCardFromParent(data: any) {debugger
     /*var candidate: CandidateQCard;
     var isFound: boolean = false;
     this.candidateQlist.rejectedCandidates.forEach(item => {
@@ -148,7 +151,7 @@ export class QCardviewComponent implements OnChanges {
 
   }
 
-  actionOnQCard(action: string, sourceListName: string, destinationListName: string, candidate: CandidateQCard) {
+  actionOnQCard(action: string, sourceListName: string, destinationListName: string, candidate: CandidateQCard) { debugger
     let isMatchList: boolean = false;
     let isFound: boolean = false;
     switch (sourceListName) {
@@ -362,7 +365,7 @@ export class QCardviewComponent implements OnChanges {
     }
   }
 
-  viewProfile(candidate: CandidateQCard) {
+  viewProfile(candidate: CandidateQCard) { debugger
     if (!this.isShortlistedclicked) {
       this.modelCandidate = candidate;
       let usageTrackingData: UsageTracking = new UsageTracking();

@@ -68,35 +68,7 @@ export class RecruiterAction implements OnChanges {
   }
 
   viewProfile(candidate: CandidateQCard) {
-    if(!this.isShortlistedclicked) {
-     // this.modelCandidate = candidate;
-      if (this.type !== ValueConstant.CART_LISTED_CANDIDATE ) {
-        this.usageTrackingService.addUsesTrackingData(UsageActions.VIEWED_HALF_PROFILE_BY_RECRUITER,
-          LocalStorageService.getLocalValue(LocalStorage.END_USER_ID),this.jobId,candidate._id).subscribe(
-          data=> {
-            console.log('');
-          },
-          err=> {
-            this.errorService.onError(err);
-          }
-        );
-      }else {
-        this.isShowPrintView = true;
-        this.usageTrackingService.addUsesTrackingData(UsageActions.VIEWED_FULL_PROFILE_BY_RECRUITER,
-          LocalStorageService.getLocalValue(LocalStorage.END_USER_ID),this.jobId,candidate._id).subscribe(
-          data=> {
-            console.log('');
-          },
-          err=> {
-            this.errorService.onError(err);
-          }
-        );
-      }
-      this.profileCreatorService.getCandidateDetailsOfParticularId(candidate._id).subscribe(
-        candidateData => this.OnCandidateDataSuccess(candidateData),
-        error => this.errorService.onError(error));
-    }
-    this.isShortlistedclicked=false;
+    this.actionOnQCardService.setActionOnViewProfile(candidate);
   }
 
   OnCandidateDataSuccess(candidate: any) {

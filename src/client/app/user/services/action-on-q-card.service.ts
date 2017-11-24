@@ -17,6 +17,7 @@ export class ActionOnQCardService {
   private actionOnQCard = new Subject<any>();
   private selectedCandidate = new Subject<Candidate>();
   private actionOnValuePortrait = new Subject<any>();
+  private actionOnViewProfile = new Subject<any>();
 
   constructor() {
 
@@ -111,6 +112,14 @@ export class ActionOnQCardService {
     }
     let result = {'candidate': candidate, 'source': source};
      return result;
+  }
+
+  setActionOnViewProfile(modelCandidate: any) {
+    this.actionOnViewProfile.next(modelCandidate);
+  }
+
+  getActionOnViewProfile(): Observable<any> {
+    return this.actionOnViewProfile.asObservable();
   }
 
 }
