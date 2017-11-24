@@ -45,7 +45,7 @@ export class CandidateSignUpComponent implements OnInit, AfterViewInit {
 
   constructor(private commonService: CommonService, private _router: Router, private dateService: DateService,
               private candidateService: CandidateSignUpService, private messageService: MessageService, private formBuilder: FormBuilder,
-              private sharedService: SharedService, private activatedRoute: ActivatedRoute, private errorService: ErrorService) {
+              private sharedService: SharedService,private errorService: ErrorService, private activatedRoute: ActivatedRoute) {
 
     this.userForm = this.formBuilder.group({
       'first_name': ['', [ValidationService.requireFirstNameValidator]],
