@@ -10,7 +10,7 @@ class MailAttachments {
       path: path.resolve() + config.get('TplSeed.publicPath')+'images/logo/jobmosis-mobile-logo.png',
       cid: 'unique@company-logo'
     },{
-      path: path.resolve() + config.get('TplSeed.publicPath')+'images/logo/jobmosis-logo-new.png',
+      path: path.resolve() + config.get('TplSeed.publicPath')+'images/logo/jobmosis-logo.png',
       cid: 'unique@jobmosis-logo'
     }, {
       path:  path.resolve() + config.get('TplSeed.publicPath')+'images/banner/banner.png',
