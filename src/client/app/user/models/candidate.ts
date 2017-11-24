@@ -36,6 +36,7 @@ export class Candidate {
   _id: string;
   candidateId:string;
   userFeedBack: number[] = new Array(3);
+  recruiterReferenceId: string;
 }
 
 

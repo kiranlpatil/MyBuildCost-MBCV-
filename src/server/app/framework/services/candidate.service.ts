@@ -78,13 +78,18 @@ class CandidateService {
                   if (err) {
                     callback(err, null);
                   } else {
-                    this.updateCandidateList(res._doc._id, item, (err: Error, result: any) => {
-                      if (err) {
-                        callback(err, null);
-                      } else {
-                        callback(null, res);
-                      }
-                    });
+                    if(item.recruiterReferenceId != "undefined") {
+                      this.updateCandidateList(res._doc._id, item, (err: Error, result: any) => {
+                        if (err) {
+                          callback(err, null);
+                        } else {
+                          callback(null, res);
+                        }
+                      });
+                    } else {
+                      callback(null, res);
+                    }
+
                   }
                 });
               }
@@ -938,6 +943,35 @@ class CandidateService {
               candidateDetails.isInCart = isCarted;
             }
             callback(err, candidateDetails);
+          }
+        });
+      }
+    });
+  }
+
+  sendMailToRecruiter(candidate: any, callback: (error: any, result: any) => void) {
+
+    this.recruiterRepository.retrieve({'_id': new mongoose.Types.ObjectId(candidate.recruiterReferenceId)}, (recruiterErr, recData) => {
+      if (recruiterErr) {
+        callback(recruiterErr, null);
+      } else {
+
+        this.userRepository.retrieve({'_id': new mongoose.Types.ObjectId(recData[0].userId)}, (userError, userData) => {
+          if (userError) {
+            callback(userError, null);
+          } else {
+            let sendMailService = new SendMailService();
+            let data: Map<string,string> = new Map([['$first_name$', candidate.basicInformation.first_name],
+              ['$app_name$', ProjectAsset.APP_NAME]]);
+            sendMailService.send(userData[0].email,
+              Messages.EMAIL_SUBJECT_CANDIDATE_REGISTRATION,
+              'candidate-profile-completed.html', data, (err: Error) => {
+                if (err) {
+                  callback(err, null);
+                } else {
+                  callback(null, "success");
+                }
+              });
           }
         });
       }

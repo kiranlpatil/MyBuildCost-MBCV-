@@ -9,6 +9,7 @@ import {API, ImagePath, Label, LocalStorage, Messages} from "../../shared/consta
 import {LocalStorageService} from "../../shared/services/localstorage.service";
 import {DateService} from "../../cnext/framework/date.service";
 import {SharedService} from "../../shared/services/shared-service";
+import {ErrorService} from "../../shared/services/error.service";
 declare  var fbq:any;
 declare  var gtag:any;
 
@@ -44,7 +45,7 @@ export class CandidateSignUpComponent implements OnInit, AfterViewInit {
 
   constructor(private commonService: CommonService, private _router: Router, private dateService: DateService,
               private candidateService: CandidateSignUpService, private messageService: MessageService, private formBuilder: FormBuilder,
-              private sharedService: SharedService, private activatedRoute: ActivatedRoute) {
+              private sharedService: SharedService, private activatedRoute: ActivatedRoute, private errorService: ErrorService) {
 
     this.userForm = this.formBuilder.group({
       'first_name': ['', [ValidationService.requireFirstNameValidator]],
