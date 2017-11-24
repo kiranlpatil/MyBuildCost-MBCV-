@@ -13,6 +13,7 @@ import {ErrorService} from "../../../shared/services/error.service";
 import {ComplexityAnsweredService} from "../complexity-answered.service";
 import {Router} from "@angular/router";
 import { LocalStorageService } from '../../../shared/services/localstorage.service';
+import {isNullOrUndefined} from "util";
 
 @Component({
   moduleId: module.id,
@@ -145,7 +146,7 @@ export class ProfessionalDataComponent extends BaseService implements OnChanges,
   }
 
   onNext() {
-    if (this.candidate.professionalDetails.currentSalary ||
+    if (isNaN(this.candidate.professionalDetails.currentSalary) ||
       this.candidate.professionalDetails.industryExposure == '' || this.candidate.professionalDetails.noticePeriod == ''
       || this.candidate.professionalDetails.relocate == '') {
       this.isValid = false;
@@ -160,7 +161,7 @@ export class ProfessionalDataComponent extends BaseService implements OnChanges,
   }
 
   onSave() {
-    if (this.candidate.professionalDetails.currentSalary ||
+    if (isNaN(this.candidate.professionalDetails.currentSalary) ||
       this.candidate.professionalDetails.industryExposure == '' || this.candidate.professionalDetails.noticePeriod == ''
       || this.candidate.professionalDetails.relocate == '') {
       this.isValid = false;

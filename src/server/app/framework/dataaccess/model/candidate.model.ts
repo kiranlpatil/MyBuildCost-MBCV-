@@ -48,6 +48,8 @@ interface CandidateModel {
   personalDetails: User;
   profile_update_tracking:number;
   userFeedBack: number[];
+  recruiterReferenceId: string;
+  basicInformation: User,
   _id:any;
 }
 export = CandidateModel;

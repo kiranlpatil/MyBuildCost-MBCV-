@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewChild, ElementRef, AfterViewInit} from "@angular/core";
-import {Router, ActivatedRoute} from "@angular/router";
+import {Router, ActivatedRoute, Params} from "@angular/router";
 import {CandidateSignUpService} from "./candidate-sign-up.service";
 import {CandidateDetail} from "../models/candidate-details";
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
@@ -9,6 +9,7 @@ import {API, ImagePath, Label, LocalStorage, Messages} from "../../shared/consta
 import {LocalStorageService} from "../../shared/services/localstorage.service";
 import {DateService} from "../../cnext/framework/date.service";
 import {SharedService} from "../../shared/services/shared-service";
+import {ErrorService} from "../../shared/services/error.service";
 declare  var fbq:any;
 declare  var gtag:any;
 
@@ -44,7 +45,7 @@ export class CandidateSignUpComponent implements OnInit, AfterViewInit {
 
   constructor(private commonService: CommonService, private _router: Router, private dateService: DateService,
               private candidateService: CandidateSignUpService, private messageService: MessageService, private formBuilder: FormBuilder,
-              private sharedService: SharedService, private activatedRoute: ActivatedRoute) {
+              private sharedService: SharedService,private errorService: ErrorService, private activatedRoute: ActivatedRoute) {
 
     this.userForm = this.formBuilder.group({
       'first_name': ['', [ValidationService.requireFirstNameValidator]],
@@ -74,6 +75,14 @@ export class CandidateSignUpComponent implements OnInit, AfterViewInit {
     }
     this.validBirthYearList = this.dateService.createBirthYearList(this.year);
     this.mainHeaderMenuHideShow = 'applicant';
+
+    this.activatedRoute.queryParams.subscribe((params: Params) => {
+      this.userForm.controls['mobile_number'].setValue(Number(params['phoneNumber']));
+      LocalStorageService.setLocalValue(LocalStorage.RECRUITER_REFERENCE_ID,params['tokenId']);
+      if(params['tokenId'] !== undefined) {
+        this.notifyRecruiter(params['tokenId'],params['phoneNumber']);
+      }
+    });
   }
 
   ngAfterViewInit() {
@@ -118,6 +127,7 @@ export class CandidateSignUpComponent implements OnInit, AfterViewInit {
     this.model.current_theme = AppSettings.LIGHT_THEM;
     this.model.isCandidate = true;
     this.model.email = this.model.email.toLowerCase();
+    this.model.recruiterReferenceId = LocalStorageService.getLocalValue(LocalStorage.RECRUITER_REFERENCE_ID);
 
     if (!this.makePasswordConfirm()) {
       this.isFormSubmitted = true;
@@ -157,6 +167,18 @@ export class CandidateSignUpComponent implements OnInit, AfterViewInit {
     this._router.navigate(['/']);
   }
 
+  notifyRecruiter(recruiterId:string,mobileNo:string) {
+    let data:any= {
+      'recruiterId':recruiterId,
+      'mobileNo':mobileNo
+    }
+    this.candidateService.sendMailToRecruiter(data)
+      .subscribe(
+        res => {
+          this.messageService.message(new Message(Messages.MSG_SUCCESS_FOR_CANDIDATE_PROFILE_CREATION_STATUS));
+        },
+        error => (this.errorService.onError(error)));
+  }
   makePasswordConfirm(): boolean {
     if (this.model.confirm_password !== this.model.password && this.model.confirm_password !== '') {
       this.isPasswordConfirm = true;

@@ -19,4 +19,12 @@ export class CandidateSignUpService extends BaseService {
       .catch(this.handleError);
   }
 
+  sendMailToRecruiter(data: any): Observable<any> {
+    var url = API.SEND_NOTIFICATION_TO_RECRUITER ;
+    var body = JSON.stringify(data);
+    return this.http.post(url, body)
+      .map(this.extractData)
+      .catch(this.handleError);
+  }
+
 }

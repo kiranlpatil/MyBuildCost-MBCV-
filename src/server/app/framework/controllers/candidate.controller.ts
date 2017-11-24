@@ -12,6 +12,8 @@ import CandidateSearchService = require("../services/candidate-search.service");
 import {CandidateDetailsWithJobMatching} from "../dataaccess/model/candidatedetailswithjobmatching";
 import CandidateClassModel = require("../dataaccess/model/candidate-class.model");
 import {UtilityFunction} from "../uitility/utility-function";
+import SendMailService = require('../services/mailer.service');
+import ProjectAsset = require('../shared/projectasset');
 
 
 export function create(req: express.Request, res: express.Response, next: any) {
@@ -107,11 +109,25 @@ export function updateDetails(req: express.Request, res: express.Response, next:
             });
           } else {
             if(!isEditingProfile && updatedCandidate.isSubmitted) {
-                mailChimpMailerService.onCandidatePofileSubmitted(req.body.basicInformation);}
-            res.send({
-              'status': 'success',
-              'data': result
-            });
+                mailChimpMailerService.onCandidatePofileSubmitted(req.body.basicInformation);
+                if(updatedCandidate.recruiterReferenceId != "undefined" ) {
+                  candidateService.sendMailToRecruiter(updatedCandidate, (error: any, result: any) => {
+                    if (error) {
+                      next(error);
+                    } else {
+                      res.send({
+                        'status': 'success',
+                        'data': result
+                      });
+                    }
+                  });
+                }
+            } else {
+              res.send({
+                'status': 'success',
+                'data': result
+              });
+            }
           }
         });
       }
