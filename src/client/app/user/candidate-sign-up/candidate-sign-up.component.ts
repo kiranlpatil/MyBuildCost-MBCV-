@@ -78,6 +78,9 @@ export class CandidateSignUpComponent implements OnInit, AfterViewInit {
     this.activatedRoute.queryParams.subscribe((params: Params) => {
       this.userForm.controls['mobile_number'].setValue(Number(params['phoneNumber']));
       LocalStorageService.setLocalValue(LocalStorage.RECRUITER_REFERENCE_ID,params['tokenId']);
+      if(params['tokenId'] !== undefined) {
+        this.notifyRecruiter(params['tokenId'],params['phoneNumber']);
+      }
     });
   }
 
@@ -163,6 +166,18 @@ export class CandidateSignUpComponent implements OnInit, AfterViewInit {
     this._router.navigate(['/']);
   }
 
+  notifyRecruiter(recruiterId:string,mobileNo:string) {
+    let data:any= {
+      'recruiterId':recruiterId,
+      'mobileNo':mobileNo
+    }
+    this.candidateService.sendMailToRecruiter(data)
+      .subscribe(
+        res => {
+          this.messageService.message(new Message(Messages.MSG_SUCCESS_FOR_CANDIDATE_PROFILE_CREATION_STATUS));
+        },
+        error => (this.errorService.onError(error)));
+  }
   makePasswordConfirm(): boolean {
     if (this.model.confirm_password !== this.model.password && this.model.confirm_password !== '') {
       this.isPasswordConfirm = true;
