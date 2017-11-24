@@ -5,7 +5,6 @@ import {CandidateProfileService} from "../candidate-profile/candidate-profile.se
 import {Button, ValueConstant, UsageActions, LocalStorage} from "../../../shared/constants";
 import {Message} from "../../../shared/models/message";
 import {MessageService} from "../../../shared/services/message.service";
-import {CandidateQListModel} from "../recruiter-dashboard/job-dashboard/q-cards-candidates";
 import {ActionOnQCardService} from "../../../user/services/action-on-q-card.service";
 
 @Component({
@@ -18,7 +17,6 @@ import {ActionOnQCardService} from "../../../user/services/action-on-q-card.serv
 export class RecruiterAction implements OnChanges {
 
   //@Input() candidate: Candidate;
-  @Input() candidateQlist: CandidateQListModel = new CandidateQListModel();
   @Input() candidate: any;
   @Input() jobId: string;
   @Input() type: string;

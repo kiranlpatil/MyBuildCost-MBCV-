@@ -92,6 +92,9 @@ export class QCardviewComponent implements OnChanges {
     this.actionOnQCardService.getActionOnViewProfile().subscribe(actionOnViewProfile => {
       this.viewProfile(actionOnViewProfile);
     });
+    /*this.actionOnQCardService.getValueForCompareView().subscribe(addForCompareView => {
+      this.addForCompareView(addForCompareView.id, addForCompareView.sorceName)
+    });*/
   }
 
   ngOnInit() {
