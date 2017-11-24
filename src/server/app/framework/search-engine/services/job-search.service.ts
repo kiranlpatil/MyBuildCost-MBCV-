@@ -91,12 +91,6 @@ export class JobSearchService extends SearchService {
       candidateDetails.proficiencies = [];
       candidateDetails.awards = [];
       candidateDetails.proficiencies = [];
-     // candidateDetails.professionalDetails.education = UtilityFunction.valueHide(candidateDetails.professionalDetails.education)
-     // candidateDetails.professionalDetails.experience = UtilityFunction.valueHide(candidateDetails.professionalDetails.experience)
-     // candidateDetails.professionalDetails.industryExposure = UtilityFunction.valueHide(candidateDetails.professionalDetails.industryExposure);
-     // candidateDetails.professionalDetails.currentSalary = UtilityFunction.valueHide(candidateDetails.professionalDetails.currentSalary);
-     // candidateDetails.professionalDetails.noticePeriod = UtilityFunction.valueHide(candidateDetails.professionalDetails.noticePeriod);
-     // candidateDetails.professionalDetails.relocate = UtilityFunction.valueHide(candidateDetails.professionalDetails.relocate);
     }
     candidateDetails.personalDetails.password = '';
     _canDetailsWithJobMatching.candidateDetails = candidateDetails;
