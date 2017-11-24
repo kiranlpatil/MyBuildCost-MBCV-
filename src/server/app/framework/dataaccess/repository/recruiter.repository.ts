@@ -1,9 +1,12 @@
 import RecruiterSchema = require('../schemas/recruiter.schema');
 import RepositoryBase = require('./base/repository.base');
 import IRecruiter = require('../mongoose/recruiter');
-import {JobQCard} from "../../search/model/job-q-card";
-import {ConstVariables} from "../../shared/sharedconstants";
+import { JobQCard } from '../../search/model/job-q-card';
+import { ConstVariables } from '../../shared/sharedconstants';
+import * as mongoose from 'mongoose';
 import CandidateModel = require('../model/candidate.model');
+import RecruiterModel = require('../model/recruiter.model');
+import JobProfileModel = require('../model/jobprofile.model');
 
 class RecruiterRepository extends RepositoryBase<IRecruiter> {
   constructor() {
@@ -97,7 +100,7 @@ class RecruiterRepository extends RepositoryBase<IRecruiter> {
           job_qcard.proficiencies = job.proficiencies;
           job_qcard.location = job.location.city;
           job_qcard._id = job._id;
-          job_qcard.industry = job.industry.name; //todo add industry name
+          job_qcard.industry = job.industry.name;
           job_qcard.jobTitle = job.jobTitle;
           job_qcard.joiningPeriod = job.joiningPeriod;
           job_qcard.postingDate = job.postingDate;
@@ -128,7 +131,27 @@ class RecruiterRepository extends RepositoryBase<IRecruiter> {
 
   }
 
-
+  getJobById(jobId : string, callback : (err : any, res : any)=> void) {
+   /* let query = {
+      'postedJobs': {$elemMatch: {'_id': new mongoose.Types.ObjectId(jobId)}}
+    };
+    RecruiterSchema.find(query).lean().exec((err: any, response : IRecruiter[]) => {
+      if (err) {
+        callback(new Error('Problem in Job Retrieve'), null);
+      } else {
+        let jobProfile: JobProfileModel;
+        if (response.length > 0) {
+          for (let job of response[0].postedJobs) {
+            if (job._id.toString() === jobId) {
+              jobProfile = job;
+              break;
+            }
+          }
+        }
+        callback(null, jobProfile);
+      }
+    });*/
+  }
 }
 
 Object.seal(RecruiterRepository);

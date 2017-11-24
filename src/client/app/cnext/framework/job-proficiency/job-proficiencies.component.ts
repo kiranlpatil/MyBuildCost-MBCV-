@@ -41,24 +41,9 @@ export class JobProficienciesComponent implements OnInit {
     this.jobPosterModel.proficiencies = mandatory;
     this.submitStatus=false;
     this.onComplete.emit(this.jobPosterModel);
-    if (this.jobPosterModel.proficiencies.length >= ValueConstant.MAX_MANDATORY_PROFECIENCES) {
-      this.showAdditional = true;
-    }
-  }
-
-  onOptionalProficiencyComplete(optional: string[]) {
-    this.jobPosterModel.additionalProficiencies = optional;
-    this.onComplete.emit(this.jobPosterModel);
-    /* if (this.jobPosterModel.additionalProficiencies.length === 0) {
-      this.showAdditional = false;
-     }*/
   }
 
   onNext() {
-    if (this.jobPosterModel.proficiencies.length <= 0) {
-      this.submitStatus = true;
-      return;
-    }
     this.highlightedSection.name = 'IndustryExposure';
     this.highlightedSection.isDisable = false;
     this.onNextComplete.emit();
@@ -66,10 +51,6 @@ export class JobProficienciesComponent implements OnInit {
   }
 
   onSave() {
-    if (this.jobPosterModel.proficiencies.length <= 0) {
-      this.submitStatus = true;
-      return;
-    }
     this.highlightedSection.name = 'none';
     this.highlightedSection.isDisable = false;
     this.onNextComplete.emit();

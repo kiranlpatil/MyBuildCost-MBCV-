@@ -8,45 +8,45 @@
   </div>
 
 
-  <div class="details clearfix" *ngFor="let postedJob of recruiter.postedJobs">
+  <div class="details clearfix">
     <label>Job Title</label>
-    <span>{{postedJob.jobTitle}}</span>
+    <span>{{job.jobTitle}}</span>
     <label>Hiring Manager</label>
-    <span>{{postedJob.hiringManager}}</span>
+    <span>{{job.hiringManager}}</span>
     <label *ngIf="recruiter.isRecruitingForself">Department</label>
     <label *ngIf="!recruiter.isRecruitingForself">Company</label>
-    <span>{{postedJob.department}}</span>
+    <span>{{job.department}}</span>
     <label>Industry</label>
-    <span>{{postedJob.industry.name}}</span>
+    <span>{{job.industry.name}}</span>
     <label>Area of Work</label>
-    <span *ngFor="let role of postedJob.industry.roles;let i = index">{{role.name}}
-        <span *ngIf="postedJob.industry.roles.length>1 &&  i!=postedJob.industry.roles.length-1">,</span>
+    <span *ngFor="let role of job.industry.roles;let i = index">{{role.name}}
+        <span *ngIf="job.industry.roles.length>1 &&  i!=job.industry.roles.length-1">,</span>
       </span>
     <label>Domain Exposure</label>
-    <span *ngFor="let industry of postedJob.interestedIndustries;let i = index">{{industry}}<span
-      *ngIf="recruiter.postedJobs[0].interestedIndustries.length>1 && i!=postedJob.interestedIndustries.length-1">,</span>
+    <span *ngFor="let industry of job.interestedIndustries;let i = index">{{industry}}<span
+      *ngIf="job.interestedIndustries.length>1 && i!=job.interestedIndustries.length-1">,</span>
       </span>
-    <label *ngIf="postedJob.releventIndustries.length">Relevant Industry Exposure</label>
-    <span *ngFor="let value of postedJob.releventIndustries;let i = index">
+    <label *ngIf="job.releventIndustries.length">Relevant Industry Exposure</label>
+    <span *ngFor="let value of job.releventIndustries;let i = index">
       {{value}}
-      <span *ngIf="postedJob.releventIndustries.length>1 &&  i!=postedJob.releventIndustries.length-1">,</span>
+      <span *ngIf="job.releventIndustries.length>1 &&  i!=job.releventIndustries.length-1">,</span>
     </span>
     <label>Education</label>
-    <span>{{postedJob.education}}</span>
-    <label *ngIf="postedJob.experienceMinValue !=postedJob.experienceMaxValue">Experience Band(In Years)</label>
-    <span *ngIf="postedJob.experienceMinValue !=postedJob.experienceMaxValue">{{postedJob.experienceMinValue}} - {{postedJob.experienceMaxValue}}</span>
-    <label *ngIf="postedJob.experienceMinValue ==postedJob.experienceMaxValue">Experience(In Years)</label>
-    <span *ngIf="postedJob.experienceMinValue ==postedJob.experienceMaxValue">{{postedJob.experienceMinValue}}</span>
-    <label *ngIf="postedJob.salaryMinValue != postedJob.salaryMaxValue">Salary Band(In Lacs)</label>
-    <span *ngIf="postedJob.salaryMinValue != postedJob.salaryMaxValue">{{postedJob.salaryMinValue}} - {{postedJob.salaryMaxValue}}</span>
-    <label *ngIf="postedJob.salaryMinValue == postedJob.salaryMaxValue">Salary(In Lacs)</label>
-    <span *ngIf="postedJob.salaryMinValue == postedJob.salaryMaxValue">{{postedJob.salaryMinValue}}</span>
+    <span>{{job.education}}</span>
+    <label *ngIf="job.experienceMinValue !=job.experienceMaxValue">Experience Band(In Years)</label>
+    <span *ngIf="job.experienceMinValue !=job.experienceMaxValue">{{job.experienceMinValue}} - {{job.experienceMaxValue}}</span>
+    <label *ngIf="job.experienceMinValue ==job.experienceMaxValue">Experience(In Years)</label>
+    <span *ngIf="job.experienceMinValue ==job.experienceMaxValue">{{job.experienceMinValue}}</span>
+    <label *ngIf="job.salaryMinValue != job.salaryMaxValue">Salary Band(In Lacs)</label>
+    <span *ngIf="job.salaryMinValue != job.salaryMaxValue">{{job.salaryMinValue}} - {{job.salaryMaxValue}}</span>
+    <label *ngIf="job.salaryMinValue == job.salaryMaxValue">Salary(In Lacs)</label>
+    <span *ngIf="job.salaryMinValue == job.salaryMaxValue">{{job.salaryMinValue}}</span>
     <label>Joining Period</label>
-    <span>{{postedJob.joiningPeriod}}</span>
+    <span>{{job.joiningPeriod}}</span>
     <label>Job Location</label>
-    <span>{{postedJob.location.city}}</span>
+    <span>{{job.location.city}}</span>
     <label>Date Posted</label>
-    <span>{{postedJob.postingDate | date:'mediumDate'}}</span>
+    <span>{{job.postingDate | date:'mediumDate'}}</span>
     <div *ngIf="recruiter.company_website!=undefined||''"><label>Website</label>
     <span>{{recruiter.company_website}} </span></div>
     <label *ngIf="recruiter != undefined && recruiter.about_company && recruiter.about_company !== ''">About Company</label>

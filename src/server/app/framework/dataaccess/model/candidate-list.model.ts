@@ -1,5 +1,9 @@
-interface CandidateListModel {
+class ListModel {
   name: string;
   ids: string[];
 }
-export = CandidateListModel;
+export interface CandidateListModel extends  ListModel {
+}
+
+export interface JobListModel extends  ListModel {
+}

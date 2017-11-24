@@ -7,7 +7,7 @@
 </div>
 <div class="container-fluid profile-wrapper">
   <div class="candidate-listing">
-    <cn-filter [hidden]="whichListVisible[4]" [selectedJob]="selectedJobProfile" [role]=true></cn-filter>
+    <cn-filter (changeFilter)="changeFilter($event)" [hidden]="whichListVisible[4]" [selectedJob]="selectedJobProfile" [role]=true></cn-filter>
     <div class="col-sm-12 no-padding">
       <div class="list-view" *ngIf="selectedJobProfile!=undefined">
         <div class="panel clearfix">
@@ -72,19 +72,19 @@
           class="match-count count"><span>{{recruiterJobView.numberOfMatchedCandidates}}</span></span> Matched</a>
       </li>
       <li class="cart-job-tabs">
-        <a (click)="getSelectedListData('cartListed')" title="{{recruiterJobView.numberOfCandidatesInCart}} In Cart"
+        <a (click)="getSelectedListData(1,false)" title="{{recruiterJobView.numberOfCandidatesInCart}} In Cart"
            data-toggle="tab" href="#cart-job"><span
           class="count"><span>{{recruiterJobView.numberOfCandidatesInCart}}</span></span>
           In Cart</a>
       </li>
       <li class="applied-count-tabs">
-        <a (click)="getSelectedListData('applied')" title="{{recruiterJobView.numberOfCandidatesApplied}} Applied"
+        <a (click)="getSelectedListData(2,false)" title="{{recruiterJobView.numberOfCandidatesApplied}} Applied"
            data-toggle="tab" href="#applied-job"><span class="applied-count count">
           <span>{{recruiterJobView.numberOfCandidatesApplied}}</span></span>
           Applied</a>
       </li>
       <li class="rejected-job-tabs">
-        <a (click)="getSelectedListData('rejectedList')"
+        <a (click)="getSelectedListData(3,false)"
            title="{{recruiterJobView.numberOfCandidatesrejected}} Rejected" data-toggle="tab" href="#rejected-job"><span
           class="rejected-count count"><span>{{recruiterJobView.numberOfCandidatesrejected}}</span></span> Rejected</a>
       </li>
@@ -96,7 +96,9 @@
     </ul>
     <div id="matched-job" class="tab-pane fade in active "  *ngIf="selectedJobProfile!=undefined">
       <cn-q-card-view (addForCompare)="addForCompare($event)" [progress_bar_color]="'#29b6f6'"
-                      (addedTocart)="AddedToCart($event)" *ngIf="whichListVisible[0]" [candidateQlist]="candidateQlist"
+                      (addedTocart)="AddedToCart($event)"
+                      (changeSorting)="changeSorting($event)"
+                      *ngIf="whichListVisible[0]" [candidateQlist]="candidateQlist"
                       [filterMeta]="filterMeta"
                       [candidates]="candidateQlist.matchedCandidates" [type]="'matchedList'" [jobId]="jobId"
                       [recuirterListCountModel]="recruiterJobView"
@@ -108,6 +110,7 @@
     <div id="cart-job" class="tab-pane fade"  *ngIf="selectedJobProfile!=undefined">
       <cn-q-card-view (addForCompare)="addForCompare($event)" [progress_bar_color]="'#7264b5'"
                       (addedTocart)="AddedToCart($event)" *ngIf="whichListVisible[1]" [candidateQlist]="candidateQlist"
+                      (changeSorting)="changeSorting($event)"
                       [filterMeta]="filterMeta"
                       [candidates]="candidateQlist.cartCandidates" [type]="'cartListed'" [jobId]="jobId"
                       [recuirterListCountModel]="recruiterJobView" [isJobPostExpired]="selectedJobProfile.isJobPostExpired"></cn-q-card-view>
@@ -117,6 +120,7 @@
       <cn-q-card-view (addForCompare)="addForCompare($event)" (addedTocart)="AddedToCart($event)"
                       [progress_bar_color]="'#f7c72d'" *ngIf="whichListVisible[2]" [candidateQlist]="candidateQlist"
                       [filterMeta]="filterMeta"
+                      (changeSorting)="changeSorting($event)"
                       [candidates]="candidateQlist.appliedCandidates" [type]="'applied'" [jobId]="jobId"
                       [recuirterListCountModel]="recruiterJobView" [isJobPostExpired]="selectedJobProfile.isJobPostExpired"></cn-q-card-view>
       <p class="empty-list-message" *ngIf="recruiterJobView.numberOfCandidatesApplied==0">There are no pending applications from candidates for this job posting.</p>
@@ -125,6 +129,7 @@
       <cn-q-card-view (addForCompare)="addForCompare($event)" (addedTocart)="AddedToCart($event)"
                       [progress_bar_color]="'#ff5722'" *ngIf="whichListVisible[3]" [candidateQlist]="candidateQlist"
                       [filterMeta]="filterMeta"
+                      (changeSorting)="changeSorting($event)"
                       [candidates]="candidateQlist.rejectedCandidates" [type]="'rejectedList'" [jobId]="jobId"
                       [recuirterListCountModel]="recruiterJobView"
       [isJobPostExpired]="selectedJobProfile.isJobPostExpired"></cn-q-card-view>

@@ -20,10 +20,10 @@
     <div class="job-info-labal pull-left">
       <div class="user-job-label">
         <label>Compatibility check for</label>
-        <span *ngIf="recruiter.postedJobs[0]">{{recruiter.postedJobs[0].jobTitle}}</span> -
+        <span *ngIf="job">{{job.jobTitle}}</span> -
         <label>Job Profile</label>
-        <label *ngIf="!recruiter.postedJobs[0].hideCompanyName">at</label>
-        <span *ngIf="!recruiter.postedJobs[0].hideCompanyName" class="company-name">{{recruiter.company_name}}</span>
+        <label *ngIf="!job.hideCompanyName">at</label>
+        <span *ngIf="!job.hideCompanyName" class="company-name">{{recruiter.company_name}}</span>
       </div>
     </div>
     <img src="/assets/c-next/card-view/close-white.png" (click)="closeThis()" class="close"/>
@@ -86,8 +86,8 @@
                   <div class="info-description">
                     <img class="missing-img" src="assets/framework/images/dashboard/info-red.svg"/>
                     <div class="info-hover-section">
-                      Job Experience Band {{recruiter.postedJobs[0].experienceMinValue}} -
-                      {{recruiter.postedJobs[0].experienceMaxValue}}<br/>
+                      Job Experience Band {{job.experienceMinValue}} -
+                      {{job.experienceMaxValue}}<br/>
                       {{candidateDetails.first_name}}'s Experience {{candidate.professionalDetails.experience}}
                     </div>
                   </div>
@@ -100,8 +100,8 @@
                   <div  *ngIf="recruiter != undefined" class="info-description">
                     <img class="missing-img" src="assets/framework/images/dashboard/info-red.svg"/>
                     <div class="info-hover-section">
-                      Job Salary Band {{recruiter.postedJobs[0].salaryMinValue}} -
-                      {{recruiter.postedJobs[0].salaryMaxValue}}<br/>
+                      Job Salary Band {{job.salaryMinValue}} -
+                      {{job.salaryMaxValue}}<br/>
                       {{candidateDetails.first_name}}'s Salary {{candidate.professionalDetails.currentSalary}}
                     </div>
                   </div>
@@ -155,24 +155,24 @@
                    <p class="name">{{recruiter.company_name}}</p>
                  </div>-->
 
-                <div class="details clearfix" *ngFor="let postedJob of recruiter.postedJobs">
+                <div class="details clearfix">
                   <!-- <label class="first-label">Job Title </label>
-                   <span>{{postedJob.jobTitle}}</span>-->
+                   <span>{{job.jobTitle}}</span>-->
                   <label *ngIf="candidate == undefined">Hiring Manager</label>
-                  <span *ngIf="candidate == undefined">{{postedJob.hiringManager}}</span>
+                  <span *ngIf="candidate == undefined">{{job.hiringManager}}</span>
                   <label *ngIf="recruiter.isRecruitingForself">Department</label>
                   <label *ngIf="!recruiter.isRecruitingForself">Company Name</label>
-                  <span *ngIf="!postedJob.hideCompanyName">{{postedJob.department}}</span>
-                  <span *ngIf="postedJob.hideCompanyName">Not Disclosed</span>
+                  <span *ngIf="!job.hideCompanyName">{{job.department}}</span>
+                  <span *ngIf="job.hideCompanyName">Not Disclosed</span>
                   <label>Industry</label>
-                  <span>{{postedJob.industry.name}}</span>
+                  <span>{{job.industry.name}}</span>
                   <label>Area of Work</label>
-                  <span *ngFor="let role of postedJob.industry.roles;let i = index">{{role.name}}
-            <span *ngIf="postedJob.industry.roles.length>1 &&  i!=postedJob.industry.roles.length-1">,</span>
+                  <span *ngFor="let role of job.industry.roles;let i = index">{{role.name}}
+            <span *ngIf="job.industry.roles.length>1 &&  i!=job.industry.roles.length-1">,</span>
           </span>
                   <label>Additional domain exposure</label>
-                  <span *ngFor="let industry of postedJob.interestedIndustries;let i = index">{{industry}}<span
-                    *ngIf="recruiter.postedJobs[0].interestedIndustries.length>1 && i!=postedJob.interestedIndustries.length-1">,</span>
+                  <span *ngFor="let industry of job.interestedIndustries;let i = index">{{industry}}<span
+                    *ngIf="job.interestedIndustries.length>1 && i!=job.interestedIndustries.length-1">,</span>
           </span>
                   <label [class.exact]="data.educationMatch=='exact'" [class.above]="data.educationMatch=='above'"
                          [class.below]="data.educationMatch=='below'"
@@ -182,15 +182,15 @@
                     <div class="info-description">
                       <img class="missing-img" src="assets/framework/images/dashboard/info-red.svg"/>
                       <div class="info-hover-section">
-                        Job Education Required {{recruiter.postedJobs[0].education}}<br/>
+                        Job Education Required {{job.education}}<br/>
                         {{candidateDetails.first_name}}'s Education {{candidate.professionalDetails.education}}
                       </div>
                     </div>
                   </label>
-                  <span>{{postedJob.education}}</span>
+                  <span>{{job.education}}</span>
 
                   <label
-                    *ngIf="recruiter.postedJobs[0].experienceMinValue != recruiter.postedJobs[0].experienceMaxValue"
+                    *ngIf="job.experienceMinValue != job.experienceMaxValue"
                     [class.exact]="data.experienceMatch=='exact'" [class.above]="data.experienceMatch=='above'"
                          [class.below]="data.experienceMatch=='below'" [class.missing]="data.experienceMatch=='missing'">
                     <strong class="title-name pull-left"> Experience Band <b class="small-label">(In Years)</b></strong>
@@ -198,18 +198,18 @@
                     <div class="info-description">
                       <img class="missing-img" src="assets/framework/images/dashboard/info-red.svg"/>
                       <div class="info-hover-section">
-                        Job Experience Band {{recruiter.postedJobs[0].experienceMinValue}} -
-                        {{recruiter.postedJobs[0].experienceMaxValue}}<br/>
+                        Job Experience Band {{job.experienceMinValue}} -
+                        {{job.experienceMaxValue}}<br/>
                         {{candidateDetails.first_name}}'s Experience {{candidate.professionalDetails.experience}}
                       </div>
                     </div>
                   </label>
                   <span
-                    *ngIf="recruiter.postedJobs[0].experienceMinValue != recruiter.postedJobs[0].experienceMaxValue">{{postedJob.experienceMinValue}} - {{postedJob.experienceMaxValue}}</span>
+                    *ngIf="job.experienceMinValue != job.experienceMaxValue">{{job.experienceMinValue}} - {{job.experienceMaxValue}}</span>
 
 
                   <label
-                    *ngIf="recruiter.postedJobs[0].experienceMinValue == recruiter.postedJobs[0].experienceMaxValue"
+                    *ngIf="job.experienceMinValue == job.experienceMaxValue"
                     [class.exact]="data.experienceMatch=='exact'" [class.above]="data.experienceMatch=='above'"
                     [class.below]="data.experienceMatch=='below'" [class.missing]="data.experienceMatch=='missing'">
                     <strong class="title-name pull-left"> Experience <b class="small-label">(In Years)</b></strong>
@@ -217,15 +217,15 @@
                     <div class="info-description">
                       <img class="missing-img" src="assets/framework/images/dashboard/info-red.svg"/>
                       <div class="info-hover-section">
-                        Job Experience {{recruiter.postedJobs[0].experienceMinValue}} <br/>
+                        Job Experience {{job.experienceMinValue}} <br/>
                         {{candidateDetails.first_name}}'s Experience {{candidate.professionalDetails.experience}}
                       </div>
                     </div>
                   </label>
                   <span
-                    *ngIf="recruiter.postedJobs[0].experienceMinValue == recruiter.postedJobs[0].experienceMaxValue">{{postedJob.experienceMinValue}}</span>
+                    *ngIf="job.experienceMinValue == job.experienceMaxValue">{{job.experienceMinValue}}</span>
 
-                  <label *ngIf="recruiter.postedJobs[0].salaryMinValue != recruiter.postedJobs[0].salaryMaxValue"
+                  <label *ngIf="job.salaryMinValue != job.salaryMaxValue"
                          [class.exact]="data.salaryMatch=='exact'" [class.above]="data.salaryMatch=='above'"
                          [class.below]="data.salaryMatch=='below'" [class.missing]="data.salaryMatch=='missing'">
                     <strong class="title-name pull-left"> Salary Band <b class="small-label">(In Lacs)</b></strong>
@@ -233,15 +233,15 @@
                     <div class="info-description">
                       <img class="missing-img" src="assets/framework/images/dashboard/info-red.svg"/>
                       <div class="info-hover-section">
-                        Job Salary Band {{recruiter.postedJobs[0].salaryMinValue}} -
-                        {{recruiter.postedJobs[0].salaryMaxValue}}<br/>
+                        Job Salary Band {{job.salaryMinValue}} -
+                        {{job.salaryMaxValue}}<br/>
                         {{candidateDetails.first_name}}'s Salary {{candidate.professionalDetails.currentSalary}}
                       </div>
                     </div>
                   </label>
-                  <span *ngIf="recruiter.postedJobs[0].salaryMinValue != recruiter.postedJobs[0].salaryMaxValue">{{postedJob.salaryMinValue}} - {{postedJob.salaryMaxValue}}</span>
+                  <span *ngIf="job.salaryMinValue != job.salaryMaxValue">{{job.salaryMinValue}} - {{job.salaryMaxValue}}</span>
 
-                  <label *ngIf="recruiter.postedJobs[0].salaryMinValue == recruiter.postedJobs[0].salaryMaxValue"
+                  <label *ngIf="job.salaryMinValue == job.salaryMaxValue"
                          [class.exact]="data.salaryMatch=='exact'" [class.above]="data.salaryMatch=='above'"
                          [class.below]="data.salaryMatch=='below'" [class.missing]="data.salaryMatch=='missing'">
                     <strong class="title-name pull-left"> Salary <b class="small-label">(In Lacs)</b></strong>
@@ -249,26 +249,28 @@
                     <div class="info-description">
                       <img class="missing-img" src="assets/framework/images/dashboard/info-red.svg"/>
                       <div class="info-hover-section">
-                        Job Salary {{recruiter.postedJobs[0].salaryMinValue}}<br/>
+                        Job Salary {{job.salaryMinValue}}<br/>
                         {{candidateDetails.first_name}}'s Salary {{candidate.professionalDetails.currentSalary}}
                       </div>
                     </div>
                   </label>
-                  <span *ngIf="recruiter.postedJobs[0].salaryMinValue == recruiter.postedJobs[0].salaryMaxValue">{{postedJob.salaryMinValue}}</span>
+                  <span *ngIf="job.salaryMinValue == job.salaryMaxValue">{{job.salaryMinValue}}</span>
 
 
                   <label [class.exact]="data.releaseMatch=='exact'" [class.above]="data.releaseMatch=='above'"
                          [class.below]="data.releaseMatch=='below'" [class.missing]="data.releaseMatch=='missing'">Joining
                     Period</label>
-                  <span>{{postedJob.joiningPeriod}}</span>
+                  <span>{{job.joiningPeriod}}</span>
                   <label>Job Location</label>
+                  <span>{{job.location.city}}</span>
+                  <label>About Job</label>
                   <span>{{postedJob.location.city}}</span>
                   <label  *ngIf="postedJob.competencies && postedJob.competencies !== ''">About Job</label>
                   <span>
-                    {{postedJob.competencies}}
+                    {{job.competencies}}
                   </span>
                   <label>Date Posted</label>
-                  <span>{{postedJob.postingDate | date:'mediumDate'}}</span>
+                  <span>{{job.postingDate | date:'mediumDate'}}</span>
                   <div *ngIf="recruiter.company_website!=undefined||''">
                     <label>Website</label>
                     <span>{{recruiter.company_website}}</span></div>

@@ -5,13 +5,13 @@ import Messages = require('../shared/messages');
 import CandidateModel = require('../dataaccess/model/candidate.model');
 import CandidateService = require('../services/candidate.service');
 import UserService = require('../services/user.service');
-import RecruiterService = require('../services/recruiter.service');
 import SearchService = require('../search/services/search.service');
 import CandidateInfoSearch = require('../dataaccess/model/candidate-info-search');
 import { MailChimpMailerService } from '../services/mailchimp-mailer.service';
 import CandidateSearchService = require("../services/candidate-search.service");
 import {CandidateDetailsWithJobMatching} from "../dataaccess/model/candidatedetailswithjobmatching";
 import CandidateClassModel = require("../dataaccess/model/candidate-class.model");
+import {UtilityFunction} from "../uitility/utility-function";
 
 
 export function create(req: express.Request, res: express.Response, next: any) {
@@ -175,6 +175,7 @@ export function retrieve(req: express.Request, res: express.Response, next: any)
     let candidateService = new CandidateService();
     let params = req.params.id;
     let candidateId = req.params.candidateId;
+    let recruiterUserId = req.user._id;
     if (candidateId) {
       candidateService.findById(candidateId, (error, resu) => {
         if (error) {
@@ -195,10 +196,19 @@ export function retrieve(req: express.Request, res: express.Response, next: any)
                 code: 401
               })
             } else {
-              res.send({
-                'status': 'success',
-                'data': resu,
-                'metadata': result
+              candidateService.checkIsCarted(resu.userId,recruiterUserId, (err, isCarted) => {
+                if(err) {
+                  next(err);
+                } else {
+                      if(!isCarted && (!req.user.isCandidate || !req.user.isAdmin)) {
+                        result.last_name = UtilityFunction.valueHide(result.last_name);
+                      }
+                  res.send({
+                    'status': 'success',
+                    'data': resu,
+                    'metadata': result
+                  });
+                }
               });
             }
 
@@ -329,62 +339,7 @@ export function metchResult(req: express.Request, res: express.Response, next: a
 
 
 export function getList(req: express.Request, res: express.Response, next: any) {
-  try {
-    let candidateId: string = req.params.id;
-    let listName: string = req.params.listName;
-    let candidateService = new CandidateService();
-    candidateService.findById(candidateId, (error: any, response: CandidateModel) => {
-      if (error) {
-        next({
-          reason: Messages.MSG_ERROR_RSN_EXISTING_USER,
-          message: Messages.MSG_ERROR_VERIFY_ACCOUNT,
-          code: 403
-        });
-      } else {
-        let isFound : boolean= false;
-        for (let list of response.job_list) {
-          if (listName === list.name) {
-            isFound= true;
-            let data: any = {
-              listName: listName,
-              ids: list.ids,
-              candidate: response
-            };
-            candidateService.getList(data, (err, result) => {
-              if (err) {
-                next({
-                  reason: Messages.MSG_ERROR_RSN_EXISTING_USER,
-                  message: Messages.MSG_ERROR_VERIFY_ACCOUNT,
-                  stackTrace: new Error(),
-                  code: 403
-                });
-              } else {
-                res.send({
-                  'status': 'success',
-                  'data': result,
-                });
-              }
-            });
-            break;
-          }
-        }
-        if(!isFound) {
-          let result : any=[];
-          res.send({
-            'status': 'success',
-            'data': result,
-          });
-        }
-      }
-    });
-  } catch (e) {
-   next({
-      reason: e.message,
-      message: e.message,
-      stackTrace: new Error(),
-      code: 403
-    });
-  }
+console.log('Remove this code');
 }
 
 export function updateField(req:express.Request, res:express.Response, next:any) {

@@ -73,12 +73,6 @@ export class ProficienciesComponent {
   private maxKeySkillsValidationMessage = Messages.MSG_ERROR_VALIDATION_MAX_SKILLS_CROSSED + ValueConstant.MAX_PROFECIENCES + Messages.MSG_ERROR_VALIDATION_MAX_PROFICIENCIES;
 
   onProficiencyComplete(proficiency: string[]) {
-    /*if (proficiency.length > 0) {
-     this.disablebutton = false;
-     } else {
-     this.disablebutton = true;
-     }*/
-    this.submitStatus = false;
     this.onSelect.emit(proficiency);
     this.complexityAnsweredService.change(true);
   }
@@ -103,10 +97,6 @@ export class ProficienciesComponent {
   }
 
   onNext() {
-    if (this.choosedproficiencies.length === 0) {
-      this.submitStatus = true;
-      return;
-    }
     this.onComplete.emit();
     this.complexityAnsweredService.change(true);
     this.highlightedSection.name = 'IndustryExposure';
@@ -115,10 +105,6 @@ export class ProficienciesComponent {
   }
 
   onSave() {
-    if (this.choosedproficiencies.length === 0) {
-      this.submitStatus = true;
-      return;
-    }
     this.highlightedSection.name = 'none';
     this.highlightedSection.isDisable = false;
     this.onComplete.emit();
@@ -142,7 +128,7 @@ export class ProficienciesComponent {
         this.highlightedSection.name = 'Proficiencies';
         this.highlightedSection.isDisable = true;
         this.showButton = false;
-      window.scrollTo(0, 0);
+        window.scrollTo(0, 0);
     }
 
   getMessage() {

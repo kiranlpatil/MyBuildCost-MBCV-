@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { RecruiterDashboard } from '../model/recruiter-dashboard';
+import {Component, Input} from "@angular/core";
+import {RecruiterDashboard} from "../model/recruiter-dashboard";
 
 @Component({
   moduleId: module.id,
@@ -10,7 +10,9 @@ import { RecruiterDashboard } from '../model/recruiter-dashboard';
 
 export class RecruiterDashboardComponent {
   company_name: string;
-  recruiterDashboard: RecruiterDashboard = new RecruiterDashboard();
+  recruiterDashboard: RecruiterDashboard = new RecruiterDashboard();// todo take this with jobs for meta data --abhijeet
+  @Input() jobs: string[] = new Array(0);
+  screenType: string='';
 
   constructor() {
   }

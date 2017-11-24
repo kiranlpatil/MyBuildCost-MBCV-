@@ -9,36 +9,28 @@ import RecruiterRepository = require('../dataaccess/repository/recruiter.reposit
 import UsersClassModel = require('../dataaccess/model/users');
 import CandidateService = require('./candidate.service');
 import RecruiterService = require('./recruiter.service');
+import JobProfileService = require('./jobprofile.service');
 import IndustryModel = require('../dataaccess/model/industry.model');
 import IndustryRepository = require('../dataaccess/repository/industry.repository');
 import CandidateModelClass = require('../dataaccess/model/candidateClass.model');
 import RecruiterClassModel = require('../dataaccess/model/recruiterClass.model');
 import CandidateClassModel = require('../dataaccess/model/candidate-class.model');
 import UserService = require('./user.service');
+import ExportService = require("./export.service");
 let path = require('path');
 let config = require('config');
 let fs = require('fs');
-let usestracking = require('uses-tracking');
-let spawn = require('child_process').spawn;
-
-let mongoExport = config.get('TplSeed.database.mongoExport');
-let db = config.get('TplSeed.database.name');
-let username = config.get('TplSeed.database.username');
-let password = config.get('TplSeed.database.password');
 
 class AdminService {
   company_name: string;
   private userRepository: UserRepository;
   private industryRepositiry: IndustryRepository;
   private recruiterRepository: RecruiterRepository;
-  private usesTrackingController: any;
 
   constructor() {
     this.userRepository = new UserRepository();
     this.industryRepositiry = new IndustryRepository();
     this.recruiterRepository = new RecruiterRepository();
-    let obj: any = new usestracking.MyController();
-    this.usesTrackingController = obj._controller;
   }
 
   getCountOfUsers(item: any, callback: (error: any, result: any) => void) {
@@ -74,9 +66,12 @@ class AdminService {
       let userService = new UserService();
       let users: UsersClassModel = new UsersClassModel();
       let usersMap: Map<any, any> = new Map();
+      let recruitersMAP: Map<any, any> = new Map();
+      let jobProfileService = new JobProfileService();
 
       let recruiterService = new RecruiterService();
-      let recruiters: RecruiterClassModel[] = new Array(0);
+      let recruiters: any[] = new Array(0);
+      let recruiterIdsArray: any[] = new Array(0);
 
       let regEx = new RegExp('^[' + initial.toLowerCase() + initial.toUpperCase() + ']');
       let findQuery = {
@@ -90,7 +85,7 @@ class AdminService {
         'userId': 1,
         'company_name': 1,
         'company_size': 1,
-        'postedJobs.isJobPosted': 1
+        'isJobPosted': 1
       };
 
       recruiterService.retrieveBySortedOrder(findQuery, recruiterFields, sortingQuery, (error, recruiterResult) => {
@@ -109,6 +104,8 @@ class AdminService {
             };
 
             for (let recruiter of recruiterResult) {
+              recruiterIdsArray.push(recruiter._id);
+              recruiter.totalNumberOfJobsPosted = 0;
               usersMap.set(recruiter.userId.toString(), recruiter);
             }
             userService.retrieveWithLean({'isCandidate': false}, (error, result) => {
@@ -123,8 +120,28 @@ class AdminService {
                   }
                 }
 
-                users.recruiter = recruiters;
-                callback(null, users);
+                for (let rec of recruiters) {
+                  recruitersMAP.set(rec.data._id.toString(), rec);
+                }
+
+                jobProfileService.retrieveAll({'recruiterId': {$in: recruiterIdsArray}}, (error, jobsResult) => {
+                  if (error) {
+                    callback(error, null);
+                  } else {
+                    console.log("Fetched all jobs:" + jobsResult.length);
+                    for (let job of jobsResult) {
+                      if (recruitersMAP.get(job.recruiterId.toString())) {
+                        recruitersMAP.get(job.recruiterId.toString()).data.totalNumberOfJobsPosted =
+                          recruitersMAP.get(job.recruiterId.toString()).data.totalNumberOfJobsPosted + 1;
+                      }
+                    }
+
+                    users.recruiter = recruiters;
+                    callback(null, users);
+                  }
+
+                });
+
               }
 
             });
@@ -231,139 +248,60 @@ class AdminService {
     });
   }
 
-  exportCollection(collectionType: string, fields: string, downloadLocation: string, query: string,
-                   callback: (err: any, res: any) => void) {
-    console.log('inside ' + collectionType + 'collection');
-    let stderr: any = '';
-    let childProcess: any;
-
-    if (username === '') {
-      childProcess = spawn('mongoexport', ['--db', db, '--collection', collectionType, '--type', 'csv', '--fields', fields,
-        '--out', downloadLocation, '--query', query]);
-    } else {
-      childProcess = spawn('mongoexport', ['--username', username, '--password', password, '--db', db, '--collection',
-        collectionType, '--type', 'csv', '--fields', fields, '--out', downloadLocation, '--query', query]);
-    }
-
-
-    childProcess.on('exit', function (code: any) {
-      if (code !== 0) {
-        childProcess.kill();
-        callback(new Error(), null);
+  exportCandidateDetails(callback: (error: any, response: any) => void) {
+    let files: any = {};
+    let exportService = new ExportService();
+    exportService.exportCandidateCollection((err, candidatesResponse) => {
+      if (err) {
+        callback(err, null);
       } else {
-        console.log(collectionType + ' process closed with code ' + code);
-        childProcess.kill();
-        callback(null, 'success');
-      }
-    });
-
-    childProcess.stderr.on('data', function (buf: any) {
-      console.log('[STR] stderr "%s"', String(buf));
-      stderr += buf;
-    });
-  }
-
-  exportCandidateCollection(callback: (err: any, res: any) => void) {
-    let fields = '_id,userId,job_list,proficiencies,employmentHistory,academics,industry,awards,interestedIndustries,' +
-      'certifications,profile_update_tracking,isVisible,isSubmitted,isCompleted,complexity_note_matrix,' +
-      'professionalDetails,aboutMyself,jobTitle,location,lastUpdateAt,lockedOn,userFeedBack,roleType';
-
-    let downloadLocation = path.resolve() + config.get('TplSeed.adminExportFilePathForServer.candidatesCSV');
-
-    this.exportCollection('candidates', fields, downloadLocation, '{}', (error: any, result: any) => {
-      if (error) {
-        callback(error, null);
-      } else {
-        callback(null, config.get('TplSeed.adminExportFilePathForClient.candidatesCSV'));
-      }
-    });
-
-  }
-
-  exportCandidateOtherDetailsCollection(callback: (err: any, res: any) => void) {
-    let fields = 'userId,capability_matrix';
-
-    let downloadLocation = path.resolve() + config.get('TplSeed.adminExportFilePathForServer.candidateOtherDetailsCSV');
-
-    this.exportCollection('candidates', fields, downloadLocation, '{}', (error: any, result: any) => {
-      if (error) {
-        callback(error, null);
-      } else {
-        callback(null, config.get('TplSeed.adminExportFilePathForClient.candidateOtherDetailsCSV'));
+        files['candidatesFilePath'] = candidatesResponse;
+        exportService.exportCandidateCapabilities((err, capabilitiesResponse) => {
+          if (err) {
+            callback(err, null);
+          } else {
+            files['candidatesOtherDetailsFilePath'] = capabilitiesResponse;
+            exportService.exportUserCollection('candidate', (err, usersResponse) => {
+              if (err) {
+                callback(err, null);
+              } else {
+                files['usersFilePath'] = config.get('TplSeed.downloadFilePathClient')
+                  + config.get('TplSeed.exportFileNames.candidateAccountDetailsCSV');
+                callback(null, files);
+              }
+            });
+          }
+        });
       }
     });
   }
 
-  exportUserCollection(userType: string, callback: (err: any, res: any) => void) {
-    let fields: string;
-    let query: string;
-    let downloadLocation: string;
-
-    if (userType === 'candidate') {
-      downloadLocation = path.resolve() + config.get('TplSeed.adminExportFilePathForServer.candidateAccountDetailsCSV');
-      fields = '_id,first_name,last_name,mobile_number,email,current_theme,isCandidate,guide_tour,notifications,' +
-        'isAdmin,otp,isActivated,temp_mobile,temp_email,picture'
-      query = '{"isCandidate":true}';
-    } else {
-      downloadLocation = path.resolve() + config.get('TplSeed.adminExportFilePathForServer.recruiterAccountDetailsCSV');
-      fields = '_id,mobile_number,email,current_theme,isCandidate,guide_tour,notifications,isAdmin,otp,isActivated,' +
-        'temp_mobile,location,picture,temp_email',
-        query = '{"isCandidate":false}';
-    }
-
-    this.exportCollection('users', fields, downloadLocation, query, (error: any, result: any) => {
-      if (error) {
-        callback(error, null);
+  exportRecruiterDetails(callback: (error: any, response: any) => void) {
+    let files: any = {};
+    let exportService = new ExportService();
+    exportService.exportRecruiterCollection((err, recruitersResponse) => {
+      if (err) {
+        callback(err, null);
       } else {
-        callback(null, 'success');
+        files['recruitersFilePath'] = recruitersResponse;
+        exportService.exportJobDetailsCollection((err, jobsResponse) => {
+          if (err) {
+            callback(err, null);
+          } else {
+            files['jobDetailsFilePath'] = jobsResponse;
+            exportService.exportUserCollection('recruiter', (err, usersResponse) => {
+              if (err) {
+                callback(err, null);
+              } else {
+                files['usersFilePath'] = config.get('TplSeed.downloadFilePathClient')
+                  + config.get('TplSeed.exportFileNames.companyAccountDetailsCSV');
+                callback(null, files);
+              }
+            });
+          }
+        });
       }
     });
-
-
-  }
-
-  exportRecruiterCollection(callback: (err: any, res: any) => void) {
-    let fields = '_id,userId,isRecruitingForself,company_name,company_size,company_website,postedJobs,setOfDocuments,' +
-      'company_logo'
-
-    let downloadLocation = path.resolve() + config.get('TplSeed.adminExportFilePathForServer.recruitersCSV');
-
-    this.exportCollection('recruiters', fields, downloadLocation, '{}', (error: any, result: any) => {
-      if (error) {
-        callback(error, null);
-      } else {
-        callback(null, config.get('TplSeed.adminExportFilePathForClient.recruitersCSV'));
-      }
-    });
-
-  }
-
-  exportUsageDetailsCollection(callback: (err: any, res: any) => void) {
-    let fields = '_id,candidateId,jobProfileId,timestamp,action,__v';
-    let downloadLocation = path.resolve() + config.get('TplSeed.adminExportFilePathForServer.usageDetailsCSV');
-
-    this.exportCollection('usestrackings', fields, downloadLocation, '{}', (error: any, result: any) => {
-      if (error) {
-        callback(error, null);
-      } else {
-        callback(null, config.get('TplSeed.adminExportFilePathForClient.usageDetailsCSV'));
-      }
-    });
-
-  }
-
-  exportKeySkillsCollection(callback: (err: any, res: any) => void) {
-    let fields = '_id,proficiencies';
-    let downloadLocation = path.resolve() + config.get('TplSeed.adminExportFilePathForServer.keySkillsCSV');
-
-    this.exportCollection('proficiencies', fields, downloadLocation, '{}', (error: any, result: any) => {
-      if (error) {
-        callback(error, null);
-      } else {
-        callback(null, config.get('TplSeed.adminExportFilePathForClient.keySkillsCSV'));
-      }
-    });
-
   }
 
 }

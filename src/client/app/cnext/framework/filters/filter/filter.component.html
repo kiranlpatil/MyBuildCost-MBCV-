@@ -30,7 +30,7 @@
             <select formControlName="experienceMin" (change)="selectExperiencesMinModel($event.target.value)">
               <option value="" selected></option>
               <option value="{{itemList}}"
-                      *ngFor="let itemList of experienceRangeList | minrange:qCardFilter.experienceMaxValue">
+                      *ngFor="let itemList of experienceRangeList | minrange:qCardFilter.maxExperience">
                 {{itemList}}
               </option>
             </select>
@@ -40,7 +40,7 @@
             <select formControlName="experienceMax" (change)="selectExperiencesMaxModel($event.target.value)">
               <option value="" selected></option>
               <option value="{{itemList}}"
-                      *ngFor="let itemList of experienceRangeList | maxrange:qCardFilter.experienceMinValue">
+                      *ngFor="let itemList of experienceRangeList | maxrange:qCardFilter.minExperience">
                 {{itemList}}
               </option>
             </select>
@@ -57,7 +57,7 @@
             <select formControlName="salaryMin" (change)="selectSalaryMinModel($event.target.value)">
               <option value="" selected></option>
               <option value="{{itemList}}"
-                      *ngFor="let itemList of salaryRangeList | minrange:qCardFilter.salaryMaxValue">{{itemList}}
+                      *ngFor="let itemList of salaryRangeList ">{{itemList}}
               </option>
             </select>
           </div>
@@ -66,12 +66,12 @@
             <select formControlName="salaryMax" (change)="selectSalaryMaxModel($event.target.value)">
               <option value="" selected></option>
               <option value="{{itemList}}"
-                      *ngFor="let itemList of salaryRangeList | maxrange:qCardFilter.salaryMinValue">{{itemList}}
+                      *ngFor="let itemList of salaryRangeList ">{{itemList}}
               </option>
             </select>
           </div>
         </div>
-        <div *ngIf="!isRecuirter">
+        <div *ngIf="false">
           <h5 data-toggle="collapse" href="#company-size" (click)="openCompanySizePanel=!openCompanySizePanel"
               [ngClass]="{'panel-up': openCompanySizePanel , 'panel-down': !openCompanySizePanel }"
               class="company-size-label">Company Size</h5>

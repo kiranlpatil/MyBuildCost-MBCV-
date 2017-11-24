@@ -1,11 +1,12 @@
-import {Component} from "@angular/core";
+import {Component, Input} from "@angular/core";
 import { ErrorService } from '../../../shared/services/error.service';
 import {AdminDashboardService} from "../admin-dashboard.service";
 import {Router} from "@angular/router";
 import {LoaderService} from "../../../shared/loader/loaders.service";
 import {MessageService} from "../../../shared/services/message.service";
 import {Message} from "../../../shared/models/message";
-import {Label, Messages, AppSettings} from "../../../shared/constants";
+import {AppSettings, Label, Messages} from "../../../shared/constants";
+import {JobPosterModel} from "../../../user/models/jobPoster";
 
 @Component({
   moduleId: module.id,
@@ -15,10 +16,9 @@ import {Label, Messages, AppSettings} from "../../../shared/constants";
 })
 
 export class RecruiterDetailListComponent {
-  recruiters:any[]=new Array(0);
+  @Input() recruiters:any[]=new Array(0);
+  @Input() jobs: string[] = new Array(0);
   private successMessage:string;
-  recruitersCSV: string = '';
-  recruitersUsersCSV: string = '';
   constructor(private adminDashboardService:AdminDashboardService,
               private loaderService: LoaderService,
               private errorService: ErrorService,
@@ -60,10 +60,9 @@ export class RecruiterDetailListComponent {
       .subscribe(
         recruiterDetails => {
           this.loaderService.stop();
-          this.recruitersCSV = recruiterDetails.path.recruitersFilePath;
-          this.recruitersUsersCSV = recruiterDetails.path.usersFilePath;
-          window.open(AppSettings.IP + this.recruitersCSV,'_blank');
-          window.open(AppSettings.IP + this.recruitersUsersCSV,'_blank');
+          window.open(AppSettings.IP + recruiterDetails.path.recruitersFilePath,'_blank');
+          window.open(AppSettings.IP + recruiterDetails.path.jobDetailsFilePath,'_blank');
+          window.open(AppSettings.IP + recruiterDetails.path.usersFilePath,'_blank');
           this.messageService.message(new Message(Messages.MSG_SUCCESS_FOR_FILE_DOWNLOAD));
         },
         error => this.errorService.onError(error));

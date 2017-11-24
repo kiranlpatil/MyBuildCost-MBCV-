@@ -11,6 +11,8 @@ import CandidateService = require('../services/candidate.service');
 import adminController= require('./admin.controller');
 import RecruiterModel = require('../dataaccess/model/recruiter.model');
 import { MailChimpMailerService } from '../services/mailchimp-mailer.service';
+import IRecruiter = require("../dataaccess/mongoose/recruiter");
+
 let config = require('config');
 let path = require('path');
 let bcrypt = require('bcrypt');
@@ -58,7 +60,7 @@ export function login(req: express.Request, res: express.Response, next: any) {
                 if (result[0].isCandidate === false) {
                   let recruiterService = new RecruiterService();
 
-                  recruiterService.retrieve({"userId": result[0]._id}, (error, recruiter) => {
+                  recruiterService.retrieve({"userId": result[0]._id}, (error : Error, recruiter : IRecruiter[]) => {
                     if (error) {
                       next(error);
                     }
@@ -769,7 +771,7 @@ export function changePassword(req: express.Request, res: express.Response, next
               reason: Messages.MSG_ERROR_RSN_INVALID_CREDENTIALS,
               message: Messages.MSG_ERROR_SAME_NEW_PASSWORD,
               stackTrace: new Error(),
-              code: 403
+              code: 400
             });
           } else {
 
@@ -810,7 +812,7 @@ export function changePassword(req: express.Request, res: express.Response, next
             reason: Messages.MSG_ERROR_RSN_INVALID_CREDENTIALS,
             message: Messages.MSG_ERROR_WRONG_CURRENT_PASSWORD,
             stackTrace: new Error(),
-            code: 403
+            code: 400
           });
         }
       }

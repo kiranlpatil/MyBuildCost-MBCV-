@@ -1,6 +1,4 @@
 import * as express from "express";
-import * as mongoose from "mongoose";
-import { Recruiter } from "../dataaccess/model/recruiter-final.model";
 import AuthInterceptor = require('../interceptor/auth.interceptor');
 import Messages = require('../shared/messages');
 import CandidateService = require('../services/candidate.service');
@@ -8,12 +6,13 @@ import RecruiterModel = require('../dataaccess/model/recruiter.model');
 import RecruiterService = require('../services/recruiter.service');
 import JobProfileModel = require('../dataaccess/model/jobprofile.model');
 import CNextMessages = require('../shared/cnext-messages');
-import SearchService = require("../search/services/search.service");
-import CandidateInfoSearch = require("../dataaccess/model/candidate-info-search");
-import CandidateModel = require("../dataaccess/model/candidate.model");
-import UserService = require("../services/user.service");
-import CandidateSearchService = require("../services/candidate-search.service");
-
+import SearchService = require('../search/services/search.service');
+import CandidateInfoSearch = require('../dataaccess/model/candidate-info-search');
+import CandidateModel = require('../dataaccess/model/candidate.model');
+import UserService = require('../services/user.service');
+import CandidateSearchService = require('../services/candidate-search.service');
+import IJobProfile = require("../dataaccess/mongoose/job-profile");
+import UsageTrackingService = require('../services/usage-tracking.service');
 
 export function create(req: express.Request, res: express.Response, next: any) {
   try {
@@ -22,23 +21,21 @@ export function create(req: express.Request, res: express.Response, next: any) {
     let recruiterService = new RecruiterService();
     recruiterService.createUser(newUser, (error, result) => {
       if (error) {
-        if (error == Messages.MSG_ERROR_CHECK_EMAIL_PRESENT) {
+        if (error === Messages.MSG_ERROR_CHECK_EMAIL_PRESENT) {
           next({
             reason: Messages.MSG_ERROR_RSN_EXISTING_USER,
             message: Messages.MSG_ERROR_VERIFY_ACCOUNT,
             stackTrace: new Error(),
             code: 400
           });
-        }
-        else if (error == Messages.MSG_ERROR_CHECK_MOBILE_PRESENT) {
+        } else if (error === Messages.MSG_ERROR_CHECK_MOBILE_PRESENT) {
           next({
             reason: Messages.MSG_ERROR_RSN_EXISTING_USER,
             message: Messages.MSG_ERROR_REGISTRATION_MOBILE_NUMBER,
             stackTrace: new Error(),
             code: 400
           });
-        }
-        else {
+        } else {
           next({
             reason: Messages.MSG_ERROR_RSN_EXISTING_USER,
             message: Messages.MSG_ERROR_USER_WITH_EMAIL_PRESENT,
@@ -66,8 +63,7 @@ export function create(req: express.Request, res: express.Response, next: any) {
         });
       }
     });
-  }
-  catch (e) {
+  } catch (e) {
     next({reason: e.message, message: e.message, stackTrace: new Error(), code: 500});
   }
 }
@@ -75,20 +71,20 @@ export function create(req: express.Request, res: express.Response, next: any) {
 
 export function postJob(req: express.Request, res: express.Response, next: any) {
   try {
-    let newJob: JobProfileModel = <JobProfileModel>req.body;
-    let recruiterService = new RecruiterService();
-    let userId = req.params.id;
-    if (newJob.postedJobs._id !== undefined && newJob.postedJobs._id !== null && newJob.postedJobs._id !== '') {
+    var newJob: JobProfileModel = <JobProfileModel>req.body.postedJobs;
+    var recruiterService = new RecruiterService();
+    var userId = req.params.id;
+    if (newJob._id !== undefined && newJob._id !== null && newJob._id !== '') {
 
       let currentDate = Number(new Date());
-      let expiringDate = Number(new Date(newJob.postedJobs.expiringDate));
+      let expiringDate = Number(new Date(newJob.expiringDate));
       let daysRemainingForExpiring = Math.round(Number(new Date(expiringDate - currentDate)) / (1000 * 60 * 60 * 24));
-      newJob.postedJobs.daysRemainingForExpiring = daysRemainingForExpiring;
+      newJob.daysRemainingForExpiring = daysRemainingForExpiring;
       if (daysRemainingForExpiring <= 0) {
-        newJob.postedJobs.isJobPostExpired = true;
+        newJob.isJobPostExpired = true;
 
       } else {
-        newJob.postedJobs.isJobPostExpired = false;
+        newJob.isJobPostExpired = false;
       }
       recruiterService.updateJob(userId, newJob, (err, result) => {
         if (err) {
@@ -100,15 +96,26 @@ export function postJob(req: express.Request, res: express.Response, next: any) 
             code: 403
           });
         } else {
-          res.status(200).send({
-            'status': Messages.STATUS_SUCCESS,
-            'data': result
+          recruiterService.updateUsageTrackingData(result, newJob, (error, data) => {
+            if (error) {
+              next({
+                reason: Messages.MSG_ERROR_UPDATING_USAGE_DETAIL,
+                message: Messages.MSG_ERROR_UPDATING_USAGE_DETAIL,
+                stackTrace: new Error(),
+                actualError: err,
+                code: 500
+              });
+            } else {
+              res.status(200).send({
+                'status': Messages.STATUS_SUCCESS,
+                'data': result
+              });
+            }
           });
         }
       });
-    }
-    else {
-      recruiterService.addJob(userId, newJob, (err, result) => {
+    } else {
+      recruiterService.addJob(userId, newJob, (err: any, result: any) => {
         if (err) {
           next({
             reason: Messages.MSG_ERROR_CREATE_JOB,
@@ -118,33 +125,44 @@ export function postJob(req: express.Request, res: express.Response, next: any) 
             code: 403
           });
         } else {
-          res.status(200).send({
-            'status': Messages.STATUS_SUCCESS,
-            'data': result
+          recruiterService.updateUsageTrackingData(result, newJob, (error, data) => {
+            if (error) {
+              next({
+                reason: Messages.MSG_ERROR_UPDATING_USAGE_DETAIL,
+                message: Messages.MSG_ERROR_UPDATING_USAGE_DETAIL,
+                stackTrace: new Error(),
+                actualError: err,
+                code: 500
+              });
+            } else {
+              res.status(200).send({
+                'status': Messages.STATUS_SUCCESS,
+                'data': result
+              });
+            }
           });
         }
       });
     }
 
-  }
-  catch (e) {
+  } catch (e) {
     next({reason: e.message, message: e.message, stackTrace: new Error(), code: 500});
   }
 }
 
 export function updateDetails(req: express.Request, res: express.Response, next: any) {
   try {
-    let newRecruiter: RecruiterModel = <RecruiterModel>req.body;
-    let params = req.query;
+    var newRecruiter: RecruiterModel = <RecruiterModel>req.body;
+    var params = req.query;
     delete params.access_token;
-    let userId: string = req.params.id;
-    let auth: AuthInterceptor = new AuthInterceptor();
-    let recruiterService = new RecruiterService();
+    var userId: string = req.params.id;
+    var auth: AuthInterceptor = new AuthInterceptor();
+    var recruiterService = new RecruiterService();
     recruiterService.updateDetails(userId, newRecruiter, (error, result) => {
       if (error) {
         next(error);
       } else {
-        let token = auth.issueTokenWithUid(newRecruiter);
+        var token = auth.issueTokenWithUid(newRecruiter);
         res.send({
           'status': 'success',
           'data': result,
@@ -152,19 +170,16 @@ export function updateDetails(req: express.Request, res: express.Response, next:
         });
       }
     });
-  }
-  catch (e) {
+  } catch (e) {
     next({reason: e.message, message: e.message, stackTrace: new Error(), code: 500});
   }
 }
 
-export function retrieve(req: express.Request, res: express.Response, next: any) {
+export function getRecruiterDetails(req: express.Request, res: express.Response, next: any) {
   try {
     let recruiterService = new RecruiterService();
-    let data = {
-      'userId': new mongoose.Types.ObjectId(req.params.id)
-    };
-    recruiterService.retrieve(data, (error: any, result: Recruiter[]) => {
+    let userService = new UserService();
+    recruiterService.retrieve({'_id': req.params.id}, (error: any, result: any) => {
       if (error) {
         next({
           reason: CNextMessages.PROBLEM_IN_RETRIEVE_JOB_PROFILE,
@@ -173,33 +188,60 @@ export function retrieve(req: express.Request, res: express.Response, next: any)
           code: 401
         });
       } else {
-        if (result[0]) {
+        userService.retrieve({'_id': result[0].userId}, (error: any, userDetails: any) => {
+          if (error) {
+            next({
+              reason: CNextMessages.PROBLEM_IN_RETRIEVE_JOB_PROFILE,
+              message: CNextMessages.PROBLEM_IN_RETRIEVE_JOB_PROFILE,
+              stackTrace: new Error(),
+              code: 401
+            });
+          } else {
+            let _details = userDetails[0];
+            delete _details['password'];
+            delete _details['isActivated'];
+            delete _details['otp'];
+            delete _details['isAdmin'];
+            delete _details['guide_tour'];
+            res.send({
+              'status': 'success',
+              'data': result[0],
+              'metadata': _details
+            });
+          }
+
+        });
+      }
+    });
+  } catch (e) {
+    next({reason: e.message, message: e.message, stackTrace: new Error(), code: 500});
+  }
+}
+
+export function retrieve(req: express.Request, res: express.Response, next: any) {
+  try {
+    let recruiterService = new RecruiterService();
+    recruiterService.getJobsByRecruiterIdAndItsCount(req.params.id, (error: any, result: any) => {
+      if (error) {
+        next({
+          reason: CNextMessages.PROBLEM_IN_RETRIEVE_JOB_PROFILE,
+          message: CNextMessages.PROBLEM_IN_RETRIEVE_JOB_PROFILE,
+          stackTrace: new Error(),
+          code: 401
+        });
+      } else {
+        if (result) {
           res.status(200).send({
             'status': Messages.STATUS_SUCCESS,
             'data': result,
-            'jobCountModel': result[0].jobCountModel
+            'jobCountModel': result.jobCountModel
           });
-        } else {
-
-          let currentDate = Number(new Date());
-          let expiringDate = Number(new Date(result[0].postedJobs[0].expiringDate));
-          let daysRemainingForExpiring = Math.round(Number(new Date(expiringDate - currentDate)) / (1000 * 60 * 60 * 24));
-          result[0].postedJobs[0].daysRemainingForExpiring = daysRemainingForExpiring;
-          if (daysRemainingForExpiring <= 0) {
-            result[0].postedJobs[0].isJobPostExpired = true;
-
-          } else {
-            result[0].postedJobs[0].isJobPostExpired = false;
-
-          }
-
-          res.status(200).send({
-            'status': Messages.STATUS_SUCCESS,
-            'data': result
+        } else { //todo reviewed by Rahul and then remove this todo
+          res.status(500).send({
+            'status': Messages.MSG_ERROR_INVALID_ID,
           });
         }
       }
-
     });
 
 
@@ -208,43 +250,19 @@ export function retrieve(req: express.Request, res: express.Response, next: any)
   }
 }
 
-export function getFilterList(req: express.Request, res: express.Response,next:any) {
+export function getFilterList(req: express.Request, res: express.Response, next: any) {
   __dirname = './';
   let filepath = 'recruiter-filter-list.json';
   try {
     res.sendFile(filepath, {root: __dirname});
-  }
-  catch (e) {
+  } catch (e) {
     next({reason: e.message, message: e.message, stackTrace: new Error(), code: 500});
   }
 }
 
 
 export function getList(req: express.Request, res: express.Response, next: any) {
-  try {
-    let data: any = {
-      'jobProfileId': req.params.id,
-      'listName': req.params.listName
-    };
-    let recruiterService = new RecruiterService();
-    recruiterService.getCandidateList(data, (error: any, response: any) => {
-      if (error) {
-        next({
-          reason: Messages.MSG_ERROR_RSN_EXISTING_USER,
-          message: Messages.MSG_ERROR_VERIFY_ACCOUNT,
-          stackTrace: new Error(),
-          code: 403
-        });
-      } else {
-        res.send({
-          'status': 'success',
-          'data': response,
-        });
-      }
-    });
-  } catch (e) {
-    next({reason: e.message, message: e.message, stackTrace: new Error(), code: 500});
-  }
+  console.log('Remove this code');
 }
 
 export function getCompareDetailsOfCandidate(req: express.Request, res: express.Response, next: any) {
@@ -258,23 +276,21 @@ export function getCompareDetailsOfCandidate(req: express.Request, res: express.
     searchService.getMultiCompareResult(candidateId, jobId, recruiterId, false, (error: any, result: any) => {
       if (error) {
         next({
-          reason: "Problem in Search Matching Result",//Messages.MSG_ERROR_RSN_INVALID_CREDENTIALS,
+          reason: 'Problem in Search Matching Result',//Messages.MSG_ERROR_RSN_INVALID_CREDENTIALS,
           message: 'Problem in Search Matching Result',//Messages.MSG_ERROR_WRONG_TOKEN,
           stackTrace: new Error(),
           code: 401
         });
-      }
-      else {
+      } else {
         res.send({
-          "status": "success",
-          "data": result,
+          'status': 'success',
+          'data': result,
         });
 
       }
     });
 
-  }
-  catch (e) {
+  } catch (e) {
     next({reason: e.message, message: e.message, stackTrace: new Error(), code: 500});
   }
 
@@ -286,10 +302,10 @@ export function getCandidatesByName(req: express.Request, res: express.Response,
     let candidateService = new CandidateService();
     let candidateSearchService = new CandidateSearchService();
     let userName = req.params.searchvalue;
-    let query:any;
-    let searchValueArray:string[] = userName.split(" ");
-    let included : any = {
-      '_id':1
+    let query: any;
+    let searchValueArray: string[] = userName.split(" ");
+    let included: any = {
+      '_id': 1
     };
     if (searchValueArray.length > 1) {
       let exp1 = eval('/^' + searchValueArray[0] + '/i');
@@ -312,7 +328,7 @@ export function getCandidatesByName(req: express.Request, res: express.Response,
         $or: [{'first_name': {$regex: eval(searchString)}}, {'last_name': {$regex: eval(searchString)}}]
       };
     }
-    userService.retrieveWithLimit(query,included, (error:any, result:any) => {
+    userService.retrieveWithLimit(query, included, (error: any, result: any) => {
       if (error) {
         next({
           reason: 'Problem in Search user details',
@@ -320,9 +336,8 @@ export function getCandidatesByName(req: express.Request, res: express.Response,
           stackTrace: new Error(),
           code: 401
         });
-      }
-      else {
-        let candidateId: string[] = new Array(0);
+      } else {
+        var candidateId: string[] = new Array(0);
         for (let obj of result) {
           candidateId.push(obj._id);
         }
@@ -345,8 +360,7 @@ export function getCandidatesByName(req: express.Request, res: express.Response,
       }
     });
 
-  }
-  catch (e) {
+  } catch (e) {
     next({reason: e.message, message: e.message, stackTrace: new Error(), code: 500});
   }
 
@@ -367,13 +381,12 @@ export function requestToAdvisor(req: express.Request, res: express.Response, ne
         });
       } else {
         res.status(200).send({
-          "status": Messages.STATUS_SUCCESS,
-          "data": {"message": Messages.MSG_SUCCESS_EMAIL}
+          'status': Messages.STATUS_SUCCESS,
+          'data': {'message': Messages.MSG_SUCCESS_EMAIL}
         });
       }
     });
-  }
-  catch (e) {
+  } catch (e) {
     next({reason: e.message, message: e.message, stackTrace: new Error(), code: 500});
 
   }
@@ -392,16 +405,14 @@ export function responseToRecruiter(req: express.Request, res: express.Response,
           stackTrace: new Error(),
           code: 403
         });
-      }
-      else {
+      } else {
         res.status(200).send({
-          "status": Messages.STATUS_SUCCESS,
-          "data": {"message": Messages.MSG_SUCCESS_EMAIL}
+          'status': Messages.STATUS_SUCCESS,
+          'data': {'message': Messages.MSG_SUCCESS_EMAIL}
         });
       }
     });
-  }
-  catch (e) {
+  } catch (e) {
     next({reason: e.message, message: e.message, stackTrace: new Error(), code: 500});
 
   }

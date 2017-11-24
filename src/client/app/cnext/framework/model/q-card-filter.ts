@@ -1,15 +1,19 @@
+import { ESort } from './sort-type';
+import { EList } from './list-type';
 export class QCardFilter {
-  salaryMaxValue: string;
-  salaryMinValue: string;
-  experienceMaxValue: string;
-  experienceMinValue: string;
-
-  proficiencyDataForFilter: string[] = new Array(0);
-  educationDataForFilter: string[] = new Array(0);
-  industryExposureDataForFilter: string[] = new Array(0);
-  filterByJoinTime: string;
-  filterByLocation: string;
-  filterByCompanySize: string;
-  filterByMustHaveComplexity: boolean = false;
+  maxSalary: number;
+  minSalary: number;
+  minExperience: number;
+  maxExperience: number;
+  proficiencies: string[] = new Array(0);
+  education: string[] = new Array(0);
+  interestedIndustries: string[] = new Array(0);
+  joinTime: string;
+  location: string;
+  companySize: string;
+  mustHaveComplexity: boolean = false;
   query: any;
+  sortBy: ESort= ESort.BEST_MATCH;
+  listName: EList;
+  recruiterId: string;
 }

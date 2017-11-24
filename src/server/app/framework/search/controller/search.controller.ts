@@ -8,13 +8,14 @@ import CandidateSearchService = require('../../services/candidate-search.service
 
 export class SearchController {
 
-  getMatchingCandidates(req: express.Request, res: express.Response,next:any) {
+/*  getMatchingCandidates(req: express.Request, res: express.Response,next:any) {
     console.time('getMatchingCandidatesController');
     let searchService = new SearchService();
     let profileId = req.params.id;
+    let appliedFilters : FilterSort = req.body.obj;
     let recruiterService = new RecruiterService();
     recruiterService.getJobById(profileId, (err: any, jobRes: JobProfileModel) => {
-      searchService.getMatchingCandidates(jobRes, (error: Error, result: any) => {
+      searchService.getMatchingCandidates(jobRes, appliedFilters, (error: Error, result: any) => {
         if (error) {
          next(error);
         } else {
@@ -23,7 +24,7 @@ export class SearchController {
         }
       });
     });
-  }
+  }*/
 
   getMatchingJobProfiles(req: express.Request, res: express.Response,next:any) {
     let searchService = new SearchService();
@@ -76,9 +77,9 @@ export class SearchController {
             candidateSearchService.getCandidateInfoById([candidateId], (error, candidateDetails) => {
               if (error) {
                 next(error);
-              }
-              else {
-                let _candidateDetails:CandidateDetailsWithJobMatching = searchService.getCandidateVisibilityAgainstRecruiter(candidateDetails[0], result);
+              }else {
+                let _candidateDetails : CandidateDetailsWithJobMatching;
+                _candidateDetails = searchService.getCandidateVisibilityAgainstRecruiter(candidateDetails[0], result);
                 _candidateDetails.jobQCardMatching = candidateDetails[0].isVisible ? result : [];
                 res.send({
                   'status': 'success',
