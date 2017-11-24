@@ -6,6 +6,8 @@ import {NavigationRoutes} from '../../../../../shared/constants';
 import {ComplexityComponentService} from "../../../complexities/complexity.service";
 import {JobCompareService} from "../../../single-page-compare-view/job-compare-view/job-compare-view.service";
 import {ErrorService} from "../../../../../shared/services/error.service";
+import {JobPosterModel} from "../../../../../user/models/jobPoster";
+import {Recruiter} from "../../../../../user/models/recruiter";
 
 
 @Component({
@@ -18,8 +20,9 @@ import {ErrorService} from "../../../../../shared/services/error.service";
 export class JobViewComponent implements OnChanges ,OnInit {
   @Input() jobId: string;
   @Input() calledFrom: string;
-  recruiter: JobSummary = new JobSummary();
-  private capabilities : any;
+  recruiter: Recruiter = new Recruiter();
+  job: JobPosterModel = new JobPosterModel();
+  capabilities : any;
 
   constructor(private recruiterDashboardService: RecruiterDashboardService,
               private complexityComponentService : ComplexityComponentService,
@@ -38,7 +41,7 @@ export class JobViewComponent implements OnChanges ,OnInit {
       this.recruiterDashboardService.getPostedJobDetails(this.jobId)
         .subscribe(
           data => {
-            this.OnRecruiterDataSuccess(data.data.industry);
+            this.OnRecruiterDataSuccess(data.result);
           },error => this.errorService.onError(error));
     }
     if (changes.calledFrom !== undefined && changes.calledFrom.currentValue !== undefined) {
@@ -46,15 +49,23 @@ export class JobViewComponent implements OnChanges ,OnInit {
     }
   }
 
-  OnRecruiterDataSuccess(data: any) {
-    this.recruiter = data;
+  OnRecruiterDataSuccess(jobData: any) {
+    this.getRecruiterDetails();
+    this.job = jobData;
     this.getCapabilities();
+  }
 
+  getRecruiterDetails() {
+    this.recruiterDashboardService.getRecruiterDetails()
+      .subscribe(
+        recruiterData => {
+          this.recruiter = recruiterData.data;
+        }, error => this.errorService.onError(error));
   }
 
   getCapabilities() {
-    if(this.recruiter && this.recruiter.postedJobs[0]){
-      this.complexityComponentService.getCapabilityMatrix(this.recruiter.postedJobs[0]._id).subscribe(
+    if(this.recruiter && this.job){
+      this.complexityComponentService.getCapabilityMatrix(this.job._id).subscribe(
         capa => {
           this.capabilities= this.jobCompareService.getStandardMatrix(capa.data);
         },error => this.errorService.onError(error));

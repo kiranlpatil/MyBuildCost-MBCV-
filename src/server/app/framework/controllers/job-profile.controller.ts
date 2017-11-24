@@ -1,13 +1,14 @@
 import * as express from "express";
-import {UsageTracking} from "../dataaccess/model/usage-tracking";
-import {ConstVariables} from "../shared/sharedconstants";
+import {UsageTracking} from "../dataaccess/model/usage-tracking.model";
+import {ConstVariables, Actions} from "../shared/sharedconstants";
 import Messages = require('../shared/messages');
 import JobProfileModel = require('../dataaccess/model/jobprofile.model');
 import JobProfileService = require('../services/jobprofile.service');
 import CNextMessages = require('../shared/cnext-messages');
 import SearchService = require('../search/services/search.service');
 import RecruiterService = require('../services/recruiter.service');
-let usestracking = require('uses-tracking');
+import IJobProfile = require('../dataaccess/mongoose/job-profile');
+import UsageTrackingService = require("../services/usage-tracking.service");
 
 
 export function searchCandidatesByJobProfile(req: express.Request, res: express.Response, next: any) {
@@ -43,11 +44,8 @@ export function searchCandidatesByJobProfile(req: express.Request, res: express.
 
 export function retrieve(req: express.Request, res: express.Response, next: any) {
   try {
-    let jobProfileService = new JobProfileService();
-    let data = {
-      'postedJob': req.params.id
-    };
-    jobProfileService.retrieve(data, (error, result) => {
+    var jobProfileService = new JobProfileService();
+    jobProfileService.retrieveByJobId(req.params.id, (error, result: IJobProfile) => {
       if (error) {
         next({
           reason: CNextMessages.PROBLEM_IN_RETRIEVE_JOB_PROFILE,
@@ -57,21 +55,17 @@ export function retrieve(req: express.Request, res: express.Response, next: any)
         });
       } else {
         let currentDate = Number(new Date());
-        let expiringDate = Number(new Date(result.postedJobs[0].expiringDate));
+        let expiringDate = Number(new Date(result.expiringDate));
         let daysRemainingForExpiring = Math.round(Number(new Date(expiringDate - currentDate)) / (1000 * 60 * 60 * 24));
-        result.postedJobs[0].daysRemainingForExpiring = daysRemainingForExpiring;
+        result.daysRemainingForExpiring = daysRemainingForExpiring;
         if (daysRemainingForExpiring <= 0) {
-          result.postedJobs[0].isJobPostExpired = true;
+          result.isJobPostExpired = true;
 
         } else {
-          result.postedJobs[0].isJobPostExpired = false;
+          result.isJobPostExpired = false;
 
         }
-        res.status(200).send({
-          'data': {
-            'industry': result
-          }
-        });
+        res.status(200).send({result});
       }
 
 
@@ -88,10 +82,7 @@ export function retrieve(req: express.Request, res: express.Response, next: any)
 
 export function getCapabilityMatrix(req: express.Request, res: express.Response, next: any) {
   try {
-    let jobProfileService = new JobProfileService();
-    let data = {
-      'postedJob': req.params.id
-    };
+    var jobProfileService = new JobProfileService();
     jobProfileService.getCapabilityValueKeyMatrix(req.params.id, (error, result) => {
       if (error) {
         next({
@@ -222,25 +213,6 @@ export function metchResultForJob(req: express.Request, res: express.Response, n
     });
   }
 }
-export function createUsesTracking(req: express.Request, res: express.Response, next: any) {
-  try {
-    let data: UsageTracking;
-    data = req.body;
-    data.timestamp = new Date();
-    let obj: any = new usestracking.MyController();
-    obj._controller.create(data);
-    res.send({
-      'status': 'success',
-    });
-  } catch (e) {
-    next({
-      reason: e.message,
-      message: e.message,
-      stackTrace: new Error(),
-      code: 500
-    });
-  }
-}
 
 export function getQCardDetails(req: express.Request, res: express.Response, next: any) {
   try {
@@ -249,13 +221,13 @@ export function getQCardDetails(req: express.Request, res: express.Response, nex
       'jobId': req.params.id,
       'candidateIds': req.body.candidateIds
     };
-    jobProfileService.getQCardDetails(data, (error: Error, result: any) => {
-      if (error) {
-        next(error);
-      } else {
-        res.status(200).send(result);
-      }
-    });
+    /*jobProfileService.getQCardDetails(data, (error: Error, result: any) => {
+     if (error) {
+     next(error);
+     } else {
+     res.status(200).send(result);
+     }
+     });*/
   } catch (e) {
     next({
       reason: e.message,
@@ -267,12 +239,9 @@ export function getQCardDetails(req: express.Request, res: express.Response, nex
 }
 export function cloneJob(req: express.Request, res: express.Response, next: any) {
   try {
-    let newJobTitle = req.query.newJobTitle;
-    let jobProfileService = new JobProfileService();
-    let data = {
-      'postedJob': req.params.id
-    };
-    jobProfileService.retrieve(data, (error, result) => {
+    var newJobTitle = req.query.newJobTitle;
+    var jobProfileService = new JobProfileService();
+    jobProfileService.retrieveByJobId(req.params.id, (error: any, result: IJobProfile) => { //todo use
       if (error) {
         next({
           reason: CNextMessages.PROBLEM_IN_RETRIEVE_JOB_PROFILE,
@@ -281,9 +250,10 @@ export function cloneJob(req: express.Request, res: express.Response, next: any)
           code: 401
         });
       } else {
-        let newJob: any = result.postedJobs[0];
-
-        delete newJob._id;
+        let oldId: any = result;
+        let newJob: any = result.toObject();
+        delete newJob["_id"];
+        console.log('-----------------------newJob._id---------------------', newJob._id);
         newJob.jobTitle = newJobTitle;
         newJob.isJobPosted = false;
         newJob.isJobShared = false;
@@ -294,8 +264,8 @@ export function cloneJob(req: express.Request, res: express.Response, next: any)
         newJob.jobCloseReason = null;
 
         newJob.expiringDate = new Date((new Date().getTime() + ConstVariables.JOB__EXPIRIY_PERIOD));
-        let recruiterService = new RecruiterService();
-        recruiterService.addCloneJob(result.userId, newJob, (err, result) => {
+        var recruiterService = new RecruiterService();
+        recruiterService.addCloneJob(oldId, newJob, (err, result) => {
           if (err) {
             next({
               reason: err,
@@ -304,9 +274,27 @@ export function cloneJob(req: express.Request, res: express.Response, next: any)
               code: 403
             });
           } else {
-            res.status(200).send({
-              'status': Messages.STATUS_SUCCESS,
-              'data': result.postedJobs[0]._id
+            let usageTrackingService = new UsageTrackingService();
+            let usageTrackingData = new UsageTracking();
+            usageTrackingData.action = Actions.CLONED_JOB_POST_BY_RECRUITER;
+            usageTrackingData.recruiterId = newJob.recruiterId;
+            usageTrackingData.jobProfileId = req.params.id;
+            usageTrackingData.timestamp = new Date();
+            usageTrackingService.create(usageTrackingData, (err, result) => {
+              if (err) {
+                next({
+                  reason: Messages.MSG_ERROR_UPDATING_USAGE_DETAIL,
+                  message: Messages.MSG_ERROR_UPDATING_USAGE_DETAIL,
+                  stackTrace: new Error(),
+                  actualError: err,
+                  code: 500
+                });
+              } else {
+                res.status(200).send({
+                  'status': Messages.STATUS_SUCCESS,
+                  'data': result._id
+                });
+              }
             });
           }
         });

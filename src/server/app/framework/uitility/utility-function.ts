@@ -1,8 +1,11 @@
 export class UtilityFunction {
 
     public static valueHide(value:string) {
+      if(value) {
         let result = new Array(value.length).join('X');
         return result;
+      }
+      return value;
     }
 
     public static emailValueHider(_email:string) { //TODO: use regExp

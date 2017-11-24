@@ -17,7 +17,6 @@ export class JobQcard {
   joiningPeriod: string;
   jobTitle: string;
   recruiterId: string;
-  below_one_step_matching: number = 0;
   above_one_step_matching: number = 0;
   exact_matching: number = 0;
   postingDate: Date;

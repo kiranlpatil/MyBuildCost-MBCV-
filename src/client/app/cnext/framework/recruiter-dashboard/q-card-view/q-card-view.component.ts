@@ -4,10 +4,7 @@ import {QCardsortBy} from "../../model/q-cardview-sortby";
 import {MatchCandidate} from "../../model/match-candidate";
 import {QCardViewService} from "./q-card-view.service";
 import {QCardFilterService} from "../../filters/q-card-filter.service";
-import {
-  AppSettings, LocalStorage, UsageActions, ValueConstant, Messages, Label,
-  Button
-} from "../../../../shared/constants";
+import {AppSettings, LocalStorage, UsageActions, ValueConstant, Button} from "../../../../shared/constants";
 import {QCardFilter} from "../../model/q-card-filter";
 import {CandidateQListModel} from "../job-dashboard/q-cards-candidates";
 import {RecruiterJobView} from "../../model/recruiter-job-view";
@@ -19,7 +16,11 @@ import {MessageService} from "../../../../shared/services/message.service";
 import {ErrorService} from "../../../../shared/services/error.service";
 import {UsageTrackingService} from "../../usage-tracking.service";
 import {LocalStorageService} from "../../../../shared/services/localstorage.service";
-import {Router, ActivatedRoute} from '@angular/router';
+import {ESort} from "../../model/sort-type";
+import {JobPosterModel} from "../../../../user/models/jobPoster";
+import {Router, ActivatedRoute} from "@angular/router";
+import {UsageTracking} from "../../model/usage-tracking";
+import {ActionOnQCardService} from "../../../../user/services/action-on-q-card.service";
 /*import underline = Chalk.underline;*/
 
 
@@ -38,10 +39,11 @@ export class QCardviewComponent implements OnChanges {
   @Input() jobId: string;
   @Input() type: string;
   @Input() filterMeta: QCardFilter;
-  @Input() isJobPostExpired : boolean;
-  @Input() isJobPostClosed : boolean;
+  @Input() isJobPostExpired: boolean;
+  @Input() isJobPostClosed: boolean;
   @Output() addedTocart: EventEmitter<any> = new EventEmitter<any>();
-  @Input() progress_bar_color : string='#0d75fa';
+  @Output() changeSorting: EventEmitter<ESort> = new EventEmitter<ESort>();
+  @Input() progress_bar_color: string = '#0d75fa';
   @Output() addForCompare: EventEmitter<any> = new EventEmitter<any>();
   public qCardModel: QCardsortBy = new QCardsortBy();
   public totalQCardMatches = {count: 0};
@@ -53,7 +55,7 @@ export class QCardviewComponent implements OnChanges {
   private selectedCandidate: Candidate = new Candidate();
   private modelCandidate: CandidateQCard = new CandidateQCard();
   private candidateDetails: CandidateDetail = new CandidateDetail();
-  private showModalStyle: boolean = false;
+  private showModalStyle: boolean;
   private isAlreadyPresentInCart: boolean = false;
   private isShortlistedclicked: boolean = false;
   isShowPrintView: boolean = false;
@@ -66,14 +68,33 @@ export class QCardviewComponent implements OnChanges {
               private profileCreatorService: CandidateProfileService,
               private qCardViewService: QCardViewService,
               private messageService: MessageService,
-              private _router:Router) {
+              private _router:Router,
+              private actionOnQCardService: ActionOnQCardService) {
 
     this.qCardFilterService.aboveMatch$.subscribe(
       () => {
         this.matchFormat = this.match.aboveMatch;
       }
     );
-
+    this.actionOnQCardService.getShowModalStyle()
+      .subscribe( showModalStyle => {
+        this.showModalStyle = showModalStyle
+      });
+    this.actionOnQCardService.getSelectedCandidate()
+      .subscribe( selectedCandidate => {
+        this.selectedCandidate = selectedCandidate
+      });
+    this.actionOnQCardService.getAction().subscribe(actionOnValuePortrait => {
+      let result = this.actionOnQCardService.actionFromValuePortrait(actionOnValuePortrait.item,this.candidateQlist);
+      console.log('response from valuePortrait = ', result);
+      this.actionOnQCard(actionOnValuePortrait.action, result.source, actionOnValuePortrait.destination, result.candidate);
+    });
+    this.actionOnQCardService.getActionOnViewProfile().subscribe(actionOnViewProfile => {
+      this.viewProfile(actionOnViewProfile);
+    });
+    /*this.actionOnQCardService.getValueForCompareView().subscribe(addForCompareView => {
+      this.addForCompareView(addForCompareView.id, addForCompareView.sorceName)
+    });*/
   }
 
   ngOnInit() {
@@ -90,21 +111,22 @@ export class QCardviewComponent implements OnChanges {
       }
     }
     if (changes.isJobPostExpired && changes.isJobPostExpired.currentValue) {
-    this.isJobPostExpired=changes.isJobPostExpired.currentValue;
+      this.isJobPostExpired = changes.isJobPostExpired.currentValue;
     }
   }
+
 //TODO: refactor below code proper ->use service for logic ->by krishna ghatul
-  actionOnQCardFromParent(data:any) {
-    var candidate:CandidateQCard;
-    var isFound:boolean = false;
-    this.candidateQlist.rejectedCandidates.forEach(item=> {
+  actionOnQCardFromParent(data: any) {debugger
+    /*var candidate: CandidateQCard;
+    var isFound: boolean = false;
+    this.candidateQlist.rejectedCandidates.forEach(item => {
       if (data.id == item._id) {
         candidate = item;
         isFound = true;
       }
     });
     if (!isFound) {
-      this.candidateQlist.appliedCandidates.forEach(item=> {
+      this.candidateQlist.appliedCandidates.forEach(item => {
         if (data.id == item._id) {
           candidate = item;
           isFound = true;
@@ -112,7 +134,7 @@ export class QCardviewComponent implements OnChanges {
       })
     }
     if (!isFound) {
-      this.candidateQlist.cartCandidates.forEach(item=> {
+      this.candidateQlist.cartCandidates.forEach(item => {
         if (data.id == item._id) {
           candidate = item;
           isFound = true;
@@ -120,20 +142,21 @@ export class QCardviewComponent implements OnChanges {
       })
     }
     if (!isFound) {
-      this.candidateQlist.matchedCandidates.forEach(item=> {
+      this.candidateQlist.matchedCandidates.forEach(item => {
         if (data.id == item._id) {
           candidate = item;
           isFound = true;
         }
       })
-    }
-    this.actionOnQCard(data.action, data.source, data.destination, candidate);
+    }*/
+    let result = this.actionOnQCardService.actionFromValuePortrait(data.id, this.candidateQlist);
+    this.actionOnQCard(data.action, result.source, data.destination, result.candidate);
 
   }
 
-  actionOnQCard(action: string, sourceListName: string, destinationListName: string, candidate: CandidateQCard) {
+  actionOnQCard(action: string, sourceListName: string, destinationListName: string, candidate: CandidateQCard) { debugger
     let isMatchList: boolean = false;
-    let isFound : boolean=false;
+    let isFound: boolean = false;
     switch (sourceListName) {
       case ValueConstant.APPLIED_CANDIDATE :
         /*
@@ -143,13 +166,13 @@ export class QCardviewComponent implements OnChanges {
         break;
       case ValueConstant.REJECTED_LISTED_CANDIDATE :
         this.candidateQlist.rejectedCandidates.splice(this.candidateQlist.rejectedCandidates.indexOf(candidate), 1);
-       isFound=false;
-        for(let item of this.candidateQlist.matchedCandidates){
-          if(item._id === candidate._id) {
-            isFound=true;
+        isFound = false;
+        for (let item of this.candidateQlist.matchedCandidates) {
+          if (item._id === candidate._id) {
+            isFound = true;
           }
         }
-        if(!isFound) {
+        if (!isFound) {
           if (candidate.isVisible == undefined || candidate.isVisible) {
             this.candidateQlist.matchedCandidates.push(candidate);
           }
@@ -158,13 +181,13 @@ export class QCardviewComponent implements OnChanges {
       case ValueConstant.CART_LISTED_CANDIDATE :
         this.isShowPrintView = false;
         this.candidateQlist.cartCandidates.splice(this.candidateQlist.cartCandidates.indexOf(candidate), 1);
-        isFound=false;
-        for(let item of this.candidateQlist.matchedCandidates){
-          if(item._id === candidate._id) {
-            isFound=true;
+        isFound = false;
+        for (let item of this.candidateQlist.matchedCandidates) {
+          if (item._id === candidate._id) {
+            isFound = true;
           }
         }
-        if(!isFound) {
+        if (!isFound) {
           if (candidate.isVisible == undefined || candidate.isVisible) {
             this.candidateQlist.matchedCandidates.push(candidate);
           }
@@ -188,20 +211,19 @@ export class QCardviewComponent implements OnChanges {
     if (action === 'add' && !isMatchList && sourceListName !== ValueConstant.APPLIED_CANDIDATE) {
       this.qCardViewService.updateCandidateLists(this.jobId, candidate._id, sourceListName, 'remove').subscribe(
         data => {
-          this.updateCountModel(data);
+          this.updateCountModel(data.data);
         }
       );
     } else if (action === 'remove') {
-      if ((candidate.isVisible == undefined || !candidate.isVisible) && (destinationListName === 'cartListed' ||
-        destinationListName === 'rejectedList')) {
-
-      } else {
-        this.recuirterListCountModel.numberOfMatchedCandidates++;
-      }
+      this.recuirterListCountModel.numberOfMatchedCandidates++;
+      /*if ((candidate.isVisible == undefined || !candidate.isVisible) && (destinationListName === 'cartListed' ||
+       destinationListName === 'rejectedList')) {
+       } else {
+       }*/
     }
     this.qCardViewService.updateCandidateLists(this.jobId, candidate._id, destinationListName, action).subscribe(
       data => {
-        this.updateCountModel(data);
+        this.updateCountModel(data.data);
       }
     );
     this.showModalStyle = false;
@@ -222,33 +244,37 @@ export class QCardviewComponent implements OnChanges {
     }
 
     if (destinationListName === ValueConstant.CART_LISTED_CANDIDATE && sourceListName === ValueConstant.APPLIED_CANDIDATE) {
-      isFound=false;
-      for(let item of this.candidateQlist.cartCandidates){
-        if(item._id === candidate._id) {
-          isFound=true;
+      isFound = false;
+      for (let item of this.candidateQlist.cartCandidates) {
+        if (item._id === candidate._id) {
+          isFound = true;
         }
       }
-      if(!isFound) {
+      if (!isFound) {
         this.candidateQlist.cartCandidates.push(candidate);
       }
     }
 
     if (destinationListName === ValueConstant.REJECTED_LISTED_CANDIDATE && sourceListName === ValueConstant.APPLIED_CANDIDATE) {
-      isFound=false;
-      for(let item of this.candidateQlist.rejectedCandidates) {
-        if(item._id === candidate._id) {
-          isFound=true;
+      isFound = false;
+      for (let item of this.candidateQlist.rejectedCandidates) {
+        if (item._id === candidate._id) {
+          isFound = true;
         }
       }
-      if(!isFound) {
+      if (!isFound) {
         this.candidateQlist.rejectedCandidates.push(candidate);
       }
     }
 
     if (sourceListName === ValueConstant.CART_LISTED_CANDIDATE && (destinationListName === ValueConstant.CART_LISTED_CANDIDATE || destinationListName === ValueConstant.REJECTED_LISTED_CANDIDATE))
       this.addedTocart.emit(false);
-    if(destinationListName==='cartListed'&& action==='add') {this.displayMsg('cartListed',candidate);}
-    if(destinationListName==='rejectedList'&& action==='add') {this.displayMsg('rejectedList',candidate);}
+    if (destinationListName === 'cartListed' && action === 'add') {
+      this.displayMsg('cartListed', candidate);
+    }
+    if (destinationListName === 'rejectedList' && action === 'add') {
+      this.displayMsg('rejectedList', candidate);
+    }
     if (destinationListName === 'cartListed' && action === 'remove' && (candidate.isVisible == undefined || candidate.isVisible)) {
       this.displayMsg('removedcartListed', candidate);
     }
@@ -257,18 +283,27 @@ export class QCardviewComponent implements OnChanges {
     }
 
   }
-  displayMsg(condition:string,candidate: CandidateQCard) {
+
+  displayMsg(condition: string, candidate: CandidateQCard) {
     var message = new Message();
     message.isError = false;
-    if(condition==='cartListed') {message.custom_message = 'Candidate '+candidate.first_name+' '+candidate.last_name+' is added to your cart.';}
-    if(condition==='rejectedList') {message.custom_message = 'Candidate '+candidate.first_name+' '+candidate.last_name+' is rejected and moved to the rejected list.';}
-    if(condition==='removedcartListed') {message.custom_message = 'Candidate '+candidate.first_name+' '+candidate.last_name+' moved back to candidate listing from cart.';}
-    if(condition==='removedrejectedList') {message.custom_message = 'Candidate '+candidate.first_name+' '+candidate.last_name+' moved back to candidate listing from rejected section.';}
+    if (condition === 'cartListed') {
+      message.custom_message = 'Candidate ' + candidate.first_name + ' ' + candidate.last_name + ' is added to your cart.';
+    }
+    if (condition === 'rejectedList') {
+      message.custom_message = 'Candidate ' + candidate.first_name + ' ' + candidate.last_name + ' is rejected and moved to the rejected list.';
+    }
+    if (condition === 'removedcartListed') {
+      message.custom_message = 'Candidate ' + candidate.first_name + ' ' + candidate.last_name + ' moved back to candidate listing from cart.';
+    }
+    if (condition === 'removedrejectedList') {
+      message.custom_message = 'Candidate ' + candidate.first_name + ' ' + candidate.last_name + ' moved back to candidate listing from rejected section.';
+    }
     this.messageService.message(message);
   }
 
   addRemoveToShortList(candidate: CandidateQCard) {
-    this.isShortlistedclicked=true;
+    this.isShortlistedclicked = true;
     let action: string;
     (this.emailsOfShrortListedCandidates.indexOf(candidate.email) !== -1) ? action = 'remove' : action = 'add';
     if (action === 'add') {
@@ -278,17 +313,19 @@ export class QCardviewComponent implements OnChanges {
     }
     this.qCardViewService.updateCandidateLists(this.jobId, candidate._id, ValueConstant.SHORT_LISTED_CANDIDATE, action).subscribe(
       data => {
-        this.updateCountModel(data);
-      },error => this.errorService.onError(error)
+        this.updateCountModel(data.data);
+      }, error => this.errorService.onError(error)
     );
   }
 
-  updateCountModel(data: any) {
-    var _jobId = this.jobId;
-    var item = data.data.postedJobs.filter(function (item: any) {
-      return (item._id === _jobId);
-    });
-    for (let candidateItem of item[0].candidate_list) {
+  updateCountModel(data: JobPosterModel) { //todo remove this unwanted code --abhijeet
+    //var _jobId = this.jobId;
+    let job = data;
+    /*var item = data.data.postedJobs.filter(function (item: any) {*/
+    /* var item = data.filter(function (item: any) {
+     return (item._id === _jobId);
+     });*/
+    for (let candidateItem of job.candidate_list) {
       if (candidateItem.name === ValueConstant.APPLIED_CANDIDATE) {
         this.recuirterListCountModel.numberOfCandidatesApplied = candidateItem.ids.length;
       }
@@ -311,45 +348,55 @@ export class QCardviewComponent implements OnChanges {
   }
 
   changeSort() {
+
+    switch (this.qCardModel.sortValue) {
+      case 'Best match':
+        this.changeSorting.emit(ESort.BEST_MATCH);
+        break;
+      case 'Experience' :
+        this.changeSorting.emit(ESort.EXPERIENCE);
+        break;
+      case 'Salary' :
+        this.changeSorting.emit(ESort.SALARY);
+        break;
+      default :
+        this.changeSorting.emit(ESort.BEST_MATCH);
+        break;
+    }
     if (this.type !== 'matchedList') {
       this.matchFormat = this.match.belowMatch;
     }
   }
 
-  viewProfile(candidate: CandidateQCard) {
-    if(!this.isShortlistedclicked) {
+  viewProfile(candidate: CandidateQCard) { debugger
+    if (!this.isShortlistedclicked) {
       this.modelCandidate = candidate;
-      if (this.type !== ValueConstant.CART_LISTED_CANDIDATE ) {
-        this.usageTrackingService.addUsesTrackingData(UsageActions.VIEWED_HALF_PROFILE_BY_RECRUITER,
-          LocalStorageService.getLocalValue(LocalStorage.END_USER_ID),this.jobId,this.modelCandidate._id).subscribe(
-            data=> {
-              console.log('');
-            },
-            err=> {
-              this.errorService.onError(err);
-            }
-          );
-      }else {
+      let usageTrackingData: UsageTracking = new UsageTracking();
+      usageTrackingData.recruiterId = LocalStorageService.getLocalValue(LocalStorage.END_USER_ID);
+      usageTrackingData.jobProfileId = this.jobId;
+      usageTrackingData.candidateId = this.modelCandidate._id;
+      if (this.type !== ValueConstant.CART_LISTED_CANDIDATE) {
+        usageTrackingData.action = UsageActions.VIEWED_HALF_PROFILE_BY_RECRUITER;
+      } else {
         this.isShowPrintView = true;
-        this.usageTrackingService.addUsesTrackingData(UsageActions.VIEWED_FULL_PROFILE_BY_RECRUITER,
-          LocalStorageService.getLocalValue(LocalStorage.END_USER_ID),this.jobId,this.modelCandidate._id).subscribe(
-          data=> {
-            console.log('');
-          },
-          err=> {
-            this.errorService.onError(err);
-          }
-        );
+        usageTrackingData.action = UsageActions.VIEWED_FULL_PROFILE_BY_RECRUITER;
       }
+      this.usageTrackingService.addUsesTrackingData(usageTrackingData).subscribe(
+        data => {
+          console.log('');
+        },
+        err => {
+          this.errorService.onError(err);
+        }
+      );
       this.profileCreatorService.getCandidateDetailsOfParticularId(candidate._id).subscribe(
         candidateData => this.OnCandidateDataSuccess(candidateData),
         error => this.errorService.onError(error));
     }
-    this.isShortlistedclicked=false;
+    this.isShortlistedclicked = false;
   }
 
   OnCandidateDataSuccess(candidate: any) {
-    console.log('onCandidateSuccess = ',candidate);
     this.selectedCandidate = candidate.data;
     this.candidateDetails = candidate.metadata;
     this.showModalStyle = !this.showModalStyle;
@@ -377,8 +424,8 @@ export class QCardviewComponent implements OnChanges {
     return null;
   }
 
-  addForCompareView(value: any,sorceName:string) {
-    var obj= {'id':value._id,'sorceName':sorceName};
+  addForCompareView(value: any, sorceName: string) {
+    var obj = {'id': value._id, 'sorceName': sorceName};
     this.addForCompare.emit(obj);
     var message = new Message();
     message.isError = false;
@@ -389,12 +436,24 @@ export class QCardviewComponent implements OnChanges {
   navigateWithId(nav: string, candidate: CandidateQCard) {
     this.profileCreatorService.getCandidateDetailsOfParticularId(candidate._id).subscribe(
       candidateData => {
-        this._router.navigate([nav, candidateData.data.userId,{jobId: this.jobId}]); //todo Rahul get only userId
+        this._router.navigate([nav, candidateData.data.userId, {jobId: this.jobId}]); //todo Rahul get only userId
       });
   }
 
   navigateToApplicantSearch(nav: string, candidate: CandidateQCard) {
-    this._router.navigate([nav, candidate._id]);
+    let usageTrackingData: UsageTracking = new UsageTracking();
+    usageTrackingData.recruiterId = LocalStorageService.getLocalValue(LocalStorage.END_USER_ID);
+    usageTrackingData.jobProfileId = this.jobId;
+    usageTrackingData.candidateId = candidate._id;
+    usageTrackingData.action = UsageActions.MATCHED_CANDIDATE_AGAINST_ALL_JOB_BY_RECRUITER;
+    this.usageTrackingService.addUsesTrackingData(usageTrackingData).subscribe(
+      data => {
+        this._router.navigate([nav, candidate._id]);
+      },
+      err => {
+        this.errorService.onError(err);
+      }
+    );
   }
 
   getButtons() {

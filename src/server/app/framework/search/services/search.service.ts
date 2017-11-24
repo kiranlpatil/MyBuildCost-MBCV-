@@ -4,136 +4,73 @@ import ProjectAsset = require('../../shared/projectasset');
 import RecruiterRepository = require('../../dataaccess/repository/recruiter.repository');
 import CandidateModel = require('../../dataaccess/model/candidate.model');
 import JobProfileService = require('../../services/jobprofile.service');
-import {Actions, ConstVariables} from "../../shared/sharedconstants";
-import {ProfileComparisonDataModel, SkillStatus} from "../../dataaccess/model/profile-comparison-data.model";
-import {CapabilityMatrixModel} from "../../dataaccess/model/capability-matrix.model";
-import {ProfileComparisonModel} from "../../dataaccess/model/profile-comparison.model";
-import {ProfileComparisonJobModel} from "../../dataaccess/model/profile-comparison-job.model";
-import * as mongoose from "mongoose";
-import {CandidateDetailsWithJobMatching} from "../../dataaccess/model/candidatedetailswithjobmatching";
-import {UtilityFunction} from "../../uitility/utility-function";
+import { Actions, ConstVariables } from '../../shared/sharedconstants';
+import { ProfileComparisonDataModel, SkillStatus } from '../../dataaccess/model/profile-comparison-data.model';
+import { CapabilityMatrixModel } from '../../dataaccess/model/capability-matrix.model';
+import { ProfileComparisonModel } from '../../dataaccess/model/profile-comparison.model';
+import { ProfileComparisonJobModel } from '../../dataaccess/model/profile-comparison-job.model';
+import * as mongoose from 'mongoose';
+import { CandidateDetailsWithJobMatching } from '../../dataaccess/model/candidatedetailswithjobmatching';
+import { UtilityFunction } from '../../uitility/utility-function';
 import MatchViewModel = require('../../dataaccess/model/match-view.model');
 import Match = require('../../dataaccess/model/match-enum');
 import IndustryRepository = require('../../dataaccess/repository/industry.repository');
 import IndustryModel = require('../../dataaccess/model/industry.model');
 import ScenarioModel = require('../../dataaccess/model/scenario.model');
-let usestracking = require('uses-tracking');
+import { FilterSort } from '../../dataaccess/model/filter';
+import { QueryBuilder } from './query-builder.service';
+import IJobProfile = require('../../dataaccess/mongoose/job-profile');
+import JobProfileRepository = require('../../dataaccess/repository/job-profile.repository');
+//let usestracking = require('uses-tracking');
 
 class SearchService {
   APP_NAME: string;
   candidateRepository: CandidateRepository;
   recruiterRepository: RecruiterRepository;
+  jobProfileRepository: JobProfileRepository;
   industryRepository: IndustryRepository;
-  private usesTrackingController: any;
+  //private usesTrackingController: any;
 
   constructor() {
     this.APP_NAME = ProjectAsset.APP_NAME;
     this.candidateRepository = new CandidateRepository();
     this.recruiterRepository = new RecruiterRepository();
+    this.jobProfileRepository = new JobProfileRepository();
     this.industryRepository = new IndustryRepository();
-    let obj: any = new usestracking.MyController();
-    this.usesTrackingController = obj._controller;
+    /*let obj: any = new usestracking.MyController();
+    this.usesTrackingController = obj._controller;*/
   }
 
-  getMatchingCandidates(jobProfile: JobProfileModel, callback: (error: any, result: any) => void) {
-    console.time('getMatching Candidate');
+  getMatchingCandidates(jobProfile: JobProfileModel, appliedFilters : FilterSort,callback: (error: any, result: any) => void) {
     let data: any;
-    let isFound: boolean = false;
-    let industries: string[] = [];
-    let isReleventIndustriesFound: boolean = false;
-    if (jobProfile.interestedIndustries && jobProfile.interestedIndustries.length > 0) {
-      for (let name of jobProfile.interestedIndustries) {
-        if (name === 'None') {
-          isFound = true;
-        }
-      }
-      if(jobProfile.releventIndustries && jobProfile.releventIndustries.length) {
-        isReleventIndustriesFound = true;
-      }
-      if (isFound) {
-
-        if(isReleventIndustriesFound) {
-          industries = jobProfile.releventIndustries;
-
-          industries.push(jobProfile.industry.name);
-          data = {
-            'industry.name': {$in: industries},
-            $or: [
-              {'professionalDetails.relocate': 'Yes'},
-              {'location.city': jobProfile.location.city}
-            ],
-            'proficiencies': {$in: jobProfile.proficiencies},
-            'isVisible': true,
-          };
-        } else {
-          data = {
-            'industry.name': jobProfile.industry.name,
-            $or: [
-              {'professionalDetails.relocate': 'Yes'},
-              {'location.city': jobProfile.location.city}
-            ],
-            'proficiencies': {$in: jobProfile.proficiencies},
-            'isVisible': true,
-          };
-        }
-      } else {
-        if(isReleventIndustriesFound) {
-          industries = jobProfile.releventIndustries;
-          industries.push(jobProfile.industry.name);
-          data = {
-            'industry.name': {$in: industries},
-            $or: [
-              {'professionalDetails.relocate': 'Yes'},
-              {'location.city': jobProfile.location.city}
-            ],
-            'proficiencies': {$in: jobProfile.proficiencies},
-            'interestedIndustries': {$in: jobProfile.interestedIndustries},
-            'isVisible': true,
-          };
-        } else {
-          data = {
-            'industry.name': jobProfile.industry.name,
-            $or: [
-              {'professionalDetails.relocate': 'Yes'},
-              {'location.city': jobProfile.location.city}
-            ],
-            'proficiencies': {$in: jobProfile.proficiencies},
-            'interestedIndustries': {$in: jobProfile.interestedIndustries},
-            'isVisible': true,
-          };
-        }
-      }
-
-    } else {
-      data = {
-        'isVisible': true,
-        'industry.name': jobProfile.industry.name,
-        'proficiencies': {$in: jobProfile.proficiencies},
-        $or: [
-          {'professionalDetails.relocate': 'Yes'},
-          {'location.city': jobProfile.location.city}
-        ]
-      };
+    data = {
+      'industry.name': jobProfile.industry.name,
+      'proficiencies': {$in: jobProfile.proficiencies},
+      'isVisible': true,
+    };
+    if(jobProfile.interestedIndustries && jobProfile.interestedIndustries.indexOf('None')) {
+        data['interestedIndustries']= {$in: jobProfile.interestedIndustries};
+    }
+    if(jobProfile.releventIndustries && jobProfile.releventIndustries.length > 0) {
+      let industries = jobProfile.releventIndustries;
+      industries.push(jobProfile.industry.name);
+      data['industry.name']= {$in: industries};
     }
     let included_fields = {
-      'industry.roles.capabilities.complexities.scenarios.code': 1,
-      'industry.roles.capabilities.complexities.scenarios.isChecked': 1,
-      'industry.roles.default_complexities.complexities.scenarios.code': 1,
-      'industry.roles.default_complexities.complexities.scenarios.isChecked': 1,
-      'userId': 1,
-      'proficiencies': 1,
-      'location': 1,
-      'interestedIndustries': 1,
-      'professionalDetails': 1,
-      'capability_matrix':1,
-      'complexity_musthave_matrix': 1
+      'userId': 1, 'proficiencies': 1, 'location': 1,
+      'interestedIndustries': 1, 'professionalDetails': 1,
+      'capability_matrix':1, 'complexity_musthave_matrix': 1
     };
-    this.candidateRepository.retrieveWithLean(data, included_fields, (err, res) => {
+    let query: Object;
+    data.$or = [
+        {'professionalDetails.relocate': 'Yes'},
+        {'location.city': jobProfile.location.city}];
+    query = QueryBuilder.getFilterQuery(data,appliedFilters);
+    this.candidateRepository.retrieveAndPopulate(query, included_fields, (err, res) => {
       if (err) {
         callback(err, null);
       } else {
-        // callback(null, res);
-        this.candidateRepository.getCandidateQCard(res, jobProfile, undefined, callback);
+        this.candidateRepository.getCandidateQCard(res, jobProfile, undefined, appliedFilters.sortBy, callback);
       }
     });
   }
@@ -142,12 +79,12 @@ class SearchService {
 
     let currentDate = new Date();
     let data = {
-      'postedJobs.industry.name': candidate.industry.name,
-      'postedJobs.proficiencies': {$in: candidate.proficiencies},
-      'postedJobs.expiringDate': {$gte: currentDate}
+      'industry.name': candidate.industry.name,
+      'proficiencies': {$in: candidate.proficiencies},
+      'expiringDate': {$gte: currentDate}
     };
     let excluded_fields = {
-      'postedJobs.industry.roles': 0,
+      'industry.roles': 0,
     };
     this.recruiterRepository.retrieveWithLean(data,excluded_fields, (err, res) => {
       if (err) {
@@ -157,39 +94,21 @@ class SearchService {
       }
     });
   }
-  getJobsInIndustry(industryCode: string, callback: (error: any, result: any) => void) {
+
+  getJobsInIndustry(industryCode: string, callback: (error: any, result: number) => void) {
     let data = {
-      'postedJobs.industry.code': industryCode,
-      'postedJobs.isJobPosted':true
+      'industry.code': industryCode,
+      'isJobPosted':true,
+      'isJobPostClosed': false
     };
-    let excluded_fields = {
-      'postedJobs.industry.roles': 0,
-    };
-      this.recruiterRepository.countWithLean(data,excluded_fields, (err, res) => {
+    this.jobProfileRepository.getCount(data, (err: Error, jobs : number) => {
       if (err) {
         callback(err, null);
       } else {
-        console.log(res);
-        callback(null,this.countJobs(res,industryCode));
+        callback(null,jobs);
       }
     });
   }
-
-  countJobs(recruiters:any[],industryCode:string):number {
-    let count:number=0;
-    if (recruiters.length === 0) {
-      return count;
-    }
-    for (let recruiter of recruiters) {
-      for (let job of recruiter.postedJobs){
-        if (job.isJobPosted && !job.isJobPostClosed && (industryCode === job.industry.code) && !job.isJobPostExpired && (job.expiringDate > new Date())) {
-          count++;
-        }
-      }
-    }
-    return count;
-  }
-
 
   getMatchingResult(candidateId: string, jobId: string, isCandidate : boolean,callback: (error: any, result: any) => void) {
     let uses_data = {
@@ -203,21 +122,18 @@ class SearchService {
     } else {
       uses_data.action = Actions.VIEWED_FULL_PROFILE_BY_RECRUITER;
     }
-    this.usesTrackingController.create(uses_data);
+    //this.usesTrackingController.create(uses_data);
     this.candidateRepository.findByIdwithExclude(candidateId,{'industry':0}, (err: any, candidateRes: any) => {
       if (err) {
         callback(err, null);
       } else {
         if (candidateRes) {
-          let data = {
-            'postedJob': jobId
-          };
           let jobProfileService: JobProfileService = new JobProfileService();
-          jobProfileService.retrieve(data, (errInJob, resOfRecruiter) => {
+          jobProfileService.retrieveByJobId(jobId, (errInJob, jobProfile : IJobProfile) => {
             if (errInJob) {
               callback(errInJob, null);
             } else {
-              this.getResult(candidateRes, resOfRecruiter.postedJobs[0], isCandidate, callback);
+              this.getResult(candidateRes, jobProfile, isCandidate, callback);
             }
           });
         }
@@ -269,27 +185,26 @@ class SearchService {
       if (err) {
         callback(err, null);
       } else {
-        let newCandidate = this.getCompareData(candidate, job, isCandidate, industries);
+        var newCandidate = this.getCompareData(candidate, job, isCandidate, industries);
         callback(null, newCandidate);
       }
     });
   }
 
   getCompareData(candidate: CandidateModel, job: any, isCandidate: boolean, industries: IndustryModel[]) {
-    //let newCandidate = candidate.toObject();
-    let newCandidate = this.buildCandidateModel(candidate);
+    var newCandidate = this.buildCandidateModel(candidate);
     let jobMinExperience: number = Number(job.experienceMinValue);
     let jobMaxExperience: number = Number(job.experienceMaxValue);
     let jobMinSalary: number = Number(job.salaryMinValue);
     let jobMaxSalary: number = Number(job.salaryMaxValue);
-    let candiExperience: string[] = newCandidate.professionalDetails.experience.split(' ');
-    let canSalary: string[] = newCandidate.professionalDetails.currentSalary.split(' ');
-    if ((jobMaxExperience >= Number(candiExperience[0])) && (jobMinExperience <= Number(candiExperience[0]))) {
+    let candiExperience: string = newCandidate.professionalDetails.experience;
+    let canSalary: string = newCandidate.professionalDetails.currentSalary;
+    if ((jobMaxExperience >= Number(candiExperience)) && (jobMinExperience <= Number(candiExperience))) {
       newCandidate.experienceMatch = 'exact';
     } else {
       newCandidate.experienceMatch = 'missing';
     }
-    if ((jobMaxSalary >= Number(canSalary[0])) && (jobMinSalary <= Number(canSalary[0]))) {
+    if ((jobMaxSalary >= Number(canSalary)) && (jobMinSalary <= Number(canSalary))) {
       newCandidate.salaryMatch = 'exact';
     } else {
       newCandidate.salaryMatch = 'missing';
@@ -613,16 +528,13 @@ class SearchService {
         callback(err, null);
       } else {
         if (candidateRes.length > 0) {
-          let data = {
-            'postedJob': jobId
-          };
           let jobProfileService: JobProfileService = new JobProfileService();
-          jobProfileService.retrieve(data, (errInJob, resOfRecruiter) => {
+          jobProfileService.retrieveByJobId(jobId, (errInJob, jobProfile : IJobProfile) => {
             if (errInJob) {
               callback(errInJob, null);
             } else {
-              let jobName = resOfRecruiter.postedJobs[0].industry.name;
-              let job = resOfRecruiter.postedJobs[0];
+              var jobName = jobProfile.industry.name;
+              var job = jobProfile;
               this.industryRepository.retrieve({'name': jobName}, (err: any, industries: IndustryModel[]) => {
                 if (err) {
                   callback(err, null);
@@ -632,6 +544,11 @@ class SearchService {
                     let newCandidate = this.getCompareData(candidate, job, isCandidate, industries);
                         newCandidate = this.getListStatusOfCandidate(newCandidate,job);
                         newCandidate = this.sortCandidateSkills(newCandidate);
+                    for(let candidateList of newCandidate.candidateListStatus) {
+                      if(candidateList !== 'cartListed') {
+                        newCandidate.profileComparisonHeader.last_name = UtilityFunction.valueHide(newCandidate.profileComparisonHeader.last_name);
+                      }
+                    }
                     compareResult.push(newCandidate);
                   }
                   let profileComparisonModel:ProfileComparisonModel = new ProfileComparisonModel();

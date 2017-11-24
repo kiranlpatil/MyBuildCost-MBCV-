@@ -1,4 +1,4 @@
-import CandidateListModel = require("../../dataaccess/model/candidate-list.model");
+import {CandidateListModel} from '../../dataaccess/model/candidate-list.model';
 export class JobQCard {
 
   company_name: string;

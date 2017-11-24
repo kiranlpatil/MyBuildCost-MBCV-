@@ -434,7 +434,7 @@ export class CandidateProfileComponent implements OnInit, DoCheck, OnDestroy {
                   }
                   if (this.isComplexityFilled) {
                     this.whichStepsVisible[3] = true;
-                    if (this.candidate.proficiencies !== undefined && this.candidate.proficiencies.length > 0) {
+                    /*if (this.candidate.proficiencies !== undefined && this.candidate.proficiencies.length > 0) {*/
                       this.highlightedSection.isProficiencyFilled = true;
                       this.showProficiency = true;
                       this.whichStepsVisible[4] = true;
@@ -456,11 +456,6 @@ export class CandidateProfileComponent implements OnInit, DoCheck, OnDestroy {
                         this.showIndustryExperience = true;
                         this.highlightedSection.name = 'IndustryExposure';
                       }
-                    } else {
-                      this.showProficiency = true;
-                      this.whichStepsVisible[4] = true;
-                      this.highlightedSection.name = 'Proficiencies';
-                    }
                   } else {
                     this.highlightedSection.name = 'Complexities';
                   }

@@ -7,30 +7,24 @@
       "password": "jobmosisadmin123",
       "mongoExport": "/usr/bin/mongoexport"
     },
-    "adminExportFilePathForServer": {
-      "candidatesCSV": "/server/prod/public/candidates.csv",
-      "candidateOtherDetailsCSV": "/server/prod/public/candidates-other-details.csv",
-      "candidateAccountDetailsCSV": "/server/prod/public/candidate-account-details.csv",
-      "recruitersCSV": "/server/prod/public/recruiters.csv",
-      "recruiterAccountDetailsCSV": "/server/prod/public/recruiter-account-details.csv",
-      "usageDetailsCSV": "/server/prod/public/usagedetail.csv",
-      "keySkillsCSV": "/server/prod/public/key-skills.csv"
+    "exportFileNames": {
+      "candidateProfilesCSV": "candidate-profiles.csv",
+      "candidateCapabilitiesCSV": "candidate-capabilities.csv",
+      "candidateAccountDetailsCSV": "candidate-account-details.csv",
+      "companyDetailsCSV": "company-details.csv",
+      "jobDetailsCSV": "job-details.csv",
+      "companyAccountDetailsCSV": "company-account-details.csv",
+      "usageTrackingCSV": "usage-tracking.csv",
+      "masterKeySkillsCSV": "master-key-skills.csv"
     },
-    "adminExportFilePathForClient": {
-      "candidatesCSV": "/public/candidates.csv",
-      "candidateOtherDetailsCSV": "/public/candidates-other-details.csv",
-      "candidateAccountDetailsCSV": "/public/candidate-account-details.csv",
-      "recruitersCSV": "/public/recruiters.csv",
-      "recruiterAccountDetailsCSV": "/public/recruiter-account-details.csv",
-      "usageDetailsCSV": "/public/usagedetail.csv",
-      "keySkillsCSV": "/public/key-skills.csv"
-    },
+    "exportFilePathServer": "/server/prod/public/exported-files/",
+    "downloadFilePathClient": "/public/exported-files/",
     "publicPath":"/server/prod/app/framework/public/",
     "profilePath":"/server/prod/public/profileImage",
     "profilePathForClient":"/public/profileImage/",
     "limitForQuery" : 10,
     "mail": {
-      "host":"http://34.214.128.209/",
+      "host":"https://52.10.145.87:3000/",
       "MAIL_SENDER": "redminestatus@techprimelab.com",
       "MAIL_SENDER_PASSWORD": "Contactu$@tpl",
       "ADMIN_MAIL": "Jobmosis_TPL@techprimelab.com",

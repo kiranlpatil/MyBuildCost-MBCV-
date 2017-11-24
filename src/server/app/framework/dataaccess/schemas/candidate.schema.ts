@@ -11,9 +11,6 @@ class CandidateSchema {
       jobTitle: {
         type: String
       },
-      roleType: {
-        type: String
-      },
       userId: {
         type: mongoose.Schema.Types.ObjectId, ref: 'User'
       },
@@ -114,8 +111,8 @@ class CandidateSchema {
       }],
       professionalDetails: {
         education: String,
-        experience: String,
-        currentSalary: String,
+        experience: Number,
+        currentSalary: Number,
         noticePeriod: String,
         relocate: String,
         industryExposure: String,

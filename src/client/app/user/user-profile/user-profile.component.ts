@@ -21,6 +21,7 @@ import {CandidateDetail} from "../models/candidate-details";
 import {Candidate, Summary} from "../models/candidate";
 import {CandidateProfileService} from "../../cnext/framework/candidate-profile/candidate-profile.service";
 import {ErrorService} from "../../shared/services/error.service";
+import {RecruiterDashboardService} from "../../cnext/framework/recruiter-dashboard/recruiter-dashboard.service";
 
 
 @Component({
@@ -61,6 +62,7 @@ export class UserProfileComponent implements OnInit {
               private themeChangeService: ThemeChangeService,
               private activatedRoute: ActivatedRoute,
               private candidateProfileService: CandidateProfileService,
+              private recruiterDashboardService: RecruiterDashboardService,
               private errorService: ErrorService) {
 
     this.userForm = this.formBuilder.group({
@@ -125,12 +127,14 @@ export class UserProfileComponent implements OnInit {
   }
 
   getRecruiter() {
-    this.candidateProfileService.getRecruiterDetails()
+    this.recruiterDashboardService.getRecruiterDetails()
       .subscribe(
-        recruiterData => {
-          this.company_website=recruiterData.data[0].company_website;
-          this.company_name=recruiterData.data[0].company_name;
-          this.OnCandidateDataSuccess(recruiterData);
+        recruiterData => { debugger
+           this.company_website=recruiterData.data.company_website;
+            this.company_name=recruiterData.data.company_name;
+            this.model.email = recruiterData.metadata.email;
+            this.model.mobile_number = recruiterData.metadata.mobile_number;
+          //this.OnCandidateDataSuccess(recruiterData);
         }, error => this.errorService.onError(error));
   }
 

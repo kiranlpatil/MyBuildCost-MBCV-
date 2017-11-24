@@ -31,11 +31,9 @@ class RepositoryBase<T extends mongoose.Document> implements IRead<T>, IWrite<T>
       callback(err, res);
     });
   }
-//TODO: REMOVE CONSOLE LOG
+
   retrieveWithLean(field: any, projection: any, callback: (error: any, result: any) => void) {
-    console.time('repo2 time');
     this._model.find(field, projection).lean().exec((err, res) => {
-      console.timeEnd('repo2 time');
       callback(err, res);
     });
   }
@@ -51,6 +49,13 @@ class RepositoryBase<T extends mongoose.Document> implements IRead<T>, IWrite<T>
   update(_id: mongoose.Types.ObjectId, item: T, callback: (error: any, result: any) => void) {
     this._model.update({_id: _id}, item, callback);
   }
+
+  updateWithQuery(query: any, item: T, options: any, callback: (error: any, result: any) => void) {
+    this._model.findOneAndUpdate(query, item, options, function (err, result) {
+      callback(err, result);
+    });
+  }
+
 //TODO:CODE MOVE TO CANDIDATE REPOSITEORY
   updateByUserId(_id: mongoose.Types.ObjectId, item: T, callback: (error: any, result: any) => void) {
     this._model.update({'userId': _id}, item, callback);
@@ -63,8 +68,8 @@ class RepositoryBase<T extends mongoose.Document> implements IRead<T>, IWrite<T>
     });
   }
 
-  retrieveByMultiIds(ids: string[], excluded: any, callback: (error: any, result: T) => void) {
-    this._model.find({_id: {$in: ids}}, excluded, callback);
+  retrieveByMultiIds(query: any, excluded: any, callback: (error: any, result: T) => void) {
+    this._model.find(query, excluded, callback);
   }
 
   retrieveByMultiIdsForComplexity(ids: string[], excluded: any, callback: (error: any, result: T) => void) {
@@ -107,6 +112,12 @@ class RepositoryBase<T extends mongoose.Document> implements IRead<T>, IWrite<T>
     });
   }
 
+  retrieveAndPopulate(query : Object,included : Object, callback:(error : any, result : any) => void) {
+    this._model.find(query, included).populate('userId').lean().exec(function (err, items) {
+      callback(err, items);
+    });
+  }
+
   findOneAndUpdate(query: any, newData: any, options: any, callback: (err: any, result: any) => void) {
     this._model.findOneAndUpdate(query, newData, options, function (err, result) {
       callback(err, result);
@@ -122,10 +133,7 @@ class RepositoryBase<T extends mongoose.Document> implements IRead<T>, IWrite<T>
   //custom API created for C-next Roles capabilities and complexities
 
   //change the any data type to model
-//TODO: MOVE CODE TO ITS RELEATED REPOSITEORY
-  pushInJobpost(id: string, value: any, callback: (error: any, result: any) => void) {
-    this._model.update({_id: id}, {$push: {"postedJobs": value.postedJobs}}, callback);
-  }
+
 //TODO: MOVE CODE TO ITS RELEATED REPOSITEORY
   pushElementInArray(value: string, callback: (error: any, result: any) => void) {
     this._model.update({$push: {"proficiencies": value}}, callback);
@@ -144,7 +152,13 @@ class RepositoryBase<T extends mongoose.Document> implements IRead<T>, IWrite<T>
     });
   }
 
-  getCount(query: any, callback: (error: any, result: any) => void) {
+  retrieveBySortedOrderAndLimit(query: any, sortingQuery: any, callback: (error: any, result: any) => void) {
+    this._model.find(query).sort(sortingQuery).limit(100).populate('userId').lean().exec(function (err: any, items: any) {
+      callback(err, items);
+    });
+  }
+
+  getCount(query: any,  callback: (error: any, result: any) => void) {
     this._model.find(query).count().lean().exec(function (err, items) {
       callback(err, items);
     });

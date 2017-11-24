@@ -136,7 +136,7 @@
   }
 
   .btn-cart {
-    background: transparent;
+    background: $white;
     border: 1px solid $theme-color;
     border-radius: 0;
     box-shadow: none;
@@ -166,13 +166,15 @@
 
     .button-group {
       position: absolute;
-      width: 92%;
+      width: 93%;
       bottom: 13px;
       padding: 5px;
-      display: none;
-      background: rgba(255,255,255,0.9);
-      height: 89%;
+      background: rgba(255,255,255,0.8);
+      height: 88%;
       z-index: 9;
+      opacity: 0;
+      transition-delay: 0.1s;
+      visibility: hidden;
 
       .btn {
         border-radius: 0;
@@ -181,7 +183,9 @@
 
     &:hover {
       .button-group {
-        display: block;
+        opacity: 1;
+        transition-delay: 0.5s;
+        visibility: visible;
       }
     }
   }
@@ -335,6 +339,17 @@ header {
     position: absolute;
     top: 185px;
     width: calc(100% - 200px);
+  }
+}
+
+#cart-job,
+#rejected-job {
+  .card-view {
+    .panel-container {
+      .button-group {
+        padding-top: 26px;
+      }
+    }
   }
 }
 
@@ -567,8 +582,7 @@ header {
     right: 25px !important;
   }
 
-  .btn-cart {
-    background: transparent;
+  /*.btn-cart {
     color: $orange;
     border: 1px solid $orange;
 
@@ -579,7 +593,7 @@ header {
       border: 1px solid $orange;
       color: $white;
     }
-  }
+  }*/
   .canvas-container,
   .canvas-container p {
     color: $orange;
@@ -674,8 +688,7 @@ header {
     background: url(../assets/c-next/card-view/sprite.png) no-repeat -106px -566px;
   }
 
-  .btn-cart {
-    background: transparent;
+  /*.btn-cart {
     color: $pink;
     border: 1px solid $pink;
 
@@ -686,7 +699,7 @@ header {
       border: 1px solid $pink;
       color: $white;
     }
-  }
+  }*/
   .canvas-container,
   .canvas-container p {
     color: $pink;
@@ -754,8 +767,7 @@ header {
     background: url(../assets/c-next/card-view/sprite.png) no-repeat -156px -566px;
   }
 
-  .btn-cart {
-    background: transparent;
+  /*.btn-cart {
     color: $purple;
     border: 1px solid $purple;
 
@@ -766,7 +778,7 @@ header {
       border: 1px solid $purple;
       color: $white;
     }
-  }
+  }*/
   .canvas-container,
   .canvas-container p {
     color: $purple;
@@ -775,22 +787,50 @@ header {
 
 .candidate-search-section .card-view .panel-container .button-group {
   float: right;
-  margin: -47px 0 0 0;
-  position: relative;
+  margin: 0;
+  position: absolute;
   padding: 0 10px;
   text-align: right;
-  width: 100%;
   z-index: 99;
+  height: 89%;
 }
 
 .candidate-search-section .card-view .panel-container .button-group .btn {
   border-radius: 0;
-  margin: 0 auto;
+  margin: 0 auto 9px;
   padding: 0 !important;
   text-align: center;
-  width: 49%;
+  width: 100%;
 }
 
+.candidate-search-section {
+  .button-group {
+    .text-right {
+      margin-top: 28%;
+    }
+  }
+}
+
+.inCartClass {
+  .button-group {
+    .text-right {
+      margin-top: 33%;
+    }
+  }
+}
+
+
+.card-view {
+  .panel-container.inRejectClass {
+    &:hover {
+      .button-group {
+        background: transparent;
+        opacity: 0;
+        visibility: hidden;
+      }
+    }
+  }
+}
 
 @media only screen and (min-width: 1367px) {
   .card-view {
@@ -806,12 +846,41 @@ header {
     left: calc(50% - 100px);
     text-align: left;
   }
+  .candidate-search-section {
+    .button-group {
+      .text-right {
+        margin-top: 29%;
+      }
+    }
+  }
+  .inCartClass {
+    .button-group {
+      .text-right {
+        margin-top: 35%;
+      }
+    }
+  }
 }
 
 @media only screen and (max-width: 1024px) {
   .card-view {
     .col-sm-4 {
       width: 50%;
+    }
+  }
+  .candidate-search-section {
+    .button-group {
+      .text-right {
+        margin-top: 28%;
+      }
+    }
+  }
+
+  .inCartClass {
+    .button-group {
+      .text-right {
+        margin-top: 35%;
+      }
     }
   }
 
