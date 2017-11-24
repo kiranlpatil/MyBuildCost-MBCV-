@@ -2,7 +2,9 @@ import CandidateSchema = require('../schemas/candidate.schema');
 import RepositoryBase = require('./base/repository.base');
 import ICandidate = require('../mongoose/candidate');
 import { CandidateQCard } from '../../search/model/candidate-q-card';
-import { ConstVariables } from '../../shared/sharedconstants';
+import {
+  CandidateProfileCompletionInPercentage, CandidateProfileUpdateTrackServerSide, ConstVariables
+} from '../../shared/sharedconstants';
 import JobProfileModel = require('../model/jobprofile.model');
 import CandidateModel = require('../model/candidate.model');
 import IndustryModel = require('../model/industry.model');
@@ -137,10 +139,52 @@ class CandidateRepository extends RepositoryBase<ICandidate> {
     return selected_complexity;
   }
 
+  getLatestCandidatesWithIncompleteProfile(profileComplettionInPercent: CandidateProfileCompletionInPercentage,
+                                           fromdate: Date, todate: Date, callback: (err: any, result: any) => void) {
+    let data;
+    switch (profileComplettionInPercent) {
+      case CandidateProfileCompletionInPercentage.COMPLETED_25_PERCENT:
+        data = {
+          'profile_update_tracking': {$lt: CandidateProfileUpdateTrackServerSide.STEP_IS_COMPLETED_AREA_OF_WORK},
+          'lastUpdateAt': {$lt: todate, $gt: new Date(fromdate)}
+        };
+        break;
+      case CandidateProfileCompletionInPercentage.COMPLETED_50_PERCENT:
+        data = {
+          'profile_update_tracking': {
+            $gte: CandidateProfileUpdateTrackServerSide.STEP_IS_COMPLETED_AREA_OF_WORK,
+            $lt: CandidateProfileUpdateTrackServerSide.STEP_IS_COMPLETED_CAPABILITIES
+          },
+          'lastUpdateAt': {$lt: todate, $gt: new Date(fromdate)}
+        };
+        break;
+      case CandidateProfileCompletionInPercentage.COMPLETED_75_PERCENT:
+        data = {
+          'profile_update_tracking': {
+            $gte: CandidateProfileUpdateTrackServerSide.STEP_IS_COMPLETED_CAPABILITIES,
+            $lt: CandidateProfileUpdateTrackServerSide.STEP_IS_COMPLETED_COMPLEXITIES
+          },
+          'lastUpdateAt': {$lt: todate, $gt: new Date(fromdate)}
+        };
+        break;
+      case CandidateProfileCompletionInPercentage.COMPLETED_95_PERCENT:
+        data = {
+          'profile_update_tracking': {
+            $gte: CandidateProfileUpdateTrackServerSide.STEP_IS_COMPLETED_COMPLEXITIES,
+            $lt: CandidateProfileUpdateTrackServerSide.STEP_IS_SUBMIT_DETAILS
+          },
+          'lastUpdateAt': {$lt: todate, $gt: new Date(fromdate)}
+        };
+        break;
+    }
 
+    let candidateRepository = new CandidateRepository();
+    candidateRepository.retrieveWithIncluded(data, {'userId': 1, '_id': 0},
+      (err: any, res: any) => {
+      callback(err, res);
+    });
+  }
 }
 
-Object
-  .seal(CandidateRepository);
-
+Object.seal(CandidateRepository);
 export = CandidateRepository;

@@ -11,7 +11,7 @@ export class ConstVariables {
   public static AUTHENTICATION_JWT_KEY: string = 'thisisjwtsecret#@$#&(*0)%';
   public static AUTHENTICATION_ENCODED_SHARE_KEY: string = '$$$socialShare@$#*';
   public static BEST_MATCH_SORT = 'Best match';
-
+  public static QCARD_LIMIT = 100;
 }
 
 
@@ -56,4 +56,10 @@ export enum CandidateProfileUpdateTrackServerSide {
   STEP_IS_ENTER_CERTIFICATION_DETAILS,
   STEP_IS_ENTER_AWARDS_DETAILS,
   STEP_IS_SUBMIT_DETAILS
+}
+export enum CandidateProfileCompletionInPercentage {
+  COMPLETED_25_PERCENT='25%',
+  COMPLETED_50_PERCENT='50%',
+  COMPLETED_75_PERCENT='75%',
+  COMPLETED_95_PERCENT='95%'
 }
