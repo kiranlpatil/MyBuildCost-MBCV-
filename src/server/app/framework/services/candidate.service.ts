@@ -1,4 +1,5 @@
 import * as mongoose from "mongoose";
+import {UtilityFunction} from "../uitility/utility-function";
 import Messages = require('../shared/messages');
 import CandidateRepository = require('../dataaccess/repository/candidate.repository');
 import UserRepository = require('../dataaccess/repository/user.repository');
@@ -16,9 +17,9 @@ import ComplexitiesClassModel = require('../dataaccess/model/complexities-class.
 import RoleModel = require('../dataaccess/model/role.model');
 import CandidateModel = require("../dataaccess/model/candidate.model");
 import JobProfileModel = require("../dataaccess/model/jobprofile.model");
-import {UtilityFunction} from "../uitility/utility-function";
 import JobProfileRepository = require("../dataaccess/repository/job-profile.repository");
 import RecruiterService = require("./recruiter.service");
+import RecruiterClassModel = require("../dataaccess/model/recruiterClass.model");
 let bcrypt = require('bcrypt');
 class CandidateService {
   private candidateRepository: CandidateRepository;
@@ -29,14 +30,13 @@ class CandidateService {
   private jobProfileRepository: JobProfileRepository;
 
 
-
   constructor() {
     this.candidateRepository = new CandidateRepository();
     this.userRepository = new UserRepository();
     this.recruiterRepository = new RecruiterRepository();
     this.locationRepository = new LocationRepository();
     this.industryRepositiry = new IndustryRepository();
-    this.jobProfileRepository =new JobProfileRepository();
+    this.jobProfileRepository = new JobProfileRepository();
   }
 
   createUser(item: any, callback: (error: any, result: any) => void) {
@@ -75,7 +75,13 @@ class CandidateService {
                   if (err) {
                     callback(err, null);
                   } else {
-                    callback(null, res);
+                    this.updateCandidateList(res._doc._id, item.recruiterReferenceId, (err: Error) => {
+                      if (err) {
+                        callback(err, null);
+                      } else {
+                        callback(null, res);
+                      }
+                    });
                   }
                 });
               }
@@ -86,6 +92,27 @@ class CandidateService {
 
       }
     });
+  }
+
+  updateCandidateList(candidateId: number, recruiterId: number, callback: (error: Error) => void) {
+    let updateQuery = {
+      $push: {
+        'candidate_list': new mongoose.Types.ObjectId(candidateId)
+      }
+    };
+
+    let searchQuery = {
+      '_id': new mongoose.Types.ObjectId(recruiterId)
+    };
+
+    this.recruiterRepository.findOneAndUpdate(searchQuery, updateQuery, {}, (error: Error) => {
+      if (error) {
+        callback(error);
+      } else {
+        callback(null);
+      }
+    });
+
   }
 
   retrieve(field: any, callback: (error: any, result: any) => void) {
@@ -193,12 +220,12 @@ class CandidateService {
     customCandidate.isVisible = candidate.isVisible;
     customCandidate.isCompleted = candidate.isCompleted;
     customCandidate.candidateId = candidate._id;
-    customCandidate.capabilities = this.getCapabilitiesBuild(candidate.capability_matrix,candidate.complexity_note_matrix, candidate.industry.roles, industries);
+    customCandidate.capabilities = this.getCapabilitiesBuild(candidate.capability_matrix, candidate.complexity_note_matrix, candidate.industry.roles, industries);
 
     return customCandidate;
   }
 
-  getCapabilitiesBuild(capability_matrix: any,complexity_note_matrix:any, roles: RoleModel[], industries: IndustryModel[]): CapabilitiesClassModel[] {
+  getCapabilitiesBuild(capability_matrix: any, complexity_note_matrix: any, roles: RoleModel[], industries: IndustryModel[]): CapabilitiesClassModel[] {
     let capabilities: CapabilitiesClassModel[] = new Array(0);
 
     for (let cap in capability_matrix) {
@@ -233,7 +260,7 @@ class CandidateService {
                       newComplexity.name = complexity.name;
                       newComplexity.sort_order = complexity.sort_order;
                       newComplexity.code = complexity.code;
-                      if(complexity_note_matrix && complexity_note_matrix[cap] !== undefined) {
+                      if (complexity_note_matrix && complexity_note_matrix[cap] !== undefined) {
                         newComplexity.note = complexity_note_matrix[cap];
                       }
                       if (complexity.questionForCandidate !== undefined && complexity.questionForCandidate !== null && complexity.questionForCandidate !== '') {
@@ -273,7 +300,7 @@ class CandidateService {
                         newComplexity.name = complexity.name;
                         newComplexity.sort_order = complexity.sort_order;
                         newComplexity.code = complexity.code;
-                        if(complexity_note_matrix && complexity_note_matrix[cap] !== undefined) {
+                        if (complexity_note_matrix && complexity_note_matrix[cap] !== undefined) {
                           newComplexity.note = complexity_note_matrix[cap];
                         }
                         if (complexity.questionForCandidate !== undefined && complexity.questionForCandidate !== null && complexity.questionForCandidate !== '') {
@@ -325,7 +352,7 @@ class CandidateService {
                       newComplexity.name = complexity.name;
                       newComplexity.sort_order = complexity.sort_order;
                       newComplexity.code = complexity.code;
-                      if(complexity_note_matrix && complexity_note_matrix[cap] !== undefined) {
+                      if (complexity_note_matrix && complexity_note_matrix[cap] !== undefined) {
                         newComplexity.note = complexity_note_matrix[cap];
                       }
                       if (complexity.questionForCandidate !== undefined && complexity.questionForCandidate !== null && complexity.questionForCandidate !== '') {
@@ -365,7 +392,7 @@ class CandidateService {
                         newComplexity.name = complexity.name;
                         newComplexity.sort_order = complexity.sort_order;
                         newComplexity.code = complexity.code;
-                        if(complexity_note_matrix && complexity_note_matrix[cap] !== undefined) {
+                        if (complexity_note_matrix && complexity_note_matrix[cap] !== undefined) {
                           newComplexity.note = complexity_note_matrix[cap];
                         }
                         if (complexity.questionForCandidate !== undefined && complexity.questionForCandidate !== null && complexity.questionForCandidate !== '') {
@@ -412,7 +439,11 @@ class CandidateService {
   }
 
   getCapabilityValueKeyMatrix(_id: string, callback: (error: any, result: any) => void) {
-    this.candidateRepository.findByIdwithExclude(_id, {complexity_note_matrix:1, capability_matrix: 1, 'industry.name': 1}, (err, res) => {
+    this.candidateRepository.findByIdwithExclude(_id, {
+      complexity_note_matrix: 1,
+      capability_matrix: 1,
+      'industry.name': 1
+    }, (err, res) => {
       if (err) {
         callback(err, null);
       } else {
@@ -423,7 +454,7 @@ class CandidateService {
           } else {
             console.timeEnd('-------get candidateRepository-----');
             let new_capability_matrix: any = this.getCapabilityValueKeyMatrixBuild(res.capability_matrix, industries);
-            let capabilityMatrrixWithNotes: any = this.getCapabilityMatrixWithNotes(new_capability_matrix,res.complexity_note_matrix);
+            let capabilityMatrrixWithNotes: any = this.getCapabilityMatrixWithNotes(new_capability_matrix, res.complexity_note_matrix);
             callback(null, new_capability_matrix);
           }
         });
@@ -535,7 +566,7 @@ class CandidateService {
                 match_view.scenario_name = scenarios[0].name;
                 match_view.userChoice = scenarios[0].code;
               }
-              if(complexity_musthave_matrix && complexity_musthave_matrix[cap] !== undefined) {
+              if (complexity_musthave_matrix && complexity_musthave_matrix[cap] !== undefined) {
                 match_view.complexityIsMustHave = complexity_musthave_matrix[cap];
               }
               keyValueCapability[cap] = match_view;
@@ -645,7 +676,7 @@ class CandidateService {
                   match_view.scenario_name = scenarios[0].name;
                   match_view.userChoice = scenarios[0].code;
                 }
-                if(complexity_musthave_matrix && complexity_musthave_matrix[cap] !== undefined ) {
+                if (complexity_musthave_matrix && complexity_musthave_matrix[cap] !== undefined) {
                   match_view.complexityIsMustHave = complexity_musthave_matrix[cap];
                 }
                 keyValueCapability[cap] = match_view;
@@ -772,9 +803,9 @@ class CandidateService {
 
   loadRoles(roles: any[]) {
     //let selectedRoles : string[] = new Array();
-    let selectedRoles : string = '';
-    for(let role of roles) {
-      selectedRoles = selectedRoles +' $'+ role.name;
+    let selectedRoles: string = '';
+    for (let role of roles) {
+      selectedRoles = selectedRoles + ' $' + role.name;
       //selectedRoles.push(role.name);
     }
     return selectedRoles;
@@ -791,83 +822,83 @@ class CandidateService {
     });
   }
 
-  getCapabilityMatrixWithNotes(capability_matrix: any,complexity_note_matrix:any) {
-    if(complexity_note_matrix) {
+  getCapabilityMatrixWithNotes(capability_matrix: any, complexity_note_matrix: any) {
+    if (complexity_note_matrix) {
       for (let cap in complexity_note_matrix) {
-        if(capability_matrix[cap]) {
+        if (capability_matrix[cap]) {
           capability_matrix[cap].complexityNote = complexity_note_matrix[cap];
         }
       }
     }
-  return capability_matrix;
+    return capability_matrix;
   }
 
 
-  updateField(_id:string, item:any, callback:(error:any, result:any) => void) {
-    this.candidateRepository.updateByUserId( new mongoose.Types.ObjectId(_id), item, callback);
+  updateField(_id: string, item: any, callback: (error: any, result: any) => void) {
+    this.candidateRepository.updateByUserId(new mongoose.Types.ObjectId(_id), item, callback);
   }
 
   /*isCandidateInCart(candidateDetails:CandidateClassModel, jobProfiles:JobProfileModel[]): boolean {
-    let isInCart = false;
-    for (let job of jobProfiles) {
-      for (let item of job.candidate_list) {
-        if (item.name === 'cartListed') {
-          if (item.ids.indexOf(new mongoose.Types.ObjectId(candidateDetails.candidateId).toString()) !== -1) {
-            isInCart = true;
-            break;
-          }
-        }
-      }
-      if (isInCart) {
-        break;
-      }
-    }
-    return isInCart;
-  }*/
+   let isInCart = false;
+   for (let job of jobProfiles) {
+   for (let item of job.candidate_list) {
+   if (item.name === 'cartListed') {
+   if (item.ids.indexOf(new mongoose.Types.ObjectId(candidateDetails.candidateId).toString()) !== -1) {
+   isInCart = true;
+   break;
+   }
+   }
+   }
+   if (isInCart) {
+   break;
+   }
+   }
+   return isInCart;
+   }*/
 
-    checkIsCarted(candidateUserId: string,recruiterUserId: string, callback: (error: any, result: any) => void) {
-      this.get(candidateUserId, (err, candidateDetails ) => {
-        if(err) {
-          callback(err, null);
-        } else {
-          this.recruiterRepository.retrieve({'userId':recruiterUserId}, (err, recruiterDetails)=> {
-            if(err) {
-              callback(err, null);
-            } else {
-             this.jobProfileRepository.retrieve({'recruiterId': recruiterDetails[0]._id},(error:any, jobs:any[])=> {
-               if(error){
-                 callback(error, null);
-               }
-               let isInCart = false;
-             for (let job of jobs) {
-               for (let item of job.candidate_list) {
-                 if (item.name === 'cartListed') {
-                   if (item.ids.indexOf(new mongoose.Types.ObjectId(candidateDetails.candidateId).toString()) !== -1) {
-                     isInCart = true;
-                     break;
-                   }
-                 }
-               }
-               if (isInCart) {
-                 break;
-               }
-             }
-             callback(err, isInCart);
-             });
-
-            }
-          });
-        }
-      });
-    }
-
-
-  maskCandidateDetails(candidateUserId:string, recruiterUserId:string, callback:(error:any, result:any) => void) {
+  checkIsCarted(candidateUserId: string, recruiterUserId: string, callback: (error: any, result: any) => void) {
     this.get(candidateUserId, (err, candidateDetails) => {
       if (err) {
         callback(err, null);
       } else {
-        let isInCart:boolean;
+        this.recruiterRepository.retrieve({'userId': recruiterUserId}, (err, recruiterDetails) => {
+          if (err) {
+            callback(err, null);
+          } else {
+            this.jobProfileRepository.retrieve({'recruiterId': recruiterDetails[0]._id}, (error: any, jobs: any[]) => {
+              if (error) {
+                callback(error, null);
+              }
+              let isInCart = false;
+              for (let job of jobs) {
+                for (let item of job.candidate_list) {
+                  if (item.name === 'cartListed') {
+                    if (item.ids.indexOf(new mongoose.Types.ObjectId(candidateDetails.candidateId).toString()) !== -1) {
+                      isInCart = true;
+                      break;
+                    }
+                  }
+                }
+                if (isInCart) {
+                  break;
+                }
+              }
+              callback(err, isInCart);
+            });
+
+          }
+        });
+      }
+    });
+  }
+
+
+  maskCandidateDetails(candidateUserId: string, recruiterUserId: string, callback: (error: any, result: any) => void) {
+    this.get(candidateUserId, (err, candidateDetails) => {
+      if (err) {
+        callback(err, null);
+      } else {
+        let isInCart: boolean;
         this.checkIsCarted(candidateUserId, recruiterUserId, (err, isCarted) => {
           if (err) {
             callback(err, null);
