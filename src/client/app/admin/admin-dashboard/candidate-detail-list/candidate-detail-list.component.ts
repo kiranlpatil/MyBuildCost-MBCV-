@@ -17,9 +17,7 @@ import {ErrorService} from "../../../shared/services/error.service";
 export class CandidateDetailListComponent implements OnInit {
   candidates: any[] = new Array(0);
   private successMessage: string;
-  candidateCSV: string = '';
-  candidateOtherDetailsCSV: string = '';
-  usersCSV: string = '';
+
   constructor(private adminDashboardService: AdminDashboardService,
               private loaderService: LoaderService,
               private errorService: ErrorService,
@@ -64,18 +62,9 @@ export class CandidateDetailListComponent implements OnInit {
       .subscribe(
         CandidateDetails => {
           this.loaderService.stop();
-          console.log(CandidateDetails.path.candidatesFilePath);
-          console.log(CandidateDetails.path.candidatesOtherDetailsFilePath);
-          console.log(CandidateDetails.path.candidatesOtherDetailsFilePath);
-          this.candidateCSV = CandidateDetails.path.candidatesFilePath;
-          this.candidateOtherDetailsCSV = CandidateDetails.path.candidatesOtherDetailsFilePath;
-          this.usersCSV = CandidateDetails.path.usersFilePath;
-          console.log("1: " +CandidateDetails.path.candidatesFilePath);
-          console.log("2: " +CandidateDetails.path.candidatesOtherDetailsFilePath);
-          console.log("3: " +CandidateDetails.path.candidatesOtherDetailsFilePath);
-          window.open( AppSettings.IP + this.candidateCSV,'_blank');
-          window.open(AppSettings.IP + this.candidateOtherDetailsCSV,'_blank');
-          window.open(AppSettings.IP + this.usersCSV,'_blank');
+          window.open(AppSettings.IP + CandidateDetails.path.candidateProfilesCSV, '_blank');
+          window.open(AppSettings.IP + CandidateDetails.path.candidateCapabilitiesCSV, '_blank');
+          window.open(AppSettings.IP + CandidateDetails.path.candidateAccountDetailsCSV, '_blank');
           this.messageService.message(new Message(Messages.MSG_SUCCESS_FOR_FILE_DOWNLOAD));
         },
         error => {
