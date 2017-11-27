@@ -1,15 +1,15 @@
 export class AppSettings {
-  // public static IP = 'http://localhost:8080';
+   public static IP = 'http://localhost:8080';
   // public static IP = 'http://ee802b7f.ngrok.io';
   //public static IP = 'http://10.192.33.77:8080';
   //public static IP = 'http://52.10.145.87:3000';
   //public static IP = 'http://34.215.90.153:3000';
   //public static IP = 'http://34.215.90.153';
-  public static IP = 'http://34.214.128.209'; //auto deploy
+  //public static IP = 'http://34.214.128.209'; //auto deploy
   //public static IP = 'http://52.43.220.29:3000';
   // public static IP = 'app.jobmosis.com';
   // public static IP = '';
-  public static HOST_NAME = '34.214.128.209';
+  public static HOST_NAME = 'localhost:8080';
 
   public static get API_ENDPOINT(): string {
     return this.IP + '/api/';
