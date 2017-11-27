@@ -476,10 +476,16 @@ Step 1:Inject these two script/link in index.html
 <script src="http://localhost:3000/public/career-plugin/career-plugin.js"></script>
 <link rel="stylesheet" href="http://localhost:3000/public/career-plugin/career-plugin.css">
 
-Step 2: Add this tag 
-<div id="jobmosis-career-plugin" style="position: absolute;top: 75px;"></div>
+Step 2: Add this tag in html page.
 
-Note: To avoid typescript compilation error use below declartion.
+<div id="jobmosis-career-plugin" name="myIntegrationKey" style="position: absolute;top: 75px;"></div>
+
+Step 3: Add below code to initilise/load plugin script.
+
+var docLoad = new CareerPluginLoad();
+docLoad.loadCareerPluginScript()
+
+Note: To avoid typescript compilation error use below declartion(If typescript).
  declare var CareerPluginLoad:any;
 
 

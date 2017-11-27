@@ -2,13 +2,18 @@ function CareerPluginLoad() {
 
   this.applyForJob = function () {
     var phone_no = document.getElementById('career-plugin-mobile-no');
-    var tokenId = '5a1660c6d93f341403aedc18';
-    var isCorrect = validateMobileNumber(phone_no.value);
-    if (isCorrect) {
-      // alert("We are redirecting to. Our carrier partner jobmosis");
-      window.location.href = "http://localhost:8080/applicant-signup?phoneNumber=" + phone_no.value + "&" + "tokenId=" + tokenId;
+    var _pluginElement = document.getElementById('jobmosis-career-plugin');
+    var tokenId = _pluginElement.attributes.name.value;
+    if (tokenId) {
+      var isCorrect = validateMobileNumber(phone_no.value);
+      if (isCorrect) {
+        // alert("We are redirecting to. Our carrier partner jobmosis");
+        window.location.href = "http://localhost:8080/applicant-signup?phoneNumber=" + phone_no.value + "&" + "tokenId=" + tokenId;
+      } else {
+        document.getElementById('career-plugin-notification').innerHTML = "Number should be 10 digits."
+      }
     } else {
-      document.getElementById('career-plugin-notification').innerHTML = "Number should be 10 digits."
+      document.getElementById('career-plugin-notification').innerHTML = "Please provide token id"
     }
   };
 
