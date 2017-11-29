@@ -27,59 +27,105 @@ export function cnextInit(app: express.Application) {
     let shareController = new ShareController();
     let usageTrackingController = new UsageTrackingController();
     let searchEngineController = new SearchEngineController();
-    app.get('/api/industry', loggerInterceptor.logDetail, this.authInterceptor.requiresAuth, this.authInterceptor.secureApiCheck, industryController.retrieve);
 
-    app.post('/api/proficiency', loggerInterceptor.logDetail, this.authInterceptor.requiresAuth, this.authInterceptor.secureApiCheck, proficienciesController.create);
-    app.get('/api/proficiency', loggerInterceptor.logDetail, this.authInterceptor.requiresAuth, this.authInterceptor.secureApiCheck, proficienciesController.retrieve);
-    app.put('/api/proficiency', loggerInterceptor.logDetail, this.authInterceptor.requiresAuth, this.authInterceptor.secureApiCheck, proficienciesController.update);
-    app.post('/api/industry', loggerInterceptor.logDetail, this.authInterceptor.requiresAuth, this.authInterceptor.secureApiCheck, industryController.create);
-    app.put('/api/recruiter/:id/job', loggerInterceptor.logDetail, this.authInterceptor.requiresAuth, this.authInterceptor.secureApiCheck, recruiterController.postJob);
-    app.get('/api/industry/:id/role', loggerInterceptor.logDetail, this.authInterceptor.requiresAuth, this.authInterceptor.secureApiCheck, roleController.retrieve);
-    app.post('/api/candidate', loggerInterceptor.logDetail, this.authInterceptor.requiresAuth, userInterceptor.create, this.authInterceptor.secureApiCheck, candidateController.create);
-    app.put('/api/candidate/:id', loggerInterceptor.logDetail, this.authInterceptor.requiresAuth, this.authInterceptor.secureApiCheck, candidateController.updateDetails);
-    app.get('/api/candidate/:id', loggerInterceptor.logDetail, this.authInterceptor.requiresAuth, this.authInterceptor.secureApiCheck, candidateController.retrieve);
-    app.get('/api/industry/:id/roles/capability', loggerInterceptor.logDetail, this.authInterceptor.requiresAuth, this.authInterceptor.secureApiCheck, capabilityController.retrieve);
-    app.get('/api/industry/:id/roles/capability/complexity', loggerInterceptor.logDetail, this.authInterceptor.requiresAuth, this.authInterceptor.secureApiCheck, complexityController.retrieve);
+    app.get('/api/industry', loggerInterceptor.logDetail, this.authInterceptor.requiresAuth,
+      this.authInterceptor.secureApiCheck, industryController.retrieve);
+
+    app.post('/api/proficiency', loggerInterceptor.logDetail, this.authInterceptor.requiresAuth,
+      this.authInterceptor.secureApiCheck, proficienciesController.create);
+    app.get('/api/proficiency', loggerInterceptor.logDetail, this.authInterceptor.requiresAuth,
+      this.authInterceptor.secureApiCheck, proficienciesController.retrieve);
+    app.put('/api/proficiency', loggerInterceptor.logDetail, this.authInterceptor.requiresAuth,
+      this.authInterceptor.secureApiCheck, proficienciesController.update);
+    app.post('/api/industry', loggerInterceptor.logDetail, this.authInterceptor.requiresAuth,
+      this.authInterceptor.secureApiCheck, industryController.create);
+    app.put('/api/recruiter/:id/job', loggerInterceptor.logDetail, this.authInterceptor.requiresAuth,
+      this.authInterceptor.secureApiCheck, recruiterController.postJob);
+    app.get('/api/industry/:id/role', loggerInterceptor.logDetail, this.authInterceptor.requiresAuth,
+      this.authInterceptor.secureApiCheck, roleController.retrieve);
+    app.post('/api/candidate', loggerInterceptor.logDetail, this.authInterceptor.requiresAuth, userInterceptor.create,
+      this.authInterceptor.secureApiCheck, candidateController.create);
+    app.put('/api/candidate/:id', loggerInterceptor.logDetail, this.authInterceptor.requiresAuth,
+      this.authInterceptor.secureApiCheck, candidateController.updateDetails);
+    app.get('/api/candidate/:id', loggerInterceptor.logDetail, this.authInterceptor.requiresAuth,
+      this.authInterceptor.secureApiCheck, candidateController.retrieve);
+    app.get('/api/industry/:id/roles/capability', loggerInterceptor.logDetail, this.authInterceptor.requiresAuth,
+      this.authInterceptor.secureApiCheck, capabilityController.retrieve);
+    app.get('/api/industry/:id/roles/capability/complexity', loggerInterceptor.logDetail,
+      this.authInterceptor.requiresAuth, this.authInterceptor.secureApiCheck, complexityController.retrieve);
     app.get('/api/companysize', loggerInterceptor.logDetail, userController.getCompanySize);
-    app.get('/api/function', loggerInterceptor.logDetail, this.authInterceptor.requiresAuth, this.authInterceptor.secureApiCheck, userController.getFunction);
-    app.put('/api/recruiter/:id', loggerInterceptor.logDetail, this.authInterceptor.requiresAuth, this.authInterceptor.secureApiCheck, recruiterController.updateDetails);
-    app.get('/api/recruiter/:id/jobs', loggerInterceptor.logDetail, this.authInterceptor.requiresAuth, this.authInterceptor.secureApiCheck, recruiterController.retrieve);
+    app.get('/api/function', loggerInterceptor.logDetail, this.authInterceptor.requiresAuth,
+      this.authInterceptor.secureApiCheck, userController.getFunction);
+    app.put('/api/recruiter/:id', loggerInterceptor.logDetail, this.authInterceptor.requiresAuth,
+      this.authInterceptor.secureApiCheck, recruiterController.updateDetails);
+    app.get('/api/recruiter/:id/jobs', loggerInterceptor.logDetail, this.authInterceptor.requiresAuth,
+      this.authInterceptor.secureApiCheck, recruiterController.retrieve);
     app.get('/api/recruiter/:id/details', recruiterController.getRecruiterDetails);
-    app.get('/api/capabilitymatrix/candidate/:id', loggerInterceptor.logDetail, this.authInterceptor.requiresAuth, this.authInterceptor.secureApiCheck, candidateController.getCapabilityMatrix);
-    app.get('/api/capabilitymatrix/recruiter/jobProfile/:id/', loggerInterceptor.logDetail, this.authInterceptor.requiresAuth, this.authInterceptor.secureApiCheck, jobProfileController.getCapabilityMatrix);
-    app.get('/api/recruiter/jobProfile/:id', loggerInterceptor.logDetail, this.authInterceptor.requiresAuth, this.authInterceptor.secureApiCheck, jobProfileController.retrieve);
+    app.get('/api/capabilitymatrix/candidate/:id', loggerInterceptor.logDetail, this.authInterceptor.requiresAuth,
+      this.authInterceptor.secureApiCheck, candidateController.getCapabilityMatrix);
+    app.get('/api/capabilitymatrix/recruiter/jobProfile/:id/', loggerInterceptor.logDetail,
+      this.authInterceptor.requiresAuth, this.authInterceptor.secureApiCheck, jobProfileController.getCapabilityMatrix);
+    app.get('/api/recruiter/jobProfile/:id', loggerInterceptor.logDetail, this.authInterceptor.requiresAuth,
+      this.authInterceptor.secureApiCheck, jobProfileController.retrieve);
 
-    app.get('/api/jobs/:id', loggerInterceptor.logDetail, this.authInterceptor.requiresAuth, this.authInterceptor.secureApiCheck, searchController.getJobsInIndustry);
-    app.get('/api/candidate/:id/:candidateId', loggerInterceptor.logDetail, this.authInterceptor.requiresAuth, this.authInterceptor.secureApiCheck, candidateController.retrieve);
-    app.get('/api/candidateDetails/:id', loggerInterceptor.logDetail, this.authInterceptor.requiresAuth, candidateController.get);
-    app.get('/api/candidate/:candidateId/matchresult/:jobId', loggerInterceptor.logDetail, this.authInterceptor.requiresAuth, this.authInterceptor.secureApiCheck, candidateController.metchResult);
-    app.get('/api/recruiter/jobProfile/:jobId/matchresult/:candidateId', loggerInterceptor.logDetail, this.authInterceptor.requiresAuth, this.authInterceptor.secureApiCheck, jobProfileController.metchResultForJob);
-    app.put('/api/candidate/:id/jobProfile/:profileId/:listName/:action', loggerInterceptor.logDetail, this.authInterceptor.requiresAuth, this.authInterceptor.secureApiCheck, jobProfileController.apply);
-//  app.post('/api/recruiter/jobProfile/:id/candidates',loggerInterceptor.logDetail, this.authInterceptor.requiresAuth, this.authInterceptor.secureApiCheck, jobProfileController.getQCardDetails);
-    app.put('/api/recruiter/:recruiterId/jobProfile/:profileId/:listName/:candidateId/:action', loggerInterceptor.logDetail, this.authInterceptor.requiresAuth, this.authInterceptor.secureApiCheck, jobProfileController.update);
+    app.get('/api/jobs/:id', loggerInterceptor.logDetail, this.authInterceptor.requiresAuth,
+      this.authInterceptor.secureApiCheck, searchController.getJobsInIndustry);
+    app.get('/api/candidate/:id/:candidateId', loggerInterceptor.logDetail, this.authInterceptor.requiresAuth,
+      this.authInterceptor.secureApiCheck, candidateController.retrieve);
+    app.get('/api/candidateDetails/:id', loggerInterceptor.logDetail, this.authInterceptor.requiresAuth,
+      candidateController.get);
+    app.get('/api/candidate/:candidateId/matchresult/:jobId', loggerInterceptor.logDetail,
+      this.authInterceptor.requiresAuth, this.authInterceptor.secureApiCheck, candidateController.metchResult);
+    app.get('/api/recruiter/jobProfile/:jobId/matchresult/:candidateId', loggerInterceptor.logDetail,
+      this.authInterceptor.requiresAuth, this.authInterceptor.secureApiCheck, jobProfileController.metchResultForJob);
+    app.put('/api/candidate/:id/jobProfile/:profileId/:listName/:action', loggerInterceptor.logDetail,
+      this.authInterceptor.requiresAuth, this.authInterceptor.secureApiCheck, jobProfileController.apply);
+
+    app.put('/api/recruiter/:recruiterId/jobProfile/:profileId/:listName/:candidateId/:action',
+      loggerInterceptor.logDetail, this.authInterceptor.requiresAuth, this.authInterceptor.secureApiCheck,
+      jobProfileController.update);
     app.get('/api/filterlist', loggerInterceptor.logDetail, recruiterController.getFilterList);
-    app.get('/api/releventindustries', loggerInterceptor.logDetail, this.authInterceptor.requiresAuth, this.authInterceptor.secureApiCheck, industryController.getReleventIndustryList);
-    app.get('/api/recruiter/:id/jobprofile/:jobId', loggerInterceptor.logDetail, this.authInterceptor.requiresAuth, this.authInterceptor.secureApiCheck, recruiterController.getCompareDetailsOfCandidate);
-    app.get('/api/recruiter/:id/candidatesearch/:searchvalue', loggerInterceptor.logDetail, this.authInterceptor.requiresAuth, this.authInterceptor.secureApiCheck, recruiterController.getCandidatesByName);
-    app.get('/api/candidate/:candidateId/recruiter/:recruiterId/jobprofile', loggerInterceptor.logDetail, this.authInterceptor.requiresAuth, this.authInterceptor.secureApiCheck, searchController.searchCandidateJobProfiles);
+    app.get('/api/releventindustries', loggerInterceptor.logDetail, this.authInterceptor.requiresAuth,
+      this.authInterceptor.secureApiCheck, industryController.getReleventIndustryList);
+    app.get('/api/recruiter/:id/jobprofile/:jobId', loggerInterceptor.logDetail, this.authInterceptor.requiresAuth,
+      this.authInterceptor.secureApiCheck, recruiterController.getCompareDetailsOfCandidate);
+    app.get('/api/recruiter/:id/candidatesearch/:searchvalue', loggerInterceptor.logDetail,
+      this.authInterceptor.requiresAuth, this.authInterceptor.secureApiCheck, recruiterController.getCandidatesByName);
+    app.get('/api/candidate/:candidateId/recruiter/:recruiterId/jobprofile', loggerInterceptor.logDetail,
+      this.authInterceptor.requiresAuth, this.authInterceptor.secureApiCheck,
+      searchController.searchCandidateJobProfiles);
     app.post('/api/notify_recruiter', loggerInterceptor.logDetail, recruiterController.notifyRecruiter);
-    app.post('/api/response_to_recruiter/:id', loggerInterceptor.logDetail, this.authInterceptor.requiresAuth, recruiterController.responseToRecruiter);
-    app.put('/api/job/:id/clone', loggerInterceptor.logDetail, this.authInterceptor.requiresAuth, jobProfileController.cloneJob);
+    app.post('/api/response_to_recruiter/:id', loggerInterceptor.logDetail, this.authInterceptor.requiresAuth,
+      recruiterController.responseToRecruiter);
+    app.put('/api/job/:id/clone', loggerInterceptor.logDetail, this.authInterceptor.requiresAuth,
+      jobProfileController.cloneJob);
 
     //search-engine api
-    app.post('/api/recruiter/jobProfile/:id/candidates', loggerInterceptor.logDetail, this.authInterceptor.requiresAuth, this.authInterceptor.secureApiCheck, searchEngineController.getMatchingProfile);
-    app.post('/api/candidate/:candidateId/jobProfile', loggerInterceptor.logDetail, this.authInterceptor.requiresAuth, this.authInterceptor.secureApiCheck, searchEngineController.getMatchingProfile);
-    app.post('/api/candidate/:candidateId/list/:listName', loggerInterceptor.logDetail, this.authInterceptor.requiresAuth, this.authInterceptor.secureApiCheck, searchEngineController.getMatchingProfile);
-    app.post('/api/recruiter/jobProfile/:id/list/:listName', loggerInterceptor.logDetail, this.authInterceptor.requiresAuth, this.authInterceptor.secureApiCheck, searchEngineController.getMatchingProfile);
-    app.post('/api/jobs/candidate/:candidateId', this.authInterceptor.requiresAuth, searchEngineController.getMatchingJobProfiles);
+    app.post('/api/recruiter/jobProfile/:id/candidates', loggerInterceptor.logDetail, this.authInterceptor.requiresAuth,
+      this.authInterceptor.secureApiCheck, searchEngineController.getMatchingCandidates);
+    app.post('/api/recruiter/jobProfile/:id/list/:listName', loggerInterceptor.logDetail,
+      this.authInterceptor.requiresAuth, this.authInterceptor.secureApiCheck,
+      searchEngineController.getMatchingCandidates);
+    app.post('/api/candidate/:candidateId/jobProfile', loggerInterceptor.logDetail, this.authInterceptor.requiresAuth,
+      this.authInterceptor.secureApiCheck, searchEngineController.getMatchingJobs);
+    app.post('/api/candidate/:candidateId/list/:listName', loggerInterceptor.logDetail,
+      this.authInterceptor.requiresAuth, this.authInterceptor.secureApiCheck,
+      searchEngineController.getMatchingJobs);
+    app.post('/api/jobs/candidate/:candidateId', this.authInterceptor.requiresAuth,
+      searchEngineController.getMatchingJobs);
 
     //Share api
-    app.get('/api/buildValuePortraitUrl', loggerInterceptor.logDetail, this.authInterceptor.requiresAuth, shareController.buildValuePortraitUrl);
-    app.get('/api/buildShareJobUrl/:jobId', loggerInterceptor.logDetail, this.authInterceptor.requiresAuth, shareController.buildShareJobUrl);
+    app.get('/api/buildValuePortraitUrl', loggerInterceptor.logDetail, this.authInterceptor.requiresAuth,
+      shareController.buildValuePortraitUrl);
+    app.get('/api/buildShareJobUrl/:jobId', loggerInterceptor.logDetail, this.authInterceptor.requiresAuth,
+      shareController.buildShareJobUrl);
     app.get('/api/share/:shortUrl', loggerInterceptor.logDetail, shareController.getActualUrlForShare);
-    app.put('/api/share/:shortUrl', loggerInterceptor.logDetail, this.authInterceptor.requiresAuth, shareController.resetActualUrlForShare);
-    app.get('/api/closeJob', loggerInterceptor.logDetail, this.authInterceptor.requiresAuth, this.authInterceptor.secureApiCheck, userController.getCloseJobReasons);
-    app.get('/api/userFeedback', loggerInterceptor.logDetail, this.authInterceptor.requiresAuth, this.authInterceptor.secureApiCheck, userController.getUserFeedback);
+    app.put('/api/share/:shortUrl', loggerInterceptor.logDetail, this.authInterceptor.requiresAuth,
+      shareController.resetActualUrlForShare);
+    app.get('/api/closeJob', loggerInterceptor.logDetail, this.authInterceptor.requiresAuth,
+      this.authInterceptor.secureApiCheck, userController.getCloseJobReasons);
+    app.get('/api/userFeedback', loggerInterceptor.logDetail, this.authInterceptor.requiresAuth,
+      this.authInterceptor.secureApiCheck, userController.getUserFeedback);
 
     // API for Uses Tracking
     app.put('/api/usageTracking', loggerInterceptor.logDetail, usageTrackingController.create);
@@ -104,7 +150,11 @@ export function cnextInit(app: express.Application) {
 
 
     //Api for update candidate field
-    app.put('/api/candidate/fieldUpdate/:id', loggerInterceptor.logDetail, this.authInterceptor.requiresAuth, this.authInterceptor.secureApiCheck, candidateController.updateField);
+    app.put('/api/candidate/fieldUpdate/:id', loggerInterceptor.logDetail, this.authInterceptor.requiresAuth,
+      this.authInterceptor.secureApiCheck, candidateController.updateField);
+    //Api to checck is user register with this mobile number or not,if yes get email id.
+    app.get('/api/registrationstatus/:mobileNo', loggerInterceptor.logDetail, userInterceptor.validateRegistrationStatus,
+      userController.getUserRegistrationStatus);
 
     app.use(sharedService.errorHandler);
   } catch (e) {

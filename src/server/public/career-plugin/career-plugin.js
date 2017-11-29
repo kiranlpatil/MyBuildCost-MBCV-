@@ -1,28 +1,28 @@
-function CareerPluginLoad() {
+var userMobileNumber;
+var integrationKey;
+var careerPluginHost = 'http://localhost:8080';
+function CareerPlugin() {
 
   this.applyForJob = function () {
     var phone_no = document.getElementById('career-plugin-mobile-no');
     var _pluginElement = document.getElementById('jobmosis-career-plugin');
-    var tokenId = _pluginElement.attributes.name.value;
-    if (tokenId) {
+    var key = _pluginElement.attributes.name.value;
+    if (key) {
+      integrationKey = key;
       var isCorrect = validateMobileNumber(phone_no.value);
       if (isCorrect) {
-        // alert("We are redirecting to. Our carrier partner jobmosis");
-        window.location.href = "http://34.214.128.209/applicant-signup?phoneNumber=" + phone_no.value + "&" + "tokenId=" + tokenId;
+        userMobileNumber = phone_no.value;
+        registrationStatus(phone_no.value);
       } else {
         document.getElementById('career-plugin-notification').innerHTML = "Number should be 10 digits."
       }
     } else {
-      document.getElementById('career-plugin-notification').innerHTML = "Please provide token id"
+      document.getElementById('career-plugin-notification').innerHTML = "Please provide integrationKey."
     }
   };
 
-  this.loadCareerPluginScript = function () {
-    // document.getElementById('jobmosis-career-plugin').innerHTML = "<input id='career-plugin-mobile-no' type='number' min='100'><button id='career-plugin-submit'>submit</button><span id='career-plugin-notification'></span>";
-    // var link = document.createElement('link');
-    // link.rel = 'stylesheet';
-    // link.href = '/career-plugin/career-plugin.css';
-    // document.head.appendChild(link);
+  this.load = function () {
+
     document.getElementById('jobmosis-career-plugin').innerHTML = "<h3 class='career-plugin-header'>Apply for Jobs</h3>" +
       "<div class='plugin-form-wrap'>" +
       "<label for='career-plugin-mobile-no'>Enter Your Mobile Number</label>" +
@@ -39,7 +39,8 @@ function CareerPluginLoad() {
     function drag_start(event) {
       var style = window.getComputedStyle(event.target, null);
       event.dataTransfer.setData("text/plain",
-        (parseInt(style.getPropertyValue("left"), 10) - event.clientX) + ',' + (parseInt(style.getPropertyValue("top"), 10) - event.clientY));
+        (parseInt(style.getPropertyValue("left"), 10) - event.clientX) + ',' +
+        (parseInt(style.getPropertyValue("top"), 10) - event.clientY));
     }
 
     function drag_over(event) {
@@ -64,13 +65,40 @@ function CareerPluginLoad() {
 
     document.getElementById("career-plugin-submit").addEventListener("click", this.applyForJob);
   };
+
+  function registrationStatus(mobNo) {
+    var _url = careerPluginHost + '/api/registrationstatus/' + mobNo;
+    var xhttp = new XMLHttpRequest();
+    xhttp.open("GET", _url, true);
+    xhttp.onload = registrationStatusHandler;
+    xhttp.setRequestHeader("Content-type", "application/json");
+    xhttp.send();
+  }
+
+  function registrationStatusHandler() {
+    if (this.status == 200) {
+      var _status = JSON.parse(this.response);
+      if (_status.length) {
+        //alert('You are getting redirected to our carrier partner Jobmosis');
+        window.location.href = careerPluginHost + "/signin?phoneNumber=" + userMobileNumber + "&" +
+          "tokenId=" + integrationKey + "&" + "email=" + _status[0].email;
+      } else {
+        //alert('You are not registered, Kindly register with our carrier partner to apply for job');
+        window.location.href = careerPluginHost + "/applicant-signup?phoneNumber=" +
+          userMobileNumber + "&" + "tokenId=" + integrationKey;
+      }
+    } else {
+      console.log('server error');
+    }
+  }
+
+  validateMobileNumber = function (phoneNumber) {
+    var no = Number(phoneNumber);
+    if (/^\d{10}$/.test(no)) {
+      return true;
+    } else {
+      return false
+    }
+  };
 }
 
-validateMobileNumber = function (phoneNumber) {
-  var no = Number(phoneNumber);
-  if (/^\d{10}$/.test(no)) {
-    return true;
-  } else {
-    return false
-  }
-};

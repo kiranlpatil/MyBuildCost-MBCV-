@@ -1,12 +1,13 @@
 import RecruiterSchema = require('../schemas/recruiter.schema');
 import RepositoryBase = require('./base/repository.base');
 import IRecruiter = require('../mongoose/recruiter');
-import { JobQCard } from '../../search/model/job-q-card';
-import { ConstVariables } from '../../shared/sharedconstants';
+import {JobQCard} from '../../search/model/job-q-card';
+import {ConstVariables} from '../../shared/sharedconstants';
 import * as mongoose from 'mongoose';
 import CandidateModel = require('../model/candidate.model');
 import RecruiterModel = require('../model/recruiter.model');
 import JobProfileModel = require('../model/jobprofile.model');
+import {Recruiter} from "../../../../../client/app/user/models/recruiter";
 
 class RecruiterRepository extends RepositoryBase<IRecruiter> {
   constructor() {
@@ -25,7 +26,7 @@ class RecruiterRepository extends RepositoryBase<IRecruiter> {
         if (job.releventIndustries.indexOf(candidate.industry.name) !== -1) {
           isreleventIndustryMatch = true;
         }
-        if ( !job.isJobPosted || job.isJobPostClosed
+        if (!job.isJobPosted || job.isJobPostClosed
           || (candidate.industry.code !== job.industry.code && !isreleventIndustryMatch)
           || job.isJobPostExpired
           || (job.expiringDate < new Date())) {
@@ -131,26 +132,49 @@ class RecruiterRepository extends RepositoryBase<IRecruiter> {
 
   }
 
-  getJobById(jobId : string, callback : (err : any, res : any)=> void) {
-   /* let query = {
-      'postedJobs': {$elemMatch: {'_id': new mongoose.Types.ObjectId(jobId)}}
-    };
-    RecruiterSchema.find(query).lean().exec((err: any, response : IRecruiter[]) => {
-      if (err) {
-        callback(new Error('Problem in Job Retrieve'), null);
-      } else {
-        let jobProfile: JobProfileModel;
-        if (response.length > 0) {
-          for (let job of response[0].postedJobs) {
-            if (job._id.toString() === jobId) {
-              jobProfile = job;
-              break;
-            }
-          }
-        }
-        callback(null, jobProfile);
+  getRecruiterData(recruiterId: string, callback: (err: Error, res: any) => void) {
+    let recruiterRepository = new RecruiterRepository();
+
+    recruiterRepository.retrieve({'_id': new mongoose.Types.ObjectId(recruiterId)}, (error, recData) => {
+      if (error) {
+        callback(error, null);
+        return;
       }
-    });*/
+      callback(error, recData);
+    });
+  }
+
+  populateRecruiterDetails(recruiterId: string, callback: (err: Error, res: Recruiter) => void) {
+    let recruiterRepository = new RecruiterRepository();
+    recruiterRepository.retrieveAndPopulate({'_id': new mongoose.Types.ObjectId(recruiterId)}, {}, (err, recruiter) => {
+      if (err) {
+        callback(err, null);
+        return;
+      }
+      callback(err, recruiter[0].userId);
+    });
+  }
+
+  getJobById(jobId: string, callback: (err: any, res: any) => void) {
+    /* let query = {
+       'postedJobs': {$elemMatch: {'_id': new mongoose.Types.ObjectId(jobId)}}
+     };
+     RecruiterSchema.find(query).lean().exec((err: any, response : IRecruiter[]) => {
+       if (err) {
+         callback(new Error('Problem in Job Retrieve'), null);
+       } else {
+         let jobProfile: JobProfileModel;
+         if (response.length > 0) {
+           for (let job of response[0].postedJobs) {
+             if (job._id.toString() === jobId) {
+               jobProfile = job;
+               break;
+             }
+           }
+         }
+         callback(null, jobProfile);
+       }
+     });*/
   }
 }
 

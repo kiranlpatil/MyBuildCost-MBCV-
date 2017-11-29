@@ -5,11 +5,12 @@ import {CandidateDetail} from "../models/candidate-details";
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {ValidationService} from "../../shared/customvalidations/validation.service";
 import {AppSettings, CommonService, Message, MessageService, NavigationRoutes} from "../../shared/index";
-import {API, ImagePath, Label, LocalStorage, Messages} from "../../shared/constants";
+import {API, ImagePath, Label, LocalStorage, Messages, SessionStorage} from "../../shared/constants";
 import {LocalStorageService} from "../../shared/services/localstorage.service";
 import {DateService} from "../../cnext/framework/date.service";
 import {SharedService} from "../../shared/services/shared-service";
 import {ErrorService} from "../../shared/services/error.service";
+import {SessionStorageService} from "../../shared/services/session.service";
 declare  var fbq:any;
 declare  var gtag:any;
 
@@ -52,7 +53,7 @@ export class CandidateSignUpComponent implements OnInit, AfterViewInit {
       'last_name': ['', [ValidationService.requireLastNameValidator]],
       'mobile_number': ['', [ValidationService.requireMobileNumberValidator, ValidationService.mobileNumberValidator]],
       'email': ['', [ValidationService.requireEmailValidator, ValidationService.emailValidator]],
-      'password': ['', [ValidationService.requirePasswordValidator, ValidationService.passwordValidator]],
+      'password': ['', [ValidationService.passwordValidator]],
       'confirm_password': ['', ValidationService.requireConfirmPasswordValidator],
       'birth_year': ['', [ValidationService.birthYearValidator]],
       'accept_terms': ['', [Validators.required]],
@@ -77,8 +78,9 @@ export class CandidateSignUpComponent implements OnInit, AfterViewInit {
     this.mainHeaderMenuHideShow = 'applicant';
 
     this.activatedRoute.queryParams.subscribe((params: Params) => {
-      this.userForm.controls['mobile_number'].setValue(Number(params['phoneNumber']));
-      LocalStorageService.setLocalValue(LocalStorage.RECRUITER_REFERENCE_ID,params['tokenId']);
+      params['phoneNumber'] !== undefined ? this.userForm.controls['mobile_number']
+          .setValue(Number(params['phoneNumber'])) : false;
+      params['tokenId'] !== undefined ? SessionStorageService.setRecruiterReferenceId(params['tokenId']) : false;
       if(params['tokenId'] !== undefined) {
         this.notifyRecruiter(params['tokenId'],params['phoneNumber']);
       }
@@ -127,7 +129,9 @@ export class CandidateSignUpComponent implements OnInit, AfterViewInit {
     this.model.current_theme = AppSettings.LIGHT_THEM;
     this.model.isCandidate = true;
     this.model.email = this.model.email.toLowerCase();
-    this.model.recruiterReferenceId = LocalStorageService.getLocalValue(LocalStorage.RECRUITER_REFERENCE_ID);
+    if(SessionStorageService.getRecruiterReferenceId()) {
+      this.model.recruiterReferenceId = SessionStorageService.getRecruiterReferenceId();
+    }
 
     if (!this.makePasswordConfirm()) {
       this.isFormSubmitted = true;

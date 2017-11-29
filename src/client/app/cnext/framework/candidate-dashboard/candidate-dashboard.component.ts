@@ -3,7 +3,10 @@ import {CandidateProfileService} from "../candidate-profile/candidate-profile.se
 import {Candidate, Summary} from "../../../user/models/candidate";
 import {CandidateDashboardService} from "./candidate-dashboard.service";
 import {JobQcard} from "../model/JobQcard";
-import {LocalStorage, ValueConstant, Tooltip, ImagePath, Headings, Messages} from "../../../shared/constants";
+import {
+  LocalStorage, ValueConstant, Tooltip, ImagePath, Headings, Messages,
+  SessionStorage
+} from "../../../shared/constants";
 import {LocalStorageService} from "../../../shared/services/localstorage.service";
 import {CandidateJobListService} from "./candidate-job-list/candidate-job-list.service";
 import {QCardFilterService} from "../filters/q-card-filter.service";
@@ -14,6 +17,7 @@ import {QCardFilter} from "../model/q-card-filter";
 import {EList} from "../model/list-type";
 import {ESort} from "../model/sort-type";
 import {QCardsortBy} from "../model/q-cardview-sortby";
+import {SessionStorageService} from "../../../shared/services/session.service";
 
 
 @Component({
@@ -44,7 +48,7 @@ export class CandidateDashboardComponent implements OnInit {
   private appliedFilters: QCardFilter = new QCardFilter();
   private qCardModel: QCardsortBy = new QCardsortBy();
   isRecruiterReferred: boolean = false;
-  recruiterReferenceId = LocalStorageService.getLocalValue(LocalStorage.RECRUITER_REFERENCE_ID);
+  recruiterReferenceId = SessionStorageService.getRecruiterReferenceId();
   companyName: string = '';
 
   constructor(private candidateProfileService: CandidateProfileService,

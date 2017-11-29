@@ -16,13 +16,14 @@ import {TooltipComponent} from './tool-tip-component/tool-tip-component';
 import {FooterComponent} from '../framework/shared/footer/footer.component';
 import {UsageTrackingService} from '../cnext/framework/usage-tracking.service';
 import {ErrorService} from "./services/error.service";
+import {SessionStorageService} from "./services/session.service";
 
 @NgModule({
   imports: [CommonModule],
   declarations: [LoaderComponent, MyGoogleDirective, ControlMessagesComponent, MyGoogleDirective, TooltipComponent, FooterComponent],
   exports: [LoaderComponent, MyGoogleDirective, ControlMessagesComponent, MyGoogleDirective, TooltipComponent, FooterComponent],
   providers: [LoaderService, UsageTrackingService,ValidationService, LocalStorageService, MessageService, SharedService,
-    ThemeChangeService, CommonService, BaseService, CustomHttp, ErrorService]
+    ThemeChangeService, CommonService, BaseService, CustomHttp, ErrorService, SessionStorageService]
 })
 
 export class SharedModule {

@@ -1,7 +1,7 @@
 import {Component, DoCheck, HostListener, KeyValueDiffers, OnDestroy, OnInit} from "@angular/core";
 import {
   Button, ImagePath, Label, LocalStorage, Messages, NavigationRoutes, Tooltip,
-  CandidateProfileUpdateTrack
+  CandidateProfileUpdateTrack, SessionStorage
 } from "../../../shared/constants";
 import {Router} from "@angular/router";
 import {ComplexityService} from "../complexity.service";
@@ -14,6 +14,7 @@ import {MessageService} from "../../../shared/services/message.service";
 import {ErrorService} from "../../../shared/services/error.service";
 import {LocalStorageService} from "../../../shared/services/localstorage.service";
 import {UserFeedback} from "../user-feedback/userFeedback";
+import {SessionStorageService} from "../../../shared/services/session.service";
 
 @Component({
   moduleId: module.id,
@@ -536,8 +537,8 @@ export class CandidateProfileComponent implements OnInit, DoCheck, OnDestroy {
 
   onSubmit() {
     this.candidate.isSubmitted = true;
-    if(LocalStorageService.getLocalValue(LocalStorage.RECRUITER_REFERENCE_ID)) {
-      this.candidate.recruiterReferenceId = LocalStorageService.getLocalValue(LocalStorage.RECRUITER_REFERENCE_ID);
+    if(SessionStorageService.getRecruiterReferenceId()) {
+      this.candidate.recruiterReferenceId = SessionStorageService.getRecruiterReferenceId();
     }
     LocalStorageService.setLocalValue(LocalStorage.IS_CANDIDATE_SUBMITTED, true);
     this.saveCandidateDetails();
