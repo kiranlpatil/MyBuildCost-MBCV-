@@ -416,6 +416,9 @@ export class LocalStorage {
   public static CURRENT_JOB_POSTED_ID = 'current_job_posted_job_id';
   public static POSTED_JOB = 'posted_job';
   public static GUIDED_TOUR = 'guided_tour';
+}
+
+export class SessionStorage {
   public static RECRUITER_REFERENCE_ID = 'recruiter_reference_id';
 }
 
