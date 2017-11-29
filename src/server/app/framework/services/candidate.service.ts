@@ -22,8 +22,10 @@ import RecruiterService = require("./recruiter.service");
 import RecruiterClassModel = require("../dataaccess/model/recruiterClass.model");
 import SendMailService = require('./mailer.service');
 import ProjectAsset = require('../shared/projectasset');
-import { SentMessageInfo } from 'nodemailer';
+import {SentMessageInfo} from 'nodemailer';
+
 let bcrypt = require('bcrypt');
+
 class CandidateService {
   private candidateRepository: CandidateRepository;
   private recruiterRepository: RecruiterRepository;
@@ -78,7 +80,7 @@ class CandidateService {
                   if (err) {
                     callback(err, null);
                   } else {
-                    if(item.recruiterReferenceId != "undefined") {
+                    if (item.recruiterReferenceId != "undefined") {
                       this.updateCandidateList(res._doc._id, item, (err: Error, result: any) => {
                         if (err) {
                           callback(err, null);
@@ -126,7 +128,7 @@ class CandidateService {
                 callback(userError, null);
               } else {
                 let sendMailService = new SendMailService();
-                let data: Map<string,string> = new Map([['$first_name$', candidate.first_name],
+                let data: Map<string, string> = new Map([['$first_name$', candidate.first_name],
                   ['$app_name$', ProjectAsset.APP_NAME]]);
                 sendMailService.send(userData[0].email,
                   Messages.EMAIL_SUBJECT_CANDIDATE_REGISTRATION,
@@ -948,30 +950,31 @@ class CandidateService {
       }
     });
   }
-notifiyCandidateOnAddedToCart(candidateId:string, recruiterId:string, jobTitle:string,
-                              callback: (error: Error, result: SentMessageInfo) => void) {
-    this.recruiterRepository.retrieve({'_id': new mongoose.Types.ObjectId(recruiterId)}, (error, recData) => {
-    if (error) {
-      callback(error, null);
-      return;
-    }
-      this.candidateRepository.retrieveAndPopulate({'_id': new mongoose.Types.ObjectId(candidateId)}, {}, (err, candata) => {
+
+  notifyCandidateOnCartAddition(candidateId: string, recruiterId: string, jobTitle: string,
+                                callback: (error: Error, result: SentMessageInfo) => void) {
+    this.recruiterRepository.getRecruiterData(recruiterId, (error, recruiter) => {
+      if (error) {
+        callback(error, null);
+        return;
+      }
+      this.candidateRepository.populateCandidateDetails(candidateId, (err, candidate) => {
         if (err) {
-          callback(error, null);
+          callback(err, null);
           return;
         }
-          let config = require('config');
-          let host = config.get('TplSeed.mail.host');
-          let link = host + 'signin';
-          let sendMailService = new SendMailService();
-          let data: Map<string, string> = new Map([['$link$', link], ['$firstname$', (candata[0].userId).first_name],
-            ['$jobtitle$', jobTitle], ['$recruiter$', recData[0].company_name]]);
-          sendMailService.send((candata[0].userId).email,
-            Messages.EMAIL_SUBJECT_CANDIDATE_ADDED_TO_CART,
-            'candidateaddedtocart.html', data, callback);
+        let config = require('config');
+        let sendMailService = new SendMailService();
+        let data: Map<string, string> = new Map([['$link$', config.get('TplSeed.mail.host') + 'signin'],
+          ['$firstname$', candidate.first_name],
+          ['$jobtitle$', jobTitle], ['$recruiter$', recruiter[0].company_name]]);
+        sendMailService.send('luckyvaishnav55@gmail.com',
+          Messages.EMAIL_SUBJECT_CANDIDATE_ADDED_TO_CART,
+          'candidate-added-to-cart.html', data, callback);
       });
-  });
+    });
   }
+
   sendMailToRecruiter(candidate: any, callback: (error: any, result: any) => void) {
 
     this.recruiterRepository.retrieve({'_id': new mongoose.Types.ObjectId(candidate.recruiterReferenceId)}, (recruiterErr, recData) => {
@@ -984,7 +987,7 @@ notifiyCandidateOnAddedToCart(candidateId:string, recruiterId:string, jobTitle:s
             callback(userError, null);
           } else {
             let sendMailService = new SendMailService();
-            let data: Map<string,string> = new Map([['$first_name$', candidate.basicInformation.first_name],
+            let data: Map<string, string> = new Map([['$first_name$', candidate.basicInformation.first_name],
               ['$app_name$', ProjectAsset.APP_NAME]]);
             sendMailService.send(userData[0].email,
               Messages.EMAIL_SUBJECT_CANDIDATE_REGISTRATION,
@@ -1000,7 +1003,6 @@ notifiyCandidateOnAddedToCart(candidateId:string, recruiterId:string, jobTitle:s
       }
     });
   }
-
 }
 
 Object.seal(CandidateService);
