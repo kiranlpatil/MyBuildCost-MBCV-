@@ -89,7 +89,7 @@ export function getCapabilityMatrix(req: express.Request, res: express.Response,
           reason: CNextMessages.PROBLEM_IN_RETRIEVE_JOB_PROFILE,
           message: CNextMessages.PROBLEM_IN_RETRIEVE_JOB_PROFILE,
           stackTrace: new Error(),
-          code: 401
+          code: 500
         });
       } else {
         res.status(200).send({
