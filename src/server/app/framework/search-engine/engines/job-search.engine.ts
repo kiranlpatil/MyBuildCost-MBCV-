@@ -120,8 +120,8 @@ export class JobSearchEngine extends SearchEngine {
 
     for (let job of jobs) {
       let job_q_card: JobCard;
-      job_q_card = <JobCard> this.computePercentage(job.capability_matrix,
-        candidateDetails.capability_matrix, job._id);
+      job_q_card = <JobCard> this.computePercentage(candidateDetails.capability_matrix,job.capability_matrix,
+         job._id);
       this.job_q_cards.push(job_q_card);
     }
 
