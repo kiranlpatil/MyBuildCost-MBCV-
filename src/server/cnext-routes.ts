@@ -152,6 +152,9 @@ export function cnextInit(app: express.Application) {
     //Api for update candidate field
     app.put('/api/candidate/fieldUpdate/:id', loggerInterceptor.logDetail, this.authInterceptor.requiresAuth,
       this.authInterceptor.secureApiCheck, candidateController.updateField);
+    //Api to checck is user register with this mobile number or not,if yes get email id.
+    app.get('/api/registrationstatus/:mobileNo', loggerInterceptor.logDetail, userInterceptor.validateRegistrationStatus,
+      userController.getUserRegistrationStatus);
 
     app.use(sharedService.errorHandler);
   } catch (e) {
