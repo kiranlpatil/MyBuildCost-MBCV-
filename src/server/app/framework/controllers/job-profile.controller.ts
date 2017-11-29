@@ -124,8 +124,8 @@ export function update(req: express.Request, res: express.Response, next: any) {
     jobProfileService.update(data, (err, result) => {
       if (err) {
         next({
-          reason: Messages.MSG_ERROR_RSN_USER_NOT_FOUND,
-          message: Messages.MSG_ERROR_RSN_USER_NOT_FOUND,
+          reason: 'unable to update the jobprofile',
+          message: 'unable to update the jobprofile',
           stackTrace: new Error(),
           code: 403
         });
@@ -158,8 +158,8 @@ export function apply(req: express.Request, res: express.Response, next: any) {
     jobProfileService.applyJob(data, (err, result) => {
       if (err) {
         next({
-          reason: Messages.MSG_ERROR_RSN_USER_NOT_FOUND,
-          message: Messages.MSG_ERROR_RSN_USER_NOT_FOUND,
+          reason: 'unable to apply the jobprofile',
+          message: 'unable to apply the jobprofile',
           stackTrace: new Error(),
           code: 403
         });
@@ -241,7 +241,7 @@ export function cloneJob(req: express.Request, res: express.Response, next: any)
   try {
     var newJobTitle = req.query.newJobTitle;
     var jobProfileService = new JobProfileService();
-    jobProfileService.retrieveByJobId(req.params.id, (error: any, result: IJobProfile) => { //todo use
+    jobProfileService.retrieveByJobId(req.params.id, (error: any, originalJob: IJobProfile) => { //todo use
       if (error) {
         next({
           reason: CNextMessages.PROBLEM_IN_RETRIEVE_JOB_PROFILE,
@@ -250,8 +250,8 @@ export function cloneJob(req: express.Request, res: express.Response, next: any)
           code: 401
         });
       } else {
-        let oldId: any = result;
-        let newJob: any = result.toObject();
+        let oldId: any = originalJob._id;
+        let newJob: any = originalJob;
         delete newJob["_id"];
         console.log('-----------------------newJob._id---------------------', newJob._id);
         newJob.jobTitle = newJobTitle;
@@ -265,7 +265,7 @@ export function cloneJob(req: express.Request, res: express.Response, next: any)
 
         newJob.expiringDate = new Date((new Date().getTime() + ConstVariables.JOB__EXPIRIY_PERIOD));
         var recruiterService = new RecruiterService();
-        recruiterService.addCloneJob(oldId, newJob, (err, result) => {
+        recruiterService.addCloneJob(oldId, newJob, (err, job) => {
           if (err) {
             next({
               reason: err,
@@ -292,7 +292,7 @@ export function cloneJob(req: express.Request, res: express.Response, next: any)
               } else {
                 res.status(200).send({
                   'status': Messages.STATUS_SUCCESS,
-                  'data': result._id
+                  'data': job._id
                 });
               }
             });
