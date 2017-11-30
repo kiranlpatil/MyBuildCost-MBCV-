@@ -44,6 +44,7 @@ export enum UsageActions  {
   CLONED_JOB_POST_BY_RECRUITER,
   CLOSED_JOB_POST_BY_RECRUITER,
   SEARCHED_CANDIDATE_BY_RECRUITER,
+  SHARED_JOB_POST_BY_RECRUITER,
   DEFAULT_VALUE = 999
   //append your new enum value at the end of the list DON'T MODIFY THE LIST
 }
@@ -741,6 +742,7 @@ export class Label {
   public static NAME: string = 'Name';
   public static ACTIONS: string = 'Actions';
   public static TOTAL_POSTED_JOB: string = 'Total Posted Jobs';
+  public static API_KEY: string = 'API Key';
   public static COMPANY_NAME: string = 'Company Name (Size)';
   public static COMPANY_SIZE: string = 'Company Size';
   public static OWN_COMPANY: string = 'Own company';

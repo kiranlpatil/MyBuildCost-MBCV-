@@ -111,8 +111,8 @@ class ExportService {
   }
 
   exportRecruiter(callback: (error: Error, filesPath: string) => void) {
-    let fields = '_id,userId,isRecruitingForself,company_name,company_size,company_website,my_candidate_list,setOfDocuments,' +
-      'company_logo';
+    let fields = '_id,userId,isRecruitingForself,company_name,company_size,company_website,my_candidate_list,' +
+      'setOfDocuments,company_logo,api_key';
 
     let downloadLocation = path.resolve() + config.get('TplSeed.exportFilePathServer')
       + config.get('TplSeed.exportFileNames.companyDetailsCSV');
