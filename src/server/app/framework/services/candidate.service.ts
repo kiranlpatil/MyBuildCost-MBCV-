@@ -82,12 +82,9 @@ class CandidateService {
                     callback(err, null);
                   } else {
                     if (item.recruiterReferenceId) {
-                      this.updateRecruitersMyCandidateList(res._doc._id, item, (err: Error, status: string) => {
-                       callback(err, res);
-                      });
-                    } else {
-                      callback(null, res);
+                      this.updateRecruitersMyCandidateList(res._doc._id, item, callback);
                     }
+                    callback(err, res);
                   }
                 });
               }

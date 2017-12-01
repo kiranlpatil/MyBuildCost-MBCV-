@@ -79,9 +79,13 @@ export class CandidateSignUpComponent implements OnInit, AfterViewInit {
     this.mainHeaderMenuHideShow = 'applicant';
 
     this.activatedRoute.queryParams.subscribe((params: Params) => {
-      params['phoneNumber'] !== undefined ? this.userForm.controls['mobile_number']
-          .setValue(Number(params['phoneNumber'])) : false;
-      params['integrationKey'] !== undefined ? SessionStorageService.setRecruiterReferenceId(params['integrationKey']) : false;
+      if(params['phoneNumber']) {
+        this.userForm.controls['mobile_number']
+          .setValue(Number(params['phoneNumber']))
+      }
+      if(params['integrationKey']) {
+        SessionStorageService.setRecruiterReferenceId(params['integrationKey'])
+      }
       this.isFromCareerPlugin = (params['integrationKey'] !== undefined) ? true : false;
     });
   }

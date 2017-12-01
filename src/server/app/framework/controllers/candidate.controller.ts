@@ -1,5 +1,7 @@
 import * as express from "express";
 import * as mongoose from "mongoose";
+import {MailChimpMailerService} from "../services/mailchimp-mailer.service";
+import {UtilityFunction} from "../uitility/utility-function";
 import AuthInterceptor = require('../interceptor/auth.interceptor');
 import Messages = require('../shared/messages');
 import CandidateModel = require('../dataaccess/model/candidate.model');
@@ -7,11 +9,8 @@ import CandidateService = require('../services/candidate.service');
 import UserService = require('../services/user.service');
 import SearchService = require('../search/services/search.service');
 import CandidateInfoSearch = require('../dataaccess/model/candidate-info-search');
-import { MailChimpMailerService } from '../services/mailchimp-mailer.service';
 import CandidateSearchService = require("../services/candidate-search.service");
-import {CandidateDetailsWithJobMatching} from "../dataaccess/model/candidatedetailswithjobmatching";
 import CandidateClassModel = require("../dataaccess/model/candidate-class.model");
-import {UtilityFunction} from "../uitility/utility-function";
 import SendMailService = require('../services/mailer.service');
 import ProjectAsset = require('../shared/projectasset');
 
@@ -61,7 +60,7 @@ export function create(req: express.Request, res: express.Response, next: any) {
       }
     });
   } catch (e) {
-   next({
+    next({
       reason: e.message,
       message: e.message,
       stackTrace: new Error(),
@@ -78,7 +77,7 @@ export function updateDetails(req: express.Request, res: express.Response, next:
     delete params.access_token;
     let userId: string = req.params.id;
     let auth: AuthInterceptor = new AuthInterceptor();
-    let isEditingProfile: boolean=false;
+    let isEditingProfile: boolean = false;
 
     /*let userService = new UserService();
      let query = {"_id": userId};
@@ -91,57 +90,51 @@ export function updateDetails(req: express.Request, res: express.Response, next:
       if (error) {
         next(error);
       } else {
-        updatedCandidate.lastUpdateAt=new Date().toISOString();
+        updatedCandidate.lastUpdateAt = new Date().toISOString();
         if (result && result.isSubmitted) {
           isEditingProfile = true;
         }
-    candidateService.update(userId, updatedCandidate, (error, result) => {
-      if (error) {
-        next(error);
-      } else {
-        candidateService.retrieve(result._id, (error, result) => {
+        candidateService.update(userId, updatedCandidate, (error, result) => {
           if (error) {
-            next({
-              reason: Messages.MSG_ERROR_RSN_INVALID_CREDENTIALS,
-              message: Messages.MSG_ERROR_WRONG_TOKEN,
-              stackTrace: new Error(),
-              code: 400
-            });
+            next(error);
           } else {
-            if(!isEditingProfile && updatedCandidate.isSubmitted) {
-                mailChimpMailerService.onCandidatePofileSubmitted(req.body.basicInformation);
-                if(updatedCandidate.recruiterReferenceId != "undefined" ) {
-                  candidateService.sendMailToRecruiter(updatedCandidate, (error: any, result: any) => {
-                    if (error) {
-                      next(error);
-                    } else {
-                      res.send({
-                        'status': 'success',
-                        'data': result
-                      });
-                    }
-                  });
+            candidateService.retrieve(result._id, (error, result) => {
+              if (error) {
+                next({
+                  reason: Messages.MSG_ERROR_RSN_INVALID_CREDENTIALS,
+                  message: Messages.MSG_ERROR_WRONG_TOKEN,
+                  stackTrace: new Error(),
+                  code: 400
+                });
+              } else {
+                if (!isEditingProfile && updatedCandidate.isSubmitted) {
+                  mailChimpMailerService.onCandidatePofileSubmitted(req.body.basicInformation);
+                  if (updatedCandidate.recruiterReferenceId) {
+                    candidateService.sendMailToRecruiter(updatedCandidate, (error: any, result: any) => {
+                      if (error) {
+                        next(error);
+                      }
+                    });
+                  }
                 }
-            } else {
-              res.send({
-                'status': 'success',
-                'data': result
-              });
-            }
+                res.send({
+                  'status': 'success',
+                  'data': result
+                });
+              }
+            });
           }
         });
-      }
-    });
-    /*userService.findOneAndUpdate(query, updateData, {new: true}, (error, result) => {
-     if (error) {
-     next(error);
-     } else {
-     res.send({
-     "status": "Success",
-     "data": {"data": result}
-     });
-     }
-     });*/
+        /*userService.findOneAndUpdate(query, updateData, {new: true}, (error, result) => {
+         if (error) {
+         next(error);
+         } else {
+         res.send({
+         "status": "Success",
+         "data": {"data": result}
+         });
+         }
+         });*/
 
       }
     });
@@ -165,15 +158,15 @@ export function getCapabilityMatrix(req: express.Request, res: express.Response,
         next(error);
       }
       else {
-          res.send({
-            'status': 'success',
-            'data': result,
-          });
+        res.send({
+          'status': 'success',
+          'data': result,
+        });
       }
     });
   }
   catch (e) {
-   next({
+    next({
       reason: e.message,
       message: e.message,
       stackTrace: new Error(),
@@ -210,13 +203,13 @@ export function retrieve(req: express.Request, res: express.Response, next: any)
                 code: 401
               })
             } else {
-              candidateService.checkIsCarted(resu.userId,recruiterUserId, (err, isCarted) => {
-                if(err) {
+              candidateService.checkIsCarted(resu.userId, recruiterUserId, (err, isCarted) => {
+                if (err) {
                   next(err);
                 } else {
-                      if(!isCarted && (!req.user.isCandidate || !req.user.isAdmin)) {
-                        result.last_name = UtilityFunction.valueHide(result.last_name);
-                      }
+                  if (!isCarted && (!req.user.isCandidate || !req.user.isAdmin)) {
+                    result.last_name = UtilityFunction.valueHide(result.last_name);
+                  }
                   res.send({
                     'status': 'success',
                     'data': resu,
@@ -272,7 +265,7 @@ export function retrieve(req: express.Request, res: express.Response, next: any)
 
   }
   catch (e) {
-   next({
+    next({
       reason: e.message,
       message: e.message,
       stackTrace: new Error(),
@@ -308,7 +301,7 @@ export function get(req: express.Request, res: express.Response, next: any) { //
     }
   }
   catch (e) {
-   next({
+    next({
       reason: e.message,
       message: e.message,
       stackTrace: new Error(),
@@ -342,7 +335,7 @@ export function metchResult(req: express.Request, res: express.Response, next: a
 
   }
   catch (e) {
-   next({
+    next({
       reason: e.message,
       message: e.message,
       stackTrace: new Error(),
@@ -353,16 +346,16 @@ export function metchResult(req: express.Request, res: express.Response, next: a
 
 
 export function getList(req: express.Request, res: express.Response, next: any) {
-console.log('Remove this code');
+  console.log('Remove this code');
 }
 
-export function updateField(req:express.Request, res:express.Response, next:any) {
+export function updateField(req: express.Request, res: express.Response, next: any) {
   let candidateService = new CandidateService();
   try {
     let value: number = req.query.value;
-    let data:any = {$max: {'profile_update_tracking': Number(value)}};
-    let userId:string = req.params.id;
-    candidateService.updateField(userId, data, (error:any, result:any) => {
+    let data: any = {$max: {'profile_update_tracking': Number(value)}};
+    let userId: string = req.params.id;
+    candidateService.updateField(userId, data, (error: any, result: any) => {
       if (error) {
         next({
           reason: Messages.MSG_ERROR_FAILED_TO_UPDATE_CANDIDATE_FIELD,
