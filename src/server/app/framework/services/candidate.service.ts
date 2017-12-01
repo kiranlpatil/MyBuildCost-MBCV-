@@ -124,8 +124,10 @@ class CandidateService {
               callback(err, null);
               return;
             }
+            let config = require('config');
             let sendMailService = new SendMailService();
-            let data: Map<string,string> = new Map([['$first_name$', candidate.first_name],
+            let data: Map<string,string> = new Map([['$jobmosisLink$',config.get('TplSeed.mail.host')],
+              ['$first_name$', candidate.first_name],
               ['$app_name$', ProjectAsset.APP_NAME]]);
             sendMailService.send(recruiter.email,
               Messages.EMAIL_SUBJECT_CANDIDATE_REGISTRATION,
@@ -960,7 +962,8 @@ class CandidateService {
         }
         let config = require('config');
         let sendMailService = new SendMailService();
-        let data: Map<string, string> = new Map([['$link$', config.get('TplSeed.mail.host') + 'signin'],
+        let data: Map<string, string> = new Map([['$jobmosisLink$',config.get('TplSeed.mail.host')],
+          ['$link$', config.get('TplSeed.mail.host') + 'signin'],
           ['$firstname$', candidate.first_name],
           ['$jobtitle$', jobTitle], ['$recruiter$', recruiter[0].company_name]]);
         sendMailService.send(candidate.email,
@@ -981,8 +984,10 @@ class CandidateService {
           if (userError) {
             callback(userError, null);
           } else {
+            let config = require('config');
             let sendMailService = new SendMailService();
-            let data: Map<string, string> = new Map([['$first_name$', candidate.basicInformation.first_name],
+            let data: Map<string, string> = new Map([['$jobmosisLink$',config.get('TplSeed.mail.host')],
+              ['$first_name$', candidate.basicInformation.first_name],
               ['$app_name$', ProjectAsset.APP_NAME]]);
             sendMailService.send(userData[0].email,
               Messages.EMAIL_SUBJECT_CANDIDATE_REGISTRATION,
