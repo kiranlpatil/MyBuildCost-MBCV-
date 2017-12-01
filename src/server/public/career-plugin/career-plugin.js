@@ -1,6 +1,6 @@
 var userMobileNumber;
 var integrationKey;
-var careerPluginHost = 'http://localhost:8080';
+var careerPluginHost = 'http://34.214.128.209';
 function CareerPlugin() {
 
   this.applyForJob = function () {
