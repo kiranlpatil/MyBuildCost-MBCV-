@@ -11,9 +11,10 @@
 
 .compact-view {
   p {
+    color: $light-black1;
     float: left;
-    width: 100%;
     margin: 10px 0 0;
+    width: 100%;
   }
 
   &:hover {

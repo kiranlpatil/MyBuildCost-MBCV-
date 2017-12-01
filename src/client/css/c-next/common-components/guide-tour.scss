@@ -123,12 +123,13 @@
 
 .guided-tour-notes {
   bottom: 46px;
+  border: 1px solid $white;
   color: $white;
-  font-size: 18px;
-  padding: 0;
-  position: fixed;
+  font-size: 14px;
   left: 31px;
-  width: 79%;
+  padding: 0 14px;
+  position: fixed;
+  width: 36%;
   p {
     color: $white;
     font-weight: normal;

@@ -65,6 +65,7 @@ $bottom-border: #eaeaea;
 $reject-color: #f7941d;
 $password-label: #a3a3a3;
 $light-black1: #a0a0a0;
+$select-hover-bg: #b2eaf9;
 
 .btn-logout {
   margin-top: 15px;
@@ -457,7 +458,7 @@ select,
   padding: 9px 25px;
   font-weight: bold;
   border: 0;
-  font-size: 16px;
+  font-size: 14px;
   line-height: 20px;
   text-transform: uppercase;
 
@@ -920,6 +921,7 @@ cn-control-messages {
 }
 
 .mini-value-portrait-section {
+  width: 100%;
   .greenCircle {
     background: $active-green;
     .inner-circle {
@@ -1997,8 +1999,10 @@ select:focus {
   }
   &:hover {
     span {
-      background: $blue;
-      color: $white;
+      background: $select-hover-bg;
+      border: 1px solid transparent !important;
+      color: $theme-color;
+      box-shadow: 0 0 0 transparent !important;
     }
     .hover-list {
       opacity: 1;
@@ -2110,7 +2114,7 @@ img[alt] {
     font-size: 12px;
     font-family: gothamrnd-book;
     height: 30px;
-    line-height: 16px;
+    line-height: 12px;
     padding: 5px 25px;
     transition: background-color 0.2s ease-out;
     &:hover {

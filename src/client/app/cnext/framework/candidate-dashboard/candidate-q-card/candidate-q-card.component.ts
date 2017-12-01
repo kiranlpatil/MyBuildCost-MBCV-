@@ -26,7 +26,7 @@ export class CandidateQCardComponent implements OnInit {
   @Output() onAction = new EventEmitter();
   @Output() searchViewAction = new EventEmitter();
   @Output() jobComapare = new EventEmitter();
-  @Input() progress_bar_color: string = '#0d75fa';
+  @Input() progress_bar_color: string = '#00a79d';
   @Input() candidateIDFromSearchView: string;
   candidateId: string;
   private showModalStyle: boolean = false;
@@ -36,6 +36,7 @@ export class CandidateQCardComponent implements OnInit {
   inRejectListedStatusForSearchView: boolean = false;
   inShortListedStatusForSearchView: boolean = false;
   inAppliedListedStatusForSearchView: boolean = false;
+  inMatchListedStatusForSearchView: boolean = false;
 
   jobId: string;
   @ViewChild(JobCompareViewComponent) checkForGuidedTour: JobCompareViewComponent;
@@ -215,24 +216,29 @@ export class CandidateQCardComponent implements OnInit {
       }
     }
     if (this.inCartListedStatusForSearchView && this.inRejectListedStatusForSearchView == false) {
-      this.progress_bar_color = "#7264b5";
+      this.progress_bar_color = "#00a79d";
     }
     if (this.inRejectListedStatusForSearchView) {
-      this.progress_bar_color = "#ff5722";
+      this.progress_bar_color = "#e91d62";
     }
     if (this.inShortListedStatusForSearchView) {
       //this.progress_bar_color="'#7264b5'"
     }
     if (this.inAppliedListedStatusForSearchView && this.inCartListedStatusForSearchView == false) {
-      this.progress_bar_color = "#f7c72d";
+      this.progress_bar_color = "#f15a24";
     }
+    if(!this.inCartListedStatusForSearchView && !this.inRejectListedStatusForSearchView && !this.inAppliedListedStatusForSearchView) {
+      this.inMatchListedStatusForSearchView = true;
+    }
+
   }
 
   setClasses() {
     let classes = {
       inCartClass: (this.inCartListedStatusForSearchView && this.inRejectListedStatusForSearchView == false),
       inRejectClass: this.inRejectListedStatusForSearchView,
-      inAppliedClass: (this.inAppliedListedStatusForSearchView)
+      inAppliedClass: (this.inAppliedListedStatusForSearchView),
+      inMatching: (this.inMatchListedStatusForSearchView && !this.inAppliedListedStatusForSearchView)
     };
     return classes;
   }

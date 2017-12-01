@@ -63,22 +63,22 @@
     }
 
     &::before {
-      background-color: $blue;
+      background-color: $progress-bar-color;
       border-radius: 50%;
-      color: $white;
+      color: $black;
       content: counter(step);
       counter-increment: step;
       display: block;
       font-size: 12px;
-      height: 20px;
-      line-height: 18px;
+      height: 23px;
+      line-height: 22px;
       margin: 0 auto 10px;
       position: relative;
       text-align: center;
-      width: 20px;
+      width: 23px;
       z-index: 2;
       opacity: 1;
-      border: 1px solid $blue;
+      border: 1px solid $progress-bar-color;
     }
 
     &::after {
@@ -121,11 +121,18 @@
 
   .current {
     &::before {
-      background: $current !important;
-      opacity: 1;
-      border: 1px solid $current;
+      background: $current;
+      border: 2px solid $current;
       color: $white;
       content: counter(step);
+      justify-content: center;
+      align-items: center;
+      flex-shrink: 0;
+      background-clip: content-box;
+      font-size: .9rem;
+      padding: 0.1rem;
+      line-height: 15px;
+      opacity: 1;
     }
 
     &::after {
@@ -135,6 +142,7 @@
 
     p {
       border-bottom: 2px solid transparent;
+      color: $white;
       display: inline-block;
       opacity: 1;
       position: relative;
@@ -343,7 +351,7 @@
   }
 
   .bar {
-    margin: 7px auto;
+    margin: 4px auto 7px auto;
     padding: 0;
     width: 100%;
 

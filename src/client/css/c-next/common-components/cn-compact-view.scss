@@ -125,6 +125,7 @@
   }
 
   p {
+    color: $light-black1;
     font-family: 'gothamrnd-book';
     font-size: 12px;
     font-weight: 600;
@@ -152,10 +153,9 @@
     font-weight: 600;
     font-size: 12px;
     text-transform: capitalize;
-    background: $theme-color;
-    color: $white;
+    color: $light-black1;
     border-radius: 25px;
-    padding: 3px 15px;
+    padding: 3px 0;
   }
 
   .content {
@@ -187,12 +187,12 @@
         position: absolute;
         content: '';
         border-radius: 100%;
-        height: 8px;
-        width: 8px;
+        height: 7px;
+        width: 7px;
         top: 5px;
         left: -18px;
         margin: auto;
-        background: $theme-color;
+        background: $light-black1;
       }
     }
   }

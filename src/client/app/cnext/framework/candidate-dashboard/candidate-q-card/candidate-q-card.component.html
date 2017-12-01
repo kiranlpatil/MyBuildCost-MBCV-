@@ -132,9 +132,12 @@
           <div class="col-sm-12 no-padding">
             <cn-job-compare-view [typeOfView]="'spa_job'" [candiadteId]="candidateId" [jobId]="jobId"></cn-job-compare-view>
           </div>-->
+
           <div class="button-group" *ngIf="!hideButton">
-            <button class="btn btn-primary" (click)="applyJob()">Apply</button>
-            <button class="btn btn-danger" (click)="blockJob() ">Not Interested</button>
+            <div class="action-button">
+              <button class="btn btn-primary" (click)="applyJob()">Apply</button>
+              <button class="btn btn-primary" (click)="blockJob() ">Not Interested</button>
+            </div>
           </div>
         </div>
       </div>

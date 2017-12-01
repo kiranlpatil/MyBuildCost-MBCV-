@@ -95,7 +95,7 @@
       </li>
     </ul>
     <div id="matched-job" class="tab-pane fade in active "  *ngIf="selectedJobProfile!=undefined">
-      <cn-q-card-view (addForCompare)="addForCompare($event)" [progress_bar_color]="'#29b6f6'"
+      <cn-q-card-view (addForCompare)="addForCompare($event)" [progress_bar_color]="'#7264b5'"
                       (addedTocart)="AddedToCart($event)"
                       (changeSorting)="changeSorting($event)"
                       *ngIf="whichListVisible[0]" [candidateQlist]="candidateQlist"
@@ -108,7 +108,7 @@
 
     </div>
     <div id="cart-job" class="tab-pane fade"  *ngIf="selectedJobProfile!=undefined">
-      <cn-q-card-view (addForCompare)="addForCompare($event)" [progress_bar_color]="'#7264b5'"
+      <cn-q-card-view (addForCompare)="addForCompare($event)" [progress_bar_color]="'#00a79d'"
                       (addedTocart)="AddedToCart($event)" *ngIf="whichListVisible[1]" [candidateQlist]="candidateQlist"
                       (changeSorting)="changeSorting($event)"
                       [filterMeta]="filterMeta"
@@ -118,7 +118,7 @@
     </div>
     <div id="applied-job" class="tab-pane fade"  *ngIf="selectedJobProfile!=undefined">
       <cn-q-card-view (addForCompare)="addForCompare($event)" (addedTocart)="AddedToCart($event)"
-                      [progress_bar_color]="'#f7c72d'" *ngIf="whichListVisible[2]" [candidateQlist]="candidateQlist"
+                      [progress_bar_color]="'#f15a24'" *ngIf="whichListVisible[2]" [candidateQlist]="candidateQlist"
                       [filterMeta]="filterMeta"
                       (changeSorting)="changeSorting($event)"
                       [candidates]="candidateQlist.appliedCandidates" [type]="'applied'" [jobId]="jobId"
@@ -127,7 +127,7 @@
     </div>
     <div id="rejected-job" class="tab-pane fade"  *ngIf="selectedJobProfile!=undefined">
       <cn-q-card-view (addForCompare)="addForCompare($event)" (addedTocart)="AddedToCart($event)"
-                      [progress_bar_color]="'#ff5722'" *ngIf="whichListVisible[3]" [candidateQlist]="candidateQlist"
+                      [progress_bar_color]="'#e91d62'" *ngIf="whichListVisible[3]" [candidateQlist]="candidateQlist"
                       [filterMeta]="filterMeta"
                       (changeSorting)="changeSorting($event)"
                       [candidates]="candidateQlist.rejectedCandidates" [type]="'rejectedList'" [jobId]="jobId"

@@ -5,7 +5,7 @@
 
   .profile-name-first,
   .profile-name-last {
-    color: $light-blue;
+    color: $black-theme-color;
     background: none;
     font-family: 'gothamrnd-book';
     font-size: 14px;
@@ -17,9 +17,9 @@
 }
 
 .job-title {
-  color: $black;
+  color: $light-black1;
   font-family: 'gothamrnd-book';
-  font-size: 18px;
+  font-size: 14px;
   background: none;
   padding: 0;
   text-transform: capitalize;

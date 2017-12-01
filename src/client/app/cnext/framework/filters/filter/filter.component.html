@@ -1,12 +1,11 @@
 <div>
   <span class="glyphicon glyphicon-filter visible-xs" (click)="isFilterVisible = !isFilterVisible"></span>
-  <a *ngIf="showClearFilter" class="clear-filter" [class.recruiter-clear-filter]="isRecuirter" (click)="clearFilter()" >Clear all filters</a>
+  <a *ngIf="showClearFilter" class="clear-filter" [class.recruiter-clear-filter]="isRecuirter" (click)="clearFilter()" >Clear all</a>
   <form [formGroup]="userForm" (submit)="clearFilter()">
     <div [class.filter-bg]="isFilterVisible" (click)="isFilterVisible = false"></div>
     <div class="filter-container" [class.open-filter]="isFilterVisible" [class.recruiter-filter]="isRecuirter">
       <h4 class="candidate-filters-label hidden-xs" [class.open-filter]="isFilterVisible">
-        <span class="glyphicon glyphicon-filter filter-icons"></span>
-        <span *ngIf="isRecuirter">Candidate</span> Filters
+        <span *ngIf="isRecuirter"></span> {{getLabel().REFINE_BY}}
       </h4>
       <div class="inner col-sm-12">
         <h5 data-toggle="collapse" href="#education" (click)="openEducationPanel=!openEducationPanel"
@@ -25,7 +24,7 @@
             >Experience <b
           class="small-label">(In Year)</b></h5>
         <div id="experience" class="min-max-values clearfix  collapse">
-          <div class="col-sm-6 padding-right5">
+          <div class="col-sm-6 padding-left5 padding-right5">
             <label>Min</label>
             <select formControlName="experienceMin" (change)="selectExperiencesMinModel($event.target.value)">
               <option value="" selected></option>
@@ -52,7 +51,7 @@
             >Salary Range <b
           class="small-label">(In Lacs)</b></h5>
         <div id="salary" class="min-max-values clearfix collapse">
-          <div class="col-sm-6 padding-right5">
+          <div class="col-sm-6 padding-left5 padding-right5">
             <label>Min</label>
             <select formControlName="salaryMin" (change)="selectSalaryMinModel($event.target.value)">
               <option value="" selected></option>
@@ -112,7 +111,7 @@
           </div>
         </div>
 
-        <h5 data-toggle="collapse" href="#proficiencies" (click)="openKeyskillsPanel=!openKeyskillsPanel"
+        <h5 class="key-skills-filter" data-toggle="collapse" href="#proficiencies" (click)="openKeyskillsPanel=!openKeyskillsPanel"
             [ngClass]="{'panel-up': openKeyskillsPanel , 'panel-down': !openKeyskillsPanel }"
             >Key Skills</h5>
         <div id="proficiencies" class="collapse in">
@@ -127,7 +126,7 @@
         <h5 data-toggle="collapse" href="#lead-time" (click)="openJoiningPeriodPanel=!openJoiningPeriodPanel"
             [ngClass]="{'panel-up': openJoiningPeriodPanel , 'panel-down': !openJoiningPeriodPanel }"
             >Lead Time to Join</h5>
-        <div id="lead-time" class="collapse">
+        <div id="lead-time" class="collapse padding-left5">
           <select formControlName="timetojoin" (change)="filterByJoinTime($event.target.value)">
             <option value="" selected></option>
             <option value="{{itemList}}" *ngFor="let itemList of jointimeList">{{itemList}}</option>
@@ -137,7 +136,7 @@
         <h5 data-toggle="collapse" href="#industry-exposure" (click)="openDomainPanel=!openDomainPanel"
             [ngClass]="{'panel-up': openDomainPanel , 'panel-down': !openDomainPanel }"
             >Domain Exposure</h5>
-        <div id="industry-exposure" class="collapse">
+        <div id="industry-exposure" class="collapse padding-left5">
           <div *ngFor="let itemList of industryList">
             <label class="checkbox">
               <input formControlName="industry" type="checkbox" value="{{itemList}}"

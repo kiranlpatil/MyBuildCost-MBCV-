@@ -103,7 +103,7 @@
     }
 
     h6 {
-      color: $theme-color;
+      color: $dark-green;
       font-weight: 900;
       font-size: 13px;
       margin: 0 0 5px;
@@ -201,7 +201,7 @@
   }
 
   .canvas-container {
-    color: $theme-color;
+    color: $dark-green;
     float: none;
     margin: 0 auto;
     height: 90px;
@@ -225,7 +225,7 @@
       text-align: center;
       top: 73%;
       transform: translate(-50%, -50%) rotateY(180deg);
-      color: $theme-color;
+      color: $dark-green;
       font-size: 10px;
       padding: 0;
       border: 0;
@@ -234,6 +234,9 @@
 
   .details {
     padding: 0 10px;
+    p:last-child {
+      border: 0;
+    }
   }
 }
 
@@ -278,6 +281,10 @@ header {
       margin: 5px;
     }
 
+    label {
+      font-size: 12px;
+    }
+
     select {
       border: 0;
       border-bottom: 1px solid $gray;
@@ -286,8 +293,9 @@ header {
       background: transparent url(../assets/framework/images/form/drop-down.png) no-repeat 95% 50%;
       border-radius: 0;
       box-shadow: none;
-      padding: 6px;
-      width: 140px;
+      font-size: 12px;
+      padding: 5px;
+      width: 110px;
       display: inline-block;
     }
   }
@@ -315,24 +323,22 @@ header {
 }
 
 .clear-filter {
-  border: 1px solid $theme-color;
   color: $theme-color;
   font-size: 12px;
   padding: 7px 14px;
   position: fixed;
   top: 95px;
-  right: 420px;
-  z-index: 1000;
+  right: 0;
+  z-index: 99999;
   &:hover,
   &:focus,
   &:active {
-    border: 1px solid $theme-color;
     color: $theme-color;
   }
 }
 
 .recruiter-clear-filter {
-  top: 145px !important;
+  top: 137px !important;
 }
 
 #matched-job,
@@ -426,65 +432,65 @@ header {
   padding-top: 5px;
 }
 
-.icons-section {
-  .industry {
-    background: url(../assets/c-next/card-view/sprite.png) no-repeat -10px -8px;
-    width: 20px !important;
-    height: 20px;
-    position: absolute;
-    left: 0;
-  }
-  .salary {
-    background: url(../assets/c-next/card-view/sprite.png) no-repeat -10px -60px;
-    width: 20px !important;
-    height: 20px;
-    position: absolute;
-    left: 0;
-  }
-  .experience {
-    background: url(../assets/c-next/card-view/sprite.png) no-repeat -9px -87px;
-    width: 20px !important;
-    height: 20px;
-    position: absolute;
-    left: 0;
-  }
-  .current-location {
-    background: url(../assets/c-next/card-view/sprite.png) no-repeat -9px -34px;
-    width: 20px !important;
-    height: 20px;
-    position: absolute;
-    left: 0;
-  }
-  .education {
-    background: url(../assets/c-next/card-view/sprite.png) no-repeat -10px -167px;
-    width: 20px !important;
-    height: 20px;
-    position: absolute;
-    left: 0;
-  }
-  .company-size {
-    background: url(../assets/c-next/card-view/sprite.png) no-repeat -10px -114px;
-    width: 20px !important;
-    height: 20px;
-    position: absolute;
-    left: 0;
-  }
-  .date-posted {
-    background: url(../assets/c-next/card-view/sprite.png) no-repeat -10px -222px;
-    width: 20px !important;
-    height: 20px;
-    position: absolute;
-    left: 0;
-  }
+#cart-job,
+.inCartClass {
+  .icons-section {
+    .industry {
+      background: url(../assets/c-next/card-view/sprite.png) no-repeat -10px -8px;
+      width: 20px !important;
+      height: 20px;
+      position: absolute;
+      left: 0;
+    }
+    .salary {
+      background: url(../assets/c-next/card-view/sprite.png) no-repeat -10px -60px;
+      width: 20px !important;
+      height: 20px;
+      position: absolute;
+      left: 0;
+    }
+    .experience {
+      background: url(../assets/c-next/card-view/sprite.png) no-repeat -9px -87px;
+      width: 20px !important;
+      height: 20px;
+      position: absolute;
+      left: 0;
+    }
+    .current-location {
+      background: url(../assets/c-next/card-view/sprite.png) no-repeat -9px -34px;
+      width: 20px !important;
+      height: 20px;
+      position: absolute;
+      left: 0;
+    }
+    .education {
+      background: url(../assets/c-next/card-view/sprite.png) no-repeat -10px -167px;
+      width: 20px !important;
+      height: 20px;
+      position: absolute;
+      left: 0;
+    }
+    .company-size {
+      background: url(../assets/c-next/card-view/sprite.png) no-repeat -10px -114px;
+      width: 20px !important;
+      height: 20px;
+      position: absolute;
+      left: 0;
+    }
+    .date-posted {
+      background: url(../assets/c-next/card-view/sprite.png) no-repeat -10px -222px;
+      width: 20px !important;
+      height: 20px;
+      position: absolute;
+      left: 0;
+    }
 
-  .edit-profile-pic {
-    background: url(../assets/c-next/card-view/sprite.png) no-repeat -9px -304px;
-    width: 30px !important;
-    height: 30px;
-    display: block;
-  }
-  p:last-child {
-    border-bottom: 0 solid $border-color;
+    .edit-profile-pic {
+      background: url(../assets/c-next/card-view/sprite.png) no-repeat -9px -304px;
+      width: 30px !important;
+      height: 30px;
+      display: block;
+    }
   }
 }
 
@@ -574,7 +580,7 @@ header {
     }
   }
   .proficiencies-icon {
-    background: url("../assets/c-next/card-view/sprite.png") no-repeat -56px -141px;
+    background: url("../assets/c-next/card-view/sprite.png") no-repeat -48px -141px;
     width: 30px !important;
     height: 26px;
     position: absolute;
@@ -620,12 +626,22 @@ header {
   }
 }
 
+#applied {
+  .proficiencies-icon {
+    background: url("../assets/c-next/card-view/sprite.png") no-repeat -56px -141px;
+  }
+}
+
 #rejected,
 #rejected-job,
 .inRejectClass {
   .icons-section {
     .industry {
       background: url("../assets/c-next/card-view/pink-icons/industry.png") no-repeat 3px 1px;
+      width: 20px !important;
+      height: 20px;
+      position: absolute;
+      left: 0;
     }
     .salary {
       background: url(../assets/c-next/card-view/sprite.png) no-repeat -103px -60px;
@@ -710,11 +726,16 @@ header {
   }
 }
 
-#cart-job,
-.inCartClass {
+#matched,
+.inMatching,
+#matched-job {
   .icons-section {
     .industry {
-      background: url("../assets/c-next/card-view/purple-icons/industry.png") no-repeat 3px 8px;
+      background: url("../assets/c-next/card-view/purple-icons/industry.png") no-repeat 3px 1px;
+      width: 20px !important;
+      height: 20px;
+      position: absolute;
+      left: 0;
     }
     .salary {
       background: url(../assets/c-next/card-view/sprite.png) no-repeat -149px -60px;
@@ -833,6 +854,15 @@ header {
         visibility: hidden;
       }
     }
+  }
+}
+
+#matched-job,
+#cart-job,
+#applied-job,
+#rejected-job {
+  p:last-child {
+    border-bottom: 0 solid $border-color;
   }
 }
 
