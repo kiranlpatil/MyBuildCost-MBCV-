@@ -167,6 +167,8 @@ import {PageNotFoundComponent} from "./shared/page-not-found/page-not-found.comp
 import {AdminModule} from "./admin/admin.module";
 import {RecruiterAction} from "./cnext/framework/recruiter-action/recruiter-action.component";
 import {ActionOnQCardService} from "./user/services/action-on-q-card.service";
+import {ActionOnMyJobPostComponent} from "./cnext/framework/recruiter-dashboard/action-on-my-job-post/action-on-my-job-post.component";
+
 //C-NEXT IMPORTS
 
 
@@ -284,6 +286,7 @@ import {ActionOnQCardService} from "./user/services/action-on-q-card.service";
     ShareContainerComponent,
     PrintScreenComponent,
     JobCloseComponent,
+    ActionOnMyJobPostComponent,
     UserFeedbackComponent,
     CandidateRouteSwitchComponent,
     PageNotFoundComponent,

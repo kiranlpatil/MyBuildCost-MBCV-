@@ -1,0 +1,4 @@
+<button [innerHTML]="getLabel().CLONE_JOB" (click)="raiseCloneEvent()"></button>
+<button *ngIf="jobProfile.isJobPosted && !jobProfile.isJobPostClosed" (click)="renewJobPost()">Renew Job Post</button>
+<button *ngIf="!jobProfile.isJobPostClosed" (click)="closeJobPost()" [innerHTML]="getLabel().CLOSE_JOB"></button>
+<button *ngIf="!jobProfile.isJobPostClosed" (click)="onJobClicked(jobProfile._id,jobProfile.isJobPosted)" >View Job</button>

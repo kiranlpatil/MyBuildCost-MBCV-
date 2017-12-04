@@ -29,11 +29,14 @@
       <div class="dropdown clone-job-menu">
         <button class="btn dropdown-toggle btn-menu" type="button" data-toggle="dropdown"><span
                 class="glyphicon glyphicon-option-vertical"></span></button>
-        <ul class="dropdown-menu">
+        <!--<ul class="dropdown-menu">
           <li (click)="raiseCloneEvent(item)"><a>{{getLabel().CLONE_JOB}}</a></li>
           <li *ngIf="item.isJobPosted && !item.isJobPostClosed" (click)="renewJobPost(item)"><a>Renew Job Post</a></li>
           <li *ngIf="!item.isJobPostClosed" (click)="closeJobPost(item)"><a>{{getLabel().CLOSE_JOB}}</a></li>
-        </ul>
+        </ul>-->
+          <cn-action-on-my-job-post [jobProfile]="item" (selectedJobProfileEmitterForRenewJob)="renewJobPost($event)"
+                                    (selectedJobProfileEmitterForCloneJob)="raiseCloneEvent($event)"
+                                    (selectedJobProfileEmitterForCloseJob)="closeJobPost($event)"></cn-action-on-my-job-post>
       </div>
       <div class="panel clearfix" (click)="onJobClicked(item._id,item.isJobPosted)">
         <span class="glyphicon glyphicon-share" title="This job is shared with hiring manager." *ngIf="item.isJobShared && !item.isJobPosted"></span>
