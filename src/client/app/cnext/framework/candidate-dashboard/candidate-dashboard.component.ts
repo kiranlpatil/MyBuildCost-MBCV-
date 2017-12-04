@@ -186,6 +186,7 @@ export class CandidateDashboardComponent implements OnInit {
   showAppliedJobs() {
     /* this.qcardFilterService.clearFilter();*/
     this.typeOfListVisible = 'applied';
+    this.listName=EList.JOB_APPLIED;
     if (this.appliedJobs.length > 0) {
       return;
     }
@@ -206,6 +207,7 @@ export class CandidateDashboardComponent implements OnInit {
   }
 
   showRejectedJobs() {
+    this.listName=EList.JOB_NOT_INTERESTED;
     this.typeOfListVisible = 'rejected';
     if (this.blockedJobs.length > 0) {
       return;
@@ -227,6 +229,7 @@ export class CandidateDashboardComponent implements OnInit {
   }
 
   showMatchedJobs() {
+    this.listName=EList.JOB_MATCHED;
     this.typeOfListVisible = 'matched';
     if (this.jobList.length > 0) {
       return;
@@ -235,6 +238,7 @@ export class CandidateDashboardComponent implements OnInit {
   }
 
   showRecruitersMatchedJobs() {
+    this.listName=EList.JOB_MATCHED;
     this.typeOfListVisible = 'recruiters';
     if (this.jobList.length > 0) {
       return;
@@ -273,7 +277,7 @@ export class CandidateDashboardComponent implements OnInit {
     return Messages;
   }
 
-  changeFilter(obj: QCardFilter) {
+  changeFilter(obj: QCardFilter) {debugger
     this.appliedFilters = obj;
     if (EList.JOB_APPLIED === this.listName) {
       this.appliedFilters.listName = EList.JOB_APPLIED;
