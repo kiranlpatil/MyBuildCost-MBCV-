@@ -392,9 +392,9 @@
           These are candidate's extra key skills
         </h4>
         <div class="pull-left col-xs-8 no-padding text-left">
-          <div class="pull-left" *ngFor="let item of data.proficienciesUnMatch;let i = index"
-               style="padding-top: 6px;padding-right: 7px;">
-            <span >{{item}}<b *ngIf="i < data.proficienciesUnMatch.length-1">,</b></span>
+          <div class="pull-left" *ngFor="let item of data.proficiencies;let i = index"
+               style="padding-top: 6px;padding-right: 7px;" >
+            <span *ngIf="data.proficienciesMatch.indexOf(item)== -1 && data.proficienciesUnMatch.indexOf(item)== -1 " >{{item}}<b *ngIf="i < data.proficiencies.length-1">,</b></span>
           </div>
         </div>
       </div>
