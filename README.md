@@ -496,11 +496,21 @@ Step 2: Add this tag in html page.
 
 Step 3: Add below code to initilise/load plugin script.
 
+//Default colors is being used for header and button with this code.
+
 var docLoad = new CareerPlugin();
-docLoad.load()
+docLoad.load();
+
+or
+
+// If You want diffrent colors(other than existing) for header and button. You can set, see below code.
+// First parameter represent for header and second for buttton.
+
+var docLoad = new CareerPlugin();
+docLoad.load('#808080','#FF0000');
 
 Note: To avoid typescript compilation error use below declartion(If typescript).
- declare var CareerPluginLoad:any;
+ declare var CareerPlugin:any;
 
 
 # MySQL
