@@ -430,6 +430,7 @@ $ src/redis-server
    db.getCollection('candidates').createIndex({'proficiencies':1})
    db.getCollection('candidates').createIndex({'industry.name':1})
    db.getCollection('users').createIndex({'email':1})
+   db.getCollection('jobprofiles').createIndex({'recruiterId':1})
    
  
  //Script for performance branch to seperate the postedjobs from recruiter
