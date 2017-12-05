@@ -86,8 +86,8 @@
                     <img class="missing-img" src="assets/framework/images/dashboard/info-red.svg"/>
                     <div class="info-hover-section">
                       Job Experience Band {{job.experienceMinValue}} -
-                      {{job.experienceMaxValue}}<br/>
-                      {{candidateDetails.first_name}}'s Experience {{candidate.professionalDetails.experience}}
+                      {{job.experienceMaxValue}} {{getLabel().YEARS}} <br/>
+                      {{candidateDetails.first_name}}'s Experience {{candidate.professionalDetails.experience}} {{getLabel().YEARS}}
                     </div>
                   </div>
                 </label>
@@ -101,8 +101,9 @@
                     <img class="missing-img" src="assets/framework/images/dashboard/info-red.svg"/>
                     <div class="info-hover-section">
                       Job Salary Band {{job.salaryMinValue}} -
-                      {{job.salaryMaxValue}}<br/>
+                      {{job.salaryMaxValue}} {{getLabel().IN_LAKH}} <br/>
                       {{candidateDetails.first_name}}'s Salary {{candidate.professionalDetails.currentSalary}}
+                      {{getLabel().IN_LAKH}}
                     </div>
                   </div>
                 </label>
