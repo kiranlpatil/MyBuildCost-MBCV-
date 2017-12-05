@@ -12,14 +12,15 @@ import {QCardViewService} from "../recruiter-dashboard/q-card-view/q-card-view.s
 import {LocalStorageService} from "../../../shared/services/localstorage.service";
 import {UsageTrackingService} from "../usage-tracking.service";
 import {CandidateDetailsJobMatching} from "../model/candidate-details-jobmatching";
-import {MessageService} from "../../../shared/services/message.service";
-import {Message} from "../../../shared/models/message";
 import {SearchEvent} from "../model/search-event";
 import {SearchEventCompare} from "../model/search-event-compare";
 import {QCardFilter} from "../model/q-card-filter";
 import {ESort} from "../model/sort-type";
 import {EList} from "../model/list-type";
 import {UsageTracking} from "../model/usage-tracking";
+import { Message } from '../../../shared/models/message';
+import { MessageService } from '../../../shared/services/message.service';
+
 
 @Component({
   moduleId: module.id,
