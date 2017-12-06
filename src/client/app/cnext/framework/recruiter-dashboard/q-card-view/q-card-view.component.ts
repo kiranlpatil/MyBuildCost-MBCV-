@@ -400,12 +400,13 @@ export class QCardviewComponent implements OnChanges, OnInit {
     usageTrackingData.action = UsageActions.MATCHED_CANDIDATE_AGAINST_ALL_JOB_BY_RECRUITER;
     this.usageTrackingService.addUsesTrackingData(usageTrackingData).subscribe(
       data => {
-        this._router.navigate([nav, candidate._id]);
+
       },
       err => {
         this.errorService.onError(err);
       }
     );
+    this._router.navigate([nav, candidate._id]);
   }
 
   getButtons() {
