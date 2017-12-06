@@ -1,4 +1,4 @@
-import {Component, Input, Output, OnInit, EventEmitter} from "@angular/core";
+import {Component, Input, Output, OnInit, EventEmitter, OnChanges} from "@angular/core";
 import {CandidateProfileService} from "../../candidate-profile/candidate-profile.service";
 import {Candidate} from "../../../../user/models/candidate";
 import {ErrorService} from "../../../../shared/services/error.service";
@@ -17,11 +17,13 @@ import {ActionOnQCardService} from "../../../../user/services/action-on-q-card.s
   styleUrls: ['value-portrait.component.css']
 })
 
-export class ValuePortraitComponent implements OnInit {
+export class ValuePortraitComponent implements OnInit, OnChanges {
 
   candidate: Candidate = new Candidate();
   @Input() userId: string;
   @Input() isShareView: boolean;
+  @Input() isCapabilityAnswered: boolean;
+  @Input() isComplexityAnswered: boolean;
   @Input() isMiniView: boolean;
   @Output() candidateId: EventEmitter<string> = new EventEmitter<string>();
   gotItMessage: string = Headings.GOT_IT;
@@ -58,16 +60,30 @@ export class ValuePortraitComponent implements OnInit {
     if (this.isCandidate) {
       this.isRequireGuidedTourImg();
     }
-    // this.getCandidateAllDetails();
-    if (this.isMiniView) {
+    /*if (this.isMiniView) {
       this.complexityAnsweredService.makeCall()
         .subscribe(isAnswered => {
           this.isAnswered = isAnswered;
           this.getCandidateAllDetails();
         });
-    }
+    }*/
     this.getCandidateAllDetails();
     console.log('is miniVIew = ', this.isMiniView);
+  }
+
+  ngOnChanges(changes: any) {
+    if (changes.isCapabilityAnswered!== undefined
+      && changes.isCapabilityAnswered.currentValue !== undefined) {
+      if (this.isMiniView) {
+        this.getCandidateAllDetails();
+      }
+    }
+    if (changes.isComplexityAnswered!== undefined
+      && changes.isComplexityAnswered.currentValue !== undefined) {
+      if (this.isMiniView) {
+        this.getCandidateAllDetails();
+      }
+    }
   }
 
   getCandidateAllDetails() {

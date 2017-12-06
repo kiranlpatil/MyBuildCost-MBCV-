@@ -65,6 +65,7 @@ export class CandidateProfileComponent implements OnInit, DoCheck, OnDestroy {
   differ: any;
   public navIsFixed: boolean = false;
   public isOthers: boolean;
+  callFrom: string;
 
   constructor(private _router: Router,
               private complexityService: ComplexityService,
@@ -193,7 +194,8 @@ export class CandidateProfileComponent implements OnInit, DoCheck, OnDestroy {
     this.candidateForRole = this.candidate.industry.roles;
     this.candidateForComplexity = this.candidate.industry.roles;
     this.candidate.userFeedBack = new Array();
-    this.saveCandidateDetails();
+    this.callFrom = 'default';
+    this.saveCandidateDetails('capability');
     this.whichStepsVisible[2] = true;
   }
 
@@ -210,7 +212,8 @@ export class CandidateProfileComponent implements OnInit, DoCheck, OnDestroy {
     date.setDate(date.getDate() + 90);
     this.candidate.lockedOn = date;
     this.highlightedSection.date = date;
-    this.saveCandidateDetails();
+    this.callFrom = 'default';
+    this.saveCandidateDetails('complexity');
     this.showProficiency = true;
   }
 
@@ -220,7 +223,7 @@ export class CandidateProfileComponent implements OnInit, DoCheck, OnDestroy {
     }
     this.candidate.proficiencies = proficiency;
     this.highlightedSection.isProficiencyFilled = true;
-    this.saveCandidateDetails();
+    this.saveCandidateDetails('proficiency');
     this.whichStepsVisible[4] = true;
   }
 
@@ -529,10 +532,16 @@ export class CandidateProfileComponent implements OnInit, DoCheck, OnDestroy {
     this.saveCandidateDetails();
   }
 
-  saveCandidateDetails() {
+  saveCandidateDetails(section?: string) {
     this.profileCreatorService.addProfileDetail(this.candidate).subscribe(
-      user => console.log(user),
+      user => this.onSaveCandidateDetails(section),
       error => this.errorService.onError(error));
+  }
+
+  onSaveCandidateDetails(section?: string) {
+   if(section) {
+    this.callFrom = section;
+   }
   }
 
   onSubmit() {

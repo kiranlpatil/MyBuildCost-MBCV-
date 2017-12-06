@@ -51,7 +51,7 @@
 
       </div>
 
-      <cn-capabilities [roles]="rolesForCapability" [candidateRoles]="candidateForCapability"
+      <cn-capabilities [roles]="rolesForCapability" [candidateRoles]="candidateForCapability" [callFrom]="callFrom"
                        [highlightedSection]="highlightedSection"
                        (onComplete)="onCapabilityComplete($event)" [hidden]="!showCapability"></cn-capabilities>
 
@@ -61,7 +61,7 @@
                          [isComplexityPresent]="isComplexityPresent" [complexityNotes]="candidate.complexity_note_matrix"
                          (onComplextyAnswered)="onComplextyAnswered($event)"
                          (onComplete)="onComplexityComplete($event)" [hidden]="!showComplexity"
-                         (popUpFeedBackAnswer)="popUpFeedBackAnswer($event)"></cn-complexities>
+                         (popUpFeedBackAnswer)="popUpFeedBackAnswer($event)" [callFrom]="callFrom"></cn-complexities>
       </div>
       <div class="wrapper">
         <cn-proficiencies [choosedproficiencies]="candidate.proficiencies"

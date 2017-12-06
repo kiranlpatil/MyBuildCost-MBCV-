@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import {Component, EventEmitter, Input, Output, DoCheck, KeyValueDiffers} from '@angular/core';
 import { Role } from '../model/role';
 import { Capability } from '../../../user/models/capability';
 import { Headings, ImagePath, LocalStorage, Messages, Tooltip, ValueConstant } from '../../../shared/constants';
@@ -22,6 +22,7 @@ export class CapabilitiesComponent {
     @Input() candidateRoles: Role[] = [];
   @Output() onComplete = new EventEmitter();
   @Input() highlightedSection: Section;
+  @Input() callFrom: string;
   candidateCapabilityMessage:string = Headings.CAPABILITIES_FOR_CANDIDATE;
   recruiterCapabilityMessage:string = Headings.CAPABILITIES_FOR_RECRUITER;
   gotItMessage:string = Headings.GOT_IT;
@@ -34,6 +35,7 @@ export class CapabilitiesComponent {
   private primaryCapabilitiesNumber: number = 0;
   private disableButton: boolean = true;
   isCandidate: boolean = false;
+  differ: any;
   private isValid: boolean = true;
   private validationMessage = Messages.MSG_ERROR_VALIDATION_CAPABILITIES_REQUIRED_RECRUITER;
   private capabilitiesCodes : string[]= new Array(0);
@@ -43,6 +45,7 @@ export class CapabilitiesComponent {
   isGuideImg:boolean = false;
   private isInfoMessage: boolean = false;
   userId: string;
+  isCapabilityAnswered: boolean = false;
 
   tooltipCandidateMessage: string =
 
@@ -98,7 +101,14 @@ export class CapabilitiesComponent {
       }
     }
     this.primaryCapabilitiesNumber = this.primaryNames.length;
+    if(changes.callFrom && changes.callFrom.currentValue) {
+        this.callFrom = changes.callFrom.currentValue;
+      if(this.callFrom == 'capability') {
+        this.isCapabilityAnswered = !this.isCapabilityAnswered;
+      }
+    }
   }
+
 
   selectedCapability(selectedRole: Role, selectedCapability: Capability, event: any) {
     selectedCapability.complexities=[];
@@ -120,7 +130,8 @@ export class CapabilitiesComponent {
         }
         selectedCapability.isPrimary = true;
         this.primaryNames.push(selectedCapability.name);
-        this.complexityAnsweredService.change(true);
+       // this.isCapabilityAnswered = true;
+       // this.complexityAnsweredService.change(true);
         this.saveOnSelect();
 
       } else {
@@ -130,6 +141,7 @@ export class CapabilitiesComponent {
         this.validationMessage = Messages.MSG_ERROR_VALIDATION_MAX_CAPABILITIES_CROSSED;
         /*this.secondaryNames.push(selectedCapability.name);
         selectedCapability.isSecondary = true;*/
+       // this.isCapabilityAnswered = true;
       }
     } else {
       if (selectedCapability.isPrimary) {
@@ -142,11 +154,12 @@ export class CapabilitiesComponent {
         this.primaryNames.splice(this.primaryNames.indexOf(selectedCapability.code), 1);
         selectedCapability.isPrimary = false;
         //this.complexityAnsweredService.change(true);
+       // this.isCapabilityAnswered = true;
         this.saveOnSelect();
       } else if (selectedCapability.isSecondary) {
         /*this.secondaryNames.splice(this.secondaryNames.indexOf(selectedCapability.name), 1);
         selectedCapability.isSecondary = false;*/
-
+       // this.isCapabilityAnswered = false;
       }
     }
   }
@@ -194,8 +207,8 @@ export class CapabilitiesComponent {
       });
     }
     this.onComplete.emit(newselectedRoles);*/
-    this.complexityAnsweredService.change(true);
-
+    //this.complexityAnsweredService.change(true);
+    //  this.isCapabilityAnswered = true;
       window.scrollTo(0, 0);
   }
 
@@ -301,11 +314,16 @@ export class CapabilitiesComponent {
       let tempRole =Object.assign({}, role);
       newselectedRoles.push(tempRole);
       tempRole.capabilities= tempRole.capabilities.filter((cap : Capability)=> {
+       // this.isCapabilityAnswered = true;
         return cap.isPrimary;
       });
     }
     this.onComplete.emit(newselectedRoles);
-    this.complexityAnsweredService.change(true);
+   // this.complexityAnsweredService.change(true);
+   // this.isCapabilityAnswered = true;
+    /*if(this.callFrom === 'capability') {
+      this.isCapabilityAnswered = !this.isCapabilityAnswered;
+    }*/
   }
 
   navigateToWithId(nav:string) {
