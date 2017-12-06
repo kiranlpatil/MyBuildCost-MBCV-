@@ -67,7 +67,7 @@ export class ProficienciesComponent {
     this.complexityAnsweredService.change(true);
   }
 
-  showGuideTour() {
+  showGuidedTour() {
     let guidedTourImages = LocalStorageService.getLocalValue(LocalStorage.GUIDED_TOUR);
     let newArray = JSON.parse(guidedTourImages);
     if (newArray && newArray.indexOf(ImagePath.CANDIDATE_OERLAY_SCREENS_KEY_SKILLS) == -1) {

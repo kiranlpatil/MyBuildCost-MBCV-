@@ -515,7 +515,7 @@ export class CandidateProfileComponent implements OnInit, DoCheck, OnDestroy {
   }
 
   showProficiencyGuidedTour() {
-    this.proficiencyClassObject.showGuideTour();
+    this.proficiencyClassObject.showGuidedTour();
   }
 
   dateDifferenceInDays(currentDate: Date, storedDate: Date) {
