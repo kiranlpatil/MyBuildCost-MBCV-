@@ -12,14 +12,15 @@ import {QCardViewService} from "../recruiter-dashboard/q-card-view/q-card-view.s
 import {LocalStorageService} from "../../../shared/services/localstorage.service";
 import {UsageTrackingService} from "../usage-tracking.service";
 import {CandidateDetailsJobMatching} from "../model/candidate-details-jobmatching";
-import {MessageService} from "../../../shared/services/message.service";
-import {Message} from "../../../shared/models/message";
 import {SearchEvent} from "../model/search-event";
 import {SearchEventCompare} from "../model/search-event-compare";
 import {QCardFilter} from "../model/q-card-filter";
 import {ESort} from "../model/sort-type";
 import {EList} from "../model/list-type";
 import {UsageTracking} from "../model/usage-tracking";
+import { Message } from '../../../shared/models/message';
+import { MessageService } from '../../../shared/services/message.service';
+
 
 @Component({
   moduleId: module.id,
@@ -98,6 +99,7 @@ export class CandidateSearchComponent implements OnChanges {
     usageTrackingData.recruiterId = LocalStorageService.getLocalValue(LocalStorage.END_USER_ID);
     usageTrackingData.candidateId = item.id;
     this.usageTrackingService.addUsesTrackingData(usageTrackingData).subscribe(
+      (res: any) => {},
       error => this.errorService.onError(error));
     this._router.navigate(['/recruiter/search', item.id]);
   }
@@ -178,13 +180,13 @@ export class CandidateSearchComponent implements OnChanges {
   workFlowAction(actionData: SearchEvent) {
     this.qCardViewService.updateCandidateLists(actionData.job._id, this.candidateId, actionData.actionName, 'add').subscribe(
       data => {
-        let message = new Message();
-        message.isError = false;
-        if (actionData.actionName == ValueConstant.CART_LISTED_CANDIDATE) {
-          message.custom_message = 'Candidate ' + this.candidateDetails.first_name + ' ' + this.candidateDetails.last_name + ' is added to your cart for job ' + actionData.job.jobTitle + '.';
-        } else {
-          message.custom_message = 'Candidate ' + this.candidateDetails.first_name + ' ' + this.candidateDetails.last_name + ' is rejected  for job ' + actionData.job.jobTitle + ' and moved to the rejected list.';
-        }
+    let message = new Message();
+    message.isError = false;
+    if (actionData.actionName == ValueConstant.CART_LISTED_CANDIDATE) {
+      message.custom_message = 'Candidate ' + this.candidateDetails.first_name + ' ' + this.candidateDetails.last_name + ' is added to your cart for job ' + actionData.job.jobTitle + '.';
+    } else {
+      message.custom_message = 'Candidate ' + this.candidateDetails.first_name + ' ' + this.candidateDetails.last_name + ' is rejected  for job ' + actionData.job.jobTitle + ' and moved to the rejected list.';
+    }
         this.messageService.message(message);
         this.getJobProfiles(this.candidateId);
       }, error => this.errorService.onError(error)

@@ -82,8 +82,8 @@ header {
 }
 
 .proficiencies-key-skills:hover > .tooltip-content-new {
-  opacity: 1;
-  visibility: visible;
+  opacity: 0;
+  visibility: hidden;
 }
 
 .proficiencies-key-skills .tooltip-content-new:after {
@@ -113,7 +113,7 @@ header {
 .active-shortlist-icon {
   background: url(../../assets/c-next/card-view/sprite.png) no-repeat -87px -790px;
   @extend .star-icon;
-  visibility: hidden;
+  visibility: visible;
 }
 
 .shortlist-icon {

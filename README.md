@@ -423,50 +423,60 @@ $ src/redis-server
     }
    })
    
+       - Version : 1.1.4
+       - Date : 25 nov 2017
+       - image path change
+       - Update Script
+    //Script for image path on Demo for user and recruiter table 
+     
+     db.getCollection('users').find({'picture':{'$exists':true}}).forEach(function(user) {
+     if(user.picture){
+     var pic = user.picture;
+     print(pic.substr(pic.lastIndexOf('/') + 1));
+     pic = '/public/profileImage/'+pic.substr(pic.lastIndexOf('/') + 1);
+     print(user._id,pic);
+     user.picture=pic.replace(/"/g, "");
+     db.getCollection('users').update(
+          {"_id":user._id},user);
+          print("success:" + user._id);
+     }
+     })
+     
+     db.getCollection('recruiters').find({'company_logo':{'$exists':true}}).forEach(function(user) {
+     if(user.company_logo){
+     var pic = user.company_logo;
+     print(pic.substr(pic.lastIndexOf('/') + 1));
+     pic = '/public/profileImage/'+pic.substr(pic.lastIndexOf('/') + 1);
+     print(user._id,pic);
+     user.company_logo=pic.replace(/"/g, "");
+     db.getCollection('recruiters').update(
+          {"_id":user._id},user);
+          print("success:" + user._id);
+     }
+     })
+   
+    - Version : 1.1.4
+    - Date : 5 dec 2017
+    - performance branch changes done 
+    - Update Script
+   
    //script to create the indexes on table 
    db.getCollection('candidates').createIndex({'professionalDetails.experience':-1})
-   db.getCollection('candidates').createIndex({'professionalDetails.salary':1})
+   db.getCollection('candidates').createIndex({'professionalDetails.currentSalary':1})
    db.getCollection('candidates').createIndex({'location.city':1})
    db.getCollection('candidates').createIndex({'proficiencies':1})
    db.getCollection('candidates').createIndex({'industry.name':1})
    db.getCollection('users').createIndex({'email':1})
+   db.getCollection('jobprofiles').createIndex({'recruiterId':1})
    
  
  //Script for performance branch to seperate the postedjobs from recruiter
- db.getCollection('recruiters').find({}).forEach(function(recruiter) {
+  db.getCollection('recruiters').find({}).forEach(function(recruiter) {
    for(var i = 0;i <= recruiter.postedJobs.length-1; i++){
        var jobprofile = recruiter.postedJobs[i];
    jobprofile.recruiterId = recruiter._id;
    db.getCollection('jobprofiles').insert(jobprofile);
    }
-  })
-  
-  //Script for image path on Demo for user and recruiter table 
-  
-  db.getCollection('users').find({'picture':{'$exists':true}}).forEach(function(user) {
-  if(user.picture){
-  var pic = user.picture;
-  print(pic.substr(pic.lastIndexOf('/') + 1));
-  pic = '/public/profileImage/'+pic.substr(pic.lastIndexOf('/') + 1);
-  print(user._id,pic);
-  user.picture=pic.replace(/"/g, "");
-  db.getCollection('users').update(
-       {"_id":user._id},user);
-       print("success:" + user._id);
-  }
-  })
-  
-  db.getCollection('recruiters').find({'company_logo':{'$exists':true}}).forEach(function(user) {
-  if(user.company_logo){
-  var pic = user.company_logo;
-  print(pic.substr(pic.lastIndexOf('/') + 1));
-  pic = '/public/profileImage/'+pic.substr(pic.lastIndexOf('/') + 1);
-  print(user._id,pic);
-  user.company_logo=pic.replace(/"/g, "");
-  db.getCollection('recruiters').update(
-       {"_id":user._id},user);
-       print("success:" + user._id);
-  }
   })
   
   // script to update experience 
@@ -482,25 +492,53 @@ $ src/redis-server
   }
   
   
+  //removed optional keyskill from jobprofiles
+  db.getCollection('jobProfiles').find().forEach(function(profile) {
+    if(profile.additionalProficiencies && profile.additionalProficiencies.length > 0){
+      if(profile.proficiencies==undefined){
+      profile.proficiencies=[];
+      }else{
+        for(let i of profile.additionalProficiencies){
+          profile.proficiencies.push(i);
+        }
+      }  
+      profile.additionalProficiencies=[];
+      db.getCollection('jobProfiles').update(
+           {"_id":profile._id},profile);
+           print("success:" + profile._id);
+    }
+  })
+  
+  
   
 #Jobmosis Career_plugin 
 
 Step 1:Inject these two script/link in index.html
 
-<script src="http://localhost:3000/public/career-plugin/career-plugin.js"></script>
-<link rel="stylesheet" href="http://localhost:3000/public/career-plugin/career-plugin.css">
+<script src="http://34.214.128.209/public/career-plugin/career-plugin.js"></script>
+<link rel="stylesheet" href="http://34.214.128.209/public/career-plugin/career-plugin.css">
 
 Step 2: Add this tag in html page.
 
-<div id="jobmosis-career-plugin" name="myIntegrationKey" style="position: absolute;top: 75px;"></div>
+<div id="jobmosis-career-plugin" name="myIntegrationKey" draggable="true" style="position: absolute;top: 75px;" ></div>
 
 Step 3: Add below code to initilise/load plugin script.
 
+//Default colors is being used for header and button with this code.
+
 var docLoad = new CareerPlugin();
-docLoad.load()
+docLoad.load();
+
+or
+
+// If You want diffrent colors(other than existing) for header and button. You can set, see below code.
+// First parameter represent for header and second for buttton.
+
+var docLoad = new CareerPlugin();
+docLoad.load('#808080','#FF0000');
 
 Note: To avoid typescript compilation error use below declartion(If typescript).
- declare var CareerPluginLoad:any;
+ declare var CareerPlugin:any;
 
 
 # MySQL

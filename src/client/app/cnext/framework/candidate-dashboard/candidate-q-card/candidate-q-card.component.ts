@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, Output, ViewChild, OnInit} from "@angular/core";
 import {JobQcard} from "../../model/JobQcard";
-import {AppSettings, LocalStorage, UsageActions, ValueConstant} from "../../../../shared/constants";
+import {AppSettings, Label, LocalStorage, UsageActions, ValueConstant} from "../../../../shared/constants";
 import {LocalStorageService} from "../../../../shared/services/localstorage.service";
 import {CandidateDashboardService} from "../candidate-dashboard.service";
 import {Message} from "../../../../shared/models/message";
@@ -244,7 +244,6 @@ export class CandidateQCardComponent implements OnInit {
   }
 
   onCompanyWebsiteClick(websiteLink: string) {
-    debugger
     if (websiteLink.indexOf('http') === 0 || websiteLink.indexOf('https') === 0) {
       let host = websiteLink;
       window.open(host, '_blank');
@@ -252,6 +251,10 @@ export class CandidateQCardComponent implements OnInit {
       let host = AppSettings.HTTP_CLIENT + websiteLink;
       window.open(host, '_blank');
     }
+  }
+
+  getLabel() {
+    return Label;
   }
 
 }

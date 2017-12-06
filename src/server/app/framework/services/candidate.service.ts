@@ -68,6 +68,7 @@ class CandidateService {
           } else {
             item.password = hash;
             item.isCandidate = true;
+            item.created_date = new Date();
             this.userRepository.create(item, (err, res) => {
               if (err) {
                 callback(new Error(Messages.MSG_ERROR_REGISTRATION_MOBILE_NUMBER), null);
@@ -120,15 +121,19 @@ class CandidateService {
               callback(err, null);
               return;
             }
-            var subject = (candidate.login) ?
+            let subject = (candidate.login) ?
               Messages.EMAIL_SUBJECT_EXISTING_CANDIDATE_LOGGEDIN : Messages.EMAIL_SUBJECT_CANDIDATE_REGISTRATION;
+            let template = (candidate.login) ?
+              'existing-candidate-logged-in.html' : 'new-candidate-registration.html';
             let config = require('config');
             let sendMailService = new SendMailService();
             let data: Map<string, string> = new Map([['$jobmosisLink$', config.get('TplSeed.mail.host')],
               ['$first_name$', candidate.first_name],
-              ['$app_name$', ProjectAsset.APP_NAME]]);
+              ['$mobile_number$', candidate.mobile_number],
+              ['$email$', candidate.email],
+              ['$app_name$', ProjectAsset.APP_NAME],]);
             sendMailService.send(recruiter.email, subject,
-              'new-candidate-registration.html', data, (e, status) => {
+              template, data, (e, status) => {
                 if (e) {
                   callback(e, null);
                   return;
@@ -890,27 +895,30 @@ class CandidateService {
           if (err) {
             callback(err, null);
           } else {
-            this.jobProfileRepository.retrieve({'recruiterId': recruiterDetails[0]._id}, (error: any, jobs: any[]) => {
-              if (error) {
-                callback(error, null);
-              }
-              let isInCart = false;
-              for (let job of jobs) {
-                for (let item of job.candidate_list) {
-                  if (item.name === 'cartListed') {
-                    if (item.ids.indexOf(new mongoose.Types.ObjectId(candidateDetails.candidateId).toString()) !== -1) {
-                      isInCart = true;
-                      break;
+            if(recruiterDetails.length > 0){
+              this.jobProfileRepository.retrieve({'recruiterId': recruiterDetails[0]._id}, (error: any, jobs: any[]) => {
+                if (error) {
+                  callback(error, null);
+                }
+                let isInCart = false;
+                for (let job of jobs) {
+                  for (let item of job.candidate_list) {
+                    if (item.name === 'cartListed') {
+                      if (item.ids.indexOf(new mongoose.Types.ObjectId(candidateDetails.candidateId).toString()) !== -1) {
+                        isInCart = true;
+                        break;
+                      }
                     }
                   }
+                  if (isInCart) {
+                    break;
+                  }
                 }
-                if (isInCart) {
-                  break;
-                }
-              }
-              callback(err, isInCart);
-            });
-
+                callback(err, isInCart);
+              });
+            }else {
+              callback(err,true);
+            }
           }
         });
       }

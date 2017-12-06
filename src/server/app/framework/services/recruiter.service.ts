@@ -58,6 +58,7 @@ class RecruiterService {
       } else {
         item.isActivated = false;
         item.isCandidate = false;
+        item.created_date = new Date();
         const saltRounds = 10;
         bcrypt.hash(item.password, saltRounds, (err: any, hash: any) => {
           if (err) {
@@ -108,7 +109,7 @@ class RecruiterService {
 
   getJobsByRecruiterId(id: string, callback: (err: Error, res: IJobProfile[]) => void) {
     let query = {'recruiterId': new mongoose.Types.ObjectId(id)};
-    this.jobProfileRepository.retrieveAndPopulate(query, {}, (error: Error, jobs: IJobProfile[]) => {
+    this.jobProfileRepository.retrieveAndPopulate(query, {'industry': 0}, (error: Error, jobs: IJobProfile[]) => {
       if (error) {
         callback(error, null);
         return;

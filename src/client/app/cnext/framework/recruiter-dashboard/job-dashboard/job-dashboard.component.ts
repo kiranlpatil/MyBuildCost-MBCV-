@@ -42,9 +42,7 @@ export class JobDashboardComponent implements OnInit, OnChanges {
   selectedJobTitle: string;
   isCloneButtonClicked: boolean;
   selectedJobProfile: JobPosterModel = new JobPosterModel();
-  /*sortBy : string = 'Best match';*/
   sortBy : ESort = ESort.BEST_MATCH;
-  /*listName : string= ValueConstant.MATCHED_CANDIDATE;*/
   listName : EList = EList.CAN_MATCHED;
   @ViewChild(QCardviewComponent) acaQcardClassObject: QCardviewComponent;
   private candidateQlist: CandidateQListModel = new CandidateQListModel();
@@ -101,9 +99,9 @@ export class JobDashboardComponent implements OnInit, OnChanges {
     this.jobDashboardService.getPostedJobDetails(this.jobId)
       .subscribe(
         (data: any) => {
-          this.isRecruitingForSelf = true; // todo remove this hardcode //data.data.industry.isRecruitingForself;
+          this.isRecruitingForSelf = data.result.recruiterId.isRecruitingForself;
           this.selectedJobProfile = data.result;
-          this.recruiterId = data.result.recruiterId;
+          this.recruiterId = data.result.recruiterId._id;
           this.getMatchingProfiles();
           this.renewJobPostService.checkJobPostExpiryDate(this.selectedJobProfile);
           for (let item of this.selectedJobProfile.candidate_list) {
@@ -119,7 +117,7 @@ export class JobDashboardComponent implements OnInit, OnChanges {
 
   getMatchingProfiles() {
     /* this.qcardFilterService.clearFilter();*/
-   /*this.listName = ValueConstant.MATCHED_CANDIDATE*/;
+   /*this.listName = ValueConstant.MATCHED_CANDIDATE*/
     this.listName = EList.CAN_MATCHED;
     for (let i = 0; i < this.whichListVisible.length; i++) {
       this.whichListVisible[i] = false;
@@ -288,7 +286,7 @@ export class JobDashboardComponent implements OnInit, OnChanges {
       this.listOfCandidateIdToCompare.splice(this.profileComparison.profileComparisonData.indexOf(data.item._id), 1);
       this.recruiterJobView.numberOfCandidatesInCompare--;
       //this.profileCompareService.change(compareAction);
-     // this.acaQcardClassObject.actionOnQCardFromParent(compareAction);
+     this.acaQcardClassObject.actionOnQCardFromParent(compareAction);
 
     } else if (data.action == 'Reject') {
      // var compareAction: any;
@@ -311,9 +309,8 @@ export class JobDashboardComponent implements OnInit, OnChanges {
       this.profileComparison.profileComparisonData.splice(this.profileComparison.profileComparisonData.indexOf(data.item), 1);
       this.listOfCandidateIdToCompare.splice(this.profileComparison.profileComparisonData.indexOf(data.item._id), 1);
       this.recruiterJobView.numberOfCandidatesInCompare--;
-      //this.acaQcardClassObject.actionOnQCardFromParent(compareAction);
+      this.acaQcardClassObject.actionOnQCardFromParent(compareAction);
     }
-    this.acaQcardClassObject.actionOnQCardFromParent(compareAction);
   }
 
   changeSorting(sortBy: ESort) {

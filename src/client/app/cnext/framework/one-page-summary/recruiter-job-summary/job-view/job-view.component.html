@@ -16,13 +16,14 @@
         <h4>Supplimentary Capabilities</h4>
         <cn-horizontal-list-view [data]="secondaryCapabilities"></cn-horizontal-list-view>
       </div>-->
-      <div class="col-sm-12 proficiency-compare-section-area">
+      <div class="col-sm-12 proficiency-compare-section-area" *ngIf="job.proficiencies != undefined && job.proficiencies.length>0">
         <div class="pull-left col-xs-3 no-padding text-left">
           <h4>Key Skills</h4>
         </div>
         <div class="pull-left col-xs-8 no-padding text-left">
-          <div class="pull-left" style="padding-top: 6px;padding-right: 7px; font-size: 12px;" *ngFor="let item of job.proficiencies;let i = index">
-            <span>{{item}}</span>,
+          <div class="pull-left" style="padding-top: 6px;font-size: 12px;" *ngFor="let item of job.proficiencies;let i = index">
+            <span>{{item}}</span>
+            <span *ngIf="job.proficiencies.length>1 && i!=job.proficiencies.length -1">,&nbsp;</span>&nbsp;
           </div>
         </div>
       </div>
@@ -32,8 +33,9 @@
           <h4>Additional Key Skills</h4>
         </div>
         <div class="pull-left col-xs-8 no-padding text-left">
-          <div class="pull-left" style="padding-top: 6px;padding-right: 7px; font-size: 12px;" *ngFor="let item of job.additionalProficiencies;let i = index">
-            <span>{{item}}</span>,
+          <div class="pull-left" style="padding-top: 6px;font-size: 12px;" *ngFor="let item of job.additionalProficiencies;let i = index">
+            <span>{{item}}</span>
+            <span *ngIf="job.additionalProficiencies.length>1 && i!=job.additionalProficiencies.length -1">,&nbsp;</span>&nbsp;
           </div>
         </div>
       </div>
