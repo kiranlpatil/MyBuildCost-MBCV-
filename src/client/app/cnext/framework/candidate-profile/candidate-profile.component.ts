@@ -22,6 +22,7 @@ import {LocalStorageService} from "../../../shared/services/localstorage.service
 import {UserFeedback} from "../user-feedback/userFeedback";
 import {SessionStorageService} from "../../../shared/services/session.service";
 import {ProficienciesComponent} from "../proficiencies/proficiencies.component";
+import {AnalyticService} from "../../../shared/services/analytic.service";
 
 @Component({
   moduleId: module.id,
@@ -73,7 +74,8 @@ export class CandidateProfileComponent implements OnInit, DoCheck, OnDestroy {
   public navIsFixed: boolean = false;
   public isOthers: boolean;
   @ViewChild(ProficienciesComponent) proficiencyClassObject: ProficienciesComponent;
-  constructor(private _router: Router,
+
+  constructor(private analyticService: AnalyticService, private _router: Router,
               private complexityService: ComplexityService,
               private differs: KeyValueDiffers,
               private messageService: MessageService,
@@ -88,7 +90,9 @@ export class CandidateProfileComponent implements OnInit, DoCheck, OnDestroy {
     );
     this.getCandidateProfile();
     this.differ = differs.find({}).create(null);
-
+    if (!this.candidate.isCompleted) {
+      this.analyticService.googleAnalyse(this._router);
+    }
   }
 
   @HostListener('window:scroll', []) onWindowScroll() {
