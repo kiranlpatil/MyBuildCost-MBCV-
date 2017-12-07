@@ -50,20 +50,10 @@ export class ProficienciesComponent {
     );
   }
 
-  ngOnChanges(value: any) {
+  ngOnInit() {
     if (LocalStorageService.getLocalValue(LocalStorage.IS_CANDIDATE) === 'true') {
       this.isCandidate = true;
     }
-    if (value && value.choosedproficiencies && value.choosedproficiencies.currentValue) {
-      let guidedTourImages = LocalStorageService.getLocalValue(LocalStorage.GUIDED_TOUR);
-      let newArray = JSON.parse(guidedTourImages);
-      if (newArray && newArray.indexOf(ImagePath.CANDIDATE_OERLAY_SCREENS_KEY_SKILLS) == -1) {
-        this.isGuidedTourImgRequire();
-      }
-    }
-  }
-
-  ngOnInit() {
     this.maxProficiencies = ValueConstant.MAX_PROFECIENCES;
     this.userId=LocalStorageService.getLocalValue(LocalStorage.USER_ID);
   }
@@ -74,9 +64,15 @@ export class ProficienciesComponent {
 
   onProficiencyComplete(proficiency: string[]) {
     this.onSelect.emit(proficiency);
-    this.complexityAnsweredService.change(true);
   }
 
+  showGuidedTour() {
+    let guidedTourImages = LocalStorageService.getLocalValue(LocalStorage.GUIDED_TOUR);
+    let newArray = JSON.parse(guidedTourImages);
+    if (newArray && newArray.indexOf(ImagePath.CANDIDATE_OERLAY_SCREENS_KEY_SKILLS) == -1) {
+      this.isGuidedTourImgRequire();
+    }
+  }
   isGuidedTourImgRequire() {
     this.isGuideImg = true;
     this.guidedTourImgOverlayScreensKeySkills = ImagePath.CANDIDATE_OERLAY_SCREENS_KEY_SKILLS;
@@ -98,7 +94,6 @@ export class ProficienciesComponent {
 
   onNext() {
     this.onComplete.emit();
-    this.complexityAnsweredService.change(true);
     this.highlightedSection.name = 'IndustryExposure';
     this.highlightedSection.isDisable = false;
     window.scrollTo(0, 0);

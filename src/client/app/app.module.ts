@@ -168,6 +168,7 @@ import {AdminModule} from "./admin/admin.module";
 import {RecruiterAction} from "./cnext/framework/recruiter-action/recruiter-action.component";
 import {ActionOnQCardService} from "./user/services/action-on-q-card.service";
 import {ActionOnMyJobPostComponent} from "./cnext/framework/recruiter-dashboard/action-on-my-job-post/action-on-my-job-post.component";
+import {AnalyticService} from "./shared/services/analytic.service";
 import {ManageCandidatesComponent} from "./cnext/framework/manage-candidates/manage-candidates.component";
 import {MyCareerPageComponent} from "./cnext/framework/manage-candidates/my-career-page/my-career-page.component";
 import {ManageCandidatesService} from "./cnext/framework/manage-candidates/manage-candidates.service";
@@ -366,6 +367,7 @@ import {ManageCandidatesService} from "./cnext/framework/manage-candidates/manag
     ComplexityAnsweredService,
     UserFeedbackComponentService,
     ActionOnQCardService,
+    AnalyticService,
     ManageCandidatesService
   ],
   bootstrap: [AppComponent]
