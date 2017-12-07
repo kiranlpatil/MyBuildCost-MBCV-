@@ -133,7 +133,7 @@ export class Messages {
   public static MSG_ERROR_VALIDATION_COMPANYNAME_REQUIRED = 'This field can\'t be left blank.';
   public static MSG_ERROR_VALIDATION_OTP_REQUIRED = 'Enter received OTP.';
   public static MSG_ERROR_VALIDATION_INVALID_EMAIL_REQUIRED = 'Enter a valid email address.';
-  public static MSG_ERROR_VALIDATION_INVALID_URL_REQUIRED = 'Website should start with www';
+  public static MSG_ERROR_VALIDATION_INVALID_URL_REQUIRED = 'Website is not valid.';
   public static MSG_ERROR_VALIDATION_INVALID_NAME = 'Enter valid name.';
   public static MSG_ERROR_VALIDATION_INVALID_DATA = 'Enter valid data.';
   public static MSG_ERROR_VALIDATION_PASSWORD_MISMATCHED = 'Passwords do not match.';
@@ -360,8 +360,7 @@ export class Messages {
   public static CAREER_PLUGIN_MSG_EXISTING_USER = 'You are already registered, Kindly SignIn';
   public static THIS_JOB_IS_NOT_YET_POSTED = 'This Job is not yet posted';
   public static PRESS_ENTER_KEYSKILL = 'Select one key skill from dropdown at a time and press enter to add it.';
-
-
+  public static EXPORT_DATA: string = 'Allow popups to download exported files';
 }
 export class AdminPanel {
   public static PUBLIC_PROFILE = 'Profile is public';
@@ -821,4 +820,3 @@ export enum CandidateProfileUpdateTrack {
   STEP_IS_ENTER_AWARDS_DETAILS,
   STEP_IS_SUBMIT_DETAILS
 }
-
