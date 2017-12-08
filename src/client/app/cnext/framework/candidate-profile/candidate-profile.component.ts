@@ -543,7 +543,7 @@ export class CandidateProfileComponent implements OnInit, DoCheck, OnDestroy {
   }
 
   logOut() {
-    window.localStorage.clear();
+    window.sessionStorage.clear();
     this._router.navigate([NavigationRoutes.APP_START]);
   }
 
