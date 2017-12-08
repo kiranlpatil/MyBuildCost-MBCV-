@@ -102,7 +102,7 @@ export class RecruiterDetailListComponent {
 
   openRecruiterDashboard(userId: any) {
     let token = LocalStorageService.getLocalValue(LocalStorage.ACCESS_TOKEN);
-    let url = 'http://localhost:8080/usercontainer?token='+token+'&'+'userid='+userId;
+    let url = AppSettings.IP + '/usercontainer?token='+token+'&'+'userid='+userId;
     window.open(url, '_blank');
   }
 }

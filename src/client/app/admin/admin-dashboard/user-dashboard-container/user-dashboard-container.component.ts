@@ -19,7 +19,8 @@ export class UserDashboardContainerComponent implements OnInit {
   constructor(private _router:Router,
               private activatedRoute:ActivatedRoute,
               private errorService:ErrorService,
-              private adminDashboardService: AdminDashboardService,private registrationService:RegistrationService) {
+              private adminDashboardService: AdminDashboardService,
+              private registrationService:RegistrationService) {
   }
 
   ngOnInit() {
