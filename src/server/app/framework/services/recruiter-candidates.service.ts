@@ -40,20 +40,20 @@ export class RecruiterCandidatesService {
   getSummary(id: number, fromDate: string, toDate: string, callback: (error: Error, data: any) => void) {
 
     let d1 = toDate.split("-");
-    let year: number = 2017;
+    let year: number = Number(d1[0]);
     let month: number = Number(d1[1]);
     let date: number = Number(d1[2]);
 
     let d2 = fromDate.split("-");
-    let year1: number = 2017;
+    let year1: number = Number(d2[0]);
     let month1: number = Number(d2[1]);
     let date1: number = Number(d2[2]);
 
     let searchQuery = {
       'recruiterId' : new mongoose.Types.ObjectId(id),
       'statusUpdatedOn' :{
-        $lte: new Date(year, month, date),
-        $gte: new Date(year1, month1, date1)
+        $lte: new Date(year, month - 1, date),
+        $gte: new Date(year1, month1 - 1, date1)
       }
     };
 
@@ -69,21 +69,18 @@ export class RecruiterCandidatesService {
     let applied: number = 0;
     let registered: number = 0;
     let profileSubmitted: number = 0;
-    let loggedIn: number = 0;
+    let existing: number = 0;
+    let total: number = 0;
 
     for(let i of data) {
       if(i.status == 'Applied') {
         applied++;
-        break;
       }else if(i.status == 'Registered') {
         registered++;
-        break;
-      }if(i.status == 'Profile submitted') {
+      }else if(i.status == 'Profile submitted') {
         profileSubmitted++;
-        break;
-      }if(i.status == 'Logged In') {
-        loggedIn++;
-        break;
+      }else if(i.status == 'Logged In') {
+        existing++;
       }
 
     }
@@ -91,8 +88,8 @@ export class RecruiterCandidatesService {
     summary["applied"] = applied;
     summary["registered"] = registered;
     summary["profileSubmitted"] = profileSubmitted;
-    summary["loggedIn"] = loggedIn;
-
+    summary["existing"] = existing;
+    summary["total"] = applied + registered + profileSubmitted + existing;
     return summary;
   }
 

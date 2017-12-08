@@ -19,8 +19,9 @@ export class RecruiterCandidatesController {
           code: 500
         });
       } else {
+        let summary = recruiterCandidatesService.sortData(data);
         response.status(200).send({
-          'data': recruiterCandidatesService.sortData(data),
+          'data': summary,
           'status': 'success'
         });
       }
