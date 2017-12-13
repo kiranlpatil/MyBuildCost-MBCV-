@@ -529,6 +529,8 @@ export class API {
   public static ACCEPT_TERMS = '/terms-and-conditions.php';
   public static COUNT_OF_USERS = 'countofusers';
   public static FEEDBACK_QUESTIONS = 'userFeedback';
+  public static RECRUITERCANDIDATESSUMMARY = 'recruiterCandidatesSummary';
+  public static RECRUITER = 'recruiter';
 
 }
 
@@ -785,7 +787,7 @@ export class Label {
   public static DOMAIN_EXPOSURE: string = 'Domain Exposure:';
   public static REFINE_BY: string = 'Refine by:';
   public static IN_LAKH: string = '(In Lakh)';
-  public static YEARS: string = '(Year)';
+  public static YEARS: string = '(Years)';
   public static NONE: string = 'None';
 }
 
