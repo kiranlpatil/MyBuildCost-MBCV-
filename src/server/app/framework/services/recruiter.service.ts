@@ -111,7 +111,23 @@ class RecruiterService {
 
   getJobsByRecruiterId(id: string, callback: (err: Error, res: IJobProfile[]) => void) {
     let query = {'recruiterId': new mongoose.Types.ObjectId(id)};
-    this.jobProfileRepository.retrieveAndPopulate(query, {}, (error: Error, jobs: IJobProfile[]) => {
+    let projection = {
+      '_id':1,
+      'recruiterId':1,
+      'postingDate':1,
+      'jobTitle':1,
+      'isJobShared':1,
+      'isJobPosted':1,
+      'isJobPostExpired':1,
+      'isJobPostClosed':1,
+      'hiringManager':1,
+      'hideCompanyName':1,
+      'expiringDate':1,
+      'department':1,
+      'daysRemainingForExpiring':1,
+      'candidate_list':1
+    };
+    this.jobProfileRepository.retrieveWithoutPopulate(query, projection, (error: Error, jobs: IJobProfile[]) => {
       if (error) {
         callback(error, null);
         return;
