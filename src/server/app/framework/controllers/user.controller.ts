@@ -126,13 +126,10 @@ export function login(req: express.Request, res: express.Response, next: any) {
                           (err: Error, status: string) => {
                             if (err) {
                               next(error);
-                            } else {
-                              res.status(200).send(data);
                             }
                           });
-                      } else {
-                        res.status(200).send(data);
                       }
+                      res.status(200).send(data);
                     }
                   });
                 }
