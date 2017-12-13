@@ -79,7 +79,6 @@ export class LoginComponent implements OnInit {
       }
       this.isFromCareerPlugin = (params['integrationKey'] !== undefined) ? true : false;
     });
-    //local
     if(LocalStorageService.getLocalValue(LocalStorage.ACCESS_TOKEN)) {
       this.getUserData();
     }
@@ -120,7 +119,6 @@ export class LoginComponent implements OnInit {
 
   loginSuccess(res: any) {
     if(this.isRememberPassword) {
-      //local
       LocalStorageService.setLocalValue(LocalStorage.ACCESS_TOKEN, res.access_token);
       LocalStorageService.setLocalValue(LocalStorage.IS_LOGGED_IN, 1);
     }

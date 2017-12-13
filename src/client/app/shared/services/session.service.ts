@@ -14,18 +14,6 @@ export class SessionStorageService {
     sessionStorage.setItem(SessionStorage.RECRUITER_REFERENCE_ID, id);
   }
 
- /* public static getSessionValue(key: any) {
-    return localStorage.getItem(key);
-  }
-
-  public static removeSessionValue(key: any) {
-    localStorage.removeItem(key);
-  }
-
-  public static setSessionValue(key: any, value: any) {
-    localStorage.setItem(key, value);
-  }*/
-
    public static getSessionValue(key: any) {
      return sessionStorage.getItem(key);
    }
