@@ -133,6 +133,10 @@ class JobProfileSchema {
             }]
           }]
         },
+      educationForJob: [{
+        educationDegree:String,
+        specialization: String
+      }],
         competencies: {
           type: String
         },
