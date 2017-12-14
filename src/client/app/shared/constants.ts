@@ -535,6 +535,7 @@ export class API {
   public static COUNT_OF_USERS = 'countofusers';
   public static FEEDBACK_QUESTIONS = 'userFeedback';
   public static RECRUITERCANDIDATESSUMMARY = 'recruiterCandidatesSummary';
+  public static EXPORTRECRUITERCANDIDATESSUMMARY = 'exportRecruiterCandidatesSummary';
   public static RECRUITER = 'recruiter';
 
 }
