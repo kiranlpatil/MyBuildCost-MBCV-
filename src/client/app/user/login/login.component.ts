@@ -14,7 +14,7 @@ import {
 } from "../../shared/index";
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {ValidationService} from "../../shared/customvalidations/validation.service";
-import {LocalStorage, Messages, ProjectAsset} from "../../shared/constants";
+import {Label, LocalStorage, Messages, ProjectAsset} from "../../shared/constants";
 import {SharedService} from "../../shared/services/shared-service";
 import {RegistrationService} from "../services/registration.service";
 import {LocalStorageService} from "../../shared/services/localstorage.service";
@@ -229,6 +229,10 @@ export class LoginComponent implements OnInit {
 
   getMessages() {
     return Messages;
+  }
+
+  getLabel() {
+    return Label;
   }
 
 }
