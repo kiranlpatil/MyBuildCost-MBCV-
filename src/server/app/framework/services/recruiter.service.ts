@@ -388,22 +388,15 @@ class RecruiterService {
         return;
       }
       let config = require('config');
-      let shareService = new ShareService();
-      let auth: AuthInterceptor = new AuthInterceptor();
-      let _token = auth.issueTokenWithUidForShare(candidate);
-      let link: any;
-      shareService.buildValuePortraitUrl(config.get('TplSeed.mail.host'), _token, candidate,
-        candidateData, (error: Error, result: Share) => {
-          if (error) {
-            callback(error, null);
-            return;
-          }
-          link = result.shareUrl;
           this.recruiterRepository.populateRecruiterDetails(job.recruiterId, (err, recruiter) => {
             if (err) {
               callback(err, null);
               return;
             }
+            let link: any;
+            let host: any = config.get('TplSeed.mail.host');
+            let actualUrl: string = 'value-portrait' + '/' + candidate._id + ';' + 'jobId='+ job._id;
+            link = host + actualUrl;
             let sendMailService = new SendMailService();
             let data: Map<string, string> = new Map([['$jobmosisLink$',config.get('TplSeed.mail.host')],
               ['$link$', link], ['$firstname$', candidate.first_name],
@@ -411,7 +404,6 @@ class RecruiterService {
             sendMailService.send(recruiter.email,
               Messages.EMAIL_SUBJECT_CANDIDATE_APPLIED_FOR_JOB + job.jobTitle,
               'notify-recruiter-on-job-apply.html', data, callback);
-          });
         });
     });
   }
