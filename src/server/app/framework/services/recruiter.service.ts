@@ -351,7 +351,8 @@ class RecruiterService {
           this.updateRecruiterCandidates(recruiterCandidatesModel);
         }
 
-        this.userRepository.retrieve({'_id': new mongoose.Types.ObjectId(recData[0].userId)}, (userError, userData) => {
+        if(recData && recData.length) {
+          this.userRepository.retrieve({'_id': new mongoose.Types.ObjectId(recData[0].userId)}, (userError, userData) => {
           if (userError) {
             this.loggerService.logErrorObj(userError);
             sharedService.mailToAdmin(userError);
@@ -365,8 +366,8 @@ class RecruiterService {
                 sharedService.mailToAdmin(emailError);
               }
             });
-
         });
+        }
       });
   }
 
