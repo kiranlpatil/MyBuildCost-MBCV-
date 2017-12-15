@@ -18,6 +18,7 @@ export class MyCareerPageComponent {
   public toDate: string = '';
   public inValidDates: boolean = false;
   public summary: ManagedCandidatesSummary = new ManagedCandidatesSummary();
+  public inValidDateErrorMessage: string = '';
 
   constructor(private manageCandidatesService: ManageCandidatesService, private errorService: ErrorService,
               private loaderService: LoaderService) {
@@ -26,8 +27,9 @@ export class MyCareerPageComponent {
 
   loadSummary() {
     this.inValidDates = false;
+    this.inValidDateErrorMessage = '';
     if (this.fromDate != '' && this.toDate != '') {
-      if (new Date(this.fromDate) <= new Date(this.toDate)) {
+      if (this.validateDates()) {
         this.manageCandidatesService.getSummary("career plugin", this.fromDate, this.toDate)
           .subscribe(
             data => {
@@ -37,11 +39,27 @@ export class MyCareerPageComponent {
               this.errorService.onError(error);
             }
           );
-      } else {
-        this.summary = new ManagedCandidatesSummary();
-        this.inValidDates = true;
       }
     }
+  }
+
+  validateDates() {
+    if (new Date(this.fromDate) > new Date() || new Date(this.toDate) > new Date()) {
+      this.summary = new ManagedCandidatesSummary();
+      this.inValidDates = true;
+      this.inValidDateErrorMessage = this.getMessages().MSG_ERROR_VALIDATION_DATES_ON_EXCEEDING_DATE;
+      return false;
+    }
+    if (new Date(this.fromDate) > new Date(this.toDate)) {
+      this.summary = new ManagedCandidatesSummary();
+      this.inValidDates = true;
+      if(this.inValidDateErrorMessage !=
+        this.getMessages().MSG_ERROR_VALIDATION_DATES_ON_EXCEEDING_DATE) {
+        this.inValidDateErrorMessage = this.getMessages().MSG_ERROR_VALIDATION_DATES;
+      }
+      return false;
+    }
+    return true;
   }
 
   getButtons() {
@@ -65,5 +83,5 @@ export class MyCareerPageComponent {
         }
       );
   }
-
 }
+

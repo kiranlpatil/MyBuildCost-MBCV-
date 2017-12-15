@@ -12,7 +12,7 @@
     </li>
   </ul>
   <span class="error-messages"
-        *ngIf="inValidDates"> {{getMessages().MSG_ERROR_VALIDATION_DATES}} </span>
+        *ngIf="inValidDates"> {{inValidDateErrorMessage}} </span>
 </div>
 <div *ngIf="summary.total > 0" class="manage__candidates_table">
   <div class="row">
