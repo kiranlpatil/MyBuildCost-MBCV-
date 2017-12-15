@@ -114,8 +114,10 @@ export function cnextInit(app: express.Application) {
     app.post('/api/candidate/:candidateId/list/:listName', loggerInterceptor.logDetail,
       this.authInterceptor.requiresAuth, this.authInterceptor.secureApiCheck,
       searchEngineController.getMatchingJobs);
-    app.post('/api/jobs/candidate/:candidateId', this.authInterceptor.requiresAuth,
-      searchEngineController.getMatchingJobsForCandidate);
+    app.post('/api/jobs/candidate/:candidateId', loggerInterceptor.logDetail, this.authInterceptor.requiresAuth,
+      this.authInterceptor.secureApiCheck, searchEngineController.getMatchingJobsForCandidate);
+    app.post('/api/filter/masterData/:jobId', loggerInterceptor.logDetail, this.authInterceptor.requiresAuth,
+      this.authInterceptor.secureApiCheck, searchEngineController.getMasterDataForRecruiterFilter);
 
     //Share api
     app.get('/api/buildValuePortraitUrl', loggerInterceptor.logDetail, this.authInterceptor.requiresAuth,
