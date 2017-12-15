@@ -42,7 +42,7 @@ export class JobPosterComponent implements OnInit, OnChanges {
   rolesForCapability: Role[] = new Array(0);
   rolesForComplexity: Role[] = new Array(0);
   private isCandidate: boolean = false;
-  private updateBasicJobInfo: boolean = false;
+  updateBasicJobInfo: boolean = false;
   private disableButton: boolean = true;
   private isShowCandidateQCardView: boolean = false;
   private setCapabilityMatrix: boolean = true;
