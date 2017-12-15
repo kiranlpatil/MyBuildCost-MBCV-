@@ -112,6 +112,8 @@ export class CandidateSearchEngine extends SearchEngine {
     let included_fields: any;
     if(appliedFilters.isMasterData) {
       included_fields = {
+        '_id': 1,
+        'capability_matrix': 1,
         'academics': 1,
         'proficiencies': 1
       };
@@ -171,6 +173,10 @@ export class CandidateSearchEngine extends SearchEngine {
         this.candidate_q_cards.push(candidate_q_card);
       }
     }
+    if(appliedFilter.isMasterData) {
+      let masterData = this.getMasterDataForFilter(objects, this.candidate_q_cards);
+      callback(null, masterData);
+    } else {
     //TODO apply all other sorts here itself Abhi
     if (sortBy === ESort.BEST_MATCH) {
      this.candidate_q_cards = <CandidateCard[]>this.getSortedObjectsByMatchingPercentage(this.candidate_q_cards);
@@ -192,7 +198,7 @@ export class CandidateSearchEngine extends SearchEngine {
       }
       callback(err, cards);
       return;
-    });
+    });}
   }
 
   setMustHaveMatrix(jobProfile_capability_matrix: any, candidate_capability_matrix: any, complexity_musthave_matrix: any) {

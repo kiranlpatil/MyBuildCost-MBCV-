@@ -67,24 +67,28 @@ export abstract class SearchEngine {
   }
 
 
-  getMasterDataForFilter(objects:any): any{
+  getMasterDataForFilter(objects:any, candidate_q_cards: any): any{
     let educationDegreeMap: any = new Object();
     let specializationMap: any = new Object();
     let keySkillsMap: any = new Object();
     for(let candidate of objects){
-      if(candidate.academics && candidate.academics.length >0){
-        for(let academic of candidate.academics){
-          educationDegreeMap[academic.educationDegree] =  '';
-          if(academic.specialization){
-            specializationMap[academic.specialization] = '';
+      let candidateDetail = candidate_q_cards.find((o:any) => o._id == (candidate._id).toString());
+      if(candidateDetail && candidateDetail.exact_matching >= ConstVariables.LOWER_LIMIT_FOR_SEARCH_RESULT){
+        if(candidate.academics && candidate.academics.length >0){
+          for(let academic of candidate.academics){
+            educationDegreeMap[academic.educationDegree] =  '';
+            if(academic.specialization){
+              specializationMap[academic.specialization] = '';
+            }
+          }
+        }
+        if(candidate.proficiencies && candidate.proficiencies.length >0){
+          for(let keySkill of candidate.proficiencies){
+            keySkillsMap[keySkill] = '';
           }
         }
       }
-      if(candidate.proficiencies && candidate.proficiencies.length >0){
-        for(let keySkill of candidate.proficiencies){
-          keySkillsMap[keySkill] = '';
-        }
-      }
+
     }
     let result:any={
      'educationDegrees':Object.keys(educationDegreeMap),
@@ -119,14 +123,11 @@ export abstract class SearchEngine {
           callback(error, null,againstDetails.userId);
           return;
         }
-        if(appliedFilters.isMasterData) {
-         let masterData = this.getMasterDataForFilter(response);
-          callback(error, masterData,againstDetails.userId);
-        } else {
+
           searchEngine.buildQCards(response, againstDetails, appliedFilters, (error: any, qcards: any[]) => {
             callback(error, qcards,againstDetails.userId);
           });
-        }
+
 
       });
     });
