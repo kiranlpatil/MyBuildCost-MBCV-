@@ -67,7 +67,7 @@ export class ValuePortraitContainerComponent implements OnInit {
 
   }
 
-  ngOnInit() {debugger
+  ngOnInit() {
     this.activatedRoute.params.subscribe(params => {
       this._userId = params['id'];
       this.isFromCreate=false;
