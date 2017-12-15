@@ -113,6 +113,8 @@ export class JobDashboardComponent implements OnInit, OnChanges {
               this.recruiterJobView.numberOfCandidatesInCart = item.ids.length;
             if (item.name === ValueConstant.REJECTED_LISTED_CANDIDATE)
               this.recruiterJobView.numberOfCandidatesrejected = item.ids.length;
+            if (item.name === ValueConstant.SHORT_LISTED_CANDIDATE)
+              this.candidateQlist.shortListedCandidates = item.ids;
           }
         }, error => this.errorService.onError(error));
   }
@@ -120,7 +122,11 @@ export class JobDashboardComponent implements OnInit, OnChanges {
   getMatchingProfiles() {
     /* this.qcardFilterService.clearFilter();*/
    /*this.listName = ValueConstant.MATCHED_CANDIDATE*/
-    this.listName = EList.CAN_MATCHED;
+    for (let item of this.selectedJobProfile.candidate_list) {
+      if (item.name === ValueConstant.SHORT_LISTED_CANDIDATE)
+        this.candidateQlist.shortListedCandidates = item.ids;
+    }
+        this.listName = EList.CAN_MATCHED;
     for (let i = 0; i < this.whichListVisible.length; i++) {
       this.whichListVisible[i] = false;
     }
@@ -165,8 +171,18 @@ export class JobDashboardComponent implements OnInit, OnChanges {
     if (event === false)
       this.headerInfo.totalNumberOfCandidateInCart -= 1;
   }
-
-
+  updateShortlisted(event:string) {debugger
+    for (let item of this.selectedJobProfile.candidate_list) {
+      if (item.name === ValueConstant.SHORT_LISTED_CANDIDATE) {
+        let index=this.selectedJobProfile.candidate_list.indexOf(item);
+        if(this.selectedJobProfile.candidate_list[index].ids.indexOf(event)!==-1) {
+          this.selectedJobProfile.candidate_list[index].ids.splice(this.selectedJobProfile.candidate_list[index].ids.indexOf(event), 1);
+        }else {
+          this.selectedJobProfile.candidate_list[index].ids.push(event);
+        }
+      }
+    }
+  }
   getSelectedListData(listName: EList, isFromFilter: boolean) {
 
     /* this.qcardFilterService.clearFilter();*/
