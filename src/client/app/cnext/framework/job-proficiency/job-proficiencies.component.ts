@@ -40,6 +40,7 @@ export class JobProficienciesComponent implements OnInit {
   }
 
   onMandatoryProficiencyComplete(mandatory: string[]) {
+    this.isshowModal=false;
     this.jobPosterModel.proficiencies = mandatory;
     this.submitStatus=false;
     this.onComplete.emit(this.jobPosterModel);
