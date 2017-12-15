@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnInit } from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnInit, Output} from '@angular/core';
 import { JobPosterService } from '../job-poster/job-poster.service';
 import { MessageService } from '../../../shared/services/message.service';
 import { Message } from '../../../shared/models/message';
@@ -20,6 +20,7 @@ export class JobCloseComponent implements OnChanges, OnInit {
   @Input() selectedJobTitleForClose: string;
   @Input() selectedJobProfileId: any;
   @Input() isJobCloseButtonClicked:boolean;
+  @Output() onCloseJobClick = new EventEmitter();
 
 
   showCloseDialogue:boolean = false;
@@ -34,17 +35,17 @@ export class JobCloseComponent implements OnChanges, OnInit {
   }
 
   ngOnInit() {
-    this.jobCloseComponentService.getReasonsForClosingJob()
-      .subscribe(data => {
-        this.reasonForClosingJob = data.questions;
-      }, error=> {
-        this.errorService.onError(error);
-      });
   }
 
   ngOnChanges(changes:any) {
     if(changes.isJobCloseButtonClicked !== undefined && changes.isJobCloseButtonClicked.currentValue !== undefined) {
-      this.showCloseDialogue = true;
+      this.jobCloseComponentService.getReasonsForClosingJob()
+        .subscribe(data => {
+          this.reasonForClosingJob = data.questions;
+          this.showCloseDialogue = true;
+        }, error=> {
+          this.errorService.onError(error);
+        });
     }
   }
 
@@ -64,6 +65,7 @@ export class JobCloseComponent implements OnChanges, OnInit {
             this.jobPosterService.postJob(this.selectedJobProfile).subscribe(
               data => {
                 this.selectedJobProfile = data;
+                this.onCloseJobClick.emit(true);
                 this.messageService.message(new Message(this.selectedJobTitleForClose+ " Job Post is closed"));
               }, error => this.errorService.onError(error));
           }, error => this.errorService.onError(error));

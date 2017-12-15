@@ -75,6 +75,9 @@ export class JobListerComponent implements  OnInit, OnDestroy {
     this.getRecruiterData();
   }
 
+  onCloseJob() {
+    this.getRecruiterData();
+  }
 
   ngOnDestroy() {
   }
