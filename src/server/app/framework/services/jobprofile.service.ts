@@ -1,7 +1,6 @@
 import * as mongoose from "mongoose";
 import {Actions, ConstVariables} from "../shared/sharedconstants";
 import {SharedService} from "../shared/services/shared-service";
-import {UsageTracking} from "../dataaccess/model/usage-tracking.model";
 import ProjectAsset = require('../shared/projectasset');
 import RecruiterRepository = require('../dataaccess/repository/recruiter.repository');
 import JobProfileRepository = require('../dataaccess/repository/job-profile.repository');
@@ -180,19 +179,11 @@ class JobProfileService {
           this.jobProfileRepository.findOneAndUpdate({'_id': mongoose.Types.ObjectId(item.profileId)},
             param2, updatedQuery4, (err, record) => {
               if (record) {
-                if( item.listName===ConstVariables.CART_LISTED_CANDIDATE  && item.action===ConstVariables.ADD_CANDIDATE) {
-                  let candidateService=new CandidateService();
-                  candidateService.notifyCandidateOnCartAddition(item.candidateId,item.recruiterId,job.jobTitle,
-                    (err:Error,responce:any)=> {
-                    if(err) {
-                      callback(err,responce);
-                      return;
-                    }
-                      callback(null, record);
-                  });
-                }else {
-                  callback(null, record);
+                if (item.listName === ConstVariables.CART_LISTED_CANDIDATE && item.action === ConstVariables.ADD_CANDIDATE) {
+                  let candidateService = new CandidateService();
+                  candidateService.notifyCandidateOnCartAddition(item.candidateId, item.recruiterId, job.jobTitle);
                 }
+                callback(null, record);
               } else {
                 let error: any;
                 if (record === null) {
@@ -316,10 +307,10 @@ class JobProfileService {
                       this.jobProfileRepository.findOneAndUpdate(jobSearchQuery, latestQuery, options, (err, record) => {
 
                         if (record) {
-                          let recruiterService=new RecruiterService();
-                          recruiterService.notifyOnCandidateJobApply(item.candidateId, job,response,(error, response) => {
-                            if(err) {
-                              callback(err,response);
+                          let recruiterService = new RecruiterService();
+                          recruiterService.notifyOnCandidateJobApply(item.candidateId, job, response, (error, response) => {
+                            if (err) {
+                              callback(err, response);
                               return;
                             } callback(null, record);
                           });

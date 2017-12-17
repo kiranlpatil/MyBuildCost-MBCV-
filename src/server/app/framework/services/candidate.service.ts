@@ -917,16 +917,17 @@ class CandidateService {
     });
   }
 
-  notifyCandidateOnCartAddition(candidateId: string, recruiterId: string, jobTitle: string,
-                                callback: (error: Error, result: SentMessageInfo) => void) {
+  notifyCandidateOnCartAddition(candidateId: string, recruiterId: string, jobTitle: string) {
     this.recruiterRepository.getRecruiterData(recruiterId, (error, recruiter) => {
       if (error) {
-        callback(error, null);
+        this.loggerService.logErrorObj(error);
+        this.sendMailOnError(error);
         return;
       }
       this.candidateRepository.populateCandidateDetails(candidateId, (err, candidate) => {
         if (err) {
-          callback(err, null);
+          this.loggerService.logErrorObj(err);
+          this.sendMailOnError(err);
           return;
         }
         let config = require('config');
