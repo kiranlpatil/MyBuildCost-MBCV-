@@ -10,8 +10,10 @@ interface RecruiterCandidates extends mongoose.Document {
   email: string;
   status: string;
   noOfMatchingJobs: number;
+  jobId: string;
+  highestMatchingJob: string;
   highestMatchingJobPercentage: number;
-  jobTitle: string;
+  viewOtherMatchingJobs: string;
   statusUpdatedOn: Date;
 }
 export = RecruiterCandidates;

@@ -993,6 +993,12 @@ class CandidateService {
 
   updateRecruiterCandidates(recruiterCandidatesModel: RecruiterCandidatesModel) {
     let recruiterCandidatesService = new RecruiterCandidatesService();
+    /*let config = require('config');
+    let host: any = config.get('TplSeed.mail.host');
+    let actualUrl: string = 'recruiter/search' + '/' + recruiterCandidatesModel.candidateId + '?' + 'recruiterId='
+      + recruiterCandidatesModel.recruiterId;
+    recruiterCandidatesModel.viewOtherMatchingJobs = host + actualUrl;*/
+
 
     let candidateId = recruiterCandidatesModel.candidateId;
     let appliedFilters: AppliedFilter = <AppliedFilter> {
@@ -1019,8 +1025,8 @@ class CandidateService {
         for (let card of qcards) {
           if (recruiterCandidatesModel.highestMatchingJobPercentage < card.exact_matching) {
             recruiterCandidatesModel.highestMatchingJobPercentage = card.exact_matching;
-            recruiterCandidatesModel.jobTitle = card.jobTitle;
-
+            recruiterCandidatesModel.highestMatchingJob = card.jobTitle;
+            recruiterCandidatesModel.jobId = card._id;
           }
         }
 

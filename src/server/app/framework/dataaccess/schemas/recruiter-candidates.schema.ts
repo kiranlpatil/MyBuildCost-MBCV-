@@ -32,10 +32,16 @@ class RecruiterCandidatesSchema {
       noOfMatchingJobs: {
         type: Number
       },
+      jobId: {
+        type: mongoose.Schema.Types.ObjectId, ref: 'JobProfile'
+      },
+      highestMatchingJob: {
+        type: String
+      },
       highestMatchingJobPercentage: {
         type: Number
       },
-      jobTitle: {
+      viewOtherMatchingJobs: {
         type: String
       },
       statusUpdatedOn: {
