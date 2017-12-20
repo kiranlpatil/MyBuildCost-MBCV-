@@ -1,5 +1,5 @@
-import CandidateRepository = require('../dataaccess/repository/candidate.repository');
-import UserRepository = require('../dataaccess/repository/user.repository');
+/*import CandidateRepository = require('../dataaccess/repository/candidate.repository');*/
+import UserRepository = require('../dataaccess/repository/UserRepository');
 import LoggerService = require('../shared/logger/LoggerService');
 import { CandidateProfileCompletionInPercentage } from '../shared/sharedconstants';
 import { CandidateDetail } from '../../../../client/app/user/models/candidate-details';
@@ -21,7 +21,7 @@ export class MailChimpMailerService {
       this.triggerMailChimpService(user, listId);
   }
 
-  sendNotificationToCandidateForIncompleteProfile(profileComplettionInPercent: CandidateProfileCompletionInPercentage,
+  /*sendNotificationToCandidateForIncompleteProfile(profileComplettionInPercent: CandidateProfileCompletionInPercentage,
                                                   listId: string, fromDate:Date, toDate: Date) {
     let userRepository = new UserRepository();
     let candidateRepository = new CandidateRepository();
@@ -42,7 +42,7 @@ export class MailChimpMailerService {
           }
         });
       });
-  }
+  }*/
 
   triggerMailChimpService(data: CandidateDetail, listId: string) {
     if (data !== null && data !== undefined) {

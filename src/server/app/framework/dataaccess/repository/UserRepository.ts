@@ -1,5 +1,5 @@
 import User = require('../mongoose/user');
-import UserSchema = require('../schemas/user.schema');
+import UserSchema = require('../schemas/UserSchema');
 import RepositoryBase = require('./base/repository.base');
 
 class UserRepository extends RepositoryBase<User> {

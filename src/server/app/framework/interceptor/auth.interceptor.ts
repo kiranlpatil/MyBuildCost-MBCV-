@@ -4,9 +4,9 @@ import * as Bearer from "passport-http-bearer";
 import {ConstVariables} from "../shared/sharedconstants";
 let BearerStrategy: any = Bearer.Strategy;
 let FacebookTokenStrategy = require('passport-facebook-token');
-import UserRepository = require("../dataaccess/repository/user.repository");
+import UserRepository = require("../dataaccess/repository/UserRepository");
 import Messages=require("../shared/messages");
-import UserModel = require("../dataaccess/model/user.model");
+import UserModel = require("../dataaccess/model/UserModel");
 
 let GooglePlusTokenStrategy = require('passport-google-plus-token');
 let config = require('config');

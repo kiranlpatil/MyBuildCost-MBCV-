@@ -1,7 +1,13 @@
 import ResponseService=require("../shared/response.service");
 import Messages=require("../shared/messages");
 
-export function login(req: any, res: any, next: any) {
+class  UserInterceptor{
+
+  constructor(){
+
+  }
+
+  login(req: any, res: any, next: any) {
   if ((req.body.email === undefined) || (req.body.password === undefined)) {
     next({
       reason: Messages.MSG_ERROR_RSN_INVALID_CREDENTIALS,
@@ -21,7 +27,7 @@ export function login(req: any, res: any, next: any) {
   next();
 };
 
-export function create(req: any, res: any, next: any) {
+  create(req: any, res: any, next: any) {
   if ((req.body.first_name === undefined) || (req.body.email === undefined) ||
     (req.body.password === undefined) || (req.body.last_name === undefined) || (req.body.mobile_number === undefined)) {
     next({
@@ -39,7 +45,7 @@ export function create(req: any, res: any, next: any) {
   next();
 };
 
-export function createRecruiter(req: any, res: any, next: any) {
+  createRecruiter(req: any, res: any, next: any) {
   if ((req.body.company_name === undefined) || (req.body.company_size === undefined) || (req.body.email === undefined) ||
     (req.body.password === undefined) || (req.body.location.country === undefined) || (req.body.location.state === undefined) ||
     (req.body.location.city === undefined) || (req.body.location.pin === undefined) || (req.body.mobile_number === undefined)) {
@@ -59,7 +65,7 @@ export function createRecruiter(req: any, res: any, next: any) {
   next();
 };
 
-export function changePassword(req: any, res: any, next: any) {
+  changePassword(req: any, res: any, next: any) {
   if ((req.body.current_password === undefined) || (req.body.new_password === undefined )) {
     next({
       reason: Messages.MSG_ERROR_RSN_INVALID_CREDENTIALS,
@@ -79,12 +85,12 @@ export function changePassword(req: any, res: any, next: any) {
   next();
 };
 
-export function retrieve(req: any, res: any, next: any) {
+  retrieve(req: any, res: any, next: any) {
   next();
 
 };
 
-export function forgotPassword(req: any, res: any, next: any) {
+  forgotPassword(req: any, res: any, next: any) {
   if ((req.body.email === undefined )) {
     next({
       reason: Messages.MSG_ERROR_RSN_INVALID_CREDENTIALS,
@@ -104,7 +110,7 @@ export function forgotPassword(req: any, res: any, next: any) {
   next();
 };
 
-export function mail(req: any, res: any, next: any) {
+  mail(req: any, res: any, next: any) {
   if ((req.body.first_name === "" ) || (req.body.email === "" ) || (req.body.message === "" )) {
     next({reason: Messages.MSG_ERROR_RSN_INVALID_CREDENTIALS, message: Messages.MSG_ERROR_EMPTY_FIELD, stackTrace: new Error(),code: 401});
   }
@@ -119,7 +125,7 @@ export function mail(req: any, res: any, next: any) {
   next();
 };
 
-export function update(req: any, res: any, next: any) {
+  update(req: any, res: any, next: any) {
   if (req.params._id === undefined) {
     next({
       reason: Messages.MSG_ERROR_RSN_INVALID_CREDENTIALS,
@@ -131,7 +137,7 @@ export function update(req: any, res: any, next: any) {
   next();
 };
 
-export function validateRegistrationStatus(req: any, res: any, next: any) {
+  validateRegistrationStatus(req: any, res: any, next: any) {
   if ((req.params.mobileNo === undefined || req.params.mobileNo === '') &&
     (req.query.recruiterId === undefined || req.query.recruiterId === '')) {
     next({
@@ -143,3 +149,6 @@ export function validateRegistrationStatus(req: any, res: any, next: any) {
   }
   next();
 }
+
+}
+export = UserInterceptor;

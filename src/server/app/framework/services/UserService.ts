@@ -1,4 +1,4 @@
-import UserRepository = require('../dataaccess/repository/user.repository');
+import UserRepository = require('../dataaccess/repository/UserRepository');
 import SendMailService = require('./mailer.service');
 import SendMessageService = require('./sendmessage.service');
 import * as fs from "fs";
@@ -10,20 +10,18 @@ import Messages = require('../shared/messages');
 import AuthInterceptor = require('../../framework/interceptor/auth.interceptor');
 import ProjectAsset = require('../shared/projectasset');
 import MailAttachments = require('../shared/sharedarray');
-import RecruiterRepository = require('../dataaccess/repository/recruiter.repository');
-/*import RecruiterService = require('./recruiter.service');*/
+import {asElementData} from "@angular/core/src/view";
+import bcrypt = require('bcrypt');
 
 class UserService {
   APP_NAME: string;
   company_name: string;
   mid_content: any;
   private userRepository: UserRepository;
-  private recruiterRepository: RecruiterRepository;
 
 
   constructor() {
     this.userRepository = new UserRepository();
-    /*this.recruiterRepository = new RecruiterRepository();*/
     this.APP_NAME = ProjectAsset.APP_NAME;
   }
 
@@ -53,7 +51,100 @@ class UserService {
 
   };
 
+  login(data: any, callback:(error: any, result: any) => void){
+    this.retrieve({"email": data.email}, (error, result) => {
+      if (error) {
+        callback(error, null);
+      } else if (result.length > 0 && result[0].isActivated === true) {
+        bcrypt.compare(data.password, result[0].password, (err: any, isSame: any) => {
+          if (err) {
+            callback({
+              reason: Messages.MSG_ERROR_RSN_INVALID_REGISTRATION_STATUS,
+              message: Messages.MSG_ERROR_VERIFY_CANDIDATE_ACCOUNT,
+              stackTrace: new Error(),
+              actualError: err,
+              code: 400
+            }, null);
+          } else {
 
+            if (isSame){
+              let auth = new AuthInterceptor();
+              let token = auth.issueTokenWithUid(result[0]);
+              var data: any = {
+                "status": Messages.STATUS_SUCCESS,
+                "data": {
+                  "first_name": result[0].first_name,
+                  "last_name": result[0].last_name,
+                  "email": result[0].email,
+                  "_id": result[0]._id,
+                  "current_theme": result[0].current_theme,
+                  "picture": result[0].picture,
+                  "mobile_number": result[0].mobile_number,
+                  "isCandidate": result[0].isCandidate,
+                  "isAdmin": result[0].isAdmin,
+                  "guide_tour": result[0].guide_tour
+                },
+                access_token: token
+              }
+
+            } else {
+              callback({
+                reason: Messages.MSG_ERROR_RSN_INVALID_CREDENTIALS,
+                message: Messages.MSG_ERROR_WRONG_PASSWORD,
+                stackTrace: new Error(),
+                code: 400
+              }, null);
+            }
+          }
+        });
+      }
+      else if (result.length > 0 && result[0].isActivated === false) {
+        bcrypt.compare(data.password, result[0].password, (err: any, isPassSame: any) => {
+          if (err) {
+            callback({
+              reason: Messages.MSG_ERROR_RSN_INVALID_REGISTRATION_STATUS,
+              message: Messages.MSG_ERROR_VERIFY_CANDIDATE_ACCOUNT,
+              stackTrace: new Error(),
+              code: 400
+            }, null);
+          } else {
+            if (isPassSame) {
+              if (result[0].isCandidate === true) {
+                callback({
+                  reason: Messages.MSG_ERROR_RSN_INVALID_REGISTRATION_STATUS,
+                  message: Messages.MSG_ERROR_VERIFY_CANDIDATE_ACCOUNT,
+                  stackTrace: new Error(),
+                  code: 400
+                }, null);
+              } else {
+                callback({
+                  reason: Messages.MSG_ERROR_RSN_INVALID_REGISTRATION_STATUS,
+                  message: Messages.MSG_ERROR_VERIFY_ACCOUNT,
+                  stackTrace: new Error(),
+                  code: 400
+                }, null);
+              }
+            } else {
+              callback({
+                reason: Messages.MSG_ERROR_RSN_INVALID_CREDENTIALS,
+                message: Messages.MSG_ERROR_WRONG_PASSWORD,
+                stackTrace: new Error(),
+                code: 400
+              }, null);
+            }
+          }
+        });
+      }
+      else {
+        callback({
+          reason: Messages.MSG_ERROR_RSN_USER_NOT_FOUND,
+          message: Messages.MSG_ERROR_USER_NOT_PRESENT,
+          stackTrace: new Error(),
+          code: 400
+        },null);
+      }
+    });
+  }
   generateOtp(field: any, callback: (error: any, result: any) => void) {
     this.userRepository.retrieve({'mobile_number': field.new_mobile_number, 'isActivated': true}, (err, res) => {
 

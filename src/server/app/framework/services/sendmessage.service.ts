@@ -1,7 +1,7 @@
 ///<reference path="../shared/projectasset.ts"/>
 import Messages=require("../shared/messages");
 import ProjectAsset = require("../shared/projectasset");
-import UserRepository = require("../dataaccess/repository/user.repository");
+import UserRepository = require("../dataaccess/repository/UserRepository");
 let config = require('config');
 let authKey = config.get('TplSeed.messaging.authKey');
 let senderId = config.get('TplSeed.messaging.senderId');

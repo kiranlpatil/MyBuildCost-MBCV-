@@ -2,7 +2,7 @@ import LoggerService = require("./LoggerService");
 
 let Messages = require('../messages');
 let logger = require('./logger');
-import UserService = require('../../services/user.service');
+import UserService = require('../../services/UserService');
 
 
 export function errorHandler(err: any, req: any, res: any, next: any) {

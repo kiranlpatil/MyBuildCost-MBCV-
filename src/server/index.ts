@@ -1,38 +1,21 @@
 import * as http from "http";
 import * as express from "express";
-import * as bodyParser from "body-parser";
 import * as path from "path";
-import * as compression from "compression";
-import * as routes from "./routes";
-import * as cnextRoutes from "./cnext-routes";
-import * as methodOverride from "method-override";
-import * as cors from "cors";
+/*import * as routes from "./routes";*/
+/*import * as cnextRoutes from "./cnext-routes";*/
 import * as fs from "fs";
 import LoggerService = require("./app/framework/shared/logger/LoggerService");
 import * as sharedService from "./app/framework/shared/logger/shared.service";
-/*import { CronJobService } from './app/framework/services/cron-job.service';*/
+import Middlewares = require("./app/framework/middlewares/base/MiddlewaresBase");
 
 var spdy = require('spdy');
-/*var cronJobService=new CronJobService();*/
  __dirname = './';
 var _clientDir = '/dist/client/dev';
 var _serverDir = '/dist/server/dev';
 var app = express();
 
 export function init(port: number, mode: string, protocol: string, dist_runner: string) {
-  /*cronJobService.OnCronJobStart();*/
-  app.use(bodyParser.urlencoded({extended: false}));
-  app.use(bodyParser.json({limit: '40mb'}));
-  app.use(bodyParser.urlencoded({limit: '40mb', extended: true}));
-  app.use(bodyParser.text());
-  app.use(compression());
-  app.use(cors());
-  app.use(bodyParser.json());
-  app.use(methodOverride("X-HTTP-Method"));
-  app.use(methodOverride("X-HTTP-Method-Override"));
-  app.use(methodOverride("X-Method-Override"));
-  app.use(methodOverride("_method"));
-  app.use(express.static('src/'));
+
   process.on('uncaughtException', function (err:any) {
     let _loggerService: LoggerService = new LoggerService('uncaught exception Handler');
     let error= {
@@ -60,8 +43,7 @@ export function init(port: number, mode: string, protocol: string, dist_runner: 
         next();
       });
 
-      routes.init(app);
-      cnextRoutes.cnextInit(app);
+      app.use(Middlewares.configuration);
 
       let root = path.resolve(process.cwd());
       let clientRoot = path.resolve(process.cwd(), './client/dev');
@@ -85,8 +67,9 @@ export function init(port: number, mode: string, protocol: string, dist_runner: 
         next();
       });
 
-      routes.init(app);
-      cnextRoutes.cnextInit(app);
+      /*routes.init(app);*/
+      app.use(Middlewares.configuration);
+      //cnextRoutes.cnextInit(app);
 
       let root = path.resolve(process.cwd());
       let clientRoot = path.resolve(process.cwd(), './dist/client/dev');
@@ -114,8 +97,8 @@ export function init(port: number, mode: string, protocol: string, dist_runner: 
       /**
        * Api Routes for `Production`.
        */
-      routes.init(app);
-      cnextRoutes.cnextInit(app);
+      /*routes.init(app);*/
+      /*cnextRoutes.cnextInit(app);*/
       /**
        * Client Dir
        */
@@ -158,8 +141,7 @@ export function init(port: number, mode: string, protocol: string, dist_runner: 
       /**
        * Api Routes for `Production`.
        */
-      routes.init(app);
-      cnextRoutes.cnextInit(app);
+      app.use(Middlewares.configuration);
       /**
        * Client Dir
        */
