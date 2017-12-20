@@ -1,7 +1,7 @@
 import CandidateSchema = require('../schemas/candidate.schema');
 import RepositoryBase = require('./base/repository.base');
 import ICandidate = require('../mongoose/candidate');
-import {CandidateQCard} from '../../search/model/candidate-q-card';
+/*import {CandidateQCard} from '../../search/model/candidate-q-card';*/
 import {
   CandidateProfileCompletionInPercentage, CandidateProfileUpdateTrackServerSide, ConstVariables
 } from '../../shared/sharedconstants';
@@ -46,7 +46,7 @@ class CandidateRepository extends RepositoryBase<ICandidate> {
     });
   }
 
-  getCandidateQCard(candidates: any[], jobProfile: JobProfileModel, candidatesIds: any[], sortBy: string,
+  /*getCandidateQCard(candidates: any[], jobProfile: JobProfileModel, candidatesIds: any[], sortBy: string,
                     callback: (err: any, res: any) => void) {
     let candidates_q_cards_send: CandidateQCard[] = new Array(0);
     candidatesLoop: for (let candidate of candidates) {
@@ -85,10 +85,10 @@ class CandidateRepository extends RepositoryBase<ICandidate> {
       let q_cards = candidates_q_cards_send.slice(0, ConstVariables.MAXIMUM_QCARD_FOR_SEARCH_RESULT_RESPONSE);
       callback(null, q_cards);
     }
-  }
+  }*/
 
 
-  getSortedQCard(candidates_q_cards: CandidateQCard []) {
+  /*getSortedQCard(candidates_q_cards: CandidateQCard []) {
     candidates_q_cards.sort((first: CandidateQCard, second: CandidateQCard): number => {
       if ((first.above_one_step_matching + first.exact_matching) > (second.above_one_step_matching + second.exact_matching)) {
         return -1;
@@ -99,7 +99,7 @@ class CandidateRepository extends RepositoryBase<ICandidate> {
       return 0;
     });
     return candidates_q_cards;
-  }
+  }*/
 
   isCandidatePresentInList(candidatesIds: any[], _id: string): boolean {
     if (candidatesIds) {
@@ -114,7 +114,7 @@ class CandidateRepository extends RepositoryBase<ICandidate> {
     return false;
   }
 
-  setQcardData(candidate_card_view: any, candidate: any) {
+  /*setQcardData(candidate_card_view: any, candidate: any) {
     candidate_card_view.salary = candidate.professionalDetails.currentSalary;
     candidate_card_view.experience = candidate.professionalDetails.experience;
     candidate_card_view.education = candidate.professionalDetails.education;
@@ -130,10 +130,10 @@ class CandidateRepository extends RepositoryBase<ICandidate> {
     candidate_card_view.location = candidate.location.city;
     candidate_card_view.noticePeriod = candidate.professionalDetails.noticePeriod;
     return candidate_card_view;
-  }
+  }*/
 
 
-  getCodesFromindustry(industry: IndustryModel): string[] {
+  /*getCodesFromindustry(industry: IndustryModel): string[] {
     console.time('getCodesFromindustry');
     let selected_complexity: string[] = new Array(0);
     for (let role of industry.roles) {
@@ -163,9 +163,9 @@ class CandidateRepository extends RepositoryBase<ICandidate> {
     }
     console.time('getCodesFromindustry');
     return selected_complexity;
-  }
+  }*/
 
-  getLatestCandidatesWithIncompleteProfile(profileComplettionInPercent: CandidateProfileCompletionInPercentage,
+  /*getLatestCandidatesWithIncompleteProfile(profileComplettionInPercent: CandidateProfileCompletionInPercentage,
                                            fromdate: Date, todate: Date, callback: (err: any, result: any) => void) {
     let data;
     switch (profileComplettionInPercent) {
@@ -209,9 +209,9 @@ class CandidateRepository extends RepositoryBase<ICandidate> {
       (err: any, res: any) => {
         callback(err, res);
       });
-  }
+  }*/
 
-  populateCandidateDetails(candidateId: string, callback: (err: Error, res: CandidateDetail) => void) {
+  /*populateCandidateDetails(candidateId: string, callback: (err: Error, res: CandidateDetail) => void) {
     let candidateRepository = new CandidateRepository();
     candidateRepository.retrieveAndPopulate({'_id': new mongoose.Types.ObjectId(candidateId)},
       {}, (err, candidate) => {
@@ -221,7 +221,7 @@ class CandidateRepository extends RepositoryBase<ICandidate> {
         }
         callback(err, (candidate[0].userId));
       });
-  }
+  }*/
 }
 
 Object.seal(CandidateRepository);

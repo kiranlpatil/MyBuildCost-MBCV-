@@ -5,13 +5,9 @@ import AuthInterceptor = require('../interceptor/auth.interceptor');
 import SendMailService = require('../services/mailer.service');
 import UserModel = require('../dataaccess/model/user.model');
 import UserService = require('../services/user.service');
-import RecruiterService = require('../services/recruiter.service');
 import Messages = require('../shared/messages');
 import ResponseService = require('../shared/response.service');
 import CandidateService = require('../services/candidate.service');
-import adminController= require('./admin.controller');
-import RecruiterModel = require('../dataaccess/model/recruiter.model');
-import IRecruiter = require("../dataaccess/mongoose/recruiter");
 
 let config = require('config');
 let path = require('path');
@@ -36,100 +32,50 @@ export function login(req: express.Request, res: express.Response, next: any) {
               code: 400
             });
           } else {
-            if (isSame) {
+
+            if (isSame){
               let auth = new AuthInterceptor();
               let token = auth.issueTokenWithUid(result[0]);
-              if (result[0].isAdmin) {
-                adminController.sendLoginInfoToAdmin(result[0].email, req.connection.remoteAddress, params.latitude, params.longitude, next);
-                res.status(200).send({
-                  "status": Messages.STATUS_SUCCESS,
-                  "data": {
-                    "email": result[0].email,
-                    "first_name": result[0].first_name,
-                    "_id": result[0]._id,
-                    "current_theme": result[0].current_theme,
-                    "end_user_id": result[0]._id,
-                    "picture": result[0].picture,
-                    "mobile_number": result[0].mobile_number,
-                    "isCandidate": result[0].isCandidate,
-                    "isAdmin": result[0].isAdmin
-                  },
-                  access_token: token
-                });
-              } else {
-                if (result[0].isCandidate === false) {
-                  let recruiterService = new RecruiterService();
-
-                  recruiterService.retrieve({"userId": result[0]._id}, (error: Error, recruiter: IRecruiter[]) => {
-                    if (error) {
-                      next(error);
-                    }
-                    else {
-                      res.status(200).send({
-                        "status": Messages.STATUS_SUCCESS,
-                        "data": {
-                          "email": result[0].email,
-                          "_id": result[0]._id,
-                          "end_user_id": recruiter[0]._id,
-                          "current_theme": result[0].current_theme,
-                          "picture": result[0].picture,
-                          "company_headquarter_country": recruiter[0].company_headquarter_country,
-                          "company_name": recruiter[0].company_name,
-                          "setOfDocuments": recruiter[0].setOfDocuments,
-                          "company_size": recruiter[0].company_size,
-                          "isRecruitingForself": recruiter[0].isRecruitingForself,
-                          "mobile_number": result[0].mobile_number,
-                          "isCandidate": result[0].isCandidate,
-                          "isAdmin": result[0].isAdmin
-                        },
-                        access_token: token
-                      });
-                    }
-                  });
+              let candidateService = new CandidateService();
+              candidateService.retrieve({"userId": result[0]._id}, (error, candidate) => {
+                if (error) {
+                  next(error);
                 }
                 else {
-                  let candidateService = new CandidateService();
-                  candidateService.retrieve({"userId": result[0]._id}, (error, candidate) => {
-                    if (error) {
-                      next(error);
-                    }
-                    else {
-                      var data: any = {
-                        "status": Messages.STATUS_SUCCESS,
-                        "data": {
-                          "first_name": result[0].first_name,
-                          "last_name": result[0].last_name,
-                          "email": result[0].email,
-                          "_id": result[0]._id,
-                          "end_user_id": candidate[0]._id,
-                          "current_theme": result[0].current_theme,
-                          "picture": result[0].picture,
-                          "mobile_number": result[0].mobile_number,
-                          "isCandidate": result[0].isCandidate,
-                          "isAdmin": result[0].isAdmin,
-                          "isCompleted": candidate[0].isCompleted,
-                          "isSubmitted": candidate[0].isSubmitted,
-                          "guide_tour": result[0].guide_tour
-                        },
-                        access_token: token
-                      }
-                      if (params.recruiterReferenceId) {
-                        let candidateService = new CandidateService();
-                        candidateService.updateToRecruiter(candidate[0]._id,
-                          {
-                            'first_name': result[0].first_name,
-                            'last_name': result[0].last_name,
-                            'email': result[0].email,
-                            'mobile_number': result[0].mobile_number,
-                            'recruiterReferenceId': params.recruiterReferenceId,
-                            'login': true
-                          });
-                      }
-                      res.status(200).send(data);
-                    }
-                  });
+                  var data: any = {
+                    "status": Messages.STATUS_SUCCESS,
+                    "data": {
+                      "first_name": result[0].first_name,
+                      "last_name": result[0].last_name,
+                      "email": result[0].email,
+                      "_id": result[0]._id,
+                      "end_user_id": candidate[0]._id,
+                      "current_theme": result[0].current_theme,
+                      "picture": result[0].picture,
+                      "mobile_number": result[0].mobile_number,
+                      "isCandidate": result[0].isCandidate,
+                      "isAdmin": result[0].isAdmin,
+                      "isCompleted": candidate[0].isCompleted,
+                      "isSubmitted": candidate[0].isSubmitted,
+                      "guide_tour": result[0].guide_tour
+                    },
+                    access_token: token
+                  }
+                  if (params.recruiterReferenceId) {
+                    let candidateService = new CandidateService();
+                    candidateService.updateToRecruiter(candidate[0]._id,
+                      {
+                        'first_name': result[0].first_name,
+                        'last_name': result[0].last_name,
+                        'email': result[0].email,
+                        'mobile_number': result[0].mobile_number,
+                        'recruiterReferenceId': params.recruiterReferenceId,
+                        'login': true
+                      });
+                  }
+                  res.status(200).send(data);
                 }
-              }
+              });
             } else {
               next({
                 reason: Messages.MSG_ERROR_RSN_INVALID_CREDENTIALS,
@@ -605,31 +551,6 @@ export function updateDetails(req: express.Request, res: express.Response, next:
   }
 }
 
-export function updateRecruiterAccountDetails(req: express.Request, res: express.Response, next: any) {
-  try {
-    let newUserData: RecruiterModel = <RecruiterModel>req.body;
-    let user = req.user;
-    let _id: string = user._id;
-    let auth: AuthInterceptor = new AuthInterceptor();
-    let recruiterService = new RecruiterService();
-    recruiterService.updateDetails(_id, newUserData, (error, result) => {
-      if (error) {
-        next(error);
-      } else {
-        res.send({
-          'status': 'Success'
-        });
-      }
-    });
-  } catch (e) {
-    next({
-      reason: e.message,
-      message: e.message,
-      stackTrace: new Error(),
-      code: 403
-    });
-  }
-}
 export function updateProfileField(req: express.Request, res: express.Response, next: any) {
   try {
     //let newUserData: UserModel = <UserModel>req.body;
@@ -1608,42 +1529,16 @@ export function updatePicture(req: express.Request, res: express.Response, next:
                 next(error);
               }
               else {
-                if (!result.isCandidate) {
-                  let recruiterService: RecruiterService = new RecruiterService();
-                  let query1 = {"userId": result._id};
-                  recruiterService.findOneAndUpdate(query1, {company_logo: mypath}, {new: true}, (error, response1) => {
-                    if (error) {
-                      next(error);
-                    }
-                    else {
-                      userService.findOneAndUpdate(query, {picture: mypath}, {new: true}, (error, response) => {
-                        if (error) {
-                          next(error);
-                        }
-                        else {
-                          let auth: AuthInterceptor = new AuthInterceptor();
-                          let token = auth.issueTokenWithUid(result);
-                          res.status(200).send({access_token: token, data: response});
-                        }
-                      });
-
-                    }
-                  });
-
-                } else {
-                  userService.findOneAndUpdate(query, {picture: mypath}, {new: true}, (error, response) => {
-                    if (error) {
-                      next(error);
-                    }
-                    else {
-                      let auth: AuthInterceptor = new AuthInterceptor();
-                      let token = auth.issueTokenWithUid(result);
-                      res.status(200).send({access_token: token, data: response});
-                    }
-                  });
-                }
-
-
+                userService.findOneAndUpdate(query, {picture: mypath}, {new: true}, (error, response) => {
+                  if (error) {
+                    next(error);
+                  }
+                  else {
+                    let auth: AuthInterceptor = new AuthInterceptor();
+                    let token = auth.issueTokenWithUid(result);
+                    res.status(200).send({access_token: token, data: response});
+                  }
+                });
               }
             });
           }
@@ -1839,30 +1734,6 @@ export function getUserFeedback(req: express.Request, res: express.Response, nex
   }
 }
 
-export function getUserRegistrationStatus(req: express.Request, res: express.Response, next: any) {
-  try {
-    let userService = new UserService();
-    let query = {'mobile_number': req.params.mobileNo};
-    userService.getUserRegistrationStatus(query, (error, result) => {
-      if (error) {
-        next(error);
-      } else {
-        let data: any = {'recruiterId': req.query.recruiterId, 'mobile_number': req.params.mobileNo};
-        let recruiterService = new RecruiterService();
-        recruiterService.notifyRecruiter(data, result);
-        res.status(200).send(result);
-      }
-    });
-  } catch (e) {
-    next({
-      reason: e.message,
-      message: e.message,
-      stackTrace: new Error(),
-      code: 403
-    });
-  }
-
-}
 
 export function getUserDetails(req: express.Request, res: express.Response, next: any) {
   try {
@@ -1876,83 +1747,34 @@ export function getUserDetails(req: express.Request, res: express.Response, next
         next(error);
       } else if (result.length > 0 && result[0].isActivated === true) {
         let token = auth.issueTokenWithUid(result[0]);
-        if (result[0].isAdmin) {
-          //adminController.sendLoginInfoToAdmin(result[0].email, req.connection.remoteAddress, params.latitude, params.longitude,next);
-          res.status(200).send({
-            "status": Messages.STATUS_SUCCESS,
-            "data": {
-              "email": result[0].email,
-              "first_name": result[0].first_name,
-              "_id": result[0]._id,
-              "current_theme": result[0].current_theme,
-              "end_user_id": result[0]._id,
-              "picture": result[0].picture,
-              "mobile_number": result[0].mobile_number,
-              "isCandidate": result[0].isCandidate,
-              "isAdmin": result[0].isAdmin
-            },
-            access_token: token
+        {
+          let candidateService = new CandidateService();
+          candidateService.retrieve({"userId": result[0]._id}, (error, candidate) => {
+            if (error) {
+              next(error);
+            }
+            else {
+              res.status(200).send({
+                "status": Messages.STATUS_SUCCESS,
+                "data": {
+                  "first_name": result[0].first_name,
+                  "last_name": result[0].last_name,
+                  "email": result[0].email,
+                  "_id": result[0]._id,
+                  "end_user_id": candidate[0]._id,
+                  "current_theme": result[0].current_theme,
+                  "picture": result[0].picture,
+                  "mobile_number": result[0].mobile_number,
+                  "isCandidate": result[0].isCandidate,
+                  "isAdmin": result[0].isAdmin,
+                  "isCompleted": candidate[0].isCompleted,
+                  "isSubmitted": candidate[0].isSubmitted,
+                  "guide_tour": result[0].guide_tour
+                },
+                access_token: token
+              });
+            }
           });
-        }
-        else {
-          if (result[0].isCandidate === false) {
-            let recruiterService = new RecruiterService();
-            recruiterService.retrieve({"userId": result[0]._id}, (error: Error, recruiter: IRecruiter[]) => {
-              if (error) {
-                next(error);
-              }
-              else {
-                res.status(200).send({
-                  "status": Messages.STATUS_SUCCESS,
-                  "data": {
-                    "email": result[0].email,
-                    "_id": result[0]._id,
-                    "end_user_id": recruiter[0]._id,
-                    "current_theme": result[0].current_theme,
-                    "picture": result[0].picture,
-                    "company_headquarter_country": recruiter[0].company_headquarter_country,
-                    "company_name": recruiter[0].company_name,
-                    "setOfDocuments": recruiter[0].setOfDocuments,
-                    "company_size": recruiter[0].company_size,
-                    "isRecruitingForself": recruiter[0].isRecruitingForself,
-                    "mobile_number": result[0].mobile_number,
-                    "isCandidate": result[0].isCandidate,
-                    "isAdmin": result[0].isAdmin
-                  },
-                  access_token: token
-                });
-              }
-            });
-          }
-          else {
-            let candidateService = new CandidateService();
-            candidateService.retrieve({"userId": result[0]._id}, (error, candidate) => {
-              if (error) {
-                next(error);
-              }
-              else {
-                res.status(200).send({
-                  "status": Messages.STATUS_SUCCESS,
-                  "data": {
-                    "first_name": result[0].first_name,
-                    "last_name": result[0].last_name,
-                    "email": result[0].email,
-                    "_id": result[0]._id,
-                    "end_user_id": candidate[0]._id,
-                    "current_theme": result[0].current_theme,
-                    "picture": result[0].picture,
-                    "mobile_number": result[0].mobile_number,
-                    "isCandidate": result[0].isCandidate,
-                    "isAdmin": result[0].isAdmin,
-                    "isCompleted": candidate[0].isCompleted,
-                    "isSubmitted": candidate[0].isSubmitted,
-                    "guide_tour": result[0].guide_tour
-                  },
-                  access_token: token
-                });
-              }
-            });
-          }
         }
       }
       else if (result.length > 0 && result[0].isActivated === false) {

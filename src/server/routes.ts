@@ -1,9 +1,6 @@
 import * as express from "express";
 import * as userController from "./app/framework/controllers/user.controller";
-import * as adminController from "./app/framework/controllers/admin.controller";
 import * as candidateController from "./app/framework/controllers/candidate.controller";
-import * as recruiterController from "./app/framework/controllers/recruiter.controller";
-import {ImportIndustryController} from "./app/framework/controllers/import-Industries.controller";
 import * as sharedService from "./app/framework/shared/logger/shared.service";
 import * as userInterceptor from "./app/framework/interceptor/user.interceptor";
 import * as loggerInterceptor from "./app/framework/interceptor/logger.interceptor";
@@ -12,15 +9,12 @@ this.authInterceptor = new AuthInterceptor();
 
 export function init(app: express.Application) {
   try {
-    let importIndustryController = new ImportIndustryController();
     app.post("/api/generateotp/:id", loggerInterceptor.logDetail, this.authInterceptor.requiresAuth, this.authInterceptor.secureApiCheck, userController.generateOtp);
     app.put("/api/verifyotp/:id", loggerInterceptor.logDetail, this.authInterceptor.requiresAuth, this.authInterceptor.secureApiCheck, userController.verifyOtp);
     app.post("/api/login", loggerInterceptor.logDetail, userInterceptor.login, userController.login);
     app.post("/api/forgotpassword", loggerInterceptor.logDetail, userInterceptor.forgotPassword, userController.forgotPassword);
     app.put("/api/resetpassword/:id", loggerInterceptor.logDetail, this.authInterceptor.requiresAuth, this.authInterceptor.secureApiCheck, userController.resetPassword);
     app.post("/api/candidate", loggerInterceptor.logDetail, candidateController.create);
-    app.post("/api/admin", loggerInterceptor.logDetail, adminController.create);
-    app.post("/api/recruiter", loggerInterceptor.logDetail, recruiterController.create);
     app.put("/api/users/:id", loggerInterceptor.logDetail, this.authInterceptor.requiresAuth, this.authInterceptor.secureApiCheck, userController.updateDetails);
     app.put("/api/users/:id/fieldname/:fname", loggerInterceptor.logDetail, this.authInterceptor.requiresAuth, this.authInterceptor.secureApiCheck, userController.updateProfileField);
     app.get("/api/users/:id", loggerInterceptor.logDetail, userInterceptor.retrieve, this.authInterceptor.requiresAuth, this.authInterceptor.secureApiCheck, userController.retrieve);
@@ -59,8 +53,8 @@ export function init(app: express.Application) {
     app.post("/api/sendrecruitermail/:id", loggerInterceptor.logDetail, this.authInterceptor.requiresAuth, this.authInterceptor.secureApiCheck, userController.recruiterVerificationMail);
     app.post("/api/companydetails/:id", loggerInterceptor.logDetail, this.authInterceptor.requiresAuth, this.authInterceptor.secureApiCheck, userController.updateCompanyDetails);
     app.put("/api/uploaddocuments/:id", loggerInterceptor.logDetail, this.authInterceptor.requiresAuth, this.authInterceptor.secureApiCheck, userController.uploaddocuments);
-    app.get('/api/countofusers', loggerInterceptor.logDetail, this.authInterceptor.requiresAuth, this.authInterceptor.secureApiCheck, adminController.getCountOfUsers);
-    app.get("/api/readxlsx", loggerInterceptor.logDetail, importIndustryController.readXlsx);
+    /*app.get('/api/countofusers', loggerInterceptor.logDetail, this.authInterceptor.requiresAuth, this.authInterceptor.secureApiCheck, adminController.getCountOfUsers);*/
+    /*app.get("/api/readxlsx", loggerInterceptor.logDetail, importIndustryController.readXlsx);*/
     //app.post("/api/createImportIndusry", importIndustriesController.create);
     app.use(sharedService.errorHandler);
   }catch (e) {

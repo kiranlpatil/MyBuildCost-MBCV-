@@ -11,7 +11,7 @@ import AuthInterceptor = require('../../framework/interceptor/auth.interceptor')
 import ProjectAsset = require('../shared/projectasset');
 import MailAttachments = require('../shared/sharedarray');
 import RecruiterRepository = require('../dataaccess/repository/recruiter.repository');
-import RecruiterService = require('./recruiter.service');
+/*import RecruiterService = require('./recruiter.service');*/
 
 class UserService {
   APP_NAME: string;
@@ -23,7 +23,7 @@ class UserService {
 
   constructor() {
     this.userRepository = new UserRepository();
-    this.recruiterRepository = new RecruiterRepository();
+    /*this.recruiterRepository = new RecruiterRepository();*/
     this.APP_NAME = ProjectAsset.APP_NAME;
   }
 
@@ -126,19 +126,6 @@ class UserService {
             'forgotpassword.html',data,(err: any, result: any) => {
               callback(err, result);
             });
-        } else {
-          this.recruiterRepository.retrieve({'userId': new mongoose.Types.ObjectId(res[0]._id)}, (err, recruiter) => {
-            if (err) {
-              callback(err, null);
-            } else {
-              this.company_name = recruiter[0].company_name;
-              let data:Map<string,string>= new Map([['$jobmosisLink$',config.get('TplSeed.mail.host')],
-                ['$first_name$',this.company_name],['$link$',link],['$app_name$',this.APP_NAME]]);
-              sendMailService.send(field.email,
-                Messages.EMAIL_SUBJECT_FORGOT_PASSWORD,
-                'forgotpassword.html',data,callback ,null,MailAttachments.ForgetPasswordAttachmentArray);
-            }
-          });
         }
       } else if (res.length > 0 && res[0].isActivated === false) {
         callback(new Error(Messages.MSG_ERROR_ACCOUNT_STATUS), res);
@@ -172,7 +159,7 @@ class UserService {
   }
 
 
-  sendVerificationMail(field: any, callback: (error: any, result: SentMessageInfo) => void) {
+  /*sendVerificationMail(field: any, callback: (error: any, result: SentMessageInfo) => void) {
 
     this.userRepository.retrieve({'email': field.email}, (err, res) => {
       if (res.length > 0) {
@@ -204,7 +191,7 @@ class UserService {
         callback(new Error(Messages.MSG_ERROR_USER_NOT_FOUND), res);
       }
     });
-  }
+  }*/
 
   sendRecruiterVerificationMail(field: any, callback: (error: any, result: SentMessageInfo) => void) {
 

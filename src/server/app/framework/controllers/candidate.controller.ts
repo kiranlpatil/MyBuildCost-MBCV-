@@ -1,19 +1,19 @@
 import * as express from "express";
 import * as mongoose from "mongoose";
 import {MailChimpMailerService} from "../services/mailchimp-mailer.service";
-import {UtilityFunction} from "../uitility/utility-function";
+/*import {UtilityFunction} from "../Old-uitility/utility-function";*/
 import AuthInterceptor = require('../interceptor/auth.interceptor');
 import Messages = require('../shared/messages');
 import CandidateModel = require('../dataaccess/model/candidate.model');
 import CandidateService = require('../services/candidate.service');
 import UserService = require('../services/user.service');
-import SearchService = require('../search/services/search.service');
-import CandidateInfoSearch = require('../dataaccess/model/candidate-info-search');
+/*import SearchService = require('../search/services/search.service');*/
+/*import CandidateInfoSearch = require('../dataaccess/model/candidate-info-search');
 import CandidateSearchService = require("../services/candidate-search.service");
-import CandidateClassModel = require("../dataaccess/model/candidate-class.model");
-import SendMailService = require('../services/mailer.service');
+import CandidateClassModel = require("../dataaccess/model/candidate-class.model");*/
+/*import SendMailService = require('../services/mailer.service');*/
 import ProjectAsset = require('../shared/projectasset');
-import RecruiterCandidatesModel = require("../dataaccess/model/recruiter-candidate.model");
+/*import RecruiterCandidatesModel = require("../dataaccess/model/recruiter-candidate.model");*/
 
 
 export function create(req: express.Request, res: express.Response, next: any) {
@@ -310,7 +310,7 @@ export function get(req: express.Request, res: express.Response, next: any) { //
   }
 }
 
-export function metchResult(req: express.Request, res: express.Response, next: any) {
+/*export function metchResult(req: express.Request, res: express.Response, next: any) {
   try {
     let searchService = new SearchService();
     let jobId = req.params.jobId;
@@ -343,7 +343,7 @@ export function metchResult(req: express.Request, res: express.Response, next: a
       code: 403
     });
   }
-}
+}*/
 
 
 export function getList(req: express.Request, res: express.Response, next: any) {
