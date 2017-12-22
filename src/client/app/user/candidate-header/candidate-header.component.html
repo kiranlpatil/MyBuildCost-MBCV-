@@ -52,26 +52,14 @@
                   <h4>Swapnil</h4>
                 </li>
                 <li class="divider"></li>
-                <li class="visible-xs" role="menuitem" [routerLinkActive]="['active']">
-                  <a class="dropdown-item" [routerLink]="['/candidate/dashboard']"
-                     (click)="navigateTo('/candidate/dashboard');">
-                    <span class="glyphicon glyphicon-th"></span>My Dashboard
-                  </a>
-                </li>
-                <li class="visible-xs" role="menuitem" [routerLinkActive]="['active']">
-                  <a class="dropdown-item" [routerLink]="['/candidate/profile']"
-                     (click)="navigateTo('/candidate/profile');">
-                    <span class="	glyphicon glyphicon-edit"></span>Edit Profile
+                <li role="menuitem" [routerLinkActive]="['active']">
+                  <a class="dropdown-item" [routerLink]="['/dashboard/details']"
+                     (click)="navigateTo('/dashboard/details');">
+                    <span class="glyphicon glyphicon-list-alt"></span>Account 1Details
                   </a>
                 </li>
                 <li role="menuitem" [routerLinkActive]="['active']">
-                  <a class="dropdown-item" [routerLink]="['/user/details']" [queryParams]="{ role: 'candidate'}">
-                    <span class="glyphicon glyphicon-list-alt"></span>Account Details
-                  </a>
-                </li>
-                <li role="menuitem" [routerLinkActive]="['active']">
-                  <a class="dropdown-item" [routerLink]="['/user/change-password']"
-                     [queryParams]="{ role: 'candidate'}">
+                  <a class="dropdown-item" [routerLink]="['/dashboard/change-password']" (click)="navigateTo('/dashboard/change-password');">
                     <span class="glyphicon glyphicon-lock"></span>Change Password
                   </a>
                 </li>

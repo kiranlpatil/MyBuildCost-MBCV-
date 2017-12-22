@@ -3,9 +3,9 @@ import {LoaderService} from "../../../shared/loader/loaders.service";
 
 @Component({
   moduleId: module.id,
-  selector: 'cn-dashboard-home',
+  selector: 'my-dashboard-home',
   templateUrl: 'dashboard-home.component.html',
-  styleUrls: ['dashboard-home.component.css'],
+  styleUrls: ['dashboard-home.component.css']
 })
 export class DashboardHomeComponent implements OnInit, OnDestroy {
 

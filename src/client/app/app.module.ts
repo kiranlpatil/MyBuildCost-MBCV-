@@ -34,7 +34,11 @@ import {LandingPageComponent} from "./framework/landing-page/landing-page.compon
 import {SharedService} from "./shared/services/shared-service";
 import {PageNotFoundComponent} from "./shared/page-not-found/page-not-found.component";
 import {AnalyticService} from "./shared/services/analytic.service";
-import { MyDashboardComponent} from "./cnext/framework/my-dashboard/my-dashboard.component"
+import { MyDashboardComponent} from "./cnext/framework/my-dashboard/my-dashboard.component";
+import {DashboardProfileComponent } from "./framework/dashboard/user-profile/dashboard-user-profile.component";
+import {DashboardUserProfileService} from "./framework/dashboard/user-profile/dashboard-user-profile.service";
+import {UserChangePasswordComponent} from "./framework/dashboard/user-change-password/user-change-password.component";
+import {UserChangePasswordService} from "./framework/dashboard/user-change-password/user-change-password.service";
 import {AuthGuardService} from "./shared/services/auth-guard.service";
 
 //C-NEXT IMPORTS
@@ -65,6 +69,8 @@ import {AuthGuardService} from "./shared/services/auth-guard.service";
     //C-NEXT COMPONENT
     RoleTypeListComponent,
     MyDashboardComponent,
+    DashboardProfileComponent,
+    UserChangePasswordComponent,
     PageNotFoundComponent
   ],
 
@@ -82,6 +88,8 @@ import {AuthGuardService} from "./shared/services/auth-guard.service";
     },
     NotificationService,
     DashboardService,
+    DashboardUserProfileService,
+    UserChangePasswordService,
     ProfileService,
     ContactService,
     ActiveUserService,

@@ -41,19 +41,9 @@ constructor(private _router: Router, private themeChangeService: ThemeChangeServ
     SessionStorageService.setSessionValue(SessionStorage.AFTER_RECRUITER_REGISTRATION_FORM, null);
     SessionStorageService.setSessionValue(SessionStorage.AFTER_CANDIDATE_REGISTRATION_FORM, null);
     SessionStorageService.setSessionValue(SessionStorage.ISADMIN, res.data.isAdmin);
-    if (res.data.isAdmin === true) {
-      this._router.navigate([NavigationRoutes.APP_ADMIN_DASHBOARD]);
-    }
-    else if (res.data.isCandidate === true) {
-      if (res.data.isCompleted === true) {
-        this._router.navigate([NavigationRoutes.APP_DASHBOARD]);
-      } else {
-        this._router.navigate([NavigationRoutes.APP_DASHBOARD]);
-      }
-    } else {
-      SessionStorageService.setSessionValue(SessionStorage.COMPANY_NAME, res.data.company_name);
 
-      this._router.navigate([NavigationRoutes.APP_RECRUITER_DASHBOARD]);
+    if (res.data.isCandidate === true) {
+      this._router.navigate([NavigationRoutes.APP_DASHBOARD]);
     }
   }
 

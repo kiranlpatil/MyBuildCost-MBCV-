@@ -147,7 +147,7 @@ export class CandidateSignUpComponent implements OnInit, AfterViewInit {
   onRegistrationSuccess(candidate: any) {
     fbq('track', 'CompleteRegistration');
     this.gtag_report_conversion('AW-831903917/fTZvCPC1q3YQrbHXjAM');
-    SessionStorageService.setSessionValue(SessionStorage.USER_ID, candidate.data._id);
+    SessionStorageService.setSessionValue(SessionStorage.USER_ID, candidate.result._id);
     SessionStorageService.setSessionValue(SessionStorage.EMAIL_ID, this.userForm.value.email);
     SessionStorageService.setSessionValue(SessionStorage.PASSWORD, this.model.password);
     SessionStorageService.setSessionValue(SessionStorage.MOBILE_NUMBER, this.userForm.value.mobile_number);
