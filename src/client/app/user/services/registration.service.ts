@@ -13,10 +13,6 @@ export class RegistrationService {
 constructor(private _router: Router, private themeChangeService: ThemeChangeService, private messageService: MessageService){}
 
   onSuccess(res: any) {
-    SessionStorageService.setSessionValue(SessionStorage.IS_CANDIDATE, res.data.isCandidate);
-    SessionStorageService.setSessionValue(SessionStorage.IS_CANDIDATE_FILLED, res.data.isCompleted);
-    SessionStorageService.setSessionValue(SessionStorage.IS_CANDIDATE_SUBMITTED, res.data.isSubmitted);
-    SessionStorageService.setSessionValue(SessionStorage.END_USER_ID, res.data.end_user_id);
     SessionStorageService.setSessionValue(SessionStorage.EMAIL_ID, res.data.email);
     SessionStorageService.setSessionValue(SessionStorage.MOBILE_NUMBER, res.data.mobile_number);
     SessionStorageService.setSessionValue(SessionStorage.FIRST_NAME, res.data.first_name);
@@ -38,9 +34,6 @@ constructor(private _router: Router, private themeChangeService: ThemeChangeServ
 
     SessionStorageService.setSessionValue(SessionStorage.IS_LOGGED_IN, 1);
     SessionStorageService.setSessionValue(SessionStorage.PROFILE_PICTURE, res.data.picture);
-    SessionStorageService.setSessionValue(SessionStorage.AFTER_RECRUITER_REGISTRATION_FORM, null);
-    SessionStorageService.setSessionValue(SessionStorage.AFTER_CANDIDATE_REGISTRATION_FORM, null);
-    SessionStorageService.setSessionValue(SessionStorage.ISADMIN, res.data.isAdmin);
 
     if (res.data.isCandidate === true) {
       this._router.navigate([NavigationRoutes.APP_DASHBOARD]);

@@ -5,8 +5,8 @@ import {CandidateSignUpRoutes} from "./candidate-sign-up/candidate-sign-up.route
 import {UserVerificationRoutes} from "./user-verification/verify-user.routes";
 import {LoginRoutes} from "./login/login.routes";
 import {RecruiterSignUpRoutes} from "./recruiter-sign-up/recruiter.routes";
-import {ResetPasswordRoutes} from "./forgot-password/reset-password/reset-password.routes";
-import {ForgotPasswordRoutes} from "./forgot-password/forgot-password.routes";
+import {ResetPasswordRoutes} from "../framework/login/forgot-password/reset-password/reset-password.routes";
+import {ForgotPasswordRoutes} from "../framework/login/forgot-password/forgot-password.routes";
 import {CompanyDetailsRoutes} from "./company-details/company-details.routes";
 import {ActivateEmailRoutes} from "./settings/activate-email/activate-email.routes";
 import {ChangeEmailRoutes} from "./settings/change-email/change-email.routes";
@@ -18,7 +18,6 @@ import {ChangeMobileRoutes} from "./settings/change-mobile/change-mobile.routes"
       ...LoginRoutes,
       ...CandidateSignUpRoutes,
       ...CandidateSignUpVerificationRoutes,
-      //...ChangePasswordRoutes,
       ...CompanyDetailsRoutes,
       ...ForgotPasswordRoutes,
       ...ResetPasswordRoutes,
@@ -26,9 +25,7 @@ import {ChangeMobileRoutes} from "./settings/change-mobile/change-mobile.routes"
       ...UserVerificationRoutes,
       ...ActivateEmailRoutes,
       ...ChangeEmailRoutes,
-      ...ChangeMobileRoutes,
-      //...UserProfileRoutes,
-      //...SettingsRoutes
+      ...ChangeMobileRoutes
     ])
   ],
   exports: [

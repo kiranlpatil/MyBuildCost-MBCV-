@@ -17,7 +17,6 @@ export class RoleTypeListComponent implements OnChanges {
   private showModalStyle: boolean = false;
   disableRoletype: boolean = false;
   disableButton: boolean = true;
-  saveRolesMessage: string = Tooltip.SAVE_ROLES_MESSAGE;
 
   ngOnChanges(changes: any) {
     if (changes.roleTypes != undefined) {

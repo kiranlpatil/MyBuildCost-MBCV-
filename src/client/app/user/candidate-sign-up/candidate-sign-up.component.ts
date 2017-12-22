@@ -71,10 +71,7 @@ export class CandidateSignUpComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    let val = SessionStorageService.getSessionValue(SessionStorage.AFTER_CANDIDATE_REGISTRATION_FORM);
-    if (val !== null) {
-      this._router.navigate([NavigationRoutes.VERIFY_USER]);
-    }
+     this._router.navigate([NavigationRoutes.VERIFY_USER]);
     this.validBirthYearList = this.dateService.createBirthYearList(this.year);
     this.mainHeaderMenuHideShow = 'applicant';
 
@@ -83,10 +80,6 @@ export class CandidateSignUpComponent implements OnInit, AfterViewInit {
         this.userForm.controls['mobile_number']
           .setValue(Number(params['phoneNumber']))
       }
-      if(params['integrationKey']) {
-        SessionStorageService.setRecruiterReferenceId(params['integrationKey'])
-      }
-      this.isFromCareerPlugin = (params['integrationKey'] !== undefined) ? true : false;
     });
   }
 
@@ -132,9 +125,6 @@ export class CandidateSignUpComponent implements OnInit, AfterViewInit {
     this.model.current_theme = AppSettings.LIGHT_THEM;
     this.model.isCandidate = true;
     this.model.email = this.model.email.toLowerCase();
-    if(SessionStorageService.getRecruiterReferenceId()) {
-      this.model.recruiterReferenceId = SessionStorageService.getRecruiterReferenceId();
-    }
 
     if (!this.makePasswordConfirm()) {
       this.isFormSubmitted = true;
@@ -152,8 +142,6 @@ export class CandidateSignUpComponent implements OnInit, AfterViewInit {
     SessionStorageService.setSessionValue(SessionStorage.PASSWORD, this.model.password);
     SessionStorageService.setSessionValue(SessionStorage.MOBILE_NUMBER, this.userForm.value.mobile_number);
     SessionStorageService.setSessionValue(SessionStorage.CHANGE_MAIL_VALUE, 'from_registration');
-    SessionStorageService.setSessionValue(SessionStorage.FROM_CANDIDATE_REGISTRATION, 'true');
-    SessionStorageService.setSessionValue(SessionStorage.AFTER_CANDIDATE_REGISTRATION_FORM, 'true');
     this._router.navigate([NavigationRoutes.VERIFY_USER]);
   }
 

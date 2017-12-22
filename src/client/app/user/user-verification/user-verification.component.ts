@@ -57,8 +57,9 @@ export class UserVerificationComponent implements OnInit {
   ngOnInit() {
     this.model.mobile_number = SessionStorageService.getSessionValue(SessionStorage.MOBILE_NUMBER);
     this.model.email = SessionStorageService.getSessionValue(SessionStorage.EMAIL_ID);
-    let val = SessionStorageService.getSessionValue(SessionStorage.FROM_CANDIDATE_REGISTRATION);
-    if (val === 'true') {
+    let val = true;
+    //let val = SessionStorageService.getSessionValue(SessionStorage.FROM_CANDIDATE_REGISTRATION);
+    if (val == true) {
       this.isCandidate = true;
       this.chkMobile = false;
       this.chkEmail = true;
@@ -111,7 +112,6 @@ export class UserVerificationComponent implements OnInit {
   }
 
   verifySuccess(res: any) {
-    SessionStorageService.setSessionValue(SessionStorage.AFTER_RECRUITER_REGISTRATION_FORM, '');
     if (!this.chkMobile) {
       SessionStorageService.setSessionValue(SessionStorage.VERIFY_PHONE_VALUE, 'from_registration');
       this._router.navigate([NavigationRoutes.VERIFY_PHONE]);

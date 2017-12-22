@@ -86,7 +86,7 @@ export class RecruiterSignUpComponent implements OnInit {
   }
 
   ngOnInit() {
-    let val = SessionStorageService.getSessionValue(SessionStorage.AFTER_RECRUITER_REGISTRATION_FORM);
+    let val = "dummy_text_remove";//SessionStorageService.getSessionValue(SessionStorage.AFTER_RECRUITER_REGISTRATION_FORM);
     if (val !== null) {
       if (val == "true") {
         this._router.navigate([NavigationRoutes.VERIFY_USER]);
@@ -237,8 +237,6 @@ export class RecruiterSignUpComponent implements OnInit {
     SessionStorageService.setSessionValue(SessionStorage.EMAIL_ID, this.recruiterForm.value.email);
     SessionStorageService.setSessionValue(SessionStorage.COMPANY_NAME, this.recruiterForm.value.company_name);
     SessionStorageService.setSessionValue(SessionStorage.CHANGE_MAIL_VALUE, 'from_registration');
-    SessionStorageService.setSessionValue(SessionStorage.FROM_CANDIDATE_REGISTRATION, 'false');
-    SessionStorageService.setSessionValue(SessionStorage.AFTER_RECRUITER_REGISTRATION_FORM, "true");
     this._router.navigate([NavigationRoutes.VERIFY_USER]);
   }
 

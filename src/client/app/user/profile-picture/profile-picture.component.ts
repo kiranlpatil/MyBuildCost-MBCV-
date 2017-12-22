@@ -35,7 +35,6 @@ export class ProfilePictureComponent {
               private messageService: MessageService, private profileService: ProfileService) {
     this.filesToUpload = [];
     this.uploaded_image_path = SessionStorageService.getSessionValue(SessionStorage.PROFILE_PICTURE); //TODO:Get it from get user call.
-    this.isCandidate = SessionStorageService.getSessionValue(SessionStorage.IS_CANDIDATE);
     if (this.uploaded_image_path === "undefined" || this.uploaded_image_path === null) {
       if (this.isCandidate == "true") {
         this.image_path = ImagePath.PROFILE_IMG_ICON;
@@ -84,9 +83,7 @@ export class ProfilePictureComponent {
     this.model = result.data;
     SessionStorageService.setSessionValue(SessionStorage.PROFILE_PICTURE, result.data.picture);
     var socialLogin: string = SessionStorageService.getSessionValue(SessionStorage.IS_SOCIAL_LOGIN);
-    if (SessionStorageService.getSessionValue(SessionStorage.IS_CANDIDATE) === 'true') {
-      this.onPictureUpload.emit(result.data.picture);
-    }
+    this.onPictureUpload.emit(result.data.picture);
 
     if (!this.model.picture || this.model.picture === undefined) {
       this.image_path = ImagePath.PROFILE_IMG_ICON;

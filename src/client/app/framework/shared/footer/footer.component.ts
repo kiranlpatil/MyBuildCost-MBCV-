@@ -17,8 +17,8 @@ export class FooterComponent {
   }
 
   goToFaq() {
-    let host = AppSettings.HTTP_CLIENT + AppSettings.HOST_NAME + API.FAQ;
-    window.open(host, '_blank');
+    //let host = AppSettings.HTTP_CLIENT + AppSettings.HOST_NAME + API.FAQ;
+    //window.open(host, '_blank');
   }
 
   getMessage() {

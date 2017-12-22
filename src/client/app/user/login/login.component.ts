@@ -74,9 +74,6 @@ export class LoginComponent implements OnInit {
         this.userForm.controls['email'].setValue(params['email']);
       }
       this.recruiterReferenceId = params['integrationKey'];
-      if (this.recruiterReferenceId !== undefined) {
-        SessionStorageService.setRecruiterReferenceId(params['integrationKey']);
-      }
       this.isFromCareerPlugin = (params['integrationKey'] !== undefined) ? true : false;
     });
     if(LocalStorageService.getLocalValue(LocalStorage.ACCESS_TOKEN)) {
@@ -122,20 +119,10 @@ export class LoginComponent implements OnInit {
       LocalStorageService.setLocalValue(LocalStorage.ACCESS_TOKEN, res.access_token);
       LocalStorageService.setLocalValue(LocalStorage.IS_LOGGED_IN, 1);
     }
-    SessionStorageService.setSessionValue(SessionStorage.IS_CANDIDATE, res.data.isCandidate);
-    SessionStorageService.setSessionValue(SessionStorage.IS_CANDIDATE_FILLED, res.data.isCompleted);
-    SessionStorageService.setSessionValue(SessionStorage.IS_CANDIDATE_SUBMITTED,  res.data.isSubmitted);
-    SessionStorageService.setSessionValue(SessionStorage.END_USER_ID, res.data.end_user_id);
     SessionStorageService.setSessionValue(SessionStorage.EMAIL_ID, res.data.email);
     SessionStorageService.setSessionValue(SessionStorage.MOBILE_NUMBER, res.data.mobile_number);
     SessionStorageService.setSessionValue(SessionStorage.FIRST_NAME, res.data.first_name);
     SessionStorageService.setSessionValue(SessionStorage.LAST_NAME, res.data.last_name);
-    if (res.data.guide_tour) {
-      SessionStorageService.setSessionValue(SessionStorage.GUIDED_TOUR, JSON.stringify(res.data.guide_tour));
-    } else {
-      var dataArray: string[] = new Array(0);
-      SessionStorageService.setSessionValue(SessionStorage.GUIDED_TOUR, JSON.stringify(dataArray));
-    }
 
     this.userForm.reset();
     if (res.data.current_theme) {
@@ -177,21 +164,7 @@ export class LoginComponent implements OnInit {
   successRedirect(res: any) {
     SessionStorageService.setSessionValue(SessionStorage.IS_LOGGED_IN, 1);
     SessionStorageService.setSessionValue(SessionStorage.PROFILE_PICTURE, res.data.picture);
-    SessionStorageService.setSessionValue(SessionStorage.ISADMIN, res.data.isAdmin);
-    if (res.data.isAdmin === true) {
-      this._router.navigate([NavigationRoutes.APP_ADMIN_DASHBOARD]);
-    }
-    else if (res.data.isCandidate === true) {
-      if (res.data.isSubmitted === true) {
-        this._router.navigate([NavigationRoutes.APP_DASHBOARD]);
-      } else {
-        this._router.navigate([NavigationRoutes.APP_DASHBOARD]);
-      }
-    } else {
-      SessionStorageService.setSessionValue(SessionStorage.COMPANY_NAME, res.data.company_name);
-      SessionStorageService.setSessionValue(SessionStorage.IS_RECRUITING_FOR_SELF, res.data.isRecruitingForself);
-      this._router.navigate([NavigationRoutes.APP_RECRUITER_DASHBOARD]);
-    }
+    this._router.navigate([NavigationRoutes.APP_DASHBOARD]);
   }
 
   loginFail(error: any) {

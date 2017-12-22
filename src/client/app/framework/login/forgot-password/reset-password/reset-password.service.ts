@@ -1,11 +1,11 @@
 import {Injectable} from "@angular/core";
 import {Http} from "@angular/http";
 import {Observable} from "rxjs/Observable";
-import {MessageService} from "../../../shared/services/message.service";
-import {SessionStorageService} from "../../../shared/services/session.service";
-import {BaseService} from "../../../shared/services/http/base.service";
-import {API, SessionStorage} from "../../../shared/index";
-import {ResetPassword} from "../../models/reset-password";
+import {MessageService} from "../../../../shared/services/message.service";
+import {SessionStorageService} from "../../../../shared/services/session.service";
+import {BaseService} from "../../../../shared/services/http/base.service";
+import {API, SessionStorage} from "../../../../shared/index";
+import {ResetPassword} from "../../../../user/models/reset-password";
 
 
 @Injectable()

@@ -48,7 +48,7 @@ export class CompanyDetailsComponent implements OnInit {
   isUploadedImages : boolean[] = [false,false,false];
   isLoaderImages : boolean[] = [true,true,true];
   tooltipMessage: string = '<ul><li>' +
-    '<p>1. '+Tooltip.COMPANY_DETAILS_TOOLTIP+'</p></li></ul>';
+    '<p>1. COMPANY DETAILSTOOLTIP</p></li></ul>';
 
   constructor(private commonService: CommonService, private _router: Router, private http: Http,
               private companyDetailsService: CompanyDetailsService, private profileService: ProfileService,
