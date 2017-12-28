@@ -31,11 +31,16 @@ class UserController {
 
       let data = req.body;
       let userService = new UserService();
+      let auth: AuthInterceptor = new AuthInterceptor();
       userService.createUser(data, (error, result) => {
         if(error) {
           res.send({'error': error.message});
         } else {
-          res.send({'result': result});
+          let token = auth.issueTokenWithUid(result);
+          res.send({
+            'data': result,
+            access_token: token
+          });
         }
       });
     } catch (e)  {

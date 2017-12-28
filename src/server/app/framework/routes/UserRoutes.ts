@@ -42,7 +42,7 @@ class UserRoutes {
         authInterceptor.secureApiCheck, controller.updatePicture);
 
       //Dashboard Auth
-      router.post('/generateOTP/:id', logger.logDetail, authInterceptor.requiresAuth,
+      router.post('/generateotp/:id', logger.logDetail, authInterceptor.requiresAuth,
         authInterceptor.secureApiCheck, controller.sendOtp);
       router.put('/resetPassword/:id', logger.logDetail, authInterceptor.requiresAuth,
         authInterceptor.secureApiCheck, controller.resetPassword);
@@ -69,9 +69,9 @@ class UserRoutes {
       /*router.get('/notification/:id', logger.logDetail, authInterceptor.requiresAuth,
         authInterceptor.secureApiCheck, controller.notifications);
       router.put('/notification/:id', logger.logDetail, authInterceptor.requiresAuth,
-        authInterceptor.secureApiCheck, controller.pushNotifications);*/
+        authInterceptor.secureApiCheck, controller.pushNotifications);
 
-      /*router.put('/:id/fieldName/:fname', logger.logDetail, authInterceptor.requiresAuth,
+      router.put('/:id/fieldName/:fname', logger.logDetail, authInterceptor.requiresAuth,
         authInterceptor.secureApiCheck, controller.updateProfileField);
         router.post('/sendVerificationMail/:id', logger.logDetail, authInterceptor.requiresAuth,
         authInterceptor.secureApiCheck, controller.sendVerificationMail);*/
