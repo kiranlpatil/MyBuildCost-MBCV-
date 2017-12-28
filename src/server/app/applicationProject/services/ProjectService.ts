@@ -1,16 +1,9 @@
 import ProjectRepository = require('../dataaccess/repository/ProjectRepository');
-import * as fs from 'fs';
-import * as mongoose from 'mongoose';
-import { SentMessageInfo } from 'nodemailer';
-let config = require('config');
 import Messages = require('../shared/messages');
-import ProjectAsset = require('../shared/projectasset');
-import ProjectModel = require('../dataaccess/model/Project');
-
+import ProjectAsset = require('../../framework/shared/projectasset');
 class ProjectService {
   APP_NAME: string;
   company_name: string;
-  mid_content: any;
   private projectRepository: ProjectRepository;
 
   constructor() {
@@ -19,14 +12,14 @@ class ProjectService {
   }
 
   create(item: any, callback: (error: any, result: any) => void) {
-        this.projectRepository.create(item, (err, res) => {
-          if (err) {
-            callback(new Error(Messages.MSG_ERROR_REGISTRATION_MOBILE_NUMBER), null);
-          } else {
-            callback(null, res);
-          }
-        });
+    this.projectRepository.create(item, (err, res) => {
+      if (err) {
+        callback(new Error(Messages.MSG_ERROR_CREATE_PROJECT), null);
+      } else {
+        callback(null, res);
+      }
     });
+  }
 }
 
 Object.seal(ProjectService);
