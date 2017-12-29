@@ -1,6 +1,6 @@
 import DataAccess = require('../dataaccess');
 import User = require('../mongoose/user');
-
+import Project = require('./../../../applicationProject/dataaccess/model/Project');
 let mongoose = DataAccess.mongooseInstance;
 let mongooseConnection = DataAccess.mongooseConnection;
 
@@ -83,6 +83,7 @@ class UserSchema {
         type: Date,
         default: new Date()
       },
+      projects : [{}]
     }, {versionKey: false});
     return schema;
   }

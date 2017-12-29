@@ -1,3 +1,5 @@
+import Project = require('../../../applicationProject/dataaccess/model/Project');
+
 interface UserModel {
   user_id:string;
   first_name: string;
@@ -7,13 +9,11 @@ interface UserModel {
   isCandidate: boolean;
   password: string;
   isActivated: boolean;
-  isAdmin: boolean;
   opt: number;
   picture: string;
   social_profile_picture: string;
   current_theme: string;
-  notifications: Array<any>;
-  guide_tour:Array<string>;
   activation_date: Date;
+  projects: Array<Project>;
 }
 export = UserModel;
