@@ -40,11 +40,24 @@ class UserService {
         }
 
       } else {
-        this.userRepository.create(item, (err, res) => {
+        const saltRounds = 10;
+        bcrypt.hash(item.password, saltRounds, (err: any, hash: any) => {
           if (err) {
-            callback(new Error(Messages.MSG_ERROR_REGISTRATION_MOBILE_NUMBER), null);
+            callback({
+              reason: 'Error in creating hash using bcrypt',
+              message: 'Error in creating hash using bcrypt',
+              stackTrace: new Error(),
+              code: 403
+            }, null);
           } else {
-            callback(null, res);
+            item.password = hash;
+            this.userRepository.create(item, (err, res) => {
+              if (err) {
+                callback(new Error(Messages.MSG_ERROR_REGISTRATION_MOBILE_NUMBER), null);
+              } else {
+                callback(null, res);
+              }
+            });
           }
         });
       }
@@ -439,9 +452,9 @@ class UserService {
     this.userRepository.retrieveBySortedOrder(query, projection, sortingQuery, callback);
   }
 
-  getUserRegistrationStatus(query: any, callback: (error: any, result: any) => void) {
+  /*getUserRegistrationStatus(query: any, callback: (error: any, result: any) => void) {
     this.userRepository.retrieveWithIncluded(query, {}, callback);
-  }
+  }*/
 
   resetPassword(data: any, user : any, callback:(error: any, result: any) =>void ){
     const saltRounds = 10;

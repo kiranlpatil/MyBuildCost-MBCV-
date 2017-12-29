@@ -1,9 +1,8 @@
-class ProjectModel {
-  projectName: string;
+import Building = require('./Building');
+
+class Project {
+  name: string;
   region: string;
-  plotPeriphery: string;
-  projectDuration: number;
-  buildings: Array<any>;
-  activation_date: Date;
+  building: Array<Building>;
 }
-export = ProjectModel;
+export = Project;

@@ -1,11 +1,16 @@
 import DataAccess = require('../../../framework/dataaccess/dataaccess');
-import Project = require('./../mongoose/Project');
+import User = require('../mongoose/Project');
+import Project = require('../mongoose/Project');
+import Building = require("../mongoose/Building");
+import {Schema} from "mongoose";
 
 let mongoose = DataAccess.mongooseInstance;
 let mongooseConnection = DataAccess.mongooseConnection;
 
+
 class ProjectSchema {
   static get schema() {
+
     let schema = mongoose.Schema({
 
       name: {
@@ -14,7 +19,7 @@ class ProjectSchema {
       region: {
         type: String
       },
-      buildings: [{type: String}],
+      building: [{type: Schema.Types.ObjectId, ref: 'Building'}],
       address: {
         city: String,
         state: String,
@@ -33,6 +38,14 @@ class ProjectSchema {
       },
       activation_date: {
         type: Date,
+      },
+      createdAt: {
+        type: Date,
+        default: new Date()
+      },
+      modifiedAt: {
+        type: Date,
+        default: new Date()
       }
     }, {versionKey: false});
     return schema;

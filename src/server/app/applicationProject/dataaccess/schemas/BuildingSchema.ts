@@ -1,5 +1,6 @@
 import DataAccess = require('../../../framework/dataaccess/dataaccess');
-import Project = require('./../mongoose/Project');
+import Building = require('../mongoose/Building');
+import Category = require('../model/Category');
 
 let mongoose = DataAccess.mongooseInstance;
 let mongooseConnection = DataAccess.mongooseConnection;
@@ -12,28 +13,41 @@ class BuildingSchema {
       name: {
         type: String
       },
-      region: {
-        type: String
-      },
-      buildings: [{type: String}],
-      address: {
-        city: String,
-        state: String,
-        country: String,
-        pin: String
-      },
-      plotArea: {
+      totalSlabArea: {
         quantity: Number,
         unit: String
       },
-      plotPeriphery: {
-        type: String
+      totalCarperAreaOfUnit: {
+        quantity: Number,
+        unit: String
       },
-      projectDuration: {
+      totalSalebleAreaOfUnit: {
+        quantity: Number,
+        unit: String
+      },
+      totalParkingAreaOfUnit:{
+        quantity: Number,
+        unit: String
+      },
+      noOftwoBhk: {
         type: Number
       },
+      noOfthreeBhk: {
+        type: Number
+      },
+      noOfSlab: {
+        type: Number
+      },
+      noOfLift: {
+        type: Number
+      },
+      category: Category,
       activation_date: {
         type: Date,
+      },
+      modifiedAt: {
+        type: Date,
+        default: new Date()
       }
     }, {versionKey: false});
     return schema;

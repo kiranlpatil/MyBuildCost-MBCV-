@@ -1,4 +1,6 @@
-class BuildingModel {
+import Category = require('./Category');
+
+class Building {
   name: string;
   totalSlabArea: number;
   totalCarperAreaOfUnit: number;
@@ -9,6 +11,6 @@ class BuildingModel {
   noOfThreeBHK: number;
   noOfSlab: number;
   noOfLift: number;
-  category: Array<any>;
+  category: Array<Category>;
 }
-export = BuildingModel;
+export = Building;

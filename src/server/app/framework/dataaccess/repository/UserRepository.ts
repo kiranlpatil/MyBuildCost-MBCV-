@@ -14,14 +14,14 @@ class UserRepository extends RepositoryBase<User> {
     });
   }
 
-  getLatestCandidatesInfoForIncompleteProfile(CandidateUserIds:number[],
+  /*getLatestCandidatesInfoForIncompleteProfile(CandidateUserIds:number[],
                                               callback: (error: any, result: any) => void) {
     let userRepository = new UserRepository();
     userRepository.retrieveWithIncluded({'_id': {$in: CandidateUserIds}},
       {'email': 1, 'first_name': 1, 'last_name': 1}, (err: any, result: any) => {
         callback(err,result);
       });
-  }
+  }*/
 }
 
 Object.seal(UserRepository);
