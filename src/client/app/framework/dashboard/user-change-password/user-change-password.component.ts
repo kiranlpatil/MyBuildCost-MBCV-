@@ -1,12 +1,12 @@
-import {Component} from "@angular/core";
-import {UserChangePasswordService} from "./user-change-password.service";
-import {CommonService, ImagePath, Message, MessageService} from "../../../shared/index";
+import {Component} from '@angular/core';
+import {UserChangePasswordService} from './user-change-password.service';
+import {CommonService, ImagePath, Message, MessageService} from '../../../shared/index';
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {LoaderService} from "../../../shared/loader/loaders.service";
 import {ValidationService} from "../../../shared/customvalidations/validation.service";
 import {AppSettings, Messages, Label, Button, Headings, NavigationRoutes} from "../../../shared/constants";
-import {ErrorService} from "../../../shared/services/error.service";
-import {ActivatedRoute, Params, Router} from "@angular/router";
+import {ErrorService} from '../../../shared/services/error.service';
+import {ActivatedRoute, Params, Router} from '@angular/router';
 import {UserProfile} from "../../../user/models/user";
 import {ChangePassword} from '../../../user/models/changepassword';
 

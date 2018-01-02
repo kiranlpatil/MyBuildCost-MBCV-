@@ -1,8 +1,8 @@
 import * as express from 'express';
 import ProjectService = require('./../services/ProjectService');
 import UserService = require('./../../framework/services/UserService');
-import Project = require("../dataaccess/mongoose/Project");
-import Building = require("../dataaccess/mongoose/Building");
+import Project = require('../dataaccess/mongoose/Project');
+import Building = require('../dataaccess/mongoose/Building');
 let config = require('config');
 
 class ProjectController {

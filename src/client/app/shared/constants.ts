@@ -285,6 +285,9 @@ export class API {
   public static EXPORT_RECRUITER_CANDIDATES_SUMMARY = 'exportRecruiterCandidatesSummary';
   public static RECRUITER = 'recruiter';
 
+
+  //Project
+  public static USER_ALL_PROJECTS = 'user/all/project';
 }
 
 export class ImagePath {

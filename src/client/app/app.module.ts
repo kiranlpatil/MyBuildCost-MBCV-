@@ -42,6 +42,8 @@ import {AuthGuardService} from "./shared/services/auth-guard.service";
 
 //C-NEXT IMPORTS
 
+import { ProjectService } from './cnext/framework/project/project.service';
+import { ProjectComponent } from './cnext/framework/project/project.component';
 
 @NgModule({
   imports: [
@@ -65,9 +67,10 @@ import {AuthGuardService} from "./shared/services/auth-guard.service";
     NotificationComponent,
     SocialIconComponent,
 
-    //C-NEXT COMPONENT
+    //Application COMPONENT
     RoleTypeListComponent,
     DashboardHeaderComponent,
+    ProjectComponent,
     //MyDashboardComponent,
     PageNotFoundComponent
   ],
@@ -99,7 +102,10 @@ import {AuthGuardService} from "./shared/services/auth-guard.service";
     SharedService,
     Title,
     AnalyticService,
-    AuthGuardService
+    AuthGuardService,
+
+    //Application Services
+    ProjectService
   ],
   bootstrap: [AppComponent]
 })

@@ -86,7 +86,7 @@ class ProjectService {
   }
 
   addBuilding(projectId, buildingDetail, user, callback:(error: any, result: any)=> void) {
-    this.buildingRepository.create(buildingDetail, (error, result)=>{
+    this.buildingRepository.create(buildingDetail, (error, result)=> {
       if(error) {
         callback(error, null);
       } else {
