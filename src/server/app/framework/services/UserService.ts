@@ -14,6 +14,7 @@ import { asElementData } from '@angular/core/src/view';
 import bcrypt = require('bcrypt');
 import { MailChimpMailerService } from './mailchimp-mailer.service';
 import UserModel = require('../dataaccess/model/UserModel');
+import User = require('../dataaccess/mongoose/user');
 
 class UserService {
   APP_NAME: string;
@@ -80,6 +81,7 @@ class UserService {
               code: 500
             }, null);
           } else {
+            /*console.log('got user');*/
             if (isSame) {
               let auth = new AuthInterceptor();
               let token = auth.issueTokenWithUid(result[0]);
@@ -92,7 +94,8 @@ class UserService {
                   '_id': result[0]._id,
                   'current_theme': result[0].current_theme,
                   'picture': result[0].picture,
-                  'mobile_number': result[0].mobile_number
+                  'mobile_number': result[0].mobile_number,
+                  'access_token': token
                 },
                 access_token: token
               };
@@ -387,7 +390,7 @@ class UserService {
   }
 
   retrieve(field: any, callback: (error: any, result: any) => void) {
-    this.userRepository.retrieveWithLean(field,{}, callback);
+    this.userRepository.retrieve(field, callback);
   }
 
   retrieveWithLimit(field: any, included : any, callback: (error: any, result: any) => void) {
@@ -643,6 +646,18 @@ class UserService {
         code: 400
       }, null);
     }
+  }
+
+  getProjects(user: User, callback:(error, result)=>void) {
+    let query = {_id : user._id};
+    this.userRepository.findAndPopulate(query, {path: 'project', select: 'name'}, (error, result) => {
+      if(error) {
+        callback(error, null);
+      }else {
+        let authInterceptor = new AuthInterceptor();
+        callback(null, {data: result[0].project, access_token: authInterceptor.issueTokenWithUid(user)});
+      }
+    });
   }
 }
 
