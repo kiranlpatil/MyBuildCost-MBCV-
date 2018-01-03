@@ -289,6 +289,7 @@ export class API {
   //Project
   public static USER_ALL_PROJECTS = 'user/all/project';
   public static CREATE_PROJECT = 'project';
+  public static ADD_BUILDING = 'building';
 }
 
 export class ImagePath {

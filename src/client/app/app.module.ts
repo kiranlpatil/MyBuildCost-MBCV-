@@ -34,6 +34,8 @@ import {LandingPageComponent} from "./framework/landing-page/landing-page.compon
 import {SharedService} from "./shared/services/shared-service";
 import {PageNotFoundComponent} from "./shared/page-not-found/page-not-found.component";
 import {AnalyticService} from "./shared/services/analytic.service";
+import {BuildingComponent} from "./cnext/framework/building/building.component";
+import {BuildingService} from "./cnext/framework/building/building.service";
 //import { MyDashboardComponent} from "./cnext/framework/my-dashboard/my-dashboard.component";
 import { DashboardHeaderComponent} from "./framework/dashboard/dashboard-header/dashboard-header.component";
 import {DashboardUserProfileService} from "./framework/dashboard/user-profile/dashboard-user-profile.service";
@@ -71,6 +73,7 @@ import { ProjectComponent } from './cnext/framework/project/project.component';
     RoleTypeListComponent,
     DashboardHeaderComponent,
     ProjectComponent,
+    BuildingComponent,
     //MyDashboardComponent,
     PageNotFoundComponent
   ],
@@ -105,7 +108,8 @@ import { ProjectComponent } from './cnext/framework/project/project.component';
     AuthGuardService,
 
     //Application Services
-    ProjectService
+    ProjectService,
+    BuildingService
   ],
   bootstrap: [AppComponent]
 })
