@@ -26,12 +26,18 @@ class ProjectRoutes {
     var controller = this._projectController;
     router.post('/',this.authInterceptor.requiresAuth, this._requestInterceptor.intercept, controller.create,
       this._responseInterceptor.exit);
-    router.get('/:id', this.authInterceptor.requiresAuth, controller.getProject);
-    router.put('/:id', this.authInterceptor.requiresAuth, controller.updateProjectDetails);
-    router.post('/:id/building', this.authInterceptor.requiresAuth, controller.addBuilding);
-    router.put('/:id/building', this.authInterceptor.requiresAuth, controller.updateBuilding);
-    router.get('/:id/building/:buildingid', this.authInterceptor.requiresAuth, controller.getBuilding);
-    router.delete('/:id/building/:buildingid', this.authInterceptor.requiresAuth, controller.deleteBuilding)
+    router.get('/:id', this.authInterceptor.requiresAuth, this._requestInterceptor.intercept, controller.getProject,
+      this._responseInterceptor.exit);
+    router.put('/:id', this.authInterceptor.requiresAuth, this._requestInterceptor.intercept,
+      controller.updateProjectDetails, this._responseInterceptor.exit);
+    router.post('/:id/building', this.authInterceptor.requiresAuth, this._requestInterceptor.intercept,
+      controller.addBuilding, this._responseInterceptor.exit);
+    router.put('/:id/building', this.authInterceptor.requiresAuth, this._requestInterceptor.intercept,
+      controller.updateBuilding, this._responseInterceptor.exit);
+    router.get('/:id/building/:buildingid', this.authInterceptor.requiresAuth, this._requestInterceptor.intercept,
+      controller.getBuilding, this._responseInterceptor.exit);
+    router.delete('/:id/building/:buildingid', this.authInterceptor.requiresAuth, this._requestInterceptor.intercept,
+      controller.deleteBuilding, this._responseInterceptor.exit);
 
     return router;
   }
