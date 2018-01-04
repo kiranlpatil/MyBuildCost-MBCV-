@@ -36,16 +36,12 @@ class ProjectSchema {
       },
       activation_date: {
         type: Date,
-      },
-      createdAt: {
-        type: Date,
-        default: new Date()
-      },
-      modifiedAt: {
-        type: Date,
-        default: new Date()
       }
-    }, {versionKey: false});
+    },
+      {
+        versionKey: false,
+        timestamps:true
+      });
     return schema;
   }
 }

@@ -43,12 +43,12 @@ class BuildingSchema {
       category: [{}],
       activation_date: {
         type: Date,
-      },
-      modifiedAt: {
-        type: Date,
-        default: new Date()
       }
-    }, {versionKey: false});
+    },
+      {
+        versionKey: false,
+        timestamps:true
+      });
     return schema;
   }
 }

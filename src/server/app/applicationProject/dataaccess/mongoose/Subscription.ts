@@ -1,0 +1,5 @@
+import * as mongoose from 'mongoose';
+import SubscriptionModel = require('../model/Subscription');
+interface Subscription extends SubscriptionModel, mongoose.Document {
+}
+export = Subscription;
