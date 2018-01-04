@@ -157,6 +157,7 @@ export class Messages {
   //Application Messages
   public static MSG_SUCCESS_PROJECT_CREATION: string = 'Project has been successfully created.';
   public static MSG_SUCCESS_ADD_BUILDING_PROJECT: string = 'Building has been successfully added to Project.';
+  public static MSG_SUCCESS_UPDATE_PROJECT_DETAILS: string = 'Your project updated successfully.';
 }
 
 export class NavigationRoutes {

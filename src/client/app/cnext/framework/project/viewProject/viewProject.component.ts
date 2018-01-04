@@ -5,6 +5,7 @@ import { AppSettings, Messages, Label, Button, Headings, NavigationRoutes } from
 import { ViewProjectService } from './viewProject.service';
 import { Project } from './../../model/project';
 import { API, BaseService, SessionStorage, SessionStorageService, MessageService } from '../../../../shared/index';
+import {Message} from "../../../../shared/index";
 
 @Component({
   moduleId: module.id,
@@ -15,10 +16,12 @@ import { API, BaseService, SessionStorage, SessionStorageService, MessageService
 export class ViewProjectComponent implements OnInit {
 
   viewProjectForm:  FormGroup;
-  projects : any;
+  project : any;
   model: Project = new Project();
+  public isShowErrorMessage: boolean = true;
+  public error_msg: boolean = false;
 
-  constructor(private ViewProjectService: ViewProjectService, private _router: Router, private formBuilder: FormBuilder) {
+  constructor(private ViewProjectService: ViewProjectService, private _router: Router, private formBuilder: FormBuilder, private messageService: MessageService) {
 
     this.viewProjectForm = this.formBuilder.group({
       'name': '',
@@ -46,12 +49,61 @@ export class ViewProjectComponent implements OnInit {
   }
 
   onGetProjectSuccess(project : any) {
-    console.log(project);
-    this.model = project.data;
+    console.log('Project Data: '+JSON.stringify(project.data[0]));
+    let projectDetails=project.data[0];
+    this.model.name=projectDetails.name;
+    console.log('Project name: '+projectDetails.name);
+    this.model.region=projectDetails.region;
+    console.log('Project region: '+projectDetails.region);
+    this.model.plotArea=projectDetails.plotArea;
+    console.log('Project plotArea: '+projectDetails.plotArea);
+    this.model.projectDuration=projectDetails.projectDuration;
+    console.log('Project projectDuration: '+projectDetails.projectDuration);
+    this.model.plotPeriphery=projectDetails.plotPeriphery;
+    console.log('Project plotPeriphery: '+projectDetails.plotPeriphery);
   }
 
   onGetProjectFail(error : any) {
     console.log(error);
+  }
+
+
+  onSubmit() {
+    //this.submitted = true;
+    if(this.viewProjectForm.valid) {
+      this.model = this.viewProjectForm.value;
+      this.ViewProjectService.updateProjectDetails(this.model)
+        .subscribe(
+          user => this.updateProjectDetailsSuccess(user),
+          error => this.updateProjectDetailsError(error));
+    }
+  }
+
+  updateProjectDetailsSuccess(result: any) {
+
+    if (result !== null) {
+      var message = new Message();
+      message.isError = false;
+      message.custom_message = Messages.MSG_SUCCESS_UPDATE_PROJECT_DETAILS;
+      this.messageService.message(message);
+    }
+  }
+
+  updateProjectDetailsError(error: any) {
+
+    var message = new Message();
+
+    if (error.err_code === 404 || error.err_code === 0) {
+      message.error_msg = error.err_msg;
+      message.isError = true;
+      this.messageService.message(message);
+    } else {
+      this.isShowErrorMessage = false;
+      this.error_msg = error.err_msg;
+      message.error_msg = error.err_msg;
+      message.isError = true;
+      this.messageService.message(message);
+    }
   }
 
   // getMessages() {

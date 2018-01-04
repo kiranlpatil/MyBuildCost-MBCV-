@@ -27,7 +27,8 @@ class ProjectSchema {
         pin: String
       },
       plotArea: {
-        type: Number
+        quantity: Number,
+        unit: String
       },
       plotPeriphery: {
         type: Number

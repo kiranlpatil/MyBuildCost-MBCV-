@@ -1,6 +1,7 @@
 import { Route } from '@angular/router';
 import { ProjectComponent } from './project.component';
 import { CreateProjectComponent } from './createProject/createProject.component';
+import { ViewProjectComponent } from './viewProject/viewProject.component';
 import { ListProjectComponent } from './listProject/listProject.component';
 
 export const ProjectRoutes: Route[] = [
@@ -10,6 +11,7 @@ export const ProjectRoutes: Route[] = [
     children:[
       {path: '', component: ProjectComponent},
       {path: 'list', component: ListProjectComponent},
+      {path: 'view', component: ViewProjectComponent},
       {path: 'create', component: CreateProjectComponent}
     ]
   }
