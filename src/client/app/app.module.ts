@@ -54,7 +54,10 @@ import { ListProjectComponent } from './cnext/framework/project/listProject/list
 import { ListProjectService } from './cnext/framework/project/listProject/listProjest.service';
 import { ViewProjectComponent } from './cnext/framework/project/viewProject/viewProject.component';
 import { ViewProjectService } from './cnext/framework/project/viewProject/viewProject.service';
-
+import { ListBuildingComponent } from './cnext/framework/building/listBuildings/listBuilding.component';
+import { ListBuildingService } from './cnext/framework/building/listBuildings/listBuilding.service';
+import { ProjectHeaderComponent } from './cnext/framework/project/projectHeader/projectHeader.component';
+import { ProjectContentComponent } from './cnext/framework/project/project-content/project-content.component';
 
 @NgModule({
   imports: [
@@ -87,6 +90,9 @@ import { ViewProjectService } from './cnext/framework/project/viewProject/viewPr
     ListProjectComponent,
     CreateBuildingComponent,
     ViewProjectComponent,
+    ListBuildingComponent,
+    ProjectHeaderComponent,
+    ProjectContentComponent,
     //MyDashboardComponent,
     PageNotFoundComponent
   ],
@@ -126,7 +132,8 @@ import { ViewProjectService } from './cnext/framework/project/viewProject/viewPr
     CreateBuildingService,
     CreateProjectService,
     ViewProjectService,
-    ListProjectService
+    ListProjectService,
+    ListBuildingService
   ],
   bootstrap: [AppComponent]
 })

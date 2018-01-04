@@ -166,6 +166,7 @@ export class NavigationRoutes {
   public static APP_PROJECT: string = '/project';
   public static APP_CREATE_PROJECT: string = 'project/create';
   public static APP_VIEW_PROJECT: string = 'project/view';
+  public static APP_VIEW_BUILDINGS: string = 'building/view';
   public static APP_CREATE_BUILDING: string = 'building/create';
   public static APP_LIST_PROJECT: string = 'project/list';
   public static APP_DASHBOARD: string = '/dashboard';
@@ -300,7 +301,7 @@ export class API {
   //Project
   public static USER_ALL_PROJECTS = 'user/all/project';
   public static VIEW_PROJECT = 'project';
-  public static CREATE_PROJECT = 'project';
+  public static PROJECT_BUILDINGS = 'user/all/building';
   public static ADD_BUILDING = 'building';
 }
 

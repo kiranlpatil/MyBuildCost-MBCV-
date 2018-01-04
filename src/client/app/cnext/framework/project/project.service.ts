@@ -25,7 +25,7 @@ export class ProjectService extends BaseService {
     let headers = new Headers({'Content-Type': 'application/json'});
     let options = new RequestOptions({headers: headers});
     let body = JSON.stringify(project);
-    return this.http.post(API.CREATE_PROJECT, body, options)
+    return this.http.post(API.VIEW_PROJECT, body, options)
       .map(this.extractData)
       .catch(this.handleError);
   }
