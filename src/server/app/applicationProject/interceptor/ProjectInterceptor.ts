@@ -2,7 +2,7 @@ import Messages=require('../shared/messages');
 
 class ProjectInterceptor {
 
-  constructor(){
+  constructor() {
 
   }
 

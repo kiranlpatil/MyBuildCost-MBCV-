@@ -13,7 +13,8 @@ class ProjectSchema {
     let schema = mongoose.Schema({
 
       name: {
-        type: String
+        type: String,
+        required: true
       },
       region: {
         type: String

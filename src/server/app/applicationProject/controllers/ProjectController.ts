@@ -2,6 +2,8 @@ import * as express from 'express';
 import ProjectService = require('./../services/ProjectService');
 import Project = require('../dataaccess/mongoose/Project');
 import Building = require('../dataaccess/mongoose/Building');
+import Response = require('../interceptor/response/Response');
+import CostControllException = require('../exception/CostControllException');
 let config = require('config');
 
 class ProjectController {
@@ -13,19 +15,18 @@ class ProjectController {
 
   create(req: express.Request, res: express.Response, next: any): void {
     try {
-
       let data = req.body;
+      let user = req.user;
       let projectService = new ProjectService();
-      projectService.create(data, (error, result) => {
+      projectService.create(data, user,(error, result) => {
         if(error) {
-          res.send({'error': error.message});
+          next(error);
         } else {
-          res.send({'success': result});
+          next(new Response(200, {'success': result}));
         }
       });
     } catch (e)  {
-      console.log(e);
-      res.send({'error': 'error in your request'});
+      next(new CostControllException(e.message,e.stack));
     }
   }
 
@@ -39,12 +40,11 @@ class ProjectController {
           if(error) {
             next(error);
           } else {
-            res.send(result);
+            next(new Response(200,result));
           }
       });
     } catch(e) {
-      console.log(e);
-      res.send({'error': 'error in your request'});
+      next(new CostControllException(e.message,e.stack));
     }
   }
 
@@ -58,12 +58,11 @@ class ProjectController {
         if(error) {
           next(error);
         } else {
-          res.send(result);
+          next(new Response(200,result));
         }
       });
     } catch(e) {
-      console.log(e);
-      res.send({'error': 'error in your request'});
+      next(new CostControllException(e.message,e.stack));
     }
   }
 
@@ -73,17 +72,15 @@ class ProjectController {
       let projectId = req.params.id;
       let buildingDetails = <Building> req.body;
       let projectService = new ProjectService();
-      console.log('buildingDetails ' +JSON.stringify(buildingDetails));
       projectService.addBuilding(projectId, buildingDetails, user, (error, result) => {
         if(error) {
           next(error);
         } else {
-          res.send(result);
+          next(new Response(200,result));
         }
       });
     } catch(e) {
-      console.log(e);
-      res.send({'error': 'error in your request'});
+      next(new CostControllException(e.message,e.stack));
     }
   }
 
@@ -97,12 +94,11 @@ class ProjectController {
         if(error) {
           next(error);
         } else {
-          res.send(result);
+          next(new Response(200,result));
         }
       });
     } catch(e) {
-      console.log(e);
-      res.send({'error': 'error in your request'});
+      next(new CostControllException(e.message,e.stack));
     }
   }
 
@@ -116,12 +112,11 @@ class ProjectController {
         if(error) {
           next(error);
         } else {
-          res.send(result);
+          next(new Response(200,result));
         }
       });
     } catch(e) {
-      console.log(e);
-      res.send({'error': 'error in your request'});
+      next(new CostControllException(e.message,e.stack));
     }
   }
 
@@ -135,12 +130,11 @@ class ProjectController {
         if(error) {
           next(error);
         } else {
-          res.send(result);
+          next(new Response(200,result));
         }
       });
     } catch(e) {
-      console.log(e);
-      res.send({'error': 'error in your request'});
+      next(new CostControllException(e.message,e.stack));
     }
   }
 }

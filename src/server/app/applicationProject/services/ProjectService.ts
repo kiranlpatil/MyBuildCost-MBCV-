@@ -6,6 +6,7 @@ import ProjectAsset = require('../../framework/shared/projectasset');
 import User = require('../../framework/dataaccess/mongoose/user');
 import Project = require('../dataaccess/mongoose/Project');
 import AuthInterceptor = require('../../framework/interceptor/auth.interceptor');
+import CostControllException = require("../exception/CostControllException");
 
 class ProjectService {
   APP_NAME: string;
@@ -23,17 +24,17 @@ class ProjectService {
     this.userService = new UserService();
   }
 
-  create(data: any, callback: (error: any, result: any) => void) {
-    let userId = data.userId;
-    let userService = new UserService();
-
+  create(data: any, user : User, callback: (error: any, result: any) => void) {
+    if(!user._id) {
+     callback(new CostControllException('UserId Not Found',null), null);
+    }
     this.projectRepository.create(data, (err, res) => {
       if (err) {
         callback(err, null);
       } else {
         let projectId = res._id;
         let newData =  {$push: { project: projectId }};
-        this.userService.findOneAndUpdate(userId, newData, {new :true},(err, resp) => {
+        this.userService.findOneAndUpdate(user._id, newData, {new :true},(err, resp) => {
           if(err) {
             callback(err, null);
           } else {

@@ -1,6 +1,7 @@
 import IRead = require('./read');
 import IWrite = require('./write');
 import mongoose = require('mongoose');
+import CostControllException = require('../../../../applicationProject/exception/CostControllException');
 
 class RepositoryBase<T extends mongoose.Document> implements IRead<T>, IWrite<T> {
 
@@ -11,49 +12,91 @@ class RepositoryBase<T extends mongoose.Document> implements IRead<T>, IWrite<T>
   }
 
   create (item: T, callback: (error: any, result: any) => void) {
-    this._model.create(item, callback);
+    this._model.create(item, (error :Error, result: T) => {
+      if(error) {
+        callback(new CostControllException('Create Failed. '+error.message, error, 500), null);
+      }else {
+        callback(null, result);
+      }
+    });
 
   }
 
   retrieve (field, callback: (error: any, result: any) => void) {
-    this._model.find(field, callback);
+    this._model.find(field, (error :Error, result: T) => {
+      if(error) {
+        callback(new CostControllException('retrieve Failed. '+error.message, error, 500), null);
+      }else {
+        callback(null, result);
+      }
+    });
   }
 
   update (_id: mongoose.Types.ObjectId, item: T, callback: (error: any, result: any) => void) {
-    this._model.update({_id: _id}, item, callback);
+    this._model.update({_id: _id}, item, (error :Error, result: T) => {
+      if(error) {
+        callback(new CostControllException('update Failed. '+error.message, error, 500), null);
+      }else {
+        callback(null, result);
+      }
+    });
 
   }
 
   delete (_id: string, callback:(error: any, result: any) => void) {
-    this._model.remove({_id: this.toObjectId(_id)}, (err) => callback(err, null));
+    this._model.remove({_id: this.toObjectId(_id)}, (error :Error) => {
+      if(error) {
+        callback(new CostControllException('Delete Failed. '+error.message, error, 500), null);
+      }else {
+        callback(null, 'Done.');
+      }
+    });
 
   }
 
   findById (_id: string, callback: (error: any, result: T) => void) {
-    this._model.findById( _id, callback);
+    this._model.findById( _id, (error :Error, result: T) => {
+      if(error) {
+        callback(new CostControllException('findById Failed. '+error.message, error, 500), null);
+      }else {
+        callback(null, result);
+      }
+    });
   }
 
 
   toObjectId (_id: string) : mongoose.Types.ObjectId {
-    return mongoose.Types.ObjectId.createFromHexString(_id)
+    return mongoose.Types.ObjectId.createFromHexString(_id);
   }
 
-  findAndPopulate(searchField, populateField, callback:(err: any, result: any)=>void){
-    this._model.find(searchField).populate(populateField).exec(function(err, items) {
-      callback(err, items);
+  findAndPopulate(searchField, populateField, callback:(err: any, result: any)=>void) {
+    this._model.find(searchField).populate(populateField).exec((error :Error, result: T) => {
+      if(error) {
+        callback(new CostControllException('findAndPopulate Failed. '+error.message, error, 500), null);
+      }else {
+        callback(null, result);
+      }
     });
   }
 
-  findOneAndUpdate(query, newData, options, callback:(err: any, result: any)=>void){
-    this._model.findOneAndUpdate(query, newData, options, function(err, result){
-      callback(err, result);
+  findOneAndUpdate(query, newData, options, callback:(err: any, result: any)=>void) {
+    this._model.findOneAndUpdate(query, newData, options, (error :Error, result: T) => {
+      if(error) {
+        callback(new CostControllException('findAndUpdate Failed. '+error.message, error, 500), null);
+      }else {
+        callback(null, result);
+      }
     });
   }
 
   insertMany(data, callback:(err: any, result : any)=> void) {
     console.log('Inserting into base repo : '+JSON.stringify(data));
-    this._model.insertMany(data, function (err, result) {
-      callback(err,result);
+    this._model.insertMany(data, (error :Error, result: T) => {
+      if(error) {
+        callback(new CostControllException('InsertMany Failed. '+error.message, error, 500), null);
+      }else {
+        callback(null, result);
+      }
     });
   }
 
