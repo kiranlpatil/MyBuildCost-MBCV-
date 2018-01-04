@@ -16,7 +16,8 @@ export class CreateBuildingService extends BaseService {
     let headers = new Headers({'Content-Type': 'application/json'});
     let options = new RequestOptions({headers: headers});
     let body = JSON.stringify(building);
-    let ADD_BUILDING_API=API.CREATE_PROJECT+'/'+SessionStorageService.getSessionValue(SessionStorage.USER_ID)+'/'+API.ADD_BUILDING;
+    let ADD_BUILDING_API=API.CREATE_PROJECT + '/' + SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT)
+      + '/' +API.ADD_BUILDING;
     return this.http.post(ADD_BUILDING_API, body, options)
       .map(this.extractData)
       .catch(this.handleError);

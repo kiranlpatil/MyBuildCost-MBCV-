@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ValidationService } from '../../../../shared/customvalidations/validation.service';
 import { AppSettings, Messages, Label, Button, Headings, NavigationRoutes } from '../../../../shared/constants';
-// import { ProjectService } from './project.service';
+import { API, BaseService, SessionStorage, SessionStorageService,  Message,
+  MessageService } from '../../../../shared/index';
 import { Building } from './../../model/building';
 import { CreateBuildingService } from './createBuilding.service';
 
@@ -16,9 +17,12 @@ export class CreateBuildingComponent implements OnInit {
 
   addBuildingForm:  FormGroup;
   buildings : any;
+  public isShowErrorMessage: boolean = true;
+  public error_msg: boolean = false;
+
   model: Building = new Building();
 
-  constructor(private createBuildingService: CreateBuildingService, private formBuilder: FormBuilder) {
+  constructor(private createBuildingService: CreateBuildingService, private formBuilder: FormBuilder, private messageService: MessageService) {
 
     this.addBuildingForm = this.formBuilder.group({
       'name': '',
@@ -51,7 +55,10 @@ export class CreateBuildingComponent implements OnInit {
 
   addBuildingSuccess(building : any) {
     console.log(building);
-    // this.getProjects();
+    var message = new Message();
+    message.isError = false;
+    message.custom_message = Messages.MSG_SUCCESS_ADD_BUILDING_PROJECT;
+    this.messageService.message(message);
   }
 
   addBuildingFailed(error : any) {

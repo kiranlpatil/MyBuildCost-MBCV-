@@ -22,7 +22,7 @@ class ProjectController {
         if(error) {
           next(error);
         } else {
-          next(new Response(200, {'success': result}));
+          next(new Response(200,result));
         }
       });
     } catch (e)  {

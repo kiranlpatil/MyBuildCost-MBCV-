@@ -55,6 +55,8 @@
             <label>No. of Lifts</label>
             <input type="number" [(ngModel)]="model.noOfLift" formControlName="noOfLift" id="noOfLift" class="form-control" required/>
           </div>
+          <div class="col-xs-12 error-msg alert alert-danger form-alert" [hidden]="isShowErrorMessage"><b>{{
+            error_msg }}</b></div>
 
           <button type="submit" class="btn btn-primary pull-right">Next</button>
         </form>

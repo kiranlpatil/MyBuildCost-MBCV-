@@ -22,25 +22,11 @@ export class ProjectComponent implements OnInit {
   }
 
   ngOnInit() {
-      this.getProjects();
+    console.log('Inside Project Home Component');
   }
+
   createProject() {
     this._router.navigate([NavigationRoutes.APP_CREATE_PROJECT]);
-  }
-
-  getProjects() {
-    this.projectService.getProject().subscribe(
-      projects => this.onGetProjecteSuccess(projects),
-      error => this.onGetProjecteFail(error) );
-  }
-
-  onGetProjecteSuccess(projects: any) {
-    console.log(projects);
-    this.projects = projects.data;
-  }
-
-  onGetProjecteFail(error : any) {
-    console.log(error);
   }
 
   getMessages() {

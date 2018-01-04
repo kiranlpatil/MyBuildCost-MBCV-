@@ -73,7 +73,7 @@ class RepositoryBase<T extends mongoose.Document> implements IRead<T>, IWrite<T>
     this._model.find(searchField).populate(populateField).exec((error :Error, result: T) => {
       if(error) {
         callback(new CostControllException('findAndPopulate Failed. '+error.message, error, 500), null);
-      }else {
+      } else {
         callback(null, result);
       }
     });

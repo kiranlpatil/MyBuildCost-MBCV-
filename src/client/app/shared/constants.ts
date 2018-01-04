@@ -153,6 +153,10 @@ export class Messages {
     'or an other error ocourred.';
   public static PAGE_NOT_FOUND = 'Page Not Found';
   public static PASSWORD_MESSAGE = 'Password must be alphanumeric having minimum 8 Characters.';
+
+  //Application Messages
+  public static MSG_SUCCESS_PROJECT_CREATION: string = 'Project has been successfully created.';
+  public static MSG_SUCCESS_ADD_BUILDING_PROJECT: string = 'Building has been successfully added to Project.';
 }
 
 export class NavigationRoutes {
@@ -196,6 +200,7 @@ export class SessionStorage {
   public static VERIFY_PHONE_VALUE = 'verify_phone_value';
   public static CHANGE_MAIL_VALUE = 'change_mail_value';
   public static VERIFY_CHANGE_PHONE_VALUE = 'verify_change_phone_value';
+  public static CURRENT_PROJECT = 'current_project_id';
 }
 
 export class LocalStorage {
