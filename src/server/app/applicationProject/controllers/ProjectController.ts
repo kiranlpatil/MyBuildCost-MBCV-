@@ -87,7 +87,7 @@ class ProjectController {
   updateBuilding(req: express.Request, res: express.Response, next: any): void{
     try {
       let user = req.user;
-      let projectId = req.params.id;
+      //let projectId = req.params.id;
       let buildingId = req.params.buildingid;
       let buildingDetails = <Building> req.body;
       let projectService = new ProjectService();

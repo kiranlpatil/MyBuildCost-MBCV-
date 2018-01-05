@@ -32,7 +32,7 @@ class ProjectRoutes {
       controller.updateProjectDetails, this._responseInterceptor.exit);
     router.post('/:id/building', this.authInterceptor.requiresAuth, this._requestInterceptor.intercept,
       controller.addBuilding, this._responseInterceptor.exit);
-    router.put('/:id/building/:buildingid', this.authInterceptor.requiresAuth, this._requestInterceptor.intercept,
+    router.put('/:id/building/:buildingid',this.authInterceptor.requiresAuth, this._requestInterceptor.intercept,
       controller.updateBuilding, this._responseInterceptor.exit);
     router.get('/:id/building/:buildingid', this.authInterceptor.requiresAuth, this._requestInterceptor.intercept,
       controller.getBuilding, this._responseInterceptor.exit);
