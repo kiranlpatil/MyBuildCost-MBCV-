@@ -4,11 +4,12 @@
     <ul>
       <div class="col-xs-12 no-padding">
         <h5>Buildings List</h5>
-        <li *ngFor="let key of buildings">
-          {{key.name}}
+        <li *ngFor="let building of buildings">
+          <button type="button" class="btn btn-primary">{{building.name}}</button><span (click)="deleteBuilding(building._id)" class="glyphicon glyphicon-trash"></span>
+          <br/><br/>
         </li>
         <li>
-          <button (click)="addNewBuilding()">Add New Building</button>
+          <button type="button" class="btn btn-primary" (click)="addNewBuilding()">Add New Building</button>
         </li>
       </div>
     </ul>

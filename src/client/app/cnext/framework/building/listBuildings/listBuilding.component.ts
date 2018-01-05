@@ -27,6 +27,13 @@ export class ListBuildingComponent implements OnInit {
     this._router.navigate([NavigationRoutes.APP_CREATE_BUILDING]);
   }
 
+  deleteBuilding(buildingId : any) {
+    this.listBuildingService.deleteBuildingById(buildingId).subscribe(
+      projects => this.onDeleteBuildingSuccess(projects),
+      error => this.onDeleteBuildingFail(error)
+    );
+  }
+
   getProjects() {
     this.listBuildingService.getProject().subscribe(
       projects => this.onGetProjectSuccess(projects),
@@ -40,6 +47,15 @@ export class ListBuildingComponent implements OnInit {
   }
 
   onGetProjectFail(error : any) {
+    console.log(error);
+  }
+
+  onDeleteBuildingSuccess(projects : any) {
+    console.log(projects);
+    this.getProjects();
+  }
+
+  onDeleteBuildingFail(error : any) {
     console.log(error);
   }
 
