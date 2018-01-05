@@ -112,13 +112,13 @@ class ProjectService {
 
   deleteBuilding(projectId, buildingId, user, callback:(error: any, result: any)=> void) {
     let popBuildingId = buildingId;
-    this.buildingRepository.delete(buildingId, (error, result)=>{
+    this.buildingRepository.delete(buildingId, (error, result)=> {
       if(error) {
         callback(error, null);
       } else {
         let query = {_id: projectId};
-        let newData = { $pop: {building : popBuildingId}};
-        this.projectRepository.findOneAndUpdate(query, newData, {}, (error, status)=>{
+        let newData = { $pull: {building : popBuildingId}};
+        this.projectRepository.findOneAndUpdate(query, newData, {new: true}, (error, status)=>{
           if(error) {
             callback(error, null);
           } else {
