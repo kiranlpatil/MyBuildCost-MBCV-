@@ -1,12 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ValidationService } from '../../../../shared/customvalidations/validation.service';
 import { AppSettings, Messages, Label, Button, Headings, NavigationRoutes } from '../../../../shared/constants';
 import { API, BaseService, SessionStorage, SessionStorageService,  Message,
   MessageService } from '../../../../shared/index';
 import { Building } from './../../model/building';
 import { CreateBuildingService } from './createBuilding.service';
+import {ValidationService} from "./../../../../shared/customvalidations/validation.service";
+import {SharedService} from "./../../../../shared/services/shared-service";
+
 
 @Component({
   moduleId: module.id,
@@ -20,22 +22,21 @@ export class CreateBuildingComponent implements OnInit {
   buildings : any;
   public isShowErrorMessage: boolean = true;
   public error_msg: boolean = false;
-
   model: Building = new Building();
 
   constructor(private createBuildingService: CreateBuildingService, private formBuilder: FormBuilder,
-              private _router: Router, private messageService: MessageService) {
+              private _router: Router, private messageService: MessageService,private sharedService: SharedService) {
 
     this.addBuildingForm = this.formBuilder.group({
-      'name': '',
-      'totalSlabArea':'',
-      'totalCarperAreaOfUnit':'',
-      'totalParkingAreaOfUnit':'',
-      'noOfOneBHK':'',
-      'noOfTwoBHK':'',
-      'noOfThreeBHK':'',
-      'noOfSlab':'',
-      'noOfLift':'',
+      'name': ['', ValidationService.requiredBuildingName],
+      'totalSlabArea':['', ValidationService.requiredSlabArea],
+      'totalCarperAreaOfUnit':['', ValidationService.requiredCarpetArea],
+      'totalParkingAreaOfUnit':['', ValidationService.requiredParkingArea],
+      'noOfOneBHK':['', ValidationService.requiredOneBHK],
+      'noOfTwoBHK':['', ValidationService.requiredTwoBHK],
+      'noOfThreeBHK':['', ValidationService.requiredThreeBHK],
+      'noOfSlab':['', ValidationService.requiredNoOfSlabs],
+      'noOfLift':['', ValidationService.requiredNoOfLifts],
     });
 
   }

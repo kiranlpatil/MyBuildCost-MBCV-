@@ -6,6 +6,7 @@
       <form [formGroup]="viewProjectForm" (submit)="onSubmit()" class="profile-form clearfix">
 
         <div class="form-group">
+          <control-messages [control]="viewProjectForm.controls.name" [submitStatus] = "submitStatus"></control-messages>
           <label>Project Name
             <span class="glyphicon glyphicon-pencil"></span>
           </label>
@@ -15,6 +16,7 @@
 
 
         <div class="form-group">
+          <control-messages [control]="viewProjectForm.controls.region" [submitStatus] = "submitStatus"></control-messages>
           <label>Project Address
             <span class="glyphicon glyphicon-pencil"></span>
           </label>
@@ -24,6 +26,7 @@
 
 
         <div class="form-group">
+          <control-messages [control]="viewProjectForm.controls.plotArea" [submitStatus] = "submitStatus"></control-messages>
           <label>Plot Area<small> (In sqm)</small>
             <span class="glyphicon glyphicon-pencil"></span>
           </label>
@@ -32,6 +35,7 @@
         </div>
 
         <div class="form-group">
+          <control-messages [control]="viewProjectForm.controls.projectDuration" [submitStatus] = "submitStatus"></control-messages>
           <label>Project Duration<small> (In months)</small>
             <span class="glyphicon glyphicon-pencil"></span>
           </label>
@@ -40,6 +44,7 @@
         </div>
 
         <div class="form-group">
+          <control-messages [control]="viewProjectForm.controls.plotPeriphery" [submitStatus] = "submitStatus"></control-messages>
           <label>Plot Periphery<small> (In Rm)</small>
             <span class="glyphicon glyphicon-pencil"></span>
           </label>

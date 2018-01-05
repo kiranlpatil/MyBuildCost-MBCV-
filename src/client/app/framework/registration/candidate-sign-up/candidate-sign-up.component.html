@@ -16,38 +16,38 @@
     <form [formGroup]="userForm" (submit)="onSubmit()" class="employee-form" novalidate>
 
       <div class="form-group">
-        <cn-control-messages [control]="userForm.controls.first_name"
-                             [submitStatus]="submitStatus"></cn-control-messages>
+        <control-messages [control]="userForm.controls.first_name"
+                             [submitStatus]="submitStatus"></control-messages>
         <input type="text" formControlName="first_name" id="first_name" class="form-control" maxlength="20"
                autocomplete="off" required/>
         <label>{{getLabel().FIRST_NAME_LABEL}}</label>
       </div>
 
       <div class="form-group">
-        <cn-control-messages [control]="userForm.controls.last_name"
-                             [submitStatus]="submitStatus"></cn-control-messages>
+        <control-messages [control]="userForm.controls.last_name"
+                             [submitStatus]="submitStatus"></control-messages>
         <input type="text" formControlName="last_name" id="last_name" class="form-control" autocomplete="off"
                maxlength="20" required/>
         <label>{{getLabel().LAST_NAME_LABEL}}</label>
       </div>
 
       <div class="form-group">
-        <cn-control-messages [control]="userForm.controls.email" [submitStatus]="submitStatus"></cn-control-messages>
+        <control-messages [control]="userForm.controls.email" [submitStatus]="submitStatus"></control-messages>
         <input type="email" formControlName="email" id="email" maxlength="40" class="form-control" autocomplete="off"
                required/>
         <label>{{getLabel().EMAIL_FIELD_LABEL}}</label>
       </div>
 
       <div class="input-group form-group">
-        <cn-control-messages [control]="userForm.controls.mobile_number"
-                             [submitStatus]="submitStatus"></cn-control-messages>
+        <control-messages [control]="userForm.controls.mobile_number"
+                             [submitStatus]="submitStatus"></control-messages>
         <span class="input-group-addon">+91</span>
         <input type="number" formControlName="mobile_number" id="mobile_number" class="form-control" required/>
         <label>{{getLabel().CONTACT_FIELD_LABEL}}</label>
       </div>
 
       <div class="form-group form-password">
-        <cn-control-messages [control]="userForm.controls.password" [submitStatus]="submitStatus" class="error-message"></cn-control-messages>
+        <control-messages [control]="userForm.controls.password" [submitStatus]="submitStatus" class="error-message"></control-messages>
         <input type="password" formControlName="password" id="password" [(ngModel)]="model.password"
                class="form-control" (blur)="makePasswordConfirm()" required/>
         <div class="password-required-message">
@@ -57,8 +57,8 @@
       </div>
 
       <div class="form-group">
-        <cn-control-messages [control]="userForm.controls.confirm_password"
-                             [submitStatus]="submitStatus"></cn-control-messages>
+        <control-messages [control]="userForm.controls.confirm_password"
+                             [submitStatus]="submitStatus"></control-messages>
         <input type="password" formControlName="confirm_password" id="confirm_password"
                [(ngModel)]="model.confirm_password" (blur)="makePasswordConfirm()" class="form-control" required/>
         <label>{{getLabel().CONFIRM_PASSWORD_LABEL}}</label>
@@ -68,8 +68,8 @@
 
       <div class="form-group">
         <div id="yearf">
-          <cn-control-messages [control]="userForm.controls.birth_year"
-                                             [submitStatus]="submitStatus"></cn-control-messages>
+          <control-messages [control]="userForm.controls.birth_year"
+                                             [submitStatus]="submitStatus"></control-messages>
           <input type="text" formControlName="birth_year" (change)='selectYearModel($event.target.value)' [ngModel]="passingYear"
                  id="birth_year" class="form-control" placeholder="" list="validBirthYearList"
                  name="birthYear" onkeypress='return event.charCode >= 48 && event.charCode <= 57'/>

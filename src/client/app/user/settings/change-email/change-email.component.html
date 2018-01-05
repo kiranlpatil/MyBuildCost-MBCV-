@@ -8,7 +8,7 @@
 
         <!--<div class="form-group" [class.fb-email-input]="isSocialLogin">-->
         <div class="form-group">
-          <cn-control-messages [control]="userForm.controls.current_email"></cn-control-messages>
+          <control-messages [control]="userForm.controls.current_email"></control-messages>
           <label>Current Email</label>
           <input [(ngModel)]="model.current_email" formControlName="current_email" id="current_email"
                  class="form-control" readonly/>
@@ -16,7 +16,7 @@
 
         <!--<div class="form-group" [class.fb-email-input]="isSocialLogin">-->
         <div class="form-group">
-          <cn-control-messages [control]="userForm.controls.new_email"></cn-control-messages>
+          <control-messages [control]="userForm.controls.new_email"></control-messages>
           <label>New Email</label>
           <input [(ngModel)]="model.new_email" formControlName="new_email" id="new_email"
                  class="form-control"/>
@@ -24,7 +24,7 @@
 
         <!--<div class="form-group" [class.fb-email-input]="isSocialLogin">-->
         <div class="form-group">
-          <cn-control-messages [control]="userForm.controls.confirm_email"></cn-control-messages>
+          <control-messages [control]="userForm.controls.confirm_email"></control-messages>
           <label>Confirm Email</label>
           <input [(ngModel)]="model.confirm_email" formControlName="confirm_email" id="confirm_email"
                  (blur)="makeEmailConfirm()" class="form-control"/>

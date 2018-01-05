@@ -93,6 +93,16 @@ export class Messages {
   public static MSG_ERROR_VALIDATION_PROJECT_DURATION_REQUIRED = 'Enter project duration.';
   public static MSG_ERROR_VALIDATION_PLOT_PERIPHERY_REQUIRED = 'Enter plot periphery.';
 
+    public static MSG_ERROR_VALIDATION_BUILDING_NAME_REQUIRED = 'Enter Building Name.';
+    public static MSG_ERROR_VALIDATION_SLAB_AREA_REQUIRED = 'Enter Slab Area.';
+    public static MSG_ERROR_VALIDATION_CARPET_AREA_REQUIRED = 'Enter Carpet Area.';
+    public static MSG_ERROR_VALIDATION_PARKING_AREA_REQUIRED  = 'Enter Parking Area.';
+    public static MSG_ERROR_VALIDATION_ONE_BHK_REQUIRED = 'Enter No of one BHKs.';
+    public static MSG_ERROR_VALIDATION_TWO_BHK_REQUIRED = 'Enter No of two BHKs.';
+    public static MSG_ERROR_VALIDATION_THREE_BHK_REQUIRED = 'Enter No of three BHKs.';
+    public static MSG_ERROR_VALIDATION_NO_OF_SLABS_REQUIRED = 'Enter No of slabs.';
+    public static MSG_ERROR_VALIDATION_NO_OF_LIFTS_REQUIRED = 'Enter No of lifts';
+
   public static MSG_LANDING_PAGE = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.' +
     'Nullam sem turpis, sodales eu urna sed, posuere finibus leo finibus.' +
     'Sed et lorem eu mi tincidunt fringilla at non odio.' +

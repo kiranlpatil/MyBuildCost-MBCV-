@@ -6,6 +6,8 @@ import { ViewProjectService } from './viewProject.service';
 import { Project } from './../../model/project';
 import { API, BaseService, SessionStorage, SessionStorageService, MessageService } from '../../../../shared/index';
 import {Message} from "../../../../shared/index";
+import {SharedService} from "../../../../shared/services/shared-service";
+import {ValidationService} from "../../../../shared/customvalidations/validation.service";
 
 @Component({
   moduleId: module.id,
@@ -21,14 +23,14 @@ export class ViewProjectComponent implements OnInit {
   public isShowErrorMessage: boolean = true;
   public error_msg: boolean = false;
 
-  constructor(private ViewProjectService: ViewProjectService, private _router: Router, private formBuilder: FormBuilder, private messageService: MessageService) {
+  constructor(private ViewProjectService: ViewProjectService, private _router: Router, private formBuilder: FormBuilder, private messageService: MessageService,private sharedService: SharedService) {
 
     this.viewProjectForm = this.formBuilder.group({
-      'name': '',
-      'region': '',
-      'plotArea': '',
-      'projectDuration': '',
-      'plotPeriphery': ''
+      'name': ['', ValidationService.requiredProjectName],
+      'region': ['', ValidationService.requiredProjectAddress],
+      'plotArea': ['', ValidationService.requiredPlotArea],
+      'projectDuration': ['', ValidationService.requiredProjectDuration],
+      'plotPeriphery': ['', ValidationService.requiredPlotPeriphery]
     });
 
   }

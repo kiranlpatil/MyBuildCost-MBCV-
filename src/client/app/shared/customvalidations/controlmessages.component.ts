@@ -3,7 +3,7 @@ import {FormControl} from "@angular/forms";
 import {ValidationService} from "./validation.service";
 
 @Component({
-  selector: 'cn-control-messages',
+  selector: 'control-messages',
   template: `
     <div *ngIf='errorMessage !== null'>{{errorMessage}}</div>`
 })

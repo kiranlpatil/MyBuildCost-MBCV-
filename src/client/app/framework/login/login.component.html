@@ -17,13 +17,13 @@
 
       <div class="clearfix">&nbsp;</div>
       <div class="form-group">
-        <cn-control-messages [control]="userForm.controls.email" [submitStatus] = "submitStatus"></cn-control-messages>
+        <control-messages [control]="userForm.controls.email" [submitStatus] = "submitStatus"></control-messages>
         <label>Enter User Email</label>
         <input type="email" formControlName="email" id="email" maxlength="40" autocomplete="off" class="form-control" />
       </div>
 
       <div class="form-group">
-        <cn-control-messages [control]="userForm.controls.password" [submitStatus] = "submitStatus"></cn-control-messages>
+        <control-messages [control]="userForm.controls.password" [submitStatus] = "submitStatus"></control-messages>
         <label>Enter Password</label>
         <input type="password" formControlName="password" id="password" autocomplete="off" class="form-control" />
       </div>

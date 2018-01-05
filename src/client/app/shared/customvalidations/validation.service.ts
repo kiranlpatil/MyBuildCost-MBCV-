@@ -36,6 +36,19 @@ export class ValidationService {
       'requiredProjectDuration': Messages.MSG_ERROR_VALIDATION_PROJECT_DURATION_REQUIRED ,
       'requiredPlotPeriphery': Messages.MSG_ERROR_VALIDATION_PLOT_PERIPHERY_REQUIRED ,
 
+
+      'requiredBuildingName': Messages.MSG_ERROR_VALIDATION_BUILDING_NAME_REQUIRED,
+      'requiredSlabArea': Messages.MSG_ERROR_VALIDATION_SLAB_AREA_REQUIRED,
+      'requiredCarpetArea': Messages.MSG_ERROR_VALIDATION_CARPET_AREA_REQUIRED,
+      'requiredParkingArea': Messages.MSG_ERROR_VALIDATION_PARKING_AREA_REQUIRED,
+      'requiredOneBHK': Messages.MSG_ERROR_VALIDATION_ONE_BHK_REQUIRED,
+      'requiredTwoBHK': Messages.MSG_ERROR_VALIDATION_TWO_BHK_REQUIRED,
+      'requiredThreeBHK': Messages.MSG_ERROR_VALIDATION_THREE_BHK_REQUIRED,
+      'requiredNoOfSlabs': Messages.MSG_ERROR_VALIDATION_NO_OF_SLABS_REQUIRED,
+      'requiredNoOfLifts': Messages.MSG_ERROR_VALIDATION_NO_OF_LIFTS_REQUIRED,
+
+
+
       'maxlength': `Maximum ${validatorValue.requiredLength} characters`,
       'minlength': `Minimum ${validatorValue.requiredLength} characters`
 
@@ -309,4 +322,80 @@ export class ValidationService {
     }
   }
 
+
+  static requiredBuildingName(control: any) {
+    if (control.value === '' || control.value === undefined) {
+      console.log('building name: null')
+      return {'requiredBuildingName': true};
+    } else {
+      return null;
+    }
+  }
+
+  static requiredSlabArea(control: any) {
+    if (control.value === '' || control.value === undefined) {
+      return {'requiredSlabArea': true};
+    } else {
+      return null;
+    }
+  }
+
+  static requiredCarpetArea(control: any) {
+    if (control.value === '' || control.value === undefined) {
+      return {'requiredCarpetArea': true};
+    } else {
+      return null;
+    }
+  }
+
+
+  static requiredParkingArea(control: any) {
+    if (control.value === '' || control.value === undefined) {
+      return {'requiredParkingArea': true};
+    } else {
+      return null;
+    }
+  }
+
+  static requiredOneBHK(control: any) {
+    if (control.value === '' || control.value === undefined) {
+      return {'requiredOneBHK': true};
+    } else {
+      return null;
+    }
+  }
+
+  static requiredTwoBHK(control: any) {
+    if (control.value === '' || control.value === undefined) {
+      return {'requiredTwoBHK': true};
+    } else {
+      return null;
+    }
+  }
+
+
+  static requiredThreeBHK(control: any) {
+    if (control.value === '' || control.value === undefined) {
+      return {'requiredThreeBHK': true};
+    } else {
+      return null;
+    }
+  }
+
+
+  static requiredNoOfSlabs(control: any) {
+    if (control.value === '' || control.value === undefined) {
+      return {'requiredNoOfSlabs': true};
+    } else {
+      return null;
+    }
+  }
+
+  static requiredNoOfLifts(control: any) {
+    if (control.value === '' || control.value === undefined) {
+      return {'requiredNoOfLifts': true};
+    } else {
+      return null;
+    }
+  }
 }
