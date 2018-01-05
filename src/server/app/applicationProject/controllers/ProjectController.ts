@@ -15,7 +15,7 @@ class ProjectController {
 
   create(req: express.Request, res: express.Response, next: any): void {
     try {
-      let data = req.body;
+      let data =  <Project>req.body;
       let user = req.user;
       let projectService = new ProjectService();
       projectService.create(data, user,(error, result) => {
