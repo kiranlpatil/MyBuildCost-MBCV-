@@ -88,9 +88,10 @@ class ProjectController {
     try {
       let user = req.user;
       let projectId = req.params.id;
+      let buildingId = req.params.buildingid;
       let buildingDetails = <Building> req.body;
       let projectService = new ProjectService();
-      projectService.updateBuilding(projectId, buildingDetails, user, (error, result) => {
+      projectService.updateBuilding( buildingId, buildingDetails, user, (error, result) => {
         if(error) {
           next(error);
         } else {

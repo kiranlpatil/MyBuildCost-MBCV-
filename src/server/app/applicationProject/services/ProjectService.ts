@@ -88,9 +88,9 @@ class ProjectService {
     });
   }
 
-  updateBuilding(projectId, buildingDetail, user, callback:(error: any, result: any)=> void) {
-    let query = {_id : buildingDetail._id};
-    delete buildingDetail._id;
+  updateBuilding(buildingId, buildingDetail, user, callback:(error: any, result: any)=> void) {
+    let query = { _id : buildingId };
+    //delete buildingDetail._id;
     this.buildingRepository.findOneAndUpdate(query, buildingDetail,{new: true}, (error, result) => {
       if (error) {
         callback(error, null);
