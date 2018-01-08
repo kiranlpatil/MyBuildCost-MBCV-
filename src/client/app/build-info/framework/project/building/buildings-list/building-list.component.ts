@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { AppSettings, Messages, Label, Button, Headings, NavigationRoutes } from '../../../../../shared/constants';
 import { BuildingListService } from './building-list.service';
 import { BuildingDetailsService } from '../building-details/building-details.service';
@@ -17,14 +17,21 @@ import {Message} from "../../../../../shared/index";
 export class BuildingListComponent implements OnInit {
 
   buildings : any;
+  projectId : any;
   model: Building = new Building();
 
-  constructor(private listBuildingService: BuildingListService, private viewBuildingService: BuildingDetailsService, private _router: Router, private messageService: MessageService) {
+  constructor(private listBuildingService: BuildingListService, private viewBuildingService: BuildingDetailsService, private _router: Router,
+              private activatedRoute:ActivatedRoute, private messageService: MessageService) {
 
   }
 
   ngOnInit() {
-    this.getProjects();
+    this.activatedRoute.params.subscribe(params => {
+      this.projectId = params['projectId'];
+      if(this.projectId) {
+        this.getProjects();
+      }
+    });
   }
   addNewBuilding() {
     this._router.navigate([NavigationRoutes.APP_CREATE_BUILDING]);
@@ -38,7 +45,7 @@ export class BuildingListComponent implements OnInit {
   }
 
   getProjects() {
-    this.listBuildingService.getProject().subscribe(
+    this.listBuildingService.getProject(this.projectId).subscribe(
       projects => this.onGetProjectSuccess(projects),
       error => this.onGetProjectFail(error)
     );

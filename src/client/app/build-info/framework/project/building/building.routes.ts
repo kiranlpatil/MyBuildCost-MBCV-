@@ -11,7 +11,7 @@ export const BuildingRoutes: Route[] = [
     children:[
       {path: '', component: BuildingComponent},
       {path: 'create', component: CreateBuildingComponent},
-      {path: 'view', component: BuildingListComponent},
+      {path: 'list/:projectId', component: BuildingListComponent},
       {path: 'details', component: BuildingDetailsComponent}
     ]
   }

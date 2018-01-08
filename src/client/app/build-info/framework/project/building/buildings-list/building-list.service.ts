@@ -13,10 +13,10 @@ export class BuildingListService extends BaseService {
     super();
   }
 
-  getProject(): Observable<Project> {
+  getProject(projectId: string): Observable<Project> {
     let headers = new Headers({'Content-Type': 'application/json'});
     let options = new RequestOptions({headers: headers});
-    var url = API.VIEW_PROJECT + '/'+ SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT);
+    var url = API.VIEW_PROJECT + '/'+ projectId;
     return this.http.get(url, options)
       .map(this.extractData)
       .catch(this.handleError);

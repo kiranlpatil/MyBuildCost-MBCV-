@@ -187,6 +187,7 @@ export class NavigationRoutes {
   public static APP_CREATE_PROJECT: string = 'project/create';
   public static APP_VIEW_PROJECT: string = 'project/view';
   public static APP_VIEW_BUILDINGS: string = 'building/view';
+  public static APP_LIST_BUILDINGS: string = 'building/list';
   public static APP_VIEW_BUILDING_DETAILS: string = 'building/details';
   public static APP_CREATE_BUILDING: string = 'building/create';
   public static APP_LIST_PROJECT: string = 'project/list';
