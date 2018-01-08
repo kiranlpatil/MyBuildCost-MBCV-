@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-
+import {SessionStorage, SessionStorageService,MessageService} from "../../../../shared/index";
 @Component({
   moduleId: module.id,
   selector: 'bi-project-header',
@@ -14,5 +14,10 @@ export class ProjectHeaderComponent {
 
   navigateTo(nav:string) {
     this._router.navigate([nav]);
+  }
+
+  navigateToWithId(nav:string) {
+    var projectId = SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT);
+    this._router.navigate([nav, projectId]);
   }
 }

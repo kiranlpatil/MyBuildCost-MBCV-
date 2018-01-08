@@ -52,7 +52,6 @@ export class BuildingListComponent implements OnInit {
   }
 
   onGetProjectSuccess(projects : any) {
-    console.log(projects);
     this.buildings = projects.data[0].building;
   }
 
@@ -103,26 +102,16 @@ export class BuildingListComponent implements OnInit {
   }
 
   onGetBuildingSuccess(building : any) {
-    console.log('Building Data: '+JSON.stringify(building.data[0]));
     let buildingDetails=building.data[0];
     this.model.name=buildingDetails.name;
-    console.log('Project name: '+buildingDetails.name);
     this.model.totalSlabArea=buildingDetails.totalSlabArea;
-    console.log('totalSlabArea: '+buildingDetails.totalSlabArea);
     this.model.totalCarperAreaOfUnit=buildingDetails.totalCarperAreaOfUnit;
-    console.log('totalCarperAreaOfUnit: '+buildingDetails.totalCarperAreaOfUnit);
     this.model.totalParkingAreaOfUnit=buildingDetails.totalParkingAreaOfUnit;
-    console.log('totalParkingAreaOfUnit: '+buildingDetails.totalParkingAreaOfUnit);
     this.model.noOfOneBHK=buildingDetails.noOfOneBHK;
-    console.log('noOfOneBHK: '+buildingDetails.noOfOneBHK);
     this.model.noOfTwoBHK=buildingDetails.noOfTwoBHK;
-    console.log('noOfTwoBHK: '+buildingDetails.noOfTwoBHK);
     this.model.noOfThreeBHK=buildingDetails.noOfThreeBHK;
-    console.log('noOfThreeBHK: '+buildingDetails.noOfThreeBHK);
     this.model.noOfSlab=buildingDetails.noOfSlab;
-    console.log('noOfSlab: '+buildingDetails.noOfSlab);
     this.model.noOfLift=buildingDetails.noOfLift;
-    console.log('noOfLift: '+buildingDetails.noOfLift);
   }
 
   onGetBuildingFail(error : any) {

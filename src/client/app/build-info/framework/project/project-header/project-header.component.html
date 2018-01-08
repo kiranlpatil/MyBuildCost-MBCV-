@@ -2,16 +2,16 @@
     <div class="container-fluid">
       <ul>
         <li>
-          <button type="button" class="btn btn-primary" (click)="navigateTo('/project/view')">Cost Summary</button>
+          <button type="button" class="btn btn-primary">Cost Summary</button>
         </li>
         <li>
           <button type="button" class="btn btn-primary">Material Takeoff</button>
         </li>
         <li>
-            <button type="button" class="btn btn-primary" (click)="navigateTo('/building/view')">Building Master</button>
+            <button type="button" class="btn btn-primary" (click)="navigateToWithId('/building/list')">Building Master</button>
         </li>
         <li>
-          <button type="button" class="btn btn-primary" (click)="navigateTo('/project/view')">Project Master</button>
+          <button type="button" class="btn btn-primary" (click)="navigateToWithId('/project/details')">Project Master</button>
         </li>
         <li>
           <button type="button" class="btn btn-primary">Rates</button>

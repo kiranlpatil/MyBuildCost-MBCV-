@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { AppSettings, Messages, Label, Button, Headings, NavigationRoutes } from '../../../../shared/constants';
 import { ProjectDetailsService } from './project-details.service';
 import { Project } from './../../model/project';
@@ -8,6 +8,7 @@ import { API, BaseService, SessionStorage, SessionStorageService, MessageService
 import {Message} from "../../../../shared/index";
 import {SharedService} from "../../../../shared/services/shared-service";
 import {ValidationService} from "../../../../shared/customvalidations/validation.service";
+import { ProjectService } from '../project.service';
 
 @Component({
   moduleId: module.id,
@@ -19,11 +20,13 @@ export class ProjectDetailsComponent implements OnInit {
 
   viewProjectForm:  FormGroup;
   project : any;
+  projectId : any;
   model: Project = new Project();
   public isShowErrorMessage: boolean = true;
   public error_msg: boolean = false;
 
-  constructor(private ViewProjectService: ProjectDetailsService, private _router: Router, private formBuilder: FormBuilder, private messageService: MessageService, private sharedService: SharedService) {
+  constructor(private ViewProjectService: ProjectDetailsService, private _router: Router, private formBuilder: FormBuilder, private messageService: MessageService, private sharedService: SharedService,
+              private activatedRoute:ActivatedRoute) {
 
     this.viewProjectForm = this.formBuilder.group({
       'name': ['', ValidationService.requiredProjectName],
@@ -36,33 +39,28 @@ export class ProjectDetailsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getProjectDetails();
+    this.activatedRoute.params.subscribe(params => {
+      this.projectId = params['projectId'];
+      if(this.projectId) {
+        this.getProjectDetails();
+      }
+    });
   }
-  // createProject() {
-  //   ///project/createProject
-  //   this._router.navigate([NavigationRoutes.APP_CREATE_PROJECT]);
-  // }
 
   getProjectDetails() {
-    this.ViewProjectService.getProjectDetails().subscribe(
+    this.ViewProjectService.getProjectDetails(this.projectId).subscribe(
       project => this.onGetProjectSuccess(project),
       error => this.onGetProjectFail(error)
     );
   }
 
   onGetProjectSuccess(project : any) {
-    console.log('Project Data: '+JSON.stringify(project.data[0]));
     let projectDetails=project.data[0];
     this.model.name=projectDetails.name;
-    console.log('Project name: '+projectDetails.name);
     this.model.region=projectDetails.region;
-    console.log('Project region: '+projectDetails.region);
     this.model.plotArea=projectDetails.plotArea;
-    console.log('Project plotArea: '+projectDetails.plotArea);
     this.model.projectDuration=projectDetails.projectDuration;
-    console.log('Project projectDuration: '+projectDetails.projectDuration);
     this.model.plotPeriphery=projectDetails.plotPeriphery;
-    console.log('Project plotPeriphery: '+projectDetails.plotPeriphery);
   }
 
   onGetProjectFail(error : any) {

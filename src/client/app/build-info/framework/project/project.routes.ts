@@ -11,7 +11,7 @@ export const ProjectRoutes: Route[] = [
     children:[
       {path: '', component: ProjectComponent},
       {path: 'list', component: ProjectListComponent},
-      {path: 'view', component: ProjectDetailsComponent},
+      {path: 'details/:projectId', component: ProjectDetailsComponent},
       {path: 'create', component: CreateProjectComponent}
     ]
   }
