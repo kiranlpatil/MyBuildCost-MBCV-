@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Messages} from '../../../../../shared/constants';
 import { BuildingDetailsService } from './building-details.service';
 import { Building } from './../../../model/building';
@@ -18,11 +18,13 @@ export class BuildingDetailsComponent implements OnInit {
 
   viewBuildingForm:  FormGroup;
   buildings : any;
+  buildingId : string;
   model: Building = new Building();
   public isShowErrorMessage: boolean = true;
   public error_msg: boolean = false;
 
-  constructor(private viewBuildingService: BuildingDetailsService, private _router: Router, private formBuilder: FormBuilder, private messageService: MessageService) {
+  constructor(private viewBuildingService: BuildingDetailsService, private _router: Router, private formBuilder: FormBuilder,
+              private activatedRoute:ActivatedRoute, private messageService: MessageService) {
 
     this.viewBuildingForm = this.formBuilder.group({
       'name': ['', ValidationService.requiredBuildingName],
@@ -40,15 +42,16 @@ export class BuildingDetailsComponent implements OnInit {
 
   ngOnInit() {
     console.log('Building details');
-    this.getBuildingDetails();
+    this.activatedRoute.params.subscribe(params => {
+      this.buildingId = params['buildingId'];
+      if(this.buildingId) {
+        this.getBuildingDetails();
+      }
+    });
   }
-  // createProject() {
-  //   ///project/createProject
-  //   this._router.navigate([NavigationRoutes.APP_CREATE_PROJECT]);
-  // }
 
   getBuildingDetails() {
-    this.viewBuildingService.getBuildingDetails().subscribe(
+    this.viewBuildingService.getBuildingDetails(this.buildingId).subscribe(
       building => this.onGetBuildingSuccess(building),
       error => this.onGetBuildingFail(error)
     );

@@ -15,11 +15,11 @@ export class BuildingDetailsService extends BaseService {
     super();
   }
 
-  getBuildingDetails(): Observable<Building> {
+  getBuildingDetails(buildingId : string): Observable<Building> {
     let headers = new Headers({'Content-Type': 'application/json'});
     let options = new RequestOptions({headers: headers});
     var url = API.VIEW_PROJECT+'/'+SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT)+'/'
-      +API.VIEW_BUILDING+'/'+ SessionStorageService.getSessionValue(SessionStorage.CURRENT_BUILDING);
+      +API.VIEW_BUILDING+'/'+ buildingId;
     return this.http.get(url, options)
       .map(this.extractData)
       .catch(this.handleError);

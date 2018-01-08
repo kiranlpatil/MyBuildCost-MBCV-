@@ -93,12 +93,7 @@ export class BuildingListComponent implements OnInit {
   getBuildingDetails(buildingId : any) {
     console.log('building Id : '+buildingId);
     SessionStorageService.setSessionValue(SessionStorage.CURRENT_BUILDING, buildingId);
-    //this._router.navigate([NavigationRoutes.APP_CREATE_PROJECT]);
-    this._router.navigate([NavigationRoutes.APP_VIEW_BUILDING_DETAILS]);
-    /*this.viewBuildingService.getBuildingDetails(buildingId).subscribe(
-      building => this.onGetBuildingSuccess(building),
-      error => this.onGetBuildingFail(error)
-    );*/
+    this._router.navigate([NavigationRoutes.APP_VIEW_BUILDING_DETAILS, buildingId]);
   }
 
   onGetBuildingSuccess(building : any) {

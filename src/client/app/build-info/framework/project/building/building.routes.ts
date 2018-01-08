@@ -12,7 +12,7 @@ export const BuildingRoutes: Route[] = [
       {path: '', component: BuildingComponent},
       {path: 'create', component: CreateBuildingComponent},
       {path: 'list/:projectId', component: BuildingListComponent},
-      {path: 'details', component: BuildingDetailsComponent}
+      {path: 'details/:buildingId', component: BuildingDetailsComponent}
     ]
   }
 ];
