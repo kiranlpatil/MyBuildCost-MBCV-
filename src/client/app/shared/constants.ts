@@ -334,10 +334,10 @@ export class API {
   public static THUMBRULE_RULE_RATE='report/thumbRuleRate';
   public static RATE='rate';
   public static SQFT='sqft';
-  public static SQM='sqm';
+  public static SQM='sqmt';
   public static AREA='area';
   public static SLAB_AREA='slabArea';
-  public static SELLABLE_AREA='sellableArea';
+  public static SELLABLE_AREA='salebleArea';
 
 }
 

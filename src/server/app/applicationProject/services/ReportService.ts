@@ -18,17 +18,9 @@ class ReportService {
   private buildingRepository: BuildingRepository;
   private authInterceptor: AuthInterceptor;
   private userService : UserService;
-  buildingDetails = {
-    "name" : "",
-    "area" : 0,
-    "category" : []
-  };
 
-  category=[];
-  thumbRuleReport = {
-    "reportThumbrule" : []
-  };
-  reportThumbrule = [];
+  category:any=[];
+  reportThumbrule:any = [];
 
   constructor() {
     this.projectRepository = new ProjectRepository();
@@ -39,7 +31,8 @@ class ReportService {
     //this.categoryDetails = new categoryDetails();
   }
 
-  getReport( projectId : any,reportType : string, projectRate : string, areaType : string,  user: User, callback: (error: any, result: any) => void) {
+  getReport( projectId : any,reportType : string, projectRate : string, areaType : string,  user: User,
+             callback: (error: any, result: any) => void) {
     let query = { _id: projectId};
     let populate = {path : 'building'};
     this.projectRepository.findAndPopulate(query, populate, (error, result) => {
@@ -49,19 +42,19 @@ class ReportService {
         let buildings = result[0].building;
         let costHeads = result[0].category;
 
-        for(let costHead of result[0].category){
+        for(let costHead of result[0].category) {
           let catDetails : ThumbRuleReport = new ThumbRuleReport();
           catDetails.name = costHead.name;
             catDetails.rate = costHead[reportType][areaType][projectRate];
           this.category.push(catDetails);
         }
 
-        for(let building of buildings){
+        for(let building of buildings) {
           let buildingReport : BuildingReport = new BuildingReport();
           buildingReport.name = building.name;
-          if(areaType == 'slabArea'){
+          if(areaType === 'slabArea') {
             buildingReport.area = building.totalSlabArea;
-          }else{
+          } else {
             buildingReport.area = building.totalSaleableAreaOfUnit;
           }
           buildingReport.category = this.category;
@@ -71,15 +64,6 @@ class ReportService {
         callback(null,{ data: this.reportThumbrule, access_token: this.authInterceptor.issueTokenWithUid(user)});
       }
     });
-  }
-
-
-  getTotal(report , costHeadCategory){
-    let reportFull:ThumbRuleReport = new ThumbRuleReport();
-    reportFull.total = report.area * costHeadCategory.rate;
-    reportFull.name = costHeadCategory.name;
-    reportFull.rate = costHeadCategory.rate;
-    return reportFull;
   }
 }
 

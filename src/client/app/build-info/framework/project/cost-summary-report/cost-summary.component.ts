@@ -26,17 +26,16 @@ export class CostSummaryComponent implements OnInit {
 
   public costIn: any[] = [
     { 'costInId': 'Rs/Sqft'},
-    { 'costInId': 'Rs/Sqm',}
+    { 'costInId': 'Rs/Sqmt'}
   ];
 
   public costPer: any[] = [
-    { 'costPerId': 'SlabArea',},
-    { 'costPerId': 'SellableArea',}
+    { 'costPerId': 'SlabArea'},
+    { 'costPerId': 'SellableArea'}
   ];
 
   defaultCostIn:string='Rs/Sqft';
-
-  defaultCostPer:string='SellableArea';
+  defaultCostPer:string='SlabArea';
 
 
 
@@ -50,7 +49,7 @@ export class CostSummaryComponent implements OnInit {
     this.activatedRoute.params.subscribe(params => {
       this.projectId = params['projectId'];
       if(this.projectId) {
-        this.getProjects();
+        this.onChangeCostingIn(this.defaultCostIn);
       }
     });
   }
@@ -87,7 +86,7 @@ export class CostSummaryComponent implements OnInit {
   }
 
   onGetProjectCostSummarySuccess(projects : any) {
-    this.projectBuildings = projects.data[0].building;
+    //this.projectBuildings = projects.data[0].building;
   }
 
   onGetProjectCostSummaryFail(error : any) {
@@ -108,5 +107,44 @@ export class CostSummaryComponent implements OnInit {
 
   getHeadings() {
     return Headings;
+  }
+
+  onChangeCostingIn(costInId:any) {
+
+    if(costInId) {
+      console.log('costInId : '+costInId);
+      this.defaultCostIn=costInId;
+    }
+
+    this.costSummaryService.getCost(this.projectId,this.defaultCostIn,this.defaultCostPer).subscribe(
+      projectCostIn => this.onGetCostInSuccess(projectCostIn),
+      error => this.onGetCostInFail(error)
+    );
+
+  }
+  onGetCostInSuccess(projects : any) {
+    this.projectBuildings = projects.data;
+  }
+
+  onGetCostInFail(error : any) {
+    console.log('onGetCostInFail()'+error);
+  }
+
+  onChangeCostingPer(costPerId:any) {
+    console.log('costPerId : '+costPerId);
+    this.defaultCostPer=costPerId;
+
+    this.costSummaryService.getCost(this.projectId,this.defaultCostIn,this.defaultCostPer).subscribe(
+      projectCostPer => this.onGetCostPerSuccess(projectCostPer),
+      error => this.onGetCostPerFail(error)
+    );
+  }
+
+  onGetCostPerSuccess(projects : any) {
+    this.projectBuildings = projects.data;
+  }
+
+  onGetCostPerFail(error : any) {
+    console.log('onGetCostPerFail()'+error);
   }
 }
