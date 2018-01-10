@@ -21,6 +21,14 @@ export class CostSummaryService extends BaseService {
       .catch(this.handleError);
   }
 
+  getBuildingDetails(projectId: string){
+    let headers = new Headers({'Content-Type': 'application/json'});
+    let options = new RequestOptions({headers: headers});
+    var url = API.VIEW_PROJECT + '/'+ projectId +'/'+ API.ADD_BUILDING + '/'+SessionStorageService.getSessionValue(SessionStorage.CURRENT_BUILDING);
+    return this.http.get(url, options)
+      .map(this.extractData)
+      .catch(this.handleError);
+  }
 
   getCost(projectId: string,defaultCostIn:string,defaultCostPer:string){
     let headers = new Headers({'Content-Type': 'application/json'});

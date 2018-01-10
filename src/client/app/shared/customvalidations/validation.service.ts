@@ -349,6 +349,15 @@ export class ValidationService {
   }
 
 
+  static requiredSalebleArea(control: any) {
+    if (control.value === '' || control.value === undefined) {
+      return {'requiredSalebleArea': true};
+    } else {
+      return null;
+    }
+  }
+
+
   static requiredParkingArea(control: any) {
     if (control.value === '' || control.value === undefined) {
       return {'requiredParkingArea': true};

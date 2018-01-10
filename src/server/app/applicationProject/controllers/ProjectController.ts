@@ -78,6 +78,10 @@ class ProjectController {
       let user = req.user;
       let projectId = req.params.id;
       let buildingDetails = <Building> req.body;
+
+      let defaultCategory = config.get('category.default');
+      buildingDetails.category = defaultCategory;
+
       let projectService = new ProjectService();
       projectService.addBuilding(projectId, buildingDetails, user, (error, result) => {
         if(error) {

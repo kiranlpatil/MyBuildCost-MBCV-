@@ -31,6 +31,7 @@ export class CreateBuildingComponent implements OnInit {
       'name': ['', ValidationService.requiredBuildingName],
       'totalSlabArea':['', ValidationService.requiredSlabArea],
       'totalCarperAreaOfUnit':['', ValidationService.requiredCarpetArea],
+      'totalSaleableAreaOfUnit':['', ValidationService.requiredSalebleArea],
       'totalParkingAreaOfUnit':['', ValidationService.requiredParkingArea],
       'noOfOneBHK':['', ValidationService.requiredOneBHK],
       'noOfTwoBHK':['', ValidationService.requiredTwoBHK],

@@ -80,82 +80,88 @@
       {
         "name": "Plaster",
         "thumbRuleRate":{
-          "sqft": 20,
-          "sqmt":30
+          "slabArea" :{
+            "sqft": 20,
+            "sqmt":30
+          },
+          "salebleArea" :{
+            "sqft": 40,
+            "sqmt":60
+          }
         },
         "active": true,
         "item":[
           {
             "name": "Internal Plaster in CM 1:4",
             "qty": [
-                {
-                    "item": "Wall 1",
-                    "remarks": "internal walls",
-                    "nos": 2,
-                    "length": "sqft",
-                    "breadth": null,
-                    "height": 0,
-                    "qty": 100,
-                    "unit": "sqft"
-                },
-                {
-                    "item": "Wall 2",
-                    "remarks": "internal walls",
-                    "nos": 2,
-                    "length": "sqft",
-                    "breadth": null,
-                    "height": 0,
-                    "qty": 100,
-                    "unit": "sqft"
-                },
-                {
-                    "item": "Wall 3",
-                    "remarks": "internal walls",
-                    "nos": 2,
-                    "length": "sqft",
-                    "breadth": null,
-                    "height": 0,
-                    "qty": 100,
-                    "unit": "sqft"
-                },
-                {
-                    "item": "Wall 4",
-                    "remarks": "internal walls",
-                    "nos": 2,
-                    "length": "sqft",
-                    "breadth": null,
-                    "height": 0,
-                    "qty": 100,
-                    "unit": "sqft"
-                }
+              {
+                "item": "Wall 1",
+                "remarks": "internal walls",
+                "nos": 2,
+                "length": "sqft",
+                "breadth": null,
+                "height": 0,
+                "qty": 100,
+                "unit": "sqft"
+              },
+              {
+                "item": "Wall 2",
+                "remarks": "internal walls",
+                "nos": 2,
+                "length": "sqft",
+                "breadth": null,
+                "height": 0,
+                "qty": 100,
+                "unit": "sqft"
+              },
+              {
+                "item": "Wall 3",
+                "remarks": "internal walls",
+                "nos": 2,
+                "length": "sqft",
+                "breadth": null,
+                "height": 0,
+                "qty": 100,
+                "unit": "sqft"
+              },
+              {
+                "item": "Wall 4",
+                "remarks": "internal walls",
+                "nos": 2,
+                "length": "sqft",
+                "breadth": null,
+                "height": 0,
+                "qty": 100,
+                "unit": "sqft"
+              }
             ],
             "unit": "sqft",
             "rate": [
-                {
-                    "item": "Cement",
-                    "remarks": "internal walls",
-                    "quantity": 2,
-                    "unit": "bags",
-                    "rate": 200,
-                    "totalAmount": 0
-                },
-                {
-                    "item": "Sand",
-                    "remarks": "internal walls",
-                    "quantity": 2,
-                    "unit": "cu ft",
-                    "rate": 80,
-                    "totalAmount": 0
-                },
-                {
-                    "item": "Labour for Internal Plaster",
-                    "remarks": "internal walls",
-                    "quantity": 100,
-                    "unit": "sqft",
-                    "rate": 30,
-                    "totalAmount": 0
-                }
-                ],
+              {
+                "item": "Cement",
+                "remarks": "internal walls",
+                "quantity": 2,
+                "unit": "bags",
+                "rate": 200,
+                "totalAmount": 0
+              },
+              {
+                "item": "Sand",
+                "remarks": "internal walls",
+                "quantity": 2,
+                "unit": "cu ft",
+                "rate": 80,
+                "totalAmount": 0
+              },
+              {
+                "item": "Labour for Internal Plaster",
+                "remarks": "internal walls",
+                "quantity": 100,
+                "unit": "sqft",
+                "rate": 30,
+                "totalAmount": 0
+              }
+            ],
             "amount":0
           },
           {
@@ -205,30 +211,30 @@
             "unit": "sqft",
             "rate": [
               {
-                  "item": "Cement",
-                  "remarks": "internal walls",
-                  "quantity": 2,
-                  "unit": "bags",
-                  "rate": 200,
-                  "totalAmount": 0
+                "item": "Cement",
+                "remarks": "internal walls",
+                "quantity": 2,
+                "unit": "bags",
+                "rate": 200,
+                "totalAmount": 0
               },
               {
-                  "item": "Sand",
-                  "remarks": "internal walls",
-                  "quantity": 2,
-                  "unit": "cu ft",
-                  "rate": 80,
-                  "totalAmount": 0
+                "item": "Sand",
+                "remarks": "internal walls",
+                "quantity": 2,
+                "unit": "cu ft",
+                "rate": 80,
+                "totalAmount": 0
               },
               {
-                  "item": "Labour for Internal Plaster",
-                  "remarks": "internal walls",
-                  "quantity": 100,
-                  "unit": "sqft",
-                  "rate": 30,
-                  "totalAmount": 0
+                "item": "Labour for Internal Plaster",
+                "remarks": "internal walls",
+                "quantity": 100,
+                "unit": "sqft",
+                "rate": 30,
+                "totalAmount": 0
               }
-              ],
+            ],
             "amount":0
           },
           {
@@ -277,31 +283,31 @@
             ],
             "unit": "sqft",
             "rate": [
-                {
-                    "item": "Cement",
-                    "remarks": "internal walls",
-                    "quantity": 2,
-                    "unit": "bags",
-                    "rate": 200,
-                    "totalAmount": 0
-                },
-                {
-                    "item": "Sand",
-                    "remarks": "internal walls",
-                    "quantity": 2,
-                    "unit": "cu ft",
-                    "rate": 80,
-                    "totalAmount": 0
-                },
-                {
-                    "item": "Labour for Internal Plaster",
-                    "remarks": "internal walls",
-                    "quantity": 100,
-                    "unit": "sqft",
-                    "rate": 30,
-                    "totalAmount": 0
-                }
-              ],
+              {
+                "item": "Cement",
+                "remarks": "internal walls",
+                "quantity": 2,
+                "unit": "bags",
+                "rate": 200,
+                "totalAmount": 0
+              },
+              {
+                "item": "Sand",
+                "remarks": "internal walls",
+                "quantity": 2,
+                "unit": "cu ft",
+                "rate": 80,
+                "totalAmount": 0
+              },
+              {
+                "item": "Labour for Internal Plaster",
+                "remarks": "internal walls",
+                "quantity": 100,
+                "unit": "sqft",
+                "rate": 30,
+                "totalAmount": 0
+              }
+            ],
             "amount":0
           },
           {
@@ -350,34 +356,50 @@
             ],
             "unit": "sqft",
             "rate": [
-                {
-                    "item": "Cement",
-                    "remarks": "internal walls",
-                    "quantity": 2,
-                    "unit": "bags",
-                    "rate": 200,
-                    "totalAmount": 0
-                },
-                {
-                    "item": "Sand",
-                    "remarks": "internal walls",
-                    "quantity": 2,
-                    "unit": "cu ft",
-                    "rate": 80,
-                    "totalAmount": 0
-                },
-                {
-                    "item": "Labour for Internal Plaster",
-                    "remarks": "internal walls",
-                    "quantity": 100,
-                    "unit": "sqft",
-                    "rate": 30,
-                    "totalAmount": 0
-                }
+              {
+                "item": "Cement",
+                "remarks": "internal walls",
+                "quantity": 2,
+                "unit": "bags",
+                "rate": 200,
+                "totalAmount": 0
+              },
+              {
+                "item": "Sand",
+                "remarks": "internal walls",
+                "quantity": 2,
+                "unit": "cu ft",
+                "rate": 80,
+                "totalAmount": 0
+              },
+              {
+                "item": "Labour for Internal Plaster",
+                "remarks": "internal walls",
+                "quantity": 100,
+                "unit": "sqft",
+                "rate": 30,
+                "totalAmount": 0
+              }
             ],
             "amount":0
           }
         ]
+
+      },
+      {
+        "name": "RCC",
+        "thumbRuleRate":{
+          "slabArea" :{
+            "sqft": 50,
+            "sqmt":60
+          },
+          "salebleArea" :{
+            "sqft": 80,
+            "sqmt":90
+          }
+        },
+        "active": true,
+        "item":[]
 
       }
     ]
