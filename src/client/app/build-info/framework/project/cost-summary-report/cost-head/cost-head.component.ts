@@ -14,6 +14,7 @@ import { CostHeadService } from './cost-head.service';
 @Component({
   moduleId: module.id,
   selector: 'bi-cost-head-project-report',
+  styleUrls: ['cost-head.component.css'],
   templateUrl: 'cost-head.component.html'
 })
 
