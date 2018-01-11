@@ -1,6 +1,6 @@
 class ThumbRuleReport {
-  name: string;
   rate: number;
-  total : number;
+  amount : number;
+  costHeadActive : boolean;
 }
 export = ThumbRuleReport;

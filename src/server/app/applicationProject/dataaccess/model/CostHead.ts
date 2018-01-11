@@ -6,3 +6,4 @@ class CostHead {
 }
 
 export = CostHead;
+
