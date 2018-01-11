@@ -35,28 +35,26 @@ class ReportService {
              callback: (error: any, result: any) => void) {
     let query = { _id: projectId};
     let populate = {path : 'building'};
+
     this.projectRepository.findAndPopulate(query, populate, (error, result) => {
       if(error) {
         callback(error, null);
       } else {
-        let buildings = result[0].building;
-        let costHeads = result[0].category;
 
-        for(let costHead of result[0].category) {
+        let costHeads = result[0].costHead;
+        let buildings = result[0].building;
+
+        for(let costHead of costHeads) {
           let catDetails : ThumbRuleReport = new ThumbRuleReport();
           catDetails.name = costHead.name;
-            catDetails.rate = costHead[reportType][areaType][projectRate];
+          catDetails.rate = costHead[reportType][areaType][projectRate];
           this.category.push(catDetails);
         }
 
         for(let building of buildings) {
           let buildingReport : BuildingReport = new BuildingReport();
           buildingReport.name = building.name;
-          if(areaType === 'slabArea') {
-            buildingReport.area = building.totalSlabArea;
-          } else {
-            buildingReport.area = building.totalSaleableAreaOfUnit;
-          }
+          buildingReport.area = (areaType === 'slabArea') ? building.totalSlabArea : building.totalSaleableAreaOfUnit;
           buildingReport.category = this.category;
           this.reportThumbrule.push(buildingReport);
         }

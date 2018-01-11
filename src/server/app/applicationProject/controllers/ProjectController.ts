@@ -4,7 +4,6 @@ import Project = require('../dataaccess/mongoose/Project');
 import Building = require('../dataaccess/mongoose/Building');
 import Response = require('../interceptor/response/Response');
 import CostControllException = require('../exception/CostControllException');
-import config from "../../../../../tools/config";
 let config = require('config');
 
 class ProjectController {
@@ -80,7 +79,7 @@ class ProjectController {
       let buildingDetails = <Building> req.body;
 
       let defaultCategory = config.get('category.default');
-      buildingDetails.category = defaultCategory;
+      buildingDetails.costHead = defaultCategory;
 
       let projectService = new ProjectService();
       projectService.addBuilding(projectId, buildingDetails, user, (error, result) => {

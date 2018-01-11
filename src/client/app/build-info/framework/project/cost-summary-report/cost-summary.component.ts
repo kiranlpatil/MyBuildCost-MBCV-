@@ -93,22 +93,6 @@ export class CostSummaryComponent implements OnInit {
     console.log(error);
   }
 
-  getMessages() {
-    return Messages;
-  }
-
-  getLabels() {
-    return Label;
-  }
-
-  getButtons() {
-    return Button;
-  }
-
-  getHeadings() {
-    return Headings;
-  }
-
   onChangeCostingIn(costInId:any) {
 
     if(costInId) {
@@ -146,5 +130,21 @@ export class CostSummaryComponent implements OnInit {
 
   onGetCostPerFail(error : any) {
     console.log('onGetCostPerFail()'+error);
+  }
+
+  getMessages() {
+    return Messages;
+  }
+
+  getLabels() {
+    return Label;
+  }
+
+  getButtons() {
+    return Button;
+  }
+
+  getHeadings() {
+    return Headings;
   }
 }

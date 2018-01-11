@@ -85,7 +85,7 @@
             "sqft": 20,
             "sqmt": 30
           },
-          "salebleArea": {
+          "saleableArea": {
             "sqft": 40,
             "sqmt": 60
           }
@@ -426,7 +426,7 @@
             "sqft": 50,
             "sqmt": 60
           },
-          "salebleArea": {
+          "saleableArea": {
             "sqft": 80,
             "sqmt": 90
           }
