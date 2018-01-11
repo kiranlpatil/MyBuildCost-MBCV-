@@ -16,7 +16,6 @@ class ReportController {
 
   getProject(req: express.Request, res: express.Response, next: any): void {
     try {
-      console.log('Inside Report Routes');
       let reportService = new ReportService();
       let user = req.user;
       let projectId =  req.params.id;
@@ -24,11 +23,6 @@ class ReportController {
       let projectRate =  req.params.rate;
       let projectArea =  req.params.area;
 
-      console.log('User : '+JSON.stringify(user));
-      console.log('reportType : '+reportType);
-      console.log('projectId : '+projectId);
-      console.log('projectRate : '+projectRate);
-      console.log('projectArea : '+projectArea);
       reportService.getReport(projectId, reportType, projectRate, projectArea,  user, (error, result) => {
         if(error) {
           next(error);

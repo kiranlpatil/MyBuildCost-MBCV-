@@ -75,6 +75,7 @@ class ReportService {
 
           for(let costHeadIndex = 0; costHeadIndex < costHeadArray.length; costHeadIndex++) {
             let thumbRule: ThumbRuleReport = new ThumbRuleReport();
+            thumbRule.name = costHeadArray[costHeadIndex].name;
             if(areaType === 'slabArea') {
               buildingReport.area = buildings[index].totalSlabArea;
               if(projectRate === 'sqft') {
@@ -92,7 +93,7 @@ class ReportService {
             }
             thumbRule.amount = buildingReport.area * thumbRule.rate;
             thumbRule.costHeadActive = costHeadArray[costHeadIndex].active;
-            buildingReport.thumbRuleReport[costHeadArray[costHeadIndex].name] = thumbRule;
+            buildingReport.thumbRuleReport.push(thumbRule);
           }
           report.push(buildingReport);
         }
