@@ -77,8 +77,8 @@
   },
   "category" :
   {
-    "default": {
-      "Plaster": {
+    "default": [
+      {
         "name": "Plaster",
         "thumbRuleRate": {
           "slabArea": {
@@ -91,10 +91,10 @@
           }
         },
         "active": true,
-        "item": {
+        "workitem": {
           "Internal Plaster in CM 1:4": {
             "name": "Internal Plaster in CM 1:4",
-            "qty": {
+            "quantity": {
               "total": null,
               "item": [{
                 "item": "Wall 1",
@@ -103,7 +103,7 @@
                 "length": "sqft",
                 "breadth": null,
                 "height": 0,
-                "qty": 100,
+                "quantity": 100,
                 "unit": "sqft"
               },
                 {
@@ -113,7 +113,7 @@
                   "length": "sqft",
                   "breadth": null,
                   "height": 0,
-                  "qty": 100,
+                  "quantity": 100,
                   "unit": "sqft"
                 },
                 {
@@ -123,7 +123,7 @@
                   "length": "sqft",
                   "breadth": null,
                   "height": 0,
-                  "qty": 100,
+                  "quantity": 100,
                   "unit": "sqft"
                 },
                 {
@@ -133,7 +133,7 @@
                   "length": "sqft",
                   "breadth": null,
                   "height": 0,
-                  "qty": 100,
+                  "quantity": 100,
                   "unit": "sqft"
                 }
               ]
@@ -141,7 +141,7 @@
             "unit": "sqft",
             "rate": {
               "total": null,
-              "qty": 10,
+              "quantity": 10,
               "item": [{
                 "item": "Cement",
                 "remarks": "internal walls",
@@ -175,7 +175,7 @@
           },
           "External Plaster in CM 1:4": {
             "name": "External Plaster in CM 1:4",
-            "qty": {
+            "quantity": {
               "total": null,
               "item": [{
                 "item": "Wall 1",
@@ -184,7 +184,7 @@
                 "length": "sqft",
                 "breadth": null,
                 "height": 0,
-                "qty": 100,
+                "quantity": 100,
                 "unit": "sqft"
               },
                 {
@@ -194,7 +194,7 @@
                   "length": "sqft",
                   "breadth": null,
                   "height": 0,
-                  "qty": 100,
+                  "quantity": 100,
                   "unit": "sqft"
                 },
                 {
@@ -204,7 +204,7 @@
                   "length": "sqft",
                   "breadth": null,
                   "height": 0,
-                  "qty": 100,
+                  "quantity": 100,
                   "unit": "sqft"
                 },
                 {
@@ -214,7 +214,7 @@
                   "length": "sqft",
                   "breadth": null,
                   "height": 0,
-                  "qty": 100,
+                  "quantity": 100,
                   "unit": "sqft"
                 }
               ]
@@ -222,7 +222,7 @@
             "unit": "sqft",
             "rate": {
               "total": null,
-              "qty": 10,
+              "quantity": 10,
               "item": [{
                 "item": "Cement",
                 "remarks": "internal walls",
@@ -256,7 +256,7 @@
           },
           "Internal Plaster in CM 1:5": {
             "name": "Internal Plaster in CM 1:5",
-            "qty": {
+            "quantity": {
               "total": null,
               "item": [{
                 "item": "Wall 1",
@@ -265,7 +265,7 @@
                 "length": "sqft",
                 "breadth": null,
                 "height": 0,
-                "qty": 100,
+                "quantity": 100,
                 "unit": "sqft"
               },
                 {
@@ -275,7 +275,7 @@
                   "length": "sqft",
                   "breadth": null,
                   "height": 0,
-                  "qty": 100,
+                  "quantity": 100,
                   "unit": "sqft"
                 },
                 {
@@ -285,7 +285,7 @@
                   "length": "sqft",
                   "breadth": null,
                   "height": 0,
-                  "qty": 100,
+                  "quantity": 100,
                   "unit": "sqft"
                 },
                 {
@@ -295,7 +295,7 @@
                   "length": "sqft",
                   "breadth": null,
                   "height": 0,
-                  "qty": 100,
+                  "quantity": 100,
                   "unit": "sqft"
                 }
               ]
@@ -303,7 +303,7 @@
             "unit": "sqft",
             "rate": {
               "total": null,
-              "qty": 10,
+              "quantity": 10,
               "item": [{
                 "item": "Cement",
                 "remarks": "internal walls",
@@ -337,7 +337,7 @@
           },
           "External Plaster in CM 1:5": {
             "name": "External Plaster in CM 1:5",
-            "qty": {
+            "quantity": {
               "total": null,
               "item": [{
                 "item": "Wall 1",
@@ -346,7 +346,7 @@
                 "length": "sqft",
                 "breadth": null,
                 "height": 0,
-                "qty": 100,
+                "quantity": 100,
                 "unit": "sqft"
               },
                 {
@@ -356,7 +356,7 @@
                   "length": "sqft",
                   "breadth": null,
                   "height": 0,
-                  "qty": 100,
+                  "quantity": 100,
                   "unit": "sqft"
                 },
                 {
@@ -366,7 +366,7 @@
                   "length": "sqft",
                   "breadth": null,
                   "height": 0,
-                  "qty": 100,
+                  "quantity": 100,
                   "unit": "sqft"
                 },
                 {
@@ -376,7 +376,7 @@
                   "length": "sqft",
                   "breadth": null,
                   "height": 0,
-                  "qty": 100,
+                  "quantity": 100,
                   "unit": "sqft"
                 }
               ]
@@ -384,7 +384,7 @@
             "unit": "sqft",
             "rate": {
               "total": null,
-              "qty": 10,
+              "quantity": 10,
               "item": [{
                 "item": "Cement",
                 "remarks": "internal walls",
@@ -419,7 +419,7 @@
         }
 
       },
-      "RCC": {
+      {
         "name": "RCC",
         "thumbRuleRate": {
           "slabArea": {
@@ -435,7 +435,7 @@
         "item": {
           "Internal RCC in CM 1:4": {
             "name": "Internal RCC in CM 1:4",
-            "qty": {
+            "quantity": {
               "total": null,
               "item": [{
                 "item": "Wall 1",
@@ -444,7 +444,7 @@
                 "length": "sqft",
                 "breadth": null,
                 "height": 0,
-                "qty": 100,
+                "quantity": 100,
                 "unit": "sqft"
               },
                 {
@@ -454,7 +454,7 @@
                   "length": "sqft",
                   "breadth": null,
                   "height": 0,
-                  "qty": 100,
+                  "quantity": 100,
                   "unit": "sqft"
                 },
                 {
@@ -464,7 +464,7 @@
                   "length": "sqft",
                   "breadth": null,
                   "height": 0,
-                  "qty": 100,
+                  "quantity": 100,
                   "unit": "sqft"
                 },
                 {
@@ -474,7 +474,7 @@
                   "length": "sqft",
                   "breadth": null,
                   "height": 0,
-                  "qty": 100,
+                  "quantity": 100,
                   "unit": "sqft"
                 }
               ]
@@ -482,7 +482,7 @@
             "unit": "sqft",
             "rate": {
               "total": null,
-              "qty": 10,
+              "quantity": 10,
               "item": [{
                 "item": "Cement",
                 "remarks": "internal walls",
@@ -516,7 +516,7 @@
           },
           "External RCC in CM 1:4": {
             "name": "External RCC in CM 1:4",
-            "qty": {
+            "quantity": {
               "total": null,
               "item": [{
                 "item": "Wall 1",
@@ -525,7 +525,7 @@
                 "length": "sqft",
                 "breadth": null,
                 "height": 0,
-                "qty": 100,
+                "quantity": 100,
                 "unit": "sqft"
               },
                 {
@@ -535,7 +535,7 @@
                   "length": "sqft",
                   "breadth": null,
                   "height": 0,
-                  "qty": 100,
+                  "quantity": 100,
                   "unit": "sqft"
                 },
                 {
@@ -545,7 +545,7 @@
                   "length": "sqft",
                   "breadth": null,
                   "height": 0,
-                  "qty": 100,
+                  "quantity": 100,
                   "unit": "sqft"
                 },
                 {
@@ -555,7 +555,7 @@
                   "length": "sqft",
                   "breadth": null,
                   "height": 0,
-                  "qty": 100,
+                  "quantity": 100,
                   "unit": "sqft"
                 }
               ]
@@ -563,7 +563,7 @@
             "unit": "sqft",
             "rate": {
               "total": null,
-              "qty": 10,
+              "quantity": 10,
               "item": [{
                 "item": "Cement",
                 "remarks": "internal walls",
@@ -597,7 +597,7 @@
           },
           "Internal RCC in CM 1:5": {
             "name": "Internal RCC in CM 1:5",
-            "qty": {
+            "quantity": {
               "total": null,
               "item": [{
                 "item": "Wall 1",
@@ -606,7 +606,7 @@
                 "length": "sqft",
                 "breadth": null,
                 "height": 0,
-                "qty": 100,
+                "quantity": 100,
                 "unit": "sqft"
               },
                 {
@@ -616,7 +616,7 @@
                   "length": "sqft",
                   "breadth": null,
                   "height": 0,
-                  "qty": 100,
+                  "quantity": 100,
                   "unit": "sqft"
                 },
                 {
@@ -626,7 +626,7 @@
                   "length": "sqft",
                   "breadth": null,
                   "height": 0,
-                  "qty": 100,
+                  "quantity": 100,
                   "unit": "sqft"
                 },
                 {
@@ -636,7 +636,7 @@
                   "length": "sqft",
                   "breadth": null,
                   "height": 0,
-                  "qty": 100,
+                  "quantity": 100,
                   "unit": "sqft"
                 }
               ]
@@ -644,7 +644,7 @@
             "unit": "sqft",
             "rate": {
               "total": null,
-              "qty": 10,
+              "quantity": 10,
               "item": [{
                 "item": "Cement",
                 "remarks": "internal walls",
@@ -678,7 +678,7 @@
           },
           "External RCC in CM 1:5": {
             "name": "External RCC in CM 1:5",
-            "qty": {
+            "quantity": {
               "total": null,
               "item": [{
                 "item": "Wall 1",
@@ -687,7 +687,7 @@
                 "length": "sqft",
                 "breadth": null,
                 "height": 0,
-                "qty": 100,
+                "quantity": 100,
                 "unit": "sqft"
               },
                 {
@@ -697,7 +697,7 @@
                   "length": "sqft",
                   "breadth": null,
                   "height": 0,
-                  "qty": 100,
+                  "quantity": 100,
                   "unit": "sqft"
                 },
                 {
@@ -707,7 +707,7 @@
                   "length": "sqft",
                   "breadth": null,
                   "height": 0,
-                  "qty": 100,
+                  "quantity": 100,
                   "unit": "sqft"
                 },
                 {
@@ -717,7 +717,7 @@
                   "length": "sqft",
                   "breadth": null,
                   "height": 0,
-                  "qty": 100,
+                  "quantity": 100,
                   "unit": "sqft"
                 }
               ]
@@ -725,7 +725,7 @@
             "unit": "sqft",
             "rate": {
               "total": null,
-              "qty": 10,
+              "quantity": 10,
               "item": [{
                 "item": "Cement",
                 "remarks": "internal walls",
@@ -760,7 +760,7 @@
         }
 
       }
-    }
+    ]
   },
   "rate": {
     "default": [

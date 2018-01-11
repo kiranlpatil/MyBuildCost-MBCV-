@@ -32,7 +32,7 @@ class ProjectSchema {
       plotPeriphery: {
         type: Number
       },
-      category: [{}],
+      costHead: [{}],
       rate: [{}],
       projectDuration: {
         type: Number

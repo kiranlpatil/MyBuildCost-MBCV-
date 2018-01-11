@@ -21,7 +21,7 @@ class ProjectController {
 
       let defaultCategory = config.get('category.default');
       let defaultRates = config.get('rate.default');
-      data.category = defaultCategory;
+      data.costHead = defaultCategory;
       data.rate = defaultRates;
 
       let projectService = new ProjectService();

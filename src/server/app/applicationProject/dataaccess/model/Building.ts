@@ -1,4 +1,4 @@
-import Category = require('./Category');
+import CostHead = require('./CostHead');
 
 class Building {
   name: string;
@@ -11,6 +11,6 @@ class Building {
   noOfThreeBHK: number;
   noOfSlab: number;
   noOfLift: number;
-  category: Array<Category>;
+  costHead: Array<CostHead>;
 }
 export = Building;

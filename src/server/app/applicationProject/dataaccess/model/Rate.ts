@@ -1,6 +1,8 @@
+import RateItem = require('./RateItem');
+
 class Rate {
-  item : string;
-  unit: string;
-  ratePerUnit: number;
+  total : number;
+  quantity: number;
+  item: Array<RateItem>;
 }
 export = Rate;

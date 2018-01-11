@@ -1,5 +1,5 @@
 import Building = require('./Building');
-import Category = require('./Category');
+import Category = require('./CostHead');
 import Rate = require('./Rate');
 
 class Project {
@@ -9,7 +9,7 @@ class Project {
   projectDuration: number;
   plotArea: number;
   building: Array<Building>;
-  category: Array<Category>;
+  costHead: Array<Category>;
   rate: Array<Rate>;
 }
 export = Project;

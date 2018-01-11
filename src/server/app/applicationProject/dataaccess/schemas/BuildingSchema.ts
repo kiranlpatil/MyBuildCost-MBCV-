@@ -1,6 +1,6 @@
 import DataAccess = require('../../../framework/dataaccess/dataaccess');
 import Building = require('../mongoose/Building');
-import Category = require('../mongoose/Category');
+import Category = require('../mongoose/CostHead');
 
 let mongoose = DataAccess.mongooseInstance;
 let mongooseConnection = DataAccess.mongooseConnection;
@@ -40,7 +40,7 @@ class BuildingSchema {
       noOfLift: {
         type: Number
       },
-      category: [{}],
+      costHead: [{}],
       activation_date: {
         type: Date,
       }
