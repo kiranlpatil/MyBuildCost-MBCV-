@@ -95,7 +95,7 @@
           "Internal Plaster in CM 1:4": {
             "name": "Internal Plaster in CM 1:4",
             "quantity": {
-              "total": null,
+              "total": 400,
               "item": [{
                 "item": "Wall 1",
                 "remarks": "internal walls",
@@ -140,7 +140,7 @@
             },
             "unit": "sqft",
             "rate": {
-              "total": null,
+              "total": 500,
               "quantity": 10,
               "item": [{
                 "item": "Cement",
@@ -176,7 +176,7 @@
           "External Plaster in CM 1:4": {
             "name": "External Plaster in CM 1:4",
             "quantity": {
-              "total": null,
+              "total": 200,
               "item": [{
                 "item": "Wall 1",
                 "remarks": "internal walls",
@@ -221,7 +221,7 @@
             },
             "unit": "sqft",
             "rate": {
-              "total": null,
+              "total": 20,
               "quantity": 10,
               "item": [{
                 "item": "Cement",
@@ -257,7 +257,7 @@
           "Internal Plaster in CM 1:5": {
             "name": "Internal Plaster in CM 1:5",
             "quantity": {
-              "total": null,
+              "total": 300,
               "item": [{
                 "item": "Wall 1",
                 "remarks": "internal walls",
@@ -302,7 +302,7 @@
             },
             "unit": "sqft",
             "rate": {
-              "total": null,
+              "total": 20,
               "quantity": 10,
               "item": [{
                 "item": "Cement",
@@ -338,7 +338,7 @@
           "External Plaster in CM 1:5": {
             "name": "External Plaster in CM 1:5",
             "quantity": {
-              "total": null,
+              "total": 300,
               "item": [{
                 "item": "Wall 1",
                 "remarks": "internal walls",
@@ -383,7 +383,7 @@
             },
             "unit": "sqft",
             "rate": {
-              "total": null,
+              "total": 20,
               "quantity": 10,
               "item": [{
                 "item": "Cement",

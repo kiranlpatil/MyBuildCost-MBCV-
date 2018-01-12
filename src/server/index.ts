@@ -189,8 +189,8 @@ export function init(port: number, mode: string, protocol: string, dist_runner: 
     });
   } else {
     const options = {
-      key: fs.readFileSync('./staging.jobmosis.com.key'),
-      cert: fs.readFileSync('./staging.jobmosis.com.crt'),
+     // key: fs.readFileSync('./staging.jobmosis.com.key'),
+     // cert: fs.readFileSync('./staging.jobmosis.com.crt'),
       handshakeTimeout: 600000, //by default timeout set to 10 min for export functionality, Need to test this
       passphrase: 'tpl123',
       spdy: {
