@@ -8,6 +8,9 @@ import Project = require('../dataaccess/mongoose/Project');
 import Building = require('../dataaccess/mongoose/Building');
 import AuthInterceptor = require('../../framework/interceptor/auth.interceptor');
 import CostControllException = require('../exception/CostControllException');
+import Quantity = require("../dataaccess/model/Quantity");
+import Rate = require("../dataaccess/model/Rate");
+import {BuildingService} from "../../../../client/app/build-info/framework/project/building/building.service";
 
 class ProjectService {
   APP_NAME: string;
@@ -138,6 +141,87 @@ class ProjectService {
             callback(error, null);
           } else {
             callback(null, {data: status, access_token: this.authInterceptor.issueTokenWithUid(user)});
+          }
+        });
+      }
+    });
+  }
+
+  getQuantity(projectId, buildingId, costhead, workitem, user, callback:(error: any, result: any)=> void) {
+    this.buildingRepository.findById(buildingId, (error, building:Building) => {
+      if (error) {
+        callback(error, null);
+      } else {
+        let quantity: Quantity;
+        for(let index = 0; building.costHead.length > index; index++){
+         if(building.costHead[index].name === costhead) {
+           quantity = building.costHead[index].workitem[workitem].quantity;
+         }
+        }
+        if(quantity.total === null) {
+          for(let index = 0; quantity.item.length > index; index ++) {
+            quantity.total = quantity.item[index].quantity + quantity.total;
+          }
+        }
+        callback(null, {data: quantity, access_token: this.authInterceptor.issueTokenWithUid(user)});
+      }
+    });
+  }
+
+  getRate(projectId, buildingId, costhead, workitem, user, callback:(error: any, result: any)=> void) {
+    this.buildingRepository.findById(buildingId, (error, building:Building) => {
+      if (error) {
+        callback(error, null);
+      } else {
+        let rate: Rate;
+        for(let index = 0; building.costHead.length > index; index++) {
+          if(building.costHead[index].name === costhead) {
+            rate = building.costHead[index].workitem[workitem].rate;
+          }
+        }
+        if(rate.total === null) {
+          for(let index = 0; rate.item.length > index; index ++) {
+            rate.total = rate.item[index].totalAmount + rate.total;
+          }
+        }
+        callback(null, {data: rate, access_token: this.authInterceptor.issueTokenWithUid(user)});
+      }
+    });
+  }
+
+  deleteQuantity(projectId, buildingId, costhead, workitem, item, user, callback:(error: any, result: any)=> void) {
+    this.buildingRepository.findById(buildingId, (error, building:Building) => {
+      if (error) {
+        callback(error, null);
+      } else {
+        let quantity: Quantity;
+        for(let index = 0; building.costHead.length > index; index++) {
+          if(building.costHead[index].name === costhead) {
+            quantity =  building.costHead[index].workitem[workitem].quantity;
+          }
+        }
+        for(let index = 0; quantity.item.length > index; index ++) {
+          if(quantity.item[index].item  === item) {
+           quantity.item.splice(index,1);
+          }
+        }
+        let query = { _id : buildingId };
+        this.buildingRepository.findOneAndUpdate(query, building,{new: true}, (error, building) => {
+          if (error) {
+            callback(error, null);
+          } else {
+            let quantity: Quantity;
+            for(let index = 0; building.costHead.length > index; index++){
+              if(building.costHead[index].name === costhead) {
+                quantity = building.costHead[index].workitem[workitem].quantity;
+              }
+            }
+            if(quantity.total === null) {
+              for(let index = 0; quantity.item.length > index; index ++) {
+                quantity.total = quantity.item[index].quantity + quantity.total;
+              }
+            }
+            callback(null, {data: quantity, access_token: this.authInterceptor.issueTokenWithUid(user)});
           }
         });
       }

@@ -148,7 +148,7 @@
                 "quantity": 2,
                 "unit": "bags",
                 "rate": 200,
-                "totalAmount": 0,
+                "totalAmount": 340,
                 "type": "material"
               },
                 {
@@ -157,7 +157,7 @@
                   "quantity": 2,
                   "unit": "cu ft",
                   "rate": 80,
-                  "totalAmount": 0,
+                  "totalAmount": 4550,
                   "type": "material - labour"
                 },
                 {
@@ -166,7 +166,7 @@
                   "quantity": 100,
                   "unit": "sqft",
                   "rate": 30,
-                  "totalAmount": 0,
+                  "totalAmount": 880,
                   "type": "labour"
                 }
               ]

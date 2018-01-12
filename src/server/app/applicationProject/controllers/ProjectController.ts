@@ -148,5 +148,69 @@ class ProjectController {
       next(new CostControllException(e.message,e.stack));
     }
   }
+
+  getQuantity(req: express.Request, res: express.Response, next: any): void{
+    try {
+      let user = req.user;
+      let projectId = req.params.id;
+      let buildingId = req.params.buildingid;
+      let costhead = req.params.costhead;
+      let workitem = req.params.workitem;
+      let projectService = new ProjectService();
+      console.log(' workitem => '+ workitem);
+      projectService.getQuantity(projectId, buildingId, costhead, workitem, user, (error, result) => {
+        if(error) {
+          next(error);
+        } else {
+          next(new Response(200,result));
+        }
+      });
+    } catch(e) {
+      next(new CostControllException(e.message,e.stack));
+    }
+  }
+
+  getRate(req: express.Request, res: express.Response, next: any): void{
+    try {
+      let user = req.user;
+      let projectId = req.params.id;
+      let buildingId = req.params.buildingid;
+      let costhead = req.params.costhead;
+      let workitem = req.params.workitem;
+      let projectService = new ProjectService();
+      console.log(' workitem => '+ workitem);
+      projectService.getRate(projectId, buildingId, costhead, workitem, user, (error, result) => {
+        if(error) {
+          next(error);
+        } else {
+          next(new Response(200,result));
+        }
+      });
+    } catch(e) {
+      next(new CostControllException(e.message,e.stack));
+    }
+  }
+
+  deleteQuantity(req: express.Request, res: express.Response, next: any): void{
+    try {
+      let user = req.user;
+      let projectId = req.params.id;
+      let buildingId = req.params.buildingid;
+      let costhead = req.params.costhead;
+      let workitem = req.params.workitem;
+      let item = req.params.item;
+      let projectService = new ProjectService();
+      console.log(' workitem => '+ workitem);
+      projectService.deleteQuantity(projectId, buildingId, costhead, workitem, item, user, (error, result) => {
+        if(error) {
+          next(error);
+        } else {
+          next(new Response(200,result));
+        }
+      });
+    } catch(e) {
+      next(new CostControllException(e.message,e.stack));
+    }
+  }
 }
 export  = ProjectController;
