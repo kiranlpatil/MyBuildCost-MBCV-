@@ -1,19 +1,12 @@
 import ThumbRuleReport = require('./ThumbRuleReport');
 import EstimateReport = require('./EstimateReport');
+import ThumbRule = require('./ThumbRule');
+import Estimated = require('./Estimated');
 
 class BuildingReport {
   _id:string;
-  name: string;
-  area: number;
-  thumbRuleReport: Array<ThumbRuleReport>;
-  //thumbRuleReport: Map<string, ThumbRuleReport>;
-  estimatedCost: Map<string, EstimateReport>;
-  /*costHead: Array<any>;*/
+  thumbRule : ThumbRule;
+  estimated: Estimated;
 
-  constructor() {
-    /*this.costHead = [];*/
-    this.thumbRuleReport = new Array<ThumbRuleReport>(0);
-    this.estimatedCost = new Map<string, EstimateReport>();
-  }
 }
 export = BuildingReport;

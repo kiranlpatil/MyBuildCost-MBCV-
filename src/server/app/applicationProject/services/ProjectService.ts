@@ -8,9 +8,8 @@ import Project = require('../dataaccess/mongoose/Project');
 import Building = require('../dataaccess/mongoose/Building');
 import AuthInterceptor = require('../../framework/interceptor/auth.interceptor');
 import CostControllException = require('../exception/CostControllException');
-import Quantity = require("../dataaccess/model/Quantity");
-import Rate = require("../dataaccess/model/Rate");
-import {BuildingService} from "../../../../client/app/build-info/framework/project/building/building.service";
+import Quantity = require('../dataaccess/model/Quantity');
+import Rate = require('../dataaccess/model/Rate');
 
 class ProjectService {
   APP_NAME: string;
