@@ -47,8 +47,8 @@ class ReportService {
         let buildings = result[0].building;
         let costHead = [];
         let report : Array<BuildingReport> = [];
-        let buildingReport = new BuildingReport;
         for(let index = 0; index < buildings.length; index++) {
+          let buildingReport = new BuildingReport;
           let thumbRuleReport: ThumbRule = new ThumbRule();
           let estimatedReport: Estimated = new Estimated();
           thumbRuleReport.name = buildings[index].name;
