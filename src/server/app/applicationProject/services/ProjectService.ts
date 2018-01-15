@@ -281,6 +281,58 @@ class ProjectService {
       }
     });
   }
+
+  createQuantity(projectId, buildingId, costhead, workitem, quantity, user, callback:(error: any, result: any)=> void) {
+    this.buildingRepository.findById(buildingId, (error, building:Building) => {
+      if (error) {
+        callback(error, null);
+      } else {
+        for(let index = 0; building.costHead.length > index; index++) {
+          if(building.costHead[index].name === costhead) {
+            let quantityArray :Quantity = building.costHead[index].workitem[workitem].quantity.item;
+            let exist = false;
+            let errorMessage ;
+            for(let quantityIndex = 0; quantityArray.length > quantityIndex; quantityIndex++ ) {
+                if(quantityArray[quantityIndex].item === quantity.item ) {
+                  exist = true;
+                  errorMessage = 'Quantity name already exist. ';
+                  if(quantityArray[quantityIndex].remarks === quantity.remarks ) {
+                    exist = true;
+                    errorMessage = errorMessage + 'same remarks is also exist with quantity name.';
+                  }else {
+                    exist = false;
+                  }
+                }
+            }
+            if(exist) {
+              callback(new CostControllException(errorMessage, errorMessage), null);
+            }else {
+              quantityArray.push(quantity);
+              let query = { _id : buildingId };
+              this.buildingRepository.findOneAndUpdate(query, building,{new: true}, (error, building) => {
+                if (error) {
+                  callback(error, null);
+                } else {
+                  let quantity: Quantity;
+                  for(let index = 0; building.costHead.length > index; index++){
+                    if(building.costHead[index].name === costhead) {
+                      quantity = building.costHead[index].workitem[workitem].quantity;
+                    }
+                  }
+                  if(quantity.total === null) {
+                    for(let index = 0; quantity.item.length > index; index ++) {
+                      quantity.total = quantity.item[index].quantity + quantity.total;
+                    }
+                  }
+                  callback(null, {data: quantity, access_token: this.authInterceptor.issueTokenWithUid(user)});
+                }
+              });
+            }
+          }
+        }
+      }
+    });
+  }
 }
 
 Object.seal(ProjectService);
