@@ -22,4 +22,56 @@ export class CostHeadService extends BaseService {
       .catch(this.handleError);
   }
 
+
+  getQuantity(costHeadName:any,costHeadItem:any){
+    let headers = new Headers({'Content-Type': 'application/json'});
+    let options = new RequestOptions({headers: headers});
+    var url = API.VIEW_PROJECT + '/' + SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT)+
+     '/'+ API.VIEW_BUILDING + '/' +SessionStorageService.getSessionValue(SessionStorage.CURRENT_BUILDING)+
+    '/' + API.QUANTITY + '/' + costHeadName + '/workitem/'+costHeadItem ;// +costHeadItem;
+    console.log('Get Quantity url : '+url);
+    return this.http.get(url, options)
+      .map(this.extractData)
+      .catch(this.handleError);
+  }
+
+
+  deleteCostHeadItems(costHeadName:any,workItem:any,costHeadItem_Item:any){
+    let headers = new Headers({'Content-Type': 'application/json'});
+    let options = new RequestOptions({headers: headers});
+    var url = API.VIEW_PROJECT + '/' + SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT)+
+      '/'+ API.VIEW_BUILDING + '/' +SessionStorageService.getSessionValue(SessionStorage.CURRENT_BUILDING)+
+      '/' + API.QUANTITY + '/' + costHeadName + '/workitem/' + workItem + '/item/' +costHeadItem_Item;// +costHeadItem;
+    console.log('deleteCostHeadItems() url : '+url);
+    return this.http.delete(url, options)
+      .map(this.extractData)
+      .catch(this.handleError);
+  }
+
+  addCostHeadItems(costHeadName:any,workItem:any,body:any){
+    let headers = new Headers({'Content-Type': 'application/json'});
+    let options = new RequestOptions({headers: headers});
+    var url = API.VIEW_PROJECT + '/' + SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT)+
+      '/'+ API.VIEW_BUILDING + '/' +SessionStorageService.getSessionValue(SessionStorage.CURRENT_BUILDING)+
+      '/costhead/' + costHeadName + '/workitem/' + workItem + '/quantity';// +costHeadItem;
+    console.log('addCostHeadItems() url : '+url);
+    return this.http.post(url, body,options)
+      .map(this.extractData)
+      .catch(this.handleError);
+  }
+
+  saveCostHeadItems(costHeadName:any,workItem:any,quantityItemsArray:any){
+    let headers = new Headers({'Content-Type': 'application/json'});
+    let options = new RequestOptions({headers: headers});
+    var body=quantityItemsArray;
+    var url = API.VIEW_PROJECT + '/' + SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT)+
+      '/'+ API.VIEW_BUILDING + '/' +SessionStorageService.getSessionValue(SessionStorage.CURRENT_BUILDING)+
+      '/costhead/' + costHeadName + '/workitem/' + workItem + '/quantity';// +costHeadItem;
+    console.log('addCostHeadItems() url : '+url);
+    return this.http.put(url,body,options)
+      .map(this.extractData)
+      .catch(this.handleError);
+  }
+
+
 }

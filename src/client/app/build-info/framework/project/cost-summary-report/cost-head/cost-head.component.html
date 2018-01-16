@@ -25,7 +25,7 @@
           <td>{{costHeadDetails[costHead].name}}</td>
           <td>
             <input [(ngModel)]="costHeadDetails[costHead].quantity.total" id="quantity" class="form-control clear"/><br/>
-            <button type="button" id="getQuantity{{i}}" class="btn btn-primary" (click)="getQuantity(i, costHeadDetails[costHead].quantity.item)">Get Quanity</button>
+            <button type="button" id="getQuantity{{i}}" class="btn btn-primary" (click)="getQuantity(i, costHeadDetails[costHead].quantity.item,costHeadDetails[costHead].name)">Get Quanity</button>
           </td>
           <td>{{costHeadDetails[costHead].unit}}</td>
           <td>
@@ -72,7 +72,16 @@
                 <td>
                   <input [(ngModel)]="quantityItem.unit" id="unit" class="form-control clear"/>
                 </td>
-                <td><span (click)="deleteItem(i)"  class="glyphicon glyphicon-trash"></span></td>
+                <td><span (click)="deleteItem(quantityItem.item)"  class="glyphicon glyphicon-trash"></span></td>
+              </tr>
+
+              <tr>
+                <td>
+                    <button type="button" class="btn btn-primary" (click)="addItem()">+ Add Item</button>
+                <td>
+                <td>
+                    <button type="button" class="btn btn-primary" (click)="updateCostHeadWorkItem()">Save</button>
+                </td>
               </tr>
               </tbody>
             </table>

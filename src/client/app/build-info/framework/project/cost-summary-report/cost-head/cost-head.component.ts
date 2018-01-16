@@ -7,11 +7,13 @@ import {
   Label,
   Button,
   Headings,
-  NavigationRoutes
+  NavigationRoutes, Messages
 } from '../../../../../shared/constants';
-import { API, BaseService, SessionStorage, SessionStorageService,  Message,
-  Messages } from '../../../../../shared/index';
+import { API, BaseService, SessionStorage, SessionStorageService,  MessageService } from '../../../../../shared/index';
 import { CostHeadService } from './cost-head.service';
+import {Message} from '../../../../../shared/index';
+import {CustomHttp} from '../../../../../shared/services/http/custom.http';
+
 
 @Component({
   moduleId: module.id,
@@ -33,61 +35,10 @@ export class CostHeadComponent implements OnInit {
   buildingName: string;
   costHead:  string;
   costHeadDetails :any;
-  /*buildingDetails = {
-    'name': 'Dwaraka',
-    'plaster': [
-      {
-        "item": "Internal Plaster in CM 1:4",
-        "quantity": 800,
-        "unit": "Sqft.",
-        "rate": 200,
-        "amount": 800000
-      },
-      {
-        "item": "External Plaster in CM 1:4",
-        "quantity": 4100,
-        "unit": "Sqft.",
-        "rate": 150,
-        "amount": 615000
-      }
-      ],
-    "Masonary": [
-      {
-        "item": "Internal Plaster in CM 1:4",
-        "quantity": 14,
-        "unit": 14,
-        "rate": 14,
-        "amount": 4
-      },
-      {
-        "item": "Internal Plaster in CM 1:4",
-        "quantity": 14,
-        "unit": 14,
-        "rate": 14,
-        "amount": 4
-      }
-      ],
-    "RCC Work": [
-      {
-        "item": "Internal Plaster in CM 1:4",
-        "quantity": 14,
-        "unit": 14,
-        "rate": 14,
-        "amount": 4
-      },
-      {
-        "item": "Internal Plaster in CM 1:4",
-        "quantity": 14,
-        "unit": 14,
-        "rate": 14,
-        "amount": 4
-      }
-      ]
-  };
-*/
+  workItem:any;
 
 
-  constructor(private costHeadService : CostHeadService, private activatedRoute : ActivatedRoute) {
+  constructor(private costHeadService : CostHeadService, private activatedRoute : ActivatedRoute, private messageService: MessageService) {
   }
 
   ngOnInit() {
@@ -102,13 +53,14 @@ export class CostHeadComponent implements OnInit {
   onSubmit() {
   }
 
-  getQuantity(i:number, quantityItems : any) {
+  getQuantity(i:number, quantityItems : any,workItem:any) {
     this.toggleQty=!this.toggleQty;
     this.compareIndex=i;
     if(this.toggleQty===true) {
       this.toggleRate=false;
     }
     this.quantityItemsArray = quantityItems;
+    this.workItem=workItem;
   }
 
   getRate(i:number, rateItems : any) {
@@ -156,9 +108,86 @@ export class CostHeadComponent implements OnInit {
     return Headings;
   }
 
-  deleteItem(i:number) {
-    console.log('Item will be delete : '+i);
+  deleteItem(quantityItem:string) {
+    this.costHeadService.deleteCostHeadItems(this.costHead,this.workItem,quantityItem).subscribe(
+      costHeadItemDelete => this.onDeleteCostHeadItemsSuccess(costHeadItemDelete),
+      error => this.onDeleteCostHeadItemsFail(error)
+    );
   }
+
+  onDeleteCostHeadItemsSuccess(costHeadItemDelete : any) {
+    this.quantityItemsArray=costHeadItemDelete.data.item;
+    var message = new Message();
+    message.isError = false;
+    message.custom_message = Messages.MSG_SUCCESS_DELETE_ITEM;
+    this.messageService.message(message);
+    this.getCostHeadComponentDetails(this.projectId,this.costHead);
+  }
+
+  onDeleteCostHeadItemsFail(error : any) {
+    console.log(error);
+  }
+
+  addItem() {
+    console.log('addItems()');
+    let body={
+      'item': 'Wall 8',
+      'remarks': 'internal walls',
+      'nos': 2,
+      'length': 'sqft',
+      'breadth': null,
+      'height': 0,
+      'quantity': 100,
+      'unit': 'sqft'
+
+    };
+    this.costHeadService.addCostHeadItems(this.costHead,this.workItem,body).subscribe(
+      costHeadItemAdd => this.onAddCostHeadItemsSuccess(costHeadItemAdd),
+      error => this.onAddCostHeadItemsFail(error)
+    );
+  }
+
+
+  onAddCostHeadItemsSuccess(costHeadItemAdd : any) {
+    this.quantityItemsArray=costHeadItemAdd.data.item;
+    var message = new Message();
+    message.isError = false;
+    message.custom_message = Messages.MSG_SUCCESS_ADD_ITEM;
+    this.messageService.message(message);
+    this.getCostHeadComponentDetails(this.projectId,this.costHead);
+  }
+
+  onAddCostHeadItemsFail(error : any) {
+    console.log(error);
+    var message = new Message();
+    message.isError = false;
+    message.custom_message = Messages.MSG_FAIL_ADD_ITEM + error.err_msg;
+    this.messageService.message(message);
+  }
+
+  updateCostHeadWorkItem() {
+    console.log('updateWorkItem()');
+    console.log('this.quantityItemsArray-> '+this.quantityItemsArray);
+    this.costHeadService.saveCostHeadItems(this.costHead,this.workItem,this.quantityItemsArray).subscribe(
+      costHeadItemSave => this.onSaveCostHeadItemsSuccess(costHeadItemSave),
+      error => this.onSaveCostHeadItemsFail(error)
+    );
+  }
+
+
+  onSaveCostHeadItemsSuccess(costHeadItemSave : any) {
+    this.quantityItemsArray=costHeadItemSave.data.item
+    var message = new Message();
+    message.isError = false;
+    message.custom_message = Messages.MSG_SUCCESS_SAVED_COST_HEAD_ITEM;
+    this.messageService.message(message);
+    this.getCostHeadComponentDetails(this.projectId,this.costHead);
+  }
+
+  onSaveCostHeadItemsFail(error : any) {
+    console.log(error);
+  }
+
 
 
 }
