@@ -53,48 +53,56 @@ class ReportService {
           let estimatedReport: Estimated = new Estimated();
           buildingReport.name = buildings[index].name;
           buildingReport._id = buildings[index]._id;
+          if (areaType === 'slabArea') {
+            buildingReport.area = buildings[index].totalSlabArea;
+          }else {
+            buildingReport.area = buildings[index].totalSaleableAreaOfUnit;
+          }
           let costHeadArray : CostHead = buildings[index].costHead;
           for (let costHeadIndex = 0; costHeadIndex < costHeadArray.length; costHeadIndex++) {
-              let thumbRule: ThumbRuleReport = new ThumbRuleReport();
-              let estimateReport: EstimateReport = new EstimateReport();
-              thumbRule.name = costHeadArray[costHeadIndex].name;
-            estimateReport.name = costHeadArray[costHeadIndex].name;
-              if (areaType === 'slabArea') {
-                thumbRuleReport.area = buildings[index].totalSlabArea;
-                estimatedReport.area = buildings[index].totalSlabArea;
-                buildingReport.area = buildings[index].totalSlabArea;
-                if (projectRate === 'sqft') {
-                  thumbRule.rate = costHeadArray[costHeadIndex].thumbRuleRate.slabArea.sqft;
-                } else {
-                  thumbRule.rate = costHeadArray[costHeadIndex].thumbRuleRate.slabArea.sqmt;
-                }
-              } else {
-                thumbRuleReport.area = buildings[index].totalSaleableAreaOfUnit;
-                estimatedReport.area = buildings[index].totalSaleableAreaOfUnit;
-                buildingReport.area = buildings[index].totalSaleableAreaOfUnit;
-                if (projectRate === 'sqft') {
-                  thumbRule.rate = costHeadArray[costHeadIndex].thumbRuleRate.saleableArea.sqft;
-                } else {
-                  thumbRule.rate = costHeadArray[costHeadIndex].thumbRuleRate.saleableArea.sqmt;
-                }
+
+              if(costHeadArray[costHeadIndex].active === true) {
+
+                    let thumbRule: ThumbRuleReport = new ThumbRuleReport();
+                    let estimateReport: EstimateReport = new EstimateReport();
+                    thumbRule.name = costHeadArray[costHeadIndex].name;
+                    estimateReport.name = costHeadArray[costHeadIndex].name;
+                    if (areaType === 'slabArea') {
+                      thumbRuleReport.area = buildings[index].totalSlabArea;
+                      estimatedReport.area = buildings[index].totalSlabArea;
+                      if (projectRate === 'sqft') {
+                        thumbRule.rate = costHeadArray[costHeadIndex].thumbRuleRate.slabArea.sqft;
+                      } else {
+                        thumbRule.rate = costHeadArray[costHeadIndex].thumbRuleRate.slabArea.sqmt;
+                      }
+                    } else {
+                      thumbRuleReport.area = buildings[index].totalSaleableAreaOfUnit;
+                      estimatedReport.area = buildings[index].totalSaleableAreaOfUnit;
+                      if (projectRate === 'sqft') {
+                        thumbRule.rate = costHeadArray[costHeadIndex].thumbRuleRate.saleableArea.sqft;
+                      } else {
+                        thumbRule.rate = costHeadArray[costHeadIndex].thumbRuleRate.saleableArea.sqmt;
+                      }
+                    }
+                    let workItem: WorkItem = costHeadArray[costHeadIndex].workitem;
+                    for(let key in workItem) {
+                      if(workItem[key].quantity.total !== null && workItem[key].rate.total !== null) {
+                        estimateReport.rate = workItem[key].rate.total + estimateReport.rate;
+                        estimateReport.total = workItem[key].quantity.total + estimateReport.total;
+                      }
+                    }
+                    estimatedReport.totalEstimatedCost = estimateReport.total + estimatedReport.totalEstimatedCost;
+                    estimatedReport.totalRate = estimatedReport.totalRate + estimateReport.rate;
+                    estimatedReport.estimatedCost.push(estimateReport);
+                    thumbRule.amount = thumbRuleReport.area * thumbRule.rate;
+                    thumbRule.costHeadActive = costHeadArray[costHeadIndex].active;
+                    thumbRuleReport.thumbRuleReport.push(thumbRule);
+                    thumbRuleReport.totalRate = thumbRuleReport.totalRate + thumbRule.rate;
+                    thumbRuleReport.totalBudgetedCost = thumbRuleReport.totalBudgetedCost + thumbRule.amount;
+                    buildingReport.estimated = estimatedReport;
+                    buildingReport.thumbRule = thumbRuleReport;
+
               }
-              let workItem: WorkItem = costHeadArray[costHeadIndex].workitem;
-              for(let key in workItem) {
-                if(workItem[key].quantity.total !== null && workItem[key].rate.total !== null) {
-                  estimateReport.rate = workItem[key].rate.total + estimateReport.rate;
-                  estimateReport.total = workItem[key].quantity.total + estimateReport.total;
-                }
-              }
-              estimatedReport.totalEstimatedCost = estimateReport.total + estimatedReport.totalEstimatedCost;
-              estimatedReport.totalRate = estimatedReport.totalRate + estimateReport.rate;
-              estimatedReport.estimatedCost.push(estimateReport);
-              thumbRule.amount = thumbRuleReport.area * thumbRule.rate;
-              thumbRule.costHeadActive = costHeadArray[costHeadIndex].active;
-              thumbRuleReport.thumbRuleReport.push(thumbRule);
-              thumbRuleReport.totalRate = thumbRuleReport.totalRate + thumbRule.rate;
-              thumbRuleReport.totalBudgetedCost = thumbRuleReport.totalBudgetedCost + thumbRule.amount;
-              buildingReport.estimated = estimatedReport;
-              buildingReport.thumbRule = thumbRuleReport;
             }
           report.push(buildingReport);
         }

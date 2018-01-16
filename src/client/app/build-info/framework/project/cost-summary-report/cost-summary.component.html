@@ -48,27 +48,32 @@
                   </tr>
                   </thead>
                   <tbody>
-                  <tr *ngFor="let thumbRuleItem of building.thumbRule.thumbRuleReport; let i = index">
-                        <td>{{thumbRuleItem.name}}</td>
-                        <td>{{thumbRuleItem.amount}}</td>
-                        <td>{{thumbRuleItem.rate}}</td>
-                        <td>
-                          <input id="estimatedCost" class="form-control clear"/>
-                        </td>
-                        <td><!--{{(estimatedCostHead.total / building.area)}}-->
-                          <button type="button" class="btn btn-primary" (click)="getAmount(building._id,thumbRuleItem.name,building.name)">Get Amount</button>
-                        </td>
-                    <td><span class="glyphicon glyphicon-trash" (click)="deleteQuantityDetails(building._id,thumbRuleItem.name)"></span></td>
+                  <tr>
+                      <span class="col-md-12" *ngFor="let thumbRuleItem of building.thumbRule.thumbRuleReport; let i = index">
+                          <span class="col-md-4">{{thumbRuleItem.name}}</span>
+                          <span class="col-md-4">{{thumbRuleItem.amount}}</span>
+                          <span class="col-md-4">{{thumbRuleItem.rate}}</span>
+                      </span>
+                      <span class="col-md-12" *ngFor="let estimatedItem of building.estimated.estimatedCost; let i = index">
+                            <span class="col-md-4">
+                              <input [(ngModel)]="estimatedItem.total" id="estimatedItem.total" class="form-control clear"/><span class="glyphicon glyphicon-pencil"></span>
+                              <button type="button" class="btn btn-primary" (click)="getAmount(building._id,estimatedItem.name,building.name)">Get Amount</button>
+                            </span>
+                        <span class="col-md-4">
+                            <input [(ngModel)]="estimatedItem.rate" id="estimatedItem.rate" class="form-control clear"/>
+                        </span>
+                        <span class="col-md-4"><span class="glyphicon glyphicon-trash" (click)="deleteQuantityDetails(building._id,estimatedItem.name)"></span></span>
+                        </span>
                   </tr>
                   <tr class="container"><button type="button" class="btn btn-primary" (click)="addCostHead()"><span class="glyphicon glyphicon-plus"></span>Add Item</button></tr>
                   </tbody>
                   <tfoot>
                   <tr>
                     <th><strong>Total</strong></th>
-                    <th><strong>54,134,476</strong></th>
-                    <th><strong>1610</strong></th>
-                    <th><strong>460</strong></th>
-                    <th><strong>527</strong></th>
+                    <th><strong>{{building.thumbRule.totalBudgetedCost}}</strong></th>
+                    <th><strong>{{building.thumbRule.totalRate}}</strong></th>
+                    <th><strong>{{building.estimated.totalEstimatedCost}}</strong></th>
+                    <th><strong>{{building.estimated.totalRate}}</strong></th>
                     <th></th>
                   </tr>
                   </tfoot>
