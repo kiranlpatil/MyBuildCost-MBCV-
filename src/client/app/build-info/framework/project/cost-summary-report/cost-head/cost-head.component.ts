@@ -36,6 +36,7 @@ export class CostHeadComponent implements OnInit {
   costHead:  string;
   costHeadDetails :any;
   workItem:any;
+  rateItemsTotal:number;
 
 
   constructor(private costHeadService : CostHeadService, private activatedRoute : ActivatedRoute, private messageService: MessageService) {
@@ -69,13 +70,38 @@ export class CostHeadComponent implements OnInit {
     if(this.toggleRate===true) {
       this.toggleQty=false;
     }
-    this.rateItemsArray = rateItems;
+    this.rateItemsTotal=rateItems.rate.total;
+    this.workItem=rateItems.name;
+
+    if(this.rateItemsTotal===null) {
+///:id/building/:buildingid/rate/costhead/:costhead/workitem/:workitem
+      console.log('rateItemsTotal is null');
+      this.costHeadService.getRateItems(this.costHead,this.workItem).subscribe(
+        rateItem => this.onGetRateItemsSuccess(rateItem),
+        error => this.onGetRateItemsFail(error)
+      );
+    } else {
+      this.costHeadService.getRateItems(this.costHead,this.workItem).subscribe(
+        rateItem => this.onGetRateItemsSuccess(rateItem),
+        error => this.onGetRateItemsFail(error)
+      );
+    }
+  }
+
+  onGetRateItemsSuccess(rateItem : any) {
+    this.rateItemsArray=rateItem.data.item;
+  }
+
+  onGetRateItemsFail(error : any) {
+    console.log(error);
   }
 
   getItemRates(workItem: any, costHead:string) {
     console.log('WorkItem : '+workItem);
     console.log('costHead : '+costHead);
   }
+
+
 
   getCostHeadComponentDetails(projectId:string, costHead: string) {
     this.costHeadService.getCostHeadDetails(projectId, costHead).subscribe(

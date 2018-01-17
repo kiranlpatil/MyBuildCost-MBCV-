@@ -15,6 +15,7 @@ import EstimateReport = require("../dataaccess/model/EstimateReport");
 import WorkItem = require("../dataaccess/model/WorkItem");
 import ThumbRule = require("../dataaccess/model/ThumbRule");
 import Estimated = require("../dataaccess/model/Estimated");
+var config = require('config');
 
 class ReportService {
   APP_NAME: string;
@@ -92,7 +93,7 @@ class ReportService {
                       }
                     }
                     estimatedReport.totalEstimatedCost = estimateReport.total + estimatedReport.totalEstimatedCost;
-                    estimatedReport.totalRate = estimatedReport.totalRate + estimateReport.rate;
+                      estimatedReport.totalRate = estimatedReport.totalRate + estimateReport.rate;
                     estimatedReport.estimatedCost.push(estimateReport);
                     thumbRule.amount = thumbRuleReport.area * thumbRule.rate;
                     thumbRule.costHeadActive = costHeadArray[costHeadIndex].active;
@@ -104,6 +105,10 @@ class ReportService {
 
               }
             }
+
+          if(projectRate === 'sqmt') {
+            buildingReport.estimated.totalRate = buildingReport.estimated.totalRate*config.get('SqureMeter');
+          }
           report.push(buildingReport);
         }
 
