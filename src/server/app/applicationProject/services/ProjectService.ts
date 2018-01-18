@@ -48,7 +48,8 @@ class ProjectService {
       } else {
         let projectId = res._id;
         let newData =  {$push: { project: projectId }};
-        this.userService.findOneAndUpdate(user._id, newData, {new :true},(err, resp) => {
+        let query = {_id : user._id};
+        this.userService.findOneAndUpdate(query, newData, {new :true},(err, resp) => {
           if(err) {
             callback(err, null);
           } else {
