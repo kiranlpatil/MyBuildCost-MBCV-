@@ -1,8 +1,8 @@
 export class AppSettings {
-  public static IP = 'http://localhost:8080';
-  //public static IP = 'http://13.126.177.171';
-  public static HOST_NAME = 'localhost:8080';
-  //public static HOST_NAME = '13.126.177.171';
+  // public static IP = 'http://localhost:8080';
+  public static IP = 'http://35.154.0.247'; // build info staging
+  // public static HOST_NAME = 'localhost:8080';
+  public static HOST_NAME = '35.154.0.247';
 
   public static get API_ENDPOINT(): string {
     return this.IP + '/api/';
