@@ -120,8 +120,19 @@ class ReportService {
     });
   }
 
-  getCostHeads( projectId : string,user: User, callback: (error: any, result: any) => void) {
-    this.rateAnalysisService.getCostHeads(projectId, user,(error, result) => {
+  getCostHeads( user: User, url: string ,callback: (error: any, result: any) => void) {
+    this.rateAnalysisService.getCostHeads(user, url,(error, result) => {
+      if(error) {
+        console.log('error : '+JSON.stringify(error));
+        callback(error, null);
+      } else {
+        callback(null,{ data: result, access_token: this.authInterceptor.issueTokenWithUid(user)});
+      }
+    });
+  }
+
+  getWorkItems( user: User, url: string ,callback: (error: any, result: any) => void) {
+    this.rateAnalysisService.getWorkItems( user, url,(error, result) => {
       if(error) {
         console.log('error : '+JSON.stringify(error));
         callback(error, null);

@@ -1,5 +1,5 @@
 import express = require('express');
-import ReportController = require('./../controllers/ReportController');
+import RateAnalysisController = require('./../controllers/RateAnalysisController');
 import AuthInterceptor = require('./../../framework/interceptor/auth.interceptor');
 import LoggerInterceptor = require('./../../framework/interceptor/LoggerInterceptor');
 import { Inject } from 'typescript-ioc';
@@ -8,8 +8,8 @@ import ResponseInterceptor = require('../interceptor/response/ResponseIntercepto
 
 var router = express.Router();
 
-class ReportRoutes {
-  private _reportController: ReportController;
+class RateAnalysisRoutes {
+  private _rateAnalysisController: RateAnalysisController;
   private authInterceptor: AuthInterceptor;
   private loggerInterceptor: LoggerInterceptor;
   @Inject
@@ -18,21 +18,23 @@ class ReportRoutes {
   private _responseInterceptor: ResponseInterceptor;
 
   constructor () {
-    this._reportController = new ReportController();
+    this._rateAnalysisController = new RateAnalysisController();
     this.authInterceptor = new AuthInterceptor();
   }
   get routes () : express.Router {
 
-    var controller = this._reportController;
-    router.get('/:type/project/:id/rate/:rate/area/:area', this.authInterceptor.requiresAuth, this._requestInterceptor.intercept,
-      controller.getProject, this._responseInterceptor.exit);
+    var controller = this._rateAnalysisController;
     router.get('/costHeads', this.authInterceptor.requiresAuth, this._requestInterceptor.intercept,
       controller.getRateAnalysisCostHeads, this._responseInterceptor.exit);
+
     router.get('/workItems', this.authInterceptor.requiresAuth, this._requestInterceptor.intercept,
       controller.getRateAnalysisWorkItems, this._responseInterceptor.exit);
+
+    router.get('/costHead/:id/workItems', this.authInterceptor.requiresAuth, this._requestInterceptor.intercept,
+      controller.getRateAnalysisWorkItemsByCostHeadId, this._responseInterceptor.exit);
     return router;
   }
 }
 
-Object.seal(ReportRoutes);
-export = ReportRoutes;
+Object.seal(RateAnalysisRoutes);
+export = RateAnalysisRoutes;

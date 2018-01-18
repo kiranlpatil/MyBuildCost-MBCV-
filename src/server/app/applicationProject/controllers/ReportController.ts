@@ -39,9 +39,28 @@ class ReportController {
     try {
       let reportService = new ReportService();
       let user = req.user;
-      let projectId =  req.params.id;
+      let url = config.get('rateAnalysisAPI.costHeads');
 
-      reportService.getCostHeads(projectId, user, (error, result) => {
+      reportService.getCostHeads( user, url, (error, result) => {
+        if(error) {
+          next(error);
+        } else {
+          next(new Response(200,result));
+        }
+      });
+    } catch(e) {
+      next(new CostControllException(e.message,e.stack));
+    }
+  }
+
+  getRateAnalysisWorkItems(req: express.Request, res: express.Response, next: any): void {
+    try {
+      let reportService = new ReportService();
+      let user = req.user;
+      let url = config.get('rateAnalysisAPI.workItems');
+      console.log('URL : '+url);
+
+      reportService.getWorkItems(user, url, (error, result) => {
         if(error) {
           next(error);
         } else {
