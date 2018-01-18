@@ -4,6 +4,7 @@ import Rate = require('./Rate');
 
 class WorkItem {
   name: string;
+  rateAnalysisId:number;
   quantity: Map<string, Quantity>;
   unit: string;
   rate: Map<string, Rate>;

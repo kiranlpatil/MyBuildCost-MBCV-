@@ -11,10 +11,11 @@ import ThumbRuleReport = require('../dataaccess/model/ThumbRuleReport');
 import AuthInterceptor = require('../../framework/interceptor/auth.interceptor');
 import CostControllException = require('../exception/CostControllException');
 import CostHead = require('../dataaccess/mongoose/CostHead');
-import EstimateReport = require("../dataaccess/model/EstimateReport");
-import WorkItem = require("../dataaccess/model/WorkItem");
-import ThumbRule = require("../dataaccess/model/ThumbRule");
-import Estimated = require("../dataaccess/model/Estimated");
+import EstimateReport = require('../dataaccess/model/EstimateReport');
+import WorkItem = require('../dataaccess/model/WorkItem');
+import ThumbRule = require('../dataaccess/model/ThumbRule');
+import Estimated = require('../dataaccess/model/Estimated');
+import RateAnalysisService = require('./RateAnalysisService');
 var config = require('config');
 
 class ReportService {
@@ -24,6 +25,7 @@ class ReportService {
   private buildingRepository: BuildingRepository;
   private authInterceptor: AuthInterceptor;
   private userService : UserService;
+  private rateAnalysisService : RateAnalysisService;
 
   private category:any=[];
   private reportThumbrule:any = [];
@@ -34,6 +36,7 @@ class ReportService {
     this.APP_NAME = ProjectAsset.APP_NAME;
     this.authInterceptor = new AuthInterceptor();
     this.userService = new UserService();
+    this.rateAnalysisService = new RateAnalysisService();
     //this.categoryDetails = new categoryDetails();
   }
 
@@ -113,6 +116,17 @@ class ReportService {
         }
 
         callback(null,{ data: report, access_token: this.authInterceptor.issueTokenWithUid(user)});
+      }
+    });
+  }
+
+  getCostHeads( projectId : string,user: User, callback: (error: any, result: any) => void) {
+    this.rateAnalysisService.getCostHeads(projectId, user,(error, result) => {
+      if(error) {
+        console.log('error : '+JSON.stringify(error));
+        callback(error, null);
+      } else {
+        callback(null,{ data: result, access_token: this.authInterceptor.issueTokenWithUid(user)});
       }
     });
   }

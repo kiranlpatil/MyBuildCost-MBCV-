@@ -1,5 +1,6 @@
 class QuantityItem {
   item: string;
+  rateAnalysisId:Number;
   remarks: string;
   nos: number;
   length: number;

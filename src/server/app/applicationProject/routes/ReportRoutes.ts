@@ -26,6 +26,8 @@ class ReportRoutes {
     var controller = this._reportController;
     router.get('/:type/project/:id/rate/:rate/area/:area', this.authInterceptor.requiresAuth, this._requestInterceptor.intercept,
       controller.getProject, this._responseInterceptor.exit);
+    router.get('/:id', this.authInterceptor.requiresAuth, this._requestInterceptor.intercept,
+      controller.getRateAnalysisCostHeads, this._responseInterceptor.exit);
     return router;
   }
 }
