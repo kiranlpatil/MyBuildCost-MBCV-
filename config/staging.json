@@ -3,7 +3,7 @@
     "database": {
       "host":"127.0.0.1",
       "name": "Build-info-staging",
-      "username": "root",
+      "username": "admin",
       "password": "buildinfoadmin123",
       "mongoExport": "/usr/bin/mongoexport"
     },
