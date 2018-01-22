@@ -134,17 +134,36 @@ class ProjectController {
     }
   }
 
+  getInActiveCostHead(req:express.Request, res: express.Response, next: any): void {
+    try {
+      let user = req.user;
+      let projectId = req.params.id;
+      let buildingId = req.params.buildingid;
+      let projectService = new ProjectService();
+      projectService.getInActiveCostHead(projectId, buildingId, user, (error, result) => {
+        if (error) {
+          next(error);
+        } else {
+          next(new Response(200, result));
+        }
+      });
+    } catch (e) {
+      next(new CostControllException(e.message, e.stack));
+    }
+  }
   deleteBuilding(req: express.Request, res: express.Response, next: any): void {
     try {
       let user = req.user;
       let projectId = req.params.id;
       let buildingId = req.params.buildingid;
       let projectService = new ProjectService();
-      projectService.deleteBuilding(projectId, buildingId, user, (error, result) => {
-        if(error) {
-          next(error);
-        } else {
-          next(new Response(200,result));
+      projectService.deleteBuilding({
+        projectId: projectId, buildingId: buildingId, user: user, callback: (error, result) => {
+          if (error) {
+            next(error);
+          } else {
+            next(new Response(200, result));
+          }
         }
       });
     } catch(e) {

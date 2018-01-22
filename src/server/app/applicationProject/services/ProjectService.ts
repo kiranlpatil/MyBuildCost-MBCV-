@@ -128,7 +128,24 @@ class ProjectService {
     });
   }
 
-  deleteBuilding(projectId, buildingId, user, callback:(error: any, result: any)=> void) {
+  getInActiveCostHead(projectId: string, buildingId: string, user: User, callback:(error: any, result: any)=> void) {
+    this.buildingRepository.findById(buildingId, (error, result) => {
+      if (error) {
+        callback(error, null);
+      } else {
+        let response = result.costHead;
+        let inactiveCostHead=[];
+        for(let costHeadItem of response) {
+          if(!costHeadItem.active) {
+                inactiveCostHead.push(costHeadItem);
+          }
+        }
+        callback(null,{data:inactiveCostHead, access_token: this.authInterceptor.issueTokenWithUid(user)});
+          }
+      });
+  }
+  deleteBuilding(parameters: { projectId: string, buildingId: string, user: User, callback: (error: any, result: any) => void }) {
+    let {projectId, buildingId, user, callback} = parameters;
     let popBuildingId = buildingId;
     this.buildingRepository.delete(buildingId, (error, result)=> {
       if(error) {
