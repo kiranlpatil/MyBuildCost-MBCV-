@@ -22,9 +22,10 @@ export class BuildingListComponent implements OnInit {
   projectId : any;
   currentbuildingId: any;
   cloneCostHead: any;
+  clonedBuildingId : string;
   cloneBuildingForm: FormGroup;
   model: Building = new Building();
-  clonedBuildingDetails: Building = new Building();
+  clonedBuildingDetails: any;
   constructor(private listBuildingService: BuildingListService, private viewBuildingService: BuildingDetailsService, private _router: Router,
               private activatedRoute:ActivatedRoute, private messageService: MessageService,
               private createBuildingService: CreateBuildingService, private formBuilder: FormBuilder ) {
@@ -66,14 +67,14 @@ export class BuildingListComponent implements OnInit {
     message.isError = false;
     message.custom_message = Messages.MSG_SUCCESS_ADD_BUILDING_PROJECT;
     this.messageService.message(message);
-    this.clonedBuildingDetails = building.data;
+    this.clonedBuildingId = building.data._id;
   }
 
   addNewBuildingFailed(error : any) {
     console.log(error);
   }
-  updateBuilding(cloneCostHead: any, clonedBuildingId:string) {
-    this.listBuildingService.updateBuildingByCostHead(cloneCostHead, clonedBuildingId).subscribe(
+  updateBuilding(cloneCostHead: any) {
+    this.listBuildingService.updateBuildingByCostHead(cloneCostHead, this.clonedBuildingId).subscribe(
       project => this.updateBuildingSuccess(project),
       error => this.updateBuildingFail(error)
     );
@@ -160,6 +161,7 @@ export class BuildingListComponent implements OnInit {
 
   onGetBuildingDataSuccess(building : any) {
     let buildingDetails=building.data;
+    this.clonedBuildingDetails = building.data.costHead;
     this.model.name=buildingDetails.name;
     this.model.totalSlabArea=buildingDetails.totalSlabArea;
     this.model.totalCarperAreaOfUnit=buildingDetails.totalCarperAreaOfUnit;

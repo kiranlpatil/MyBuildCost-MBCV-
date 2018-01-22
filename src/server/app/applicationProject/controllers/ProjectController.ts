@@ -116,6 +116,25 @@ class ProjectController {
     }
   }
 
+  cloneBuilding(req: express.Request, res: express.Response, next: any): void {
+    try {
+      let user = req.user;
+      //let projectId = req.params.id;
+      let buildingId = req.params.buildingid;
+      let buildingDetails = <Building> req.body;
+      let projectService = new ProjectService();
+      projectService.cloneBuildingDetails( buildingId, buildingDetails, user, (error, result) => {
+        if(error) {
+          next(error);
+        } else {
+          next(new Response(200,result));
+        }
+      });
+    } catch(e) {
+      next(new CostControllException(e.message,e.stack));
+    }
+  }
+
   getBuilding(req: express.Request, res: express.Response, next: any): void {
     try {
       let user = req.user;
@@ -123,6 +142,24 @@ class ProjectController {
       let buildingId = req.params.buildingid;
       let projectService = new ProjectService();
       projectService.getBuilding(projectId, buildingId, user, (error, result) => {
+        if(error) {
+          next(error);
+        } else {
+          next(new Response(200,result));
+        }
+      });
+    } catch(e) {
+      next(new CostControllException(e.message,e.stack));
+    }
+  }
+
+  getBuildingDetailsForClone(req: express.Request, res: express.Response, next: any): void {
+    try {
+      let user = req.user;
+      let projectId = req.params.id;
+      let buildingId = req.params.buildingid;
+      let projectService = new ProjectService();
+      projectService.getClonedBuilding(projectId, buildingId, user, (error, result) => {
         if(error) {
           next(error);
         } else {
@@ -157,13 +194,11 @@ class ProjectController {
       let projectId = req.params.id;
       let buildingId = req.params.buildingid;
       let projectService = new ProjectService();
-      projectService.deleteBuilding({
-        projectId: projectId, buildingId: buildingId, user: user, callback: (error, result) => {
-          if (error) {
-            next(error);
-          } else {
-            next(new Response(200, result));
-          }
+      projectService.deleteBuilding(projectId, buildingId, user, (error, result) => {
+        if(error) {
+          next(error);
+        } else {
+          next(new Response(200,result));
         }
       });
     } catch(e) {
@@ -234,6 +269,7 @@ class ProjectController {
       next(new CostControllException(e.message,e.stack));
     }
   }
+
   deleteWorkitem(req: express.Request, res: express.Response, next: any): void {
     try {
       let user = req.user;
