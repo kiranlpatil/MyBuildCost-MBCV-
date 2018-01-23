@@ -356,7 +356,7 @@ export class ImagePath {
   public static FAV_ICON = './assets/framework/images/logo/favicon.ico';
   public static BODY_BACKGROUND = './assets/framework/images/page_background/page-bg.png';
   public static MY_WHITE_LOGO = './assets/c-next/header/job-mosis-logo.png';
-  public static MOBILE_WHITE_LOGO = './assets/c-next/header/placeholder_image.jpg';
+  public static MOBILE_WHITE_LOGO = './assets/c-next/header/buildInfo-logo.jpg';
   public static FACEBOOK_ICON = './assets/framework/images/footer/fb.svg';
   public static GOOGLE_ICON = './assets/framework/images/footer/google-plus.svg';
   public static LINKEDIN_ICON = './assets/framework/images/footer/linked-in.svg';
