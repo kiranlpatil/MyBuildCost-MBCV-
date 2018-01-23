@@ -178,9 +178,13 @@ export class CostSummaryComponent implements OnInit {
   getHeadings() {
     return Headings;
   }
+  deleteCostHeadDetailsfun(buildingId: string, costHead: string) {
+    this.buildingId = buildingId;
+    this.costHead = costHead;
+  }
 
-  deleteQuantityDetails(buildingId: string, costHead: string) {
-      this.costSummaryService.deleteQuanatityDetails(buildingId, costHead).subscribe(
+  deleteCostHeadDetails() {
+      this.costSummaryService.deleteQuanatityDetails(this.buildingId, this.costHead).subscribe(
         costHeadDetail => this.onDeleteQuantitySuccess(costHeadDetail),
         error => this.onDeleteQuantityFail(error)
       );
