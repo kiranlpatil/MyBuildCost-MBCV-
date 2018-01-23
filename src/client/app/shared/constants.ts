@@ -337,6 +337,7 @@ export class API {
   public static PROJECT_BUILDINGS = 'user/all/building';
   public static ADD_BUILDING = 'building';
   public static VIEW_BUILDING = 'building';
+  public static CLONE = 'clone';
 
 
   public static THUMBRULE_RULE_RATE='report/thumbRuleRate';

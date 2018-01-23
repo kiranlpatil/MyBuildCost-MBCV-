@@ -75,7 +75,7 @@
             <ul *ngFor="let costHead of clonedBuildingDetails">
               <input type="checkbox" [checked]="costHead.active" (change)="costHead.active = !costHead.active" />{{costHead.name}}
                 <li *ngFor="let workitem of costHead.workitem">
-                  <input type="checkbox" [checked]="workitem.active" (change)="workitem.active = !workitem.active" />{{workitem.name}}
+                  <input type="checkbox" [checked]="(costHead.active && workitem.active)" (change)="workitem.active = !workitem.active" />{{workitem.name}}
                 </li>
             </ul>
         </div>

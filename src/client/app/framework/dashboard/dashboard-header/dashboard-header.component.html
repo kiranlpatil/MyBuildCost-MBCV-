@@ -12,24 +12,11 @@
           <span class="icon-bar"></span>
         </button>
 
-        <a class="navbar-brand" (click)="navigateTo('/'); closeMenu($event);">
+        <a class="navbar-brand">
           <img src={{MOBILE_LOGO}}/>
         </a>
       </div>
-      <ul class="header-links visible-xs">
-        <li>
-          <a class="dropdown-item" [routerLink]="['value-portrait']"
-             (click)="navigateToWithId('/value-portrait');">
-            <span class="glyphicon glyphicon-user"></span>
-          </a>
-        </li>
-        <li>
-          <a class="dropdown-item" [routerLink]="['profile-edit']"
-             (click)="navigateTo('/candidate/profile');">
-            <span class="	glyphicon glyphicon-edit"></span>
-          </a>
-        </li>
-      </ul>
+
       <div class="bg-overlay" [class.show]="isClassVisible" (click)="isClassVisible = false;"></div>
       <div class="collapse navbar-collapse" [class.open-nav]="isClassVisible">
         <ul class="nav navbar-nav navbar-left hidden-xs navbar-links">
