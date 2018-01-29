@@ -16,6 +16,7 @@ import ClonedWorkItem = require('../dataaccess/model/ClonedWorkItem');
 import CostHead = require('../dataaccess/model/CostHead');
 import WorkItem = require('../dataaccess/model/WorkItem');
 import Item = require('../dataaccess/model/Item');
+import RateAnalysisService = require("./RateAnalysisService");
 
 class ProjectService {
   APP_NAME: string;
@@ -298,17 +299,54 @@ class ProjectService {
         callback(error, null);
       } else {
         let rate: Rate;
+        let rateAnalysisId: number;
         for(let index = 0; building.costHead.length > index; index++) {
           if(building.costHead[index].name === costhead) {
             rate = building.costHead[index].workitem[workitem].rate;
+            rateAnalysisId = building.costHead[index].workitem[workitem].rateAnalysisId;
           }
         }
         if(rate.total === null) {
-          for(let index = 0; rate.item.length > index; index ++) {
-            rate.total = rate.item[index].totalAmount + rate.total;
+          let rateAnalysisServices : RateAnalysisService = new RateAnalysisService();
+          rateAnalysisServices.getRate(rateAnalysisId, (error, rateData)=> {
+            if(error) {
+              callback(error, null);
+            }else {
+              rate.item = rateData;
+              for(let index = 0; rate.item.length > index; index ++) {
+                rate.total = rate.item[index].totalAmount + rate.total;
+              }
+              callback(null, {data: rate, access_token: this.authInterceptor.issueTokenWithUid(user)});
+            }
+          });
+        }else {
+          callback(null, {data: rate, access_token: this.authInterceptor.issueTokenWithUid(user)});
+        }
+      }
+    });
+  }
+
+  updateRate(projectId, buildingId, costhead, workitem, rate :Rate, user, callback:(error: any, result: any)=> void) {
+    this.buildingRepository.findById(buildingId, (error, building:Building) => {
+      if (error) {
+        callback(error, null);
+      } else {
+        //let rate: Rate;
+        let rateAnalysisId: number;
+        for(let index = 0; building.costHead.length > index; index++) {
+          if(building.costHead[index].name === costhead) {
+            building.costHead[index].workitem[workitem].rate = rate;
           }
         }
-        callback(null, {data: rate, access_token: this.authInterceptor.issueTokenWithUid(user)});
+        let query = {'_id' : buildingId};
+        let newData = { $set : {'costHead' : building.costHead}};
+        this.buildingRepository.findOneAndUpdate(query, newData,{new: true}, (error, result) => {
+          if (error) {
+            callback(error, null);
+          } else {
+            callback(null, {data: result, access_token: this.authInterceptor.issueTokenWithUid(user)});
+          }
+        });
       }
     });
   }
@@ -408,7 +446,20 @@ class ProjectService {
     });
   }
 
-  createQuantity(projectId, buildingId, costhead, workitem, quantity, user, callback:(error: any, result: any)=> void) {
+  updateBudgetedCostForCostHead( buildingId : string, costHead : string, costHeadBudgetedAmountEdited : any, user: User,
+                          callback: (error: any, result: any) => void) {
+    let query = {'_id' : buildingId, 'costHead.name' : costHead};
+    let newData = { $set : {'costHead.$.budgetedCostAmount' : costHeadBudgetedAmountEdited.budgetedCostAmount}};
+    this.buildingRepository.findOneAndUpdate(query, newData, {new:true},(err, response) => {
+      if(err) {
+        callback(err, null);
+      } else {
+        callback(null, {data: response, access_token: this.authInterceptor.issueTokenWithUid(user)});
+      }
+    });
+  }
+
+  createQuantity(projectId:string, buildingId:string, costhead:string, workitem:string, quantity:string, user:string, callback:(error: any, result: any)=> void) {
     this.buildingRepository.findById(buildingId, (error, building:Building) => {
       if (error) {
         callback(error, null);
