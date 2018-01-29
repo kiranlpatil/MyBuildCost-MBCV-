@@ -13,8 +13,8 @@ import { API, BaseService, SessionStorage, SessionStorageService,
   Message, MessageService } from '../../../../../shared/index';
 import { CostHeadService } from './cost-head.service';
 import { CustomHttp } from '../../../../../shared/services/http/custom.http';
-import {FormGroup} from "@angular/forms";
-import {Project} from "../../../model/project";
+import { FormGroup } from '@angular/forms';
+import { Project } from '../../../model/project';
 
 
 @Component({
@@ -37,7 +37,7 @@ export class CostHeadComponent implements OnInit {
   buildingName: string;
   costHead: string;
   costHeadDetails: any;
-  currentquantityItem: string
+  currentquantityItem: string;
   currentWorkItem: string;
   workItem: any;
   rateItemsTotal: number;
@@ -46,7 +46,6 @@ export class CostHeadComponent implements OnInit {
   lengthTotal: number = 0;
   breadthTotal: number = 0;
   heightTotal: number = 0;
-
   totalAmount:number=0;
   totalRate:number=0;
 
@@ -279,7 +278,7 @@ export class CostHeadComponent implements OnInit {
     console.log(error);
   }
 
-  changeQuantity(quantity:number,k:number) {
+  changeQuantity(quantity:string,k:number) {
     this.totalAmount=0;
     this.totalRate=0;
     this.rateItemsArray[k].quantity=parseInt(quantity);
@@ -291,17 +290,15 @@ export class CostHeadComponent implements OnInit {
 }
 
 
-  changeRate(rate:number,k:number) {
+  changeRate(rate:string, k:number) {
     this.totalAmount=0;
     this.totalRate=0;
     this.rateItemsArray[k].rate= parseInt(rate);
     let temp=0;
-    for(let i=0;i<this.rateItemsArray.length;i++){
+    for(let i=0;i<this.rateItemsArray.length;i++) {
       this.totalAmount= this.totalAmount+( this.rateItemsArray[i].quantity*this.rateItemsArray[i].rate);
       this.totalRate= this.totalRate+this.rateItemsArray[i].rate;
     }
   }
 
 }
-
-
