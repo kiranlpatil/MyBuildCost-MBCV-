@@ -91,6 +91,7 @@
           }
         },
         "active": true,
+        "budgetedCostAmount" :0,
         "rateAnalysisId" : 21,
         "workitem": {
           "Plum concrete in cft": {
@@ -448,6 +449,7 @@
           }
         },
         "active": true,
+        "budgetedCostAmount" :0,
         "rateAnalysisId" : 5,
         "workitem": {
           "PVC / FRP doors": {

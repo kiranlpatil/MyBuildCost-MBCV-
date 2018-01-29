@@ -73,7 +73,7 @@ import { GetQuantityService } from './build-info/framework/project/cost-summary-
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 // Import the ButtonsModule
-import { ButtonsModule } from '@progress/kendo-angular-buttons';
+//import { ButtonsModule } from '@progress/kendo-angular-buttons';
 
 @NgModule({
   imports: [

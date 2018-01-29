@@ -446,7 +446,20 @@ class ProjectService {
     });
   }
 
-  createQuantity(projectId, buildingId, costhead, workitem, quantity, user, callback:(error: any, result: any)=> void) {
+  updateBudgetedCostForCostHead( buildingId : string, costHead : string, costHeadBudgetedAmountEdited : any, user: User,
+                          callback: (error: any, result: any) => void) {
+    let query = {'_id' : buildingId, 'costHead.name' : costHead};
+    let newData = { $set : {'costHead.$.budgetedCostAmount' : costHeadBudgetedAmountEdited.budgetedCostAmount}};
+    this.buildingRepository.findOneAndUpdate(query, newData, {new:true},(err, response) => {
+      if(err) {
+        callback(err, null);
+      } else {
+        callback(null, {data: response, access_token: this.authInterceptor.issueTokenWithUid(user)});
+      }
+    });
+  }
+
+  createQuantity(projectId:string, buildingId:string, costhead:string, workitem:string, quantity:string, user:string, callback:(error: any, result: any)=> void) {
     this.buildingRepository.findById(buildingId, (error, building:Building) => {
       if (error) {
         callback(error, null);
