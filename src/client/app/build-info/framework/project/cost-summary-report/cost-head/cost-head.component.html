@@ -137,7 +137,7 @@
                     <input [(ngModel)]="rateItem.quantity" id="itemunit" class="form-control clear" (change)="changeQuantity(rateItem.quantity,k)"/>
                   </td>
                   <td>
-                    <input [(ngModel)]="rateItem.unit" id="itemrate" class="form-control clear"/>
+                    <input [(ngModel)]="rateItem.unit" id="itemrate" class="form-control clear" readonly/>
                   </td>
                   <td>
                     <input [(ngModel)]="rateItem.rate" id="itemamount" class="form-control clear" (change)="changeRate(rateItem.rate,k)"/>

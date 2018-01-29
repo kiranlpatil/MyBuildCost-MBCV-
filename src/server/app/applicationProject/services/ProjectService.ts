@@ -358,7 +358,9 @@ class ProjectService {
   }
 
   updateRate(projectId, buildingId, costhead, workitem, rate :Rate, user, callback:(error: any, result: any)=> void) {
+    logger.info('Project service, updateRate has been hit');
     this.buildingRepository.findById(buildingId, (error, building:Building) => {
+      logger.info('Project service, findById has been hit');
       if (error) {
         callback(error, null);
       } else {
@@ -487,9 +489,11 @@ class ProjectService {
 
   updateBudgetedCostForCostHead( buildingId : string, costHead : string, costHeadBudgetedAmountEdited : any, user: User,
                                  callback: (error: any, result: any) => void) {
+    logger.info('Project service, updateBudgetedCostForCostHead has been hit');
     let query = {'_id' : buildingId, 'costHead.name' : costHead};
     let newData = { $set : {'costHead.$.budgetedCostAmount' : costHeadBudgetedAmountEdited.budgetedCostAmount}};
     this.buildingRepository.findOneAndUpdate(query, newData, {new:true},(err, response) => {
+      logger.info('Project service, findOneAndUpdate has been hit');
       if(err) {
         callback(err, null);
       } else {

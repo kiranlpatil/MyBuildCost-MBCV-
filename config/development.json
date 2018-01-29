@@ -77,9 +77,12 @@
   },*/
   "logger" : {
     "levels": {
-      "[all]":"info"
+      "[all]":"DEBUG"
     },
     "appenders": [
+      {
+        "type": "console"
+      },
       {    "type": "dateFile",
         "filename": "logs/application",    // specify the path where u want logs folder error.log
         "pattern": "-yyyy-MM-dd.log",

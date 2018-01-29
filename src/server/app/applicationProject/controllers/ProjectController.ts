@@ -302,6 +302,8 @@ class ProjectController {
         if(error) {
           next(error);
         } else {
+          logger.info('Get Rate Success');
+          logger.debug('Getting Rate of Project ID : '+projectId+' Building ID : '+buildingId);
           next(new Response(200,result));
         }
       });
