@@ -113,7 +113,7 @@
           "Plum concrete in cft": {
             "name": "Plum concrete in cft",
             "quantity": {
-              "total": 400,
+              "total": 0,
               "item": [{
                 "item": "Wall 1",
                 "remarks": "internal walls",
@@ -198,7 +198,7 @@
           "Plum concrete in cum": {
             "name": "Plum concrete in cum",
             "quantity": {
-              "total": 200,
+              "total": 0,
               "item": [{
                 "item": "Wall 1",
                 "remarks": "internal walls",
@@ -283,7 +283,7 @@
           "Concrete in cft by mix design": {
             "name": "Concrete in cft by mix design",
             "quantity": {
-              "total": 300,
+              "total": 0,
               "item": [{
                 "item": "Wall 1",
                 "remarks": "internal walls",
@@ -368,7 +368,7 @@
           "Concrete in cft by volumetric method": {
             "name": "Concrete in cft by volumetric method",
             "quantity": {
-              "total": 300,
+              "total": 0,
               "item": [{
                 "item": "Wall 1",
                 "remarks": "internal walls",
@@ -471,7 +471,7 @@
           "PVC / FRP doors": {
             "name": "PVC / FRP doors",
             "quantity": {
-              "total": null,
+              "total": 0,
               "item": [{
                 "item": "Wall 1",
                 "remarks": "internal walls",
@@ -556,7 +556,7 @@
           "Flush doors": {
             "name": "Flush doors",
             "quantity": {
-              "total": null,
+              "total": 0,
               "item": [{
                 "item": "Wall 1",
                 "remarks": "internal walls",
@@ -641,7 +641,7 @@
           "Moulded doors": {
             "name": "Moulded doors",
             "quantity": {
-              "total": null,
+              "total": 0,
               "item": [{
                 "item": "Wall 1",
                 "remarks": "internal walls",

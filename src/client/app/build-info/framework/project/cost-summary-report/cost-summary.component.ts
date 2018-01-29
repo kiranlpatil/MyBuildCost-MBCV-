@@ -68,7 +68,7 @@ export class CostSummaryComponent implements OnInit {
     console.log('Insdide');
   }
 
-  showCostHead(buildingId:any,i:number) {
+  showCostHead(buildingId: string,i:number) {
     console.log('Adding Costhead');
     this.buildingIndex=i;
     this.buildingId=buildingId;
@@ -93,7 +93,12 @@ export class CostSummaryComponent implements OnInit {
     this.projectId = SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT);
     this._router.navigate([NavigationRoutes.APP_COST_HEAD, this.projectId, buildingName, costHead]);
   }
-
+  getCommonAmenities() {
+   // SessionStorageService.setSessionValue(SessionStorage.CURRENT_BUILDING, buildingId);
+    this.projectId = SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT);
+    console.log(this.projectId);
+    this._router.navigate([NavigationRoutes.APP_COMMON_AMENITIES,this.projectId]);
+}
   getProjects() {
     this.costSummaryService.getProjectDetails(this.projectId).subscribe(
       projectCostSummary => this.onGetProjectCostSummarySuccess(projectCostSummary),

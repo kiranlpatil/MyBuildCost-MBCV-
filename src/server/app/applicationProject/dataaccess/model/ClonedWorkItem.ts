@@ -7,7 +7,7 @@ class ClonedWorkItem {
   active:boolean;
   quantity: Map<string, Quantity>;
   unit: string;
-  rate: Map<string, Rate>;
+  rate: Map<any, Rate>;
   amount: 0;
   constructor() {
     this.active = true;

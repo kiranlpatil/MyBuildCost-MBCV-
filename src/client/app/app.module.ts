@@ -34,7 +34,9 @@ import { LandingPageComponent } from './framework/landing-page/landing-page.comp
 import { SharedService } from './shared/services/shared-service';
 import { PageNotFoundComponent } from './shared/page-not-found/page-not-found.component';
 import { AnalyticService } from './shared/services/analytic.service';
+import { CommonAmenitiesComponent } from './build-info/framework/project/cost-summary-report/common-amenities/common-amenities.component';
 //import { MyDashboardComponent} from "./build-info/framework/my-dashboard/my-dashboard.component";
+import { CommonAmenitiesService } from './build-info/framework/project/cost-summary-report/common-amenities/common-amenities.service';
 import { DashboardHeaderComponent } from './framework/dashboard/dashboard-header/dashboard-header.component';
 import { DashboardUserProfileService } from './framework/dashboard/user-profile/dashboard-user-profile.service';
 import { UserChangePasswordService } from './framework/dashboard/user-change-password/user-change-password.service';
@@ -117,7 +119,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     GetQuantityComponent,
     MaterialTakeoffComponent,
     //MyDashboardComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    CommonAmenitiesComponent
   ],
 
   providers: [
@@ -161,7 +164,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     CostSummaryService,
     CostHeadService,
     MaterialTakeoffService,
-    GetQuantityService
+    GetQuantityService,
+    CommonAmenitiesService
     // MaterialTakeoffService
   ],
   bootstrap: [AppComponent]

@@ -70,7 +70,7 @@ export class CostSummaryService extends BaseService {
   }
 
 
-  getCosthead(projectId:any,buildingID:any) {
+  getCosthead(projectId: string,buildingID: string) {
     let headers = new Headers({'Content-Type': 'application/json'});
     let options = new RequestOptions({headers: headers});
     var url = API.VIEW_PROJECT + '/'+ projectId +'/'+ API.VIEW_BUILDING + '/' +buildingID + '/costhead';
@@ -80,7 +80,7 @@ export class CostSummaryService extends BaseService {
       .catch(this.handleError);
   }
 
-  addCosthead(selectedinActiveCostHead:any,projectId:any,buildingID:any) {
+  addCosthead(selectedinActiveCostHead:any,projectId:string,buildingID:string) {
     let headers = new Headers({'Content-Type': 'application/json'});
     let options = new RequestOptions({headers: headers});
     var url = API.VIEW_PROJECT + '/'+ projectId +'/'+ API.VIEW_BUILDING + '/' +buildingID + '/costhead/' +selectedinActiveCostHead+'/true';

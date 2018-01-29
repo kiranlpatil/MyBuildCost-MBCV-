@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import { Router } from '@angular/router';
-import {SessionStorage, SessionStorageService,MessageService} from "../../../../shared/index";
+import { SessionStorage, SessionStorageService,MessageService } from '../../../../shared/index';
 @Component({
   moduleId: module.id,
   selector: 'bi-project-header',
