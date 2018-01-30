@@ -94,9 +94,7 @@ export class CostSummaryComponent implements OnInit {
     this._router.navigate([NavigationRoutes.APP_COST_HEAD, this.projectId, buildingName, costHead]);
   }
   getCommonAmenities() {
-   // SessionStorageService.setSessionValue(SessionStorage.CURRENT_BUILDING, buildingId);
-    this.projectId = SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT);
-    console.log(this.projectId);
+   this.projectId = SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT);
     this._router.navigate([NavigationRoutes.APP_COMMON_AMENITIES,this.projectId]);
 }
   getProjects() {
@@ -130,12 +128,9 @@ export class CostSummaryComponent implements OnInit {
   }
 
   onChangeCostingIn(costInId:any) {
-
     if(costInId) {
-      console.log('costInId : '+costInId);
       this.defaultCostIn=costInId;
     }
-
     this.costSummaryService.getCost(this.projectId,this.defaultCostIn,this.defaultCostPer).subscribe(
       projectCostIn => this.onGetCostInSuccess(projectCostIn),
       error => this.onGetCostInFail(error)
@@ -222,11 +217,34 @@ export class CostSummaryComponent implements OnInit {
 
   onAddCostheadSuccess(inActiveCostHeads : any) {
     console.log('onAddCostheadSuccess ->'+inActiveCostHeads);
+    var message = new Message();
+    message.isError = false;
+    message.custom_message = Messages.MSG_SUCCESS_ADD_COSTHEAD;
+    this.messageService.message(message);
     this.onChangeCostingIn(this.defaultCostIn);
   }
 
   onAddCostheadFail(error : any) {
     console.log('onAddCostheadSuccess()'+error);
+  }
+
+  changeBudgetedCost(buildingId : string, costHead : string, amount:number) {
+
+    this.costSummaryService.updateBudgetCostAmountForCostHead(buildingId, costHead, amount).subscribe(
+      buildingDetails => this.updatedCostHeadAmountSuccess(buildingDetails),
+      error => this.updatedCostHeadAmountFail(error)
+    );
+  }
+
+  updatedCostHeadAmountSuccess(buildingDetails : any) {
+    var message = new Message();
+    message.isError = false;
+    message.custom_message = Messages.MSG_SUCCESS_UPDATE_BUDGETED_COST_COSTHEAD;
+    this.messageService.message(message);
+  }
+
+  updatedCostHeadAmountFail(error : any) {
+    console.log('onAddCostheadSuccess : '+error);
   }
 
 }

@@ -90,4 +90,16 @@ export class CostSummaryService extends BaseService {
       .catch(this.handleError);
   }
 
+  updateBudgetCostAmountForCostHead(buildingId : string, costHeadName : string, amount:number) {
+    let headers = new Headers({'Content-Type': 'application/json'});
+    let options = new RequestOptions({headers: headers});
+    var url = API.VIEW_PROJECT + '/' + SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT)+
+      '/'+ API.VIEW_BUILDING + '/' +buildingId+ '/costhead/' + costHeadName;
+    var totalAmount = parseInt(amount);
+    var body = { 'budgetedCostAmount' : totalAmount};
+    return this.http.put(url, body,options)
+      .map(this.extractData)
+      .catch(this.handleError);
+  }
+
   }
