@@ -8,7 +8,14 @@ class WorkItem {
   quantity: Map<string, Quantity>;
   unit: string;
   rate: Map<string, Rate>;
-  amount: 0;
+  amount: number;
+  constructor(name:string, rateAnalysisId:number) {
+    this.name = name;
+    this.rateAnalysisId = rateAnalysisId;
+    this.quantity = new Map<string, Quantity>();
+    this.rate = new Map<string, Rate>();
+    this.amount = 0;
+  }
 }
 export = WorkItem;
 

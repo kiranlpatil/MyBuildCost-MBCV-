@@ -8,6 +8,8 @@ import CostHead = require('../dataaccess/model/CostHead');
 import QuantityItem = require('../dataaccess/model/QuantityItem');
 import Quantity = require('../dataaccess/model/Quantity');
 import Rate = require('../dataaccess/model/Rate');
+import SubCategory = require("../dataaccess/model/SubCategory");
+import WorkItem = require("../dataaccess/model/WorkItem");
 let config = require('config');
 var log4js = require('log4js');
 var logger=log4js.getLogger('Project Controller');
@@ -529,5 +531,48 @@ class ProjectController {
     }
   }
 
+  getWorkitemList(req: express.Request, res: express.Response, next: any): void {
+    try {
+      logger.info('getWorkitemList has been hit');
+      let user = req.user;
+      let projectId = req.params.id;
+      let buildingId = req.params.buildingId;
+      let costheadId = req.params.costheadId;
+      let subCategoryId = req.params.subCategoryId;
+      let projectService = new ProjectService();
+      projectService.getWorkitemList(projectId, buildingId, costheadId, subCategoryId, user, (error, result) => {
+        if(error) {
+          next(error);
+        } else {
+          next(new Response(200,result));
+        }
+      });
+    } catch(e) {
+      next(new CostControllException(e.message,e.stack));
+    }
+  }
+
+  addWorkitem(req: express.Request, res: express.Response, next: any): void {
+    try {
+      logger.info('addWorkitem has been hit');
+      let user = req.user;
+      let projectId = req.params.id;
+      let buildingId = req.params.buildingId;
+      let costheadId = req.params.costheadId;
+      let subCategoryId = req.params.subCategoryId;
+      let workitem: WorkItem = req.body;
+      let projectService = new ProjectService();
+      projectService.addWorkitem(projectId, buildingId, costheadId, subCategoryId, workitem, user, (error, result) => {
+        if(error
+        ) {
+          next(error);
+        } else {
+          next(new Response(200,result));
+        }
+      });
+    } catch(e) {
+      next(new CostControllException(e.message,e.stack));
+    }
+  }
 }
 export  = ProjectController;

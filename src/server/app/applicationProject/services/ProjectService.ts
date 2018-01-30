@@ -16,6 +16,8 @@ import ClonedWorkItem = require('../dataaccess/model/ClonedWorkItem');
 import CostHead = require('../dataaccess/model/CostHead');
 import WorkItem = require('../dataaccess/model/WorkItem');
 import Item = require('../dataaccess/model/Item');
+import WorkItem = require('../dataaccess/model/WorkItem');
+import Item = require('../dataaccess/model/Item');
 import RateAnalysisService = require('./RateAnalysisService');
 let config = require('config');
 var log4js = require('log4js');
@@ -383,7 +385,8 @@ class ProjectService {
     });
   }
 
-  deleteQuantity(projectId:string, buildingId:string, costhead:CostHead, workitem:WorkItem, item:Item, user:User, callback:(error: any, result: any)=> void) {
+  deleteQuantity(projectId:string, buildingId:string, costhead:CostHead, workitem:WorkItem, item:Item, user:User,
+                 callback:(error: any, result: any)=> void) {
     logger.info('Project service, deleteQuantity has been hit');
     this.buildingRepository.findById(buildingId, (error, building:Building) => {
       if (error) {
@@ -424,7 +427,8 @@ class ProjectService {
     });
   }
 
-  deleteWorkitem(projectId:string, buildingId:string, costhead:CostHead, workitem:WorkItem, user:User, callback:(error: any, result: any)=> void) {
+  deleteWorkitem(projectId:string, buildingId:string, costhead:CostHead, workitem:WorkItem, user:User,
+                 callback:(error: any, result: any)=> void) {
     logger.info('Project service, deleteWorkitem has been hit');
     this.buildingRepository.findById(buildingId, (error, building:Building) => {
       if (error) {
@@ -467,7 +471,8 @@ class ProjectService {
       }
     });
   }
-  updateBuildingCostHead( buildingId : string, costHead : string, costHeadValue : string, user: User, callback: (error: any, result: any) => void) {
+  updateBuildingCostHead( buildingId : string, costHead : string, costHeadValue : string, user: User,
+                          callback: (error: any, result: any) => void) {
     let query = {'_id' : buildingId, 'costHead.name' : costHead};
     let value = JSON.parse(costHeadValue);
     let newData = { $set : {'costHead.$.active' : value}};
@@ -495,7 +500,8 @@ class ProjectService {
       }
     });
   }
-  createQuantity(projectId : string, buildingId : string, costhead : string, workitem : any, quantity, user : User, callback:(error: any, result: any)=> void) {
+  createQuantity(projectId : string, buildingId : string, costhead : string, workitem : any, quantity, user : User,
+                 callback:(error: any, result: any)=> void) {
     this.buildingRepository.findById(buildingId, (error, building:Building) => {
       logger.info('Project service, findById has been hit');
       if (error) {
@@ -549,7 +555,8 @@ class ProjectService {
     });
   }
 
-  updateQuantity(projectId:string, buildingId:string, costhead:string, workitem:string, quantity:any, user:User, callback:(error: any, result: any)=> void) {
+  updateQuantity(projectId:string, buildingId:string, costhead:string, workitem:string, quantity:any, user:User,
+                 callback:(error: any, result: any)=> void) {
     logger.info('Project service, updateQuantity has been hit');
     this.buildingRepository.findById(buildingId, (error, building:Building) => {
       if (error) {
@@ -605,6 +612,69 @@ class ProjectService {
           'FROM ? AS subCategoriesList WHERE subCategoriesList.C3 = '+ costHead;
         subCategoriesList = alasql(sqlQuery, [subCategoriesList]);
         callback(null, {data: subCategoriesList, access_token: this.authInterceptor.issueTokenWithUid(user)});
+      }
+    });
+  }
+
+  getWorkitemList(projectId:string, buildingId:string, costheadId:number, subCategoryId:number, user:User,
+                  callback:(error: any, result: any)=> void) {
+    logger.info('Project service, getWorkitemList has been hit');
+    let rateAnalysisServices : RateAnalysisService = new RateAnalysisService();
+    rateAnalysisServices.getWorkitemList(costheadId, subCategoryId, (error, workitemList)=> {
+      if(error) {
+        callback(error, null);
+      }else {
+        callback(null, {data: workitemList, access_token: this.authInterceptor.issueTokenWithUid(user)});
+      }
+    });
+  }
+
+  addWorkitem(projectId:string, buildingId:string, costheadId:number, subCategoryId:number, workitem: WorkItem,
+              user:User, callback:(error: any, result: any)=> void) {
+    logger.info('Project service, addWorkitem has been hit');
+    this.buildingRepository.findById(buildingId, (error, building:Building) => {
+      if (error) {
+        callback(error, null);
+      } else {
+        for(let index = 0; building.costHead.length > index; index++) {
+          if(building.costHead[index].rateAnalysisId === costheadId) {
+            let subCategory = building.costHead[index].subCategory;
+            for(let subCategoryIndex = 0; subCategory.length > subCategoryIndex; subCategoryIndex++) {
+              if(subCategory[subCategoryIndex].rateAnalysisId === subCategoryId) {
+                subCategory[subCategoryIndex].workitem.push(workitem);
+              }
+            }
+            /*let quantityArray :Quantity = building.costHead[index].workitem[workitem].quantity;
+            quantityArray.item = quantity;
+            if(quantityArray.total === null) {
+              quantityArray.total = 0;
+            }
+            for(let itemIndex =0; quantityArray.item.length >  itemIndex; itemIndex++) {
+              quantityArray.total = quantityArray.item[itemIndex].quantity + quantityArray.total;
+            }*/
+            let query = { _id : buildingId };
+            let newData = { $set : {'costHead' : building.costHead}};
+            this.buildingRepository.findOneAndUpdate(query, building,{new: true}, (error, building) => {
+              logger.info('Project service, findOneAndUpdate has been hit');
+              if (error) {
+                callback(error, null);
+              } else {
+                /*let quantity: Quantity;
+                for(let index = 0; building.costHead.length > index; index++) {
+                  if(building.costHead[index].name === costhead) {
+                    quantity = building.costHead[index].workitem[workitem].quantity;
+                  }
+                }
+                if(quantity.total === null) {
+                  for(let index = 0; quantity.item.length > index; index ++) {
+                    quantity.total = quantity.item[index].quantity + quantity.total;
+                  }
+                }*/
+                callback(null, {data: building, access_token: this.authInterceptor.issueTokenWithUid(user)});
+              }
+            });
+          }
+        }
       }
     });
   }

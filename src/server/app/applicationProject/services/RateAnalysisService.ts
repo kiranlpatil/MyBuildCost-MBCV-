@@ -116,6 +116,23 @@ class RateAnalysisService {
       }
     });
   }
+
+  getWorkitemList(costHeadId: number,subCategoryId: number, callback:(error: any, data:any) => void) {
+    let url = config.get('rateAnalysisAPI.workitem');
+    this.getApiCall(url, (error, workitem) => {
+      if(error) {
+        callback(error, null);
+      }else {
+        if(subCategoryId === 0) {
+          subCategoryId = null;
+        }
+        workitem = workitem['Items'];
+        let sql2 = 'SELECT C2 AS rateAnalysisId, C3 AS name FROM ? WHERE C1 = '+ costHeadId+' and C4 = '+ subCategoryId;
+        let workitemList = alasql(sql2, [workitem]);
+        callback(null, workitemList);
+      }
+    });
+  }
 }
 
 Object.seal(RateAnalysisService);
