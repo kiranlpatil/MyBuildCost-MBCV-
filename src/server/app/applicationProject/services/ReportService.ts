@@ -103,7 +103,11 @@ class ReportService {
                     estimatedReport.totalEstimatedCost = estimateReport.total + estimatedReport.totalEstimatedCost;
                       estimatedReport.totalRate = estimatedReport.totalRate + estimateReport.rate;
                     estimatedReport.estimatedCost.push(estimateReport);
-                    thumbRule.amount = thumbRuleReport.area * thumbRule.rate;
+                    if( costHeadArray[costHeadIndex].budgetedCostAmount === 0) {
+                      thumbRule.amount = thumbRuleReport.area * thumbRule.rate;
+                    } else {
+                      thumbRule.amount =  costHeadArray[costHeadIndex].budgetedCostAmount;
+                    }
                     thumbRule.costHeadActive = costHeadArray[costHeadIndex].active;
                     thumbRuleReport.thumbRuleReport.push(thumbRule);
                     thumbRuleReport.totalRate = thumbRuleReport.totalRate + thumbRule.rate;
