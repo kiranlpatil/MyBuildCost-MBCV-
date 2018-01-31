@@ -16,6 +16,7 @@ import WorkItem = require('../dataaccess/model/WorkItem');
 import ThumbRule = require('../dataaccess/model/ThumbRule');
 import Estimated = require('../dataaccess/model/Estimated');
 import RateAnalysisService = require('./RateAnalysisService');
+import SubCategory = require("../dataaccess/model/SubCategory");
 let config = require('config');
 var log4js = require('log4js');
 var logger=log4js.getLogger('Report Service');
@@ -92,18 +93,22 @@ class ReportService {
                         thumbRule.rate = costHeadArray[costHeadIndex].thumbRuleRate.saleableArea.sqmt;
                       }
                     }
-                    let workItem: any = costHeadArray[costHeadIndex].workitem;
-                    for(let key in workItem) {
-                      if(workItem[key].quantity.total !== null && workItem[key].rate.total !== null) {
-                        estimateReport.total = workItem[key].quantity.total + estimateReport.total;
-                        let estimatedRate = (estimateReport.total / buildingReport.area);
-                        estimateReport.rate = estimatedRate.toFixed(2);
+                    let subCategory: Array<SubCategory> = costHeadArray[costHeadIndex].subCategory;
+                    for(let subCategoryKey in subCategory) {
+                      let workItem = subCategory[subCategoryKey].workitem;
+                      for(let key in workItem) {
+                        if(workItem[key].quantity.total !== null && workItem[key].rate.total !== null) {
+                          estimateReport.total = workItem[key].quantity.total + estimateReport.total;
+                          let estimatedRate = (estimateReport.total / buildingReport.area);
+                          estimateReport.rate = estimatedRate.toFixed(2);
+                        }
                       }
                     }
                     estimatedReport.totalEstimatedCost = estimateReport.total + estimatedReport.totalEstimatedCost;
                     estimatedReport.totalRate = estimatedReport.totalRate + estimateReport.rate;
                     estimatedReport.estimatedCost.push(estimateReport);
-                    if( costHeadArray[costHeadIndex].budgetedCostAmount === 0) {
+                    if( costHeadArray[costHeadIndex].budgetedCostAmount === 0 ||
+                      costHeadArray[costHeadIndex].budgetedCostAmount === undefined ) {
                       thumbRule.amount = thumbRuleReport.area * thumbRule.rate;
                     } else {
                       thumbRule.amount =  costHeadArray[costHeadIndex].budgetedCostAmount;
