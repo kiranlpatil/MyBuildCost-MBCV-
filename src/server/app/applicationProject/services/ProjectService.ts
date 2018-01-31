@@ -17,6 +17,7 @@ import CostHead = require('../dataaccess/model/CostHead');
 import WorkItem = require('../dataaccess/model/WorkItem');
 import Item = require('../dataaccess/model/Item');
 import RateAnalysisService = require('./RateAnalysisService');
+import QuantityItem = require('../dataaccess/model/QuantityItem');
 import SubCategory = require('../dataaccess/model/SubCategory');
 let config = require('config');
 var log4js = require('log4js');
@@ -26,6 +27,9 @@ var logger=log4js.getLogger('Project service');
 class ProjectService {
   APP_NAME: string;
   company_name: string;
+  costHeadId: number;
+  subCategoryId: number;
+  workItemId: number;
   private projectRepository: ProjectRepository;
   private buildingRepository: BuildingRepository;
   private authInterceptor: AuthInterceptor;
@@ -383,20 +387,30 @@ class ProjectService {
       }
     });
   }
-
-  deleteQuantity(projectId:string, buildingId:string, costhead:CostHead, workitem:WorkItem, item:Item, user:User,
-                 callback:(error: any, result: any)=> void) {
+  deleteQuantity(projectId:string, buildingId:string, costheadId:string, subcategoryId:string, workitemId:string, user:User, item:string, callback:(error: any, result: any)=> void) {
     logger.info('Project service, deleteQuantity has been hit');
     this.buildingRepository.findById(buildingId, (error, building:Building) => {
-      if (error) {
+      if (error
+      ) {
         callback(error, null);
       } else {
         let quantity: Quantity;
-        for(let index = 0; building.costHead.length > index; index++) {
-          if(building.costHead[index].name === costhead) {
-            quantity =  building.costHead[index].workitem[workitem].quantity;
-          }
-        }
+         this.costHeadId = parseInt(costheadId);
+          this.subCategoryId = parseInt(subcategoryId);
+          this.workItemId = parseInt(workitemId);
+              for(let index = 0; building.costHead.length > index; index++) {
+                if (building.costHead[index].rateAnalysisId === this.costHeadId) {
+                  for (let index1 = 0; building.costHead[index].subCategory.length > index1; index1++) {
+                    if (building.costHead[index].subCategory[index1].rateAnalysisId === this.subCategoryId) {
+                      for (let index2 = 0; building.costHead[index].subCategory[index1].workitem.length > index2; index2++) {
+                        if (building.costHead[index].subCategory[index1].workitem[index2].rateAnalysisId === this.workItemId) {
+                          quantity = building.costHead[index].subCategory[index1].workitem[index2].quantity;
+                        }
+                      }
+                    }
+                  }
+                }
+              }
         for(let index = 0; quantity.item.length > index; index ++) {
           if(quantity.item[index].item  === item) {
             quantity.item.splice(index,1);
@@ -409,9 +423,17 @@ class ProjectService {
             callback(error, null);
           } else {
             let quantity: Quantity;
-            for(let index = 0; building.costHead.length > index; index++){
-              if(building.costHead[index].name === costhead) {
-                quantity = building.costHead[index].workitem[workitem].quantity;
+            for(let index = 0; building.costHead.length > index; index++) {
+              if (building.costHead[index].rateAnalysisId === this.costHeadId) {
+                for (let index1 = 0; building.costHead[index].subCategory.length > index1; index1++) {
+                  if (building.costHead[index].subCategory[index1].rateAnalysisId === this.subCategoryId) {
+                    for (let index2 = 0; building.costHead[index].subCategory[index1].workitem.length > index2; index2++) {
+                      if (building.costHead[index].subCategory[index1].workitem[index2].rateAnalysisId === this.workItemId) {
+                        quantity = building.costHead[index].subCategory[index1].workitem[index2].quantity;
+                      }
+                    }
+                  }
+                }
               }
             }
             if(quantity.total === null) {
@@ -425,7 +447,6 @@ class ProjectService {
       }
     });
   }
-
   deleteWorkitem(projectId:string, buildingId:string, costhead:CostHead, workitem:WorkItem, user:User,
                  callback:(error: any, result: any)=> void) {
     logger.info('Project service, deleteWorkitem has been hit');

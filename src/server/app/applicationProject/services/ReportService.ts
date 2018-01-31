@@ -76,6 +76,8 @@ class ReportService {
                     let estimateReport: EstimateReport = new EstimateReport();
                     thumbRule.name = costHeadArray[costHeadIndex].name;
                     estimateReport.name = costHeadArray[costHeadIndex].name;
+                    thumbRule.rateAnalysisId = costHeadArray[costHeadIndex].rateAnalysisId;
+                    estimateReport.rateAnalysisId = costHeadArray[costHeadIndex].rateAnalysisId;
                     if (areaType === 'slabArea') {
                       thumbRuleReport.area = buildings[index].totalSlabArea;
                       estimatedReport.area = buildings[index].totalSlabArea;

@@ -314,32 +314,32 @@ class ProjectController {
     }
   }
 
-  deleteQuantity(req: express.Request, res: express.Response, next: any): void {
-    try {
-      logger.info('Project controller, deleteQuantity has been hit');
-      let user = req.user;
-      let projectId = req.params.id;
-      let buildingId = req.params.buildingid;
-      let costhead = req.params.costhead;
-      let workitem = req.params.workitem;
-      let item = req.params.item;
-      let projectService = new ProjectService();
-      console.log(' workitem => '+ workitem);
-      projectService.deleteQuantity(projectId, buildingId, costhead, workitem, item, user, (error, result) => {
-        if(error) {
-          next(error);
-        } else {
-          logger.info('Delete Quantity '+result);
-          logger.debug('Deleted Quantity of Project ID : '+projectId+', Building ID : '+buildingId+
-            ', CostHead : '+costhead+', Workitem : '+workitem+', Item : '+item);
-          next(new Response(200,result));
-        }
-      });
-    } catch(e) {
-      next(new CostControllException(e.message,e.stack));
-    }
-  }
 
+  deleteQuantity(req: express.Request, res: express.Response, next: any): void {
+  try {
+    logger.info('Project controller, deleteQuantity has been hit');
+    let user = req.user;
+    let projectId = req.params.id;
+    let buildingId = req.params.buildingid;
+    let costheadid = req.params.costheadrateid;
+    let subcategoryid = req.params.subcategoryid;
+    let workitemid = req.params.workitemrateid;
+    let item = req.body.item;
+    let projectservice = new ProjectService();
+    projectservice.deleteQuantity(projectId, buildingId, costheadid, subcategoryid, workitemid, user, item,(error, result) => {
+      if (error) {
+        next(error);
+      } else {
+        logger.info('Delete Quantity ' + result);
+           logger.debug('Deleted Quantity of Project ID : '+projectId+', Building ID : '+buildingId+
+             ', CostHead : '+costheadid+', Workitem : '+workitemid+', Item : '+item);
+        next(new Response(200, result));
+      }
+    });
+  }catch(e) {
+    next(new CostControllException(e.message,e.stack));
+  }
+  }
   deleteWorkitem(req: express.Request, res: express.Response, next: any): void {
     try {
       logger.info('Project controller, deleteWorkitem has been hit');
