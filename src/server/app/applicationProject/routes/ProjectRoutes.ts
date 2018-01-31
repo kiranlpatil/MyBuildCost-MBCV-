@@ -67,7 +67,7 @@ class ProjectRoutes {
     router.delete('/:id/building/:buildingid/quantity/costhead/:costhead/workitem/:workitem/item/:item', this.authInterceptor.requiresAuth,
       this._requestInterceptor.intercept, controller.deleteQuantity, this._responseInterceptor.exit);
 
-    router.get('/:id/building/:buildingid/costhead/:costheadId/subcategory', this.authInterceptor.requiresAuth,
+    router.get('/:id/building/:buildingid/costhead/:costheadId/subcategorylist', this.authInterceptor.requiresAuth,
       this._requestInterceptor.intercept, controller.getSubcategoryByCostHeadId, this._responseInterceptor.exit);
     router.post('/:id/building/:buildingid/costhead/:costheadId/subcategory', this.authInterceptor.requiresAuth,
       this._requestInterceptor.intercept, controller.addSubcategoryToCostHeadId, this._responseInterceptor.exit);
@@ -87,6 +87,8 @@ class ProjectRoutes {
     router.post('/:id/building/:buildingId/costhead/:costheadId/subcategory/:subCategoryId/workitem',
       this.authInterceptor.requiresAuth, this._requestInterceptor.intercept, controller.addWorkitem,
       this._responseInterceptor.exit);
+    router.get('/:id/building/:buildingId/costhead/:costheadId/subcategory', this.authInterceptor.requiresAuth,
+      this._requestInterceptor.intercept, controller.getSubcategory, this._responseInterceptor.exit);
 
     return router;
   }

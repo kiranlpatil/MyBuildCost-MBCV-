@@ -112,6 +112,7 @@ class RateAnalysisService {
             rate = alasql(sql2, [rate, unitData])
             callback(null, rate);
           }
+
         });
       }
     });

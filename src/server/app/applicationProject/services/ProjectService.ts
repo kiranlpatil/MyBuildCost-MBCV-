@@ -681,7 +681,23 @@ class ProjectService {
     });
   }
 
+  getSubcategory(projectId:string, buildingId:string, costheadId:number, user:User, callback:(error: any, result: any)=> void) {
+    logger.info('Project service, getSubcategory has been hit');
+    this.buildingRepository.findById(buildingId, (error, building:Building) => {
+      if (error) {
+        callback(error, null);
+      } else {
+        let subCategory :Array<SubCategory> = null;
+        for(let index = 0; building.costHead.length > index; index++) {
+          if(building.costHead[index].rateAnalysisId === costheadId) {
+            subCategory = building.costHead[index].subCategory;
+          }
+        }
+        callback(null, {data: subCategory, access_token: this.authInterceptor.issueTokenWithUid(user)});
+      }
+    });
   }
+}
 
 Object.seal(ProjectService);
 export = ProjectService;

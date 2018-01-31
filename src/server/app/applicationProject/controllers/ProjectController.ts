@@ -601,5 +601,24 @@ class ProjectController {
     }
   }
 
+  getSubcategory(req: express.Request, res: express.Response, next: any): void {
+    try {
+      logger.info('getsubcategory has been hit');
+      let user = req.user;
+      let projectId = req.params.id;
+      let buildingId = req.params.buildingId;
+      let costheadId = parseInt(req.params.costheadId);
+      let projectService = new ProjectService();
+      projectService.getSubcategory(projectId, buildingId, costheadId, user, (error, result) => {
+        if(error) {
+          next(error);
+        } else {
+          next(new Response(200,result));
+        }
+      });
+    } catch(e) {
+      next(new CostControllException(e.message,e.stack));
+    }
+  }
 }
 export  = ProjectController;
