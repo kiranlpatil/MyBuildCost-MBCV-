@@ -70,12 +70,10 @@ export class CostHeadComponent implements OnInit {
   private compareIndex:number=0;
   private quantityItemsArray: any;
   private rateItemsArray: any;
+  private subcategoryArray : Array<any> = [];
   private rateIArray: any;
   private workItemListArray: any;
   private subcategoryArray : Array = [];
- /* qForm : FormGroup;
-  item: string = '';
-  titleAlert:string = 'This field is required';*/
 
 
   showWorkItemList:boolean=false;
