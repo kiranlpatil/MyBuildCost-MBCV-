@@ -489,18 +489,19 @@ class ProjectController {
       logger.info('Project controller, updateQuantity has been hit');
       let user = req.user;
       let projectId = req.params.id;
-      let buildingId = req.params.buildingid;
-      let costhead = req.params.costhead;
-      let workitem = req.params.workitem;
-      let quantity = req.body as Array<QuantityItem>;
+      let buildingId = req.params.buildingId;
+      let costheadId = req.params.costheadId;
+      let subcategoryId =req.params.subCategoryId;
+      let workitemId = req.params.workitemId;
+      let quantity = req.body.item;
       let projectService = new ProjectService();
-      projectService.updateQuantity(projectId, buildingId, costhead, workitem, quantity, user, (error, result) => {
+      projectService.updateQuantity(projectId, buildingId, costheadId, subcategoryId, workitemId, quantity, user, (error, result) => {
         if(error) {
           next(error);
         } else {
           logger.info('Update Quantity success');
-          logger.debug('Quantity Updated for Project ID : '+projectId+', Building ID : '+buildingId+
-            ', CostHead : '+costhead+', Workitem : '+workitem+', Quantity : '+quantity);
+       /*   logger.debug('Quantity Updated for Project ID : '+projectId+', Building ID : '+buildingId+
+            ', CostHead : '+costhead+', Workitem : '+workitem+', Quantity : '+quantity);*/
           next(new Response(200,result));
         }
       });
