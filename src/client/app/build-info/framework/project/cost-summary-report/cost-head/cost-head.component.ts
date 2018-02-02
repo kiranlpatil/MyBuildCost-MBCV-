@@ -31,9 +31,13 @@ export class CostHeadComponent implements OnInit {
   buildingName: string;
   costHead: string;
   costheadId:number;
+  workItemId: number;
+  itemName: string;
+  subCategoryId: number;
  // costheadId1: number;
   costHeadDetails: any;
   subCategoryDetails: any;
+  costHeadItemSave: any;
   estimatedItem : any;
   currentquantityItem: string;
   currentWorkItem: string;
@@ -93,9 +97,11 @@ export class CostHeadComponent implements OnInit {
 
   onSubmit() { }
 
-  getQuantity(i: number, quantityItems: any, workItem: any) {
+
+  getQuantity(i: number, quantityItems: any, workItem: any ,workitemObjId : number) {
     this.toggleQty = !this.toggleQty;
     this.compareIndex = i;
+    this.workItemId = workitemObjId;
     if (this.toggleQty === true) {
       this.toggleRate = false;
     }
@@ -261,13 +267,17 @@ export class CostHeadComponent implements OnInit {
     return Headings;
   }
 
-  deleteQuantityItemfun(quantityItem: string) {
-    this.currentquantityItem = quantityItem;
-    console.log(this.currentquantityItem);
-  }
 
-  deleteQuantityItem() {
-    this.costHeadService.deleteCostHeadItems(this.costHead, this.workItem, this.currentquantityItem).subscribe(
+ deleteQuantityItem(subCategoryId: number,  quantityItems:any ,itemName: string) {
+   this.itemName = itemName;
+   this.subCategoryId = subCategoryId
+  this.quantityItemsArray = quantityItems.data;
+   //this.currentquantityItem = quantityItem;
+   console.log(  this.itemName);
+ }
+
+  deleteQuantityItemfun() {
+    this.costHeadService.deleteCostHeadItems(parseInt(this.costheadId), this.subCategoryId, this.workItemId,this.quantityItemsArray,this.itemName).subscribe(
       costHeadItemDelete => this.onDeleteCostHeadItemsSuccess(costHeadItemDelete),
       error => this.onDeleteCostHeadItemsFail(error)
     );
@@ -279,7 +289,9 @@ export class CostHeadComponent implements OnInit {
     message.isError = false;
     message.custom_message = Messages.MSG_SUCCESS_DELETE_ITEM;
     this.messageService.message(message);
-    this.getCostHeadComponentDetails(this.projectId, this.costHead);
+    //this.getQuantity(i, this.quantityItemsArray)
+    this.getQuantityTotal(this.quantityItemsArray);
+   // this.getCostHeadComponentDetails(this.projectId, this.costHead);
   }
 
   onDeleteCostHeadItemsFail(error: any) {
@@ -380,8 +392,9 @@ getHeight(quantityItems: any) {
    this.getBreadth(quantityItems);
    }
 
-  updateCostHeadWorkItem() {
-    this.costHeadService.saveCostHeadItems(this.costHead,this.workItem,this.quantityItemsArray).subscribe(
+  updateCostHeadWorkItem(subCategoryId : number, quantityItems : any) {
+    this.quantityItemsArray = quantityItems;
+    this.costHeadService.saveCostHeadItems(parseInt(this.costheadId), subCategoryId, this.workItemId,this.quantityItemsArray).subscribe(
       costHeadItemSave => this.onSaveCostHeadItemsSuccess(costHeadItemSave),
       error => this.onSaveCostHeadItemsFail(error)
     );
@@ -394,7 +407,7 @@ getHeight(quantityItems: any) {
     message.isError = false;
     message.custom_message = Messages.MSG_SUCCESS_SAVED_COST_HEAD_ITEM;
     this.messageService.message(message);
-    this.getCostHeadComponentDetails(this.projectId, this.costHead);
+   // this.getCostHeadComponentDetails(this.projectId, this.costHead);
   }
 
   onSaveCostHeadItemsFail(error: any) {
