@@ -299,7 +299,7 @@ class ProjectController {
       let costheadId =parseInt(req.params.costheadId);
       let subcategoryId =parseInt(req.params.subcategoryId);
       let workitemId =parseInt(req.params.workitemId);
-      let rate : Rate = <Rate> req.body.item;
+      let rate : Rate = <Rate> req.body;
       let projectService = new ProjectService();
       console.log(' workitemId => '+ workitemId);
       projectService.updateRate(projectId, buildingId, costheadId,subcategoryId ,workitemId, rate, user, (error, result) => {

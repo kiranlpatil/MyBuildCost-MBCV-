@@ -330,43 +330,18 @@ class ProjectService {
   getRate(projectId:string, buildingId:string, costheadId:number,subcategoryId:number, workitemId:number, user,
           callback:(error: any, result: any)=> void) {
     logger.info('Project service, getRate has been hit');
-    this.buildingRepository.findById(buildingId, (error, building:Building) => {
+
+    let rateAnalysisServices: RateAnalysisService = new RateAnalysisService();
+    rateAnalysisServices.getRate(workitemId, (error, rateData) => {
       if (error) {
         callback(error, null);
       } else {
-        let rate: Rate;
-        let rateAnalysisId: number;
-        for(let index = 0; building.costHead.length > index; index++) {
-          if(building.costHead[index].rateAnalysisId === costheadId) {
-            for(let indexSubcategory = 0; building.costHead[index].subCategory.length > indexSubcategory; indexSubcategory++) {
-              if (building.costHead[index].subCategory[indexSubcategory].rateAnalysisId === subcategoryId) {
-                for(let indexWorkitem = 0; building.costHead[index].subCategory[indexSubcategory].workitem.length > indexWorkitem
-                  ; indexWorkitem++) {
-                  if (building.costHead[index].subCategory[indexSubcategory].workitem[indexWorkitem].rateAnalysisId === workitemId) {
-                    rate = building.costHead[index].subCategory[indexSubcategory].workitem[indexWorkitem].rate;
-                    rateAnalysisId =building.costHead[index].subCategory[indexSubcategory].workitem[indexWorkitem].rateAnalysisId;
-                  }
-                }
-              }
-            }
-          }
-        }
-        if(rate.total === null && rate.total===0) {
-          let rateAnalysisServices : RateAnalysisService = new RateAnalysisService();
-          rateAnalysisServices.getRate(rateAnalysisId, (error, rateData)=> {
-            if(error) {
-              callback(error, null);
-            }else {
-              rate.item = rateData;
-              for(let index = 0; rate.item.length > index; index ++) {
-                rate.total = rate.item[index].totalAmount + rate.total;
-              }
-              callback(null, {data: rate, access_token: this.authInterceptor.issueTokenWithUid(user)});
-            }
-          });
-        }else {
-          callback(null, {data: rate, access_token: this.authInterceptor.issueTokenWithUid(user)});
-        }
+        let rate :Rate = new Rate()
+        rate.item = rateData;
+        /*for (let index = 0; rate.item.length > index; index++) {
+          rate.total = rate.item[index].totalAmount + rate.total;
+        }*/
+        callback(null, {data: rateData, access_token: this.authInterceptor.issueTokenWithUid(user)});
       }
     });
   }
@@ -400,7 +375,7 @@ class ProjectService {
           if (error) {
             callback(error, null);
           } else {
-            callback(null, {data: result, access_token: this.authInterceptor.issueTokenWithUid(user)});
+            callback(null, {data: rate, access_token: this.authInterceptor.issueTokenWithUid(user)});
           }
         });
       }

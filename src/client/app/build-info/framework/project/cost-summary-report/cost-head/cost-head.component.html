@@ -28,9 +28,10 @@
                     <th width="20%">Qty.</th>
                     <th width="20%">Unit</th>
                     <th width="20%">Rate</th>
-                    <th width="20%">Amount</th>
+                    <th width="10%">Amount</th>
+                    <th width="10%"></th>
                   </tr>
-                  <tr *ngFor="let workitemObj of subCategoryDetails[subCategory].workitem;">
+                  <tr *ngFor="let workitemObj of subCategoryDetails[subCategory].workitem">
                     {{workitemObj.name}}
                     <td>
                       <input *ngIf="workitemObj.quantity.total" [(ngModel)]="workitemObj.quantity.total" id="quantity"  size="10" class="form-control clear">
@@ -41,14 +42,97 @@
                       {{workitemObj.unit}}
                     </td>
                     <td>
-                      <input *ngIf="workitemObj.rate.total" [(ngModel)]="workitemObj.rate.total" id="rate"  size="10" class="form-control clear">
-                      <span *ngIf="workitemObj.rate.total != 0" class="glyphicon glyphicon-pencil"></span>
-                      <button *ngIf="workitemObj.rate.total == 0" type="button"  id="getRate{{i}}">Get Rate</button>
+                      <input *ngIf="workitemObj.rate.total!= 0" [(ngModel)]="workitemObj.rate.total" id="rate"  size="10" class="form-control clear">
+                      <span *ngIf="workitemObj.rate.total != 0" class="glyphicon glyphicon-pencil" (click)="getRateFromDatabase(i,workitemObj.rate.item)"></span>
+                      <button *ngIf="workitemObj.rate.total == 0" type="button"   (click)="getRate(i,workitemObj.rateAnalysisId)">Get Rate</button>
                     </td>
                     <td>
                       {{workitemObj.amount}}
                     </td>
+                    <td><input [(ngModel)]="workitemObj.rate.quantity" id="rateQuantity" class="form-control clear" (change)="onTotalQuantityChange(workitemObj.rate.quantity)" (focus)="getPreviousQuantity(workitemObj.rate.quantity)"/>{{workitemObj.rate.unit}}</td>
                   </tr>
+
+
+                  <!--get rate-->
+
+                  <tr [ngStyle]="(toggleRate==true && compareIndex==i) ? {'display': 'table-row'}:{'display': 'none'}" style="display: none;">
+                    <td colspan="5">
+                      <table class="table">
+                        <thead>
+                        <th>Description</th>
+                        <th>Remarks</th>
+                        <th>Qty.</th>
+                        <th>Unit</th>
+                        <th>Rate/Unit</th>
+                        <th>Amount</th>
+                        </thead>
+                        <tbody>
+                        <tr *ngFor="let rateItem of rateItemsArray;let k = index">
+                          <td>
+                            <input [(ngModel)]="rateItem.item" id="itemdescription" class="form-control clear"/>
+                          </td>
+                          <td>
+                            <input [(ngModel)]="rateItem.remarks" id="itemquantity" class="form-control clear"/>
+                          </td>
+                          <td>
+                            <input [(ngModel)]="rateItem.quantity" id="itemunit" class="form-control clear" (change)="changeQuantity(rateItem.quantity,k)"/>
+                          </td>
+                          <td>
+                            <input [(ngModel)]="rateItem.unit" id="itemrate" class="form-control clear" readonly/>
+                          </td>
+                          <td>
+                            <input [(ngModel)]="rateItem.rate" id="itemamount" class="form-control clear" (change)="changeRate(rateItem.rate,k)"/>
+                          </td>
+                          <td>
+                            <input [(ngModel)]="rateItem.quantity*rateItem.rate" id="totalAmount" class="form-control clear" readonly/>
+                          </td>
+                        </tr>
+
+                        <tr>
+                          <td>
+                            <label>Total</label>
+                          </td>
+                          <td>
+
+                          </td>
+                          <td>
+
+                          </td>
+                          <td>
+
+                          </td>
+                          <td>
+                            {{totalRate}}
+                          </td>
+                          <td>
+                            {{totalAmount}}
+                          </td>
+                        </tr>
+
+                        <tr>
+                          <td>
+
+                          </td>
+                          <td>
+
+                          </td>
+                          <td>
+
+                          </td>
+                          <td>
+
+                          </td>
+                          <td>
+                            <button type="button" class="btn btn-primary" (click)="updateRate(i)">Save</button>
+                          </td>
+                        </tr>
+
+                        </tbody>
+                      </table>
+                    </td>
+                  </tr>
+                  <!--get rate end-->
+
                   </thead>
                 </table>
               </div>
@@ -275,6 +359,29 @@
         </tr>
         </tfoot>
       </table>
+
+
+      <!--Add workitem...-->
+
+      <button type="button" class="btn btn-primary" (click)="showWorkItem()"><span class="glyphicon glyphicon-plus"></span>Add Workitem</button>
+
+
+      <!--<select  *ngIf="showWorkItemList===true" (change)="onChangeWorkItem($event.target.value)">
+        <option *ngFor="let cIn of costIn" [value]="cIn.costInId">{{cIn.costInId}}</option>
+      </select>-->
+
+      <div *ngIf="showWorkItemList==true">
+          <select  (change)="onChangeWorkItem($event.target.value)">
+            <option [value]="selectItem">Select Work Item</option>
+            <option *ngFor="let workItems of workItemListArray" [value]="workItems.name">{{workItems.name}}</option>
+
+          </select>
+      </div>
+
+
+
+      <!--end of Add workitem...-->
+
       <div class="modal fade" id="delete" role="dialog">
         <div class="modal-dialog modal-sm">
           &lt;!&ndash; Modal content&ndash;&gt;
@@ -313,7 +420,7 @@
       </div>
 
 
-    </div>
+    <!--</div>
   </div>-->
 
 </section>

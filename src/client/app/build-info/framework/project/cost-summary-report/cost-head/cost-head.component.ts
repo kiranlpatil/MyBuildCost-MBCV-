@@ -46,7 +46,19 @@ export class CostHeadComponent implements OnInit {
   heightTotal: number = 0;
   totalAmount:number=0;
   totalRate:number=0;
+  totalQuantity:number=0;
   total:number=0;
+  quantityIncrement:number=1;
+  previousTotalQuantity:number=1;
+  totalItemRateQuantity:number=0;
+
+  itemSize:number=0;
+
+
+  quantity:number=0;
+  unit:string='';
+
+  workItemId:number;
   showSubcategoryListvar: boolean = false;
 
   private toggleQty:boolean=false;
@@ -54,10 +66,15 @@ export class CostHeadComponent implements OnInit {
   private compareIndex:number=0;
   private quantityItemsArray: any;
   private rateItemsArray: any;
+  private rateIArray: any;
+  private workItemListArray: any;
   private subcategoryArray : Array = [];
  /* qForm : FormGroup;
   item: string = '';
   titleAlert:string = 'This field is required';*/
+
+
+  showWorkItemList:boolean=false;
 
 
   constructor(private costHeadService : CostHeadService, private activatedRoute : ActivatedRoute, private messageService: MessageService) {
@@ -87,44 +104,87 @@ export class CostHeadComponent implements OnInit {
     this.workItem = workItem;
   }
 
-  getRate(i: number, rateItems: any) {
+  getRate(i: number,workItemId:number) {
     this.toggleRate = !this.toggleRate;
     this.compareIndex = i;
     if (this.toggleRate === true) {
       this.toggleQty = false;
     }
-    this.rateItemsTotal = rateItems.rate.total;
-    this.workItem = rateItems.name;
 
-    if (this.rateItemsTotal === null) {
+    this.workItemId=workItemId;
+    let subCategoryId=this.subCategoryDetails[i].rateAnalysisId;
+  console.log('subCategoryId',+subCategoryId);
+
+    this.costHeadService.getRateItems(this.costheadId, subCategoryId,this.workItemId).subscribe(
+        rateItem => this.onGetRateItemsSuccess(rateItem),
+        error => this.onGetRateItemsFail(error)
+      );
+
+
+    /*this.rateItemsTotal = rateItems.rate.total;
+    this.workItem = rateItems.name;*/
+
+    /*if (this.rateItemsTotal === null) {
 ///:id/building/:buildingid/rate/costhead/:costhead/workitem/:workitem
       console.log('rateItemsTotal is null');
-      this.costHeadService.getRateItems(this.costHead, this.workItem).subscribe(
+      this.costHeadService.getRateItems(this.costheadId, this.workItem).subscribe(
         rateItem => this.onGetRateItemsSuccess(rateItem),
         error => this.onGetRateItemsFail(error)
       );
     } else {
-      this.costHeadService.getRateItems(this.costHead, this.workItem).subscribe(
+      this.costHeadService.getRateItems(this.costheadId, this.workItem).subscribe(
         rateItem => this.onGetRateItemsSuccess(rateItem),
         error => this.onGetRateItemsFail(error)
       );
-    }
+    }*/
   }
 
   onGetRateItemsSuccess(rateItem: any) {
     this.totalAmount=0;
     this.totalRate=0;
+    this.totalQuantity=0;
+
+    this.rateIArray=rateItem.data;
+    this.rateIArray.quantity=rateItem.data.quantity;
+
+    this.rateIArray.unit=rateItem.data.unit;
+    this.quantity=rateItem.data.quantity;
+
+    this.unit=rateItem.data.unit;
     this.rateItemsArray = rateItem.data.item;
     let temp=0;
+
+    this.itemSize=rateItem.data.item.length;
+
     for(let i=0;i<rateItem.data.item.length;i++) {
       this.totalAmount= this.totalAmount+( rateItem.data.item[i].quantity*rateItem.data.item[i].rate);
       this.totalRate= this.totalRate+rateItem.data.item[i].rate;
+      this.totalQuantity=this.totalQuantity+rateItem.data.item[i].quantity;
     }
+    this.rateIArray.total= this.totalAmount/this.totalQuantity;
   }
 
   onGetRateItemsFail(error: any) {
     console.log(error);
   }
+
+  //Rate from DB
+  getRateFromDatabase(i:number,item:any){
+    this.toggleRate = !this.toggleRate;
+    this.compareIndex = i;
+    if (this.toggleRate === true) {
+      this.toggleQty = false;
+    }
+
+    /*this.workItemId=workItemId;
+    let subCategoryId=this.subCategoryDetails[i].rateAnalysisId;*/
+    console.log('item',+item);
+    this.rateItemsArray=item;
+
+
+   /* this.onGetRateItemsSuccess(rateItem)*/
+  }
+
 
   getItemRates(workItem: any, costHead: string) {
     console.log('WorkItem : ' + workItem);
@@ -344,22 +404,115 @@ getHeight(quantityItems: any) {
   changeQuantity(quantity:string,k:number) {
     this.totalAmount=0;
     this.totalRate=0;
+    this.totalQuantity=0;
     this.rateItemsArray[k].quantity=parseInt(quantity);
     for(let i=0;i<this.rateItemsArray.length;i++) {
       this.totalAmount= this.totalAmount+( this.rateItemsArray[i].quantity*this.rateItemsArray[i].rate);
       this.totalRate= this.totalRate+this.rateItemsArray[i].rate;
+      this.totalQuantity=this.totalQuantity+this.rateItemsArray[i].quantity;
     }
+    this.rateIArray.total= this.totalAmount/this.totalQuantity;
 }
 
 
   changeRate(rate:string, k:number) {
     this.totalAmount=0;
     this.totalRate=0;
+    this.totalQuantity=0;
     this.rateItemsArray[k].rate= parseInt(rate);
+    console.log('k'+k);
     for(let i=0;i<this.rateItemsArray.length;i++) {
       this.totalAmount= this.totalAmount+( this.rateItemsArray[i].quantity*this.rateItemsArray[i].rate);
       this.totalRate= this.totalRate+this.rateItemsArray[i].rate;
+      this.totalQuantity=this.totalQuantity+this.rateItemsArray[i].quantity;
     }
+    this.rateIArray.total= this.totalAmount/this.totalQuantity;
+  }
+
+  showWorkItem() {
+    this.showWorkItemList=true;
+    let costheadId=77;
+    let subCategoryId=0;
+    this.costHeadService.showWorkItem(costheadId,subCategoryId).subscribe(
+      workItemList => this.onshowWorkItemSuccess(workItemList),
+      error => this.onshowWorkItemFail(error)
+    );
+  }
+
+
+  onshowWorkItemSuccess(workItemList:any) {
+  this.workItemListArray=workItemList.data;
+  }
+
+  onshowWorkItemFail(error:any) {
+    console.log('onshowWorkItemFail : '+error);
+  }
+
+  onChangeWorkItem(selectedWorkItem:any) {
+    console.log('selectedWorkItem : '+selectedWorkItem);
+    this.showWorkItemList=false;
+
+    let costheadId=77;
+    let subCategoryId=0;
+    this.costHeadService.addWorkItem(costheadId,subCategoryId,selectedWorkItem).subscribe(
+      workItemList => this.onaddWorkItemSuccess(workItemList),
+      error => this.onaddWorkItemFail(error)
+    );
+  }
+
+  onaddWorkItemSuccess(workItemList:any) {
+    this.workItemListArray=workItemList.data;
+  }
+
+  onaddWorkItemFail(error:any) {
+    console.log('onshowWorkItemFail : '+error);
+  }
+
+  updateRate(i:number) {
+    let subCategoryId=this.subCategoryDetails[i].rateAnalysisId;
+    console.log('subCategoryId',+subCategoryId);
+
+
+    this.rateIArray.total=this.totalAmount/this.totalQuantity;
+    this.costHeadService.updateRateItems(this.costheadId, subCategoryId,this.workItemId,this.rateIArray).subscribe(
+      rateItem => this.onUpdateRateItemsSuccess(rateItem),
+      error => this.onUpdateRateItemsFail(error)
+    );
+  }
+
+  onUpdateRateItemsSuccess(rateItem: any) {
+    console.log('Rate updated successfully');
+  }
+
+  onUpdateRateItemsFail(error: any) {
+    console.log(error);
+  }
+
+  getPreviousQuantity(previousTotalQuantity:number) {
+    console.log('previousTotalQuantity : '+previousTotalQuantity);
+    this.previousTotalQuantity=previousTotalQuantity;
+  }
+
+  onTotalQuantityChange(newTotalQuantity:number) {
+    console.log('newTotalQuantity : '+newTotalQuantity);
+    this.quantityIncrement=newTotalQuantity/this.previousTotalQuantity;
+    console.log('quantityIncrement : '+this.quantityIncrement);
+
+    this.totalAmount=0;
+    this.totalRate=0;
+    this.totalQuantity=0;
+
+    for(let i=0;i<this.itemSize;i++) {
+      this.rateItemsArray[i].quantity=this.rateItemsArray[i].quantity*this.quantityIncrement;
+      this.totalAmount= this.totalAmount+( this.rateItemsArray[i].quantity*this.rateItemsArray[i].rate);
+      this.totalRate= this.totalRate+this.rateItemsArray[i].rate;
+      this.totalQuantity=this.totalQuantity+ this.rateItemsArray[i].quantity;
+    }
+
+    this.totalItemRateQuantity=newTotalQuantity
+    this.rateIArray.quantity=newTotalQuantity;
+    this.rateIArray.total= this.totalAmount/this.totalQuantity;
+
   }
 
   deleteSubcategory(subcategory : any) {
