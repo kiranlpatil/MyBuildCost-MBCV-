@@ -16,7 +16,7 @@ import { CostHeadService } from './cost-head.service';
 import { CustomHttp } from '../../../../../shared/services/http/custom.http';
 import { FormGroup } from '@angular/forms';
 import { Project } from '../../../model/project';
-
+import { Rate } from '../../../model/rate';
 
 @Component({
   moduleId: module.id,
@@ -74,7 +74,6 @@ export class CostHeadComponent implements OnInit {
   private subcategoryArray : Array<any> = [];
   private rateIArray: any;
   private workItemListArray: any;
-  private subcategoryArray : Array = [];
 
 
   showWorkItemList:boolean=false;
@@ -156,8 +155,9 @@ export class CostHeadComponent implements OnInit {
   }
 
   //Rate from DB
-  getRateFromDatabase(i:number,itemArray:any){
+  getRateFromDatabase(i:number,itemArray:any, workItemRateAnalysisId : number) {
     this.toggleRate = !this.toggleRate;
+    this.workItemId = workItemRateAnalysisId;
     this.compareIndex = i;
     if (this.toggleRate === true) {
       this.toggleQty = false;
@@ -513,6 +513,7 @@ getHeight(quantityItems: any) {
     message.isError = false;
     message.custom_message = Messages.MSG_SUCCESS_UPDATE_RATE;
     this.messageService.message(message);
+    this.getSubCategoryDetails(this.projectId, this.costheadId);
   }
 
   onUpdateRateItemsFail(error: any) {

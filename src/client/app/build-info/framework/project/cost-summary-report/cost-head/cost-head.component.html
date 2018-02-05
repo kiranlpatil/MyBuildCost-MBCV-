@@ -44,7 +44,7 @@
                     </td>
                     <td>
                       <input *ngIf="workitemObj.rate.total!= 0" [(ngModel)]="workitemObj.rate.total" id="rate"  size="10" class="form-control clear">
-                      <span *ngIf="workitemObj.rate.total != 0" class="glyphicon glyphicon-pencil" (click)="getRateFromDatabase(i,workitemObj.rate)"></span>
+                      <span *ngIf="workitemObj.rate.total != 0" class="glyphicon glyphicon-pencil" (click)="getRateFromDatabase(i,workitemObj.rate,workitemObj.rateAnalysisId)"></span>
                       <button *ngIf="workitemObj.rate.total == 0" type="button"   (click)="getRate(i,workitemObj.rateAnalysisId)">Get Rate</button>
                     </td>
                     <td>
@@ -138,8 +138,7 @@
                         </tr>
                         </tbody>
                       </table>
-                 <!--     &lt;!&ndash;<bi-cost-head-get-quantity [quantityItems]="workitemObj.quantity.item" ></bi-cost-head-get-quantity>&ndash;&gt;
-                 -->   </td>
+         </td>
                   </tr>
 
 
@@ -248,6 +247,17 @@
         </div>
       </div>
 
+    </div>
+
+    <div class="col-md-12" *ngIf="showSubcategoryListvar">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+          <select (change)="onSelectedAddSubCategory($event.target.value)">
+            <option [value]="selectItem">Select Subcategory</option>
+            <option *ngFor="let subCategoryObj of subcategoryArray" [value]="subCategoryObj.rateAnalysisId">{{subCategoryObj.subCategory}}</option>
+          </select>
+        </div>
+      </div>
     </div>
     <button type="button" class="btn btn-primary" (click)="showSubcategoryList()"><span class="glyphicon glyphicon-plus"></span>Add Subcategory</button>
     </div>

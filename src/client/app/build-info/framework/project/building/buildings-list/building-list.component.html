@@ -77,14 +77,16 @@
 
               <a href="#subCategory{{i}}" data-toggle="collapse">{{costHead.name}}</a>
 
-                <div id="subCategory{{i}}" class="collapse" *ngFor="let subcategory of costHead.subCategory">
+              <div id="subCategory{{i}}" class="collapse">
+                <div *ngFor="let subcategory of costHead.subCategory">
 
-                  <input type="checkbox" [checked]="(costHead.active && subcategory.active)" (change)="subcategory.active = !subcategory.active" />
-                  {{subcategory.name}}
-                      <div *ngFor="let workitem of subcategory.workitem">
-                        <input type="checkbox" [checked]="(costHead.active && subcategory.active && workitem.active)" (change)="workitem.active = !workitem.active" />{{workitem.name}}
-                      </div>
+                    <input type="checkbox" [checked]="(costHead.active && subcategory.active)" (change)="subcategory.active = !subcategory.active" />
+                    {{subcategory.name}}
+                        <div *ngFor="let workitem of subcategory.workitem">
+                          <input type="checkbox" [checked]="(costHead.active && subcategory.active && workitem.active)" (change)="workitem.active = !workitem.active" />{{workitem.name}}
+                        </div>
                 </div>
+              </div>
             </div>
         </div>
         <div class="modal-footer">
