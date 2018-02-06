@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit , OnChanges} from '@angular/core';
 import { Router , ActivatedRoute } from '@angular/router';
 import { CostSummaryPipe } from './../cost-summary.pipe';
 import  { FormBuilder, Validators } from '@angular/forms';
@@ -25,7 +25,7 @@ import { Rate } from '../../../model/rate';
   templateUrl: 'cost-head.component.html'
 })
 
-export class CostHeadComponent implements OnInit {
+export class CostHeadComponent implements OnInit, OnChanges {
   projectId : string;
   buildingId: string;
   buildingName: string;
@@ -75,6 +75,7 @@ export class CostHeadComponent implements OnInit {
   private subcategoryArray : Array<any> = [];
   private rateIArray: any;
   private workItemListArray: any;
+  private subcategoryListArray : Array<any> = [];
 
 
   showWorkItemList:boolean=false;
@@ -90,8 +91,15 @@ export class CostHeadComponent implements OnInit {
       this.costHead = params['costHeadName'];
       let costheadIdParams = params['costHeadId'];
       this.costheadId = parseInt(costheadIdParams);
+      SessionStorageService.setSessionValue(SessionStorage.CURRENT_COST_HEAD_ID,this.costheadId);
       this.getSubCategoryDetails(this.projectId, this.costheadId);
     });
+  }
+
+  ngOnChanges(changes: any) {
+    if (changes.subcategoryListArray.currentValue !== undefined) {
+      this.subcategoryListArray = changes.subcategoryListArray.currentValue;
+    }
   }
 
   onSubmit() { }
@@ -101,6 +109,7 @@ export class CostHeadComponent implements OnInit {
     this.toggleQty = !this.toggleQty;
     this.compareIndex = i;
     this.workItemId = workitemObjId;
+    SessionStorageService.setSessionValue(SessionStorage.CURRENT_WORKITEM_ID,workitemObjId);
     if (this.toggleQty === true) {
       this.toggleRate = false;
     }
@@ -286,7 +295,7 @@ export class CostHeadComponent implements OnInit {
  }
 
   deleteQuantityItemfun() {
-    this.costHeadService.deleteCostHeadItems(parseInt(this.costheadId), this.subCategoryId, this.workItemId,this.quantityItemsArray,this.itemName).subscribe(
+    this.costHeadService.deleteCostHeadItems(this.costheadId, this.subCategoryId, this.workItemId,this.quantityItemsArray,this.itemName).subscribe(
       costHeadItemDelete => this.onDeleteCostHeadItemsSuccess(costHeadItemDelete),
       error => this.onDeleteCostHeadItemsFail(error)
     );
@@ -602,6 +611,10 @@ getHeight(quantityItems: any) {
 
   onAddSubCategoryFail(error : any) {
     console.log('building error : '+ JSON.stringify(error));
+  }
+
+  refreshDataList() {
+    this.getSubCategoryDetails(this.projectId, this.costheadId);
   }
 
 }

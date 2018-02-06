@@ -243,6 +243,8 @@ export class SessionStorage {
   public static VERIFY_CHANGE_PHONE_VALUE = 'verify_change_phone_value';
   public static CURRENT_PROJECT = 'current_project_id';
   public static CURRENT_BUILDING = 'current_building_id';
+  public static CURRENT_COST_HEAD_ID = 'current_cost_head_id';
+  public static CURRENT_WORKITEM_ID = 'current_workitem_id';
 }
 
 export class LocalStorage {
