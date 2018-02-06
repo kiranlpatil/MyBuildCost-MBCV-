@@ -147,8 +147,8 @@ export class Messages {
   public static CONTACT_US_EMAIL_1 = 'sales@techprimelab.com';
   public static CONTACT_US_EMAIL_2 = 'careers@techprimelab.com';
   public static MSG_EMAIL_VERIFICATION_HEADING = 'Your email is updated successfully.';
-  public static MSG_EMAIL_VERIFICATION_MESSAGE = 'Kindly click on SIGN IN to use JobMosis.';
-  public static MSG_ACTIVATE_USER_HEADING = 'Congratulations! Welcome To JobMosis.';
+  public static MSG_EMAIL_VERIFICATION_MESSAGE = 'Kindly click on SIGN IN to use BuildInfo.';
+  public static MSG_ACTIVATE_USER_HEADING = 'Congratulations! Welcome To BuildInfo.';
   public static MSG_ACTIVATE_USER_SUB_HEADING = 'You can now find candidates using the highly accurate, simpler, faster and powerful solution.';
   public static MSG_ACTIVATE_USER_MESSAGE = 'Your account has been created successfully. Kindly click Sign In.';
   public static MSG_VERIFICATION_EMAIL = 'Your account has been created successfully. Kindly click Sign In.';
