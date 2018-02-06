@@ -9,6 +9,7 @@ class WorkItem {
   unit: string;
   rate: Rate;
   amount: number;
+  remarks: string;
   constructor(name:string, rateAnalysisId:number) {
     this.name = name;
     this.rateAnalysisId = rateAnalysisId;
@@ -16,6 +17,7 @@ class WorkItem {
     this.rate = new Rate();
     this.amount = 0;
     this.unit = 'sqft';
+    this.remarks = '';
   }
 }
 export = WorkItem;
