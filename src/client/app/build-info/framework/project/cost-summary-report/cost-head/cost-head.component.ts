@@ -17,6 +17,7 @@ import { CustomHttp } from '../../../../../shared/services/http/custom.http';
 import { FormGroup } from '@angular/forms';
 import { Project } from '../../../model/project';
 import { Rate } from '../../../model/rate';
+import { CommonService } from '../../../../../shared/services/common.service';
 
 @Component({
   moduleId: module.id,
@@ -73,6 +74,7 @@ export class CostHeadComponent implements OnInit, OnChanges {
   private quantityItemsArray: any;
   private rateItemsArray: any;
   private subcategoryArray : Array<any> = [];
+  private subcategoryArrayList : Array<any> = [];
   private rateIArray: any;
   private workItemListArray: any;
   private subcategoryListArray : Array<any> = [];
@@ -81,7 +83,8 @@ export class CostHeadComponent implements OnInit, OnChanges {
   showWorkItemList:boolean=false;
 
 
-  constructor(private costHeadService : CostHeadService, private activatedRoute : ActivatedRoute, private messageService: MessageService) {
+  constructor(private costHeadService : CostHeadService, private activatedRoute : ActivatedRoute
+              , private messageService: MessageService, private commonService : CommonService) {
     }
 
   ngOnInit() {
@@ -199,6 +202,9 @@ export class CostHeadComponent implements OnInit, OnChanges {
 
   OnGetSubCategorySuccess(subCategoryDetail: any) {
     this.subCategoryDetails = subCategoryDetail.data;
+    if(this.subCategoryDetails.length !== 0) {
+      this.subcategoryArray = this.commonService.removeDuplicateItmes(this.subcategoryArrayList, this.subCategoryDetails);
+    }
     console.log(this.subCategoryDetails);
   }
 
@@ -338,13 +344,16 @@ getHeight(quantityItems: any) {
     this.quantityTotal = 0;
     this.quantityItemsArray = quantityItems;
     for(let i=0;i<this.quantityItemsArray.length;i++) {
-      if(this.quantityItemsArray[i].length === undefined || this.quantityItemsArray[i].length === 'NAN' || this.quantityItemsArray[i].length === null) {
+      if(this.quantityItemsArray[i].length === undefined || this.quantityItemsArray[i].length === 'NAN'
+        || this.quantityItemsArray[i].length === null) {
         var q1 = this.quantityItemsArray[i].height;
         var q2 = this.quantityItemsArray[i].breadth;
-      } else if(this.quantityItemsArray[i].height === undefined || this.quantityItemsArray[i].height === 'NAN' || this.quantityItemsArray[i].height === null) {
+      } else if(this.quantityItemsArray[i].height === undefined || this.quantityItemsArray[i].height === 'NAN'
+        || this.quantityItemsArray[i].height === null) {
         q1 = this.quantityItemsArray[i].length;
         q2 = this.quantityItemsArray[i].breadth;
-      } else if(this.quantityItemsArray[i].breadth === undefined || this.quantityItemsArray[i].breadth === 'NAN' || this.quantityItemsArray[i].breadth === null) {
+      } else if(this.quantityItemsArray[i].breadth === undefined || this.quantityItemsArray[i].breadth === 'NAN'
+        || this.quantityItemsArray[i].breadth === null) {
         q1 = this.quantityItemsArray[i].length;
         q2 = this.quantityItemsArray[i].height;
       } else {
@@ -366,7 +375,8 @@ getHeight(quantityItems: any) {
 
   updateCostHeadWorkItem(subCategoryId : number, quantityItems : any) {
     this.quantityItemsArray = quantityItems;
-    this.costHeadService.saveCostHeadItems(parseInt(this.costheadId), subCategoryId, this.workItemId,this.quantityItemsArray).subscribe(
+    this.costHeadService.saveCostHeadItems(this.costheadId, subCategoryId,
+      this.workItemId,this.quantityItemsArray).subscribe(
       costHeadItemSave => this.onSaveCostHeadItemsSuccess(costHeadItemSave),
       error => this.onSaveCostHeadItemsFail(error)
     );
@@ -505,7 +515,7 @@ getHeight(quantityItems: any) {
       this.totalQuantity=this.totalQuantity+ this.rateItemsArray[i].quantity;
     }
 
-    this.totalItemRateQuantity=newTotalQuantity
+    this.totalItemRateQuantity=newTotalQuantity;
     this.rateIArray.quantity=newTotalQuantity;
     this.rateIArray.total= this.totalAmount/this.totalQuantity;
 
@@ -535,7 +545,8 @@ getHeight(quantityItems: any) {
   }
 
   onGetSubCategoryListSuccess(subcategoryList : any) {
-    this.subcategoryArray = subcategoryList.data;
+    this.subcategoryArrayList = subcategoryList.data;
+    this.subcategoryArray = this.commonService.removeDuplicateItmes(this.subcategoryArrayList, this.subCategoryDetails);
     this.showSubcategoryListvar = true;
   }
 
