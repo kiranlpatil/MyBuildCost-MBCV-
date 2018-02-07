@@ -1,8 +1,8 @@
-import { Component, OnInit , OnChanges} from '@angular/core';
+import { Component, OnInit , OnChanges } from '@angular/core';
 import { Router , ActivatedRoute } from '@angular/router';
 import { CostSummaryPipe } from './../cost-summary.pipe';
 import  { FormBuilder, Validators } from '@angular/forms';
-
+import * as lodsh from 'lodash';
 import {
   AppSettings,
   Label,
@@ -18,6 +18,7 @@ import { FormGroup } from '@angular/forms';
 import { Project } from '../../../model/project';
 import { Rate } from '../../../model/rate';
 import { CommonService } from '../../../../../shared/services/common.service';
+import SubCategory = require('../../../../../../../server/app/applicationProject/dataaccess/model/SubCategory');
 
 @Component({
   moduleId: module.id,
@@ -35,7 +36,6 @@ export class CostHeadComponent implements OnInit, OnChanges {
   workItemId: number;
   itemName: string;
   subCategoryId: number;
- // costheadId1: number;
   costHeadDetails: any;
   subCategoryDetails: any;
   costHeadItemSave: any;
@@ -58,14 +58,9 @@ export class CostHeadComponent implements OnInit, OnChanges {
   totalItemRateQuantity:number=0;
   subcategoryRateAnalysisId:number;
   comapreWorkItemRateAnalysisId:number;
-
   itemSize:number=0;
-
-
   quantity:number=0;
   unit:string='';
-
-  workItemId:number;
   showSubcategoryListvar: boolean = false;
 
   private toggleQty:boolean=false;
@@ -78,9 +73,9 @@ export class CostHeadComponent implements OnInit, OnChanges {
   private rateIArray: any;
   private workItemListArray: any;
   private subcategoryListArray : Array<any> = [];
-
-
-  showWorkItemList:boolean=false;
+  private alteredArrayList : Array<any> = [];
+  private showWorkItemList:boolean=false;
+  private subCategoryObj: SubCategory;
 
 
   constructor(private costHeadService : CostHeadService, private activatedRoute : ActivatedRoute
@@ -202,10 +197,8 @@ export class CostHeadComponent implements OnInit, OnChanges {
 
   OnGetSubCategorySuccess(subCategoryDetail: any) {
     this.subCategoryDetails = subCategoryDetail.data;
-    if(this.subCategoryDetails.length !== 0) {
-      this.subcategoryArray = this.commonService.removeDuplicateItmes(this.subcategoryArrayList, this.subCategoryDetails);
-    }
-    console.log(this.subCategoryDetails);
+    let subcategoryList = lodsh.clone(this.subcategoryArrayList);
+    this.subcategoryArray = this.commonService.removeDuplicateItmes(subcategoryList, this.subCategoryDetails);
   }
 
   OnGetSubCategoryFail(error: any) {
@@ -520,8 +513,12 @@ getHeight(quantityItems: any) {
     this.rateIArray.total= this.totalAmount/this.totalQuantity;
 
   }
+  setCurrentSubcategory(subcategory : any) {
+    this.subCategoryObj = subcategory;
+  }
 
-  deleteSubcategory(subcategory : any) {
+  deleteSubcategory() {
+    let subcategory = this.subCategoryObj;
     this.costHeadService.deleteSubcategoryFromCostHead(this.costheadId, subcategory).subscribe(
       deleteSubcategory => this.deleteSubcategorySuccess(deleteSubcategory),
       error => this.deleteSubcategoryFail(error)
@@ -529,7 +526,6 @@ getHeight(quantityItems: any) {
   }
 
   deleteSubcategorySuccess(deleteSubcategory : any) {
-    console.log('deleteSubcategory : '+JSON.stringify(deleteSubcategory));
     this.getSubCategoryDetails(this.projectId, this.costheadId);
   }
 
@@ -546,7 +542,8 @@ getHeight(quantityItems: any) {
 
   onGetSubCategoryListSuccess(subcategoryList : any) {
     this.subcategoryArrayList = subcategoryList.data;
-    this.subcategoryArray = this.commonService.removeDuplicateItmes(this.subcategoryArrayList, this.subCategoryDetails);
+    let subCategoryList = lodsh.cloneDeep(subcategoryList.data);
+    this.subcategoryArray = this.commonService.removeDuplicateItmes(subCategoryList, this.subCategoryDetails);
     this.showSubcategoryListvar = true;
   }
 

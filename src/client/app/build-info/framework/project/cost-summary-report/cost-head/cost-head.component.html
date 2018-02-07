@@ -17,7 +17,7 @@
                     Workitems
                   </a>
                  {{ subCategoryDetails[subCategory].amount }}
-                  <span *ngIf="subCategoryDetails[subCategory].rateAnalysisId !== 0"  data-toggle="modal" data-target="#deleteSubcategory"  class="glyphicon glyphicon-trash"></span>
+                  <span *ngIf="subCategoryDetails[subCategory].rateAnalysisId !== 0"  data-toggle="modal" data-target="#deleteSubcategory" (click)="setCurrentSubcategory(subCategoryDetails[subCategory])"  class="glyphicon glyphicon-trash"></span>
               </div>
             </div>
             <div id="collapse{{i}}" class="panel-collapse collapse">
@@ -107,7 +107,7 @@
               <p><small>You Want to Delete Subcategory</small></p>
             </div>
             <div class="modal-footer">
-              <button class="btn btn-primary" type="button" (click)="deleteSubcategory(subCategoryDetails[subCategory])"data-dismiss="modal">Yes</button>
+              <button class="btn btn-primary" type="button" (click)="deleteSubcategory()"data-dismiss="modal">Yes</button>
               <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
             </div>
           </div>
