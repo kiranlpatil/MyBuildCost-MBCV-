@@ -17,6 +17,7 @@ import { CustomHttp } from '../../../../../shared/services/http/custom.http';
 import { FormGroup } from '@angular/forms';
 import { Project } from '../../../model/project';
 import { Rate } from '../../../model/rate';
+import { CommonService } from '../../../../../shared/services/common.service';
 
 @Component({
   moduleId: module.id,
@@ -73,6 +74,7 @@ export class CostHeadComponent implements OnInit, OnChanges {
   private quantityItemsArray: any;
   private rateItemsArray: any;
   private subcategoryArray : Array<any> = [];
+  private subcategoryArrayList : Array<any> = [];
   private rateIArray: any;
   private workItemListArray: any;
   private subcategoryListArray : Array<any> = [];
@@ -81,7 +83,8 @@ export class CostHeadComponent implements OnInit, OnChanges {
   showWorkItemList:boolean=false;
 
 
-  constructor(private costHeadService : CostHeadService, private activatedRoute : ActivatedRoute, private messageService: MessageService) {
+  constructor(private costHeadService : CostHeadService, private activatedRoute : ActivatedRoute
+              , private messageService: MessageService, private commonService : CommonService) {
     }
 
   ngOnInit() {
@@ -126,6 +129,7 @@ export class CostHeadComponent implements OnInit, OnChanges {
     }
 
     this.workItemId=workItemId;
+    SessionStorageService.setSessionValue(SessionStorage.CURRENT_WORKITEM_ID,workItemId);
     let subCategoryId=this.subCategoryDetails[i].rateAnalysisId;
 
     this.costHeadService.getRateItems(this.costheadId, subCategoryId,this.workItemId).subscribe(
@@ -147,9 +151,6 @@ export class CostHeadComponent implements OnInit, OnChanges {
 
     this.unit=rateItem.data.unit;
     this.rateItemsArray = rateItem.data.item;
-    let temp=0;
-
-    this.itemSize=rateItem.data.item.length;
 
     for(let i=0;i<rateItem.data.item.length;i++) {
       this.totalAmount= this.totalAmount+( rateItem.data.item[i].quantity*rateItem.data.item[i].rate);
@@ -166,46 +167,24 @@ export class CostHeadComponent implements OnInit, OnChanges {
   //Rate from DB
   getRateFromDatabase(i:number,itemArray:any, workItemRateAnalysisId : number) {
     this.toggleRate = !this.toggleRate;
-    this.workItemId = workItemRateAnalysisId;
+    SessionStorageService.setSessionValue(SessionStorage.CURRENT_WORKITEM_ID, workItemRateAnalysisId);
     this.compareIndex = i;
     if (this.toggleRate === true) {
       this.toggleQty = false;
     }
-
-    /*this.workItemId=workItemId;
-    let subCategoryId=this.subCategoryDetails[i].rateAnalysisId;*/
-    console.log('item',+itemArray);
     this.rateItemsArray=itemArray.item;
-    let rate = {
-      item : itemArray.item,
-      quantity: itemArray.quantity,
-      total : itemArray.total
-    };
-    /*this.rateIArray.item=itemArray.item;
-    this.rateIArray.quantity=itemArray.quantity;
-    this.rateIArray.total=itemArray.total;*/
-    //TODO with actualll OOP
+    let rate = new Rate();
+    rate.item = itemArray.item;
+    rate.total = itemArray.total;
     this.rateIArray = rate;
-
-
-
     this.totalAmount=0;
     this.totalRate=0;
     this.totalQuantity=0;
 
-
-    this.quantity=this.rateIArray.quantity;
-    this.rateItemsArray = this.rateIArray.item;
-    let temp=0;
-    this.itemSize=this.rateIArray.item.length;
-
     for(let i=0;i<this.rateIArray.item.length;i++) {
       this.totalAmount= this.totalAmount+( this.rateIArray.item[i].quantity*this.rateIArray.item[i].rate);
       this.totalRate= this.totalRate+this.rateIArray.item[i].rate;
-      this.totalQuantity=this.totalQuantity+this.rateIArray.item[i].quantity;
     }
-
-   /* this.onGetRateItemsSuccess(rateItem)*/
   }
 
 
@@ -223,6 +202,9 @@ export class CostHeadComponent implements OnInit, OnChanges {
 
   OnGetSubCategorySuccess(subCategoryDetail: any) {
     this.subCategoryDetails = subCategoryDetail.data;
+    if(this.subCategoryDetails.length !== 0) {
+      this.subcategoryArray = this.commonService.removeDuplicateItmes(this.subcategoryArrayList, this.subCategoryDetails);
+    }
     console.log(this.subCategoryDetails);
   }
 
@@ -264,7 +246,6 @@ export class CostHeadComponent implements OnInit, OnChanges {
       message.custom_message = Messages.MSG_SUCCESS_DELETE_COSTHEAD_WORKITEM;
       this.messageService.message(message);
       this.getCostHeadComponentDetails(this.projectId, this.costHead);
-      /* this.costSummaryService.onCostHeadUpdate(costHeadDetail);*/
     }
   }
 
@@ -309,9 +290,7 @@ export class CostHeadComponent implements OnInit, OnChanges {
     message.isError = false;
     message.custom_message = Messages.MSG_SUCCESS_DELETE_ITEM;
     this.messageService.message(message);
-    //this.getQuantity(i, this.quantityItemsArray)
     this.getQuantityTotal(this.quantityItemsArray);
-   // this.getCostHeadComponentDetails(this.projectId, this.costHead);
   }
 
   onDeleteCostHeadItemsFail(error: any) {
@@ -332,29 +311,8 @@ export class CostHeadComponent implements OnInit, OnChanges {
 
     };
     this.quantityItemsArray.push(quantity);
-    /*this.costHeadService.addCostHeadItems(this.costHead,this.workItem,body).subscribe(
-      costHeadItemAdd => this.onAddCostHeadItemsSuccess(costHeadItemAdd),
-      error => this.onAddCostHeadItemsFail(error)
-    );*/
   }
 
-  /*
-    onAddCostHeadItemsSuccess(costHeadItemAdd : any) {
-      this.quantityItemsArray=costHeadItemAdd.data.item;
-      var message = new Message();
-      message.isError = false;
-      message.custom_message = Messages.MSG_SUCCESS_ADD_ITEM;
-      this.messageService.message(message);
-      this.getCostHeadComponentDetails(this.projectId,this.costHead);
-    }
-
-  onAddCostHeadItemsFail(error : any) {
-    console.log(error);
-    var message = new Message();
-    message.isError = false;
-    message.custom_message = Messages.MSG_FAIL_ADD_ITEM + error.err_msg;
-    this.messageService.message(message);
-  }*/
   getNo(quantityItems : any) {
   this.quanitytNumbersTotal =0;
     for(let i=0;i<this.quantityItemsArray.length;i++) {
@@ -386,13 +344,16 @@ getHeight(quantityItems: any) {
     this.quantityTotal = 0;
     this.quantityItemsArray = quantityItems;
     for(let i=0;i<this.quantityItemsArray.length;i++) {
-      if(this.quantityItemsArray[i].length === undefined || this.quantityItemsArray[i].length === 'NAN' || this.quantityItemsArray[i].length === null) {
+      if(this.quantityItemsArray[i].length === undefined || this.quantityItemsArray[i].length === 'NAN'
+        || this.quantityItemsArray[i].length === null) {
         var q1 = this.quantityItemsArray[i].height;
         var q2 = this.quantityItemsArray[i].breadth;
-      } else if(this.quantityItemsArray[i].height === undefined || this.quantityItemsArray[i].height === 'NAN' || this.quantityItemsArray[i].height === null) {
+      } else if(this.quantityItemsArray[i].height === undefined || this.quantityItemsArray[i].height === 'NAN'
+        || this.quantityItemsArray[i].height === null) {
         q1 = this.quantityItemsArray[i].length;
         q2 = this.quantityItemsArray[i].breadth;
-      } else if(this.quantityItemsArray[i].breadth === undefined || this.quantityItemsArray[i].breadth === 'NAN' || this.quantityItemsArray[i].breadth === null) {
+      } else if(this.quantityItemsArray[i].breadth === undefined || this.quantityItemsArray[i].breadth === 'NAN'
+        || this.quantityItemsArray[i].breadth === null) {
         q1 = this.quantityItemsArray[i].length;
         q2 = this.quantityItemsArray[i].height;
       } else {
@@ -414,7 +375,8 @@ getHeight(quantityItems: any) {
 
   updateCostHeadWorkItem(subCategoryId : number, quantityItems : any) {
     this.quantityItemsArray = quantityItems;
-    this.costHeadService.saveCostHeadItems(parseInt(this.costheadId), subCategoryId, this.workItemId,this.quantityItemsArray).subscribe(
+    this.costHeadService.saveCostHeadItems(this.costheadId, subCategoryId,
+      this.workItemId,this.quantityItemsArray).subscribe(
       costHeadItemSave => this.onSaveCostHeadItemsSuccess(costHeadItemSave),
       error => this.onSaveCostHeadItemsFail(error)
     );
@@ -553,7 +515,7 @@ getHeight(quantityItems: any) {
       this.totalQuantity=this.totalQuantity+ this.rateItemsArray[i].quantity;
     }
 
-    this.totalItemRateQuantity=newTotalQuantity
+    this.totalItemRateQuantity=newTotalQuantity;
     this.rateIArray.quantity=newTotalQuantity;
     this.rateIArray.total= this.totalAmount/this.totalQuantity;
 
@@ -583,7 +545,8 @@ getHeight(quantityItems: any) {
   }
 
   onGetSubCategoryListSuccess(subcategoryList : any) {
-    this.subcategoryArray = subcategoryList.data;
+    this.subcategoryArrayList = subcategoryList.data;
+    this.subcategoryArray = this.commonService.removeDuplicateItmes(this.subcategoryArrayList, this.subCategoryDetails);
     this.showSubcategoryListvar = true;
   }
 

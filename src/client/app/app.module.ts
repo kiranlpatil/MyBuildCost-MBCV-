@@ -71,8 +71,12 @@ import { CostHeadService } from './build-info/framework/project/cost-summary-rep
 import { CostSummaryPipe } from './build-info/framework/project/cost-summary-report/cost-summary.pipe';
 import { GetQuantityComponent } from './build-info/framework/project/cost-summary-report/cost-head/get-quantity/get-quantity.component';
 import { GetQuantityService } from './build-info/framework/project/cost-summary-report/cost-head/get-quantity/get-quantity.service';
+import { ProjectListHeaderComponent } from './build-info/framework/project/project-header/project-list-header/project-list-header.component';
+import { ProjectListHeaderService } from './build-info/framework/project/project-header/project-list-header/project-list-header.service';
 // Import the Animations module
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { GetRateComponent } from './build-info/framework/project/cost-summary-report/cost-head/get-rate/get-rate.component';
+import { GetRateService } from './build-info/framework/project/cost-summary-report/cost-head/get-rate/get-rate.service';
 
 // Import the ButtonsModule
 //import { ButtonsModule } from '@progress/kendo-angular-buttons';
@@ -111,6 +115,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     ProjectDetailsComponent,
     BuildingListComponent,
     ProjectHeaderComponent,
+    ProjectListHeaderComponent,
     ProjectContentComponent,
     BuildingDetailsComponent,
     CostSummaryComponent,
@@ -118,6 +123,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     CostSummaryPipe,
     GetQuantityComponent,
     MaterialTakeoffComponent,
+    GetRateComponent,
     //MyDashboardComponent,
     PageNotFoundComponent,
     CommonAmenitiesComponent
@@ -165,7 +171,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     CostHeadService,
     MaterialTakeoffService,
     GetQuantityService,
-    CommonAmenitiesService
+    CommonAmenitiesService,
+    GetRateService,
+    ProjectListHeaderService
     // MaterialTakeoffService
   ],
   bootstrap: [AppComponent]
