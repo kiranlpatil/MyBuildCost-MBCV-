@@ -1,8 +1,12 @@
-.login {
-  .default-checkbox {
-    margin: 9px 10px 5px 0;
-    label {
-      padding: 10px 0 6px 20px;
+@import '../../framework/landing-page/landing-page.component';
+.page-background {
+  .inner-content {
+    .checkbox {
+      text-align: left;
+    }
+
+    .btn-primary {
+      margin: 10px 0;
     }
   }
 }

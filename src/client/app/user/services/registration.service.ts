@@ -32,7 +32,7 @@ constructor(private _router: Router, private themeChangeService: ThemeChangeServ
   successRedirect(res: any) {
     SessionStorageService.setSessionValue(SessionStorage.IS_LOGGED_IN, 1);
     SessionStorageService.setSessionValue(SessionStorage.PROFILE_PICTURE, res.data.picture);
-      this._router.navigate([NavigationRoutes.APP_DASHBOARD]);
+      this._router.navigate([NavigationRoutes.APP_CREATE_NEW_PROJECT]);
   }
 
   loginFail(error: any) {

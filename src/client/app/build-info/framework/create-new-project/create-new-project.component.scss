@@ -1,62 +1,27 @@
-@import '../../../../css/common';
+@import '../../../framework/landing-page/landing-page.component';
 
 .page-background {
-  background: no-repeat fixed 50% 100%;
-  display: table;
-  height: 100vh;
-  margin: 0 auto;
-  width: 100%;
-
+  background: no-repeat fixed 0 100%;
   .inner-content {
-    display: table-cell;
-    height: 100vh;
-    vertical-align: middle;
-
-    img {
-      margin: 0 0 20px;
+    position: relative;
+    .create-new-project > img {
+      margin: 20px auto 15px;
+      padding: 27px 35px;
+      border: 2px solid $border-color;
     }
 
-    ul {
-      color: $heading;
-      font-size: 24px;
-      list-style: none;
-      padding: 0;
-
-      li {
-        padding-left: 15px;
-        position: relative;
-        display: inline-block;
-        counter-increment: li;
-
-        &:before {
-          content: "•";
-          color: $theme-color;
-          display: inline-block;
-          width: 20px;
-          margin-left: -20px;
-        }
-
-        &:first-child {
-          padding-left: 0;
-
-          &:before {
-            display: none;
-          }
-        }
-      }
+    .get-started {
+      position: absolute;
+      bottom: 20px;
+      right: 20px;
     }
 
-    .btn-primary {
-      margin: 20px 0 30px;
+    .get-started > img {
+      margin: 0 auto;
     }
-  }
-}
 
-
-@media only screen and (max-width: 480px) {
-  .page-background {
-    .inner-content {
-      vertical-align: top;
+    .get-started > h5 {
+      font-weight: 600;
     }
   }
 }

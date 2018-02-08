@@ -200,12 +200,12 @@ export class NavigationRoutes {
   public static APP_FORGOTPASSWORD: string = '/forgot-password';
   public static APP_PROJECT: string = '/project';
   public static APP_CREATE_NEW_PROJECT: string = '/create-new-project';
-  public static APP_CREATE_PROJECT: string = 'project/create';
+  public static APP_CREATE_PROJECT: string = '/create-project';
   public static APP_VIEW_PROJECT: string = 'project/view';
   public static APP_VIEW_BUILDINGS: string = 'building/view';
   public static APP_LIST_BUILDINGS: string = 'building/list';
   public static APP_VIEW_BUILDING_DETAILS: string = 'building/details';
-  public static APP_CREATE_BUILDING: string = 'building/create';
+  public static APP_CREATE_BUILDING: string = '/create-building';
   public static APP_LIST_PROJECT: string = 'project/list';
   public static APP_COST_SUMMARY: string = 'project/cost-summary';
   public static APP_COST_HEAD: string = 'project/cost-summary/cost-head';
@@ -367,6 +367,7 @@ export class API {
 export class ImagePath {
   public static FAV_ICON = './assets/framework/images/logo/favicon.ico';
   public static BODY_BACKGROUND = './assets/build-info/page_background/page-bg.png';
+  public static BODY_BACKGROUND_TRANSPARENT = './assets/build-info/page_background/page-bg-transparent.png';
   public static MY_WHITE_LOGO = './assets/build-info/header/buildInfo-logo.png';
   public static MOBILE_WHITE_LOGO = './assets/build-info/header/buildInfo-logo.png';
   public static FACEBOOK_ICON = './assets/framework/images/footer/fb.svg';

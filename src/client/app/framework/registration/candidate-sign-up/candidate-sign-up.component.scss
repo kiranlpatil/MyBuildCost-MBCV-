@@ -1,4 +1,3 @@
-@import '../../../../css/common';
 @import '../../../framework/landing-page/landing-page.component';
 
 .error-messages {
@@ -20,14 +19,8 @@
   background: no-repeat fixed 25% 100%;
 }
 
-h4 {
-  font-size: 30px;
-  color: $heading;
-}
-
 .privacy-policy {
-  float: left;
-  width: 100%;
+  clear: both;
   margin-bottom: 20px;
 
   span{
@@ -50,8 +43,4 @@ h4 {
   }
 }
 
-.content {
-  width: 390px;
-  margin: 0 auto;
-}
 

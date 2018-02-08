@@ -10,16 +10,14 @@ import { Router } from '@angular/router';
   styleUrls: ['create-new-project.component.css'],
 })
 export class CreateNewProjectComponent {
-  BODY_BACKGROUND: string;
+  BODY_BACKGROUND_TRANSPARENT: string;
   MY_LOGO: string;
   constructor(private _router: Router) {
-    this.BODY_BACKGROUND = ImagePath.BODY_BACKGROUND;
+    this.BODY_BACKGROUND_TRANSPARENT = ImagePath.BODY_BACKGROUND_TRANSPARENT;
     this.MY_LOGO = ImagePath.MY_WHITE_LOGO;
   }
-  goToSignUp() {
-    this._router.navigate( [NavigationRoutes. APP_REGISTRATION]);
-  }
-  goToSignIn() {
-    this._router.navigate([NavigationRoutes.APP_LOGIN]);
+
+  goToCreateProject() {
+    this._router.navigate([NavigationRoutes.APP_CREATE_PROJECT]);
   }
 }

@@ -13,7 +13,7 @@
     </div>
   </div>
 
-  <section class="col-sm-6 main-form-wrapper">
+  <section class="col-sm-6">
     <div class="page-background">
       <div class="inner-content clearfix">
         <div *ngIf="isFromCareerPlugin">
@@ -30,7 +30,7 @@
           </div>
           <h4>{{getLabel().START_FREE}}</h4>
           <p>{{getLabel().REGISTRATION_INFO}}</p>
-          <form [formGroup]="userForm" (submit)="onSubmit()" class="employee-form" novalidate>
+          <form [formGroup]="userForm" (submit)="onSubmit()" novalidate>
 
             <div class="form-group">
               <control-messages [control]="userForm.controls.email" [submitStatus]="submitStatus"></control-messages>
