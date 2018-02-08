@@ -9,7 +9,7 @@
         <div class="panel-group">
           <div class="panel panel-default">
             <div class="panel-heading">
-              <div class="panel-title">
+              <div class="panel-title" (click)="getSelectedWorkItems(subCategoryDetails[i].workitem)">
                   <a *ngIf="subCategoryDetails[subCategory].rateAnalysisId !== 0" data-toggle="collapse" href="#collapse{{i}}">
                      {{ subCategoryDetails[subCategory].name }}
                   </a>
@@ -31,7 +31,7 @@
                     <div class="col-md-2">Amount</div>
                     <div class="col-md-2"></div>
                   </div>
-                  <div  class="row" *ngFor="let workitemObj of subCategoryDetails[subCategory].workitem">
+                  <div  class="row" *ngFor="let workitemObj of subCategoryDetails[subCategory].workitem" >
                     <div class="col-md-2">
                      {{ workitemObj.name }}
                     </div>

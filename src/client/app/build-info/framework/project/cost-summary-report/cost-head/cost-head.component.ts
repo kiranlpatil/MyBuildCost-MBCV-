@@ -62,6 +62,8 @@ export class CostHeadComponent implements OnInit, OnChanges {
   quantity:number=0;
   unit:string='';
   showSubcategoryListvar: boolean = false;
+  alreadySelectedWorkItems:any;
+
 
   private toggleQty:boolean=false;
   private toggleRate:boolean=false;
@@ -419,7 +421,6 @@ getHeight(quantityItems: any) {
 
   showWorkItem(subCategoryId:number,i:number) {
     this.comapreWorkItemRateAnalysisId=i;
-    this.showWorkItemList=true;
     this.subcategoryRateAnalysisId=subCategoryId;
     this.costHeadService.showWorkItem(this.costheadId,subCategoryId).subscribe(
       workItemList => this.onshowWorkItemSuccess(workItemList),
@@ -429,7 +430,17 @@ getHeight(quantityItems: any) {
 
 
   onshowWorkItemSuccess(workItemList:any) {
-  this.workItemListArray=workItemList.data;
+ /* this.workItemListArray=workItemList.data;*/
+    let workItemListAfterClone = lodsh.cloneDeep(workItemList.data);
+    this.workItemListArray = this.commonService.removeDuplicateItmes(workItemListAfterClone,this.alreadySelectedWorkItems);
+    if(this.workItemListArray.length===0) {
+      var message = new Message();
+      message.isError = false;
+      message.custom_message = Messages.MSG_ALREADY_ADDED_ALL_WORKITEMS;
+      this.messageService.message(message);
+    }else {
+      this.showWorkItemList=true;
+    }
   }
 
   onshowWorkItemFail(error:any) {
@@ -455,7 +466,11 @@ getHeight(quantityItems: any) {
   }
 
   onaddWorkItemSuccess(workItemList:any) {
-    //this.workItemListArray=workItemList.data;
+    this.alreadySelectedWorkItems=workItemList.data;
+    var message = new Message();
+    message.isError = false;
+    message.custom_message = Messages.MSG_SUCCESS_ADD_WORKITEM;
+    this.messageService.message(message);
     this.getSubCategoryDetails(this.projectId, this.costheadId);
   }
 
@@ -577,6 +592,11 @@ getHeight(quantityItems: any) {
 
   refreshDataList() {
     this.getSubCategoryDetails(this.projectId, this.costheadId);
+  }
+
+  getSelectedWorkItems(workItemList:any) {
+    this.alreadySelectedWorkItems=workItemList;
+    console.log('workItemList :'+workItemList);
   }
 
 }
