@@ -334,7 +334,7 @@ export class CostSummaryComponent implements OnInit {
     console.log(error);
   }
 
-  onSubmit()  {
+  cloneBuildingBasicDetails()  {
     if(this.cloneBuildingForm.valid) {
       this.model = this.cloneBuildingForm.value;
       this.createBuildingService.addBuilding(this.model)
