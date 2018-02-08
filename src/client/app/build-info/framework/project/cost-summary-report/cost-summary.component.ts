@@ -31,6 +31,9 @@ export class CostSummaryComponent implements OnInit {
   cloneBuildingId: string;
   currentBuildingId:string;
   costHeadId: number;
+  grandTotalofBudgetedCost: number;
+  grandTotalofTotalRate: number;
+  grandTotalofArea: number;
   buildingName : string;
   buildingsDetails: any;
   estimatedCost : any;
@@ -168,6 +171,8 @@ export class CostSummaryComponent implements OnInit {
   }
   onGetCostInSuccess(projects : any) {
     this.projectBuildings = projects.data;
+
+    this.makeGrandTotal();
   }
 
   onGetCostInFail(error : any) {
@@ -186,6 +191,8 @@ export class CostSummaryComponent implements OnInit {
 
   onGetCostPerSuccess(projects : any) {
     this.projectBuildings = projects.data;
+
+    this.makeGrandTotal();
   }
 
   onGetCostPerFail(error : any) {
@@ -367,4 +374,16 @@ export class CostSummaryComponent implements OnInit {
   updateBuildingFail(error: any) {
     console.log(error);
   }
+
+  makeGrandTotal() {
+    //ToDo we have to remove this code after
+    this.grandTotalofBudgetedCost=0;
+    this.grandTotalofTotalRate=0;
+    this.grandTotalofArea=0;
+    for(let buildindIndex=0;  buildindIndex < this.projectBuildings.length; buildindIndex++) {
+      this.grandTotalofBudgetedCost=this.grandTotalofBudgetedCost+this.projectBuildings[buildindIndex].thumbRule.totalBudgetedCost;
+      this.grandTotalofTotalRate=this.grandTotalofTotalRate+this.projectBuildings[buildindIndex].thumbRule.totalRate;
+      this.grandTotalofArea=this.grandTotalofArea+this.projectBuildings[buildindIndex].area;
+
+    }
 }
