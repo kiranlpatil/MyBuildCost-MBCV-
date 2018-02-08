@@ -8,6 +8,7 @@ import { PageNotFoundComponent } from './shared/page-not-found/page-not-found.co
 import { ProjectRoutes } from './build-info/framework/project/project.routes';
 import { BuildingRoutes } from './build-info/framework/project/building/building.routes';
 import { LandingPageRoutes } from './framework/landing-page/landing-page.routes';
+import {CreateNewProjectRoutes} from "./build-info/framework/create-new-project/create-new-project.routes";
 
 
 export const routes: Routes = [
@@ -19,6 +20,7 @@ export const routes: Routes = [
   ...ProjectRoutes,
   ...LandingPageRoutes,
   ...BuildingRoutes,
+  ...CreateNewProjectRoutes,
   ...StartRoutes,
   {
     path:'**',

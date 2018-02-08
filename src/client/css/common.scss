@@ -50,7 +50,7 @@
   background-color: transparent;
   border-right: 1px solid transparent !important;
   border: 1px solid $gray;
-  border-radius: 4px 0 0 4px !important;
+  border-radius: 2px 0 0 2px !important;
   font-weight: bold;
 }
 
@@ -155,6 +155,7 @@ p {
 a {
   cursor: pointer;
   text-decoration: none;
+  color: $link;
 
   &:hover,
   &:focus,
@@ -195,7 +196,7 @@ select,
 
 .form-group {
   position: relative;
-  margin-bottom: 20px;
+  margin-bottom: 25px;
 
   label {
     color: $heading;
@@ -206,17 +207,18 @@ select,
 
   .form-control {
     background: transparent;
+    border-radius: 2px;
     box-shadow: none;
     color: $text-color;
     display: block;
     height: 40px;
-    padding: 6px 0;
-    font-size: 16px;
+    padding: 6px;
+    font-size: 13px;
 
     &:focus {
       box-shadow: none;
       outline: 0;
-      border: 2px solid $theme-color;
+      border: 1px solid $theme-color;
     }
 
     &:-webkit-autofill,
@@ -230,15 +232,19 @@ select,
     }
     &::-webkit-input-placeholder {
       color: $placeholder-color;
+      font-size: 13px;
     }
     &::-moz-placeholder {
       color: $placeholder-color;
+      font-size: 13px;
     }
     &:-ms-input-placeholder {
       color: $placeholder-color;
+      font-size: 13px;
     }
     &:-moz-placeholder {
       color: $placeholder-color;
+      font-size: 13px;
     }
   }
 }
@@ -266,27 +272,46 @@ select,
 //Buttons
 .btn {
   border-radius: 25px;
+  color: $heading;
   height: 40px;
   font-weight: bold;
   font-size: 13px;
   line-height: 18px;
   text-transform: inherit;
+  text-align: center;
 
   &:focus,
-  &:active {
+  &:active,
+  &:hover {
     outline: 0 !important;
+    color: $heading;
+    box-shadow: none;
   }
 }
 
 .btn-primary {
   background: $theme-color;
   border: $theme-color 1px solid;
-  color: $heading;
-  padding: 10px 55px;
+  padding: 0 10px;
+  width: 200px;
+
+  &:focus,
+  &:active,
+  &:hover {
+    background: $theme-color-hover;
+    border: $theme-color-hover 1px solid;
+  }
 }
 
 .btn-default {
   padding: 10px 35px;
+
+  &:focus,
+  &:active,
+  &:hover  {
+    background: $default-button-hover;
+    border: $default-button-hover 1px solid;
+  }
 }
 
 .btn-close {

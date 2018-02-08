@@ -210,6 +210,7 @@ export class CandidateSignUpComponent implements OnInit, AfterViewInit {
     //let host = AppSettings.HTTP_CLIENT + AppSettings.HOST_NAME + API.ACCEPT_TERMS;
     //window.open(host, '_blank');
   }
+
   gtag_report_conversion(sendTo:any) {
     var callback = function () {
        /*if (typeof(url) != 'undefined') {

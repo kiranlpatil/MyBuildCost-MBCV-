@@ -1,0 +1,62 @@
+@import '../../../../css/common';
+
+.page-background {
+  background: no-repeat fixed 50% 100%;
+  display: table;
+  height: 100vh;
+  margin: 0 auto;
+  width: 100%;
+
+  .inner-content {
+    display: table-cell;
+    height: 100vh;
+    vertical-align: middle;
+
+    img {
+      margin: 0 0 20px;
+    }
+
+    ul {
+      color: $heading;
+      font-size: 24px;
+      list-style: none;
+      padding: 0;
+
+      li {
+        padding-left: 15px;
+        position: relative;
+        display: inline-block;
+        counter-increment: li;
+
+        &:before {
+          content: "•";
+          color: $theme-color;
+          display: inline-block;
+          width: 20px;
+          margin-left: -20px;
+        }
+
+        &:first-child {
+          padding-left: 0;
+
+          &:before {
+            display: none;
+          }
+        }
+      }
+    }
+
+    .btn-primary {
+      margin: 20px 0 30px;
+    }
+  }
+}
+
+
+@media only screen and (max-width: 480px) {
+  .page-background {
+    .inner-content {
+      vertical-align: top;
+    }
+  }
+}

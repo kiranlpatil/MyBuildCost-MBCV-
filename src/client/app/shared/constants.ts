@@ -197,6 +197,7 @@ export class NavigationRoutes {
   public static APP_REGISTRATION: string = '/registration';
   public static APP_FORGOTPASSWORD: string = '/forgot-password';
   public static APP_PROJECT: string = '/project';
+  public static APP_CREATE_NEW_PROJECT: string = '/create-new-project';
   public static APP_CREATE_PROJECT: string = 'project/create';
   public static APP_VIEW_PROJECT: string = 'project/view';
   public static APP_VIEW_BUILDINGS: string = 'building/view';
@@ -442,7 +443,8 @@ export class Label {
   public static ACTIONS: string = 'Actions';
   public static API_KEY: string = 'API Key';
   public static ACCEPT_NAME: string = 'By clicking "Continue" I agree to Build Infos';
-  public static TERMS_AND_CONDITIONS_NAME: string = 'Terms and Conditions.';
+  public static TERMS_AND_CONDITIONS_NAME: string = 'Terms of Service';
+  public static PRIVACY_POLICY: string = 'Privacy Policy';
   public static REGISTER_AS_APPLICANT: string = 'Get Started Absolutely Free';
   public static START_FREE: string = 'Get Started Absolutely Free';
   public static REGISTRATION_INFO: string = "See how the world's best Building Estimations are created.";
