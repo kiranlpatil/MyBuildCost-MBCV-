@@ -384,6 +384,7 @@ export class CostSummaryComponent implements OnInit {
       this.grandTotalofBudgetedCost=this.grandTotalofBudgetedCost+this.projectBuildings[buildindIndex].thumbRule.totalBudgetedCost;
       this.grandTotalofTotalRate=this.grandTotalofTotalRate+this.projectBuildings[buildindIndex].thumbRule.totalRate;
       this.grandTotalofArea=this.grandTotalofArea+this.projectBuildings[buildindIndex].area;
-
     }
+  }
+
 }
