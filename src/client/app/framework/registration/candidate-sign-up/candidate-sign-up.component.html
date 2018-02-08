@@ -47,22 +47,22 @@
                      autocomplete="off" required placeholder="Bhushan Pawar"/>
             </div>
 
-            <div class="form-group">
+            <!--<div class="input-group form-group">
               <label>{{getLabel().CONTACT_FIELD_LABEL}}</label>
               <control-messages [control]="userForm.controls.mobile_number"
                                 [submitStatus]="submitStatus"></control-messages>
-              <!--<span class="input-group-addon clearfix">+91</span>-->
+              <span class="input-group-addon clearfix">+91</span>
               <input type="number" formControlName="mobile_number" id="mobile_number" class="form-control" required/>
-            </div>
+            </div>-->
 
             <div class="form-group form-password">
               <control-messages [control]="userForm.controls.password" [submitStatus]="submitStatus"></control-messages>
               <label>{{getLabel().PASSWORD}}</label>
               <input type="password" formControlName="password" id="password" [(ngModel)]="model.password"
-                     class="form-control" (blur)="makePasswordConfirm()" required placeholder="Minimum 6 Characters"/>
+                     class="form-control" required placeholder="Minimum 6 Characters"/>
             </div>
 
-            <div class="form-group">
+            <!--<div class="form-group">
               <control-messages [control]="userForm.controls.confirm_password"
                                 [submitStatus]="submitStatus"></control-messages>
               <label>{{getLabel().CONFIRM_PASSWORD_LABEL}}</label>
@@ -70,7 +70,7 @@
                      [(ngModel)]="model.confirm_password" (blur)="makePasswordConfirm()" class="form-control" required/>
               <span class="error-messages"
                     *ngIf="isPasswordConfirm == true"> {{passwordMismatchMessage}} </span>
-            </div>
+            </div>-->
 
             <div class="col-sm-12 error-msg alert alert-danger form-alert" [hidden]="isShowErrorMessage">
               <b>{{error_msg }}</b>
