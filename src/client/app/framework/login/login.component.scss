@@ -1,5 +1,9 @@
 @import '../../framework/landing-page/landing-page.component';
 .page-background {
+  .content-background {
+    background-repeat: no-repeat;
+    background-position: bottom;
+  }
   .inner-content {
     .checkbox {
       text-align: left;

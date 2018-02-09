@@ -67,8 +67,8 @@ export class CandidateSignUpComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-     //this._router.navigate([NavigationRoutes.VERIFY_USER]);
-   // this.validBirthYearList = this.dateService.createBirthYearList(this.year);
+    //this._router.navigate([NavigationRoutes.VERIFY_USER]);
+    // this.validBirthYearList = this.dateService.createBirthYearList(this.year);
     this.mainHeaderMenuHideShow = 'applicant';
 
     this.activatedRoute.queryParams.subscribe((params: Params) => {
@@ -92,7 +92,7 @@ export class CandidateSignUpComponent implements OnInit, AfterViewInit {
 
 
   onSubmit() {
-   this.model = this.userForm.value;
+    this.model = this.userForm.value;
     if (this.model.first_name === '' || this.model.email === '' || this.model.password === '' ) {
       this.submitStatus = true;
       return;
@@ -109,11 +109,11 @@ export class CandidateSignUpComponent implements OnInit, AfterViewInit {
     this.model.isActivated = true;
     this.model.email = this.model.email.toLowerCase();
 
-      this.isFormSubmitted = true;
-      this.candidateService.addCandidate(this.model)
-        .subscribe(
-          candidate => this.onRegistrationSuccess(candidate),
-          error => this.onRegistrationError(error));
+    this.isFormSubmitted = true;
+    this.candidateService.addCandidate(this.model)
+      .subscribe(
+        candidate => this.onRegistrationSuccess(candidate),
+        error => this.onRegistrationError(error));
 
   }
   onRegistrationSuccess(candidate: any) {
@@ -168,8 +168,8 @@ export class CandidateSignUpComponent implements OnInit, AfterViewInit {
 
   gtag_report_conversion(sendTo:any) {
     var callback = function () {
-       /*if (typeof(url) != 'undefined') {
-         window.location = url;
+      /*if (typeof(url) != 'undefined') {
+       window.location = url;
        }*/
     };
     gtag('event', 'conversion', {
