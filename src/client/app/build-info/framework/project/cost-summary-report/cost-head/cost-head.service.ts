@@ -55,9 +55,20 @@ getCostHeadDetails(projectId:string, costHead: string) {
       .catch(this.handleError);
     /*router.delete('/:id/building/:buildingid/costhead/:costhead/workitem/:workitem'*/
   }
+  deleteWorkItem(costHeadId:number, subCategoryId:number,workItemId:number) {
+    let headers = new Headers({'Content-Type': 'application/json'});
+    let options = new RequestOptions({headers: headers});
+    let projectId = SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT);
+    let buildingId = SessionStorageService.getSessionValue(SessionStorage.CURRENT_BUILDING);
+    var url = API.VIEW_PROJECT + '/' + projectId + '/'+ API.VIEW_BUILDING + '/' + buildingId
+      + '/costhead/' + costHeadId + '/subcategory/'+ subCategoryId +'/workitem/' + workItemId;
+    console.log('deleteWorkItems() url : '+url);
+    return this.http.delete(url,options)
+      .map(this.extractData)
+      .catch(this.handleError);
+  }
 
-
-  getQuantity(costHeadName:any,costHeadItem:any){
+  getQuantity(costHeadName:any,costHeadItem:any) {
     let headers = new Headers({'Content-Type': 'application/json'});
     let options = new RequestOptions({headers: headers});
     var url = API.VIEW_PROJECT + '/' + SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT)+

@@ -119,7 +119,7 @@ class RateAnalysisService {
             let totalrateFromRateAnalysis = alasql(sql3, [rate, unitData])
             rateResult.quantity = quantityAndUnit[0].quantity;
             rateResult.unit = quantityAndUnit[0].unit;
-            rateResult.rateFromRateAnalysis = totalrateFromRateAnalysis[0].total;
+            rateResult.rateFromRateAnalysis = parseFloat(totalrateFromRateAnalysis[0].total).toFixed(2);
             console.log(  rateResult.rateFromRateAnalysis);
             rate = alasql(sql2, [rate, unitData])
             rateResult.item = rate;

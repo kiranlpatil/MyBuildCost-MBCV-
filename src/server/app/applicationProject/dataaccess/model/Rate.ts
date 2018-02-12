@@ -1,7 +1,7 @@
 import RateItem = require('./RateItem');
 
 class Rate {
-  rateFromRateAnalysis: number;
+  rateFromRateAnalysis: any;
   total : number;
   quantity: number;
   unit:string;

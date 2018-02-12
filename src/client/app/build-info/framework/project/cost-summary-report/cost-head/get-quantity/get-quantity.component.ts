@@ -121,9 +121,6 @@ export class GetQuantityComponent implements OnInit {
     this.getBreadth(quantityItems);
   }
 
-  setQuantityItemName(itemName: string) {
-    this.itemName = itemName;
-  }
 
   getCostHeadQuantityDetails() {
     console.log('Getting qunaity');
@@ -144,12 +141,11 @@ export class GetQuantityComponent implements OnInit {
   }
 
     updateCostHeadWorkItem(quantityItems : any) {
-    this.quantityItemsArray = quantityItems;
     let costHeadId = SessionStorageService.getSessionValue(SessionStorage.CURRENT_COST_HEAD_ID);
     let workItemId = SessionStorageService.getSessionValue(SessionStorage.CURRENT_WORKITEM_ID);
 
     this.getQuantityService.saveCostHeadItems(parseInt(costHeadId), this.subCategoryRateAnalysisId,
-      parseInt(workItemId), this.quantityItemsArray).subscribe(
+      parseInt(workItemId), quantityItems).subscribe(
       costHeadItemSave => this.onSaveCostHeadItemsSuccess(costHeadItemSave),
       error => this.onSaveCostHeadItemsFail(error)
     );
@@ -165,19 +161,24 @@ export class GetQuantityComponent implements OnInit {
   }
 
   onSaveCostHeadItemsFail(error: any) {
-    console.log(error);
+    var message = new Message();
+    message.isError = true;
+    message.custom_message = Messages.MSG_SUCCESS_SAVED_COST_HEAD_ITEM_ERROR;
+    this.messageService.message(message);
   }
-
+  setQuantityItemName(itemName: string) {
+    this.itemName = itemName;
+  }
   deleteQuantityItemfun() {
     let costHeadId = SessionStorageService.getSessionValue(SessionStorage.CURRENT_COST_HEAD_ID);
     let workItemId = SessionStorageService.getSessionValue(SessionStorage.CURRENT_WORKITEM_ID);
-    this.getQuantityService.deleteCostHeadItems(parseInt(costHeadId), this.subCategoryRateAnalysisId,
+    this.getQuantityService.deleteQuantityItem(parseInt(costHeadId), this.subCategoryRateAnalysisId,
       parseInt(workItemId), this.itemName).subscribe(
-      costHeadItemDelete => this.onDeleteCostHeadItemsSuccess(costHeadItemDelete),
-      error => this.onDeleteCostHeadItemsFail(error)
+      costHeadItemDelete => this.onDeleteQuantityItemSuccess(costHeadItemDelete),
+      error => this.onDeleteQuantityItemFail(error)
     );
   }
-  onDeleteCostHeadItemsSuccess(costHeadItemDelete: any) {
+  onDeleteQuantityItemSuccess(costHeadItemDelete: any) {
     this.quantityItems = costHeadItemDelete.data.item;
     var message = new Message();
     message.isError = false;
@@ -187,8 +188,11 @@ export class GetQuantityComponent implements OnInit {
     // this.getCostHeadComponentDetails(this.projectId, this.costHead);
   }
 
-  onDeleteCostHeadItemsFail(error: any) {
-    console.log(error);
+  onDeleteQuantityItemFail(error: any) {
+    var message = new Message();
+    message.isError = false;
+    message.custom_message = Messages.MSG_SUCCESS_SAVED_COST_HEAD_ITEM_ERROR;
+    this.messageService.message(message);
   }
 
 }

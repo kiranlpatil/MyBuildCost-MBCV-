@@ -473,28 +473,47 @@ class ProjectService {
       }
     });
   }
-  deleteWorkitem(projectId:string, buildingId:string, costhead:string, workitem:WorkItem, user:User,
+  deleteWorkitem(projectId:string, buildingId:string, costheadId:number, subcategoryId:number, workitemId:number, user:User,
                  callback:(error: any, result: any)=> void) {
-    logger.info('Project service, deleteWorkitem has been hit');
+    logger.info('Project service, delete Workitem has been hit');
     this.buildingRepository.findById(buildingId, (error, building:Building) => {
       if (error) {
         callback(error, null);
       } else {
-        for(let index = 0; building.costHead.length > index; index++) {
-          if(building.costHead[index].name === costhead) {
-            delete building.costHead[index].workitem[workitem];
+        let costHeadList = building.costHead;
+        let subCategoryList: SubCategory[];
+        let WorkItemList: WorkItem[];
+        var flag = 0;
+        for (let index = 0; index < costHeadList.length; index++) {
+          if (costheadId === costHeadList[index].rateAnalysisId) {
+            subCategoryList = costHeadList[index].subCategory;
+            for (let subcategoryIndex = 0; subcategoryIndex < subCategoryList.length; subcategoryIndex++) {
+              if (subcategoryId === subCategoryList[subcategoryIndex].rateAnalysisId) {
+                WorkItemList = subCategoryList[subcategoryIndex].workitem;
+                for (let workitemIndex = 0; workitemIndex < WorkItemList.length; workitemIndex++) {
+                  if (workitemId === WorkItemList[workitemIndex].rateAnalysisId) {
+                    flag = 1;
+                    WorkItemList.splice(workitemIndex, 1);
+                    }
+                }
+              }
+            }
           }
         }
-        let query = { _id : buildingId };
-        this.buildingRepository.findOneAndUpdate(query, building,{new: true}, (error, building) => {
-          logger.info('Project service, findOneAndUpdate has been hit');
-          if (error) {
-            callback(error, null);
-          } else {
-            let message = workitem + ' deleted.';
-            callback(null, {data: message, access_token: this.authInterceptor.issueTokenWithUid(user)});
-          }
-        });
+        if(flag === 1) {
+          let query = {_id: buildingId};
+          this.buildingRepository.findOneAndUpdate(query, building, {new: true}, (error, WorkItemList) => {
+            logger.info('Project service, findOneAndUpdate has been hit');
+            if (error) {
+              callback(error, null);
+            } else {
+              let message = 'WorkItem deleted.';
+              callback(null, {data: WorkItemList, access_token: this.authInterceptor.issueTokenWithUid(user)});
+            }
+          });
+        } else {
+          callback(error, null);
+        }
       }
     });
   }

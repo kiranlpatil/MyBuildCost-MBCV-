@@ -347,18 +347,19 @@ class ProjectController {
       logger.info('Project controller, deleteWorkitem has been hit');
       let user = req.user;
       let projectId = req.params.id;
-      let buildingId = req.params.buildingid;
-      let costhead = req.params.costhead;
-      let workitem = req.params.workitem;
+      let buildingId = req.params.buildingId;
+      let costheadId = req.params.costheadId;
+      let subcategoryId = req.params.subcategoryId;
+      let workitemId = req.params.workitemId;
       let projectService = new ProjectService();
-      console.log(' workitem => '+ workitem);
-      projectService.deleteWorkitem(projectId, buildingId, costhead, workitem, user, (error, result) => {
+      console.log(' workitem => '+ workitemId);
+      projectService.deleteWorkitem(projectId, buildingId, parseInt(costheadId), parseInt(subcategoryId), parseInt(workitemId), user, (error, result) => {
         if(error) {
           next(error);
         } else {
           logger.info('Delete work item '+result.data);
           logger.debug('Deleted  work item of Project ID : '+projectId+', Building ID : '+buildingId+
-            ', CostHead : '+costhead+', Workitem : '+workitem);
+            ', CostHead : '+costheadId+', SubCategory : '+subcategoryId+', Workitem : '+workitemId);
           next(new Response(200,result));
         }
       });
