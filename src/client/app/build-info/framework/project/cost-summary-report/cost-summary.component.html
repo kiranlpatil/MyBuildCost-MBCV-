@@ -1,20 +1,22 @@
 <section class="wrapper">
 
   <div class="container">
-    <div class="col-sm-5">
-      <h5>Construction Cost (Material + Labour)</h5>
+    <div class="col-sm-8 col-xs-12 no-padding">
+      <div class="col-sm-5">
+        <h5>Construction Cost (Material + Labour)</h5>
+      </div>
+      <div class="col-sm-7 text-right">
+        <label>Costing in</label>
+        <select (change)="onChangeCostingIn($event.target.value)">
+          <option *ngFor="let cIn of costIn" [value]="cIn.costInId">{{cIn.costInId}}</option>
+        </select>
+        <label>Costing per</label>
+        <select (change)="onChangeCostingPer($event.target.value)">
+          <option *ngFor="let cPer of costPer" [value]="cPer.costPerId">{{cPer.costPerId}}</option>
+        </select>
+      </div>
     </div>
-    <div class="col-sm-7 text-right">
-      <label>Costing in</label>
-      <select (change)="onChangeCostingIn($event.target.value)">
-        <option *ngFor="let cIn of costIn" [value]="cIn.costInId">{{cIn.costInId}}</option>
-      </select>
-      <label>Costing per</label>
-      <select (change)="onChangeCostingPer($event.target.value)">
-        <option *ngFor="let cPer of costPer" [value]="cPer.costPerId">{{cPer.costPerId}}</option>
-      </select>
-    </div>
-    <div class="col-xs-12">
+    <div class="col-sm-8 col-xs-12">
 
     <div *ngFor="let building of projectBuildings; let i = index">
       <div class="panel-group">
@@ -37,19 +39,21 @@
           </div>
           <div id="collapse{{i}}" class="panel-collapse collapse">
             <div class="panel-body">
-              <table class="table">
+              <table class="table table-row-spacing">
                 <thead>
-                <tr>
-                  <th rowspan="2">Cost Head</th>
-                  <th colspan="2">By Thumbrule</th>
-                  <th colspan="2">Estimated Cost</th>
-                </tr>
-                <tr>
-                  <th>Budgeted Cost</th>
-                  <th>{{defaultCostIn}}<br/>{{defaultCostPer}}</th>
-                  <th>Estimated (as per project quantities & rates)</th>
-                  <th>{{defaultCostIn}}<br/>{{defaultCostPer}}</th>
-                </tr>
+                  <tr>
+                    <th rowspan="2">Cost Head</th>
+                    <th colspan="2">By Thumbrule</th>
+                    <th colspan="2">Estimated <span class="sub-heading">(as per project quantities & rates)</span></th>
+                    <th></th>
+                  </tr>
+                  <tr>
+                    <th><span class="sub-heading">Budgeted Cost</span></th>
+                    <th><span class="sub-heading">{{defaultCostIn}}<br/>{{defaultCostPer}}</span></th>
+                    <th><span class="sub-heading">Estimated Cost</span></th>
+                    <th><span class="sub-heading">{{defaultCostIn}}<br/>{{defaultCostPer}}</span></th>
+                    <th></th>
+                  </tr>
                 </thead>
                 <tbody *ngIf="(building.thumbRule && building.estimated)" >
                   <tr *ngFor="let thumbRuleItem of building.thumbRule.thumbRuleReport; let i = index">
@@ -72,85 +76,49 @@
                       <div>
                         <span *ngIf="building.estimated.estimatedCost[i].total != 0"
                               class="glyphicon glyphicon-pencil"
-                              (click)="getAmount(building.name,estimatedItem)"></span>
+                              (click)="getAmount(building.name, building.estimated.estimatedCost[i])"></span>
                       </div>
                       <div>
                         <button *ngIf="building.estimated.estimatedCost[i].total == 0"
                                 type="button" class="btn btn-get-amount"
-                                (click)="getAmount(building.name, estimatedItem)">Get Amount</button>
+                                (click)="getAmount(building.name, building.estimated.estimatedCost[i])">Get Amount</button>
                       </div>
                     </td>
                     <td>{{building.estimated.estimatedCost[i].rate}}</td>
                     <td>
                       <div data-toggle="modal"
                            data-target="#deleteCosthead"
-                           (click)="deleteCostHeadDetailsfun(building._id,estimatedItem.name)"
+                           (click)="deleteCostHeadDetailsfun(building._id, building.estimated.estimatedCost[i].name)"
                            class="glyphicon glyphicon-trash"></div>
                     </td>
                   </tr>
-                </tbody>
-              </table>
-
-                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="border: 1px solid black" *ngIf="(building.thumbRule && building.estimated)" >
-
-
-                      <!--<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" *ngFor="let thumbRuleItem of building.thumbRule.thumbRuleReport; let i = index">
-                              <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-                                {{thumbRuleItem.name}}
-                              </div>
-                              <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-                                <input type="number" [(ngModel)]="thumbRuleItem.amount" id="thumbRuleItem.amount" (blur)="changeBudgetedCost(building._id, thumbRuleItem.name, thumbRuleItem.amount , building.area)" class="form-control clear"/>
-                              </div>
-                              <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-                                {{thumbRuleItem.rate}}
-                              </div>
-                          </div>
-                      </div>-->
-
-                      <!--<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"  *ngFor="let estimatedItem of building.estimated.estimatedCost; let i = index">
-                              <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
-                                  <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
-                                      <input *ngIf="estimatedItem.total != 0" [(ngModel)]="estimatedItem.total" id="estimatedItem.total" class="form-control clear"/>
-                                  </div>
-                                  <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-                                      <span *ngIf="estimatedItem.total != 0" class="glyphicon glyphicon-pencil" (click)="getAmount(building.name,estimatedItem)"></span>
-                                  </div>
-                                  <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                                    <button *ngIf="estimatedItem.total == 0" type="button" class="btn btn-get-amount" (click)="getAmount(building.name, estimatedItem)">Get Amount</button>
-                                  </div>
-                              </div>
-                              <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                                    {{estimatedItem.rate}}
-                              </div>
-                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-                                  <div data-toggle="modal" data-target="#deleteCosthead" (click)="deleteCostHeadDetailsfun(building._id,estimatedItem.name)" class="glyphicon glyphicon-trash"></div>
-                            </div>
-                          </div>
-                      </div>-->
-                    </div>
-
-                    <div *ngIf="showCostHeadList===true && buildingId===building._id" class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                  <tr *ngIf="showCostHeadList===true && buildingId===building._id">
+                    <td colspan="6">
+                      <div  class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
                           <select (change)="inactiveCostHeadSelected($event.target.value)">
                             <option>Select Item</option>
                             <option *ngFor="let costHeadItem of inActiveCostHeadArray" [value]="costHeadItem.name">{{costHeadItem.name}}</option>
                           </select>
-                        </div>p
-                    </div>
-
-                <button type="button" class="btn btn-primary" (click)="showInactiveCostHeadsOnDropDown(building._id)"><span class="glyphicon glyphicon-plus"></span>Add Item</button>
-
-
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="border: 1px solid black" *ngIf="(building.thumbRule && building.estimated)">
-                      <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3"><strong>Total</strong></div>
-                      <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2"><strong>{{building.thumbRule.totalBudgetedCost|number}}</strong></div>
-                      <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2"><strong>{{building.thumbRule.totalRate|number}}</strong></div>
-                      <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2"><strong>{{building.estimated.totalEstimatedCost|number}}</strong></div>
-                      <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2"><strong>{{building.estimated.totalRate|number}}</strong></div>
-                      <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
-                </div>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td colspan="6">
+                      <button type="button" class="btn btn-add-item" (click)="showInactiveCostHeadsOnDropDown(building._id)"><span class="glyphicon glyphicon-plus"></span>Add Item</button>
+                    </td>
+                  </tr>
+                <tr *ngIf="(building.thumbRule && building.estimated)">
+                  <td>Total</td>
+                  <td>{{building.thumbRule.totalBudgetedCost|number}}</td>
+                  <td>{{building.thumbRule.totalRate|number}}</td>
+                  <td>{{building.estimated.totalEstimatedCost|number}}</td>
+                  <td>{{building.estimated.totalRate|number}}</td>
+                  <td></td>
+                </tr>
+                </tbody>
+              </table>
             </div>
           </div>
         </div>

@@ -10,6 +10,8 @@
 
   label {
     color: $heading;
+    font-weight: 400;
+    font-size: 12px;
   }
 
   select {
@@ -17,11 +19,11 @@
     border: 1px solid $heading;
     border-radius: 8px;
     color: $heading;
-    font-size: 14px;
+    font-size: 12px;
     margin-right: 15px;
     padding: 2px 5px;
     width: 100px;
-    font-weight: 600;
+    font-weight: 400;
   }
 }
 
@@ -33,4 +35,38 @@
   padding: 2px 4px;
   height: auto;
   margin: 5px 0;
+}
+
+.table-row-spacing {
+  border-collapse: separate;
+  border-spacing: 0 10px;
+}
+
+table {
+  font-size: 12px;
+  margin: 0;
+
+  tr {
+    background-color: $white;
+    box-shadow: 10px 10px 10px $panel-shadow;
+
+    th {
+      color: $heading;
+      font-weight: 700;
+      vertical-align: middle;
+    }
+
+    th > .sub-heading {
+      font-weight: 600;
+      font-size: 10px;
+    }
+
+    td, th {
+      border: 0;
+    }
+  }
+
+  thead {
+
+  }
 }
