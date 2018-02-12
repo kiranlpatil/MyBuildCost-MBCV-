@@ -1,23 +1,20 @@
-<section class="settings main-form-wrapper" style="margin-top: 120px">
+<section class="wrapper">
 
-  <div class="container row">
-    <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
-      <h4>Construction Cost (Material + Labour)</h4 >
+  <div class="container">
+    <div class="col-xs-6">
+      <h5>Construction Cost (Material + Labour)</h5>
     </div>
-    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+    <div class="col-xs-6 text-right">
       <label>Costing in</label>
       <select (change)="onChangeCostingIn($event.target.value)">
         <option *ngFor="let cIn of costIn" [value]="cIn.costInId">{{cIn.costInId}}</option>
       </select>
-
       <label>Costing per</label>
       <select (change)="onChangeCostingPer($event.target.value)">
         <option *ngFor="let cPer of costPer" [value]="cPer.costPerId">{{cPer.costPerId}}</option>
       </select>
     </div>
-  </div>
-  <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2"></div>
-  <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+    <div class="col-xs-12">
 
     <div *ngFor="let building of projectBuildings; let i = index">
       <div class="panel-group">
@@ -25,7 +22,7 @@
           <div class="panel-heading">
             <h4 class="panel-title">
               <a (click)="setBuildingId(building._id)" data-toggle="collapse" href="#collapse{{i}}">
-                {{building.name}} <small> Total {{defaultCostPer}} : {{building.area}} Sqmt</small>
+                {{building.name}} <span class="slab-area"> Total {{defaultCostPer}} : {{building.area}} Sqmt</span>
               </a>
             </h4>
             <a class="dropdown-toggle" data-toggle="dropdown">
@@ -81,7 +78,7 @@
                                       <span *ngIf="estimatedItem.total != 0" class="glyphicon glyphicon-pencil" (click)="getAmount(building.name,estimatedItem)"></span>
                                   </div>
                                   <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                                    <button *ngIf="estimatedItem.total == 0" type="button" class="btn btn-primary" (click)="getAmount(building.name, estimatedItem)">Get Amount</button>
+                                    <button *ngIf="estimatedItem.total == 0" type="button" class="btn btn-get-amount" (click)="getAmount(building.name, estimatedItem)">Get Amount</button>
                                   </div>
                               </div>
                               <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
@@ -164,7 +161,7 @@
               <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
                 <div class="col-lg-6 col-md-6 col-sm-8 col-xs-8">
                   19,95,000
-                  <button type="button" class="btn btn-primary" (click)="getCommonAmenities()">Get Amount</button>
+                  <button type="button"  class="btn btn-get-amount" (click)="getCommonAmenities()">Get Amount</button>
                   <!--<input *ngIf="estimatedItem.total != 0" [(ngModel)]="estimatedItem.total" id="estimatedItem.total" class="form-control clear"/>
                   <span *ngIf="estimatedItem.total != 0" class="glyphicon glyphicon-pencil" (click)="getAmount(building._id,estimatedItem.name,building.name)"></span>
                   <button *ngIf="estimatedItem.total == 0" type="button" class="btn btn-primary" (click)="getAmount(building._id,estimatedItem.name,building.name)">Get Amount</button>-->
@@ -230,6 +227,7 @@
       </div>
     </div>
 
+  </div>
   </div>
   <!--modal-->
   <div class="modal fade" id="deleteCosthead" role="dialog">
@@ -358,5 +356,3 @@
   </div>
 
 </section>
-<tpl-footer></tpl-footer>
-

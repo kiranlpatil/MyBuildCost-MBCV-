@@ -20,7 +20,8 @@ import { CreateBuildingService } from '../building/create-building/create-buildi
 @Component({
   moduleId: module.id,
   selector: 'bi-cost-summary-project-report',
-  templateUrl: 'cost-summary.component.html'
+  templateUrl: 'cost-summary.component.html',
+  styleUrls: ['cost-summary.component.css'],
 })
 
 export class CostSummaryComponent implements OnInit {
