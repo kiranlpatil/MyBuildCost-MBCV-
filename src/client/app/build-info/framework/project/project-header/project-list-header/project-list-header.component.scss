@@ -8,6 +8,7 @@ select {
   top: 30px;
   font-size: 21px;
   font-weight: 300;
+  z-index: 101;
 
   &:focus {
     border-bottom: 0 !important;

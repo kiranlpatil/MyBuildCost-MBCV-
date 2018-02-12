@@ -82,6 +82,11 @@
 }
 
 @media only screen and (max-width: 767px) {
+
+  .wrapper {
+    margin-top: 50px;
+  }
+
   .building-image-container {
     .building-image > form {
       bottom: 0;

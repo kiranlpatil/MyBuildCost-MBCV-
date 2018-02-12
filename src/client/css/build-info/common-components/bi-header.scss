@@ -37,7 +37,6 @@
     h4 {
       color: #666;
       display: block;
-      font-family: 'gothamrnd-book';
       font-size: 13px;
       margin-top: 10px;
       overflow: visible;
@@ -163,7 +162,7 @@
     border: 0;
     margin: 8px 0 0 5px;
     .icon-bar {
-      background: $white;
+      background: $gray;
     }
   }
 }
@@ -271,8 +270,8 @@
       padding: 0 15px 15px 0;
 
       img {
-        margin-top: 10px;
-        width: 40px;
+        margin-top: 5px;
+        width: auto;
       }
     }
 
@@ -337,10 +336,13 @@
 
     .user-info {
       width: 250px !important;
-      h4,
       h5 {
         color: #fff;
         padding: 0 10px 5px 65px;
+      }
+
+      img {
+        margin: 0 10px 7px 15px;
       }
     }
 
@@ -364,11 +366,7 @@
     right: 15px;
   }
 
-  #candidate-header {
-    .navbar-brand {
-      img {
-        width: 40px;
-      }
-    }
+  .navbar-nav {
+    margin: 0;
   }
 }
