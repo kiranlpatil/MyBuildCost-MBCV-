@@ -151,6 +151,7 @@ export class CostHeadComponent implements OnInit, OnChanges {
     this.workItem = workItem;
 
     this.rateFromRateAnalysis = rateItem.data.rateFromRateAnalysis;
+
     this.workItem.rate.rateFromRateAnalysis=rateItem.data.rateFromRateAnalysis;
     console.log(this.rateFromRateAnalysis);
 
@@ -246,30 +247,32 @@ export class CostHeadComponent implements OnInit, OnChanges {
     console.log(error);
   }
 
-  deleteWorkitemfun(workItemName: string) {
-    this.currentWorkItem = workItemName;
+  deleteWorkItemFunction(i: number,subCategoryId: string, workItemId: string) {
+    this.subCategoryId = parseInt(subCategoryId);
+     this.workItemId =  parseInt(workItemId);
   }
-
-  deleteWorkitem() {
-    this.costHeadService.deleteWorkItemDetails(this.currentWorkItem, this.costHead).subscribe(
+  deleteWorkItem() {
+    this.costHeadService.deleteWorkItem(parseInt(SessionStorageService.getSessionValue(SessionStorage.CURRENT_COST_HEAD_ID)), this.subCategoryId, this.workItemId ).subscribe(
       costHeadDetail => this.onDeleteWorkItemSuccess(costHeadDetail),
       error => this.onDeleteWorkItemFail(error)
     );
   }
-
-  onDeleteWorkItemSuccess(costHeadDetail: any) {
-    //this.onChangeCostingIn(this.defaultCostIn);
-    if (costHeadDetail !== null) {
+  onDeleteWorkItemSuccess(workItemDetails: any) {
+    if (workItemDetails !== null) {
       var message = new Message();
       message.isError = false;
       message.custom_message = Messages.MSG_SUCCESS_DELETE_COSTHEAD_WORKITEM;
       this.messageService.message(message);
-      this.getCostHeadComponentDetails(this.projectId, this.costHead);
+      this.getSubCategoryDetails(this.projectId, this.costheadId);
     }
   }
 
   onDeleteWorkItemFail(error: any) {
-    console.log(error);
+    var message = new Message();
+    message.isError = false;
+    message.custom_message = Messages.MSG_SUCCESS_SAVED_COST_HEAD_ITEM_ERROR;
+    this.messageService.message(message);
+    this.getSubCategoryDetails(this.projectId, this.costheadId);
   }
 
   getMessages() {

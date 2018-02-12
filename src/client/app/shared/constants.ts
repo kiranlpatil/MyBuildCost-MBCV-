@@ -188,6 +188,7 @@ export class Messages {
   public static MSG_SUCCESS_ADD_ITEM: string = 'Your item added successfully.';
   public static MSG_FAIL_ADD_ITEM: string = 'Add new item failed : ';
   public static MSG_SUCCESS_SAVED_COST_HEAD_ITEM: string = 'Your cost head items updated successfully.';
+  public static MSG_SUCCESS_SAVED_COST_HEAD_ITEM_ERROR: string = 'There is error in operation';
   public static MSG_SUCCESS_ADD_SUBCATEGORY: string = 'Subcategory added successfully.';
   public static MSG_SUCCESS_ADD_WORKITEM: string = 'Work Item added successfully.';
   public static MSG_ALREADY_ADDED_ALL_WORKITEMS: string = 'Already added all workitems.';

@@ -28,7 +28,6 @@ export class GetQuantityService extends BaseService {
     let projectId = SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT);
     let buildingId = SessionStorageService.getSessionValue(SessionStorage.CURRENT_BUILDING);
     var body= { 'item' : quantityItemsArray };
-    //var body=  quantityItemsArray;
     var url = API.VIEW_PROJECT + '/' + projectId + '/'+ API.VIEW_BUILDING + '/' + buildingId
       + '/costhead/' + costHeadId + '/subcategory/'+ subCategoryId +'/workitem/' + workItemId + '/quantity';
     console.log('addCostHeadItems() url : '+url);
@@ -37,7 +36,7 @@ export class GetQuantityService extends BaseService {
       .catch(this.handleError);
   }
 
-  deleteCostHeadItems(costHeadId:number, subCategoryId : number, workItemId:number, itemName: string) {
+  deleteQuantityItem(costHeadId:number, subCategoryId : number, workItemId:number, itemName: string) {
     let headers = new Headers({'Content-Type': 'application/json'});
     let options = new RequestOptions({headers: headers});
     let projectId = SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT);
