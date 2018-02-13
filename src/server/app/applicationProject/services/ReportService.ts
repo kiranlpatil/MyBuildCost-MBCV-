@@ -109,23 +109,29 @@ class ReportService {
                 }
               }
               let subCategory: Array<SubCategory> = costHeadArray[costHeadIndex].subCategory;
-              if(subCategory.length !==0) {
+              if(subCategory.length !== 0) {
 
                 for(let subCategoryKey in subCategory) {
                   let workItem = subCategory[subCategoryKey].workitem;
-                  for(let key in workItem) {
-                    if(workItem[key].quantity.total !== null && workItem[key].rate.total !== null
-                      && workItem[key].quantity.total !== 0 && workItem[key].rate.total !== 0) {
-                      estimateReport.total =(parseFloat(workItem[key].quantity.total)
-                        * parseFloat( workItem[key].rate.total)
-                        + parseFloat(estimateReport.total)).toFixed(2);
-                      let estimatedRate = parseFloat( estimateReport.total) /parseFloat(  buildingReport.area);
-                      estimateReport.rate = estimatedRate.toFixed(2);
-                    } else {
-                      estimateReport.total=0.0;
-                      estimateReport.rate=0.0;
-                      break;
+                  if(workItem.length !== 0) {
+                    for (let key in workItem) {
+                      if (workItem[key].quantity.total !== null && workItem[key].rate.total !== null
+                        && workItem[key].quantity.total !== 0 && workItem[key].rate.total !== 0) {
+                        estimateReport.total = (parseFloat(workItem[key].quantity.total)
+                          * parseFloat(workItem[key].rate.total)
+                          + parseFloat(estimateReport.total)).toFixed(2);
+                        let estimatedRate = parseFloat(estimateReport.total) / parseFloat(buildingReport.area);
+                        estimateReport.rate = estimatedRate.toFixed(2);
+                      } else {
+                        estimateReport.total = 0.0;
+                        estimateReport.rate = 0.0;
+                        break;
+                      }
                     }
+                  } else {
+                    estimateReport.total = 0.0;
+                    estimateReport.rate = 0.0;
+                    break;
                   }
                 }
 
