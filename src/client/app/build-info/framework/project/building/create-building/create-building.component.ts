@@ -67,12 +67,12 @@ export class CreateBuildingComponent implements OnInit {
   }
 
   addBuildingSuccess(building : any) {
-    console.log(building);
     var message = new Message();
     message.isError = false;
     message.custom_message = Messages.MSG_SUCCESS_ADD_BUILDING_PROJECT;
     this.messageService.message(message);
-    this._router.navigate([NavigationRoutes.APP_DASHBOARD]);
+    let projectId = SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT);
+    this._router.navigate([NavigationRoutes.APP_COST_SUMMARY, projectId]);
   }
 
   addBuildingFailed(error : any) {
