@@ -31,6 +31,61 @@
   }
 }
 
+.clone-modal {
+  .modal-dialog {
+    width: 450px;
+  }
+  .modal-body {
+    height: 500px;
+    overflow-y: scroll;
+  }
+  .next-btn,
+  .clone-btn {
+    width: auto;
+    padding: 0 40px;
+  }
+}
+.apartment-configuration-title {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+.following-items-title {
+  border-bottom: 1px solid $clone-border;
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0 0 10px 0;
+  padding: 0 0 10px;
+  text-align: left;
+}
+
+.collapse-items {
+  border-bottom: 1px solid $clone-border;
+  float: left;
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+  text-align: left;
+  width: 100%;
+  input[type=checkbox] {
+    margin: 4px 3px 0 3px;
+    padding: 0;
+  }
+  a {
+    color: $name;
+    font-weight: 600;
+  }
+  .collapse.in {
+    padding: 10px 0 0 10px;
+    input[type=checkbox] {
+      width: 30px;
+    }
+  }
+  .inner-items {
+    float: left;
+    padding: 0 0 10px;
+  }
+}
+
 .btn-get-amount {
   background: transparent;
   border: 1px solid $get-amount;
