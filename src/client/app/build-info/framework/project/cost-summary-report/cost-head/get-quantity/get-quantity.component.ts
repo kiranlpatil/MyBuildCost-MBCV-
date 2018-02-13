@@ -17,7 +17,8 @@ import Rate = require('../../../../../../../../server/app/applicationProject/dat
 @Component({
   moduleId: module.id,
   selector: 'bi-cost-head-get-quantity',
-  templateUrl: 'get-quantity.component.html'
+  templateUrl: 'get-quantity.component.html',
+  styleUrls: ['get-quantity.component.css'],
 })
 
 export class GetQuantityComponent implements OnInit {
