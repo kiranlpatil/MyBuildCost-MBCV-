@@ -43,6 +43,7 @@ export class CostSummaryComponent implements OnInit {
   estimatedItem: any;
   buildingIndex:number;
   showCostHeadList:boolean=false;
+  showGrandTotalPanelBody:boolean=true;
 
  public inActiveCostHeadArray:any;
   cloneBuildingForm: FormGroup;
@@ -405,6 +406,14 @@ export class CostSummaryComponent implements OnInit {
       this.grandTotalofArea =(this.grandTotalofArea +
         parseFloat(this.projectBuildings[buildindIndex].area));
     }
+  }
+
+  toggleShowGrandTotalPanelBody() {
+    this.showGrandTotalPanelBody=!this.showGrandTotalPanelBody;
+  }
+
+  showGrandTotalBody() {
+    this.toggleShowGrandTotalPanelBody();
   }
 
 }
