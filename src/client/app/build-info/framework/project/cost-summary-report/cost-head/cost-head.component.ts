@@ -133,7 +133,7 @@ export class CostHeadComponent implements OnInit, OnChanges {
     this.workItem=workItem;
     this.workItemId = workItem.rateAnalysisId;
     SessionStorageService.setSessionValue(SessionStorage.CURRENT_WORKITEM_ID, this.workItemId);
-    let subCategoryId=this.subCategoryDetails[workItemIndex].rateAnalysisId;
+    let subCategoryId=this.subCategoryDetails[i].rateAnalysisId;
    /* this.loderService.start();*/
     this.costHeadService.getRateItems(this.costheadId, subCategoryId,this.workItemId).subscribe(
         rateItem => {

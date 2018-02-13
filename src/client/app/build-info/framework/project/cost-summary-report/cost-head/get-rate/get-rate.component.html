@@ -5,7 +5,7 @@
           Quantity
       </div>
       <div class="col-md-5">
-                        <input [(ngModel)]="rateItemsArray.quantity" id="rateQuantity" class="form-control clear" (change)="onTotalQuantityChange(rateItemsArray.quantity)" (focus)="getPreviousQuantity(rateItemsArray.quantity)"/>
+                        <input type="number" [(ngModel)]="rateItemsArray.quantity" id="rateQuantity" class="form-control clear" (change)="onTotalQuantityChange(rateItemsArray.quantity)" (focus)="getPreviousQuantity(rateItemsArray.quantity)" minlength="1" min="1" required/>
       </div>
       <div class="col-md-3" style="text-align: left">
                        {{ rateItemsArray.unit }}
@@ -31,16 +31,16 @@
             <input [(ngModel)]="rateItem.remarks" id="itemquantity" class="form-control clear"/>
           </td>
           <td>
-            <input [(ngModel)]="rateItem.quantity" id="itemunit" class="form-control clear" (change)="changeQuantity(rateItem.quantity,k)"/>
+            <input type="number" [(ngModel)]="rateItem.quantity" id="itemunit" class="form-control clear" (change)="changeQuantity(rateItem.quantity,k)"/>
           </td>
           <td>
-            <input [(ngModel)]="rateItem.unit" id="itemrate" class="form-control clear" readonly/>
+            <input type="number" [(ngModel)]="rateItem.unit" id="itemrate" class="form-control clear" readonly/>
           </td>
           <td>
-            <input [(ngModel)]="rateItem.rate" id="itemamount" class="form-control clear" (change)="changeRate(rateItem.rate,k)"/>
+            <input type="number" [(ngModel)]="rateItem.rate" id="itemamount" class="form-control clear" (change)="changeRate(rateItem.rate,k)"/>
           </td>
           <td>
-            <input [(ngModel)]="rateItem.quantity*rateItem.rate" id="totalAmount" class="form-control clear" readonly/>
+            <input type="number" [(ngModel)]="rateItem.quantity*rateItem.rate" id="totalAmount" class="form-control clear" readonly/>
           </td>
         </tr>
 
