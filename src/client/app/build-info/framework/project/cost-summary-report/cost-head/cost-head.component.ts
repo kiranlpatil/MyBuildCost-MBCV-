@@ -20,7 +20,7 @@ import { FormGroup } from '@angular/forms';
 import { Project } from '../../../model/project';
 import { Rate } from '../../../model/rate';
 import { CommonService } from '../../../../../shared/services/common.service';
-import SubCategory = require('../../../../../../../server/app/applicationProject/dataaccess/model/SubCategory');
+//import { SubCategory } from '../../../model/SubCategory';
 
 @Component({
   moduleId: module.id,
@@ -82,7 +82,7 @@ export class CostHeadComponent implements OnInit, OnChanges {
   private subcategoryListArray : Array<any> = [];
   private alteredArrayList : Array<any> = [];
   private showWorkItemList:boolean=false;
-  private subCategoryObj: SubCategory;
+  private subCategoryObj: any;
 
 
   constructor(private costHeadService : CostHeadService, private activatedRoute : ActivatedRoute
