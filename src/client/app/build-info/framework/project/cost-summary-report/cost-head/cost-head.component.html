@@ -32,8 +32,9 @@
           </div>
           <div id="collapse{{i}}" class="panel-collapse collapse">
             <div class="panel-body">
-              <table class="table table-row-spacing table-dashboard">
-                <thead>
+              <div  *ngFor="let workitemObj of subCategoryDetails[subCategory].workitem; let workItemIndex = index">
+                <table class="table table-row-spacing table-dashboard">
+                  <thead *ngIf="workItemIndex === 0">
                   <tr>
                     <th class="border-left">Item</th>
                     <th class="border-left">Qty.</th>
@@ -43,9 +44,9 @@
                     <th class="border-left">Amount</th>
                     <th></th>
                   </tr>
-                </thead>
-                <tbody>
-                  <tr *ngFor="let workitemObj of subCategoryDetails[subCategory].workitem; let workItemIndex = index">
+                  </thead>
+                  <tbody>
+                  <tr>
                     <td class="border-left"> {{ workitemObj.name }}</td>
                     <td class="border-left">
                       <div class="edit-field"
@@ -87,39 +88,44 @@
                       </div>
                     </td>
                   </tr>
-                  <tr *ngIf="showWorkItemList==true && comapreWorkItemRateAnalysisId==i">
-                    <td class="border-left">
-                      <select  class="select-item" (change)="onChangeWorkItem($event.target.value)">
-                        <option [value]="selectItem">Select Work Item</option>
-                        <option *ngFor="let workItems of workItemListArray" [value]="workItems.name">{{ workItems.name }}</option>
-                      </select>
-                    </td>
-                    <td colspan="6">&nbsp;</td>
-                  </tr>
-                  <tr>
-                    <td  class="add-items" colspan="7">
-                      <button type="button" class="btn btn-add-item" (click)="showWorkItem(subCategoryDetails[subCategory].rateAnalysisId,i)"><span class="glyphicon glyphicon-plus"></span>Add Workitem</button>
-                    </td>
-                  </tr>
+                  </tbody>
+                </table>
+
+                <div  *ngIf="toggleRate==true && compareWorkItemIndex==workItemIndex && compareSubcategoryIndex===i">
+                  <bi-rate-items [rateItemsArray]="rateItemsArray" [rateItemsObject]="rateIArray"
+                                 [subCategoryRateAnalysisId]="subCategoryDetails[subCategory].rateAnalysisId"
+                                 [totalAmount]="totalAmount"
+                                 [totalRate]="totalRate"
+                                 [totalQuantity]="totalQuantity"
+                                 (refreshDataList)="refreshDataList()">
+                  </bi-rate-items>
+                </div>
+
+                <div *ngIf="toggleQty==true && compareWorkItemIndex==workItemIndex && compareSubcategoryIndex===i">
+                  <bi-cost-head-get-quantity [quantityItems]="quantityItemsArray"
+                                             [subCategoryRateAnalysisId]="subCategoryDetails[subCategory].rateAnalysisId"
+                                             (refreshDataList)="refreshDataList()">
+                  </bi-cost-head-get-quantity>
+                </div>
+              </div>
+              <table class="table table-row-spacing table-dashboard">
+                <tbody>
+                <tr *ngIf="showWorkItemList==true && comapreWorkItemRateAnalysisId==i">
+                  <td class="border-left">
+                    <select  class="select-item" (change)="onChangeWorkItem($event.target.value)">
+                      <option [value]="selectItem">Select Work Item</option>
+                      <option *ngFor="let workItems of workItemListArray" [value]="workItems.name">{{ workItems.name }}</option>
+                    </select>
+                  </td>
+                  <td colspan="6">&nbsp;</td>
+                </tr>
+                <tr>
+                  <td  class="add-items" colspan="7">
+                    <button type="button" class="btn btn-add-item" (click)="showWorkItem(subCategoryDetails[subCategory].rateAnalysisId,i)"><span class="glyphicon glyphicon-plus"></span>Add Workitem</button>
+                  </td>
+                </tr>
                 </tbody>
               </table>
-
-              <div  *ngIf="toggleRate==true && compareWorkItemIndex==workItemIndex && compareSubcategoryIndex===i">
-                <bi-rate-items [rateItemsArray]="rateItemsArray" [rateItemsObject]="rateIArray"
-                               [subCategoryRateAnalysisId]="subCategoryDetails[subCategory].rateAnalysisId"
-                               [totalAmount]="totalAmount"
-                               [totalRate]="totalRate"
-                               [totalQuantity]="totalQuantity"
-                               (refreshDataList)="refreshDataList()">
-                </bi-rate-items>
-              </div>
-
-              <div *ngIf="toggleQty==true && compareWorkItemIndex==workItemIndex && compareSubcategoryIndex===i">
-                <bi-cost-head-get-quantity [quantityItems]="quantityItemsArray"
-                                           [subCategoryRateAnalysisId]="subCategoryDetails[subCategory].rateAnalysisId"
-                                           (refreshDataList)="refreshDataList()">
-                </bi-cost-head-get-quantity>
-              </div>
             </div>
           </div>
         </div>
