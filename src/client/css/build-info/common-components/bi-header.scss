@@ -10,14 +10,14 @@
   position: fixed;
   top: 0;
   width: 100%;
-  z-index: 99;
+  z-index: 1;
   text-align: left;
 
   .navbar-brand {
     margin-left: 0 !important;
 
     img {
-      margin-top: 5px;
+      margin-top: 18px;
       height: 40px;
     }
   }

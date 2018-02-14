@@ -7,7 +7,7 @@
   padding-top: 13px;
   position: fixed;
   width: 100%;
-  z-index: 99;
+  z-index: 1;
 
   ul {
     position: fixed;
@@ -15,7 +15,7 @@
 
     li {
       display: inline-block;
-      padding: 0 20px;
+      padding: 0 10px;
 
       &:first-child {
         padding-left: 0;
@@ -26,14 +26,15 @@
       color: $link-color;
       padding: 5px;
       border-bottom: 2px solid transparent;
+      font-size: 12px;
+      font-weight: 600;
     }
 
     li > a.active{
-      color: $text-color;
+      color: $heading;
       border-bottom: 2px solid $theme-color;
     }
   }
-
 }
 
 

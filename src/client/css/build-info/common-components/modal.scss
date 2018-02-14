@@ -1,0 +1,25 @@
+@import '../../../css/common';
+
+.modal {
+  .modal-dialog {
+    top: 40%;
+  }
+}
+
+.default-modal {
+  .modal-dialog {
+    width: 450px;
+  }
+  .modal-body {
+    max-height: 500px;
+    overflow-y: auto;
+  }
+  .modal-header {
+    .modal-title {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      width: 95%;
+    }
+  }
+}

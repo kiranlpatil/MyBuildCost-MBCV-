@@ -136,6 +136,10 @@ body {
   }
 }
 
+.form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control {
+  pointer-events: none;
+}
+
 @keyframes spin {
   0% {
     transform: rotate(0deg);
@@ -187,9 +191,9 @@ select,
   }
 
   option {
-    color: #666;
-    font-weight: 900;
-    font-size: 13px;
+    color: $text-color;
+    font-weight: 400;
+    font-size: 12px;
     padding: 2px 0;
   }
 }
@@ -251,6 +255,10 @@ select,
       color: $placeholder-color;
       font-size: 13px;
     }
+  }
+
+  textarea {
+    height: 70px !important;
   }
 }
 
@@ -420,16 +428,23 @@ h5 {
   }
 
   .modal-dialog {
-    top: 50%;
+    top: 45%;
     transform: translate(0, -50%);
   }
 
   .modal-header {
+    background: $theme-color;
+    height: 60px;
     h5 {
       margin-bottom: 0;
       margin-top: 0;
       text-align: left;
       width: 80%;
+    }
+    .modal-title {
+      font-size: 22px;
+      text-align: left;
+      font-weight: 600;
     }
   }
 }
@@ -535,6 +550,33 @@ control-messages {
   top: 15px;
 }
 
+.bi-btn {
+  width: auto;
+  padding: 0 40px;
+}
+
+.padding-top-7 {
+  padding-top: 7px;
+}
+
+.font-16 {
+  font-size: 16px;
+  text-align: center;
+}
+
+.navbar-nav {
+  margin: 15px 0 0;
+}
+
+.white-bg {
+  background: $white;
+  height: 10px;
+  position: absolute;
+  right: 0;
+  top: 41px;
+  width: 540px;
+}
+
 @media only screen and (max-width: 768px) {
   .container-fluid > .navbar-collapse,
   .container-fluid > .navbar-header,
@@ -625,7 +667,7 @@ control-messages {
 }
 
 select:focus {
-  border-bottom: 2px solid $theme-color !important;
+  border-bottom: 2px solid $theme-color;
 }
 
 .select-option {

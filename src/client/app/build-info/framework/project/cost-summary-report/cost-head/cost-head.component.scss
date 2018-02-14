@@ -1,0 +1,74 @@
+@import '../../../../../../css/common';
+
+.wrapper {
+  .panel-group {
+    padding: 7px 0;
+    border: 0;
+  }
+
+  .panel-heading {
+    height: 40px;
+
+    a {
+      color: $heading;
+      font-size: 12px;
+      font-weight: 900;
+      padding: 12px 15px;
+    }
+
+    .delete-workitems {
+      cursor: pointer;
+      opacity: 0;
+      display: block;
+      float: right;
+      width: 15px;
+      margin-top: 6px;
+      transition: opacity 0.5s ease-in-out;
+    }
+
+    &:hover {
+      .delete-workitems {
+        opacity: 1;
+      }
+    }
+  }
+  .panel-body {
+    padding: 0;
+  }
+}
+
+.building-name{
+  background-color: $white;
+  color: $heading;
+  padding: 10px 15px;
+  width: 100%;
+  text-align: center;
+  border-radius: 8px;
+  box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.05);
+  font-weight: 300;
+  font-size: 20px;
+}
+
+.add-subcategory {
+  table {
+    tr > td {
+      text-align: center !important;
+    }
+  }
+}
+
+.table-categories {
+  tr > td,
+  tr > th {
+    &:nth-child(2),
+    &:nth-child(5) {
+      width: 140px;
+    }
+
+    &:nth-child(3),
+    &:nth-child(6),
+    &:nth-child(4) {
+      width: 80px;
+    }
+  }
+}

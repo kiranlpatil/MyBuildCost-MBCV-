@@ -1,72 +1,80 @@
 @import '../../../../../css/common';
 
-.wrapper {
-  background-color: $page-background;
-  width: 100%;
-  min-height: 100vh;
-  margin-top: 100px;
+.clone-modal {
+  .modal-dialog {
+    width: 450px;
+  }
+  .modal-body {
+    height: 500px;
+    overflow-y: scroll;
+  }
+  .next-btn,
+  .clone-btn {
+    padding: 0 40px;
+    width: auto;
+  }
+  .modal-header {
+    .modal-title {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      width: 95%;
+    }
+  }
+}
+.apartment-configuration-title {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+.following-items-title {
+  border-bottom: 1px solid $clone-border;
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0 0 10px 0;
+  padding: 0 0 10px;
   text-align: left;
-  padding-top:30px;
+}
 
-  label {
-    color: $heading;
-    font-weight: 400;
-    font-size: 12px;
+.collapse-items {
+  border-bottom: 1px solid $clone-border;
+  float: left;
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+  text-align: left;
+  width: 100%;
+  input[type=checkbox] {
+    margin: 4px 3px 0 3px;
+    padding: 0;
   }
-
-  select {
-    background: transparent url(../assets/framework/images/form/drop-down.png) no-repeat 92% 50%;
-    border: 1px solid $heading;
-    border-radius: 8px;
-    color: $heading;
-    font-size: 12px;
-    margin-right: 15px;
-    padding: 2px 5px;
-    width: 100px;
-    font-weight: 400;
+  a {
+    color: $name;
+    font-weight: 600;
   }
-}
-
-.btn-get-amount {
-  background: transparent;
-  border: 1px solid #00a79d;
-  color: #00a79d;
-  border-radius: 4px;
-  padding: 2px 4px;
-  height: auto;
-  margin: 5px 0;
-}
-
-.table-row-spacing {
-  border-collapse: separate;
-  border-spacing: 0 10px;
-}
-
-table {
-  font-size: 12px;
-  margin: 0;
-
-  tr {
-    background-color: $white;
-    box-shadow: 10px 10px 10px $panel-shadow;
-
-    th {
-      color: $heading;
-      font-weight: 700;
-      vertical-align: middle;
-    }
-
-    th > .sub-heading {
-      font-weight: 600;
-      font-size: 10px;
-    }
-
-    td, th {
-      border: 0;
+  .collapse.in {
+    padding: 10px 0 0 10px;
+    input[type=checkbox] {
+      width: 30px;
     }
   }
-
-  thead {
-
+  .inner-items {
+    float: left;
+    padding: 0 0 10px;
+  }
+  .sub-inner-items {
+    padding: 10px 0 0 25px;
   }
 }
+.up-arrow {
+  display: none;
+}
+
+.total-body {
+  padding: 15px 0 !important;
+}
+
+
+
+
+
+
