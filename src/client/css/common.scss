@@ -550,6 +550,29 @@ control-messages {
   top: 15px;
 }
 
+.bi-btn {
+  width: auto;
+  padding: 0 40px;
+}
+
+.font-16 {
+  font-size: 16px;
+  text-align: center;
+}
+
+.navbar-nav {
+  margin: 15px 0 0;
+}
+
+.white-bg {
+  background: $white;
+  height: 10px;
+  position: absolute;
+  right: 0;
+  top: 41px;
+  width: 540px;
+}
+
 @media only screen and (max-width: 768px) {
   .container-fluid > .navbar-collapse,
   .container-fluid > .navbar-header,

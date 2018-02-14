@@ -67,8 +67,15 @@
       border-radius: 0;
       box-shadow: 10px 10px 10px $panel-shadow;
       min-width: 105px;
-      padding: 5px 10px;
+      padding: 5px 0 0;
       z-index: 98;
+    }
+
+    .menu-items > .dropdown-menu li {
+      padding: 2px 10px;
+      &:hover {
+        background: $page-background;
+      }
     }
 
     .menu-items > .dropdown-menu > li > p {
@@ -89,7 +96,7 @@
     }
 
     .menu-items.open > a {
-      background-color: $border-color;
+      background-color: $page-background;
     }
 
     .menu-items > a {
@@ -101,7 +108,7 @@
       &:focus,
       &:hover,
       &:active {
-        background-color: $border-color;
+        background-color: $page-background;
       }
     }
 

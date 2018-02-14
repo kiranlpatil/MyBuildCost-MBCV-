@@ -37,13 +37,13 @@
             </div>
             <div id="collapse{{i}}" class="panel-collapse collapse">
               <div class="panel-body">
-                <table class="table table-row-spacing table-dashboard">
+                <table class="table table-row-spacing table-dashboard" style="position: relative">
                   <thead>
                     <tr>
                       <th rowspan="2" class="border-left">Cost Head</th>
                       <th colspan="2" class="border-left">By Thumbrule</th>
                       <th colspan="2" class="border-left">Estimated <span class="sub-heading">(as per project quantities & rates)</span></th>
-                      <th>&nbsp;</th>
+                      <th>&nbsp;<div class="white-bg"></div></th>
                     </tr>
                     <tr>
                       <th><span class="sub-heading">Budgeted Cost</span></th>
@@ -213,10 +213,13 @@
         </div>
       </div>
     </div>
+    <div class="col-xs-4">
+      <img src="./assets/build-info/dashboard/ads.png" />
+    </div>
   </div>
 
   <!--Delete modal-->
-  <div class="modal fade dashboard-modal" id="deleteCosthead" role="dialog">
+  <div class="modal fade default-modal" id="deleteCosthead" role="dialog">
     <div class="modal-dialog modal-md">
       <!-- Modal content-->
       <div class="modal-content">
@@ -225,10 +228,10 @@
           <h2 class="modal-title">Delete Cost Head</h2>
         </div>
         <div class="modal-body">
-          <p>Do you want to delete a CostHead ?</p>
+          <p class="font-16">Do you want to delete a CostHead ?</p>
         </div>
         <div class="modal-footer">
-          <button class="btn btn-primary" type="button" (click)="deleteCostHeadDetails()" data-dismiss="modal">Yes</button>
+          <button class="btn btn-primary bi-btn" type="button" (click)="deleteCostHeadDetails()" data-dismiss="modal">Yes</button>
           <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
         </div>
       </div>
@@ -338,7 +341,9 @@
           <div class="collapse-items" *ngFor="let costHead of clonedBuildingDetails; let i = index">
             <input type="checkbox" [checked]="costHead.active" (change)="costHead.active = !costHead.active"/>
 
-            <a href="#subCategory{{i}}" data-toggle="collapse">{{costHead.name}}</a>
+            <a class="" href="#subCategory{{i}}" data-toggle="collapse">
+              {{costHead.name}}
+            </a>
 
             <div id="subCategory{{i}}" class="collapse">
               <div *ngFor="let subcategory of costHead.subCategory">

@@ -10,10 +10,11 @@
   margin: 0;
 
   .delete-cost-head {
-    width: 15px;
+    cursor: pointer;
     display: block;
     opacity: 0;
     transition: opacity 0.5s ease-in-out;
+    width: 15px;
   }
 
   thead > tr,

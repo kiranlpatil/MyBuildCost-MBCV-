@@ -10,8 +10,16 @@
   }
   .next-btn,
   .clone-btn {
-    width: auto;
     padding: 0 40px;
+    width: auto;
+  }
+  .modal-header {
+    .modal-title {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      width: 95%;
+    }
   }
 }
 .apartment-configuration-title {
