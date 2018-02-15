@@ -126,10 +126,11 @@ export class CostSummaryComponent implements OnInit {
     console.log(error);
   }
 
-  getAmount(buildingName:string, estimatedItem :any) {
+  getAmount(buildingName:string, buildingId : string, estimatedItem :any) {
     this.estimatedItem = estimatedItem.data;
     this.costHeadId = estimatedItem.rateAnalysisId;
-   this.buildingId =  SessionStorageService.getSessionValue(SessionStorage.CURRENT_BUILDING);
+    SessionStorageService.setSessionValue(SessionStorage.CURRENT_BUILDING, buildingId);
+    this.buildingId =  SessionStorageService.getSessionValue(SessionStorage.CURRENT_BUILDING);
     this.projectId = SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT);
     this._router.navigate([NavigationRoutes.APP_COST_HEAD, this.projectId, buildingName, estimatedItem.name, this.costHeadId]);
   }
@@ -179,7 +180,6 @@ export class CostSummaryComponent implements OnInit {
   }
   onGetCostInSuccess(projects : any) {
     this.projectBuildings = projects.data;
-
     this.makeGrandTotal();
   }
 

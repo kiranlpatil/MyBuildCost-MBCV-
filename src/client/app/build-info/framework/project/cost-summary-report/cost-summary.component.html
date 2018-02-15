@@ -68,14 +68,14 @@
                       <td class="border-left">{{thumbRuleItem.rate}}</td>
                       <td>
                         <div class="edit-field" *ngIf="building.estimated.estimatedCost[i].total != 0"
-                             (click)="getAmount(building.name, building.estimated.estimatedCost[i])">
+                             (click)="getAmount(building.name, building._id, building.estimated.estimatedCost[i])">
                           <input [(ngModel)]="building.estimated.estimatedCost[i].total"
                                  id="estimatedItem.total"
                                  class="form-control clear"/>
                         </div>
                         <button *ngIf="building.estimated.estimatedCost[i].total == 0"
                                   type="button" class="btn-get-amount"
-                                  (click)="getAmount(building.name, building.estimated.estimatedCost[i])">Get Amount</button>
+                                  (click)="getAmount(building.name, building._id, building.estimated.estimatedCost[i])">Get Amount</button>
                       </td>
                       <td class="border-left">{{building.estimated.estimatedCost[i].rate}}</td>
                       <td>
