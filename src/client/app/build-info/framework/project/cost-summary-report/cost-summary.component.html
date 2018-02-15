@@ -81,7 +81,7 @@
                       <td>
                         <div data-toggle="modal"
                              data-target="#deleteCosthead"
-                             (click)="deleteCostHeadDetailsfun(building._id, building.estimated.estimatedCost[i].name)"
+                             (click)="deleteCostHeadDetailsfun(building._id, building.estimated.estimatedCost[i].rateAnalysisId)"
                              class="delete-cost-head">
                           <img alt="Delete Cost Head" src="assets/build-info/dashboard/delete.png" />
                         </div>
@@ -91,7 +91,7 @@
                       <td class="border-left">
                         <select class="select-item" (change)="inactiveCostHeadSelected($event.target.value)">
                           <option>Select Item</option>
-                          <option *ngFor="let costHeadItem of inActiveCostHeadArray" [value]="costHeadItem.name">
+                          <option *ngFor="let costHeadItem of inActiveCostHeadArray" [value]="costHeadItem.rateAnalysisId">
                             {{costHeadItem.name}}
                           </option>
                         </select>

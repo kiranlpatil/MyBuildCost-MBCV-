@@ -39,6 +39,7 @@ export class CostSummaryComponent implements OnInit {
   buildingsDetails: any;
   estimatedCost : any;
   costHead: string;
+  costHeadName: string;
   costHeadDetails :any;
   estimatedItem: any;
   buildingIndex:number;
@@ -217,19 +218,19 @@ export class CostSummaryComponent implements OnInit {
   getHeadings() {
     return Headings;
   }
-  deleteCostHeadDetailsfun(buildingId: string, costHead: string) {
+  deleteCostHeadDetailsfun(buildingId: string, costHeadId: number) {
     this.buildingId = buildingId;
-    this.costHead = costHead;
+    this.costHeadId = costHeadId;
   }
 
   deleteCostHeadDetails() {
-      this.costSummaryService.deleteQuanatityDetails(this.buildingId, this.costHead).subscribe(
-        costHeadDetail => this.onDeleteQuantitySuccess(costHeadDetail),
-        error => this.onDeleteQuantityFail(error)
+    this.costSummaryService.deleteCostHead(this.buildingId, this.costHeadId).subscribe(
+        costHeadDetail => this.onDeleteCostHeadSuccess(costHeadDetail),
+        error => this.onDeleteCostHeadFail(error)
       );
     }
 
-  onDeleteQuantitySuccess(costHeadDetail: any) {
+  onDeleteCostHeadSuccess(costHeadDetail: any) {
     this.onChangeCostingIn(this.defaultCostIn);
      if ( costHeadDetail!== null) {
       var message = new Message();
@@ -240,13 +241,13 @@ export class CostSummaryComponent implements OnInit {
     }
   }
 
-  onDeleteQuantityFail(error: any) {
+  onDeleteCostHeadFail(error: any) {
     console.log(error);
   }
 
-  inactiveCostHeadSelected(selectedinActiveCostHead:string) {
+  inactiveCostHeadSelected(selectedInactiveCostHeadId:number) {
     this.showCostHeadList=false;
-    this.costSummaryService.addInactiveCostHead(selectedinActiveCostHead,this.projectId,this.buildingId).subscribe(
+    this.costSummaryService.addInactiveCostHead(selectedInactiveCostHeadId,this.projectId,this.buildingId).subscribe(
       inActiveCostHeads => this.onAddInactiveCostHeadSuccess(inActiveCostHeads),
       error => this.onAddInactiveCostHeadFailure(error)
     );
