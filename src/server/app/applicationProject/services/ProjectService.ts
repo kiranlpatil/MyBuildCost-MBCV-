@@ -537,11 +537,11 @@ class ProjectService {
     });
   }
 
-  updateBuildingCostHead( buildingId : string, costHead : string, costHeadValue : string, user: User,
+  updateBuildingCostHeadStatus( buildingId : string, costHeadId : number, costHeadActiveStatus : string, user: User,
                           callback: (error: any, result: any) => void) {
-    let query = {'_id' : buildingId, 'costHead.name' : costHead};
-    let value = JSON.parse(costHeadValue);
-    let newData = { $set : {'costHead.$.active' : value}};
+    let query = {'_id' : buildingId, 'costHead.rateAnalysisId' : costHeadId};
+    let activeStatus = JSON.parse(costHeadActiveStatus);
+    let newData = { $set : {'costHead.$.active' : activeStatus}};
     this.buildingRepository.findOneAndUpdate(query, newData, {new: true},(err, response) => {
       logger.info('Project service, findOneAndUpdate has been hit');
       if(err) {
@@ -552,15 +552,15 @@ class ProjectService {
     });
   }
 
-  updateBudgetedCostForCostHead( buildingId : string, costHead : string, costHeadBudgetedAmountEdited : any, user: User,
+  updateBudgetedCostForCostHead( buildingId : string, costHeadBudgetedAmount : any, user: User,
                                  callback: (error: any, result: any) => void) {
     logger.info('Project service, updateBudgetedCostForCostHead has been hit');
-    let query = {'_id' : buildingId, 'costHead.name' : costHead};
-    let costInUnit = costHeadBudgetedAmountEdited.costIn;
-    let costPerUnit = costHeadBudgetedAmountEdited.costPer;
+    let query = {'_id' : buildingId, 'costHead.name' : costHeadBudgetedAmount.costHead};
+    let costInUnit = costHeadBudgetedAmount.costIn;
+    let costPerUnit = costHeadBudgetedAmount.costPer;
     let rate = 0;
     let newData;
-    rate = costHeadBudgetedAmountEdited.budgetedCostAmount / costHeadBudgetedAmountEdited.buildingArea;
+    rate = costHeadBudgetedAmount.budgetedCostAmount / costHeadBudgetedAmount.buildingArea;
 
     if(costPerUnit === 'saleableArea' && costInUnit === 'sqft') {
       newData = { $set : {

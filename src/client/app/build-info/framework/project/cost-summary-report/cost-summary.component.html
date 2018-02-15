@@ -35,9 +35,9 @@
                 </ul>
               </div>
             </div>
-            <div id="collapse{{i}}" class="panel-collapse collapse">
+            <div id="collapse{{i}}" class="panel-collapse collapse" [class.in]="i===0">
               <div class="panel-body">
-                <table class="table table-row-spacing table-dashboard" style="position: relative">
+                <table class="table table-row-spacing table-dashboard">
                   <thead>
                     <tr>
                       <th rowspan="2" class="border-left">Cost Head</th>
@@ -68,20 +68,20 @@
                       <td class="border-left">{{thumbRuleItem.rate}}</td>
                       <td>
                         <div class="edit-field" *ngIf="building.estimated.estimatedCost[i].total != 0"
-                             (click)="getAmount(building.name, building.estimated.estimatedCost[i])">
+                             (click)="getAmount(building.name, building._id, building.estimated.estimatedCost[i])">
                           <input [(ngModel)]="building.estimated.estimatedCost[i].total"
                                  id="estimatedItem.total"
                                  class="form-control clear"/>
                         </div>
                         <button *ngIf="building.estimated.estimatedCost[i].total == 0"
                                   type="button" class="btn-get-amount"
-                                  (click)="getAmount(building.name, building.estimated.estimatedCost[i])">Get Amount</button>
+                                  (click)="getAmount(building.name, building._id, building.estimated.estimatedCost[i])">Get Amount</button>
                       </td>
                       <td class="border-left">{{building.estimated.estimatedCost[i].rate}}</td>
                       <td>
                         <div data-toggle="modal"
                              data-target="#deleteCosthead"
-                             (click)="deleteCostHeadDetailsfun(building._id, building.estimated.estimatedCost[i].name)"
+                             (click)="deleteCostHeadDetailsfun(building._id, building.estimated.estimatedCost[i].rateAnalysisId)"
                              class="delete-cost-head">
                           <img alt="Delete Cost Head" src="assets/build-info/dashboard/delete.png" />
                         </div>
@@ -91,7 +91,7 @@
                       <td class="border-left">
                         <select class="select-item" (change)="inactiveCostHeadSelected($event.target.value)">
                           <option>Select Item</option>
-                          <option *ngFor="let costHeadItem of inActiveCostHeadArray" [value]="costHeadItem.name">
+                          <option *ngFor="let costHeadItem of inActiveCostHeadArray" [value]="costHeadItem.rateAnalysisId">
                             {{costHeadItem.name}}
                           </option>
                         </select>
@@ -202,8 +202,8 @@
                   <td class="border-left">Total</td>
                   <td>{{grandTotalofBudgetedCost}}</td>
                   <td class="border-left">{{grandTotalofTotalRate}}</td>
-                  <td>-</td>
-                  <td class="border-left">-</td>
+                  <td>{{grandTotalofEstimatedCost}}</td>
+                  <td class="border-left">{{grandTotalofEstimatedRate}}</td>
                   <td></td>
                 </tr>
                 </tbody>
@@ -249,7 +249,7 @@
         <form [formGroup]="cloneBuildingForm" class="profile-form clearfix">
           <div class="modal-body">
             <div class="form-group">
-              <label>Enter Password</label>
+              <label>Building Name</label>
               <input type="text" [(ngModel)]="model.name" formControlName="name" size="45" class="form-control">
             </div>
             <div class="form-group">

@@ -32,13 +32,18 @@ export class CostSummaryComponent implements OnInit {
   cloneBuildingId: string;
   currentBuildingId:string;
   costHeadId: number;
+
   grandTotalofBudgetedCost: number;
   grandTotalofTotalRate: number;
   grandTotalofArea: number;
+  grandTotalofEstimatedCost : number;
+  grandTotalofEstimatedRate : number;
+
   buildingName : string;
   buildingsDetails: any;
   estimatedCost : any;
   costHead: string;
+  costHeadName: string;
   costHeadDetails :any;
   estimatedItem: any;
   buildingIndex:number;
@@ -121,10 +126,11 @@ export class CostSummaryComponent implements OnInit {
     console.log(error);
   }
 
-  getAmount(buildingName:string, estimatedItem :any) {
+  getAmount(buildingName:string, buildingId : string, estimatedItem :any) {
     this.estimatedItem = estimatedItem.data;
     this.costHeadId = estimatedItem.rateAnalysisId;
-   this.buildingId =  SessionStorageService.getSessionValue(SessionStorage.CURRENT_BUILDING);
+    SessionStorageService.setSessionValue(SessionStorage.CURRENT_BUILDING, buildingId);
+    this.buildingId =  SessionStorageService.getSessionValue(SessionStorage.CURRENT_BUILDING);
     this.projectId = SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT);
     this._router.navigate([NavigationRoutes.APP_COST_HEAD, this.projectId, buildingName, estimatedItem.name, this.costHeadId]);
   }
@@ -174,7 +180,6 @@ export class CostSummaryComponent implements OnInit {
   }
   onGetCostInSuccess(projects : any) {
     this.projectBuildings = projects.data;
-
     this.makeGrandTotal();
   }
 
@@ -217,19 +222,19 @@ export class CostSummaryComponent implements OnInit {
   getHeadings() {
     return Headings;
   }
-  deleteCostHeadDetailsfun(buildingId: string, costHead: string) {
+  deleteCostHeadDetailsfun(buildingId: string, costHeadId: number) {
     this.buildingId = buildingId;
-    this.costHead = costHead;
+    this.costHeadId = costHeadId;
   }
 
   deleteCostHeadDetails() {
-      this.costSummaryService.deleteQuanatityDetails(this.buildingId, this.costHead).subscribe(
-        costHeadDetail => this.onDeleteQuantitySuccess(costHeadDetail),
-        error => this.onDeleteQuantityFail(error)
+    this.costSummaryService.deleteCostHead(this.buildingId, this.costHeadId).subscribe(
+        costHeadDetail => this.onDeleteCostHeadSuccess(costHeadDetail),
+        error => this.onDeleteCostHeadFail(error)
       );
     }
 
-  onDeleteQuantitySuccess(costHeadDetail: any) {
+  onDeleteCostHeadSuccess(costHeadDetail: any) {
     this.onChangeCostingIn(this.defaultCostIn);
      if ( costHeadDetail!== null) {
       var message = new Message();
@@ -240,13 +245,13 @@ export class CostSummaryComponent implements OnInit {
     }
   }
 
-  onDeleteQuantityFail(error: any) {
+  onDeleteCostHeadFail(error: any) {
     console.log(error);
   }
 
-  inactiveCostHeadSelected(selectedinActiveCostHead:string) {
+  inactiveCostHeadSelected(selectedInactiveCostHeadId:number) {
     this.showCostHeadList=false;
-    this.costSummaryService.addInactiveCostHead(selectedinActiveCostHead,this.projectId,this.buildingId).subscribe(
+    this.costSummaryService.addInactiveCostHead(selectedInactiveCostHeadId,this.projectId,this.buildingId).subscribe(
       inActiveCostHeads => this.onAddInactiveCostHeadSuccess(inActiveCostHeads),
       error => this.onAddInactiveCostHeadFailure(error)
     );
@@ -398,13 +403,24 @@ export class CostSummaryComponent implements OnInit {
     this.grandTotalofBudgetedCost = 0;
     this.grandTotalofTotalRate = 0;
     this.grandTotalofArea = 0;
+
+    this.grandTotalofEstimatedCost = 0;
+    this.grandTotalofEstimatedRate = 0;
+
     for (let buildindIndex = 0; buildindIndex < this.projectBuildings.length; buildindIndex++) {
-      this.grandTotalofBudgetedCost = (this.grandTotalofBudgetedCost
-        + parseFloat(this.projectBuildings[buildindIndex].thumbRule.totalBudgetedCost));
-      this.grandTotalofTotalRate = (this.grandTotalofTotalRate
-        + parseFloat(this.projectBuildings[buildindIndex].thumbRule.totalRate));
-      this.grandTotalofArea =(this.grandTotalofArea +
-        parseFloat(this.projectBuildings[buildindIndex].area));
+
+      this.grandTotalofBudgetedCost = this.grandTotalofBudgetedCost +
+        parseFloat(this.projectBuildings[buildindIndex].thumbRule.totalBudgetedCost);
+
+      this.grandTotalofTotalRate = this.grandTotalofTotalRate + parseFloat(this.projectBuildings[buildindIndex].thumbRule.totalRate);
+
+      this.grandTotalofArea =( this.grandTotalofArea + parseFloat(this.projectBuildings[buildindIndex].area));
+
+      this.grandTotalofEstimatedCost = this.grandTotalofEstimatedCost +
+        parseFloat(this.projectBuildings[buildindIndex].estimated.totalEstimatedCost);
+
+      this.grandTotalofEstimatedRate = this.grandTotalofEstimatedRate +
+        parseFloat(this.projectBuildings[buildindIndex].estimated.totalRate);
     }
   }
 

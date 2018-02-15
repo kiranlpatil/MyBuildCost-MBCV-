@@ -392,23 +392,23 @@ class ProjectController {
     }
   }
 
-  updateBuildingCostHead(req: express.Request, res: express.Response, next: any): void {
+  setBuildingCostHeadStatus(req: express.Request, res: express.Response, next: any): void {
     logger.info('Project controller, updateBuildingCostHead has been hit');
     try {
       let projectService = new ProjectService();
       let user = req.user;
       let projectId =  req.params.id;
-      let buildingId =  req.params.buildingid;
-      let costHead =  req.params.costhead;
-      let costHeadValue =  req.params.value;
+      let buildingId =  req.params.buildingId;
+      let costHeadId =  req.params.costHeadId;
+      let costHeadActiveStatus = req.params.activeStatus;
 
-      projectService.updateBuildingCostHead(buildingId, costHead, costHeadValue, user,(error, result) => {
+      projectService.updateBuildingCostHeadStatus(buildingId, parseInt(costHeadId), costHeadActiveStatus, user,(error, result) => {
         if(error) {
           next(error);
         } else {
           logger.info('Update Building CostHead Details success ');
           logger.debug('updateBuildingCostHead for Project ID : '+projectId+', Building ID : '+buildingId+
-            ', CostHead : '+costHead);
+            ', CostHead : '+costHeadId+', costHeadActiveStatus : '+costHeadActiveStatus);
           next(new Response(200,result));
         }
       });
@@ -423,10 +423,9 @@ class ProjectController {
       let user = req.user;
       let projectId =  req.params.id;
       let buildingId =  req.params.buildingid;
-      let costHead =  req.params.costhead;
-      let costHeadBudgetedAmountEdited =  req.body;
+      let costHeadBudgetedAmount =  req.body;
 
-      projectService.updateBudgetedCostForCostHead(buildingId, costHead, costHeadBudgetedAmountEdited, user,(error, result) => {
+      projectService.updateBudgetedCostForCostHead(buildingId, costHeadBudgetedAmount, user,(error, result) => {
         if(error) {
           next(error);
         } else {
