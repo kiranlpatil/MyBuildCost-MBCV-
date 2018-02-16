@@ -1,6 +1,6 @@
-import {Directive, ElementRef, EventEmitter, Output} from "@angular/core";
-import {NgModel} from "@angular/forms";
-import {MyGoogleAddress} from "../models/my-google-address";
+import { Directive, ElementRef, EventEmitter, Output } from '@angular/core';
+import { NgModel } from '@angular/forms';
+import { MyGoogleAddress } from '../models/my-google-address';
 
 declare var google: any;
 

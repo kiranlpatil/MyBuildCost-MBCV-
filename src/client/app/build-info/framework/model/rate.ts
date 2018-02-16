@@ -1,4 +1,4 @@
-import { RateItem } from './RateItem';
+import { RateItem } from './rate-item';
 
 export class Rate {
   rateFromRateAnalysis: number;

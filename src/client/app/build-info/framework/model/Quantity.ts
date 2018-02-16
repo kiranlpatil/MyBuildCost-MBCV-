@@ -1,4 +1,4 @@
-import QuantityItem = require('./QuantityItem');
+import QuantityItem = require('./quantity-item');
 
 class Quantity {
   total: number;

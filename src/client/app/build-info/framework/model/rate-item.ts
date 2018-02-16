@@ -1,4 +1,3 @@
-
 export class RateItem {
   item: string ='';
   type: string ='';

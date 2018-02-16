@@ -1,8 +1,8 @@
-import {Injectable} from "@angular/core";
-import {Observable} from "rxjs/Observable";
-import {ForgotPassword} from "../../../user/models/forgotpassword";
-import {API, BaseService} from "../../../shared/index";
-import {Headers, Http, RequestOptions} from "@angular/http";
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
+import { ForgotPassword } from '../../../user/models/forgot-password';
+import { API, BaseService } from '../../../shared/index';
+import { Headers, Http, RequestOptions } from '@angular/http';
 
 @Injectable()
 export class ForgotPasswordService extends BaseService {

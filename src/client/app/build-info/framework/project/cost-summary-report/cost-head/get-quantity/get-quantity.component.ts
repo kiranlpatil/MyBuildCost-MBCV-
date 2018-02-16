@@ -12,8 +12,7 @@ import { API, BaseService, SessionStorage, SessionStorageService,  Message,
   Messages, MessageService } from '../../../../../../shared/index';
 
 import { GetQuantityService } from './get-quantity.service';
-import Quantity = require('../../../../model/Quantity');
-import QuantityItem = require('../../../../model/QuantityItem');
+import QuantityItem = require('../../../../model/quantity-item');
 
 @Component({
   moduleId: module.id,

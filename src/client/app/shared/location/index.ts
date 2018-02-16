@@ -1,7 +1,7 @@
-import {ModuleWithProviders, NgModule} from "@angular/core";
-import {BrowserModule} from "@angular/platform-browser";
-import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {MyGoogleDirective} from "./googleplace.directive";
+import { ModuleWithProviders, NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MyGoogleDirective } from './google-place.directive';
 
 @NgModule({
   imports: [BrowserModule, FormsModule, ReactiveFormsModule],

@@ -1,13 +1,13 @@
-import {Component, EventEmitter, OnInit, Output} from "@angular/core";
-import {Router} from "@angular/router";
-import {ChangeMobileService} from "./change-mobile.service";
-import {ChangeMobile} from "../../models/changemobile";
-import {CommonService, ImagePath, Message, MessageService, NavigationRoutes} from "../../../shared/index";
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {ValidationService} from "../../../shared/customvalidations/validation.service";
-import {SessionStorageService} from "../../../shared/services/session.service";
-import {SessionStorage, Messages} from "../../../shared/constants";
-import {LoaderService} from "../../../shared/loader/loaders.service";
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Router } from '@angular/router';
+import { ChangeMobileService } from './change-mobile.service';
+import { ChangeMobile } from '../../models/change-mobile';
+import { CommonService, ImagePath, Message, MessageService, NavigationRoutes } from '../../../shared/index';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ValidationService } from '../../../shared/customvalidations/validation.service';
+import { SessionStorageService } from '../../../shared/services/session.service';
+import { SessionStorage, Messages } from '../../../shared/constants';
+import { LoaderService } from '../../../shared/loader/loaders.service';
 
 
 @Component({

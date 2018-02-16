@@ -1,6 +1,4 @@
-import Rate = require('./rate');
-
-class WorkItem {
+export class WorkItem {
   name: string;
   rateAnalysisId:number;
   unit: string;
@@ -14,5 +12,5 @@ class WorkItem {
     this.remarks = '';
   }
 }
-export = WorkItem;
+
 

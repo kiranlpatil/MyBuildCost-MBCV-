@@ -4,12 +4,12 @@ import { CommonService, ImagePath, Message, MessageService } from '../../../shar
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { LoaderService } from '../../../shared/loader/loaders.service';
 import { ValidationService } from '../../../shared/customvalidations/validation.service';
-import { AppSettings, Messages, Label, Button, Headings, NavigationRoutes,LocalStorage} from '../../../shared/constants';
+import { AppSettings, Messages, Label, Button, Headings, NavigationRoutes,LocalStorage } from '../../../shared/constants';
 import { ErrorService } from '../../../shared/services/error.service';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { UserProfile } from '../../../user/models/user';
-import { ChangePassword } from '../../../user/models/changepassword';
-import {LocalStorageService} from '../../../shared/services/localstorage.service';
+import { ChangePassword } from '../../../user/models/change-password';
+import { LocalStorageService } from '../../../shared/services/localstorage.service';
 @Component({
   moduleId: module.id,
   selector: 'dashboard-change-password',
