@@ -19,12 +19,8 @@ import { DashboardService } from './user/services/dashboard.service';
 import { ContactService } from './framework/dashboard/contact/contact.service';
 import { ActivateUserComponent } from './framework/registration/activate-user/activate-user.component';
 import { ActiveUserService } from './framework/registration/activate-user/activate-user.service';
-import { DateService } from './build-info/framework/date.service';
-import { RoleTypeListComponent } from './build-info/framework/role-type/role-type.component';
-import { RoleTypeService } from './build-info/framework/role-type/role-type.service';
 import { RedirectRecruiterDashboardService } from './user/services/redirect-dashboard.service';
 import { ProfileDetailsService } from './build-info/framework/profile-detail-service';
-import { GuidedTourService } from './build-info/framework/guided-tour.service';
 import { LoggerService, MyErrorHandler } from './build-info/framework/my-error-handler.service';
 import { UserModule } from './user/user.module';
 import { SharedModule } from './shared/shared.module';
@@ -107,7 +103,6 @@ import { CreateNewProjectComponent } from './build-info/framework/create-new-pro
     SocialIconComponent,
 
     //Application COMPONENT
-    RoleTypeListComponent,
     DashboardHeaderComponent,
     ProjectComponent,
     BuildingComponent,
@@ -155,11 +150,8 @@ import { CreateNewProjectComponent } from './build-info/framework/create-new-pro
     ProfileService,
     ContactService,
     ActiveUserService,
-    DateService,
-    RoleTypeService,
     ProfileDetailsService,
     RedirectRecruiterDashboardService,
-    GuidedTourService,
     SharedService,
     Title,
     AnalyticService,

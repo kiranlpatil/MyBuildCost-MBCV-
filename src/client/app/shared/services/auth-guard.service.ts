@@ -2,7 +2,7 @@ import {Injectable} from "@angular/core";
 import {CanActivate,Router} from "@angular/router";
 import {SessionStorageService} from "./session.service";
 import {LocalStorage, SessionStorage} from "../constants";
-import {LocalStorageService} from "./localstorage.service";
+import { LocalStorageService } from './local-storage.service';
 
 @Injectable()
 

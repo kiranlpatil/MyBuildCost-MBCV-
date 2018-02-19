@@ -1,4 +1,4 @@
-import {Location} from "./location";
+/*import {Location} from "./location";*/
 export class CandidateDetail {
   _id:any;
   isCandidate: boolean;
@@ -14,7 +14,7 @@ export class CandidateDetail {
   password: string = '';
   confirm_password: string = '';
   pin: string = '';
-  location: Location= new Location();
+  /*location: Location= new Location();*/
   current_theme: string;
   picture: string = '/assets/framework/images/dashboard/default-profile.png';
   social_profile_picture: string;

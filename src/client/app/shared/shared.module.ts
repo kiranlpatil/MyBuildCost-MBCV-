@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LoaderComponent } from './loader/loader.component';
 import { LoaderService } from './loader/loaders.service';
-import { MyGoogleDirective } from './location/google-place.directive';
 import { ControlMessagesComponent } from './customvalidations/control-messages.component';
 import { ValidationService } from './customvalidations/validation.service';
 import { SessionStorageService } from './services/session.service';
@@ -19,8 +18,8 @@ import { ErrorService } from './services/error.service';
 
 @NgModule({
   imports: [CommonModule],
-  declarations: [LoaderComponent, MyGoogleDirective, ControlMessagesComponent, MyGoogleDirective, TooltipComponent, FooterComponent],
-  exports: [LoaderComponent, MyGoogleDirective, ControlMessagesComponent, MyGoogleDirective, TooltipComponent, FooterComponent],
+  declarations: [LoaderComponent, ControlMessagesComponent, TooltipComponent, FooterComponent],
+  exports: [LoaderComponent, ControlMessagesComponent, TooltipComponent, FooterComponent],
   providers: [LoaderService, UsageTrackingService,ValidationService, SessionStorageService, MessageService, SharedService,
     ThemeChangeService, CommonService, BaseService, CustomHttp, ErrorService, SessionStorageService]
 })

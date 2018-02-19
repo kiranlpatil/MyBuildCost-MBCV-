@@ -1,30 +1,30 @@
-import {Industry} from "./industry";
-import {Award} from "./award";
-import {AcademicDetails} from "./academic-details";
+/*import {Industry} from "./industry";
 import {Certifications} from "./certification-accreditation";
 import {ProfessionalData} from "./professional-data";
 import {EmployementHistory} from "./employment-history";
-import {CandidateDetail} from "./candidate-details";
-import {Location} from "./location";
 import {Capability} from "./capability";
+import {Location} from "./location";*/
+import { CandidateDetail } from './candidate-details';
+
+
 export class Candidate {
   personalDetails: CandidateDetail = new CandidateDetail();
   jobTitle: string;
   isVisible: boolean;
-  location: Location = new Location();
+ /* location: Location = new Location();*/
   isSubmitted: boolean;
   aboutMyself: string = '';
-  certifications: Certifications[] = [];
-  awards: Award[] = [];
-  industry: Industry = new Industry();
+ // certifications: Certifications[] = [];
+  //awards: Award[] = [];
+ // industry: Industry = new Industry();
   capability_matrix:any;
   complexity_note_matrix:any;
-  capabilities: Capability[] = new Array(0);
+ // capabilities: Capability[] = new Array(0);
   interestedIndustries: string[] = new Array(0);
   roleType: string = '';
-  academics: AcademicDetails[] = [];
-  professionalDetails: ProfessionalData = new ProfessionalData();
-  employmentHistory: EmployementHistory[] = [];
+ // academics: AcademicDetails[] = [];
+ // professionalDetails: ProfessionalData = new ProfessionalData();
+ // employmentHistory: EmployementHistory[] = [];
   proficiencies: string[] = new Array(0);
   secondaryCapability: string[] = [];
   lockedOn: Date;
@@ -56,5 +56,5 @@ export class Summary {
   numberOfJobApplied: number=0;
   numberJobsBlocked: number=0;
   numberOfmatched: number;
-  numberOfRecruiterJobs: number
+  numberOfRecruiterJobs: number;
 }

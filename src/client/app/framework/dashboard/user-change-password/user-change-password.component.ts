@@ -9,7 +9,7 @@ import { ErrorService } from '../../../shared/services/error.service';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { UserProfile } from '../../../user/models/user';
 import { ChangePassword } from '../../../user/models/change-password';
-import { LocalStorageService } from '../../../shared/services/localstorage.service';
+import { LocalStorageService } from '../../../shared/services/local-storage.service';
 @Component({
   moduleId: module.id,
   selector: 'dashboard-change-password',

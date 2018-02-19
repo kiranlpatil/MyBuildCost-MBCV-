@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { Candidate, Section } from '../../../user/models/candidate';
 import {AppSettings, ImagePath, SessionStorage, Label, LocalStorage} from '../../../shared/constants';
 import { SessionStorageService } from '../../../shared/services/session.service';
-import {LocalStorageService} from '../../../shared/services/localstorage.service';
+import {LocalStorageService} from '../../../shared/services/local-storage.service';
 
 @Component({
   moduleId: module.id,

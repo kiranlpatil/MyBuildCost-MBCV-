@@ -1,6 +1,6 @@
 import {Headers, RequestOptions, RequestOptionsArgs} from "@angular/http";
 import {AppSettings, SessionStorage, SessionStorageService} from "../../index";
-import {LocalStorageService} from "../localstorage.service";
+import {LocalStorageService} from "../local-storage.service";
 import {LocalStorage} from "../../constants";
 //import {  Config  } from '../config/env.config';
 export class AppRequestOptions extends RequestOptions {

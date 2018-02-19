@@ -7,7 +7,6 @@ import { ValidationService } from '../../../shared/customvalidations/validation.
 import { AppSettings, CommonService, Message, MessageService, NavigationRoutes } from '../../../shared/index';
 import { API, ImagePath, Label, SessionStorage, Messages } from '../../../shared/constants';
 import { SessionStorageService } from '../../../shared/services/session.service';
-import { DateService } from '../../../build-info/framework/date.service';
 import { SharedService } from '../../../shared/services/shared-service';
 import { ErrorService } from '../../../shared/services/error.service';
 import { AnalyticService } from '../../../shared/services/analytic.service';
@@ -51,7 +50,7 @@ export class CandidateSignUpComponent implements OnInit, AfterViewInit {
   isGuideMessageVisible: boolean = false;
   isFromCareerPlugin: boolean = false;
 
-  constructor(private analyticService: AnalyticService, private commonService: CommonService, private _router: Router, private dateService: DateService,
+  constructor(private analyticService: AnalyticService, private commonService: CommonService, private _router: Router,
               private candidateService: CandidateSignUpService, private messageService: MessageService, private formBuilder: FormBuilder,
               private sharedService: SharedService, private errorService: ErrorService, private activatedRoute: ActivatedRoute,
               private loginService : LoginService, private registrationService : RegistrationService) {

@@ -1,4 +1,4 @@
-export class WorkItem {
+class WorkItem {
   name: string;
   rateAnalysisId:number;
   unit: string;
@@ -12,5 +12,5 @@ export class WorkItem {
     this.remarks = '';
   }
 }
-
+export = WorkItem;
 

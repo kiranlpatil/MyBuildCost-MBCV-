@@ -17,7 +17,7 @@ import { ValidationService } from '../../shared/customvalidations/validation.ser
 import { Label, LocalStorage, Messages, ProjectAsset } from '../../shared/constants';
 import { SharedService } from '../../shared/services/shared-service';
 import { RegistrationService } from '../../user/services/registration.service';
-import { LocalStorageService } from '../../shared/services/localstorage.service';
+import { LocalStorageService } from '../../shared/services/local-storage.service';
 /*declare var CareerPluginLoad:any;*/
 
 @Component({

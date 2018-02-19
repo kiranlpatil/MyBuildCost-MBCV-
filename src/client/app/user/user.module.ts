@@ -5,7 +5,6 @@ import {LoginService} from "./../framework/login/login.service";
 import {UserHeaderComponent} from "./user-header/user-header.component";
 import {CommonModule} from "@angular/common";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {FacebookService} from "./login/facebook/facebook.service";
 import {ResetPasswordComponent} from "../framework/login/forgot-password/reset-password/reset-password.component";
 import {ForgotPasswordComponent} from "../framework/login/forgot-password/forgot-password.component";
 import {ForgotPasswordService} from "../framework/login/forgot-password/forgot-password.service";
@@ -47,7 +46,7 @@ import { LoginauthGuard } from './../framework/login/login-auth-guard.service';
     ProfilePictureComponent, UserChangePasswordComponent, ActivateEmailComponent,
     ChangeEmailComponent, ChangeMobileComponent, DashboardProfileComponent, CandidateDashboardHeaderComponent,
     CandidateHeaderComponent, SettingsComponent],
-  providers: [LoginService, FacebookService, ForgotPasswordService, ResetPasswordService,CandidateSignUpService,OtpVerificationService,
+  providers: [LoginService, ForgotPasswordService, ResetPasswordService,CandidateSignUpService,OtpVerificationService,
      RegistrationService, UserVerificationService,
     UserChangePasswordService, ActiveEmailService, ChangeEmailService, ChangeMobileService,
     RegistrationService, SettingsService,LoginauthGuard]
