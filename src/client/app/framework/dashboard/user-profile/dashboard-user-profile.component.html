@@ -21,7 +21,7 @@
       <form [formGroup]="userForm" (submit)="onSubmit()" class="profile-form clearfix">
 
         <div  class="form-group">
-          <label>FIRST NAME</label>
+          <label>{{getLabels().FIRST_NAME_LABEL}}</label>
           <input type="text" [(ngModel)]="model.first_name" formControlName="first_name" id="first_name "
                  class="form-control"/>
         </div>
@@ -31,7 +31,7 @@
                  class="form-control"/>
         </div>-->
         <div class="form-group">
-          <label>EMAIL_FIELD_LABEL
+          <label>{{getLabels().EMAIL_FIELD_LABEL}}
             <span class="glyphicon glyphicon-pencil"
                   (click)="showHideEmailModal()"></span>
           </label>
@@ -50,7 +50,7 @@
 
         <div class="form-group"[class.hide-list]>
           <control-messages [control]="userForm.controls.company_name"></control-messages>
-          <label>FIRM / COMPANY NAME</label>
+          <label>{{getLabels().COMPANY_NAME_LABEL}}</label>
           <input type="text" [(ngModel)]="model.company_name" formControlName="company_name" id="company_name"
                  class="form-control clear"/>
         </div>
@@ -58,14 +58,14 @@
 
         <div class="form-group"[class.hide-list]>
           <control-messages [control]="userForm.controls.state"></control-messages>
-          <label>STATE</label>
+          <label>{{getLabels().STATE_LABEL}}</label>
           <input type="text" [(ngModel)]="model.state" formControlName="state" id="state"
                  class="form-control clear"/>
         </div>
 
         <div class="form-group"[class.hide-list]>
           <control-messages [control]="userForm.controls.city"></control-messages>
-          <label>CITY</label>
+          <label>{{getLabels().CITY_LABEL}}</label>
           <input type="text" [(ngModel)]="model.city" formControlName="city" id="city"
                  class="form-control clear"/>
         </div>

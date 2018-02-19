@@ -436,6 +436,8 @@ export class Label {
   public static CONFIRM_PASSWORD_LABEL: string = 'Confirm Password';
   public static FIRST_NAME_LABEL: string = 'First Name';
   public static COMPANY_NAME_LABEL: string = 'Company Name';
+  public static STATE_LABEL: string = 'State';
+  public static CITY_LABEL: string = 'City';
   public static LAST_NAME_LABEL: string = 'Last Name';
   public static EMAIL_FIELD_LABEL: string = 'Work Email';
   public static CREATE_PROFILE_LABEL: string = 'Create Profile';
