@@ -19,7 +19,7 @@ class ProjectSchema {
       region: {
         type: String
       },
-      building: [{type: Schema.Types.ObjectId, ref: 'Building'}],
+      buildings: [{type: Schema.Types.ObjectId, ref: 'Building'}],
       address: {
         city: String,
         state: String,
@@ -41,7 +41,7 @@ class ProjectSchema {
         poolCapacity: {
         type: Number
       },
-        totalNoOfBuildings: {
+        totalNumOfBuildings: {
         type: Number
       },
       plotPeriphery: {

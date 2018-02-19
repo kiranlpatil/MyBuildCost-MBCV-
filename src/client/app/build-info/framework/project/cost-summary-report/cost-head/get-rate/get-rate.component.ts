@@ -88,7 +88,7 @@ export class GetRateComponent {
     rate.total = parseFloat(rateItemsArray.total).toFixed(2);
     rate.quantity = rateItemsArray.quantity;
     rate.unit = rateItemsArray.unit;
-    rate.item = rateItemsArray.item;
+    rate.items = rateItemsArray.item;
 
     this.getRateService.updateRateItems(parseInt(costHeadId), this.subCategoryRateAnalysisId,
       parseInt(workItemId), rate).subscribe(

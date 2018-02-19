@@ -120,7 +120,7 @@ class ProjectService {
         callback(error, null);
       } else {
         let query = {_id : projectId };
-        let newData = { $push: {building : result._id}};
+        let newData = { $push: {buildings : result._id}};
         this.projectRepository.findOneAndUpdate(query, newData, {new : true}, (error, status)=> {
           logger.info('Project service, findOneAndUpdate has been hit');
           if(error) {
@@ -258,18 +258,18 @@ class ProjectService {
         let building = new BuildingModel();
         building.name = result.name;
         building.totalSlabArea = result.totalSlabArea;
-        building.totalCarperAreaOfUnit = result.totalCarperAreaOfUnit;
+        building.totalCarpetAreaOfUnit = result.totalCarpetAreaOfUnit;
         building.totalSaleableAreaOfUnit = result.totalSaleableAreaOfUnit;
         building.plinthArea = result.plinthArea;
-        building.totalNoOfFloors = result.totalNoOfFloors;
-        building.noOfParkingFloors = result.noOfParkingFloors;
+        building.totalNumOfFloors = result.totalNumOfFloors;
+        building.numOfParkingFloors = result.numOfParkingFloors;
         building.carpetAreaOfParking = result.carpetAreaOfParking;
-        building.noOfOneBHK = result.noOfOneBHK;
-        building.noOfTwoBHK = result.noOfTwoBHK;
-        building.noOfThreeBHK = result.noOfThreeBHK;
-        building.noOfFourBHK = result.noOfFourBHK;
-        building.noOfFiveBHK = result.noOfFiveBHK;
-        building.noOfLift = result.noOfLift;
+        building.numOfOneBHK = result.numOfOneBHK;
+        building.numOfTwoBHK = result.numOfTwoBHK;
+        building.numOfThreeBHK = result.numOfThreeBHK;
+        building.numOfFourBHK = result.numOfFourBHK;
+        building.numOfFiveBHK = result.numOfFiveBHK;
+        building.numOfLifts = result.numOfLifts;
 
         let clonedCostHeadArray : Array<ClonedCostHead> = [];
 

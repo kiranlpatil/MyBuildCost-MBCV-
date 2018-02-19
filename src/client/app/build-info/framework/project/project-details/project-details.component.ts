@@ -1,14 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { Router, ActivatedRoute } from '@angular/router';
-import { AppSettings, Messages, Label, Button, Headings, NavigationRoutes } from '../../../../shared/constants';
+import { ActivatedRoute } from '@angular/router';
+import { Messages } from '../../../../shared/constants';
 import { ProjectDetailsService } from './project-details.service';
 import { Project } from './../../model/project';
-import { API, BaseService, SessionStorage, SessionStorageService, MessageService } from '../../../../shared/index';
-import {Message} from "../../../../shared/index";
-import {SharedService} from "../../../../shared/services/shared-service";
-import {ValidationService} from "../../../../shared/customvalidations/validation.service";
-import { ProjectService } from '../project.service';
+import { Message, MessageService } from '../../../../shared/index';
+import { ValidationService } from '../../../../shared/customvalidations/validation.service';
 
 @Component({
   moduleId: module.id,
@@ -21,19 +18,19 @@ export class ProjectDetailsComponent implements OnInit {
   viewProjectForm:  FormGroup;
   project : any;
   projectId : any;
-  model: Project = new Project();
+  projectModel: Project = new Project();
   public isShowErrorMessage: boolean = true;
   public error_msg: boolean = false;
 
-  constructor(private ViewProjectService: ProjectDetailsService, private _router: Router, private formBuilder: FormBuilder, private messageService: MessageService, private sharedService: SharedService,
-              private activatedRoute:ActivatedRoute) {
+  constructor(private ViewProjectService: ProjectDetailsService, private formBuilder: FormBuilder,
+              private messageService: MessageService, private activatedRoute:ActivatedRoute) {
 
     this.viewProjectForm = this.formBuilder.group({
-      'name': ['', ValidationService.requiredProjectName],
-      'region': ['', ValidationService.requiredProjectAddress],
-      'plotArea': ['', ValidationService.requiredPlotArea],
-      'projectDuration': ['', ValidationService.requiredProjectDuration],
-      'plotPeriphery': ['', ValidationService.requiredPlotPeriphery]
+      name: ['', ValidationService.requiredProjectName],
+      region: ['', ValidationService.requiredProjectAddress],
+      plotArea: ['', ValidationService.requiredPlotArea],
+      projectDuration: ['', ValidationService.requiredProjectDuration],
+      plotPeriphery: ['', ValidationService.requiredPlotPeriphery]
     });
 
   }
@@ -55,12 +52,13 @@ export class ProjectDetailsComponent implements OnInit {
   }
 
   onGetProjectSuccess(project : any) {
-    let projectDetails=project.data[0];
-    this.model.name=projectDetails.name;
-    this.model.region=projectDetails.region;
-    this.model.plotArea=projectDetails.plotArea;
-    this.model.projectDuration=projectDetails.projectDuration;
-    this.model.plotPeriphery=projectDetails.plotPeriphery;
+    this.projectModel = project.data[0];
+    /*let projectDetails=project.data[0];
+    this.projectModel.name=projectDetails.name;
+    this.projectModel.region=projectDetails.region;
+    this.projectModel.plotArea=projectDetails.plotArea;
+    this.projectModel.projectDuration=projectDetails.projectDuration;
+    this.projectModel.plotPeriphery=projectDetails.plotPeriphery;*/
   }
 
   onGetProjectFail(error : any) {
@@ -69,10 +67,9 @@ export class ProjectDetailsComponent implements OnInit {
 
 
   onSubmit() {
-    //this.submitted = true;
     if(this.viewProjectForm.valid) {
-      this.model = this.viewProjectForm.value;
-      this.ViewProjectService.updateProjectDetails(this.model)
+      this.projectModel = this.viewProjectForm.value;
+      this.ViewProjectService.updateProjectDetails(this.projectModel)
         .subscribe(
           user => this.updateProjectDetailsSuccess(user),
           error => this.updateProjectDetailsError(error));
@@ -106,19 +103,4 @@ export class ProjectDetailsComponent implements OnInit {
     }
   }
 
-  // getMessages() {
-  //   return Messages;
-  // }
-  //
-  // getLabels() {
-  //   return Label;
-  // }
-  //
-  // getButtons() {
-  //   return Button;
-  // }
-  //
-  // getHeadings() {
-  //   return Headings;
-  // }
 }

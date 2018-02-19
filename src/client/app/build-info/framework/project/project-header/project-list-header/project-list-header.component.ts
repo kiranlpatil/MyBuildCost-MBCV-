@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AppSettings, Messages, Label, Button, Headings, NavigationRoutes } from '../../../../../shared/constants';
+import { Messages, Label, Button, Headings, NavigationRoutes } from '../../../../../shared/constants';
 import { ProjectListHeaderService } from './project-list-header.service';
-import { Project } from '../../../model/project';
 import { SessionStorage,SessionStorageService } from '../../../../../shared/index';
 
 @Component({
@@ -15,11 +14,9 @@ import { SessionStorage,SessionStorageService } from '../../../../../shared/inde
 
 export class ProjectListHeaderComponent implements OnInit {
 
-  projectForm:  FormGroup;
   projectsArray : any;
-  model: Project = new Project();
 
-  constructor(private projectListHeaderService: ProjectListHeaderService, private _router: Router, private formBuilder: FormBuilder) {
+  constructor(private projectListHeaderService: ProjectListHeaderService, private _router: Router) {
 
   }
 
@@ -78,7 +75,6 @@ export class ProjectListHeaderComponent implements OnInit {
   }
 
   setCurrentProjectId(projectId:any) {
-    console.log('Project ID'+JSON.stringify(projectId));
     SessionStorageService.setSessionValue(SessionStorage.CURRENT_PROJECT, projectId);
     this._router.navigate([NavigationRoutes.APP_COST_SUMMARY, projectId]);
   }

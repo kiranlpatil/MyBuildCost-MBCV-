@@ -9,7 +9,7 @@ export class Project {
   openSpace:number;
   poolCapacity:number;
   plotPeriphery: number;
-  totalNoOfBuildings:number;
+  totalNumOfBuildings:number;
   projectDuration: number;
-  building: Building[] = new Array(0);
+  buildings: Building[] = new Array(0);
 }

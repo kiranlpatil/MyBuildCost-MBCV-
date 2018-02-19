@@ -3,8 +3,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AppSettings, Messages, Label, Button, Headings, NavigationRoutes } from '../../../../shared/constants';
 import { ProjectListService } from './project-list.service';
-import { Project } from './../../model/project';
-import {SessionStorage, SessionStorageService} from '../../../../shared/index';
+import { SessionStorage, SessionStorageService } from '../../../../shared/index';
 
 @Component({
   moduleId: module.id,
@@ -15,11 +14,9 @@ import {SessionStorage, SessionStorageService} from '../../../../shared/index';
 
 export class ProjectListComponent implements OnInit {
 
-  projectForm:  FormGroup;
   projects : any;
-  model: Project = new Project();
 
-  constructor(private listProjectService: ProjectListService, private _router: Router, private formBuilder: FormBuilder) {
+  constructor(private listProjectService: ProjectListService, private _router: Router) {
 
   }
 
@@ -27,7 +24,6 @@ export class ProjectListComponent implements OnInit {
     this.getProjects();
   }
   createProject() {
-    ///project/createProject
     this._router.navigate([NavigationRoutes.APP_CREATE_PROJECT]);
   }
 
@@ -38,7 +34,7 @@ export class ProjectListComponent implements OnInit {
     );
   }
 
-  getProjectDetails(){
+  getProjectDetails() {
       this.listProjectService.getProject().subscribe(
         project => this.onGetProjectDetailsSuccess(project),
         error => this.onGetProjectDetailsFail(error)
@@ -56,7 +52,6 @@ export class ProjectListComponent implements OnInit {
   }
 
   onGetProjectDetailsSuccess(projects : any) {
-    console.log(projects);
     this.projects = projects.data[0];
   }
 
@@ -81,7 +76,6 @@ export class ProjectListComponent implements OnInit {
   }
 
   setCurrentProjectId(projectId:any) {
-    console.log('Project ID'+JSON.stringify(projectId));
    SessionStorageService.setSessionValue(SessionStorage.CURRENT_PROJECT, projectId);
    this._router.navigate([NavigationRoutes.APP_COST_SUMMARY, projectId]);
   }

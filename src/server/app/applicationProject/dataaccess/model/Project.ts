@@ -12,8 +12,8 @@ class Project {
   podiumArea:number;
   openSpace:number;
   poolCapacity:number;
-  totalNoOfBuildings:number;
-  building: Array<Building>;
+  totalNumOfBuildings:number;
+  buildings: Array<Building>;
   costHead: Array<Category>;
   rate: Array<Rate>;
 }

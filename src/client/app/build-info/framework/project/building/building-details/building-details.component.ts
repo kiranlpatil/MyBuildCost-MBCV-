@@ -19,7 +19,7 @@ export class BuildingDetailsComponent implements OnInit {
   viewBuildingForm:  FormGroup;
   buildings : any;
   buildingId : string;
-  model: Building = new Building();
+  buildingModel: Building = new Building();
   public isShowErrorMessage: boolean = true;
   public error_msg: boolean = false;
 
@@ -27,20 +27,20 @@ export class BuildingDetailsComponent implements OnInit {
               private activatedRoute:ActivatedRoute, private messageService: MessageService) {
 
     this.viewBuildingForm = this.formBuilder.group({
-      'name': ['', ValidationService.requiredBuildingName],
-      'totalSlabArea':['', ValidationService.requiredSlabArea],
-      'totalCarperAreaOfUnit':['', ValidationService.requiredCarpetArea],
-      'totalSaleableAreaOfUnit':['', ValidationService.requiredSalebleArea],
-      'plinthArea':['', ValidationService.requiredPlinthArea],
-      'totalNoOfFloors':['', ValidationService.requiredNoOfFloors],
-      'noOfParkingFloors':['', ValidationService.requiredNoOfParkingFloors],
-      'carpetAreaOfParking':['', ValidationService.requiredCarpetAreaOfParking],
-      'noOfOneBHK': ['',  ValidationService.requiredOneBHK],
-      'noOfTwoBHK':['', ValidationService.requiredTwoBHK],
-      'noOfThreeBHK':['', ValidationService.requiredThreeBHK],
-      'noOfFourBHK':['', ValidationService.requiredFourBHK],
-      'noOfFiveBHK':['', ValidationService.requiredFiveBHK],
-      'noOfLift':['', ValidationService.requiredNoOfLifts],
+      name: ['', ValidationService.requiredBuildingName],
+      totalSlabArea:['', ValidationService.requiredSlabArea],
+      totalCarpetAreaOfUnit:['', ValidationService.requiredCarpetArea],
+      totalSaleableAreaOfUnit:['', ValidationService.requiredSalebleArea],
+      plinthArea:['', ValidationService.requiredPlinthArea],
+      totalNumOfFloors :['', ValidationService.requiredNumOfFloors],
+      numOfParkingFloors :['', ValidationService.requiredNumOfParkingFloors],
+      carpetAreaOfParking :['', ValidationService.requiredCarpetAreaOfParking],
+      numOfOneBHK : ['',  ValidationService.requiredOneBHK],
+      numOfTwoBHK : ['', ValidationService.requiredTwoBHK],
+      numOfThreeBHK : ['', ValidationService.requiredThreeBHK],
+      numOfFourBHK : ['', ValidationService.requiredFourBHK],
+      numOfFiveBHK : ['', ValidationService.requiredFiveBHK],
+      numOfLifts : ['', ValidationService.requiredNumOfLifts]
     });
 
   }
@@ -62,22 +62,21 @@ export class BuildingDetailsComponent implements OnInit {
   }
 
   onGetBuildingSuccess(building : any) {
-    console.log('Building Data: '+JSON.stringify(building.data));
-    let buildingDetails=building.data;
-    this.model.name=buildingDetails.name;
-    this.model.totalSlabArea=buildingDetails.totalSlabArea;
-    this.model.totalCarperAreaOfUnit=buildingDetails.totalCarperAreaOfUnit;
-    this.model.totalSaleableAreaOfUnit=buildingDetails.totalSaleableAreaOfUnit;
-    this.model.plinthArea=buildingDetails.plinthArea;
-    this.model.totalNoOfFloors=buildingDetails.totalNoOfFloors;
-    this.model.noOfParkingFloors=buildingDetails.noOfParkingFloors;
-    this.model.carpetAreaOfParking=buildingDetails.carpetAreaOfParking;
-    this.model.noOfOneBHK=buildingDetails.noOfOneBHK;
-    this.model.noOfTwoBHK=buildingDetails.noOfTwoBHK;
-    this.model.noOfThreeBHK=buildingDetails.noOfThreeBHK;
-    this.model.noOfFourBHK=buildingDetails.noOfFourBHK;
-    this.model.noOfFiveBHK=buildingDetails.noOfFiveBHK;
-    this.model.noOfLift=buildingDetails.noOfLift;
+    let buildingDetails = building.data;
+    this.buildingModel.name = buildingDetails.name;
+    this.buildingModel.totalSlabArea = buildingDetails.totalSlabArea;
+    this.buildingModel.totalCarpetAreaOfUnit = buildingDetails.totalCarpetAreaOfUnit;
+    this.buildingModel.totalSaleableAreaOfUnit = buildingDetails.totalSaleableAreaOfUnit;
+    this.buildingModel.plinthArea = buildingDetails.plinthArea;
+    this.buildingModel.totalNumOfFloors = buildingDetails.totalNumOfFloors;
+    this.buildingModel.numOfParkingFloors = buildingDetails.numOfParkingFloors;
+    this.buildingModel.carpetAreaOfParking = buildingDetails.carpetAreaOfParking;
+    this.buildingModel.numOfOneBHK = buildingDetails.numOfOneBHK;
+    this.buildingModel.numOfTwoBHK = buildingDetails.numOfTwoBHK;
+    this.buildingModel.numOfThreeBHK = buildingDetails.numOfThreeBHK;
+    this.buildingModel.numOfFourBHK = buildingDetails.numOfFourBHK;
+    this.buildingModel.numOfFiveBHK = buildingDetails.numOfFiveBHK;
+    this.buildingModel.numOfLifts = buildingDetails.numOfLifts;
     }
 
   onGetBuildingFail(error : any) {
@@ -87,8 +86,8 @@ export class BuildingDetailsComponent implements OnInit {
 
   onSubmit() {
     // this.submitted = true;
-      this.model = this.viewBuildingForm.value;
-      this.viewBuildingService.updateBuildingDetails(this.model)
+      this.buildingModel = this.viewBuildingForm.value;
+      this.viewBuildingService.updateBuildingDetails(this.buildingModel)
         .subscribe(
           building => this.updateBuildingDetailsSuccess(building),
           error => this.updateBuildingDetailsError(error));

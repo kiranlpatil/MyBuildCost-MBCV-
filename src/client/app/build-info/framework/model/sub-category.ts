@@ -1,11 +1,13 @@
-import WorkItem = require('./work-item');
+import { WorkItem } from './work-item';
 
 export class  SubCategory {
-  name: String;
+
+  name: string;
   rateAnalysisId: number;
   amount: number;
   workitem : Array<WorkItem>;
-  constructor(name:String, rateAnalysisId: number) {
+
+  constructor(name: string, rateAnalysisId: number) {
     this.name = name;
     this.rateAnalysisId = rateAnalysisId;
     this.amount = 0;

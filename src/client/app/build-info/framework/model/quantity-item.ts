@@ -1,4 +1,4 @@
-class QuantityItem {
+export class QuantityItem {
   item: string;
   remarks: string;
   nos: number;
@@ -8,4 +8,3 @@ class QuantityItem {
   quantity: number;
   unit: string;
 }
-export = QuantityItem;

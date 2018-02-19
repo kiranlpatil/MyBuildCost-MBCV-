@@ -5,5 +5,5 @@ export class Rate {
   total: any;
   quantity: number;
   unit :string;
-  item: RateItem[] = new Array(0);
+  items: RateItem[] = new Array(0);
 }

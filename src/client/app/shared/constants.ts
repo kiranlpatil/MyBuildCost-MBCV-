@@ -479,3 +479,8 @@ export class Button {
   public static BACK_TO_HOME: string = 'Back to home';
   public static CREATE_MY_ACCOUNT: string = 'Create my account';
 }
+
+export class Units {
+
+  public static UNIT = 'sqft';
+}

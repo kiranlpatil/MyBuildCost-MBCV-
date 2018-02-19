@@ -26,7 +26,7 @@ export class CreateBuildingComponent {
   buildings : any;
   public isShowErrorMessage: boolean = true;
   public error_msg: boolean = false;
-  model: Building = new Building();
+  modelBuilding: Building = new Building();
   BODY_BACKGROUND_TRANSPARENT: string;
 
   constructor(private createBuildingService: CreateBuildingService, private formBuilder: FormBuilder,
@@ -35,18 +35,18 @@ export class CreateBuildingComponent {
     this.addBuildingForm = this.formBuilder.group({
       'name': ['', ValidationService.requiredBuildingName],
       'totalSlabArea':['', ValidationService.requiredSlabArea],
-      'totalCarperAreaOfUnit':['', ValidationService.requiredCarpetArea],
+      'totalCarpetAreaOfUnit':['', ValidationService.requiredCarpetArea],
       'totalSaleableAreaOfUnit':['', ValidationService.requiredSalebleArea],
       'plinthArea':['', ValidationService.requiredPlinthArea],
-      'totalNoOfFloors':['', ValidationService.requiredNoOfFloors],
-      'noOfParkingFloors':['', ValidationService.requiredNoOfParkingFloors],
+      'totalNumOfFloors':['', ValidationService.requiredNumOfFloors],
+      'numOfParkingFloors':['', ValidationService.requiredNumOfParkingFloors],
       'carpetAreaOfParking':['', ValidationService.requiredCarpetAreaOfParking],
-      'noOfOneBHK': [''],
-      'noOfTwoBHK':[''],
-      'noOfThreeBHK':[''],
-      'noOfFourBHK':[''],
-      'noOfFiveBHK':[''],
-      'noOfLift':[''],
+      'numOfOneBHK': [''],
+      'numOfTwoBHK':[''],
+      'numOfThreeBHK':[''],
+      'numOfFourBHK':[''],
+      'numOfFiveBHK':[''],
+      'numOfLifts':['']
    });
 
   }
@@ -58,35 +58,36 @@ export class CreateBuildingComponent {
   onSubmit() {
     //this.projectService
     if(this.addBuildingForm.valid) {
-      this.model = this.addBuildingForm.value;
-      if(this.model.noOfOneBHK !== undefined || this.model.noOfTwoBHK !== undefined || this.model.noOfThreeBHK !== undefined ||
-        this.model.noOfFourBHK !== undefined || this.model.noOfFiveBHK !== undefined ) {
+      this.modelBuilding = this.addBuildingForm.value;
+      if(this.modelBuilding.numOfOneBHK !== undefined || this.modelBuilding.numOfTwoBHK !== undefined
+        || this.modelBuilding.numOfThreeBHK !== undefined ||
+        this.modelBuilding.numOfFourBHK !== undefined || this.modelBuilding.numOfFiveBHK !== undefined ) {
 
-        if(this.model.noOfOneBHK === undefined) {
-          this.model.noOfOneBHK=0;
+        if(this.modelBuilding.numOfOneBHK === undefined) {
+          this.modelBuilding.numOfOneBHK=0;
         }
 
-        if(this.model.noOfTwoBHK === undefined) {
-          this.model.noOfTwoBHK=0;
+        if(this.modelBuilding.numOfTwoBHK === undefined) {
+          this.modelBuilding.numOfTwoBHK=0;
         }
 
-        if(this.model.noOfThreeBHK === undefined) {
-          this.model.noOfThreeBHK=0;
+        if(this.modelBuilding.numOfThreeBHK === undefined) {
+          this.modelBuilding.numOfThreeBHK=0;
         }
 
-        if(this.model.noOfFourBHK === undefined) {
-          this.model.noOfFourBHK=0;
+        if(this.modelBuilding.numOfFourBHK === undefined) {
+          this.modelBuilding.numOfFourBHK=0;
         }
 
-        if(this.model.noOfFiveBHK === undefined) {
-          this.model.noOfFiveBHK=0;
+        if(this.modelBuilding.numOfFiveBHK === undefined) {
+          this.modelBuilding.numOfFiveBHK=0;
         }
 
-        if(this.model.noOfLift === undefined) {
-          this.model.noOfLift=0;
+        if(this.modelBuilding.numOfLifts === undefined) {
+          this.modelBuilding.numOfLifts=0;
         }
 
-      this.createBuildingService.addBuilding(this.model)
+      this.createBuildingService.addBuilding(this.modelBuilding)
         .subscribe(
           building => this.addBuildingSuccess(building),
           error => this.addBuildingFailed(error));

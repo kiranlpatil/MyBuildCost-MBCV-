@@ -48,13 +48,13 @@ class ReportService {
 
     logger.info('Report Service, getReport has been hit');
     let query = { _id: projectId};
-    let populate = {path : 'building'};
+    let populate = {path : 'buildings'};
     this.projectRepository.findAndPopulate(query, populate, (error, result) => {
       logger.info('Report Service, findAndPopulate has been hit');
       if(error) {
         callback(error, null);
       } else {
-        let buildings = result[0].building;
+        let buildings = result[0].buildings;
         let costHead = [];
         let report : Array<BuildingReport> = [];
         for(let index = 0; index < buildings.length; index++) {

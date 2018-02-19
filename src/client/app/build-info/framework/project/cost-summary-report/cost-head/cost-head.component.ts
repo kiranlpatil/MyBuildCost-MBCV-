@@ -195,7 +195,7 @@ export class CostHeadComponent implements OnInit, OnChanges {
     this.itemArray = itemArray;
     this.rateItemsArray=itemArray;
     let rate = new Rate();
-    rate.item = itemArray.item;
+    rate.items = itemArray.item;
     rate.rateFromRateAnalysis = this.itemArray.rateFromRateAnalysis ;
     rate.quantity =   this.itemArray.quantity;
     rate.unit =   this.itemArray.unit;

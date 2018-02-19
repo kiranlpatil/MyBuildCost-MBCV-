@@ -1,9 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AppSettings, Messages, Label, Button, Headings, NavigationRoutes } from '../../../shared/constants';
-import { ProjectService } from './project.service';
-import { Project } from './../model/project';
+import { NavigationRoutes } from '../../../shared/constants';
 
 @Component({
   moduleId: module.id,
@@ -13,11 +10,7 @@ import { Project } from './../model/project';
 
 export class ProjectComponent implements OnInit {
 
-  projectForm:  FormGroup;
-  projects : any;
-  model: Project = new Project();
-
-  constructor(private projectService: ProjectService, private _router: Router, private formBuilder: FormBuilder) {
+  constructor( private _router: Router) {
 
   }
 
@@ -33,19 +26,4 @@ export class ProjectComponent implements OnInit {
     this._router.navigate([nav]);
   }
 
-  getMessages() {
-    return Messages;
-  }
-
-  getLabels() {
-    return Label;
-  }
-
-  getButtons() {
-    return Button;
-  }
-
-  getHeadings() {
-    return Headings;
-  }
 }

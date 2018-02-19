@@ -29,7 +29,7 @@ export class CreateProjectComponent {
   projects : any;
   public isShowErrorMessage: boolean = true;
   public error_msg: boolean = false;
-  model: Project = new Project();
+  projectModel: Project = new Project();
   BODY_BACKGROUND_TRANSPARENT: string;
 
   constructor(private createProjectService: CreateProjectService, private _router: Router, private formBuilder: FormBuilder,
@@ -46,7 +46,7 @@ export class CreateProjectComponent {
       'slabArea': ['',ValidationService.requiredSlabArea],
       'poolCapacity': ['',ValidationService.requiredSwimmingPoolCapacity],
       'projectDuration': ['', ValidationService.requiredProjectDuration],
-      'totalNoOfBuildings': ['', ValidationService.requiredNoOfBuildings],
+      'totalNumOfBuildings': ['', ValidationService.requiredNumOfBuildings],
     });
 
   }
@@ -54,10 +54,9 @@ export class CreateProjectComponent {
 
 
   onSubmit() {
-    //this.projectService
     if(this.projectForm.valid) {
-      this.model = this.projectForm.value;
-      this.createProjectService.createProject(this.model)
+      this.projectModel = this.projectForm.value;
+      this.createProjectService.createProject(this.projectModel)
         .subscribe(
           project => this.projectCreationSuccess(project),
           error => this.projectCreationFailed(error));

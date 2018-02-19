@@ -77,18 +77,18 @@ export class CostSummaryComponent implements OnInit {
     this.cloneBuildingForm = this.formBuilder.group({
       'name': ['', ValidationService.requiredBuildingName],
       'totalSlabArea':['', ValidationService.requiredSlabArea],
-      'totalCarperAreaOfUnit':['', ValidationService.requiredCarpetArea],
+      'totalCarpetAreaOfUnit':['', ValidationService.requiredCarpetArea],
       'totalSaleableAreaOfUnit':['', ValidationService.requiredSalebleArea],
       'plinthArea':['', ValidationService.requiredPlinthArea],
-      'totalNoOfFloors':['', ValidationService.requiredNoOfFloors],
-      'noOfParkingFloors':['', ValidationService.requiredNoOfParkingFloors],
+      'totalNumOfFloors':['', ValidationService.requiredNumOfFloors],
+      'numOfParkingFloors':['', ValidationService.requiredNumOfParkingFloors],
       'carpetAreaOfParking':['', ValidationService.requiredCarpetAreaOfParking],
-      'noOfOneBHK': ['',  ValidationService.requiredOneBHK],
-      'noOfTwoBHK':['', ValidationService.requiredTwoBHK],
-      'noOfThreeBHK':['', ValidationService.requiredThreeBHK],
-      'noOfFourBHK':['', ValidationService.requiredFourBHK],
-      'noOfFiveBHK':['', ValidationService.requiredFiveBHK],
-      'noOfLift':['', ValidationService.requiredNoOfLifts],
+      'numOfOneBHK': ['',  ValidationService.requiredOneBHK],
+      'numOfTwoBHK':['', ValidationService.requiredTwoBHK],
+      'numOfThreeBHK':['', ValidationService.requiredThreeBHK],
+      'numOfFourBHK':['', ValidationService.requiredFourBHK],
+      'numOfFiveBHK':['', ValidationService.requiredFiveBHK],
+      'numOfLifts':['', ValidationService.requiredNumOfLifts],
     });
   }
 
@@ -343,18 +343,18 @@ export class CostSummaryComponent implements OnInit {
     this.clonedBuildingDetails = building.data.costHead;
     this.model.name = buildingDetails.name;
     this.model.totalSlabArea = buildingDetails.totalSlabArea;
-    this.model.totalCarperAreaOfUnit = buildingDetails.totalCarperAreaOfUnit;
+    this.model.totalCarpetAreaOfUnit = buildingDetails.totalCarperAreaOfUnit;
     this.model.totalSaleableAreaOfUnit = buildingDetails.totalSaleableAreaOfUnit;
     this.model.plinthArea = buildingDetails.plinthArea;
-    this.model.totalNoOfFloors = buildingDetails.totalNoOfFloors;
-    this.model.noOfParkingFloors = buildingDetails.noOfParkingFloors;
+    this.model.totalNumOfFloors = buildingDetails.totalNoOfFloors;
+    this.model.numOfParkingFloors = buildingDetails.noOfParkingFloors;
     this.model.carpetAreaOfParking = buildingDetails.carpetAreaOfParking;
-    this.model.noOfOneBHK = buildingDetails.noOfOneBHK;
-    this.model.noOfTwoBHK = buildingDetails.noOfTwoBHK;
-    this.model.noOfThreeBHK = buildingDetails.noOfThreeBHK;
-    this.model.noOfFourBHK = buildingDetails.noOfFourBHK;
-    this.model.noOfFiveBHK = buildingDetails.noOfFiveBHK;
-    this.model.noOfLift = buildingDetails.noOfLift;
+    this.model.numOfOneBHK = buildingDetails.noOfOneBHK;
+    this.model.numOfTwoBHK = buildingDetails.noOfTwoBHK;
+    this.model.numOfThreeBHK = buildingDetails.noOfThreeBHK;
+    this.model.numOfFourBHK = buildingDetails.noOfFourBHK;
+    this.model.numOfFiveBHK = buildingDetails.noOfFiveBHK;
+    this.model.numOfLifts = buildingDetails.noOfLift;
   }
 
   onGetBuildingDataFail(error: any) {

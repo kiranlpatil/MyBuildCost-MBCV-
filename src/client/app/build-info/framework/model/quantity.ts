@@ -1,6 +1,6 @@
-import QuantityItem = require('./quantity-item');
+import { QuantityItem } from './quantity-item';
 
-class Quantity {
+export class Quantity {
   total: number;
   quantityItems: Array<QuantityItem>;
   constructor() {
@@ -8,4 +8,3 @@ class Quantity {
     this.quantityItems = new Array<QuantityItem>();
   }
 }
-export = Quantity;

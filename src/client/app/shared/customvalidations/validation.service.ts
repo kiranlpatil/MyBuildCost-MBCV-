@@ -376,9 +376,9 @@ export class ValidationService {
     }
   }
 
-  static requiredNoOfParkingFloors(control: any) {
+  static requiredNumOfParkingFloors(control: any) {
     if (control.value === '' || control.value === undefined) {
-      return {'requiredNoOfParkingFloors': true};
+      return {'requiredNumOfParkingFloors': true};
     } else {
       return null;
     }
@@ -392,17 +392,17 @@ export class ValidationService {
     }
   }
 
-  static requiredNoOfFloors(control: any) {
+  static requiredNumOfFloors(control: any) {
     if (control.value === '' || control.value === undefined) {
-      return {' requiredNoOfFloors': true};
+      return {' requiredNumOfFloors': true};
     } else {
       return null;
     }
   }
 
-  static requiredNoOfBuildings(control: any) {
+  static requiredNumOfBuildings(control: any) {
     if (control.value === '' || control.value === undefined) {
-      return {'requiredNoOfBuildings': true};
+      return {'requiredNumOfBuildings': true};
     } else {
       return null;
     }
@@ -481,9 +481,9 @@ export class ValidationService {
     }
   }
 
-  static requiredNoOfLifts(control: any) {
+  static requiredNumOfLifts(control: any) {
     if (control.value === '' || control.value === undefined) {
-      return {'requiredNoOfLifts': true};
+      return {'requiredNumOfLifts': true};
     } else {
       return null;
     }
