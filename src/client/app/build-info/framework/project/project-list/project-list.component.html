@@ -3,15 +3,16 @@
     <div class="col-sm-12">
       <ul>
         <li *ngFor="let project of projects">
-          <div class="building-image-container">
-            <a type="button" (click)="setCurrentProjectId(project._id)">
+          <div class="building-image-container"(click)="setCurrentProjectId(project._id)">
+            <a type="button">
               <div class="building-image">
                 <img src="assets/build-info/create-new-project/create-new-project.png" />
               </div>
             </a>
+            <a type="button">{{project.name}}</a>
           </div>
 
-          <a type="button" (click)="setCurrentProjectId(project._id)">{{project.name}}</a>
+
           <span class="break"></span>
         </li>
         <li class="break"></li>
