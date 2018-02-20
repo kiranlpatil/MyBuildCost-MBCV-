@@ -17,7 +17,7 @@ import { ValidationService } from '../../shared/customvalidations/validation.ser
 import { Label, LocalStorage, Messages, ProjectAsset } from '../../shared/constants';
 import { SharedService } from '../../shared/services/shared-service';
 import { RegistrationService } from '../../user/services/registration.service';
-import { LocalStorageService } from '../../shared/services/local-storage.service';
+import { LocalStorageService } from './../../shared/services/local-storage.service';
 
 @Component({
   moduleId: module.id,
@@ -28,17 +28,10 @@ import { LocalStorageService } from '../../shared/services/local-storage.service
 
 export class LoginComponent implements OnInit {
   @ViewChild('toaster') toaster: ElementRef;
+  private model = new Login();
   userForm: FormGroup;
   error_msg: string;
   isShowErrorMessage: boolean = true;
-  submitStatus: boolean;
-  mainHeaderMenuHideShow: string;
-  isChrome: boolean;
-  isToasterVisible: boolean = true;
-  isFromCareerPlugin: boolean = false;
-  recruiterReferenceId: string;
-  isRememberPassword: boolean = false;
-  private model = new Login();
   private MY_LOGO_PATH: string;
   private EMAIL_ICON: string;
   private PASSWORD_ICON: string;
@@ -46,6 +39,14 @@ export class LoginComponent implements OnInit {
   private MY_TAG_LINE: string;
   private UNDER_LICENCE: string;
   private BODY_BACKGROUND: string;
+  submitStatus: boolean;
+  mainHeaderMenuHideShow: string;
+  isChrome: boolean;
+  isToasterVisible: boolean = true;
+  isFromCareerPlugin: boolean = false;
+  recruiterReferenceId: string;
+  isRememberPassword: boolean = false;
+
   constructor(private _router: Router, private loginService: LoginService, private themeChangeService: ThemeChangeService,
               private messageService: MessageService, private formBuilder: FormBuilder,
               private sharedService: SharedService, private activatedRoute: ActivatedRoute,
@@ -103,7 +104,7 @@ export class LoginComponent implements OnInit {
 
   onSubmit() {
     this.model = this.userForm.value;
-    if (this.model.email == '' || this.model.password == '') {
+    if (this.model.email === '' || this.model.password === '') {
       this.submitStatus = true;
       return;
     }
