@@ -26,7 +26,7 @@
         <th>Amount</th>
         </thead>
         <tbody>
-        <tr *ngFor="let rateItem of rateItemsArray.item | groupBy:'type'; let k = index">
+        <tr *ngFor="let rateItem of rateItemsArray.items | groupBy:'type'; let k = index">
           <td>
             <table>
               <thead>
@@ -41,7 +41,7 @@
                         </div>
                       </td>
                       <td>
-                        <input [(ngModel)]="item.quantity" id="itemQuantity" class="form-control text-right" (change)="changeQuantity(item.quantity,k)"/>
+                        <input type="number" [(ngModel)]="item.quantity" id="itemQuantity" class="form-control text-right" (change)="changeQuantity(item.quantity,k)"/>
                       </td>
                       <td>
                         <input [(ngModel)]="item.unit" id="itemUnit" class="form-control text-right" (change)="changeQuantity(item.quantity,k)"/>

@@ -6,7 +6,7 @@ class ClonedCostHead {
   budgetedCostAmount:number;
   active:boolean;
   thumbRuleRate: any;
-  subCategory: Array<ClonedSubcategory>;
+  subCategories: Array<ClonedSubcategory>;
 }
 
 export = ClonedCostHead;

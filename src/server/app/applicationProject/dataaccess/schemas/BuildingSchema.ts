@@ -52,7 +52,7 @@ class BuildingSchema {
         numOfLifts: {
         type: Number
       },
-      costHead: [{}],
+      costHeads: [{}],
       activation_date: {
         type: Date,
       }

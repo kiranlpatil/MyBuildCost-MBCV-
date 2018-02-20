@@ -15,6 +15,6 @@ class Building {
   numOfFourBHK:number;
   numOfFiveBHK:number;
   numOfLifts: number;
-  costHead: Array<CostHead>;
+  costHeads: Array<CostHead>;
 }
 export = Building;

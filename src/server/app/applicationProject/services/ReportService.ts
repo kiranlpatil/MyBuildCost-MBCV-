@@ -76,7 +76,7 @@ class ReportService {
               buildingReport.area = parseFloat((buildings[index].totalSaleableAreaOfUnit).toFixed(2));
             }
           }
-          let costHeadArray : any = buildings[index].costHead;
+          let costHeadArray : any = buildings[index].costHeads;
           for (let costHeadIndex = 0; costHeadIndex < costHeadArray.length; costHeadIndex++) {
 
             if(costHeadArray[costHeadIndex].active === true) {
@@ -108,11 +108,11 @@ class ReportService {
                   estimatedReport.area = parseFloat((buildings[index].totalSaleableAreaOfUnit * config.get('SqureMeter')).toFixed(2));
                 }
               }
-              let subCategory: Array<SubCategory> = costHeadArray[costHeadIndex].subCategory;
+              let subCategory: Array<SubCategory> = costHeadArray[costHeadIndex].subCategories;
               if(subCategory.length !== 0) {
 
                 for(let subCategoryKey in subCategory) {
-                  let workItem = subCategory[subCategoryKey].workitem;
+                  let workItem = subCategory[subCategoryKey].workItems;
                   if(workItem.length !== 0) {
                     for (let key in workItem) {
                       if (workItem[key].quantity.total !== null && workItem[key].rate.total !== null
@@ -137,7 +137,7 @@ class ReportService {
               }
               estimatedReport.totalEstimatedCost = parseFloat((estimateReport.total + estimatedReport.totalEstimatedCost).toFixed(2));
               estimatedReport.totalRate = parseFloat((estimatedReport.totalRate +  estimateReport.rate).toFixed(2));
-              estimatedReport.estimatedCost.push(estimateReport);
+              estimatedReport.estimatedCosts.push(estimateReport);
               if( costHeadArray[costHeadIndex].budgetedCostAmount === 0 ||
                 costHeadArray[costHeadIndex].budgetedCostAmount === undefined ) {
                 thumbRule.amount = parseFloat((thumbRuleReport.area * thumbRule.rate).toFixed(2));
@@ -145,7 +145,7 @@ class ReportService {
                 thumbRule.amount =  parseFloat((costHeadArray[costHeadIndex].budgetedCostAmount).toFixed(2));
               }
               thumbRule.costHeadActive = costHeadArray[costHeadIndex].active;
-              thumbRuleReport.thumbRuleReport.push(thumbRule);
+              thumbRuleReport.thumbRuleReports.push(thumbRule);
               thumbRuleReport.totalRate = parseFloat((thumbRuleReport.totalRate + thumbRule.rate).toFixed(2));
               thumbRuleReport.totalBudgetedCost = parseFloat((thumbRuleReport.totalBudgetedCost + thumbRule.amount).toFixed(2));
               buildingReport.estimated = estimatedReport;

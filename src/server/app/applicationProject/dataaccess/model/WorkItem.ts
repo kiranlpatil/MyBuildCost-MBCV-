@@ -1,6 +1,7 @@
 import Item = require('./Item');
 import Quantity = require('./Quantity');
 import Rate = require('./Rate');
+import Constants = require('./../../shared/constants');
 
 class WorkItem {
   name: string;
@@ -10,13 +11,14 @@ class WorkItem {
   rate: Rate;
   amount: number;
   remarks: string;
+
   constructor(name:string, rateAnalysisId:number) {
     this.name = name;
     this.rateAnalysisId = rateAnalysisId;
     this.quantity = new Quantity();
     this.rate = new Rate();
     this.amount = 0;
-    this.unit = 'sqft';
+    this.unit = Constants.WORKITEM_UNIT;
     this.remarks = '';
   }
 }

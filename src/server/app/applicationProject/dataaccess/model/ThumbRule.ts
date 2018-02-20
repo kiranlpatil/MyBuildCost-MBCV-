@@ -5,11 +5,12 @@ class  ThumbRule {
   area: number;
   totalRate: number;
   totalBudgetedCost: number;
-  thumbRuleReport: Array<ThumbRuleReport>;
+  thumbRuleReports: Array<ThumbRuleReport>;
+
   constructor() {
     this.totalRate = 0;
     this.totalBudgetedCost = 0;
-    this.thumbRuleReport = new Array<ThumbRuleReport>(0);
+    this.thumbRuleReports = new Array<ThumbRuleReport>(0);
   }
 }
 export = ThumbRule;

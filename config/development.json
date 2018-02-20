@@ -108,7 +108,7 @@
         },
         "active": true,
         "rateAnalysisId": 21,
-        "subCategory": [
+        "subCategories": [
 
         ]
       },
@@ -126,7 +126,7 @@
         },
         "active": true,
         "rateAnalysisId": 9,
-        "subCategory": [
+        "subCategories": [
 
         ]
       },
@@ -144,7 +144,7 @@
         },
         "active": true,
         "rateAnalysisId": 19,
-        "subCategory": [
+        "subCategories": [
 
         ]
       },
@@ -162,7 +162,7 @@
         },
         "active": true,
         "rateAnalysisId": 5,
-        "subCategory": [
+        "subCategories": [
 
         ]
       },
@@ -180,7 +180,7 @@
         },
         "active": true,
         "rateAnalysisId": 10,
-        "subCategory": [
+        "subCategories": [
 
         ]
       },
@@ -198,7 +198,7 @@
         },
         "active": true,
         "rateAnalysisId": 12,
-        "subCategory": [
+        "subCategories": [
 
         ]
       },
@@ -216,7 +216,7 @@
         },
         "active": true,
         "rateAnalysisId": 242,
-        "subCategory": [
+        "subCategories": [
 
         ]
       },
@@ -234,7 +234,7 @@
         },
         "active": true,
         "rateAnalysisId": 14,
-        "subCategory": [
+        "subCategories": [
 
         ]
       },
@@ -252,7 +252,7 @@
         },
         "active": true,
         "rateAnalysisId": 8,
-        "subCategory": [
+        "subCategories": [
 
         ]
       },
@@ -270,7 +270,7 @@
         },
         "active": true,
         "rateAnalysisId": 86,
-        "subCategory": [
+        "subCategories": [
 
         ]
       },
@@ -288,7 +288,7 @@
         },
         "active": true,
         "rateAnalysisId": 4,
-        "subCategory": [
+        "subCategories": [
 
         ]
       },
@@ -306,7 +306,7 @@
         },
         "active": true,
         "rateAnalysisId": 71,
-        "subCategory": [
+        "subCategories": [
 
         ]
       },
@@ -324,7 +324,7 @@
         },
         "active": true,
         "rateAnalysisId": 16,
-        "subCategory": [
+        "subCategories": [
 
         ]
       },
@@ -342,7 +342,7 @@
         },
         "active": true,
         "rateAnalysisId": 1,
-        "subCategory": [
+        "subCategories": [
 
         ]
       },
@@ -360,7 +360,7 @@
         },
         "active": true,
         "rateAnalysisId": 80,
-        "subCategory": [
+        "subCategories": [
 
         ]
       },
@@ -378,7 +378,7 @@
         },
         "active": true,
         "rateAnalysisId": 20,
-        "subCategory": [
+        "subCategories": [
 
         ]
       },
@@ -396,7 +396,7 @@
         },
         "active": true,
         "rateAnalysisId": 260,
-        "subCategory": [
+        "subCategories": [
 
         ]
       },
@@ -414,7 +414,7 @@
         },
         "active": true,
         "rateAnalysisId": 89,
-        "subCategory": [
+        "subCategories": [
 
         ]
       },
@@ -432,7 +432,7 @@
         },
         "active": true,
         "rateAnalysisId": 251,
-        "subCategory": [
+        "subCategories": [
 
         ]
       },
@@ -450,7 +450,7 @@
         },
         "active": true,
         "rateAnalysisId": 17,
-        "subCategory": [
+        "subCategories": [
 
         ]
       },
@@ -468,7 +468,7 @@
         },
         "active": true,
         "rateAnalysisId": 18,
-        "subCategory": [
+        "subCategories": [
 
         ]
       },
@@ -486,7 +486,7 @@
         },
         "active": true,
         "rateAnalysisId": 27,
-        "subCategory": [
+        "subCategories": [
 
         ]
       },
@@ -504,7 +504,7 @@
         },
         "active": true,
         "rateAnalysisId": 15,
-        "subCategory": [
+        "subCategories": [
 
         ]
       },
@@ -522,7 +522,7 @@
         },
         "active": true,
         "rateAnalysisId": 74,
-        "subCategory": [
+        "subCategories": [
 
         ]
       },
@@ -540,7 +540,7 @@
         },
         "active": true,
         "rateAnalysisId": 269,
-        "subCategory": [
+        "subCategories": [
 
         ]
       },
@@ -558,7 +558,7 @@
         },
         "active": true,
         "rateAnalysisId": 3,
-        "subCategory": [
+        "subCategories": [
 
         ]
       },
@@ -576,7 +576,7 @@
         },
         "active": true,
         "rateAnalysisId": 68,
-        "subCategory": [
+        "subCategories": [
 
         ]
       },
@@ -594,7 +594,7 @@
         },
         "active": true,
         "rateAnalysisId": 13,
-        "subCategory": [
+        "subCategories": [
 
         ]
       },
@@ -612,17 +612,17 @@
         },
         "active": true,
         "rateAnalysisId": 77,
-        "subCategory": [
+        "subCategories": [
           {
             "name": "default",
             "rateAnalysisId": 0,
             "amount": 0,
-            "workitem": [
+            "workItems": [
               {
                 "name": "Salai pointing for UCR masonry in CM 1: 4",
                 "quantity": {
                   "total": 0,
-                  "item": [
+                  "items": [
 
                   ]
                 },
@@ -632,7 +632,7 @@
                   "rateFromRateAnalysis": 0,
                   "total": 0,
                   "quantity": 10,
-                  "item": [
+                  "items": [
 
                   ],
                   "unit": "sqft"

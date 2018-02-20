@@ -3,6 +3,6 @@ import RateItem = require('./RateItem');
 class Item {
   total: number;
   quantity: number;
-  item: Array<RateItem>;
+  items: Array<RateItem>;
 }
 export = Item;

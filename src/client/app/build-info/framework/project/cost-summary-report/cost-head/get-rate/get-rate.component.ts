@@ -56,12 +56,12 @@ export class GetRateComponent {
   }
 
   changeQuantity(quantity: any, k: number) {
-    this.rateItemsArray.item[k].quantity = parseFloat(quantity);
+    this.rateItemsArray.items[k].quantity = parseFloat(quantity);
     this.calculateTotal('changeQuantity');
   }
 
   changeRate(rate: any, k: number) {
-    this.rateItemsArray.item[k].rate = parseFloat(rate);
+    this.rateItemsArray.items[k].rate = parseFloat(rate);
     this.calculateTotal('changeRate');
   }
 
@@ -69,16 +69,16 @@ export class GetRateComponent {
     this.totalAmount = 0;
     this.totalRate = 0.0;
     this.totalQuantity = 0.0;
-    for (let i = 0; i < this.rateItemsArray.item.length; i++) {
+    for (let i = 0; i < this.rateItemsArray.items.length; i++) {
       if(choice==='changeTotalQuantity') {
-        this.rateItemsArray.item[i].quantity = this.rateItemsArray.item[i].quantity * this.quantityIncrement;
+        this.rateItemsArray.items[i].quantity = this.rateItemsArray.items[i].quantity * this.quantityIncrement;
       }
-      this.totalAmount = this.totalAmount + (this.rateItemsArray.item[i].quantity * this.rateItemsArray.item[i].rate);
-      this.totalRate = this.totalRate + this.rateItemsArray.item[i].rate;
-      this.totalQuantity = this.totalQuantity + this.rateItemsArray.item[i].quantity;
+      this.totalAmount = this.totalAmount + (this.rateItemsArray.items[i].quantity * this.rateItemsArray.items[i].rate);
+      this.totalRate = this.totalRate + this.rateItemsArray.items[i].rate;
+      this.totalQuantity = this.totalQuantity + this.rateItemsArray.items[i].quantity;
     }
 
-    this.rateItemsArray.total = this.totalAmount / this.totalQuantity;
+    this.rateItemsArray.total = parseFloat((this.totalAmount / this.totalQuantity).toFixed(2));
   }
 
   updateRate(rateItemsArray: any) {
@@ -86,10 +86,10 @@ export class GetRateComponent {
     let workItemId = SessionStorageService.getSessionValue(SessionStorage.CURRENT_WORKITEM_ID);
     let rate = new Rate();
     rate.rateFromRateAnalysis = parseFloat(rateItemsArray.rateFromRateAnalysis);
-    rate.total = parseFloat(rateItemsArray.total).toFixed(2);
+    rate.total = parseFloat((rateItemsArray.total).toFixed(2));
     rate.quantity = rateItemsArray.quantity;
     rate.unit = rateItemsArray.unit;
-    rate.items = rateItemsArray.item;
+    rate.items = rateItemsArray.items;
 
     this.getRateService.updateRateItems(parseInt(costHeadId), this.subCategoryRateAnalysisId,
       parseInt(workItemId), rate).subscribe(

@@ -55,7 +55,7 @@
                     </tr>
                   </thead>
                   <tbody *ngIf="(building.thumbRule && building.estimated)" >
-                    <tr *ngFor="let thumbRuleItem of building.thumbRule.thumbRuleReport; let i = index">
+                    <tr *ngFor="let thumbRuleItem of building.thumbRule.thumbRuleReports; let i = index">
                       <td class="border-left">{{thumbRuleItem.name}}</td>
                       <td>
                         <div class="edit-field">
@@ -68,21 +68,21 @@
                       </td>
                       <td class="border-left">{{thumbRuleItem.rate}}</td>
                       <td>
-                        <div class="edit-field" *ngIf="building.estimated.estimatedCost[i].total != 0"
-                             (click)="getAmount(building.name, building._id, building.estimated.estimatedCost[i])">
-                          <input [(ngModel)]="building.estimated.estimatedCost[i].total"
+                        <div class="edit-field" *ngIf="building.estimated.estimatedCosts[i].total != 0"
+                             (click)="getAmount(building.name, building._id, building.estimated.estimatedCosts[i])">
+                          <input [(ngModel)]="building.estimated.estimatedCosts[i].total"
                                  id="estimatedItem.total"
                                  class="form-control clear"/>
                         </div>
-                        <button *ngIf="building.estimated.estimatedCost[i].total == 0"
+                        <button *ngIf="building.estimated.estimatedCosts[i].total == 0"
                                   type="button" class="btn-get-amount"
-                                  (click)="getAmount(building.name, building._id, building.estimated.estimatedCost[i])">Get Amount</button>
+                                  (click)="getAmount(building.name, building._id, building.estimated.estimatedCosts[i])">Get Amount</button>
                       </td>
-                      <td class="border-left">{{building.estimated.estimatedCost[i].rate}}</td>
+                      <td class="border-left">{{building.estimated.estimatedCosts[i].rate}}</td>
                       <td>
                         <div data-toggle="modal"
                              data-target="#deleteCosthead"
-                             (click)="deleteCostHeadDetailsfun(building._id, building.estimated.estimatedCost[i].rateAnalysisId)"
+                             (click)="deleteCostHeadDetailsfun(building._id, building.estimated.estimatedCosts[i].rateAnalysisId)"
                              class="delete-cost-head">
                           <img alt="Delete Cost Head" src="assets/build-info/dashboard/delete.png" />
                         </div>

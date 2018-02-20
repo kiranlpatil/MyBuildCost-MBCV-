@@ -14,7 +14,7 @@ class Project {
   poolCapacity:number;
   totalNumOfBuildings:number;
   buildings: Array<Building>;
-  costHead: Array<Category>;
-  rate: Array<Rate>;
+  costHeads: Array<Category>;
+  rates: Array<Rate>;
 }
 export = Project;

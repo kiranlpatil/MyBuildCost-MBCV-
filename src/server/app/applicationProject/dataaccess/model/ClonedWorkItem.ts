@@ -9,6 +9,7 @@ class ClonedWorkItem {
   unit: string;
   rate: Rate;
   amount: number;
+
   constructor() {
     this.active = true;
   }

@@ -145,10 +145,10 @@ export class CostHeadComponent implements OnInit, OnChanges {
     this.unit=rateItem.data.unit;
     this.rateItemsArray = rateItem.data;
 
-    for(let i=0;i<rateItem.data.item.length;i++) {
-      this.totalAmount= this.totalAmount+( rateItem.data.item[i].quantity*rateItem.data.item[i].rate);
-      this.totalRate= this.totalRate+rateItem.data.item[i].rate;
-      this.totalQuantity=this.totalQuantity+rateItem.data.item[i].quantity;
+    for(let i=0;i<rateItem.data.items.length;i++) {
+      this.totalAmount= this.totalAmount+( rateItem.data.items[i].quantity*rateItem.data.items[i].rate);
+      this.totalRate= this.totalRate+rateItem.data.items[i].rate;
+      this.totalQuantity=this.totalQuantity+rateItem.data.items[i].quantity;
     }
     this.rateItemsArray.total= this.totalAmount/this.totalQuantity;
     this.showRate = true;

@@ -1,4 +1,3 @@
-import WorkItem = require('./WorkItem');
 import SubCategory = require('./SubCategory');
 
 class CostHead {
@@ -7,7 +6,7 @@ class CostHead {
   budgetedCostAmount:number;
   active: boolean;
   thumbRuleRate: any;
-  subCategory: Array<SubCategory>;
+  subCategories: Array<SubCategory>;
 }
 
 export = CostHead;

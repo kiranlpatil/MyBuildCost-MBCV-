@@ -116,13 +116,12 @@ class RateAnalysisService {
               '  WHERE rate.C1 = '+ workitemId;
             let quantityAndUnit = alasql(sql, [rate, unitData])
             let rateResult : Rate = new Rate();
-            let totalrateFromRateAnalysis = alasql(sql3, [rate, unitData])
+            let totalrateFromRateAnalysis = alasql(sql3, [rate, unitData]);
             rateResult.quantity = quantityAndUnit[0].quantity;
             rateResult.unit = quantityAndUnit[0].unit;
-            rateResult.rateFromRateAnalysis = parseFloat(totalrateFromRateAnalysis[0].total).toFixed(2);
-            console.log(  rateResult.rateFromRateAnalysis);
-            rate = alasql(sql2, [rate, unitData])
-            rateResult.item = rate;
+            rateResult.rateFromRateAnalysis = parseFloat((totalrateFromRateAnalysis[0].total).toFixed(2));
+            rate = alasql(sql2, [rate, unitData]);
+            rateResult.items = rate;
             callback(null, rateResult);
           }
 

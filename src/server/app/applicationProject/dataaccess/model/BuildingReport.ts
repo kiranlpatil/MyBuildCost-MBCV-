@@ -1,5 +1,3 @@
-import ThumbRuleReport = require('./ThumbRuleReport');
-import EstimateReport = require('./EstimateReport');
 import ThumbRule = require('./ThumbRule');
 import Estimated = require('./Estimated');
 

@@ -5,13 +5,13 @@ export class  SubCategory {
   name: string;
   rateAnalysisId: number;
   amount: number;
-  workitem : Array<WorkItem>;
+  workitems : Array<WorkItem>;
 
   constructor(name: string, rateAnalysisId: number) {
     this.name = name;
     this.rateAnalysisId = rateAnalysisId;
     this.amount = 0;
-    this.workitem = new Array<WorkItem>();
+    this.workitems = new Array<WorkItem>();
   }
 }
 

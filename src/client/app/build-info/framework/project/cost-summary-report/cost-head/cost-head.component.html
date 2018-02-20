@@ -5,7 +5,7 @@
       <div class="panel-group" *ngFor=" let subCategory of subCategoryDetails | keys; let i= index ">
         <div class="panel panel-default">
           <div class="panel-heading">
-            <div class="panel-title clearfix" (click)="getSelectedWorkItems(subCategoryDetails[i].workitem)">
+            <div class="panel-title clearfix" (click)="getSelectedWorkItems(subCategoryDetails[i].workItems)">
               <div class="col-sm-11">
                 <a *ngIf="subCategoryDetails[subCategory].rateAnalysisId !== 0" data-toggle="collapse" href="#collapse{{i}}">
                   <span class="pull-left">{{ subCategoryDetails[subCategory].name }}</span>
@@ -30,7 +30,7 @@
           </div>
           <div id="collapse{{i}}" class="panel-collapse collapse">
             <div class="panel-body">
-              <div  *ngFor="let workitemObj of subCategoryDetails[subCategory].workitem; let workItemIndex = index">
+              <div  *ngFor="let workitemObj of subCategoryDetails[subCategory].workItems; let workItemIndex = index">
                 <table class="table table-row-spacing table-dashboard table-categories">
                   <thead *ngIf="workItemIndex === 0">
                   <tr>
@@ -49,14 +49,14 @@
                     <td class="border-left">
                       <div class="edit-field"
                            *ngIf="workitemObj.quantity.total"
-                           (click)="getQuantity(i, workitemObj.quantity.item, workItemIndex, workitemObj.name, workitemObj.rateAnalysisId)">
+                           (click)="getQuantity(i, workitemObj.quantity.items, workItemIndex, workitemObj.name, workitemObj.rateAnalysisId)">
                         <input  [(ngModel)]="workitemObj.quantity.total" id="quantity"  size="10" class="form-control clear">
                       </div>
                       <button *ngIf="workitemObj.quantity.total == 0"
                               type="button"
                               id="getQuantity{{i}}"
                               class="btn-get-amount"
-                              (click)="getQuantity(i, workitemObj.quantity.item, workItemIndex, workitemObj.name, workitemObj.rateAnalysisId)">
+                              (click)="getQuantity(i, workitemObj.quantity.items, workItemIndex, workitemObj.name, workitemObj.rateAnalysisId)">
                         Get Qty.
                       </button>
                     </td>

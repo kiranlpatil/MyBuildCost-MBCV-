@@ -7,7 +7,7 @@ class Company {
   address: string;
   subscription: Subscription;
   dateOfSubscription: Date;
-  user: Array<User>;
-  project: Array<Project>;
+  users : Array<User>;
+  projects : Array<Project>;
 }
 export = Company;

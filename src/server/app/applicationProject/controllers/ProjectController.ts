@@ -31,8 +31,8 @@ class ProjectController {
 
       let defaultCategory = config.get('category.default');
       let defaultRates = config.get('rate.default');
-      data.costHead = defaultCategory;
-      data.rate = defaultRates;
+      data.costHeads = defaultCategory;
+      data.rates = defaultRates;
 
       let projectService = new ProjectService();
       projectService.create(data, user,(error, result) => {
@@ -99,7 +99,7 @@ class ProjectController {
       let buildingDetails = <Building> req.body;
 
       let defaultCategory = config.get('category.default');
-      buildingDetails.costHead = defaultCategory;
+      buildingDetails.costHeads = defaultCategory;
 
       let projectService = new ProjectService();
       projectService.addBuilding(projectId, buildingDetails, user, (error, result) => {

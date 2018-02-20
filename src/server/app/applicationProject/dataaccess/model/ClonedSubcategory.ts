@@ -5,7 +5,7 @@ class ClonedSubcategory {
   rateAnalysisId:number;
   active:boolean;
   amount:number;
-  workitem: Array<ClonedWorkItem>;
+  workItems: Array<ClonedWorkItem>;
 }
 
 export = ClonedSubcategory;

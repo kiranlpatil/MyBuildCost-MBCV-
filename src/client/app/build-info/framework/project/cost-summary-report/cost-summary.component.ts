@@ -117,7 +117,7 @@ export class CostSummaryComponent implements OnInit {
   }
 
   getAmount(buildingName:string, buildingId : string, estimatedItem :any) {
-    this.estimatedItem = estimatedItem.data;
+    this.estimatedItem = estimatedItem;
     this.costHeadId = estimatedItem.rateAnalysisId;
     SessionStorageService.setSessionValue(SessionStorage.CURRENT_BUILDING, buildingId);
     this.buildingId =  SessionStorageService.getSessionValue(SessionStorage.CURRENT_BUILDING);
@@ -297,21 +297,21 @@ export class CostSummaryComponent implements OnInit {
 
   onGetBuildingDataSuccess(building: any) {
     let buildingDetails = building.data;
-    this.clonedBuildingDetails = building.data.costHead;
+    this.clonedBuildingDetails = building.data.costHeads;
     this.model.name = buildingDetails.name;
     this.model.totalSlabArea = buildingDetails.totalSlabArea;
-    this.model.totalCarpetAreaOfUnit = buildingDetails.totalCarperAreaOfUnit;
+    this.model.totalCarpetAreaOfUnit = buildingDetails.totalCarpetAreaOfUnit;
     this.model.totalSaleableAreaOfUnit = buildingDetails.totalSaleableAreaOfUnit;
     this.model.plinthArea = buildingDetails.plinthArea;
-    this.model.totalNumOfFloors = buildingDetails.totalNoOfFloors;
-    this.model.numOfParkingFloors = buildingDetails.noOfParkingFloors;
+    this.model.totalNumOfFloors = buildingDetails.totalNumOfFloors;
+    this.model.numOfParkingFloors = buildingDetails.numOfParkingFloors;
     this.model.carpetAreaOfParking = buildingDetails.carpetAreaOfParking;
-    this.model.numOfOneBHK = buildingDetails.noOfOneBHK;
-    this.model.numOfTwoBHK = buildingDetails.noOfTwoBHK;
-    this.model.numOfThreeBHK = buildingDetails.noOfThreeBHK;
-    this.model.numOfFourBHK = buildingDetails.noOfFourBHK;
-    this.model.numOfFiveBHK = buildingDetails.noOfFiveBHK;
-    this.model.numOfLifts = buildingDetails.noOfLift;
+    this.model.numOfOneBHK = buildingDetails.numOfOneBHK;
+    this.model.numOfTwoBHK = buildingDetails.numOfTwoBHK;
+    this.model.numOfThreeBHK = buildingDetails.numOfThreeBHK;
+    this.model.numOfFourBHK = buildingDetails.numOfFourBHK;
+    this.model.numOfFiveBHK = buildingDetails.numOfFiveBHK;
+    this.model.numOfLifts = buildingDetails.numOfLifts;
   }
 
   onGetBuildingDataFail(error: any) {
