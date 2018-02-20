@@ -1,6 +1,6 @@
-import {Component, EventEmitter, Output} from "@angular/core";
-import {UserProfile} from "../models/user";
-import {DashboardService} from "../services/dashboard.service";
+import { Component, EventEmitter, Output } from '@angular/core';
+import { UserProfile } from '../models/user';
+import { DashboardService } from '../services/dashboard.service';
 import {
   AppSettings,
   ImagePath,
@@ -10,7 +10,7 @@ import {
   Messages,
   MessageService,
   ProfileService
-} from "../../shared/index";
+} from '../../shared/index';
 
 
 @Component({
@@ -22,12 +22,12 @@ import {
 
 export class ProfilePictureComponent {
   @Output() onPictureUpload = new EventEmitter();
+  isLoading: boolean = false;
   private model = new UserProfile();
   private filesToUpload: Array<File>;
   private image_path: string;
   private uploaded_image_path: string;
   private isShowErrorMessage: boolean = true;
-  isLoading: boolean = false;
   private isCandidate: string;
 
 
@@ -35,11 +35,10 @@ export class ProfilePictureComponent {
               private messageService: MessageService, private profileService: ProfileService) {
     this.filesToUpload = [];
     this.uploaded_image_path = SessionStorageService.getSessionValue(SessionStorage.PROFILE_PICTURE); //TODO:Get it from get user call.
-    if (this.uploaded_image_path === "undefined" || this.uploaded_image_path === null) {
-      if (this.isCandidate == "true") {
+    if (this.uploaded_image_path === 'undefined' || this.uploaded_image_path === null) {
+      if (this.isCandidate === 'true') {
         this.image_path = ImagePath.PROFILE_IMG_ICON;
-      }
-      else {
+      } else {
         this.image_path = ImagePath.COMPANY_LOGO_IMG_ICON;
       }
     } else {

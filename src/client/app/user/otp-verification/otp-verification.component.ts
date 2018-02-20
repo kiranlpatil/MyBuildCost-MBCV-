@@ -1,6 +1,6 @@
 import { Component, Output, Input , EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import {Messages, SessionStorage} from '../../shared/constants';
+import { Messages, SessionStorage } from '../../shared/constants';
 import { VerifyOtp  } from '../models/verify-otp';
 import { MessageService } from '../../shared/services/message.service';
 import { Message } from '../../shared/models/message';
@@ -8,8 +8,8 @@ import { ValidationService } from '../../shared/customvalidations/validation.ser
 import { LoginService } from '../../framework/login/login.service';
 import { RegistrationService } from '../services/registration.service';
 import { OtpVerificationService } from './otp-verification.service';
-import {SessionStorageService} from "../../shared/services/session.service";
-import {Login} from "../models/login";
+import { SessionStorageService } from '../../shared/services/session.service';
+import { Login } from '../models/login';
 
 @Component({
   moduleId: module.id,
@@ -118,12 +118,14 @@ export class OtpVerificationComponent {
   getMessages() {
     return Messages;
   }
+
   showInformationMessage(customMessage:any) {
     var message = new Message();
     message.isError = false;
     message.custom_message = customMessage;
     this.messageService.message(message);
   }
+
   showErrorMessage(error:any) {
     var message = new Message();
     message.error_msg = error.err_msg;

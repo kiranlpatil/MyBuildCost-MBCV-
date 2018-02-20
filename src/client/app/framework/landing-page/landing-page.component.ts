@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { ImagePath, NavigationRoutes } from '../../shared/index';
-import { Messages } from '../../shared/constants';
 import { Router } from '@angular/router';
 
 @Component({
@@ -12,8 +11,6 @@ import { Router } from '@angular/router';
 export class LandingPageComponent {
   BODY_BACKGROUND: string;
   MY_LOGO: string;
- // landingPageText: string= Messages.MSG_LANDING_PAGE;
- // isChrome: boolean;
   constructor(private _router: Router) {
     this.BODY_BACKGROUND = ImagePath.BODY_BACKGROUND;
     this.MY_LOGO = ImagePath.MY_WHITE_LOGO;

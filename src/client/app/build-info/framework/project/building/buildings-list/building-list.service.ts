@@ -1,11 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Headers, Http, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
-import { Building } from '../../../model/building';
 import { Project } from '../../../model/project';
 import { API, BaseService, SessionStorage, SessionStorageService, MessageService } from '../../../../../shared/index';
-import {ok} from "assert";
-
 
 @Injectable()
 export class BuildingListService extends BaseService {

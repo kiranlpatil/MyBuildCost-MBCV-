@@ -89,12 +89,6 @@ export class ForgotPasswordComponent {
     }
   }
 
-  navigateTo(navigateTo: string) {
-    if (navigateTo !== undefined) {
-      this._router.navigate([navigateTo]);
-    }
-  }
-
   goBack() {
     this._router.navigate([NavigationRoutes.APP_LOGIN]);
   }

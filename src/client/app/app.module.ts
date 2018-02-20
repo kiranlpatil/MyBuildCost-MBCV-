@@ -31,7 +31,6 @@ import { SharedService } from './shared/services/shared-service';
 import { PageNotFoundComponent } from './shared/page-not-found/page-not-found.component';
 import { AnalyticService } from './shared/services/analytic.service';
 import { CommonAmenitiesComponent } from './build-info/framework/project/cost-summary-report/common-amenities/common-amenities.component';
-//import { MyDashboardComponent} from "./build-info/framework/my-dashboard/my-dashboard.component";
 import { CommonAmenitiesService } from './build-info/framework/project/cost-summary-report/common-amenities/common-amenities.service';
 import { DashboardHeaderComponent } from './framework/dashboard/dashboard-header/dashboard-header.component';
 import { DashboardUserProfileService } from './framework/dashboard/user-profile/dashboard-user-profile.service';
@@ -70,14 +69,10 @@ import { GetQuantityService } from './build-info/framework/project/cost-summary-
 import { ProjectListHeaderComponent } from './build-info/framework/project/project-header/project-list-header/project-list-header.component';
 import { ProjectListHeaderService } from './build-info/framework/project/project-header/project-list-header/project-list-header.service';
 import { GroupByPipe } from '../app/shared/services/custom-pipes/groupby.pipe';
-// Import the Animations module
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { GetRateComponent } from './build-info/framework/project/cost-summary-report/cost-head/get-rate/get-rate.component';
 import { GetRateService } from './build-info/framework/project/cost-summary-report/cost-head/get-rate/get-rate.service';
 import { CreateNewProjectComponent } from './build-info/framework/create-new-project/create-new-project.component';
-
-// Import the ButtonsModule
-//import { ButtonsModule } from '@progress/kendo-angular-buttons';
 
 @NgModule({
   imports: [

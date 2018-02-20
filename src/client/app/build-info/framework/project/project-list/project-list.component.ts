@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AppSettings, Messages, Label, Button, Headings, NavigationRoutes } from '../../../../shared/constants';
+import { NavigationRoutes } from '../../../../shared/constants';
 import { ProjectListService } from './project-list.service';
 import { SessionStorage, SessionStorageService } from '../../../../shared/index';
 
@@ -34,45 +33,12 @@ export class ProjectListComponent implements OnInit {
     );
   }
 
-  getProjectDetails() {
-      this.listProjectService.getProject().subscribe(
-        project => this.onGetProjectDetailsSuccess(project),
-        error => this.onGetProjectDetailsFail(error)
-      );
-  }
-
-
   onGetProjectSuccess(projects : any) {
-    console.log(projects);
     this.projects = projects.data;
   }
 
   onGetProjectFail(error : any) {
     console.log(error);
-  }
-
-  onGetProjectDetailsSuccess(projects : any) {
-    this.projects = projects.data[0];
-  }
-
-  onGetProjectDetailsFail(error : any) {
-    console.log(error);
-  }
-
-  getMessages() {
-    return Messages;
-  }
-
-  getLabels() {
-    return Label;
-  }
-
-  getButtons() {
-    return Button;
-  }
-
-  getHeadings() {
-    return Headings;
   }
 
   setCurrentProjectId(projectId:any) {

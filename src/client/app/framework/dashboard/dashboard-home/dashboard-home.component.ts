@@ -1,5 +1,5 @@
 import { Router } from '@angular/router';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { LoaderService } from '../../../shared/loader/loaders.service';
 import { NavigationRoutes } from '../../../shared/index';
 @Component({
@@ -8,7 +8,7 @@ import { NavigationRoutes } from '../../../shared/index';
   templateUrl: 'dashboard-home.component.html',
   styleUrls: ['dashboard-home.component.css']
 })
-export class DashboardHomeComponent implements OnInit, OnDestroy {
+export class DashboardHomeComponent implements OnInit {
 
   constructor(private _router: Router, private loaderService: LoaderService) {
 
@@ -28,9 +28,5 @@ export class DashboardHomeComponent implements OnInit, OnDestroy {
 
   goToViewProject() {
     this._router.navigate([NavigationRoutes.APP_LIST_PROJECT]);
-  }
-
-  ngOnDestroy() {
-    // this.loaderService.stop();
   }
 }

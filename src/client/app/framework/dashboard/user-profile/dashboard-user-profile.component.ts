@@ -1,22 +1,10 @@
-import { Component, NgZone, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, Router, Params } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
 import { DashboardUserProfileService } from './dashboard-user-profile.service';
 import { UserProfile } from './../../../user/models/user';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ValidationService } from '../../../shared/customvalidations/validation.service';
-import { NavigationRoutes, Label, Button, Headings } from '../../../shared/constants';
-import {
-  AppSettings,
-  CommonService,
-  ImagePath,
-  SessionStorage,
-  SessionStorageService,
-  Message,
-  Messages,
-  MessageService,
-  ProfileService,
-  ThemeChangeService
-} from '../../../shared/index';
+import { Label, Headings } from '../../../shared/constants';
+import { SessionStorage, SessionStorageService, Message, Messages, MessageService, ProfileService } from '../../../shared/index';
 
 @Component({
   moduleId: module.id,
@@ -55,27 +43,17 @@ export class DashboardProfileComponent implements OnInit {
   }
 
   setUserDetails(body : any) {
-    //this.loaderService.stop();
-    //this.showHideModal();
-    console.log('user Details :\n');
-    console.log(JSON.stringify(body.data));
     var user = body.data;
     this.model.first_name = user.first_name;
-   /* this.model.last_name = user.last_name;*/
     this.model.email = user.email;
     this.model.mobile_number = user.mobile_number;
     this.model.company_name = user.company_name;
     this.model.state = user.state;
     this.model.city = user.city;
-    //this.error_msg = '';
   }
 
   failUserDetails(error : any) {
-    //this.loaderService.stop();
-    //this.showHideModal();
-    console.log('Error :');
-    console.log(JSON.stringify(error));
-    //this.error_msg = '';
+    console.log('Error : '+JSON.stringify(error));
   }
 
   onSubmit() {
@@ -150,12 +128,11 @@ export class DashboardProfileComponent implements OnInit {
   getLabels() {
     return Label;
   }
-  getButtons() {
-    return Button;
-  }
+
   getHeadings() {
     return Headings;
   }
+
   getMessages() {
     return Messages;
   }

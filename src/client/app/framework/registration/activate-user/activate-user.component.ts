@@ -4,8 +4,6 @@ import { ImagePath, SessionStorage, Messages, NavigationRoutes, ProjectAsset } f
 import { SessionStorageService } from '../../../shared/services/session.service';
 import { ActiveUserService } from './activate-user.service';
 import { MessageService } from '../../../shared/services/message.service';
-//import {  Message  } from '../../shared/message';
-
 @Component({
   moduleId: module.id,
   selector: 'tpl-activate-user',
@@ -47,22 +45,11 @@ export class ActivateUserComponent implements OnInit {
     this.token = this.token.substring(this.token.length - 29, 0);
     SessionStorageService.setSessionValue(SessionStorage.ACCESS_TOKEN, this.token);
     SessionStorageService.setSessionValue(SessionStorage.USER_ID, this.id);
-    /*this.activeService.getUser()
-      .subscribe(
-        res => (this.activateUser(res)),
-        error => (this.newRegistrationFail(error))
-      );*/
     this.activeService.activeUser()
       .subscribe(
         res => (this.newRegistrationSuccess(res)),
         error => (this.newRegistrationFail(error)));
   }
-  /*activateUser(user:any) {
-    this.activeService.activeUser()
-      .subscribe(
-        res => (this.newRegistrationSuccess(res)),
-        error => (this.newRegistrationFail(error)));
-  }*/
 
   newRegistrationSuccess(res: any) {
     this.USER_ACTIVATION_STATUS = Messages.MSG_SUCCESS_MAIL_VERIFICATION_RESULT_STATUS;

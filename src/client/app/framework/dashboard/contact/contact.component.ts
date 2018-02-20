@@ -1,11 +1,11 @@
-import {Component, OnDestroy, OnInit} from "@angular/core";
-import {Router} from "@angular/router";
-import {Contact} from "./contact";
-import {ContactService} from "./contact.service";
-import {CommonService, Message, Messages, MessageService} from "../../../shared/index";
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {ValidationService} from "../../../shared/customvalidations/validation.service";
-import {LoaderService} from "../../../shared/loader/loaders.service";
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { Contact } from './contact';
+import { ContactService } from './contact.service';
+import { CommonService, Message, Messages, MessageService } from '../../../shared/index';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ValidationService } from '../../../shared/customvalidations/validation.service';
+import { LoaderService } from '../../../shared/loader/loaders.service';
 
 @Component({
   moduleId: module.id,
@@ -13,7 +13,7 @@ import {LoaderService} from "../../../shared/loader/loaders.service";
   templateUrl: 'contact.component.html',
   styleUrls: ['contact.component.css'],
 })
-export class ContactComponent implements OnInit, OnDestroy {
+export class ContactComponent implements OnInit {
   model = new Contact();
   submitted = false;
   userForm: FormGroup;
@@ -41,10 +41,6 @@ export class ContactComponent implements OnInit, OnDestroy {
     document.body.scrollTop = 0;
   }
 
-  ngOnDestroy() {
-    // this.loaderService.stop();
-  }
-
   onSubmit() {
     this.submitted = true;
     this.model = this.userForm.value;
@@ -57,21 +53,18 @@ export class ContactComponent implements OnInit, OnDestroy {
   contactSuccess(body: Contact) {
     this.userForm.reset();
     var message = new Message();
-    // this.loaderService.stop();
     message.isError = false;
     message.custom_message = Messages.MSG_SUCCESS_CONTACT;
     this.messageService.message(message);
   }
 
   contactFail(error: any) {
-    // this.loaderService.stop();
+    var message = new Message();
     if (error.err_code === 404 || error.err_code === 0) {
-      var message = new Message();
       message.error_msg = error.err_msg;
       message.isError = true;
       this.messageService.message(message);
     } else {
-      var message = new Message();
       this.isShowErrorMessage = false;
       this.error_msg = error.err_msg;
       message.error_msg = error.err_msg;
@@ -79,9 +72,4 @@ export class ContactComponent implements OnInit, OnDestroy {
       this.messageService.message(message);
     }
   }
-
-  goBack() {
-    this.commonService.goBack();
-  }
-
 }

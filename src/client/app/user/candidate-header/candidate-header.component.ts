@@ -1,8 +1,8 @@
-import {Component, ElementRef, HostListener, Input} from "@angular/core";
-import {Router} from "@angular/router";
-import {Candidate, Section} from "../models/candidate";
-import {AppSettings, ImagePath, SessionStorage, Label} from "../../shared/constants";
-import {SessionStorageService} from "../../shared/services/session.service";
+import { Component, ElementRef, HostListener, Input } from '@angular/core';
+import { Router } from '@angular/router';
+import { Candidate, Section } from '../models/candidate';
+import { AppSettings, ImagePath, SessionStorage } from '../../shared/constants';
+import { SessionStorageService } from '../../shared/services/session.service';
 
 @Component({
   moduleId: module.id,
@@ -20,7 +20,6 @@ export class CandidateHeaderComponent {
   user_last_name: string;
   MY_LOGO: string;
   MOBILE_LOGO: string;
-  newUser: number;
   private highlightedSection: Section = new Section();
 
   @HostListener('document:click', ['$event']) onClick(event: any) {
@@ -60,9 +59,11 @@ export class CandidateHeaderComponent {
     this._router.navigate([nav]);
     this.closeMenu();
   }
+
   onSkip() {
     this.highlightedSection.name='none';
   }
+
   toggleMenu() {
     this.isClassVisible = !this.isClassVisible;
     this.isOpenProfile = false;
@@ -79,8 +80,5 @@ export class CandidateHeaderComponent {
   goToGuidedTour() {
     this.highlightedSection.name = 'GuideTour';
     this.closeMenu();
-  }
-  getLabel() {
-    return Label;
   }
 }

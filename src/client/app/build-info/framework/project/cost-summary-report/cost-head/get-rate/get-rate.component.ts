@@ -7,7 +7,6 @@ import {
 } from '../../../../../../shared/index';
 import { GetRateService } from './get-rate.service';
 import { Rate } from '../../../../model/rate';
-import { GroupByPipe } from '../../../../../../shared/services/custom-pipes/groupby.pipe';
 
 @Component({
   moduleId: module.id,
@@ -58,20 +57,22 @@ export class GetRateComponent {
 
   changeQuantity(quantity: any, k: number) {
     this.rateItemsArray.item[k].quantity = parseFloat(quantity);
-    this.calculateTotal();
+    this.calculateTotal('changeQuantity');
   }
 
   changeRate(rate: any, k: number) {
     this.rateItemsArray.item[k].rate = parseFloat(rate);
-    this.calculateTotal();
+    this.calculateTotal('changeRate');
   }
 
-  calculateTotal() {
+  calculateTotal(choice:string) {
     this.totalAmount = 0;
     this.totalRate = 0.0;
     this.totalQuantity = 0.0;
     for (let i = 0; i < this.rateItemsArray.item.length; i++) {
-      this.rateItemsArray.item[i].quantity = this.rateItemsArray.item[i].quantity * this.quantityIncrement;
+      if(choice==='changeTotalQuantity') {
+        this.rateItemsArray.item[i].quantity = this.rateItemsArray.item[i].quantity * this.quantityIncrement;
+      }
       this.totalAmount = this.totalAmount + (this.rateItemsArray.item[i].quantity * this.rateItemsArray.item[i].rate);
       this.totalRate = this.totalRate + this.rateItemsArray.item[i].rate;
       this.totalQuantity = this.totalQuantity + this.rateItemsArray.item[i].quantity;
@@ -98,7 +99,6 @@ export class GetRateComponent {
   }
 
   onUpdateRateItemsSuccess(rateItem: any) {
-    console.log('Rate updated successfully');
     var message = new Message();
     message.isError = false;
     message.custom_message = Messages.MSG_SUCCESS_UPDATE_RATE;
@@ -111,15 +111,13 @@ export class GetRateComponent {
   }
 
   onTotalQuantityChange(newTotalQuantity: number) {
-    if (newTotalQuantity === 0 || newTotalQuantity === null){
+    if (newTotalQuantity === 0 || newTotalQuantity === null) {
       newTotalQuantity=1;
       this.totalItemRateQuantity = newTotalQuantity;
       this.rateItemsArray.quantity = newTotalQuantity;
     } else {
-      console.log('newTotalQuantity : ' + newTotalQuantity);
       this.quantityIncrement = newTotalQuantity / this.previousTotalQuantity;
-      console.log('quantityIncrement : ' + this.quantityIncrement);
-      this.calculateTotal();
+      this.calculateTotal('changeTotalQuantity');
       this.totalItemRateQuantity = newTotalQuantity;
       this.rateItemsArray.quantity = newTotalQuantity;
     }
@@ -127,7 +125,6 @@ export class GetRateComponent {
   }
 
   getPreviousQuantity(previousTotalQuantity: number) {
-    console.log('previousTotalQuantity : ' + previousTotalQuantity);
     this.previousTotalQuantity = previousTotalQuantity;
   }
 

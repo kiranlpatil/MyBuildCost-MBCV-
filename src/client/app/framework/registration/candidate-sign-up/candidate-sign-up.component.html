@@ -8,7 +8,6 @@
           <li>Budget it</li>
           <li>Control it</li>
         </ul>
-        <!--<img src="{{BODY_BACKGROUND}}" alt="Page Background" />-->
       </div>
     </div>
   </div>
@@ -20,9 +19,6 @@
           <span class="career-plugin-toster">{{getMessages().CAREER_PLUGIN_MSG_NEW_USER}}</span>
         </div>
 
-        <!--<div *ngIf="!isChrome && isToasterVisible" #toaster id="snackbar">{{getMessages().BROWSER_ALERT_MSG}}
-          <button class="button-style" (click)="closeToaster()">x</button>
-        </div>-->
         <div class="content">
           <div *ngIf="isGuideMessageVisible" class="welcome-message">
             <h3>Welcome !</h3>
@@ -47,30 +43,12 @@
                      autocomplete="off" required placeholder="Bhushan Pawar"/>
             </div>
 
-            <!--<div class="input-group form-group">
-              <label>{{getLabel().CONTACT_FIELD_LABEL}}</label>
-              <control-messages [control]="userForm.controls.mobile_number"
-                                [submitStatus]="submitStatus"></control-messages>
-              <span class="input-group-addon clearfix">+91</span>
-              <input type="number" formControlName="mobile_number" id="mobile_number" class="form-control" required/>
-            </div>-->
-
             <div class="form-group form-password">
               <control-messages [control]="userForm.controls.password" [submitStatus]="submitStatus"></control-messages>
               <label>{{getLabel().PASSWORD}}</label>
               <input type="password" formControlName="password" id="password" [(ngModel)]="model.password"
                      class="form-control" required placeholder="Minimum 6 Characters"/>
             </div>
-
-            <!--<div class="form-group">
-              <control-messages [control]="userForm.controls.confirm_password"
-                                [submitStatus]="submitStatus"></control-messages>
-              <label>{{getLabel().CONFIRM_PASSWORD_LABEL}}</label>
-              <input type="password" formControlName="confirm_password" id="confirm_password"
-                     [(ngModel)]="model.confirm_password" (blur)="makePasswordConfirm()" class="form-control" required/>
-              <span class="error-messages"
-                    *ngIf="isPasswordConfirm == true"> {{passwordMismatchMessage}} </span>
-            </div>-->
 
             <div class="col-sm-12 error-msg alert alert-danger form-alert" [hidden]="isShowErrorMessage">
               <b>{{error_msg }}</b>

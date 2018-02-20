@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Headers,Http,RequestOptions } from '@angular/http';
+import { Http } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { API, BaseService, SessionStorage, SessionStorageService, MessageService } from '../../../shared/index';
 
@@ -13,17 +13,9 @@ export class ActiveUserService extends BaseService {
 
   activeUser(): Observable<any> {
       var url = API.VERIFY_CHANGED_EMAIL + '/' + SessionStorageService.getSessionValue(SessionStorage.USER_ID);
-      var body = {'isActivated': true}; //JSON.stringify();
+      var body = {'isActivated': true};
       return this.http.put(url, body)
         .map(this.extractData)
         .catch(this.handleError);
-    /*} else {
-
-      var url = API.VERIFY_USER + '/' + SessionStorageService.getSessionValue(SessionStorage.USER_ID);
-      var newData = {'isActivated': true}; //JSON.stringify();
-      return this.http.put(url, newData)
-        .map(this.extractData)
-        .catch(this.handleError);
-    }*/
   }
 }

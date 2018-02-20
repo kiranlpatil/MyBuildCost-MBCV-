@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
-import { AppSettings, Messages, Label, Button, Headings, NavigationRoutes } from '../../../../../shared/constants';
+import { Messages, NavigationRoutes } from '../../../../../shared/constants';
 import { BuildingListService } from './building-list.service';
 import { BuildingDetailsService } from '../building-details/building-details.service';
 import { Building } from '../../../model/building';
@@ -21,13 +21,12 @@ export class BuildingListComponent implements OnInit {
   buildings : any;
   projectId : any;
   currentbuildingId: any;
-  cloneCostHead: any;
   clonedBuildingId : string;
   cloneBuildingForm: FormGroup;
   model: Building = new Building();
   clonedBuildingDetails: any;
-  constructor(private listBuildingService: BuildingListService, private viewBuildingService: BuildingDetailsService, private _router: Router,
-              private activatedRoute:ActivatedRoute, private messageService: MessageService,
+  constructor(private listBuildingService: BuildingListService, private viewBuildingService: BuildingDetailsService,
+              private _router: Router, private activatedRoute:ActivatedRoute, private messageService: MessageService,
               private createBuildingService: CreateBuildingService, private formBuilder: FormBuilder ) {
 
     this.cloneBuildingForm = this.formBuilder.group({
@@ -94,7 +93,6 @@ export class BuildingListComponent implements OnInit {
   }
   deletefun(buildingId : any) {
     this.currentbuildingId = buildingId;
-    console.log('Building Id:'+buildingId);
   }
   deleteBuilding() {
     this.listBuildingService.deleteBuildingById(this.currentbuildingId).subscribe(
@@ -123,7 +121,6 @@ export class BuildingListComponent implements OnInit {
       var message = new Message();
       message.isError = false;
       message.custom_message = Messages.MSG_SUCCESS_DELETE_BUILDING;
-      console.log(result);
       this.messageService.message(message);
       this.getProjects();
     }
@@ -133,30 +130,12 @@ export class BuildingListComponent implements OnInit {
     console.log(error);
   }
 
-  getMessages() {
-    return Messages;
-  }
-
-  getLabels() {
-    return Label;
-  }
-
-  getButtons() {
-    return Button;
-  }
-
-  getHeadings() {
-    return Headings;
-  }
-
   getBuildingDetails(buildingId : any) {
-    console.log('building Id : '+buildingId);
     SessionStorageService.setSessionValue(SessionStorage.CURRENT_BUILDING, buildingId);
     this._router.navigate([NavigationRoutes.APP_VIEW_BUILDING_DETAILS, buildingId]);
   }
 
   cloneThisBuilding(buildingId : any) {
-    console.log('building Id : '+buildingId);
     this.viewBuildingService.getBuildingDetails(buildingId).subscribe(
       building => this.onGetBuildingDataSuccess(building),
       error => this.onGetBuildingDataFail(error)

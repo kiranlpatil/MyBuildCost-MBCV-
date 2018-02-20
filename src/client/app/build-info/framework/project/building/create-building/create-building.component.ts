@@ -1,11 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import {
-  AppSettings, Messages, Label, Button, Headings, NavigationRoutes,
-  ImagePath
-} from '../../../../../shared/constants';
-import { API, BaseService, SessionStorage, SessionStorageService,  Message,
+import { Messages, NavigationRoutes, ImagePath } from '../../../../../shared/constants';
+import { SessionStorage, SessionStorageService,  Message,
   MessageService } from '../../../../../shared/index';
 import { Building } from '../../../model/building';
 import { CreateBuildingService } from './create-building.service';
@@ -56,7 +53,6 @@ export class CreateBuildingComponent {
     this._router.navigate([NavigationRoutes.APP_COST_SUMMARY,projectId]);
   }
   onSubmit() {
-    //this.projectService
     if(this.addBuildingForm.valid) {
       this.modelBuilding = this.addBuildingForm.value;
       if(this.modelBuilding.numOfOneBHK !== undefined || this.modelBuilding.numOfTwoBHK !== undefined

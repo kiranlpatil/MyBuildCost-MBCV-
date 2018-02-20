@@ -1,5 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute, Params, Router} from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { LoginService } from './login.service';
 import { Login } from '../../user/models/login';
 import {
@@ -18,7 +18,6 @@ import { Label, LocalStorage, Messages, ProjectAsset } from '../../shared/consta
 import { SharedService } from '../../shared/services/shared-service';
 import { RegistrationService } from '../../user/services/registration.service';
 import { LocalStorageService } from '../../shared/services/local-storage.service';
-/*declare var CareerPluginLoad:any;*/
 
 @Component({
   moduleId: module.id,
@@ -29,17 +28,9 @@ import { LocalStorageService } from '../../shared/services/local-storage.service
 
 export class LoginComponent implements OnInit {
   @ViewChild('toaster') toaster: ElementRef;
-  private model = new Login();
   userForm: FormGroup;
   error_msg: string;
   isShowErrorMessage: boolean = true;
-  private MY_LOGO_PATH: string;
-  private EMAIL_ICON: string;
-  private PASSWORD_ICON: string;
-  private APP_NAME: string;
-  private MY_TAG_LINE: string;
-  private UNDER_LICENCE: string;
-  private BODY_BACKGROUND: string;
   submitStatus: boolean;
   mainHeaderMenuHideShow: string;
   isChrome: boolean;
@@ -47,6 +38,14 @@ export class LoginComponent implements OnInit {
   isFromCareerPlugin: boolean = false;
   recruiterReferenceId: string;
   isRememberPassword: boolean = false;
+  private model = new Login();
+  private MY_LOGO_PATH: string;
+  private EMAIL_ICON: string;
+  private PASSWORD_ICON: string;
+  private APP_NAME: string;
+  private MY_TAG_LINE: string;
+  private UNDER_LICENCE: string;
+  private BODY_BACKGROUND: string;
   constructor(private _router: Router, private loginService: LoginService, private themeChangeService: ThemeChangeService,
               private messageService: MessageService, private formBuilder: FormBuilder,
               private sharedService: SharedService, private activatedRoute: ActivatedRoute,
@@ -78,7 +77,7 @@ export class LoginComponent implements OnInit {
         this.userForm.controls['email'].setValue(SessionStorageService.getSessionValue(SessionStorage.EMAIL_ID));
         this.userForm.controls['password'].setValue(SessionStorageService.getSessionValue(SessionStorage.PASSWORD));
         this.isRememberPassword=true;
-      }else{
+      }else {
         this.isRememberPassword=false;
       }
 
@@ -100,11 +99,6 @@ export class LoginComponent implements OnInit {
           this.registrationService.onSuccess(data);
         }, error => { this.registrationService.loginFail(error);}
       );
-  }
-
-  closeToaster() {
-    this.isToasterVisible = false;
-    this.sharedService.setToasterVisiblity(this.isToasterVisible);
   }
 
   onSubmit() {
@@ -131,14 +125,12 @@ export class LoginComponent implements OnInit {
       LocalStorageService.setLocalValue(LocalStorage.IS_LOGGED_IN, 1);
       LocalStorageService.setLocalValue(LocalStorage.FIRST_NAME, res.data.first_name);
       SessionStorageService.setSessionValue(SessionStorage.PASSWORD, this.model.password);
-    }
-    else {
+    } else {
       LocalStorageService.setLocalValue(LocalStorage.IS_LOGGED_IN, 0);
     }
     SessionStorageService.setSessionValue(SessionStorage.EMAIL_ID, res.data.email);
     SessionStorageService.setSessionValue(SessionStorage.MOBILE_NUMBER, res.data.mobile_number);
     SessionStorageService.setSessionValue(SessionStorage.FIRST_NAME, res.data.first_name);
-   /* SessionStorageService.setSessionValue(SessionStorage.LAST_NAME, res.data.last_name);*/
 
     this.userForm.reset();
     if (res.data.current_theme) {
@@ -165,15 +157,7 @@ export class LoginComponent implements OnInit {
       .subscribe(
         res => (this.loginSuccess(res)),
         error => (this.loginFail(error)));
-    console.log('location access is disable');
   }
-
-  navigateTo(navigateTo: string) {
-    if (navigateTo !== undefined) {
-      this._router.navigate([navigateTo]);
-    }
-  }
-
 
   successRedirect(res: any) {
     SessionStorageService.setSessionValue(SessionStorage.IS_LOGGED_IN, 1);
@@ -209,9 +193,6 @@ export class LoginComponent implements OnInit {
     } else {
       this.isRememberPassword = false;
     }
-  }
-
-  onFailure(error: any) {
   }
 
   getMessages() {

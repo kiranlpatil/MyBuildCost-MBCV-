@@ -120,7 +120,6 @@ class ProjectController {
     try {
       logger.info('Project controller, updateBuilding has been hit');
       let user = req.user;
-      //let projectId = req.params.id;
       let buildingId = req.params.buildingid;
       let buildingDetails = <Building> req.body;
       let projectService = new ProjectService();
@@ -142,7 +141,6 @@ class ProjectController {
     try {
       logger.info('Project controller, cloneBuilding has been hit');
       let user = req.user;
-      //let projectId = req.params.id;
       let buildingId = req.params.buildingid;
       let buildingDetails = <Building> req.body;
       let projectService = new ProjectService();
@@ -500,8 +498,6 @@ class ProjectController {
           next(error);
         } else {
           logger.info('Update Quantity success');
-       /*   logger.debug('Quantity Updated for Project ID : '+projectId+', Building ID : '+buildingId+
-            ', CostHead : '+costhead+', Workitem : '+workitem+', Quantity : '+quantity);*/
           next(new Response(200,result));
         }
       });
@@ -585,7 +581,6 @@ class ProjectController {
       let projectId = req.params.id;
       let buildingId = req.params.buildingid;
       let costhead = req.params.costheadId;
-      //let subcategoryId = req.params.subcategoryId;
       let subcategoryObject = req.body;
 
       let projectService = new ProjectService();
@@ -630,7 +625,6 @@ class ProjectController {
       let projectId = req.params.id;
       let buildingId = req.params.buildingid;
       let costhead = req.params.costheadId;
-      //let subcategoryId = req.params.subcategoryId;
       let subcategoryObject = req.body;
 
       let projectService = new ProjectService();

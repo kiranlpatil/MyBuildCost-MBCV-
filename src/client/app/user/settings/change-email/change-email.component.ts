@@ -71,7 +71,6 @@ export class ChangeEmailComponent implements OnInit {
   }
 
   changeEmailSuccess(body: ChangeEmail) {
-    //window.sessionStorage.clear();
     SessionStorageService.setSessionValue(SessionStorage.CHANGE_MAIL_VALUE, 'from_settings');
     this.userForm.reset();
     this.onEmailChangeSuccess.emit();

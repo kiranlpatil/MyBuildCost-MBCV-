@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 import { ThemeChangeService } from './shared/services/themechange.service';
@@ -18,7 +18,7 @@ import {
   templateUrl: 'app.component.html',
 })
 
-export class AppComponent implements OnInit {
+export class AppComponent {
   subscription: Subscription;
   appTheme: string;
   errorMessage: any;
@@ -53,9 +53,6 @@ export class AppComponent implements OnInit {
       }
     );
   }
-
-  ngOnInit() {
-    }
 
   showError(message: Message) {
     this.isShowErrorMessage = false;

@@ -1,10 +1,10 @@
-import {Injectable} from "@angular/core";
-import {Router} from "@angular/router";
-import {SessionStorageService} from "../../shared/services/session.service";
-import {SessionStorage, AppSettings, NavigationRoutes} from "../../shared/constants";
-import {ThemeChangeService} from "../../shared/services/themechange.service";
-import {Message} from "../../shared/models/message";
-import {MessageService} from "../../shared/services/message.service";
+import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
+import { SessionStorageService } from '../../shared/services/session.service';
+import { SessionStorage, AppSettings, NavigationRoutes } from '../../shared/constants';
+import { ThemeChangeService } from '../../shared/services/themechange.service';
+import { Message } from '../../shared/models/message';
+import { MessageService } from '../../shared/services/message.service';
 
 @Injectable()
 export class RegistrationService {

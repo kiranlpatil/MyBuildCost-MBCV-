@@ -30,29 +30,27 @@ export class CandidateSignUpComponent implements OnInit, AfterViewInit {
   yearMatchNotFoundMessage: string = Messages.MSG_YEAR_NO_MATCH_FOUND;
   model = new CandidateDetail();
   isPasswordConfirm: boolean;
-  private isFormSubmitted = false;
   userForm: FormGroup;
   error_msg: string;
   isShowErrorMessage: boolean = true;
-  private BODY_BACKGROUND: string;
-  private MY_LOGO: string;
   passingYear: string;
   validBirthYearList = new Array(0);
   mainHeaderMenuHideShow: string;
-  private year: any;
-  private currentDate: any;
   submitStatus: boolean;
-  private birthYearErrorMessage: string;
-  private passwordMismatchMessage: string;
-  private loginModel:Login;
   isChrome: boolean;
   isToasterVisible: boolean = true;
   isGuideMessageVisible: boolean = false;
   isFromCareerPlugin: boolean = false;
 
-  constructor(private analyticService: AnalyticService, private commonService: CommonService, private _router: Router,
-              private candidateService: CandidateSignUpService, private messageService: MessageService, private formBuilder: FormBuilder,
-              private sharedService: SharedService, private errorService: ErrorService, private activatedRoute: ActivatedRoute,
+  private isFormSubmitted = false;
+  private BODY_BACKGROUND: string;
+  private MY_LOGO: string;
+  private loginModel:Login;
+
+ constructor(private analyticService: AnalyticService, private commonService: CommonService, private _router: Router,
+              private candidateService: CandidateSignUpService, private messageService: MessageService,
+             private formBuilder: FormBuilder, private sharedService: SharedService, private errorService: ErrorService,
+             private activatedRoute: ActivatedRoute,
               private loginService : LoginService, private registrationService : RegistrationService) {
 
     this.userForm = this.formBuilder.group({
@@ -80,12 +78,6 @@ export class CandidateSignUpComponent implements OnInit, AfterViewInit {
       this.isGuideMessageVisible = params['id'] === 'new_user' ? true : false;
     });
   }
-
-  closeToaster() {
-    this.isToasterVisible = false;
-    this.sharedService.setToasterVisiblity(this.isToasterVisible);
-  }
-
 
   onSubmit() {
     this.model = this.userForm.value;
@@ -142,13 +134,6 @@ export class CandidateSignUpComponent implements OnInit, AfterViewInit {
       this.error_msg = error.err_msg;
     }
   }
-  goBack() {
-    this.commonService.goBack();
-    this._router.navigate(['/']);
-  }
-  goToCreateProject() {
-    this._router.navigate([NavigationRoutes.APP_DASHBOARD]);
-  }
 
   goToSignIn() {
     this._router.navigate([NavigationRoutes.APP_LOGIN]);
@@ -161,17 +146,8 @@ export class CandidateSignUpComponent implements OnInit, AfterViewInit {
     return Label;
   }
 
-  goToAcceptTerms() {
-    //let host = AppSettings.HTTP_CLIENT + AppSettings.HOST_NAME + API.ACCEPT_TERMS;
-    //window.open(host, '_blank');
-  }
 
   gtag_report_conversion(sendTo:any) {
-    var callback = function () {
-      /*if (typeof(url) != 'undefined') {
-       window.location = url;
-       }*/
-    };
     gtag('event', 'conversion', {
       'send_to': sendTo
     });

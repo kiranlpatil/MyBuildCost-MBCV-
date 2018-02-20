@@ -1,14 +1,14 @@
-import {Component, OnInit} from "@angular/core";
-import {MessageService} from "../../../../shared/services/message.service";
-import {SessionStorageService} from "../../../../shared/services/session.service";
-import {SessionStorage, NavigationRoutes} from "../../../../shared/index";
-import {ResetPasswordService} from "./reset-password.service";
-import {ImagePath, Messages, ProjectAsset, Label, Button, Headings} from "../../../../shared/constants";
-import {Message} from "../../../../shared/models/message";
-import {ResetPassword} from "../../../../user/models/reset-password";
-import {FormBuilder, FormGroup} from "@angular/forms";
-import {ActivatedRoute, Params, Router} from "@angular/router";
-import {ValidationService} from "../../../../shared/customvalidations/validation.service";
+import { Component, OnInit } from '@angular/core';
+import { MessageService } from '../../../../shared/services/message.service';
+import { SessionStorageService } from '../../../../shared/services/session.service';
+import { SessionStorage, NavigationRoutes } from '../../../../shared/index';
+import { ResetPasswordService } from './reset-password.service';
+import { ImagePath, Messages, ProjectAsset, Label, Button, Headings } from '../../../../shared/constants';
+import { Message } from '../../../../shared/models/message';
+import { ResetPassword } from '../../../../user/models/reset-password';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { ActivatedRoute, Params, Router } from '@angular/router';
+import { ValidationService } from '../../../../shared/customvalidations/validation.service';
 
 
 @Component({

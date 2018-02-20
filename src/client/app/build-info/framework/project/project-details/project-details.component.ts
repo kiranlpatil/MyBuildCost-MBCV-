@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
-import { Messages } from '../../../../shared/constants';
+import { Router, ActivatedRoute } from '@angular/router';
+import { Messages, } from '../../../../shared/constants';
 import { ProjectDetailsService } from './project-details.service';
 import { Project } from './../../model/project';
 import { Message, MessageService } from '../../../../shared/index';
@@ -22,7 +22,7 @@ export class ProjectDetailsComponent implements OnInit {
   public isShowErrorMessage: boolean = true;
   public error_msg: boolean = false;
 
-  constructor(private ViewProjectService: ProjectDetailsService, private formBuilder: FormBuilder,
+  constructor(private ViewProjectService: ProjectDetailsService, private _router: Router, private formBuilder: FormBuilder,
               private messageService: MessageService, private activatedRoute:ActivatedRoute) {
 
     this.viewProjectForm = this.formBuilder.group({
@@ -53,12 +53,6 @@ export class ProjectDetailsComponent implements OnInit {
 
   onGetProjectSuccess(project : any) {
     this.projectModel = project.data[0];
-    /*let projectDetails=project.data[0];
-    this.projectModel.name=projectDetails.name;
-    this.projectModel.region=projectDetails.region;
-    this.projectModel.plotArea=projectDetails.plotArea;
-    this.projectModel.projectDuration=projectDetails.projectDuration;
-    this.projectModel.plotPeriphery=projectDetails.plotPeriphery;*/
   }
 
   onGetProjectFail(error : any) {
@@ -102,5 +96,4 @@ export class ProjectDetailsComponent implements OnInit {
       this.messageService.message(message);
     }
   }
-
 }

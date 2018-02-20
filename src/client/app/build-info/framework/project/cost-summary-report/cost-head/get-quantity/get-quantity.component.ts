@@ -1,16 +1,6 @@
 import { Component, EventEmitter, OnInit, Input, Output } from '@angular/core';
-import { Router , ActivatedRoute } from '@angular/router';
-
-import {
-  AppSettings,
-  Label,
-  Button,
-  Headings,
-  NavigationRoutes
-} from '../../../../../../shared/constants';
-import { API, BaseService, SessionStorage, SessionStorageService,  Message,
-  Messages, MessageService } from '../../../../../../shared/index';
-
+import { ActivatedRoute } from '@angular/router';
+import { SessionStorage, SessionStorageService,  Message, Messages, MessageService } from '../../../../../../shared/index';
 import { GetQuantityService } from './get-quantity.service';
 import { QuantityItem } from '../../../../model/quantity-item';
 
@@ -48,7 +38,8 @@ export class GetQuantityComponent implements OnInit {
   workItemId:number;
   quantityItemsArray:any;
   showSubcategoryListvar: boolean = false;
-  constructor(private getQuantityService : GetQuantityService, private activatedRoute : ActivatedRoute, private messageService: MessageService) {
+  constructor(private getQuantityService : GetQuantityService, private activatedRoute : ActivatedRoute,
+              private messageService: MessageService) {
   }
 
   ngOnInit() {
@@ -58,8 +49,6 @@ export class GetQuantityComponent implements OnInit {
     this.updateQuantity(this.quantityItems, 'updateHeight');
     }
 
-  onSubmit() {
-  }
   updateQuantity(quantityItems : any, choice:string ) {
     switch(choice) {
        case 'updateNos': {
@@ -101,13 +90,16 @@ export class GetQuantityComponent implements OnInit {
     this.quantityTotal = 0;
     this.quantityItems = quantityItems;
     for(let i=0;i<this.quantityItems.length;i++) {
-      if (this.quantityItems[i].length === undefined || this.quantityItems[i].length === 0 || this.quantityItems[i].length === null) {
+      if (this.quantityItems[i].length === undefined || this.quantityItems[i].length === 0 ||
+        this.quantityItems[i].length === null) {
         var q1 = this.quantityItems[i].height;
         var q2 = this.quantityItems[i].breadth;
-      } else if (this.quantityItems[i].height === undefined || this.quantityItems[i].height === 0 || this.quantityItems[i].height === null) {
+      } else if (this.quantityItems[i].height === undefined || this.quantityItems[i].height === 0 ||
+        this.quantityItems[i].height === null) {
         q1 = this.quantityItems[i].length;
         q2 = this.quantityItems[i].breadth;
-      } else if (this.quantityItems[i].breadth === undefined || this.quantityItems[i].breadth === 0 || this.quantityItems[i].breadth === null) {
+      } else if (this.quantityItems[i].breadth === undefined || this.quantityItems[i].breadth === 0 ||
+        this.quantityItems[i].breadth === null) {
         q1 = this.quantityItems[i].length;
         q2 = this.quantityItems[i].height;
       } else {
@@ -117,11 +109,6 @@ export class GetQuantityComponent implements OnInit {
       this.quantityItems[i].quantity = q1 * q2;
       this.quantityTotal = this.quantityTotal + this.quantityItems[i].quantity;
       }
-  }
-
-
-  getCostHeadQuantityDetails() {
-    console.log('Getting qunaity');
   }
 
   addItem() {

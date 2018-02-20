@@ -1,20 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import {
-  AppSettings,
-  Label,
-  Button,
-  Headings,
-  NavigationRoutes, ImagePath
-} from '../../../../shared/constants';
-import { API, BaseService, SessionStorage, SessionStorageService,  Message,
-  Messages,
-  MessageService } from '../../../../shared/index';
+import { NavigationRoutes, ImagePath } from '../../../../shared/constants';
+import { SessionStorage, SessionStorageService,  Message, Messages, MessageService } from '../../../../shared/index';
 import { CreateProjectService } from './create-project.service';
 import { Project } from './../../model/project';
 import { ValidationService } from './../../../../shared/customvalidations/validation.service';
-import { SharedService } from '../../../../shared/services/shared-service';
 
 @Component({
   moduleId: module.id,
@@ -33,7 +24,7 @@ export class CreateProjectComponent {
   BODY_BACKGROUND_TRANSPARENT: string;
 
   constructor(private createProjectService: CreateProjectService, private _router: Router, private formBuilder: FormBuilder,
-  private messageService: MessageService, private sharedService: SharedService) {
+  private messageService: MessageService ) {
     this.BODY_BACKGROUND_TRANSPARENT = ImagePath.BODY_BACKGROUND_TRANSPARENT;
 
     this.projectForm = this.formBuilder.group({
@@ -89,20 +80,5 @@ export class CreateProjectComponent {
   }
   goBack() {
     this._router.navigate([NavigationRoutes.APP_DASHBOARD]);
-  }
-  getMessages() {
-    return Messages;
-  }
-
-  getLabels() {
-    return Label;
-  }
-
-  getButtons() {
-    return Button;
-  }
-
-  getHeadings() {
-    return Headings;
   }
 }

@@ -85,7 +85,6 @@ export class BuildingDetailsComponent implements OnInit {
 
 
   onSubmit() {
-    // this.submitted = true;
       this.buildingModel = this.viewBuildingForm.value;
       this.viewBuildingService.updateBuildingDetails(this.buildingModel)
         .subscribe(
@@ -119,20 +118,4 @@ export class BuildingDetailsComponent implements OnInit {
       this.messageService.message(message);
     }
   }
-
-  // getMessages() {
-  //   return Messages;
-  // }
-  //
-  // getLabels() {
-  //   return Label;
-  // }
-  //
-  // getButtons() {
-  //   return Button;
-  // }
-  //
-  // getHeadings() {
-  //   return Headings;
-  // }
 }

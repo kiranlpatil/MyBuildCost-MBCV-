@@ -6,7 +6,7 @@ import { LoaderService } from '../../../shared/loader/loaders.service';
 import { ValidationService } from '../../../shared/customvalidations/validation.service';
 import { AppSettings, Messages, Label, Button, Headings, NavigationRoutes,LocalStorage } from '../../../shared/constants';
 import { ErrorService } from '../../../shared/services/error.service';
-import { ActivatedRoute, Params, Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { UserProfile } from '../../../user/models/user';
 import { ChangePassword } from '../../../user/models/change-password';
 import { LocalStorageService } from '../../../shared/services/local-storage.service';
@@ -27,14 +27,13 @@ export class UserChangePasswordComponent {
   PASSWORD_ICON: string;
   NEW_PASSWORD_ICON: string;
   CONFIRM_PASSWORD_ICON: string;
-  //candidate: Candidate = new Candidate();
   userModel : UserProfile = new UserProfile();
   role: string;
   isSocialLogin:boolean;
-  constructor(private _router: Router, private activatedRoute: ActivatedRoute, private errorService: ErrorService, private commonService: CommonService,
-              private passwordService: UserChangePasswordService,
-              private messageService: MessageService,
-              private formBuilder: FormBuilder, private loaderService: LoaderService) {
+  constructor(private _router: Router, private activatedRoute: ActivatedRoute, private errorService: ErrorService,
+              private commonService: CommonService, private passwordService: UserChangePasswordService,
+              private messageService: MessageService, private formBuilder: FormBuilder,
+              private loaderService: LoaderService) {
 
     this.userForm = this.formBuilder.group({
       'new_password': ['', [ValidationService.passwordValidator]],
@@ -134,8 +133,6 @@ export class UserChangePasswordComponent {
 
   OnCandidateDataSuccess(candidateData: any) {
     this.model = candidateData.data[0];
-    //this.candidate.basicInformation = candidateData.metadata;
-    //this.candidate.summary = new Summary();
   }
 
   goToDashboard()  {

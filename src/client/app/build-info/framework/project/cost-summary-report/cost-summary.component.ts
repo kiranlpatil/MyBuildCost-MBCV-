@@ -1,14 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router , ActivatedRoute } from '@angular/router';
-import {
-  AppSettings,
-  Label,
-  Button,
-  Headings,
-  NavigationRoutes
-} from '../../../../shared/constants';
-import { API, BaseService, SessionStorage, SessionStorageService,  Message,
-  Messages, MessageService } from '../../../../shared/index';
+import { NavigationRoutes } from '../../../../shared/constants';
+import { SessionStorage, SessionStorageService,  Message, Messages, MessageService } from '../../../../shared/index';
 import { CostSummaryService } from './cost-summary.service';
 import { BuildingListService } from '../building/buildings-list/building-list.service';
 import { BuildingDetailsService } from '../building/building-details/building-details.service';
@@ -44,9 +37,7 @@ export class CostSummaryComponent implements OnInit {
   estimatedCost : any;
   costHead: string;
   costHeadName: string;
-  costHeadDetails :any;
   estimatedItem: any;
-  buildingIndex:number;
   showCostHeadList:boolean=false;
   showGrandTotalPanelBody:boolean=true;
   compareIndex:number=0;
@@ -108,7 +99,6 @@ export class CostSummaryComponent implements OnInit {
   }
 
   showInactiveCostHeadsOnDropDown(buildingId: string) {
-    console.log('Adding Costhead');
     this.buildingId=buildingId;
     this.costSummaryService.getInactiveCostHeads(this.projectId,this.buildingId).subscribe(
       inActiveCostHeads => this.onGetInactiveCostHeadsSuccess(inActiveCostHeads),
@@ -138,12 +128,6 @@ export class CostSummaryComponent implements OnInit {
    this.projectId = SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT);
     this._router.navigate([NavigationRoutes.APP_COMMON_AMENITIES,this.projectId]);
 }
-  getProjects() {
-    this.costSummaryService.getProjectDetails(this.projectId).subscribe(
-      projectCostSummary => this.onGetProjectCostSummarySuccess(projectCostSummary),
-      error => this.onGetProjectCostSummaryFail(error)
-    );
-  }
 
   getBuildingDetails() {
     this.costSummaryService.getBuildingDetails(this.projectId).subscribe(
@@ -157,14 +141,6 @@ export class CostSummaryComponent implements OnInit {
   }
 
   onGetbuildingDetailsCostSummaryFail(error : any) {
-    console.log(error);
-  }
-
-  onGetProjectCostSummarySuccess(projects : any) {
-    this.projectBuildings = projects.data[0].building;
-  }
-
-  onGetProjectCostSummaryFail(error : any) {
     console.log(error);
   }
 
@@ -188,7 +164,6 @@ export class CostSummaryComponent implements OnInit {
   }
 
   onChangeCostingPer(costPerId:any) {
-    console.log('costPerId : '+costPerId);
     this.defaultCostPer=costPerId;
 
     this.costSummaryService.getCost(this.projectId,this.defaultCostIn,this.defaultCostPer).subscribe(
@@ -207,21 +182,6 @@ export class CostSummaryComponent implements OnInit {
     console.log('onGetCostPerFail()'+error);
   }
 
-  getMessages() {
-    return Messages;
-  }
-
-  getLabels() {
-    return Label;
-  }
-
-  getButtons() {
-    return Button;
-  }
-
-  getHeadings() {
-    return Headings;
-  }
   deleteCostHeadDetailsfun(buildingId: string, costHeadId: number) {
     this.buildingId = buildingId;
     this.costHeadId = costHeadId;
@@ -241,7 +201,6 @@ export class CostSummaryComponent implements OnInit {
       message.isError = false;
       message.custom_message = Messages.MSG_SUCCESS_DELETE_COSTHEAD;
       this.messageService.message(message);
-      /* this.costSummaryService.onCostHeadUpdate(costHeadDetail);*/
     }
   }
 
@@ -259,7 +218,6 @@ export class CostSummaryComponent implements OnInit {
 
 
   onAddInactiveCostHeadSuccess(inActiveCostHeads : any) {
-    console.log('onAddCostheadSuccess ->'+inActiveCostHeads);
     var message = new Message();
     message.isError = false;
     message.custom_message = Messages.MSG_SUCCESS_ADD_COSTHEAD;
@@ -268,7 +226,7 @@ export class CostSummaryComponent implements OnInit {
   }
 
   onAddInactiveCostHeadFailure(error : any) {
-    console.log('onAddCostheadSuccess()'+error);
+    console.log('onAddInactiveCostHeadFailure()'+error);
   }
 
   changeBudgetedCost(buildingId: string, costHead: string, amount: number, buildingArea : number) {
@@ -313,7 +271,6 @@ export class CostSummaryComponent implements OnInit {
       var message = new Message();
       message.isError = false;
       message.custom_message = Messages.MSG_SUCCESS_DELETE_BUILDING;
-      console.log(result);
       this.messageService.message(message);
       this.onChangeCostingIn(this.defaultCostIn);
       }

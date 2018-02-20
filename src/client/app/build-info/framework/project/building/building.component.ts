@@ -1,8 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { ValidationService } from '../../../../shared/customvalidations/validation.service';
-import { AppSettings, Messages, Label, Button, Headings, NavigationRoutes } from '../../../../shared/constants';
-// import { ProjectService } from './project.service';
 import { Building } from '../../model/building';
 import { BuildingService } from './building.service';
 
@@ -12,7 +9,7 @@ import { BuildingService } from './building.service';
   templateUrl: 'building.component.html'
 })
 
-export class BuildingComponent implements OnInit {
+export class BuildingComponent {
 
   addBuildingForm:  FormGroup;
   buildings : any;
@@ -34,12 +31,7 @@ export class BuildingComponent implements OnInit {
 
   }
 
-  ngOnInit() {
-    // // this.getProjects();
-  }
-
   onSubmit() {
-    //this.projectService
     if(this.addBuildingForm.valid) {
       this.model = this.addBuildingForm.value;
       this.buildingService.addBuilding(this.model)
@@ -51,7 +43,6 @@ export class BuildingComponent implements OnInit {
 
   addBuildingSuccess(building : any) {
     console.log(building);
-    // this.getProjects();
   }
 
   addBuildingFailed(error : any) {

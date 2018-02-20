@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Headers, Http, RequestOptions } from '@angular/http';
-import { Observable } from 'rxjs/Observable';
-import { Project } from './../../../model/project';
 import { API, BaseService, SessionStorage, SessionStorageService, MessageService } from '../../../../../shared/index';
 
 
@@ -16,7 +14,6 @@ export class CostHeadService extends BaseService {
     let options = new RequestOptions({headers: headers});
    let buildingId = SessionStorageService.getSessionValue(SessionStorage.CURRENT_BUILDING);
     var url = 'project/'+projectId+'/'+API.VIEW_BUILDING+'/'+buildingId+'/'+'costhead/'+costheadId+'/'+'subcategory';
-    console.log(url);
     return this.http.get(url, options)
       .map(this.extractData)
       .catch(this.handleError);
@@ -53,7 +50,6 @@ getCostHeadDetails(projectId:string, costHead: string) {
     return this.http.delete(url, options)
       .map(this.extractData)
       .catch(this.handleError);
-    /*router.delete('/:id/building/:buildingid/costhead/:costhead/workitem/:workitem'*/
   }
   deleteWorkItem(costHeadId:number, subCategoryId:number,workItemId:number) {
     let headers = new Headers({'Content-Type': 'application/json'});
@@ -62,7 +58,6 @@ getCostHeadDetails(projectId:string, costHead: string) {
     let buildingId = SessionStorageService.getSessionValue(SessionStorage.CURRENT_BUILDING);
     var url = API.VIEW_PROJECT + '/' + projectId + '/'+ API.VIEW_BUILDING + '/' + buildingId
       + '/costhead/' + costHeadId + '/subcategory/'+ subCategoryId +'/workitem/' + workItemId;
-    console.log('deleteWorkItems() url : '+url);
     return this.http.delete(url,options)
       .map(this.extractData)
       .catch(this.handleError);
@@ -73,8 +68,7 @@ getCostHeadDetails(projectId:string, costHead: string) {
     let options = new RequestOptions({headers: headers});
     var url = API.VIEW_PROJECT + '/' + SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT)+
      '/'+ API.VIEW_BUILDING + '/' +SessionStorageService.getSessionValue(SessionStorage.CURRENT_BUILDING)+
-    '/' + API.QUANTITY + '/' + costHeadName + '/workitem/'+costHeadItem ;// +costHeadItem;
-    console.log('Get Quantity url : '+url);
+    '/' + API.QUANTITY + '/' + costHeadName + '/workitem/'+costHeadItem ;
     return this.http.get(url, options)
       .map(this.extractData)
       .catch(this.handleError);
@@ -88,8 +82,8 @@ getCostHeadDetails(projectId:string, costHead: string) {
     let body = { item : itemName };
     let buildingId = SessionStorageService.getSessionValue(SessionStorage.CURRENT_BUILDING);
     var url = API.VIEW_PROJECT + '/' +  projectId +
-      '/'+ API.VIEW_BUILDING + '/' + buildingId + '/' + 'costhead' + '/' + costHeadId + '/' + 'subcategory'+ '/' + subCategoryId + '/'+ 'workitem/' + workItemId + '/quantity' + '/item';
-    console.log('deleteQuantityItems() url : '+url);
+      '/'+ API.VIEW_BUILDING + '/' + buildingId + '/' + 'costhead' + '/' + costHeadId + '/' + 'subcategory'+ '/' +
+      subCategoryId + '/'+ 'workitem/' + workItemId + '/quantity' + '/item';
     return this.http.post(url, body, options)
       .map(this.extractData)
       .catch(this.handleError);
@@ -100,8 +94,7 @@ getCostHeadDetails(projectId:string, costHead: string) {
     let options = new RequestOptions({headers: headers});
     var url = API.VIEW_PROJECT + '/' + SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT)+
       '/'+ API.VIEW_BUILDING + '/' +SessionStorageService.getSessionValue(SessionStorage.CURRENT_BUILDING)+
-      '/costhead/' + costHeadName + '/workitem/' + workItem + '/quantity';// +costHeadItem;
-    console.log('addCostHeadItems() url : '+url);
+      '/costhead/' + costHeadName + '/workitem/' + workItem + '/quantity';
     return this.http.post(url, body,options)
       .map(this.extractData)
       .catch(this.handleError);
@@ -113,9 +106,8 @@ getCostHeadDetails(projectId:string, costHead: string) {
     let projectId = SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT);
     let buildingId = SessionStorageService.getSessionValue(SessionStorage.CURRENT_BUILDING);
    var body= { 'item' : quantityItemsArray };
-   //var body=  quantityItemsArray;
-    var url = API.VIEW_PROJECT + '/' + projectId + '/'+ API.VIEW_BUILDING + '/' + buildingId + '/costhead/' + costHeadId + '/subcategory/'+ subCategoryId +'/workitem/' + workItemId + '/quantity';
-    console.log('addCostHeadItems() url : '+url);
+    var url = API.VIEW_PROJECT + '/' + projectId + '/'+ API.VIEW_BUILDING + '/' + buildingId + '/costhead/' + costHeadId +
+      '/subcategory/'+ subCategoryId +'/workitem/' + workItemId + '/quantity';
     return this.http.put(url,body,options)
       .map(this.extractData)
       .catch(this.handleError);
@@ -126,8 +118,7 @@ getCostHeadDetails(projectId:string, costHead: string) {
     let options = new RequestOptions({headers: headers});
     var url = API.VIEW_PROJECT + '/' + SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT)+
       '/'+ API.VIEW_BUILDING + '/' +SessionStorageService.getSessionValue(SessionStorage.CURRENT_BUILDING)+
-      '/' + API.RATE + '/costhead/' + costheadId + '/subcategory/'+subCategoryId + '/workitem/'+workItemId ;// +costHeadItem;
-    console.log('getRateItems url : '+url);
+      '/' + API.RATE + '/costhead/' + costheadId + '/subcategory/'+subCategoryId + '/workitem/'+workItemId ;
     return this.http.get(url, options)
       .map(this.extractData)
       .catch(this.handleError);
@@ -138,8 +129,7 @@ getCostHeadDetails(projectId:string, costHead: string) {
     let options = new RequestOptions({headers: headers});
     var url = API.VIEW_PROJECT + '/'+  SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT)+'/'
       + API.VIEW_BUILDING + '/'+SessionStorageService.getSessionValue(SessionStorage.CURRENT_BUILDING)+'/costhead/'
-      + costheadId + '/subcategory/'+subCategoryId + '/workitemlist';// +costHeadItem;
-    console.log('showWorkItem url : '+url);
+      + costheadId + '/subcategory/'+subCategoryId + '/workitemlist';
     return this.http.get(url, options)
       .map(this.extractData)
       .catch(this.handleError);
@@ -149,14 +139,13 @@ getCostHeadDetails(projectId:string, costHead: string) {
   addWorkItem(costheadId:number,subCategoryId:number,selectedWorkItemRateAnalysisId:number,selectedWorkItemName:string) {
     let headers = new Headers({'Content-Type': 'application/json'});
     let options = new RequestOptions({headers: headers});
-    let body={
+    let body= {
       'rateAnalysisId': selectedWorkItemRateAnalysisId,
       'name': selectedWorkItemName
-    }
+    };
     var url = API.VIEW_PROJECT + '/'+  SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT)+'/'
       + API.VIEW_BUILDING + '/'+SessionStorageService.getSessionValue(SessionStorage.CURRENT_BUILDING)+'/costhead/'
-      + costheadId + '/subcategory/'+subCategoryId + '/workitem';// +costHeadItem;
-    console.log('addWorkItem url : '+url);
+      + costheadId + '/subcategory/'+subCategoryId + '/workitem';
     return this.http.post(url,body, options)
       .map(this.extractData)
       .catch(this.handleError);
@@ -169,8 +158,7 @@ getCostHeadDetails(projectId:string, costHead: string) {
     var body=rateItemsArray;
     var url = API.VIEW_PROJECT + '/' + SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT)+
       '/'+ API.VIEW_BUILDING + '/' +SessionStorageService.getSessionValue(SessionStorage.CURRENT_BUILDING)+
-      '/' + API.RATE + '/costhead/' + costheadId + '/subcategory/'+subCategoryId + '/workitem/'+workItemId ;// +costHeadItem;
-    console.log('updateRateItems url : '+url);
+      '/' + API.RATE + '/costhead/' + costheadId + '/subcategory/'+subCategoryId + '/workitem/'+workItemId ;
     return this.http.put(url,body, options)
       .map(this.extractData)
       .catch(this.handleError);

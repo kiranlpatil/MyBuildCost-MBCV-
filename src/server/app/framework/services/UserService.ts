@@ -168,14 +168,12 @@ class UserService {
     this.userRepository.retrieve({'mobile_number': field.new_mobile_number, 'isActivated': true}, (err, res) => {
 
       if (err) {
-        //callback(err, null);
       } else if (res.length > 0 && (res[0]._id) !== field._id) {
         callback(new Error(Messages.MSG_ERROR_REGISTRATION_MOBILE_NUMBER), null);
       } else if (res.length === 0) {
 
         let query = {'_id': field._id};
         let otp = Math.floor((Math.random() * 99999) + 100000);
-        // let otp = Math.floor(Math.random() * (10000 - 1000) + 1000);
         let updateData = {'mobile_number': field.new_mobile_number, 'otp': otp};
         this.userRepository.findOneAndUpdate(query, updateData, {new: true}, (error, result) => {
           if (error) {
@@ -454,10 +452,6 @@ class UserService {
   retrieveBySortedOrder(query: any, projection:any, sortingQuery: any, callback: (error: any, result: any) => void) {
     //this.userRepository.retrieveBySortedOrder(query, projection, sortingQuery, callback);
   }
-
-  /*getUserRegistrationStatus(query: any, callback: (error: any, result: any) => void) {
-    this.userRepository.retrieveWithIncluded(query, {}, callback);
-  }*/
 
   resetPassword(data: any, user : any, callback:(error: any, result: any) =>any) {
     const saltRounds = 10;

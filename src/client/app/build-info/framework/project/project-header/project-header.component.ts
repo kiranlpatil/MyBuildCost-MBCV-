@@ -1,6 +1,6 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { SessionStorage, SessionStorageService,MessageService } from '../../../../shared/index';
+import { SessionStorage, SessionStorageService } from '../../../../shared/index';
 @Component({
   moduleId: module.id,
   selector: 'bi-project-header',
@@ -13,10 +13,6 @@ export class ProjectHeaderComponent implements OnInit {
   projectId: string;
 
   constructor(private _router: Router) {
-  }
-
-  navigateTo(nav:string) {
-    this._router.navigate([nav]);
   }
 
   ngOnInit() {

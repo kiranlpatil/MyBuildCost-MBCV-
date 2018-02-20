@@ -48,16 +48,6 @@ class ProjectService {
     if(!user._id) {
       callback(new CostControllException('UserId Not Found',null), null);
     }
-    /*let category = data.category;
-    for(let i=0; i< category.length; i++){
-      //console.log('category '+i+' : '+JSON.stringify(category[i]));
-      let item = category[i].item;
-      for(let j=0; j<item.length; j++){
-        //console.log('item '+j+' : '+JSON.stringify(item[j]));
-        let itemDetails = item[j];
-        itemDetails.amount = itemDetails.qty * itemDetails.rate;
-      }
-    }*/
 
     this.projectRepository.create(data, (err, res) => {
       if (err) {
@@ -86,7 +76,6 @@ class ProjectService {
   getProject( projectId : string, user: User, callback: (error: any, result: any) => void) {
     let query = { _id: projectId};
     let populate = {path : 'building', select: ['name' , 'totalSlabArea',]};
-    //let populate = {path : 'building'};
     this.projectRepository.findAndPopulate(query, populate, (error, result) => {
       logger.info('Project service, findAndPopulate has been hit');
       logger.debug('Project Name : '+result[0]._doc.name);
@@ -136,7 +125,6 @@ class ProjectService {
   updateBuilding( buildingId:string, buildingDetail:any, user:User, callback:(error: any, result: any)=> void) {
     logger.info('Project service, updateBuilding has been hit');
     let query = { _id : buildingId };
-    //delete buildingDetail._id;
     this.buildingRepository.findOneAndUpdate(query, buildingDetail,{new: true}, (error, result) => {
       logger.info('Project service, findOneAndUpdate has been hit');
       if (error) {
@@ -150,7 +138,6 @@ class ProjectService {
   cloneBuildingDetails( buildingId:string, buildingDetail:any, user:User, callback:(error: any, result: any)=> void) {
     logger.info('Project service, cloneBuildingDetails has been hit');
     let query = { _id : buildingId };
-    //delete buildingDetail._id;
     this.buildingRepository.findById(buildingId, (error, result) => {
       logger.info('Project service, findById has been hit');
       if (error) {
@@ -384,7 +371,6 @@ class ProjectService {
       if (error) {
         callback(error, null);
       } else {
-        //let rate: Rate;
         let rateAnalysisId: number;
         for(let index = 0; building.costHead.length > index; index++) {
           if(building.costHead[index].rateAnalysisId === costheadId) {

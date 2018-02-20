@@ -4,8 +4,6 @@ import { Observable } from 'rxjs/Observable';
 import { Building } from '../../../model/building';
 import { API, BaseService, SessionStorage, SessionStorageService, MessageService } from '../../../../../shared/index';
 import { UserProfile } from '../../../../../user/models/user';
-import { BuildingDetailsComponent } from './building-details.component';
-
 
 
 @Injectable()

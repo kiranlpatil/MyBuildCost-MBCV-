@@ -1,7 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { AppSettings, Messages, Label, Button, Headings, NavigationRoutes } from '../../../../shared/constants';
+import { Messages, Label, Button, Headings } from '../../../../shared/constants';
 
 @Component({
   moduleId: module.id,
@@ -9,15 +8,11 @@ import { AppSettings, Messages, Label, Button, Headings, NavigationRoutes } from
   templateUrl: 'project-content.component.html'
 })
 
-export class ProjectContentComponent implements OnInit {
+export class ProjectContentComponent {
 
 
-  constructor(private _router: Router, private formBuilder: FormBuilder) {
+  constructor(private _router: Router ) {
 
-  }
-
-  ngOnInit() {
-    console.log('Inside Project Content Component');
   }
 
   navigateTo(nav:string) {

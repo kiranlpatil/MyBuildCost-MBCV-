@@ -1,5 +1,3 @@
-import { SessionStorage } from '../../shared/constants';
-
 export class SessionStorageService {
 
    public static getSessionValue(key: any) {

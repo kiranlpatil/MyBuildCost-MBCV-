@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Headers, Http, RequestOptions } from '@angular/http';
-import { Observable } from 'rxjs/Observable';
-import { Project } from './../../model/project';
 import { API, BaseService, SessionStorage, SessionStorageService, MessageService } from '../../../../shared/index';
 
 
@@ -35,9 +33,6 @@ export class CostSummaryService extends BaseService {
     let headers = new Headers({'Content-Type': 'application/json'});
     let options = new RequestOptions({headers: headers});
 
-    console.log('defaultCostIn : '+defaultCostIn);
-    console.log('defaultCostPer : '+defaultCostPer);
-
     var url = API.THUMBRULE_RULE_RATE + '/'+ API.VIEW_PROJECT +'/'+projectId+'/';
 
     if(defaultCostIn==='Rs/Sqft') {
@@ -53,7 +48,6 @@ export class CostSummaryService extends BaseService {
       url=url + '/area/' + API.SALEABLE_AREA;
     }
 
-    console.log('url -> '+url);
 
     return this.http.get(url, options)
       .map(this.extractData)
@@ -74,7 +68,6 @@ export class CostSummaryService extends BaseService {
     let headers = new Headers({'Content-Type': 'application/json'});
     let options = new RequestOptions({headers: headers});
     var url = API.VIEW_PROJECT + '/'+ projectId +'/'+ API.VIEW_BUILDING + '/' +buildingId + '/costhead';
-    console.log('url getInactiveCostHeads() ->'+url);
     return this.http.get(url, options)
       .map(this.extractData)
       .catch(this.handleError);
@@ -85,7 +78,6 @@ export class CostSummaryService extends BaseService {
     let options = new RequestOptions({headers: headers});
     var url = API.VIEW_PROJECT + '/'+ projectId +'/'+ API.VIEW_BUILDING + '/'
       +buildingId + '/costHead/' +selectedInactiveCostHeadId+'/true';
-    console.log('url addInactiveCostHead() ->'+url);
     return this.http.put(url,options)
       .map(this.extractData)
       .catch(this.handleError);

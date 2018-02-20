@@ -328,7 +328,6 @@ export class ValidationService {
 
   static requiredBuildingName(control: any) {
     if (control.value === '' || control.value === undefined) {
-      console.log('building name: null')
       return {'requiredBuildingName': true};
     } else {
       return null;

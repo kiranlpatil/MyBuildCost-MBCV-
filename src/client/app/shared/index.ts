@@ -10,5 +10,4 @@ export {SessionStorageService} from './services/session.service';
 export {ProfileService} from '../framework/shared/profileservice/profile.service';
 export {AppRequestOptions} from './services/http/app.request.options';
 export {CustomHttp} from './services/http/custom.http';
-export {ErrorInstance} from './models/error-instance';
 export * from './config/env.config';

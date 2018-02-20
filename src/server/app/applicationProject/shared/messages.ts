@@ -91,7 +91,6 @@ class Messages {
   public static MSG_ERROR_COMPLEXITY_CODE_MISSING: string = 'Code is not given for complexity.';
   public static MSG_ERROR_CAPABILITY_CODE_MISSING: string = 'Code is not given for capability.';
   public static MSG_ERROR_AREA_OF_WORK_CODE_MISSING: string = 'Code is not given for area of work.';
-  //
 
   // Error Reason
   // public static MSG_ERROR_RSN_MESSAGE_NOT_SENT:string = 'message could not send';
