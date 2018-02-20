@@ -145,7 +145,7 @@ export class ValidationService {
 
   static passwordValidator(control: any) {
 
-    if (control.value.match(/(?=.*\d)(?=.*[a-zA-Z]).{8,}/)) {
+    if (control.value.match(/(?=.*\d)(?=.*[a-zA-Z]).{6,}/)) {
       return null;
     } else {
       return {'invalidPassword': true};

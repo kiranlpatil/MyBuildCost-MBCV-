@@ -59,25 +59,25 @@ export class Messages {
   public static MSG_ERROR_IMAGE_SIZE: string = 'Please make sure the image size is less than 5 MB.';
   public static MSG_ERROR_DOCUMENT_SIZE: string = 'Please make sure the document size is less than 5 MB.';
 
-  public static MSG_ERROR_VALIDATION_EMAIL_REQUIRED = 'Enter your e-mail address.';
+  public static MSG_ERROR_VALIDATION_EMAIL_REQUIRED = 'Enter your e-mail address';
   public static MSG_ERROR_VALIDATION_WEBSITE_REQUIRED = 'Enter company website.';
-  public static MSG_ERROR_VALIDATION_PASSWORD_REQUIRED = 'Enter your password.';
+  public static MSG_ERROR_VALIDATION_PASSWORD_REQUIRED = 'Enter your password';
   public static MSG_ERROR_VALIDATION_NEWPASSWORD_REQUIRED = 'Enter a new password';
   public static MSG_ERROR_VALIDATION_CONFIRMPASSWORD_REQUIRED = 'Confirm your password';
   public static MSG_ERROR_VALIDATION_CURRENTPASSWORD_REQUIRED = 'Enter a current password';
-  public static MSG_ERROR_VALIDATION_FIRSTNAME_REQUIRED = 'This field can\'t be left blank';
+  public static MSG_ERROR_VALIDATION_FIRSTNAME_REQUIRED = 'Enter your name';
   public static MSG_ERROR_VALIDATION_LASTNAME_REQUIRED = 'This field can\'t be left blank';
-  public static MSG_ERROR_VALIDATION_MOBILE_NUMBER_REQUIRED = 'This field can\'t be left blank.';
+  public static MSG_ERROR_VALIDATION_MOBILE_NUMBER_REQUIRED = 'This field can\'t be left blank';
   public static MSG_ERROR_VALIDATION_PIN_REQUIRED = 'Enter your pin code.';
   public static MSG_ERROR_VALIDATION_DESCRIPTION_REQUIRED = 'Enter the name of the document you are uploading.';
   public static MSG_ERROR_VALIDATION_ABOUT_COMPANY_REQUIRED = 'Give a brief description about your company. This will be seen by candidates as a part of the job profile.';
   public static MSG_ERROR_VALIDATION_COMPANYNAME_REQUIRED = 'This field can\'t be left blank.';
   public static MSG_ERROR_VALIDATION_OTP_REQUIRED = 'Enter received OTP.';
-  public static MSG_ERROR_VALIDATION_INVALID_EMAIL_REQUIRED = 'Enter a valid email address.';
+  public static MSG_ERROR_VALIDATION_INVALID_EMAIL_REQUIRED = 'Enter a valid email address';
   public static MSG_ERROR_VALIDATION_INVALID_URL_REQUIRED = 'Website is not valid.';
   public static MSG_ERROR_VALIDATION_INVALID_NAME = 'Enter valid name.';
   public static MSG_ERROR_VALIDATION_INVALID_DATA = 'Enter valid data.';
-  public static MSG_ERROR_VALIDATION_PASSWORD_MISMATCHED = 'Passwords do not match.';
+  public static MSG_ERROR_VALIDATION_PASSWORD_MISMATCHED = 'Passwords do not match';
   public static MSG_ERROR_VALIDATION_BIRTHYEAR_REQUIRED = 'This field can\'t be left blank.';
   public static MSG_ERROR_VALIDATION_BIRTHYEAR_INVALID = 'Enter valid birth-year';
   public static MSG_ERROR_VALIDATION_LOCATION_REQUIRED = 'This field can\'t be left blank.';
@@ -85,7 +85,7 @@ export class Messages {
   public static MSG_ERROR_VALIDATION_HEADQUARTER_REQUIRED = 'This field can\'t be left blank.';
   public static MSG_ERROR_VALIDATION_COMPANYSIZE_REQUIRED = 'This field can\'t be left blank.';
   public static MSG_ERROR_VALIDATION_OTP_MOBILE_NUMBER = 'Please provide a valid mobile number.';
-  public static MSG_ERROR_VALIDATION_PASSWORD = 'Password must be Alfa-Numeric having minimum 8 Characters.';
+  public static MSG_ERROR_VALIDATION_PASSWORD = 'Password must be alphanumeric having minimum 6 characters';
   public static MSG_ERROR_VALIDATION_PIN_NUMBER = 'Pin code should not be greater than 20 characters.';
   public static MSG_ERROR_VALIDATION_TERMS_AND_CONDITIONS_REQUIRED = 'Please accept the terms and conditions.';
 
@@ -450,12 +450,12 @@ export class Label {
   public static NAME: string = 'Name';
   public static ACTIONS: string = 'Actions';
   public static API_KEY: string = 'API Key';
-  public static ACCEPT_NAME: string = 'By clicking "Continue" I agree to Build Infos';
+  public static ACCEPT_NAME: string = 'By clicking "Continue" I agree to Build Info\'s';
   public static TERMS_AND_CONDITIONS_NAME: string = 'Terms of Service';
   public static PRIVACY_POLICY: string = 'Privacy Policy';
   public static REGISTER_AS_APPLICANT: string = 'Get Started Absolutely Free';
-  public static START_FREE: string = 'Get Started Absolutely Free';
-  public static REGISTRATION_INFO: string = "See how the world's best Building Estimations are created.";
+  public static START_FREE: string = 'Get started absolutely free';
+  public static REGISTRATION_INFO: string = 'See how the world\'s best Building Estimations are created.';
   public static SUBMIT_PROFILE: string = 'Submit Your Profile';
   public static MORE: string = 'More';
   public static NOT_FOUND_ERROR: string = '404';
