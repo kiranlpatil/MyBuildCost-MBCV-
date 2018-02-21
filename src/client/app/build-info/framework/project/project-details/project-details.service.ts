@@ -4,33 +4,26 @@ import { Observable } from 'rxjs/Observable';
 import { Project } from './../../model/project';
 import { API, BaseService, SessionStorage, SessionStorageService, MessageService } from '../../../../shared/index';
 import { UserProfile } from '../../../../user/models/user';
+import { HttpDelegateService } from '../../../../shared/services/http-delegate-service/http-delegate.service';
 
 
 @Injectable()
 export class ProjectDetailsService extends BaseService {
 
-  constructor(protected http: Http, protected messageService: MessageService) {
+  constructor(protected http: Http, protected messageService: MessageService, protected httpDelegateService : HttpDelegateService) {
     super();
   }
 
   getProjectDetails(projectId:string): Observable<Project> {
-    let headers = new Headers({'Content-Type': 'application/json'});
-    let options = new RequestOptions({headers: headers});
     var url = API.VIEW_PROJECT+'/'+projectId;
-    return this.http.get(url, options)
-      .map(this.extractData)
-      .catch(this.handleError);
+    return this.httpDelegateService.getAPI(url);
   }
 
 
-  updateProjectDetails(model: Project): Observable<UserProfile> {
+  updateProjectDetails(modelProject: Project): Observable<UserProfile> {
     let url = API.VIEW_PROJECT+'/'+SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT);
-    let body = JSON.stringify(model);
-    return this.http.put(url, body)
-      .map(this.extractData)
-      .catch(this.handleError);
+    let body = JSON.stringify(modelProject);
+    return this.httpDelegateService.putAPI(url, body);
   }
-
-
 
 }

@@ -3,22 +3,19 @@ import { Headers, Http, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { Project } from './../../model/project';
 import { API, BaseService, MessageService } from '../../../../shared/index';
-
+import { HttpDelegateService } from '../../../../shared/services/http-delegate-service/http-delegate.service';
 
 @Injectable()
 export class CreateProjectService extends BaseService {
 
-  constructor(protected http: Http, protected messageService: MessageService) {
+  constructor(protected http: Http, protected messageService: MessageService,
+              protected httpDelegateService: HttpDelegateService) {
     super();
   }
 
   createProject(project : Project): Observable<Project> {
-    let headers = new Headers({'Content-Type': 'application/json'});
-    let options = new RequestOptions({headers: headers});
-    let body = JSON.stringify(project);
-    return this.http.post(API.VIEW_PROJECT, body, options)
-      .map(this.extractData)
-      .catch(this.handleError);
+    let url = API.VIEW_PROJECT;
+    return this.httpDelegateService.postAPI(url, project);
   }
 
 }

@@ -36,6 +36,7 @@ import { DashboardHeaderComponent } from './framework/dashboard/dashboard-header
 import { DashboardUserProfileService } from './framework/dashboard/user-profile/dashboard-user-profile.service';
 import { UserChangePasswordService } from './framework/dashboard/user-change-password/user-change-password.service';
 import { AuthGuardService } from './shared/services/auth-guard.service';
+import { HttpDelegateService } from './shared/services/http-delegate-service/http-delegate.service';
 
 //Application IMPORTS
 
@@ -151,6 +152,7 @@ import { CreateNewProjectComponent } from './build-info/framework/create-new-pro
     Title,
     AnalyticService,
     AuthGuardService,
+    HttpDelegateService,
 
     //Application Services
     ProjectService,
