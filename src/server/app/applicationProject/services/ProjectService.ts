@@ -452,9 +452,13 @@ class ProjectService {
               }
             }
 
-            if(quantity.total === null) {
-              for(let index = 0; quantity.items.length > index; index ++) {
-                quantity.total = quantity.items[index].quantity + quantity.total;
+            if(quantity.total) {
+              if(quantity.items.length !== 0) {
+                for(let index = 0; quantity.items.length > index; index ++) {
+                  quantity.total = quantity.items[index].quantity + quantity.total;
+                }
+              }else {
+                quantity.total = 0;
               }
             }
             callback(null, {data: quantity, access_token: this.authInterceptor.issueTokenWithUid(user)});
