@@ -57,7 +57,6 @@ import { BuildingDetailsComponent } from './build-info/framework/project/buildin
 import { BuildingListService } from './build-info/framework/project/building/buildings-list/building-list.service';
 import { BuildingDetailsService } from './build-info/framework/project/building/building-details/building-details.service';
 import { ProjectHeaderComponent } from './build-info/framework/project-header/project-header.component';
-import { ProjectContentComponent } from './build-info/framework/project/project-content/project-content.component';
 import { CostSummaryComponent } from './build-info/framework/project/cost-summary-report/cost-summary.component';
 import { CostSummaryService } from './build-info/framework/project/cost-summary-report/cost-summary.service';
 import { MaterialTakeoffComponent } from './build-info/framework/project/material-takeoff/material-takeoff.component';
@@ -110,7 +109,6 @@ import { CreateNewProjectComponent } from './build-info/framework/create-new-pro
     BuildingListComponent,
     ProjectHeaderComponent,
     ProjectListHeaderComponent,
-    ProjectContentComponent,
     BuildingDetailsComponent,
     CostSummaryComponent,
     CostHeadComponent,

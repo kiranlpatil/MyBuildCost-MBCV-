@@ -113,14 +113,14 @@ export class GetQuantityComponent implements OnInit {
 
   addItem() {
     let quantity = {
-      'item': '',
-      'remarks': '',
-      'nos': 0,
-      'length': 0,
-      'breadth': 0,
-      'height': 0,
-      'quantity': 0,
-      'unit': 'sqft'
+      item : '',
+      remarks : '',
+      nos : 0,
+      length : 0,
+      breadth : 0,
+      height : 0,
+      quantity : 0,
+      unit : 'sqft'
     };
     this.quantityItems.push(quantity);
   }

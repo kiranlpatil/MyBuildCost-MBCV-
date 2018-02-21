@@ -30,20 +30,20 @@ export class BuildingListComponent implements OnInit {
               private createBuildingService: CreateBuildingService, private formBuilder: FormBuilder ) {
 
     this.cloneBuildingForm = this.formBuilder.group({
-      'name': ['', ValidationService.requiredBuildingName],
-      'totalSlabArea':['', ValidationService.requiredSlabArea],
-      'totalCarpetAreaOfUnit':['', ValidationService.requiredCarpetArea],
-      'totalSaleableAreaOfUnit':['', ValidationService.requiredSalebleArea],
-      'plinthArea':['', ValidationService.requiredPlinthArea],
-      'totalNumOfFloors':['', ValidationService.requiredNumOfFloors],
-      'numOfParkingFloors':['', ValidationService.requiredNumOfParkingFloors],
-      'carpetAreaOfParking':['', ValidationService.requiredCarpetAreaOfParking],
-      'numOfOneBHK': ['',  ValidationService.requiredOneBHK],
-      'numOfTwoBHK':['', ValidationService.requiredTwoBHK],
-      'numOfThreeBHK':['', ValidationService.requiredThreeBHK],
-      'numOfFourBHK':['', ValidationService.requiredFourBHK],
-      'numOfFiveBHK':['', ValidationService.requiredFiveBHK],
-      'numOfLifts':['', ValidationService.requiredNumOfLifts],
+      name : ['', ValidationService.requiredBuildingName],
+      totalSlabArea :['', ValidationService.requiredSlabArea],
+      totalCarpetAreaOfUnit :['', ValidationService.requiredCarpetArea],
+      totalSaleableAreaOfUnit :['', ValidationService.requiredSalebleArea],
+      plinthArea :['', ValidationService.requiredPlinthArea],
+      totalNumOfFloors :['', ValidationService.requiredNumOfFloors],
+      numOfParkingFloors :['', ValidationService.requiredNumOfParkingFloors],
+      carpetAreaOfParking :['', ValidationService.requiredCarpetAreaOfParking],
+      numOfOneBHK : ['',  ValidationService.requiredOneBHK],
+      numOfTwoBHK :['', ValidationService.requiredTwoBHK],
+      numOfThreeBHK :['', ValidationService.requiredThreeBHK],
+      numOfFourBHK :['', ValidationService.requiredFourBHK],
+      numOfFiveBHK :['', ValidationService.requiredFiveBHK],
+      numOfLifts :['', ValidationService.requiredNumOfLifts],
     });
 
   }

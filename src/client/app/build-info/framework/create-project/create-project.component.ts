@@ -28,16 +28,16 @@ export class CreateProjectComponent {
     this.BODY_BACKGROUND_TRANSPARENT = ImagePath.BODY_BACKGROUND_TRANSPARENT;
 
     this.projectForm = this.formBuilder.group({
-      'name': ['', ValidationService.requiredProjectName],
-      'region': ['', ValidationService.requiredProjectAddress],
-      'plotArea': ['', ValidationService.requiredPlotArea],
-      'plotPeriphery': ['', ValidationService.requiredPlotPeriphery],
-      'podiumArea': ['',ValidationService.requiredPodiumArea],
-      'openSpace':['', ValidationService.requiredOpenSpace],
-      'slabArea': ['',ValidationService.requiredSlabArea],
-      'poolCapacity': ['',ValidationService.requiredSwimmingPoolCapacity],
-      'projectDuration': ['', ValidationService.requiredProjectDuration],
-      'totalNumOfBuildings': ['', ValidationService.requiredNumOfBuildings],
+      name : ['', ValidationService.requiredProjectName],
+      region : ['', ValidationService.requiredProjectAddress],
+      plotArea : ['', ValidationService.requiredPlotArea],
+      plotPeriphery : ['', ValidationService.requiredPlotPeriphery],
+      podiumArea : ['',ValidationService.requiredPodiumArea],
+      openSpace : ['', ValidationService.requiredOpenSpace],
+      slabArea : ['',ValidationService.requiredSlabArea],
+      poolCapacity : ['',ValidationService.requiredSwimmingPoolCapacity],
+      projectDuration : ['', ValidationService.requiredProjectDuration],
+      totalNumOfBuildings : ['', ValidationService.requiredNumOfBuildings]
     });
 
   }
