@@ -1,7 +1,7 @@
 import { Route } from '@angular/router';
 import { ProjectComponent } from './project.component';
 import { ProjectDetailsComponent } from './project-details/project-details.component';
-import { ProjectListComponent } from './project-list/project-list.component';
+import { ProjectListComponent } from '../project-list/project-list.component';
 import { CostSummaryComponent } from './cost-summary-report/cost-summary.component';
 import { CostHeadComponent } from './cost-summary-report/cost-head/cost-head.component';
 import { MaterialTakeoffComponent } from './material-takeoff/material-takeoff.component';

@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Headers, Http, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
-import { Project } from './../../model/project';
-import { API, BaseService, MessageService } from '../../../../shared/index';
-import { HttpDelegateService } from '../../../../shared/services/http-delegate-service/http-delegate.service';
+import { Project } from '../model/project';
+import { API, BaseService, MessageService } from '../../../shared/index';
+import { HttpDelegateService } from '../../../shared/services/http-delegate-service/http-delegate.service';
 
 @Injectable()
 export class CreateProjectService extends BaseService {

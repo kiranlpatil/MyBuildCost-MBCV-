@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { NavigationRoutes } from '../../../../../shared/constants';
+import { NavigationRoutes } from '../../../../shared/constants';
 import { ProjectListHeaderService } from './project-list-header.service';
-import { SessionStorage,SessionStorageService } from '../../../../../shared/index';
+import { SessionStorage,SessionStorageService } from '../../../../shared/index';
 
 @Component({
   moduleId: module.id,

@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { NavigationRoutes, ImagePath } from '../../../../shared/constants';
-import { SessionStorage, SessionStorageService,  Message, Messages, MessageService } from '../../../../shared/index';
+import { NavigationRoutes, ImagePath } from '../../../shared/constants';
+import { SessionStorage, SessionStorageService,  Message, Messages, MessageService } from '../../../shared/index';
 import { CreateProjectService } from './create-project.service';
-import { Project } from './../../model/project';
-import { ValidationService } from './../../../../shared/customvalidations/validation.service';
+import { Project } from './../model/project';
+import { ValidationService } from './../../../shared/customvalidations/validation.service';
 
 @Component({
   moduleId: module.id,
