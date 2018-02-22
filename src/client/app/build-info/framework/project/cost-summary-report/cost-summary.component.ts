@@ -377,8 +377,4 @@ export class CostSummaryComponent implements OnInit {
     this.showGrandTotalPanelBody=!this.showGrandTotalPanelBody;
   }
 
-  showGrandTotalBody() {
-    this.toggleShowGrandTotalPanelBody();
-  }
-
 }
