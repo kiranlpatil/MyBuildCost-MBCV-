@@ -73,6 +73,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { GetRateComponent } from './build-info/framework/project/cost-summary-report/cost-head/get-rate/get-rate.component';
 import { GetRateService } from './build-info/framework/project/cost-summary-report/cost-head/get-rate/get-rate.service';
 import { CreateNewProjectComponent } from './build-info/framework/create-new-project/create-new-project.component';
+import { ProjectItemComponent } from './build-info/framework/project-list/project-item/project-item.component';
 
 @NgModule({
   imports: [
@@ -116,6 +117,7 @@ import { CreateNewProjectComponent } from './build-info/framework/create-new-pro
     GetQuantityComponent,
     MaterialTakeoffComponent,
     GetRateComponent,
+    ProjectItemComponent,
     //MyDashboardComponent,
 
     //Custom Pipes

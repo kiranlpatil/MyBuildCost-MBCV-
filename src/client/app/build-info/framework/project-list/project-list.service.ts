@@ -12,7 +12,7 @@ export class ProjectListService extends BaseService {
     super();
   }
 
-  getProject(): Observable<Project> {
+  getAllProjects(): Observable<Project> {
     let headers = new Headers({'Content-Type': 'application/json'});
     let options = new RequestOptions({headers: headers});
     var url = API.USER_ALL_PROJECTS;
