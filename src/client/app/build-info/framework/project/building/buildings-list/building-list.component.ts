@@ -52,10 +52,11 @@ export class BuildingListComponent implements OnInit {
     this.activatedRoute.params.subscribe(params => {
       this.projectId = params['projectId'];
       if(this.projectId) {
-        this.getProjects();
+        this.getProject();
       }
     });
   }
+
   onSubmit() {
     if(this.cloneBuildingForm.valid) {
       this.model = this.cloneBuildingForm.value;
@@ -65,6 +66,7 @@ export class BuildingListComponent implements OnInit {
           error => this.onAdNewBuildingFailure(error));
     }
   }
+
   onAddNewBuildingSuccess(building : any) {
     var message = new Message();
     message.isError = false;
@@ -76,24 +78,30 @@ export class BuildingListComponent implements OnInit {
   onAdNewBuildingFailure(error : any) {
     console.log(error);
   }
-  updateBuilding(cloneCostHead: any) {
+
+  updateBuildingByCostHead(cloneCostHead: any) {
     this.listBuildingService.updateBuildingByCostHead(cloneCostHead, this.clonedBuildingId).subscribe(
       project => this.onUpdateBuildingByCostHeadSuccess(project),
       error => this.onUpdateBuildingByCostHeadFailure(error)
     );
   }
+
   onUpdateBuildingByCostHeadSuccess(project: any) {
-    this.getProjects();
+    this.getProject();
   }
+
   onUpdateBuildingByCostHeadFailure(error: any) {
     console.log(error);
   }
+
   addNewBuilding() {
     this._router.navigate([NavigationRoutes.APP_CREATE_BUILDING]);
   }
-  deletefun(buildingId : any) {
+
+  setBuildingId(buildingId : any) {
     this.currentbuildingId = buildingId;
   }
+
   deleteBuilding() {
     this.listBuildingService.deleteBuildingById(this.currentbuildingId).subscribe(
       project => this.onDeleteBuildingSuccess(project),
@@ -107,7 +115,7 @@ export class BuildingListComponent implements OnInit {
       message.isError = false;
       message.custom_message = Messages.MSG_SUCCESS_DELETE_BUILDING;
       this.messageService.message(message);
-      this.getProjects();
+      this.getProject();
     }
   }
 
@@ -115,7 +123,7 @@ export class BuildingListComponent implements OnInit {
     console.log(error);
   }
 
-  getProjects() {
+  getProject() {
     this.listBuildingService.getProject(this.projectId).subscribe(
       projects => this.onGetProjectSuccess(projects),
       error => this.onGetProjectFailure(error)
@@ -130,12 +138,12 @@ export class BuildingListComponent implements OnInit {
     console.log(error);
   }
 
-  getBuildingDetails(buildingId : any) {
+  navigateToEditBuildingDetails(buildingId : any) {
     SessionStorageService.setSessionValue(SessionStorage.CURRENT_BUILDING, buildingId);
     this._router.navigate([NavigationRoutes.APP_VIEW_BUILDING_DETAILS, buildingId]);
   }
 
-  cloneThisBuilding(buildingId : any) {
+  cloneBuilding(buildingId : any) {
     this.viewBuildingService.getBuildingDetails(buildingId).subscribe(
       building => this.onGetBuildingDetailsSuccess(building),
       error => this.onGetBuildingDetailsFailure(error)

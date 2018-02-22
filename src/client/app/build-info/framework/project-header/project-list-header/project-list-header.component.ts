@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { NavigationRoutes } from '../../../../shared/constants';
 import { ProjectListHeaderService } from './project-list-header.service';
 import { SessionStorage,SessionStorageService } from '../../../../shared/index';
+import { Project } from './../../model/project';
 
 @Component({
   moduleId: module.id,
@@ -13,33 +14,32 @@ import { SessionStorage,SessionStorageService } from '../../../../shared/index';
 
 export class ProjectListHeaderComponent implements OnInit {
 
-  projectsArray : any;
+  projects : Array<Project>;
 
   constructor(private projectListHeaderService: ProjectListHeaderService, private _router: Router) {
 
   }
 
   ngOnInit() {
-    this.getProjects();
+    this.getAllProjects();
   }
 
-
-  getProjects() {
-    this.projectListHeaderService.getProject().subscribe(
-      projects => this.onGetProjectSuccess(projects),
-      error => this.onGetProjectFailure(error)
+  getAllProjects() {
+    this.projectListHeaderService.getAllProjects().subscribe(
+      projects => this.onGetAllProjectsSuccess(projects),
+      error => this.onGetAllProjectsFailure(error)
     );
   }
 
-  onGetProjectSuccess(projects : any) {
-    this.projectsArray = projects.data;
+  onGetAllProjectsSuccess(projects : any) {
+    this.projects = projects.data;
   }
 
-  onGetProjectFailure(error : any) {
+  onGetAllProjectsFailure(error : any) {
     console.log(error);
   }
 
-  setCurrentProjectId(projectId:any) {
+  selectedProject(projectId:any) {
     SessionStorageService.setSessionValue(SessionStorage.CURRENT_PROJECT, projectId);
     this._router.navigate([NavigationRoutes.APP_PROJECT, projectId, NavigationRoutes.APP_COST_SUMMARY]);
   }

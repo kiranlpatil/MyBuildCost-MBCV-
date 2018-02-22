@@ -106,7 +106,7 @@ export class CostHeadComponent implements OnInit, OnChanges {
     this.showQuantity = true;
   }
 
-  getRate(i:number,workItemIndex: number,workItem:any) {
+  getRateFromRateAnalysis(i:number,workItemIndex: number,workItem:any) {
     this.compareSubcategoryIndex=i;
     this.toggleRate = !this.toggleRate;
     this.compareWorkItemIndex = workItemIndex;
@@ -193,13 +193,13 @@ export class CostHeadComponent implements OnInit, OnChanges {
   }
 
   getSubCategoryDetails(projectId: string, costheadId: number) {
-    this.costHeadService.getSubCategory(projectId,costheadId).subscribe(
-      subCategoryDetail => this.OnGetSubCategorySuccess(subCategoryDetail),
-      error => this.OnGetSubCategoryFailure(error)
+    this.costHeadService.getSubCategoryDetails(projectId,costheadId).subscribe(
+      subCategoryDetail => this.OnGetSubCategoryDetailsSuccess(subCategoryDetail),
+      error => this.OnGetSubCategoryDetailsFailure(error)
     );
   }
 
-  OnGetSubCategorySuccess(subCategoryDetail: any) {
+  OnGetSubCategoryDetailsSuccess(subCategoryDetail: any) {
     this.subCategoryDetails = subCategoryDetail.data;
     this.subCategoryDetailsTotalAmount=0.0;
 
@@ -213,26 +213,11 @@ export class CostHeadComponent implements OnInit, OnChanges {
     this.subcategoryArray = this.commonService.removeDuplicateItmes(subcategoryList, this.subCategoryDetails);
   }
 
-  OnGetSubCategoryFailure(error: any) {
+  OnGetSubCategoryDetailsFailure(error: any) {
     console.log(error);
   }
 
-  getCostHeadComponentDetails(projectId: string, costHead: string) {
-    this.costHeadService.getCostHeadDetails(projectId, costHead).subscribe(
-      costHeadDetail => this.onGetCostHeadDetailsSuccess(costHeadDetail),
-      error => this.onGetCostHeadDetailsFailure(error)
-    );
-  }
-
-  onGetCostHeadDetailsSuccess(costHeadDetail: any) {
-    this.costHeadDetails = costHeadDetail.data;
-  }
-
-  onGetCostHeadDetailsFailure(error: any) {
-    console.log(error);
-  }
-
-  deleteWorkItemFunction(i: number,subCategoryId: string, workItemId: string) {
+  setIdsForDeleteWorkItem(i: number,subCategoryId: string, workItemId: string) {
     this.subCategoryId = parseInt(subCategoryId);
      this.workItemId =  parseInt(workItemId);
   }
@@ -244,6 +229,7 @@ export class CostHeadComponent implements OnInit, OnChanges {
       error => this.onDeleteWorkItemFailure(error)
     );
   }
+
   onDeleteWorkItemSuccess(workItemDetails: any) {
     if (workItemDetails !== null) {
       var message = new Message();
@@ -262,68 +248,17 @@ export class CostHeadComponent implements OnInit, OnChanges {
     this.getSubCategoryDetails(this.projectId, this.costheadId);
   }
 
-/*  ToDo future use
-   deleteQuantityItem(subCategoryId: number,  quantityItems:any ,itemName: string) {
-   this.itemName = itemName;
-   this.subCategoryId = subCategoryId;
-   this.quantityItemsArray = quantityItems.data;
- }
-
-  deleteQuantityItemfun() {
-    this.costHeadService.deleteCostHeadItems(this.costheadId, this.subCategoryId,
-      this.workItemId,this.quantityItemsArray,this.itemName).subscribe(
-      costHeadItemDelete => this.onDeleteCostHeadItemsSuccess(costHeadItemDelete),
-      error => this.onDeleteCostHeadItemsFail(error)
-    );
-  }
-
-  onDeleteCostHeadItemsSuccess(costHeadItemDelete: any) {
-    this.quantityItemsArray = costHeadItemDelete.data.item;
-    var message = new Message();
-    message.isError = false;
-    message.custom_message = Messages.MSG_SUCCESS_DELETE_ITEM;
-    this.messageService.message(message);
-
-  }
-
-  onDeleteCostHeadItemsFail(error: any) {
-    console.log(error);
-  }
-
-
-  updateCostHeadWorkItem(subCategoryId : number, quantityItems : any) {
-    this.quantityItemsArray = quantityItems;
-    this.costHeadService.saveCostHeadItems(this.costheadId, subCategoryId,
-      this.workItemId,this.quantityItemsArray).subscribe(
-      costHeadItemSave => this.onSaveCostHeadItemsSuccess(costHeadItemSave),
-      error => this.onSaveCostHeadItemsFail(error)
-    );
-  }
-
-
-  onSaveCostHeadItemsSuccess(costHeadItemSave: any) {
-    this.quantityItemsArray = costHeadItemSave.data.item;
-    var message = new Message();
-    message.isError = false;
-    message.custom_message = Messages.MSG_SUCCESS_SAVED_COST_HEAD_ITEM;
-    this.messageService.message(message);
-  }
-
-  onSaveCostHeadItemsFail(error: any) {
-    console.log(error);
-  }*/
-
-  showWorkItem(subCategoryId:number,i:number) {
+  getWorkItemList(subCategoryId:number,i:number) {
     this.comapreWorkItemRateAnalysisId=i;
     this.subcategoryRateAnalysisId=subCategoryId;
-    this.costHeadService.showWorkItem(this.costheadId,subCategoryId).subscribe(
-      workItemList => this.onShowWorkItemSuccess(workItemList),
-      error => this.onShowWorkItemFailure(error)
+    this.costHeadService.getWorkItemList(this.costheadId,subCategoryId).subscribe(
+      workItemList => this.onGetWorkItemListSuccess(workItemList),
+      error => this.onGetWorkItemListFailure(error)
     );
   }
 
 
-  onShowWorkItemSuccess(workItemList:any) {
+  onGetWorkItemListSuccess(workItemList:any) {
     let workItemListAfterClone = lodsh.cloneDeep(workItemList.data);
     this.workItemListArray = this.commonService.removeDuplicateItmes(workItemListAfterClone,this.alreadySelectedWorkItems);
     if(this.workItemListArray.length===0) {
@@ -336,11 +271,11 @@ export class CostHeadComponent implements OnInit, OnChanges {
     }
   }
 
-  onShowWorkItemFailure(error:any) {
+  onGetWorkItemListFailure(error:any) {
     console.log('onshowWorkItemFail : '+error);
   }
 
-  onChangeWorkItem(selectedWorkItem:any) {
+  onChangeAddSelectedWorkItem(selectedWorkItem:any) {
     this.showWorkItemList=false;
 
     let workItemList  =  this.workItemListArray;
@@ -369,27 +304,27 @@ export class CostHeadComponent implements OnInit, OnChanges {
     console.log('onshowWorkItemFail : '+error);
   }
 
-  setCurrentSubcategory(subcategory : any) {
+  setSubCategoryDetailsForDelete(subcategory : any) {
     this.subCategoryObj = subcategory;
   }
 
-  deleteSubcategory() {
+  deleteSubCategory() {
     let subcategory = this.subCategoryObj;
-    this.costHeadService.deleteSubcategoryFromCostHead(this.costheadId, subcategory).subscribe(
-      deleteSubcategory => this.onDeleteSubcategoryFromCostHeadSuccess(deleteSubcategory),
-      error => this.onDeleteSubcategoryFromCostHeadFailure(error)
+    this.costHeadService.deleteSubCategory(this.costheadId, subcategory).subscribe(
+      deleteSubcategory => this.onDeleteSubCategorySuccess(deleteSubcategory),
+      error => this.onDeleteSubCategoryFailure(error)
     );
   }
 
-  onDeleteSubcategoryFromCostHeadSuccess(deleteSubcategory : any) {
+  onDeleteSubCategorySuccess(deleteSubcategory : any) {
     this.getSubCategoryDetails(this.projectId, this.costheadId);
   }
 
-  onDeleteSubcategoryFromCostHeadFailure(error : any) {
+  onDeleteSubCategoryFailure(error : any) {
     console.log('deleteSubcategory error : '+JSON.stringify(error));
   }
 
-  showSubcategoryList() {
+  getSubCategoryList() {
     this.costHeadService.getSubCategoryList(this.costheadId).subscribe(
       subcategoryList => this.onGetSubCategoryListSuccess(subcategoryList),
       error => this.onGetSubCategoryListFailure(error)
@@ -407,7 +342,7 @@ export class CostHeadComponent implements OnInit, OnChanges {
     console.log('subcategoryList error : '+JSON.stringify(error));
   }
 
-  onSelectedAddSubCategory( selectedSubCategoryId : string ) {
+  onChangeAddSelectedSubCategory( selectedSubCategoryId : string ) {
     let subCategoriesList  =  this.subcategoryArray;
     let subCategoryObj = subCategoriesList.filter(
       function( subCatObj: any){
@@ -431,13 +366,13 @@ export class CostHeadComponent implements OnInit, OnChanges {
     console.log('building error : '+ JSON.stringify(error));
   }
 
-  refreshDataList() {
+  refreshSubCategoryList() {
     this.getSubCategoryDetails(this.projectId, this.costheadId);
     this.showQuantity = false;
     this.showRate = false;
   }
 
-  getSelectedWorkItems(workItemList:any) {
+  setAlreadySelectedWorkItems(workItemList:any) {
     this.alreadySelectedWorkItems=workItemList;
   }
 

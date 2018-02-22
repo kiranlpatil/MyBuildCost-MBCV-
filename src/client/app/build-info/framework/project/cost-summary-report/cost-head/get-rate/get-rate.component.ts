@@ -23,7 +23,7 @@ export class GetRateComponent {
   @Input() totalQuantity: number;
   @Input() totalAmount: number;
   @Input() totalRate: number;
-  @Output() refreshDataList = new EventEmitter();
+  @Output() refreshSubCategoryList = new EventEmitter();
 
   projectId: string;
   buildingId: string;
@@ -70,7 +70,7 @@ export class GetRateComponent {
     this.totalRate = 0.0;
     this.totalQuantity = 0.0;
     for (let i = 0; i < this.rateItemsArray.items.length; i++) {
-      if(choice==='changeTotalQuantity') {
+      if(choice === 'changeTotalQuantity') {
         this.rateItemsArray.items[i].quantity = this.rateItemsArray.items[i].quantity * this.quantityIncrement;
       }
       this.totalAmount = this.totalAmount + (this.rateItemsArray.items[i].quantity * this.rateItemsArray.items[i].rate);
@@ -91,22 +91,22 @@ export class GetRateComponent {
     rate.unit = rateItemsArray.unit;
     rate.items = rateItemsArray.items;
 
-    this.getRateService.updateRateItems(parseInt(costHeadId), this.subCategoryRateAnalysisId,
+    this.getRateService.updateRate(parseInt(costHeadId), this.subCategoryRateAnalysisId,
       parseInt(workItemId), rate).subscribe(
-      rateItem => this.onUpdateRateItemsSuccess(rateItem),
-      error => this.onUpdateRateItemsFailure(error)
+      rateItem => this.onUpdateRateSuccess(rateItem),
+      error => this.onUpdateRateFailure(error)
     );
   }
 
-  onUpdateRateItemsSuccess(rateItem: any) {
+  onUpdateRateSuccess(rateItem: any) {
     var message = new Message();
     message.isError = false;
     message.custom_message = Messages.MSG_SUCCESS_UPDATE_RATE;
     this.messageService.message(message);
-    this.refreshDataList.emit();
+    this.refreshSubCategoryList.emit();
   }
 
-  onUpdateRateItemsFailure(error: any) {
+  onUpdateRateFailure(error: any) {
     console.log(error);
   }
 

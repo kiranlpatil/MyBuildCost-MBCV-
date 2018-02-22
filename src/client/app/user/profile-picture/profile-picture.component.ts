@@ -60,7 +60,7 @@ export class ProfilePictureComponent {
             this.fileChangeSuccess(result);
           }
         }, (error: any) => {
-          this.fileChangeFail(error);
+          this.fileChangeFailure(error);
         });
       } else {
         var message = new Message();
@@ -95,7 +95,7 @@ export class ProfilePictureComponent {
     this.profileService.onProfileUpdate(result);
   }
 
-  fileChangeFail(error: any) {
+  fileChangeFailure(error: any) {
     this.isLoading = true;
     var message = new Message();
     message.isError = true;

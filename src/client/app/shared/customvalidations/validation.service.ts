@@ -76,6 +76,46 @@ export class ValidationService {
     return null;
   }
 
+  static alphabatesValidator(control: any) {
+    if (control.value) {
+      if (control.value.match(/^[a-zA-Z]+$/)) {
+        return null;
+      } else {
+        return {'requireAlphabates': true};
+      }
+    }
+    return null;
+  }
+
+  static nameValidator(control: any) {
+    if (control.value.match(/^[a-zA-Z](?:[a-zA-Z ]*[a-zA-Z])?$/)) {
+      return null;
+    } else {
+      return {'invalidName': true};
+    }
+  }
+
+  static passwordValidator(control: any) {
+
+    if (control.value.match(/(?=.*\d)(?=.*[a-zA-Z]).{6,}/)) {
+      return null;
+    } else {
+      return {'invalidPassword': true};
+    }
+  }
+
+  static urlValidator(control: any) {
+    if (control.value) {
+      if (control.value.match(
+          /([a-z]|[A-z]|[0-9])(\.([a-z]|[A-Z]))/)) {
+        return null;
+      } else {
+        return {'invalidUrlAddress': true};
+      }
+    }
+    return null;
+  }
+
   static requireEmailValidator(control: any) {
     if (control.value === '' || control.value === undefined) {
       return {'requiredEmail': true};
@@ -89,14 +129,6 @@ export class ValidationService {
       return {'requiredFirstName': true};
     } else {
       return null;
-    }
-  }
-
-  static nameValidator(control: any) {
-    if (control.value.match(/^[a-zA-Z](?:[a-zA-Z ]*[a-zA-Z])?$/)) {
-      return null;
-    } else {
-      return {'invalidName': true};
     }
   }
 
@@ -147,15 +179,6 @@ export class ValidationService {
       return {'requiredWebsite': true};
     } else {
       return null;
-    }
-  }
-
-  static passwordValidator(control: any) {
-
-    if (control.value.match(/(?=.*\d)(?=.*[a-zA-Z]).{6,}/)) {
-      return null;
-    } else {
-      return {'invalidPassword': true};
     }
   }
 
@@ -230,23 +253,11 @@ export class ValidationService {
     }
   }
 
-  static urlValidator(control: any) {
-    if (control.value) {
-      if (control.value.match(
-          /([a-z]|[A-z]|[0-9])(\.([a-z]|[A-Z]))/)) {
-        return null;
-      } else {
-        return {'invalidUrlAddress': true};
-      }
-    }
-    return null;
-  }
-
-
   static birthYearValidator(control: any) {
     if (control.value === '' || control.value === undefined) {
       return {'requiredBirthYear': true};
     }
+
     var birthYear = control.value;
     var count = 0;
     var isValid: boolean = false;
@@ -491,17 +502,6 @@ export class ValidationService {
     } else {
       return null;
     }
-  }
-
-  static alphabatesValidator(control: any) {
-    if (control.value) {
-      if (control.value.match(/^[a-zA-Z]+$/)) {
-        return null;
-      } else {
-        return {'requireAlphabates': true};
-      }
-    }
-    return null;
   }
 
 }

@@ -37,7 +37,7 @@
       <td>
         <input [(ngModel)]="quantityItem.unit" id="unit" class="form-control unit-input" required/>
       </td>
-      <td><span title="Delete" data-toggle="modal" data-target="#deleteQuantity" (click)="setQuantityItemName(quantityItem.item)" class="glyphicon glyphicon-trash"></span></td>
+      <td><span title="Delete" data-toggle="modal" data-target="#deleteQuantity" (click)="setQuantityItemNameForDelete(quantityItem.item)" class="glyphicon glyphicon-trash"></span></td>
     </tr>
     <tr>
       <td class="total-amount">
@@ -68,7 +68,7 @@
   </table>
 
   <button type="button" class="add-new-btn" (click)="addItem()">+ Add Item</button>
-  <button type="submit" class="save-btn" (click)="updateCostHeadWorkItem(quantityItems)">Save</button>
+  <button type="submit" class="save-btn" (click)="updateQuantityItem(quantityItems)">Save</button>
 
 </div>
 
@@ -83,7 +83,7 @@
         <p><small>You Want to Delete Quantity Item</small></p>
       </div>
       <div class="modal-footer">
-        <button class="btn btn-primary bi-btn" type="button" (click)="deleteQuantityItemfun()"data-dismiss="modal">Yes</button>
+        <button class="btn btn-primary bi-btn" type="button" (click)="deleteQuantityItem()"data-dismiss="modal">Yes</button>
         <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
       </div>
     </div>

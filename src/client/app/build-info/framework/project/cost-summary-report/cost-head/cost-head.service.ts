@@ -9,15 +9,15 @@ export class CostHeadService extends BaseService {
   constructor(protected http: Http, protected messageService: MessageService) {
     super();
   }
-  getSubCategory(projectId: string,costheadId: number) {
+  getSubCategoryDetails(projectId: string,costheadId: number) {
     let headers = new Headers({'Content-Type': 'application/json'});
     let options = new RequestOptions({headers: headers});
-   let buildingId = SessionStorageService.getSessionValue(SessionStorage.CURRENT_BUILDING);
+    let buildingId = SessionStorageService.getSessionValue(SessionStorage.CURRENT_BUILDING);
     var url = 'project/'+projectId+'/'+API.VIEW_BUILDING+'/'+buildingId+'/'+'costhead/'+costheadId+'/'+'subcategory';
     return this.http.get(url, options)
       .map(this.extractData)
       .catch(this.handleError);
-}
+  }
 
   getSubCategoryList(costheadId: number) {
     let headers = new Headers({'Content-Type': 'application/json'});
@@ -32,7 +32,7 @@ export class CostHeadService extends BaseService {
       .catch(this.handleError);
   }
 
-getCostHeadDetails(projectId:string, costHead: string) {
+  getCostHeadDetails(projectId:string, costHead: string) {
     let headers = new Headers({'Content-Type': 'application/json'});
     let options = new RequestOptions({headers: headers});
     let buildingId = SessionStorageService.getSessionValue(SessionStorage.CURRENT_BUILDING);
@@ -41,16 +41,7 @@ getCostHeadDetails(projectId:string, costHead: string) {
       .map(this.extractData)
       .catch(this.handleError);
   }
-  deleteWorkItemDetails(workItemName: string, costHead: string) {
-    let headers = new Headers({'Content-Type': 'application/json'});
-    let options = new RequestOptions({headers: headers});
-    let buildingId = SessionStorageService.getSessionValue(SessionStorage.CURRENT_BUILDING);
-    let projectId = SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT);
-     var url = 'project/'+projectId+'/'+API.VIEW_BUILDING+'/'+buildingId+'/'+'costhead/'+costHead+'/workitem/'+workItemName;
-    return this.http.delete(url, options)
-      .map(this.extractData)
-      .catch(this.handleError);
-  }
+
   deleteWorkItem(costHeadId:number, subCategoryId:number,workItemId:number) {
     let headers = new Headers({'Content-Type': 'application/json'});
     let options = new RequestOptions({headers: headers});
@@ -67,8 +58,8 @@ getCostHeadDetails(projectId:string, costHead: string) {
     let headers = new Headers({'Content-Type': 'application/json'});
     let options = new RequestOptions({headers: headers});
     var url = API.VIEW_PROJECT + '/' + SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT)+
-     '/'+ API.VIEW_BUILDING + '/' +SessionStorageService.getSessionValue(SessionStorage.CURRENT_BUILDING)+
-    '/' + API.QUANTITY + '/' + costHeadName + '/workitem/'+costHeadItem ;
+      '/'+ API.VIEW_BUILDING + '/' +SessionStorageService.getSessionValue(SessionStorage.CURRENT_BUILDING)+
+      '/' + API.QUANTITY + '/' + costHeadName + '/workitem/'+costHeadItem ;
     return this.http.get(url, options)
       .map(this.extractData)
       .catch(this.handleError);
@@ -105,7 +96,7 @@ getCostHeadDetails(projectId:string, costHead: string) {
     let options = new RequestOptions({headers: headers});
     let projectId = SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT);
     let buildingId = SessionStorageService.getSessionValue(SessionStorage.CURRENT_BUILDING);
-   var body= { 'item' : quantityItemsArray };
+    var body= { 'item' : quantityItemsArray };
     var url = API.VIEW_PROJECT + '/' + projectId + '/'+ API.VIEW_BUILDING + '/' + buildingId + '/costhead/' + costHeadId +
       '/subcategory/'+ subCategoryId +'/workitem/' + workItemId + '/quantity';
     return this.http.put(url,body,options)
@@ -124,7 +115,7 @@ getCostHeadDetails(projectId:string, costHead: string) {
       .catch(this.handleError);
   }
 
-  showWorkItem(costheadId:number,subCategoryId:number) {
+  getWorkItemList(costheadId:number,subCategoryId:number) {
     let headers = new Headers({'Content-Type': 'application/json'});
     let options = new RequestOptions({headers: headers});
     var url = API.VIEW_PROJECT + '/'+  SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT)+'/'
@@ -164,7 +155,7 @@ getCostHeadDetails(projectId:string, costHead: string) {
       .catch(this.handleError);
   }
 
-  deleteSubcategoryFromCostHead(costHeadId:number, subcategory:any) {
+  deleteSubCategory(costHeadId:number, subcategory:any) {
     let headers = new Headers({'Content-Type': 'application/json'});
     let options = new RequestOptions({headers: headers});
     let body = {

@@ -29,7 +29,7 @@ export class CostSummaryService extends BaseService {
       .catch(this.handleError);
   }
 
-  getCost(projectId: string,defaultCostIn:string,defaultCostPer:string) {
+  getCostSummaryReport(projectId: string,defaultCostIn:string,defaultCostPer:string) {
     let headers = new Headers({'Content-Type': 'application/json'});
     let options = new RequestOptions({headers: headers});
 
@@ -54,7 +54,7 @@ export class CostSummaryService extends BaseService {
       .catch(this.handleError);
   }
 
-  deleteCostHead(buildingId:string, costHeadId:number) {
+  inActiveCostHead(buildingId:string, costHeadId:number) {
     let projectId = SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT);
     var url = 'project/'+projectId+'/'+API.VIEW_BUILDING+'/'+buildingId+'/'+'costHead/'+costHeadId+'/false';
     let body = {};
@@ -64,7 +64,7 @@ export class CostSummaryService extends BaseService {
   }
 
 
-  getInactiveCostHeads(projectId: string,buildingId: string) {
+  getInActiveCostHeads(projectId: string,buildingId: string) {
     let headers = new Headers({'Content-Type': 'application/json'});
     let options = new RequestOptions({headers: headers});
     var url = API.VIEW_PROJECT + '/'+ projectId +'/'+ API.VIEW_BUILDING + '/' +buildingId + '/costhead';
@@ -73,7 +73,7 @@ export class CostSummaryService extends BaseService {
       .catch(this.handleError);
   }
 
-  addInactiveCostHead(selectedInactiveCostHeadId:number,projectId:string,buildingId:string) {
+  activeCostHead(selectedInactiveCostHeadId:number,projectId:string,buildingId:string) {
     let headers = new Headers({'Content-Type': 'application/json'});
     let options = new RequestOptions({headers: headers});
     var url = API.VIEW_PROJECT + '/'+ projectId +'/'+ API.VIEW_BUILDING + '/'
@@ -83,7 +83,7 @@ export class CostSummaryService extends BaseService {
       .catch(this.handleError);
   }
 
-  updateBudgetCostAmountForCostHead(buildingId : string, costHeadName : string,
+  updateBudgetedCost(buildingId : string, costHeadName : string,
                                     costIn : string, costPer : string, buildingArea : number, amount:number) {
     let headers = new Headers({'Content-Type': 'application/json'});
     let options = new RequestOptions({headers: headers});

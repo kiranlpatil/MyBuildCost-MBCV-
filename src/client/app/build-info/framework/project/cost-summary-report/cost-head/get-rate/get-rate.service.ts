@@ -10,7 +10,7 @@ export class GetRateService extends BaseService {
     super();
   }
 
-  updateRateItems(costheadId:number,subCategoryId:number,workItemId:number,rateItemsArray:any) {
+  updateRate(costheadId:number,subCategoryId:number,workItemId:number,rateItemsArray:any) {
     let headers = new Headers({'Content-Type': 'application/json'});
     let options = new RequestOptions({headers: headers});
     var body=rateItemsArray;

@@ -7,9 +7,9 @@
         <h5>Buildings List</h5>
         <li *ngFor="let building of buildings">
           <button type="button" class="btn btn-primary">{{building.name}}</button>
-          <span data-toggle="modal" data-target="#delete" (click)="deletefun(building._id)" class="glyphicon glyphicon-trash"></span>
-          <span (click)="getBuildingDetails(building._id)" class="glyphicon glyphicon-pencil"></span>
-          <span data-toggle="modal" data-target="#myModal"(click)="cloneThisBuilding(building._id)" class="glyphicon glyphicon-duplicate"></span>
+          <span data-toggle="modal" data-target="#delete" (click)="setBuildingId(building._id)" class="glyphicon glyphicon-trash"></span>
+          <span (click)="navigateToEditBuildingDetails(building._id)" class="glyphicon glyphicon-pencil"></span>
+          <span data-toggle="modal" data-target="#myModal"(click)="cloneBuilding(building._id)" class="glyphicon glyphicon-duplicate"></span>
           <br/><br/>
         </li>
         <li>
@@ -97,7 +97,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-          <button class="btn btn-primary" type="button" (click)="updateBuilding(clonedBuildingDetails, clonedBuildingDetails._id)" data-toggle="modal" data-dismiss="modal">Clone</button>
+          <button class="btn btn-primary" type="button" (click)="updateBuildingByCostHead(clonedBuildingDetails)" data-toggle="modal" data-dismiss="modal">Clone</button>
         </div>
       </div>
     </div>

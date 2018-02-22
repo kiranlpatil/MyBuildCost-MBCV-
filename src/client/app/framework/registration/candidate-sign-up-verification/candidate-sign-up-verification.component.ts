@@ -40,7 +40,8 @@ export class CandidateSignUpVerificationComponent {
       return 'none';
     }
   }
-  showHideModal() {
+
+  toggleModal() {
     this.showModalStyle = !this.showModalStyle;
   }
   getMessages() {

@@ -87,7 +87,7 @@ export class CostSummaryComponent implements OnInit {
     this.activatedRoute.params.subscribe(params => {
       this.projectId = params['projectId'];
       if(this.projectId) {
-        this.onChangeCostingIn(this.defaultCostIn);
+        this.onChangeCostingByUnit(this.defaultCostIn);
       }
     });
   }
@@ -98,21 +98,21 @@ export class CostSummaryComponent implements OnInit {
     SessionStorageService.setSessionValue(SessionStorage.CURRENT_BUILDING, buildingId);
   }
 
-  showInactiveCostHeadsOnDropDown(buildingId: string) {
+  getInActiveCostHeads(buildingId: string) {
     this.buildingId=buildingId;
-    this.costSummaryService.getInactiveCostHeads(this.projectId,this.buildingId).subscribe(
-      inActiveCostHeads => this.onGetInactiveCostHeadsSuccess(inActiveCostHeads),
-      error => this.onGetInactiveCostHeadsFailure(error)
+    this.costSummaryService.getInActiveCostHeads(this.projectId,this.buildingId).subscribe(
+      inActiveCostHeads => this.onGetInActiveCostHeadsSuccess(inActiveCostHeads),
+      error => this.onGetInActiveCostHeadsFailure(error)
     );
   }
 
 
-  onGetInactiveCostHeadsSuccess(inActiveCostHeads : any) {
+  onGetInActiveCostHeadsSuccess(inActiveCostHeads : any) {
       this.inActiveCostHeadArray=inActiveCostHeads.data;
       this.showCostHeadList=true;
   }
 
-  onGetInactiveCostHeadsFailure(error : any) {
+  onGetInActiveCostHeadsFailure(error : any) {
     console.log(error);
   }
 
@@ -125,78 +125,69 @@ export class CostSummaryComponent implements OnInit {
     this._router.navigate([NavigationRoutes.APP_PROJECT, this.projectId, NavigationRoutes.APP_BUILDING, buildingName,
       NavigationRoutes.APP_COST_SUMMARY, NavigationRoutes.APP_COST_HEAD, estimatedItem.name, this.costHeadId]);
   }
+
   getCommonAmenities() {
    this.projectId = SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT);
     this._router.navigate([NavigationRoutes.APP_PROJECT,this.projectId,NavigationRoutes.APP_COMMON_AMENITIES]);
-}
+  }
 
   getBuildingDetails() {
     this.costSummaryService.getBuildingDetails(this.projectId).subscribe(
-      buildingDetails => this.onGetbuildingDetailsCostSummarySuccess(buildingDetails),
-      error => this.onGetbuildingDetailsCostSummaryFail(error)
+      buildingDetails => this.onGetBuildingDetailsSuccess(buildingDetails),
+      error => this.onGetBuildingDetailsFailure(error)
     );
   }
 
-  onGetbuildingDetailsCostSummarySuccess(buildingDetails : any) {
+  onGetBuildingDetailsSuccess(buildingDetails : any) {
     this.buildingsDetails = buildingDetails.data;
   }
 
-  onGetbuildingDetailsCostSummaryFail(error : any) {
+  onGetBuildingDetailsFailure(error : any) {
     console.log(error);
   }
 
-  onChangeCostingIn(costInId:any) {
+  onChangeCostingByUnit(costInId:any) {
     if(costInId) {
       this.defaultCostIn=costInId;
     }
-    this.costSummaryService.getCost(this.projectId,this.defaultCostIn,this.defaultCostPer).subscribe(
-      projectCostIn => this.onGetCostInSuccess(projectCostIn),
-      error => this.onGetCostInFail(error)
+    this.costSummaryService.getCostSummaryReport(this.projectId,this.defaultCostIn,this.defaultCostPer).subscribe(
+      projectCostIn => this.onGetCostSummaryReportSuccess(projectCostIn),
+      error => this.onGetCostSummaryReportFailure(error)
     );
-
   }
-  onGetCostInSuccess(projects : any) {
+
+  onGetCostSummaryReportSuccess(projects : any) {
     this.projectBuildings = projects.data;
-    this.makeGrandTotal();
+    this.calculateGrandTotal();
   }
 
-  onGetCostInFail(error : any) {
+  onGetCostSummaryReportFailure(error : any) {
     console.log('onGetCostInFail()'+error);
   }
 
-  onChangeCostingPer(costPerId:any) {
+  onChangeCostingByArea(costPerId:any) {
     this.defaultCostPer=costPerId;
 
-    this.costSummaryService.getCost(this.projectId,this.defaultCostIn,this.defaultCostPer).subscribe(
-      projectCostPer => this.onGetCostPerSuccess(projectCostPer),
-      error => this.onGetCostPerFail(error)
+    this.costSummaryService.getCostSummaryReport(this.projectId,this.defaultCostIn,this.defaultCostPer).subscribe(
+      projectCostPer => this.onGetCostSummaryReportSuccess(projectCostPer),
+      error => this.onGetCostSummaryReportFailure(error)
     );
   }
 
-  onGetCostPerSuccess(projects : any) {
-    this.projectBuildings = projects.data;
-
-    this.makeGrandTotal();
-  }
-
-  onGetCostPerFail(error : any) {
-    console.log('onGetCostPerFail()'+error);
-  }
-
-  deleteCostHeadDetailsfun(buildingId: string, costHeadId: number) {
+  setIdsForInActiveCostHead(buildingId: string, costHeadId: number) {
     this.buildingId = buildingId;
     this.costHeadId = costHeadId;
   }
 
-  deleteCostHeadDetails() {
-    this.costSummaryService.deleteCostHead(this.buildingId, this.costHeadId).subscribe(
-        costHeadDetail => this.onDeleteCostHeadSuccess(costHeadDetail),
-        error => this.onDeleteCostHeadFail(error)
+  inActiveCostHead() {
+    this.costSummaryService.inActiveCostHead(this.buildingId, this.costHeadId).subscribe(
+        costHeadDetail => this.onInActiveCostHeadSuccess(costHeadDetail),
+        error => this.onInActiveCostHeadFailure(error)
       );
     }
 
-  onDeleteCostHeadSuccess(costHeadDetail: any) {
-    this.onChangeCostingIn(this.defaultCostIn);
+  onInActiveCostHeadSuccess(costHeadDetail: any) {
+    this.onChangeCostingByUnit(this.defaultCostIn);
      if ( costHeadDetail!== null) {
       var message = new Message();
       message.isError = false;
@@ -205,28 +196,27 @@ export class CostSummaryComponent implements OnInit {
     }
   }
 
-  onDeleteCostHeadFail(error: any) {
+  onInActiveCostHeadFailure(error: any) {
     console.log(error);
   }
 
-  inactiveCostHeadSelected(selectedInactiveCostHeadId:number) {
+  onChangeActiveSelectedCostHead(selectedInactiveCostHeadId:number) {
     this.showCostHeadList=false;
-    this.costSummaryService.addInactiveCostHead(selectedInactiveCostHeadId,this.projectId,this.buildingId).subscribe(
-      inActiveCostHeads => this.onAddInactiveCostHeadSuccess(inActiveCostHeads),
-      error => this.onAddInactiveCostHeadFailure(error)
+    this.costSummaryService.activeCostHead(selectedInactiveCostHeadId,this.projectId,this.buildingId).subscribe(
+      inActiveCostHeads => this.onActiveCostHeadSuccess(inActiveCostHeads),
+      error => this.onActiveCostHeadFailure(error)
     );
   }
 
-
-  onAddInactiveCostHeadSuccess(inActiveCostHeads : any) {
+  onActiveCostHeadSuccess(inActiveCostHeads : any) {
     var message = new Message();
     message.isError = false;
     message.custom_message = Messages.MSG_SUCCESS_ADD_COSTHEAD;
     this.messageService.message(message);
-    this.onChangeCostingIn(this.defaultCostIn);
+    this.onChangeCostingByUnit(this.defaultCostIn);
   }
 
-  onAddInactiveCostHeadFailure(error : any) {
+  onActiveCostHeadFailure(error : any) {
     console.log('onAddInactiveCostHeadFailure()'+error);
   }
 
@@ -237,50 +227,51 @@ export class CostSummaryComponent implements OnInit {
       (this.defaultCostIn==='Rs/Sqft') ? costIn = 'sqft' : costIn = 'sqmt';
       (this.defaultCostPer==='SlabArea') ? costPer = 'slabArea' : costPer = 'saleableArea';
 
-      this.costSummaryService.updateBudgetCostAmountForCostHead(buildingId, costHead, costIn, costPer, buildingArea, amount).subscribe(
-        buildingDetails => this.updatedCostHeadAmountSuccess(buildingDetails),
-        error => this.updatedCostHeadAmountFail(error)
+      this.costSummaryService.updateBudgetedCost(buildingId, costHead, costIn, costPer, buildingArea, amount).subscribe(
+        buildingDetails => this.onUpdateBudgetedCostSuccess(buildingDetails),
+        error => this.onUpdateBudgetedCostFailure(error)
       );
     }
   }
 
-  updatedCostHeadAmountSuccess(buildingDetails : any) {
+  onUpdateBudgetedCostSuccess(buildingDetails : any) {
     var message = new Message();
     message.isError = false;
     message.custom_message = Messages.MSG_SUCCESS_UPDATE_BUDGETED_COST_COSTHEAD;
     this.messageService.message(message);
-    this.onChangeCostingIn(this.defaultCostIn);
+    this.onChangeCostingByUnit(this.defaultCostIn);
   }
 
-  updatedCostHeadAmountFail(error : any) {
+  onUpdateBudgetedCostFailure(error : any) {
     console.log('onAddCostheadSuccess : '+error);
   }
 
-  deleteBuildingFunction(buildingId : string) {
+  setIdForDeleteBuilding(buildingId : string) {
     this.currentBuildingId = buildingId;
   }
 
-    deleteThisBuilding() {
+    deleteBuilding() {
     this.listBuildingService.deleteBuildingById( this.currentBuildingId).subscribe(
-      project => this.onDeleteBuildingSuccess(project),
-      error => this.onDeleteBuildingFail(error)
+      project => this.onDeleteBuildingByIdSuccess(project),
+      error => this.onDeleteBuildingByIdFailure(error)
     );
   }
 
-  onDeleteBuildingSuccess(result : any) {
+  onDeleteBuildingByIdSuccess(result : any) {
     if (result !== null) {
       var message = new Message();
       message.isError = false;
       message.custom_message = Messages.MSG_SUCCESS_DELETE_BUILDING;
       this.messageService.message(message);
-      this.onChangeCostingIn(this.defaultCostIn);
+      this.onChangeCostingByUnit(this.defaultCostIn);
       }
   }
-  onDeleteBuildingFail(error : any) {
+
+  onDeleteBuildingByIdFailure(error : any) {
     console.log(error);
   }
 
-  addBuilding() {
+  createBuilding() {
     this._router.navigate([NavigationRoutes.APP_CREATE_BUILDING]);
   }
 
@@ -290,13 +281,13 @@ export class CostSummaryComponent implements OnInit {
   }
 
   cloneBuilding(buildingId: string) {
-    this.viewBuildingService.getBuildingDetails(buildingId).subscribe(
-      building => this.onGetBuildingDataSuccess(building),
-      error => this.onGetBuildingDataFail(error)
+    this.viewBuildingService.getBuildingDetailsForClone(buildingId).subscribe(
+      building => this.onGetBuildingDetailsForCloneSuccess(building),
+      error => this.onGetBuildingDetailsForCloneFailure(error)
     );
   }
 
-  onGetBuildingDataSuccess(building: any) {
+  onGetBuildingDetailsForCloneSuccess(building: any) {
     let buildingDetails = building.data;
     this.clonedBuildingDetails = building.data.costHeads;
     this.model.name = buildingDetails.name;
@@ -315,7 +306,7 @@ export class CostSummaryComponent implements OnInit {
     this.model.numOfLifts = buildingDetails.numOfLifts;
   }
 
-  onGetBuildingDataFail(error: any) {
+  onGetBuildingDetailsForCloneFailure(error: any) {
     console.log(error);
   }
 
@@ -337,26 +328,26 @@ export class CostSummaryComponent implements OnInit {
     console.log(error);
   }
 
-  updateThisBuilding(cloneCostHead: any) {
-    this.listBuildingService.updateBuildingByCostHead(cloneCostHead, this.cloneBuildingId).subscribe(
-      project => this.onUpdateBuildingByCostHeadSuccess(project),
-      error => this.onUpdateBuildingByCostHeadFailure(error)
+  cloneBuildingCostHeads(cloneCostHead: any) {
+    this.listBuildingService.cloneBuildingCostHeads(cloneCostHead, this.cloneBuildingId).subscribe(
+      project => this.onCloneBuildingCostHeadsSuccess(project),
+      error => this.onCloneBuildingCostHeadsFailure(error)
     );
   }
 
-  onUpdateBuildingByCostHeadSuccess(project: any) {
+  onCloneBuildingCostHeadsSuccess(project: any) {
     var message = new Message();
     message.isError = false;
     message.custom_message = Messages.MSG_SUCCESS_ADD_BUILDING_PROJECT;
     this.messageService.message(message);
-    this.onChangeCostingIn(this.defaultCostIn);
+    this.onChangeCostingByUnit(this.defaultCostIn);
   }
 
-  onUpdateBuildingByCostHeadFailure(error: any) {
+  onCloneBuildingCostHeadsFailure(error: any) {
     console.log(error);
   }
 
-  makeGrandTotal() {
+  calculateGrandTotal() {
     //ToDo we have to remove this code after
     this.grandTotalofBudgetedCost = 0;
     this.grandTotalofTotalRate = 0;

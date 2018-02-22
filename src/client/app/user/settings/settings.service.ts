@@ -11,7 +11,7 @@ export class SettingsService extends BaseService {
     super();
   }
 
-  chageTheme(userbody: string): Observable<any> {
+  changeTheme(userbody: string): Observable<any> {
     var url = API.CHANGE_THEME + '/' + SessionStorageService.getSessionValue(SessionStorage.USER_ID);
     let obj: any = {current_theme: ''};
     obj.current_theme = userbody;

@@ -76,7 +76,7 @@ export class SettingsComponent implements OnInit {
   }
   darkTheme() {
     this.themeChangeService.change(this.INITIAL_THEME);
-    this.changeThemeServie.chageTheme(this.INITIAL_THEME)
+    this.changeThemeServie.changeTheme(this.INITIAL_THEME)
       .subscribe(
         body => this.onChangeThemeSuccess(body),
         error => this.onChangeThemeFailure(error));
@@ -84,7 +84,7 @@ export class SettingsComponent implements OnInit {
 
   lightTheme() {
     this.themeChangeService.change(this.INITIAL_THEME);
-    this.changeThemeServie.chageTheme(this.INITIAL_THEME)
+    this.changeThemeServie.changeTheme(this.INITIAL_THEME)
       .subscribe(
         body => this.onChangeThemeSuccess(body),
         error => this.onChangeThemeFailure(error));

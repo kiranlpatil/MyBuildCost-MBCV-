@@ -10,17 +10,7 @@ export class GetQuantityService extends BaseService {
     super();
   }
 
-  getCostHeadQuantityDetails(projectId:string, costHead: string) {
-    let headers = new Headers({'Content-Type': 'application/json'});
-    let options = new RequestOptions({headers: headers});
-    let buildingId = SessionStorageService.getSessionValue(SessionStorage.CURRENT_BUILDING);
-    var url = 'project/'+projectId+'/'+API.VIEW_BUILDING+'/'+buildingId+'/'+'costhead/'+costHead;
-    return this.http.get(url, options)
-      .map(this.extractData)
-      .catch(this.handleError);
-  }
-
-  saveCostHeadItems(costHeadId:number, subCategoryId : number, workItemId:number, quantityItemsArray:any) {
+  updateQuantityItems(costHeadId:number, subCategoryId : number, workItemId:number, quantityItemsArray:any) {
     let headers = new Headers({'Content-Type': 'application/json'});
     let options = new RequestOptions({headers: headers});
     let projectId = SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT);

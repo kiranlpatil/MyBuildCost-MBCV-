@@ -14,7 +14,7 @@ import { QuantityItem } from '../../../../model/quantity-item';
 export class GetQuantityComponent implements OnInit {
   @Input() quantityItems :  Array<QuantityItem>;
   @Input() subCategoryRateAnalysisId : number;
-  @Output() refreshDataList = new EventEmitter();
+  @Output() refreshSubCategoryList = new EventEmitter();
 
   projectId : string;
   buildingId: string;
@@ -125,35 +125,36 @@ export class GetQuantityComponent implements OnInit {
     this.quantityItems.push(quantity);
   }
 
-    updateCostHeadWorkItem(quantityItems : any) {
+    updateQuantityItem(quantityItems : any) {
     let costHeadId = SessionStorageService.getSessionValue(SessionStorage.CURRENT_COST_HEAD_ID);
     let workItemId = SessionStorageService.getSessionValue(SessionStorage.CURRENT_WORKITEM_ID);
 
-    this.getQuantityService.saveCostHeadItems(parseInt(costHeadId), this.subCategoryRateAnalysisId,
+    this.getQuantityService.updateQuantityItems(parseInt(costHeadId), this.subCategoryRateAnalysisId,
       parseInt(workItemId), quantityItems).subscribe(
-      costHeadItemSave => this.onSaveCostHeadItemsSuccess(costHeadItemSave),
-      error => this.onSaveCostHeadItemsFailure(error)
+      costHeadItemSave => this.onUpdateQuantityItemsSuccess(costHeadItemSave),
+      error => this.onUpdateQuantityItemsFailure(error)
     );
   }
-  onSaveCostHeadItemsSuccess(costHeadItemSave: any) {
+  onUpdateQuantityItemsSuccess(costHeadItemSave: any) {
     this.quantityItems = costHeadItemSave.data.item;
     var message = new Message();
     message.isError = false;
     message.custom_message = Messages.MSG_SUCCESS_SAVED_COST_HEAD_ITEM;
     this.messageService.message(message);
-    this.refreshDataList.emit();
+    this.refreshSubCategoryList.emit();
   }
 
-  onSaveCostHeadItemsFailure(error: any) {
+  onUpdateQuantityItemsFailure(error: any) {
     var message = new Message();
     message.isError = true;
     message.custom_message = Messages.MSG_SUCCESS_SAVED_COST_HEAD_ITEM_ERROR;
     this.messageService.message(message);
   }
-  setQuantityItemName(itemName: string) {
+
+  setQuantityItemNameForDelete(itemName: string) {
     this.itemName = itemName;
   }
-  deleteQuantityItemfun() {
+  deleteQuantityItem() {
     let costHeadId = SessionStorageService.getSessionValue(SessionStorage.CURRENT_COST_HEAD_ID);
     let workItemId = SessionStorageService.getSessionValue(SessionStorage.CURRENT_WORKITEM_ID);
     this.getQuantityService.deleteQuantityItem(parseInt(costHeadId), this.subCategoryRateAnalysisId,

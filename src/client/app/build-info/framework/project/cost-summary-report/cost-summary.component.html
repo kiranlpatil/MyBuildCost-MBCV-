@@ -7,11 +7,11 @@
       </div>
       <div class="col-sm-7 text-right padding-top-7">
         <label>Costing in</label>
-        <select class="select-costing" (change)="onChangeCostingIn($event.target.value)">
+        <select class="select-costing" (change)="onChangeCostingByUnit($event.target.value)">
           <option *ngFor="let cIn of costIn" [value]="cIn.costInId">{{cIn.costInId}}</option>
         </select>
         <label>Costing per</label>
-        <select class="select-costing" (change)="onChangeCostingPer($event.target.value)">
+        <select class="select-costing" (change)="onChangeCostingByArea($event.target.value)">
           <option *ngFor="let cPer of costPer" [value]="cPer.costPerId">{{cPer.costPerId}}</option>
         </select>
       </div>
@@ -31,8 +31,8 @@
                 <ul class = "dropdown-menu">
                   <li><p  data-toggle="modal" data-target="#myModal" (click)="cloneBuilding(building._id)">Clone</p></li>
                   <li><p (click)="editBuildingDetails(building._id)">Edit</p></li>
-                  <li><p data-toggle="modal" data-target="#delete" (click)="deleteBuildingFunction(building._id)">Delete</p></li>
-                  <li><p (click)="addBuilding()">Add Building</p></li>
+                  <li><p data-toggle="modal" data-target="#delete" (click)="setIdForDeleteBuilding(building._id)">Delete</p></li>
+                  <li><p (click)="createBuilding()">Add Building</p></li>
                 </ul>
               </div>
             </div>
@@ -82,7 +82,7 @@
                       <td>
                         <div data-toggle="modal"
                              data-target="#deleteCosthead"
-                             (click)="deleteCostHeadDetailsfun(building._id, building.estimated.estimatedCosts[i].rateAnalysisId)"
+                             (click)="setIdsForInActiveCostHead(building._id, building.estimated.estimatedCosts[i].rateAnalysisId)"
                              class="delete-cost-head">
                           <img alt="Delete Cost Head" src="assets/build-info/dashboard/delete.png" />
                         </div>
@@ -90,7 +90,7 @@
                     </tr>
                     <tr *ngIf="showCostHeadList===true && buildingId===building._id">
                       <td class="border-left">
-                        <select class="select-item" (change)="inactiveCostHeadSelected($event.target.value)">
+                        <select class="select-item" (change)="onChangeActiveSelectedCostHead($event.target.value)">
                           <option>Select Item</option>
                           <option *ngFor="let costHeadItem of inActiveCostHeadArray" [value]="costHeadItem.rateAnalysisId">
                             {{costHeadItem.name}}
@@ -102,7 +102,7 @@
                     <tr>
                       <td colspan="6" class="add-items">
                         <button type="button" class="btn btn-add-item"
-                                (click)="showInactiveCostHeadsOnDropDown(building._id)">
+                                (click)="getInActiveCostHeads(building._id)">
                           <span class="glyphicon glyphicon-plus"></span>Add CostHead
                         </button>
                       </td>
@@ -232,7 +232,7 @@
           <p class="font-16">Do you want to delete a CostHead ?</p>
         </div>
         <div class="modal-footer">
-          <button class="btn btn-primary bi-btn" type="button" (click)="deleteCostHeadDetails()" data-dismiss="modal">Yes</button>
+          <button class="btn btn-primary bi-btn" type="button" (click)="inActiveCostHead()" data-dismiss="modal">Yes</button>
           <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
         </div>
       </div>
@@ -379,7 +379,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-          <button class="btn btn-primary clone-btn" type="button" (click)="updateThisBuilding(clonedBuildingDetails, clonedBuildingDetails._id)" data-toggle="modal" data-dismiss="modal">Clone</button>
+          <button class="btn btn-primary clone-btn" type="button" (click)="cloneBuildingCostHeads(clonedBuildingDetails, clonedBuildingDetails._id)" data-toggle="modal" data-dismiss="modal">Clone</button>
         </div>
       </div>
     </div>
@@ -396,7 +396,7 @@
           <p class="font-16">Do you want to delete a Building ?</p>
         </div>
         <div class="modal-footer">
-          <button class="btn btn-primary bi-btn" type="button"  (click)="deleteThisBuilding()" data-dismiss="modal">Yes</button>
+          <button class="btn btn-primary bi-btn" type="button"  (click)="deleteBuilding()" data-dismiss="modal">Yes</button>
           <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
         </div>
       </div>
