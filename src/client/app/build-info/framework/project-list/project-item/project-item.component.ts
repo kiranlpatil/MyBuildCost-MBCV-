@@ -18,8 +18,9 @@ export class ProjectItemComponent {
   constructor(private _router: Router) {
   }
 
-  navigateToSelectedProject(projectId:string) {
-    SessionStorageService.setSessionValue(SessionStorage.CURRENT_PROJECT, projectId);
+  navigateToSelectedProject(projectId:string,projectName:string) {
+    SessionStorageService.setSessionValue(SessionStorage.CURRENT_PROJECT_ID, projectId);
+    SessionStorageService.setSessionValue(SessionStorage.CURRENT_PROJECT_NAME, projectName);
     this._router.navigate([NavigationRoutes.APP_PROJECT, projectId, NavigationRoutes.APP_COST_SUMMARY]);
   }
 }

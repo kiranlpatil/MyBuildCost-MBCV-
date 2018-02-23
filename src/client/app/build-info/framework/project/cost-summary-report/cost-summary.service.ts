@@ -22,7 +22,7 @@ export class CostSummaryService extends BaseService {
 
   updateBudgetedCost(buildingId : string, costHeadName : string,
                      costIn : string, costPer : string, buildingArea : number, amount:number) {
-    var url = API.PROJECT + '/' + SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT)+
+    var url = API.PROJECT + '/' + SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT_ID)+
       '/'+ API.BUILDING + '/' +buildingId+ '/costhead';
     var body = {
       budgetedCostAmount : amount,
@@ -37,7 +37,7 @@ export class CostSummaryService extends BaseService {
 
   // Cost Head CRUD API
   inActiveCostHead(buildingId:string, costHeadId:number) {
-    let projectId = SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT);
+    let projectId = SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT_ID);
     var url = 'project/'+projectId+'/'+API.BUILDING+'/'+buildingId+'/'+'costHead/'+costHeadId+'/false';
     let body = {};
 
@@ -60,7 +60,7 @@ export class CostSummaryService extends BaseService {
   }
 
   getSubCategoryList(costheadId: number) {
-    let projectId = SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT);
+    let projectId = SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT_ID);
     let buildingId = SessionStorageService.getSessionValue(SessionStorage.CURRENT_BUILDING);
     var url = 'project/'+projectId+'/'+API.BUILDING+'/'+buildingId+'/'+'costhead/'+costheadId+'/'+'subcategorylist';
 
@@ -76,7 +76,7 @@ export class CostSummaryService extends BaseService {
 
   // Quantity API
   getQuantity(costHeadName:any,costHeadItem:any) {
-    var url = API.PROJECT + '/' + SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT)+
+    var url = API.PROJECT + '/' + SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT_ID)+
       '/'+ API.BUILDING + '/' +SessionStorageService.getSessionValue(SessionStorage.CURRENT_BUILDING)+
       '/' + API.QUANTITY + '/' + costHeadName + '/workitem/'+costHeadItem ;
 
@@ -84,7 +84,7 @@ export class CostSummaryService extends BaseService {
   }
 
   updateQuantityItems(costHeadId:number, subCategoryId : number, workItemId:number, quantityItemsArray:any) {
-    let projectId = SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT);
+    let projectId = SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT_ID);
     let buildingId = SessionStorageService.getSessionValue(SessionStorage.CURRENT_BUILDING);
     var body= { item : quantityItemsArray };
     var url = API.PROJECT + '/' + projectId + '/'+ API.BUILDING + '/' + buildingId
@@ -95,7 +95,7 @@ export class CostSummaryService extends BaseService {
 
   deleteQuantityItem(costHeadId:number, subCategoryId : number, workItemId:number, itemName: string) {
 
-    let projectId = SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT);
+    let projectId = SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT_ID);
     let body = { item : itemName };
     let buildingId = SessionStorageService.getSessionValue(SessionStorage.CURRENT_BUILDING);
     let url = API.PROJECT + '/' +  projectId + '/'+ API.BUILDING + '/' + buildingId + '/'
@@ -107,7 +107,7 @@ export class CostSummaryService extends BaseService {
   //Rate API
   updateRate(costheadId:number,subCategoryId:number,workItemId:number,rateItemsArray:any) {
     var body=rateItemsArray;
-    var url = API.PROJECT + '/' + SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT)+
+    var url = API.PROJECT + '/' + SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT_ID)+
       '/'+ API.BUILDING + '/' +SessionStorageService.getSessionValue(SessionStorage.CURRENT_BUILDING)+
       '/' + API.RATE + '/costhead/' + costheadId + '/subcategory/'+subCategoryId + '/workitem/'+workItemId ;
 
@@ -116,7 +116,7 @@ export class CostSummaryService extends BaseService {
 
   updateRateItems(costheadId:number,subCategoryId:number,workItemId:number,rateItemsArray:any) {
     var body=rateItemsArray;
-    var url = API.PROJECT + '/' + SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT)+
+    var url = API.PROJECT + '/' + SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT_ID)+
       '/'+ API.BUILDING + '/' +SessionStorageService.getSessionValue(SessionStorage.CURRENT_BUILDING)+
       '/' + API.RATE + '/costhead/' + costheadId + '/subcategory/'+subCategoryId + '/workitem/'+workItemId ;
 
@@ -124,7 +124,7 @@ export class CostSummaryService extends BaseService {
   }
 
   getRateItems(costheadId:number,subCategoryId:number,workItemId:number) {
-    var url = API.PROJECT + '/' + SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT)+
+    var url = API.PROJECT + '/' + SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT_ID)+
       '/'+ API.BUILDING + '/' +SessionStorageService.getSessionValue(SessionStorage.CURRENT_BUILDING)+
       '/' + API.RATE + '/costhead/' + costheadId + '/subcategory/'+subCategoryId + '/workitem/'+workItemId ;
 
@@ -144,7 +144,7 @@ export class CostSummaryService extends BaseService {
       name : subcategory.name,
       rateAnalysisId : subcategory.rateAnalysisId
     };
-    let url = API.PROJECT + '/' + SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT)+
+    let url = API.PROJECT + '/' + SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT_ID)+
       '/'+ API.BUILDING + '/' +SessionStorageService.getSessionValue(SessionStorage.CURRENT_BUILDING)+
       '/costhead/' + costHeadId + '/subcategory';
 
@@ -153,7 +153,7 @@ export class CostSummaryService extends BaseService {
 
   addSubCategory( selectedSubCategory:any, costHeadId:number ) {
     let url = API.PROJECT + '/'+
-      SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT) +'/'+
+      SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT_ID) +'/'+
       API.BUILDING + '/' +
       SessionStorageService.getSessionValue(SessionStorage.CURRENT_BUILDING) +
       '/costhead/' +costHeadId+'/subcategory';
@@ -167,7 +167,7 @@ export class CostSummaryService extends BaseService {
 
   //Quantity Items API
   deleteCostHeadItems(costHeadId:number, subCategoryId : number, workItemId:number, quantityItemsArray:any, itemName: string) {
-    let projectId = SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT);
+    let projectId = SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT_ID);
     let body = { item : itemName };
     let buildingId = SessionStorageService.getSessionValue(SessionStorage.CURRENT_BUILDING);
     var url = API.PROJECT + '/' +  projectId +
@@ -178,7 +178,7 @@ export class CostSummaryService extends BaseService {
   }
 
   addCostHeadItems(costHeadName:any,workItem:any,body:any) {
-    var url = API.PROJECT + '/' + SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT)+
+    var url = API.PROJECT + '/' + SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT_ID)+
       '/'+ API.BUILDING + '/' +SessionStorageService.getSessionValue(SessionStorage.CURRENT_BUILDING)+
       '/costhead/' + costHeadName + '/workitem/' + workItem + '/quantity';
 
@@ -186,7 +186,7 @@ export class CostSummaryService extends BaseService {
   }
 
   saveCostHeadItems(costHeadId:number, subCategoryId : number, workItemId:number, quantityItemsArray:any) {
-    let projectId = SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT);
+    let projectId = SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT_ID);
     let buildingId = SessionStorageService.getSessionValue(SessionStorage.CURRENT_BUILDING);
     var body= { 'item' : quantityItemsArray };
     var url = API.PROJECT + '/' + projectId + '/'+ API.BUILDING + '/' + buildingId + '/costhead/' + costHeadId +
@@ -197,7 +197,7 @@ export class CostSummaryService extends BaseService {
 
   //Workitems API
   getWorkItemList(costheadId:number,subCategoryId:number) {
-    var url = API.PROJECT + '/'+  SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT)+'/'
+    var url = API.PROJECT + '/'+  SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT_ID)+'/'
       + API.BUILDING + '/'+SessionStorageService.getSessionValue(SessionStorage.CURRENT_BUILDING)+'/costhead/'
       + costheadId + '/subcategory/'+subCategoryId + '/workitemlist';
 
@@ -209,7 +209,7 @@ export class CostSummaryService extends BaseService {
       rateAnalysisId : selectedWorkItemRateAnalysisId,
       name : selectedWorkItemName
     };
-    var url = API.PROJECT + '/'+  SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT)+'/'
+    var url = API.PROJECT + '/'+  SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT_ID)+'/'
       + API.BUILDING + '/'+SessionStorageService.getSessionValue(SessionStorage.CURRENT_BUILDING)+'/costhead/'
       + costheadId + '/subcategory/'+subCategoryId + '/workitem';
 
@@ -217,7 +217,7 @@ export class CostSummaryService extends BaseService {
   }
 
   deleteWorkItem(costHeadId:number, subCategoryId:number,workItemId:number) {
-    let projectId = SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT);
+    let projectId = SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT_ID);
     let buildingId = SessionStorageService.getSessionValue(SessionStorage.CURRENT_BUILDING);
     var url = API.PROJECT + '/' + projectId + '/'+ API.BUILDING + '/' + buildingId
       + '/costhead/' + costHeadId + '/subcategory/'+ subCategoryId +'/workitem/' + workItemId;

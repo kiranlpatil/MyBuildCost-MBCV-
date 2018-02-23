@@ -18,6 +18,6 @@ export class ProjectHeaderComponent implements OnInit {
   }
 
   getCurrentProjectId() {
-    return SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT);
+    return SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT_ID);
   }
 }

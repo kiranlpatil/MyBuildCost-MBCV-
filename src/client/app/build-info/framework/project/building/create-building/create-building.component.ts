@@ -47,7 +47,7 @@ export class CreateBuildingComponent {
   }
 
   goBack() {
-    let projectId = SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT);
+    let projectId = SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT_ID);
     this._router.navigate([NavigationRoutes.APP_PROJECT,projectId,NavigationRoutes.APP_COST_SUMMARY]);
   }
   onSubmit() {
@@ -99,7 +99,7 @@ export class CreateBuildingComponent {
     message.isError = false;
     message.custom_message = Messages.MSG_SUCCESS_ADD_BUILDING_PROJECT;
     this.messageService.message(message);
-    let projectId = SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT);
+    let projectId = SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT_ID);
     this._router.navigate([NavigationRoutes.APP_PROJECT, projectId, NavigationRoutes.APP_COST_SUMMARY]);
   }
 

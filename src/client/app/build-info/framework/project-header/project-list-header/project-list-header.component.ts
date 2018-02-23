@@ -15,11 +15,18 @@ import { Project } from './../../model/project';
 export class ProjectListHeaderComponent implements OnInit {
 
   projects : Array<Project>;
+  selectedProjectName : string;
 
   constructor(private projectService: ProjectService, private _router: Router) {
   }
 
   ngOnInit() {
+    if(SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT_NAME) === undefined ||
+          SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT_NAME) === null) {
+      this.selectedProjectName='My Projects';
+    } else {
+      this.selectedProjectName=SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT_NAME);
+    }
     this.getAllProjects();
   }
 
@@ -38,13 +45,20 @@ export class ProjectListHeaderComponent implements OnInit {
     console.log(error);
   }
 
-  selectedProject(projectId:string) {
-    if(projectId==='') {
-      sessionStorage.removeItem(SessionStorage.CURRENT_PROJECT);
+  selectedProject(projectName:string) {
+    if(projectName==='My Projects') {
+      sessionStorage.removeItem(SessionStorage.CURRENT_PROJECT_ID);
+      sessionStorage.removeItem(SessionStorage.CURRENT_PROJECT_NAME);
       this._router.navigate([NavigationRoutes.APP_DASHBOARD]);
     } else {
-      SessionStorageService.setSessionValue(SessionStorage.CURRENT_PROJECT, projectId);
-      this._router.navigate([NavigationRoutes.APP_PROJECT, projectId, NavigationRoutes.APP_COST_SUMMARY]);
+      SessionStorageService.setSessionValue(SessionStorage.CURRENT_PROJECT_NAME, projectName);
+      let projectList : Array<Project>;
+      projectList = this.projects.filter(
+        function( project: Project){
+          return project.name === projectName;
+        });
+      SessionStorageService.setSessionValue(SessionStorage.CURRENT_PROJECT_ID, projectList[0]._id);
+      this._router.navigate([NavigationRoutes.APP_PROJECT, projectList[0]._id, NavigationRoutes.APP_COST_SUMMARY]);
     }
   }
 

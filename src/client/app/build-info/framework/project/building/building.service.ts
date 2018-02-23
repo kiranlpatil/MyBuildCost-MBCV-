@@ -15,37 +15,37 @@ export class BuildingService extends BaseService {
   }
 
   createBuilding(building : Building): Observable<Building> {
-    let url =API.PROJECT+'/'+SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT)+'/'+API.BUILDING;
+    let url =API.PROJECT+'/'+SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT_ID)+'/'+API.BUILDING;
     return this.httpDelegateService.postAPI(url, building);
   }
 
   getBuilding(buildingId : string): Observable<Building> {
-    var url = API.PROJECT+'/'+SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT)+'/'
+    var url = API.PROJECT+'/'+SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT_ID)+'/'
       +API.BUILDING+'/'+ buildingId;
     return this.httpDelegateService.getAPI(url);
   }
 
   updateBuilding(building: Building): Observable<Building> {
-    var url = API.PROJECT+'/'+SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT)+'/'
+    var url = API.PROJECT+'/'+SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT_ID)+'/'
       +API.BUILDING+'/'+ SessionStorageService.getSessionValue(SessionStorage.CURRENT_BUILDING);
     return this.httpDelegateService.putAPI(url, building);
   }
 
   deleteBuildingById(buildingId : any): Observable<Project> {
-    var url = API.PROJECT + '/' + SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT)
+    var url = API.PROJECT + '/' + SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT_ID)
       + '/' + API.BUILDING + '/' + buildingId;
     return this.httpDelegateService.deleteAPI(url);
   }
 
   getBuildingDetailsForClone(buildingId : string): Observable<Building> {
-    var url = API.PROJECT+'/'+SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT)+'/'
+    var url = API.PROJECT+'/'+SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT_ID)+'/'
       +API.BUILDING+'/'+ buildingId +'/'+ API.CLONE;
     return this.httpDelegateService.getAPI(url);
   }
 
   cloneBuildingCostHeads(cloneCostHead: any, clonedBuildingId:string) {
     let updateData = {'costHead' : cloneCostHead};
-    var url =  API.PROJECT + '/' + SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT)
+    var url =  API.PROJECT + '/' + SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT_ID)
       + '/'+ API.BUILDING + '/'+ clonedBuildingId + '/' +API.CLONE;
     return this.httpDelegateService.putAPI(url, updateData);
   }

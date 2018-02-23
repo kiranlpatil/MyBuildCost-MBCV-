@@ -29,7 +29,7 @@ export class ProjectService extends BaseService {
   }
 
   updateProject(modelProject: Project): Observable<Project> {
-    let url = API.PROJECT+'/'+SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT);
+    let url = API.PROJECT+'/'+SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT_ID);
     return this.httpDelegateService.putAPI(url, modelProject);
   }
 

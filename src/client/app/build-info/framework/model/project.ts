@@ -1,6 +1,7 @@
 import { Building } from './building';
 
 export class Project {
+  _id:string='';
   name: string = '';
   region: string = '';
   plotArea: number;

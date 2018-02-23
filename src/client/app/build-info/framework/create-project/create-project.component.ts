@@ -53,7 +53,8 @@ export class CreateProjectComponent {
   }
 
   onCreateProjectSuccess(project : any) {
-    SessionStorageService.setSessionValue(SessionStorage.CURRENT_PROJECT, project._id);
+    SessionStorageService.setSessionValue(SessionStorage.CURRENT_PROJECT_ID, project._id);
+    SessionStorageService.setSessionValue(SessionStorage.CURRENT_PROJECT_NAME, project.name);
     var message = new Message();
     message.isError = false;
     message.custom_message = Messages.MSG_SUCCESS_PROJECT_CREATION;
