@@ -30,16 +30,6 @@ export class GetRateComponent {
   constructor(private costSummaryService: CostSummaryService, private messageService: MessageService) {
   }
 
-  changeQuantity(quantity: any, k: number) {
-    this.rateItemsArray.items[k].quantity = parseFloat(quantity);
-    this.calculateTotal('changeQuantity');
-  }
-
-  changeRate(rate: any, k: number) {
-    this.rateItemsArray.items[k].rate = parseFloat(rate);
-    this.calculateTotal('changeRate');
-  }
-
   calculateTotal(choice:string) {
     this.totalAmount = 0;
     this.totalRate = 0.0;

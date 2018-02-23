@@ -27,7 +27,6 @@ export class CostHeadComponent implements OnInit, OnChanges {
   subCategoryId: number;
   subCategoryDetails: Array<SubCategory>;
   subCategoryDetailsTotalAmount: number=0;
- /* itemArray :Rate;*/
   workItem: WorkItem;
   totalAmount:number=0;
   totalRate:number=0;
@@ -156,14 +155,10 @@ export class CostHeadComponent implements OnInit, OnChanges {
     if (this.toggleRate === true) {
       this.toggleQty = false;
     }
-    //this.itemArray = itemArray;
     this.rateItemsArray=itemArray;
     let rate = new Rate();
     rate.items = itemArray.items;
     rate.rateFromRateAnalysis = itemArray.rateFromRateAnalysis ;
-    /*rate.rateFromRateAnalysis = this.itemArray.rateFromRateAnalysis ;
-    rate.quantity =   this.itemArray.quantity;
-    rate.unit =   this.itemArray.unit;*/
     rate.total = itemArray.total;
     rate.unit = itemArray.unit;
     rate.quantity = itemArray.quantity;
