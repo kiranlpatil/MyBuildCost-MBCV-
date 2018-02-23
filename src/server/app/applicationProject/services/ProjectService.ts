@@ -310,7 +310,7 @@ class ProjectService {
         callback(error, null);
       } else {
         let query = {_id: projectId};
-        let newData = { $pull: {building : popBuildingId}};
+        let newData = { $pull: {buildings : popBuildingId}};
         this.projectRepository.findOneAndUpdate(query, newData, {new: true}, (error, status)=> {
           logger.info('Project service, findOneAndUpdate has been hit');
           if(error) {
