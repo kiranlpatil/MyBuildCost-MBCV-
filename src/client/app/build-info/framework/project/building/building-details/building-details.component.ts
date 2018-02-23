@@ -17,11 +17,10 @@ import { BuildingService } from '../building.service';
 export class BuildingDetailsComponent implements OnInit {
 
   viewBuildingForm:  FormGroup;
-  buildings : any;
   buildingId : string;
   buildingModel: Building = new Building();
   public isShowErrorMessage: boolean = true;
-  public error_msg: boolean = false;
+  public errorMessage: boolean = false;
 
   constructor(private buildingService: BuildingService, private _router: Router, private formBuilder: FormBuilder,
               private activatedRoute:ActivatedRoute, private messageService: MessageService) {
@@ -62,22 +61,8 @@ export class BuildingDetailsComponent implements OnInit {
   }
 
   onGetBuildingSuccess(building : any) {
-    let buildingDetails = building.data;
-    this.buildingModel.name = buildingDetails.name;
-    this.buildingModel.totalSlabArea = buildingDetails.totalSlabArea;
-    this.buildingModel.totalCarpetAreaOfUnit = buildingDetails.totalCarpetAreaOfUnit;
-    this.buildingModel.totalSaleableAreaOfUnit = buildingDetails.totalSaleableAreaOfUnit;
-    this.buildingModel.plinthArea = buildingDetails.plinthArea;
-    this.buildingModel.totalNumOfFloors = buildingDetails.totalNumOfFloors;
-    this.buildingModel.numOfParkingFloors = buildingDetails.numOfParkingFloors;
-    this.buildingModel.carpetAreaOfParking = buildingDetails.carpetAreaOfParking;
-    this.buildingModel.numOfOneBHK = buildingDetails.numOfOneBHK;
-    this.buildingModel.numOfTwoBHK = buildingDetails.numOfTwoBHK;
-    this.buildingModel.numOfThreeBHK = buildingDetails.numOfThreeBHK;
-    this.buildingModel.numOfFourBHK = buildingDetails.numOfFourBHK;
-    this.buildingModel.numOfFiveBHK = buildingDetails.numOfFiveBHK;
-    this.buildingModel.numOfLifts = buildingDetails.numOfLifts;
-    }
+    this.buildingModel = building.data;
+  }
 
   onGetBuildingFailure(error : any) {
     var message = new Message();
@@ -88,7 +73,7 @@ export class BuildingDetailsComponent implements OnInit {
       this.messageService.message(message);
     } else {
       this.isShowErrorMessage = false;
-      this.error_msg = error.err_msg;
+      this.errorMessage = error.err_msg;
       message.error_msg = error.err_msg;
       message.isError = true;
       this.messageService.message(message);
@@ -124,7 +109,7 @@ export class BuildingDetailsComponent implements OnInit {
       this.messageService.message(message);
     } else {
       this.isShowErrorMessage = false;
-      this.error_msg = error.err_msg;
+      this.errorMessage = error.err_msg;
       message.error_msg = error.err_msg;
       message.isError = true;
       this.messageService.message(message);

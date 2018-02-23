@@ -18,25 +18,12 @@ export class GetQuantityComponent implements OnInit {
 
   projectId : string;
   buildingId: string;
-  buildingName: string;
   itemName: string;
-  costHead: string;
-  costheadId:number;
-  subCategoryId: number;
-  subCategoryDetails: any;
   quantityTotal: number = 0;
   quanitytNumbersTotal: number = 0;
   lengthTotal: number = 0;
   breadthTotal: number = 0;
   heightTotal: number = 0;
-  totalAmount:number=0;
-  totalRate:number=0;
-  totalQuantity:number=0;
-  total:number=0;
-  quantity:number=0;
-  unit:string='';
-  quantityItemsArray:any;
-  showSubcategoryListvar: boolean = false;
 
   constructor(private costSummaryService : CostSummaryService, private activatedRoute : ActivatedRoute,
               private messageService: MessageService) {

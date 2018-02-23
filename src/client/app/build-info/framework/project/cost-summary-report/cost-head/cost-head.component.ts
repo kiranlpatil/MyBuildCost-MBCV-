@@ -6,6 +6,9 @@ import { Rate } from '../../../model/rate';
 import { CommonService } from '../../../../../shared/services/common.service';
 import { CostSummaryService } from '../cost-summary.service';
 import * as lodsh from 'lodash';
+import { SubCategory } from '../../../model/sub-category';
+import { WorkItem } from '../../../model/work-item';
+import { QuantityItem } from '../../../model/quantity-item';
 
 @Component({
   moduleId: module.id,
@@ -19,53 +22,39 @@ export class CostHeadComponent implements OnInit, OnChanges {
   buildingId: string;
   buildingName: string;
   costHead: string;
-  costheadId:number;
+  costHeadId:number;
   workItemId: number;
-  itemName: string;
   subCategoryId: number;
-  costHeadDetails: any;
-  subCategoryDetails: any;
+  subCategoryDetails: Array<SubCategory>;
   subCategoryDetailsTotalAmount: number=0;
-  costHeadItemSave: any;
-  itemArray : any;
-  workItem: any;
-  quantityTotal: number = 0;
-  quanitytNumbersTotal: number = 0;
-  lengthTotal: number = 0;
-  breadthTotal: number = 0;
-  heightTotal: number = 0;
+ /* itemArray :Rate;*/
+  workItem: WorkItem;
   totalAmount:number=0;
   totalRate:number=0;
   totalQuantity:number=0;
-  total:number=0;
-  quantityIncrement:number=1;
-  previousTotalQuantity:number=1;
-  totalItemRateQuantity:number=0;
   subcategoryRateAnalysisId:number;
   comapreWorkItemRateAnalysisId:number;
-  itemSize:number=0;
   quantity:number=0;
   rateFromRateAnalysis:number=0;
   unit:string='';
   showSubcategoryListvar: boolean = false;
-  alreadySelectedWorkItems:any;
-
+  alreadySelectedWorkItems: Array<WorkItem>;
 
   private showQuantity:boolean=true;
   private showRate:boolean=true;
   private toggleQty:boolean=false;
   private toggleRate:boolean=false;
+  private showWorkItemList:boolean=false;
   private compareWorkItemIndex:number=0;
   private compareSubcategoryIndex:number=0;
-  private quantityItemsArray: any;
-  private rateItemsArray: any;
-  private subcategoryArray : Array<any> = [];
-  private subcategoryArrayList : Array<any> = [];
-  private rateIArray: any;
-  private workItemListArray: any;
-  private subcategoryListArray : Array<any> = [];
-  private showWorkItemList:boolean=false;
-  private subCategoryObj: any;
+  private quantityItemsArray: QuantityItem;
+  private rateItemsArray: Rate;
+  private subcategoryArray : Array<SubCategory> = [];
+  private subcategoryArrayList : Array<SubCategory> = [];
+
+  private workItemListArray: Array<WorkItem> = [];
+  private subcategoryListArray : Array<SubCategory> = [];
+  private subCategoryObj: Array<SubCategory>;
 
 
   constructor(private costSummaryService : CostSummaryService, private activatedRoute : ActivatedRoute,
@@ -78,9 +67,9 @@ export class CostHeadComponent implements OnInit, OnChanges {
       this.buildingName = params['buildingName'];
       this.costHead = params['costHeadName'];
       let costheadIdParams = params['costHeadId'];
-      this.costheadId = parseInt(costheadIdParams);
-      SessionStorageService.setSessionValue(SessionStorage.CURRENT_COST_HEAD_ID,this.costheadId);
-      this.getSubCategoryDetails(this.projectId, this.costheadId);
+      this.costHeadId = parseInt(costheadIdParams);
+      SessionStorageService.setSessionValue(SessionStorage.CURRENT_COST_HEAD_ID,this.costHeadId);
+      this.getSubCategoryDetails(this.projectId, this.costHeadId);
     });
   }
 
@@ -115,7 +104,7 @@ export class CostHeadComponent implements OnInit, OnChanges {
     this.workItemId = workItem.rateAnalysisId;
     SessionStorageService.setSessionValue(SessionStorage.CURRENT_WORKITEM_ID, this.workItemId);
     let subCategoryId=this.subCategoryDetails[i].rateAnalysisId;
-    this.costSummaryService.getRateItems(this.costheadId, subCategoryId,this.workItemId).subscribe(
+    this.costSummaryService.getRateItems(this.costHeadId, subCategoryId,this.workItemId).subscribe(
         rateItem => {
           this.onGetRateItemsSuccess(rateItem, workItem);
           },error => this.onGetRateItemsFailure(error)
@@ -157,7 +146,7 @@ export class CostHeadComponent implements OnInit, OnChanges {
   }
 
   //Rate from DB
-  getRateFromDatabase(i:number,workItemIndex:number,itemArray:any, workItem : any) {
+  getRateFromDatabase(i:number,workItemIndex:number,itemArray:Rate, workItem : any) {
     this.compareSubcategoryIndex=i;
     this.toggleRate = !this.toggleRate;
     this.workItem = workItem;
@@ -167,13 +156,14 @@ export class CostHeadComponent implements OnInit, OnChanges {
     if (this.toggleRate === true) {
       this.toggleQty = false;
     }
-    this.itemArray = itemArray;
+    //this.itemArray = itemArray;
     this.rateItemsArray=itemArray;
     let rate = new Rate();
     rate.items = itemArray.items;
-    rate.rateFromRateAnalysis = this.itemArray.rateFromRateAnalysis ;
+    rate.rateFromRateAnalysis = itemArray.rateFromRateAnalysis ;
+    /*rate.rateFromRateAnalysis = this.itemArray.rateFromRateAnalysis ;
     rate.quantity =   this.itemArray.quantity;
-    rate.unit =   this.itemArray.unit;
+    rate.unit =   this.itemArray.unit;*/
     rate.total = itemArray.total;
     rate.unit = itemArray.unit;
     rate.quantity = itemArray.quantity;
@@ -190,8 +180,8 @@ export class CostHeadComponent implements OnInit, OnChanges {
     this.showRate = true;
   }
 
-  getSubCategoryDetails(projectId: string, costheadId: number) {
-    this.costSummaryService.getSubCategoryDetails(projectId,costheadId).subscribe(
+  getSubCategoryDetails(projectId: string, costHeadId: number) {
+    this.costSummaryService.getSubCategoryDetails(projectId,costHeadId).subscribe(
       subCategoryDetail => this.OnGetSubCategoryDetailsSuccess(subCategoryDetail),
       error => this.OnGetSubCategoryDetailsFailure(error)
     );
@@ -232,7 +222,7 @@ export class CostHeadComponent implements OnInit, OnChanges {
       message.isError = false;
       message.custom_message = Messages.MSG_SUCCESS_DELETE_COSTHEAD_WORKITEM;
       this.messageService.message(message);
-      this.getSubCategoryDetails(this.projectId, this.costheadId);
+      this.getSubCategoryDetails(this.projectId, this.costHeadId);
     }
   }
 
@@ -241,13 +231,13 @@ export class CostHeadComponent implements OnInit, OnChanges {
     message.isError = false;
     message.custom_message = Messages.MSG_SUCCESS_SAVED_COST_HEAD_ITEM_ERROR;
     this.messageService.message(message);
-    this.getSubCategoryDetails(this.projectId, this.costheadId);
+    this.getSubCategoryDetails(this.projectId, this.costHeadId);
   }
 
   getWorkItemList(subCategoryId:number,i:number) {
     this.comapreWorkItemRateAnalysisId=i;
     this.subcategoryRateAnalysisId=subCategoryId;
-    this.costSummaryService.getWorkItemList(this.costheadId,subCategoryId).subscribe(
+    this.costSummaryService.getWorkItemList(this.costHeadId,subCategoryId).subscribe(
       workItemList => this.onGetWorkItemListSuccess(workItemList),
       error => this.onGetWorkItemListFailure(error)
     );
@@ -281,7 +271,7 @@ export class CostHeadComponent implements OnInit, OnChanges {
       });
 
     let subCategoryId=this.subcategoryRateAnalysisId;
-    this.costSummaryService.addWorkItem(this.costheadId,subCategoryId,workItemObject[0].rateAnalysisId,workItemObject[0].name).subscribe(
+    this.costSummaryService.addWorkItem(this.costHeadId,subCategoryId,workItemObject[0].rateAnalysisId,workItemObject[0].name).subscribe(
       workItemList => this.onAddWorkItemSuccess(workItemList),
       error => this.onAddWorkItemFailure(error)
     );
@@ -294,7 +284,7 @@ export class CostHeadComponent implements OnInit, OnChanges {
     message.custom_message = Messages.MSG_SUCCESS_ADD_WORKITEM;
     this.messageService.message(message);
     this.showWorkItemList=false;
-    this.getSubCategoryDetails(this.projectId, this.costheadId);
+    this.getSubCategoryDetails(this.projectId, this.costHeadId);
   }
 
   onAddWorkItemFailure(error:any) {
@@ -307,14 +297,14 @@ export class CostHeadComponent implements OnInit, OnChanges {
 
   deleteSubCategory() {
     let subcategory = this.subCategoryObj;
-    this.costSummaryService.deleteSubCategory(this.costheadId, subcategory).subscribe(
+    this.costSummaryService.deleteSubCategory(this.costHeadId, subcategory).subscribe(
       deleteSubcategory => this.onDeleteSubCategorySuccess(deleteSubcategory),
       error => this.onDeleteSubCategoryFailure(error)
     );
   }
 
   onDeleteSubCategorySuccess(deleteSubcategory : any) {
-    this.getSubCategoryDetails(this.projectId, this.costheadId);
+    this.getSubCategoryDetails(this.projectId, this.costHeadId);
   }
 
   onDeleteSubCategoryFailure(error : any) {
@@ -322,7 +312,7 @@ export class CostHeadComponent implements OnInit, OnChanges {
   }
 
   getSubCategoryList() {
-    this.costSummaryService.getSubCategoryList(this.costheadId).subscribe(
+    this.costSummaryService.getSubCategoryList(this.costHeadId).subscribe(
       subcategoryList => this.onGetSubCategoryListSuccess(subcategoryList),
       error => this.onGetSubCategoryListFailure(error)
     );
@@ -345,7 +335,7 @@ export class CostHeadComponent implements OnInit, OnChanges {
       function( subCatObj: any){
         return subCatObj.rateAnalysisId === parseInt(selectedSubCategoryId);
     });
-    this.costSummaryService.addSubCategory( subCategoryObj, this.costheadId).subscribe(
+    this.costSummaryService.addSubCategory( subCategoryObj, this.costHeadId).subscribe(
       building => this.onAddSubCategorySuccess(building),
       error => this.onAddSubCategoryFailure(error)
     );
@@ -356,7 +346,7 @@ export class CostHeadComponent implements OnInit, OnChanges {
     message.isError = false;
     message.custom_message = Messages.MSG_SUCCESS_ADD_SUBCATEGORY;
     this.messageService.message(message);
-    this.getSubCategoryDetails(this.projectId, this.costheadId);
+    this.getSubCategoryDetails(this.projectId, this.costHeadId);
   }
 
   onAddSubCategoryFailure(error : any) {
@@ -364,7 +354,7 @@ export class CostHeadComponent implements OnInit, OnChanges {
   }
 
   refreshSubCategoryList() {
-    this.getSubCategoryDetails(this.projectId, this.costheadId);
+    this.getSubCategoryDetails(this.projectId, this.costHeadId);
     this.showQuantity = false;
     this.showRate = false;
   }

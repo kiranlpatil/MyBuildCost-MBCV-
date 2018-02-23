@@ -7,6 +7,7 @@ import { Building } from '../../model/building';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ValidationService } from '../../../../shared/customvalidations/validation.service';
 import { BuildingService } from '../building/building.service';
+import { CostHead } from '../../model/costhead';
 
 @Component({
   moduleId: module.id,
@@ -21,7 +22,6 @@ export class CostSummaryComponent implements OnInit {
   projectId: string;
   buildingId: string;
   cloneBuildingId: string;
-  currentBuildingId:string;
   costHeadId: number;
 
   grandTotalofBudgetedCost: number;
@@ -31,10 +31,9 @@ export class CostSummaryComponent implements OnInit {
   grandTotalofEstimatedRate : number;
 
   buildingName : string;
-  buildingsDetails: any;
-  estimatedCost : any;
+  buildingsDetails: Building;
   costHead: string;
-  costHeadName: string;
+
   estimatedItem: any;
   showCostHeadList:boolean=false;
   showGrandTotalPanelBody:boolean=true;
@@ -42,8 +41,8 @@ export class CostSummaryComponent implements OnInit {
 
  public inActiveCostHeadArray:any;
   cloneBuildingForm: FormGroup;
-  model: Building = new Building();
-  clonedBuildingDetails: any;
+  cloneBuildingModel: Building = new Building();
+  clonedBuildingDetails: Array<CostHead>;
 
   public costIn: any[] = [
     { 'costInId': 'Rs/Sqft'},
@@ -245,11 +244,11 @@ export class CostSummaryComponent implements OnInit {
   }
 
   setIdForDeleteBuilding(buildingId : string) {
-    this.currentBuildingId = buildingId;
+    this.buildingId = buildingId;
   }
 
   deleteBuilding() {
-    this.buildingService.deleteBuildingById( this.currentBuildingId).subscribe(
+    this.buildingService.deleteBuildingById( this.buildingId).subscribe(
       project => this.onDeleteBuildingByIdSuccess(project),
       error => this.onDeleteBuildingByIdFailure(error)
     );
@@ -286,22 +285,8 @@ export class CostSummaryComponent implements OnInit {
   }
 
   onGetBuildingDetailsForCloneSuccess(building: any) {
-    let buildingDetails = building.data;
+    this.cloneBuildingModel = building.data;
     this.clonedBuildingDetails = building.data.costHeads;
-    this.model.name = buildingDetails.name;
-    this.model.totalSlabArea = buildingDetails.totalSlabArea;
-    this.model.totalCarpetAreaOfUnit = buildingDetails.totalCarpetAreaOfUnit;
-    this.model.totalSaleableAreaOfUnit = buildingDetails.totalSaleableAreaOfUnit;
-    this.model.plinthArea = buildingDetails.plinthArea;
-    this.model.totalNumOfFloors = buildingDetails.totalNumOfFloors;
-    this.model.numOfParkingFloors = buildingDetails.numOfParkingFloors;
-    this.model.carpetAreaOfParking = buildingDetails.carpetAreaOfParking;
-    this.model.numOfOneBHK = buildingDetails.numOfOneBHK;
-    this.model.numOfTwoBHK = buildingDetails.numOfTwoBHK;
-    this.model.numOfThreeBHK = buildingDetails.numOfThreeBHK;
-    this.model.numOfFourBHK = buildingDetails.numOfFourBHK;
-    this.model.numOfFiveBHK = buildingDetails.numOfFiveBHK;
-    this.model.numOfLifts = buildingDetails.numOfLifts;
   }
 
   onGetBuildingDetailsForCloneFailure(error: any) {
@@ -310,8 +295,8 @@ export class CostSummaryComponent implements OnInit {
 
   cloneBuildingBasicDetails() {
     if (this.cloneBuildingForm.valid) {
-      this.model = this.cloneBuildingForm.value;
-      this.buildingService.createBuilding(this.model)
+      this.cloneBuildingModel = this.cloneBuildingForm.value;
+      this.buildingService.createBuilding(this.cloneBuildingModel)
         .subscribe(
           building => this.onCreateBuildingSuccess(building),
           error => this.onCreateBuildingFailure(error));

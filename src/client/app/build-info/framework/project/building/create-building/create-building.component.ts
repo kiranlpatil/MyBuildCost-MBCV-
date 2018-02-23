@@ -7,7 +7,6 @@ import { SessionStorage, SessionStorageService,  Message,
 import { Building } from '../../../model/building';
 import { BuildingService } from './../building.service';
 import { ValidationService } from '../../../../../shared/customvalidations/validation.service';
-import { SharedService } from '../../../../../shared/services/shared-service';
 
 
 @Component({
@@ -20,14 +19,13 @@ import { SharedService } from '../../../../../shared/services/shared-service';
 export class CreateBuildingComponent {
 
   addBuildingForm:  FormGroup;
-  buildings : any;
   public isShowErrorMessage: boolean = true;
-  public error_msg: boolean = false;
-  modelBuilding: Building = new Building();
+  public errorMessage: boolean = false;
+  buildingModel: Building = new Building();
   BODY_BACKGROUND_TRANSPARENT: string;
 
   constructor(private buildingService: BuildingService, private formBuilder: FormBuilder,
-              private _router: Router, private messageService: MessageService,private sharedService: SharedService) {
+              private _router: Router, private messageService: MessageService) {
     this.BODY_BACKGROUND_TRANSPARENT = ImagePath.BODY_BACKGROUND_TRANSPARENT;
     this.addBuildingForm = this.formBuilder.group({
       name : ['', ValidationService.requiredBuildingName],
@@ -54,36 +52,36 @@ export class CreateBuildingComponent {
   }
   onSubmit() {
     if(this.addBuildingForm.valid) {
-      this.modelBuilding = this.addBuildingForm.value;
-      if(this.modelBuilding.numOfOneBHK !== undefined || this.modelBuilding.numOfTwoBHK !== undefined
-        || this.modelBuilding.numOfThreeBHK !== undefined ||
-        this.modelBuilding.numOfFourBHK !== undefined || this.modelBuilding.numOfFiveBHK !== undefined ) {
+      this.buildingModel = this.addBuildingForm.value;
+      if(this.buildingModel.numOfOneBHK !== undefined || this.buildingModel.numOfTwoBHK !== undefined
+        || this.buildingModel.numOfThreeBHK !== undefined ||
+        this.buildingModel.numOfFourBHK !== undefined || this.buildingModel.numOfFiveBHK !== undefined ) {
 
-        if(this.modelBuilding.numOfOneBHK === undefined) {
-          this.modelBuilding.numOfOneBHK=0;
+        if(this.buildingModel.numOfOneBHK === undefined) {
+          this.buildingModel.numOfOneBHK=0;
         }
 
-        if(this.modelBuilding.numOfTwoBHK === undefined) {
-          this.modelBuilding.numOfTwoBHK=0;
+        if(this.buildingModel.numOfTwoBHK === undefined) {
+          this.buildingModel.numOfTwoBHK=0;
         }
 
-        if(this.modelBuilding.numOfThreeBHK === undefined) {
-          this.modelBuilding.numOfThreeBHK=0;
+        if(this.buildingModel.numOfThreeBHK === undefined) {
+          this.buildingModel.numOfThreeBHK=0;
         }
 
-        if(this.modelBuilding.numOfFourBHK === undefined) {
-          this.modelBuilding.numOfFourBHK=0;
+        if(this.buildingModel.numOfFourBHK === undefined) {
+          this.buildingModel.numOfFourBHK=0;
         }
 
-        if(this.modelBuilding.numOfFiveBHK === undefined) {
-          this.modelBuilding.numOfFiveBHK=0;
+        if(this.buildingModel.numOfFiveBHK === undefined) {
+          this.buildingModel.numOfFiveBHK=0;
         }
 
-        if(this.modelBuilding.numOfLifts === undefined) {
-          this.modelBuilding.numOfLifts=0;
+        if(this.buildingModel.numOfLifts === undefined) {
+          this.buildingModel.numOfLifts=0;
         }
 
-      this.buildingService.createBuilding(this.modelBuilding)
+      this.buildingService.createBuilding(this.buildingModel)
         .subscribe(
           building => this.onCreateBuildingSuccess(building),
           error => this.onCreateBuildingFailure(error));

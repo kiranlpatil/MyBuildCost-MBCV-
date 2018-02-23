@@ -16,11 +16,10 @@ import { ValidationService } from '../../../../shared/customvalidations/validati
 export class ProjectDetailsComponent implements OnInit {
 
   viewProjectForm:  FormGroup;
-  project : any;
-  projectId : any;
+  projectId : string;
   projectModel: Project = new Project();
   public isShowErrorMessage: boolean = true;
-  public error_msg: boolean = false;
+  public errorMessage: boolean = false;
 
   constructor(private projectService: ProjectService, private formBuilder: FormBuilder,
               private messageService: MessageService, private activatedRoute:ActivatedRoute) {
@@ -95,7 +94,7 @@ export class ProjectDetailsComponent implements OnInit {
       this.messageService.message(message);
     } else {
       this.isShowErrorMessage = false;
-      this.error_msg = error.err_msg;
+      this.errorMessage = error.err_msg;
       message.error_msg = error.err_msg;
       message.isError = true;
       this.messageService.message(message);

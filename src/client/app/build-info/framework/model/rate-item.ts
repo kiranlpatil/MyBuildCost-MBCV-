@@ -6,4 +6,5 @@ export class RateItem {
   quantity: number;
   rateAnalysisId: number;
   totalAmount: number;
+  remarks: string;
 }

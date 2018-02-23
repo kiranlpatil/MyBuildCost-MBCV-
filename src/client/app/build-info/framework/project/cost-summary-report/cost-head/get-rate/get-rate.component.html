@@ -41,13 +41,14 @@
                         </div>
                       </td>
                       <td>
-                        <input type="number" [(ngModel)]="item.quantity" id="itemQuantity" class="form-control text-right" (change)="changeQuantity(item.quantity,k)"/>
+                       <!-- <input type="number" [(ngModel)]="item.quantity" id="itemQuantity" class="form-control text-right" (change)="changeQuantity(item.quantity,k)"/>-->
+                        <input type="number" [(ngModel)]="item.quantity" id="itemQuantity" class="form-control text-right" (change)="calculateTotal('changeQuantity')"/>
                       </td>
                       <td>
                         <input [(ngModel)]="item.unit" id="itemUnit" class="form-control text-right" (change)="changeQuantity(item.quantity,k)"/>
                       </td>
                       <td>
-                        <input type="number" [(ngModel)]="item.rate" id="itemRate" class="form-control text-right" (change)="changeRate(item.rate,k)"/>
+                        <input type="number" [(ngModel)]="item.rate" id="itemRate" class="form-control text-right" (change)="calculateTotal('changeRate')"/>
                       </td>
                       <td>
                         <input type="number" [(ngModel)]="item.quantity*item.rate" id="totalAmount get-total-amount text-right" class="form-control clear" readonly/>

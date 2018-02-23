@@ -16,23 +16,13 @@ import { Rate } from '../../../../model/rate';
 
 export class GetRateComponent {
 
-  @Input() rateItemsArray: any;
-  @Input() rateItemsObject: any;
+  @Input() rateItemsArray: Rate;
   @Input() subCategoryRateAnalysisId: number;
   @Input() totalQuantity: number;
   @Input() totalAmount: number;
   @Input() totalRate: number;
   @Output() refreshSubCategoryList = new EventEmitter();
 
-  projectId: string;
-  buildingId: string;
-
-  costHead: string;
-  costheadId: number;
-  subCategoryId: number;
-
-  total: number = 0;
-  quantity: number = 0;
   quantityIncrement: number = 1;
   previousTotalQuantity: number = 1;
   totalItemRateQuantity: number = 0;

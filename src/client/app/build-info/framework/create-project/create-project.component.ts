@@ -15,11 +15,9 @@ import { ValidationService } from './../../../shared/customvalidations/validatio
 })
 
 export class CreateProjectComponent {
-
   projectForm:  FormGroup;
-  projects : any;
   public isShowErrorMessage: boolean = true;
-  public error_msg: boolean = false;
+  public errorMessage: boolean = false;
   projectModel: Project = new Project();
   BODY_BACKGROUND_TRANSPARENT: string;
 
@@ -72,7 +70,7 @@ export class CreateProjectComponent {
       this.messageService.message(message);
     } else {
       this.isShowErrorMessage = false;
-      this.error_msg = error.err_msg;
+      this.errorMessage = error.err_msg;
       message.error_msg = error.err_msg;
       message.isError = true;
       this.messageService.message(message);

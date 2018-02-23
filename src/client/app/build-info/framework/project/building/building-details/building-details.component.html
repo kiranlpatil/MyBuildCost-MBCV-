@@ -95,7 +95,8 @@
             <input type="number" [(ngModel)]="buildingModel.numOfLifts" formControlName="numOfLifts" id="numOfLifts" class="form-control" required/>
           </div>
 
-          <div class="col-xs-12 error-msg alert alert-danger form-alert" [hidden]="isShowErrorMessage"><b>{{ error_msg }}</b></div>
+          <div class="col-xs-12 error-msg alert alert-danger form-alert" [hidden]="isShowErrorMessage"><b>
+            {{ errorMessage }}</b></div>
 
           <button type="submit" class="btn btn-primary pull-right">Update</button>
         </form>
