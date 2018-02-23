@@ -3,7 +3,7 @@ import { Headers, Http, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { Project } from './../model/project';
 import { API, BaseService, MessageService, SessionStorageService, SessionStorage } from '../../../shared/index';
-import { HttpDelegateService } from './../../../shared/services/http-delegate-service/http-delegate.service';
+import { HttpDelegateService } from '../../../shared/services/http-delegate.service';
 
 @Injectable()
 export class ProjectService extends BaseService {

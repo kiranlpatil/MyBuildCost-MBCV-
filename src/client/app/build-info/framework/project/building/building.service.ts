@@ -3,7 +3,7 @@ import { Headers, Http, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { Building } from '../../model/building';
 import { API, BaseService, SessionStorage, SessionStorageService, MessageService } from '../../../../shared/index';
-import { HttpDelegateService } from '../../../../shared/services/http-delegate-service/http-delegate.service';
+import { HttpDelegateService } from '../../../../shared/services/http-delegate.service';
 import { Project } from '../../model/project';
 
 

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Headers, Http, RequestOptions } from '@angular/http';
 import { API, BaseService, SessionStorage, SessionStorageService, MessageService } from '../../../../shared/index';
-import { HttpDelegateService } from './../../../../shared/services/http-delegate-service/http-delegate.service';
+import { HttpDelegateService } from '../../../../shared/services/http-delegate.service';
 
 @Injectable()
 export class CostSummaryService extends BaseService {
