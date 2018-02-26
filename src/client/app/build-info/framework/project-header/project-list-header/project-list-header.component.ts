@@ -46,7 +46,7 @@ export class ProjectListHeaderComponent implements OnInit {
   }
 
   selectedProject(projectName:string) {
-    if(projectName==='My Projects') {
+     if(projectName==='My Projects') {
       sessionStorage.removeItem(SessionStorage.CURRENT_PROJECT_ID);
       sessionStorage.removeItem(SessionStorage.CURRENT_PROJECT_NAME);
       this._router.navigate([NavigationRoutes.APP_DASHBOARD]);
