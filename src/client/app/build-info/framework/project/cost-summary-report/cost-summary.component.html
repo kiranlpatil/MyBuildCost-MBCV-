@@ -31,7 +31,7 @@
                 <ul class = "dropdown-menu">
                   <li><p  data-toggle="modal" data-target="#myModal" (click)="cloneBuilding(building._id)">Clone</p></li>
                   <li><p (click)="editBuildingDetails(building._id)">Edit</p></li>
-                  <li><p data-toggle="modal" data-target="#delete" (click)="setIdForDeleteBuilding(building._id)">Delete</p></li>
+                  <li><p data-toggle="modal" data-target="#deleteBuilding" (click)="setIdForDeleteBuilding(building._id)">Delete</p></li>
                   <li><p (click)="createBuilding()">Add Building</p></li>
                 </ul>
               </div>
@@ -219,24 +219,13 @@
     </div>
   </div>
 
-  <!--Delete modal-->
+  <!--Delete modals-->
   <div class="modal fade default-modal" id="deleteCosthead" role="dialog">
-    <div class="modal-dialog modal-md">
-      <!-- Modal content-->
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h2 class="modal-title">Delete Cost Head</h2>
-        </div>
-        <div class="modal-body">
-          <p class="font-16">Do you want to delete a CostHead ?</p>
-        </div>
-        <div class="modal-footer">
-          <button class="btn btn-primary bi-btn" type="button" (click)="inActiveCostHead()" data-dismiss="modal">Yes</button>
-          <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-        </div>
-      </div>
-    </div>
+    <bi-delete-confirmation-modal [elementToBeDeleted]="deleteConfirmationCostHead" (deleteElementEvent)="deleteElement($event)"></bi-delete-confirmation-modal>
+  </div>
+
+  <div class="modal fade default-modal" id="deleteBuilding" role="dialog">
+    <bi-delete-confirmation-modal [elementToBeDeleted]="deleteConfirmationBuilding" (deleteElementEvent)="deleteElement($event)"></bi-delete-confirmation-modal>
   </div>
 
   <!--Clone Modal -->
@@ -385,21 +374,4 @@
     </div>
   </div>
 
-  <div class="modal fade default-modal" id="delete" role="dialog">
-    <div class="modal-dialog modal-md">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h2 class="modal-title">Delete Building</h2>
-        </div>
-        <div class="modal-body">
-          <p class="font-16">Do you want to delete a Building ?</p>
-        </div>
-        <div class="modal-footer">
-          <button class="btn btn-primary bi-btn" type="button"  (click)="deleteBuilding()" data-dismiss="modal">Yes</button>
-          <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-        </div>
-      </div>
-    </div>
-  </div>
 </section>

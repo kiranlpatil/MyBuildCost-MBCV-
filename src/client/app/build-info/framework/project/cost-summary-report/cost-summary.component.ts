@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router , ActivatedRoute } from '@angular/router';
-import { NavigationRoutes } from '../../../../shared/constants';
+import { NavigationRoutes, ProjectElements } from '../../../../shared/constants';
 import { SessionStorage, SessionStorageService,  Message, Messages, MessageService } from '../../../../shared/index';
 import { CostSummaryService } from './cost-summary.service';
 import { Building } from '../../model/building';
@@ -59,6 +59,8 @@ export class CostSummaryComponent implements OnInit {
 
   defaultCostIn:string='Rs/Sqft';
   defaultCostPer:string='SlabArea';
+  deleteConfirmationCostHead = ProjectElements.COST_HEAD;
+  deleteConfirmationBuilding = ProjectElements.BUILDING;
 
   constructor(private costSummaryService : CostSummaryService, private activatedRoute : ActivatedRoute,
               private formBuilder: FormBuilder, private _router : Router, private messageService : MessageService,
@@ -363,4 +365,12 @@ export class CostSummaryComponent implements OnInit {
     this.showGrandTotalPanelBody=!this.showGrandTotalPanelBody;
   }
 
+  deleteElement(elementName : string) {
+    if(elementName === ProjectElements.COST_HEAD) {
+      this.inActiveCostHead();
+    }
+    if(elementName === ProjectElements.BUILDING) {
+      this.deleteBuilding();
+    }
+  }
 }

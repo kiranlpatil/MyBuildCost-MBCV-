@@ -267,12 +267,6 @@ export class LocalStorage {
   public static _ID = '_id';
 }
 
-export class ValueConstant {
-  public static MAX_YEAR_LIST: number = 60;
-  public static MAX_ACADEMIC_YEAR_LIST: number = 50;
-}
-
-
 export class API {
   public static NOTIFICATION = 'notification';
   public static SEND_CONFIRMATION_MAIL_TO_RECRUITER = 'response_to_recruiter';
@@ -416,9 +410,6 @@ export class ProjectAsset {
   public static UNDER_LICENECE = '© ' + ProjectAsset.currentYear + ' www.buildinfo.com';
 }
 
-export class Tooltip {
-}
-
 export class Headings {
   public static ACADAMIC_DETAILS: string = 'Academic Details';
   public static OPTIONAL: string = '(Optional)';
@@ -488,4 +479,10 @@ export class Button {
 export class Units {
 
   public static UNIT = 'sqft';
+}
+
+export class ProjectElements {
+  public static COST_HEAD = 'CostHead';
+  public static WORK_ITEM = 'WorkItem';
+  public static BUILDING = 'Building';
 }

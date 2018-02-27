@@ -63,6 +63,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { GetRateComponent } from './build-info/framework/project/cost-summary-report/cost-head/get-rate/get-rate.component';
 import { CreateNewProjectComponent } from './build-info/framework/create-new-project/create-new-project.component';
 import { ProjectItemComponent } from './build-info/framework/project-list/project-item/project-item.component';
+import { DeleteConfirmationModalComponent } from './shared/delete-confirmation-modal/delete-confirmation-modal.component';
+
 
 @NgModule({
   imports: [
@@ -109,8 +111,9 @@ import { ProjectItemComponent } from './build-info/framework/project-list/projec
     ProjectItemComponent,
     //MyDashboardComponent,
 
-    //Custom Pipes
+    //Shared Components
     GroupByPipe,
+    DeleteConfirmationModalComponent,
 
     PageNotFoundComponent,
     CommonAmenitiesComponent
