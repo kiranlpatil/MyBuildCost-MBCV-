@@ -81,7 +81,8 @@ export class CreateBuildingComponent {
           this.buildingModel.numOfLifts=0;
         }
 
-      this.buildingService.createBuilding(this.buildingModel)
+      let projectId = SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT_ID);
+      this.buildingService.createBuilding(projectId, this.buildingModel)
         .subscribe(
           building => this.onCreateBuildingSuccess(building),
           error => this.onCreateBuildingFailure(error));

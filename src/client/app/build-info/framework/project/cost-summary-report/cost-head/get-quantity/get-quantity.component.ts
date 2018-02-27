@@ -113,10 +113,13 @@ export class GetQuantityComponent implements OnInit {
   }
 
   updateQuantityItem(quantityItems : any) {
+
+    let projectId = SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT_ID);
+    let buildingId = SessionStorageService.getSessionValue(SessionStorage.CURRENT_BUILDING);
     let costHeadId = SessionStorageService.getSessionValue(SessionStorage.CURRENT_COST_HEAD_ID);
     let workItemId = SessionStorageService.getSessionValue(SessionStorage.CURRENT_WORKITEM_ID);
 
-    this.costSummaryService.updateQuantityItems(parseInt(costHeadId), this.subCategoryRateAnalysisId,
+    this.costSummaryService.updateQuantityItems(projectId,buildingId,parseInt(costHeadId), this.subCategoryRateAnalysisId,
       parseInt(workItemId), quantityItems).subscribe(
       costHeadItemSave => this.onUpdateQuantityItemsSuccess(costHeadItemSave),
       error => this.onUpdateQuantityItemsFailure(error)
@@ -144,9 +147,13 @@ export class GetQuantityComponent implements OnInit {
   }
 
   deleteQuantityItem() {
+
+    let projectId = SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT_ID);
+    let buildingId = SessionStorageService.getSessionValue(SessionStorage.CURRENT_BUILDING);
     let costHeadId = SessionStorageService.getSessionValue(SessionStorage.CURRENT_COST_HEAD_ID);
     let workItemId = SessionStorageService.getSessionValue(SessionStorage.CURRENT_WORKITEM_ID);
-    this.costSummaryService.deleteQuantityItem(parseInt(costHeadId), this.subCategoryRateAnalysisId,
+
+    this.costSummaryService.deleteQuantityItem(projectId,buildingId,parseInt(costHeadId), this.subCategoryRateAnalysisId,
       parseInt(workItemId), this.itemName).subscribe(
       costHeadItemDelete => this.onDeleteQuantityItemSuccess(costHeadItemDelete),
       error => this.onDeleteQuantityItemFailure(error)

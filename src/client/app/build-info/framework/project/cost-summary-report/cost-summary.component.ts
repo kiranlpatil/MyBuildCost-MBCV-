@@ -134,7 +134,8 @@ export class CostSummaryComponent implements OnInit {
   }
 
   getBuildingDetails() {
-    this.buildingService.getBuilding(this.projectId).subscribe(
+    let buildingId=SessionStorageService.getSessionValue(SessionStorage.CURRENT_BUILDING);
+    this.buildingService.getBuilding(this.projectId,buildingId).subscribe(
       buildingDetails => this.onGetBuildingDetailsSuccess(buildingDetails),
       error => this.onGetBuildingDetailsFailure(error)
     );
@@ -181,7 +182,8 @@ export class CostSummaryComponent implements OnInit {
   }
 
   inActiveCostHead() {
-    this.costSummaryService.inActiveCostHead(this.buildingId, this.costHeadId).subscribe(
+    let projectId = SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT_ID);
+    this.costSummaryService.inActiveCostHead(projectId,this.buildingId, this.costHeadId).subscribe(
         costHeadDetail => this.onInActiveCostHeadSuccess(costHeadDetail),
         error => this.onInActiveCostHeadFailure(error)
       );
@@ -227,8 +229,8 @@ export class CostSummaryComponent implements OnInit {
       let costPer : string;
       (this.defaultCostIn==='Rs/Sqft') ? costIn = 'sqft' : costIn = 'sqmt';
       (this.defaultCostPer==='SlabArea') ? costPer = 'slabArea' : costPer = 'saleableArea';
-
-      this.costSummaryService.updateBudgetedCost(buildingId, costHead, costIn, costPer, buildingArea, amount).subscribe(
+      let projectId=SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT_ID);
+      this.costSummaryService.updateBudgetedCost(projectId, buildingId, costHead, costIn, costPer, buildingArea, amount).subscribe(
         buildingDetails => this.onUpdateBudgetedCostSuccess(buildingDetails),
         error => this.onUpdateBudgetedCostFailure(error)
       );
@@ -252,7 +254,8 @@ export class CostSummaryComponent implements OnInit {
   }
 
   deleteBuilding() {
-    this.buildingService.deleteBuildingById( this.buildingId).subscribe(
+    let projectId=SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT_ID);
+    this.buildingService.deleteBuildingById( projectId,this.buildingId).subscribe(
       project => this.onDeleteBuildingByIdSuccess(project),
       error => this.onDeleteBuildingByIdFailure(error)
     );
@@ -282,7 +285,8 @@ export class CostSummaryComponent implements OnInit {
   }
 
   cloneBuilding(buildingId: string) {
-    this.buildingService.getBuildingDetailsForClone(buildingId).subscribe(
+    let projectId=SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT_ID);
+    this.buildingService.getBuildingDetailsForClone(projectId,buildingId).subscribe(
       building => this.onGetBuildingDetailsForCloneSuccess(building),
       error => this.onGetBuildingDetailsForCloneFailure(error)
     );
@@ -300,7 +304,8 @@ export class CostSummaryComponent implements OnInit {
   cloneBuildingBasicDetails() {
     if (this.cloneBuildingForm.valid) {
       this.cloneBuildingModel = this.cloneBuildingForm.value;
-      this.buildingService.createBuilding(this.cloneBuildingModel)
+      let projectId=SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT_ID);
+      this.buildingService.createBuilding(projectId, this.cloneBuildingModel)
         .subscribe(
           building => this.onCreateBuildingSuccess(building),
           error => this.onCreateBuildingFailure(error));
@@ -316,7 +321,8 @@ export class CostSummaryComponent implements OnInit {
   }
 
   cloneBuildingCostHeads(cloneCostHead: CostHead) {
-    this.buildingService.cloneBuildingCostHeads(cloneCostHead, this.cloneBuildingId).subscribe(
+    let projectId=SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT_ID);
+    this.buildingService.cloneBuildingCostHeads(projectId,cloneCostHead, this.cloneBuildingId).subscribe(
       project => this.onCloneBuildingCostHeadsSuccess(project),
       error => this.onCloneBuildingCostHeadsFailure(error)
     );

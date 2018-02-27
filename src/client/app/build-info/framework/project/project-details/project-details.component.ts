@@ -6,6 +6,7 @@ import { ProjectService } from '../project.service';
 import { Project } from './../../model/project';
 import { Message, MessageService } from '../../../../shared/index';
 import { ValidationService } from '../../../../shared/customvalidations/validation.service';
+import { SessionStorage, SessionStorageService } from '../../../../shared/index';
 
 @Component({
   moduleId: module.id,
@@ -43,12 +44,12 @@ export class ProjectDetailsComponent implements OnInit {
     this.activatedRoute.params.subscribe(params => {
      this.projectId = params['projectId'];
       if(this.projectId) {
-        this.getProjectDetails();
+        this.getProject();
       }
     });
   }
 
-  getProjectDetails() {
+  getProject() {
     this.projectService.getProject(this.projectId).subscribe(
       project => this.onGetProjectSuccess(project),
       error => this.onGetProjectFailure(error)
@@ -67,7 +68,8 @@ export class ProjectDetailsComponent implements OnInit {
   onSubmit() {
     if(this.viewProjectForm.valid) {
       this.projectModel = this.viewProjectForm.value;
-      this.projectService.updateProject(this.projectModel)
+      let projectId=SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT_ID);
+      this.projectService.updateProject(projectId, this.projectModel)
         .subscribe(
           user => this.onUpdateProjectSuccess(user),
           error => this.onUpdateProjectFailure(error));

@@ -23,12 +23,12 @@ export class ProjectService extends BaseService {
   }
 
   getProject(projectId:string): Observable<Project> {
-    var url = API.PROJECT+'/'+projectId;
+    var url = API.PROJECT + '/' + projectId;
     return this.httpDelegateService.getAPI(url);
   }
 
-  updateProject(modelProject: Project): Observable<Project> {
-    let url = API.PROJECT+'/'+SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT_ID);
+  updateProject( projectId : string, modelProject : Project): Observable<Project> {
+    let url = API.PROJECT + '/' + projectId;
     return this.httpDelegateService.putAPI(url, modelProject);
   }
 

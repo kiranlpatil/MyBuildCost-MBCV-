@@ -51,6 +51,9 @@ export class GetRateComponent {
   }
 
   updateRate(rateItemsArray: Rate) {
+    let projectID= SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT_ID);
+    let buildingId=SessionStorageService.getSessionValue(SessionStorage.CURRENT_BUILDING);
+
     let costHeadId = SessionStorageService.getSessionValue(SessionStorage.CURRENT_COST_HEAD_ID);
     let workItemId = SessionStorageService.getSessionValue(SessionStorage.CURRENT_WORKITEM_ID);
     let rate = new Rate();
@@ -60,7 +63,7 @@ export class GetRateComponent {
     rate.unit = rateItemsArray.unit;
     rate.rateItems = rateItemsArray.rateItems;
 
-    this.costSummaryService.updateRate(parseInt(costHeadId), this.subCategoryRateAnalysisId,
+    this.costSummaryService.updateRate(projectID,buildingId,parseInt(costHeadId), this.subCategoryRateAnalysisId,
       parseInt(workItemId), rate).subscribe(
       rateItem => this.onUpdateRateSuccess(rateItem),
       error => this.onUpdateRateFailure(error)
@@ -84,6 +87,10 @@ export class GetRateComponent {
       newTotalQuantity=1;
       this.totalItemRateQuantity = newTotalQuantity;
       this.rateItemsArray.quantity = newTotalQuantity;
+      var message = new Message();
+      message.isError = false;
+      message.custom_message = Messages.MSG_QUANTITY_SHOULD_NOT_ZERO_OR_NULL;
+      this.messageService.message(message);
     } else {
       this.quantityIncrement = newTotalQuantity / this.previousTotalQuantity;
       this.calculateTotal('changeTotalQuantity');

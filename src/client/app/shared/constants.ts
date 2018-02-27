@@ -192,6 +192,7 @@ export class Messages {
   public static MSG_SUCCESS_DELETE_COSTHEAD: string = 'Your costhead deleted successfully.';
   public static MSG_SUCCESS_DELETE_ITEM: string = 'Your item deleted successfully.';
   public static MSG_SUCCESS_UPDATE_RATE: string = 'Rate updated.';
+  public static MSG_QUANTITY_SHOULD_NOT_ZERO_OR_NULL: string = 'Quantity should not zero or null.';
   public static MSG_SUCCESS_ADD_ITEM: string = 'Your item added successfully.';
   public static MSG_FAIL_ADD_ITEM: string = 'Add new item failed : ';
   public static MSG_SUCCESS_SAVED_COST_HEAD_ITEM: string = 'Your cost head items updated successfully.';

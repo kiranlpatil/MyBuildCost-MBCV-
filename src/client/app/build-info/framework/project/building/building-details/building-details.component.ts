@@ -7,6 +7,7 @@ import { MessageService } from '../../../../../shared/index';
 import { Message } from '../../../../../shared/index';
 import { ValidationService } from '../../../../../shared/customvalidations/validation.service';
 import { BuildingService } from '../building.service';
+import { SessionStorage, SessionStorageService } from '../../../../../shared/index';
 
 @Component({
   moduleId: module.id,
@@ -54,7 +55,8 @@ export class BuildingDetailsComponent implements OnInit {
   }
 
   getBuildingDetails() {
-    this.buildingService.getBuilding(this.buildingId).subscribe(
+    let projectId=SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT_ID);
+    this.buildingService.getBuilding(projectId,this.buildingId).subscribe(
       building => this.onGetBuildingSuccess(building),
       error => this.onGetBuildingFailure(error)
     );
@@ -83,7 +85,9 @@ export class BuildingDetailsComponent implements OnInit {
 
   onSubmit() {
       this.buildingModel = this.viewBuildingForm.value;
-      this.buildingService.updateBuilding(this.buildingModel)
+      let projectId=SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT_ID);
+      let buildingId=SessionStorageService.getSessionValue(SessionStorage.CURRENT_BUILDING);
+      this.buildingService.updateBuilding( projectId, buildingId, this.buildingModel)
         .subscribe(
           building => this.updateBuildingSuccess(building),
           error => this.updateBuildingFailure(error));

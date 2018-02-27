@@ -25,8 +25,8 @@ export class BuildingListComponent implements OnInit {
   model: Building = new Building();
   clonedBuildingDetails: any;
 
-  constructor(private buildingService: BuildingService, private projectService : ProjectService, private _router: Router, private activatedRoute:ActivatedRoute,
-              private messageService: MessageService, private formBuilder: FormBuilder ) {
+  constructor(private buildingService: BuildingService, private projectService : ProjectService, private _router: Router,
+              private activatedRoute:ActivatedRoute,private messageService: MessageService, private formBuilder: FormBuilder ) {
 
     this.cloneBuildingForm = this.formBuilder.group({
       name : ['', ValidationService.requiredBuildingName],
@@ -59,7 +59,8 @@ export class BuildingListComponent implements OnInit {
   onSubmit() {
     if(this.cloneBuildingForm.valid) {
       this.model = this.cloneBuildingForm.value;
-      this.buildingService.createBuilding(this.model)
+      let projectId=SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT_ID);
+      this.buildingService.createBuilding(projectId, this.model)
         .subscribe(
           building => this.onCreateBuildingSuccess(building),
           error => this.onCreateBuildingFailure(error));
@@ -79,7 +80,8 @@ export class BuildingListComponent implements OnInit {
   }
 
   updateBuildingByCostHead(cloneCostHead: any) {
-    this.buildingService.cloneBuildingCostHeads(cloneCostHead, this.clonedBuildingId).subscribe(
+    let projectId=SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT_ID);
+    this.buildingService.cloneBuildingCostHeads(projectId,cloneCostHead, this.clonedBuildingId).subscribe(
       project => this.onCloneBuildingCostHeadsSuccess(project),
       error => this.onCloneBuildingCostHeadsFailure(error)
     );
@@ -102,7 +104,8 @@ export class BuildingListComponent implements OnInit {
   }
 
   deleteBuilding() {
-    this.buildingService.deleteBuildingById(this.currentbuildingId).subscribe(
+    let projectId=SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT_ID);
+    this.buildingService.deleteBuildingById(projectId,this.currentbuildingId).subscribe(
       project => this.onDeleteBuildingSuccess(project),
       error => this.onDeleteBuildingFailure(error)
     );
@@ -144,7 +147,8 @@ export class BuildingListComponent implements OnInit {
   }
 
   cloneBuilding(buildingId : any) {
-    this.buildingService.getBuilding(buildingId).subscribe(
+    let projectId=SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT_ID);
+    this.buildingService.getBuilding(projectId,buildingId).subscribe(
       building => this.onGetBuildingSuccess(building),
       error => this.onGetBuildingFailure(error)
     );
