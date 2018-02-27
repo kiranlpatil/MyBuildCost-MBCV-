@@ -41,7 +41,7 @@ export class GetQuantityComponent implements OnInit {
        case 'updateNos': {
                           this.quanitytNumbersTotal =0;
                           for(let i=0;i<this.quantityItems.length;i++) {
-                              this.quanitytNumbersTotal= this.quanitytNumbersTotal +this.quantityItems[i].nos;
+                              this.quanitytNumbersTotal= parseFloat((this.quanitytNumbersTotal +this.quantityItems[i].nos).toFixed(2));
                               }
                               this.getQuantityTotal(this.quantityItems);
        }
