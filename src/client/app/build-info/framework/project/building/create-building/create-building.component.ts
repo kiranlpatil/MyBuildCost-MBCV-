@@ -29,7 +29,8 @@ export class CreateBuildingComponent {
 
   onSubmit(buildingModel : Building) {
 
-      if(buildingModel) {
+      if((buildingModel.numOfOneBHK !== 0) || (buildingModel.numOfTwoBHK  !== 0 ) ||
+        (buildingModel.numOfThreeBHK !== 0) || (buildingModel.numOfFourBHK !== 0) || (buildingModel.numOfFiveBHK !== 0)) {
 
       let projectId = SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT_ID);
       this.buildingService.createBuilding(projectId, buildingModel)

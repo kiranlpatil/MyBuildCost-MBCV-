@@ -19,8 +19,8 @@ export class CostSummaryService extends BaseService {
     return this.httpDelegateService.getAPI(url);
   }
 
-  updateBudgetedCost( projectId : string, buildingId : string, costHeadName : string,
-                     costIn : string, costPer : string, buildingArea : number, amount : number) {
+  updateRateOfThumbRule(projectId : string, buildingId : string, costHeadName : string,
+                        costIn : string, costPer : string, buildingArea : number, amount : number) {
     var url = API.PROJECT + '/' + projectId + '/' + API.BUILDING + '/' + buildingId + '/costhead';
     var body = {
       budgetedCostAmount : amount,
@@ -34,14 +34,14 @@ export class CostSummaryService extends BaseService {
   }
 
   // Cost Head CRUD API
-  inActiveCostHead(projectId:string, buildingId:string, costHeadId:number) {
+  inactiveCostHead(projectId:string, buildingId:string, costHeadId:number) {
     var url = 'project/'+projectId+'/'+API.BUILDING+'/'+buildingId+'/'+'costHead/'+costHeadId+'/'+'activeStatus'+'/false';
   let body = {};
 
     return this.httpDelegateService.putAPI(url, body);
   }
 
-  getInActiveCostHeads( projectId : string, buildingId : string) {
+  getAllInactiveCostHeads( projectId : string, buildingId : string) {
     var url = API.PROJECT + '/'+ projectId + '/'+ API.BUILDING + '/' + buildingId + '/costhead';
     return this.httpDelegateService.getAPI(url);
   }

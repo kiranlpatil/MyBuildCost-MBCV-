@@ -57,8 +57,8 @@ export class CostSummaryComponent implements OnInit {
     { 'costPerId': 'CarpetArea'},
   ];
 
-  defaultCostIn:string='Rs/Sqft';
-  defaultCostPer:string='SlabArea';
+  defaultCostingByUnit:string='Rs/Sqft';
+  defaultCostingByArea:string='SlabArea';
   deleteConfirmationCostHead = ProjectElements.COST_HEAD;
   deleteConfirmationBuilding = ProjectElements.BUILDING;
 
@@ -88,7 +88,7 @@ export class CostSummaryComponent implements OnInit {
     this.activatedRoute.params.subscribe(params => {
       this.projectId = params['projectId'];
       if(this.projectId) {
-        this.onChangeCostingByUnit(this.defaultCostIn);
+        this.onChangeCostingByUnit(this.defaultCostingByUnit);
       }
     });
   }
@@ -98,24 +98,24 @@ export class CostSummaryComponent implements OnInit {
     SessionStorageService.setSessionValue(SessionStorage.CURRENT_BUILDING, buildingId);
   }
 
-  getInActiveCostHeads(buildingId: string) {
+  getAllInactiveCostHeads(buildingId: string) {
     this.buildingId=buildingId;
-    this.costSummaryService.getInActiveCostHeads( this.projectId, this.buildingId).subscribe(
-      inActiveCostHeads => this.onGetInActiveCostHeadsSuccess(inActiveCostHeads),
-      error => this.onGetInActiveCostHeadsFailure(error)
+    this.costSummaryService.getAllInactiveCostHeads( this.projectId, this.buildingId).subscribe(
+      inActiveCostHeads => this.onGetAllInactiveCostHeadsSuccess(inActiveCostHeads),
+      error => this.onGetAllInactiveCostHeadsFailure(error)
     );
   }
 
-  onGetInActiveCostHeadsSuccess(inActiveCostHeads : any) {
+  onGetAllInactiveCostHeadsSuccess(inActiveCostHeads : any) {
       this.inActiveCostHeadArray=inActiveCostHeads.data;
       this.showCostHeadList=true;
   }
 
-  onGetInActiveCostHeadsFailure(error : any) {
+  onGetAllInactiveCostHeadsFailure(error : any) {
     console.log(error);
   }
 
-  getAmount( buildingId : string, buildingName:string, estimatedItem :any) {
+  goToCostHeadView( buildingId : string, buildingName:string, estimatedItem :any) {
     this.estimatedItem = estimatedItem;
     this.costHeadId = estimatedItem.rateAnalysisId;
     SessionStorageService.setSessionValue(SessionStorage.CURRENT_BUILDING, buildingId);
@@ -126,32 +126,14 @@ export class CostSummaryComponent implements OnInit {
     NavigationRoutes.APP_COST_SUMMARY, NavigationRoutes.APP_COST_HEAD, estimatedItem.name, this.costHeadId]);
   }
 
-  getCommonAmenities() {
+  goToCommonAmenities() {
     this.projectId = SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT_ID);
     this._router.navigate([NavigationRoutes.APP_PROJECT,this.projectId,NavigationRoutes.APP_COMMON_AMENITIES]);
   }
 
-  getBuildingDetails() {
-    let buildingId=SessionStorageService.getSessionValue(SessionStorage.CURRENT_BUILDING);
-    this.buildingService.getBuilding( this.projectId, buildingId).subscribe(
-      buildingDetails => this.onGetBuildingDetailsSuccess(buildingDetails),
-      error => this.onGetBuildingDetailsFailure(error)
-    );
-  }
-
-  onGetBuildingDetailsSuccess(buildingDetails : any) {
-    this.buildingsDetails = buildingDetails.data;
-  }
-
-  onGetBuildingDetailsFailure(error : any) {
-    console.log(error);
-  }
-
-  onChangeCostingByUnit(costInId:any) {
-    if(costInId) {
-      this.defaultCostIn=costInId;
-    }
-    this.costSummaryService.getCostSummaryReport( this.projectId, this.defaultCostIn, this.defaultCostPer).subscribe(
+  onChangeCostingByUnit(costingByUnit:any) {
+    this.defaultCostingByUnit=costingByUnit;
+    this.costSummaryService.getCostSummaryReport( this.projectId, this.defaultCostingByUnit, this.defaultCostingByArea).subscribe(
       projectCostIn => this.onGetCostSummaryReportSuccess(projectCostIn),
       error => this.onGetCostSummaryReportFailure(error)
     );
@@ -166,84 +148,86 @@ export class CostSummaryComponent implements OnInit {
     console.log('onGetCostInFail()'+error);
   }
 
-  onChangeCostingByArea(costPerId:any) {
-    this.defaultCostPer=costPerId;
-    this.costSummaryService.getCostSummaryReport( this.projectId, this.defaultCostIn, this.defaultCostPer).subscribe(
+  //TODO : Check if can merge
+  onChangeCostingByArea(costingByArea:any) {
+    this.defaultCostingByArea=costingByArea;
+    this.costSummaryService.getCostSummaryReport( this.projectId, this.defaultCostingByUnit, this.defaultCostingByArea).subscribe(
       projectCostPer => this.onGetCostSummaryReportSuccess(projectCostPer),
       error => this.onGetCostSummaryReportFailure(error)
     );
   }
 
-  setIdsForInActiveCostHead(buildingId: string, costHeadId: number) {
+  setIdsToInactiveCostHead(buildingId: string, costHeadId: number) {
     this.buildingId = buildingId;
     this.costHeadId = costHeadId;
   }
 
-  inActiveCostHead() {
+  inactiveCostHead() {
     let projectId = SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT_ID);
-    this.costSummaryService.inActiveCostHead( projectId, this.buildingId, this.costHeadId).subscribe(
-        costHeadDetail => this.onInActiveCostHeadSuccess(costHeadDetail),
-        error => this.onInActiveCostHeadFailure(error)
+    this.costSummaryService.inactiveCostHead( projectId, this.buildingId, this.costHeadId).subscribe(
+        costHeadDetail => this.onInactiveCostHeadSuccess(costHeadDetail),
+        error => this.onInactiveCostHeadFailure(error)
       );
     }
 
-  onInActiveCostHeadSuccess(costHeadDetail: any) {
-    this.onChangeCostingByUnit(this.defaultCostIn);
-     if ( costHeadDetail!== null) {
+  onInactiveCostHeadSuccess(costHeadDetails: any) {
+     if ( costHeadDetails !== null) {
       var message = new Message();
       message.isError = false;
       message.custom_message = Messages.MSG_SUCCESS_DELETE_COSTHEAD;
       this.messageService.message(message);
     }
+    this.onChangeCostingByUnit(this.defaultCostingByUnit);
   }
 
-  onInActiveCostHeadFailure(error: any) {
+  onInactiveCostHeadFailure(error: any) {
     console.log(error);
   }
 
   onChangeActiveSelectedCostHead(selectedInactiveCostHeadId:number) {
     this.showCostHeadList=false;
     this.costSummaryService.activeCostHead( this.projectId, this.buildingId, selectedInactiveCostHeadId).subscribe(
-      inActiveCostHeads => this.onActiveCostHeadSuccess(inActiveCostHeads),
+      inactiveCostHeads => this.onActiveCostHeadSuccess(inactiveCostHeads),
       error => this.onActiveCostHeadFailure(error)
     );
   }
 
-  onActiveCostHeadSuccess(inActiveCostHeads : any) {
+  onActiveCostHeadSuccess(inactiveCostHeads : any) {
     var message = new Message();
     message.isError = false;
     message.custom_message = Messages.MSG_SUCCESS_ADD_COSTHEAD;
     this.messageService.message(message);
-    this.onChangeCostingByUnit(this.defaultCostIn);
+    this.onChangeCostingByUnit(this.defaultCostingByUnit);
   }
 
   onActiveCostHeadFailure(error : any) {
     console.log('onAddInactiveCostHeadFailure()'+error);
   }
 
-  changeBudgetedCost(buildingId: string, costHead: string, amount: number, buildingArea : number) {
+  changeRateOfThumbRule(buildingId: string, costHead: string, amount: number, buildingArea : number) {
     if (amount !== null) {
-      let costIn : string;
-      let costPer : string;
-      (this.defaultCostIn==='Rs/Sqft') ? costIn = 'sqft' : costIn = 'sqmt';
-      (this.defaultCostPer==='SlabArea') ? costPer = 'slabArea' : costPer = 'saleableArea';
+      let costingByUnit : string;
+      let costingByArea : string;
+      (this.defaultCostingByUnit==='Rs/Sqft') ? costingByUnit = 'sqft' : costingByUnit = 'sqmt';
+      (this.defaultCostingByArea==='SlabArea') ? costingByArea = 'slabArea' : costingByArea = 'saleableArea';
       let projectId=SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT_ID);
-      this.costSummaryService.updateBudgetedCost( projectId, buildingId, costHead, costIn, costPer, buildingArea, amount).subscribe(
-        buildingDetails => this.onUpdateBudgetedCostSuccess(buildingDetails),
-        error => this.onUpdateBudgetedCostFailure(error)
+      this.costSummaryService.updateRateOfThumbRule( projectId, buildingId, costHead,
+        costingByUnit, costingByArea, buildingArea, amount).subscribe(
+        buildingDetails => this.onUpdateRateOfThumbRuleSuccess(buildingDetails),
+        error => this.onUpdateRateOfThumbRuleFailure(error)
       );
     }
   }
 
-  onUpdateBudgetedCostSuccess(buildingDetails : any) {
+  onUpdateRateOfThumbRuleSuccess(buildingDetails : any) {
     var message = new Message();
     message.isError = false;
-    message.custom_message = Messages.MSG_SUCCESS_UPDATE_BUDGETED_COST_COSTHEAD;
+    message.custom_message = Messages.MSG_SUCCESS_UPDATE_THUMBRULE_RATE_COSTHEAD;
     this.messageService.message(message);
-    this.onChangeCostingByUnit(this.defaultCostIn);
+    this.onChangeCostingByUnit(this.defaultCostingByUnit);
   }
 
-  onUpdateBudgetedCostFailure(error : any) {
+  onUpdateRateOfThumbRuleFailure(error : any) {
     console.log('onAddCostheadSuccess : '+error);
   }
 
@@ -253,31 +237,31 @@ export class CostSummaryComponent implements OnInit {
 
   deleteBuilding() {
     let projectId=SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT_ID);
-    this.buildingService.deleteBuildingById( projectId, this.buildingId).subscribe(
-      project => this.onDeleteBuildingByIdSuccess(project),
-      error => this.onDeleteBuildingByIdFailure(error)
+    this.buildingService.deleteBuilding( projectId, this.buildingId).subscribe(
+      project => this.onDeleteBuildingSuccess(project),
+      error => this.onDeleteBuildingFailure(error)
     );
   }
 
-  onDeleteBuildingByIdSuccess(result : any) {
+  onDeleteBuildingSuccess(result : any) {
     if (result !== null) {
       var message = new Message();
       message.isError = false;
       message.custom_message = Messages.MSG_SUCCESS_DELETE_BUILDING;
       this.messageService.message(message);
-      this.onChangeCostingByUnit(this.defaultCostIn);
+      this.onChangeCostingByUnit(this.defaultCostingByUnit);
       }
   }
 
-  onDeleteBuildingByIdFailure(error : any) {
+  onDeleteBuildingFailure(error : any) {
     console.log(error);
   }
 
-  createBuilding() {
+  goToCreateBuilding() {
     this._router.navigate([NavigationRoutes.APP_CREATE_BUILDING]);
   }
 
-  editBuildingDetails(buildingId: string) {
+  goToEditBuilding(buildingId: string) {
     SessionStorageService.setSessionValue(SessionStorage.CURRENT_BUILDING, buildingId);
     this._router.navigate([NavigationRoutes.APP_VIEW_BUILDING_DETAILS, buildingId]);
   }
@@ -331,7 +315,7 @@ export class CostSummaryComponent implements OnInit {
     message.isError = false;
     message.custom_message = Messages.MSG_SUCCESS_ADD_BUILDING_PROJECT;
     this.messageService.message(message);
-    this.onChangeCostingByUnit(this.defaultCostIn);
+    this.onChangeCostingByUnit(this.defaultCostingByUnit);
   }
 
   onCloneBuildingCostHeadsFailure(error: any) {
@@ -371,7 +355,7 @@ export class CostSummaryComponent implements OnInit {
 
   deleteElement(elementType : string) {
     if(elementType === ProjectElements.COST_HEAD) {
-      this.inActiveCostHead();
+      this.inactiveCostHead();
     }
     if(elementType === ProjectElements.BUILDING) {
       this.deleteBuilding();

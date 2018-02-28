@@ -28,7 +28,7 @@ export class BuildingService extends BaseService {
     return this.httpDelegateService.putAPI(url, building);
   }
 
-  deleteBuildingById( projectId : string, buildingId : string): Observable<Project> {
+  deleteBuilding(projectId : string, buildingId : string): Observable<Project> {
     var url = API.PROJECT + '/' + projectId + '/' + API.BUILDING + '/' + buildingId;
     return this.httpDelegateService.deleteAPI(url);
   }

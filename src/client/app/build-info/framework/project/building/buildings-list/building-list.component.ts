@@ -105,7 +105,7 @@ export class BuildingListComponent implements OnInit {
 
   deleteBuilding() {
     let projectId=SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT_ID);
-    this.buildingService.deleteBuildingById( projectId, this.currentbuildingId).subscribe(
+    this.buildingService.deleteBuilding( projectId, this.currentbuildingId).subscribe(
       project => this.onDeleteBuildingSuccess(project),
       error => this.onDeleteBuildingFailure(error)
     );

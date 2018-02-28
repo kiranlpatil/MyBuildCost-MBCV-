@@ -22,7 +22,7 @@
             <div class="panel-heading">
               <h4 class="panel-title">
                 <a (click)="setBuildingId(i,building._id)" data-toggle="collapse" href="#collapse{{i}}">
-                  {{building.name}} <span class="slab-area"> Total {{defaultCostPer}} : {{building.area}} {{defaultCostIn}}
+                  {{building.name}} <span class="slab-area"> Total {{defaultCostingByArea}} : {{building.area}} {{defaultCostingByUnit}}
                   <span *ngIf="compareIndex !== i"> Budgeted Cost : {{building.thumbRule.totalBudgetedCost|number}}</span></span>
                 </a>
               </h4>
@@ -30,9 +30,9 @@
                 <a class="dropdown-toggle" data-toggle="dropdown"><img src="assets/build-info/dashboard/dots.png" /></a>
                 <ul class = "dropdown-menu">
                   <li><p  data-toggle="modal" data-target="#myModal" (click)="cloneBuilding(building._id)">Clone</p></li>
-                  <li><p (click)="editBuildingDetails(building._id)">Edit</p></li>
+                  <li><p (click)="goToEditBuilding(building._id)">Edit</p></li>
                   <li><p data-toggle="modal" data-target="#deleteBuilding" (click)="setIdForDeleteBuilding(building._id)">Delete</p></li>
-                  <li><p (click)="createBuilding()">Add Building</p></li>
+                  <li><p (click)="goToCreateBuilding()">Add Building</p></li>
                 </ul>
               </div>
             </div>
@@ -48,9 +48,9 @@
                     </tr>
                     <tr>
                       <th><span class="sub-heading">Budgeted Cost</span></th>
-                      <th class="border-left"><span class="sub-heading">{{defaultCostIn}}<br/>{{defaultCostPer}}</span></th>
+                      <th class="border-left"><span class="sub-heading">{{defaultCostingByUnit}}<br/>{{defaultCostingByArea}}</span></th>
                       <th><span class="sub-heading">Estimated Cost</span></th>
-                      <th class="border-left" ><span class="sub-heading">{{defaultCostIn}}<br/>{{defaultCostPer}}</span></th>
+                      <th class="border-left" ><span class="sub-heading">{{defaultCostingByUnit}}<br/>{{defaultCostingByArea}}</span></th>
                       <th>&nbsp;</th>
                     </tr>
                   </thead>
@@ -62,27 +62,27 @@
                           <input type="number"
                                  [(ngModel)]="thumbRuleItem.amount"
                                  id="thumbRuleItem.amount"
-                                 (blur)="changeBudgetedCost(building._id, thumbRuleItem.name, thumbRuleItem.amount , building.area)"
+                                 (blur)="changeRateOfThumbRule(building._id, thumbRuleItem.name, thumbRuleItem.amount , building.area)"
                                  class="form-control clear"/>
                         </div>
                       </td>
                       <td class="border-left">{{thumbRuleItem.rate}}</td>
                       <td>
                         <div class="edit-field" *ngIf="building.estimate.estimatedCosts[i].total != 0"
-                             (click)="getAmount(building._id,building.name, building.estimate.estimatedCosts[i])">
+                             (click)="goToCostHeadView(building._id,building.name, building.estimate.estimatedCosts[i])">
                           <input [(ngModel)]="building.estimate.estimatedCosts[i].total"
                                  id="estimatedItem.total"
                                  class="form-control clear"/>
                         </div>
                         <button *ngIf="building.estimate.estimatedCosts[i].total == 0"
                                   type="button" class="btn-get-amount"
-                                  (click)="getAmount(building._id,building.name, building.estimate.estimatedCosts[i])">Get Amount</button>
+                                  (click)="goToCostHeadView(building._id,building.name, building.estimate.estimatedCosts[i])">Get Amount</button>
                       </td>
                       <td class="border-left">{{building.estimate.estimatedCosts[i].rate}}</td>
                       <td>
                         <div data-toggle="modal"
                              data-target="#deleteCosthead"
-                             (click)="setIdsForInActiveCostHead(building._id, building.estimate.estimatedCosts[i].rateAnalysisId)"
+                             (click)="setIdsToInactiveCostHead(building._id, building.estimate.estimatedCosts[i].rateAnalysisId)"
                              class="delete-cost-head">
                           <img alt="Delete Cost Head" src="assets/build-info/dashboard/delete.png" />
                         </div>
@@ -102,7 +102,7 @@
                     <tr>
                       <td colspan="6" class="add-items">
                         <button type="button" class="btn btn-add-item"
-                                (click)="getInActiveCostHeads(building._id)">
+                                (click)="getAllInactiveCostHeads(building._id)">
                           <span class="glyphicon glyphicon-plus"></span>Add CostHead
                         </button>
                       </td>
@@ -122,12 +122,13 @@
           </div>
         </div>
 
+      <!--TODO: make separate component for Common Amminities-->
       <div class="panel-group">
         <div class="panel panel-default">
           <div class="panel-heading">
             <h4 class="panel-title">
               <a data-toggle="collapse" href="#collapseCommonDevelopment">
-                Common Development <span class="slab-area"> Total {{defaultCostPer}} : 12,130 Sqmt </span>
+                Common Development <span class="slab-area"> Total {{defaultCostingByArea}} : 12,130 Sqmt </span>
               </a>
             </h4>
           </div>
@@ -146,9 +147,9 @@
                 </tr>
                 <tr>
                   <th><span class="sub-heading">Budgeted Cost</span></th>
-                  <th class="border-left"><span class="sub-heading">{{defaultCostIn}}<br/>{{defaultCostPer}}</span></th>
+                  <th class="border-left"><span class="sub-heading">{{defaultCostingByUnit}}<br/>{{defaultCostingByArea}}</span></th>
                   <th><span class="sub-heading">Estimated Cost</span></th>
-                  <th class="border-left" ><span class="sub-heading">{{defaultCostIn}}<br/>{{defaultCostPer}}</span></th>
+                  <th class="border-left" ><span class="sub-heading">{{defaultCostingByUnit}}<br/>{{defaultCostingByArea}}</span></th>
                   <th>&nbsp;</th>
                 </tr>
                 </thead>
@@ -191,7 +192,7 @@
           <div class="panel-heading">
             <h4 class="panel-title">
               <a>
-                Grand Total <span class="slab-area"> Total Project {{defaultCostPer}} : {{grandTotalofArea}} {{defaultCostIn}}</span>
+                Grand Total <span class="slab-area"> Total Project {{defaultCostingByArea}} : {{grandTotalofArea}} {{defaultCostingByUnit}}</span>
               </a>
             </h4>
           </div>

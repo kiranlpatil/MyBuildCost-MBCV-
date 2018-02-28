@@ -49,7 +49,7 @@ export class ProjectDetailsComponent implements OnInit {
   }
 
 
-  onSubmit(projectModel : Project) {
+  updateProject(projectModel : Project) {
       let projectId=SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT_ID);
       this.projectService.updateProject(projectId, projectModel)
         .subscribe(

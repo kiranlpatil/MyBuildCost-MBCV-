@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 export class CreateNewProjectComponent {
   BODY_BACKGROUND_TRANSPARENT: string;
   MY_LOGO: string;
+
   constructor(private _router: Router) {
     this.BODY_BACKGROUND_TRANSPARENT = ImagePath.BODY_BACKGROUND_TRANSPARENT;
     this.MY_LOGO = ImagePath.MY_WHITE_LOGO;
