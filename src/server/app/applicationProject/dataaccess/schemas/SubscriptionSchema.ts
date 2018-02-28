@@ -15,7 +15,7 @@ class SubscriptionSchema {
       days: {
         type: Number
       },
-      project: {
+      numOfProjects: {
         type: Number
       }
     },

@@ -1,6 +1,6 @@
 class Subscription {
   price: number;
   days: number;
-  project: number;
+  numOfProjects: number;
 }
 export = Subscription;
