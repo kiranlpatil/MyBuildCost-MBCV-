@@ -1,11 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { Router, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { Messages } from '../../../../../shared/constants';
 import { Building } from './../../../model/building';
 import { MessageService } from '../../../../../shared/index';
 import { Message } from '../../../../../shared/index';
-import { ValidationService } from '../../../../../shared/customvalidations/validation.service';
 import { BuildingService } from '../building.service';
 import { SessionStorage, SessionStorageService } from '../../../../../shared/index';
 
@@ -17,32 +15,13 @@ import { SessionStorage, SessionStorageService } from '../../../../../shared/ind
 
 export class BuildingDetailsComponent implements OnInit {
 
-  viewBuildingForm:  FormGroup;
   buildingId : string;
   buildingModel: Building = new Building();
   public isShowErrorMessage: boolean = true;
   public errorMessage: boolean = false;
 
-  constructor(private buildingService: BuildingService, private _router: Router, private formBuilder: FormBuilder,
+  constructor(private buildingService: BuildingService,
               private activatedRoute:ActivatedRoute, private messageService: MessageService) {
-
-    this.viewBuildingForm = this.formBuilder.group({
-      name: ['', ValidationService.requiredBuildingName],
-      totalSlabArea:['', ValidationService.requiredSlabArea],
-      totalCarpetAreaOfUnit:['', ValidationService.requiredCarpetArea],
-      totalSaleableAreaOfUnit:['', ValidationService.requiredSalebleArea],
-      plinthArea:['', ValidationService.requiredPlinthArea],
-      totalNumOfFloors :['', ValidationService.requiredTotalNumOfFloors],
-      numOfParkingFloors :['', ValidationService.requiredNumOfParkingFloors],
-      carpetAreaOfParking :['', ValidationService.requiredCarpetAreaOfParking],
-      numOfOneBHK : ['',  ValidationService.requiredOneBHK],
-      numOfTwoBHK : ['', ValidationService.requiredTwoBHK],
-      numOfThreeBHK : ['', ValidationService.requiredThreeBHK],
-      numOfFourBHK : ['', ValidationService.requiredFourBHK],
-      numOfFiveBHK : ['', ValidationService.requiredFiveBHK],
-      numOfLifts : ['', ValidationService.requiredNumOfLifts]
-    });
-
   }
 
   ngOnInit() {
@@ -83,11 +62,10 @@ export class BuildingDetailsComponent implements OnInit {
   }
 
 
-  onSubmit() {
-      this.buildingModel = this.viewBuildingForm.value;
+  onSubmit(buildingModel : Building) {
       let projectId=SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT_ID);
       let buildingId=SessionStorageService.getSessionValue(SessionStorage.CURRENT_BUILDING);
-      this.buildingService.updateBuilding( projectId, buildingId, this.buildingModel)
+      this.buildingService.updateBuilding( projectId, buildingId, buildingModel)
         .subscribe(
           building => this.updateBuildingSuccess(building),
           error => this.updateBuildingFailure(error));

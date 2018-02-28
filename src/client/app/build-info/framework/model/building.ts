@@ -7,10 +7,10 @@ export class Building {
   totalNumOfFloors:number;
   numOfParkingFloors:number;
   carpetAreaOfParking:number;
-  numOfOneBHK: number;
-  numOfTwoBHK: number;
-  numOfThreeBHK: number;
-  numOfFourBHK:number;
-  numOfFiveBHK:number;
-  numOfLifts: number;
+  numOfOneBHK: number = 0;
+  numOfTwoBHK: number = 0;
+  numOfThreeBHK: number = 0;
+  numOfFourBHK:number = 0;
+  numOfFiveBHK:number = 0;
+  numOfLifts: number = 0;
 }

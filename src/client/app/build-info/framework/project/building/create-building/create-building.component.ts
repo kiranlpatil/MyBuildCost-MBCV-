@@ -1,13 +1,10 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Messages, NavigationRoutes, ImagePath } from '../../../../../shared/constants';
 import { SessionStorage, SessionStorageService,  Message,
   MessageService } from '../../../../../shared/index';
 import { Building } from '../../../model/building';
 import { BuildingService } from './../building.service';
-import { ValidationService } from '../../../../../shared/customvalidations/validation.service';
-
 
 @Component({
   moduleId: module.id,
@@ -18,71 +15,24 @@ import { ValidationService } from '../../../../../shared/customvalidations/valid
 
 export class CreateBuildingComponent {
 
-  addBuildingForm:  FormGroup;
-  public isShowErrorMessage: boolean = true;
-  public errorMessage: boolean = false;
-  buildingModel: Building = new Building();
   BODY_BACKGROUND_TRANSPARENT: string;
 
-  constructor(private buildingService: BuildingService, private formBuilder: FormBuilder,
+  constructor(private buildingService: BuildingService,
               private _router: Router, private messageService: MessageService) {
     this.BODY_BACKGROUND_TRANSPARENT = ImagePath.BODY_BACKGROUND_TRANSPARENT;
-    this.addBuildingForm = this.formBuilder.group({
-      name : ['', ValidationService.requiredBuildingName],
-      totalSlabArea :['', ValidationService.requiredSlabArea],
-      totalCarpetAreaOfUnit :['', ValidationService.requiredCarpetArea],
-      totalSaleableAreaOfUnit :['', ValidationService.requiredSalebleArea],
-      plinthArea :['', ValidationService.requiredPlinthArea],
-      totalNumOfFloors :['', ValidationService.requiredTotalNumOfFloors],
-      numOfParkingFloors :['', ValidationService.requiredNumOfParkingFloors],
-      carpetAreaOfParking :['', ValidationService.requiredCarpetAreaOfParking],
-      numOfOneBHK : [''],
-      numOfTwoBHK :[''],
-      numOfThreeBHK :[''],
-      numOfFourBHK :[''],
-      numOfFiveBHK :[''],
-      numOfLifts :['']
-   });
-
   }
 
   goBack() {
     let projectId = SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT_ID);
     this._router.navigate([NavigationRoutes.APP_PROJECT,projectId,NavigationRoutes.APP_COST_SUMMARY]);
   }
-  onSubmit() {
-    if(this.addBuildingForm.valid) {
-      this.buildingModel = this.addBuildingForm.value;
-      if(this.buildingModel.numOfOneBHK !== undefined || this.buildingModel.numOfTwoBHK !== undefined
-        || this.buildingModel.numOfThreeBHK !== undefined ||
-        this.buildingModel.numOfFourBHK !== undefined || this.buildingModel.numOfFiveBHK !== undefined ) {
 
-        if(this.buildingModel.numOfOneBHK === undefined) {
-          this.buildingModel.numOfOneBHK=0;
-        }
+  onSubmit(buildingModel : Building) {
 
-        if(this.buildingModel.numOfTwoBHK === undefined) {
-          this.buildingModel.numOfTwoBHK=0;
-        }
-
-        if(this.buildingModel.numOfThreeBHK === undefined) {
-          this.buildingModel.numOfThreeBHK=0;
-        }
-
-        if(this.buildingModel.numOfFourBHK === undefined) {
-          this.buildingModel.numOfFourBHK=0;
-        }
-
-        if(this.buildingModel.numOfFiveBHK === undefined) {
-          this.buildingModel.numOfFiveBHK=0;
-        }
-
-        if(this.buildingModel.numOfLifts === undefined) {
-          this.buildingModel.numOfLifts=0;
-        }
+      if(buildingModel) {
 
       let projectId = SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT_ID);
-      this.buildingService.createBuilding(projectId, this.buildingModel)
+      this.buildingService.createBuilding(projectId, buildingModel)
         .subscribe(
           building => this.onCreateBuildingSuccess(building),
           error => this.onCreateBuildingFailure(error));
@@ -92,7 +42,6 @@ export class CreateBuildingComponent {
         message.custom_message = 'Add at least one Apartment Configuration';
         this.messageService.message(message);
       }
-    }
   }
 
   onCreateBuildingSuccess(building : any) {

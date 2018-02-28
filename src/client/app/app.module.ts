@@ -65,6 +65,7 @@ import { CreateNewProjectComponent } from './build-info/framework/create-new-pro
 import { ProjectItemComponent } from './build-info/framework/project-list/project-item/project-item.component';
 import { DeleteConfirmationModalComponent } from './shared/delete-confirmation-modal/delete-confirmation-modal.component';
 import { ProjectFormComponent } from './build-info/framework/shared/project-form/project-form.component';
+import { BuildingFormComponent } from './build-info/framework/shared/building-form/building-form.component';
 
 
 @NgModule({
@@ -116,6 +117,7 @@ import { ProjectFormComponent } from './build-info/framework/shared/project-form
     GroupByPipe,
     DeleteConfirmationModalComponent,
     ProjectFormComponent,
+    BuildingFormComponent,
 
     PageNotFoundComponent,
     CommonAmenitiesComponent
