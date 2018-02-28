@@ -43,7 +43,7 @@ class ReportService {
     //this.categoryDetails = new categoryDetails();
   }
 
-  getReport( projectId : any,reportType : string, projectRate : string, areaType : string,  user: User,
+  getReport( projectId : any, reportType : string, rateUnit : string, areaType : string,  user: User,
              callback: (error: any, result: any) => void) {
 
     logger.info('Report Service, getReport has been hit');
@@ -64,13 +64,13 @@ class ReportService {
           buildingReport.name = buildings[index].name;
           buildingReport._id = buildings[index]._id;
           if (areaType === 'slabArea') {
-            if(projectRate==='sqmt') {
+            if(rateUnit==='sqmt') {
               buildingReport.area = parseFloat((buildings[index].totalSlabArea * config.get('SqureMeter')).toFixed(2));
             } else {
               buildingReport.area = parseFloat((buildings[index].totalSlabArea).toFixed(2));
             }
           } else {
-            if(projectRate==='sqmt') {
+            if(rateUnit==='sqmt') {
               buildingReport.area = parseFloat((buildings[index].totalSaleableAreaOfUnit * config.get('SqureMeter')).toFixed(2));
             } else {
               buildingReport.area = parseFloat((buildings[index].totalSaleableAreaOfUnit).toFixed(2));
@@ -90,7 +90,7 @@ class ReportService {
               if (areaType === 'slabArea') {
                 thumbRuleReport.area = buildings[index].totalSlabArea;
                 estimatedReport.area = buildings[index].totalSlabArea;
-                if (projectRate === 'sqft') {
+                if (rateUnit === 'sqft') {
                   thumbRule.rate = parseFloat((costHeadArray[costHeadIndex].thumbRuleRate.slabArea.sqft).toFixed(2));
                 } else {
                   thumbRule.rate = parseFloat((costHeadArray[costHeadIndex].thumbRuleRate.slabArea.sqmt).toFixed(2));
@@ -100,7 +100,7 @@ class ReportService {
               } else {
                 thumbRuleReport.area = buildings[index].totalSaleableAreaOfUnit;
                 estimatedReport.area = buildings[index].totalSaleableAreaOfUnit;
-                if (projectRate === 'sqft') {
+                if (rateUnit === 'sqft') {
                   thumbRule.rate = parseFloat((costHeadArray[costHeadIndex].thumbRuleRate.saleableArea.sqft).toFixed(2));
                 } else {
                   thumbRule.rate = parseFloat((costHeadArray[costHeadIndex].thumbRuleRate.saleableArea.sqmt).toFixed(2));
@@ -159,9 +159,9 @@ class ReportService {
     });
   }
 
-  getCostHeads( user: User, url: string ,callback: (error: any, result: any) => void) {
+  getCostHeads(  url: string , user: User,callback: (error: any, result: any) => void) {
     logger.info('Report Service, getCostHeads has been hit');
-    this.rateAnalysisService.getCostHeads(user, url,(error, result) => {
+    this.rateAnalysisService.getCostHeads( url, user,(error, result) => {
       if(error) {
         console.log('error : '+JSON.stringify(error));
         callback(error, null);
@@ -171,9 +171,9 @@ class ReportService {
     });
   }
 
-  getWorkItems( user: User, url: string ,callback: (error: any, result: any) => void) {
+  getWorkItems( url: string , user: User, callback: (error: any, result: any) => void) {
     logger.info('Report Service, getWorkItems has been hit');
-    this.rateAnalysisService.getWorkItems( user, url,(error, result) => {
+    this.rateAnalysisService.getWorkItems( url, user,(error, result) => {
       if(error) {
         console.log('error : '+JSON.stringify(error));
         callback(error, null);
@@ -182,6 +182,7 @@ class ReportService {
       }
     });
   }
+
 }
 
 Object.seal(ReportService);

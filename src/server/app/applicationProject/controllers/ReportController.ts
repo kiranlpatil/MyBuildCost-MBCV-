@@ -23,16 +23,16 @@ class ReportController {
       let user = req.user;
       let projectId =  req.params.projectId;
       let reportType =  req.params.reportType;
-      let projectRate =  req.params.costingUnit;
-      let projectArea =  req.params.costingArea;
+      let rateUnit =  req.params.costingUnit;
+      let areaType =  req.params.costingArea;
 
-      reportService.getReport(projectId, reportType, projectRate, projectArea,  user, (error, result) => {
+      reportService.getReport( projectId, reportType, rateUnit, areaType,  user, (error, result) => {
         if(error) {
           next(error);
         } else {
           logger.info('Get Project success');
           logger.debug('Getting Project for Project ID : '+projectId+', Report Type : '+reportType+
-            ', Project Rate : '+projectRate+', Project Area : '+projectArea);
+            ', Rate Unit : '+rateUnit+', Project Area : '+areaType);
           next(new Response(200,result));
         }
       });
@@ -45,10 +45,10 @@ class ReportController {
     try {
       logger.info('Report Controller, getRateAnalysisCostHeads has been hit');
       let reportService = new ReportService();
-      let user = req.user;
       let url = config.get('rateAnalysisAPI.costHeads');
+      let user = req.user;
 
-      reportService.getCostHeads( user, url, (error, result) => {
+      reportService.getCostHeads( url, user,(error, result) => {
         if(error) {
           next(error);
         } else {
@@ -69,7 +69,7 @@ class ReportController {
       let url = config.get('rateAnalysisAPI.workItems');
       console.log('URL : '+url);
 
-      reportService.getWorkItems(user, url, (error, result) => {
+      reportService.getWorkItems( url, user, (error, result) => {
         if(error) {
           next(error);
         } else {

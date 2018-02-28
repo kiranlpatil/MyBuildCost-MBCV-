@@ -17,9 +17,9 @@ class RateAnalysisController {
     try {
       logger.info('Rate Analysis Controller, getRateAnalysisCostHeads has been hit');
       let rateAnalysisService = new RateAnalysisService();
-      let user = req.user;
       let url = config.get('rateAnalysisAPI.costHeads');
-      rateAnalysisService.getCostHeads(user, url, (error, result) => {
+      let user = req.user;
+      rateAnalysisService.getCostHeads( url, user, (error, result) => {
         if(error) {
           next(error);
         } else {
@@ -39,7 +39,7 @@ class RateAnalysisController {
       let user = req.user;
       let url = config.get('rateAnalysisAPI.workItems');
 
-      rateAnalysisService.getWorkItems(user, url, (error, result) => {
+      rateAnalysisService.getWorkItems( url, user,(error, result) => {
         if(error) {
           next(error);
         } else {
@@ -60,7 +60,7 @@ class RateAnalysisController {
       let costHeadId = req.params.costHeadId;
       let url = config.get('rateAnalysisAPI.workItems');
 
-      rateAnalysisService.getWorkItemsByCostHeadId(costHeadId, user, url, (error, result) => {
+      rateAnalysisService.getWorkItemsByCostHeadId( url, costHeadId, user, (error, result) => {
         if(error) {
           next(error);
         } else {
@@ -92,5 +92,7 @@ class RateAnalysisController {
       next(new CostControllException(e.message,e.stack));
     }
   }
+
 }
+
 export  = RateAnalysisController;

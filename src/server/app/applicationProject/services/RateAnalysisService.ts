@@ -23,7 +23,7 @@ class RateAnalysisService {
     this.userService = new UserService();
   }
 
-  getCostHeads(user: User, url: string, callback: (error: any, result: any) => void) {
+  getCostHeads( url: string, user: User, callback: (error: any, result: any) => void) {
     logger.info('Rate Analysis Service, getCostHeads has been hit');
     request.get({url: url}, function (error: any, response: any, body: any) {
       if (error) {
@@ -36,7 +36,7 @@ class RateAnalysisService {
     });
   }
 
-  getWorkItems(user: User, url: string, callback: (error: any, result: any) => void) {
+  getWorkItems( url: string, user: User, callback: (error: any, result: any) => void) {
     logger.info('Rate Analysis Service, getWorkItems has been hit');
     request.get({url: url}, function (error: any, response: any, body: any) {
       if (error) {
@@ -48,7 +48,7 @@ class RateAnalysisService {
     });
   }
 
-  getWorkItemsByCostHeadId(costHeadId: string, user: User, url: string, callback: (error: any, result: any) => void) {
+  getWorkItemsByCostHeadId( url: string,costHeadId: string, user: User, callback: (error: any, result: any) => void) {
     logger.info('Rate Analysis Service, getWorkItemsByCostHeadId has been hit');
     let workItems : Array<WorkItem> = [];
     request.get({url: url}, function (error: any, response: any, body: any) {
@@ -146,6 +146,7 @@ class RateAnalysisService {
       }
     });
   }
+
 }
 
 

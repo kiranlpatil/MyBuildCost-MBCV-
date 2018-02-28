@@ -99,8 +99,8 @@ class ProjectService {
     });
   }
 
-  addBuilding(projectId : string, buildingDetail : Building, user: User, callback:(error: any, result: any)=> void) {
-    this.buildingRepository.create(buildingDetail, (error, result)=> {
+  addBuilding(projectId : string, buildingDetails : Building, user: User, callback:(error: any, result: any)=> void) {
+    this.buildingRepository.create(buildingDetails, (error, result)=> {
       logger.info('Project service, create has been hit');
       if(error) {
         callback(error, null);
@@ -119,10 +119,10 @@ class ProjectService {
     });
   }
 
-  updateBuilding( buildingId:string, buildingDetail:any, user:User, callback:(error: any, result: any)=> void) {
+  updateBuilding( buildingId:string, buildingDetails:any, user:User, callback:(error: any, result: any)=> void) {
     logger.info('Project service, updateBuilding has been hit');
     let query = { _id : buildingId };
-    this.buildingRepository.findOneAndUpdate(query, buildingDetail,{new: true}, (error, result) => {
+    this.buildingRepository.findOneAndUpdate(query, buildingDetails,{new: true}, (error, result) => {
       logger.info('Project service, findOneAndUpdate has been hit');
       if (error) {
         callback(error, null);
@@ -132,7 +132,7 @@ class ProjectService {
     });
   }
 
-  cloneBuildingDetails( buildingId:string, buildingDetail:any, user:User, callback:(error: any, result: any)=> void) {
+  cloneBuildingDetails( buildingId:string, buildingDetails:any, user:User, callback:(error: any, result: any)=> void) {
     logger.info('Project service, cloneBuildingDetails has been hit');
     let query = { _id : buildingId };
     this.buildingRepository.findById(buildingId, (error, result) => {
@@ -141,7 +141,7 @@ class ProjectService {
         callback(error, null);
       } else {
         let clonedCostHeadDetails :Array<CostHead>=[];
-        let costHeads =buildingDetail.costHeads;
+        let costHeads =buildingDetails.costHeads;
         let resultCostHeads = result.costHeads;
         for(let costHead of costHeads) {
           for(let resultCostHead of resultCostHeads) {
@@ -372,7 +372,7 @@ class ProjectService {
   }
 
   deleteQuantity(projectId:string, buildingId:string, costHeadId:string, subCategoryId:string,
-                 workItemId:string, user:User, item:string, callback:(error: any, result: any)=> void) {
+                 workItemId:string, item:string, user:User, callback:(error: any, result: any)=> void) {
     logger.info('Project service, deleteQuantity has been hit');
     this.buildingRepository.findById(buildingId, (error, building:Building) => {
       if (error
@@ -638,7 +638,7 @@ class ProjectService {
     });
   }
 
-  addWorkitem(projectId:string, buildingId:string, costHeadId:number, subCategoryId:number, workitem: WorkItem,
+  addWorkitem(projectId:string, buildingId:string, costHeadId:number, subCategoryId:number, workItem: WorkItem,
               user:User, callback:(error: any, result: any)=> void) {
     logger.info('Project service, addWorkitem has been hit');
     this.buildingRepository.findById(buildingId, (error, building:Building) => {
@@ -651,7 +651,7 @@ class ProjectService {
             let subCategory = building.costHeads[index].subCategories;
             for(let subCategoryIndex = 0; subCategory.length > subCategoryIndex; subCategoryIndex++) {
               if(subCategory[subCategoryIndex].rateAnalysisId === subCategoryId) {
-                subCategory[subCategoryIndex].workItems.push(workitem);
+                subCategory[subCategoryIndex].workItems.push(workItem);
                 responseWorkitem = subCategory[subCategoryIndex].workItems;
               }
             }
@@ -671,10 +671,10 @@ class ProjectService {
     });
   }
 
-  addSubcategoryToCostHead(projectId:string, buildingId:string, costHeadId:string, subcategoryObject : any, user:User,
+  addSubcategoryToCostHead(projectId:string, buildingId:string, costHeadId:string, subCategoryDetails : any, user:User,
     callback:(error: any, result: any)=> void) {
 
-    let subCategoryObj : SubCategory = new SubCategory(subcategoryObject.subCategory, subcategoryObject.subCategoryId);
+    let subCategoryObj : SubCategory = new SubCategory(subCategoryDetails.subCategory, subCategoryDetails.subCategoryId);
 
     let query = {'_id' : buildingId, 'costHeads.rateAnalysisId' : parseInt(costHeadId)};
     let newData = { $push: { 'costHeads.$.subCategories': subCategoryObj }};
@@ -689,7 +689,7 @@ class ProjectService {
     });
   }
 
-  deleteSubcategoryFromCostHead(projectId:string, buildingId:string, costheadId:string, subcategoryObject : any, user:User,
+  deleteSubcategoryFromCostHead(projectId:string, buildingId:string, costHeadId:string, subCategoryDetails : any, user:User,
                            callback:(error: any, result: any)=> void) {
 
     this.buildingRepository.findById(buildingId, (error, building) => {
@@ -701,17 +701,17 @@ class ProjectService {
         let subCategoryList : any = [];
 
         for(let index=0; index<costHeadList.length; index++) {
-          if(parseInt(costheadId) === costHeadList[index].rateAnalysisId) {
+          if(parseInt(costHeadId) === costHeadList[index].rateAnalysisId) {
             subCategoryList = costHeadList[index].subCategories;
             for(let subcategoryIndex=0; subcategoryIndex<subCategoryList.length; subcategoryIndex++) {
-              if(subCategoryList[subcategoryIndex].rateAnalysisId === subcategoryObject.rateAnalysisId) {
+              if(subCategoryList[subcategoryIndex].rateAnalysisId === subCategoryDetails.rateAnalysisId) {
                 subCategoryList.splice(subcategoryIndex, 1);
               }
             }
           }
         }
 
-        let query = {'_id' : buildingId, 'costHeads.rateAnalysisId' : parseInt(costheadId)};
+        let query = {'_id' : buildingId, 'costHeads.rateAnalysisId' : parseInt(costHeadId)};
         let newData = {'$set' : {'costHeads.$.subCategories' : subCategoryList }};
 
         this.buildingRepository.findOneAndUpdate(query, newData,{new: true}, (error, dataList) => {
