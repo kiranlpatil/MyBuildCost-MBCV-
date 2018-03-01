@@ -19,7 +19,7 @@ import SubCategory = require('../dataaccess/model/project/building/SubCategory')
 let config = require('config');
 let log4js = require('log4js');
 import alasql = require('alasql');
-import ClonedSubcategory = require('../dataaccess/model/project/building/ClonedSubcategory');
+import ClonedSubCategory = require('../dataaccess/model/project/building/ClonedSubCategory');
 let logger=log4js.getLogger('Project service');
 
 class ProjectService {
@@ -265,15 +265,15 @@ class ProjectService {
           clonedCostHead.budgetedCostAmount = clonedBuilding[costHeadIndex].budgetedCostAmount;
 
           let clonedWorkItemArray : Array<ClonedWorkItem> = [];
-          let clonedSubcategoryArray : Array<ClonedSubcategory> = [];
+          let clonedSubCategoryArray : Array<ClonedSubCategory> = [];
           let subCategoryArray = clonedBuilding[costHeadIndex].subCategories;
 
           for(let subCategoryIndex=0; subCategoryIndex<subCategoryArray.length; subCategoryIndex++) {
-            let clonedSubcategory = new ClonedSubcategory();
-            clonedSubcategory.name = subCategoryArray[subCategoryIndex].name;
-            clonedSubcategory.rateAnalysisId = subCategoryArray[subCategoryIndex].rateAnalysisId;
-            clonedSubcategory.amount = subCategoryArray[subCategoryIndex].amount;
-            clonedSubcategory.active = true;
+            let clonedSubCategory = new ClonedSubCategory();
+            clonedSubCategory.name = subCategoryArray[subCategoryIndex].name;
+            clonedSubCategory.rateAnalysisId = subCategoryArray[subCategoryIndex].rateAnalysisId;
+            clonedSubCategory.amount = subCategoryArray[subCategoryIndex].amount;
+            clonedSubCategory.active = true;
 
             let workitemArray = subCategoryArray[subCategoryIndex].workItems;
             for(let workitemIndex=0; workitemIndex< workitemArray.length; workitemIndex++) {
@@ -286,10 +286,10 @@ class ProjectService {
               clonedWorkItem.quantity = workitemArray[workitemIndex].quantity;
               clonedWorkItemArray.push(clonedWorkItem);
             }
-            clonedSubcategory.workItems = clonedWorkItemArray;
-            clonedSubcategoryArray.push(clonedSubcategory);
+            clonedSubCategory.workItems = clonedWorkItemArray;
+            clonedSubCategoryArray.push(clonedSubCategory);
           }
-          clonedCostHead.subCategories = clonedSubcategoryArray;
+          clonedCostHead.subCategories = clonedSubCategoryArray;
           clonedCostHeadArray.push(clonedCostHead);
         }
         building.costHeads = clonedCostHeadArray;
