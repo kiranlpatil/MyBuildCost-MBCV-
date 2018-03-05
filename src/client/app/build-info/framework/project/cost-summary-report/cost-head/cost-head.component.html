@@ -12,7 +12,7 @@
                   <span class="pull-right">{{ subCategoryDetails[subCategory].amount|number }}</span>
                 </a>
                 <a *ngIf="subCategoryDetails[subCategory].rateAnalysisId === 0" data-toggle="collapse" href="#collapse{{subCategoryIndex}}">
-                  <span  class="pull-left">WorkItems</span>
+                  <span  class="pull-left">{{getLabel().WORKITEMS}}</span>
                   <span  class="pull-right">{{ subCategoryDetails[subCategory].amount|number }}</span>
                 </a>
               </div>

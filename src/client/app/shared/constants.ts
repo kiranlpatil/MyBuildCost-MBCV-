@@ -316,7 +316,8 @@ export class Headings {
   public static EDIT_BUILDING: string = 'Edit Building';
   public static LIST_BUILDING: string = 'Buildings List';
   public static ADD_NEW_BUILDING: string = 'Add Building in Project';
-  public static COMMON_DEVELOPMENT : string = ' Common Developement : Electric Infrastructure';
+  public static COMMON_DEVELOPMENT : string = ' Common Developement ';
+  public static ELECTRIC_INFRASTRUCTURE : string = 'Electric Infrastructure ';
   public static CONSTRUCTION_COST : string = 'Construction Cost (Material + Labour)';
   public static QUANTITY : string = 'Quantity';
   }
@@ -324,6 +325,10 @@ export class Headings {
 export class TableHeadings {
   public static ITEM : string = 'Item';
   public static QUANTITY : string = 'Qty.';
+  public static NUMBERS : string = 'Nos.';
+  public static LENGTH : string = 'Length';
+  public static BREADTH : string = 'Breadth';
+  public static HEIGHT : string = 'Height';
   public static UNIT: string = 'Unit';
   public static RATE : string = 'Rate';
   public static RATEANALYSIS : string = 'RateAnalysis';
@@ -401,6 +406,7 @@ export class Label {
   public static AS_PER_PROJECT : string = '(as per project quantities & rates)';
   public static GRAND_TOTAL : string = 'Grand Total ';
   public static TOTAL_PROJECT : string = 'Total Project';
+  public static WORKITEMS : string = 'WorkItems';
 
 }
 
@@ -422,6 +428,8 @@ export class Button {
   public static ADD: string = 'Add ';
   public static SUBCATEGORY: string = 'SubCategory';
   public static WORKITEM: string = 'WorkItem';
+  public static ITEM: string = 'Item';
+  public static COSTHEAD: string = 'CostHead';
 }
 
 export class Units {

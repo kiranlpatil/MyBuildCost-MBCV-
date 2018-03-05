@@ -1,14 +1,14 @@
  <div *ngIf="quantityItems!==undefined" class="get-quantity-section">
   <table class="table">
     <thead>
-    <th>Item</th>
+    <th>{{getTableHeadings().ITEM}}</th>
     <th>&nbsp;</th>
-    <th>Nos.</th>
-    <th>Length</th>
-    <th>Breadth</th>
-    <th>Height</th>
-    <th>Qty.</th>
-    <th class="text-left">Unit</th>
+    <th>{{getTableHeadings().NUMBERS}}</th>
+    <th>{{getTableHeadings().LENGTH}}</th>
+    <th>{{getTableHeadings().BREADTH}}</th>
+    <th>{{getTableHeadings().HEIGHT}}</th>
+    <th>{{getTableHeadings().QUANTITY}}</th>
+    <th class="text-left">{{getTableHeadings().UNIT}}</th>
     <th>&nbsp;</th>
     </thead>
     <tbody>
@@ -41,7 +41,7 @@
     </tr>
     <tr>
       <td class="total-amount">
-        <label>Total</label>
+        <label>{{getTableHeadings().TOTAL}}</label>
       </td>
       <td class="total-amount">
       </td>
@@ -67,8 +67,8 @@
     </tbody>
   </table>
 
-  <button type="button" class="add-new-btn" (click)="addItem()">+ Add Item</button>
-  <button type="submit" class="save-btn" (click)="updateQuantityItem(quantityItems)">Save</button>
+  <button type="button" class="add-new-btn" (click)="addItem()">+ {{getButton().ADD}} {{getButton().ITEM}}</button>
+  <button type="submit" class="save-btn" (click)="updateQuantityItem(quantityItems)">{{getButton().SAVE}}</button>
 
 </div>
 

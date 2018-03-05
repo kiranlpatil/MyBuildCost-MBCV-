@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router , ActivatedRoute } from '@angular/router';
-import { NavigationRoutes, ProjectElements } from '../../../../shared/constants';
+import { NavigationRoutes, ProjectElements, Button,  Menus, Headings, Label } from '../../../../shared/constants';
 import { SessionStorage, SessionStorageService,  Message, Messages, MessageService } from '../../../../shared/index';
 import { CostSummaryService } from './cost-summary.service';
 import { Building } from '../../model/building';
@@ -8,7 +8,6 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { ValidationService } from '../../../../shared/customvalidations/validation.service';
 import { BuildingService } from '../building/building.service';
 import { CostHead } from '../../model/costhead';
-import { Menus, Headings, Label } from '../../../../shared/constants';
 import { EstimateReport } from '../../model/estimate-report';
 import { BuildingReport } from '../../model/building-report';
 
@@ -369,6 +368,10 @@ export class CostSummaryComponent implements OnInit {
 
   getLabel() {
     return Label;
+  }
+
+  getButton() {
+    return Button;
   }
 
   getHeadings() {

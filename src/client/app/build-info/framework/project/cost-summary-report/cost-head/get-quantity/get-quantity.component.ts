@@ -2,7 +2,7 @@ import { Component, EventEmitter, OnInit, Input, Output } from '@angular/core';
 import { SessionStorage, SessionStorageService,  Message, Messages, MessageService } from '../../../../../../shared/index';
 import { QuantityItem } from '../../../../model/quantity-item';
 import { CostSummaryService } from '../../cost-summary.service';
-import { ProjectElements } from '../../../../../../shared/constants';
+import { ProjectElements, Button, TableHeadings, Label, Headings } from '../../../../../../shared/constants';
 
 @Component({
   moduleId: module.id,
@@ -199,4 +199,19 @@ export class GetQuantityComponent implements OnInit {
     }
   }
 
+  getButton() {
+    return Button;
+  }
+
+  getTableHeadings() {
+    return TableHeadings;
+  }
+
+  getLabel() {
+    return Label;
+  }
+
+  getHeadings() {
+    return Headings;
+  }
 }

@@ -1,6 +1,6 @@
 import { Component, OnInit , OnChanges } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Messages, ProjectElements, TableHeadings, Button } from '../../../../../shared/constants';
+import { Messages, ProjectElements, TableHeadings, Button, Label } from '../../../../../shared/constants';
 import { SessionStorage, SessionStorageService, Message, MessageService } from '../../../../../shared/index';
 import { Rate } from '../../../model/rate';
 import { CommonService } from '../../../../../shared/services/common.service';
@@ -414,6 +414,10 @@ export class CostHeadComponent implements OnInit, OnChanges {
 
   getButton() {
     return Button;
+  }
+
+  getLabel() {
+    return Label;
   }
 
 }
