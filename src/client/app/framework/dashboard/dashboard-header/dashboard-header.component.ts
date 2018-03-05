@@ -57,12 +57,12 @@ export class DashboardHeaderComponent {
   }
 
   navigateTo(nav:string) {
-    this.removeProjectDetailsFromSessionStorege();
+    this.deleteProjectDetailsFromSessionStorege();
     this._router.navigate([nav]);
     this.closeMenu();
   }
 
-  removeProjectDetailsFromSessionStorege() {
+  deleteProjectDetailsFromSessionStorege() {
     sessionStorage.removeItem(SessionStorage.CURRENT_PROJECT_ID);
     sessionStorage.removeItem(SessionStorage.CURRENT_PROJECT_NAME);
   }
