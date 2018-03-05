@@ -617,8 +617,10 @@
             "name": "default",
             "rateAnalysisId": 0,
             "amount": 0,
+            "active": true,
             "workItems": [
               {
+                "active": true,
                 "name": "Salai pointing for UCR masonry in CM 1: 4",
                 "quantity": {
                   "total": 0,
