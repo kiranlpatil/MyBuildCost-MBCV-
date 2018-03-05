@@ -8,6 +8,7 @@ export class WorkItem {
   unit: string;
   rate: Rate;
   amount: number;
+  active: boolean;
   remarks: string;
 
   constructor(name: string, rateAnalysisId: number) {
@@ -17,6 +18,7 @@ export class WorkItem {
     this.rate = new Rate();
     this.amount = 0;
     this.unit = Units.UNIT;
+    this.active=false;
     this.remarks = '';
   }
 }
