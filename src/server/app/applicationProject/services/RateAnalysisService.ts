@@ -139,30 +139,30 @@ class RateAnalysisService {
   getAllDataFromRateAnalysis(callback:(error: any, data:any)=> void) {
 
     let costHeadURL = config.get('rateAnalysisAPI.costHeads');
-    let promiseCostHead = this.createPromise(costHeadURL);
+    let costHeadRateAnalysisPromise = this.createPromise(costHeadURL);
 
     let categoryURL = config.get('rateAnalysisAPI.subCategories');
-    let promiseCategory = this.createPromise(categoryURL);
+    let categoryRateAnalysisPromise = this.createPromise(categoryURL);
 
     let workItemURL = config.get('rateAnalysisAPI.workItems');
-    let promiseWorkItem = this.createPromise(workItemURL);
+    let workItemRateAnalysisPromise = this.createPromise(workItemURL);
 
     let rateItemURL = config.get('rateAnalysisAPI.rate');
-    let promiseRateItem = this.createPromise(rateItemURL);
+    let rateItemRateAnalysisPromise = this.createPromise(rateItemURL);
 
     let rateAnalysisNotesURL = config.get('rateAnalysisAPI.rateAnalysisNotes');
-    let promiseRateAnalysisNotes = this.createPromise(rateAnalysisNotesURL); //promise name change
+    let notesRateAnalysisPromise = this.createPromise(rateAnalysisNotesURL);
 
     let allUnitsFromRateAnalysisURL = config.get('rateAnalysisAPI.unit');
-    let promiseRateAnalysisUnits = this.createPromise(allUnitsFromRateAnalysisURL);
+    let unitsRateAnalysisPromise = this.createPromise(allUnitsFromRateAnalysisURL);
 
     Promise.all([
-      promiseCostHead,
-      promiseCategory,
-      promiseWorkItem,
-      promiseRateItem,
-      promiseRateAnalysisNotes,
-      promiseRateAnalysisUnits
+      costHeadRateAnalysisPromise,
+      categoryRateAnalysisPromise,
+      workItemRateAnalysisPromise,
+      rateItemRateAnalysisPromise,
+      notesRateAnalysisPromise,
+      unitsRateAnalysisPromise
     ]).then(function(data: Array<any>) {
 
       let costHeadsRateAnalysis = data[0]['ItemType'];
