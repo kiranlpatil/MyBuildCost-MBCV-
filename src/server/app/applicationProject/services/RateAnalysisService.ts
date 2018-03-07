@@ -173,68 +173,12 @@ class RateAnalysisService {
       let unitsRateAnalysis = data[5]['UOM'];
 
       let buildingCostHeads: Array<CostHead> = [];
+      let rateAnalysisService = new RateAnalysisService();
 
-      for(let costHeadIndex = 0 ; costHeadIndex < costHeadsRateAnalysis.length; costHeadIndex++) {
+      rateAnalysisService.getCostHeadsFromRateAnalysis(costHeadsRateAnalysis, categoriesRateAnalysis, workItemsRateAnalysis,
+        rateItemsRateAnalysis, unitsRateAnalysis, notesRateAnalysis, buildingCostHeads);
 
-        let costHead = new CostHead();
-        costHead.name = costHeadsRateAnalysis[costHeadIndex].C2;
-        costHead.rateAnalysisId = costHeadsRateAnalysis[costHeadIndex].C1;
-
-        let categoriesRateAnalysisSQL = 'SELECT Category.C1 AS rateAnalysisId, Category.C2 AS name' +
-          ' FROM ? AS Category where Category.C3 = '+costHead.rateAnalysisId;
-
-        let categoriesByCostHead = alasql(categoriesRateAnalysisSQL, [categoriesRateAnalysis]);
-        let buildingCategories: Array<Category> = [];
-
-        for(let categoryIndex=0; categoryIndex < categoriesByCostHead.length; categoryIndex++) {
-
-          let category = new Category(categoriesByCostHead[categoryIndex].name, categoriesByCostHead[categoryIndex].rateAnalysisId);
-
-          let workItemsRateAnalysisSQL = 'SELECT workItem.C2 AS rateAnalysisId, workItem.C3 AS name' +
-            ' FROM ? AS workItem where workItem.C4 = '+categoriesByCostHead[categoryIndex].rateAnalysisId;
-
-          let workItemsByCategory = alasql(workItemsRateAnalysisSQL, [workItemsRateAnalysis]);
-          let buildingWorkItems : Array<WorkItem> = [];
-
-          for(let workItemIndex = 0; workItemIndex < workItemsByCategory.length; workItemIndex++) {
-
-            let workItem = new WorkItem(workItemsByCategory[workItemIndex].name,
-               workItemsByCategory[workItemIndex].rateAnalysisId);
-
-            let rateItemsRateAnalysisSQL = 'SELECT rateItem.C2 AS item, rateItem.C12 AS rateAnalysisId, rateItem.C6 AS type,' +
-               'ROUND(rateItem.C7,2) AS quantity, ROUND(rateItem.C3,2) AS rate, unit.C2 AS unit,' +
-               'ROUND(rateItem.C3 * rateItem.C7,2) AS totalAmount, rateItem.C5 AS totalQuantity ' +
-               'FROM ? AS rateItem JOIN ? AS unit ON unit.C1 = rateItem.C9 where rateItem.C1 = '
-               + workItemsByCategory[workItemIndex].rateAnalysisId;
-            let rateItemsByWorkItem =  alasql(rateItemsRateAnalysisSQL, [rateItemsRateAnalysis, unitsRateAnalysis]);
-
-            let notesRateAnalysisSQL = 'SELECT notes.C2 AS notes, notes.C3 AS imageURL FROM ? AS notes where notes.C1 = 49';
-            //+ rateItemsByWorkItem[notesIndex].notesId;
-            let notesList = alasql(notesRateAnalysisSQL, [notesRateAnalysis]);
-
-            workItem.rate.rateItems = rateItemsByWorkItem;
-            workItem.rate.quantity = rateItemsByWorkItem[0].totalQuantity;
-            workItem.rate.notes = notesList[0].notes;
-            workItem.rate.imageURL = notesList[0].imageURL;
-
-            workItem.systemRate.rateItems = rateItemsByWorkItem;
-            workItem.systemRate.quantity = rateItemsByWorkItem[0].totalQuantity;
-            workItem.systemRate.notes = notesList[0].notes;
-            workItem.systemRate.imageURL = notesList[0].imageURL;
-
-            workItem.active = true;
-            buildingWorkItems.push(workItem);
-          }
-          category.workItems = buildingWorkItems;
-          category.active = true;
-          buildingCategories.push(category);
-        }
-        costHead.categories = buildingCategories;
-        costHead.thumbRuleRate = config.get('thumbRuleRate');
-        costHead.active = true;
-        buildingCostHeads.push(costHead);
-      }
-      callback(null, buildingCostHeads);
+          callback(null, buildingCostHeads);
     });
   }
 
@@ -252,6 +196,95 @@ class RateAnalysisService {
         });
       });
    }
+
+  getCostHeadsFromRateAnalysis(costHeadsRateAnalysis: any, categoriesRateAnalysis: any,
+                               workItemsRateAnalysis: any, rateItemsRateAnalysis: any,
+                               unitsRateAnalysis: any, notesRateAnalysis: any, buildingCostHeads: Array<CostHead>) {
+
+    for (let costHeadIndex = 0; costHeadIndex < costHeadsRateAnalysis.length; costHeadIndex++) {
+
+      let costHead = new CostHead();
+      costHead.name = costHeadsRateAnalysis[costHeadIndex].C2;
+      costHead.rateAnalysisId = costHeadsRateAnalysis[costHeadIndex].C1;
+
+      let categoriesRateAnalysisSQL = 'SELECT Category.C1 AS rateAnalysisId, Category.C2 AS name' +
+        ' FROM ? AS Category where Category.C3 = ' + costHead.rateAnalysisId;
+
+      let categoriesByCostHead = alasql(categoriesRateAnalysisSQL, [categoriesRateAnalysis]);
+
+      let buildingCategories: Array<Category> = [];
+
+      this.getCategoriesFromRateAnalysis(categoriesByCostHead, workItemsRateAnalysis,
+        rateItemsRateAnalysis, unitsRateAnalysis, notesRateAnalysis, buildingCategories);
+
+      costHead.categories = buildingCategories;
+      costHead.thumbRuleRate = config.get('thumbRuleRate');
+      costHead.active = true;
+      buildingCostHeads.push(costHead);
+    }
+  }
+
+  getCategoriesFromRateAnalysis(categoriesByCostHead: any, workItemsRateAnalysis: any,
+                                rateItemsRateAnalysis: any, unitsRateAnalysis: any,
+                                notesRateAnalysis: any, buildingCategories: Array<Category>) {
+
+    for (let categoryIndex = 0; categoryIndex < categoriesByCostHead.length; categoryIndex++) {
+
+      let category = new Category(categoriesByCostHead[categoryIndex].name, categoriesByCostHead[categoryIndex].rateAnalysisId);
+
+      let workItemsRateAnalysisSQL = 'SELECT workItem.C2 AS rateAnalysisId, workItem.C3 AS name' +
+        ' FROM ? AS workItem where workItem.C4 = ' + categoriesByCostHead[categoryIndex].rateAnalysisId;
+
+      let workItemsByCategory = alasql(workItemsRateAnalysisSQL, [workItemsRateAnalysis]);
+      let buildingWorkItems: Array<WorkItem> = [];
+
+     /* let workItemsWithoutCategoriesRateAnalysisSQL = 'SELECT workItem.C2 AS rateAnalysisId, workItem.C3 AS name' +
+        ' FROM ? AS workItem where NOT workItem.C4';
+
+      let workItemsWithoutCategories = alasql(workItemsWithoutCategoriesRateAnalysisSQL, [workItemsRateAnalysis]);*/
+
+      this.getWorkItemsFromRateAnalysis(workItemsByCategory, rateItemsRateAnalysis,
+        unitsRateAnalysis, notesRateAnalysis, buildingWorkItems);
+
+      category.workItems = buildingWorkItems;
+      category.active = true;
+      buildingCategories.push(category);
+    }
+  }
+
+  getWorkItemsFromRateAnalysis(workItemsByCategory: any, rateItemsRateAnalysis: any,
+                                        unitsRateAnalysis: any, notesRateAnalysis: any, buildingWorkItems: Array<WorkItem>) {
+
+    for (let workItemIndex = 0; workItemIndex < workItemsByCategory.length; workItemIndex++) {
+
+      let workItem = new WorkItem(workItemsByCategory[workItemIndex].name,
+        workItemsByCategory[workItemIndex].rateAnalysisId);
+
+      let rateItemsRateAnalysisSQL = 'SELECT rateItem.C2 AS item, rateItem.C12 AS rateAnalysisId, rateItem.C6 AS type,' +
+        'ROUND(rateItem.C7,2) AS quantity, ROUND(rateItem.C3,2) AS rate, unit.C2 AS unit,' +
+        'ROUND(rateItem.C3 * rateItem.C7,2) AS totalAmount, rateItem.C5 AS totalQuantity ' +
+        'FROM ? AS rateItem JOIN ? AS unit ON unit.C1 = rateItem.C9 where rateItem.C1 = '
+        + workItemsByCategory[workItemIndex].rateAnalysisId;
+      let rateItemsByWorkItem = alasql(rateItemsRateAnalysisSQL, [rateItemsRateAnalysis, unitsRateAnalysis]);
+
+      let notesRateAnalysisSQL = 'SELECT notes.C2 AS notes, notes.C3 AS imageURL FROM ? AS notes where notes.C1 = 49';
+      //+ rateItemsByWorkItem[notesIndex].notesId;
+      let notesList = alasql(notesRateAnalysisSQL, [notesRateAnalysis]);
+
+      workItem.rate.rateItems = rateItemsByWorkItem;
+      workItem.rate.quantity = rateItemsByWorkItem[0].totalQuantity;
+      workItem.rate.notes = notesList[0].notes;
+      workItem.rate.imageURL = notesList[0].imageURL;
+
+      workItem.systemRate.rateItems = rateItemsByWorkItem;
+      workItem.systemRate.quantity = rateItemsByWorkItem[0].totalQuantity;
+      workItem.systemRate.notes = notesList[0].notes;
+      workItem.systemRate.imageURL = notesList[0].imageURL;
+
+      workItem.active = true;
+      buildingWorkItems.push(workItem);
+    }
+  }
 }
 
 
