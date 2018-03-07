@@ -23,7 +23,7 @@ export class CostHeadComponent implements OnInit, OnChanges {
   costHead: string;
   costHeadId:number;
   workItemId: number;
-  sategoryId: number;
+  categoryId: number;
   categoryDetails: Array<Category>;
   categoryDetailsTotalAmount: number=0;
   workItem: WorkItem;
@@ -235,7 +235,7 @@ export class CostHeadComponent implements OnInit, OnChanges {
   }
 
   setIdsForDeleteWorkItem(categoryId: string, workItemId: string) {
-    this.sategoryId = parseInt(categoryId);
+    this.categoryId = parseInt(categoryId);
     this.workItemId =  parseInt(workItemId);
   }
 
@@ -244,7 +244,7 @@ export class CostHeadComponent implements OnInit, OnChanges {
     let buildingId = SessionStorageService.getSessionValue(SessionStorage.CURRENT_BUILDING);
     let costHeadId=parseInt(SessionStorageService.getSessionValue(SessionStorage.CURRENT_COST_HEAD_ID));
 
-    this.costSummaryService.deleteWorkItem( projectId, buildingId, costHeadId, this.sategoryId, this.workItemId ).subscribe(
+    this.costSummaryService.deleteWorkItem( projectId, buildingId, costHeadId, this.categoryId, this.workItemId ).subscribe(
       costHeadDetail => this.onDeleteWorkItemSuccess(costHeadDetail),
       error => this.onDeleteWorkItemFailure(error)
     );
