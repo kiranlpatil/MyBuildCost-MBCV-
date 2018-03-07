@@ -104,15 +104,15 @@ this._requestInterceptor.intercept, interceptor.setCostHeadStatus, controller.se
 
     //Retrive list of inactive workitems
     router.get('/:projectId/building/:buildingId/costhead/:costHeadId/subcategory/:subCategoryId/workitem',
-      this.authInterceptor.requiresAuth, this._requestInterceptor.intercept, interceptor.getInactiveWorkItems, controller.getInactiveWorkItems,  this._responseInterceptor.exit);
+      this.authInterceptor.requiresAuth, this._requestInterceptor.intercept, interceptor.getInActiveWorkItems, controller.getInActiveWorkItems,  this._responseInterceptor.exit);
 
     //Provide workitemlist for particular subcategory-----delete API
     router.get('/:projectId/building/:buildingId/costhead/:costHeadId/subcategory/:subCategoryId/workitemlist',
     this.authInterceptor.requiresAuth, this._requestInterceptor.intercept, controller.getWorkitemList,  this._responseInterceptor.exit);
     //Add worktitem to subcategory-----delete API
-    router.post('/:projectId/building/:buildingId/costhead/:costHeadId/subcategory/:subCategoryId/workitem',
+   /* router.post('/:projectId/building/:buildingId/costhead/:costHeadId/subcategory/:subCategoryId/workitem',
       this.authInterceptor.requiresAuth, this._requestInterceptor.intercept, controller.addWorkitem,
-      this._responseInterceptor.exit);
+      this._responseInterceptor.exit);*/
     //Delete workitem from subcategory-----delete API
     router.delete('/:projectId/building/:buildingId/costhead/:costHeadId/subcategory/:subCategoryId/workitem/:workItemId',
 this.authInterceptor.requiresAuth, this._requestInterceptor.intercept, controller.deleteWorkitem, this._responseInterceptor.exit);
