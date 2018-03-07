@@ -2,35 +2,35 @@
   <div class="container">
     <div class="col-sm-8 col-xs-12 no-padding">
       <h4 class="building-name">{{ buildingName }} : {{ costHead }}</h4>
-      <div class="panel-group" *ngFor=" let subCategory of subCategoryDetails | keys; let subCategoryIndex= index ">
+      <div class="panel-group" *ngFor=" let category of categoryDetails | keys; let categoryIndex= index ">
         <div class="panel panel-default">
           <div class="panel-heading">
-            <div class="panel-title clearfix" (click)="setSelectedWorkItems(subCategoryDetails[subCategoryIndex].workItems)">
+            <div class="panel-title clearfix" (click)="setSelectedWorkItems(categoryDetails[categoryIndex].workItems)">
               <div class="col-sm-11">
-                <a *ngIf="subCategoryDetails[subCategory].rateAnalysisId !== 0" data-toggle="collapse" href="#collapse{{subCategoryIndex}}">
-                  <span class="pull-left">{{ subCategoryDetails[subCategory].name }}</span>
-                  <span class="pull-right">{{ subCategoryDetails[subCategory].amount|number }}</span>
+                <a *ngIf="categoryDetails[category].rateAnalysisId !== 0" data-toggle="collapse" href="#collapse{{categoryIndex}}">
+                  <span class="pull-left">{{ categoryDetails[category].name }}</span>
+                  <span class="pull-right">{{ categoryDetails[category].amount|number }}</span>
                 </a>
-                <a *ngIf="subCategoryDetails[subCategory].rateAnalysisId === 0" data-toggle="collapse" href="#collapse{{subCategoryIndex}}">
+                <a *ngIf="categoryDetails[category].rateAnalysisId === 0" data-toggle="collapse" href="#collapse{{categoryIndex}}">
                   <span  class="pull-left">{{getLabel().WORKITEMS}}</span>
-                  <span  class="pull-right">{{ subCategoryDetails[subCategory].amount|number }}</span>
+                  <span  class="pull-right">{{ categoryDetails[category].amount|number }}</span>
                 </a>
               </div>
               <div class="col-sm-1">
                 <div class="delete-workitems">
-                  <img *ngIf="subCategoryDetails[subCategory].rateAnalysisId !== 0"
+                  <img *ngIf="categoryDetails[category].rateAnalysisId !== 0"
                        src="assets/build-info/dashboard/delete.png"
                        alt="Delete Workitems"
                        data-toggle="modal"
-                       data-target="#deleteSubcategory"
-                       (click)="setSubCategoryDetailsForDelete(subCategoryDetails[subCategory].rateAnalysisId)"/>
+                       data-target="#deleteCategory"
+                       (click)="setCategoryDetailsForDelete(categoryDetails[category].rateAnalysisId)"/>
                 </div>
               </div>
             </div>
           </div>
-          <div id="collapse{{subCategoryIndex}}" class="panel-collapse collapse">
+          <div id="collapse{{categoryIndex}}" class="panel-collapse collapse">
             <div class="panel-body">
-              <div  *ngFor="let workitemObj of subCategoryDetails[subCategory].workItems; let workItemIndex = index">
+              <div  *ngFor="let workitemObj of categoryDetails[category].workItems; let workItemIndex = index">
                 <table class="table table-row-spacing table-dashboard table-categories">
                   <thead *ngIf="workItemIndex === 0">
                   <tr>
@@ -49,14 +49,14 @@
                     <td class="border-left">
                       <div class="edit-field"
                            *ngIf="workitemObj.quantity.total"
-                           (click)="getQuantity(subCategoryIndex, workItemIndex, workitemObj.rateAnalysisId, workitemObj.name, workitemObj.quantity.quantityItems)">
+                           (click)="getQuantity(categoryIndex, workItemIndex, workitemObj.rateAnalysisId, workitemObj.name, workitemObj.quantity.quantityItems)">
                         <input  [(ngModel)]="workitemObj.quantity.total" id="quantity"  size="10" class="form-control clear">
                       </div>
                       <button *ngIf="workitemObj.quantity.total == 0"
                               type="button"
-                              id="getQuantity{{subCategoryIndex}}"
+                              id="getQuantity{{categoryIndex}}"
                               class="btn-get-amount"
-                              (click)="getQuantity(subCategoryIndex, workItemIndex, workitemObj.rateAnalysisId, workitemObj.name, workitemObj.quantity.quantityItems)">
+                              (click)="getQuantity(categoryIndex, workItemIndex, workitemObj.rateAnalysisId, workitemObj.name, workitemObj.quantity.quantityItems)">
                         Get Qty.
                       </button>
                     </td>
@@ -67,20 +67,20 @@
                     <td class="border-left">
                       <div class="edit-field"
                            *ngIf="workitemObj.rate.total!= 0"
-                           (click)="getRateFromDatabase(subCategoryIndex, workItemIndex, workitemObj)">
+                           (click)="getRateFromDatabase(categoryIndex, workItemIndex, workitemObj)">
                         <input  [(ngModel)]="workitemObj.rate.total" id="rate"  size="10" class="form-control clear">
                       </div>
                       <button class="btn-get-amount"
                               *ngIf="workitemObj.rate.total == 0"
                               type="button"
-                              (click)="getRateFromRateAnalysis(subCategoryIndex, workItemIndex, workitemObj)">Get Rate</button>
+                              (click)="getRateFromRateAnalysis(categoryIndex, workItemIndex, workitemObj)">Get Rate</button>
                     </td>
                     <td class="border-left">
                       {{ (workitemObj.amount)|number}}
                     </td>
                     <td>
                       <div data-toggle="modal" data-target="#deleteWorkItem"
-                           (click)="setIdsForDeleteWorkItem(subCategoryDetails[subCategory].rateAnalysisId,workitemObj.rateAnalysisId )"
+                           (click)="setIdsForDeleteWorkItem(categoryDetails[category].rateAnalysisId,workitemObj.rateAnalysisId )"
                            class="delete-cost-head">
                         <img alt="Delete Cost Head" src="assets/build-info/dashboard/delete.png" />
                       </div>
@@ -90,29 +90,29 @@
                 </table>
 
                 <div *ngIf="showRate == true">
-                   <div  *ngIf="toggleRate==true && compareWorkItemIndex==workItemIndex && compareSubcategoryIndex===subCategoryIndex">
+                   <div  *ngIf="toggleRate==true && compareWorkItemIndex==workItemIndex && compareCategoryIndex===categoryIndex">
                       <bi-cost-head-get-rate [rateItemsArray]="rateItemsArray"
-                                             [subCategoryRateAnalysisId]="subCategoryDetails[subCategory].rateAnalysisId"
+                                             [categoryRateAnalysisId]="categoryDetails[category].rateAnalysisId"
                                              [totalAmount]="totalAmount"
                                              [totalRate]="totalRate"
                                              [totalQuantity]="totalQuantity"
-                                             (refreshSubCategoryList)="refreshSubCategoryList()">
+                                             (refreshCategoryList)="refreshCategoryList()">
                       </bi-cost-head-get-rate>
                    </div>
                 </div>
 
                 <div *ngIf="showQuantity== true">
-                  <div *ngIf="toggleQty==true && compareWorkItemIndex==workItemIndex && compareSubcategoryIndex===subCategoryIndex">
+                  <div *ngIf="toggleQty==true && compareWorkItemIndex==workItemIndex && compareCategoryIndex===categoryIndex">
                       <bi-cost-head-get-quantity [quantityItems]="quantityItemsArray"
-                                                 [subCategoryRateAnalysisId]="subCategoryDetails[subCategory].rateAnalysisId"
-                                                 (refreshSubCategoryList)="refreshSubCategoryList()">
+                                                 [categoryRateAnalysisId]="categoryDetails[category].rateAnalysisId"
+                                                 (refreshCategoryList)="refreshCategoryList()">
                       </bi-cost-head-get-quantity>
                    </div>
                 </div>
               </div>
               <table class="table table-row-spacing table-dashboard">
                 <tbody>
-                <tr *ngIf="showWorkItemList==true && comapreWorkItemRateAnalysisId==subCategoryIndex">
+                <tr *ngIf="showWorkItemList==true && comapreWorkItemRateAnalysisId==categoryIndex">
                   <td class="border-left">
                     <select  class="select-item" (change)="onChangeAddSelectedWorkItem($event.target.value)">
                       <option [value]="selectItem">Select Work Items</option>
@@ -123,7 +123,7 @@
                 </tr>
                 <tr>
                   <td  class="add-items" colspan="7">
-                    <button type="button" class="btn btn-add-item" (click)="getWorkItemList(subCategoryDetails[subCategory].rateAnalysisId,subCategoryIndex)"><span class="glyphicon glyphicon-plus"></span>{{getButton().ADD}} {{getButton().WORKITEM}}</button>
+                    <button type="button" class="btn btn-add-item" (click)="getWorkItemList(categoryDetails[category].rateAnalysisId,categoryIndex)"><span class="glyphicon glyphicon-plus"></span>{{getButton().ADD}} {{getButton().WORKITEM}}</button>
                   </td>
                 </tr>
                 </tbody>
@@ -135,17 +135,19 @@
       <div class="col-sm-12 no-padding add-subcategory">
         <table class="table table-dashboard table-row-spacing">
           <tbody>
-            <tr *ngIf="showSubcategoryListvar && subcategoryArray.length!==0">
+            <tr *ngIf="showCategoryList && categoryArray.length!==0">
               <td>
-                <select (change)="onChangeAddSelectedSubCategory($event.target.value)">
-                  <option [value]="selectItem">Select Subcategory</option>
-                  <option *ngFor="let subCategoryList of subcategoryArray" [value]="subCategoryList.rateAnalysisId">{{ subCategoryList.name }}</option>
+                <select (change)="onChangeAddSelectedCategory($event.target.value)">
+                  <option [value]="selectItem">Select Category</option>
+                  <option *ngFor="let categoryList of categoryArray" [value]="categoryList.rateAnalysisId">{{
+                    categoryList.name }}</option>
                 </select>
               </td>
             </tr>
             <tr>
               <td classs="text-center">
-                <button type="button" class="btn btn-add-item" (click)="getSubCategoryList()"><span class="glyphicon glyphicon-plus"></span>{{getButton().ADD}} {{getButton().SUBCATEGORY}}</button>
+                <button type="button" class="btn btn-add-item" (click)="getCategoryList()"><span class="glyphicon glyphicon-plus"></span>{{getButton().ADD}}
+                  {{getButton().CATEGORY}}</button>
               </td>
             </tr>
           </tbody>
@@ -176,8 +178,8 @@
   </div>
 </section>
 
-<div class="modal fade default-modal" id="deleteSubcategory" role="dialog">
-  <bi-delete-confirmation-modal [elementType]="deleteConfirmationSubCategory" (deleteElementEvent)="deleteElement($event)"></bi-delete-confirmation-modal>
+<div class="modal fade default-modal" id="deleteCategory" role="dialog">
+  <bi-delete-confirmation-modal [elementType]="deleteConfirmationCategory" (deleteElementEvent)="deleteElement($event)"></bi-delete-confirmation-modal>
 </div>
 
 <div class="modal fade default-modal" id="deleteWorkItem" role="dialog">

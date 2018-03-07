@@ -1,6 +1,6 @@
 import ClonedWorkItem = require('./ClonedWorkItem');
 
-class ClonedSubCategory {
+class ClonedCategory {
   name: string;
   rateAnalysisId:number;
   active:boolean;
@@ -8,5 +8,5 @@ class ClonedSubCategory {
   workItems: Array<ClonedWorkItem>;
 }
 
-export = ClonedSubCategory;
+export = ClonedCategory;
 

@@ -11,7 +11,7 @@ var logger=log4js.getLogger('Rate Analysis Service');
 import alasql = require('alasql');
 import Rate = require('../dataaccess/model/project/building/Rate');
 import CostHead = require('../dataaccess/model/project/building/CostHead');
-import SubCategory = require('../dataaccess/model/project/building/SubCategory');
+import Category = require('../dataaccess/model/project/building/Category');
 
 class RateAnalysisService {
   APP_NAME: string;
@@ -119,14 +119,14 @@ class RateAnalysisService {
     });
   }
 
-  getWorkitemList(costHeadId: number,subCategoryId: number, callback:(error: any, data:any) => void) {
+  getWorkitemList(costHeadId: number,categoryId: number, callback:(error: any, data:any) => void) {
     let url = config.get('rateAnalysisAPI.workitem');
     this.getApiCall(url, (error, workitem) => {
       if(error) {
         callback(error, null);
       }else {
-        let sql: string = 'SELECT C2 AS rateAnalysisId, C3 AS name FROM ? WHERE C1 = '+ costHeadId+' and C4 = '+ subCategoryId;
-        if(subCategoryId === 0) {
+        let sql: string = 'SELECT C2 AS rateAnalysisId, C3 AS name FROM ? WHERE C1 = '+ costHeadId+' and C4 = '+ categoryId;
+        if(categoryId === 0) {
           sql = 'SELECT C2 AS rateAnalysisId, C3 AS name FROM ? WHERE C1 = '+ costHeadId;
         }
         workitem = workitem['Items'];
@@ -141,7 +141,7 @@ class RateAnalysisService {
     let costHeadURL = config.get('rateAnalysisAPI.costHeads');
     let costHeadRateAnalysisPromise = this.createPromise(costHeadURL);
 
-    let categoryURL = config.get('rateAnalysisAPI.subCategories');
+    let categoryURL = config.get('rateAnalysisAPI.categories');
     let categoryRateAnalysisPromise = this.createPromise(categoryURL);
 
     let workItemURL = config.get('rateAnalysisAPI.workItems');
@@ -184,11 +184,11 @@ class RateAnalysisService {
           ' FROM ? AS Category where Category.C3 = '+costHead.rateAnalysisId;
 
         let categoriesByCostHead = alasql(categoriesRateAnalysisSQL, [categoriesRateAnalysis]);
-        let buildingCategories: Array<SubCategory> = [];
+        let buildingCategories: Array<Category> = [];
 
         for(let categoryIndex=0; categoryIndex < categoriesByCostHead.length; categoryIndex++) {
 
-          let category = new SubCategory(categoriesByCostHead[categoryIndex].name, categoriesByCostHead[categoryIndex].rateAnalysisId);
+          let category = new Category(categoriesByCostHead[categoryIndex].name, categoriesByCostHead[categoryIndex].rateAnalysisId);
 
           let workItemsRateAnalysisSQL = 'SELECT workItem.C2 AS rateAnalysisId, workItem.C3 AS name' +
             ' FROM ? AS workItem where workItem.C4 = '+categoriesByCostHead[categoryIndex].rateAnalysisId;
@@ -229,7 +229,7 @@ class RateAnalysisService {
           category.active = true;
           buildingCategories.push(category);
         }
-        costHead.subCategories = buildingCategories;
+        costHead.categories = buildingCategories;
         costHead.thumbRuleRate = config.get('thumbRuleRate');
         costHead.active = true;
         buildingCostHeads.push(costHead);

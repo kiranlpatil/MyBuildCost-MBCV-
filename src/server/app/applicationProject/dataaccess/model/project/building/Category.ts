@@ -1,6 +1,6 @@
 import WorkItem = require('./WorkItem');
 
-class  SubCategory {
+class  Category {
   name: string;
   rateAnalysisId: number;
   amount: number;
@@ -14,4 +14,4 @@ class  SubCategory {
     this.workItems = new Array<WorkItem>();
   }
 }
-export  = SubCategory;
+export  = Category;

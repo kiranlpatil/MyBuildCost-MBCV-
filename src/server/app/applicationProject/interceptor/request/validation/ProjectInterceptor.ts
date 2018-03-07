@@ -299,7 +299,7 @@ if ((req.body.name === undefined) || (req.body.region === undefined) || (req.bod
     });
   }
 
-  getSubCategory(req: any, res: any, next: any) {
+  getCategory(req: any, res: any, next: any) {
     var projectId = req.params.projectId;
     var buildingId = req.params.buildingId;
     var costHeadId = req.params.costHeadId;
@@ -320,7 +320,7 @@ if ((req.body.name === undefined) || (req.body.region === undefined) || (req.bod
     });
   }
 
-  getAllSubCategoriesByCostHeadId(req: any, res: any, next: any) {
+  getAllCategoriesByCostHeadId(req: any, res: any, next: any) {
     var projectId = req.params.projectId;
     var buildingId = req.params.buildingId;
     var costHeadId = req.params.costHeadId;
@@ -341,7 +341,7 @@ if ((req.body.name === undefined) || (req.body.region === undefined) || (req.bod
     });
   }
 
-  addSubCategoryByCostHeadId(req: any, res: any, next: any) {
+  addCategoryByCostHeadId(req: any, res: any, next: any) {
     var projectId = req.params.projectId;
     var buildingId = req.params.buildingId;
     var costHeadId = req.params.costHeadId;
@@ -357,8 +357,8 @@ if ((req.body.name === undefined) || (req.body.region === undefined) || (req.bod
             code: 400
           });
         } else {
-          if ((req.body.subCategory === undefined) || (req.body.subCategoryId === undefined) ||
-            (req.body.subCategory === '') || (req.body.subCategoryId === '')) {
+          if ((req.body.category === undefined) || (req.body.categoryId === undefined) ||
+            (req.body.category === '') || (req.body.categoryId === '')) {
             next({
               reason: Messages.MSG_ERROR_EMPTY_FIELD,
               message: Messages.MSG_ERROR_EMPTY_FIELD,
@@ -372,7 +372,7 @@ if ((req.body.name === undefined) || (req.body.region === undefined) || (req.bod
     });
   }
 
-  deleteSubcategoryFromCostHead(req: any, res: any, next: any) {
+  deleteCategoryFromCostHead(req: any, res: any, next: any) {
     var projectId = req.params.projectId;
     var buildingId = req.params.buildingId;
     var costHeadId = req.params.costHeadId;
@@ -450,7 +450,7 @@ if ((req.body.name === undefined) || (req.body.region === undefined) || (req.bod
             code: 400
           });
         } else {
-          if ((req.params.subCategoryId === undefined) || (req.params.subCategoryId === '')) {
+          if ((req.params.categoryId === undefined) || (req.params.categoryId === '')) {
             next({
               reason: Messages.MSG_ERROR_EMPTY_FIELD,
               message: Messages.MSG_ERROR_EMPTY_FIELD,
@@ -480,8 +480,8 @@ if ((req.body.name === undefined) || (req.body.region === undefined) || (req.bod
             code: 400
           });
         } else {
-          if ((req.params.subCategoryId === undefined) || (req.params.workItemId === undefined) ||
-            (req.params.subCategoryId === '') || (req.params.workItemId === '')) {
+          if ((req.params.categoryId === undefined) || (req.params.workItemId === undefined) ||
+            (req.params.categoryId === '') || (req.params.workItemId === '')) {
             next({
               reason: Messages.MSG_ERROR_EMPTY_FIELD,
               message: Messages.MSG_ERROR_EMPTY_FIELD,
@@ -511,8 +511,8 @@ if ((req.body.name === undefined) || (req.body.region === undefined) || (req.bod
             code: 400
           });
         } else {
-          if ((req.params.subCategoryId === undefined) || (req.params.workItemId === undefined) || (req.body.item === undefined) ||
-            (req.params.subCategoryId === '') || (req.params.workItemId === '') || (req.body.item === '')) {
+          if ((req.params.categoryId === undefined) || (req.params.workItemId === undefined) || (req.body.item === undefined) ||
+            (req.params.categoryId === '') || (req.params.workItemId === '') || (req.body.item === '')) {
             next({
               reason: Messages.MSG_ERROR_EMPTY_FIELD,
               message: Messages.MSG_ERROR_EMPTY_FIELD,
@@ -542,8 +542,8 @@ if ((req.body.name === undefined) || (req.body.region === undefined) || (req.bod
             code: 400
           });
         } else {
-          if ((req.params.subCategoryId === undefined) || (req.params.workItemId === undefined) || (req.body.item === undefined) ||
-            (req.params.subCategoryId === '') || (req.params.workItemId === '') || (req.body.item === '')) {
+          if ((req.params.categoryId === undefined) || (req.params.workItemId === undefined) || (req.body.item === undefined) ||
+            (req.params.categoryId === '') || (req.params.workItemId === '') || (req.body.item === '')) {
             next({
               reason: Messages.MSG_ERROR_EMPTY_FIELD,
               message: Messages.MSG_ERROR_EMPTY_FIELD,
@@ -573,9 +573,9 @@ if ((req.body.name === undefined) || (req.body.region === undefined) || (req.bod
             code: 400
           });
         } else {
-          if ((req.params.subCategoryId === undefined) || (req.params.workItemId === undefined) ||(req.body.quantity  === undefined)  ||
+          if ((req.params.categoryId === undefined) || (req.params.workItemId === undefined) ||(req.body.quantity  === undefined)  ||
             (req.body.rateFromRateAnalysis === undefined)  || (req.body.rateItems === undefined)  || (req.body.total  === undefined) || (req.body.unit === undefined) ||
-            (req.params.subCategoryId === '') || (req.params.workItemId === '') || (req.body.quantity  === '')  ||
+            (req.params.categoryId === '') || (req.params.workItemId === '') || (req.body.quantity  === '')  ||
             (req.body.rateFromRateAnalysis === '')  || (req.body.rateItems === '')  || (req.body.total  === '') || (req.body.unit === '')) {
             next({
               reason: Messages.MSG_ERROR_EMPTY_FIELD,

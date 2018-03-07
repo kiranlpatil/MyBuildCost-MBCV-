@@ -57,9 +57,9 @@ export class CostSummaryService extends BaseService {
     return this.httpDelegateService.putAPI(url, body);
   }
 
-  getSubCategoryList( projectId : string, buildingId : string, costheadId : number) {
+  getCategoryList(projectId : string, buildingId : string, costheadId : number) {
     var url =  API.PROJECT + '/' + projectId + '/' + API.BUILDING + '/' + buildingId + '/' +
-      API.COSTHEAD +'/' + costheadId + '/' + API.SUBCATEGORYLIST;
+      API.COSTHEAD +'/' + costheadId + '/' + API.CATEGORYLIST;
 
     return this.httpDelegateService.getAPI(url);
   }
@@ -73,113 +73,113 @@ export class CostSummaryService extends BaseService {
     return this.httpDelegateService.getAPI(url);
   }
 
-  updateQuantityItems( projectId : string, buildingId : string, costHeadId : number, subCategoryId : number, workItemId : number,
+  updateQuantityItems( projectId : string, buildingId : string, costHeadId : number, categoryId : number, workItemId : number,
                       quantityItemsArray : any) {
     var body= { item : quantityItemsArray };
     var url = API.PROJECT + '/' + projectId + '/'+ API.BUILDING + '/' + buildingId + '/'+ API.COSTHEAD +'/' + costHeadId +
-      '/'+ API.SUBCATEGORY +'/'+ subCategoryId +'/' + API.WORKITEM + '/' + workItemId + '/'+ API.QUANTITY;
+      '/'+ API.CATEGORY +'/'+ categoryId +'/' + API.WORKITEM + '/' + workItemId + '/'+ API.QUANTITY;
 
     return this.httpDelegateService.putAPI(url, body);
   }
 
-  deleteQuantityItem( projectId : string, buildingId : string, costHeadId : number, subCategoryId : number,
+  deleteQuantityItem( projectId : string, buildingId : string, costHeadId : number, categoryId : number,
                       workItemId : number, itemName : string) {
     let body = { item : itemName };
     let url = API.PROJECT + '/' +  projectId + '/' + API.BUILDING + '/' + buildingId + '/' + API.COSTHEAD + '/' +
-      costHeadId + '/' + API.SUBCATEGORY + '/' + subCategoryId + '/' + API.WORKITEM +
+      costHeadId + '/' + API.CATEGORY + '/' + categoryId + '/' + API.WORKITEM +
       '/' + workItemId + '/' + API.QUANTITY + '/' + API.ITEM;
 
     return this.httpDelegateService.postAPI(url, body);
   }
 
   //Rate API
-  updateRate( projectId : string, buildingId : string, costheadId : number,subCategoryId : number, workItemId : number,
+  updateRate( projectId : string, buildingId : string, costheadId : number,categoryId : number, workItemId : number,
               rateItemsArray : any) {
     var body=rateItemsArray;
     var url = API.PROJECT + '/' + projectId + '/' + API.BUILDING + '/' + buildingId + '/' + API.RATE + '/' + API.COSTHEAD+ '/' +
-      costheadId + '/' + API.SUBCATEGORY + '/' + subCategoryId + '/' + API.WORKITEM + '/' + workItemId ;
+      costheadId + '/' + API.CATEGORY + '/' + categoryId + '/' + API.WORKITEM + '/' + workItemId ;
 
     return this.httpDelegateService.putAPI(url, body);
   }
 
-  getRateItems( projectId : String, buildingId : string, costheadId : number, subCategoryId : number, workItemId : number) {
+  getRateItems( projectId : String, buildingId : string, costheadId : number, categoryId : number, workItemId : number) {
     var url = API.PROJECT + '/' + projectId + '/' + API.BUILDING + '/' + buildingId + '/' + API.RATE + '/'+ API.COSTHEAD +'/' +
-      costheadId + '/' + API.SUBCATEGORY + '/'+subCategoryId + '/' + API.WORKITEM + '/'+workItemId ;
+      costheadId + '/' + API.CATEGORY + '/'+categoryId + '/' + API.WORKITEM + '/'+workItemId ;
 
     return this.httpDelegateService.getAPI(url);
   }
 
-  //SubCategory API
-  getSubCategory( projectId: string, buildingId : string, costheadId : number) {
+  //Category API
+  getCategory(projectId: string, buildingId : string, costheadId : number) {
     var url = API.PROJECT +'/' + projectId + '/' + API.BUILDING + '/' + buildingId + '/'
-      + API.COSTHEAD+ '/' + costheadId + '/' + API.SUBCATEGORY;
+      + API.COSTHEAD+ '/' + costheadId + '/' + API.CATEGORY;
 
     return this.httpDelegateService.getAPI(url);
   }
 
-  deleteSubCategory( projectId : String, buildingId : string, costHeadId : number, subcategory : any) {
+  deleteCategory(projectId : String, buildingId : string, costHeadId : number, category : any) {
     let body = {
-      name : subcategory.name,
-      rateAnalysisId : subcategory.rateAnalysisId
+      name : category.name,
+      rateAnalysisId : category.rateAnalysisId
     };
     let url = API.PROJECT + '/' + projectId + '/'+ API.BUILDING + '/' +
-      buildingId + '/'+ API.COSTHEAD +'/' + costHeadId + '/' + API.SUBCATEGORY;
+      buildingId + '/'+ API.COSTHEAD +'/' + costHeadId + '/' + API.CATEGORY;
 
     return this.httpDelegateService.putAPI(url, body);
   }
 
   //In Active Category
-  inActiveCategory( projectId : String, buildingId : string, costHeadId : number, subCategoryId : any) {
+  inActiveCategory( projectId : String, buildingId : string, costHeadId : number, categoryId : any) {
     var url = API.PROJECT + '/' + projectId + '/' + API.BUILDING + '/' + buildingId + '/'+ API.COSTHEAD +'/' +
-      costHeadId +'/' + API.SUBCATEGORY + '/' + subCategoryId + '/' + API.COSTHEAD_ACTIVE_STATUS + '/' + API.COSTHEAD_ACTIVE_STATUS_FALSE;
+      costHeadId +'/' + API.CATEGORY + '/' + categoryId + '/' + API.COSTHEAD_ACTIVE_STATUS + '/' + API.COSTHEAD_ACTIVE_STATUS_FALSE;
     let body = {};
 
     return this.httpDelegateService.putAPI(url, body);
   }
 
-  addSubCategory( projectId : string, buildingId : string, costHeadId : number, selectedSubCategory : any ) {
+  addCategory(projectId : string, buildingId : string, costHeadId : number, selectedCategory : any ) {
     let url = API.PROJECT + '/' + projectId + '/' + API.BUILDING + '/' +
-      buildingId + '/'+ API.COSTHEAD +'/' + costHeadId + '/' + API.SUBCATEGORY;
+      buildingId + '/'+ API.COSTHEAD +'/' + costHeadId + '/' + API.CATEGORY;
     let body = {
-      subCategory : selectedSubCategory[0].subCategory,
-      subCategoryId : selectedSubCategory[0].rateAnalysisId
+      category : selectedCategory[0].category,
+      categoryId : selectedCategory[0].rateAnalysisId
     };
 
     return this.httpDelegateService.postAPI(url, body);
   }
 
   //Active Category
-  activeCategory( projectId : string, buildingId : string, costHeadId : number, subCategoryId : number) {
+  activeCategory( projectId : string, buildingId : string, costHeadId : number, categoryId : number) {
     var url = API.PROJECT + '/' + projectId + '/' + API.BUILDING + '/' + buildingId + '/'+ API.COSTHEAD +'/' +
-      costHeadId +'/' + API.SUBCATEGORY + '/' + subCategoryId + '/' + API.COSTHEAD_ACTIVE_STATUS + '/' + API.COSTHEAD_ACTIVE_STATUS_TRUE;
+      costHeadId +'/' + API.CATEGORY + '/' + categoryId + '/' + API.COSTHEAD_ACTIVE_STATUS + '/' + API.COSTHEAD_ACTIVE_STATUS_TRUE;
     let body = {};
 
     return this.httpDelegateService.putAPI(url, body);
   }
 
   //Workitems API
-  getWorkItemList( projectId : string, buildingId : string, costheadId : number, subCategoryId : number) {
+  getWorkItemList( projectId : string, buildingId : string, costheadId : number, categoryId : number) {
     var url = API.PROJECT + '/' +  projectId + '/' + API.BUILDING + '/' + buildingId + '/'+ API.COSTHEAD +'/' + costheadId +
-      '/' + API.SUBCATEGORY +'/' +subCategoryId + '/'+ API.WORKITEMLIST;
+      '/' + API.CATEGORY +'/' +categoryId + '/'+ API.WORKITEMLIST;
 
     return this.httpDelegateService.getAPI(url);
   }
 
-  addWorkItem( projectId : string, buildingId : String, costheadId : number, subCategoryId : number,
+  addWorkItem( projectId : string, buildingId : String, costheadId : number, categoryId : number,
                selectedWorkItemRateAnalysisId : number, selectedWorkItemName : string) {
     let body= {
       rateAnalysisId : selectedWorkItemRateAnalysisId,
       name : selectedWorkItemName
     };
     var url = API.PROJECT + '/'+  projectId + '/' + API.BUILDING + '/' + buildingId + '/'+ API.COSTHEAD +'/' + costheadId +
-      '/' + API.SUBCATEGORY + '/' + subCategoryId + '/' + API.WORKITEM;
+      '/' + API.CATEGORY + '/' + categoryId + '/' + API.WORKITEM;
 
     return this.httpDelegateService.postAPI(url, body);
   }
 
-  deleteWorkItem( projectId : string, buildingId : String, costHeadId : number, subCategoryId : number,workItemId : number) {
+  deleteWorkItem( projectId : string, buildingId : String, costHeadId : number, categoryId : number,workItemId : number) {
     var url = API.PROJECT + '/' + projectId + '/'+ API.BUILDING + '/' + buildingId
-      + '/'+ API.COSTHEAD +'/' + costHeadId + '/' + API.SUBCATEGORY +'/'+ subCategoryId +'/' + API.WORKITEM + '/' + workItemId;
+      + '/'+ API.COSTHEAD +'/' + costHeadId + '/' + API.CATEGORY +'/'+ categoryId +'/' + API.WORKITEM + '/' + workItemId;
 
     return this.httpDelegateService.deleteAPI(url);
   }

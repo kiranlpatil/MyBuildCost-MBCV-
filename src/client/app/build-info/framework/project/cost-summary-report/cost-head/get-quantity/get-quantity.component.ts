@@ -13,8 +13,8 @@ import { ProjectElements, Button, TableHeadings, Label, Headings } from '../../.
 
 export class GetQuantityComponent implements OnInit {
   @Input() quantityItems :  Array<QuantityItem>;
-  @Input() subCategoryRateAnalysisId : number;
-  @Output() refreshSubCategoryList = new EventEmitter();
+  @Input() categoryRateAnalysisId : number;
+  @Output() refreshCategoryList = new EventEmitter();
 
   projectId : string;
   buildingId: string;
@@ -132,7 +132,7 @@ export class GetQuantityComponent implements OnInit {
     let costHeadId = parseFloat(SessionStorageService.getSessionValue(SessionStorage.CURRENT_COST_HEAD_ID));
     let workItemId = parseFloat(SessionStorageService.getSessionValue(SessionStorage.CURRENT_WORKITEM_ID));
 
-    this.costSummaryService.updateQuantityItems( projectId, buildingId, costHeadId, this.subCategoryRateAnalysisId,
+    this.costSummaryService.updateQuantityItems( projectId, buildingId, costHeadId, this.categoryRateAnalysisId,
       workItemId, quantityItems).subscribe(
       costHeadItemSave => this.onUpdateQuantityItemsSuccess(costHeadItemSave),
       error => this.onUpdateQuantityItemsFailure(error)
@@ -145,7 +145,7 @@ export class GetQuantityComponent implements OnInit {
     message.isError = false;
     message.custom_message = Messages.MSG_SUCCESS_SAVED_COST_HEAD_ITEM;
     this.messageService.message(message);
-    this.refreshSubCategoryList.emit();
+    this.refreshCategoryList.emit();
   }
 
   onUpdateQuantityItemsFailure(error: any) {
@@ -166,7 +166,7 @@ export class GetQuantityComponent implements OnInit {
     let costHeadId = parseInt(SessionStorageService.getSessionValue(SessionStorage.CURRENT_COST_HEAD_ID));
     let workItemId = parseInt(SessionStorageService.getSessionValue(SessionStorage.CURRENT_WORKITEM_ID));
 
-    this.costSummaryService.deleteQuantityItem( projectId, buildingId, costHeadId, this.subCategoryRateAnalysisId,
+    this.costSummaryService.deleteQuantityItem( projectId, buildingId, costHeadId, this.categoryRateAnalysisId,
       workItemId, this.quantityItemName).subscribe(
       costHeadItemDelete => this.onDeleteQuantityItemSuccess(costHeadItemDelete),
       error => this.onDeleteQuantityItemFailure(error)

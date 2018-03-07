@@ -1,6 +1,6 @@
 import { WorkItem } from './work-item';
 
-export class  SubCategory {
+export class  Category {
   name: string;
   rateAnalysisId: number;
   amount: number;

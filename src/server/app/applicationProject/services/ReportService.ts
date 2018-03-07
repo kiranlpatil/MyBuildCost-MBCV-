@@ -16,7 +16,7 @@ import WorkItem = require('../dataaccess/model/project/building/WorkItem');
 import ThumbRule = require('../dataaccess/model/project/building/ThumbRule');
 import Estimate = require('../dataaccess/model/project/building/Estimate');
 import RateAnalysisService = require('./RateAnalysisService');
-import SubCategory = require('../dataaccess/model/project/building/SubCategory');
+import Category = require('../dataaccess/model/project/building/Category');
 let config = require('config');
 var log4js = require('log4js');
 var logger=log4js.getLogger('Report Service');
@@ -108,11 +108,11 @@ class ReportService {
                   estimatedReport.area = parseFloat((buildings[index].totalSaleableAreaOfUnit * config.get('SqureMeter')).toFixed(2));
                 }
               }
-              let subCategory: Array<SubCategory> = costHeadArray[costHeadIndex].subCategories;
-              if(subCategory.length !== 0) {
+              let category: Array<Category> = costHeadArray[costHeadIndex].categories;
+              if(category.length !== 0) {
 
-                for(let subCategoryKey in subCategory) {
-                  let workItem = subCategory[subCategoryKey].workItems;
+                for(let categoryKey in category) {
+                  let workItem = category[categoryKey].workItems;
                   if(workItem.length !== 0) {
                     for (let key in workItem) {
                       if (workItem[key].quantity.total !== null && workItem[key].rate.total !== null

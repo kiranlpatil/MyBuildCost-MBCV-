@@ -17,11 +17,11 @@ import { Rate } from '../../../../model/rate';
 export class GetRateComponent {
 
   @Input() rateItemsArray: Rate;
-  @Input() subCategoryRateAnalysisId: number;
+  @Input() categoryRateAnalysisId: number;
   @Input() totalQuantity: number;
   @Input() totalAmount: number;
   @Input() totalRate: number;
-  @Output() refreshSubCategoryList = new EventEmitter();
+  @Output() refreshCategoryList = new EventEmitter();
 
   quantityIncrement: number = 1;
   previousTotalQuantity: number = 1;
@@ -71,7 +71,7 @@ export class GetRateComponent {
     rate.unit = rateItemsArray.unit;
     rate.rateItems = rateItemsArray.rateItems;
 
-    this.costSummaryService.updateRate( projectID, buildingId, costHeadId, this.subCategoryRateAnalysisId, workItemId, rate).subscribe(
+    this.costSummaryService.updateRate( projectID, buildingId, costHeadId, this.categoryRateAnalysisId, workItemId, rate).subscribe(
       rateItem => this.onUpdateRateSuccess(rateItem),
       error => this.onUpdateRateFailure(error)
     );
@@ -82,7 +82,7 @@ export class GetRateComponent {
     message.isError = false;
     message.custom_message = Messages.MSG_SUCCESS_UPDATE_RATE;
     this.messageService.message(message);
-    this.refreshSubCategoryList.emit();
+    this.refreshCategoryList.emit();
   }
 
   onUpdateRateFailure(error: any) {

@@ -108,7 +108,7 @@
         },
         "active": true,
         "rateAnalysisId": 21,
-        "subCategories": [
+        "categories": [
 
         ]
       },
@@ -126,7 +126,7 @@
         },
         "active": true,
         "rateAnalysisId": 9,
-        "subCategories": [
+        "categories": [
 
         ]
       },
@@ -144,7 +144,7 @@
         },
         "active": true,
         "rateAnalysisId": 19,
-        "subCategories": [
+        "categories": [
 
         ]
       },
@@ -162,7 +162,7 @@
         },
         "active": true,
         "rateAnalysisId": 5,
-        "subCategories": [
+        "categories": [
 
         ]
       },
@@ -180,7 +180,7 @@
         },
         "active": true,
         "rateAnalysisId": 10,
-        "subCategories": [
+        "categories": [
 
         ]
       },
@@ -198,7 +198,7 @@
         },
         "active": true,
         "rateAnalysisId": 12,
-        "subCategories": [
+        "categories": [
 
         ]
       },
@@ -216,7 +216,7 @@
         },
         "active": true,
         "rateAnalysisId": 242,
-        "subCategories": [
+        "categories": [
 
         ]
       },
@@ -234,7 +234,7 @@
         },
         "active": true,
         "rateAnalysisId": 14,
-        "subCategories": [
+        "categories": [
 
         ]
       },
@@ -252,7 +252,7 @@
         },
         "active": true,
         "rateAnalysisId": 8,
-        "subCategories": [
+        "categories": [
 
         ]
       },
@@ -270,7 +270,7 @@
         },
         "active": true,
         "rateAnalysisId": 86,
-        "subCategories": [
+        "categories": [
 
         ]
       },
@@ -288,7 +288,7 @@
         },
         "active": true,
         "rateAnalysisId": 4,
-        "subCategories": [
+        "categories": [
 
         ]
       },
@@ -306,7 +306,7 @@
         },
         "active": true,
         "rateAnalysisId": 71,
-        "subCategories": [
+        "categories": [
 
         ]
       },
@@ -324,7 +324,7 @@
         },
         "active": true,
         "rateAnalysisId": 16,
-        "subCategories": [
+        "categories": [
 
         ]
       },
@@ -342,7 +342,7 @@
         },
         "active": true,
         "rateAnalysisId": 1,
-        "subCategories": [
+        "categories": [
 
         ]
       },
@@ -360,7 +360,7 @@
         },
         "active": true,
         "rateAnalysisId": 80,
-        "subCategories": [
+        "categories": [
 
         ]
       },
@@ -378,7 +378,7 @@
         },
         "active": true,
         "rateAnalysisId": 20,
-        "subCategories": [
+        "categories": [
 
         ]
       },
@@ -396,7 +396,7 @@
         },
         "active": true,
         "rateAnalysisId": 260,
-        "subCategories": [
+        "categories": [
 
         ]
       },
@@ -414,7 +414,7 @@
         },
         "active": true,
         "rateAnalysisId": 89,
-        "subCategories": [
+        "categories": [
 
         ]
       },
@@ -432,7 +432,7 @@
         },
         "active": true,
         "rateAnalysisId": 251,
-        "subCategories": [
+        "categories": [
 
         ]
       },
@@ -450,7 +450,7 @@
         },
         "active": true,
         "rateAnalysisId": 17,
-        "subCategories": [
+        "categories": [
 
         ]
       },
@@ -468,7 +468,7 @@
         },
         "active": true,
         "rateAnalysisId": 18,
-        "subCategories": [
+        "categories": [
 
         ]
       },
@@ -486,7 +486,7 @@
         },
         "active": true,
         "rateAnalysisId": 27,
-        "subCategories": [
+        "categories": [
 
         ]
       },
@@ -504,7 +504,7 @@
         },
         "active": true,
         "rateAnalysisId": 15,
-        "subCategories": [
+        "categories": [
 
         ]
       },
@@ -522,7 +522,7 @@
         },
         "active": true,
         "rateAnalysisId": 74,
-        "subCategories": [
+        "categories": [
 
         ]
       },
@@ -540,7 +540,7 @@
         },
         "active": true,
         "rateAnalysisId": 269,
-        "subCategories": [
+        "categories": [
 
         ]
       },
@@ -558,7 +558,7 @@
         },
         "active": true,
         "rateAnalysisId": 3,
-        "subCategories": [
+        "categories": [
 
         ]
       },
@@ -576,7 +576,7 @@
         },
         "active": true,
         "rateAnalysisId": 68,
-        "subCategories": [
+        "categories": [
 
         ]
       },
@@ -594,7 +594,7 @@
         },
         "active": true,
         "rateAnalysisId": 13,
-        "subCategories": [
+        "categories": [
 
         ]
       },
@@ -612,7 +612,7 @@
         },
         "active": true,
         "rateAnalysisId": 77,
-        "subCategories": [
+        "categories": [
           {
             "name": "default",
             "rateAnalysisId": 0,
@@ -688,7 +688,7 @@
   "SqureMeter":0.0929,
   "rateAnalysisAPI" : {
     "costHeads" : "http://mobileapiv4.buildinfo.co.in/ItemType/ItemTypeResult?DeviceId=2fc85276aee45b7a&mobilenumber=8928520179&regionID=1&NeedFullData=y&AppCode=RA",
-    "subCategories" : "http://mobileapiv4.buildinfo.co.in/SubItemType/SubItemTypeResult?DeviceId=2fc85276aee45b7a&mobilenumber=8928520179&regionID=1&NeedFullData=y&AppCode=RA",
+    "categories" : "http://mobileapiv4.buildinfo.co.in/SubItemType/SubItemTypeResult?DeviceId=2fc85276aee45b7a&mobilenumber=8928520179&regionID=1&NeedFullData=y&AppCode=RA",
     "workItems" : "http://mobileapiv4.buildinfo.co.in/Items/ItemsResult?DeviceId=2fc85276aee45b7a&mobilenumber=8928520179&regionID=1&NeedFullData=y&AppCode=RA",
     "rate" : "http://mobileapiv4.buildinfo.co.in/RateAnalysisRegion/RateAnalysisRegionResult?DeviceId=2fc85276aee45b7a&mobilenumber=8928520179&regionID=1&NeedFullData=y&AppCode=RA",
     "unit": "http://mobileapiv4.buildinfo.co.in/UOM/UOMResult?DeviceId=2fc85276aee45b7a&mobilenumber=8928520179&regionID=1&NeedFullData=y&AppCode=RA",

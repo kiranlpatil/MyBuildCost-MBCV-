@@ -165,9 +165,9 @@ export class Messages {
   public static MSG_QUANTITY_SHOULD_NOT_ZERO_OR_NULL: string = 'Quantity should not zero or null.';
   public static MSG_SUCCESS_SAVED_COST_HEAD_ITEM: string = 'Your cost head items updated successfully.';
   public static MSG_SUCCESS_SAVED_COST_HEAD_ITEM_ERROR: string = 'There is error in operation';
-  public static MSG_SUCCESS_ADD_SUBCATEGORY: string = 'Subcategory added successfully.';
-  public static MSG_SUCCESS_DELETE_SUBCATEGORY: string = 'Subcategory deleted successfully.';
-  public static MSG_ALREADY_ADDED_ALL_SUBCATEGORIES: string = 'Already added all Categories.';
+  public static MSG_SUCCESS_ADD_CATEGORY: string = 'Category added successfully.';
+  public static MSG_SUCCESS_DELETE_CATEGORY: string = 'Category deleted successfully.';
+  public static MSG_ALREADY_ADDED_ALL_CATEGORIES: string = 'Already added all Categories.';
   public static MSG_SUCCESS_ADD_WORKITEM: string = 'Workitem added successfully.';
   public static MSG_ALREADY_ADDED_ALL_WORKITEMS: string = 'Already added all workitems.';
   public static MSG_SUCCESS_DELETE_COSTHEAD_WORKITEM: string = 'Your costhead workitem deleted successfully.';
@@ -259,8 +259,8 @@ export class API {
   public static COSTHEAD_ACTIVE_STATUS_FALSE = 'false';
   public static COSTHEAD_ACTIVE_STATUS_TRUE = 'true';
   public static CLONE = 'clone';
-  public static SUBCATEGORYLIST = 'subcategorylist';
-  public static SUBCATEGORY = 'subcategory';
+  public static CATEGORYLIST = 'categorylist';
+  public static CATEGORY = 'category';
   public static WORKITEM = 'workitem';
   public static WORKITEMLIST = 'workitemlist';
   public static QUANTITY = 'quantity';
@@ -430,7 +430,7 @@ export class Button {
   public static SAVE: string = 'Save';
   public static GET_AMOUNT: string = 'Get Amount';
   public static ADD: string = 'Add ';
-  public static SUBCATEGORY: string = 'SubCategory';
+  public static CATEGORY: string = 'Category';
   public static WORKITEM: string = 'WorkItem';
   public static ITEM: string = 'Item';
   public static COSTHEAD: string = 'CostHead';
@@ -446,7 +446,7 @@ export class ProjectElements {
   public static WORK_ITEM = 'WorkItem';
   public static BUILDING = 'Building';
   public static QUANTITY_ITEM = 'Quantity Item';
-  public static SUBCATEGORY = 'SubCategory';
+  public static CATEGORY = 'Category';
 }
 
 export class Menus {

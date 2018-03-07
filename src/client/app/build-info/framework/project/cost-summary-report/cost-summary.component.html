@@ -345,20 +345,20 @@
           <div class="collapse-items" *ngFor="let costHead of clonedBuildingDetails; let i = index">
             <input type="checkbox" [checked]="costHead.active" (change)="costHead.active = !costHead.active"/>
 
-            <a class="" href="#subCategory{{i}}" data-toggle="collapse">
+            <a class="" href="#category{{i}}" data-toggle="collapse">
               {{costHead.name}}
               <img class="down-arrow" src="./assets/build-info/dashboard/down.png" />
               <img class="up-arrow" src="./assets/build-info/dashboard/up.png" />
             </a>
 
-            <div id="subCategory{{i}}" class="collapse">
-              <div *ngFor="let subcategory of costHead.subCategory">
-                <input class="col-xs-1" type="checkbox" [checked]="(costHead.active && subcategory.active)" (change)="subcategory.active = !subcategory.active" />
+            <div id="category{{i}}" class="collapse">
+              <div *ngFor="let category of costHead.category">
+                <input class="col-xs-1" type="checkbox" [checked]="(costHead.active && category.active)" (change)="category.active = !category.active" />
                 <div class="col-xs-10 no-padding">
-                  {{subcategory.name}}
+                  {{category.name}}
                 </div>
-                <div class="inner-items sub-inner-items" *ngFor="let workitem of subcategory.workitem">
-                  <input class="col-xs-1" type="checkbox" [checked]="(costHead.active && subcategory.active && workitem.active)" (change)="workitem.active = !workitem.active" />
+                <div class="inner-items sub-inner-items" *ngFor="let workitem of category.workitem">
+                  <input class="col-xs-1" type="checkbox" [checked]="(costHead.active && category.active && workitem.active)" (change)="workitem.active = !workitem.active" />
                   <div class="col-xs-10 no-padding">
                     {{workitem.name}}
                   </div>

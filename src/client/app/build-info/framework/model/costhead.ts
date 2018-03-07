@@ -1,4 +1,4 @@
-import { SubCategory } from './sub-category';
+import { Category } from './category';
 
 export class CostHead {
   name: string;
@@ -6,5 +6,5 @@ export class CostHead {
   budgetedCostAmount:number;
   active: boolean;
   thumbRuleRate: any;
-  subCategories: Array<SubCategory>;
+  categories: Array<Category>;
 }

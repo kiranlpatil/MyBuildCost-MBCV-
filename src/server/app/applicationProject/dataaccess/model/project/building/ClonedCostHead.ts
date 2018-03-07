@@ -1,4 +1,4 @@
-import ClonedSubCategory = require('./ClonedSubCategory');
+import ClonedCategory = require('./ClonedCategory');
 
 class ClonedCostHead {
   name: string;
@@ -6,7 +6,7 @@ class ClonedCostHead {
   budgetedCostAmount:number;
   active:boolean;
   thumbRuleRate: any;
-  subCategories: Array<ClonedSubCategory>;
+  categories: Array<ClonedCategory>;
 }
 
 export = ClonedCostHead;
