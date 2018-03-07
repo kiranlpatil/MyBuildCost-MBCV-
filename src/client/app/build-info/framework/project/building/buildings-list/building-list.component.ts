@@ -95,7 +95,7 @@ export class BuildingListComponent implements OnInit {
     console.log(error);
   }
 
-  createNewBuilding() {
+  createBuilding() {
     this._router.navigate([NavigationRoutes.APP_CREATE_BUILDING]);
   }
 

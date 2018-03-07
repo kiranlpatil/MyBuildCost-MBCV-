@@ -797,7 +797,7 @@ setWorkItemStatus( buildingId:string, costHeadId:number, categoryId:number, work
         }
 
         let query = {'_id' : buildingId, 'costHeads.rateAnalysisId' : parseInt(costHeadId)};
-        let newData = {'$set' : {"costHeads.$.categories" : categoryList }};
+        let newData = {'$set' : {'costHeads.$.categories' : categoryList }};
 
         this.buildingRepository.findOneAndUpdate(query, newData,{new: true}, (error, dataList) => {
           if (error) {
