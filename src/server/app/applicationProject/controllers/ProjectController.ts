@@ -492,8 +492,8 @@ class ProjectController {
         if(error) {
           next(error);
         } else {
-          logger.info('Get Quantity success');
-          logger.debug('Getting Quantity of Project ID : '+projectId+' Building ID : '+buildingId);
+          logger.info('Get Category By CostHeadId success');
+          logger.debug('Get Category By CostHeadId of Project ID : '+projectId+' Building ID : '+buildingId);
           next(new Response(200,result));
         }
       });

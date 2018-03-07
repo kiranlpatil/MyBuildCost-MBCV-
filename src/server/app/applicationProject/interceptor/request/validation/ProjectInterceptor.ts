@@ -20,6 +20,16 @@ if((projectId === undefined || buildingId === undefined || costHeadId === undefi
     } else callback(null, true);
   }
 
+  public static validateCategoryIds(projectId: string, buildingId: string, costHeadId: number, categoryId: number,
+                                    activeStatus: number, callback: (error: any, result: any) => void) {
+    if((projectId === undefined || buildingId === undefined || costHeadId === undefined || categoryId === undefined ||
+        activeStatus === undefined) || (projectId === '' || buildingId === '' || costHeadId === null || categoryId === null
+        || activeStatus === null)) {
+      callback(null, false);
+    } else callback(null, true);
+  }
+
+
   constructor() {
   }
 
@@ -320,11 +330,55 @@ if ((req.body.name === undefined) || (req.body.region === undefined) || (req.bod
     });
   }
 
+  getCategoryByCostHeadId(req: any, res: any, next: any) {
+    var projectId = req.params.projectId;
+    var buildingId = req.params.buildingId;
+    var costHeadId = req.params.costHeadId;
+    ProjectInterceptor.validateCostHeadIds(projectId, buildingId, costHeadId, (error, result) => {
+      if (error) {
+        next(error);
+      } else {
+        if (result === false) {
+          next({
+            reason: Messages.MSG_ERROR_EMPTY_FIELD,
+            message: Messages.MSG_ERROR_EMPTY_FIELD,
+            stackTrace: new Error(),
+            code: 400
+          });
+        }
+        next();
+      }
+    });
+  }
+
   getAllCategoriesByCostHeadId(req: any, res: any, next: any) {
     var projectId = req.params.projectId;
     var buildingId = req.params.buildingId;
     var costHeadId = req.params.costHeadId;
     ProjectInterceptor.validateCostHeadIds(projectId, buildingId, costHeadId, (error, result) => {
+      if (error) {
+        next(error);
+      } else {
+        if (result === false) {
+          next({
+            reason: Messages.MSG_ERROR_EMPTY_FIELD,
+            message: Messages.MSG_ERROR_EMPTY_FIELD,
+            stackTrace: new Error(),
+            code: 400
+          });
+        }
+        next();
+      }
+    });
+  }
+
+  setCategoryStatus(req: any, res: any, next: any) {
+    var projectId = req.params.projectId;
+    var buildingId = req.params.buildingId;
+    var costHeadId = req.params.costHeadId;
+    var categoryId = req.params.categoryId;
+    var activeStatus = req.params.activeStatus;
+    ProjectInterceptor.validateCategoryIds(projectId, buildingId, costHeadId, categoryId, activeStatus, (error, result) => {
       if (error) {
         next(error);
       } else {

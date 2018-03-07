@@ -694,9 +694,9 @@ setWorkItemStatus( buildingId:string, costHeadId:number, categoryId:number, work
         let costHeadList = building.costHeads;
         let categoryList : Array<Category>=[];
 
-        for(let costHeadIndex=0; costHeadIndex<costHeadList.length; costHeadIndex++) {
+        for(let costHeadIndex = 0; costHeadIndex<costHeadList.length; costHeadIndex++) {
           if(parseInt(costHeadId) === costHeadList[costHeadIndex].rateAnalysisId) {
-            for(let categoryIndex=0; categoryIndex<costHeadList[costHeadIndex].categories.length; categoryIndex++) {
+            for(let categoryIndex = 0; categoryIndex<costHeadList[costHeadIndex].categories.length; categoryIndex++) {
               if(costHeadList[costHeadIndex].categories[categoryIndex].active === false) {
                 categoryList.push(costHeadList[costHeadIndex].categories[categoryIndex]);
               }
@@ -782,15 +782,13 @@ setWorkItemStatus( buildingId:string, costHeadId:number, categoryId:number, work
       } else {
         let costHeadList = building.costHeads;
         let categoryList : any = [];
-        let categoryIndex;
 
         for(let index=0; index<costHeadList.length; index++) {
           if(parseInt(costHeadId) === costHeadList[index].rateAnalysisId) {
             categoryList = costHeadList[index].categories;
-            categoryIndex=index;
-            for(let categoryIndex=0; categoryIndex<categoryList.length; categoryIndex++) {
+            for(let categoryIndex = 0; categoryIndex<categoryList.length; categoryIndex++) {
               if(categoryList[categoryIndex].rateAnalysisId === categoryId) {
-                categoryList[categoryIndex].active=categoryActiveStatus;
+                categoryList[categoryIndex].active = categoryActiveStatus;
               }
             }
           }
@@ -817,23 +815,23 @@ setWorkItemStatus( buildingId:string, costHeadId:number, categoryId:number, work
         callback(error, null);
       } else {
         let categories :Array<Category>=[];
-        for(let index = 0; building.costHeads.length > index; index++) {
-          if(building.costHeads[index].rateAnalysisId === costHeadId) {
-            for (let categoryIndex = 0; categoryIndex < building.costHeads[index].categories.length; categoryIndex++) {
-              if (building.costHeads[index].categories[categoryIndex].active === true) {
-                categories.push(building.costHeads[index].categories[categoryIndex]);
-                if (building.costHeads[index].categories[categoryIndex].workItems.length !== 0 ||
-                  building.costHeads[index].categories[categoryIndex].workItems!==undefined) {
-                  let workitems = building.costHeads[index].categories[categoryIndex].workItems;
+        for(let costHeadIndex = 0; building.costHeads.length > costHeadIndex; costHeadIndex++) {
+          if(building.costHeads[costHeadIndex].rateAnalysisId === costHeadId) {
+            for (let categoryIndex = 0; categoryIndex < building.costHeads[costHeadIndex].categories.length; categoryIndex++) {
+              if (building.costHeads[costHeadIndex].categories[categoryIndex].active === true) {
+                categories.push(building.costHeads[costHeadIndex].categories[categoryIndex]);
+                if (building.costHeads[costHeadIndex].categories[categoryIndex].workItems.length !== 0 ||
+                  building.costHeads[costHeadIndex].categories[categoryIndex].workItems!==undefined) {
+                  let workitems = building.costHeads[costHeadIndex].categories[categoryIndex].workItems;
                   for (let workitemsIndex = 0; workitemsIndex < workitems.length; workitemsIndex++) {
                     let workitem = workitems[workitemsIndex];
                     if (workitem.quantity.total !== null && workitem.rate.total !== null
                       && workitem.quantity.total !== 0 && workitem.rate.total !== 0) {
-                      building.costHeads[index].categories[categoryIndex].amount = parseFloat((workitem.quantity.total *
-                        workitem.rate.total + building.costHeads[index].categories[categoryIndex].amount).toFixed(2));
+                      building.costHeads[costHeadIndex].categories[categoryIndex].amount = parseFloat((workitem.quantity.total *
+                        workitem.rate.total + building.costHeads[costHeadIndex].categories[categoryIndex].amount).toFixed(2));
                     } else {
-                      building.costHeads[index].categories[categoryIndex].amount = 0;
-                      building.costHeads[index].categories[categoryIndex].amount = 0;
+                      building.costHeads[costHeadIndex].categories[categoryIndex].amount = 0;
+                      building.costHeads[costHeadIndex].categories[categoryIndex].amount = 0;
                       break;
                     }
                   }
