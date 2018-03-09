@@ -682,28 +682,29 @@ setWorkItemStatus( buildingId:string, costHeadId:number, categoryId:number, work
     });
   }
 
-  //getInActiveCategoryFromDatabase
-  getAllCategoriesByCostHeadId(projectId:string, buildingId:string, costHeadId:string, user:User,
-                               callback:(error: any, result: any)=> void) {
+  //Get In-Active Categories From Database
+  getInActiveCategoriesByCostHeadId(projectId:string, buildingId:string, costHeadId:string, user:User,
+                                    callback:(error: any, result: any)=> void) {
 
     this.buildingRepository.findById(buildingId, (error, building) => {
-      logger.info('Project service, getAllCategoriesByCostHeadId has been hit');
+      logger.info('Project service, Get In-Active Categories By Cost Head Id has been hit');
       if (error) {
         callback(error, null);
       } else {
-        let costHeadList = building.costHeads;
-        let categoryList : Array<Category>=[];
+        let costHeads = building.costHeads;
+        let categories : Array<Category>= new Array<Category>();
 
-        for(let costHeadIndex = 0; costHeadIndex<costHeadList.length; costHeadIndex++) {
-          if(parseInt(costHeadId) === costHeadList[costHeadIndex].rateAnalysisId) {
-            for(let categoryIndex = 0; categoryIndex<costHeadList[costHeadIndex].categories.length; categoryIndex++) {
-              if(costHeadList[costHeadIndex].categories[categoryIndex].active === false) {
-                categoryList.push(costHeadList[costHeadIndex].categories[categoryIndex]);
+        for(let costHeadIndex = 0; costHeadIndex<costHeads.length; costHeadIndex++) {
+          if(parseInt(costHeadId) === costHeads[costHeadIndex].rateAnalysisId) {
+            let categoriesList = costHeads[costHeadIndex].categories;
+            for(let categoryIndex = 0; categoryIndex < categoriesList.length; categoryIndex++) {
+              if(categoriesList[categoryIndex].active === false) {
+                categories.push(categoriesList[categoryIndex]);
               }
             }
           }
         }
-        callback(null, {data: categoryList, access_token: this.authInterceptor.issueTokenWithUid(user)});
+        callback(null, {data: categories, access_token: this.authInterceptor.issueTokenWithUid(user)});
       }
     });
   }
@@ -772,44 +773,51 @@ setWorkItemStatus( buildingId:string, costHeadId:number, categoryId:number, work
     });
   }
 
+  //Update status ( true/false ) of category
   updateCategoryStatus(projectId:string, buildingId:string, costHeadId:string, categoryId:number ,
                                 categoryActiveStatus:boolean, user:User, callback:(error: any, result: any)=> void) {
 
-    this.buildingRepository.findById(buildingId, (error, building:Building) => {
-      logger.info('Project service, updateCategoryStatus has been hit');
+   /* this.buildingRepository.findById(buildingId, (error, building:Building) => {*/
+
+   this.buildingRepository.findById(buildingId, (error, building:Building) => {
+      logger.info('Project service, update Category Status has been hit');
       if (error) {
         callback(error, null);
       } else {
-        let costHeadList = building.costHeads;
-        let categoryList : any = [];
+        let costHeads = building.costHeads;
+        let categories : Array<Category>= new Array<Category>();
+        let updatedCategories : Array<Category>= new Array<Category>();
+        let index : number;
 
-        for(let index=0; index<costHeadList.length; index++) {
-          if(parseInt(costHeadId) === costHeadList[index].rateAnalysisId) {
-            categoryList = costHeadList[index].categories;
-            for(let categoryIndex = 0; categoryIndex<categoryList.length; categoryIndex++) {
-              if(categoryList[categoryIndex].rateAnalysisId === categoryId) {
-                categoryList[categoryIndex].active = categoryActiveStatus;
+        for(let costHeadIndex=0; costHeadIndex<costHeads.length; costHeadIndex++) {
+          if(parseInt(costHeadId) === costHeads[costHeadIndex].rateAnalysisId) {
+            categories = costHeads[costHeadIndex].categories;
+            for(let categoryIndex = 0; categoryIndex<categories.length; categoryIndex++) {
+              if(categories[categoryIndex].rateAnalysisId === categoryId) {
+                categories[categoryIndex].active = categoryActiveStatus;
+                updatedCategories.push(categories[categoryIndex]);
               }
             }
           }
         }
 
         let query = {'_id' : buildingId, 'costHeads.rateAnalysisId' : parseInt(costHeadId)};
-        let newData = {'$set' : {'costHeads.$.categories' : categoryList }};
+        let newData = {'$set' : {'costHeads.$.categories' : categories }};
 
-        this.buildingRepository.findOneAndUpdate(query, newData,{new: true}, (error, dataList) => {
+        this.buildingRepository.findOneAndUpdate(query, newData,{new: true}, (error, building) => {
           if (error) {
             callback(error, null);
           } else {
-            callback(null, {data: dataList, access_token: this.authInterceptor.issueTokenWithUid(user)});
+            callback(null, {data: updatedCategories, access_token: this.authInterceptor.issueTokenWithUid(user)});
           }
         });
       }
     });
   }
 
-  getCategory(projectId:string, buildingId:string, costHeadId:number, user:User, callback:(error: any, result: any)=> void) {
-    logger.info('Project service, getCategory has been hit');
+  //Get active categories from database
+  getActiveCategories(projectId:string, buildingId:string, costHeadId:number, user:User, callback:(error: any, result: any)=> void) {
+    logger.info('Project service, Get Active Categories has been hit');
     this.buildingRepository.findById(buildingId, (error, building:Building) => {
       if (error) {
         callback(error, null);

@@ -86,11 +86,11 @@ this._requestInterceptor.intercept, interceptor.setCostHeadStatus, controller.se
 
     //Retrive categories for particular costhead
     router.get('/:projectId/building/:buildingId/costhead/:costHeadId/category', this.authInterceptor.requiresAuth,
-      this._requestInterceptor.intercept, interceptor.getCategory, controller.getCategory, this._responseInterceptor.exit);
+      this._requestInterceptor.intercept, interceptor.getActiveCategories, controller.getActiveCategories, this._responseInterceptor.exit);
 
     //Provide list of categories from Database
     router.get('/:projectId/building/:buildingId/costhead/:costHeadId/categorylist', this.authInterceptor.requiresAuth,
-      this._requestInterceptor.intercept, interceptor.getCategoryByCostHeadId, controller.getCategoryByCostHeadId,
+      this._requestInterceptor.intercept, interceptor.getInActiveCategoriesByCostHeadId, controller.getInActiveCategoriesByCostHeadId,
       this._responseInterceptor.exit);
     //Add category to costhead
     router.post('/:projectId/building/:buildingId/costhead/:costHeadId/category', this.authInterceptor.requiresAuth,
@@ -99,7 +99,7 @@ this._requestInterceptor.intercept, interceptor.setCostHeadStatus, controller.se
 
     ////Add and remove a category by setting status of category to true and false
     router.put('/:projectId/building/:buildingId/costhead/:costHeadId/category/:categoryId/activeStatus/:activeStatus',
-      this.authInterceptor.requiresAuth, this._requestInterceptor.intercept, interceptor.setCategoryStatus,controller.setCategoryStatus,
+      this.authInterceptor.requiresAuth, this._requestInterceptor.intercept, interceptor.updateCategoryStatus,controller.updateCategoryStatus,
       this._responseInterceptor.exit);
 
     /*Building- Routes: WorkItem*/

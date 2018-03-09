@@ -318,7 +318,7 @@ if ((req.body.name === undefined) || (req.body.region === undefined) || (req.bod
     });
   }
 
-  getCategory(req: any, res: any, next: any) {
+  getActiveCategories(req: any, res: any, next: any) {
     var projectId = req.params.projectId;
     var buildingId = req.params.buildingId;
     var costHeadId = req.params.costHeadId;
@@ -339,7 +339,7 @@ if ((req.body.name === undefined) || (req.body.region === undefined) || (req.bod
     });
   }
 
-  getCategoryByCostHeadId(req: any, res: any, next: any) {
+  getInActiveCategoriesByCostHeadId(req: any, res: any, next: any) {
     var projectId = req.params.projectId;
     var buildingId = req.params.buildingId;
     var costHeadId = req.params.costHeadId;
@@ -381,7 +381,7 @@ if ((req.body.name === undefined) || (req.body.region === undefined) || (req.bod
     });
   }
 
-  setCategoryStatus(req: any, res: any, next: any) {
+  updateCategoryStatus(req: any, res: any, next: any) {
     var projectId = req.params.projectId;
     var buildingId = req.params.buildingId;
     var costHeadId = req.params.costHeadId;

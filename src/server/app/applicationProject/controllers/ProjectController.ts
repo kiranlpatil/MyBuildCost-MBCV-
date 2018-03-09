@@ -477,8 +477,8 @@ class ProjectController {
   }
 
 
-  //getInActiveCategoryFromDatabase
-  getCategoryByCostHeadId(req: express.Request, res: express.Response, next: any): void {
+  //Get In-Active Categories From Database
+  getInActiveCategoriesByCostHeadId(req: express.Request, res: express.Response, next: any): void {
     try {
       logger.info('Project controller, getCategoryByCostHeadId has been hit');
       let user = req.user;
@@ -488,7 +488,7 @@ class ProjectController {
 
       let projectService = new ProjectService();
 
-      projectService.getAllCategoriesByCostHeadId(projectId, buildingId, costHeadId, user, (error, result) => {
+      projectService.getInActiveCategoriesByCostHeadId(projectId, buildingId, costHeadId, user, (error, result) => {
         if(error) {
           next(error);
         } else {
@@ -571,15 +571,16 @@ class ProjectController {
     }
   }
 
-  getCategory(req: express.Request, res: express.Response, next: any): void {
+  //Get active categories from database
+  getActiveCategories(req: express.Request, res: express.Response, next: any): void {
     try {
-      logger.info('Project controller, getCategory has been hit');
+      logger.info('Project controller, Get Active Categories has been hit');
       let user = req.user;
       let projectId = req.params.projectId;
       let buildingId = req.params.buildingId;
       let costHeadId = parseInt(req.params.costHeadId);
       let projectService = new ProjectService();
-      projectService.getCategory(projectId, buildingId, costHeadId, user, (error, result) => {
+      projectService.getActiveCategories(projectId, buildingId, costHeadId, user, (error, result) => {
         if(error) {
           next(error);
         } else {
@@ -591,9 +592,10 @@ class ProjectController {
     }
   }
 
-  setCategoryStatus(req: express.Request, res: express.Response, next: any): void {
+  //Update status ( true/false ) of category
+  updateCategoryStatus(req: express.Request, res: express.Response, next: any): void {
     try {
-      logger.info('Project controller, setCategoryStatus has been hit');
+      logger.info('Project controller, update Category Status has been hit');
       let user = req.user;
       let projectId = req.params.projectId;
       let buildingId = req.params.buildingId;
