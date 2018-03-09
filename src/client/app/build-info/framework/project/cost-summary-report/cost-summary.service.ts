@@ -14,7 +14,8 @@ export class CostSummaryService extends BaseService {
 
     var url = API.THUMBRULE_RULE_RATE + '/'+ API.PROJECT +'/'+projectId+'/';
     url =  ( defaultCostIn==='Rs/Sqft' ) ? ( url + API.RATE + '/' + API.SQFT ) : ( url + API.RATE + '/' + API.SQM );
-    url= ( defaultCostPer==='SlabArea' ) ?  ( url + '/'+ API.AREA +'/' + API.SLAB_AREA ) :  ( url + '/'+ API.AREA +'/' + API.SALEABLE_AREA );
+    url= ( defaultCostPer==='SlabArea' ) ?  ( url + '/'+ API.AREA +'/' + API.SLAB_AREA ) :  ( url + '/'+ API.AREA +'/' +
+      API.SALEABLE_AREA );
 
     return this.httpDelegateService.getAPI(url);
   }
@@ -36,7 +37,7 @@ export class CostSummaryService extends BaseService {
   // Cost Head CRUD API
   inActiveCostHead(projectId:string, buildingId:string, costHeadId:number) {
     var url =  API.PROJECT + '/'+ projectId +'/'+ API.BUILDING +'/'+ buildingId +'/'+ API.COSTHEAD +'/'+
-      costHeadId +'/'+ API.COSTHEAD_ACTIVE_STATUS +'/'+ API.COSTHEAD_ACTIVE_STATUS_FALSE;
+      costHeadId +'/'+ API.ACTIVE_STATUS +'/'+ API.ACTIVE_STATUS_FALSE;
     let body = {};
 
     return this.httpDelegateService.putAPI(url, body);
@@ -51,7 +52,7 @@ export class CostSummaryService extends BaseService {
   // Reconsider this method
   activeCostHead( projectId : string, buildingId : string, selectedInActiveCostHeadId : number) {
     var url = API.PROJECT + '/' + projectId + '/' + API.BUILDING + '/' + buildingId + '/'+ API.COSTHEAD +'/' +
-      selectedInActiveCostHeadId +'/'+ API.COSTHEAD_ACTIVE_STATUS + '/' + API.COSTHEAD_ACTIVE_STATUS_TRUE;
+      selectedInActiveCostHeadId +'/'+ API.ACTIVE_STATUS + '/' + API.ACTIVE_STATUS_TRUE;
     let body = {};
 
     return this.httpDelegateService.putAPI(url, body);
@@ -68,7 +69,7 @@ export class CostSummaryService extends BaseService {
   inActiveWorkItem(projectId : string, buildingId : string, costHeadId : number, subCategoryId : number, workItemId : number) {
     var url =  API.PROJECT + '/'+ projectId +'/'+ API.BUILDING +'/'+ buildingId +'/'+ API.COSTHEAD +'/'+
       costHeadId + '/'+ API.CATEGORY +'/'+ subCategoryId +'/' + API.WORKITEM + '/' + workItemId +'/'+
-      API.COSTHEAD_ACTIVE_STATUS +'/'+ API.COSTHEAD_ACTIVE_STATUS_FALSE;
+      API.ACTIVE_STATUS +'/'+ API.ACTIVE_STATUS_FALSE;
     let body = {};
 
     return this.httpDelegateService.putAPI(url, body);
@@ -84,7 +85,7 @@ export class CostSummaryService extends BaseService {
   activeWorkItem(projectId : string, buildingId : string, costHeadId : number, subCategoryId : number, workItemId : number) {
     var url =  API.PROJECT + '/'+ projectId +'/'+ API.BUILDING +'/'+ buildingId +'/'+ API.COSTHEAD +'/'+
       costHeadId + '/'+ API.CATEGORY +'/'+ subCategoryId +'/' + API.WORKITEM + '/' + workItemId +'/'+
-      API.COSTHEAD_ACTIVE_STATUS +'/'+ API.COSTHEAD_ACTIVE_STATUS_TRUE;
+      API.ACTIVE_STATUS +'/'+ API.ACTIVE_STATUS_TRUE;
     let body = {};
 
     return this.httpDelegateService.putAPI(url, body);
@@ -157,7 +158,7 @@ export class CostSummaryService extends BaseService {
   //In Active Category
   inActiveCategory( projectId : String, buildingId : string, costHeadId : number, categoryId : any) {
     var url = API.PROJECT + '/' + projectId + '/' + API.BUILDING + '/' + buildingId + '/'+ API.COSTHEAD +'/' +
-      costHeadId +'/' + API.CATEGORY + '/' + categoryId + '/' + API.CATEGORY_ACTIVE_STATUS + '/' + API.CATEGORY_ACTIVE_STATUS_FALSE;
+      costHeadId +'/' + API.CATEGORY + '/' + categoryId + '/' + API.ACTIVE_STATUS + '/' + API.ACTIVE_STATUS_FALSE;
     let body = {};
 
     return this.httpDelegateService.putAPI(url, body);
@@ -177,7 +178,7 @@ export class CostSummaryService extends BaseService {
   //Active Category
   activeCategory( projectId : string, buildingId : string, costHeadId : number, categoryId : number) {
     var url = API.PROJECT + '/' + projectId + '/' + API.BUILDING + '/' + buildingId + '/'+ API.COSTHEAD +'/' +
-      costHeadId +'/' + API.CATEGORY + '/' + categoryId + '/' + API.CATEGORY_ACTIVE_STATUS + '/' + API.CATEGORY_ACTIVE_STATUS_TRUE;
+      costHeadId +'/' + API.CATEGORY + '/' + categoryId + '/' + API.ACTIVE_STATUS + '/' + API.ACTIVE_STATUS_TRUE;
     let body = {};
 
     return this.httpDelegateService.putAPI(url, body);

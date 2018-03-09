@@ -256,12 +256,9 @@ export class API {
   public static PROJECT = 'project';
   public static BUILDING = 'building';
   public static COSTHEAD = 'costhead';
-  public static COSTHEAD_ACTIVE_STATUS = 'activeStatus';
-  public static COSTHEAD_ACTIVE_STATUS_FALSE = 'false';
-  public static COSTHEAD_ACTIVE_STATUS_TRUE = 'true';
-  public static CATEGORY_ACTIVE_STATUS = 'activestatus';
-  public static CATEGORY_ACTIVE_STATUS_FALSE = 'false';
-  public static CATEGORY_ACTIVE_STATUS_TRUE = 'true';
+  public static ACTIVE_STATUS = 'activeStatus';
+  public static ACTIVE_STATUS_FALSE = 'false';
+  public static ACTIVE_STATUS_TRUE = 'true';
   public static CLONE = 'clone';
   public static CATEGORYLIST = 'categorylist';
   public static CATEGORY = 'category';

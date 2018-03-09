@@ -102,24 +102,24 @@ export class CostHeadComponent implements OnInit, OnChanges {
       this.categoryDetailsTotalAmount = parseFloat(( this.categoryDetailsTotalAmount +
         this.categoryDetails[categoryIndex].amount).toFixed(2));
 
-      for(let workItemIdex=0; workItemIdex < this.categoryDetails[categoryIndex].workItems.length; workItemIdex++) {
+      for(let workItemIndex=0; workItemIndex < this.categoryDetails[categoryIndex].workItems.length; workItemIndex++) {
 
         this.totalQuantityOfWorkItems = parseFloat((this.totalQuantityOfWorkItems +
-          this.categoryDetails[categoryIndex].workItems[workItemIdex].quantity.total).toFixed(2));
+          this.categoryDetails[categoryIndex].workItems[workItemIndex].quantity.total).toFixed(2));
 
         this.totalRateUnitOfWorkItems = parseFloat((this.totalRateUnitOfWorkItems +
-          this.categoryDetails[categoryIndex].workItems[workItemIdex].rate.total).toFixed(2));
+          this.categoryDetails[categoryIndex].workItems[workItemIndex].rate.total).toFixed(2));
 
         this.totalAmountOfWorkItems = parseFloat((this.totalAmountOfWorkItems +
-          (this.categoryDetails[categoryIndex].workItems[workItemIdex].quantity.total *
-          this.categoryDetails[categoryIndex].workItems[workItemIdex].rate.total)).toFixed(2));
+          (this.categoryDetails[categoryIndex].workItems[workItemIndex].quantity.total *
+          this.categoryDetails[categoryIndex].workItems[workItemIndex].rate.total)).toFixed(2));
 
-        this.categoryDetails[categoryIndex].workItems[workItemIdex].quantity.total =
-          parseFloat((this.categoryDetails[categoryIndex].workItems[workItemIdex].quantity.total).toFixed(2));
+        this.categoryDetails[categoryIndex].workItems[workItemIndex].quantity.total =
+          parseFloat((this.categoryDetails[categoryIndex].workItems[workItemIndex].quantity.total).toFixed(2));
 
-        this.categoryDetails[categoryIndex].workItems[workItemIdex].amount=
-          parseFloat((this.categoryDetails[categoryIndex].workItems[workItemIdex].quantity.total *
-            this.categoryDetails[categoryIndex].workItems[workItemIdex].rate.total).toFixed(2));
+        this.categoryDetails[categoryIndex].workItems[workItemIndex].amount=
+          parseFloat((this.categoryDetails[categoryIndex].workItems[workItemIndex].quantity.total *
+            this.categoryDetails[categoryIndex].workItems[workItemIndex].rate.total).toFixed(2));
       }
     }
 
