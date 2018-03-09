@@ -10,6 +10,8 @@ import { BuildingService } from '../building/building.service';
 import { CostHead } from '../../model/costhead';
 import { EstimateReport } from '../../model/estimate-report';
 import { BuildingReport } from '../../model/building-report';
+import ProjectReport = require('../../model/project-report');
+
 
 @Component({
   moduleId: module.id,
@@ -20,7 +22,9 @@ import { BuildingReport } from '../../model/building-report';
 
 export class CostSummaryComponent implements OnInit {
 
-  projectBuildings: Array <BuildingReport>;
+  buildingsReport: Array <BuildingReport>;
+  amenitiesReport: BuildingReport;
+  projectReport: ProjectReport;
   projectId: string;
   buildingId: string;
   cloneBuildingId: string;
@@ -140,7 +144,9 @@ export class CostSummaryComponent implements OnInit {
   }
 
   onGetCostSummaryReportSuccess(projects : any) {
-    this.projectBuildings = projects.data;
+    this.projectReport = new ProjectReport( projects.data.buildings, projects.data.commonAmenities[0]) ;
+    this.buildingsReport = this.projectReport.buildings;
+    this.amenitiesReport = this.projectReport.commonAmenities;
     this.calculateGrandTotal();
   }
 
@@ -336,22 +342,31 @@ export class CostSummaryComponent implements OnInit {
     this.grandTotalofEstimatedCost = 0;
     this.grandTotalofEstimatedRate = 0;
 
-    for (let buildindIndex = 0; buildindIndex < this.projectBuildings.length; buildindIndex++) {
+    //Calculate total of all building
+    for (let buildindIndex = 0; buildindIndex < this.buildingsReport.length; buildindIndex++) {
 
       this.grandTotalofBudgetedCost = this.grandTotalofBudgetedCost +
-        parseFloat((this.projectBuildings[buildindIndex].thumbRule.totalBudgetedCost).toFixed(2));
+        parseFloat((this.buildingsReport[buildindIndex].thumbRule.totalBudgetedCost).toFixed(2));
 
       this.grandTotalofTotalRate = this.grandTotalofTotalRate +
-        parseFloat((this.projectBuildings[buildindIndex].thumbRule.totalRate).toFixed(2));
+        parseFloat((this.buildingsReport[buildindIndex].thumbRule.totalRate).toFixed(2));
 
-      this.grandTotalofArea =( this.grandTotalofArea + parseFloat((this.projectBuildings[buildindIndex].area).toFixed(2)));
+      this.grandTotalofArea =( this.grandTotalofArea + parseFloat((this.buildingsReport[buildindIndex].area).toFixed(2)));
 
       this.grandTotalofEstimatedCost = this.grandTotalofEstimatedCost +
-        parseFloat((this.projectBuildings[buildindIndex].estimate.totalEstimatedCost).toFixed(2));
+        parseFloat((this.buildingsReport[buildindIndex].estimate.totalEstimatedCost).toFixed(2));
 
       this.grandTotalofEstimatedRate = this.grandTotalofEstimatedRate +
-        parseFloat((this.projectBuildings[buildindIndex].estimate.totalRate).toFixed(2));
+        parseFloat((this.buildingsReport[buildindIndex].estimate.totalRate).toFixed(2));
     }
+
+    //Calculate total with amenities data
+    this.grandTotalofBudgetedCost = this.grandTotalofBudgetedCost +
+      parseFloat((this.amenitiesReport.thumbRule.totalBudgetedCost).toFixed(2));
+
+    this.grandTotalofTotalRate = this.grandTotalofTotalRate +
+      parseFloat((this.amenitiesReport.thumbRule.totalRate).toFixed(2));
+
   }
 
   toggleShowGrandTotalPanelBody() {

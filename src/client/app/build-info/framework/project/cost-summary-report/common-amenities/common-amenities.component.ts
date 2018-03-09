@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Headings, TableHeadings } from '../../../../../shared/constants';
+import { Headings, Label, TableHeadings } from '../../../../../shared/constants';
+import { BuildingReport } from '../../../model/building-report';
 
 @Component({
   moduleId: module.id,
@@ -10,6 +11,9 @@ import { Headings, TableHeadings } from '../../../../../shared/constants';
 })
 
 export class CommonAmenitiesComponent implements OnInit {
+  @Input() amenitiesReport: BuildingReport;
+  @Input() costingByUnit : string;
+  @Input() costingByArea : string;
   projectId: string;
 
   constructor(private activatedRoute: ActivatedRoute) {
@@ -27,6 +31,10 @@ export class CommonAmenitiesComponent implements OnInit {
 
   getTableHeadings() {
     return TableHeadings;
+  }
+
+  getLabel() {
+    return Label;
   }
 
 }
