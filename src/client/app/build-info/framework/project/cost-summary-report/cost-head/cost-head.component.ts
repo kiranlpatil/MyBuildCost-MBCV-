@@ -215,7 +215,8 @@ export class CostHeadComponent implements OnInit, OnChanges {
 
   //System Rate from DB
   getSystemRate(displayRateView : string, categoryIndex:number, workItemIndex:number, workItem : WorkItem, disableRateField : boolean ) {
-if(this.displayRateView !== displayRateView || this.compareCategoryIndex !==categoryIndex || this.compareWorkItemIndex !== workItemIndex) {
+if(this.displayRateView !== displayRateView || this.compareCategoryIndex !==categoryIndex || this.compareWorkItemIndex !== workItemIndex
+  || this.toggleRate!==true) {
       this.displayRateView = displayRateView;
 
       this.compareCategoryIndex = categoryIndex;
