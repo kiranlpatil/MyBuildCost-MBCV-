@@ -156,7 +156,8 @@ export class CostHeadComponent implements OnInit, OnChanges {
 
   //Rate from DB
   getRate(displayRateView : string, categoryIndex:number, workItemIndex:number, workItem : WorkItem, disableRateField : boolean ) {
-    if(this.displayRateView !== displayRateView) {
+    if(this.displayRateView !== displayRateView || this.compareCategoryIndex !==categoryIndex || this.compareWorkItemIndex !== workItemIndex
+    || this.toggleRate!==true) {
 
       this.displayRateView = displayRateView;
 
@@ -187,7 +188,8 @@ export class CostHeadComponent implements OnInit, OnChanges {
   //Rate from DB by Quantity
   getRateByQuantity(displayRateView : string, categoryIndex:number, workItemIndex:number, workItem : WorkItem,
                     disableRateField : boolean ) {
-    if(this.displayRateView !== displayRateView) {
+    if(this.displayRateView !== displayRateView || this.compareCategoryIndex !==categoryIndex || this.compareWorkItemIndex !== workItemIndex
+      || this.toggleRate!==true) {
 
       this.displayRateView = displayRateView;
 
