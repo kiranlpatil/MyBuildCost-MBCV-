@@ -42,16 +42,24 @@
                   <thead>
                     <tr>
                       <th rowspan="2" class="border-left">{{getLabel().COST_HEAD}}</th>
-                      <th colspan="2" class="border-left">{{getLabel().REPORT_BY_THUMBRULE}}</th>
-                      <th colspan="2" class="border-left">{{getLabel().ESTIMATED}} <span class="sub-heading">{{getLabel().AS_PER_PROJECT}}</span></th>
-                      <th>&nbsp;<div class="white-bg"></div></th>
-                    </tr>
-                    <tr>
-                      <th><span class="sub-heading">{{getLabel().BUDGETED_COST}} </span></th>
-                      <th class="border-left"><span class="sub-heading">{{defaultCostingByUnit}}<br/>{{defaultCostingByArea}}</span></th>
-                      <th><span class="sub-heading">{{getLabel().ESTIMATED_COST}} </span></th>
-                      <th class="border-left" ><span class="sub-heading">{{defaultCostingByUnit}}<br/>{{defaultCostingByArea}}</span></th>
-                      <th>&nbsp;</th>
+                      <th colspan="2" class="border-left table-heading">
+                        <tr>
+                          <th colspan="2">{{getLabel().REPORT_BY_THUMBRULE}}</th>
+                        </tr>
+                        <tr>
+                          <th><span class="sub-heading">{{getLabel().BUDGETED_COST}} </span></th>
+                          <th><span class="sub-heading">{{defaultCostingByUnit}}<br/>{{defaultCostingByArea}}</span></th>
+                        </tr>
+                      </th>
+                      <th colspan="2" class="border-left table-heading">
+                        <tr>
+                          <th colspan="2">{{getLabel().ESTIMATED}}<span class="sub-heading">{{getLabel().AS_PER_PROJECT}}</span></th>
+                        </tr>
+                        <tr>
+                          <th><span class="sub-heading">{{getLabel().ESTIMATED_COST}}</span></th>
+                          <th><span class="sub-heading">{{defaultCostingByUnit}}<br/>{{defaultCostingByArea}}</span></th>
+                        </tr>
+                      </th>
                     </tr>
                   </thead>
                   <tbody *ngIf="(building.thumbRule && building.estimate)" >
@@ -72,20 +80,19 @@
                              (click)="goToCostHeadView(building._id,building.name, building.estimate.estimatedCosts[i])">
                           <input [(ngModel)]="building.estimate.estimatedCosts[i].total"
                                  id="estimatedItem.total"
-                                 class="form-control clear"/>
+                                 class="form-control clear" [class.high-estimated-cost]="building.estimate.estimatedCosts[i].total > thumbRuleItem.amount" [class.low-estimated-cost]="building.estimate.estimatedCosts[i].total < thumbRuleItem.amount"/>
                         </div>
                         <button *ngIf="building.estimate.estimatedCosts[i].total == 0"
                                   type="button" class="btn-get-amount"
                                   (click)="goToCostHeadView(building._id,building.name, building.estimate.estimatedCosts[i])">Get Amount</button>
                       </td>
-                      <td class="border-left">{{building.estimate.estimatedCosts[i].rate}}</td>
-                      <td>
-                        <div data-toggle="modal"
+                      <td class="border-left delete-cost-head-cell">{{building.estimate.estimatedCosts[i].rate}}
+                        <!--<div data-toggle="modal"
                              data-target="#deleteCosthead"
                              (click)="setIdsToInActiveCostHead(building._id, building.estimate.estimatedCosts[i].rateAnalysisId)"
                              class="delete-cost-head">
                           <img alt="Delete Cost Head" src="assets/build-info/dashboard/delete.png" />
-                        </div>
+                        </div>-->
                       </td>
                     </tr>
                     <tr *ngIf="showCostHeadList===true && buildingId===building._id">
@@ -100,7 +107,7 @@
                       <td colspan="5">&nbsp;</td>
                     </tr>
                     <tr>
-                      <td colspan="6" class="add-items">
+                      <td colspan="5" class="add-items">
                         <button type="button" class="btn btn-add-item"
                                 (click)="getAllInActiveCostHeads(building._id)">
                           <span class="glyphicon glyphicon-plus"></span>{{getButton().ADD}} {{getButton().COSTHEAD}}

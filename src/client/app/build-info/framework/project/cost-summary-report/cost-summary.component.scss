@@ -73,6 +73,20 @@
   padding: 15px 0 !important;
 }
 
+.table-heading {
+  tbody {
+    display: table;
+    width: 100%;
+  }
+  tr {
+    background: transparent;
+    box-shadow: none;
+  }
+  th {
+    padding: 0 0 2px 0;
+  }
+}
+
 
 
 

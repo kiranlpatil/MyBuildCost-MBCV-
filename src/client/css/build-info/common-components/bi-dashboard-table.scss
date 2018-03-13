@@ -10,12 +10,23 @@
   margin: 0;
   position: relative;
 
+  .delete-cost-head-cell {
+    position: relative;
+  }
+
   .delete-cost-head {
+    background: $white;
+    border-radius: 5px;
+    color: $dashboard-link;
     cursor: pointer;
     display: block;
     opacity: 0;
+    padding: 5px;
+    position: absolute;
+    right: -25px;
     transition: opacity 0.5s ease-in-out;
-    width: 15px;
+    top: 5px;
+    width: 25px;
   }
 
   thead > tr,
@@ -37,8 +48,8 @@
 
     td, th {
       border: 0;
+      padding: 6px 15px;
       vertical-align: middle;
-      padding: 8px 15px;
 
       &:first-child {
         border-radius: 6px 0 0 6px;
@@ -77,6 +88,7 @@
     }
 
     td > .edit-field {
+      margin: 0 auto;
       position: relative;
       width: 120px;
 
@@ -84,18 +96,19 @@
         border: 1px solid transparent;
         box-shadow: none;
         color: $heading;
-        font-size: 12px;
-        width: 100%;
-        text-align: right;
-        margin: 0;
-        display: inline-block;
-        padding: 6px 28px 6px 6px;
-        background: url('../assets/build-info/dashboard/edit.png') no-repeat 95% 46%;
         cursor: pointer;
+        display: inline-block;
+        font-size: 12px;
+        height: 26px;
+        margin: 0;
+        padding: 3px;
+        width: 100%;
+        text-align: center;
+        //background: url('../assets/build-info/dashboard/edit.png') no-repeat 95% 46%;
 
         &:focus,
         &:hover {
-          border: 1px solid $border-color;
+          border: 1px solid transparent;
         }
       }
 
@@ -167,4 +180,14 @@
     border: 0;
     color: $heading;
   }
+}
+
+
+.low-estimated-cost {
+  color: $above-cost !important;
+  text-decoration: underline;
+}
+.high-estimated-cost {
+  color: $below-cost !important;
+  text-decoration: underline;
 }
