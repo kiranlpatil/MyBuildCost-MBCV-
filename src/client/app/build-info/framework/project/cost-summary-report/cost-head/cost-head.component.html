@@ -64,7 +64,7 @@
                     <td class="border-left">
                       <div class="edit-field"
                            *ngIf="workitemObj.rate.total!= 0"
-                           (click)="getRate( 'get rate', categoryIndex, workItemIndex, workitemObj, false)">
+                           (click)="getRate( getLabel().GET_RATE, categoryIndex, workItemIndex, workitemObj, false)">
                         <input  [(ngModel)]="workitemObj.rate.total" id="rate"  size="10" class="form-control clear">
                       </div>
                       <button class="btn-get-amount"

@@ -41,7 +41,7 @@ export class CostHeadComponent implements OnInit, OnChanges {
   deleteConfirmationWorkItem = ProjectElements.WORK_ITEM;
 
   private showQuantity:boolean=true;
-  private showRate:boolean=true;
+  private showRate:boolean=false;
   private toggleQty:boolean=false;
   private toggleRate:boolean=false;
   private showWorkItemList:boolean=false;
@@ -156,61 +156,40 @@ export class CostHeadComponent implements OnInit, OnChanges {
 
   //Rate from DB
   getRate(displayRateView : string, categoryIndex:number, workItemIndex:number, workItem : WorkItem, disableRateField : boolean ) {
-    if(this.displayRateView !== displayRateView || this.compareCategoryIndex !==categoryIndex || this.compareWorkItemIndex !== workItemIndex
-    || this.toggleRate!==true) {
+    if(this.validateDetailsForRateView(displayRateView, categoryIndex , workItemIndex)) {
+      this.setItemIndexes(categoryIndex, workItemIndex);
 
-      this.displayRateView = displayRateView;
-
-      this.compareCategoryIndex = categoryIndex;
-      this.toggleRate = true;
-      this.workItem = workItem;
-      this.workItemId = workItem.rateAnalysisId;
-      SessionStorageService.setSessionValue(SessionStorage.CURRENT_WORKITEM_ID, this.workItemId);
-      this.compareWorkItemIndex = workItemIndex;
-      this.rateItemsArray = workItem.rate;
-      this.unit = workItem.rate.unit;
-
-      if (this.quantityIncrement !== 1) {
-        this.quantityIncrement = this.previousRateQuantity / this.rateItemsArray.quantity;
-        this.rateItemsArray.quantity = this.previousRateQuantity;
-        for (let rateItemsIndex = 0; rateItemsIndex < this.rateItemsArray.rateItems.length; rateItemsIndex++) {
-          this.rateItemsArray.rateItems[rateItemsIndex].quantity = parseFloat((this.rateItemsArray.rateItems[rateItemsIndex].quantity *
-            this.quantityIncrement).toFixed(2));
-        }
-      }
-
-      this.calculateTotal();
-      this.disableRateField=disableRateField;
+      this.setWorkItemDataForRate(workItem);
+      this.calculateTotalForRate();
+      this.showRateView(displayRateView, disableRateField);
+    } else {
+      this.showRate = false;
+      this.displayRateView = null;
     }
-
   }
 
   //Rate from DB by Quantity
   getRateByQuantity(displayRateView : string, categoryIndex:number, workItemIndex:number, workItem : WorkItem,
                     disableRateField : boolean ) {
-    if(this.displayRateView !== displayRateView || this.compareCategoryIndex !==categoryIndex || this.compareWorkItemIndex !== workItemIndex
-      || this.toggleRate!==true) {
+      if( this.validateDetailsForRateView(displayRateView, categoryIndex , workItemIndex)) {
+      this.setItemIndexes(categoryIndex,workItemIndex);
+      this.setWorkItemDataForRate(workItem);
 
-      this.displayRateView = displayRateView;
-
-      this.compareCategoryIndex = categoryIndex;
-      this.workItemId = workItem.rateAnalysisId;
-      SessionStorageService.setSessionValue(SessionStorage.CURRENT_WORKITEM_ID, this.workItemId);
-      this.compareWorkItemIndex = workItemIndex;
-      this.rateItemsArray = workItem.rate;
-      this.unit = workItem.rate.unit;
-
-      this.previousRateQuantity = this.rateItemsArray.quantity;
-      this.rateItemsArray.quantity = workItem.quantity.total;
+      this.previousRateQuantity = lodsh.cloneDeep(workItem.rate.quantity);
+      this.rateItemsArray.quantity = lodsh.cloneDeep(workItem.quantity.total);
       this.quantityIncrement = this.rateItemsArray.quantity / this.previousRateQuantity;
       for (let rateItemsIndex = 0; rateItemsIndex < this.rateItemsArray.rateItems.length; rateItemsIndex++) {
-        this.rateItemsArray.rateItems[rateItemsIndex].quantity = parseFloat((this.rateItemsArray.rateItems[rateItemsIndex].quantity *
+        this.rateItemsArray.rateItems[rateItemsIndex].quantity = parseFloat((
+          this.rateItemsArray.rateItems[rateItemsIndex].quantity *
           this.quantityIncrement).toFixed(2));
       }
 
-      this.calculateTotal();
-      this.disableRateField=disableRateField;
-    }
+      this.calculateTotalForRate();
+      this.showRateView(displayRateView,disableRateField);
+      } else {
+        this.showRate = false;
+        this.displayRateView = null;
+      }
   }
 
   //System Rate from DB
@@ -228,13 +207,37 @@ if(this.displayRateView !== displayRateView || this.compareCategoryIndex !==cate
       this.rateItemsArray = workItem.systemRate;
       this.unit = workItem.systemRate.unit;
 
-      this.calculateTotal();
+      this.calculateTotalForRate();
       this.disableRateField=disableRateField;
     }
 
   }
 
-  calculateTotal() {
+  setItemIndexes(categoryIndex:number, workItemIndex:number) {
+    this.compareCategoryIndex = categoryIndex;
+    this.compareWorkItemIndex = workItemIndex;
+  }
+
+  showRateView(displayRateView : string, disableRateField : boolean) {
+    this.displayRateView = displayRateView;
+    this.disableRateField=disableRateField;
+    this.showRate = true;
+    this.toggleRate = true;
+    if (this.toggleRate === true) {
+      this.toggleQty = false;
+      this.showQuantity = false;
+    }
+  }
+
+  setWorkItemDataForRate(workItem : WorkItem) {
+    this.workItemId = lodsh.cloneDeep(workItem.rateAnalysisId);
+    this.rateItemsArray = lodsh.cloneDeep(workItem.rate);
+    this.unit = lodsh.cloneDeep(workItem.rate.unit);
+    this.workItemId = lodsh.cloneDeep(workItem.rateAnalysisId);
+    SessionStorageService.setSessionValue(SessionStorage.CURRENT_WORKITEM_ID, this.workItemId);
+  }
+
+  calculateTotalForRate() {
     this.totalAmount=0;
     this.totalRate=0;
     this.totalQuantity=0;
@@ -248,20 +251,21 @@ if(this.displayRateView !== displayRateView || this.compareCategoryIndex !==cate
     }
 
     this.rateItemsArray.total= parseFloat((this.totalAmount/this.rateItemsArray.quantity).toFixed(2));
-
-    this.showRate = true;
-
-    this.toggleRate = true;
-
-    if (this.toggleRate === true) {
-      this.toggleQty = false;
-    }
   }
 
   setIdsForDeleteWorkItem(categoryId: string, workItemId: string,workItemIndex:number) {
     this.categoryId = parseInt(categoryId);
     this.workItemId =  parseInt(workItemId);
     this.compareWorkItemIndex = workItemIndex;
+  }
+
+  validateDetailsForRateView(displayRateView : string, categoryIndex:number, workItemIndex:number) {
+    if(this.displayRateView !== displayRateView || this.compareCategoryIndex !== categoryIndex ||
+    this.compareWorkItemIndex !== workItemIndex) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   deactivateWorkItem() {
