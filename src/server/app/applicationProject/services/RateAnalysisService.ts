@@ -12,6 +12,7 @@ import alasql = require('alasql');
 import Rate = require('../dataaccess/model/project/building/Rate');
 import CostHead = require('../dataaccess/model/project/building/CostHead');
 import Category = require('../dataaccess/model/project/building/Category');
+import Constants = require('../shared/constants');
 
 class RateAnalysisService {
   APP_NAME: string;
@@ -119,6 +120,7 @@ class RateAnalysisService {
     });
   }
 
+  //TODO : Delete API's related to workitems add, deleet, get list.
   getWorkitemList(costHeadId: number,categoryId: number, callback:(error: any, data:any) => void) {
     let url = config.get('rateAnalysisAPI.workitem');
     this.getApiCall(url, (error, workitem) => {
@@ -136,24 +138,24 @@ class RateAnalysisService {
     });
   }
 
-  getAllDataFromRateAnalysis(entity:string, callback:(error: any, data:any)=> void) {
+  convertCostHeadsFromRateAnalysisToCostControl(entity:string, callback:(error: any, data:any)=> void) {
 
-    let costHeadURL = config.get('rateAnalysisAPI.'+entity+'CostHeads');
+    let costHeadURL = config.get(Constants.RATE_ANALYSIS_API + entity + Constants.RATE_ANALYSIS_COSTHEADS);
     let costHeadRateAnalysisPromise = this.createPromise(costHeadURL);
 
-    let categoryURL = config.get('rateAnalysisAPI.'+entity+'Categories');
+    let categoryURL = config.get(Constants.RATE_ANALYSIS_API + entity + Constants.RATE_ANALYSIS_CATEGORIES);
     let categoryRateAnalysisPromise = this.createPromise(categoryURL);
 
-    let workItemURL = config.get('rateAnalysisAPI.'+entity+'WorkItems');
+    let workItemURL = config.get(Constants.RATE_ANALYSIS_API + entity + Constants.RATE_ANALYSIS_WORKITEMS);
     let workItemRateAnalysisPromise = this.createPromise(workItemURL);
 
-    let rateItemURL = config.get('rateAnalysisAPI.'+entity+'Rate');
+    let rateItemURL = config.get(Constants.RATE_ANALYSIS_API + entity + Constants.RATE_ANALYSIS_RATE);
     let rateItemRateAnalysisPromise = this.createPromise(rateItemURL);
 
-    let rateAnalysisNotesURL = config.get('rateAnalysisAPI.'+entity+'RateAnalysisNotes');
+    let rateAnalysisNotesURL = config.get(Constants.RATE_ANALYSIS_API + entity + Constants.RATE_ANALYSIS_NOTES);
     let notesRateAnalysisPromise = this.createPromise(rateAnalysisNotesURL);
 
-    let allUnitsFromRateAnalysisURL = config.get('rateAnalysisAPI.'+entity+'Unit');
+    let allUnitsFromRateAnalysisURL = config.get(Constants.RATE_ANALYSIS_API + entity + Constants.RATE_ANALYSIS_UNIT);
     let unitsRateAnalysisPromise = this.createPromise(allUnitsFromRateAnalysisURL);
 
     Promise.all([
@@ -165,12 +167,12 @@ class RateAnalysisService {
       unitsRateAnalysisPromise
     ]).then(function(data: Array<any>) {
 
-      let costHeadsRateAnalysis = data[0]['ItemType'];
-      let categoriesRateAnalysis = data[1]['SubItemType'];
-      let workItemsRateAnalysis = data[2]['Items'];
-      let rateItemsRateAnalysis = data[3]['RateAnalysisData'];
-      let notesRateAnalysis = data[4]['RateAnalysisData'];
-      let unitsRateAnalysis = data[5]['UOM'];
+      let costHeadsRateAnalysis = data[0][Constants.RATE_ANALYSIS_ITEM_TYPE];
+      let categoriesRateAnalysis = data[1][Constants.RATE_ANALYSIS_SUBITEM_TYPE];
+      let workItemsRateAnalysis = data[2][Constants.RATE_ANALYSIS_ITEMS];
+      let rateItemsRateAnalysis = data[3][Constants.RATE_ANALYSIS_DATA];
+      let notesRateAnalysis = data[4][Constants.RATE_ANALYSIS_DATA];
+      let unitsRateAnalysis = data[5][Constants.RATE_ANALYSIS_UOM];
 
       let buildingCostHeads: Array<CostHead> = [];
       let rateAnalysisService = new RateAnalysisService();
@@ -212,13 +214,13 @@ class RateAnalysisService {
 
       let categoriesByCostHead = alasql(categoriesRateAnalysisSQL, [categoriesRateAnalysis]);
 
-      let buildingCategories: Array<Category> = [];
+      let buildingCategories: Array<Category> = new Array<Category>();
 
       this.getCategoriesFromRateAnalysis(categoriesByCostHead, workItemsRateAnalysis,
         rateItemsRateAnalysis, unitsRateAnalysis, notesRateAnalysis, buildingCategories);
 
       costHead.categories = buildingCategories;
-      costHead.thumbRuleRate = config.get('thumbRuleRate');
+      costHead.thumbRuleRate = config.get(Constants.THUMBRULE_RATE);
       costHead.active = true;
       buildingCostHeads.push(costHead);
     }
@@ -236,12 +238,7 @@ class RateAnalysisService {
         ' FROM ? AS workItem where workItem.C4 = ' + categoriesByCostHead[categoryIndex].rateAnalysisId;
 
       let workItemsByCategory = alasql(workItemsRateAnalysisSQL, [workItemsRateAnalysis]);
-      let buildingWorkItems: Array<WorkItem> = [];
-
-     /* let workItemsWithoutCategoriesRateAnalysisSQL = 'SELECT workItem.C2 AS rateAnalysisId, workItem.C3 AS name' +
-        ' FROM ? AS workItem where NOT workItem.C4';
-
-      let workItemsWithoutCategories = alasql(workItemsWithoutCategoriesRateAnalysisSQL, [workItemsRateAnalysis]);*/
+      let buildingWorkItems: Array<WorkItem> = new Array<WorkItem>();
 
       this.getWorkItemsFromRateAnalysis(workItemsByCategory, rateItemsRateAnalysis,
         unitsRateAnalysis, notesRateAnalysis, buildingWorkItems);

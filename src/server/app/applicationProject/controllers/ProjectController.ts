@@ -26,9 +26,7 @@ class ProjectController {
       let data =  <Project>req.body;
       let user = req.user;
 
-      let defaultCategory = config.get('category.default');
       let defaultRates = config.get('rate.default');
-      data.costHeads = defaultCategory;
       data.rates = defaultRates;
 
       let projectService = new ProjectService();

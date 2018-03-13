@@ -16,7 +16,6 @@ class Project {
   poolCapacity:number;
   totalNumOfBuildings:number;
   buildings: Array<Building>;
-  costHeads: Array<Category>;
   rates: Array<Rate>;
   projectCostHeads : Array<CostHead>;
 }

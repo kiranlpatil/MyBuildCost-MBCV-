@@ -19,7 +19,9 @@ import Category = require('../dataaccess/model/project/building/Category');
 let config = require('config');
 let log4js = require('log4js');
 import alasql = require('alasql');
-import ClonedCategory = require('../dataaccess/model/project/building/ClonedCategory');
+import BudgetCostRates = require('../dataaccess/model/project/reports/BudgetCostRates');
+import ThumbRuleRate = require('../dataaccess/model/project/reports/ThumbRuleRate');
+import Constants = require('../../applicationProject/shared/constants');
 let logger=log4js.getLogger('Project service');
 
 class ProjectService {
@@ -80,6 +82,20 @@ class ProjectService {
         callback(error, null);
       } else {
         callback(null,{ data: result, access_token: this.authInterceptor.issueTokenWithUid(user)});
+      }
+    });
+  }
+
+  getProjectAndBuildingDetails( projectId : string, buildingId: string, callback: (error: any, result: any) => void) {
+    let query = { _id: projectId};
+    let populate = {path : 'buildings'};
+    this.projectRepository.findAndPopulate(query, populate, (error, result) => {
+      logger.info('Project service, findAndPopulate has been hit');
+      logger.debug('Project Name : '+result[0].name);
+      if(error) {
+        callback(error, null);
+      } else {
+        callback(null,{ data: result });
       }
     });
   }
@@ -592,22 +608,22 @@ setWorkItemStatus( buildingId:string, costHeadId:number, categoryId:number, work
     if(costPerUnit === 'saleableArea' && costInUnit === 'sqft') {
       newData = { $set : {
         'costHeads.$.thumbRuleRate.saleableArea.sqft' : rate,
-        'costHeads.$.thumbRuleRate.saleableArea.sqmt' : rate / config.get('SqureMeter')
+        'costHeads.$.thumbRuleRate.saleableArea.sqmt' : rate / config.get(Constants.SQUARE_METER)
       } };
     } else if(costPerUnit === 'saleableArea' && costInUnit === 'sqmt') {
       newData = { $set : {
         'costHeads.$.thumbRuleRate.saleableArea.sqmt' : rate,
-        'costHeads.$.thumbRuleRate.saleableArea.sqft' : rate * config.get('SqureMeter')
+        'costHeads.$.thumbRuleRate.saleableArea.sqft' : rate * config.get(Constants.SQUARE_METER)
       } };
     } else if(costPerUnit === 'slabArea' && costInUnit === 'sqft') {
       newData = { $set : {
         'costHeads.$.thumbRuleRate.slabArea.sqft' : rate,
-        'costHeads.$.thumbRuleRate.slabArea.sqmt' : rate / config.get('SqureMeter')
+        'costHeads.$.thumbRuleRate.slabArea.sqmt' : rate / config.get(Constants.SQUARE_METER)
       } };
     } else if(costPerUnit === 'slabArea' && costInUnit === 'sqmt') {
       newData = { $set : {
         'costHeads.$.thumbRuleRate.slabArea.sqmt' : rate,
-        'costHeads.$.thumbRuleRate.slabArea.sqft' : rate * config.get('SqureMeter')
+        'costHeads.$.thumbRuleRate.slabArea.sqft' : rate * config.get(Constants.SQUARE_METER)
       } };
     }
 
@@ -777,8 +793,6 @@ setWorkItemStatus( buildingId:string, costHeadId:number, categoryId:number, work
   updateCategoryStatus(projectId:string, buildingId:string, costHeadId:number, categoryId:number ,
                                 categoryActiveStatus:boolean, user:User, callback:(error: any, result: any)=> void) {
 
-   /* this.buildingRepository.findById(buildingId, (error, building:Building) => {*/
-
    this.buildingRepository.findById(buildingId, (error, building:Building) => {
       logger.info('Project service, update Category Status has been hit');
       if (error) {
@@ -860,30 +874,101 @@ setWorkItemStatus( buildingId:string, costHeadId:number, categoryId:number, work
   }
 
   syncProjectWithRateAnalysisData(projectId:string, buildingId:string, user: User, callback: (error:any, result:any)=> void) {
-    let syncBuildingCostHeads = this.PromiseForSyncBuildingCostHeads('building',buildingId);
-    let syncProjectCostHeads = this.PromiseForSyncProjectCostHeads('amenities',projectId);
-   Promise.all([
-     syncBuildingCostHeads,
-     syncProjectCostHeads
-   ]).then(function(data: Array<any>) {
-     let buildingCostHeadsData = data[0];
-     let projectCostHeadsData = data[1];
-     callback(null, {status:200});
-   })
-  .catch(() => { logger.info(' Promise failed!');});
+
+    this.getProjectAndBuildingDetails(projectId, buildingId,(error, projectAndBuildingDetails) => {
+      if (error) {
+        callback(error, null);
+      } else {
+
+        let projectData = projectAndBuildingDetails.data[0];
+        let buildings = projectAndBuildingDetails.data[0].buildings;
+        let buildingData: any;
+
+        for(let building of buildings) {
+          if(building._id == buildingId) {
+            buildingData = building;
+            break;
+          }
+        }
+
+        if(projectData.projectCostHeads.length > 0 ) {
+
+          let rateAnalysisService = new RateAnalysisService();
+          let buildingRepository = new BuildingRepository();
+          let projectRepository = new ProjectRepository();
+
+          rateAnalysisService.convertCostHeadsFromRateAnalysisToCostControl(Constants.BUILDING,
+            (error: any, buildingCostHeadsData: any) => {
+            if (error) {
+              logger.err('Error in promise : ' + error);
+              callback(error, null);
+            } else {
+
+              let projectService = new ProjectService();
+              let data = projectService.calculateBudgetCost(Constants.BUILDING, buildingCostHeadsData, projectData, buildingData);
+              let queryForBuilding = {'_id': buildingId};
+              let updateCostHead = {$set: {'costHeads': data}};
+              buildingRepository.findOneAndUpdate(queryForBuilding, updateCostHead, {new: true}, (error:any, response:any) => {
+                logger.info('Project service, getAllDataFromRateAnalysis has been hit');
+                if (error) {
+                  logger.err('Error in Update buildingCostHeadsData  : '+error);
+                  callback(error, null);
+                } else {
+                  //callback(null, response);
+                  let projectCostHeads = projectService.calculateBudgetCost(Constants.AMENITIES,
+                    projectData.projectCostHeads, projectData, buildingData);
+                  let queryForProject = {'_id': projectId};
+                  let updateProjectCostHead = {$set: {'projectCostHeads': projectCostHeads}};
+                  projectRepository.findOneAndUpdate(queryForProject, updateProjectCostHead, {new: true},
+                    (error: any, response: any) => {
+                      logger.info('Project service, getAllDataFromRateAnalysis has been hit');
+                      if (error) {
+                        logger.err('Error in Update buildingCostHeadsData  : '+error);
+                        callback(error, null);
+                      } else {
+                        callback(null, response);
+                      }
+                    });
+                }
+              });
+            }
+          });
+
+        } else {
+
+          let syncBuildingCostHeadsPromise = this.updateBudgetRatesForBuildingCostHeads(Constants.BUILDING,
+            buildingId, projectData, buildingData);
+          let syncProjectCostHeadsPromise = this.updateBudgetRatesForProjectCostHeads(Constants.AMENITIES,
+            projectId, projectData, buildingData);
+
+          Promise.all([
+            syncBuildingCostHeadsPromise,
+            syncProjectCostHeadsPromise
+          ]).then(function(data: Array<any>) {
+            let buildingCostHeadsData = data[0];
+            let projectCostHeadsData = data[1];
+            callback(null, {status:200});
+          })
+            .catch(() => { logger.info(' Promise failed!');});
+        }
+        }
+    });
   }
 
-  PromiseForSyncBuildingCostHeads(entity: string, buildingId:string) {
+  updateBudgetRatesForBuildingCostHeads(entity: string, buildingId:string, projectDetails : Project, buildingDetails : Building) {
     return new Promise(function(resolve, reject) {
       let rateAnalysisService = new RateAnalysisService();
       let buildingRepository = new BuildingRepository();
-      rateAnalysisService.getAllDataFromRateAnalysis(entity, (error: any, buildingCostHeadsData: any) => {
+      rateAnalysisService.convertCostHeadsFromRateAnalysisToCostControl(entity, (error: any, buildingCostHeadsData: any) => {
         if (error) {
           logger.err('Error in promise : ' + error);
           reject(error);
         } else {
+
+          let projectService = new ProjectService();
+          let buildingCostHeads = projectService.calculateBudgetCost(entity, buildingCostHeadsData, projectDetails, buildingDetails);
           let query = {'_id': buildingId};
-          let newData = {$set: {'costHeads': buildingCostHeadsData}};
+          let newData = {$set: {'costHeads': buildingCostHeads}};
           buildingRepository.findOneAndUpdate(query, newData, {new: true}, (error:any, response:any) => {
             logger.info('Project service, getAllDataFromRateAnalysis has been hit');
             if (error) {
@@ -891,24 +976,26 @@ setWorkItemStatus( buildingId:string, costHeadId:number, categoryId:number, work
               reject(error);
             } else {
               resolve('Done');
-              }
+            }
           });
         }
       });
     });
   }
 
-  PromiseForSyncProjectCostHeads(entity: string,projectId:string) {
+  updateBudgetRatesForProjectCostHeads(entity: string, projectId:string, projectDetails : Project, buildingDetails : Building) {
     return new Promise(function(resolve, reject){
       let rateAnalysisService = new RateAnalysisService();
       let projectRepository = new ProjectRepository();
-      rateAnalysisService.getAllDataFromRateAnalysis(entity, (error : any, projectCostHeadsData: any) => {
+      rateAnalysisService.convertCostHeadsFromRateAnalysisToCostControl(entity, (error : any, projectCostHeadsData: any) => {
         if(error) {
           logger.err('Error in promise : ' + error);
           reject(error);
         } else {
+            let projectService = new ProjectService();
+            let projectCostHeads = projectService.calculateBudgetCost(entity, projectCostHeadsData, projectDetails, buildingDetails);
             let query = {'_id': projectId};
-            let newData = {$set: {'projectCostHeads': projectCostHeadsData}};
+            let newData = {$set: {'projectCostHeads': projectCostHeads}};
             projectRepository.findOneAndUpdate(query, newData, {new: true}, (error: any, response: any) => {
               logger.info('Project service, getAllDataFromRateAnalysis has been hit');
               if (error) {
@@ -922,7 +1009,118 @@ setWorkItemStatus( buildingId:string, costHeadId:number, categoryId:number, work
       });
     });
   }
- }
+
+  calculateBudgetCost(entity: string, costHeadsRateAnalysis: any, projectDetails : Project, buildingDetails : any) {
+    let costHeads:Array<CostHead> = new Array<CostHead>();
+    let budgetedCostAmount: number;
+
+    for(let costHead of costHeadsRateAnalysis) {
+
+      if(entity === Constants.AMENITIES) {
+
+        let calculateProjectData = 'SELECT SUM(building.totalCarpetAreaOfUnit) AS totalCarpetArea, ' +
+          'SUM(building.totalSlabArea) AS totalSlabAreaProject,' +
+          'SUM(building.totalSaleableAreaOfUnit) AS totalSaleableArea  FROM ? AS building';
+        let projectData = alasql(calculateProjectData, [projectDetails.buildings]);
+        let totalSlabAreaOfProject : number = projectData[0].totalSlabAreaProject;
+        let totalSaleableAreaOfProject : number = projectData[0].totalSaleableArea;
+        let totalCarpetAreaOfProject : number = projectData[0].totalCarpetArea;
+
+        switch(costHead.name) {
+
+          case 'Safety measures' : {
+            budgetedCostAmount = (totalCarpetAreaOfProject * 1.35 * 10);
+            this.calculateThumbRuleReportForCostHead(budgetedCostAmount, costHead, buildingDetails, costHeads);
+            break;
+          }
+          default : {
+            break;
+          }
+        }
+
+      } else {
+
+        switch(costHead.name) {
+
+          case 'RCC band / patli' : {
+            budgetedCostAmount = projectDetails.slabArea * 500;
+            this.calculateThumbRuleReportForCostHead(budgetedCostAmount, costHead, buildingDetails, costHeads);
+            break;
+          }
+          case 'External plaster' : {
+            budgetedCostAmount = buildingDetails.totalCarpetAreaOfUnit * 2.5 * 45;
+            this.calculateThumbRuleReportForCostHead(budgetedCostAmount, costHead, buildingDetails, costHeads);
+            break;
+          }
+          case 'Fabrication' : {
+            budgetedCostAmount = buildingDetails.totalCarpetAreaOfUnit * 1.35 * 40;
+            this.calculateThumbRuleReportForCostHead(budgetedCostAmount, costHead, buildingDetails, costHeads);
+            break;
+          }
+          case 'Pointing' : {
+            budgetedCostAmount = buildingDetails.totalCarpetAreaOfUnit * 1.35 * 55;
+            this.calculateThumbRuleReportForCostHead(budgetedCostAmount, costHead, buildingDetails, costHeads);
+            break;
+          }
+          case 'Kitchen otta' : {
+            budgetedCostAmount = (( buildingDetails.numOfOneBHK +  buildingDetails.numOfTwoBHK + buildingDetails.numOfThreeBHK
+              + buildingDetails.numOfFourBHK + buildingDetails.numOfFiveBHK ) * 15 * 1500);
+            this.calculateThumbRuleReportForCostHead(budgetedCostAmount, costHead, buildingDetails, costHeads);
+            break;
+          }
+          case 'Soling' : {
+            budgetedCostAmount = (buildingDetails.plinthArea * 2.5 * 45);
+            this.calculateThumbRuleReportForCostHead(budgetedCostAmount, costHead, buildingDetails, costHeads);
+            break;
+          }
+          case 'Masonry' : {
+            budgetedCostAmount = (buildingDetails.totalCarpetAreaOfUnit * 1.6 * 70);
+            this.calculateThumbRuleReportForCostHead(budgetedCostAmount, costHead, buildingDetails, costHeads);
+            break;
+          }
+          case 'Internal Plaster' : {
+            budgetedCostAmount = ( buildingDetails.totalCarpetAreaOfUnit * 3.5 * 20 );
+            this.calculateThumbRuleReportForCostHead(budgetedCostAmount, costHead, buildingDetails, costHeads);
+            break;
+          }
+          case 'Gypsum / POP plaster (punning)' : {
+            budgetedCostAmount = (buildingDetails.totalCarpetAreaOfUnit * 2.5 * 18);
+            this.calculateThumbRuleReportForCostHead(budgetedCostAmount, costHead, buildingDetails, costHeads);
+            break;
+          }
+          default : {
+            break;
+          }
+        }
+
+      }
+    }
+    return costHeads;
+  }
+
+  private calculateThumbRuleReportForCostHead(budgetedCostAmount: number, costHeadFromRateAnalysis: any,
+                                              buildingData: any, costHeads: Array<CostHead>) {
+    if (budgetedCostAmount) {
+      let costHead: CostHead = new CostHead();
+      costHead = costHeadFromRateAnalysis;
+      costHead.budgetedCostAmount = budgetedCostAmount;
+      let thumbRuleRate = new ThumbRuleRate();
+
+      thumbRuleRate.saleableArea = this.calculateThumbRuleRateForArea(budgetedCostAmount, buildingData.totalSaleableAreaOfUnit);
+      thumbRuleRate.slabArea = this.calculateThumbRuleRateForArea(budgetedCostAmount, buildingData.totalSlabArea);
+      thumbRuleRate.carpetArea = this.calculateThumbRuleRateForArea(budgetedCostAmount, buildingData.totalCarpetAreaOfUnit);
+
+      costHead.thumbRuleRate = thumbRuleRate;
+      costHeads.push(costHead);
+    }
+  }
+
+  private calculateThumbRuleRateForArea(budgetedCostAmount: number, area: number) {
+    let budgetCostRates = new BudgetCostRates();
+    budgetCostRates.sqft = (budgetedCostAmount / area);
+    budgetCostRates.sqmt = (budgetCostRates.sqft * config.get(Constants.SQUARE_METER));
+    return budgetCostRates;
+  }}
 
 Object.seal(ProjectService);
 export = ProjectService;

@@ -22,7 +22,7 @@
             <div class="panel-heading">
               <h4 class="panel-title">
                 <a (click)="setBuildingId(i,building._id)" data-toggle="collapse" href="#collapse{{i}}">
-                  {{building.name}} <span class="slab-area"> {{getLabel().TOTAL}} {{defaultCostingByArea}} : {{building.area}} {{defaultCostingByUnit}}
+                  {{building.name}} <span class="slab-area"> {{getLabel().TOTAL}} {{defaultCostingByArea}} : {{building.area}} {{(defaultCostingByUnit ==='Rs/Sqft') ? 'Sqft' : 'Sqmt'}}
                   <span *ngIf="compareIndex !== i"> {{getLabel().BUDGETED_COST}} : {{building.thumbRule.totalBudgetedCost|number}}</span></span>
                 </a>
               </h4>
@@ -139,7 +139,7 @@
           <div class="panel-heading">
             <h4 class="panel-title">
               <a>
-                {{getLabel().GRAND_TOTAL}} <span class="slab-area">{{getLabel().TOTAL_PROJECT}} {{defaultCostingByArea}} : {{grandTotalOfArea}} {{defaultCostingByUnit}}</span>
+                {{getLabel().GRAND_TOTAL}} <span class="slab-area">{{getLabel().TOTAL_PROJECT}} {{defaultCostingByArea}} : {{grandTotalOfArea}} {{(defaultCostingByUnit ==='Rs/Sqft') ? 'Sqft' : 'Sqmt'}}</span>
               </a>
             </h4>
           </div>

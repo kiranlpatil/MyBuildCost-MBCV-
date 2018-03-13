@@ -107,7 +107,7 @@ this._requestInterceptor.intercept, interceptor.setCostHeadStatus, controller.se
     router.put('/:projectId/building/:buildingId/costhead/:costHeadId/category/:categoryId/workitem/:workItemId/activeStatus/:activeStatus', this.authInterceptor.requiresAuth,
       this._requestInterceptor.intercept, interceptor.setWorkItemStatus, controller.setWorkItemStatus, this._responseInterceptor.exit);
 
-    //Retrive list of inactive workitems
+    //Retrieve list of inactive workitems
     router.get('/:projectId/building/:buildingId/costhead/:costHeadId/category/:categoryId/workitem',
       this.authInterceptor.requiresAuth, this._requestInterceptor.intercept, interceptor.getInActiveWorkItems,
       controller.getInActiveWorkItems,  this._responseInterceptor.exit);
@@ -134,7 +134,7 @@ this.authInterceptor.requiresAuth, this._requestInterceptor.intercept, controlle
 
     /*Building- Routes: Rate*/
 
-    //Retrive rate from RateAnalysis for workitem
+    //Retrive rate from RateAnalysis for workitem  -- delete this API
     router.get('/:projectId/building/:buildingId/rate/costhead/:costHeadId/category/:categoryId/workitem/:workItemId',
       this.authInterceptor.requiresAuth, this._requestInterceptor.intercept, interceptor.getRate, controller.getRate, this._responseInterceptor.exit);
     //Update rate of workitem
@@ -144,8 +144,8 @@ this.authInterceptor.requiresAuth, this._requestInterceptor.intercept, controlle
     /*Building- Routes: Rate Analysis Communication*/
 
     //sync building with rate Analysis data
-    router.get('/:projectId/building/:buildingId/syncRateAnalysis',
-      this.authInterceptor.requiresAuth, this._requestInterceptor.intercept, controller.syncProjectWithRateAnalysisData, this._responseInterceptor.exit);
+    router.get('/:projectId/building/:buildingId/syncWithRateAnalysis', this.authInterceptor.requiresAuth, this._requestInterceptor.intercept,
+      interceptor.syncProjectWithRateAnalysisData, controller.syncProjectWithRateAnalysisData, this._responseInterceptor.exit);
     return router;
   }
 }

@@ -266,7 +266,7 @@ export class API {
   public static WORKITEMLIST = 'workitemlist';
   public static QUANTITY = 'quantity';
   public static ITEM = 'item';
-  public static SYNC_RATE_ANALYSIS = 'syncRateAnalysis';
+  public static SYNC_RATE_ANALYSIS = 'syncWithRateAnalysis';
 
   public static THUMBRULE_RULE_RATE='report/thumbRuleRate';
   public static RATE='rate';

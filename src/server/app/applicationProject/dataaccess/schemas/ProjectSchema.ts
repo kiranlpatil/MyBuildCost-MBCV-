@@ -47,7 +47,6 @@ class ProjectSchema {
       plotPeriphery: {
         type: Number
       },
-      costHeads: [{}],
       projectCostHeads: [{}],
       rates: [{}],
       projectDuration: {

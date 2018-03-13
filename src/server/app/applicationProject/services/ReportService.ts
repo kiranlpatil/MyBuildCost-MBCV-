@@ -56,13 +56,14 @@ class ReportService {
         callback(error, null);
       } else {
         let buildings = result[0].buildings;
+        let projectCostHeads = result[0].projectCostHeads;
         let costHead = [];
         let projectReport : ProjectReport = new ProjectReport();
         let buildingReport : Array<BuildingReport> = new Array<BuildingReport>();
         this.generateReportByCostHeads( 'buildingReport', buildings, areaType, rateUnit, buildingReport);
         projectReport.buildings = buildingReport;
         let commonAmenitiesReport : Array<BuildingReport> = new Array<BuildingReport>();
-        this.generateReportByCostHeads('commonAmenitiesReport',buildings, areaType, rateUnit, commonAmenitiesReport);
+        this.generateReportForProjectCostHeads('commonAmenitiesReport',projectCostHeads , areaType, rateUnit, commonAmenitiesReport);
         projectReport.commonAmenities = commonAmenitiesReport;
         callback(null,{ data: projectReport, access_token: this.authInterceptor.issueTokenWithUid(user)});
       }
@@ -166,11 +167,57 @@ class ReportService {
         }
       }
       report.push(buildingReport);
-
-      if( reportType === 'commonAmenitiesReport') {
-        break;
-      }
     }
+  }
+
+
+  generateReportForProjectCostHeads( reportType : string, costHeads:  Array<Building> , areaType: string, rateUnit: string,
+                             report: Array<BuildingReport>) {
+
+      let costHeadArray: any = costHeads;
+      let projectReport = new BuildingReport;
+      let thumbRuleReport: ThumbRule = new ThumbRule();
+
+      for (let costHeadIndex = 0; costHeadIndex < costHeadArray.length; costHeadIndex++) {
+
+        if (costHeadArray[costHeadIndex].active === true) {
+
+          let thumbRule: ThumbRuleReport = new ThumbRuleReport();
+          let estimateReport: EstimateReport = new EstimateReport();
+          thumbRule.name = costHeadArray[costHeadIndex].name;
+          thumbRule.rateAnalysisId = costHeadArray[costHeadIndex].rateAnalysisId;
+          if (areaType === 'slabArea') {
+            thumbRuleReport.area = costHeadArray[costHeadIndex].totalSlabArea;
+            if (rateUnit === 'sqft') {
+              thumbRule.rate = parseFloat((costHeadArray[costHeadIndex].thumbRuleRate.slabArea.sqft).toFixed(2));
+            } else {
+              thumbRule.rate = parseFloat((costHeadArray[costHeadIndex].thumbRuleRate.slabArea.sqmt).toFixed(2));
+              thumbRuleReport.area = parseFloat((costHeadArray[costHeadIndex].totalSlabArea * config.get('SqureMeter')).toFixed(2));
+            }
+          } else {
+            thumbRuleReport.area = costHeadArray[costHeadIndex].totalSaleableAreaOfUnit;
+            if (rateUnit === 'sqft') {
+              thumbRule.rate = parseFloat((costHeadArray[costHeadIndex].thumbRuleRate.saleableArea.sqft).toFixed(2));
+            } else {
+              thumbRule.rate = parseFloat((costHeadArray[costHeadIndex].thumbRuleRate.saleableArea.sqmt).toFixed(2));
+              thumbRuleReport.area = parseFloat((costHeadArray[costHeadIndex].totalSaleableAreaOfUnit * config.get('SqureMeter')).toFixed(2));
+            }
+          }
+          let category: Array<Category> = costHeadArray[costHeadIndex].categories;
+          if (costHeadArray[costHeadIndex].budgetedCostAmount === 0 ||
+            costHeadArray[costHeadIndex].budgetedCostAmount === undefined) {
+            thumbRule.amount = parseFloat((thumbRuleReport.area * thumbRule.rate).toFixed(2));
+          } else {
+            thumbRule.amount = parseFloat((costHeadArray[costHeadIndex].budgetedCostAmount).toFixed(2));
+          }
+          thumbRule.costHeadActive = costHeadArray[costHeadIndex].active;
+          thumbRuleReport.thumbRuleReports.push(thumbRule);
+          thumbRuleReport.totalRate = parseFloat((thumbRuleReport.totalRate + thumbRule.rate).toFixed(2));
+          thumbRuleReport.totalBudgetedCost = parseFloat((thumbRuleReport.totalBudgetedCost + thumbRule.amount).toFixed(2));
+          projectReport.thumbRule = thumbRuleReport;
+        }
+      }
+      report.push(projectReport);
   }
 
   getCostHeads(  url: string , user: User,callback: (error: any, result: any) => void) {
