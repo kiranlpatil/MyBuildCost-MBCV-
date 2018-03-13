@@ -158,8 +158,7 @@ export class CostHeadComponent implements OnInit, OnChanges {
   getRate(displayRateView : string, categoryIndex:number, workItemIndex:number, workItem : WorkItem, disableRateField : boolean ) {
     if(this.validateDetailsForRateView(displayRateView, categoryIndex , workItemIndex)) {
       this.setItemIndexes(categoryIndex, workItemIndex);
-
-      this.setWorkItemDataForRate(workItem);
+      this.setWorkItemDataForRate(displayRateView, workItem);
       this.calculateTotalForRate();
       this.showRateView(displayRateView, disableRateField);
     } else {
@@ -173,7 +172,7 @@ export class CostHeadComponent implements OnInit, OnChanges {
                     disableRateField : boolean ) {
       if( this.validateDetailsForRateView(displayRateView, categoryIndex , workItemIndex)) {
       this.setItemIndexes(categoryIndex,workItemIndex);
-      this.setWorkItemDataForRate(workItem);
+      this.setWorkItemDataForRate(displayRateView, workItem);
 
       this.previousRateQuantity = lodsh.cloneDeep(workItem.rate.quantity);
       this.rateItemsArray.quantity = lodsh.cloneDeep(workItem.quantity.total);
@@ -194,23 +193,15 @@ export class CostHeadComponent implements OnInit, OnChanges {
 
   //System Rate from DB
   getSystemRate(displayRateView : string, categoryIndex:number, workItemIndex:number, workItem : WorkItem, disableRateField : boolean ) {
-if(this.displayRateView !== displayRateView || this.compareCategoryIndex !==categoryIndex || this.compareWorkItemIndex !== workItemIndex
-  || this.toggleRate!==true) {
-      this.displayRateView = displayRateView;
-
-      this.compareCategoryIndex = categoryIndex;
-      this.toggleRate = true;
-      this.workItem = workItem;
-      this.workItemId = workItem.rateAnalysisId;
-      SessionStorageService.setSessionValue(SessionStorage.CURRENT_WORKITEM_ID, this.workItemId);
-      this.compareWorkItemIndex = workItemIndex;
-      this.rateItemsArray = workItem.systemRate;
-      this.unit = workItem.systemRate.unit;
-
+if(this.validateDetailsForRateView(displayRateView, categoryIndex , workItemIndex)) {
+      this.setItemIndexes(categoryIndex, workItemIndex);
+      this.setWorkItemDataForRate(displayRateView, workItem);
       this.calculateTotalForRate();
-      this.disableRateField=disableRateField;
+      this.showRateView(displayRateView, disableRateField);
+    } else {
+      this.showRate = false;
+      this.displayRateView = null;
     }
-
   }
 
   setItemIndexes(categoryIndex:number, workItemIndex:number) {
@@ -229,10 +220,15 @@ if(this.displayRateView !== displayRateView || this.compareCategoryIndex !==cate
     }
   }
 
-  setWorkItemDataForRate(workItem : WorkItem) {
+  setWorkItemDataForRate(displayRateView : string, workItem : WorkItem) {
     this.workItemId = lodsh.cloneDeep(workItem.rateAnalysisId);
-    this.rateItemsArray = lodsh.cloneDeep(workItem.rate);
-    this.unit = lodsh.cloneDeep(workItem.rate.unit);
+    if(displayRateView === this.getLabel().GET_RATE || displayRateView === this.getLabel().GET_RATE_BY_QUANTITY) {
+      this.rateItemsArray = lodsh.cloneDeep(workItem.rate);
+      this.unit = lodsh.cloneDeep(workItem.rate.unit);
+    }else {
+      this.rateItemsArray = lodsh.cloneDeep(workItem.systemRate);
+      this.unit = lodsh.cloneDeep(workItem.systemRate.unit);
+    }
     this.workItemId = lodsh.cloneDeep(workItem.rateAnalysisId);
     SessionStorageService.setSessionValue(SessionStorage.CURRENT_WORKITEM_ID, this.workItemId);
   }
