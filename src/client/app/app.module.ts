@@ -66,6 +66,7 @@ import { ProjectItemComponent } from './build-info/framework/project-list/projec
 import { DeleteConfirmationModalComponent } from './shared/delete-confirmation-modal/delete-confirmation-modal.component';
 import { ProjectFormComponent } from './build-info/framework/shared/project-form/project-form.component';
 import { BuildingFormComponent } from './build-info/framework/shared/building-form/building-form.component';
+import { SharePrintPageComponent } from './build-info/framework/project-header/share-print-page/share-print-page.component';
 
 
 @NgModule({
@@ -103,6 +104,7 @@ import { BuildingFormComponent } from './build-info/framework/shared/building-fo
     BuildingListComponent,
     ProjectHeaderComponent,
     ProjectListHeaderComponent,
+    SharePrintPageComponent,
     BuildingDetailsComponent,
     CostSummaryComponent,
     CostHeadComponent,

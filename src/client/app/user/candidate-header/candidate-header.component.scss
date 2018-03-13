@@ -3,23 +3,3 @@
 .page-header {
   margin-top: 50px;
 }
-
-.header-links {
-  position: absolute;
-  top: 13px;
-  right: 15px;
-  z-index: 1000;
-
-  li {
-    margin: 0 25px 0 0;
-
-    a {
-      font-size: 18px;
-      color: $white;
-    }
-
-    &:last-child {
-      margin: 0;
-    }
-  }
-}

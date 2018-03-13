@@ -2,12 +2,13 @@
 
 .table-row-spacing {
   border-collapse: separate;
-  border-spacing: 0 10px;
+  border-spacing: 0 4px;
 }
 
 .table-dashboard {
   font-size: 12px;
   margin: 0;
+  position: relative;
 
   .delete-cost-head {
     cursor: pointer;
@@ -38,6 +39,14 @@
       border: 0;
       vertical-align: middle;
       padding: 8px 15px;
+
+      &:first-child {
+        border-radius: 6px 0 0 6px;
+      }
+
+      &:last-child {
+        border-radius: 0 6px 6px 0;
+      }
     }
 
     td {

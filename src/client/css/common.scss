@@ -9,6 +9,10 @@
   padding: 0;
 }
 
+.no-margin {
+  margin: 0;
+}
+
 .clear {
   clear: both;
 }
@@ -39,6 +43,11 @@
 .padding-right15 {
   padding-left: 0;
   padding-right: 15px;
+}
+
+.padding-left30 {
+  padding-left: 30px;
+  padding-right: 0;
 }
 
 .padding-left0 {
@@ -556,7 +565,7 @@ control-messages {
 }
 
 .padding-top-7 {
-  padding-top: 7px;
+  padding: 7px 0 0 0;
 }
 
 .font-16 {
@@ -564,17 +573,13 @@ control-messages {
   text-align: center;
 }
 
-.navbar-nav {
-  margin: 15px 0 0;
-}
-
 .white-bg {
   background: $white;
   height: 10px;
   position: absolute;
   right: 0;
-  top: 41px;
-  width: 540px;
+  top: 51px;
+  width: 456px;
 }
 
 @media only screen and (max-width: 768px) {
@@ -796,17 +801,6 @@ img[alt] {
   }
 }
 
-.career-plugin-toster {
-  border: 0 !important;
-  border-radius: 0 !important;
-  color: #000 !important;
-  display: inline-block;
-  font-size: 16px;
-  left: 50%;
-  margin: auto;
-  padding: 11px 10px;
-  position: absolute;
-  top: 170px;
-  transform: translateX(-50%);
-  width: 33%;
+.container {
+  width: 1000px;
 }

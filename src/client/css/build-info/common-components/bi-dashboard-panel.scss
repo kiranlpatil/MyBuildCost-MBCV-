@@ -3,7 +3,7 @@
 .wrapper {
   .panel-group {
     margin: 0;
-    padding: 25px 0;
+    padding: 20px 0;
     border-bottom: 1px solid $gray;
 
     &:last-child {
@@ -29,7 +29,7 @@
   }
 */
   .panel-heading {
-    background: $white;
+    background: $header-bg;
     border: 0;
     border-radius: 8px;
     box-shadow: 10px 10px 10px $panel-shadow;
@@ -128,6 +128,6 @@
 
   .panel-heading + .panel-collapse > .panel-body {
     border: 0;
-    padding: 15px 0 0;
+    padding: 0;
   }
 }

@@ -1,6 +1,6 @@
 <header  class="header-container">
   <div class="container">
-    <div class="col-sm-12">
+    <div class="col-sm-8 no-padding">
       <ul>
         <li>
           <a type="button" [routerLinkActive]="['active']" [routerLink]="['/project', getCurrentProjectId(),'cost-summary']" cost-summary>{{getMenus().COST_SUMMARY}}</a>
@@ -10,6 +10,9 @@
         </li>
         <li>
           <a type="button"  [routerLinkActive]="['active']"  [routerLink]="['/project', getCurrentProjectId(),'details']" >{{getMenus().PROJECT_DETAILS}}</a>
+        </li>
+        <li>
+          <a><span class="glyphicon glyphicon-plus"></span> Add Building</a>
         </li>
       </ul>
     </div>

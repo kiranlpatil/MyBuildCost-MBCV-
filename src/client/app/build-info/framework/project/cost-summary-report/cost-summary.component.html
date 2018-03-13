@@ -2,7 +2,7 @@
 
   <div class="container">
     <div class="col-sm-8 col-xs-12 no-padding">
-      <div class="col-sm-5">
+      <div class="col-sm-5 padding-left0">
         <h5>{{getHeadings().CONSTRUCTION_COST}}</h5>
       </div>
       <div class="col-sm-7 text-right padding-top-7">
@@ -11,12 +11,12 @@
           <option *ngFor="let cIn of costIn" [value]="cIn.costInId">{{cIn.costInId}}</option>
         </select>
         <label>{{getLabel().COSTING_PER_AREA}}</label>
-        <select class="select-costing" (change)="onChangeCostingByArea($event.target.value)">
+        <select class="select-costing no-margin" (change)="onChangeCostingByArea($event.target.value)">
           <option *ngFor="let cPer of costPer" [value]="cPer.costPerId">{{cPer.costPerId}}</option>
         </select>
       </div>
     </div>
-    <div class="col-sm-8 col-xs-12">
+    <div class="col-sm-8 col-xs-12 no-padding">
       <div class="panel-group" *ngFor="let building of buildingsReport; let i = index">
           <div class="panel panel-default">
             <div class="panel-heading">
@@ -162,8 +162,8 @@
         </div>
       </div>
     </div>
-    <div class="col-xs-4">
-      <img src="./assets/build-info/dashboard/ads.png" />
+    <div class="col-xs-4 padding-left30">
+      <img src="./assets/build-info/dashboard/ads.png" style="width: 100%; margin-top: 20px;" />
     </div>
   </div>
 

@@ -6,7 +6,7 @@
   min-height: 100vh;
   margin-top: 100px;
   text-align: left;
-  padding-top:30px;
+  padding-top: 40px;
 
   label {
     color: $heading;
@@ -15,18 +15,19 @@
   }
 
   .select-costing {
-    background: transparent url(../assets/framework/images/form/drop-down.png) no-repeat 92% 50%;
-    border: 1px solid $heading;
-    border-radius: 8px;
+    background: transparent url(../assets/framework/images/form/drop-down.png) no-repeat 100% 50%;
+    border: 1px solid transparent;
+    border-bottom: 1px solid $gray-dark;
     color: $heading;
     font-size: 12px;
     margin-right: 15px;
-    padding: 2px 5px;
-    width: 100px;
+    padding: 2px 0;
+    width: 85px;
     font-weight: 400;
 
     &:focus {
-      border: 1px solid $heading;
+      border: 1px solid transparent;
+      border-bottom: 1px solid $gray-dark;
     }
   }
 
