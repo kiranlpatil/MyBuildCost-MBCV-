@@ -1,5 +1,5 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { Messages, Button, TableHeadings, Label, Headings } from '../../../../../../shared/constants';
+import {Messages, Button, TableHeadings, Label, Headings, ValueConstat} from '../../../../../../shared/constants';
 import {
   SessionStorage, SessionStorageService,
   Message, MessageService
@@ -18,9 +18,7 @@ export class GetRateComponent {
 
   @Input() rateItemsArray: Rate;
   @Input() categoryRateAnalysisId: number;
-  @Input() totalQuantity: number;
   @Input() totalAmount: number;
-  @Input() totalRate: number;
   @Input() disableRateField: boolean;
   @Output() refreshCategoryList = new EventEmitter();
 
@@ -33,29 +31,23 @@ export class GetRateComponent {
 
   calculateTotal(choice?:string) {
     this.totalAmount = 0;
-    this.totalRate = 0.0;
-    this.totalQuantity = 0.0;
 
     for (let i = 0; i < this.rateItemsArray.rateItems.length; i++) {
 
       if(choice === 'changeTotalQuantity') {
         this.rateItemsArray.rateItems[i].quantity = parseFloat((this.rateItemsArray.rateItems[i].quantity *
-          this.quantityIncrement).toFixed(2));
+          this.quantityIncrement).toFixed(ValueConstat.NUMBER_OF_FRACTION_DIGIT));
       }
 
       this.rateItemsArray.rateItems[i].totalAmount = parseFloat((this.rateItemsArray.rateItems[i].quantity*
-        this.rateItemsArray.rateItems[i].rate).toFixed(2));
+        this.rateItemsArray.rateItems[i].rate).toFixed(ValueConstat.NUMBER_OF_FRACTION_DIGIT));
 
       this.totalAmount = parseFloat((this.totalAmount + (this.rateItemsArray.rateItems[i].quantity *
-        this.rateItemsArray.rateItems[i].rate)).toFixed(2));
-
-      this.totalRate = parseFloat((this.totalRate + this.rateItemsArray.rateItems[i].rate).toFixed(2));
-
-      this.totalQuantity = parseFloat((this.totalQuantity + this.rateItemsArray.rateItems[i].quantity).toFixed(2));
+        this.rateItemsArray.rateItems[i].rate)).toFixed(ValueConstat.NUMBER_OF_FRACTION_DIGIT));
 
     }
 
-    this.rateItemsArray.total = parseFloat((this.totalAmount / this.rateItemsArray.quantity).toFixed(2));
+    this.rateItemsArray.total = parseFloat((this.totalAmount / this.rateItemsArray.quantity).toFixed(ValueConstat.NUMBER_OF_FRACTION_DIGIT));
   }
 
   updateRate(rateItemsArray: Rate) {
@@ -67,7 +59,7 @@ export class GetRateComponent {
 
     let rate = new Rate();
     rate.rateFromRateAnalysis = rateItemsArray.rateFromRateAnalysis;
-    rate.total = parseFloat((rateItemsArray.total).toFixed(2));
+    rate.total = parseFloat((rateItemsArray.total).toFixed(ValueConstat.NUMBER_OF_FRACTION_DIGIT));
     rate.quantity = rateItemsArray.quantity;
     rate.unit = rateItemsArray.unit;
     rate.rateItems = rateItemsArray.rateItems;

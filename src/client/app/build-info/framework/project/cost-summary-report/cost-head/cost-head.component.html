@@ -56,14 +56,14 @@
                     <td class="">
                       <div class="edit-field"
                            *ngIf="workitemObj.quantity.total"
-                           (click)="getQuantity(categoryIndex, workItemIndex, workitemObj.rateAnalysisId, workitemObj.name, workitemObj.quantity.quantityItems)">
+                           (click)="getQuantity(category.rateAnalysisId, workitemObj.rateAnalysisId, workitemObj.name, workitemObj.quantity.quantityItems)">
                         <input  [(ngModel)]="workitemObj.quantity.total" id="quantity"  size="10" class="form-control clear">
                       </div>
                       <button *ngIf="workitemObj.quantity.total == 0"
                               type="button"
                               id="getQuantity{{categoryIndex}}"
                               class="btn-get-amount"
-                              (click)="getQuantity(categoryIndex, workItemIndex, workitemObj.rateAnalysisId, workitemObj.name, workitemObj.quantity.quantityItems)">
+                              (click)="getQuantity(category.rateAnalysisId,workitemObj.rateAnalysisId, workitemObj.name, workitemObj.quantity.quantityItems)">
                         Get Qty.
                       </button>
                     </td>
@@ -71,13 +71,13 @@
                     <td class="">
                       <div class="edit-field"
                            *ngIf="workitemObj.rate.total!= 0"
-                           (click)="getRate( getLabel().GET_RATE, categoryIndex, workItemIndex, workitemObj, false)">
+                           (click)="getRate( getLabel().GET_RATE, category.rateAnalysisId, workitemObj.rateAnalysisId, workitemObj, false)">
                         <input  [(ngModel)]="workitemObj.rate.total" id="rate"  size="10" class="form-control clear">
                       </div>
                       <button class="btn-get-amount"
                               *ngIf="workitemObj.rate.total == 0"
                               type="button"
-                              (click)="getRate( getLabel().GET_RATE, categoryIndex, workItemIndex, workitemObj, false)">{{getButton().GET_RATE}}</button>
+                              (click)="getRate( getLabel().GET_RATE, category.rateAnalysisId, workitemObj.rateAnalysisId, workitemObj, false)">{{getButton().GET_RATE}}</button>
                     </td>
 
                     <!--Cost-->
@@ -87,7 +87,7 @@
                       </div>
                       <div class="edit-field"
                            *ngIf="workitemObj.amount != 0"
-                           (click)="getRateByQuantity( getLabel().GET_RATE_BY_QUANTITY, categoryIndex, workItemIndex, workitemObj, true)">
+                           (click)="getRateByQuantity( getLabel().GET_RATE_BY_QUANTITY, category.rateAnalysisId, workitemObj.rateAnalysisId, workitemObj, true)">
                         {{ (workitemObj.amount)|number}}
                       </div>
                     </td>
@@ -96,7 +96,7 @@
                     <td class="">
                       <button class="btn-get-amount"
                               type="button"
-                              (click)="getSystemRate( getLabel().GET_SYSTEM_RATE, categoryIndex, workItemIndex, workitemObj, true)">{{getButton().SYSTEM_RA}}</button>
+                              (click)="getSystemRate( getLabel().GET_SYSTEM_RATE, category.rateAnalysisId, workitemObj.rateAnalysisId, workitemObj, true)">{{getButton().SYSTEM_RA}}</button>
                     </td>
                     <!--<td>
                       <div data-toggle="modal" data-target="#deleteWorkItem"
@@ -111,21 +111,19 @@
                   </tbody>
                 </table>
 
-                <div *ngIf="showRate == true">
-                   <div  *ngIf="toggleRate==true && compareWorkItemIndex==workItemIndex && compareCategoryIndex===categoryIndex">
+                <div *ngIf="showWorkItemTab == 'rate'">
+                   <div  *ngIf="compareWorkItemId == workitemObj.rateAnalysisId && compareCategoryId === category.rateAnalysisId">
                       <bi-get-rate [rateItemsArray]="rateItemsArray"
                                    [categoryRateAnalysisId]="category.rateAnalysisId"
                                    [totalAmount]="totalAmount"
-                                   [totalRate]="totalRate"
-                                   [totalQuantity]="totalQuantity"
                                    [disableRateField]="disableRateField"
                                    (refreshCategoryList)="refreshCategoryList()">
                       </bi-get-rate>
                    </div>
                 </div>
 
-                <div *ngIf="showQuantity== true">
-                  <div *ngIf="toggleQty==true && compareWorkItemIndex==workItemIndex && compareCategoryIndex===categoryIndex">
+                <div *ngIf="showWorkItemTab == 'quantity'">
+                  <div *ngIf="compareWorkItemId == workitemObj.rateAnalysisId && compareCategoryId === category.rateAnalysisId">
                       <bi-get-quantity [quantityItems]="quantityItemsArray"
                                        [categoryRateAnalysisId]="category.rateAnalysisId"
                                        (refreshCategoryList)="refreshCategoryList()">

@@ -1,6 +1,6 @@
 import { Component, OnInit , OnChanges } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Messages, ProjectElements, TableHeadings, Button, Label } from '../../../../../shared/constants';
+import { Messages, ProjectElements, TableHeadings, Button, Label, ValueConstat } from '../../../../../shared/constants';
 import { SessionStorage, SessionStorageService, Message, MessageService } from '../../../../../shared/index';
 import { Rate } from '../../../model/rate';
 import { CommonService } from '../../../../../shared/services/common.service';
@@ -28,8 +28,6 @@ export class CostHeadComponent implements OnInit, OnChanges {
   categoryDetailsTotalAmount: number=0;
   workItem: WorkItem;
   totalAmount:number=0;
-  totalRate:number=0;
-  totalQuantity:number=0;
   categoryRateAnalysisId:number;
   compareWorkItemRateAnalysisId:number;
   quantity:number=0;
@@ -40,13 +38,10 @@ export class CostHeadComponent implements OnInit, OnChanges {
   deleteConfirmationCategory = ProjectElements.CATEGORY;
   deleteConfirmationWorkItem = ProjectElements.WORK_ITEM;
 
-  private showQuantity:boolean=true;
-  private showRate:boolean=false;
-  private toggleQty:boolean=false;
-  private toggleRate:boolean=false;
   private showWorkItemList:boolean=false;
-  private compareWorkItemIndex:number=0;
-  private compareCategoryIndex:number=0;
+  private showWorkItemTab : string = null;
+  private compareWorkItemId:number=0;
+  private compareCategoryId:number=0;
   private quantityItemsArray: QuantityItem;
   private rateItemsArray: Rate;
   private categoryArray : Array<Category> = [];
@@ -106,26 +101,26 @@ export class CostHeadComponent implements OnInit, OnChanges {
     for (let categoryIndex = 0; categoryIndex < this.categoryDetails.length; categoryIndex++) {
 
       this.categoryDetailsTotalAmount = parseFloat((this.categoryDetailsTotalAmount +
-        this.categoryDetails[categoryIndex].amount).toFixed(2));
+        this.categoryDetails[categoryIndex].amount).toFixed(ValueConstat.NUMBER_OF_FRACTION_DIGIT));
 
       for (let workItemIndex = 0; workItemIndex < this.categoryDetails[categoryIndex].workItems.length; workItemIndex++) {
 
         this.totalQuantityOfWorkItems = parseFloat((this.totalQuantityOfWorkItems +
-          this.categoryDetails[categoryIndex].workItems[workItemIndex].quantity.total).toFixed(2));
+          this.categoryDetails[categoryIndex].workItems[workItemIndex].quantity.total).toFixed(ValueConstat.NUMBER_OF_FRACTION_DIGIT));
 
         this.totalRateUnitOfWorkItems = parseFloat((this.totalRateUnitOfWorkItems +
-          this.categoryDetails[categoryIndex].workItems[workItemIndex].rate.total).toFixed(2));
+          this.categoryDetails[categoryIndex].workItems[workItemIndex].rate.total).toFixed(ValueConstat.NUMBER_OF_FRACTION_DIGIT));
 
         this.totalAmountOfWorkItems = parseFloat((this.totalAmountOfWorkItems +
           (this.categoryDetails[categoryIndex].workItems[workItemIndex].quantity.total *
-            this.categoryDetails[categoryIndex].workItems[workItemIndex].rate.total)).toFixed(2));
+            this.categoryDetails[categoryIndex].workItems[workItemIndex].rate.total)).toFixed(ValueConstat.NUMBER_OF_FRACTION_DIGIT));
 
-        this.categoryDetails[categoryIndex].workItems[workItemIndex].quantity.total =
-          parseFloat((this.categoryDetails[categoryIndex].workItems[workItemIndex].quantity.total).toFixed(2));
+        this.categoryDetails[categoryIndex].workItems[workItemIndex].quantity.total = parseFloat((
+          this.categoryDetails[categoryIndex].workItems[workItemIndex].quantity.total).toFixed(ValueConstat.NUMBER_OF_FRACTION_DIGIT));
 
         this.categoryDetails[categoryIndex].workItems[workItemIndex].amount =
           parseFloat((this.categoryDetails[categoryIndex].workItems[workItemIndex].quantity.total *
-            this.categoryDetails[categoryIndex].workItems[workItemIndex].rate.total).toFixed(2));
+            this.categoryDetails[categoryIndex].workItems[workItemIndex].rate.total).toFixed(ValueConstat.NUMBER_OF_FRACTION_DIGIT));
       }
     }
   }
@@ -140,128 +135,111 @@ export class CostHeadComponent implements OnInit, OnChanges {
     }
   }
 
-  getQuantity( categoryIndex: number, workItemIndex: number, workItemId : number, workItem: WorkItem, quantityItems: any) {
-    this.compareCategoryIndex = categoryIndex;
-    this.toggleQty = !this.toggleQty;
-    this.compareWorkItemIndex = workItemIndex;
-    if (this.toggleQty === true) {
-      this.toggleRate = false;
+  getQuantity( categoryId: number, workItemId : number, workItem: WorkItem, quantityItems: any) {
+    if( this.showWorkItemTab !== 'quantity' || this.compareCategoryId !== categoryId || this.compareWorkItemId !== workItemId) {
+      this.compareCategoryId = categoryId;
+      this.compareWorkItemId = workItemId;
+      this.workItemId = workItemId;
+      SessionStorageService.setSessionValue(SessionStorage.CURRENT_WORKITEM_ID, this.workItemId);
+      this.quantityItemsArray = quantityItems;
+      this.workItem = workItem;
+      this.showWorkItemTab = 'quantity';
+    } else {
+      this.showWorkItemTab = null;
     }
-    this.workItemId = workItemId;
-    SessionStorageService.setSessionValue(SessionStorage.CURRENT_WORKITEM_ID, this.workItemId);
-    this.quantityItemsArray = quantityItems;
-    this.workItem = workItem;
-    this.showQuantity = true;
   }
 
-  //Rate from DB
-  getRate(displayRateView : string, categoryIndex:number, workItemIndex:number, workItem : WorkItem, disableRateField : boolean ) {
-    if(this.validateDetailsForRateView(displayRateView, categoryIndex , workItemIndex)) {
-      this.setItemIndexes(categoryIndex, workItemIndex);
-      this.setWorkItemDataForRate(displayRateView, workItem);
-      this.calculateTotalForRate();
-      this.showRateView(displayRateView, disableRateField);
+  // Get Rate
+  getRate(displayRateView : string, categoryId:number, workItemId:number, workItem : WorkItem, disableRateField : boolean ) {
+    if(this.showWorkItemTab !== 'rate' || this.displayRateView !== displayRateView || this.compareCategoryId !== categoryId ||
+      this.compareWorkItemId !== workItemId) {
+
+      this.setItemId(categoryId, workItemId);
+      this.setWorkItemDataForRateView(workItem.rateAnalysisId, workItem.rate);
+      this.calculateTotalForRateView();
+      this.setRateFlags(displayRateView, disableRateField);
     } else {
-      this.showRate = false;
+      this.showWorkItemTab = null;
       this.displayRateView = null;
     }
   }
 
-  //Rate from DB by Quantity
-  getRateByQuantity(displayRateView : string, categoryIndex:number, workItemIndex:number, workItem : WorkItem,
-                    disableRateField : boolean ) {
-      if( this.validateDetailsForRateView(displayRateView, categoryIndex , workItemIndex)) {
-      this.setItemIndexes(categoryIndex,workItemIndex);
-      this.setWorkItemDataForRate(displayRateView, workItem);
+  // Get Rate by quantity
+  getRateByQuantity(displayRateView : string, categoryId:number, workItemId:number, workItem : WorkItem, disableRateField : boolean ) {
+    if(this.showWorkItemTab !== 'rate' || this.displayRateView !== displayRateView || this.compareCategoryId !== categoryId ||
+      this.compareWorkItemId !== workItemId) {
 
-      this.previousRateQuantity = lodsh.cloneDeep(workItem.rate.quantity);
-      this.rateItemsArray.quantity = lodsh.cloneDeep(workItem.quantity.total);
-      this.quantityIncrement = this.rateItemsArray.quantity / this.previousRateQuantity;
-      for (let rateItemsIndex = 0; rateItemsIndex < this.rateItemsArray.rateItems.length; rateItemsIndex++) {
-        this.rateItemsArray.rateItems[rateItemsIndex].quantity = parseFloat((
-          this.rateItemsArray.rateItems[rateItemsIndex].quantity *
-          this.quantityIncrement).toFixed(2));
-      }
-
-      this.calculateTotalForRate();
-      this.showRateView(displayRateView,disableRateField);
-      } else {
-        this.showRate = false;
-        this.displayRateView = null;
-      }
-  }
-
-  //System Rate from DB
-  getSystemRate(displayRateView : string, categoryIndex:number, workItemIndex:number, workItem : WorkItem, disableRateField : boolean ) {
-if(this.validateDetailsForRateView(displayRateView, categoryIndex , workItemIndex)) {
-      this.setItemIndexes(categoryIndex, workItemIndex);
-      this.setWorkItemDataForRate(displayRateView, workItem);
-      this.calculateTotalForRate();
-      this.showRateView(displayRateView, disableRateField);
+      this.setItemId(categoryId, workItemId);
+      this.setWorkItemDataForRateView(workItem.rateAnalysisId, workItem.rate);
+      this.calculateQuantity(workItem);
+      this.calculateTotalForRateView();
+      this.setRateFlags(displayRateView, disableRateField);
     } else {
-      this.showRate = false;
+      this.showWorkItemTab = null;
       this.displayRateView = null;
     }
   }
 
-  setItemIndexes(categoryIndex:number, workItemIndex:number) {
-    this.compareCategoryIndex = categoryIndex;
-    this.compareWorkItemIndex = workItemIndex;
+  // Get System rate
+  getSystemRate(displayRateView : string, categoryId:number, workItemId:number, workItem : WorkItem, disableRateField : boolean ) {
+    if(this.showWorkItemTab !== 'rate' || this.displayRateView !== displayRateView || this.compareCategoryId !== categoryId ||
+      this.compareWorkItemId !== workItemId) {
+
+      this.setItemId(categoryId, workItemId);
+      this.setWorkItemDataForRateView(workItem.rateAnalysisId, workItem.systemRate);
+      this.calculateTotalForRateView();
+      this.setRateFlags(displayRateView, disableRateField);
+    } else {
+      this.showWorkItemTab = null;
+      this.displayRateView = null;
+    }
   }
 
-  showRateView(displayRateView : string, disableRateField : boolean) {
+  setItemId(categoryId:number, workItemId:number) {
+    this.compareCategoryId = categoryId;
+    this.compareWorkItemId = workItemId;
+  }
+
+  setRateFlags(displayRateView : string, disableRateField : boolean) {
     this.displayRateView = displayRateView;
     this.disableRateField=disableRateField;
-    this.showRate = true;
-    this.toggleRate = true;
-    if (this.toggleRate === true) {
-      this.toggleQty = false;
-      this.showQuantity = false;
-    }
+    this.showWorkItemTab = 'rate';
   }
 
-  setWorkItemDataForRate(displayRateView : string, workItem : WorkItem) {
-    this.workItemId = lodsh.cloneDeep(workItem.rateAnalysisId);
-    if(displayRateView === this.getLabel().GET_RATE || displayRateView === this.getLabel().GET_RATE_BY_QUANTITY) {
-      this.rateItemsArray = lodsh.cloneDeep(workItem.rate);
-      this.unit = lodsh.cloneDeep(workItem.rate.unit);
-    }else {
-      this.rateItemsArray = lodsh.cloneDeep(workItem.systemRate);
-      this.unit = lodsh.cloneDeep(workItem.systemRate.unit);
-    }
-    this.workItemId = lodsh.cloneDeep(workItem.rateAnalysisId);
+  setWorkItemDataForRateView(workItemId : number, rate : Rate) {
+    this.workItemId = workItemId;
+      this.rateItemsArray = lodsh.cloneDeep(rate);
+      this.unit = lodsh.cloneDeep(rate.unit);
     SessionStorageService.setSessionValue(SessionStorage.CURRENT_WORKITEM_ID, this.workItemId);
   }
 
-  calculateTotalForRate() {
+  calculateQuantity(workItem : WorkItem) {
+    this.previousRateQuantity = lodsh.cloneDeep(workItem.rate.quantity);
+    this.rateItemsArray.quantity = lodsh.cloneDeep(workItem.quantity.total);
+    this.quantityIncrement = this.rateItemsArray.quantity / this.previousRateQuantity;
+    for (let rateItemsIndex = 0; rateItemsIndex < this.rateItemsArray.rateItems.length; rateItemsIndex++) {
+      this.rateItemsArray.rateItems[rateItemsIndex].quantity = parseFloat((
+        this.rateItemsArray.rateItems[rateItemsIndex].quantity *
+        this.quantityIncrement).toFixed(ValueConstat.NUMBER_OF_FRACTION_DIGIT));
+    }
+  }
+
+  calculateTotalForRateView() {
     this.totalAmount=0;
-    this.totalRate=0;
-    this.totalQuantity=0;
     this.rateItemsArray.total=0;
 
     for(let rateItemsIndex=0; rateItemsIndex < this.rateItemsArray.rateItems.length; rateItemsIndex++) {
       this.totalAmount = parseFloat((this.totalAmount + ( this.rateItemsArray.rateItems[rateItemsIndex].quantity *
-        this.rateItemsArray.rateItems[rateItemsIndex].rate )).toFixed(2));
-      this.totalRate = parseFloat((this.totalRate + this.rateItemsArray.rateItems[rateItemsIndex].rate).toFixed(2));
-      this.totalQuantity = parseFloat((this.totalQuantity + this.rateItemsArray.rateItems[rateItemsIndex].quantity).toFixed(2));
-    }
+        this.rateItemsArray.rateItems[rateItemsIndex].rate )).toFixed(ValueConstat.NUMBER_OF_FRACTION_DIGIT));
+     }
 
-    this.rateItemsArray.total= parseFloat((this.totalAmount/this.rateItemsArray.quantity).toFixed(2));
+    this.rateItemsArray.total= parseFloat((this.totalAmount/this.rateItemsArray.quantity).toFixed(ValueConstat.NUMBER_OF_FRACTION_DIGIT));
   }
 
   setIdsForDeleteWorkItem(categoryId: string, workItemId: string,workItemIndex:number) {
     this.categoryId = parseInt(categoryId);
     this.workItemId =  parseInt(workItemId);
-    this.compareWorkItemIndex = workItemIndex;
-  }
-
-  validateDetailsForRateView(displayRateView : string, categoryIndex:number, workItemIndex:number) {
-    if(this.displayRateView !== displayRateView || this.compareCategoryIndex !== categoryIndex ||
-    this.compareWorkItemIndex !== workItemIndex) {
-      return true;
-    } else {
-      return false;
-    }
+    this.compareWorkItemId = workItemIndex;
   }
 
   deactivateWorkItem() {
@@ -277,7 +255,7 @@ if(this.validateDetailsForRateView(displayRateView, categoryIndex , workItemInde
   onDeActivateWorkItemSuccess(workItemDetails: any) {
     let inActiveWorkItems: Array<WorkItem> = workItemDetails.data;
     for(let inActiveWorkItemsIndex = 0; inActiveWorkItemsIndex<inActiveWorkItems.length; inActiveWorkItemsIndex++) {
-      if(inActiveWorkItemsIndex === this.compareWorkItemIndex) {
+      if(inActiveWorkItemsIndex === this.compareWorkItemId) {
         inActiveWorkItems.splice(inActiveWorkItemsIndex,1);
       }
     }
@@ -436,8 +414,8 @@ if(this.validateDetailsForRateView(displayRateView, categoryIndex , workItemInde
 
   refreshCategoryList() {
     this.getActiveCategories( this.projectId, this.costHeadId);
-    this.showQuantity = false;
-    this.showRate = false;
+    this.showWorkItemTab = null;
+    this.displayRateView = null;
   }
 
   setSelectedWorkItems(workItemList:any) {

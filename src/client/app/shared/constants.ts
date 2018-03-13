@@ -466,3 +466,8 @@ export class Menus {
   public static DELETE = 'Delete';
   public static ADD_BUILDING = 'Add Building';
 }
+
+export class ValueConstat {
+
+  public static NUMBER_OF_FRACTION_DIGIT = 2;
+}

@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router , ActivatedRoute } from '@angular/router';
-import { NavigationRoutes, ProjectElements, Button,  Menus, Headings, Label } from '../../../../shared/constants';
+import {
+  NavigationRoutes, ProjectElements, Button, Menus, Headings, Label,
+  ValueConstat
+} from '../../../../shared/constants';
 import { SessionStorage, SessionStorageService,  Message, Messages, MessageService } from '../../../../shared/index';
 import { CostSummaryService } from './cost-summary.service';
 import { Building } from '../../model/building';
@@ -341,26 +344,27 @@ export class CostSummaryComponent implements OnInit {
     for (let buildindIndex = 0; buildindIndex < this.buildingsReport.length; buildindIndex++) {
 
       this.grandTotalOfBudgetedCost = this.grandTotalOfBudgetedCost +
-        parseFloat((this.buildingsReport[buildindIndex].thumbRule.totalBudgetedCost).toFixed(2));
+        parseFloat((this.buildingsReport[buildindIndex].thumbRule.totalBudgetedCost).toFixed(ValueConstat.NUMBER_OF_FRACTION_DIGIT));
 
       this.grandTotalOfTotalRate = this.grandTotalOfTotalRate +
-        parseFloat((this.buildingsReport[buildindIndex].thumbRule.totalRate).toFixed(2));
+        parseFloat((this.buildingsReport[buildindIndex].thumbRule.totalRate).toFixed(ValueConstat.NUMBER_OF_FRACTION_DIGIT));
 
-      this.grandTotalOfArea =( this.grandTotalOfArea + parseFloat((this.buildingsReport[buildindIndex].area).toFixed(2)));
+      this.grandTotalOfArea =( this.grandTotalOfArea + parseFloat((
+        this.buildingsReport[buildindIndex].area).toFixed(ValueConstat.NUMBER_OF_FRACTION_DIGIT)));
 
       this.grandTotalOfEstimatedCost = this.grandTotalOfEstimatedCost +
-        parseFloat((this.buildingsReport[buildindIndex].estimate.totalEstimatedCost).toFixed(2));
+        parseFloat((this.buildingsReport[buildindIndex].estimate.totalEstimatedCost).toFixed(ValueConstat.NUMBER_OF_FRACTION_DIGIT));
 
       this.grandTotalOfEstimatedRate = this.grandTotalOfEstimatedRate +
-        parseFloat((this.buildingsReport[buildindIndex].estimate.totalRate).toFixed(2));
+        parseFloat((this.buildingsReport[buildindIndex].estimate.totalRate).toFixed(ValueConstat.NUMBER_OF_FRACTION_DIGIT));
     }
 
     //Calculate total with amenities data
     this.grandTotalOfBudgetedCost = this.grandTotalOfBudgetedCost +
-      parseFloat((this.amenitiesReport.thumbRule.totalBudgetedCost).toFixed(2));
+      parseFloat((this.amenitiesReport.thumbRule.totalBudgetedCost).toFixed(ValueConstat.NUMBER_OF_FRACTION_DIGIT));
 
     this.grandTotalOfTotalRate = this.grandTotalOfTotalRate +
-      parseFloat((this.amenitiesReport.thumbRule.totalRate).toFixed(2));
+      parseFloat((this.amenitiesReport.thumbRule.totalRate).toFixed(ValueConstat.NUMBER_OF_FRACTION_DIGIT));
 
   }
 
