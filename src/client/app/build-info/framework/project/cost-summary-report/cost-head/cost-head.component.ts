@@ -245,14 +245,14 @@ export class CostHeadComponent implements OnInit, OnChanges {
   }
 
   deactivateWorkItem() {
-  let projectId = SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT_ID);
-  let buildingId = SessionStorageService.getSessionValue(SessionStorage.CURRENT_BUILDING);
-  let costHeadId=parseInt(SessionStorageService.getSessionValue(SessionStorage.CURRENT_COST_HEAD_ID));
-  this.costSummaryService.deactivateWorkItem( projectId, buildingId, costHeadId, this.categoryId, this.workItemId ).subscribe(
-    workItemDetails => this.onDeActivateWorkItemSuccess(workItemDetails),
-  error => this.onDeActivateWorkItemFailure(error)
-);
-}
+    let projectId = SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT_ID);
+    let buildingId = SessionStorageService.getSessionValue(SessionStorage.CURRENT_BUILDING);
+    let costHeadId=parseInt(SessionStorageService.getSessionValue(SessionStorage.CURRENT_COST_HEAD_ID));
+      this.costSummaryService.deactivateWorkItem( projectId, buildingId, costHeadId, this.categoryId, this.workItemId ).subscribe(
+        workItemDetails => this.onDeActivateWorkItemSuccess(workItemDetails),
+      error => this.onDeActivateWorkItemFailure(error)
+    );
+  }
 
   onDeActivateWorkItemSuccess(workItemDetails: any) {
     let inActiveWorkItems: Array<WorkItem> = workItemDetails.data;

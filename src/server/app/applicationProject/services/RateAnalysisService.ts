@@ -216,7 +216,7 @@ class RateAnalysisService {
       let buildingCategories: Array<Category> = new Array<Category>();
 
       if(categoriesByCostHead.length === 0 ) {
-        this.getWorkItemsWithoutCategoryFromRateAnalysis(costHead.rateAnalysisId, categoriesByCostHead, workItemsRateAnalysis,
+        this.getWorkItemsWithoutCategoryFromRateAnalysis(costHead.rateAnalysisId, workItemsRateAnalysis,
           rateItemsRateAnalysis, unitsRateAnalysis, notesRateAnalysis, buildingCategories);
       } else {
         this.getCategoriesFromRateAnalysis(categoriesByCostHead, workItemsRateAnalysis,
@@ -251,7 +251,7 @@ class RateAnalysisService {
     }
   }
 
-  getWorkItemsWithoutCategoryFromRateAnalysis( costHeadRateAnalysisId: number, categoriesByCostHead: any, workItemsRateAnalysis: any,
+  getWorkItemsWithoutCategoryFromRateAnalysis( costHeadRateAnalysisId: number, workItemsRateAnalysis: any,
                                  rateItemsRateAnalysis: any, unitsRateAnalysis: any,
                                  notesRateAnalysis: any, buildingCategories: Array<Category>) {
 

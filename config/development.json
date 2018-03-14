@@ -720,7 +720,7 @@
     "falseCeiling" : "100 * (40 * numOfOneBHK + 80 * numOfTwoBHK + 120 * numOfThreeBHK + 160 * numOfFourBHK + 200 * numOfFiveBHK)",
     "specialElevationalFeatures" : "carpetArea * 1.35 * 25",
     "boardsAndSignagsInsideBuilding" : "700 * (numOfOneBHK + numOfTwoBHK + numOfThreeBHK + numOfFourBHK + numOfFiveBHK) + 60000 + 100 * numOfFloors",
-    "Safety measures" : "carpetArea * 1.35 * 10"
+    "Safety measures" : "carpetArea * 1.35 * 5"
   },
   "rateAnalysisAPI" : {
     "buildingCostHeads" : "http://mobileapiv4.buildinfo.co.in/ItemType/ItemTypeResult?DeviceId=2fc85276aee45b7a&mobilenumber=8928520179&regionID=1&NeedFullData=y&AppCode=RA",

@@ -548,7 +548,8 @@ class ProjectService {
       }
     });
   }
-setWorkItemStatus( buildingId:string, costHeadId:number, categoryId:number, workItemId:number, workItemActiveStatus : boolean,
+
+  setWorkItemStatus( buildingId:string, costHeadId:number, categoryId:number, workItemId:number, workItemActiveStatus : boolean,
                    user: User, callback: (error: any, result: any) => void) {
     logger.info('Project service, update Workitem has been hit');
     this.buildingRepository.findById(buildingId, (error, building:Building) => {
@@ -593,6 +594,7 @@ setWorkItemStatus( buildingId:string, costHeadId:number, categoryId:number, work
       }
     });
   }
+
   updateBudgetedCostForCostHead( buildingId : string, costHeadBudgetedAmount : any, user: User,
                                  callback: (error: any, result: any) => void) {
     logger.info('Project service, updateBudgetedCostForCostHead has been hit');
@@ -1107,15 +1109,15 @@ setWorkItemStatus( buildingId:string, costHeadId:number, categoryId:number, work
     let budgetCostFormulae:string;
     let calculateBudgtedCost :string;
 
-    for(let costHead of costHeadsRateAnalysis) {
+    let calculateProjectData = 'SELECT SUM(building.totalCarpetAreaOfUnit) AS totalCarpetArea, ' +
+      'SUM(building.totalSlabArea) AS totalSlabAreaProject,' +
+      'SUM(building.totalSaleableAreaOfUnit) AS totalSaleableArea  FROM ? AS building';
+    let projectData = alasql(calculateProjectData, [projectDetails.buildings]);
+    let totalSlabAreaOfProject : number = projectData[0].totalSlabAreaProject;
+    let totalSaleableAreaOfProject : number = projectData[0].totalSaleableArea;
+    let totalCarpetAreaOfProject : number = projectData[0].totalCarpetArea;
 
-        let calculateProjectData = 'SELECT SUM(building.totalCarpetAreaOfUnit) AS totalCarpetArea, ' +
-          'SUM(building.totalSlabArea) AS totalSlabAreaProject,' +
-          'SUM(building.totalSaleableAreaOfUnit) AS totalSaleableArea  FROM ? AS building';
-        let projectData = alasql(calculateProjectData, [projectDetails.buildings]);
-        let totalSlabAreaOfProject : number = projectData[0].totalSlabAreaProject;
-        let totalSaleableAreaOfProject : number = projectData[0].totalSaleableArea;
-        let totalCarpetAreaOfProject : number = projectData[0].totalCarpetArea;
+    for(let costHead of costHeadsRateAnalysis) {
 
       switch(costHead.name) {
 
@@ -1123,7 +1125,7 @@ setWorkItemStatus( buildingId:string, costHeadId:number, categoryId:number, work
             budgetCostFormulae = config.get(Constants.BUDGETED_COST_FORMULAE + costHead.name).toString();
             calculateBudgtedCost = budgetCostFormulae.replace(Constants.CARPET_AREA, totalCarpetAreaOfProject);
             budgetedCostAmount = eval(calculateBudgtedCost);
-            this.calculateThumbRuleReportForCostHead(budgetedCostAmount, costHead, buildingDetails, costHeads);
+            this.calculateThumbRuleReportForProjectCostHead(budgetedCostAmount, costHead, projectDetails, costHeads);
             break;
           }
           default : {
@@ -1145,6 +1147,30 @@ setWorkItemStatus( buildingId:string, costHeadId:number, categoryId:number, work
       thumbRuleRate.saleableArea = this.calculateThumbRuleRateForArea(budgetedCostAmount, buildingData.totalSaleableAreaOfUnit);
       thumbRuleRate.slabArea = this.calculateThumbRuleRateForArea(budgetedCostAmount, buildingData.totalSlabArea);
       thumbRuleRate.carpetArea = this.calculateThumbRuleRateForArea(budgetedCostAmount, buildingData.totalCarpetAreaOfUnit);
+
+      costHead.thumbRuleRate = thumbRuleRate;
+      costHeads.push(costHead);
+    }
+  }
+
+  private calculateThumbRuleReportForProjectCostHead(budgetedCostAmount: number, costHeadFromRateAnalysis: any,
+                                              projectDetails: any, costHeads: Array<CostHead>) {
+    if (budgetedCostAmount) {
+      let calculateProjectData = 'SELECT SUM(building.totalCarpetAreaOfUnit) AS totalCarpetArea, ' +
+        'SUM(building.totalSlabArea) AS totalSlabAreaProject,' +
+        'SUM(building.totalSaleableAreaOfUnit) AS totalSaleableArea  FROM ? AS building';
+      let projectData = alasql(calculateProjectData, [projectDetails.buildings]);
+      let totalSlabAreaOfProject : number = projectData[0].totalSlabAreaProject;
+      let totalSaleableAreaOfProject : number = projectData[0].totalSaleableArea;
+      let totalCarpetAreaOfProject : number = projectData[0].totalCarpetArea;
+
+      let costHead: CostHead = costHeadFromRateAnalysis;
+      costHead.budgetedCostAmount = budgetedCostAmount;
+      let thumbRuleRate = new ThumbRuleRate();
+
+      thumbRuleRate.saleableArea = this.calculateThumbRuleRateForArea(budgetedCostAmount, totalSaleableAreaOfProject);
+      thumbRuleRate.slabArea = this.calculateThumbRuleRateForArea(budgetedCostAmount, totalSlabAreaOfProject);
+      thumbRuleRate.carpetArea = this.calculateThumbRuleRateForArea(budgetedCostAmount, totalCarpetAreaOfProject);
 
       costHead.thumbRuleRate = thumbRuleRate;
       costHeads.push(costHead);
