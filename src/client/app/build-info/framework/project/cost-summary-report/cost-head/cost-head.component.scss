@@ -42,11 +42,19 @@
   color: $heading;
   padding: 10px 15px;
   width: 100%;
-  text-align: center;
+  text-align: left;
   border-radius: 8px;
   box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.05);
   font-weight: 300;
   font-size: 20px;
+  .building-label {
+    color: #434C5E;
+    font-size: 21px;
+  }
+  .text-left {
+    color: #434C5E;
+    font-size: 14px;
+  }
 }
 
 .add-subcategory {
@@ -116,7 +124,6 @@
     height: 23px;
   }
 }
-
 
 .add-more-details-btn {
   background: $table-btn-bg;

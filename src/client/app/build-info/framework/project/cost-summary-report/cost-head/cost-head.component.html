@@ -2,8 +2,8 @@
   <div class="container">
     <div class="col-xs-12 no-padding">
       <h4 class="building-name">
-        <span class=""> {{ buildingName }} </span>
-        <span class=""> {{ costHead }} </span>
+        <span class="building-label"> {{ buildingName }} </span>
+        <span class="text-left"> ( {{ costHead }} ) </span>
       </h4>
       <div class="panel-group" *ngFor=" let category of categoryDetails; let categoryIndex= index ">
         <div class="panel panel-default">
@@ -144,7 +144,7 @@
                 </tr>
                 <tr>
                   <td  class="add-items" colspan="7">
-                    <button type="button" class="btn btn-add-item" (click)="getInActiveWorkItems(category.rateAnalysisId,categoryIndex)"><span class="glyphicon glyphicon-plus"></span>{{getButton().ADD}} {{getButton().ITEM}}</button>
+                    <button type="button" class="btn-add-item" (click)="getInActiveWorkItems(category.rateAnalysisId,categoryIndex)"><span class="glyphicon glyphicon-plus"></span>{{getButton().ADD}} {{getButton().ITEM}}</button>
                   </td>
                 </tr>
                 </tbody>

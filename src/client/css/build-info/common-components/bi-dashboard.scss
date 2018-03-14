@@ -58,3 +58,18 @@
   display: inline-block;
   width: 100%;
 }
+
+.add-items {
+  .btn-add-item {
+    color: #6598CA;
+    padding: 4px 28px;
+    border: 1px solid #6598CA;
+    border-radius: 15px;
+    height: 30px;
+    &:hover,
+    &:focus{
+      border: 1px solid #6598CA;
+      color: #6598CA;
+    }
+  }
+}
