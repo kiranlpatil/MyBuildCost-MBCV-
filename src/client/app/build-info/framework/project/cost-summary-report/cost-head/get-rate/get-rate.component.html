@@ -18,52 +18,56 @@
       </div>
     </div>
   </div>
-  <div class="">
-    <table class="">
-        <thead>
-        <th>{{getTableHeadings().DESCRIPTION}}</th>
-        <th>{{getTableHeadings().QUANTITY}}</th>
-        <th>{{getTableHeadings().UNIT}}</th>
-        <th>{{getTableHeadings().RATE_PER_UNIT}}</th>
-        <th>{{getTableHeadings().COST}}</th>
-        </thead>
-        <tbody>
+  <div class="col-sm-12 no-padding">
+    <table class="get-rate-table">
+      <thead>
+        <tr>
+          <th>{{getTableHeadings().DESCRIPTION}}</th>
+          <th>{{getTableHeadings().QUANTITY}}</th>
+          <th>{{getTableHeadings().UNIT}}</th>
+          <th>{{getTableHeadings().RATE_PER_UNIT}}</th>
+          <th>{{getTableHeadings().COST}}</th>
+        </tr>
+      </thead>
+      <tbody>
         <tr *ngFor="let rateItem of rateItemsArray.rateItems | groupBy:'type'; let k = index">
-          <td>
+          <td class="rate-item" colspan="5">
             <table>
               <thead>
-              {{(rateItem.key === 'M') ? 'Material' : ((rateItem.key === "L") ? "Labour" : "(Material + Labour)")}}
+                <tr>
+                  <th colspan="5">{{(rateItem.key === 'M') ? 'Material' : ((rateItem.key === "L") ? "Labour" : "(Material + Labour)")}}</th>
+                </tr>
               </thead>
               <tbody>
-                    <tr *ngFor="let item of rateItem.value">
-                      <td>
-                        <input [(ngModel)]="item.item" id="itemDescription" class="form-control remark-input"
-                               [disabled]="disableRateField"/>
-                        <div class="remark-icon">
-                          <img title="{{item.remarks}}" src="assets/build-info/dashboard/comment.png" width="16" height="16" />
-                        </div>
-                      </td>
-                      <td>
-                        <input type="number" [(ngModel)]="item.quantity" id="itemQuantity" class="form-control text-right"
-                               (change)="calculateTotal()" [disabled]="disableRateField"/>
-                      </td>
-                      <td>
-                        <input [(ngModel)]="item.unit" id="itemUnit" class="form-control text-right" [disabled]="disableRateField"/>
-                      </td>
-                      <td>
-                        <input type="number" [(ngModel)]="item.rate" id="itemRate" class="form-control text-right"
-                               (change)="calculateTotal()" [disabled]="disableRateField"/>
-                      </td>
-                      <td>
-                        <input type="number" [(ngModel)]="item.totalAmount" id="totalAmount get-total-amount text-right" class="form-control clear" readonly/>
-                      </td>
-                    </tr>
+                <tr *ngFor="let item of rateItem.value">
+                  <td>
+                    <input [(ngModel)]="item.item" id="itemDescription" class="form-control remark-input"
+                           [disabled]="disableRateField"/>
+                    <div class="remark-icon">
+                      <img title="{{item.remarks}}" src="assets/build-info/dashboard/comment.png" width="16" height="16" />
+                    </div>
+                  </td>
+                  <td>
+                    <input type="number" [(ngModel)]="item.quantity" id="itemQuantity" class="form-control text-right"
+                           (change)="calculateTotal()" [disabled]="disableRateField"/>
+                  </td>
+                  <td>
+                    <input [(ngModel)]="item.unit" id="itemUnit" class="form-control text-right" [disabled]="disableRateField"/>
+                  </td>
+                  <td>
+                    <input type="number" [(ngModel)]="item.rate" id="itemRate" class="form-control text-right"
+                           (change)="calculateTotal()" [disabled]="disableRateField"/>
+                  </td>
+                  <td>
+                    <input type="number" [(ngModel)]="item.totalAmount" id="totalAmount get-total-amount text-right" class="form-control clear" readonly/>
+                  </td>
+                </tr>
               </tbody>
             </table>
           </td>
         </tr>
-        </tbody>
-        <tfoot>
+      </tbody>
+      <tfoot>
       <tr>
         <td class="total-amount text-left">
           <label>{{getLabel().TOTAL}}</label>
@@ -75,27 +79,27 @@
         </td>
       </tr>
       </tfoot>
-      </table>
-
-    <table>
-      <thead>
-        <th>Notes</th>
-        <th></th>
-      </thead>
-      <tbody>
-        <tr>
-          <td>
-            <textarea rows="4" cols="80" [(ngModel)]="rateItemsArray.notes" id="rateNotes" [disabled]="disableRateField">
-              </textarea>
-          </td>
-          <td>
-            <img id="rateImageURL" src="{{rateItemsArray.imageURL}}">
-          </td>
-        </tr>
-      </tbody>
     </table>
-    <button type="button" *ngIf="!disableRateField" class="save-btn" (click)="updateRate(rateItemsArray)">{{getButton().SAVE}}</button>
   </div>
+  <table class="notes-table">
+    <thead>
+      <th>Notes</th>
+      <th></th>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          <textarea rows="4" cols="80" [(ngModel)]="rateItemsArray.notes" id="rateNotes" [disabled]="disableRateField">
+            </textarea>
+        </td>
+        <td>
+          <img id="rateImageURL" src="{{rateItemsArray.imageURL}}">
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <button type="button" *ngIf="!disableRateField" class="save-btn" (click)="updateRate(rateItemsArray)">{{getButton().SAVE}}</button>
+
 </div>
 
 

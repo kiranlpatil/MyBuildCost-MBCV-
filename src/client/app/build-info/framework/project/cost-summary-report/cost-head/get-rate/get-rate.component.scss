@@ -2,34 +2,44 @@
 
 .get-rate-section {
   background: $azure;
-  display: inline-block;
-  padding: 5px;
-  width: 100%;
+  border: 1px solid $table-border;
+  display: table;
+  margin: 0 auto 15px;
+  padding: 10px 30px;
+  position: relative;
+  max-width: calc(100% - 250px);
+  border-radius: 6px;
+
   table {
     thead {
       th {
-        background: $jagged-ice;
         font-size: 11px;
         text-align: center;
-        padding: 2px 10px;
+        padding: 10px 10px 2px;
+        width: 17.5%;
+
+        &:first-child {
+          width: 30%;
+          padding: 10px 10px 2px 0;
+        }
+
+        &:last-child {
+          padding: 10px 0 2px 10px;
+        }
       }
     }
     tr {
       td {
-        padding: 5px;
+        padding: 5px 10px;
+        width: 17.5%;
+
         .form-control {
           display: block;
           font-size: 11px;
           height: 27px;
           margin: 0;
           padding: 4px 7px;
-          width: 132px;
-        }
-        .unit-input {
-          background: transparent;
-          border: 0;
-          box-shadow: 0 0 0;
-          width: 30px;
+          width: 100%;
         }
         input[type='number'] {
           text-align: right;
@@ -37,17 +47,30 @@
         .remark-input {
           float: left;
           margin: 0;
+          width: calc(100% - 40px);
         }
         .get-total-amount {
           margin: 0;
         }
+
+        &:first-child {
+          width: 30%;
+          padding: 2px 10px 2px 0;
+        }
+
+        &:last-child {
+          padding: 2px 0 2px 10px;
+        }
       }
       td.total-amount {
         font-size: 11px;
-        padding-right: 12px;
+        font-weight: bold;
+        padding: 7px 0 2px 0;
         text-align: right;
+
         label {
           font-size: 11px;
+          font-weight: bold;
         }
         span {
           padding-right: 8px;
@@ -70,6 +93,31 @@
       }
     }
   }
+
+  .get-rate-table {
+    border-top: 1px solid $gray;
+    border-bottom: 1px solid $gray;
+
+    .rate-item {
+      padding: 0 !important;
+      width: 100% !important;
+
+      th {
+        padding: 7px 0 2px;
+        text-align: left;
+      }
+    }
+  }
+
+  .notes-table {
+    thead {
+      th {
+        text-align: left !important;
+        padding: 7px 0 2px !important;
+      }
+    }
+  }
+
   .quantity-label {
     float: left;
     font-size: 11px;
@@ -103,10 +151,36 @@
     float: left;
   }
   .save-btn {
-    background: $persian-green;
-    color: $white;
     @extend .add-new-btn;
-    float: right;
+    background: $persian-green;
+    border-radius: 3px;
+    color: $white;
+    float: left;
+    margin: 5px 0;
     padding: 3px 24px;
   }
+}
+
+.get-rate-section:after, .get-rate-section:before {
+  bottom: 100%;
+  left: 75%;
+  border: solid transparent;
+  content: " ";
+  height: 0;
+  width: 0;
+  position: absolute;
+  pointer-events: none;
+}
+
+.get-rate-section:after {
+  border-color: rgba(136, 183, 213, 0);
+  border-bottom-color: $azure;
+  border-width: 8px;
+  margin-left: -18px;
+}
+.get-rate-section:before {
+  border-color: rgba(194, 225, 245, 0);
+  border-bottom-color: $table-border;
+  border-width: 10px;
+  margin-left: -20px;
 }
