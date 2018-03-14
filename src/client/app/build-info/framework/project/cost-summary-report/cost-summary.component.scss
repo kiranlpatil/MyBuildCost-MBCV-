@@ -148,6 +148,29 @@
   }
 }
 
+.add-cost-head {
+  td {
+    &:last-child {
+      border-radius: 0 6px 6px 0;
+    }
+  }
+  &:hover {
+    td {
+      border-top: 1px solid transparent !important;
+      border-bottom: 1px solid transparent !important;
+
+      &:first-child {
+        border-left: 1px solid transparent !important;
+      }
+
+      &:last-child {
+        border-right: 1px solid transparent !important;
+
+      }
+    }
+  }
+}
+
 .total-table {
   tbody > tr {
     &:last-child {

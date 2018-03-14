@@ -101,7 +101,7 @@
                         </div>
                       </td>
                     </tr>
-                    <tr *ngIf="showCostHeadList===true && buildingId===building._id">
+                    <tr *ngIf="showCostHeadList===true && buildingId===building._id" class="add-cost-head">
                       <td class="border-left">
                         <select class="select-item" (change)="onChangeActiveSelectedCostHead($event.target.value)">
                           <option>Select Item</option>

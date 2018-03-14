@@ -61,15 +61,16 @@
 
 .add-items {
   .btn-add-item {
-    color: #6598CA;
-    padding: 4px 28px;
-    border: 1px solid #6598CA;
+    background: $white;
+    border: 1px solid $persian-green;
     border-radius: 15px;
+    color: $persian-green;
     height: 30px;
+    padding: 4px 28px;
     &:hover,
     &:focus{
-      border: 1px solid #6598CA;
-      color: #6598CA;
+      border: 1px solid $persian-green;
+      color: $persian-green;
     }
   }
 }
