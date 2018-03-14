@@ -3,8 +3,9 @@
   <div class="panel panel-default">
     <div class="panel-heading">
       <h4 class="panel-title">
-        <a data-toggle="collapse" href="#collapseCommonDevelopment">
+        <a data-toggle="collapse" href="#collapseCommonDevelopment" class="collapsed">
           {{getHeadings().COMMON_DEVELOPMENT}}
+          <span class="caret"></span>
         </a>
       </h4>
     </div>
@@ -14,64 +15,58 @@
 
         <table class="table table-row-spacing table-dashboard">
           <thead>
-          <tr>
-            <th rowspan="2" class="border-left">{{getLabel().AMENITY_COST_HEAD}}</th>
-            <th colspan="2" class="border-left">{{getLabel().REPORT_BY_THUMBRULE}}</th>
-            <th colspan="3" class="border-left">
-              {{getLabel().ESTIMATED}} <span class="sub-heading">{{getLabel().AS_PER_PROJECT}}</span>
-            </th>
-          </tr>
-          <tr>
-            <th><span class="sub-heading">{{getLabel().BUDGETED_COST}}</span></th>
-            <th class="border-left"><span class="sub-heading">{{costingByUnit}}<br/>{{costingByArea}}</span></th>
-            <th><span class="sub-heading">{{getLabel().ESTIMATED_COST}}</span></th>
-            <th class="border-left" ><span class="sub-heading">{{costingByUnit}}<br/>{{costingByArea}}</span></th>
-            <th>&nbsp;</th>
-          </tr>
+            <tr>
+              <th rowspan="2" class="border-left">{{getLabel().AMENITY_COST_HEAD}}</th>
+              <th colspan="2" class="border-left table-heading">
+                {{getLabel().REPORT_BY_THUMBRULE}}
+                <div class="white-bg"></div>
+              </th>
+              <th colspan="2" class="border-left table-heading">
+                {{getLabel().ESTIMATED}} <span class="sub-heading">{{getLabel().AS_PER_PROJECT}}</span>
+                <div class="white-bg"></div>
+              </th>
+            </tr>
+            <tr>
+              <th><span class="sub-heading">{{costingByUnit}}<br/>{{costingByArea}}</span></th>
+              <th class="border-left"><span class="sub-heading">{{getLabel().BUDGETED_COST}}</span></th>
+              <th><span class="sub-heading">{{costingByUnit}}<br/>{{costingByArea}}</span></th>
+              <th><span class="sub-heading">{{getLabel().ESTIMATED_COST}}</span></th>
+            </tr>
           </thead>
-          <tbody *ngIf="amenitiesReport.thumbRule && amenitiesReport.estimate" >
-          <tr *ngFor="let thumbRuleItem of amenitiesReport.thumbRule.thumbRuleReports; let thumbRuleItemIndex = index">
-            <td class="border-left">{{thumbRuleItem.name}}</td>
-            <td>
-              <div class="edit-field">
-                {{thumbRuleItem.amount}}
-              </div>
-            </td>
-            <td class="border-left">{{thumbRuleItem.rate}}</td>
-            <td>
-              <div class="edit-field" *ngIf="amenitiesReport.estimate.estimatedCosts[thumbRuleItemIndex].total != 0">
-                <input [(ngModel)]="amenitiesReport.estimate.estimatedCosts[thumbRuleItemIndex].total"
-                       id="estimatedItem.total">
-              </div>
-              <button type="button" *ngIf="amenitiesReport.estimate.estimatedCosts[thumbRuleItemIndex].total == 0"
-                      class="btn-get-amount">{{getButton().GET_AMOUNT}}</button>
-            </td>
-            <td>{{amenitiesReport.estimate.estimatedCosts[thumbRuleItemIndex].rate}}
-            </td>
-            <td>
-              <div data-toggle="modal"
-                   data-target="#deleteCosthead"
-                   class="delete-cost-head">
-                <img alt="Delete Cost Head" src="assets/build-info/dashboard/delete.png" />
-              </div>
-            </td>
-          </tr>
+          <tbody *ngIf="amenitiesReport.thumbRule" >
+            <tr *ngFor="let thumbRuleItem of amenitiesReport.thumbRule.thumbRuleReports; let thumbRuleItemIndex = index" class="delete-cost-head-cell">
+              <td class="border-left">{{thumbRuleItem.name}}</td>
+              <td class="border-left"><span class="estimated-cost">{{thumbRuleItem.rate}}</span></td>
+              <td class="border-left">{{thumbRuleItem.amount}}</td>
+              <td class="border-left"><span class="estimated-cost">{{amenitiesReport.estimate.estimatedCosts[thumbRuleItemIndex].rate}}</span></td>
+              <td>
+                <div class="edit-field" *ngIf="amenitiesReport.estimate.estimatedCosts[thumbRuleItemIndex].total != 0">
+                  <input [(ngModel)]="amenitiesReport.estimate.estimatedCosts[thumbRuleItemIndex].total"
+                         id="estimatedItem.total">
+                </div>
+                <button type="button" *ngIf="amenitiesReport.estimate.estimatedCosts[thumbRuleItemIndex].total == 0"
+                        class="btn-get-amount">{{getButton().GET_AMOUNT}}</button>
+              </td>
+              <td class="delete-cost-head">
+                <div data-toggle="modal"
+                     data-target="#deleteCosthead">
+                  <img alt="Delete Cost Head" src="assets/build-info/dashboard/delete.png" />
+                </div>
+              </td>
+            </tr>
           </tbody>
         </table>
-
-
       </div>
     </div>
 
-    <table class="table table-row-spacing table-dashboard">
+    <table class="table table-row-spacing table-dashboard total-table">
       <tbody>
       <tr class="total" *ngIf="amenitiesReport.thumbRule && amenitiesReport.estimate">
         <td>{{getLabel().TOTAL}}</td>
         <td>{{amenitiesReport.thumbRule.totalBudgetedCost|number}}</td>
-        <td>{{amenitiesReport.thumbRule.totalRate|number}}</td>
+        <td><span class="estimated-cost">{{amenitiesReport.thumbRule.totalRate|number}}</span></td>
         <td>{{amenitiesReport.estimate.totalEstimatedCost|number}}</td>
-        <td>{{amenitiesReport.estimate.totalRate|number}}</td>
-        <td></td>
+        <td><span class="estimated-cost">{{amenitiesReport.estimate.totalRate|number}}</span></td>
       </tr>
       </tbody>
     </table>

@@ -321,7 +321,7 @@ export class Headings {
   public static EDIT_BUILDING: string = 'Edit Building';
   public static LIST_BUILDING: string = 'Buildings List';
   public static ADD_NEW_BUILDING: string = 'Add Building in Project';
-  public static COMMON_DEVELOPMENT : string = ' Common Developement ';
+  public static COMMON_DEVELOPMENT : string = 'Common Development and Amenities';
   public static ELECTRIC_INFRASTRUCTURE : string = 'Electric Infrastructure ';
   public static CONSTRUCTION_COST : string = 'Construction Cost (Material + Labour)';
   public static QUANTITY : string = 'Quantity';
@@ -435,7 +435,7 @@ export class Button {
   public static BACK_TO_HOME: string = 'Back to home';
   public static GO_BACK: string = 'Back';
   public static SAVE: string = 'Save';
-  public static GET_AMOUNT: string = 'Get Amount';
+  public static GET_AMOUNT: string = 'Estimate Cost';
   public static GET_RATE: string = 'Get Rate';
   public static SYSTEM_RA: string = 'System RA';
   public static ADD: string = 'Add ';

@@ -45,13 +45,17 @@
   padding-right: 15px;
 }
 
-.padding-left30 {
-  padding-left: 30px;
-  padding-right: 0;
+.padding-right30 {
+  padding-left: 0;
+  padding-right: 30px;
 }
 
 .padding-left0 {
   padding-left: 0;
+}
+
+.padding-right0 {
+  padding-right: 0;
 }
 
 .input-group-addon {
@@ -295,7 +299,7 @@ select,
 .btn {
   border-radius: 25px;
   color: $heading;
-  height: 40px;
+  height: 35px;
   font-weight: bold;
   font-size: 13px;
   line-height: 18px;
@@ -577,9 +581,7 @@ control-messages {
   background: $white;
   height: 10px;
   position: absolute;
-  right: 0;
-  top: 51px;
-  width: 456px;
+  width: 100%;
 }
 
 @media only screen and (max-width: 768px) {
