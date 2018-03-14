@@ -153,7 +153,7 @@ export class CostHeadComponent implements OnInit, OnChanges {
 
   // Get Rate
   getRate(displayRateView : string, categoryId:number, workItemId:number, workItem : WorkItem, disableRateField : boolean ) {
-    if(this.showWorkItemTab !== Label.WORKITEM_QUANTITY_TAB || this.displayRateView !== displayRateView ||
+    if(this.showWorkItemTab !== Label.WORKITEM_RATE_TAB || this.displayRateView !== displayRateView ||
       this.compareCategoryId !== categoryId || this.compareWorkItemId !== workItemId) {
 
       this.setItemId(categoryId, workItemId);
