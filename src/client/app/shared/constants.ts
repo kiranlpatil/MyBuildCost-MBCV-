@@ -416,6 +416,8 @@ export class Label {
   public static GET_RATE : string = 'getRate';
   public static GET_SYSTEM_RATE : string = 'getSystemRate';
   public static GET_RATE_BY_QUANTITY : string = 'getRateByQuantity';
+  public static WORKITEM_RATE_TAB : string = 'rate';
+  public static WORKITEM_QUANTITY_TAB : string = 'quantity';
 
 }
 
@@ -467,7 +469,7 @@ export class Menus {
   public static ADD_BUILDING = 'Add Building';
 }
 
-export class ValueConstat {
+export class ValueConstant {
 
   public static NUMBER_OF_FRACTION_DIGIT = 2;
 }

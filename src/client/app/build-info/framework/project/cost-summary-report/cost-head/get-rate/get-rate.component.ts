@@ -1,5 +1,5 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import {Messages, Button, TableHeadings, Label, Headings, ValueConstat} from '../../../../../../shared/constants';
+import {Messages, Button, TableHeadings, Label, Headings, ValueConstant} from '../../../../../../shared/constants';
 import {
   SessionStorage, SessionStorageService,
   Message, MessageService
@@ -36,18 +36,18 @@ export class GetRateComponent {
 
       if(choice === 'changeTotalQuantity') {
         this.rateItemsArray.rateItems[i].quantity = parseFloat((this.rateItemsArray.rateItems[i].quantity *
-          this.quantityIncrement).toFixed(ValueConstat.NUMBER_OF_FRACTION_DIGIT));
+          this.quantityIncrement).toFixed(ValueConstant.NUMBER_OF_FRACTION_DIGIT));
       }
 
       this.rateItemsArray.rateItems[i].totalAmount = parseFloat((this.rateItemsArray.rateItems[i].quantity*
-        this.rateItemsArray.rateItems[i].rate).toFixed(ValueConstat.NUMBER_OF_FRACTION_DIGIT));
+        this.rateItemsArray.rateItems[i].rate).toFixed(ValueConstant.NUMBER_OF_FRACTION_DIGIT));
 
       this.totalAmount = parseFloat((this.totalAmount + (this.rateItemsArray.rateItems[i].quantity *
-        this.rateItemsArray.rateItems[i].rate)).toFixed(ValueConstat.NUMBER_OF_FRACTION_DIGIT));
+        this.rateItemsArray.rateItems[i].rate)).toFixed(ValueConstant.NUMBER_OF_FRACTION_DIGIT));
 
     }
 
-    this.rateItemsArray.total = parseFloat((this.totalAmount / this.rateItemsArray.quantity).toFixed(ValueConstat.NUMBER_OF_FRACTION_DIGIT));
+    this.rateItemsArray.total = parseFloat((this.totalAmount / this.rateItemsArray.quantity).toFixed(ValueConstant.NUMBER_OF_FRACTION_DIGIT));
   }
 
   updateRate(rateItemsArray: Rate) {
@@ -59,7 +59,7 @@ export class GetRateComponent {
 
     let rate = new Rate();
     rate.rateFromRateAnalysis = rateItemsArray.rateFromRateAnalysis;
-    rate.total = parseFloat((rateItemsArray.total).toFixed(ValueConstat.NUMBER_OF_FRACTION_DIGIT));
+    rate.total = parseFloat((rateItemsArray.total).toFixed(ValueConstant.NUMBER_OF_FRACTION_DIGIT));
     rate.quantity = rateItemsArray.quantity;
     rate.unit = rateItemsArray.unit;
     rate.rateItems = rateItemsArray.rateItems;

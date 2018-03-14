@@ -1,6 +1,6 @@
 import { Component, OnInit , OnChanges } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Messages, ProjectElements, TableHeadings, Button, Label, ValueConstat } from '../../../../../shared/constants';
+import { Messages, ProjectElements, TableHeadings, Button, Label, ValueConstant } from '../../../../../shared/constants';
 import { SessionStorage, SessionStorageService, Message, MessageService } from '../../../../../shared/index';
 import { Rate } from '../../../model/rate';
 import { CommonService } from '../../../../../shared/services/common.service';
@@ -101,26 +101,26 @@ export class CostHeadComponent implements OnInit, OnChanges {
     for (let categoryIndex = 0; categoryIndex < this.categoryDetails.length; categoryIndex++) {
 
       this.categoryDetailsTotalAmount = parseFloat((this.categoryDetailsTotalAmount +
-        this.categoryDetails[categoryIndex].amount).toFixed(ValueConstat.NUMBER_OF_FRACTION_DIGIT));
+        this.categoryDetails[categoryIndex].amount).toFixed(ValueConstant.NUMBER_OF_FRACTION_DIGIT));
 
       for (let workItemIndex = 0; workItemIndex < this.categoryDetails[categoryIndex].workItems.length; workItemIndex++) {
 
         this.totalQuantityOfWorkItems = parseFloat((this.totalQuantityOfWorkItems +
-          this.categoryDetails[categoryIndex].workItems[workItemIndex].quantity.total).toFixed(ValueConstat.NUMBER_OF_FRACTION_DIGIT));
+          this.categoryDetails[categoryIndex].workItems[workItemIndex].quantity.total).toFixed(ValueConstant.NUMBER_OF_FRACTION_DIGIT));
 
         this.totalRateUnitOfWorkItems = parseFloat((this.totalRateUnitOfWorkItems +
-          this.categoryDetails[categoryIndex].workItems[workItemIndex].rate.total).toFixed(ValueConstat.NUMBER_OF_FRACTION_DIGIT));
+          this.categoryDetails[categoryIndex].workItems[workItemIndex].rate.total).toFixed(ValueConstant.NUMBER_OF_FRACTION_DIGIT));
 
         this.totalAmountOfWorkItems = parseFloat((this.totalAmountOfWorkItems +
           (this.categoryDetails[categoryIndex].workItems[workItemIndex].quantity.total *
-            this.categoryDetails[categoryIndex].workItems[workItemIndex].rate.total)).toFixed(ValueConstat.NUMBER_OF_FRACTION_DIGIT));
+            this.categoryDetails[categoryIndex].workItems[workItemIndex].rate.total)).toFixed(ValueConstant.NUMBER_OF_FRACTION_DIGIT));
 
         this.categoryDetails[categoryIndex].workItems[workItemIndex].quantity.total = parseFloat((
-          this.categoryDetails[categoryIndex].workItems[workItemIndex].quantity.total).toFixed(ValueConstat.NUMBER_OF_FRACTION_DIGIT));
+          this.categoryDetails[categoryIndex].workItems[workItemIndex].quantity.total).toFixed(ValueConstant.NUMBER_OF_FRACTION_DIGIT));
 
         this.categoryDetails[categoryIndex].workItems[workItemIndex].amount =
           parseFloat((this.categoryDetails[categoryIndex].workItems[workItemIndex].quantity.total *
-            this.categoryDetails[categoryIndex].workItems[workItemIndex].rate.total).toFixed(ValueConstat.NUMBER_OF_FRACTION_DIGIT));
+            this.categoryDetails[categoryIndex].workItems[workItemIndex].rate.total).toFixed(ValueConstant.NUMBER_OF_FRACTION_DIGIT));
       }
     }
   }
@@ -136,14 +136,16 @@ export class CostHeadComponent implements OnInit, OnChanges {
   }
 
   getQuantity( categoryId: number, workItemId : number, workItem: WorkItem, quantityItems: any) {
-    if( this.showWorkItemTab !== 'quantity' || this.compareCategoryId !== categoryId || this.compareWorkItemId !== workItemId) {
+    if( this.showWorkItemTab !== Label.WORKITEM_QUANTITY_TAB || this.compareCategoryId !== categoryId ||
+      this.compareWorkItemId !== workItemId) {
+
       this.compareCategoryId = categoryId;
       this.compareWorkItemId = workItemId;
       this.workItemId = workItemId;
       SessionStorageService.setSessionValue(SessionStorage.CURRENT_WORKITEM_ID, this.workItemId);
       this.quantityItemsArray = quantityItems;
       this.workItem = workItem;
-      this.showWorkItemTab = 'quantity';
+      this.showWorkItemTab = Label.WORKITEM_QUANTITY_TAB;
     } else {
       this.showWorkItemTab = null;
     }
@@ -151,8 +153,8 @@ export class CostHeadComponent implements OnInit, OnChanges {
 
   // Get Rate
   getRate(displayRateView : string, categoryId:number, workItemId:number, workItem : WorkItem, disableRateField : boolean ) {
-    if(this.showWorkItemTab !== 'rate' || this.displayRateView !== displayRateView || this.compareCategoryId !== categoryId ||
-      this.compareWorkItemId !== workItemId) {
+    if(this.showWorkItemTab !== Label.WORKITEM_QUANTITY_TAB || this.displayRateView !== displayRateView ||
+      this.compareCategoryId !== categoryId || this.compareWorkItemId !== workItemId) {
 
       this.setItemId(categoryId, workItemId);
       this.setWorkItemDataForRateView(workItem.rateAnalysisId, workItem.rate);
@@ -166,8 +168,8 @@ export class CostHeadComponent implements OnInit, OnChanges {
 
   // Get Rate by quantity
   getRateByQuantity(displayRateView : string, categoryId:number, workItemId:number, workItem : WorkItem, disableRateField : boolean ) {
-    if(this.showWorkItemTab !== 'rate' || this.displayRateView !== displayRateView || this.compareCategoryId !== categoryId ||
-      this.compareWorkItemId !== workItemId) {
+    if(this.showWorkItemTab !== Label.WORKITEM_RATE_TAB || this.displayRateView !== displayRateView ||
+      this.compareCategoryId !== categoryId || this.compareWorkItemId !== workItemId) {
 
       this.setItemId(categoryId, workItemId);
       this.setWorkItemDataForRateView(workItem.rateAnalysisId, workItem.rate);
@@ -182,8 +184,8 @@ export class CostHeadComponent implements OnInit, OnChanges {
 
   // Get System rate
   getSystemRate(displayRateView : string, categoryId:number, workItemId:number, workItem : WorkItem, disableRateField : boolean ) {
-    if(this.showWorkItemTab !== 'rate' || this.displayRateView !== displayRateView || this.compareCategoryId !== categoryId ||
-      this.compareWorkItemId !== workItemId) {
+    if(this.showWorkItemTab !== Label.WORKITEM_RATE_TAB || this.displayRateView !== displayRateView ||
+      this.compareCategoryId !== categoryId || this.compareWorkItemId !== workItemId) {
 
       this.setItemId(categoryId, workItemId);
       this.setWorkItemDataForRateView(workItem.rateAnalysisId, workItem.systemRate);
@@ -203,7 +205,7 @@ export class CostHeadComponent implements OnInit, OnChanges {
   setRateFlags(displayRateView : string, disableRateField : boolean) {
     this.displayRateView = displayRateView;
     this.disableRateField=disableRateField;
-    this.showWorkItemTab = 'rate';
+    this.showWorkItemTab = Label.WORKITEM_RATE_TAB;
   }
 
   setWorkItemDataForRateView(workItemId : number, rate : Rate) {
@@ -220,7 +222,7 @@ export class CostHeadComponent implements OnInit, OnChanges {
     for (let rateItemsIndex = 0; rateItemsIndex < this.rateItemsArray.rateItems.length; rateItemsIndex++) {
       this.rateItemsArray.rateItems[rateItemsIndex].quantity = parseFloat((
         this.rateItemsArray.rateItems[rateItemsIndex].quantity *
-        this.quantityIncrement).toFixed(ValueConstat.NUMBER_OF_FRACTION_DIGIT));
+        this.quantityIncrement).toFixed(ValueConstant.NUMBER_OF_FRACTION_DIGIT));
     }
   }
 
@@ -230,10 +232,10 @@ export class CostHeadComponent implements OnInit, OnChanges {
 
     for(let rateItemsIndex=0; rateItemsIndex < this.rateItemsArray.rateItems.length; rateItemsIndex++) {
       this.totalAmount = parseFloat((this.totalAmount + ( this.rateItemsArray.rateItems[rateItemsIndex].quantity *
-        this.rateItemsArray.rateItems[rateItemsIndex].rate )).toFixed(ValueConstat.NUMBER_OF_FRACTION_DIGIT));
+        this.rateItemsArray.rateItems[rateItemsIndex].rate )).toFixed(ValueConstant.NUMBER_OF_FRACTION_DIGIT));
      }
 
-    this.rateItemsArray.total= parseFloat((this.totalAmount/this.rateItemsArray.quantity).toFixed(ValueConstat.NUMBER_OF_FRACTION_DIGIT));
+    this.rateItemsArray.total= parseFloat((this.totalAmount/this.rateItemsArray.quantity).toFixed(ValueConstant.NUMBER_OF_FRACTION_DIGIT));
   }
 
   setIdsForDeleteWorkItem(categoryId: string, workItemId: string,workItemIndex:number) {
