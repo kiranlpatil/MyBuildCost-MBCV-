@@ -1,5 +1,5 @@
-import {Component} from "@angular/core";
-import {Button, Label, Messages} from "../constants";
+import { Component } from "@angular/core";
+import { Button, Label, Messages } from "../constants";
 
 @Component({
   moduleId: module.id,

@@ -4,12 +4,12 @@ import { CommonService, ImagePath, Message, MessageService } from '../../../shar
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { LoaderService } from '../../../shared/loader/loaders.service';
 import { ValidationService } from '../../../shared/customvalidations/validation.service';
-import { AppSettings, Messages, Label, Button, Headings, NavigationRoutes,LocalStorage} from '../../../shared/constants';
+import { AppSettings, Messages, Label, Button, Headings, NavigationRoutes,LocalStorage } from '../../../shared/constants';
 import { ErrorService } from '../../../shared/services/error.service';
-import { ActivatedRoute, Params, Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { UserProfile } from '../../../user/models/user';
-import { ChangePassword } from '../../../user/models/changepassword';
-import {LocalStorageService} from '../../../shared/services/localstorage.service';
+import { ChangePassword } from '../../../user/models/change-password';
+import { LocalStorageService } from '../../../shared/services/local-storage.service';
 @Component({
   moduleId: module.id,
   selector: 'dashboard-change-password',
@@ -27,14 +27,13 @@ export class UserChangePasswordComponent {
   PASSWORD_ICON: string;
   NEW_PASSWORD_ICON: string;
   CONFIRM_PASSWORD_ICON: string;
-  //candidate: Candidate = new Candidate();
   userModel : UserProfile = new UserProfile();
   role: string;
   isSocialLogin:boolean;
-  constructor(private _router: Router, private activatedRoute: ActivatedRoute, private errorService: ErrorService, private commonService: CommonService,
-              private passwordService: UserChangePasswordService,
-              private messageService: MessageService,
-              private formBuilder: FormBuilder, private loaderService: LoaderService) {
+  constructor(private _router: Router, private activatedRoute: ActivatedRoute, private errorService: ErrorService,
+              private commonService: CommonService, private passwordService: UserChangePasswordService,
+              private messageService: MessageService, private formBuilder: FormBuilder,
+              private loaderService: LoaderService) {
 
     this.userForm = this.formBuilder.group({
       'new_password': ['', [ValidationService.passwordValidator]],
@@ -46,12 +45,6 @@ export class UserChangePasswordComponent {
     this.NEW_PASSWORD_ICON = ImagePath.NEW_PASSWORD_ICON_GREY;
     this.CONFIRM_PASSWORD_ICON = ImagePath.CONFIRM_PASSWORD_ICON_GREY;
   }
-
-  ngOnInit() {
-    /*this.activatedRoute.queryParams.subscribe((params: Params) => {
-      this.role = params['role'];
-      this._router.navigate([NavigationRoutes.APP_START]);
-    });*/}
 
   makePasswordConfirm(): boolean {
     if (this.model.confirm_password !== this.model.new_password) {
@@ -72,19 +65,19 @@ export class UserChangePasswordComponent {
       this.loaderService.start();
       this.passwordService.changePassword(this.model)
         .subscribe(
-          body => this.changePasswordSuccess(body),
-          error => this.changePasswordFail(error));
+          body => this.onChangePasswordSuccess(body),
+          error => this.onChangePasswordFailure(error));
     }
     document.body.scrollTop = 0;
   }
 
-  changePasswordSuccess(body: ChangePassword) {
+  onChangePasswordSuccess(body: ChangePassword) {
     this.loaderService.stop();
     this.showHideModal();
     this.error_msg = '';
   }
 
-  changePasswordFail(error: any) {
+  onChangePasswordFailure(error: any) {
     this.loaderService.stop();
     if (error.err_code === 404 || error.err_code === 0) {
       var message = new Message();
@@ -140,8 +133,6 @@ export class UserChangePasswordComponent {
 
   OnCandidateDataSuccess(candidateData: any) {
     this.model = candidateData.data[0];
-    //this.candidate.basicInformation = candidateData.metadata;
-    //this.candidate.summary = new Summary();
   }
 
   goToDashboard()  {

@@ -1,7 +1,7 @@
 import {Injectable} from "@angular/core";
 import {Observable} from "rxjs/Rx";
 import {ConnectionBackend, Http, Request, RequestOptions, RequestOptionsArgs, Response} from "@angular/http";
-import {ErrorInstance, Message, Messages, MessageService} from "../../index";
+import {ErrorInstance, Message, Messages, MessageService} from "./../../index";
 import {LoaderService} from "../../loader/loaders.service";
 
 @Injectable()

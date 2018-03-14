@@ -1,95 +1,69 @@
 import { Component, OnInit , OnChanges } from '@angular/core';
-import { Router , ActivatedRoute } from '@angular/router';
-import { CostSummaryPipe } from './../cost-summary.pipe';
-import  { FormBuilder, Validators } from '@angular/forms';
-import * as lodsh from 'lodash';
-import {
-  AppSettings,
-  Label,
-  Button,
-  Headings,
-  NavigationRoutes, Messages
-} from '../../../../../shared/constants';
-import {
-  API, BaseService, SessionStorage, SessionStorageService,
-  Message, MessageService, LoaderService
-} from '../../../../../shared/index';
-import { CostHeadService } from './cost-head.service';
-import { CustomHttp } from '../../../../../shared/services/http/custom.http';
-import { FormGroup } from '@angular/forms';
-import { Project } from '../../../model/project';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Messages, ProjectElements, NavigationRoutes, TableHeadings, Button, Label, ValueConstant } from '../../../../../shared/constants';
+import { SessionStorage, SessionStorageService, Message, MessageService } from '../../../../../shared/index';
 import { Rate } from '../../../model/rate';
 import { CommonService } from '../../../../../shared/services/common.service';
-//import { SubCategory } from '../../../model/SubCategory';
+import { CostSummaryService } from '../cost-summary.service';
+import * as lodsh from 'lodash';
+import { Category } from '../../../model/category';
+import { WorkItem } from '../../../model/work-item';
+import { QuantityItem } from '../../../model/quantity-item';
 
 @Component({
   moduleId: module.id,
-  selector: 'bi-cost-head-project-report',
+  selector: 'bi-cost-head',
   styleUrls: ['cost-head.component.css'],
   templateUrl: 'cost-head.component.html'
 })
 
 export class CostHeadComponent implements OnInit, OnChanges {
   projectId : string;
-  buildingId: string;
   buildingName: string;
   costHead: string;
-  costheadId:number;
+  costHeadId:number;
   workItemId: number;
-  itemName: string;
-  subCategoryId: number;
-  costHeadDetails: any;
-  subCategoryDetails: any;
-  subCategoryDetailsTotalAmount: number=0;
-  costHeadItemSave: any;
-  itemArray : any;
-  currentquantityItem: string;
-  currentWorkItem: string;
-  workItem: any;
-  rateItemsTotal: number;
-  quantityTotal: number = 0;
-  quanitytNumbersTotal: number = 0;
-  lengthTotal: number = 0;
-  breadthTotal: number = 0;
-  heightTotal: number = 0;
+  categoryId: number;
+  categoryDetails: Array<Category>;
+  categoryDetailsTotalAmount: number=0;
+  workItem: WorkItem;
   totalAmount:number=0;
-  totalRate:number=0;
-  totalQuantity:number=0;
-  total:number=0;
-  quantityIncrement:number=1;
-  previousTotalQuantity:number=1;
-  totalItemRateQuantity:number=0;
-  subcategoryRateAnalysisId:number;
-  comapreWorkItemRateAnalysisId:number;
-  itemSize:number=0;
+  categoryRateAnalysisId:number;
+  compareWorkItemRateAnalysisId:number;
   quantity:number=0;
   rateFromRateAnalysis:number=0;
   unit:string='';
-  showSubcategoryListvar: boolean = false;
-  alreadySelectedWorkItems:any;
+  showCategoryList: boolean = false;
+  selectedWorkItems: Array<WorkItem>;
+  deleteConfirmationCategory = ProjectElements.CATEGORY;
+  deleteConfirmationWorkItem = ProjectElements.WORK_ITEM;
 
-
-  private showQuantity:boolean=true;
-  private showRate:boolean=true;
-  private toggleQty:boolean=false;
-  private toggleRate:boolean=false;
-  private compareWorkItemIndex:number=0;
-  private compareSubcategoryIndex:number=0;
-  private quantityItemsArray: any;
-  private rateItemsArray: any;
-  private subcategoryArray : Array<any> = [];
-  private subcategoryArrayList : Array<any> = [];
-  private rateIArray: any;
-  private workItemListArray: any;
-  private subcategoryListArray : Array<any> = [];
-  private alteredArrayList : Array<any> = [];
   private showWorkItemList:boolean=false;
-  private subCategoryObj: any;
+  private showWorkItemTab : string = null;
+  private compareWorkItemId:number=0;
+  private compareCategoryId:number=0;
+  private quantityItemsArray: QuantityItem;
+  private rateItemsArray: Rate;
+  private categoryArray : Array<Category> = [];
+
+  private workItemListArray: Array<WorkItem> = [];
+  private categoryListArray : Array<Category> = [];
+  private categoryIdForInActive: number;
+
+  private totalQuantityOfWorkItems:number=0;
+  private totalRateUnitOfWorkItems:number=0;
+  private totalAmountOfWorkItems:number=0;
+
+  private disableRateField:boolean = false;
+
+  private previousRateQuantity:number = 0;
+  private quantityIncrement:number = 1;
+  private displayRateView: string = null;
 
 
-  constructor(private costHeadService : CostHeadService, private activatedRoute : ActivatedRoute
-              , private messageService: MessageService, private commonService : CommonService, private loderService: LoaderService) {
-    }
+  constructor(private costSummaryService : CostSummaryService, private activatedRoute : ActivatedRoute,
+              private _router: Router, private messageService: MessageService, private commonService : CommonService) {
+  }
 
   ngOnInit() {
     this.activatedRoute.params.subscribe(params => {
@@ -97,474 +71,383 @@ export class CostHeadComponent implements OnInit, OnChanges {
       this.buildingName = params['buildingName'];
       this.costHead = params['costHeadName'];
       let costheadIdParams = params['costHeadId'];
-      this.costheadId = parseInt(costheadIdParams);
-      SessionStorageService.setSessionValue(SessionStorage.CURRENT_COST_HEAD_ID,this.costheadId);
-      this.getSubCategoryDetails(this.projectId, this.costheadId);
+      this.costHeadId = parseInt(costheadIdParams);
+      SessionStorageService.setSessionValue(SessionStorage.CURRENT_COST_HEAD_ID,this.costHeadId);
+      this.getActiveCategories( this.projectId, this.costHeadId);
     });
   }
 
+  getActiveCategories(projectId: string, costHeadId: number) {
+    let buildingId = SessionStorageService.getSessionValue(SessionStorage.CURRENT_BUILDING);
+    this.costSummaryService.getActiveCategories( projectId, buildingId, costHeadId).subscribe(
+      categoryDetails => this.onGetActiveCategoriesSuccess(categoryDetails),
+      error => this.onGetActiveCategoriesFalure(error)
+    );
+  }
+
+  onGetActiveCategoriesSuccess(categoryDetails: any) {
+    this.categoryDetails = categoryDetails.data;
+    this.calculateCategoriesTotal();
+    let categoryList = lodsh.clone(this.categoryArray);
+    this.categoryArray = this.commonService.removeDuplicateItmes(categoryList, this.categoryDetails);
+  }
+
+  calculateCategoriesTotal() {
+    this.categoryDetailsTotalAmount = 0.0;
+    this.totalQuantityOfWorkItems = 0.0;
+    this.totalRateUnitOfWorkItems = 0.0;
+    this.totalAmountOfWorkItems = 0.0;
+
+    for (let categoryIndex = 0; categoryIndex < this.categoryDetails.length; categoryIndex++) {
+
+      this.categoryDetailsTotalAmount = parseFloat((this.categoryDetailsTotalAmount +
+        this.categoryDetails[categoryIndex].amount).toFixed(ValueConstant.NUMBER_OF_FRACTION_DIGIT));
+
+      for (let workItemIndex = 0; workItemIndex < this.categoryDetails[categoryIndex].workItems.length; workItemIndex++) {
+
+        this.totalQuantityOfWorkItems = parseFloat((this.totalQuantityOfWorkItems +
+          this.categoryDetails[categoryIndex].workItems[workItemIndex].quantity.total).toFixed(ValueConstant.NUMBER_OF_FRACTION_DIGIT));
+
+        this.totalRateUnitOfWorkItems = parseFloat((this.totalRateUnitOfWorkItems +
+          this.categoryDetails[categoryIndex].workItems[workItemIndex].rate.total).toFixed(ValueConstant.NUMBER_OF_FRACTION_DIGIT));
+
+        this.totalAmountOfWorkItems = parseFloat((this.totalAmountOfWorkItems +
+          (this.categoryDetails[categoryIndex].workItems[workItemIndex].quantity.total *
+            this.categoryDetails[categoryIndex].workItems[workItemIndex].rate.total)).toFixed(ValueConstant.NUMBER_OF_FRACTION_DIGIT));
+
+        this.categoryDetails[categoryIndex].workItems[workItemIndex].quantity.total = parseFloat((
+          this.categoryDetails[categoryIndex].workItems[workItemIndex].quantity.total).toFixed(ValueConstant.NUMBER_OF_FRACTION_DIGIT));
+
+        this.categoryDetails[categoryIndex].workItems[workItemIndex].amount =
+          parseFloat((this.categoryDetails[categoryIndex].workItems[workItemIndex].quantity.total *
+            this.categoryDetails[categoryIndex].workItems[workItemIndex].rate.total).toFixed(ValueConstant.NUMBER_OF_FRACTION_DIGIT));
+      }
+    }
+  }
+
+  onGetActiveCategoriesFalure(error: any) {
+    console.log(error);
+  }
+
   ngOnChanges(changes: any) {
-    if (changes.subcategoryListArray.currentValue !== undefined) {
-      this.subcategoryListArray = changes.subcategoryListArray.currentValue;
+    if (changes.categoryListArray.currentValue !== undefined) {
+      this.categoryListArray = changes.categoryListArray.currentValue;
     }
   }
 
-  onSubmit() { }
+  getQuantity( categoryId: number, workItemId : number, workItem: WorkItem, quantityItems: any) {
+    if( this.showWorkItemTab !== Label.WORKITEM_QUANTITY_TAB || this.compareCategoryId !== categoryId ||
+      this.compareWorkItemId !== workItemId) {
 
-
-  getQuantity(i: number, quantityItems: any, workItemIndex: number, workItem: any ,workitemObjId : number) {
-    this.compareSubcategoryIndex=i;
-    this.toggleQty = !this.toggleQty;
-    this.compareWorkItemIndex = workItemIndex;
-    if (this.toggleQty === true) {
-      this.toggleRate = false;
+      this.compareCategoryId = categoryId;
+      this.compareWorkItemId = workItemId;
+      this.workItemId = workItemId;
+      SessionStorageService.setSessionValue(SessionStorage.CURRENT_WORKITEM_ID, this.workItemId);
+      this.quantityItemsArray = quantityItems;
+      this.workItem = workItem;
+      this.showWorkItemTab = Label.WORKITEM_QUANTITY_TAB;
+    } else {
+      this.showWorkItemTab = null;
     }
-    this.workItemId = workitemObjId;
+  }
+
+  // Get Rate
+  getRate(displayRateView : string, categoryId:number, workItemId:number, workItem : WorkItem, disableRateField : boolean ) {
+    if(this.showWorkItemTab !== Label.WORKITEM_QUANTITY_TAB || this.displayRateView !== displayRateView ||
+      this.compareCategoryId !== categoryId || this.compareWorkItemId !== workItemId) {
+
+      this.setItemId(categoryId, workItemId);
+      this.setWorkItemDataForRateView(workItem.rateAnalysisId, workItem.rate);
+      this.calculateTotalForRateView();
+      this.setRateFlags(displayRateView, disableRateField);
+    } else {
+      this.showWorkItemTab = null;
+      this.displayRateView = null;
+    }
+  }
+
+  // Get Rate by quantity
+  getRateByQuantity(displayRateView : string, categoryId:number, workItemId:number, workItem : WorkItem, disableRateField : boolean ) {
+    if(this.showWorkItemTab !== Label.WORKITEM_RATE_TAB || this.displayRateView !== displayRateView ||
+      this.compareCategoryId !== categoryId || this.compareWorkItemId !== workItemId) {
+
+      this.setItemId(categoryId, workItemId);
+      this.setWorkItemDataForRateView(workItem.rateAnalysisId, workItem.rate);
+      this.calculateQuantity(workItem);
+      this.calculateTotalForRateView();
+      this.setRateFlags(displayRateView, disableRateField);
+    } else {
+      this.showWorkItemTab = null;
+      this.displayRateView = null;
+    }
+  }
+
+  // Get System rate
+  getSystemRate(displayRateView : string, categoryId:number, workItemId:number, workItem : WorkItem, disableRateField : boolean ) {
+    if(this.showWorkItemTab !== Label.WORKITEM_RATE_TAB || this.displayRateView !== displayRateView ||
+      this.compareCategoryId !== categoryId || this.compareWorkItemId !== workItemId) {
+
+      this.setItemId(categoryId, workItemId);
+      this.setWorkItemDataForRateView(workItem.rateAnalysisId, workItem.systemRate);
+      this.calculateTotalForRateView();
+      this.setRateFlags(displayRateView, disableRateField);
+    } else {
+      this.showWorkItemTab = null;
+      this.displayRateView = null;
+    }
+  }
+
+  setItemId(categoryId:number, workItemId:number) {
+    this.compareCategoryId = categoryId;
+    this.compareWorkItemId = workItemId;
+  }
+
+  setRateFlags(displayRateView : string, disableRateField : boolean) {
+    this.displayRateView = displayRateView;
+    this.disableRateField=disableRateField;
+    this.showWorkItemTab = Label.WORKITEM_RATE_TAB;
+  }
+
+  setWorkItemDataForRateView(workItemId : number, rate : Rate) {
+    this.workItemId = workItemId;
+      this.rateItemsArray = lodsh.cloneDeep(rate);
+      this.unit = lodsh.cloneDeep(rate.unit);
     SessionStorageService.setSessionValue(SessionStorage.CURRENT_WORKITEM_ID, this.workItemId);
-    this.quantityItemsArray = quantityItems;
-    this.workItem = workItem;
-    this.showQuantity = true;
   }
 
-  getRate(i:number,workItemIndex: number,workItem:any) {
-    this.compareSubcategoryIndex=i;
-    this.toggleRate = !this.toggleRate;
-    this.compareWorkItemIndex = workItemIndex;
-    if (this.toggleRate === true) {
-      this.toggleQty = false;
+  calculateQuantity(workItem : WorkItem) {
+    this.previousRateQuantity = lodsh.cloneDeep(workItem.rate.quantity);
+    this.rateItemsArray.quantity = lodsh.cloneDeep(workItem.quantity.total);
+    this.quantityIncrement = this.rateItemsArray.quantity / this.previousRateQuantity;
+    for (let rateItemsIndex = 0; rateItemsIndex < this.rateItemsArray.rateItems.length; rateItemsIndex++) {
+      this.rateItemsArray.rateItems[rateItemsIndex].quantity = parseFloat((
+        this.rateItemsArray.rateItems[rateItemsIndex].quantity *
+        this.quantityIncrement).toFixed(ValueConstant.NUMBER_OF_FRACTION_DIGIT));
     }
-    this.workItem=workItem;
-    this.workItemId = workItem.rateAnalysisId;
-    SessionStorageService.setSessionValue(SessionStorage.CURRENT_WORKITEM_ID, this.workItemId);
-    let subCategoryId=this.subCategoryDetails[i].rateAnalysisId;
-   /* this.loderService.start();*/
-    this.costHeadService.getRateItems(this.costheadId, subCategoryId,this.workItemId).subscribe(
-        rateItem => {
-          this.onGetRateItemsSuccess(rateItem, workItem);
-    /*      this.loderService.stop();*/
-          },error => this.onGetRateItemsFail(error)
-      );
   }
 
-  onGetRateItemsSuccess(rateItem: any, workItem:any) {
+  calculateTotalForRateView() {
     this.totalAmount=0;
-    this.totalRate=0;
-    this.totalQuantity=0;
+    this.rateItemsArray.total=0;
 
-    this.rateItemsArray=rateItem.data;
-    this.workItem = workItem;
+    for(let rateItemsIndex=0; rateItemsIndex < this.rateItemsArray.rateItems.length; rateItemsIndex++) {
+      this.totalAmount = parseFloat((this.totalAmount + ( this.rateItemsArray.rateItems[rateItemsIndex].quantity *
+        this.rateItemsArray.rateItems[rateItemsIndex].rate )).toFixed(ValueConstant.NUMBER_OF_FRACTION_DIGIT));
+     }
 
-    this.rateFromRateAnalysis = rateItem.data.rateFromRateAnalysis;
-
-    this.workItem.rate.rateFromRateAnalysis=rateItem.data.rateFromRateAnalysis;
-    console.log(this.rateFromRateAnalysis);
-
-    this.rateItemsArray.quantity=rateItem.data.quantity;
-
-    this.rateItemsArray.unit=rateItem.data.unit;
-    this.unit=rateItem.data.unit;
-    this.quantity=rateItem.data.quantity;
-
-    this.unit=rateItem.data.unit;
-    this.rateItemsArray = rateItem.data;
-
-    for(let i=0;i<rateItem.data.item.length;i++) {
-      this.totalAmount= this.totalAmount+( rateItem.data.item[i].quantity*rateItem.data.item[i].rate);
-      this.totalRate= this.totalRate+rateItem.data.item[i].rate;
-      this.totalQuantity=this.totalQuantity+rateItem.data.item[i].quantity;
-    }
-    this.rateItemsArray.total= this.totalAmount/this.totalQuantity;
-    this.showRate = true;
+    this.rateItemsArray.total= parseFloat((this.totalAmount/this.rateItemsArray.quantity).toFixed(ValueConstant.NUMBER_OF_FRACTION_DIGIT));
   }
 
-  onGetRateItemsFail(error: any) {
-    console.log(error);
+  setIdsForDeleteWorkItem(categoryId: string, workItemId: string,workItemIndex:number) {
+    this.categoryId = parseInt(categoryId);
+    this.workItemId =  parseInt(workItemId);
+    this.compareWorkItemId = workItemIndex;
   }
 
-  //Rate from DB
-  getRateFromDatabase(i:number,workItemIndex:number,itemArray:any, workItem : any) {
-    this.compareSubcategoryIndex=i;
-    this.toggleRate = !this.toggleRate;
-    this.workItem = workItem;
-    this.workItemId = workItem.rateAnalysisId;
-    SessionStorageService.setSessionValue(SessionStorage.CURRENT_WORKITEM_ID, this.workItemId);
-    this.compareWorkItemIndex = workItemIndex;
-    if (this.toggleRate === true) {
-      this.toggleQty = false;
-    }
-    this.itemArray = itemArray;
-    this.rateItemsArray=itemArray;
-    let rate = new Rate();
-    rate.item = itemArray.item;
-    rate.rateFromRateAnalysis = this.itemArray.rateFromRateAnalysis ;
-    rate.quantity =   this.itemArray.quantity;
-    rate.unit =   this.itemArray.unit;
-    rate.total = itemArray.total;
-    rate.unit = itemArray.unit;
-    rate.quantity = itemArray.quantity;
-    this.unit=itemArray.unit;
-    this.totalAmount=0;
-    this.totalRate=0;
-    this.totalQuantity=0;
-
-    for(let i=0;i<this.rateItemsArray.item.length;i++) {
-      this.totalAmount= this.totalAmount+( this.rateItemsArray.item[i].quantity*this.rateItemsArray.item[i].rate);
-      this.totalRate= this.totalRate+this.rateItemsArray.item[i].rate;
-      this.totalQuantity=this.totalQuantity+this.rateItemsArray.item[i].quantity;
-    }
-    this.showRate = true;
-  }
-
-
-  getItemRates(workItem: any, costHead: string) {
-    console.log('WorkItem : ' + workItem);
-    console.log('costHead : ' + costHead);
-  }
-
-  getSubCategoryDetails(projectId: string, costheadId: number) {
-    this.costHeadService.getSubCategory(projectId,costheadId).subscribe(
-      subCategoryDetail => this.OnGetSubCategorySuccess(subCategoryDetail),
-      error => this.OnGetSubCategoryFail(error)
+  deactivateWorkItem() {
+    let projectId = SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT_ID);
+    let buildingId = SessionStorageService.getSessionValue(SessionStorage.CURRENT_BUILDING);
+    let costHeadId=parseInt(SessionStorageService.getSessionValue(SessionStorage.CURRENT_COST_HEAD_ID));
+      this.costSummaryService.deactivateWorkItem( projectId, buildingId, costHeadId, this.categoryId, this.workItemId ).subscribe(
+        workItemDetails => this.onDeActivateWorkItemSuccess(workItemDetails),
+      error => this.onDeActivateWorkItemFailure(error)
     );
   }
 
-  OnGetSubCategorySuccess(subCategoryDetail: any) {
-    this.subCategoryDetails = subCategoryDetail.data;
-    this.subCategoryDetailsTotalAmount=0.0;
-
-    for(let i=0;i<this.subCategoryDetails.length;i++) {
-      this.subCategoryDetailsTotalAmount= (this.subCategoryDetailsTotalAmount+
-        this.subCategoryDetails[i].amount);
+  onDeActivateWorkItemSuccess(workItemDetails: any) {
+    let inActiveWorkItems: Array<WorkItem> = workItemDetails.data;
+    for(let inActiveWorkItemsIndex = 0; inActiveWorkItemsIndex<inActiveWorkItems.length; inActiveWorkItemsIndex++) {
+      if(inActiveWorkItemsIndex === this.compareWorkItemId) {
+        inActiveWorkItems.splice(inActiveWorkItemsIndex,1);
+      }
     }
-
-
-    let subcategoryList = lodsh.clone(this.subcategoryArrayList);
-    this.subcategoryArray = this.commonService.removeDuplicateItmes(subcategoryList, this.subCategoryDetails);
-  }
-
-  OnGetSubCategoryFail(error: any) {
-    console.log(error);
-  }
-
-  getCostHeadComponentDetails(projectId: string, costHead: string) {
-    this.costHeadService.getCostHeadDetails(projectId, costHead).subscribe(
-      costHeadDetail => this.onGetCostHeadDetailsSuccess(costHeadDetail),
-      error => this.onGetCostHeadDetailsFail(error)
-    );
-  }
-
-  onGetCostHeadDetailsSuccess(costHeadDetail: any) {
-    this.costHeadDetails = costHeadDetail.data;
-  }
-
-  onGetCostHeadDetailsFail(error: any) {
-    console.log(error);
-  }
-
-  deleteWorkItemFunction(i: number,subCategoryId: string, workItemId: string) {
-    this.subCategoryId = parseInt(subCategoryId);
-     this.workItemId =  parseInt(workItemId);
-  }
-  deleteWorkItem() {
-    this.costHeadService.deleteWorkItem(parseInt(SessionStorageService.getSessionValue(SessionStorage.CURRENT_COST_HEAD_ID)), this.subCategoryId, this.workItemId ).subscribe(
-      costHeadDetail => this.onDeleteWorkItemSuccess(costHeadDetail),
-      error => this.onDeleteWorkItemFail(error)
-    );
-  }
-  onDeleteWorkItemSuccess(workItemDetails: any) {
-    if (workItemDetails !== null) {
-      var message = new Message();
-      message.isError = false;
-      message.custom_message = Messages.MSG_SUCCESS_DELETE_COSTHEAD_WORKITEM;
-      this.messageService.message(message);
-      this.getSubCategoryDetails(this.projectId, this.costheadId);
-    }
-  }
-
-  onDeleteWorkItemFail(error: any) {
+    this.workItemListArray = inActiveWorkItems;
     var message = new Message();
     message.isError = false;
-    message.custom_message = Messages.MSG_SUCCESS_SAVED_COST_HEAD_ITEM_ERROR;
+    message.custom_message = Messages.MSG_SUCCESS_DELETE_WORKITEM;
     this.messageService.message(message);
-    this.getSubCategoryDetails(this.projectId, this.costheadId);
+    this.getActiveCategories( this.projectId, this.costHeadId);
+  }
+  onDeActivateWorkItemFailure(error: any) {
+    console.log('InActive WorkItem error : '+JSON.stringify(error));
   }
 
-  getMessages() {
-    return Messages;
-  }
+  getInActiveWorkItems(categoryId:number, workItemIndex:number) {
+    this.compareWorkItemRateAnalysisId = workItemIndex;
+    this.categoryRateAnalysisId = categoryId;
 
-  getLabels() {
-    return Label;
-  }
-
-  getButtons() {
-    return Button;
-  }
-
-  getHeadings() {
-    return Headings;
-  }
-
-
- deleteQuantityItem(subCategoryId: number,  quantityItems:any ,itemName: string) {
-   this.itemName = itemName;
-   this.subCategoryId = subCategoryId;
-   this.quantityItemsArray = quantityItems.data;
- }
-
-  deleteQuantityItemfun() {
-    this.costHeadService.deleteCostHeadItems(this.costheadId, this.subCategoryId,
-      this.workItemId,this.quantityItemsArray,this.itemName).subscribe(
-      costHeadItemDelete => this.onDeleteCostHeadItemsSuccess(costHeadItemDelete),
-      error => this.onDeleteCostHeadItemsFail(error)
+    let projectId=SessionStorageService.getSessionValue(SessionStorage.CURRENT_BUILDING);
+    let buildingId=SessionStorageService.getSessionValue(SessionStorage.CURRENT_BUILDING);
+    this.costSummaryService.getInActiveWorkItems( projectId, buildingId, this.costHeadId, categoryId).subscribe(
+      workItemList => this.onGetInActiveWorkItemsSuccess(workItemList),
+      error => this.onGetInActiveWorkItemsFailure(error)
     );
   }
 
-  onDeleteCostHeadItemsSuccess(costHeadItemDelete: any) {
-    this.quantityItemsArray = costHeadItemDelete.data.item;
-    var message = new Message();
-    message.isError = false;
-    message.custom_message = Messages.MSG_SUCCESS_DELETE_ITEM;
-    this.messageService.message(message);
-   // this.getQuantityTotal(this.quantityItemsArray);
-  }
-
-  onDeleteCostHeadItemsFail(error: any) {
-    console.log(error);
-  }
-  updateCostHeadWorkItem(subCategoryId : number, quantityItems : any) {
-    this.quantityItemsArray = quantityItems;
-    this.costHeadService.saveCostHeadItems(this.costheadId, subCategoryId,
-      this.workItemId,this.quantityItemsArray).subscribe(
-      costHeadItemSave => this.onSaveCostHeadItemsSuccess(costHeadItemSave),
-      error => this.onSaveCostHeadItemsFail(error)
-    );
-  }
-
-
-  onSaveCostHeadItemsSuccess(costHeadItemSave: any) {
-    this.quantityItemsArray = costHeadItemSave.data.item;
-    var message = new Message();
-    message.isError = false;
-    message.custom_message = Messages.MSG_SUCCESS_SAVED_COST_HEAD_ITEM;
-    this.messageService.message(message);
-   // this.getCostHeadComponentDetails(this.projectId, this.costHead);
-  }
-
-  onSaveCostHeadItemsFail(error: any) {
-    console.log(error);
-  }
-
-  /*changeQuantity(quantity:string,k:number) {
-    this.totalAmount=0;
-    this.totalRate=0;
-    this.totalQuantity=0;
-    this.rateItemsArray.item[k].quantity=parseInt(quantity);
-    for(let i=0;i<this.rateItemsArray.item.length;i++) {
-      this.totalAmount= this.totalAmount+( this.rateItemsArray.item[i].quantity*this.rateItemsArray.item[i].rate);
-      this.totalRate= this.totalRate+this.rateItemsArray.item[i].rate;
-      this.totalQuantity=this.totalQuantity+this.rateItemsArray.item[i].quantity;
-    }
-    this.rateItemsArray.total= this.totalAmount/this.totalQuantity;
-}
-
-
-  changeRate(rate:string, k:number) {
-    this.totalAmount=0;
-    this.totalRate=0;
-    this.totalQuantity=0;
-    this.rateItemsArray.item[k].rate= parseInt(rate);
-    console.log('k'+k);
-    for(let i=0;i<this.rateItemsArray.item.length;i++) {
-      this.totalAmount= this.totalAmount+( this.rateItemsArray.item[i].quantity*this.rateItemsArray.item[i].rate);
-      this.totalRate= this.totalRate+this.rateItemsArray.item[i].rate;
-      this.totalQuantity=this.totalQuantity+this.rateItemsArray.item[i].quantity;
-    }
-    this.rateItemsArray.total= this.totalAmount/this.totalQuantity;
-  }*/
-
-  showWorkItem(subCategoryId:number,i:number) {
-    this.comapreWorkItemRateAnalysisId=i;
-    this.subcategoryRateAnalysisId=subCategoryId;
-    this.costHeadService.showWorkItem(this.costheadId,subCategoryId).subscribe(
-      workItemList => this.onshowWorkItemSuccess(workItemList),
-      error => this.onshowWorkItemFail(error)
-    );
-  }
-
-
-  onshowWorkItemSuccess(workItemList:any) {
- /* this.workItemListArray=workItemList.data;*/
-    let workItemListAfterClone = lodsh.cloneDeep(workItemList.data);
-    this.workItemListArray = this.commonService.removeDuplicateItmes(workItemListAfterClone,this.alreadySelectedWorkItems);
-    if(this.workItemListArray.length===0) {
+  onGetInActiveWorkItemsSuccess(workItemList:any) {
+    if (workItemList.data.length !== 0) {
+      this.workItemListArray = workItemList.data;
+      this.showWorkItemList = true;
+    } else {
       var message = new Message();
       message.isError = false;
       message.custom_message = Messages.MSG_ALREADY_ADDED_ALL_WORKITEMS;
       this.messageService.message(message);
-    }else {
-      this.showWorkItemList=true;
     }
   }
 
-  onshowWorkItemFail(error:any) {
-    console.log('onshowWorkItemFail : '+error);
+  onGetInActiveWorkItemsFailure(error:any) {
+    console.log('Get WorkItemList error : '+error);
   }
 
-  onChangeWorkItem(selectedWorkItem:any) {
-    console.log('selectedWorkItem : '+selectedWorkItem);
+  onChangeActivateSelectedWorkItem(selectedWorkItem:any) {
     this.showWorkItemList=false;
-
     let workItemList  =  this.workItemListArray;
     let workItemObject = workItemList.filter(
       function( workItemObj: any){
         return workItemObj.name === selectedWorkItem;
       });
+    let categoryId=this.categoryRateAnalysisId;
+    let projectId=SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT_ID);
+    let buildingId=SessionStorageService.getSessionValue(SessionStorage.CURRENT_BUILDING);
 
-    console.log('workItemObject : '+JSON.stringify(workItemObject));
-    let subCategoryId=this.subcategoryRateAnalysisId;
-    this.costHeadService.addWorkItem(this.costheadId,subCategoryId,workItemObject[0].rateAnalysisId,workItemObject[0].name).subscribe(
-      workItemList => this.onaddWorkItemSuccess(workItemList),
-      error => this.onaddWorkItemFail(error)
+    this.costSummaryService.activateWorkItem( projectId, buildingId, this.costHeadId, categoryId,
+      workItemObject[0].rateAnalysisId).subscribe(
+      workItemList => this.onActivateWorkItemSuccess(workItemList),
+      error => this.onActivateWorkItemFailure(error)
     );
   }
 
-  onaddWorkItemSuccess(workItemList:any) {
-    this.alreadySelectedWorkItems=workItemList.data;
+  onActivateWorkItemSuccess(workItemList:any) {
+    this.selectedWorkItems=workItemList.data;
     var message = new Message();
     message.isError = false;
     message.custom_message = Messages.MSG_SUCCESS_ADD_WORKITEM;
     this.messageService.message(message);
     this.showWorkItemList=false;
-    this.getSubCategoryDetails(this.projectId, this.costheadId);
+    this.getActiveCategories(this.projectId, this.costHeadId);
   }
 
-  onaddWorkItemFail(error:any) {
-    console.log('onshowWorkItemFail : '+error);
+  onActivateWorkItemFailure(error:any) {
+    console.log('Active WorkItem error : '+error);
   }
 
-  /*updateRate(i:number) {
-    let subCategoryId=this.subCategoryDetails[i].rateAnalysisId;
-    console.log('subCategoryId',+subCategoryId);
+  setCategoryIdForDeactivate(categoryId : any) {
+    this.categoryIdForInActive = categoryId;
+  }
 
+  deactivateCategory() {
+    let projectId=SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT_ID);
+    let buildingId=SessionStorageService.getSessionValue(SessionStorage.CURRENT_BUILDING);
 
-    this.rateItemsArray.total=this.totalAmount/this.totalQuantity;
-    this.costHeadService.updateRateItems(this.costheadId, subCategoryId,this.workItemId,this.rateItemsArray).subscribe(
-      rateItem => this.onUpdateRateItemsSuccess(rateItem),
-      error => this.onUpdateRateItemsFail(error)
+    this.costSummaryService.deactivateCategory( projectId, buildingId, this.costHeadId, this.categoryIdForInActive).subscribe(
+      deactivatedCategory => this.onDeactivateCategorySuccess(deactivatedCategory),
+      error => this.onDeactivateCategoryFailure(error)
     );
   }
 
-  onUpdateRateItemsSuccess(rateItem: any) {
-    console.log('Rate updated successfully');
+  onDeactivateCategorySuccess(deactivatedCategory : any) {
+    let categoryList = lodsh.clone(this.categoryDetails);
+    this.categoryDetails = this.commonService.removeDuplicateItmes(categoryList, deactivatedCategory.data);
+    this.calculateCategoriesTotal();
     var message = new Message();
     message.isError = false;
-    message.custom_message = Messages.MSG_SUCCESS_UPDATE_RATE;
+    message.custom_message = Messages.MSG_SUCCESS_DELETE_CATEGORY;
     this.messageService.message(message);
-    this.getSubCategoryDetails(this.projectId, this.costheadId);
+/*    this.getActiveCategories( this.projectId, this.costHeadId);*/
   }
 
-  onUpdateRateItemsFail(error: any) {
-    console.log(error);
-  }*/
-
- /* getPreviousQuantity(previousTotalQuantity:number) {
-    console.log('previousTotalQuantity : '+previousTotalQuantity);
-    this.previousTotalQuantity=previousTotalQuantity;
+  onDeactivateCategoryFailure(error : any) {
+    console.log('In Active Category error : '+JSON.stringify(error));
   }
 
-  onTotalQuantityChange(newTotalQuantity:number) {
-    console.log('newTotalQuantity : '+newTotalQuantity);
-    this.quantityIncrement=newTotalQuantity/this.previousTotalQuantity;
-    console.log('quantityIncrement : '+this.quantityIncrement);
+  getInActiveCategories() {
+    let projectId = SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT_ID);
+    let buildingId = SessionStorageService.getSessionValue(SessionStorage.CURRENT_BUILDING);
 
-    this.totalAmount=0;
-    this.totalRate=0;
-    this.totalQuantity=0;
-    for(let i=0;i<this.rateItemsArray.item.length;i++) {
-      this.rateItemsArray.item[i].quantity=this.rateItemsArray.item[i].quantity*this.quantityIncrement;
-      this.totalAmount= this.totalAmount+( this.rateItemsArray.item[i].quantity*this.rateItemsArray.item[i].rate);
-      this.totalRate= this.totalRate+this.rateItemsArray.item[i].rate;
-      this.totalQuantity=this.totalQuantity+ this.rateItemsArray.item[i].quantity;
+    this.costSummaryService.getInActiveCategories( projectId, buildingId, this.costHeadId).subscribe(
+      categoryList => this.onGetInActiveCategoriesSuccess(categoryList),
+      error => this.onGetInActiveCategoriesFailure(error)
+    );
+  }
+
+  onGetInActiveCategoriesSuccess(categoryList : any) {
+    if(categoryList.data.length!==0) {
+    this.categoryArray = categoryList.data;
+    this.showCategoryList = true;
+    } else {
+      var message = new Message();
+      message.isError = false;
+      message.custom_message = Messages.MSG_ALREADY_ADDED_ALL_CATEGORIES;
+      this.messageService.message(message);
     }
-
-    this.totalItemRateQuantity=newTotalQuantity;
-    this.rateItemsArray.quantity=newTotalQuantity;
-    this.rateItemsArray.total= this.totalAmount/this.totalQuantity;
-    this.rateItemsArray.unit= this.unit;
-
-  }*/
-  setCurrentSubcategory(subcategory : any) {
-    this.subCategoryObj = subcategory;
   }
 
-  deleteSubcategory() {
-    let subcategory = this.subCategoryObj;
-    this.costHeadService.deleteSubcategoryFromCostHead(this.costheadId, subcategory).subscribe(
-      deleteSubcategory => this.deleteSubcategorySuccess(deleteSubcategory),
-      error => this.deleteSubcategoryFail(error)
+  onGetInActiveCategoriesFailure(error : any) {
+    console.log('categoryList error : '+JSON.stringify(error));
+  }
+
+  onChangeActivateSelectedCategory(selectedCategoryId : number ) {
+    let projectId=SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT_ID);
+    let buildingId=SessionStorageService.getSessionValue(SessionStorage.CURRENT_BUILDING);
+
+    this.costSummaryService.activateCategory( projectId, buildingId, this.costHeadId, selectedCategoryId).subscribe(
+      building => this.onActivateCategorySuccess(building),
+      error => this.onActivateCategoryFailure(error)
     );
   }
 
-  deleteSubcategorySuccess(deleteSubcategory : any) {
-    this.getSubCategoryDetails(this.projectId, this.costheadId);
-  }
+  onActivateCategorySuccess(activatedCategory : any) {
+    this.categoryDetails = this.categoryDetails.concat(activatedCategory.data);
+    this.calculateCategoriesTotal();
 
-  deleteSubcategoryFail(error : any) {
-    console.log('deleteSubcategory error : '+JSON.stringify(error));
-  }
+    let categoryList = lodsh.clone(this.categoryArray);
+    this.categoryArray = this.commonService.removeDuplicateItmes(categoryList, this.categoryDetails);
 
-  showSubcategoryList() {
-    this.costHeadService.getSubCategoryList(this.costheadId).subscribe(
-      subcategoryList => this.onGetSubCategoryListSuccess(subcategoryList),
-      error => this.onGetSubCategoryListFail(error)
-    );
-  }
-
-  onGetSubCategoryListSuccess(subcategoryList : any) {
-    this.subcategoryArrayList = subcategoryList.data;
-    let subCategoryList = lodsh.cloneDeep(subcategoryList.data);
-    this.subcategoryArray = this.commonService.removeDuplicateItmes(subCategoryList, this.subCategoryDetails);
-    this.showSubcategoryListvar = true;
-  }
-
-  onGetSubCategoryListFail(error : any) {
-    console.log('subcategoryList error : '+JSON.stringify(error));
-  }
-
-  onSelectedAddSubCategory( selectedSubCategoryId : string ) {
-    let subCategoriesList  =  this.subcategoryArray;
-    let subCategoryObj = subCategoriesList.filter(
-      function( subCatObj: any){
-        return subCatObj.rateAnalysisId === parseInt(selectedSubCategoryId);
-    });
-    this.costHeadService.addSubCategory( subCategoryObj, this.costheadId).subscribe(
-      building => this.onAddSubCategorySuccess(building),
-      error => this.onAddSubCategoryFail(error)
-    );
-  }
-
-  onAddSubCategorySuccess(building : any) {
     var message = new Message();
     message.isError = false;
-    message.custom_message = Messages.MSG_SUCCESS_ADD_SUBCATEGORY;
+    message.custom_message = Messages.MSG_SUCCESS_ADD_CATEGORY;
     this.messageService.message(message);
-    this.getSubCategoryDetails(this.projectId, this.costheadId);
   }
 
-  onAddSubCategoryFail(error : any) {
+  onActivateCategoryFailure(error : any) {
     console.log('building error : '+ JSON.stringify(error));
   }
 
-  refreshDataList() {
-    this.getSubCategoryDetails(this.projectId, this.costheadId);
-    this.showQuantity = false;
-    this.showRate = false;
+  refreshCategoryList() {
+    this.getActiveCategories( this.projectId, this.costHeadId);
+    this.showWorkItemTab = null;
+    this.displayRateView = null;
   }
 
-  getSelectedWorkItems(workItemList:any) {
-    this.alreadySelectedWorkItems=workItemList;
-    console.log('workItemList :'+workItemList);
+  setSelectedWorkItems(workItemList:any) {
+    this.selectedWorkItems = workItemList;
+  }
+
+  deleteElement(elementType : string) {
+    if(elementType === ProjectElements.CATEGORY) {
+      this.deactivateCategory();
+    }
+    if(elementType === ProjectElements.WORK_ITEM) {
+      this.deactivateWorkItem();
+    }
+  }
+
+  goBack() {
+    let projectId = SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT_ID);
+    this._router.navigate([NavigationRoutes.APP_PROJECT,projectId,NavigationRoutes.APP_COST_SUMMARY]);
+  }
+
+  getTableHeadings() {
+    return TableHeadings;
+  }
+
+  getButton() {
+    return Button;
+  }
+
+  getLabel() {
+    return Label;
   }
 
 }

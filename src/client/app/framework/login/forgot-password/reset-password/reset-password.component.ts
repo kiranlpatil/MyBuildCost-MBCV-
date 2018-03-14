@@ -1,14 +1,14 @@
-import {Component, OnInit} from "@angular/core";
-import {MessageService} from "../../../../shared/services/message.service";
-import {SessionStorageService} from "../../../../shared/services/session.service";
-import {SessionStorage, NavigationRoutes} from "../../../../shared/index";
-import {ResetPasswordService} from "./reset-password.service";
-import {ImagePath, Messages, ProjectAsset, Label, Button, Headings} from "../../../../shared/constants";
-import {Message} from "../../../../shared/models/message";
-import {ResetPassword} from "../../../../user/models/reset-password";
-import {FormBuilder, FormGroup} from "@angular/forms";
-import {ActivatedRoute, Params, Router} from "@angular/router";
-import {ValidationService} from "../../../../shared/customvalidations/validation.service";
+import { Component, OnInit } from '@angular/core';
+import { MessageService } from '../../../../shared/services/message.service';
+import { SessionStorageService } from '../../../../shared/services/session.service';
+import { SessionStorage, NavigationRoutes } from '../../../../shared/index';
+import { ResetPasswordService } from './reset-password.service';
+import { ImagePath, Messages, ProjectAsset, Label, Button, Headings } from '../../../../shared/constants';
+import { Message } from '../../../../shared/models/message';
+import { ResetPassword } from '../../../../user/models/reset-password';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { ActivatedRoute, Params, Router } from '@angular/router';
+import { ValidationService } from '../../../../shared/customvalidations/validation.service';
 
 
 @Component({
@@ -68,12 +68,12 @@ export class ResetPasswordComponent implements OnInit {
     if (!this.makePasswordConfirm()) {
       this.resetPasswordService.newPassword(this.model)
         .subscribe(
-          res => (this.newPasswordSuccess(res)),
-          error => (this.newPasswordFail(error)));
+          res => (this.onNewPasswordSuccess(res)),
+          error => (this.onNewPasswordFailure(error)));
     }
   }
 
-  newPasswordSuccess(res: any) {
+  onNewPasswordSuccess(res: any) {
     var message = new Message();
     message.isError = false;
     message.custom_message = Messages.MSG_SUCCESS_RESET_PASSWORD;
@@ -82,7 +82,7 @@ export class ResetPasswordComponent implements OnInit {
 
   }
 
-  newPasswordFail(error: any) {
+  onNewPasswordFailure(error: any) {
     if (error.err_code === 404 || error.err_code === 0) {
       var message = new Message();
       message.error_msg = error.err_msg;

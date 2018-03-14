@@ -1,5 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute, Params, Router} from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { LoginService } from './login.service';
 import { Login } from '../../user/models/login';
 import {
@@ -17,8 +17,7 @@ import { ValidationService } from '../../shared/customvalidations/validation.ser
 import { Label, LocalStorage, Messages, ProjectAsset } from '../../shared/constants';
 import { SharedService } from '../../shared/services/shared-service';
 import { RegistrationService } from '../../user/services/registration.service';
-import { LocalStorageService } from '../../shared/services/localstorage.service';
-/*declare var CareerPluginLoad:any;*/
+import { LocalStorageService } from './../../shared/services/local-storage.service';
 
 @Component({
   moduleId: module.id,
@@ -47,6 +46,7 @@ export class LoginComponent implements OnInit {
   isFromCareerPlugin: boolean = false;
   recruiterReferenceId: string;
   isRememberPassword: boolean = false;
+
   constructor(private _router: Router, private loginService: LoginService, private themeChangeService: ThemeChangeService,
               private messageService: MessageService, private formBuilder: FormBuilder,
               private sharedService: SharedService, private activatedRoute: ActivatedRoute,
@@ -78,7 +78,7 @@ export class LoginComponent implements OnInit {
         this.userForm.controls['email'].setValue(SessionStorageService.getSessionValue(SessionStorage.EMAIL_ID));
         this.userForm.controls['password'].setValue(SessionStorageService.getSessionValue(SessionStorage.PASSWORD));
         this.isRememberPassword=true;
-      }else{
+      }else {
         this.isRememberPassword=false;
       }
 
@@ -97,19 +97,14 @@ export class LoginComponent implements OnInit {
     this.loginService.getUserData()
       .subscribe(
         data => {
-          this.registrationService.onSuccess(data);
-        }, error => { this.registrationService.loginFail(error);}
+          this.registrationService.onGetUserDataSuccess(data);
+        }, error => { this.registrationService.onLoginFailure(error);}
       );
-  }
-
-  closeToaster() {
-    this.isToasterVisible = false;
-    this.sharedService.setToasterVisiblity(this.isToasterVisible);
   }
 
   onSubmit() {
     this.model = this.userForm.value;
-    if (this.model.email == '' || this.model.password == '') {
+    if (this.model.email === '' || this.model.password === '') {
       this.submitStatus = true;
       return;
     }
@@ -125,20 +120,25 @@ export class LoginComponent implements OnInit {
     window.scrollTo(0,0);
   }
 
-  loginSuccess(res: any) {
+  currentPosition(position: any) {
+    this.loginService.userLogin(this.model)
+      .subscribe(
+        res => (this.onUserLoginSuccess(res)),
+        error => (this.onUserLoginFailure(error)));
+  }
+
+  onUserLoginSuccess(res: any) {
     if(this.isRememberPassword) {
       LocalStorageService.setLocalValue(LocalStorage.ACCESS_TOKEN, res.access_token);
       LocalStorageService.setLocalValue(LocalStorage.IS_LOGGED_IN, 1);
       LocalStorageService.setLocalValue(LocalStorage.FIRST_NAME, res.data.first_name);
       SessionStorageService.setSessionValue(SessionStorage.PASSWORD, this.model.password);
-    }
-    else {
+    } else {
       LocalStorageService.setLocalValue(LocalStorage.IS_LOGGED_IN, 0);
     }
     SessionStorageService.setSessionValue(SessionStorage.EMAIL_ID, res.data.email);
     SessionStorageService.setSessionValue(SessionStorage.MOBILE_NUMBER, res.data.mobile_number);
     SessionStorageService.setSessionValue(SessionStorage.FIRST_NAME, res.data.first_name);
-   /* SessionStorageService.setSessionValue(SessionStorage.LAST_NAME, res.data.last_name);*/
 
     this.userForm.reset();
     if (res.data.current_theme) {
@@ -153,35 +153,7 @@ export class LoginComponent implements OnInit {
     this.successRedirect(res);
   }
 
-  currentPosition(position: any) {
-    this.loginService.userLogin(this.model)
-      .subscribe(
-        res => (this.loginSuccess(res)),
-        error => (this.loginFail(error)));
-  }
-
-  locationError(error: any) {
-    this.loginService.userLogin(this.model)
-      .subscribe(
-        res => (this.loginSuccess(res)),
-        error => (this.loginFail(error)));
-    console.log('location access is disable');
-  }
-
-  navigateTo(navigateTo: string) {
-    if (navigateTo !== undefined) {
-      this._router.navigate([navigateTo]);
-    }
-  }
-
-
-  successRedirect(res: any) {
-    SessionStorageService.setSessionValue(SessionStorage.IS_LOGGED_IN, 1);
-    SessionStorageService.setSessionValue(SessionStorage.PROFILE_PICTURE, res.data.picture);
-    this._router.navigate([NavigationRoutes.APP_DASHBOARD]);
-  }
-
-  loginFail(error: any) {
+  onUserLoginFailure(error: any) {
 
     if (error.err_code === 404 || error.err_code === 0) {
       var message = new Message();
@@ -193,6 +165,19 @@ export class LoginComponent implements OnInit {
       this.isShowErrorMessage = false;
       this.error_msg = error.err_msg;
     }
+  }
+
+  locationError(error: any) {
+    this.loginService.userLogin(this.model)
+      .subscribe(
+        res => (this.onUserLoginSuccess(res)),
+        error => (this.onUserLoginFailure(error)));
+  }
+
+  successRedirect(res: any) {
+    SessionStorageService.setSessionValue(SessionStorage.IS_LOGGED_IN, 1);
+    SessionStorageService.setSessionValue(SessionStorage.PROFILE_PICTURE, res.data.picture);
+    this._router.navigate([NavigationRoutes.APP_DASHBOARD]);
   }
 
   onSignUp() {
@@ -209,9 +194,6 @@ export class LoginComponent implements OnInit {
     } else {
       this.isRememberPassword = false;
     }
-  }
-
-  onFailure(error: any) {
   }
 
   getMessages() {

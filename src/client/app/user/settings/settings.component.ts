@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from "@angular/core";
+import {Component, OnInit} from "@angular/core";
 import {
   AppSettings,
   CommonService,
@@ -25,7 +25,7 @@ import {ErrorService} from "../../shared/services/error.service";
   styleUrls: ['settings.component.css'],
   providers: [SettingsService],
 })
-export class SettingsComponent implements OnInit, OnDestroy {
+export class SettingsComponent implements OnInit {
   themeIs: string;
   isSocialLogin: boolean;
   model = new UserProfile();
@@ -41,7 +41,6 @@ export class SettingsComponent implements OnInit, OnDestroy {
                 private themeChangeService: ThemeChangeService, private changeThemeServie: SettingsService,
                 private messageService: MessageService, private formBuilder: FormBuilder, private loaderService: LoaderService) {
 
-    //this.themeIs = SessionStorageService.getSessionValue(SessionStorage.MY_THEME);
     this.themeIs = AppSettings.INITIAL_THEM;
 
     this.userForm = this.formBuilder.group({
@@ -75,32 +74,27 @@ export class SettingsComponent implements OnInit, OnDestroy {
     this.candidate.basicInformation = candidateData.metadata;
     this.candidate.summary = new Summary();
   }
-
-  ngOnDestroy() {
-    //this.loaderService.stop();
-  }
-
   darkTheme() {
     this.themeChangeService.change(this.INITIAL_THEME);
-    this.changeThemeServie.chageTheme(this.INITIAL_THEME)
+    this.changeThemeServie.changeTheme(this.INITIAL_THEME)
       .subscribe(
-        body => this.changeThemeSuccess(body),
-        error => this.changeThemeFail(error));
+        body => this.onChangeThemeSuccess(body),
+        error => this.onChangeThemeFailure(error));
   }
 
   lightTheme() {
     this.themeChangeService.change(this.INITIAL_THEME);
-    this.changeThemeServie.chageTheme(this.INITIAL_THEME)
+    this.changeThemeServie.changeTheme(this.INITIAL_THEME)
       .subscribe(
-        body => this.changeThemeSuccess(body),
-        error => this.changeThemeFail(error));
+        body => this.onChangeThemeSuccess(body),
+        error => this.onChangeThemeFailure(error));
   }
 
   goBack() {
     this.commonService.goBack();
   }
 
-  changeThemeSuccess(body: any) {
+  onChangeThemeSuccess(body: any) {
     var message = new Message();
     message.isError = false;
     message.custom_message = Messages.MSG_SUCCESS_CHANGE_THEME;
@@ -109,7 +103,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
     SessionStorageService.setSessionValue(SessionStorage.MY_THEME, body.data.current_theme);
   }
 
-  changeThemeFail(error: any) {
+  onChangeThemeFailure(error: any) {
     var message = new Message();
     message.isError = false;
     message.custom_message = Messages.MSG_ERROR_CHANGE_THEME;

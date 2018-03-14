@@ -1,11 +1,9 @@
-import {Component} from "@angular/core";
-import {SessionStorage, Messages} from "../../../shared/constants";
-import {RegistrationService} from "../../../user/services/registration.service";
-import {Login} from "../../../user/models/login";
-import {SessionStorageService} from "../../../shared/services/session.service";
-import {LoginService} from "../../../framework/login/login.service";
-import {AnalyticService} from "../../../shared/services/analytic.service";
-import {Router} from "@angular/router";
+import { Component } from '@angular/core';
+import { SessionStorage, Messages } from '../../../shared/constants';
+import { Login } from '../../../user/models/login';
+import { SessionStorageService } from '../../../shared/services/session.service';
+import { AnalyticService } from '../../../shared/services/analytic.service';
+import { Router } from '@angular/router';
 declare var fbq: any;
 
 @Component({
@@ -18,12 +16,13 @@ export class CandidateSignUpVerificationComponent {
   signUpVerificationMessage:string;
   signUpVerificationHeading:string;
   actionName:string;
-  private loginModel:Login;
-  private showModalStyle: boolean = false;
   userID:string;
   mobileNumber:any;
+  private loginModel:Login;
+  private showModalStyle: boolean = false;
 
-  constructor(private _router: Router, private analyticService: AnalyticService, private registrationService: RegistrationService, private loginService: LoginService,) {
+
+  constructor(private _router: Router, private analyticService: AnalyticService) {
     this.signUpVerificationMessage = this.getMessages().MSG_MOBILE_VERIFICATION_MESSAGE;
     this.signUpVerificationHeading = this.getMessages().MSG_MOBILE_VERIFICATION_TITLE;
     this.actionName = this.getMessages().FROM_REGISTRATION;
@@ -33,14 +32,7 @@ export class CandidateSignUpVerificationComponent {
     fbq('track', 'PageView');
     this.analyticService.googleAnalyse(this._router);
   }
-  navigateToDashboard() {
-    this.loginModel.email = SessionStorageService.getSessionValue(SessionStorage.EMAIL_ID);
-    this.loginModel.password = SessionStorageService.getSessionValue(SessionStorage.PASSWORD);
-    this.loginService.userLogin(this.loginModel)
-      .subscribe(
-        (res:any) => (this.registrationService.onSuccess(res)),
-        (error:any) => (this.registrationService.loginFail(error)));
-  }
+
   getStyleModal() {
     if (this.showModalStyle) {
       return 'block';
@@ -48,7 +40,8 @@ export class CandidateSignUpVerificationComponent {
       return 'none';
     }
   }
-  showHideModal() {
+
+  toggleModal() {
     this.showModalStyle = !this.showModalStyle;
   }
   getMessages() {

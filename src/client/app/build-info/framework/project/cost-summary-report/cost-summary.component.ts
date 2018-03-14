@@ -1,59 +1,56 @@
 import { Component, OnInit } from '@angular/core';
 import { Router , ActivatedRoute } from '@angular/router';
 import {
-  AppSettings,
-  Label,
-  Button,
-  Headings,
-  NavigationRoutes
+  NavigationRoutes, ProjectElements, Button, Menus, Headings, Label,
+  ValueConstant
 } from '../../../../shared/constants';
-import { API, BaseService, SessionStorage, SessionStorageService,  Message,
-  Messages, MessageService } from '../../../../shared/index';
+import { SessionStorage, SessionStorageService,  Message, Messages, MessageService } from '../../../../shared/index';
 import { CostSummaryService } from './cost-summary.service';
-import { BuildingListService } from '../building/buildings-list/building-list.service';
-import { BuildingDetailsService } from '../building/building-details/building-details.service';
 import { Building } from '../../model/building';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ValidationService } from '../../../../shared/customvalidations/validation.service';
-import { CreateBuildingService } from '../building/create-building/create-building.service';
+import { BuildingService } from '../building/building.service';
+import { CostHead } from '../../model/costhead';
+import { EstimateReport } from '../../model/estimate-report';
+import { BuildingReport } from '../../model/building-report';
+import ProjectReport = require('../../model/project-report');
+
 
 @Component({
   moduleId: module.id,
-  selector: 'bi-cost-summary-project-report',
+  selector: 'bi-cost-summary-report',
   templateUrl: 'cost-summary.component.html',
   styleUrls: ['cost-summary.component.css'],
 })
 
 export class CostSummaryComponent implements OnInit {
 
-  projectBuildings: any;
+  buildingsReport: Array <BuildingReport>;
+  amenitiesReport: BuildingReport;
+  projectReport: ProjectReport;
   projectId: string;
   buildingId: string;
   cloneBuildingId: string;
-  currentBuildingId:string;
   costHeadId: number;
 
-  grandTotalofBudgetedCost: number;
-  grandTotalofTotalRate: number;
-  grandTotalofArea: number;
-  grandTotalofEstimatedCost : number;
-  grandTotalofEstimatedRate : number;
+  grandTotalOfBudgetedCost: number;
+  grandTotalOfTotalRate: number;
+  grandTotalOfArea: number;
+  grandTotalOfEstimatedCost : number;
+  grandTotalOfEstimatedRate : number;
 
   buildingName : string;
-  buildingsDetails: any;
-  estimatedCost : any;
   costHead: string;
-  costHeadName: string;
-  costHeadDetails :any;
-  estimatedItem: any;
-  buildingIndex:number;
+
+  estimatedItem: EstimateReport;
   showCostHeadList:boolean=false;
   showGrandTotalPanelBody:boolean=true;
+  compareIndex:number=0;
 
- public inActiveCostHeadArray:any;
+ public inActiveCostHeadArray: Array<CostHead>;
   cloneBuildingForm: FormGroup;
-  model: Building = new Building();
-  clonedBuildingDetails: any;
+  cloneBuildingModel: Building = new Building();
+  clonedBuildingDetails: Array<CostHead>;
 
   public costIn: any[] = [
     { 'costInId': 'Rs/Sqft'},
@@ -66,245 +63,191 @@ export class CostSummaryComponent implements OnInit {
     { 'costPerId': 'CarpetArea'},
   ];
 
-  defaultCostIn:string='Rs/Sqft';
-  defaultCostPer:string='SlabArea';
+  defaultCostingByUnit:string='Rs/Sqft';
+  defaultCostingByArea:string='SlabArea';
+  deleteConfirmationCostHead = ProjectElements.COST_HEAD;
+  deleteConfirmationBuilding = ProjectElements.BUILDING;
 
+  constructor(private costSummaryService : CostSummaryService, private activatedRoute : ActivatedRoute,
+              private formBuilder: FormBuilder, private _router : Router, private messageService : MessageService,
+              private buildingService: BuildingService ) {
 
-  constructor(private costSummaryService : CostSummaryService, private activatedRoute : ActivatedRoute, private formBuilder: FormBuilder, private _router : Router, private messageService : MessageService, private listBuildingService: BuildingListService,
-              private createBuildingService: CreateBuildingService, private viewBuildingService : BuildingDetailsService) {
     this.cloneBuildingForm = this.formBuilder.group({
-      'name': ['', ValidationService.requiredBuildingName],
-      'totalSlabArea':['', ValidationService.requiredSlabArea],
-      'totalCarperAreaOfUnit':['', ValidationService.requiredCarpetArea],
-      'totalSaleableAreaOfUnit':['', ValidationService.requiredSalebleArea],
-      'plinthArea':['', ValidationService.requiredPlinthArea],
-      'totalNoOfFloors':['', ValidationService.requiredNoOfFloors],
-      'noOfParkingFloors':['', ValidationService.requiredNoOfParkingFloors],
-      'carpetAreaOfParking':['', ValidationService.requiredCarpetAreaOfParking],
-      'noOfOneBHK': ['',  ValidationService.requiredOneBHK],
-      'noOfTwoBHK':['', ValidationService.requiredTwoBHK],
-      'noOfThreeBHK':['', ValidationService.requiredThreeBHK],
-      'noOfFourBHK':['', ValidationService.requiredFourBHK],
-      'noOfFiveBHK':['', ValidationService.requiredFiveBHK],
-      'noOfLift':['', ValidationService.requiredNoOfLifts],
+      name : ['', ValidationService.requiredBuildingName],
+      totalSlabArea :['', ValidationService.requiredSlabArea],
+      totalCarpetAreaOfUnit :['', ValidationService.requiredCarpetArea],
+      totalSaleableAreaOfUnit :['', ValidationService.requiredSalebleArea],
+      plinthArea :['', ValidationService.requiredPlinthArea],
+      totalNumOfFloors :['', ValidationService.requiredTotalNumOfFloors],
+      numOfParkingFloors :['', ValidationService.requiredNumOfParkingFloors],
+      carpetAreaOfParking :['', ValidationService.requiredCarpetAreaOfParking],
+      numOfOneBHK : [''],
+      numOfTwoBHK :[''],
+      numOfThreeBHK :[''],
+      numOfFourBHK :[''],
+      numOfFiveBHK :[''],
+      numOfLifts :['']
     });
   }
 
   ngOnInit() {
-    console.log('Inside Project Cost Sumamry Project');
-    /*this.estimatedCost = 1650000;*/
     this.activatedRoute.params.subscribe(params => {
       this.projectId = params['projectId'];
-      console.log(' this.projectId ->'+ this.projectId);
       if(this.projectId) {
-        this.onChangeCostingIn(this.defaultCostIn);
+        this.onChangeCostingByUnit(this.defaultCostingByUnit);
       }
     });
   }
 
-
-  setBuildingId(buildingId: string) {
+  setBuildingId( i:number, buildingId: string) {
+    this.compareIndex = i;
     SessionStorageService.setSessionValue(SessionStorage.CURRENT_BUILDING, buildingId);
   }
 
-  showInactiveCostHeadsOnDropDown(buildingId: string) {
-    console.log('Adding Costhead');
+  getAllInActiveCostHeads(buildingId: string) {
     this.buildingId=buildingId;
-    this.costSummaryService.getInactiveCostHeads(this.projectId,this.buildingId).subscribe(
-      inActiveCostHeads => this.onGetInactiveCostHeadsSuccess(inActiveCostHeads),
-      error => this.onGetInactiveCostHeadsFailure(error)
+    this.costSummaryService.getAllInActiveCostHeads( this.projectId, this.buildingId).subscribe(
+      inActiveCostHeads => this.onGetAllInActiveCostHeadsSuccess(inActiveCostHeads),
+      error => this.onGetAllInActiveCostHeadsFailure(error)
     );
   }
 
-
-  onGetInactiveCostHeadsSuccess(inActiveCostHeads : any) {
+  onGetAllInActiveCostHeadsSuccess(inActiveCostHeads : any) {
       this.inActiveCostHeadArray=inActiveCostHeads.data;
       this.showCostHeadList=true;
   }
 
-  onGetInactiveCostHeadsFailure(error : any) {
+  onGetAllInActiveCostHeadsFailure(error : any) {
     console.log(error);
   }
 
-  getAmount(buildingName:string, buildingId : string, estimatedItem :any) {
-    this.estimatedItem = estimatedItem.data;
+  goToCostHeadView( buildingId : string, buildingName:string, estimatedItem :any) {
+    this.estimatedItem = estimatedItem;
     this.costHeadId = estimatedItem.rateAnalysisId;
     SessionStorageService.setSessionValue(SessionStorage.CURRENT_BUILDING, buildingId);
     this.buildingId =  SessionStorageService.getSessionValue(SessionStorage.CURRENT_BUILDING);
-    this.projectId = SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT);
-    this._router.navigate([NavigationRoutes.APP_COST_HEAD, this.projectId, buildingName, estimatedItem.name, this.costHeadId]);
+    this.projectId = SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT_ID);
+
+    this._router.navigate([NavigationRoutes.APP_PROJECT, this.projectId, NavigationRoutes.APP_BUILDING, buildingName,
+    NavigationRoutes.APP_COST_SUMMARY, NavigationRoutes.APP_COST_HEAD, estimatedItem.name, this.costHeadId]);
   }
-  getCommonAmenities() {
-   this.projectId = SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT);
-    this._router.navigate([NavigationRoutes.APP_COMMON_AMENITIES,this.projectId]);
-}
-  getProjects() {
-    this.costSummaryService.getProjectDetails(this.projectId).subscribe(
-      projectCostSummary => this.onGetProjectCostSummarySuccess(projectCostSummary),
-      error => this.onGetProjectCostSummaryFail(error)
+
+  goToCommonAmenities() {
+    this.projectId = SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT_ID);
+    this._router.navigate([NavigationRoutes.APP_PROJECT,this.projectId,NavigationRoutes.APP_COMMON_AMENITIES]);
+  }
+
+  onChangeCostingByUnit(costingByUnit:any) {
+    this.defaultCostingByUnit=costingByUnit;
+    this.costSummaryService.getCostSummaryReport( this.projectId, this.defaultCostingByUnit, this.defaultCostingByArea).subscribe(
+      projectCostIn => this.onGetCostSummaryReportSuccess(projectCostIn),
+      error => this.onGetCostSummaryReportFailure(error)
     );
   }
 
-  getBuildingDetails() {
-    this.costSummaryService.getBuildingDetails(this.projectId).subscribe(
-      buildingDetails => this.onGetbuildingDetailsCostSummarySuccess(buildingDetails),
-      error => this.onGetbuildingDetailsCostSummaryFail(error)
-    );
+  onGetCostSummaryReportSuccess(projects : any) {
+    this.projectReport = new ProjectReport( projects.data.buildings, projects.data.commonAmenities[0]) ;
+    this.buildingsReport = this.projectReport.buildings;
+    this.amenitiesReport = this.projectReport.commonAmenities;
+    this.calculateGrandTotal();
   }
 
-  onGetbuildingDetailsCostSummarySuccess(buildingDetails : any) {
-    this.buildingsDetails = buildingDetails.data;
-  }
-
-  onGetbuildingDetailsCostSummaryFail(error : any) {
-    console.log(error);
-  }
-
-  onGetProjectCostSummarySuccess(projects : any) {
-    this.projectBuildings = projects.data[0].building;
-  }
-
-  onGetProjectCostSummaryFail(error : any) {
-    console.log(error);
-  }
-
-  onChangeCostingIn(costInId:any) {
-    if(costInId) {
-      this.defaultCostIn=costInId;
-    }
-    this.costSummaryService.getCost(this.projectId,this.defaultCostIn,this.defaultCostPer).subscribe(
-      projectCostIn => this.onGetCostInSuccess(projectCostIn),
-      error => this.onGetCostInFail(error)
-    );
-
-  }
-  onGetCostInSuccess(projects : any) {
-    this.projectBuildings = projects.data;
-    this.makeGrandTotal();
-  }
-
-  onGetCostInFail(error : any) {
+  onGetCostSummaryReportFailure(error : any) {
     console.log('onGetCostInFail()'+error);
   }
 
-  onChangeCostingPer(costPerId:any) {
-    console.log('costPerId : '+costPerId);
-    this.defaultCostPer=costPerId;
-
-    this.costSummaryService.getCost(this.projectId,this.defaultCostIn,this.defaultCostPer).subscribe(
-      projectCostPer => this.onGetCostPerSuccess(projectCostPer),
-      error => this.onGetCostPerFail(error)
+  //TODO : Check if can merge
+  onChangeCostingByArea(costingByArea:any) {
+    this.defaultCostingByArea=costingByArea;
+    this.costSummaryService.getCostSummaryReport( this.projectId, this.defaultCostingByUnit, this.defaultCostingByArea).subscribe(
+      projectCostPer => this.onGetCostSummaryReportSuccess(projectCostPer),
+      error => this.onGetCostSummaryReportFailure(error)
     );
   }
 
-  onGetCostPerSuccess(projects : any) {
-    this.projectBuildings = projects.data;
-
-    this.makeGrandTotal();
-  }
-
-  onGetCostPerFail(error : any) {
-    console.log('onGetCostPerFail()'+error);
-  }
-
-  getMessages() {
-    return Messages;
-  }
-
-  getLabels() {
-    return Label;
-  }
-
-  getButtons() {
-    return Button;
-  }
-
-  getHeadings() {
-    return Headings;
-  }
-  deleteCostHeadDetailsfun(buildingId: string, costHeadId: number) {
+  setIdsToInActiveCostHead(buildingId: string, costHeadId: number) {
     this.buildingId = buildingId;
     this.costHeadId = costHeadId;
   }
 
-  deleteCostHeadDetails() {
-    this.costSummaryService.deleteCostHead(this.buildingId, this.costHeadId).subscribe(
-        costHeadDetail => this.onDeleteCostHeadSuccess(costHeadDetail),
-        error => this.onDeleteCostHeadFail(error)
+  inActiveCostHead() {
+    let projectId = SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT_ID);
+    this.costSummaryService.inActiveCostHead( projectId, this.buildingId, this.costHeadId).subscribe(
+        costHeadDetail => this.onInActiveCostHeadSuccess(costHeadDetail),
+        error => this.onInActiveCostHeadFailure(error)
       );
     }
 
-  onDeleteCostHeadSuccess(costHeadDetail: any) {
-    this.onChangeCostingIn(this.defaultCostIn);
-     if ( costHeadDetail!== null) {
+  onInActiveCostHeadSuccess(costHeadDetails: any) {
+     if ( costHeadDetails !== null) {
       var message = new Message();
       message.isError = false;
       message.custom_message = Messages.MSG_SUCCESS_DELETE_COSTHEAD;
       this.messageService.message(message);
-      /* this.costSummaryService.onCostHeadUpdate(costHeadDetail);*/
     }
+    this.onChangeCostingByUnit(this.defaultCostingByUnit);
   }
 
-  onDeleteCostHeadFail(error: any) {
+  onInActiveCostHeadFailure(error: any) {
     console.log(error);
   }
 
-  inactiveCostHeadSelected(selectedInactiveCostHeadId:number) {
+  onChangeActiveSelectedCostHead(selectedInActiveCostHeadId:number) {
     this.showCostHeadList=false;
-    this.costSummaryService.addInactiveCostHead(selectedInactiveCostHeadId,this.projectId,this.buildingId).subscribe(
-      inActiveCostHeads => this.onAddInactiveCostHeadSuccess(inActiveCostHeads),
-      error => this.onAddInactiveCostHeadFailure(error)
+    this.costSummaryService.activeCostHead( this.projectId, this.buildingId, selectedInActiveCostHeadId).subscribe(
+      inActiveCostHeads => this.onActiveCostHeadSuccess(inActiveCostHeads),
+      error => this.onActiveCostHeadFailure(error)
     );
   }
 
-
-  onAddInactiveCostHeadSuccess(inActiveCostHeads : any) {
-    console.log('onAddCostheadSuccess ->'+inActiveCostHeads);
+  onActiveCostHeadSuccess(inActiveCostHeads : any) {
     var message = new Message();
     message.isError = false;
     message.custom_message = Messages.MSG_SUCCESS_ADD_COSTHEAD;
     this.messageService.message(message);
-    this.onChangeCostingIn(this.defaultCostIn);
+    this.onChangeCostingByUnit(this.defaultCostingByUnit);
   }
 
-  onAddInactiveCostHeadFailure(error : any) {
-    console.log('onAddCostheadSuccess()'+error);
+  onActiveCostHeadFailure(error : any) {
+    console.log('onActiveCostHeadFailure()'+error);
   }
 
-  changeBudgetedCost(buildingId: string, costHead: string, amount: number, buildingArea : number) {
+  changeRateOfThumbRule(buildingId: string, costHead: string, amount: number, buildingArea : number) {
     if (amount !== null) {
-      let costIn : string;
-      let costPer : string;
-      (this.defaultCostIn==='Rs/Sqft') ? costIn = 'sqft' : costIn = 'sqmt';
-      (this.defaultCostPer==='SlabArea') ? costPer = 'slabArea' : costPer = 'saleableArea';
-
-      this.costSummaryService.updateBudgetCostAmountForCostHead(buildingId, costHead, costIn, costPer, buildingArea, amount).subscribe(
-        buildingDetails => this.updatedCostHeadAmountSuccess(buildingDetails),
-        error => this.updatedCostHeadAmountFail(error)
+      let costingByUnit : string;
+      let costingByArea : string;
+      (this.defaultCostingByUnit==='Rs/Sqft') ? costingByUnit = 'sqft' : costingByUnit = 'sqmt';
+      (this.defaultCostingByArea==='SlabArea') ? costingByArea = 'slabArea' : costingByArea = 'saleableArea';
+      let projectId=SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT_ID);
+      this.costSummaryService.updateRateOfThumbRule( projectId, buildingId, costHead,
+        costingByUnit, costingByArea, buildingArea, amount).subscribe(
+        buildingDetails => this.onUpdateRateOfThumbRuleSuccess(buildingDetails),
+        error => this.onUpdateRateOfThumbRuleFailure(error)
       );
     }
   }
 
-  updatedCostHeadAmountSuccess(buildingDetails : any) {
+  onUpdateRateOfThumbRuleSuccess(buildingDetails : any) {
     var message = new Message();
     message.isError = false;
-    message.custom_message = Messages.MSG_SUCCESS_UPDATE_BUDGETED_COST_COSTHEAD;
+    message.custom_message = Messages.MSG_SUCCESS_UPDATE_THUMBRULE_RATE_COSTHEAD;
     this.messageService.message(message);
-    this.onChangeCostingIn(this.defaultCostIn);
+    this.onChangeCostingByUnit(this.defaultCostingByUnit);
   }
 
-  updatedCostHeadAmountFail(error : any) {
+  onUpdateRateOfThumbRuleFailure(error : any) {
     console.log('onAddCostheadSuccess : '+error);
   }
 
-  deleteBuildingFunction(buildingId : string) {
-    this.currentBuildingId = buildingId;
+  setIdForDeleteBuilding(buildingId : string) {
+    this.buildingId = buildingId;
   }
 
-    deleteThisBuilding() {
-    this.listBuildingService.deleteBuildingById( this.currentBuildingId).subscribe(
+  deleteBuilding() {
+    let projectId=SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT_ID);
+    this.buildingService.deleteBuilding( projectId, this.buildingId).subscribe(
       project => this.onDeleteBuildingSuccess(project),
-      error => this.onDeleteBuildingFail(error)
+      error => this.onDeleteBuildingFailure(error)
     );
   }
 
@@ -313,123 +256,144 @@ export class CostSummaryComponent implements OnInit {
       var message = new Message();
       message.isError = false;
       message.custom_message = Messages.MSG_SUCCESS_DELETE_BUILDING;
-      console.log(result);
       this.messageService.message(message);
-      this.onChangeCostingIn(this.defaultCostIn);
+      this.onChangeCostingByUnit(this.defaultCostingByUnit);
       }
   }
-  onDeleteBuildingFail(error : any) {
+
+  onDeleteBuildingFailure(error : any) {
     console.log(error);
   }
 
-  addBuilding() {
-    this._router.navigate([NavigationRoutes.APP_CREATE_BUILDING]);
-  }
-
-  editBuildingDetails(buildingId: string) {
+  goToEditBuilding(buildingId: string) {
     SessionStorageService.setSessionValue(SessionStorage.CURRENT_BUILDING, buildingId);
     this._router.navigate([NavigationRoutes.APP_VIEW_BUILDING_DETAILS, buildingId]);
   }
 
   cloneBuilding(buildingId: string) {
-    this.viewBuildingService.getBuildingDetails(buildingId).subscribe(
-      building => this.onGetBuildingDataSuccess(building),
-      error => this.onGetBuildingDataFail(error)
+    let projectId=SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT_ID);
+    this.buildingService.getBuildingDetailsForClone( projectId, buildingId).subscribe(
+      building => this.onGetBuildingDetailsForCloneSuccess(building),
+      error => this.onGetBuildingDetailsForCloneFailure(error)
     );
   }
 
-  onGetBuildingDataSuccess(building: any) {
-    let buildingDetails = building.data;
-    this.clonedBuildingDetails = building.data.costHead;
-    this.model.name = buildingDetails.name;
-    this.model.totalSlabArea = buildingDetails.totalSlabArea;
-    this.model.totalCarperAreaOfUnit = buildingDetails.totalCarperAreaOfUnit;
-    this.model.totalSaleableAreaOfUnit = buildingDetails.totalSaleableAreaOfUnit;
-    this.model.plinthArea = buildingDetails.plinthArea;
-    this.model.totalNoOfFloors = buildingDetails.totalNoOfFloors;
-    this.model.noOfParkingFloors = buildingDetails.noOfParkingFloors;
-    this.model.carpetAreaOfParking = buildingDetails.carpetAreaOfParking;
-    this.model.noOfOneBHK = buildingDetails.noOfOneBHK;
-    this.model.noOfTwoBHK = buildingDetails.noOfTwoBHK;
-    this.model.noOfThreeBHK = buildingDetails.noOfThreeBHK;
-    this.model.noOfFourBHK = buildingDetails.noOfFourBHK;
-    this.model.noOfFiveBHK = buildingDetails.noOfFiveBHK;
-    this.model.noOfLift = buildingDetails.noOfLift;
+  onGetBuildingDetailsForCloneSuccess(building: any) {
+    this.cloneBuildingModel = building.data;
+    this.clonedBuildingDetails = building.data.costHeads;
   }
 
-  onGetBuildingDataFail(error: any) {
+  onGetBuildingDetailsForCloneFailure(error: any) {
     console.log(error);
   }
 
   cloneBuildingBasicDetails() {
     if (this.cloneBuildingForm.valid) {
-      this.model = this.cloneBuildingForm.value;
-      this.createBuildingService.addBuilding(this.model)
+     // this.cloneBuildingModel = this.cloneBuildingForm.value;
+      let projectId=SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT_ID);
+      this.buildingService.createBuilding( projectId, this.cloneBuildingModel)
         .subscribe(
-          building => this.addNewBuildingSuccess(building),
-          error => this.addNewBuildingFailed(error));
+          building => this.onCreateBuildingSuccess(building),
+          error => this.onCreateBuildingFailure(error));
     }
   }
 
-  addNewBuildingSuccess(building: any) {
-    this.cloneBuildingId = building.data._id;
+  onCreateBuildingSuccess(building: any) {
+    //this.cloneBuildingId = building.data._id;
+    var message = new Message();
+    message.isError = false;
+    message.custom_message = Messages.MSG_SUCCESS_CLONED_BUILDING_DETAILS;
+    this.messageService.message(message);
+    this.onChangeCostingByUnit(this.defaultCostingByUnit);
   }
 
-  addNewBuildingFailed(error: any) {
+  onCreateBuildingFailure(error: any) {
     console.log(error);
   }
 
-  updateThisBuilding(cloneCostHead: any) {
-    this.listBuildingService.updateBuildingByCostHead(cloneCostHead, this.cloneBuildingId).subscribe(
-      project => this.updateBuildingSuccess(project),
-      error => this.updateBuildingFail(error)
+  cloneBuildingCostHeads(cloneCostHead: CostHead) {
+    let projectId=SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT_ID);
+    this.buildingService.cloneBuildingCostHeads( projectId, this.cloneBuildingId, cloneCostHead).subscribe(
+      project => this.onCloneBuildingCostHeadsSuccess(project),
+      error => this.onCloneBuildingCostHeadsFailure(error)
     );
   }
 
-  updateBuildingSuccess(project: any) {
+  onCloneBuildingCostHeadsSuccess(project: any) {
     var message = new Message();
     message.isError = false;
     message.custom_message = Messages.MSG_SUCCESS_ADD_BUILDING_PROJECT;
     this.messageService.message(message);
-    this.onChangeCostingIn(this.defaultCostIn);
+    this.onChangeCostingByUnit(this.defaultCostingByUnit);
   }
 
-  updateBuildingFail(error: any) {
+  onCloneBuildingCostHeadsFailure(error: any) {
     console.log(error);
   }
 
-  makeGrandTotal() {
+  calculateGrandTotal() {
     //ToDo we have to remove this code after
-    this.grandTotalofBudgetedCost = 0;
-    this.grandTotalofTotalRate = 0;
-    this.grandTotalofArea = 0;
+    this.grandTotalOfBudgetedCost = 0;
+    this.grandTotalOfTotalRate = 0;
+    this.grandTotalOfArea = 0;
 
-    this.grandTotalofEstimatedCost = 0;
-    this.grandTotalofEstimatedRate = 0;
+    this.grandTotalOfEstimatedCost = 0;
+    this.grandTotalOfEstimatedRate = 0;
 
-    for (let buildindIndex = 0; buildindIndex < this.projectBuildings.length; buildindIndex++) {
+    //Calculate total of all building
+    for (let buildindIndex = 0; buildindIndex < this.buildingsReport.length; buildindIndex++) {
 
-      this.grandTotalofBudgetedCost = this.grandTotalofBudgetedCost +
-        parseFloat(this.projectBuildings[buildindIndex].thumbRule.totalBudgetedCost);
+      this.grandTotalOfBudgetedCost = this.grandTotalOfBudgetedCost +
+        parseFloat((this.buildingsReport[buildindIndex].thumbRule.totalBudgetedCost).toFixed(ValueConstant.NUMBER_OF_FRACTION_DIGIT));
 
-      this.grandTotalofTotalRate = this.grandTotalofTotalRate + parseFloat(this.projectBuildings[buildindIndex].thumbRule.totalRate);
+      this.grandTotalOfTotalRate = this.grandTotalOfTotalRate +
+        parseFloat((this.buildingsReport[buildindIndex].thumbRule.totalRate).toFixed(ValueConstant.NUMBER_OF_FRACTION_DIGIT));
 
-      this.grandTotalofArea =( this.grandTotalofArea + parseFloat(this.projectBuildings[buildindIndex].area));
+      this.grandTotalOfArea =( this.grandTotalOfArea + parseFloat((
+        this.buildingsReport[buildindIndex].area).toFixed(ValueConstant.NUMBER_OF_FRACTION_DIGIT)));
 
-      this.grandTotalofEstimatedCost = this.grandTotalofEstimatedCost +
-        parseFloat(this.projectBuildings[buildindIndex].estimated.totalEstimatedCost);
+      this.grandTotalOfEstimatedCost = this.grandTotalOfEstimatedCost +
+        parseFloat((this.buildingsReport[buildindIndex].estimate.totalEstimatedCost).toFixed(ValueConstant.NUMBER_OF_FRACTION_DIGIT));
 
-      this.grandTotalofEstimatedRate = this.grandTotalofEstimatedRate +
-        parseFloat(this.projectBuildings[buildindIndex].estimated.totalRate);
+      this.grandTotalOfEstimatedRate = this.grandTotalOfEstimatedRate +
+        parseFloat((this.buildingsReport[buildindIndex].estimate.totalRate).toFixed(ValueConstant.NUMBER_OF_FRACTION_DIGIT));
     }
+
+    //Calculate total with amenities data
+    this.grandTotalOfBudgetedCost = this.grandTotalOfBudgetedCost +
+      parseFloat((this.amenitiesReport.thumbRule.totalBudgetedCost).toFixed(ValueConstant.NUMBER_OF_FRACTION_DIGIT));
+
+    this.grandTotalOfTotalRate = this.grandTotalOfTotalRate +
+      parseFloat((this.amenitiesReport.thumbRule.totalRate).toFixed(ValueConstant.NUMBER_OF_FRACTION_DIGIT));
+
   }
 
   toggleShowGrandTotalPanelBody() {
     this.showGrandTotalPanelBody=!this.showGrandTotalPanelBody;
   }
 
-  showGrandTotalBody() {
-    this.toggleShowGrandTotalPanelBody();
+  deleteElement(elementType : string) {
+    if(elementType === ProjectElements.COST_HEAD) {
+      this.inActiveCostHead();
+    }
+    if(elementType === ProjectElements.BUILDING) {
+      this.deleteBuilding();
+    }
   }
 
+  getMenus() {
+    return Menus;
+  }
+
+  getLabel() {
+    return Label;
+  }
+
+  getButton() {
+    return Button;
+  }
+
+  getHeadings() {
+    return Headings;
+  }
 }

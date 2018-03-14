@@ -23,16 +23,20 @@ class RateAnalysisRoutes {
   get routes () : express.Router {
 
     var controller = this._rateAnalysisController;
+     //Provide all costheads from RateAnalysis
     router.get('/costHeads', this.authInterceptor.requiresAuth, this._requestInterceptor.intercept,
       controller.getRateAnalysisCostHeads, this._responseInterceptor.exit);
 
+    //Provide all workitems from RateAnalysis
     router.get('/workItems', this.authInterceptor.requiresAuth, this._requestInterceptor.intercept,
       controller.getRateAnalysisWorkItems, this._responseInterceptor.exit);
 
-    router.get('/costHead/:id/workItems', this.authInterceptor.requiresAuth, this._requestInterceptor.intercept,
+    //Provide workitems from RateAnalysis by costheadId
+    router.get('/costHead/:costHeadId/workItems', this.authInterceptor.requiresAuth, this._requestInterceptor.intercept,
       controller.getRateAnalysisWorkItemsByCostHeadId, this._responseInterceptor.exit);
 
-    router.get('/costHead/:costHeadId/workItem/:workitemId', this.authInterceptor.requiresAuth, this._requestInterceptor.intercept,
+    //Retrive rate from RateAnalysis for workitem
+    router.get('/costHead/:costHeadId/workItem/:workItemId', this.authInterceptor.requiresAuth, this._requestInterceptor.intercept,
       controller.getRate, this._responseInterceptor.exit);
     return router;
   }

@@ -1,7 +1,7 @@
-import {Component, Input} from "@angular/core";
-import {Router} from "@angular/router";
-import {ImagePath, LoaderService, NavigationRoutes} from "../../shared/index";
-import {AppSettings} from "../../shared/constants";
+import { Component, Input } from '@angular/core';
+import { Router } from '@angular/router';
+import { ImagePath, LoaderService, NavigationRoutes } from '../../shared/index';
+import { AppSettings } from '../../shared/constants';
 
 @Component({
   moduleId: module.id,

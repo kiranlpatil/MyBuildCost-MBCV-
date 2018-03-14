@@ -16,12 +16,11 @@ export class FooterComponent {
     this.UNDER_LICENCE = ProjectAsset.UNDER_LICENECE;
   }
 
-  goToFaq() {
-    //let host = AppSettings.HTTP_CLIENT + AppSettings.HOST_NAME + API.FAQ;
-    //window.open(host, '_blank');
+ /*ToDo For future use
+   goToFaq() {
   }
 
   getMessage() {
     return Messages;
-  }
+  }*/
 }

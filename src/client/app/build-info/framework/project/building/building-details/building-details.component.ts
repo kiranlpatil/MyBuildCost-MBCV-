@@ -1,101 +1,77 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { Router, ActivatedRoute } from '@angular/router';
-import { Messages } from '../../../../../shared/constants';
-import { BuildingDetailsService } from './building-details.service';
+import { ActivatedRoute } from '@angular/router';
+import { Messages, Headings } from '../../../../../shared/constants';
 import { Building } from './../../../model/building';
 import { MessageService } from '../../../../../shared/index';
 import { Message } from '../../../../../shared/index';
-import { ValidationService } from '../../../../../shared/customvalidations/validation.service';
+import { BuildingService } from '../building.service';
+import { SessionStorage, SessionStorageService } from '../../../../../shared/index';
 
 @Component({
   moduleId: module.id,
-  selector: 'bi-view-building',
+  selector: 'bi-building-details',
   templateUrl: 'building-details.component.html'
 })
 
 export class BuildingDetailsComponent implements OnInit {
 
-  viewBuildingForm:  FormGroup;
-  buildings : any;
   buildingId : string;
-  model: Building = new Building();
+  buildingModel: Building = new Building();
   public isShowErrorMessage: boolean = true;
-  public error_msg: boolean = false;
+  public errorMessage: boolean = false;
 
-  constructor(private viewBuildingService: BuildingDetailsService, private _router: Router, private formBuilder: FormBuilder,
+  constructor(private buildingService: BuildingService,
               private activatedRoute:ActivatedRoute, private messageService: MessageService) {
-
-    this.viewBuildingForm = this.formBuilder.group({
-      'name': ['', ValidationService.requiredBuildingName],
-      'totalSlabArea':['', ValidationService.requiredSlabArea],
-      'totalCarperAreaOfUnit':['', ValidationService.requiredCarpetArea],
-      'totalSaleableAreaOfUnit':['', ValidationService.requiredSalebleArea],
-      'plinthArea':['', ValidationService.requiredPlinthArea],
-      'totalNoOfFloors':['', ValidationService.requiredNoOfFloors],
-      'noOfParkingFloors':['', ValidationService.requiredNoOfParkingFloors],
-      'carpetAreaOfParking':['', ValidationService.requiredCarpetAreaOfParking],
-      'noOfOneBHK': ['',  ValidationService.requiredOneBHK],
-      'noOfTwoBHK':['', ValidationService.requiredTwoBHK],
-      'noOfThreeBHK':['', ValidationService.requiredThreeBHK],
-      'noOfFourBHK':['', ValidationService.requiredFourBHK],
-      'noOfFiveBHK':['', ValidationService.requiredFiveBHK],
-      'noOfLift':['', ValidationService.requiredNoOfLifts],
-    });
-
   }
 
   ngOnInit() {
-    console.log('Building details');
     this.activatedRoute.params.subscribe(params => {
       this.buildingId = params['buildingId'];
       if(this.buildingId) {
-        this.getBuildingDetails();
+        this.getBuilding();
       }
     });
   }
 
-  getBuildingDetails() {
-    this.viewBuildingService.getBuildingDetails(this.buildingId).subscribe(
+  getBuilding() {
+    let projectId=SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT_ID);
+    this.buildingService.getBuilding(projectId,this.buildingId).subscribe(
       building => this.onGetBuildingSuccess(building),
-      error => this.onGetBuildingFail(error)
+      error => this.onGetBuildingFailure(error)
     );
   }
 
   onGetBuildingSuccess(building : any) {
-    console.log('Building Data: '+JSON.stringify(building.data));
-    let buildingDetails=building.data;
-    this.model.name=buildingDetails.name;
-    this.model.totalSlabArea=buildingDetails.totalSlabArea;
-    this.model.totalCarperAreaOfUnit=buildingDetails.totalCarperAreaOfUnit;
-    this.model.totalSaleableAreaOfUnit=buildingDetails.totalSaleableAreaOfUnit;
-    this.model.plinthArea=buildingDetails.plinthArea;
-    this.model.totalNoOfFloors=buildingDetails.totalNoOfFloors;
-    this.model.noOfParkingFloors=buildingDetails.noOfParkingFloors;
-    this.model.carpetAreaOfParking=buildingDetails.carpetAreaOfParking;
-    this.model.noOfOneBHK=buildingDetails.noOfOneBHK;
-    this.model.noOfTwoBHK=buildingDetails.noOfTwoBHK;
-    this.model.noOfThreeBHK=buildingDetails.noOfThreeBHK;
-    this.model.noOfFourBHK=buildingDetails.noOfFourBHK;
-    this.model.noOfFiveBHK=buildingDetails.noOfFiveBHK;
-    this.model.noOfLift=buildingDetails.noOfLift;
+    this.buildingModel = building.data;
+  }
+
+  onGetBuildingFailure(error : any) {
+    var message = new Message();
+
+    if (error.err_code === 404 || error.err_code === 0) {
+      message.error_msg = error.err_msg;
+      message.isError = true;
+      this.messageService.message(message);
+    } else {
+      this.isShowErrorMessage = false;
+      this.errorMessage = error.err_msg;
+      message.error_msg = error.err_msg;
+      message.isError = true;
+      this.messageService.message(message);
     }
-
-  onGetBuildingFail(error : any) {
-    console.log(error);
   }
 
 
-  onSubmit() {
-    // this.submitted = true;
-      this.model = this.viewBuildingForm.value;
-      this.viewBuildingService.updateBuildingDetails(this.model)
+  updateBuilding(buildingModel : Building) {
+      let projectId=SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT_ID);
+      let buildingId=SessionStorageService.getSessionValue(SessionStorage.CURRENT_BUILDING);
+      this.buildingService.updateBuilding( projectId, buildingId, buildingModel)
         .subscribe(
-          building => this.updateBuildingDetailsSuccess(building),
-          error => this.updateBuildingDetailsError(error));
+          building => this.updateBuildingSuccess(building),
+          error => this.updateBuildingFailure(error));
   }
 
-  updateBuildingDetailsSuccess(result: any) {
+  updateBuildingSuccess(result: any) {
 
     if (result !== null) {
       var message = new Message();
@@ -105,7 +81,7 @@ export class BuildingDetailsComponent implements OnInit {
     }
   }
 
-  updateBuildingDetailsError(error: any) {
+  updateBuildingFailure(error: any) {
 
     var message = new Message();
 
@@ -115,26 +91,14 @@ export class BuildingDetailsComponent implements OnInit {
       this.messageService.message(message);
     } else {
       this.isShowErrorMessage = false;
-      this.error_msg = error.err_msg;
+      this.errorMessage = error.err_msg;
       message.error_msg = error.err_msg;
       message.isError = true;
       this.messageService.message(message);
     }
   }
 
-  // getMessages() {
-  //   return Messages;
-  // }
-  //
-  // getLabels() {
-  //   return Label;
-  // }
-  //
-  // getButtons() {
-  //   return Button;
-  // }
-  //
-  // getHeadings() {
-  //   return Headings;
-  // }
+  getHeadings() {
+    return Headings;
+  }
 }

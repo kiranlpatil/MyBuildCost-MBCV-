@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
-import { ChangePassword } from './../../../user/models/changepassword';
+import { ChangePassword } from '../../../user/models/change-password';
 import { API, BaseService, SessionStorage, SessionStorageService, MessageService } from '../../../shared/index';
 
 

@@ -1,11 +1,10 @@
-<header class="page-header" style="background: #9ca4ab">
+<header class="page-header">
   <div class="cn-logo" (click)="onHomePage()">
     <img src="{{getImagePath().MOBILE_WHITE_LOGO}}"/>
   </div>
   <nav *ngIf="!(MainHeaderMenuHideShow == 'hiringManger')">
     <ul>
       <li *ngIf="!(MainHeaderMenuHideShow == 'signin')"><a (click)="onLogin()">Sign In</a></li>
-      <!--<li><a (click)="onSignUp()">Register</a></li>-->
       <li *ngIf="!(MainHeaderMenuHideShow == 'applicant')"><a (click)="onSignUp()">Sign Up</a></li>
     </ul>
   </nav>

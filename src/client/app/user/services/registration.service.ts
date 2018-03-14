@@ -1,10 +1,10 @@
-import {Injectable} from "@angular/core";
-import {Router} from "@angular/router";
-import {SessionStorageService} from "../../shared/services/session.service";
-import {SessionStorage, AppSettings, NavigationRoutes} from "../../shared/constants";
-import {ThemeChangeService} from "../../shared/services/themechange.service";
-import {Message} from "../../shared/models/message";
-import {MessageService} from "../../shared/services/message.service";
+import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
+import { SessionStorageService } from '../../shared/services/session.service';
+import { SessionStorage, AppSettings, NavigationRoutes } from '../../shared/constants';
+import { ThemeChangeService } from '../../shared/services/themechange.service';
+import { Message } from '../../shared/models/message';
+import { MessageService } from '../../shared/services/message.service';
 
 @Injectable()
 export class RegistrationService {
@@ -12,7 +12,7 @@ export class RegistrationService {
   private isShowErrorMessage: boolean = true;
 constructor(private _router: Router, private themeChangeService: ThemeChangeService, private messageService: MessageService){}
 
-  onSuccess(res: any) {
+  onGetUserDataSuccess(res: any) {
     SessionStorageService.setSessionValue(SessionStorage.EMAIL_ID, res.data.email);
     SessionStorageService.setSessionValue(SessionStorage.MOBILE_NUMBER, res.data.mobile_number);
     SessionStorageService.setSessionValue(SessionStorage.FIRST_NAME, res.data.first_name);
@@ -35,7 +35,7 @@ constructor(private _router: Router, private themeChangeService: ThemeChangeServ
       this._router.navigate([NavigationRoutes.APP_CREATE_NEW_PROJECT]);
   }
 
-  loginFail(error: any) {
+  onLoginFailure(error: any) {
     SessionStorageService.setSessionValue(SessionStorage.PASSWORD, '');
     if (error.err_code === 404 || error.err_code === 0) {
       var message = new Message();

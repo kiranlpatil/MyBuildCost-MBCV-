@@ -1,13 +1,13 @@
-import {Component, EventEmitter, OnInit, Output} from "@angular/core";
-import {Router} from "@angular/router";
-import {ChangeMobileService} from "./change-mobile.service";
-import {ChangeMobile} from "../../models/changemobile";
-import {CommonService, ImagePath, Message, MessageService, NavigationRoutes} from "../../../shared/index";
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {ValidationService} from "../../../shared/customvalidations/validation.service";
-import {SessionStorageService} from "../../../shared/services/session.service";
-import {SessionStorage, Messages} from "../../../shared/constants";
-import {LoaderService} from "../../../shared/loader/loaders.service";
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Router } from '@angular/router';
+import { ChangeMobileService } from './change-mobile.service';
+import { ChangeMobile } from '../../models/change-mobile';
+import { CommonService, ImagePath, Message, MessageService, NavigationRoutes } from '../../../shared/index';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ValidationService } from '../../../shared/customvalidations/validation.service';
+import { SessionStorageService } from '../../../shared/services/session.service';
+import { SessionStorage, Messages } from '../../../shared/constants';
+import { LoaderService } from '../../../shared/loader/loaders.service';
 
 
 @Component({
@@ -64,17 +64,19 @@ export class ChangeMobileComponent implements OnInit {
   ngOnInit() {
     this.model.current_mobile_number = SessionStorageService.getSessionValue(SessionStorage.MOBILE_NUMBER);
   }
+
   onChangeInputValue() {
     this.isMobileNoConfirm=false;
     this.isShowErrorMessage=false;
   }
+
   onSubmit() {
     this.model = this.userForm.value;
     if (!this.makeMobileConfirm()) {
       this.MobileService.changeMobile(this.model)
         .subscribe(
           body => this.changeMobileSuccess(body),
-          error => this.changeMobileFail(error));
+          error => this.changeMobileFailure(error));
     }
     document.body.scrollTop = 0;
   }
@@ -84,6 +86,7 @@ export class ChangeMobileComponent implements OnInit {
     SessionStorageService.setSessionValue(SessionStorage.VERIFY_PHONE_VALUE, 'from_settings');
     this.raiseOtpVerification();
   }
+
    raiseOtpVerification() {
      this.verificationMessage=this.getMessages().MSG_MOBILE_NUMBER_CHANGE_VERIFICATION_MESSAGE;
      this.verificationMessageHeading=this.getMessages().MSG_MOBILE_NUMBER_CHANGE_VERIFICATION_TITLE;
@@ -91,7 +94,8 @@ export class ChangeMobileComponent implements OnInit {
      this.showModalStyleVerification=true;
      this.model.id=SessionStorageService.getSessionValue(SessionStorage.USER_ID);
   }
-  changeMobileFail(error: any) {
+
+  changeMobileFailure(error: any) {
     if (error.err_code === 404 || error.err_code === 0 || error.err_code===401) {
       var message = new Message();
       message.error_msg = error.err_msg;
@@ -111,14 +115,16 @@ export class ChangeMobileComponent implements OnInit {
     return Messages;
   }
 
-  showHideModal() {
+  toggleModal() {
     this.showModalStyle = !this.showModalStyle;
   }
+
   showHideModalVerification() {
     this.showModalStyleVerification = !this.showModalStyleVerification;
     this.model.current_mobile_number=SessionStorageService.getSessionValue(SessionStorage.MOBILE_NUMBER);
     this.onMobileNumberChangeComplete.emit();
   }
+
   logOut() {
     window.sessionStorage.clear();
     window.localStorage.clear();
@@ -132,6 +138,7 @@ export class ChangeMobileComponent implements OnInit {
       return 'none';
     }
   }
+
   getStyleVerification() {
     if (this.showModalStyleVerification) {
       return 'block';
@@ -139,6 +146,7 @@ export class ChangeMobileComponent implements OnInit {
       return 'none';
     }
   }
+
   onMobileNumberChange() {
     SessionStorageService.setSessionValue(SessionStorage.MOBILE_NUMBER, SessionStorage.VERIFIED_MOBILE_NUMBER);
     this.userForm.reset();
@@ -146,6 +154,5 @@ export class ChangeMobileComponent implements OnInit {
     this.model.current_mobile_number=SessionStorageService.getSessionValue(SessionStorage.VERIFIED_MOBILE_NUMBER);
     SessionStorageService.setSessionValue(SessionStorage.MOBILE_NUMBER,this.model.current_mobile_number);
     this.onMobileNumberChangeComplete.emit();
-
   }
 }

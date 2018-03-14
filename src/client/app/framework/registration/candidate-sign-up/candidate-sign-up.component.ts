@@ -7,7 +7,6 @@ import { ValidationService } from '../../../shared/customvalidations/validation.
 import { AppSettings, CommonService, Message, MessageService, NavigationRoutes } from '../../../shared/index';
 import { API, ImagePath, Label, SessionStorage, Messages } from '../../../shared/constants';
 import { SessionStorageService } from '../../../shared/services/session.service';
-import { DateService } from '../../../build-info/framework/date.service';
 import { SharedService } from '../../../shared/services/shared-service';
 import { ErrorService } from '../../../shared/services/error.service';
 import { AnalyticService } from '../../../shared/services/analytic.service';
@@ -31,29 +30,27 @@ export class CandidateSignUpComponent implements OnInit, AfterViewInit {
   yearMatchNotFoundMessage: string = Messages.MSG_YEAR_NO_MATCH_FOUND;
   model = new CandidateDetail();
   isPasswordConfirm: boolean;
-  private isFormSubmitted = false;
   userForm: FormGroup;
   error_msg: string;
   isShowErrorMessage: boolean = true;
-  private BODY_BACKGROUND: string;
-  private MY_LOGO: string;
   passingYear: string;
   validBirthYearList = new Array(0);
   mainHeaderMenuHideShow: string;
-  private year: any;
-  private currentDate: any;
   submitStatus: boolean;
-  private birthYearErrorMessage: string;
-  private passwordMismatchMessage: string;
-  private loginModel:Login;
   isChrome: boolean;
   isToasterVisible: boolean = true;
   isGuideMessageVisible: boolean = false;
   isFromCareerPlugin: boolean = false;
 
-  constructor(private analyticService: AnalyticService, private commonService: CommonService, private _router: Router, private dateService: DateService,
-              private candidateService: CandidateSignUpService, private messageService: MessageService, private formBuilder: FormBuilder,
-              private sharedService: SharedService, private errorService: ErrorService, private activatedRoute: ActivatedRoute,
+  private isFormSubmitted = false;
+  private BODY_BACKGROUND: string;
+  private MY_LOGO: string;
+  private loginModel:Login;
+
+ constructor(private analyticService: AnalyticService, private commonService: CommonService, private _router: Router,
+              private candidateService: CandidateSignUpService, private messageService: MessageService,
+             private formBuilder: FormBuilder, private sharedService: SharedService, private errorService: ErrorService,
+             private activatedRoute: ActivatedRoute,
               private loginService : LoginService, private registrationService : RegistrationService) {
 
     this.userForm = this.formBuilder.group({
@@ -67,10 +64,7 @@ export class CandidateSignUpComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    //this._router.navigate([NavigationRoutes.VERIFY_USER]);
-    // this.validBirthYearList = this.dateService.createBirthYearList(this.year);
     this.mainHeaderMenuHideShow = 'applicant';
-
     this.activatedRoute.queryParams.subscribe((params: Params) => {
       if(params['phoneNumber']) {
         this.userForm.controls['mobile_number']
@@ -84,12 +78,6 @@ export class CandidateSignUpComponent implements OnInit, AfterViewInit {
       this.isGuideMessageVisible = params['id'] === 'new_user' ? true : false;
     });
   }
-
-  closeToaster() {
-    this.isToasterVisible = false;
-    this.sharedService.setToasterVisiblity(this.isToasterVisible);
-  }
-
 
   onSubmit() {
     this.model = this.userForm.value;
@@ -113,12 +101,13 @@ export class CandidateSignUpComponent implements OnInit, AfterViewInit {
     this.candidateService.addCandidate(this.model)
       .subscribe(
         candidate => this.onRegistrationSuccess(candidate),
-        error => this.onRegistrationError(error));
+        error => this.onRegistrationFalure(error));
 
   }
+
   onRegistrationSuccess(candidate: any) {
-    fbq('track', 'CompleteRegistration');
-    this.gtag_report_conversion('AW-831903917/fTZvCPC1q3YQrbHXjAM');
+    /*fbq('track', 'CompleteRegistration');
+    this.gtag_report_conversion('AW-831903917/fTZvCPC1q3YQrbHXjAM');*/
     SessionStorageService.setSessionValue(SessionStorage.USER_ID, candidate.data._id);
     SessionStorageService.setSessionValue(SessionStorage.EMAIL_ID, this.userForm.value.email);
     SessionStorageService.setSessionValue(SessionStorage.PASSWORD, this.model.password);
@@ -131,11 +120,11 @@ export class CandidateSignUpComponent implements OnInit, AfterViewInit {
     this.loginModel.password = SessionStorageService.getSessionValue(SessionStorage.PASSWORD);
     this.loginService.userLogin(this.loginModel)
       .subscribe(
-        (res:any) => (this.registrationService.onSuccess(res)),
-        (error:any) => (this.registrationService.loginFail(error)));
+        (res:any) => (this.registrationService.onGetUserDataSuccess(res)),
+        (error:any) => (this.registrationService.onLoginFailure(error)));
   }
 
-  onRegistrationError(error: any) {
+  onRegistrationFalure(error: any) {
     if (error.err_code === 404 || error.err_code === 0) {
       var message = new Message();
       message.error_msg = error.err_msg;
@@ -145,13 +134,6 @@ export class CandidateSignUpComponent implements OnInit, AfterViewInit {
       this.isShowErrorMessage = false;
       this.error_msg = error.err_msg;
     }
-  }
-  goBack() {
-    this.commonService.goBack();
-    this._router.navigate(['/']);
-  }
-  goToCreateProject() {
-    this._router.navigate([NavigationRoutes.APP_DASHBOARD]);
   }
 
   goToSignIn() {
@@ -165,17 +147,8 @@ export class CandidateSignUpComponent implements OnInit, AfterViewInit {
     return Label;
   }
 
-  goToAcceptTerms() {
-    //let host = AppSettings.HTTP_CLIENT + AppSettings.HOST_NAME + API.ACCEPT_TERMS;
-    //window.open(host, '_blank');
-  }
 
   gtag_report_conversion(sendTo:any) {
-    var callback = function () {
-      /*if (typeof(url) != 'undefined') {
-       window.location = url;
-       }*/
-    };
     gtag('event', 'conversion', {
       'send_to': sendTo
     });

@@ -1,9 +1,9 @@
 import { Component, ElementRef, HostListener, Input } from '@angular/core';
 import { Router } from '@angular/router';
-import { Candidate, Section } from '../../../user/models/candidate';
-import {AppSettings, ImagePath, SessionStorage, Label, LocalStorage} from '../../../shared/constants';
+import { Candidate } from '../../../user/models/candidate';
+import { AppSettings, ImagePath, SessionStorage, LocalStorage } from '../../../shared/constants';
 import { SessionStorageService } from '../../../shared/services/session.service';
-import {LocalStorageService} from '../../../shared/services/localstorage.service';
+import { LocalStorageService } from '../../../shared/services/local-storage.service';
 
 @Component({
   moduleId: module.id,
@@ -21,8 +21,6 @@ export class DashboardHeaderComponent {
   user_last_name: string;
   HEADER_LOGO: string;
   MOBILE_LOGO: string;
-  newUser: number;
-  private highlightedSection: Section = new Section();
 
   @HostListener('document:click', ['$event']) onClick(event: any) {
     if (!this._eref.nativeElement.contains(event.target)) {
@@ -59,12 +57,16 @@ export class DashboardHeaderComponent {
   }
 
   navigateTo(nav:string) {
+    this.deleteProjectDetailsFromSessionStorege();
     this._router.navigate([nav]);
     this.closeMenu();
   }
-  onSkip() {
-    this.highlightedSection.name='none';
+
+  deleteProjectDetailsFromSessionStorege() {
+    sessionStorage.removeItem(SessionStorage.CURRENT_PROJECT_ID);
+    sessionStorage.removeItem(SessionStorage.CURRENT_PROJECT_NAME);
   }
+
   toggleMenu() {
     this.isClassVisible = !this.isClassVisible;
     this.isOpenProfile = false;
@@ -76,13 +78,5 @@ export class DashboardHeaderComponent {
 
   closeMenu() {
     this.isClassVisible = false;
-  }
-
-  goToGuidedTour() {
-    this.highlightedSection.name = 'GuideTour';
-    this.closeMenu();
-  }
-  getLabel() {
-    return Label;
   }
 }

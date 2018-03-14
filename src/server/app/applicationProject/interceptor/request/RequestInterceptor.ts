@@ -1,5 +1,4 @@
 import log4js = require('log4js');
-//import config = require('config');
 let logger = log4js.getLogger('RequestInterceptor');
 import { Singleton, Inject, AutoWired } from 'typescript-ioc';
 import * as express from 'express';

@@ -1,118 +1,82 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import {
-  AppSettings, Messages, Label, Button, Headings, NavigationRoutes,
-  ImagePath
-} from '../../../../../shared/constants';
-import { API, BaseService, SessionStorage, SessionStorageService,  Message,
+import { Messages, NavigationRoutes, ImagePath, Headings, Button } from '../../../../../shared/constants';
+import { SessionStorage, SessionStorageService,  Message,
   MessageService } from '../../../../../shared/index';
 import { Building } from '../../../model/building';
-import { CreateBuildingService } from './create-building.service';
-import { ValidationService } from '../../../../../shared/customvalidations/validation.service';
-import { SharedService } from '../../../../../shared/services/shared-service';
-
+import { BuildingService } from './../building.service';
+import { LoaderService } from '../../../../../shared/loader/loaders.service';
 
 @Component({
   moduleId: module.id,
-  selector: 'bi-add-building-entity',
+  selector: 'bi-create-building',
   templateUrl: 'create-building.component.html',
   styleUrls: ['create-building.component.css'],
 })
 
-export class CreateBuildingComponent implements OnInit {
+export class CreateBuildingComponent {
 
-  addBuildingForm:  FormGroup;
-  buildings : any;
-  public isShowErrorMessage: boolean = true;
-  public error_msg: boolean = false;
-  model: Building = new Building();
   BODY_BACKGROUND_TRANSPARENT: string;
 
-  constructor(private createBuildingService: CreateBuildingService, private formBuilder: FormBuilder,
-              private _router: Router, private messageService: MessageService,private sharedService: SharedService) {
+  constructor(private buildingService: BuildingService, private loaderService: LoaderService,
+              private _router: Router, private messageService: MessageService) {
     this.BODY_BACKGROUND_TRANSPARENT = ImagePath.BODY_BACKGROUND_TRANSPARENT;
-    this.addBuildingForm = this.formBuilder.group({
-      'name': ['', ValidationService.requiredBuildingName],
-      'totalSlabArea':['', ValidationService.requiredSlabArea],
-      'totalCarperAreaOfUnit':['', ValidationService.requiredCarpetArea],
-      'totalSaleableAreaOfUnit':['', ValidationService.requiredSalebleArea],
-      'plinthArea':['', ValidationService.requiredPlinthArea],
-      'totalNoOfFloors':['', ValidationService.requiredNoOfFloors],
-      'noOfParkingFloors':['', ValidationService.requiredNoOfParkingFloors],
-      'carpetAreaOfParking':['', ValidationService.requiredCarpetAreaOfParking],
-      'noOfOneBHK': [''],
-      'noOfTwoBHK':[''],
-      'noOfThreeBHK':[''],
-      'noOfFourBHK':[''],
-      'noOfFiveBHK':[''],
-      'noOfLift':[''],
-   });
-
   }
 
-  ngOnInit() {
-    // // this.getProjects();
-  }
   goBack() {
-    let projectId = SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT);
-    this._router.navigate([NavigationRoutes.APP_COST_SUMMARY,projectId]);
+    let projectId = SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT_ID);
+    this._router.navigate([NavigationRoutes.APP_PROJECT,projectId,NavigationRoutes.APP_COST_SUMMARY]);
   }
-  onSubmit() {
-    //this.projectService
-    if(this.addBuildingForm.valid) {
-      this.model = this.addBuildingForm.value;
-      if(this.model.noOfOneBHK !== undefined || this.model.noOfTwoBHK !== undefined || this.model.noOfThreeBHK !== undefined ||
-        this.model.noOfFourBHK !== undefined || this.model.noOfFiveBHK !== undefined ) {
 
-        if(this.model.noOfOneBHK === undefined) {
-          this.model.noOfOneBHK=0;
-        }
+  onSubmit(buildingModel : Building) {
 
-        if(this.model.noOfTwoBHK === undefined) {
-          this.model.noOfTwoBHK=0;
-        }
-
-        if(this.model.noOfThreeBHK === undefined) {
-          this.model.noOfThreeBHK=0;
-        }
-
-        if(this.model.noOfFourBHK === undefined) {
-          this.model.noOfFourBHK=0;
-        }
-
-        if(this.model.noOfFiveBHK === undefined) {
-          this.model.noOfFiveBHK=0;
-        }
-
-        if(this.model.noOfLift === undefined) {
-          this.model.noOfLift=0;
-        }
-
-      this.createBuildingService.addBuilding(this.model)
+      if((buildingModel.numOfOneBHK !== 0) || (buildingModel.numOfTwoBHK  !== 0 ) ||
+        (buildingModel.numOfThreeBHK !== 0) || (buildingModel.numOfFourBHK !== 0) || (buildingModel.numOfFiveBHK !== 0)) {
+      this.loaderService.start();
+      let projectId = SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT_ID);
+      this.buildingService.createBuilding(projectId, buildingModel)
         .subscribe(
-          building => this.addBuildingSuccess(building),
-          error => this.addBuildingFailed(error));
+          building => this.onCreateBuildingSuccess(building),
+          error => this.onCreateBuildingFailure(error));
       } else {
         var message = new Message();
         message.isError = false;
-        message.custom_message = 'Add at leat one Apartment Configuration';
+        message.custom_message = 'Add at least one Apartment Configuration';
         this.messageService.message(message);
       }
-    }
   }
 
-  addBuildingSuccess(building : any) {
+  onCreateBuildingSuccess(building : any) {
     var message = new Message();
     message.isError = false;
     message.custom_message = Messages.MSG_SUCCESS_ADD_BUILDING_PROJECT;
     this.messageService.message(message);
-    let projectId = SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT);
-    this._router.navigate([NavigationRoutes.APP_COST_SUMMARY, projectId]);
+    let projectId = SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT_ID);
+
+    this.buildingService.syncBuildingWithRateAnalysis(projectId, building.data._id).subscribe(
+      building => this.onSyncBuildingWithRateAnalysisSuccess(building),
+      error => this.onSyncBuildingWithRateAnalysisFailure(error));
   }
 
-  addBuildingFailed(error : any) {
+  onSyncBuildingWithRateAnalysisSuccess(building : Building) {
+    let projectId = SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT_ID);
+    this.loaderService.stop();
+    this._router.navigate([NavigationRoutes.APP_PROJECT, projectId, NavigationRoutes.APP_COST_SUMMARY]);
+  }
+
+  onSyncBuildingWithRateAnalysisFailure(error:any) {
+  console.log(error);
+  }
+
+  onCreateBuildingFailure(error : any) {
     console.log(error);
   }
 
+  getHeadings() {
+    return Headings;
+  }
+
+  getButton() {
+    return Button;
+  }
 }

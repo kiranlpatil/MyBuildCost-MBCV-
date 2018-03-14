@@ -3,7 +3,6 @@ import { Router } from '@angular/router';
 import { NotificationService } from './notification.service';
 import { Notification } from './notification';
 import { CommonService, Message, MessageService } from '../../../shared/index';
-import { Subscription } from 'rxjs/Subscription';
 import { SessionStorage, NavigationRoutes } from '../../../shared/constants';
 import { SessionStorageService } from '../../../shared/services/session.service';
 import { LoaderService } from '../../../shared/loader/loaders.service';
@@ -17,7 +16,6 @@ import { LoaderService } from '../../../shared/loader/loaders.service';
 
 export class NotificationComponent implements OnInit {
   notifications: Notification[];
-  subscription: Subscription;
   newUser: number;
   unreadNotifications: number;
 
@@ -38,11 +36,11 @@ export class NotificationComponent implements OnInit {
   getNotification() {
     this.notificationService.getNotification()
       .subscribe(
-        notification => this.onNotificationSuccess(notification),
-        error => this.onNotificationFail(error));
+        notification => this.onGetNotificationSuccess(notification),
+        error => this.onGetNotificationFailure(error));
   }
 
-  onNotificationSuccess(result: any) {
+  onGetNotificationSuccess(result: any) {
     if (result !== null) {
       this.notifications = result.data;
       for (var i = 0; i < result.data.length; i++) {
@@ -53,22 +51,12 @@ export class NotificationComponent implements OnInit {
     }
   }
 
-  /*
-   retriveData() {
-   }*/
 
-  onNotificationFail(error: any) {
+  onGetNotificationFailure(error: any) {
     var message = new Message();
     message.isError = true;
     message.error_msg = error;
     message.custom_message = 'Network Not Found';
     this.messageService.message(message);
-  }
-
-  goBack() {
-    this.commonService.goBack();
-  }
-
-  readNotification(count: any) {
   }
 }

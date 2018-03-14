@@ -1,159 +1,131 @@
-import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
-import {Router, ActivatedRoute} from '@angular/router';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
+import {Messages, Button, TableHeadings, Label, Headings, ValueConstant} from '../../../../../../shared/constants';
 import {
-  AppSettings,
-  Label,
-  Button,
-  Headings,
-  NavigationRoutes, Messages
-} from '../../../../../../shared/constants';
-import {
-  API, BaseService, SessionStorage, SessionStorageService,
+  SessionStorage, SessionStorageService,
   Message, MessageService
 } from '../../../../../../shared/index';
-import {GetRateService} from './get-rate.service';
-import {CustomHttp} from '../../../../../../shared/services/http/custom.http';
-import {FormGroup} from '@angular/forms';
-import {Project} from '../../../../model/project';
-import {Rate} from '../../../../model/rate';
-import Any = jasmine.Any;
+import { CostSummaryService } from './../../cost-summary.service';
+import { Rate } from '../../../../model/rate';
+import { LoaderService } from '../../../../../../shared/loader/loaders.service';
 
 @Component({
   moduleId: module.id,
-  selector: 'bi-rate-items',
+  selector: 'bi-get-rate',
   templateUrl: 'get-rate.component.html',
   styleUrls: ['get-rate.component.css'],
 })
 
-export class GetRateComponent implements OnInit {
+export class GetRateComponent {
 
-  @Input() rateItemsArray: any;
-  @Input() rateItemsObject: any;
-  @Input() subCategoryRateAnalysisId: number;
-  @Input() totalQuantity: number;
+  @Input() rateItemsArray: Rate;
+  @Input() categoryRateAnalysisId: number;
   @Input() totalAmount: number;
-  @Input() totalRate: number;
-  @Output() refreshDataList = new EventEmitter();
+  @Input() disableRateField: boolean;
+  @Output() refreshCategoryList = new EventEmitter();
 
-  projectId: string;
-  buildingId: string;
-  buildingName: string;
-  itemName: string;
-  costHead: string;
-  costheadId: number;
-  subCategoryId: number;
-  subCategoryDetails: any;
-  workItem: any;
-  quantityTotal: number = 0;
-  quanitytNumbersTotal: number = 0;
-  lengthTotal: number = 0;
-  breadthTotal: number = 0;
-  heightTotal: number = 0;
-  /*totalAmount:number=0;*/
-  /*totalRate:number=0;*/
-  /*totalQuantity:number=0;*/
-  total: number = 0;
-  rateIArray: any;
-  quantity: number = 0;
-  /*unit:string='';*/
-  workItemId: number;
-  showSubcategoryListvar: boolean = false;
-  rateTotal: number = 0;
   quantityIncrement: number = 1;
   previousTotalQuantity: number = 1;
   totalItemRateQuantity: number = 0;
 
-  constructor(private getRateService: GetRateService, private activatedRoute: ActivatedRoute,
+  constructor(private costSummaryService: CostSummaryService,  private loaderService: LoaderService,
               private messageService: MessageService) {
   }
 
-  ngOnInit() {
-  }
-
-  onSubmit() {
-    console.log('Inside getRateService component.');
-  }
-
-  changeQuantity(quantity: any, k: number) {
-    this.rateItemsArray.item[k].quantity = parseFloat(quantity);
-    this.calculateTotal();
-  }
-
-  //
-  changeRate(rate: any, k: number) {
-    this.rateItemsArray.item[k].rate = parseFloat(rate);
-    this.calculateTotal();
-  }
-
-  //
-  calculateTotal() {
+  calculateTotal(choice?:string) {
     this.totalAmount = 0;
-    this.totalRate = 0.0;
-    this.totalQuantity = 0.0;
-    for (let i = 0; i < this.rateItemsArray.item.length; i++) {
-      this.rateItemsArray.item[i].quantity = this.rateItemsArray.item[i].quantity * this.quantityIncrement;
-      this.totalAmount = this.totalAmount + (this.rateItemsArray.item[i].quantity * this.rateItemsArray.item[i].rate);
-      this.totalRate = this.totalRate + this.rateItemsArray.item[i].rate;
-      this.totalQuantity = this.totalQuantity + this.rateItemsArray.item[i].quantity;
+
+    for (let i = 0; i < this.rateItemsArray.rateItems.length; i++) {
+
+      if(choice === 'changeTotalQuantity') {
+        this.rateItemsArray.rateItems[i].quantity = parseFloat((this.rateItemsArray.rateItems[i].quantity *
+          this.quantityIncrement).toFixed(ValueConstant.NUMBER_OF_FRACTION_DIGIT));
+      }
+
+      this.rateItemsArray.rateItems[i].totalAmount = parseFloat((this.rateItemsArray.rateItems[i].quantity*
+        this.rateItemsArray.rateItems[i].rate).toFixed(ValueConstant.NUMBER_OF_FRACTION_DIGIT));
+
+      this.totalAmount = parseFloat((this.totalAmount + (this.rateItemsArray.rateItems[i].quantity *
+        this.rateItemsArray.rateItems[i].rate)).toFixed(ValueConstant.NUMBER_OF_FRACTION_DIGIT));
+
     }
 
-    this.rateItemsArray.total = this.totalAmount / this.totalQuantity;
+    this.rateItemsArray.total = parseFloat((this.totalAmount / this.rateItemsArray.quantity).toFixed(ValueConstant.NUMBER_OF_FRACTION_DIGIT));
   }
 
-  //
-  updateRate(rateItemsArray: any) {
-    let costHeadId = SessionStorageService.getSessionValue(SessionStorage.CURRENT_COST_HEAD_ID);
-    let workItemId = SessionStorageService.getSessionValue(SessionStorage.CURRENT_WORKITEM_ID);
+  updateRate(rateItemsArray: Rate) {
+    this.loaderService.start();
+    let projectID= SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT_ID);
+    let buildingId=SessionStorageService.getSessionValue(SessionStorage.CURRENT_BUILDING);
+    let costHeadId = parseInt(SessionStorageService.getSessionValue(SessionStorage.CURRENT_COST_HEAD_ID));
+    let workItemId = parseInt(SessionStorageService.getSessionValue(SessionStorage.CURRENT_WORKITEM_ID));
+
     let rate = new Rate();
-    rate.rateFromRateAnalysis = parseFloat(rateItemsArray.rateFromRateAnalysis);
-    rate.total = parseFloat(rateItemsArray.total).toFixed(2);
+    rate.rateFromRateAnalysis = rateItemsArray.rateFromRateAnalysis;
+    rate.total = parseFloat((rateItemsArray.total).toFixed(ValueConstant.NUMBER_OF_FRACTION_DIGIT));
     rate.quantity = rateItemsArray.quantity;
     rate.unit = rateItemsArray.unit;
-    rate.item = rateItemsArray.item;
+    rate.rateItems = rateItemsArray.rateItems;
+    rate.imageURL=rateItemsArray.imageURL;
+    rate.notes=rateItemsArray.notes;
 
-    this.getRateService.updateRateItems(parseInt(costHeadId), this.subCategoryRateAnalysisId,
-      parseInt(workItemId), rate).subscribe(
-      rateItem => this.onUpdateRateItemsSuccess(rateItem),
-      error => this.onUpdateRateItemsFail(error)
+    this.costSummaryService.updateRate( projectID, buildingId, costHeadId, this.categoryRateAnalysisId, workItemId, rate).subscribe(
+      rateItem => this.onUpdateRateSuccess(rateItem),
+      error => this.onUpdateRateFailure(error)
     );
   }
 
-  //
-  onUpdateRateItemsSuccess(rateItem: any) {
-    console.log('Rate updated successfully');
+  onUpdateRateSuccess(rateItem: any) {
     var message = new Message();
     message.isError = false;
     message.custom_message = Messages.MSG_SUCCESS_UPDATE_RATE;
     this.messageService.message(message);
-    this.refreshDataList.emit();
+    this.refreshCategoryList.emit();
+    this.loaderService.stop();
   }
 
-  //
-  onUpdateRateItemsFail(error: any) {
+  onUpdateRateFailure(error: any) {
     console.log(error);
+    this.loaderService.stop();
   }
 
-  //
   onTotalQuantityChange(newTotalQuantity: number) {
-    if (newTotalQuantity === 0 || newTotalQuantity === null){
-      newTotalQuantity=1;
-      this.totalItemRateQuantity = newTotalQuantity;
-      this.rateItemsArray.quantity = newTotalQuantity;
+
+    if (newTotalQuantity === 0 || newTotalQuantity === null) {
+
+        newTotalQuantity=1;
+        this.totalItemRateQuantity = newTotalQuantity;
+        this.rateItemsArray.quantity = newTotalQuantity;
+        var message = new Message();
+        message.isError = false;
+        message.custom_message = Messages.MSG_QUANTITY_SHOULD_NOT_ZERO_OR_NULL;
+        this.messageService.message(message);
+
     } else {
-      console.log('newTotalQuantity : ' + newTotalQuantity);
-      this.quantityIncrement = newTotalQuantity / this.previousTotalQuantity;
-      console.log('quantityIncrement : ' + this.quantityIncrement);
-      this.calculateTotal();
-      this.totalItemRateQuantity = newTotalQuantity;
-      this.rateItemsArray.quantity = newTotalQuantity;
+          this.quantityIncrement = newTotalQuantity / this.previousTotalQuantity;
+          this.calculateTotal('changeTotalQuantity');
+          this.totalItemRateQuantity = newTotalQuantity;
+          this.rateItemsArray.quantity = newTotalQuantity;
     }
 
   }
 
-  //
   getPreviousQuantity(previousTotalQuantity: number) {
-    console.log('previousTotalQuantity : ' + previousTotalQuantity);
     this.previousTotalQuantity = previousTotalQuantity;
   }
 
+  getButton() {
+    return Button;
+  }
+
+  getTableHeadings() {
+    return TableHeadings;
+  }
+
+  getLabel() {
+    return Label;
+  }
+
+  getHeadings() {
+    return Headings;
+  }
 }

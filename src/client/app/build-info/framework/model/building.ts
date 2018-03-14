@@ -1,18 +1,17 @@
-import { ValidationService } from '../../../shared/customvalidations/validation.service';
-
 export class Building {
+  _id?:string;
   name: string = '';
   totalSlabArea: number;
-  totalCarperAreaOfUnit: number;
+  totalCarpetAreaOfUnit: number;
   totalSaleableAreaOfUnit: number;
   plinthArea:number;
-  totalNoOfFloors:number;
-  noOfParkingFloors:number;
+  totalNumOfFloors:number;
+  numOfParkingFloors:number;
   carpetAreaOfParking:number;
-  noOfOneBHK: number;
-  noOfTwoBHK: number;
-  noOfThreeBHK: number;
-  noOfFourBHK:number;
-  noOfFiveBHK:number;
-  noOfLift: number;
+  numOfOneBHK: number = 0;
+  numOfTwoBHK: number = 0;
+  numOfThreeBHK: number = 0;
+  numOfFourBHK:number = 0;
+  numOfFiveBHK:number = 0;
+  numOfLifts: number = 0;
 }

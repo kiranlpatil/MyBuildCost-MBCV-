@@ -1,14 +1,14 @@
-import {Component, OnInit} from "@angular/core";
-import {Router} from "@angular/router";
-import {FormBuilder, FormGroup} from "@angular/forms";
-import {ImagePath, SessionStorage, Messages, NavigationRoutes, ProjectAsset} from "../../shared/constants";
-import {ValidationService} from "../../shared/customvalidations/validation.service";
-import {VerifyUser} from "../models/verify-user";
-import {UserVerificationService} from "./user-verification.service";
-import {SessionStorageService} from "../../shared/services/session.service";
-import {Message} from "../../shared/models/message";
-import {MessageService} from "../../shared/services/message.service";
-import {AnalyticService} from "../../shared/services/analytic.service";
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { ImagePath, SessionStorage, Messages, NavigationRoutes, ProjectAsset } from '../../shared/constants';
+import { ValidationService } from '../../shared/customvalidations/validation.service';
+import { VerifyUser } from '../models/verify-user';
+import { UserVerificationService } from './user-verification.service';
+import { SessionStorageService } from '../../shared/services/session.service';
+import { Message } from '../../shared/models/message';
+import { MessageService } from '../../shared/services/message.service';
+import { AnalyticService } from '../../shared/services/analytic.service';
 declare var fbq: any;
 
 @Component({
@@ -58,7 +58,6 @@ export class UserVerificationComponent implements OnInit {
     this.model.mobile_number = SessionStorageService.getSessionValue(SessionStorage.MOBILE_NUMBER);
     this.model.email = SessionStorageService.getSessionValue(SessionStorage.EMAIL_ID);
     let val = true;
-    //let val = SessionStorageService.getSessionValue(SessionStorage.FROM_CANDIDATE_REGISTRATION);
     if (val == true) {
       this.isCandidate = true;
       this.chkMobile = false;
@@ -75,17 +74,17 @@ export class UserVerificationComponent implements OnInit {
   }
 
   onSubmit() {
-    if(this.isCandidate && this.userForm.value.mobile_number == 'null'){
+    if(this.isCandidate && this.userForm.value.mobile_number == 'null') {
       this.submitMobileStatus = true;
       return;
-    }else if(!this.isCandidate && this.userForm.value.email == 'null' && !this.userForm.get('email').valid){
+    }else if(!this.isCandidate && this.userForm.value.email == 'null' && !this.userForm.get('email').valid) {
       this.submitEmailStatus = true;
       return;
     }
-    if(this.isCandidate && this.userForm.value.mobile_number != 'null' && !this.userForm.get('mobile_number').valid){
+    if(this.isCandidate && this.userForm.value.mobile_number != 'null' && !this.userForm.get('mobile_number').valid) {
       this.submitMobileStatus = true;
       return;
-    }else if(!this.isCandidate && this.userForm.value.email != 'null' && !this.userForm.get('email').valid){
+    }else if(!this.isCandidate && this.userForm.value.email != 'null' && !this.userForm.get('email').valid) {
       this.submitEmailStatus = true;
       return;
     }
@@ -95,23 +94,23 @@ export class UserVerificationComponent implements OnInit {
       this.model.mobile_number = SessionStorageService.getSessionValue(SessionStorage.MOBILE_NUMBER);
       this.verifyUserService.verifyUserByMobile(this.model)
         .subscribe(
-          res => (this.verifySuccess(res)),
-          error => (this.verifyFail(error)));
+          res => (this.onVerifySuccess(res)),
+          error => (this.onVerifyFailure(error)));
     } else {
       this.model.email = SessionStorageService.getSessionValue(SessionStorage.EMAIL_ID);
       this.isShowLoader = true;
       this.verifyUserService.verifyUserByMail(this.model)
         .subscribe(
           res => {
-            this.verifySuccess(res);
+            this.onVerifySuccess(res);
             this.isShowLoader = false;
           },
-          error => (this.verifyFail(error))
+          error => (this.onVerifyFailure(error))
         );
     }
   }
 
-  verifySuccess(res: any) {
+  onVerifySuccess(res: any) {
     if (!this.chkMobile) {
       SessionStorageService.setSessionValue(SessionStorage.VERIFY_PHONE_VALUE, 'from_registration');
       this._router.navigate([NavigationRoutes.VERIFY_PHONE]);
@@ -126,7 +125,7 @@ export class UserVerificationComponent implements OnInit {
     }
   }
 
-  verifyFail(error: any) {
+  onVerifyFailure(error: any) {
     if (error.err_code === 404 || error.err_code === 0) {
       var message = new Message();
       message.error_msg = error.err_msg;

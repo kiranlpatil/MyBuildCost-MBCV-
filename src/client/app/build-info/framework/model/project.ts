@@ -1,6 +1,7 @@
 import { Building } from './building';
 
 export class Project {
+  _id?:string;
   name: string = '';
   region: string = '';
   plotArea: number;
@@ -9,7 +10,7 @@ export class Project {
   openSpace:number;
   poolCapacity:number;
   plotPeriphery: number;
-  totalNoOfBuildings:number;
+  totalNumOfBuildings:number;
   projectDuration: number;
-  building: Building[] = new Array(0);
+  buildings: Building[] = new Array(0);
 }

@@ -1,4 +1,4 @@
-import { Component, NgZone, OnDestroy, OnInit } from '@angular/core';
+import { Component, NgZone, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { DashboardService } from '../../user/services/dashboard.service';
 import { UserProfile } from '../../user/models/user';
@@ -10,7 +10,6 @@ import {
   NavigationRoutes,
   ProfileService
 } from '../../shared/index';
-import { LoaderService } from '../../shared/loader/loaders.service';
 
 
 @Component({
@@ -20,14 +19,14 @@ import { LoaderService } from '../../shared/loader/loaders.service';
   styleUrls: ['dashboard.component.css'],
 })
 
-export class DashboardComponent implements OnInit, OnDestroy {
+export class DashboardComponent implements OnInit {
   mode = 'Observable';
   model = new UserProfile();
   overlayStyle = false;
   newUser: number;
 
   constructor(private _router: Router, private dashboardService: DashboardService, private messageService: MessageService,
-              private profileService: ProfileService, private zone: NgZone, private loaderService: LoaderService) {
+              private profileService: ProfileService, private zone: NgZone ) {
   }
 
   ngOnInit() {
@@ -38,12 +37,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
       this.getUserProfile();
     }
   }
-
-  ngOnDestroy() {
-    // this.loaderService.stop();
-    // this.loaderService.showLoading(false);
-  }
-
   getUserProfile() {
     this.dashboardService.getUserProfile()
       .subscribe(

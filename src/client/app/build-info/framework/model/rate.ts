@@ -1,9 +1,11 @@
-import { RateItem } from './RateItem';
+import { RateItem } from './rate-item';
 
 export class Rate {
   rateFromRateAnalysis: number;
-  total: any;
+  total: number;
   quantity: number;
   unit :string;
-  item: RateItem[] = new Array(0);
+  imageURL: string;
+  notes: string;
+  rateItems: RateItem[] = new Array(0);
 }

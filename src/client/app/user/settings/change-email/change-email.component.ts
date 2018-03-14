@@ -1,12 +1,12 @@
-import {Component, OnInit, Output ,EventEmitter } from "@angular/core";
-import {Router} from "@angular/router";
-import {ChangeEmailService} from "./change-email.service";
-import {ChangeEmail} from "../../models/changeemail";
-import {SessionStorageService} from "../../../shared/services/session.service";
-import {SessionStorage, AppSettings} from "../../../shared/constants";
-import {CommonService, ImagePath, Message, Messages, MessageService} from "../../../shared/index";
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {ValidationService} from "../../../shared/customvalidations/validation.service";
+import { Component, OnInit, Output ,EventEmitter } from '@angular/core';
+import { Router } from '@angular/router';
+import { ChangeEmailService } from './change-email.service';
+import { ChangeEmail } from '../../models/change-email';
+import { SessionStorageService } from '../../../shared/services/session.service';
+import { SessionStorage, AppSettings } from '../../../shared/constants';
+import { CommonService, ImagePath, Message, Messages, MessageService } from '../../../shared/index';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ValidationService } from '../../../shared/customvalidations/validation.service';
 
 
 @Component({
@@ -64,14 +64,13 @@ export class ChangeEmailComponent implements OnInit {
     if (!this.makeEmailConfirm()) {
       this.emailService.changeEmail(this.model)
         .subscribe(
-          body => this.changeEmailSuccess(body),
-          error => this.changeEmailFail(error));
+          body => this.onChangeEmailSuccess(body),
+          error => this.onChangeEmailFailure(error));
     }
     document.body.scrollTop = 0;
   }
 
-  changeEmailSuccess(body: ChangeEmail) {
-    //window.sessionStorage.clear();
+  onChangeEmailSuccess(body: ChangeEmail) {
     SessionStorageService.setSessionValue(SessionStorage.CHANGE_MAIL_VALUE, 'from_settings');
     this.userForm.reset();
     this.onEmailChangeSuccess.emit();
@@ -82,7 +81,7 @@ export class ChangeEmailComponent implements OnInit {
     this.messageService.message(message);
   }
 
-  changeEmailFail(error: any) {
+  onChangeEmailFailure(error: any) {
     if (error.err_code === 404 || error.err_code === 0) {
       var message = new Message();
       message.error_msg = error.err_msg;

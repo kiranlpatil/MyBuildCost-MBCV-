@@ -1,0 +1,62 @@
+@import '../../../../css/common';
+
+.header-container {
+  background: $page-background;
+  top: 80px;
+  height: 60px;
+  padding-top: 13px;
+  position: fixed;
+  width: 100%;
+  z-index: 1;
+
+  ul {
+    padding: 0;
+    text-align: left;
+
+    li {
+      display: inline-block;
+      padding: 0 10px;
+
+      &:first-child {
+        padding-left: 0;
+      }
+
+      &:last-child {
+        float: right;
+        padding: 5px 0 0 0;
+
+        a {
+          color: $dashboard-link;
+          padding: 5px 15px;
+          border: 1px solid $dashboard-link;
+          border-radius: 15px;
+
+          &:hover,
+          &:active,
+          &:focus {
+            color: $white;
+            background-color: $dashboard-link;
+            padding: 5px 15px;
+            border: 1px solid $dashboard-link;
+            border-radius: 15px;
+          }
+        }
+      }
+    }
+
+    li > a {
+      color: $inactive-link;
+      padding: 5px 1px;
+      border-bottom: 2px solid transparent;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    li > a.active{
+      color: $link-color;
+      border-bottom: 2px solid $theme-color;
+    }
+  }
+}
+
+

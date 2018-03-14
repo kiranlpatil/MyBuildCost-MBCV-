@@ -1,4 +1,5 @@
-<header class="page-header" id="candidate-header">
+<!--
+<header class="page-header">
   <nav class="navbar navbar-fixed-top">
     <div class="container-fluid">
       <div class="navbar-header">
@@ -16,29 +17,8 @@
           <img src={{MOBILE_LOGO}}/>
         </a>
       </div>
-      <ul class="header-links visible-xs">
-        <li>
-          <a class="dropdown-item" [routerLink]="['value-portrait']"
-             (click)="navigateToWithId('/value-portrait');">
-            <span class="glyphicon glyphicon-user"></span>
-          </a>
-        </li>
-        <li>
-          <a class="dropdown-item" [routerLink]="['profile-edit']"
-             (click)="navigateTo('/candidate/profile');">
-            <span class="	glyphicon glyphicon-edit"></span>
-          </a>
-        </li>
-      </ul>
       <div class="bg-overlay" [class.show]="isClassVisible" (click)="isClassVisible = false;"></div>
       <div class="collapse navbar-collapse" [class.open-nav]="isClassVisible">
-        <ul class="nav navbar-nav navbar-left hidden-xs navbar-links">
-          <li role="menuitem" [routerLinkActive]="['active']">
-            <a class="dropdown-item"  [routerLink]="['/dashboard']" (click)="navigateTo('/dashboard');">
-              <span class="icon-dashboard"></span>My Dashboard
-            </a>
-          </li>
-        </ul>
         <ul class="nav navbar-nav navbar-right">
           <li class="dropdown last-child">
             <div class="dropdown">
@@ -72,8 +52,8 @@
             </div>
           </li>
         </ul>
-
       </div>
     </div>
   </nav>
 </header>
+-->

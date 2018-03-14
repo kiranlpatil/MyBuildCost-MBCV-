@@ -20,7 +20,7 @@ class Messages {
   public static EMAIL_SUBJECT_SERVER_ERROR: string = 'Server Error Info';
   public static EMAIL_SUBJECT_RECRUITER_REGISTRATION: string = 'Recruiter registered with Jobmosis.';
   public static EMAIL_SUBJECT_CANDIDATE_APPLIED_FOR_JOB: string = 'Candidate applied for job.';
-  public static EMAIL_SUBJECT_CANDIDATE_ADDED_TO_CART: string = 'Shortlisted by recruiter.'
+  public static EMAIL_SUBJECT_CANDIDATE_ADDED_TO_CART: string = 'Shortlisted by recruiter.';
 
   //Sendmail
   public static MSG_SUCCESS_EMAIL_REGISTRATION: string = 'Email sent on registered email address.';
@@ -91,7 +91,6 @@ class Messages {
   public static MSG_ERROR_COMPLEXITY_CODE_MISSING: string = 'Code is not given for complexity.';
   public static MSG_ERROR_CAPABILITY_CODE_MISSING: string = 'Code is not given for capability.';
   public static MSG_ERROR_AREA_OF_WORK_CODE_MISSING: string = 'Code is not given for area of work.';
-  //
 
   // Error Reason
   // public static MSG_ERROR_RSN_MESSAGE_NOT_SENT:string = 'message could not send';

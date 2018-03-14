@@ -1,6 +1,6 @@
 import { Component, Output, Input , EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import {Messages, SessionStorage} from '../../shared/constants';
+import { Messages, SessionStorage } from '../../shared/constants';
 import { VerifyOtp  } from '../models/verify-otp';
 import { MessageService } from '../../shared/services/message.service';
 import { Message } from '../../shared/models/message';
@@ -8,8 +8,8 @@ import { ValidationService } from '../../shared/customvalidations/validation.ser
 import { LoginService } from '../../framework/login/login.service';
 import { RegistrationService } from '../services/registration.service';
 import { OtpVerificationService } from './otp-verification.service';
-import {SessionStorageService} from "../../shared/services/session.service";
-import {Login} from "../models/login";
+import { SessionStorageService } from '../../shared/services/session.service';
+import { Login } from '../models/login';
 
 @Component({
   moduleId: module.id,
@@ -55,13 +55,13 @@ export class OtpVerificationComponent {
     if (this.actionName===this.getMessages().FROM_REGISTRATION) {
       this.verifyPhoneService.verifyPhone(this.verifyOtpModel,this.userID)
         .subscribe(
-          res => (this.verifySuccess(res)),
-          error => (this.verifyFail(error)));
+          res => (this.onVerifyPhoneSuccess(res)),
+          error => (this.onVerifyPhoneFailure(error)));
     } else {
       this.verifyPhoneService.changeMobile(this.verifyOtpModel,this.changeMobileNumberInfo.id)
         .subscribe(
           res => (this.mobileVerificationSuccess(res)),
-          error => (this.verifyFail(error)));
+          error => (this.onVerifyPhoneFailure(error)));
     }
   }
   resendVerificationCode() {
@@ -69,15 +69,15 @@ export class OtpVerificationComponent {
       this.verifyPhoneService.resendVerificationCode(this.userID,this.mobileNumber)
         .subscribe(
           res => (this.resendOtpSuccess(Messages.MSG_SUCCESS_RESEND_VERIFICATION_CODE)),
-          error => (this.resendOtpFail(error)));
+          error => (this.resendOtpFailure(error)));
     } else {
       this.verifyPhoneService.resendChangeMobileVerificationCode(this.changeMobileNumberInfo)
         .subscribe(res => (this.resendOtpSuccess(Messages.MSG_SUCCESS_RESEND_VERIFICATION_CODE_RESEND_OTP)),
-          error => (this.resendOtpFail(error)));
+          error => (this.resendOtpFailure(error)));
     }
   }
 
-  verifySuccess(res: any) {
+  onVerifyPhoneSuccess(res: any) {
     this.onMobileVerificationSuccess.emit();
     this.navigateToDashboard();
   }
@@ -87,14 +87,14 @@ export class OtpVerificationComponent {
     this.loginModel.password = SessionStorageService.getSessionValue(SessionStorage.PASSWORD);
     this.loginService.userLogin(this.loginModel)
       .subscribe(
-        (res:any) => (this.registrationService.onSuccess(res)),
-        (error:any) => (this.registrationService.loginFail(error)));
+        (res:any) => (this.registrationService.onGetUserDataSuccess(res)),
+        (error:any) => (this.registrationService.onLoginFailure(error)));
   }
   mobileVerificationSuccess(res: any) {
     this.showInformationMessage(Messages.MSG_SUCCESS_CHANGE_MOBILE_NUMBER);
     this.onMobileNumberChangeSuccess.emit();
   }
-  verifyFail(error: any) {
+  onVerifyPhoneFailure(error: any) {
     if (error.err_code === 404 || error.err_code === 0) {
       this.showErrorMessage(error);
     } else {
@@ -106,7 +106,7 @@ export class OtpVerificationComponent {
   resendOtpSuccess(successMessage: any) {
     this.showInformationMessage(successMessage);
   }
-  resendOtpFail(error: any) {
+  resendOtpFailure(error: any) {
     if (error.err_code === 404 || error.err_code === 0) {
       this.showErrorMessage(error);
     } else {
@@ -118,12 +118,14 @@ export class OtpVerificationComponent {
   getMessages() {
     return Messages;
   }
+
   showInformationMessage(customMessage:any) {
     var message = new Message();
     message.isError = false;
     message.custom_message = customMessage;
     this.messageService.message(message);
   }
+
   showErrorMessage(error:any) {
     var message = new Message();
     message.error_msg = error.err_msg;

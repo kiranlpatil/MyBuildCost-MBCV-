@@ -19,9 +19,6 @@
           <span class="career-plugin-toster">{{getMessages().CAREER_PLUGIN_MSG_NEW_USER}}</span>
         </div>
 
-        <!--<div *ngIf="!isChrome && isToasterVisible" #toaster id="snackbar">{{getMessages().BROWSER_ALERT_MSG}}
-          <button class="button-style" (click)="closeToaster()">x</button>
-        </div>-->
         <div class="content">
           <div *ngIf="isGuideMessageVisible" class="welcome-message">
             <h3>Welcome !</h3>
@@ -31,7 +28,7 @@
           <form [formGroup]="userForm" (submit)="onSubmit()" novalidate>
             <div class="form-group">
               <control-messages [control]="userForm.controls.email" [submitStatus] = "submitStatus"></control-messages>
-              <label>Enter User Email</label>
+              <label>Enter Work Email</label>
               <input type="email" formControlName="email" id="email" maxlength="40" autocomplete="off" class="form-control" />
             </div>
 
@@ -47,7 +44,7 @@
                   <input type="checkbox" (click)="OnRememberPassword($event)" [checked]="isRememberPassword">{{getLabel().REMENBER_ME}}
                 </label>
               </div>
-              <button type="submit" class="btn btn-primary">Sign in</button>
+              <button type="submit" class="btn btn-primary">Sign In</button>
               <div class="other-links">
                 <a (click)="onForgotPassword()">Forgot Password</a> |
                 <a (click)="onSignUp()">Register New User</a>

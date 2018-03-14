@@ -1,0 +1,25 @@
+<section class="wrapper">
+  <div class="container">
+    <div class="col-sm-12">
+      <ul>
+        <li *ngFor="let project of projects">
+
+          <bi-project-item [project]="project"></bi-project-item>
+
+          <span class="break"></span>
+        </li>
+        <li class="break"></li>
+        <li (click)="createProject()">
+          <div class="building-image-container">
+            <a type="button">
+              <div class="building-image">
+                <span class="glyphicon glyphicon-plus"></span>
+              </div>
+            </a>
+          </div>
+          <a type="button">{{getButton().CREATE_NEW_PROJECT}}</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>

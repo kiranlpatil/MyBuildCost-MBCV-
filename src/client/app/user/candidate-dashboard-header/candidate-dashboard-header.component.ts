@@ -1,5 +1,5 @@
-import {Component, Input} from "@angular/core";
-import {Candidate} from "../models/candidate";
+import { Component, Input } from '@angular/core';
+import { Candidate } from '../models/candidate';
 
 @Component({
   moduleId: module.id,

@@ -1,42 +1,45 @@
-import { Component, OnInit } from '@angular/core';
-import { Router , ActivatedRoute } from '@angular/router';
-import { CostSummaryPipe } from './../cost-summary.pipe';
-import  { FormBuilder, Validators } from '@angular/forms';
-
-import {
-  AppSettings,
-  Label,
-  Button,
-  Headings,
-  NavigationRoutes, Messages
-} from '../../../../../shared/constants';
-import { API, BaseService, SessionStorage, SessionStorageService, Message, MessageService } from '../../../../../shared/index';
-import { CommonAmenitiesService } from './common-amenities.service';
-import { CustomHttp } from '../../../../../shared/services/http/custom.http';
-import { FormGroup } from '@angular/forms';
-import { Project } from '../../../model/project';
-
+import { Component, Input, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Button, Headings, Label, TableHeadings } from '../../../../../shared/constants';
+import { BuildingReport } from '../../../model/building-report';
 
 @Component({
   moduleId: module.id,
-  selector: 'bi-common-amenities-project-report',
+  selector: 'bi-common-amenities',
   styleUrls: ['common-amenities.component.css'],
   templateUrl: 'common-amenities.component.html'
 })
 
 export class CommonAmenitiesComponent implements OnInit {
+  @Input() amenitiesReport: BuildingReport;
+  @Input() costingByUnit : string;
+  @Input() costingByArea : string;
   projectId: string;
 
-  constructor(private commonAmenitiesService: CommonAmenitiesService, private activatedRoute: ActivatedRoute, private messageService: MessageService) {
+  constructor(private activatedRoute: ActivatedRoute) {
   }
 
   ngOnInit() {
     this.activatedRoute.params.subscribe(params => {
       this.projectId = params['projectId'];
-      console.log(this.projectId);
-      console.log('In Common');
     });
   }
+
+  getHeadings() {
+    return Headings;
+  }
+
+  getTableHeadings() {
+    return TableHeadings;
+  }
+
+  getLabel() {
+    return Label;
+  }
+  getButton() {
+    return Button;
+  }
+
 }
 
 

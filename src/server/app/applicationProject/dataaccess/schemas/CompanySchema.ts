@@ -17,8 +17,8 @@ class CompanySchema {
       address: {
         type: String
       },
-      user: [{type: Schema.Types.ObjectId, ref: 'User'}],
-      project: [{type: Schema.Types.ObjectId, ref: 'Project'}],
+      users: [{type: Schema.Types.ObjectId, ref: 'User'}],
+      projects: [{type: Schema.Types.ObjectId, ref: 'Project'}],
       subscription: {type: Schema.Types.ObjectId, ref: 'Subscription'},
       dateOfSubscription: {
         type: Date,

@@ -1,18 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
-import { AppSettings, Messages, Label, Button, Headings, NavigationRoutes } from '../../../../../shared/constants';
-import { BuildingListService } from './building-list.service';
-import { BuildingDetailsService } from '../building-details/building-details.service';
+import { Messages, NavigationRoutes } from '../../../../../shared/constants';
+import { LoaderService } from '../../../../../shared/loader/loaders.service';
 import { Building } from '../../../model/building';
 import { SessionStorage, SessionStorageService,MessageService } from '../../../../../shared/index';
 import { Message } from '../../../../../shared/index';
-import { CreateBuildingService } from '../create-building/create-building.service';
+import { BuildingService } from '../building.service';
 import { ValidationService } from '../../../../../shared/customvalidations/validation.service';
+import { ProjectService } from '../../project.service';
 
 @Component({
   moduleId: module.id,
-  selector: 'bi-list-building',
+  selector: 'bi-building-list',
   templateUrl: 'building-list.component.html'
 })
 
@@ -21,30 +21,30 @@ export class BuildingListComponent implements OnInit {
   buildings : any;
   projectId : any;
   currentbuildingId: any;
-  cloneCostHead: any;
   clonedBuildingId : string;
   cloneBuildingForm: FormGroup;
   model: Building = new Building();
   clonedBuildingDetails: any;
-  constructor(private listBuildingService: BuildingListService, private viewBuildingService: BuildingDetailsService, private _router: Router,
-              private activatedRoute:ActivatedRoute, private messageService: MessageService,
-              private createBuildingService: CreateBuildingService, private formBuilder: FormBuilder ) {
+
+  constructor(private buildingService: BuildingService, private projectService : ProjectService, private _router: Router,
+              private activatedRoute:ActivatedRoute,private messageService: MessageService, private formBuilder: FormBuilder,
+              private loaderService: LoaderService) {
 
     this.cloneBuildingForm = this.formBuilder.group({
-      'name': ['', ValidationService.requiredBuildingName],
-      'totalSlabArea':['', ValidationService.requiredSlabArea],
-      'totalCarperAreaOfUnit':['', ValidationService.requiredCarpetArea],
-      'totalSaleableAreaOfUnit':['', ValidationService.requiredSalebleArea],
-      'plinthArea':['', ValidationService.requiredPlinthArea],
-      'totalNoOfFloors':['', ValidationService.requiredNoOfFloors],
-      'noOfParkingFloors':['', ValidationService.requiredNoOfParkingFloors],
-      'carpetAreaOfParking':['', ValidationService.requiredCarpetAreaOfParking],
-      'noOfOneBHK': ['',  ValidationService.requiredOneBHK],
-      'noOfTwoBHK':['', ValidationService.requiredTwoBHK],
-      'noOfThreeBHK':['', ValidationService.requiredThreeBHK],
-      'noOfFourBHK':['', ValidationService.requiredFourBHK],
-      'noOfFiveBHK':['', ValidationService.requiredFiveBHK],
-      'noOfLift':['', ValidationService.requiredNoOfLifts],
+      name : ['', ValidationService.requiredBuildingName],
+      totalSlabArea :['', ValidationService.requiredSlabArea],
+      totalCarpetAreaOfUnit :['', ValidationService.requiredCarpetArea],
+      totalSaleableAreaOfUnit :['', ValidationService.requiredSalebleArea],
+      plinthArea :['', ValidationService.requiredPlinthArea],
+      totalNumOfFloors :['', ValidationService.requiredTotalNumOfFloors],
+      numOfParkingFloors :['', ValidationService.requiredNumOfParkingFloors],
+      carpetAreaOfParking :['', ValidationService.requiredCarpetAreaOfParking],
+      numOfOneBHK : ['',  ValidationService.requiredOneBHK],
+      numOfTwoBHK :['', ValidationService.requiredTwoBHK],
+      numOfThreeBHK :['', ValidationService.requiredThreeBHK],
+      numOfFourBHK :['', ValidationService.requiredFourBHK],
+      numOfFiveBHK :['', ValidationService.requiredFiveBHK],
+      numOfLifts :['', ValidationService.requiredNumOfLifts],
     });
 
   }
@@ -53,20 +53,23 @@ export class BuildingListComponent implements OnInit {
     this.activatedRoute.params.subscribe(params => {
       this.projectId = params['projectId'];
       if(this.projectId) {
-        this.getProjects();
+        this.getProject();
       }
     });
   }
+
   onSubmit() {
     if(this.cloneBuildingForm.valid) {
       this.model = this.cloneBuildingForm.value;
-      this.createBuildingService.addBuilding(this.model)
+      let projectId=SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT_ID);
+      this.buildingService.createBuilding( projectId, this.model)
         .subscribe(
-          building => this.addNewBuildingSuccess(building),
-          error => this.addNewBuildingFailed(error));
+          building => this.onCreateBuildingSuccess(building),
+          error => this.onCreateBuildingFailure(error));
     }
   }
-  addNewBuildingSuccess(building : any) {
+
+  onCreateBuildingSuccess(building : any) {
     var message = new Message();
     message.isError = false;
     message.custom_message = Messages.MSG_SUCCESS_ADD_BUILDING_PROJECT;
@@ -74,48 +77,41 @@ export class BuildingListComponent implements OnInit {
     this.clonedBuildingId = building.data._id;
   }
 
-  addNewBuildingFailed(error : any) {
+  onCreateBuildingFailure(error : any) {
     console.log(error);
   }
-  updateBuilding(cloneCostHead: any) {
-    this.listBuildingService.updateBuildingByCostHead(cloneCostHead, this.clonedBuildingId).subscribe(
-      project => this.updateBuildingSuccess(project),
-      error => this.updateBuildingFail(error)
+
+  updateBuildingByCostHead(cloneCostHead: any) {
+    let projectId=SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT_ID);
+    this.buildingService.cloneBuildingCostHeads(projectId, this.clonedBuildingId, cloneCostHead).subscribe(
+      project => this.onCloneBuildingCostHeadsSuccess(project),
+      error => this.onCloneBuildingCostHeadsFailure(error)
     );
   }
-  updateBuildingSuccess(project: any) {
-    this.getProjects();
+
+  onCloneBuildingCostHeadsSuccess(project: any) {
+    this.getProject();
   }
-  updateBuildingFail(error: any) {
+
+  onCloneBuildingCostHeadsFailure(error: any) {
     console.log(error);
   }
-  addNewBuilding() {
+
+  createBuilding() {
     this._router.navigate([NavigationRoutes.APP_CREATE_BUILDING]);
   }
-  deletefun(buildingId : any) {
+
+  setBuildingId(buildingId : any) {
     this.currentbuildingId = buildingId;
-    console.log('Building Id:'+buildingId);
   }
+
   deleteBuilding() {
-    this.listBuildingService.deleteBuildingById(this.currentbuildingId).subscribe(
+    this.loaderService.start();
+    let projectId=SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT_ID);
+    this.buildingService.deleteBuilding( projectId, this.currentbuildingId).subscribe(
       project => this.onDeleteBuildingSuccess(project),
-      error => this.onDeleteBuildingFail(error)
+      error => this.onDeleteBuildingFailure(error)
     );
-  }
-
-  getProjects() {
-    this.listBuildingService.getProject(this.projectId).subscribe(
-      projects => this.onGetProjectSuccess(projects),
-      error => this.onGetProjectFail(error)
-    );
-  }
-
-  onGetProjectSuccess(projects : any) {
-    this.buildings = projects.data[0].building;
-  }
-
-  onGetProjectFail(error : any) {
-    console.log(error);
   }
 
   onDeleteBuildingSuccess(result : any) {
@@ -123,66 +119,69 @@ export class BuildingListComponent implements OnInit {
       var message = new Message();
       message.isError = false;
       message.custom_message = Messages.MSG_SUCCESS_DELETE_BUILDING;
-      console.log(result);
       this.messageService.message(message);
-      this.getProjects();
+      this.loaderService.stop();
+      this.getProject();
     }
   }
 
-  onDeleteBuildingFail(error : any) {
+  onDeleteBuildingFailure(error : any) {
+    console.log(error);
+    this.loaderService.stop();
+  }
+
+  getProject() {
+    //change  in projectService
+    this.projectService.getProject(this.projectId).subscribe(
+      projects => this.onGetProjectSuccess(projects),
+      error => this.onGetProjectFailure(error)
+    );
+  }
+
+  onGetProjectSuccess(projects : any) {
+    this.buildings = projects.data[0].building;
+  }
+
+  onGetProjectFailure(error : any) {
     console.log(error);
   }
 
-  getMessages() {
-    return Messages;
-  }
-
-  getLabels() {
-    return Label;
-  }
-
-  getButtons() {
-    return Button;
-  }
-
-  getHeadings() {
-    return Headings;
-  }
-
-  getBuildingDetails(buildingId : any) {
-    console.log('building Id : '+buildingId);
+  navigateToEditBuildingDetails(buildingId : any) {
     SessionStorageService.setSessionValue(SessionStorage.CURRENT_BUILDING, buildingId);
     this._router.navigate([NavigationRoutes.APP_VIEW_BUILDING_DETAILS, buildingId]);
   }
 
-  cloneThisBuilding(buildingId : any) {
-    console.log('building Id : '+buildingId);
-    this.viewBuildingService.getBuildingDetails(buildingId).subscribe(
-      building => this.onGetBuildingDataSuccess(building),
-      error => this.onGetBuildingDataFail(error)
+  cloneBuilding(buildingId : any) {
+    this.loaderService.start();
+    let projectId=SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT_ID);
+    this.buildingService.getBuilding( projectId, buildingId).subscribe(
+      building => this.onGetBuildingSuccess(building),
+      error => this.onGetBuildingFailure(error)
     );
   }
 
-  onGetBuildingDataSuccess(building : any) {
+  onGetBuildingSuccess(building : any) {
     let buildingDetails=building.data;
     this.clonedBuildingDetails = building.data.costHead;
-    this.model.name=buildingDetails.name;
-    this.model.totalSlabArea=buildingDetails.totalSlabArea;
-    this.model.totalCarperAreaOfUnit=buildingDetails.totalCarperAreaOfUnit;
-    this.model.totalSaleableAreaOfUnit=buildingDetails.totalSaleableAreaOfUnit;
-    this.model.plinthArea=buildingDetails.plinthArea;
-    this.model.totalNoOfFloors=buildingDetails.totalNoOfFloors;
-    this.model.noOfParkingFloors=buildingDetails.noOfParkingFloors;
-    this.model.carpetAreaOfParking=buildingDetails.carpetAreaOfParking;
-    this.model.noOfOneBHK=buildingDetails.noOfOneBHK;
-    this.model.noOfTwoBHK=buildingDetails.noOfTwoBHK;
-    this.model.noOfThreeBHK=buildingDetails.noOfThreeBHK;
-    this.model.noOfFourBHK=buildingDetails.noOfFourBHK;
-    this.model.noOfFiveBHK=buildingDetails.noOfFiveBHK;
-    this.model.noOfLift=buildingDetails.noOfLift;
+    this.model.name = buildingDetails.name;
+    this.model.totalSlabArea = buildingDetails.totalSlabArea;
+    this.model.totalCarpetAreaOfUnit = buildingDetails.totalCarpetAreaOfUnit;
+    this.model.totalSaleableAreaOfUnit = buildingDetails.totalSaleableAreaOfUnit;
+    this.model.plinthArea = buildingDetails.plinthArea;
+    this.model.totalNumOfFloors = buildingDetails.totalNumOfFloors;
+    this.model.numOfParkingFloors = buildingDetails.numOfParkingFloors;
+    this.model.carpetAreaOfParking = buildingDetails.carpetAreaOfParking;
+    this.model.numOfOneBHK = buildingDetails.numOfOneBHK;
+    this.model.numOfTwoBHK = buildingDetails.numOfTwoBHK;
+    this.model.numOfThreeBHK = buildingDetails.numOfThreeBHK;
+    this.model.numOfFourBHK = buildingDetails.numOfFourBHK;
+    this.model.numOfFiveBHK = buildingDetails.numOfFiveBHK;
+    this.model.numOfLifts = buildingDetails.numOfLifts;
+    this.loaderService.stop();
   }
 
-  onGetBuildingDataFail(error : any) {
+  onGetBuildingFailure(error : any) {
     console.log(error);
+    this.loaderService.stop();
   }
 }

@@ -73,8 +73,161 @@
   padding: 15px 0 !important;
 }
 
+.table-dashboard {
+  thead > tr,
+  tbody > tr {
+    box-shadow: 10px 10px 10px $panel-shadow;
 
+    th:nth-child(2),
+    td:nth-child(2),
+    th:nth-child(4),
+    td:nth-child(4) {
+      min-width: 100px;
+    }
 
+    td:nth-child(2),
+    td:nth-child(3),
+    td:nth-child(4) {
+      text-align: right;
+    }
+
+    td:nth-child(3) > .edit-field {
+      input {
+        text-align: right;
+      }
+    }
+
+    td {
+      border-top: 1px solid transparent;
+      border-bottom: 1px solid transparent;
+
+      &:first-child {
+        border-radius: 6px 0 0 6px;
+        border-left: 1px solid transparent;
+      }
+
+      &:nth-child(5) {
+        border-radius: 0 6px 6px 0;
+        border-right: 1px solid transparent;
+      }
+
+      &:last-child {
+        border: 1px solid transparent;
+      }
+
+    }
+
+    th {
+      &:first-child {
+        border-radius: 6px 0 0 6px;
+      }
+
+      &:last-child {
+        border-radius: 0 6px 6px 0;
+      }
+    }
+
+    &:hover {
+      td {
+        border-top: 1px solid $theme-orange;
+        border-bottom: 1px solid $theme-orange;
+
+        &:first-child {
+          border-left: 1px solid $theme-orange;
+        }
+
+        &:nth-child(5) {
+          border-right: 1px solid $theme-orange;
+        }
+
+        &:last-child {
+          border: 1px solid transparent;
+        }
+      }
+    }
+  }
+}
+
+.add-cost-head {
+  td {
+    &:last-child {
+      border-radius: 0 6px 6px 0;
+    }
+  }
+  &:hover {
+    td {
+      border-top: 1px solid transparent !important;
+      border-bottom: 1px solid transparent !important;
+
+      &:first-child {
+        border-left: 1px solid transparent !important;
+      }
+
+      &:last-child {
+        border-right: 1px solid transparent !important;
+
+      }
+    }
+  }
+}
+
+.total-table {
+  tbody > tr {
+    &:last-child {
+      &:hover {
+        td {
+          border-top: 1px solid transparent;
+          border-bottom: 1px solid transparent;
+
+          &:first-child {
+            border-left: 1px solid transparent;
+          }
+
+          &:last-child {
+            border-right: 1px solid transparent;
+
+          }
+        }
+      }
+    }
+  }
+}
+
+.wrapper {
+  .btn-get-amount {
+    min-width: 100px;
+  }
+}
+
+.panel-default {
+  .panel-heading {
+    background: $header-bg;
+  }
+}
+
+.btn-add-item {
+  background: $white;
+  border: 0;
+  border-radius: 20px;
+  color: $heading;
+  height: 36px;
+  padding: 6px 60px;
+  margin: 0;
+  font-weight: 800;
+  font-size: 12px;
+
+  .glyphicon-plus {
+    padding-right: 6px;
+  }
+
+  &:hover,
+  &:active,
+  &:focus {
+    background: $white;
+    border: 0;
+    color: $heading;
+  }
+}
 
 
 

@@ -55,19 +55,11 @@ class AuthInterceptor {
           return done(null, user, isShareApi);
         });
       }
-      /*else {
-       let err = new Error();
-       err.message = 'Issuer in token is not available';
-       return done(err, false, null);
-       }*/
     }));
 
     passport.use(new FacebookTokenStrategy({
         clientID: fbClientId,
         clientSecret: fbClientSecretId
-        //callbackURL     :  'http://localhost:8080/fbLogin',
-        //profileFields: ['id','emails', 'displayName']
-
       },
 
       // facebook will send back the tokens and profile
@@ -312,7 +304,6 @@ class AuthInterceptor {
                 userRepository.findOneAndUpdate(query, updateData, {new: true}, (error, result) => {
                   if (error) {
                     next(error);
-                    // callback(new Error(Messages.MSG_ERROR_EMAIL_ACTIVE_NOW), null);
                   } else {
                     req.user = {'email': user[0].email, 'password': user[0].password};
                     next();

@@ -1,11 +1,11 @@
-import {Component} from "@angular/core";
-import {Router} from "@angular/router";
-import {ForgotPassword} from "../../../user/models/forgotpassword";
-import {ForgotPasswordService} from "./forgot-password.service";
-import {Message, Messages, MessageService, NavigationRoutes} from "../../../shared/index";
-import {FormBuilder, FormGroup} from "@angular/forms";
-import {ValidationService} from "../../../shared/customvalidations/validation.service";
-import {ImagePath, ProjectAsset} from "../../../shared/constants";
+import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { ForgotPassword } from '../../../user/models/forgot-password';
+import { ForgotPasswordService } from './forgot-password.service';
+import { Message, Messages, MessageService, NavigationRoutes } from '../../../shared/index';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { ValidationService } from '../../../shared/customvalidations/validation.service';
+import { ImagePath, ProjectAsset } from '../../../shared/constants';
 
 
 @Component({
@@ -60,17 +60,17 @@ export class ForgotPasswordComponent {
     this.forgotPasswordService.forgotPassword(this.model)
       .subscribe(
         body => {
-          this.forgotPasswordSuccess(body);
+          this.onForgotPasswordSuccess(body);
           this.isShowLoader = false;
         },
         error => {
           this.isShowLoader = false;
-          this.forgotPasswordFail(error);
+          this.onForgotPasswordFailure(error);
         }
       );
   }
 
-  forgotPasswordSuccess(body: ForgotPassword) {
+  onForgotPasswordSuccess(body: ForgotPassword) {
     var message = new Message();
     message.isError = false;
     message.custom_message = Messages.MSG_SUCCESS_FORGOT_PASSWORD;
@@ -78,7 +78,7 @@ export class ForgotPasswordComponent {
     this.forgotPasswordButtonLabel = 'Resend Email';
   }
 
-  forgotPasswordFail(error: any) {
+  onForgotPasswordFailure(error: any) {
     if (error.err_code === 404 || error.err_code === 0) {
       var message = new Message();
       message.error_msg = error.err_msg;
@@ -86,12 +86,6 @@ export class ForgotPasswordComponent {
       this.messageService.message(message);
     } else {
       this.error_msg = error.err_msg;
-    }
-  }
-
-  navigateTo(navigateTo: string) {
-    if (navigateTo !== undefined) {
-      this._router.navigate([navigateTo]);
     }
   }
 
