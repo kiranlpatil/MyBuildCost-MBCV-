@@ -16,7 +16,7 @@
         <div class="panel panel-default">
           <div class="panel-heading">
             <div class="panel-title clearfix" (click)="setSelectedWorkItems(categoryDetails[categoryIndex].workItems)">
-              <div class="col-sm-11">
+              <div class="col-sm-12">
                 <a *ngIf="category.rateAnalysisId !== 0" data-toggle="collapse"
                    href="#collapse{{categoryIndex}}" [class.collapsed]="categoryIndex!=0">
                   <span class="caret"></span>
@@ -30,7 +30,7 @@
                   <span  class="pull-right">{{ category.amount|number }}</span>
                 </a>
               </div>
-              <div class="col-sm-1">
+             <!-- <div class="col-sm-1">
                 <div class="delete-workitems">
                   <img *ngIf="category.rateAnalysisId !== 0"
                        src="assets/build-info/dashboard/delete.png"
@@ -39,7 +39,7 @@
                        data-target="#deleteCategory"
                        (click)="setCategoryIdForDeactivate(category.rateAnalysisId)"/>
                 </div>
-              </div>
+              </div>-->
             </div>
           </div>
           <div id="collapse{{categoryIndex}}" class="panel-collapse collapse" [class.in]="categoryIndex===0">
@@ -109,15 +109,12 @@
                               type="button"
                               (click)="getSystemRate( getLabel().GET_SYSTEM_RATE, category.rateAnalysisId, workitemObj.rateAnalysisId, workitemObj, true)">{{getButton().SYSTEM_RA}}</button>
                     </td>
-                    <!--<td>
-                      <div data-toggle="modal" data-target="#deleteWorkItem"
-                           (click)="setIdsForDeleteWorkItem(category.rateAnalysisId,workitemObj.rateAnalysisId,workItemIndex )"
-                           class="delete-cost-head">
-                        <img alt="Delete Cost Head" src="assets/build-info/dashboard/delete.png" />
-                        <img alt="Delete Cost Head" src="assets/build-info/dashboard/delete.png" />
+                    <td>
+                      <div data-toggle="modal" data-target="#deleteWorkItem" class="delete-cost-head"
+                           (click)="setIdsForDeleteWorkItem(category.rateAnalysisId,workitemObj.rateAnalysisId,workItemIndex )">
                         <img alt="Delete Cost Head" src="assets/build-info/dashboard/delete.png" />
                       </div>
-                    </td>-->
+                    </td>
                   </tr>
                   </tbody>
                 </table>
