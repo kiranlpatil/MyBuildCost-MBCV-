@@ -9,7 +9,7 @@
         <span class="building-label"> {{ buildingName }} </span>
         <span class="text-left"> ( {{ costHead }} ) </span>
         <div class="col-md-6 text-right pull-right">
-          <span class="text-left total-amount-work"> {{totalAmountOfWorkItems|number}} </span>
+          <span class="text-left total-amount-work"> {{categoryDetailsTotalAmount|number}} </span>
         </div>
       </h4>
       <div class="panel-group" *ngFor=" let category of categoryDetails; let categoryIndex= index ">
