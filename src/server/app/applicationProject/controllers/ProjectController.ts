@@ -558,9 +558,9 @@ class ProjectController {
       let user = req.user;
       let projectId = req.params.projectId;
       let buildingId = req.params.buildingId;
-      let costHeadId = req.params.costHeadId;
-      let categoryId =req.params.categoryId;
-      let workItemId = req.params.workItemId;
+      let costHeadId = parseInt(req.params.costHeadId);
+      let categoryId = parseInt(req.params.categoryId);
+      let workItemId = parseInt(req.params.workItemId);
       let quantity = req.body.item;
       let projectService = new ProjectService();
       projectService.updateQuantity( projectId, buildingId, costHeadId, categoryId, workItemId, quantity, user, (error, result) => {
