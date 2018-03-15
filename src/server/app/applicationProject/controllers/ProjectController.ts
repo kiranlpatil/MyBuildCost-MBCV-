@@ -772,7 +772,7 @@ class ProjectController {
 
       projectService.syncProjectWithRateAnalysisData( projectId, buildingId, user, (error, result) => {
         if(error) {
-          logger.error('syncProjectWithRateAnalysisData error : '+JSON.stringify(error));
+          logger.error('syncProjectWithRateAnalysisData failure');
           next(error);
         } else {
           logger.info('syncProjectWithRateAnalysisData success');

@@ -2,30 +2,27 @@
 
 .wrapper {
   background-color: $page-background;
-  width: 100%;
-  min-height: 100vh;
+  min-height: calc(100vh - 80px);
   margin-top: 80px;
-  text-align: left;
   padding-top:30px;
+  width: 100%;
+  text-align: left;
 
   ul {
     padding: 0;
     list-style: none;
 
-    .break {
-      display: none;
-    }
-
     li {
-      width: 20%;
+      cursor: pointer;
       display: inline-block;
+      margin-bottom: 30px;
+      position: relative;
       text-align: center;
       vertical-align: top;
-      position: relative;
-      margin-bottom: 30px;
+      width: 20%;
     }
 
-    a {
+    h4 {
       color: $heading;
       font-size: 21px;
     }
@@ -70,16 +67,8 @@
 }
 
 @media only screen and (max-width: 767px) {
-
   .wrapper {
     margin-top: 50px;
-  }
-
-  .building-image-container {
-    .building-image > form {
-      bottom: 0;
-      position: absolute;
-      right: 0;
-    }
+    min-height: calc(100vh - 50px);
   }
 }
