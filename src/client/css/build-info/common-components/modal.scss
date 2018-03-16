@@ -8,7 +8,7 @@
 
 .default-modal {
   .modal-dialog {
-    width: 450px;
+    width: 600px;
   }
   .modal-body {
     max-height: 500px;
@@ -20,6 +20,14 @@
       text-overflow: ellipsis;
       white-space: nowrap;
       width: 95%;
+    }
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .default-modal {
+    .modal-dialog {
+      width: 90%;
     }
   }
 }

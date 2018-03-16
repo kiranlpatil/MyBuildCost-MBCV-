@@ -144,6 +144,7 @@ export class CostHeadComponent implements OnInit, OnChanges {
       SessionStorageService.setSessionValue(SessionStorage.CURRENT_WORKITEM_ID, this.workItemId);
       this.quantityItemsArray = quantityItems;
       this.workItem = workItem;
+      this.rateView = 'quantity';
       this.showWorkItemTab = Label.WORKITEM_QUANTITY_TAB;
     } else {
       this.showWorkItemTab = null;
