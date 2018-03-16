@@ -30,16 +30,6 @@
                   <span  class="pull-right">{{ category.amount|number }}</span>
                 </a>
               </div>
-             <!-- <div class="col-sm-1">
-                <div class="delete-workitems">
-                  <img *ngIf="category.rateAnalysisId !== 0"
-                       src="assets/build-info/dashboard/delete.png"
-                       alt="Delete Workitems"
-                       data-toggle="modal"
-                       data-target="#deleteCategory"
-                       (click)="setCategoryIdForDeactivate(category.rateAnalysisId)"/>
-                </div>
-              </div>-->
             </div>
           </div>
           <div id="collapse{{categoryIndex}}" class="panel-collapse collapse" [class.in]="categoryIndex===0">
@@ -172,10 +162,6 @@
     </div>
   </div>
 </section>
-
-<div class="modal fade default-modal" id="deleteCategory" role="dialog">
-  <bi-delete-confirmation-modal [elementType]="deleteConfirmationCategory" (deleteElementEvent)="deleteElement($event)"></bi-delete-confirmation-modal>
-</div>
 
 <div class="modal fade default-modal" id="deleteWorkItem" role="dialog">
   <bi-delete-confirmation-modal [elementType]="deleteConfirmationWorkItem" (deleteElementEvent)="deleteElement($event)"></bi-delete-confirmation-modal>
