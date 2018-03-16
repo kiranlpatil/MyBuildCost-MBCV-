@@ -247,8 +247,8 @@ class ProjectService {
     });
   }
 
-  getInActiveWorkItems(projectId:string, buildingId:string, costHeadId:number, categoryId:number,
-                       user:User, callback:(error: any, result: any)=> void) {
+  getInActiveWorkItemsOfBuildingCostHeads(projectId:string, buildingId:string, costHeadId:number, categoryId:number,
+                                          user:User, callback:(error: any, result: any)=> void) {
     logger.info('Project service, add Workitem has been hit');
     this.buildingRepository.findById(buildingId, (error, building:Building) => {
       if (error) {
@@ -417,9 +417,9 @@ class ProjectService {
     });
   }
 
-  updateRate(projectId:string, buildingId:string, costHeadId:number,categoryId:number,
-             workItemId:number, rate :Rate, user : User, callback:(error: any, result: any)=> void) {
-    logger.info('Project service, updateRate has been hit');
+  updateRateOfBuildingCostHeads(projectId:string, buildingId:string, costHeadId:number, categoryId:number,
+                                workItemId:number, rate :Rate, user : User, callback:(error: any, result: any)=> void) {
+    logger.info('Project service, updateRateOfBuildingCostHeads has been hit');
     this.buildingRepository.findById(buildingId, (error, building:Building) => {
       logger.info('Project service, findById has been hit');
       if (error) {
@@ -488,8 +488,8 @@ class ProjectService {
     });
   }
 
-  deleteQuantityByName(projectId:string, buildingId:string, costHeadId:string, categoryId:string,
-                 workItemId:string, item:string, user:User, callback:(error: any, result: any)=> void) {
+  deleteQuantityOfBuildingCostHeadsByName(projectId:string, buildingId:string, costHeadId:string, categoryId:string,
+                                          workItemId:string, item:string, user:User, callback:(error: any, result: any)=> void) {
     logger.info('Project service, deleteQuantity has been hit');
     this.buildingRepository.findById(buildingId, (error, building:Building) => {
       if (error
@@ -693,8 +693,8 @@ class ProjectService {
     });
   }
 
-  setWorkItemStatus( buildingId:string, costHeadId:number, categoryId:number, workItemId:number, workItemActiveStatus : boolean,
-                   user: User, callback: (error: any, result: any) => void) {
+  updateWorkItemStatusOfBuildingCostHeads(buildingId:string, costHeadId:number, categoryId:number, workItemId:number,
+                                          workItemActiveStatus : boolean, user: User, callback: (error: any, result: any) => void) {
     logger.info('Project service, update Workitem has been hit');
     this.buildingRepository.findById(buildingId, (error, building:Building) => {
       if (error) {
@@ -808,9 +808,9 @@ class ProjectService {
     });
   }
 
-  updateQuantity(projectId:string, buildingId:string, costHeadId:number, categoryId:number, workItemId:number,
-                 quantity:any, user:User, callback:(error: any, result: any)=> void) {
-    logger.info('Project service, updateQuantity has been hit');
+  updateQuantityOfBuildingCostHeads(projectId:string, buildingId:string, costHeadId:number, categoryId:number, workItemId:number,
+                                    quantity:any, user:User, callback:(error: any, result: any)=> void) {
+    logger.info('Project service, updateQuantityOfBuildingCostHeads has been hit');
     this.buildingRepository.findById(buildingId, (error, building) => {
       if (error) {
         callback(error, null);
@@ -1023,7 +1023,7 @@ class ProjectService {
   }
 
   //Get active categories from database
-  getActiveCategories(projectId:string, buildingId:string, costHeadId:number, user:User, callback:(error: any, result: any)=> void) {
+  getCategoriesOfBuildingCostHead(projectId:string, buildingId:string, costHeadId:number, user:User, callback:(error: any, result: any)=> void) {
     logger.info('Project service, Get Active Categories has been hit');
     this.buildingRepository.findById(buildingId, (error, building:Building) => {
       if (error) {
@@ -1039,18 +1039,20 @@ class ProjectService {
                   let workItems : Array<WorkItem> = new Array<WorkItem>();
                   let category = categoryData;
                   for(let workItemData of category.workItems) {
-                      workItems.push(workItemData);
-                      for(let singleWorkItem of workItems) {
-                        if (singleWorkItem.quantity.total !== null && singleWorkItem.rate.total !== null
-                          && singleWorkItem.quantity.total !== 0 && singleWorkItem.rate.total !== 0) {
-                          categoryData.amount = parseFloat((singleWorkItem.quantity.total *
-                            singleWorkItem.rate.total + categoryData.amount).toFixed(2));
-                        } else {
-                          categoryData.amount = 0;
-                          categoryData.amount = 0;
-                          break;
-                        }
+                    if(workItemData.active) {
+                    workItems.push(workItemData);
+                    for (let singleWorkItem of workItems) {
+                      if (singleWorkItem.quantity.total !== null && singleWorkItem.rate.total !== null
+                        && singleWorkItem.quantity.total !== 0 && singleWorkItem.rate.total !== 0) {
+                        categoryData.amount = parseFloat((singleWorkItem.quantity.total *
+                          singleWorkItem.rate.total + categoryData.amount).toFixed(2));
+                      } else {
+                        categoryData.amount = 0;
+                        categoryData.amount = 0;
+                        break;
                       }
+                    }
+                  }
                   }
                   category.workItems = workItems;
                   categories.push(category);
