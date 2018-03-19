@@ -14,7 +14,7 @@ var constant = require("../shared/constants");
 var config = require('config');
 var log4js = require('log4js');
 var alasql = require("alasql");
-var Promise = require('promise');
+var CCPromise = require('promise');
 var BudgetCostRates = require("../dataaccess/model/project/reports/BudgetCostRates");
 var ThumbRuleRate = require("../dataaccess/model/project/reports/ThumbRuleRate");
 var Constants = require("../../applicationProject/shared/constants");
@@ -1104,7 +1104,7 @@ var ProjectService = (function () {
                     logger.info('Project service, calling promise for syncProjectWithRateAnalysisData for Project and Building.');
                     var syncBuildingCostHeadsPromise = _this.updateBudgetRatesForBuildingCostHeads(Constants.BUILDING, buildingId, projectData, buildingData);
                     var syncProjectCostHeadsPromise = _this.updateBudgetRatesForProjectCostHeads(Constants.AMENITIES, projectId, projectData, buildingData);
-                    Promise.all([
+                    CCPromise.all([
                         syncBuildingCostHeadsPromise,
                         syncProjectCostHeadsPromise
                     ]).then(function (data) {
@@ -1161,7 +1161,7 @@ var ProjectService = (function () {
         });
     };
     ProjectService.prototype.updateBudgetRatesForBuildingCostHeads = function (entity, buildingId, projectDetails, buildingDetails) {
-        return new Promise(function (resolve, reject) {
+        return new CCPromise(function (resolve, reject) {
             var rateAnalysisService = new RateAnalysisService();
             var buildingRepository = new BuildingRepository();
             logger.info('Project service, updateBudgetRatesForBuildingCostHeads promise.');
@@ -1191,7 +1191,7 @@ var ProjectService = (function () {
         });
     };
     ProjectService.prototype.updateBudgetRatesForProjectCostHeads = function (entity, projectId, projectDetails, buildingDetails) {
-        return new Promise(function (resolve, reject) {
+        return new CCPromise(function (resolve, reject) {
             var rateAnalysisService = new RateAnalysisService();
             var projectRepository = new ProjectRepository();
             logger.info('Project service, updateBudgetRatesForProjectCostHeads promise.');
