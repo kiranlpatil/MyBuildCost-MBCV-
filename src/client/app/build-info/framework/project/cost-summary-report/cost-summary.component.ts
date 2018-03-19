@@ -373,6 +373,11 @@ export class CostSummaryComponent implements OnInit {
     this.grandTotalOfTotalRate = this.grandTotalOfTotalRate +
       parseFloat((this.amenitiesReport.thumbRule.totalRate).toFixed(ValueConstant.NUMBER_OF_FRACTION_DIGIT));
 
+    this.grandTotalOfEstimatedCost = this.grandTotalOfEstimatedCost +
+      parseFloat((this.amenitiesReport.estimate.totalEstimatedCost).toFixed(ValueConstant.NUMBER_OF_FRACTION_DIGIT));
+
+    this.grandTotalOfEstimatedRate = this.grandTotalOfEstimatedRate +
+      parseFloat((this.amenitiesReport.estimate.totalRate).toFixed(ValueConstant.NUMBER_OF_FRACTION_DIGIT));
   }
 
   toggleShowGrandTotalPanelBody() {
