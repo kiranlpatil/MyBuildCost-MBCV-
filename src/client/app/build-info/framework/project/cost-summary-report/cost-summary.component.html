@@ -67,7 +67,7 @@
                   <tbody *ngIf="(building.thumbRule && building.estimate)" >
                     <tr *ngFor="let thumbRuleItem of building.thumbRule.thumbRuleReports; let i = index" class="delete-cost-head-cell">
                       <td class="border-left">{{ thumbRuleItem.name }}</td>
-                      <td class="border-left">{{ thumbRuleItem.rate }}</td>
+                      <td class="border-left">{{ thumbRuleItem.rate | number }}</td>
                       <td class="border-left">
                         <div class="edit-field">
                           <input type="number"
@@ -78,7 +78,7 @@
                         </div>
                       </td>
                       <td class="border-left">
-                        {{ building.estimate.estimatedCosts[i].rate }}
+                        {{ building.estimate.estimatedCosts[i].rate | number }}
                       </td>
                       <td>
                         <div *ngIf="building.estimate.estimatedCosts[i].total != 0"
@@ -86,7 +86,7 @@
                           <span class="estimated-cost"
                             [class.above-cost]="building.estimate.estimatedCosts[i].total > thumbRuleItem.amount"
                             [class.below-cost]="building.estimate.estimatedCosts[i].total < thumbRuleItem.amount">
-                            {{ building.estimate.estimatedCosts[i].total }}
+                            {{ building.estimate.estimatedCosts[i].total | number }}
                           </span>
                         </div>
                         <button *ngIf="building.estimate.estimatedCosts[i].total == 0"
@@ -154,10 +154,10 @@
                 <tbody>
                 <tr>
                   <td>{{ getLabel().GRAND_TOTAL }}</td>
-                  <td>{{ grandTotalOfBudgetedCost|number }}</td>
-                  <td><span class="estimated-cost">{{ grandTotalOfTotalRate|number }}</span></td>
-                  <td>{{ grandTotalOfEstimatedCost|number }}</td>
-                  <td><span class="estimated-cost">{{ grandTotalOfEstimatedRate|number }}</span></td>
+                  <td>{{ grandTotalOfTotalRate|number }}</td>
+                  <td><span class="estimated-cost">{{ grandTotalOfBudgetedCost|number }}</span></td>
+                  <td>{{ grandTotalOfEstimatedRate|number }}</td>
+                  <td><span class="estimated-cost">{{ grandTotalOfEstimatedCost|number }}</span></td>
                 </tr>
                 </tbody>
               </table>
