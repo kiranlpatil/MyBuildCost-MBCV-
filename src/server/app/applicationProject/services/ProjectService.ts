@@ -18,12 +18,12 @@ import constant = require('../shared/constants');
 let config = require('config');
 let log4js = require('log4js');
 import alasql = require('alasql');
-var Promise = require('promise');
+var CCPromise = require('promise');
 import BudgetCostRates = require('../dataaccess/model/project/reports/BudgetCostRates');
 import ThumbRuleRate = require('../dataaccess/model/project/reports/ThumbRuleRate');
 import Constants = require('../../applicationProject/shared/constants');
 import * as mongoose from 'mongoose';
-import QuantityItem = require("../dataaccess/model/project/building/QuantityItem");
+import QuantityItem = require('../dataaccess/model/project/building/QuantityItem');
 let ObjectId = mongoose.Types.ObjectId;
 let logger=log4js.getLogger('Project service');
 
@@ -1140,7 +1140,7 @@ class ProjectService {
           let syncProjectCostHeadsPromise = this.updateBudgetRatesForProjectCostHeads(Constants.AMENITIES,
             projectId, projectData, buildingData);
 
-          Promise.all([
+          CCPromise.all([
             syncBuildingCostHeadsPromise,
             syncProjectCostHeadsPromise
           ]).then(function(data: Array<any>) {
@@ -1202,7 +1202,7 @@ class ProjectService {
   }
 
   updateBudgetRatesForBuildingCostHeads(entity: string, buildingId:string, projectDetails : Project, buildingDetails : Building) {
-    return new Promise(function(resolve:any, reject:any) {
+    return new CCPromise(function(resolve:any, reject:any) {
       let rateAnalysisService = new RateAnalysisService();
       let buildingRepository = new BuildingRepository();
       logger.info('Project service, updateBudgetRatesForBuildingCostHeads promise.');
@@ -1232,7 +1232,7 @@ class ProjectService {
   }
 
   updateBudgetRatesForProjectCostHeads(entity: string, projectId:string, projectDetails : Project, buildingDetails : Building) {
-    return new Promise(function(resolve:any, reject:any){
+    return new CCPromise(function(resolve:any, reject:any){
       let rateAnalysisService = new RateAnalysisService();
       let projectRepository = new ProjectRepository();
       logger.info('Project service, updateBudgetRatesForProjectCostHeads promise.');

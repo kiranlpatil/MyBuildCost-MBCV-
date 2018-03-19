@@ -7,7 +7,7 @@ import WorkItem = require('../dataaccess/model/project/building/WorkItem');
 let request = require('request');
 let config = require('config');
 var log4js = require('log4js');
-var Promise = require('promise');
+var CCPromise = require('promise');
 var logger=log4js.getLogger('Rate Analysis Service');
 import alasql = require('alasql');
 import Rate = require('../dataaccess/model/project/building/Rate');
@@ -168,7 +168,7 @@ class RateAnalysisService {
     logger.info('unitsRateAnalysisPromise for has been hit');
 
     logger.info('calling Promise.all');
-    Promise.all([
+    CCPromise.all([
       costHeadRateAnalysisPromise,
       categoryRateAnalysisPromise,
       workItemRateAnalysisPromise,
@@ -197,7 +197,7 @@ class RateAnalysisService {
   }
 
   createPromise(url: string) {
-      return new Promise(function(resolve : any, reject : any){
+      return new CCPromise(function(resolve : any, reject : any){
         logger.info('createPromise has been hit for : '+url);
         let rateAnalysisService = new RateAnalysisService();
         rateAnalysisService.getApiCall(url, (error : any, data: any) => {
