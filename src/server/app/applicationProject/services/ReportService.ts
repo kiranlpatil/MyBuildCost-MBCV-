@@ -55,12 +55,12 @@ class ReportService {
         callback(error, null);
       } else {
         let buildings = result[0].buildings;
-        if (areaType === 'slabArea') {
-            var typeOfArea = 'totalSlabArea';
-          } else if (areaType === 'saleableArea') {
-            typeOfArea = 'totalSaleableAreaOfUnit';
-          } else if (areaType === 'carpetArea') {
-            typeOfArea = 'totalCarpetAreaOfUnit';
+        if (areaType === Constants.SLAB_AREA) {
+            var typeOfArea = Constants.TOTAL_SLAB_AREA;
+          } else if (areaType === Constants.SALEABLE_AREA) {
+            typeOfArea = Constants.TOTAL_SALEABLE_AREA;
+          } else if (areaType === Constants.CARPET_AREA) {
+            typeOfArea = Constants.TOTAL_CARPET_AREA;
           }
         let totalArea = alasql('VALUE OF SELECT SUM('+typeOfArea+') FROM ?',[buildings]);
         let projectCostHeads = result[0].projectCostHeads;
@@ -85,17 +85,26 @@ class ReportService {
       let estimatedReport: Estimate = new Estimate();
       buildingReport.name = buildings[index].name;
       buildingReport._id = buildings[index]._id;
-      if (areaType === 'slabArea') {
-        if (rateUnit === 'sqmt') {
-          buildingReport.area = parseFloat((buildings[index].totalSlabArea * config.get('SqureMeter')).toFixed(2));
+      if (areaType === Constants.SLAB_AREA) {
+        if (rateUnit === Constants.SQUREMETER_UNIT) {
+          buildingReport.area = parseFloat((buildings[index].totalSlabArea * config.get(Constants.SQUARE_METER)).toFixed(
+            Constants.NUMBER_OF_FRACTION_DIGIT));
         } else {
-          buildingReport.area = parseFloat((buildings[index].totalSlabArea).toFixed(2));
+          buildingReport.area = parseFloat((buildings[index].totalSlabArea).toFixed(Constants.NUMBER_OF_FRACTION_DIGIT));
+        }
+      } else if (areaType === Constants.CARPET_AREA) {
+        if (rateUnit === Constants.SQUREMETER_UNIT) {
+          buildingReport.area = parseFloat((buildings[index].totalCarpetAreaOfUnit * config.get(Constants.SQUARE_METER)).toFixed(
+            Constants.NUMBER_OF_FRACTION_DIGIT));
+        } else {
+          buildingReport.area = parseFloat((buildings[index].totalCarpetAreaOfUnit).toFixed(Constants.NUMBER_OF_FRACTION_DIGIT));
         }
       } else {
-        if (rateUnit === 'sqmt') {
-          buildingReport.area = parseFloat((buildings[index].totalSaleableAreaOfUnit * config.get('SqureMeter')).toFixed(2));
+        if (rateUnit === Constants.SQUREMETER_UNIT) {
+          buildingReport.area = parseFloat((buildings[index].totalSaleableAreaOfUnit * config.get(Constants.SQUARE_METER)
+          ).toFixed(Constants.NUMBER_OF_FRACTION_DIGIT));
         } else {
-          buildingReport.area = parseFloat((buildings[index].totalSaleableAreaOfUnit).toFixed(2));
+          buildingReport.area = parseFloat((buildings[index].totalSaleableAreaOfUnit).toFixed(Constants.NUMBER_OF_FRACTION_DIGIT));
         }
       }
       let costHeadArray: any = buildings[index].costHeads;
@@ -109,25 +118,50 @@ class ReportService {
           estimateReport.name = costHeadArray[costHeadIndex].name;
           thumbRule.rateAnalysisId = costHeadArray[costHeadIndex].rateAnalysisId;
           estimateReport.rateAnalysisId = costHeadArray[costHeadIndex].rateAnalysisId;
-          if (areaType === 'slabArea') {
+          if (areaType === Constants.SLAB_AREA) {
+            //Slab Area
             thumbRuleReport.area = buildings[index].totalSlabArea;
             estimatedReport.area = buildings[index].totalSlabArea;
-            if (rateUnit === 'sqft') {
-              thumbRule.rate = parseFloat((costHeadArray[costHeadIndex].thumbRuleRate.slabArea.sqft).toFixed(2));
+            if (rateUnit === Constants.SQUREFEET_UNIT) {
+              thumbRule.rate = parseFloat((costHeadArray[costHeadIndex].thumbRuleRate.slabArea.sqft).toFixed(
+                Constants.NUMBER_OF_FRACTION_DIGIT));
             } else {
-              thumbRule.rate = parseFloat((costHeadArray[costHeadIndex].thumbRuleRate.slabArea.sqmt).toFixed(2));
-              thumbRuleReport.area = parseFloat((buildings[index].totalSlabArea * config.get('SqureMeter')).toFixed(2));
-              estimatedReport.area = parseFloat((buildings[index].totalSlabArea * config.get('SqureMeter')).toFixed(2));
+              thumbRule.rate = parseFloat((costHeadArray[costHeadIndex].thumbRuleRate.slabArea.sqmt).toFixed(
+                Constants.NUMBER_OF_FRACTION_DIGIT));
+              thumbRuleReport.area = parseFloat((buildings[index].totalSlabArea * config.get(Constants.SQUARE_METER)).toFixed(
+                Constants.NUMBER_OF_FRACTION_DIGIT));
+              estimatedReport.area = parseFloat((buildings[index].totalSlabArea * config.get(Constants.SQUARE_METER)).toFixed(
+                Constants.NUMBER_OF_FRACTION_DIGIT));
+            }
+          } else if (areaType === Constants.CARPET_AREA) {
+            //Carpet Area
+            thumbRuleReport.area = buildings[index].totalCarpetAreaOfUnit;
+            estimatedReport.area = buildings[index].totalCarpetAreaOfUnit;
+            if (rateUnit === Constants.SQUREFEET_UNIT) {
+              thumbRule.rate = parseFloat((costHeadArray[costHeadIndex].thumbRuleRate.carpetArea.sqft).toFixed(
+                Constants.NUMBER_OF_FRACTION_DIGIT));
+            } else {
+              thumbRule.rate = parseFloat((costHeadArray[costHeadIndex].thumbRuleRate.carpetArea.sqmt).toFixed(
+                Constants.NUMBER_OF_FRACTION_DIGIT));
+              thumbRuleReport.area = parseFloat((buildings[index].totalCarpetAreaOfUnit * config.get(Constants.SQUARE_METER)
+              ).toFixed(Constants.NUMBER_OF_FRACTION_DIGIT));
+              estimatedReport.area = parseFloat((buildings[index].totalCarpetAreaOfUnit * config.get(Constants.SQUARE_METER)
+              ).toFixed(Constants.NUMBER_OF_FRACTION_DIGIT));
             }
           } else {
+            //Saleable Area
             thumbRuleReport.area = buildings[index].totalSaleableAreaOfUnit;
             estimatedReport.area = buildings[index].totalSaleableAreaOfUnit;
-            if (rateUnit === 'sqft') {
-              thumbRule.rate = parseFloat((costHeadArray[costHeadIndex].thumbRuleRate.saleableArea.sqft).toFixed(2));
+            if (rateUnit === Constants.SQUREFEET_UNIT) {
+              thumbRule.rate = parseFloat((costHeadArray[costHeadIndex].thumbRuleRate.saleableArea.sqft).toFixed(
+                Constants.NUMBER_OF_FRACTION_DIGIT));
             } else {
-              thumbRule.rate = parseFloat((costHeadArray[costHeadIndex].thumbRuleRate.saleableArea.sqmt).toFixed(2));
-              thumbRuleReport.area = parseFloat((buildings[index].totalSaleableAreaOfUnit * config.get('SqureMeter')).toFixed(2));
-              estimatedReport.area = parseFloat((buildings[index].totalSaleableAreaOfUnit * config.get('SqureMeter')).toFixed(2));
+              thumbRule.rate = parseFloat((costHeadArray[costHeadIndex].thumbRuleRate.saleableArea.sqmt).toFixed(
+                Constants.NUMBER_OF_FRACTION_DIGIT));
+              thumbRuleReport.area = parseFloat((buildings[index].totalSaleableAreaOfUnit * config.get(
+                Constants.SQUARE_METER)).toFixed(Constants.NUMBER_OF_FRACTION_DIGIT));
+              estimatedReport.area = parseFloat((buildings[index].totalSaleableAreaOfUnit * config.get(
+                Constants.SQUARE_METER)).toFixed(Constants.NUMBER_OF_FRACTION_DIGIT));
             }
           }
           let category: Array<Category> = costHeadArray[costHeadIndex].categories;
@@ -142,8 +176,9 @@ class ReportService {
                       if (workItem[key].quantity.total !== null && workItem[key].rate.total !== null
                         && workItem[key].quantity.total !== 0 && workItem[key].rate.total !== 0) {
                         estimateReport.total = parseFloat((workItem[key].quantity.total * workItem[key].rate.total
-                          + estimateReport.total).toFixed(2));
-                        estimateReport.rate = parseFloat((estimateReport.total / buildingReport.area).toFixed(2));
+                          + estimateReport.total).toFixed(Constants.NUMBER_OF_FRACTION_DIGIT));
+                        estimateReport.rate = parseFloat((estimateReport.total / buildingReport.area).toFixed(
+                          Constants.NUMBER_OF_FRACTION_DIGIT));
                       } else {
                         /*estimateReport.total = 0.0;
                             estimateReport.rate = 0.0;
@@ -160,19 +195,22 @@ class ReportService {
             }
 
           }
-          estimatedReport.totalEstimatedCost = parseFloat((estimateReport.total + estimatedReport.totalEstimatedCost).toFixed(2));
-          estimatedReport.totalRate = parseFloat((estimatedReport.totalRate + estimateReport.rate).toFixed(2));
+          estimatedReport.totalEstimatedCost = parseFloat((estimateReport.total + estimatedReport.totalEstimatedCost).toFixed(
+            Constants.NUMBER_OF_FRACTION_DIGIT));
+          estimatedReport.totalRate = parseFloat((estimatedReport.totalRate + estimateReport.rate).toFixed(
+            Constants.NUMBER_OF_FRACTION_DIGIT));
           estimatedReport.estimatedCosts.push(estimateReport);
           if (costHeadArray[costHeadIndex].budgetedCostAmount === 0 ||
             costHeadArray[costHeadIndex].budgetedCostAmount === undefined) {
-            thumbRule.amount = parseFloat((thumbRuleReport.area * thumbRule.rate).toFixed(2));
+            thumbRule.amount = parseFloat((thumbRuleReport.area * thumbRule.rate).toFixed(Constants.NUMBER_OF_FRACTION_DIGIT));
           } else {
-            thumbRule.amount = parseFloat((costHeadArray[costHeadIndex].budgetedCostAmount).toFixed(2));
+            thumbRule.amount = parseFloat((costHeadArray[costHeadIndex].budgetedCostAmount).toFixed(Constants.NUMBER_OF_FRACTION_DIGIT));
           }
           thumbRule.costHeadActive = costHeadArray[costHeadIndex].active;
           thumbRuleReport.thumbRuleReports.push(thumbRule);
-          thumbRuleReport.totalRate = parseFloat((thumbRuleReport.totalRate + thumbRule.rate).toFixed(2));
-          thumbRuleReport.totalBudgetedCost = parseFloat((thumbRuleReport.totalBudgetedCost + thumbRule.amount).toFixed(2));
+          thumbRuleReport.totalRate = parseFloat((thumbRuleReport.totalRate + thumbRule.rate).toFixed(Constants.NUMBER_OF_FRACTION_DIGIT));
+          thumbRuleReport.totalBudgetedCost = parseFloat((thumbRuleReport.totalBudgetedCost + thumbRule.amount).toFixed(
+            Constants.NUMBER_OF_FRACTION_DIGIT));
           buildingReport.estimate = estimatedReport;
           buildingReport.thumbRule = thumbRuleReport;
         }
@@ -230,7 +268,7 @@ generateReportForProjectCostHeads( reportType : string, projectCostHeads:  Array
            thumbRuleReport.rateAnalysisId = projectCostHeadArray[projectCostHeadIndex].rateAnalysisId;
            thumbRuleReport.amount = parseFloat((projectCostHeadArray[projectCostHeadIndex].budgetedCostAmount).toFixed(2));
 
-            if (rateUnit === Constants.WORKITEM_UNIT) {
+            if (rateUnit === Constants.SQUREFEET_UNIT) {
               thumbRuleReport.rate =  parseFloat((thumbRuleReport.amount/totalArea).toFixed(2));
             } else  {
               thumbRule.area = thumbRuleReport.amount * config.get(Constants.SQUARE_METER);

@@ -272,9 +272,12 @@ export class API {
   public static RATE='rate';
   public static SQFT='sqft';
   public static SQM='sqmt';
+  public static RS_PER_SQFT = 'Rs/Sqft';
+  public static RS_PER_SQMT = 'Rs/Sqmt';
   public static AREA='area';
   public static SLAB_AREA='slabArea';
   public static SALEABLE_AREA='saleableArea';
+  public static CARPET_AREA='carpetArea';
 
 }
 
@@ -456,6 +459,13 @@ export class ProjectElements {
   public static BUILDING = 'Building';
   public static QUANTITY_ITEM = 'Quantity Item';
   public static CATEGORY = 'Category';
+  public static SLAB_AREA = 'Slab Area';
+  public static SALEABLE_AREA = 'Saleable Area';
+  public static CARPET_AREA = 'Carpet Area';
+  public static RS_PER_SQFT = 'Rs/Sqft';
+  public static RS_PER_SQMT = 'Rs/Sqmt';
+  public static SQUAREFEET = 'sqft';
+  public static SQUAREMETER = 'sqmt';
 }
 
 export class Menus {

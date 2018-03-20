@@ -54,18 +54,18 @@ export class CostSummaryComponent implements OnInit {
   clonedBuildingDetails: Array<CostHead>;
 
   public costIn: any[] = [
-    { 'costInId': 'Rs/Sqft'},
-    { 'costInId': 'Rs/Sqmt'}
+    { 'costInId': ProjectElements.RS_PER_SQFT},
+    { 'costInId': ProjectElements.RS_PER_SQMT}
   ];
 
   public costPer: any[] = [
-    { 'costPerId': 'SlabArea'},
-    { 'costPerId': 'SalebleArea'},
-    { 'costPerId': 'CarpetArea'},
+    { 'costPerId': ProjectElements.SLAB_AREA},
+    { 'costPerId': ProjectElements.SALEABLE_AREA},
+    { 'costPerId': ProjectElements.CARPET_AREA},
   ];
 
-  defaultCostingByUnit:string='Rs/Sqft';
-  defaultCostingByArea:string='SlabArea';
+  defaultCostingByUnit:string = ProjectElements.RS_PER_SQFT;
+  defaultCostingByArea:string = ProjectElements.SLAB_AREA;
   deleteConfirmationCostHead = ProjectElements.COST_HEAD;
   deleteConfirmationBuilding = ProjectElements.BUILDING;
 
@@ -223,8 +223,11 @@ export class CostSummaryComponent implements OnInit {
     if (amount !== null) {
       let costingByUnit : string;
       let costingByArea : string;
-      (this.defaultCostingByUnit==='Rs/Sqft') ? costingByUnit = 'sqft' : costingByUnit = 'sqmt';
-      (this.defaultCostingByArea==='SlabArea') ? costingByArea = 'slabArea' : costingByArea = 'saleableArea';
+      (this.defaultCostingByUnit===ProjectElements.RS_PER_SQFT) ? costingByUnit = ProjectElements.SQUAREFEET :
+        costingByUnit = ProjectElements.SQUAREMETER;
+      (this.defaultCostingByArea === ProjectElements.SLAB_AREA) ? costingByArea = ProjectElements.SLAB_AREA :
+        ((this.defaultCostingByArea === ProjectElements.SALEABLE_AREA) ? costingByArea = ProjectElements.SALEABLE_AREA :
+          costingByArea = ProjectElements.CARPET_AREA);
       let projectId=SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT_ID);
       this.costSummaryService.updateRateOfThumbRule( projectId, buildingId, costHead,
         costingByUnit, costingByArea, buildingArea, amount).subscribe(
@@ -407,5 +410,9 @@ export class CostSummaryComponent implements OnInit {
 
   getHeadings() {
     return Headings;
+  }
+
+  getProjectElements() {
+    return ProjectElements;
   }
 }

@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Button, Headings, Label, NavigationRoutes, TableHeadings } from '../../../../../shared/constants';
+import { Button, Headings, Label, NavigationRoutes, TableHeadings, ProjectElements } from '../../../../../shared/constants';
 import { BuildingReport } from '../../../model/building-report';
 import { SessionStorage, SessionStorageService } from '../../../../../shared/index';
 import { EstimateReport } from '../../../model/estimate-report';
@@ -47,10 +47,14 @@ export class CommonAmenitiesComponent implements OnInit {
   getLabel() {
     return Label;
   }
+
   getButton() {
     return Button;
   }
 
+  getProjectElements() {
+    return ProjectElements;
+  }
 }
 
 

@@ -3,6 +3,7 @@ import { API, BaseService, SessionStorage, SessionStorageService, MessageService
 import { HttpDelegateService } from '../../../../shared/services/http-delegate.service';
 import { QuantityItem } from '../../model/quantity-item';
 import { Rate } from '../../model/rate';
+import { ProjectElements } from '../../../../shared/constants';
 
 @Injectable()
 export class CostSummaryService extends BaseService {
@@ -15,9 +16,10 @@ export class CostSummaryService extends BaseService {
   getCostSummaryReport(projectId: string,defaultCostIn:string,defaultCostPer:string) {
 
     var url = API.THUMBRULE_RULE_RATE + '/'+ API.PROJECT +'/'+projectId+'/';
-    url =  ( defaultCostIn==='Rs/Sqft' ) ? ( url + API.RATE + '/' + API.SQFT ) : ( url + API.RATE + '/' + API.SQM );
-    url= ( defaultCostPer==='SlabArea' ) ?  ( url + '/'+ API.AREA +'/' + API.SLAB_AREA ) :  ( url + '/'+ API.AREA +'/' +
-      API.SALEABLE_AREA );
+    url =  ( defaultCostIn === ProjectElements.RS_PER_SQFT ) ? ( url + API.RATE + '/' + API.SQFT ) : ( url + API.RATE + '/' + API.SQM );
+    url= ( defaultCostPer === ProjectElements.SLAB_AREA ) ?  ( url + '/'+ API.AREA +'/' + API.SLAB_AREA ) :
+      (( defaultCostPer === ProjectElements.CARPET_AREA ) ? ( url + '/'+ API.AREA +'/' + API.CARPET_AREA ) :
+        ( url + '/'+ API.AREA +'/' + API.SALEABLE_AREA ));
 
     return this.httpDelegateService.getAPI(url);
   }
