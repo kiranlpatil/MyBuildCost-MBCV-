@@ -141,14 +141,28 @@ export class GetQuantityComponent implements OnInit {
     this.quantityItems.push(quantity);
   }
 
-  updateQuantityItem(quantityItems : QuantityItem) {
-    this.loaderService.start();
-    let costHeadId = parseFloat(SessionStorageService.getSessionValue(SessionStorage.CURRENT_COST_HEAD_ID));
-    this.costSummaryService.updateQuantityItems( this.baseUrl, costHeadId, this.categoryRateAnalysisId,
-      this.workItemId, quantityItems).subscribe(
-      success => this.onUpdateQuantityItemsSuccess(success),
-      error => this.onUpdateQuantityItemsFailure(error)
-    );
+  updateQuantityItem(quantityItems : Array<QuantityItem>) {
+    let itemNameRequired = false;
+    for(let quantityItemData of quantityItems) {
+      if(quantityItemData.item === '' || quantityItemData.item === undefined) {
+        itemNameRequired = true;
+        break;
+      }
+    }
+    if(!itemNameRequired) {
+      this.loaderService.start();
+      let costHeadId = parseFloat(SessionStorageService.getSessionValue(SessionStorage.CURRENT_COST_HEAD_ID));
+      this.costSummaryService.updateQuantityItems(this.baseUrl, costHeadId, this.categoryRateAnalysisId,
+        this.workItemId, quantityItems).subscribe(
+        success => this.onUpdateQuantityItemsSuccess(success),
+        error => this.onUpdateQuantityItemsFailure(error)
+      );
+    } else {
+      var message = new Message();
+      message.isError = false;
+      message.custom_message = Messages.MSG_ERROR_VALIDATION_QUANTITY_REQUIRED;
+      this.messageService.message(message);
+    }
   }
 
   onUpdateQuantityItemsSuccess(success : string) {

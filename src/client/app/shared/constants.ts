@@ -72,6 +72,7 @@ export class Messages {
   public static MSG_ERROR_VALIDATION_OTP_MOBILE_NUMBER = 'Please provide a valid mobile number.';
   public static MSG_ERROR_VALIDATION_PASSWORD = 'Password must be alphanumeric having minimum 6 characters';
   public static MSG_ERROR_VALIDATION_PIN_NUMBER = 'Pin code should not be greater than 20 characters.';
+  public static MSG_ERROR_VALIDATION_ITEM_NAME_REQUIRED = 'Item name should not be blank. \nFill it.';
 
   //Project validation messages
   public static MSG_ERROR_VALIDATION_PROJECT_NAME_REQUIRED = 'Enter project name';
@@ -173,6 +174,16 @@ export class Messages {
   public static MSG_ALREADY_ADDED_ALL_WORKITEMS: string = 'Already added all workitems.';
   public static MSG_SUCCESS_DELETE_WORKITEM: string = 'Your workitem deleted successfully.';
   public static MSG_SUCCESS_UPDATE_THUMBRULE_RATE_COSTHEAD: string = 'Thumbrule rate for CostHead updated successfully.';
+
+  //Quantity view required fields
+  public static MSG_ERROR_VALIDATION_QUANTITY_ITEM_REQUIRED = 'Enter item';
+  public static MSG_ERROR_VALIDATION_QUANTITY_NUMBERS_REQUIRED = 'Enter numbers';
+  public static MSG_ERROR_VALIDATION_QUANTITY_LENGTH_REQUIRED = 'Enter length';
+  public static MSG_ERROR_VALIDATION_QUANTITY_BREADTH_REQUIRED = 'Enter breadth';
+  public static MSG_ERROR_VALIDATION_QUANTITY_HEIGHT_REQUIRED = 'Enter height';
+  public static MSG_ERROR_VALIDATION_QUANTITY_QUANTITY_REQUIRED = 'Enter quantity';
+  public static MSG_ERROR_VALIDATION_QUANTITY_UNIT_REQUIRED = 'Enter unit';
+  public static MSG_ERROR_VALIDATION_QUANTITY_REQUIRED = 'Some where Quantity field is blank. Please fill it';
 }
 
 export class NavigationRoutes {
