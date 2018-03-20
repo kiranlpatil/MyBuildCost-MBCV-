@@ -12,7 +12,7 @@
     <th>&nbsp;</th>
     </thead>
     <tbody>
-    <tr *ngFor="let quantityItem of quantityItems">
+    <tr *ngFor="let quantityItem of quantityItems;  let quantityIndex= index ">
       <td class="get-amount-value">
         <input [(ngModel)]="quantityItem.item" id="costitem"  class="form-control"/>
       </td>
@@ -43,7 +43,7 @@
         </div>
         <div class="col-xs-2">
         <span title="Delete" data-toggle="modal" data-target="#deleteQuantity"
-              (click)="setQuantityItemNameForDelete(quantityItem.item)" class="glyphicon glyphicon-trash"></span>
+              (click)="setQuantityItemNameForDelete(quantityIndex)" class="glyphicon glyphicon-trash"></span>
         </div>
 
       </td>

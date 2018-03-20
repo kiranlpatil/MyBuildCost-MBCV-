@@ -188,6 +188,7 @@ export class NavigationRoutes {
   public static APP_LIST_PROJECT: string = 'project/list';
   public static APP_COST_SUMMARY: string = 'cost-summary';
   public static APP_COST_HEAD: string = 'cost-head';
+  public static APP_CATEGORY: string = 'category';
   public static APP_COMMON_AMENITIES = 'common-amenities';
   public static APP_DASHBOARD: string = '/dashboard';
   public static APP_LOGIN: string = '/signin';
@@ -256,6 +257,7 @@ export class API {
   public static PROJECT = 'project';
   public static BUILDING = 'building';
   public static COSTHEAD = 'costhead';
+  public static COMMON_AMENITIES = 'common-amenities';
   public static ACTIVE_STATUS = 'activeStatus';
   public static ACTIVE_STATUS_FALSE = 'false';
   public static ACTIVE_STATUS_TRUE = 'true';

@@ -128,8 +128,8 @@ export class CostSummaryComponent implements OnInit {
     this.buildingId =  SessionStorageService.getSessionValue(SessionStorage.CURRENT_BUILDING);
     this.projectId = SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT_ID);
 
-    this._router.navigate([NavigationRoutes.APP_PROJECT, this.projectId, buildingName, NavigationRoutes.APP_COST_SUMMARY,
-      NavigationRoutes.APP_BUILDING, NavigationRoutes.APP_COST_HEAD, estimatedItem.name,  estimatedItem.rateAnalysisId]);
+    this._router.navigate([NavigationRoutes.APP_PROJECT, this.projectId, NavigationRoutes.APP_BUILDING,
+      buildingName, NavigationRoutes.APP_COST_HEAD, estimatedItem.name,  estimatedItem.rateAnalysisId, NavigationRoutes.APP_CATEGORY]);
   }
 
   goToCommonAmenities() {
