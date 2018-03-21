@@ -1,5 +1,6 @@
 class RateItem {
   item: string;
+  originalName: string;
   rateAnalysisId:number;
   quantity: number;
   unit: string;

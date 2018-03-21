@@ -1249,7 +1249,8 @@ class ProjectService {
       'FROM ? AS t)';
     let rateItems = alasql(getRatesListSQL, [result.rates, costHeads]);
 
-    let rateItemsRateAnalysisSQL = 'SELECT rateItem.C2 AS item, rateItem.C12 AS rateAnalysisId, rateItem.C6 AS type,' +
+    let rateItemsRateAnalysisSQL = 'SELECT rateItem.C2 AS item, rateItem.C2 AS originalName,' +
+      'rateItem.C12 AS rateAnalysisId, rateItem.C6 AS type,' +
       'ROUND(rateItem.C7,2) AS quantity, ROUND(rateItem.C3,2) AS rate, unit.C2 AS unit,' +
       'ROUND(rateItem.C3 * rateItem.C7,2) AS totalAmount, rateItem.C5 AS totalQuantity ' +
       'FROM ? AS rateItem JOIN ? AS unit ON unit.C1 = rateItem.C9';
@@ -1270,7 +1271,8 @@ class ProjectService {
           reject(error);
         } else {
             let projectService = new ProjectService();
-            let projectCostHeads = projectService.calculateBudgetCostForCommonAmmenities(result.buildingCostHeads, projectDetails, buildingDetails);
+            let projectCostHeads = projectService.calculateBudgetCostForCommonAmmenities(
+              result.buildingCostHeads, projectDetails, buildingDetails);
             let rates  = projectService.getRates(result, projectCostHeads);
             let query = {'_id': projectId};
             let newData = {$set: {'projectCostHeads': projectCostHeads, 'rates': rates}};
