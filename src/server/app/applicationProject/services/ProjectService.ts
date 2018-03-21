@@ -930,13 +930,38 @@ class ProjectService {
       { $project : {'costHeads.categories.workItems':1}}
     ];
 
-    this.buildingRepository.aggregate(query, (error, result) => {
+    this.buildingRepository.findById(buildingId, (error, response) => {
       logger.info('Project service, Get workitems By Cost Head & category Id has been hit');
       if (error) {
         callback(error, null);
       } else {
-        let workItemsOfCategory = result[0].costHeads.categories.workItems;
-        callback(null, {data: workItemsOfCategory, access_token: this.authInterceptor.issueTokenWithUid(user)});
+        if(response) {
+          console.log('result : '+JSON.stringify(response.rates));
+          this.buildingRepository.aggregate(query, (error, result) => {
+            logger.info('Project service, Get workitems By Cost Head & category Id has been hit');
+            if (error) {
+              callback(error, null);
+            } else {
+              if(result.length > 0) {
+                let workItemsOfCategory = result[0].costHeads.categories.workItems;
+                let workItemsListWithRates = new Array<WorkItem>();
+                for(let workItemObj of workItemsOfCategory) {
+                  let workItem : WorkItem = workItemObj;
+                  let rates = workItemObj.rate.rateItems;
+
+                  let rateItemsRateAnalysisSQL = 'SELECT rateItem.item, rateItem.originalName, rateItem.rateAnalysisId, rateItem.type,' +
+                    'rateItem.quantity, centralizedRates.rate, rateItem.unit, rateItem.totalAmount, rateItem.totalQuantity ' +
+                    'FROM ? AS rateItem JOIN ? AS centralizedRates ON rateItem.rateAnalysisId = centralizedRates.rateAnalysisId';
+                  let rateItemsByWorkItemForQuantityOne = alasql(rateItemsRateAnalysisSQL, [rates, response.rates]);
+                  workItem.rate.rateItems = rateItemsByWorkItemForQuantityOne;
+                  workItemsListWithRates.push(workItem);
+                }
+
+                callback(null, {data: workItemsListWithRates, access_token: this.authInterceptor.issueTokenWithUid(user)});
+              }
+            }
+          });
+        }
       }
     });
   }

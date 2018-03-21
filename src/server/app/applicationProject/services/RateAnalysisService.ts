@@ -302,7 +302,7 @@ class RateAnalysisService {
 
       let rateItemsRateAnalysisSQL = 'SELECT rateItem.C2 AS item, rateItem.C2 AS originalName,' +
         'rateItem.C12 AS rateAnalysisId, rateItem.C6 AS type,' +
-        'ROUND(rateItem.C7,2) AS quantity, unit.C2 AS unit,' +
+        'ROUND(rateItem.C7,2) AS quantity, ROUND(rateItem.C3,2) AS rate, unit.C2 AS unit,' +
         'ROUND(rateItem.C3 * rateItem.C7,2) AS totalAmount, rateItem.C5 AS totalQuantity ' +
         'FROM ? AS rateItem JOIN ? AS unit ON unit.C1 = rateItem.C9 where rateItem.C1 = '
         + workItemsByCategory[workItemIndex].rateAnalysisId;
