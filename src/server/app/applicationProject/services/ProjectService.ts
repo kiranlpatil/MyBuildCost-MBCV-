@@ -24,6 +24,7 @@ import BudgetCostRates = require('../dataaccess/model/project/reports/BudgetCost
 import ThumbRuleRate = require('../dataaccess/model/project/reports/ThumbRuleRate');
 import Constants = require('../../applicationProject/shared/constants');
 import QuantityItem = require('../dataaccess/model/project/building/QuantityItem');
+import RateItem = require('../dataaccess/model/project/building/RateItem');
 let CCPromise = require('promise/lib/es6-extensions');
 let logger=log4js.getLogger('Project service');
 
@@ -228,6 +229,21 @@ class ProjectService {
         callback(error, null);
       } else {
         callback(null, {data: result, access_token: this.authInterceptor.issueTokenWithUid(user)});
+      }
+    });
+  }
+
+  getRateItemsByName(projectId: string, buildingId: string, rateItemName: string, user: User,
+                     callback: (error: any, result: any) => void) {
+    this.buildingRepository.findById(buildingId, (error, building:Building) => {
+      logger.info('Project Service, getRateItemsByName has been hit');
+      if (error) {
+        callback(error, null);
+      } else {
+        let rateItemsArray = building.rates;
+          let newRateItemsArray: Array<RateItem> = new Array<RateItem>();
+        newRateItemsArray = alasql('SELECT * FROM ? where originalName = ?', [rateItemsArray,rateItemName]);
+        callback(null,{ data: newRateItemsArray, access_token: this.authInterceptor.issueTokenWithUid(user)});
       }
     });
   }

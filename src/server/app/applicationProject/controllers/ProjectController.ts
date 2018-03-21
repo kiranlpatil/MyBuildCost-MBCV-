@@ -806,5 +806,28 @@ class ProjectController {
       next(new CostControllException(e.message,e.stack));
     }
   }
+  getRateItemsByName(req: express.Request, res: express.Response, next: any): void {
+    try {
+      logger.info('Project controller, getRateItemsByName has been hit');
+      let user = req.user;
+      let projectId = req.params.projectId;
+      let buildingId = req.params.buildingId;
+      let rateItemName = req.params.rateItemName;
+      let projectService = new ProjectService();
+
+      projectService.getRateItemsByName( projectId, buildingId, rateItemName, user, (error, result) => {
+        if(error) {
+          logger.error('getRateItemsByName failure');
+          next(error);
+        } else {
+          logger.info('getRateItemsByName success');
+          logger.debug('Getting getRateItemsByName of Project ID : '+projectId+' Building ID : '+buildingId);
+          next(new Response(200,result));
+        }
+      });
+    } catch (e) {
+      next(new CostControllException(e.message,e.stack));
+    }
+  }
 }
 export  = ProjectController;

@@ -875,6 +875,33 @@ if ((req.body.name === undefined) || (req.body.region === undefined) || (req.bod
       }
     });
   }
-
+  getRateItemsByName(req: any, res: any, next: any) {
+    var projectId = req.params.projectId;
+    var buildingId = req.params.buildingId;
+    ProjectInterceptor.validateIds(projectId, buildingId, (error, result) => {
+      if (error) {
+        next(error);
+      } else {
+        if (result === false) {
+          next({
+            reason: Messages.MSG_ERROR_EMPTY_FIELD,
+            message: Messages.MSG_ERROR_EMPTY_FIELD,
+            stackTrace: new Error(),
+            code: 400
+          });
+        } else {
+          if ((req.params.rateItemName === undefined) || (req.params.rateItemName === '')) {
+            next({
+              reason: Messages.MSG_ERROR_EMPTY_FIELD,
+              message: Messages.MSG_ERROR_EMPTY_FIELD,
+              stackTrace: new Error(),
+              code: 400
+            });
+          }
+        }
+        next();
+      }
+    });
+  }
 
 }export = ProjectInterceptor;
