@@ -27,25 +27,34 @@
               </th>
             </tr>
             <tr>
-              <th><span class="sub-heading">{{costingByUnit}}<br/>{{(costingByArea ==='SlabArea') ? 'Slab Area' : ((costingByArea ==='SalebleArea') ? 'Saleable Area' : 'Carpet Area')}}</span></th>
+              <th><span class="sub-heading">{{costingByUnit}}<br/>{{(costingByArea === getProjectElements().SLAB_AREA) ? getProjectElements().SLAB_AREA : ((costingByArea ===getProjectElements().SALEABLE_AREA) ? getProjectElements().SALEABLE_AREA : getProjectElements().CARPET_AREA)}}</span></th>
               <th class="border-left"><span class="sub-heading">{{getLabel().BUDGETED_COST}}</span></th>
-              <th><span class="sub-heading">{{costingByUnit}}<br/>{{(costingByArea ==='SlabArea') ? 'Slab Area' : ((costingByArea ==='SalebleArea') ? 'Saleable Area' : 'Carpet Area')}}</span></th>
+              <th><span class="sub-heading">{{costingByUnit}}<br/>{{(costingByArea === getProjectElements().SLAB_AREA) ? getProjectElements().SLAB_AREA : ((costingByArea === getProjectElements().SALEABLE_AREA) ? getProjectElements().SALEABLE_AREA : getProjectElements().CARPET_AREA)}}</span></th>
               <th><span class="sub-heading">{{getLabel().ESTIMATED_COST}}</span></th>
             </tr>
           </thead>
-          <tbody *ngIf="amenitiesReport.thumbRule" >
-            <tr *ngFor="let thumbRuleItem of amenitiesReport.thumbRule.thumbRuleReports; let thumbRuleItemIndex = index" class="delete-cost-head-cell">
+          <tbody *ngIf="amenitiesReport.thumbRule  && amenitiesReport.estimate" >
+            <tr *ngFor="let thumbRuleItem of amenitiesReport.thumbRule.thumbRuleReports; let currentAmenitieIndex = index" class="delete-cost-head-cell">
               <td class="border-left">{{thumbRuleItem.name}}</td>
               <td class="border-left"><span class="estimated-cost">{{thumbRuleItem.rate}}</span></td>
-              <td class="border-left">{{thumbRuleItem.amount}}</td>
-              <td class="border-left"><span class="estimated-cost">{{amenitiesReport.estimate.estimatedCosts[thumbRuleItemIndex].rate}}</span></td>
+              <td class="border-left">
+                <div class="edit-field">
+                  <input type="number"
+                         [(ngModel)]="thumbRuleItem.amount"
+                         id="thumbRuleItem.amount"
+                         (blur)="changeBudgetedCostAmountOfProjectCostHead(thumbRuleItem.name, thumbRuleItem.amount)"
+                         class="form-control clear"/>
+                </div>
+              </td>
+              <td class="border-left"><span class="estimated-cost">{{amenitiesReport.estimate.estimatedCosts[currentAmenitieIndex].rate}}</span></td>
               <td>
-                <div class="edit-field" *ngIf="amenitiesReport.estimate.estimatedCosts[thumbRuleItemIndex].total != 0">
-                  <input [(ngModel)]="amenitiesReport.estimate.estimatedCosts[thumbRuleItemIndex].total"
+                <div class="edit-field" *ngIf="amenitiesReport.estimate.estimatedCosts[currentAmenitieIndex].total != 0"
+                     (click)="goToCostHeadView(amenitiesReport.estimate.estimatedCosts[currentAmenitieIndex])">
+                  <input [(ngModel)]="amenitiesReport.estimate.estimatedCosts[currentAmenitieIndex].total"
                          id="estimatedItem.total">
                 </div>
-                <button type="button" *ngIf="amenitiesReport.estimate.estimatedCosts[thumbRuleItemIndex].total == 0"
-                        class="btn-get-amount">{{getButton().GET_AMOUNT}}</button>
+                <button type="button" *ngIf="amenitiesReport.estimate.estimatedCosts[currentAmenitieIndex].total == 0"
+                        class="btn-get-amount" (click)="goToCostHeadView(amenitiesReport.estimate.estimatedCosts[currentAmenitieIndex])">{{getButton().GET_AMOUNT}}</button>
               </td>
               <td class="delete-cost-head">
                 <div data-toggle="modal"
@@ -63,10 +72,10 @@
       <tbody>
       <tr class="total" *ngIf="amenitiesReport.thumbRule && amenitiesReport.estimate">
         <td>{{getLabel().TOTAL}}</td>
-        <td>{{amenitiesReport.thumbRule.totalBudgetedCost|number}}</td>
-        <td><span class="estimated-cost">{{amenitiesReport.thumbRule.totalRate|number}}</span></td>
-        <td>{{amenitiesReport.estimate.totalEstimatedCost|number}}</td>
-        <td><span class="estimated-cost">{{amenitiesReport.estimate.totalRate|number}}</span></td>
+        <td>{{amenitiesReport.thumbRule.totalRate|number}}</td>
+        <td><span class="estimated-cost">{{amenitiesReport.thumbRule.totalBudgetedCost|number}}</span></td>
+        <td>{{amenitiesReport.estimate.totalRate|number}}</td>
+        <td><span class="estimated-cost">{{amenitiesReport.estimate.totalEstimatedCost|number}}</span></td>
       </tr>
       </tbody>
     </table>

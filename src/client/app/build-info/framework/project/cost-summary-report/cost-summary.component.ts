@@ -14,6 +14,7 @@ import { CostHead } from '../../model/costhead';
 import { EstimateReport } from '../../model/estimate-report';
 import { BuildingReport } from '../../model/building-report';
 import ProjectReport = require('../../model/project-report');
+import { LoaderService } from '../../../../shared/loader/loaders.service';
 
 
 @Component({
@@ -53,24 +54,24 @@ export class CostSummaryComponent implements OnInit {
   clonedBuildingDetails: Array<CostHead>;
 
   public costIn: any[] = [
-    { 'costInId': 'Rs/Sqft'},
-    { 'costInId': 'Rs/Sqmt'}
+    { 'costInId': ProjectElements.RS_PER_SQFT},
+    { 'costInId': ProjectElements.RS_PER_SQMT}
   ];
 
   public costPer: any[] = [
-    { 'costPerId': 'SlabArea'},
-    { 'costPerId': 'SalebleArea'},
-    { 'costPerId': 'CarpetArea'},
+    { 'costPerId': ProjectElements.SLAB_AREA},
+    { 'costPerId': ProjectElements.SALEABLE_AREA},
+    { 'costPerId': ProjectElements.CARPET_AREA},
   ];
 
-  defaultCostingByUnit:string='Rs/Sqft';
-  defaultCostingByArea:string='SlabArea';
+  defaultCostingByUnit:string = ProjectElements.RS_PER_SQFT;
+  defaultCostingByArea:string = ProjectElements.SLAB_AREA;
   deleteConfirmationCostHead = ProjectElements.COST_HEAD;
   deleteConfirmationBuilding = ProjectElements.BUILDING;
 
   constructor(private costSummaryService : CostSummaryService, private activatedRoute : ActivatedRoute,
               private formBuilder: FormBuilder, private _router : Router, private messageService : MessageService,
-              private buildingService: BuildingService ) {
+              private buildingService: BuildingService, private loaderService : LoaderService) {
 
     this.cloneBuildingForm = this.formBuilder.group({
       name : ['', ValidationService.requiredBuildingName],
@@ -122,14 +123,13 @@ export class CostSummaryComponent implements OnInit {
   }
 
   goToCostHeadView( buildingId : string, buildingName:string, estimatedItem :any) {
-    this.estimatedItem = estimatedItem;
-    this.costHeadId = estimatedItem.rateAnalysisId;
+
     SessionStorageService.setSessionValue(SessionStorage.CURRENT_BUILDING, buildingId);
     this.buildingId =  SessionStorageService.getSessionValue(SessionStorage.CURRENT_BUILDING);
     this.projectId = SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT_ID);
 
-    this._router.navigate([NavigationRoutes.APP_PROJECT, this.projectId, NavigationRoutes.APP_BUILDING, buildingName,
-    NavigationRoutes.APP_COST_SUMMARY, NavigationRoutes.APP_COST_HEAD, estimatedItem.name, this.costHeadId]);
+    this._router.navigate([NavigationRoutes.APP_PROJECT, this.projectId, NavigationRoutes.APP_BUILDING,
+      buildingName, NavigationRoutes.APP_COST_HEAD, estimatedItem.name,  estimatedItem.rateAnalysisId, NavigationRoutes.APP_CATEGORY]);
   }
 
   goToCommonAmenities() {
@@ -171,6 +171,7 @@ export class CostSummaryComponent implements OnInit {
   }
 
   inActiveCostHead() {
+    this.loaderService.start();
     let projectId = SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT_ID);
     this.costSummaryService.inActiveCostHead( projectId, this.buildingId, this.costHeadId).subscribe(
         costHeadDetail => this.onInActiveCostHeadSuccess(costHeadDetail),
@@ -179,7 +180,9 @@ export class CostSummaryComponent implements OnInit {
     }
 
   onInActiveCostHeadSuccess(costHeadDetails: any) {
+    this.loaderService.stop();
      if ( costHeadDetails !== null) {
+      this.showCostHeadList = false;
       var message = new Message();
       message.isError = false;
       message.custom_message = Messages.MSG_SUCCESS_DELETE_COSTHEAD;
@@ -190,10 +193,12 @@ export class CostSummaryComponent implements OnInit {
 
   onInActiveCostHeadFailure(error: any) {
     console.log(error);
+    this.loaderService.stop();
   }
 
   onChangeActiveSelectedCostHead(selectedInActiveCostHeadId:number) {
     this.showCostHeadList=false;
+    this.loaderService.start();
     this.costSummaryService.activeCostHead( this.projectId, this.buildingId, selectedInActiveCostHeadId).subscribe(
       inActiveCostHeads => this.onActiveCostHeadSuccess(inActiveCostHeads),
       error => this.onActiveCostHeadFailure(error)
@@ -201,6 +206,7 @@ export class CostSummaryComponent implements OnInit {
   }
 
   onActiveCostHeadSuccess(inActiveCostHeads : any) {
+    this.loaderService.stop();
     var message = new Message();
     message.isError = false;
     message.custom_message = Messages.MSG_SUCCESS_ADD_COSTHEAD;
@@ -210,17 +216,13 @@ export class CostSummaryComponent implements OnInit {
 
   onActiveCostHeadFailure(error : any) {
     console.log('onActiveCostHeadFailure()'+error);
+    this.loaderService.stop();
   }
 
-  changeRateOfThumbRule(buildingId: string, costHead: string, amount: number, buildingArea : number) {
+  changeBudgetedCostAmountOfBuildingCostHead(buildingId: string, costHead: string, amount: number) {
     if (amount !== null) {
-      let costingByUnit : string;
-      let costingByArea : string;
-      (this.defaultCostingByUnit==='Rs/Sqft') ? costingByUnit = 'sqft' : costingByUnit = 'sqmt';
-      (this.defaultCostingByArea==='SlabArea') ? costingByArea = 'slabArea' : costingByArea = 'saleableArea';
       let projectId=SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT_ID);
-      this.costSummaryService.updateRateOfThumbRule( projectId, buildingId, costHead,
-        costingByUnit, costingByArea, buildingArea, amount).subscribe(
+      this.costSummaryService.changeBudgetedCostAmountOfBuildingCostHead( projectId, buildingId, costHead, amount).subscribe(
         buildingDetails => this.onUpdateRateOfThumbRuleSuccess(buildingDetails),
         error => this.onUpdateRateOfThumbRuleFailure(error)
       );
@@ -366,6 +368,11 @@ export class CostSummaryComponent implements OnInit {
     this.grandTotalOfTotalRate = this.grandTotalOfTotalRate +
       parseFloat((this.amenitiesReport.thumbRule.totalRate).toFixed(ValueConstant.NUMBER_OF_FRACTION_DIGIT));
 
+    this.grandTotalOfEstimatedCost = this.grandTotalOfEstimatedCost +
+      parseFloat((this.amenitiesReport.estimate.totalEstimatedCost).toFixed(ValueConstant.NUMBER_OF_FRACTION_DIGIT));
+
+    this.grandTotalOfEstimatedRate = this.grandTotalOfEstimatedRate +
+      parseFloat((this.amenitiesReport.estimate.totalRate).toFixed(ValueConstant.NUMBER_OF_FRACTION_DIGIT));
   }
 
   toggleShowGrandTotalPanelBody() {
@@ -379,6 +386,10 @@ export class CostSummaryComponent implements OnInit {
     if(elementType === ProjectElements.BUILDING) {
       this.deleteBuilding();
     }
+  }
+
+  getCostSummaryReport() {
+    this.onChangeCostingByUnit(this.defaultCostingByUnit);
   }
 
   getMenus() {
@@ -395,5 +406,9 @@ export class CostSummaryComponent implements OnInit {
 
   getHeadings() {
     return Headings;
+  }
+
+  getProjectElements() {
+    return ProjectElements;
   }
 }

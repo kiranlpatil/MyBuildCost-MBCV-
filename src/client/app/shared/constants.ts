@@ -72,6 +72,7 @@ export class Messages {
   public static MSG_ERROR_VALIDATION_OTP_MOBILE_NUMBER = 'Please provide a valid mobile number.';
   public static MSG_ERROR_VALIDATION_PASSWORD = 'Password must be alphanumeric having minimum 6 characters';
   public static MSG_ERROR_VALIDATION_PIN_NUMBER = 'Pin code should not be greater than 20 characters.';
+  public static MSG_ERROR_VALIDATION_ITEM_NAME_REQUIRED = 'Item name should not be blank. \nFill it.';
 
   //Project validation messages
   public static MSG_ERROR_VALIDATION_PROJECT_NAME_REQUIRED = 'Enter project name';
@@ -109,7 +110,7 @@ export class Messages {
     'immediately.';
   public static MSG_CONTACT_US = 'Please provide the following details and we will get back to you soon.';
   public static MSG_YEAR_NO_MATCH_FOUND = 'The year doesn\'t look right. Be sure to use your actual year of birth.';
-  public static MSG_FORGOT_PASSWORD = 'Enter your account e-mail address and we\'ll help you create a new password.';
+  public static MSG_FORGOT_PASSWORD = 'Enter your e-mail address below and we\'ll get you back on track.';
   public static MSG_CONFIRM_PASSWORD = 'Passwords are not matching.';
   public static MSG_CHANGE_PASSWORD_SUCCESS ='Password changed successfully. ' +
     'You can Sign In again with new password by clicking on "YES" button, Please click on "No" button to continue the session.';
@@ -173,6 +174,16 @@ export class Messages {
   public static MSG_ALREADY_ADDED_ALL_WORKITEMS: string = 'Already added all workitems.';
   public static MSG_SUCCESS_DELETE_WORKITEM: string = 'Your workitem deleted successfully.';
   public static MSG_SUCCESS_UPDATE_THUMBRULE_RATE_COSTHEAD: string = 'Thumbrule rate for CostHead updated successfully.';
+
+  //Quantity view required fields
+  public static MSG_ERROR_VALIDATION_QUANTITY_ITEM_REQUIRED = 'Enter item';
+  public static MSG_ERROR_VALIDATION_QUANTITY_NUMBERS_REQUIRED = 'Enter numbers';
+  public static MSG_ERROR_VALIDATION_QUANTITY_LENGTH_REQUIRED = 'Enter length';
+  public static MSG_ERROR_VALIDATION_QUANTITY_BREADTH_REQUIRED = 'Enter breadth';
+  public static MSG_ERROR_VALIDATION_QUANTITY_HEIGHT_REQUIRED = 'Enter height';
+  public static MSG_ERROR_VALIDATION_QUANTITY_QUANTITY_REQUIRED = 'Enter quantity';
+  public static MSG_ERROR_VALIDATION_QUANTITY_UNIT_REQUIRED = 'Enter unit';
+  public static MSG_ERROR_VALIDATION_QUANTITY_REQUIRED = 'Some where Quantity field is blank. Please fill it';
 }
 
 export class NavigationRoutes {
@@ -188,7 +199,8 @@ export class NavigationRoutes {
   public static APP_LIST_PROJECT: string = 'project/list';
   public static APP_COST_SUMMARY: string = 'cost-summary';
   public static APP_COST_HEAD: string = 'cost-head';
-  public static APP_COMMON_AMENITIES = 'cost-summary/common-amenities';
+  public static APP_CATEGORY: string = 'category';
+  public static APP_COMMON_AMENITIES = 'common-amenities';
   public static APP_DASHBOARD: string = '/dashboard';
   public static APP_LOGIN: string = '/signin';
   public static APP_START: string = '/';
@@ -256,6 +268,7 @@ export class API {
   public static PROJECT = 'project';
   public static BUILDING = 'building';
   public static COSTHEAD = 'costhead';
+  public static COMMON_AMENITIES = 'common-amenities';
   public static ACTIVE_STATUS = 'activeStatus';
   public static ACTIVE_STATUS_FALSE = 'false';
   public static ACTIVE_STATUS_TRUE = 'true';
@@ -272,9 +285,13 @@ export class API {
   public static RATE='rate';
   public static SQFT='sqft';
   public static SQM='sqmt';
+  public static RS_PER_SQFT = 'Rs/Sqft';
+  public static RS_PER_SQMT = 'Rs/Sqmt';
   public static AREA='area';
   public static SLAB_AREA='slabArea';
   public static SALEABLE_AREA='saleableArea';
+  public static CARPET_AREA='carpetArea';
+  public static BUDGETED_COST ='budgetedCost';
 
 }
 
@@ -456,6 +473,13 @@ export class ProjectElements {
   public static BUILDING = 'Building';
   public static QUANTITY_ITEM = 'Quantity Item';
   public static CATEGORY = 'Category';
+  public static SLAB_AREA = 'Slab Area';
+  public static SALEABLE_AREA = 'Saleable Area';
+  public static CARPET_AREA = 'Carpet Area';
+  public static RS_PER_SQFT = 'Rs/Sqft';
+  public static RS_PER_SQMT = 'Rs/Sqmt';
+  public static SQUAREFEET = 'sqft';
+  public static SQUAREMETER = 'sqmt';
 }
 
 export class Menus {

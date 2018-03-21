@@ -62,7 +62,7 @@
   padding: 6px 12px;
   background-color: transparent;
   border-right: 1px solid transparent !important;
-  border: 1px solid $gray;
+  border: 1px solid $border-color;
   border-radius: 2px 0 0 2px !important;
   font-weight: bold;
 }
@@ -112,8 +112,9 @@
 //Common Css
 //Body
 body {
-  text-align: center;
+  color: $body-text;
   font-family: 'Open Sans', sans-serif;
+  text-align: center;
 
   //Container
   .container-fluid {
@@ -272,6 +273,7 @@ select,
 
   textarea {
     height: 70px !important;
+    resize: none;
   }
 }
 
@@ -302,7 +304,7 @@ select,
   height: 35px;
   font-weight: bold;
   font-size: 13px;
-  line-height: 18px;
+  line-height: 13px;
   text-transform: inherit;
   text-align: center;
 
@@ -324,8 +326,9 @@ select,
   &:focus,
   &:active,
   &:hover {
-    background: $theme-color-hover;
-    border: $theme-color-hover 1px solid;
+    background: $theme-color-hover !important;
+    border: $theme-color-hover 1px solid !important;
+    color: $heading important;
   }
 }
 
@@ -496,6 +499,28 @@ control-messages {
       margin-top: 57px;
       padding: 0;
       text-align: left;
+    }
+  }
+}
+
+.details-page {
+  control-messages {
+    div {
+      margin: 59px 0 6px;
+    }
+  }
+
+  .project-address-field > control-messages {
+    div {
+      margin: 89px 0 6px;
+    }
+  }
+}
+
+.project-address-field {
+  control-messages {
+    div {
+      margin: 95px 0 6px;
     }
   }
 }
@@ -684,7 +709,7 @@ select:focus {
 .select-option {
   .hover-list {
     background: $light-white;
-    border: 1px solid #e4e4e4;
+    border: 1px solid $border-color;
     box-shadow: 1px 1px 4px #9c9c9c;
     min-width: 415px;
     margin: 5px 373px 0 0;

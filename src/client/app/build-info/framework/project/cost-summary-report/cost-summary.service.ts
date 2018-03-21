@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
 import { API, BaseService, SessionStorage, SessionStorageService, MessageService } from '../../../../shared/index';
 import { HttpDelegateService } from '../../../../shared/services/http-delegate.service';
+import { QuantityItem } from '../../model/quantity-item';
+import { Rate } from '../../model/rate';
+import { ProjectElements } from '../../../../shared/constants';
 
 @Injectable()
 export class CostSummaryService extends BaseService {
@@ -13,22 +16,30 @@ export class CostSummaryService extends BaseService {
   getCostSummaryReport(projectId: string,defaultCostIn:string,defaultCostPer:string) {
 
     var url = API.THUMBRULE_RULE_RATE + '/'+ API.PROJECT +'/'+projectId+'/';
-    url =  ( defaultCostIn==='Rs/Sqft' ) ? ( url + API.RATE + '/' + API.SQFT ) : ( url + API.RATE + '/' + API.SQM );
-    url= ( defaultCostPer==='SlabArea' ) ?  ( url + '/'+ API.AREA +'/' + API.SLAB_AREA ) :  ( url + '/'+ API.AREA +'/' +
-      API.SALEABLE_AREA );
+    url =  ( defaultCostIn === ProjectElements.RS_PER_SQFT ) ? ( url + API.RATE + '/' + API.SQFT ) : ( url + API.RATE + '/' + API.SQM );
+    url= ( defaultCostPer === ProjectElements.SLAB_AREA ) ?  ( url + '/'+ API.AREA +'/' + API.SLAB_AREA ) :
+      (( defaultCostPer === ProjectElements.CARPET_AREA ) ? ( url + '/'+ API.AREA +'/' + API.CARPET_AREA ) :
+        ( url + '/'+ API.AREA +'/' + API.SALEABLE_AREA ));
 
     return this.httpDelegateService.getAPI(url);
   }
 
-  updateRateOfThumbRule(projectId : string, buildingId : string, costHeadName : string,
-                        costIn : string, costPer : string, buildingArea : number, amount : number) {
+  changeBudgetedCostAmountOfBuildingCostHead(projectId : string, buildingId : string, costHeadName : string, amount : number) {
     var url = API.PROJECT + '/' + projectId + '/' + API.BUILDING + '/' + buildingId + '/' + API.COSTHEAD ;
     var body = {
       budgetedCostAmount : amount,
-      costIn : costIn,
-      costPer : costPer,
-      costHead : costHeadName,
-      buildingArea : buildingArea
+      costHead : costHeadName
+    };
+
+    return this.httpDelegateService.putAPI(url, body);
+  }
+
+  changeBudgetedCostAmountOfProjectCostHead(projectId : string, costHeadName : string, amount : number) {
+
+    var url = API.PROJECT + '/' + projectId + '/' + API.COSTHEAD + '/' + API.BUDGETED_COST;
+    var body = {
+      budgetedCostAmount : amount,
+      costHead : costHeadName
     };
 
     return this.httpDelegateService.putAPI(url, body);
@@ -66,8 +77,8 @@ export class CostSummaryService extends BaseService {
   }
 
   // WorkItem  CRUD API
-  deactivateWorkItem(projectId : string, buildingId : string, costHeadId : number, subCategoryId : number, workItemId : number) {
-    var url =  API.PROJECT + '/'+ projectId +'/'+ API.BUILDING +'/'+ buildingId +'/'+ API.COSTHEAD +'/'+
+  deactivateWorkItem( baseUrl: string, costHeadId : number, subCategoryId : number, workItemId : number) {
+    var url =  baseUrl +'/'+ API.COSTHEAD +'/'+
       costHeadId + '/'+ API.CATEGORY +'/'+ subCategoryId +'/' + API.WORKITEM + '/' + workItemId +'/'+
       API.ACTIVE_STATUS +'/'+ API.ACTIVE_STATUS_FALSE;
     let body = {};
@@ -75,15 +86,15 @@ export class CostSummaryService extends BaseService {
     return this.httpDelegateService.putAPI(url, body);
   }
 
-  getInActiveWorkItems( projectId : string, buildingId : string, costHeadId : number, subCategoryId : number) {
-    var url = API.PROJECT + '/'+ projectId + '/'+ API.BUILDING + '/' + buildingId + '/' + API.COSTHEAD+'/'+
+  getInActiveWorkItems( baseUrl: string, costHeadId : number, subCategoryId : number) {
+    var url = baseUrl + '/' + API.COSTHEAD+'/'+
       costHeadId + '/'+ API.CATEGORY  +'/'+ subCategoryId +'/' + API.WORKITEM ;
 
     return this.httpDelegateService.getAPI(url);
   }
 
-  activateWorkItem(projectId : string, buildingId : string, costHeadId : number, subCategoryId : number, workItemId : number) {
-    var url =  API.PROJECT + '/'+ projectId +'/'+ API.BUILDING +'/'+ buildingId +'/'+ API.COSTHEAD +'/'+
+  activateWorkItem(baseUrl : string, costHeadId : number, subCategoryId : number, workItemId : number) {
+    var url =  baseUrl +'/'+ API.COSTHEAD +'/'+
       costHeadId + '/'+ API.CATEGORY +'/'+ subCategoryId +'/' + API.WORKITEM + '/' + workItemId +'/'+
       API.ACTIVE_STATUS +'/'+ API.ACTIVE_STATUS_TRUE;
     let body = {};
@@ -100,31 +111,22 @@ export class CostSummaryService extends BaseService {
     return this.httpDelegateService.getAPI(url);
   }
 
-  updateQuantityItems( projectId : string, buildingId : string, costHeadId : number, categoryId : number, workItemId : number,
-                      quantityItemsArray : any) {
+  updateQuantityItems( baseUrl: string, costHeadId : number, categoryId : number, workItemId : number,
+                      quantityItemsArray : Array<QuantityItem>) {
     var body= { item : quantityItemsArray };
-    var url = API.PROJECT + '/' + projectId + '/'+ API.BUILDING + '/' + buildingId + '/'+ API.COSTHEAD +'/' + costHeadId +
+    var url = baseUrl + '/'+ API.COSTHEAD +'/' + costHeadId +
       '/'+ API.CATEGORY +'/'+ categoryId +'/' + API.WORKITEM + '/' + workItemId + '/'+ API.QUANTITY;
 
     return this.httpDelegateService.putAPI(url, body);
   }
 
-  deleteQuantityItem( projectId : string, buildingId : string, costHeadId : number, categoryId : number,
-                      workItemId : number, itemName : string) {
-    let body = { item : itemName };
-    let url = API.PROJECT + '/' +  projectId + '/' + API.BUILDING + '/' + buildingId + '/' + API.COSTHEAD + '/' +
-      costHeadId + '/' + API.CATEGORY + '/' + categoryId + '/' + API.WORKITEM +
-      '/' + workItemId + '/' + API.QUANTITY + '/' + API.ITEM;
-
-    return this.httpDelegateService.postAPI(url, body);
-  }
 
   //Rate API
-  updateRate( projectId : string, buildingId : string, costheadId : number,categoryId : number, workItemId : number,
-              rateItemsArray : any) {
+  updateRate( baseUrl: string, costHeadId : number,categoryId : number, workItemId : number,
+              rateItemsArray : Rate) {
     var body=rateItemsArray;
-    var url = API.PROJECT + '/' + projectId + '/' + API.BUILDING + '/' + buildingId + '/' + API.RATE + '/' + API.COSTHEAD+ '/' +
-      costheadId + '/' + API.CATEGORY + '/' + categoryId + '/' + API.WORKITEM + '/' + workItemId ;
+    var url = baseUrl + '/' + API.RATE + '/' + API.COSTHEAD+ '/' +
+      costHeadId + '/' + API.CATEGORY + '/' + categoryId + '/' + API.WORKITEM + '/' + workItemId ;
 
     return this.httpDelegateService.putAPI(url, body);
   }
@@ -137,14 +139,12 @@ export class CostSummaryService extends BaseService {
   }
 
   //Category API
-  getActiveCategories(projectId: string, buildingId : string, costheadId : number) {
-    var url = API.PROJECT +'/' + projectId + '/' + API.BUILDING + '/' + buildingId + '/'
-      + API.COSTHEAD+ '/' + costheadId + '/' + API.CATEGORY;
-
+  getCategories(baseUrl: string, costHeadId : number) {
+    var url = baseUrl +'/'+ API.COSTHEAD+ '/' + costHeadId + '/' + API.CATEGORY;
     return this.httpDelegateService.getAPI(url);
   }
 
-  //In Active Category
+  /*//In Active Category
   deactivateCategory(projectId : String, buildingId : string, costHeadId : number, categoryId : any) {
     var url = API.PROJECT + '/' + projectId + '/' + API.BUILDING + '/' + buildingId + '/'+ API.COSTHEAD +'/' +
       costHeadId +'/' + API.CATEGORY + '/' + categoryId + '/' + API.ACTIVE_STATUS + '/' + API.ACTIVE_STATUS_FALSE;
@@ -161,4 +161,6 @@ export class CostSummaryService extends BaseService {
 
     return this.httpDelegateService.putAPI(url, body);
   }
+
+*/
 }

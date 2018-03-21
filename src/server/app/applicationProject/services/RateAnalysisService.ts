@@ -13,6 +13,7 @@ import Rate = require('../dataaccess/model/project/building/Rate');
 import CostHead = require('../dataaccess/model/project/building/CostHead');
 import Category = require('../dataaccess/model/project/building/Category');
 import Constants = require('../shared/constants');
+let CCPromise = require('promise/lib/es6-extensions');
 
 class RateAnalysisService {
   APP_NAME: string;
@@ -74,6 +75,7 @@ class RateAnalysisService {
   }
 
   getApiCall(url : string, callback:(error : any, response: any) => void) {
+    logger.info('getApiCall for rateAnalysis has bee hit for url : '+url);
     request.get({url: url}, function (error: any, response: any, body: any) {
       if (error) {
         callback(new CostControllException(error.message, error.stack), null);
@@ -140,25 +142,33 @@ class RateAnalysisService {
 
   convertCostHeadsFromRateAnalysisToCostControl(entity:string, callback:(error: any, data:any)=> void) {
     logger.info('convertCostHeadsFromRateAnalysisToCostControl has been hit');
+
     let costHeadURL = config.get(Constants.RATE_ANALYSIS_API + entity + Constants.RATE_ANALYSIS_COSTHEADS);
     let costHeadRateAnalysisPromise = this.createPromise(costHeadURL);
+    logger.info('costHeadRateAnalysisPromise for has been hit');
 
     let categoryURL = config.get(Constants.RATE_ANALYSIS_API + entity + Constants.RATE_ANALYSIS_CATEGORIES);
     let categoryRateAnalysisPromise = this.createPromise(categoryURL);
+    logger.info('categoryRateAnalysisPromise for has been hit');
 
     let workItemURL = config.get(Constants.RATE_ANALYSIS_API + entity + Constants.RATE_ANALYSIS_WORKITEMS);
     let workItemRateAnalysisPromise = this.createPromise(workItemURL);
+    logger.info('workItemRateAnalysisPromise for has been hit');
 
     let rateItemURL = config.get(Constants.RATE_ANALYSIS_API + entity + Constants.RATE_ANALYSIS_RATE);
     let rateItemRateAnalysisPromise = this.createPromise(rateItemURL);
+    logger.info('rateItemRateAnalysisPromise for has been hit');
 
     let rateAnalysisNotesURL = config.get(Constants.RATE_ANALYSIS_API + entity + Constants.RATE_ANALYSIS_NOTES);
     let notesRateAnalysisPromise = this.createPromise(rateAnalysisNotesURL);
+    logger.info('notesRateAnalysisPromise for has been hit');
 
     let allUnitsFromRateAnalysisURL = config.get(Constants.RATE_ANALYSIS_API + entity + Constants.RATE_ANALYSIS_UNIT);
     let unitsRateAnalysisPromise = this.createPromise(allUnitsFromRateAnalysisURL);
+    logger.info('unitsRateAnalysisPromise for has been hit');
 
-    Promise.all([
+    logger.info('calling Promise.all');
+    CCPromise.all([
       costHeadRateAnalysisPromise,
       categoryRateAnalysisPromise,
       workItemRateAnalysisPromise,
@@ -166,7 +176,7 @@ class RateAnalysisService {
       notesRateAnalysisPromise,
       unitsRateAnalysisPromise
     ]).then(function(data: Array<any>) {
-      logger.info('convertCostHeadsFromRateAnalysisToCostControl promise for all API is success.');
+      logger.info('convertCostHeadsFromRateAnalysisToCostControl Promise.all API is success.');
       let costHeadsRateAnalysis = data[0][Constants.RATE_ANALYSIS_ITEM_TYPE];
       let categoriesRateAnalysis = data[1][Constants.RATE_ANALYSIS_SUBITEM_TYPE];
       let workItemsRateAnalysis = data[2][Constants.RATE_ANALYSIS_ITEMS];
@@ -181,11 +191,13 @@ class RateAnalysisService {
         rateItemsRateAnalysis, unitsRateAnalysis, notesRateAnalysis, buildingCostHeads);
       logger.info('success in  convertCostHeadsFromRateAnalysisToCostControl.');
       callback(null, {'buildingCostHeads' : buildingCostHeads, 'rates' : rateItemsRateAnalysis, 'units' : unitsRateAnalysis});
+    }).catch(function(e:any) {
+      logger.error(' Promise failed for convertCostHeadsFromRateAnalysisToCostControl ! :' +JSON.stringify(e));
     });
   }
 
   createPromise(url: string) {
-      return new Promise(function(resolve, reject){
+      return new CCPromise(function(resolve : any, reject : any){
         logger.info('createPromise has been hit for : '+url);
         let rateAnalysisService = new RateAnalysisService();
         rateAnalysisService.getApiCall(url, (error : any, data: any) => {
@@ -197,6 +209,8 @@ class RateAnalysisService {
             resolve(data);
           }
         });
+      }).catch(function(e:any) {
+        logger.error('Promise failed for individual ! url:'+url+ ':\n error :' +JSON.stringify(e));
       });
    }
 
@@ -303,8 +317,17 @@ class RateAnalysisService {
       workItem.rate.notes = notesList[0].notes;
       workItem.rate.imageURL = notesList[0].imageURL;
 
-      workItem.systemRate.rateItems = rateItemsByWorkItem;
-      workItem.systemRate.quantity = rateItemsByWorkItem[0].totalQuantity;
+      //Query for System rate quantity should be One
+
+      let rateItemsRateAnalysisSQLForQuantityOne = 'SELECT rateItem.C2 AS item, rateItem.C12 AS rateAnalysisId, rateItem.C6 AS type,' +
+        'ROUND(rateItem.C7 / rateItem.C5,2) AS quantity, ROUND(rateItem.C3,2) AS rate, unit.C2 AS unit,' +
+        'ROUND(rateItem.C3 * rateItem.C7 / rateItem.C5,2) AS totalAmount, rateItem.C5 / rateItem.C5 AS totalQuantity ' +
+        'FROM ? AS rateItem JOIN ? AS unit ON unit.C1 = rateItem.C9 where rateItem.C1 = '
+        + workItemsByCategory[workItemIndex].rateAnalysisId;
+      let rateItemsByWorkItemForQuantityOne = alasql(rateItemsRateAnalysisSQLForQuantityOne, [rateItemsRateAnalysis, unitsRateAnalysis]);
+
+      workItem.systemRate.rateItems = rateItemsByWorkItemForQuantityOne;
+      workItem.systemRate.quantity = rateItemsByWorkItemForQuantityOne[0].totalQuantity;
       workItem.systemRate.notes = notesList[0].notes;
       workItem.systemRate.imageURL = notesList[0].imageURL;
 

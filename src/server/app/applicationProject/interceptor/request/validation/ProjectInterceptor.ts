@@ -242,7 +242,7 @@ if ((req.body.name === undefined) || (req.body.region === undefined) || (req.bod
     });
   }
 
-  getProjectCostHeadCategories(req: any, res: any, next: any) {
+  getCategoriesOfProjectCostHead(req: any, res: any, next: any) {
     var projectId = req.params.projectId;
     var costHeadId = req.params.costHeadId;
     ProjectInterceptor.validateProjectCostHeadIds(projectId, costHeadId, (error, result) => {
@@ -312,7 +312,7 @@ if ((req.body.name === undefined) || (req.body.region === undefined) || (req.bod
     });
   }
 
-  updateBudgetedCostForCostHead(req: any, res: any, next: any) {
+  updateBudgetedCostForBuildingCostHead(req: any, res: any, next: any) {
     var projectId = req.params.projectId;
     var buildingId = req.params.buildingId;
     ProjectInterceptor.validateIds(projectId, buildingId, (error, result) => {
@@ -327,10 +327,8 @@ if ((req.body.name === undefined) || (req.body.region === undefined) || (req.bod
             code: 400
           });
         } else {
-          if ((req.body.budgetedCostAmount === undefined) || (req.body.buildingArea === undefined) || (req.body.costHead === undefined) ||
-            (req.body.costIn === undefined) || (req.body.costPer === undefined) ||
-            (req.body.budgetedCostAmount === '') || (req.body.buildingArea === '') || (req.body.costHead === '') ||
-            (req.body.costIn === '') || (req.body.costPer === '')) {
+          if ((req.body.budgetedCostAmount === undefined) || (req.body.costHead === undefined) ||
+            (req.body.budgetedCostAmount === '') || (req.body.costHead === '')) {
             next({
               reason: Messages.MSG_ERROR_EMPTY_FIELD,
               message: Messages.MSG_ERROR_EMPTY_FIELD,
@@ -344,7 +342,22 @@ if ((req.body.name === undefined) || (req.body.region === undefined) || (req.bod
     });
   }
 
-  getActiveCategories(req: any, res: any, next: any) {
+  updateBudgetedCostForProjectCostHead(req: any, res: any, next: any) {
+    var projectId = req.params.projectId;
+    if ((projectId === undefined) || (projectId === '') || (req.body.budgetedCostAmount === undefined) ||
+      (req.body.costHead === undefined) || (req.body.budgetedCostAmount === '') || (req.body.costHead === '')) {
+      next({
+        reason: Messages.MSG_ERROR_EMPTY_FIELD,
+        message: Messages.MSG_ERROR_EMPTY_FIELD,
+        stackTrace: new Error(),
+        code: 400
+      });
+    } else {
+      next();
+    }
+  }
+
+  getCategoriesOfBuildingCostHead(req: any, res: any, next: any) {
     var projectId = req.params.projectId;
     var buildingId = req.params.buildingId;
     var costHeadId = req.params.costHeadId;
@@ -492,7 +505,7 @@ if ((req.body.name === undefined) || (req.body.region === undefined) || (req.bod
     });
   }
 
-  setWorkItemStatus(req: any, res: any, next: any) {
+  updateWorkItemStatusOfBuildingCostHeads(req: any, res: any, next: any) {
     var projectId = req.params.projectId;
     var buildingId = req.params.buildingId;
     var costHeadId = req.params.costHeadId;
@@ -556,7 +569,7 @@ if ((req.body.name === undefined) || (req.body.region === undefined) || (req.bod
     });
   }
 
-  getInActiveWorkItems(req: any, res: any, next: any) {
+  getInActiveWorkItemsOfBuildingCostHeads(req: any, res: any, next: any) {
     var projectId = req.params.projectId;
     var buildingId = req.params.buildingId;
     var costHeadId = req.params.costHeadId;
@@ -647,7 +660,7 @@ if ((req.body.name === undefined) || (req.body.region === undefined) || (req.bod
     });
   }
 
-  updateQuantity(req: any, res: any, next: any) {
+  updateQuantityOfBuildingCostHeads(req: any, res: any, next: any) {
     var projectId = req.params.projectId;
     var buildingId = req.params.buildingId;
     var costHeadId = req.params.costHeadId;
@@ -711,7 +724,7 @@ if ((req.body.name === undefined) || (req.body.region === undefined) || (req.bod
     });
   }
 
-  deleteQuantityByName(req: any, res: any, next: any) {
+  deleteQuantityOfBuildingCostHeadsByName(req: any, res: any, next: any) {
     var projectId = req.params.projectId;
     var buildingId = req.params.buildingId;
     var costHeadId = req.params.costHeadId;
@@ -774,7 +787,7 @@ if ((req.body.name === undefined) || (req.body.region === undefined) || (req.bod
     });
   }
 
-  updateRate(req: any, res: any, next: any) {
+  updateRateOfBuildingCostHeads(req: any, res: any, next: any) {
     var projectId = req.params.projectId;
     var buildingId = req.params.buildingId;
     var costHeadId = parseInt(req.params.costHeadId);
