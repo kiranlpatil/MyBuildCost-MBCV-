@@ -315,6 +315,7 @@ class RateAnalysisService {
 
       workItem.rate.rateItems = rateItemsByWorkItem;
       workItem.rate.quantity = rateItemsByWorkItem[0].totalQuantity;
+      workItem.rate.isEstimated = false;
       workItem.rate.notes = notesList[0].notes;
       workItem.rate.imageURL = notesList[0].imageURL;
 

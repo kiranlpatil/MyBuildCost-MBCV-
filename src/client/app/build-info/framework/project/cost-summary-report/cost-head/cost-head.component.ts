@@ -31,14 +31,14 @@ export class CostHeadComponent implements OnInit, OnChanges {
   categoryDetails: Array<Category>;
   categoryDetailsTotalAmount: number=0;
   workItem: WorkItem;
-  totalAmount:number=0;
+  totalAmount : number = 0;
   categoryRateAnalysisId:number;
   compareWorkItemRateAnalysisId:number;
   quantity:number=0;
   rateFromRateAnalysis:number=0;
   unit:string='';
   showCategoryList: boolean = false;
-  selectedWorkItems: Array<WorkItem>;
+  workItemsList: Array<WorkItem>;
   deleteConfirmationCategory = ProjectElements.CATEGORY;
   deleteConfirmationWorkItem = ProjectElements.WORK_ITEM;
 
@@ -46,7 +46,7 @@ export class CostHeadComponent implements OnInit, OnChanges {
   private showWorkItemTab : string = null;
   private compareWorkItemId:number=0;
   private compareCategoryId:number=0;
-  private quantityItemsArray: QuantityItem;
+  private quantityItemsArray: Array<QuantityItem>;
   private rateItemsArray: Rate;
   private categoryArray : Array<Category> = [];
 
@@ -142,17 +142,16 @@ export class CostHeadComponent implements OnInit, OnChanges {
     }
   }
 
-  getQuantity( categoryId: number, workItemId : number, workItem: WorkItem,
-               quantityItems: any, categoryIndex: number, workItemIndex:number) {
+  getQuantity( categoryId: number, workItem: WorkItem, categoryIndex: number, workItemIndex:number) {
     if( this.showWorkItemTab !== Label.WORKITEM_QUANTITY_TAB || this.compareCategoryId !== categoryId ||
-      this.compareWorkItemId !== workItemId) {
+      this.compareWorkItemId !== workItem.rateAnalysisId) {
 
-      this.setItemId(categoryId, workItemId);
+      this.setItemId(categoryId, workItem.rateAnalysisId);
 
-      this.workItemId = workItemId;
+      this.workItemId = workItem.rateAnalysisId;
       SessionStorageService.setSessionValue(SessionStorage.CURRENT_WORKITEM_ID, this.workItemId);
 
-      this.quantityItemsArray = quantityItems;
+      this.quantityItemsArray = workItem.quantity.quantityItems;
       this.workItem = workItem;
       this.rateView = 'quantity';
       this.currentCategoryIndex = categoryIndex;
@@ -463,9 +462,37 @@ export class CostHeadComponent implements OnInit, OnChanges {
     this.displayRateView = null;
   }
 
-  setSelectedWorkItems(workItemList:any) {
+/*  setSelectedWorkItems(workItemList:any) {
     this.selectedWorkItems = workItemList;
+  }*/
+
+    getAllWorkItemsOfCategory( categoryId : number) {
+      let projectId = SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT_ID);
+      let buildingId = SessionStorageService.getSessionValue(SessionStorage.CURRENT_BUILDING);
+      let costHeadId = parseInt(SessionStorageService.getSessionValue(SessionStorage.CURRENT_COST_HEAD_ID));
+      this.categoryId = categoryId;
+      this.costSummaryService.getAllWorkItemsOfCategory( projectId, buildingId, costHeadId, this.categoryId).subscribe(
+        workItemsList => this.onGetAllWorkItemsOfCategorySuccess(workItemsList),
+        error => this.onGetAllWorkItemsOfCategoryFailure(error)
+      );
+    }
+
+  onGetAllWorkItemsOfCategorySuccess(workItemsList : any) {
+    this.workItemsList = this.calculateWorkItemAmount(workItemsList.data);
   }
+
+  // calculation of Quantity * Rate
+  calculateWorkItemAmount(workItemsList : Array<WorkItem>) {
+      for(let workItemData of workItemsList) {
+        workItemData.amount = workItemData.quantity.total * workItemData.rate.total;
+      }
+      return workItemsList;
+  }
+
+  onGetAllWorkItemsOfCategoryFailure(error : any) {
+    console.log('onGetAllWorkItemsOfCategoryFailure error : '+JSON.stringify(error));
+  }
+
 
   deleteElement(elementType : string) {
    /* if(elementType === ProjectElements.CATEGORY) {

@@ -430,6 +430,7 @@ class ProjectService {
                 for(let workItemData of categoryData.workItems) {
                   if (workItemData.rateAnalysisId === workItemId) {
                     workItemData.rate=rate;
+                    workItemData.rate.isEstimated = true;
                     break;
                   }
                 }
@@ -823,6 +824,7 @@ class ProjectService {
                 for (let workItemData of categoryData.workItems) {
                   if (workItemId === workItemData.rateAnalysisId) {
                     quantity  = workItemData.quantity;
+                    quantity.isEstimated = true;
                     quantity.quantityItems = quantityItems;
                     quantity.total = 0;
                     for (let quantityData of quantity.quantityItems) {

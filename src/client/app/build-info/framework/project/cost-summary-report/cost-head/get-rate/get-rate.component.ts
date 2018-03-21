@@ -7,6 +7,7 @@ import {
 import { CostSummaryService } from './../../cost-summary.service';
 import { Rate } from '../../../../model/rate';
 import { LoaderService } from '../../../../../../shared/loader/loaders.service';
+import {WorkItem} from "../../../../model/work-item";
 
 @Component({
   moduleId: module.id,
@@ -18,7 +19,9 @@ import { LoaderService } from '../../../../../../shared/loader/loaders.service';
 export class GetRateComponent {
 
   @Input() rateItemsArray: Rate;
-  @Input() categoryRateAnalysisId: number;
+  @Input() categoryRateAnalysisId : number;
+  @Input() workItemRateAnalysisId : number;
+  @Input() workItemsList : Array<WorkItem>;
   @Input() totalAmount: number;
   @Input() baseUrl : string;
   @Input() rateView: string;
@@ -69,17 +72,25 @@ this.rateItemsArray.total = parseFloat((this.totalAmount / this.rateItemsArray.q
     rate.notes=rateItemsArray.notes;
 
     this.costSummaryService.updateRate( this.baseUrl, costHeadId, this.categoryRateAnalysisId, workItemId, rate).subscribe(
-      rateItem => this.onUpdateRateSuccess(rateItem),
+      success => this.onUpdateRateSuccess(success),
       error => this.onUpdateRateFailure(error)
     );
   }
 
-  onUpdateRateSuccess(rateItem: any) {
+  onUpdateRateSuccess(success : string) {
     var message = new Message();
     message.isError = false;
     message.custom_message = Messages.MSG_SUCCESS_UPDATE_RATE;
     this.messageService.message(message);
-    this.refreshCategoryList.emit();
+
+    for(let workItemData of this.workItemsList) {
+      if(workItemData.rateAnalysisId === this.workItemRateAnalysisId) {
+        workItemData.rate.total = parseFloat((this.totalAmount / workItemData.rate.quantity
+        ).toFixed(ValueConstant.NUMBER_OF_FRACTION_DIGIT));
+        workItemData.rate.isEstimated = true;
+      }
+    }
+
     this.loaderService.stop();
   }
 

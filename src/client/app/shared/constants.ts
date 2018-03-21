@@ -280,6 +280,7 @@ export class API {
   public static CATEGORY = 'category';
   public static WORKITEM = 'workitem';
   public static WORKITEMLIST = 'workitemlist';
+  public static WORKITEM_ALL = 'workitem/all';
   public static QUANTITY = 'quantity';
   public static ITEM = 'item';
   public static SYNC_RATE_ANALYSIS = 'syncWithRateAnalysis';

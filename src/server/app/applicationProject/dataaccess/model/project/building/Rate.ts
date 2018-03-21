@@ -3,6 +3,7 @@ import RateItem = require('./RateItem');
 class Rate {
   rateFromRateAnalysis: number;
   total : number;
+  isEstimated : boolean;
   quantity: number;
   unit:string;
   rateItems: Array<RateItem>;
@@ -11,6 +12,7 @@ class Rate {
 
   constructor() {
     this.total = 0;
+    this.isEstimated = false;
     this.quantity = 0;
     this.rateItems = new Array<RateItem>();
     this.unit = 'sqft';

@@ -8,6 +8,7 @@ import {
 } from '../../../../../../shared/constants';
 import { LoaderService } from '../../../../../../shared/loader/loaders.service';
 import { Category } from '../../../../model/category';
+import { WorkItem } from '../../../../model/work-item';
 
 @Component({
   moduleId: module.id,
@@ -20,6 +21,8 @@ export class GetQuantityComponent implements OnInit {
   @Input() quantityItems :  Array<QuantityItem>;
   @Input() categoryDetails :  Array<Category>;
   @Input() categoryRateAnalysisId : number;
+  @Input() workItemRateAnalysisId : number;
+  @Input() workItemsList : Array<WorkItem>;
   @Input() baseUrl : string;
   @Output() refreshCategoryList = new EventEmitter();
 
@@ -173,19 +176,13 @@ export class GetQuantityComponent implements OnInit {
     message.custom_message = Messages.MSG_SUCCESS_SAVED_COST_HEAD_ITEM;
     this.messageService.message(message);
 
-    for(let categoryData of this.categoryDetails) {
-      if(categoryData.rateAnalysisId === this.categoryRateAnalysisId) {
-        for(let workItemData of categoryData.workItems) {
-          if(workItemData.rateAnalysisId ===   this.workItemId) {
-            workItemData.quantity.total =  this.quantityTotal;
-          }
-          break;
-        }
+    for(let workItemData of this.workItemsList) {
+      if(workItemData.rateAnalysisId === this.workItemRateAnalysisId) {
+        workItemData.quantity.total = this.quantityTotal;
+        workItemData.quantity.isEstimated = true;
       }
-      break;
     }
       this.loaderService.stop();
-    this.refreshCategoryList.emit();
   }
 
   onUpdateQuantityItemsFailure(error: any) {
