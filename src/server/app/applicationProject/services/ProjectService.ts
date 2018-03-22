@@ -486,6 +486,7 @@ class ProjectService {
                 for(let workItemData of categoryData.workItems) {
                   if (workItemData.rateAnalysisId === workItemId) {
                     workItemData.rate=rate;
+                    workItemData.rate.isEstimated = true;
                     break;
                   }
                 }
@@ -883,6 +884,7 @@ class ProjectService {
                 for (let workItemData of categoryData.workItems) {
                   if (workItemId === workItemData.rateAnalysisId) {
                     quantity  = workItemData.quantity;
+                    quantity.isEstimated = true;
                     quantity.quantityItems = quantityItems;
                     quantity.total = 0;
                     for (let quantityData of quantity.quantityItems) {
@@ -962,6 +964,57 @@ class ProjectService {
             } else {
               if(result.length > 0) {
                 let workItemsOfCategory = result[0].costHeads.categories.workItems;
+                let workItemsListWithRates = new Array<WorkItem>();
+                for(let workItemObj of workItemsOfCategory) {
+                  if (workItemObj.active === true) {
+                    let workItem: WorkItem = workItemObj;
+                    let rates = workItemObj.rate.rateItems;
+
+                    let rateItemsRateAnalysisSQL = 'SELECT rateItem.item, rateItem.originalName, rateItem.rateAnalysisId, rateItem.type,' +
+                      'rateItem.quantity, centralizedRates.rate, rateItem.unit, rateItem.totalAmount, rateItem.totalQuantity ' +
+                      'FROM ? AS rateItem JOIN ? AS centralizedRates ON rateItem.originalName = centralizedRates.originalName';
+                    let rateItemsByWorkItemForQuantityOne = alasql(rateItemsRateAnalysisSQL, [rates, response.rates]);
+                    workItem.rate.rateItems = rateItemsByWorkItemForQuantityOne;
+                    workItemsListWithRates.push(workItem);
+                  }
+                }
+
+                callback(null, {data: workItemsListWithRates, access_token: this.authInterceptor.issueTokenWithUid(user)});
+              }
+            }
+          });
+        }
+      }
+    });
+  }
+
+  getWorkitemListOfProjectCostHead(projectId:string, costHeadId:number, categoryId:number, user:User,
+                                   callback:(error: any, result: any)=> void) {
+    logger.info('Project service, getWorkitemListOfProjectCostHead has been hit');
+
+    let query = [
+      { $match: {'_id': ObjectId(projectId), 'projectCostHeads.rateAnalysisId': costHeadId }},
+      { $unwind: '$projectCostHeads'},
+      { $project : {'projectCostHeads':1}},
+      { $unwind: '$projectCostHeads.categories'},
+      { $match: {'projectCostHeads.categories.rateAnalysisId':categoryId}},
+      { $project : {'projectCostHeads.categories.workItems':1}}
+    ];
+
+    this.projectRepository.findById(projectId, (error, response) => {
+      logger.info('Project service, Get workitems By Cost Head & category Id has been hit');
+      if (error) {
+        callback(error, null);
+      } else {
+        if(response) {
+          console.log('result : '+JSON.stringify(response.rates));
+          this.projectRepository.aggregate(query, (error, result) => {
+            logger.info('Project service, Get workitems By Cost Head & category Id has been hit');
+            if (error) {
+              callback(error, null);
+            } else {
+              if(result.length > 0) {
+                let workItemsOfCategory = result[0].projectCostHeads.categories.workItems;
                 let workItemsListWithRates = new Array<WorkItem>();
                 for(let workItemObj of workItemsOfCategory) {
                   if (workItemObj.active === true) {

@@ -666,6 +666,27 @@ class ProjectController {
     }
   }
 
+  //Get workitems for perticular category of project cost head
+  getWorkitemListOfProjectCostHead(req: express.Request, res: express.Response, next: any): void {
+    try {
+      logger.info('getWorkitemListOfProjectCostHead has been hit');
+      let user = req.user;
+      let projectId = req.params.projectId;
+      let costHeadId = parseInt(req.params.costHeadId);
+      let categoryId = parseInt(req.params.categoryId);
+      let projectService = new ProjectService();
+      projectService.getWorkitemListOfProjectCostHead(projectId, costHeadId, categoryId, user, (error, result) => {
+        if(error) {
+          next(error);
+        } else {
+          next(new Response(200,result));
+        }
+      });
+    } catch(e) {
+      next(new CostControllException(e.message,e.stack));
+    }
+  }
+
   addWorkitem(req: express.Request, res: express.Response, next: any): void {
     try {
       logger.info('addWorkitem has been hit');

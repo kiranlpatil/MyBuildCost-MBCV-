@@ -447,12 +447,10 @@ export class CostHeadComponent implements OnInit, OnChanges {
   }*/
 
     getAllWorkItemsOfCategory( categoryId : number) {
-      let projectId = SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT_ID);
-      let buildingId = SessionStorageService.getSessionValue(SessionStorage.CURRENT_BUILDING);
       let costHeadId = parseInt(SessionStorageService.getSessionValue(SessionStorage.CURRENT_COST_HEAD_ID));
       this.categoryId = categoryId;
       this.categoryRateAnalysisId = categoryId;
-      this.costSummaryService.getAllWorkItemsOfCategory( projectId, buildingId, costHeadId, this.categoryId).subscribe(
+      this.costSummaryService.getAllWorkItemsOfCategory( this.baseUrl, costHeadId, this.categoryId).subscribe(
         workItemsList => this.onGetAllWorkItemsOfCategorySuccess(workItemsList),
         error => this.onGetAllWorkItemsOfCategoryFailure(error)
       );

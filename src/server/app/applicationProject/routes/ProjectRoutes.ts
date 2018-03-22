@@ -51,6 +51,11 @@ class ProjectRoutes {
 
     /*Project- Routes: WorkItem*/
 
+    //Provide workitemlist for particular category-----delete API
+    router.get('/:projectId/costhead/:costHeadId/category/:categoryId/workitem/all',
+      this.authInterceptor.requiresAuth, this._requestInterceptor.intercept, controller.getWorkitemListOfProjectCostHead,  this._responseInterceptor.exit);
+
+
     ///Add and remove a costhead by setting status of workitems to true and false
     router.put('/:projectId/costhead/:costHeadId/category/:categoryId/workitem/:workItemId/activestatus/:activeStatus',
       this.authInterceptor.requiresAuth, this._requestInterceptor.intercept,
