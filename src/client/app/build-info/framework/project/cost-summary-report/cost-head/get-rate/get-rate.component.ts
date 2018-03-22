@@ -10,6 +10,7 @@ import { LoaderService } from '../../../../../../shared/loader/loaders.service';
 import { WorkItem } from '../../../../model/work-item';
 import { Category } from '../../../../model/category';
 import { CommonService } from '../../../../../../../app/shared/services/common.service';
+import { RateItem } from '../../../../model/rate-item';
 
 
 @Component({
@@ -37,6 +38,9 @@ export class GetRateComponent {
   quantityIncrement: number = 1;
   previousTotalQuantity: number = 1;
   totalItemRateQuantity: number = 0;
+  arrayOfRateItems: Array<RateItem>;
+  selectedRateItem:RateItem;
+  currentRateItem:number;
 
   constructor(private costSummaryService: CostSummaryService,  private loaderService: LoaderService,
               private messageService: MessageService, private commonService: CommonService) {
@@ -135,6 +139,29 @@ this.rateItemsArray.total = parseFloat((this.totalAmount / this.rateItemsArray.q
 
   getPreviousQuantity(previousTotalQuantity: number) {
     this.previousTotalQuantity = previousTotalQuantity;
+  }
+
+  getRateItemsData(rateItem: any, index:number) {
+    this.selectedRateItem = rateItem;
+    this.currentRateItem = index;
+    console.log('rateItem : '+JSON.stringify(rateItem)+' index : ' +index);
+    this.costSummaryService.getRateItemsData( this.baseUrl,rateItem.originalName).subscribe(
+      rateItemsData => this.onGetRateItemsDataSuccess(rateItemsData),
+      error => this.onGetRateItemsDataFailure(error)
+    );
+  }
+
+  onGetRateItemsDataSuccess(rateItemsData: any) {
+    this.arrayOfRateItems = rateItemsData.data;
+    for(let rateObj of rateItemsData.data) {
+      if(rateObj.item === this.selectedRateItem.item) {
+        this.rateItemsArray.rateItems[this.currentRateItem].rate = rateObj.rate;
+      }
+    }
+  }
+
+  onGetRateItemsDataFailure(error: any) {
+    console.log(error);
   }
 
   getButton() {

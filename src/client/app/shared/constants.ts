@@ -287,6 +287,8 @@ export class API {
 
   public static THUMBRULE_RULE_RATE='report/thumbRuleRate';
   public static RATE='rate';
+  public static RATES='rates';
+  public static RATE_ITEM='rateItem';
   public static SQFT='sqft';
   public static SQM='sqmt';
   public static RS_PER_SQFT = 'Rs/Sqft';
