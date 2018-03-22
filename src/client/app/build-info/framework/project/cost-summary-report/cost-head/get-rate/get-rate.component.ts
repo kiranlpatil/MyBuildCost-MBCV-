@@ -7,7 +7,10 @@ import {
 import { CostSummaryService } from './../../cost-summary.service';
 import { Rate } from '../../../../model/rate';
 import { LoaderService } from '../../../../../../shared/loader/loaders.service';
-import {WorkItem} from "../../../../model/work-item";
+import { WorkItem } from '../../../../model/work-item';
+import { Category } from '../../../../model/category';
+import { CommonService } from '../../../../../../../app/shared/services/common.service';
+
 
 @Component({
   moduleId: module.id,
@@ -19,6 +22,7 @@ import {WorkItem} from "../../../../model/work-item";
 export class GetRateComponent {
 
   @Input() rateItemsArray: Rate;
+  @Input() categoryDetails :  Array<Category>;
   @Input() categoryRateAnalysisId : number;
   @Input() workItemRateAnalysisId : number;
   @Input() workItemsList : Array<WorkItem>;
@@ -26,6 +30,8 @@ export class GetRateComponent {
   @Input() baseUrl : string;
   @Input() rateView: string;
   @Input() disableRateField: boolean;
+
+  @Output() categoryDetailsTotalAmount = new EventEmitter<number>();
   @Output() refreshCategoryList = new EventEmitter();
 
   quantityIncrement: number = 1;
@@ -33,7 +39,7 @@ export class GetRateComponent {
   totalItemRateQuantity: number = 0;
 
   constructor(private costSummaryService: CostSummaryService,  private loaderService: LoaderService,
-              private messageService: MessageService) {
+              private messageService: MessageService, private commonService: CommonService) {
   }
 
   calculateTotal(choice?:string) {
@@ -87,11 +93,18 @@ this.rateItemsArray.total = parseFloat((this.totalAmount / this.rateItemsArray.q
       if(workItemData.rateAnalysisId === this.workItemRateAnalysisId) {
         workItemData.rate.total = parseFloat((this.totalAmount / workItemData.rate.quantity
         ).toFixed(ValueConstant.NUMBER_OF_FRACTION_DIGIT));
+        workItemData.amount = parseFloat((workItemData.quantity.total * workItemData.rate.total
+        ).toFixed(ValueConstant.NUMBER_OF_FRACTION_DIGIT));
         workItemData.rate.isEstimated = true;
       }
     }
 
-    this.loaderService.stop();
+    let categoriesTotal= this.commonService.totalCalculationOfCategories(this.categoryDetails,
+      this.categoryRateAnalysisId, this.workItemsList);
+    this.categoryDetailsTotalAmount.emit(categoriesTotal);
+
+
+      this.loaderService.stop();
   }
 
   onUpdateRateFailure(error: any) {

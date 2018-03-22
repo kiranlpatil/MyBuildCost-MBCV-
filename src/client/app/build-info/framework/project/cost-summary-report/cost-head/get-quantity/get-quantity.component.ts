@@ -9,6 +9,8 @@ import {
 import { LoaderService } from '../../../../../../shared/loader/loaders.service';
 import { Category } from '../../../../model/category';
 import { WorkItem } from '../../../../model/work-item';
+import { Router } from '@angular/router';
+import { CommonService } from '../../../../../../../app/shared/services/common.service';
 
 @Component({
   moduleId: module.id,
@@ -24,6 +26,8 @@ export class GetQuantityComponent implements OnInit {
   @Input() workItemRateAnalysisId : number;
   @Input() workItemsList : Array<WorkItem>;
   @Input() baseUrl : string;
+
+  @Output() categoryDetailsTotalAmount = new EventEmitter<number>();
   @Output() refreshCategoryList = new EventEmitter();
 
   projectId : string;
@@ -38,7 +42,7 @@ export class GetQuantityComponent implements OnInit {
   deleteConfirmationQuantityItem = ProjectElements.QUANTITY_ITEM;
 
   constructor(private costSummaryService : CostSummaryService,  private loaderService: LoaderService,
-              private messageService: MessageService) {
+              private messageService: MessageService, private _router : Router, private commonService: CommonService) {
   }
 
   ngOnInit() {
@@ -179,9 +183,16 @@ export class GetQuantityComponent implements OnInit {
     for(let workItemData of this.workItemsList) {
       if(workItemData.rateAnalysisId === this.workItemRateAnalysisId) {
         workItemData.quantity.total = this.quantityTotal;
+        workItemData.amount = parseFloat((workItemData.quantity.total * workItemData.rate.total
+        ).toFixed(ValueConstant.NUMBER_OF_FRACTION_DIGIT));
         workItemData.quantity.isEstimated = true;
       }
     }
+
+    let categoriesTotal= this.commonService.totalCalculationOfCategories(this.categoryDetails,
+      this.categoryRateAnalysisId, this.workItemsList);
+    this.categoryDetailsTotalAmount.emit(categoriesTotal);
+
       this.loaderService.stop();
   }
 

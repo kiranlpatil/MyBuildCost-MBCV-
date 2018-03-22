@@ -113,20 +113,8 @@ export class CostHeadComponent implements OnInit, OnChanges {
     this.categoryDetailsTotalAmount = 0.0;
 
     for (let categoryData of this.categoryDetails) {
-
-      categoryData.amount = 0.0;
-
-      for (let workItemData of categoryData.workItems) {
-
-        workItemData.amount = parseFloat(( workItemData.quantity.total * workItemData.rate.total).toFixed(
-          ValueConstant.NUMBER_OF_FRACTION_DIGIT));
-
-        categoryData.amount = parseFloat(( categoryData.amount +  workItemData.amount).toFixed(ValueConstant.NUMBER_OF_FRACTION_DIGIT));
-
-      }
-
-      this.categoryDetailsTotalAmount = parseFloat(( this.categoryDetailsTotalAmount + categoryData.amount).toFixed(
-        ValueConstant.NUMBER_OF_FRACTION_DIGIT));
+      this.categoryDetailsTotalAmount = parseFloat((this.categoryDetailsTotalAmount + categoryData.amount
+      ).toFixed(ValueConstant.NUMBER_OF_FRACTION_DIGIT));
     }
     this.loaderService.stop();
   }
@@ -360,13 +348,11 @@ export class CostHeadComponent implements OnInit, OnChanges {
     message.custom_message = Messages.MSG_SUCCESS_ADD_WORKITEM;
     this.messageService.message(message);
 
-    for(let category of this.categoryDetails) {
-      if(category.rateAnalysisId === this. categoryRateAnalysisId) {
-            category.workItems = category.workItems.concat(this.selectedWorkItemData);
-        }
-    }
+
+    this.workItemsList = this.workItemsList.concat(this.calculateWorkItemAmount(this.selectedWorkItemData));
 
     this.calculateCategoriesTotal();
+    this.loaderService.stop();
   }
 
   onActivateWorkItemFailure(error:any) {
@@ -482,7 +468,7 @@ export class CostHeadComponent implements OnInit, OnChanges {
   }
 
   // calculation of Quantity * Rate
-  calculateWorkItemAmount(workItemsList : Array<WorkItem>) {
+  calculateWorkItemAmount(workItemsList : any) {
       for(let workItemData of workItemsList) {
         workItemData.amount = workItemData.quantity.total * workItemData.rate.total;
       }

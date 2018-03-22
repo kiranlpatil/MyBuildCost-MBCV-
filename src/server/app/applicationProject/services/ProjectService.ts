@@ -964,15 +964,17 @@ class ProjectService {
                 let workItemsOfCategory = result[0].costHeads.categories.workItems;
                 let workItemsListWithRates = new Array<WorkItem>();
                 for(let workItemObj of workItemsOfCategory) {
-                  let workItem : WorkItem = workItemObj;
-                  let rates = workItemObj.rate.rateItems;
+                  if (workItemObj.active === true) {
+                    let workItem: WorkItem = workItemObj;
+                    let rates = workItemObj.rate.rateItems;
 
-                  let rateItemsRateAnalysisSQL = 'SELECT rateItem.item, rateItem.originalName, rateItem.rateAnalysisId, rateItem.type,' +
-                    'rateItem.quantity, centralizedRates.rate, rateItem.unit, rateItem.totalAmount, rateItem.totalQuantity ' +
-                    'FROM ? AS rateItem JOIN ? AS centralizedRates ON rateItem.originalName = centralizedRates.originalName';
-                  let rateItemsByWorkItemForQuantityOne = alasql(rateItemsRateAnalysisSQL, [rates, response.rates]);
-                  workItem.rate.rateItems = rateItemsByWorkItemForQuantityOne;
-                  workItemsListWithRates.push(workItem);
+                    let rateItemsRateAnalysisSQL = 'SELECT rateItem.item, rateItem.originalName, rateItem.rateAnalysisId, rateItem.type,' +
+                      'rateItem.quantity, centralizedRates.rate, rateItem.unit, rateItem.totalAmount, rateItem.totalQuantity ' +
+                      'FROM ? AS rateItem JOIN ? AS centralizedRates ON rateItem.originalName = centralizedRates.originalName';
+                    let rateItemsByWorkItemForQuantityOne = alasql(rateItemsRateAnalysisSQL, [rates, response.rates]);
+                    workItem.rate.rateItems = rateItemsByWorkItemForQuantityOne;
+                    workItemsListWithRates.push(workItem);
+                  }
                 }
 
                 callback(null, {data: workItemsListWithRates, access_token: this.authInterceptor.issueTokenWithUid(user)});
@@ -1089,24 +1091,16 @@ class ProjectService {
           if(costHeadData.rateAnalysisId === costHeadId) {
             for (let categoryData of costHeadData.categories) {
                 if (categoryData.active === true) {
-                  let workItems : Array<WorkItem> = new Array<WorkItem>();
+                  categoryData.amount = 0;
                   for(let workItemData of categoryData.workItems) {
                     if(workItemData.active) {
-                    workItems.push(workItemData);
-                    for (let singleWorkItem of workItems) {
-                      if (singleWorkItem.quantity.total !== null && singleWorkItem.rate.total !== null
-                        && singleWorkItem.quantity.total !== 0 && singleWorkItem.rate.total !== 0) {
-                        categoryData.amount = parseFloat((singleWorkItem.quantity.total *
-                          singleWorkItem.rate.total + categoryData.amount).toFixed(constant.NUMBER_OF_FRACTION_DIGIT));
-                      } else {
-                        categoryData.amount = 0;
-                        categoryData.amount = 0;
-                        break;
+                      if (workItemData.quantity.total !== null && workItemData.rate.total !== null
+                        && workItemData.quantity.total !== 0 && workItemData.rate.total !== 0) {
+                        categoryData.amount = parseFloat((workItemData.quantity.total *
+                          workItemData.rate.total + categoryData.amount).toFixed(constant.NUMBER_OF_FRACTION_DIGIT));
                       }
-                    }
                   }
                   }
-                  categoryData.workItems = workItems;
                   categories.push(categoryData);
               }
             }
