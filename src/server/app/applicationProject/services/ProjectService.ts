@@ -483,7 +483,7 @@ class ProjectService {
               console.log('building CostHeads Updated');
 
               let rateItems = rate.rateItems;
-              let promiseArrayForCentralizedRates =[];
+              let promiseArrayForUpdateBuildingCentralizedRates =[];
 
               for(let rate of rateItems) {
 
@@ -493,7 +493,7 @@ class ProjectService {
                   if(rateExistArray[0].rate !== rate.rate) {
                     //update rate of rateItem
                     let updateRatePromise = this.createPromiseForRateUpdate(buildingId, rate.item, rate.rate);
-                    promiseArrayForCentralizedRates.push(updateRatePromise);
+                    promiseArrayForUpdateBuildingCentralizedRates.push(updateRatePromise);
                   }
                 } else {
                   //create new rateItem
@@ -503,11 +503,11 @@ class ProjectService {
                     'rate':rate.rate
                   }
                   let addNewRateItemPromise = this.createPromiseForAddingNewRateItem(buildingId, rateItem);
-                  promiseArrayForCentralizedRates.push(addNewRateItemPromise);
+                  promiseArrayForUpdateBuildingCentralizedRates.push(addNewRateItemPromise);
                 }
               }
 
-              CCPromise.all(promiseArrayForCentralizedRates).then(function(data: Array<any>) {
+              CCPromise.all(promiseArrayForUpdateBuildingCentralizedRates).then(function(data: Array<any>) {
 
                 console.log('Rates Array updated : '+JSON.stringify(centralizedRates));
                 callback(null, { 'success' : 'success' });
@@ -1105,12 +1105,10 @@ class ProjectService {
         workItem.rate.rateItems = this.getRatesFromCentralizedrates(rateItemsOfWorkItem, centralizedRates);
 
         let arrayOfRateItems = workItem.rate.rateItems;
-         var totalAmount:number;
         let totalOfAllRateItems = alasql('VALUE OF SELECT SUM(totalAmount) FROM ?',[arrayOfRateItems]);
         workItem.rate.total = parseFloat((totalOfAllRateItems/workItem.rate.quantity).toFixed(Constants.NUMBER_OF_FRACTION_DIGIT));
 
         let arrayOfQuantityItems = workItem.quantity.quantityItems;
-        var quantity:number;
         let totalOfQuantityItems = alasql('VALUE OF SELECT SUM(quantity) FROM ?',[arrayOfQuantityItems]);
         workItem.quantity.total = totalOfQuantityItems;
 
@@ -1272,7 +1270,7 @@ class ProjectService {
 
   //Get category list with centralized rate
   getCategoriesListWithCentralizedRates(categoriesOfCostHead: Array<Category>, centralizedRates: Array<any>) {
-    let categoriesAmount = 0 ;
+    let categoriesTotalAmount = 0 ;
 
     let categoriesListWithRates = {
       categories : new Array<Category>(),
@@ -1281,15 +1279,12 @@ class ProjectService {
 
     for (let categoryData of categoriesOfCostHead) {
       categoryData.workItems = this.getWorkItemListWithCentralizedRates(categoryData.workItems, centralizedRates);
-      let workItemsAmount = 0 ;
-      for(let workItem of categoryData.workItems) {
-        workItemsAmount = parseFloat((workItemsAmount + workItem.amount).toFixed(constant.NUMBER_OF_FRACTION_DIGIT));
-      }
-      categoryData.amount = workItemsAmount;
-      categoriesAmount = parseFloat((categoriesAmount + workItemsAmount).toFixed(constant.NUMBER_OF_FRACTION_DIGIT));
+      let calculateWorkItemTotalAmount =  alasql('VALUE OF SELECT SUM(amount) FROM ?',[categoryData.workItems]);
+      categoryData.amount = calculateWorkItemTotalAmount;
+      categoriesTotalAmount = categoriesTotalAmount + calculateWorkItemTotalAmount;
       categoriesListWithRates.categories.push(categoryData);
     }
-    categoriesListWithRates.categoriesAmount = categoriesAmount;
+    categoriesListWithRates.categoriesAmount =  parseFloat((categoriesTotalAmount).toFixed(2));
     return categoriesListWithRates;
   }
 

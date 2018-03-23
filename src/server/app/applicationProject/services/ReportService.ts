@@ -16,6 +16,7 @@ import RateAnalysisService = require('./RateAnalysisService');
 import Category = require('../dataaccess/model/project/building/Category');
 import alasql = require('alasql');
 import Constants = require('../shared/constants');
+import ProjectService = require('./ProjectService');
 let config = require('config');
 var log4js = require('log4js');
 var logger=log4js.getLogger('Report Service');
@@ -28,6 +29,7 @@ class ReportService {
   private authInterceptor: AuthInterceptor;
   private userService : UserService;
   private rateAnalysisService : RateAnalysisService;
+  private projectService : ProjectService;
 
   constructor() {
     this.projectRepository = new ProjectRepository();
@@ -147,30 +149,27 @@ class ReportService {
 
         //Estimated cost Report
         let estimateReport = new EstimateReport();
-        estimateReport.name = costHead.name;
-        estimateReport.rateAnalysisId = costHead.rateAnalysisId;
-
-        let costHeadCategories: Array<Category> = costHead.categories;
-        for (let category of costHeadCategories) {
-          let workItemList = category.workItems;
-          if (workItemList.length !== 0) {
-            for (let workItem of workItemList) {
-              if(workItem.active) {
-                if (workItem.quantity.total !== null && workItem.rate.total !== null
-                  && workItem.quantity.total !== 0 && workItem.rate.total !== 0) {
-                  estimateReport.total = parseFloat((workItem.quantity.total * workItem.rate.total + estimateReport.total).toFixed(2));
-                  estimateReport.rate = parseFloat((estimateReport.total / buildingReport.area).toFixed(2));
-                }
-              }
-            }
-          }
-        }
-        if(rateUnit === Constants.SQUREMETER_UNIT) {
-          estimateReport.rate = parseFloat((estimateReport.rate * config.get(Constants.SQUARE_METER)).toFixed(2));
-        }
+        estimateReport = this.getEstimatedReport(building.rates, costHead, buildingReport.area, rateUnit);
         estimatedReports.push(estimateReport);
       }
     }
+  }
+
+  getEstimatedReport(centralizedRates:Array<any>, costHead:any, area:number, rateUnit:string) {
+
+    let estimateReport = new EstimateReport();
+    estimateReport.name = costHead.name;
+    estimateReport.rateAnalysisId = costHead.rateAnalysisId;
+
+    let costHeadCategories: Array<Category> = costHead.categories;
+    let projectService : ProjectService = new ProjectService();
+    let categoriesObj = projectService.getCategoriesListWithCentralizedRates(costHeadCategories, centralizedRates);
+    estimateReport.total = categoriesObj.categoriesAmount;
+    estimateReport.rate = parseFloat((estimateReport.total / area).toFixed(2));
+    if(rateUnit === Constants.SQUREMETER_UNIT) {
+      estimateReport.rate = parseFloat((estimateReport.rate * config.get(Constants.SQUARE_METER)).toFixed(2));
+    }
+    return estimateReport;
   }
 
   generateReportForProjectCostHeads(projectCostHeads:  Array<CostHead>, totalArea: number,
