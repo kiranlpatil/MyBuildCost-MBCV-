@@ -108,7 +108,7 @@ this.rateItemsArray.total = parseFloat((this.totalAmount / this.rateItemsArray.q
       this.categoryRateAnalysisId, this.workItemsList);
     this.categoriesTotalAmount.emit(categoriesTotal);
 
-    this.showWorkItemTabName = null;
+    this.showWorkItemTabName.emit('');
       this.loaderService.stop();
   }
 
