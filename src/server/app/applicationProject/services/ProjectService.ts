@@ -1222,35 +1222,25 @@ class ProjectService {
   }
 
   //Get active categories from database
-  getCategoriesOfBuildingCostHead(projectId:string, buildingId:string, costHeadId:number, user:User, callback:(error: any, result: any)=> void) {
+  getCategoriesOfBuildingCostHead(projectId:string, buildingId:string, costHeadId:number, user:User,
+                                  callback:(error: any, result: any)=> void) {
     logger.info('Project service, Get Active Categories has been hit');
     this.buildingRepository.findById(buildingId, (error, building:Building) => {
       if (error) {
         callback(error, null);
       } else {
-        let categories : Array<Category> = new Array<Category>();
         let buildingCostHeads = building.costHeads;
+        let categoriesListWithBuildingRates = {
+          categories : new Array<Category>(),
+          categoriesAmount : 0,
+        };
 
         for(let costHeadData of buildingCostHeads) {
           if(costHeadData.rateAnalysisId === costHeadId) {
-            for (let categoryData of costHeadData.categories) {
-                if (categoryData.active === true) {
-                  categoryData.amount = 0;
-                  for(let workItemData of categoryData.workItems) {
-                    if(workItemData.active) {
-                      if (workItemData.quantity.total !== null && workItemData.rate.total !== null
-                        && workItemData.quantity.total !== 0 && workItemData.rate.total !== 0) {
-                        categoryData.amount = parseFloat((workItemData.quantity.total *
-                          workItemData.rate.total + categoryData.amount).toFixed(constant.NUMBER_OF_FRACTION_DIGIT));
-                      }
-                  }
-                  }
-                  categories.push(categoryData);
-              }
-            }
+            categoriesListWithBuildingRates = this.getCategoriesListWithCentralizedRates(costHeadData.categories, building.rates);
           }
         }
-        callback(null, {data: categories, access_token: this.authInterceptor.issueTokenWithUid(user)});
+        callback(null, {data: categoriesListWithBuildingRates, access_token: this.authInterceptor.issueTokenWithUid(user)});
       }
     });
   }
@@ -1263,39 +1253,38 @@ class ProjectService {
       if (error) {
         callback(error, null);
       } else {
-        let categories : Array<Category> = new Array<Category>();
         let projectCostHeads = project.projectCostHeads;
+        let categoriesListWithBuildingRates = {
+          categories : new Array<Category>(),
+          categoriesAmount : 0,
+        };
 
         for(let costHeadData of projectCostHeads) {
-          if(costHeadData.rateAnalysisId === costHeadId) {
-            for (let categoryData of costHeadData.categories) {
-              if (categoryData.active === true) {
-                let workItems : Array<WorkItem> = new Array<WorkItem>();
-                for(let workItemData of categoryData.workItems) {
-                  if(workItemData.active) {
-                    workItems.push(workItemData);
-                    for (let singleWorkItem of workItems) {
-                      if (singleWorkItem.quantity.total !== null && singleWorkItem.rate.total !== null
-                        && singleWorkItem.quantity.total !== 0 && singleWorkItem.rate.total !== 0) {
-                        categoryData.amount = parseFloat((singleWorkItem.quantity.total *
-                          singleWorkItem.rate.total + categoryData.amount).toFixed(constant.NUMBER_OF_FRACTION_DIGIT));
-                      } else {
-                        categoryData.amount = 0;
-                        categoryData.amount = 0;
-                        break;
-                      }
-                    }
-                  }
-                }
-                categoryData.workItems = workItems;
-                categories.push(categoryData);
-              }
-            }
+          if (costHeadData.rateAnalysisId === costHeadId) {
+            categoriesListWithBuildingRates = this.getCategoriesListWithCentralizedRates(costHeadData.categories, project.rates);
           }
         }
-        callback(null, {data: categories, access_token: this.authInterceptor.issueTokenWithUid(user)});
+        callback(null, {data: categoriesListWithBuildingRates, access_token: this.authInterceptor.issueTokenWithUid(user)});
       }
     });
+  }
+
+  //Get category list with centralized rate
+  getCategoriesListWithCentralizedRates(categoriesOfCostHead: Array<Category>, centralizedRates: Array<any>) {
+    let categoriesAmount = 0 ;
+
+    let categoriesListWithRates = {
+      categories : new Array<Category>(),
+      categoriesAmount : 0
+    };
+
+    for (let categoryData of categoriesOfCostHead) {
+      categoryData.workItems = this.getWorkItemListWithCentralizedRates(categoryData.workItems, centralizedRates);
+      categoriesAmount = categoriesAmount + categoryData.amount;
+      categoriesListWithRates.categories.push(categoryData);
+    }
+    categoriesListWithRates.categoriesAmount = categoriesAmount;
+    return categoriesListWithRates;
   }
 
   syncProjectWithRateAnalysisData(projectId:string, buildingId:string, user: User, callback: (error:any, result:any)=> void) {
