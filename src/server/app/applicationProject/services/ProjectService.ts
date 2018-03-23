@@ -1280,7 +1280,12 @@ class ProjectService {
 
     for (let categoryData of categoriesOfCostHead) {
       categoryData.workItems = this.getWorkItemListWithCentralizedRates(categoryData.workItems, centralizedRates);
-      categoriesAmount = categoriesAmount + categoryData.amount;
+      let workItemsAmount = 0 ;
+      for(let workItem of categoryData.workItems) {
+        workItemsAmount = workItemsAmount + workItem.amount;
+      }
+      categoryData.amount = workItemsAmount;
+      categoriesAmount = categoriesAmount + workItemsAmount;
       categoriesListWithRates.categories.push(categoryData);
     }
     categoriesListWithRates.categoriesAmount = categoriesAmount;
