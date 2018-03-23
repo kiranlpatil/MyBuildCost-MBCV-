@@ -646,7 +646,7 @@ class ProjectController {
     }
   }
 
-  getWorkitemList(req: express.Request, res: express.Response, next: any): void {
+  getWorkitemListForBuildingCategory(req: express.Request, res: express.Response, next: any): void {
     try {
       logger.info('getWorkitemList has been hit');
       let user = req.user;
@@ -655,7 +655,7 @@ class ProjectController {
       let costHeadId = parseInt(req.params.costHeadId);
       let categoryId = parseInt(req.params.categoryId);
       let projectService = new ProjectService();
-      projectService.getWorkitemList(projectId, buildingId, costHeadId, categoryId, user, (error, result) => {
+      projectService.getWorkitemListForBuildingCategory(projectId, buildingId, costHeadId, categoryId, user, (error, result) => {
         if(error) {
           next(error);
         } else {
