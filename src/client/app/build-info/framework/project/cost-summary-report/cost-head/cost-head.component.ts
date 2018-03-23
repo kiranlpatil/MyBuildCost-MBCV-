@@ -31,14 +31,14 @@ export class CostHeadComponent implements OnInit, OnChanges {
   categoryDetails: Array<Category>;
   categoryDetailsTotalAmount: number=0;
   workItem: WorkItem;
-  totalAmount:number=0;
+  totalAmount : number = 0;
   categoryRateAnalysisId:number;
   compareWorkItemRateAnalysisId:number;
   quantity:number=0;
   rateFromRateAnalysis:number=0;
   unit:string='';
   showCategoryList: boolean = false;
-  selectedWorkItems: Array<WorkItem>;
+  workItemsList: Array<WorkItem>;
   deleteConfirmationCategory = ProjectElements.CATEGORY;
   deleteConfirmationWorkItem = ProjectElements.WORK_ITEM;
 
@@ -46,7 +46,7 @@ export class CostHeadComponent implements OnInit, OnChanges {
   private showWorkItemTab : string = null;
   private compareWorkItemId:number=0;
   private compareCategoryId:number=0;
-  private quantityItemsArray: QuantityItem;
+  private quantityItemsArray: Array<QuantityItem>;
   private rateItemsArray: Rate;
   private categoryArray : Array<Category> = [];
 
@@ -104,8 +104,8 @@ export class CostHeadComponent implements OnInit, OnChanges {
   }
 
   onGetCategoriesSuccess(categoryDetails: any) {
-    this.categoryDetails = categoryDetails.data;
-    this.calculateCategoriesTotal();
+    this.categoryDetails = categoryDetails.data.categories;
+    this.categoryDetailsTotalAmount = categoryDetails.data.categoriesAmount;
   }
 
   calculateCategoriesTotal() {
@@ -113,20 +113,8 @@ export class CostHeadComponent implements OnInit, OnChanges {
     this.categoryDetailsTotalAmount = 0.0;
 
     for (let categoryData of this.categoryDetails) {
-
-      categoryData.amount = 0.0;
-
-      for (let workItemData of categoryData.workItems) {
-
-        workItemData.amount = parseFloat(( workItemData.quantity.total * workItemData.rate.total).toFixed(
-          ValueConstant.NUMBER_OF_FRACTION_DIGIT));
-
-        categoryData.amount = parseFloat(( categoryData.amount +  workItemData.amount).toFixed(ValueConstant.NUMBER_OF_FRACTION_DIGIT));
-
-      }
-
-      this.categoryDetailsTotalAmount = parseFloat(( this.categoryDetailsTotalAmount + categoryData.amount).toFixed(
-        ValueConstant.NUMBER_OF_FRACTION_DIGIT));
+      this.categoryDetailsTotalAmount = parseFloat((this.categoryDetailsTotalAmount + categoryData.amount
+      ).toFixed(ValueConstant.NUMBER_OF_FRACTION_DIGIT));
     }
     this.loaderService.stop();
   }
@@ -142,17 +130,16 @@ export class CostHeadComponent implements OnInit, OnChanges {
     }
   }
 
-  getQuantity( categoryId: number, workItemId : number, workItem: WorkItem,
-               quantityItems: any, categoryIndex: number, workItemIndex:number) {
+  getQuantity( categoryId: number, workItem: WorkItem, categoryIndex: number, workItemIndex:number) {
     if( this.showWorkItemTab !== Label.WORKITEM_QUANTITY_TAB || this.compareCategoryId !== categoryId ||
-      this.compareWorkItemId !== workItemId) {
+      this.compareWorkItemId !== workItem.rateAnalysisId) {
 
-      this.setItemId(categoryId, workItemId);
+      this.setItemId(categoryId, workItem.rateAnalysisId);
 
-      this.workItemId = workItemId;
+      this.workItemId = workItem.rateAnalysisId;
       SessionStorageService.setSessionValue(SessionStorage.CURRENT_WORKITEM_ID, this.workItemId);
 
-      this.quantityItemsArray = quantityItems;
+      this.quantityItemsArray = workItem.quantity.quantityItems;
       this.workItem = workItem;
       this.rateView = 'quantity';
       this.currentCategoryIndex = categoryIndex;
@@ -255,8 +242,12 @@ export class CostHeadComponent implements OnInit, OnChanges {
     this.rateItemsArray.total=0;
 
     for(let rateItemsIndex=0; rateItemsIndex < this.rateItemsArray.rateItems.length; rateItemsIndex++) {
-      this.totalAmount = parseFloat((this.totalAmount + ( this.rateItemsArray.rateItems[rateItemsIndex].quantity *
-        this.rateItemsArray.rateItems[rateItemsIndex].rate )).toFixed(ValueConstant.NUMBER_OF_FRACTION_DIGIT));
+
+      this.rateItemsArray.rateItems[rateItemsIndex].totalAmount = parseFloat((this.rateItemsArray.rateItems[rateItemsIndex].quantity*
+        this.rateItemsArray.rateItems[rateItemsIndex].rate).toFixed(ValueConstant.NUMBER_OF_FRACTION_DIGIT));
+
+      this.totalAmount = parseFloat((this.totalAmount + this.rateItemsArray.rateItems[rateItemsIndex].totalAmount
+      ).toFixed(ValueConstant.NUMBER_OF_FRACTION_DIGIT));
      }
 
     this.rateItemsArray.total= parseFloat((this.totalAmount/this.rateItemsArray.quantity).toFixed(ValueConstant.NUMBER_OF_FRACTION_DIGIT));
@@ -285,17 +276,11 @@ export class CostHeadComponent implements OnInit, OnChanges {
     message.custom_message = Messages.MSG_SUCCESS_DELETE_WORKITEM;
     this.messageService.message(message);
 
-    for(let category of this.categoryDetails) {
-      if(category.rateAnalysisId === this.categoryId) {
-        for(let workItem of category.workItems) {
-          if(workItem.rateAnalysisId === this.workItemId) {
-            category.workItems = category.workItems.filter(item => item !== workItem);
-          }
-        }
-      }
-    }
+    this.workItemsList.splice(this.compareWorkItemId, 1);
 
-    this.calculateCategoriesTotal();
+    this.categoryDetailsTotalAmount = this.commonService.totalCalculationOfCategories(this.categoryDetails,
+      this.categoryRateAnalysisId, this.workItemsList);
+    this.loaderService.stop();
   }
 
   onDeActivateWorkItemFailure(error: any) {
@@ -303,9 +288,9 @@ export class CostHeadComponent implements OnInit, OnChanges {
     this.loaderService.stop();
   }
 
-  getInActiveWorkItems(categoryId:number, workItemIndex:number) {
+  getInActiveWorkItems(categoryId:number, categoryIndex:number) {
 
-    this.compareWorkItemRateAnalysisId = workItemIndex;
+    this.compareWorkItemRateAnalysisId = categoryIndex;
     this.categoryRateAnalysisId = categoryId;
 
     this.costSummaryService.getInActiveWorkItems( this.baseUrl, this.costHeadId, categoryId).subscribe(
@@ -357,13 +342,11 @@ export class CostHeadComponent implements OnInit, OnChanges {
     message.custom_message = Messages.MSG_SUCCESS_ADD_WORKITEM;
     this.messageService.message(message);
 
-    for(let category of this.categoryDetails) {
-      if(category.rateAnalysisId === this. categoryRateAnalysisId) {
-            category.workItems = category.workItems.concat(this.selectedWorkItemData);
-        }
-    }
 
-    this.calculateCategoriesTotal();
+    this.workItemsList = this.workItemsList.concat(this.calculateWorkItemAmount(this.selectedWorkItemData));
+    this.categoryDetailsTotalAmount = this.commonService.totalCalculationOfCategories(this.categoryDetails,
+      this.categoryRateAnalysisId, this.workItemsList);
+    this.loaderService.stop();
   }
 
   onActivateWorkItemFailure(error:any) {
@@ -459,9 +442,36 @@ export class CostHeadComponent implements OnInit, OnChanges {
     this.displayRateView = null;
   }
 
-  setSelectedWorkItems(workItemList:any) {
+/*  setSelectedWorkItems(workItemList:any) {
     this.selectedWorkItems = workItemList;
+  }*/
+
+    getAllWorkItemsOfCategory( categoryId : number) {
+      let costHeadId = parseInt(SessionStorageService.getSessionValue(SessionStorage.CURRENT_COST_HEAD_ID));
+      this.categoryId = categoryId;
+      this.categoryRateAnalysisId = categoryId;
+      this.costSummaryService.getAllWorkItemsOfCategory( this.baseUrl, costHeadId, this.categoryId).subscribe(
+        workItemsList => this.onGetAllWorkItemsOfCategorySuccess(workItemsList),
+        error => this.onGetAllWorkItemsOfCategoryFailure(error)
+      );
+    }
+
+  onGetAllWorkItemsOfCategorySuccess(workItemsList : any) {
+    this.workItemsList = workItemsList.data;
   }
+
+  // calculation of Quantity * Rate
+  calculateWorkItemAmount(workItemsList : any) {
+      for(let workItemData of workItemsList) {
+        workItemData.amount = workItemData.quantity.total * workItemData.rate.total;
+      }
+      return workItemsList;
+  }
+
+  onGetAllWorkItemsOfCategoryFailure(error : any) {
+    console.log('onGetAllWorkItemsOfCategoryFailure error : '+JSON.stringify(error));
+  }
+
 
   deleteElement(elementType : string) {
    /* if(elementType === ProjectElements.CATEGORY) {
@@ -489,4 +499,11 @@ export class CostHeadComponent implements OnInit, OnChanges {
     return Label;
   }
 
+  setCategoriesTotal( categoriesTotal : number) {
+    this.categoryDetailsTotalAmount = categoriesTotal;
+  }
+
+  setShowWorkItemTab( tabName : string) {
+    this.showWorkItemTab = tabName;
+  }
 }

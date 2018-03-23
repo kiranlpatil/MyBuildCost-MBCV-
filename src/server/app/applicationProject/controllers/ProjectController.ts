@@ -314,7 +314,8 @@ class ProjectController {
       let rate : Rate = <Rate> req.body;
       let projectService = new ProjectService();
       console.log(' workitemId => '+ workItemId);
-      projectService.updateRateOfBuildingCostHeads( projectId, buildingId, costHeadId,categoryId ,workItemId, rate, user, (error, result) => {
+      projectService.updateRateOfBuildingCostHeads( projectId, buildingId, costHeadId,categoryId ,
+        workItemId, rate, user, (error, result) => {
         if(error) {
           next(error);
         } else {
@@ -645,16 +646,37 @@ class ProjectController {
     }
   }
 
-  getWorkitemList(req: express.Request, res: express.Response, next: any): void {
+  getWorkitemListOfBuildingCostHead(req: express.Request, res: express.Response, next: any): void {
     try {
       logger.info('getWorkitemList has been hit');
       let user = req.user;
       let projectId = req.params.projectId;
       let buildingId = req.params.buildingId;
-      let costHeadId = req.params.costHeadId;
+      let costHeadId = parseInt(req.params.costHeadId);
       let categoryId = parseInt(req.params.categoryId);
       let projectService = new ProjectService();
-      projectService.getWorkitemList(projectId, buildingId, costHeadId, categoryId, user, (error, result) => {
+      projectService.getWorkitemListOfBuildingCostHead(projectId, buildingId, costHeadId, categoryId, user, (error, result) => {
+        if(error) {
+          next(error);
+        } else {
+          next(new Response(200,result));
+        }
+      });
+    } catch(e) {
+      next(new CostControllException(e.message,e.stack));
+    }
+  }
+
+  //Get workitems for perticular category of project cost head
+  getWorkitemListOfProjectCostHead(req: express.Request, res: express.Response, next: any): void {
+    try {
+      logger.info('getWorkitemListOfProjectCostHead has been hit');
+      let user = req.user;
+      let projectId = req.params.projectId;
+      let costHeadId = parseInt(req.params.costHeadId);
+      let categoryId = parseInt(req.params.categoryId);
+      let projectService = new ProjectService();
+      projectService.getWorkitemListOfProjectCostHead(projectId, costHeadId, categoryId, user, (error, result) => {
         if(error) {
           next(error);
         } else {
@@ -806,5 +828,55 @@ class ProjectController {
       next(new CostControllException(e.message,e.stack));
     }
   }
+
+  getRateItemsByName(req: express.Request, res: express.Response, next: any): void {
+    try {
+      logger.info('Project controller, getRateItemsByName has been hit');
+      let user = req.user;
+      let projectId = req.params.projectId;
+      let buildingId = req.params.buildingId;
+      let rateItemName = req.params.rateItemName;
+      let projectService = new ProjectService();
+
+      projectService.getRateItemsByName( projectId, buildingId, rateItemName, user, (error, result) => {
+        if(error) {
+          logger.error('getRateItemsByName failure');
+          next(error);
+        } else {
+          logger.info('getRateItemsByName success');
+          logger.debug('Getting getRateItemsByName of Project ID : '+projectId+' Building ID : '+buildingId);
+          next(new Response(200,result));
+        }
+      });
+    } catch (e) {
+      next(new CostControllException(e.message,e.stack));
+    }
+  }
+
+  getProjectRateItemsByName(req: express.Request, res: express.Response, next: any): void {
+    try {
+      logger.info('Project controller, getProjectRateItemsByName has been hit');
+      let user = req.user;
+      let projectId = req.params.projectId;
+      let rateItemName = req.params.rateItemName;
+      let projectService = new ProjectService();
+
+      projectService.getProjectRateItemsByName( projectId, rateItemName, user, (error, result) => {
+        if(error) {
+          logger.error('getProjectRateItemsByName failure');
+          next(error);
+        } else {
+          logger.info('getProjectRateItemsByName success');
+          logger.debug('Getting getProjectRateItemsByName of Project ID : '+projectId);
+          next(new Response(200,result));
+        }
+      });
+    } catch (e) {
+      next(new CostControllException(e.message,e.stack));
+    }
+  }
+
+
+
 }
 export  = ProjectController;

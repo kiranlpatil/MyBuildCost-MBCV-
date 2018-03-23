@@ -169,6 +169,7 @@ export class Messages {
   public static MSG_SUCCESS_SAVED_COST_HEAD_ITEM_ERROR: string = 'There is error in operation';
   public static MSG_SUCCESS_ADD_CATEGORY: string = 'Category added successfully.';
   public static MSG_SUCCESS_DELETE_CATEGORY: string = 'Category deleted successfully.';
+  public static MSG_SUCCESS_DELETE_QUANTITY_ITEM: string = 'Quantity item deleted successfully.';
   public static MSG_ALREADY_ADDED_ALL_CATEGORIES: string = 'Already added all Categories.';
   public static MSG_SUCCESS_ADD_WORKITEM: string = 'Workitem added successfully.';
   public static MSG_ALREADY_ADDED_ALL_WORKITEMS: string = 'Already added all workitems.';
@@ -213,6 +214,8 @@ export class SessionStorage {
   public static IS_SOCIAL_LOGIN = 'is_social_login';
   public static PROFILE_PICTURE = 'profile_picture';
   public static IS_LOGGED_IN = 'is_user_logged_in';
+  public static IS_USER_SIGN_IN = 'is_user_register';
+  public static CURRENT_VIEW = 'current_view';
   public static USER_ID = 'user_id';
   public static MOBILE_NUMBER = 'mobile_number';
   public static VERIFIED_MOBILE_NUMBER = 'verified_mobile_number';
@@ -277,12 +280,15 @@ export class API {
   public static CATEGORY = 'category';
   public static WORKITEM = 'workitem';
   public static WORKITEMLIST = 'workitemlist';
+  public static WORKITEM_ALL = 'workitem/all';
   public static QUANTITY = 'quantity';
   public static ITEM = 'item';
   public static SYNC_RATE_ANALYSIS = 'syncWithRateAnalysis';
 
   public static THUMBRULE_RULE_RATE='report/thumbRuleRate';
   public static RATE='rate';
+  public static RATES='rates';
+  public static RATE_ITEM='rateItem';
   public static SQFT='sqft';
   public static SQM='sqmt';
   public static RS_PER_SQFT = 'Rs/Sqft';
@@ -342,6 +348,7 @@ export class Headings {
   public static ELECTRIC_INFRASTRUCTURE : string = 'Electric Infrastructure ';
   public static CONSTRUCTION_COST : string = 'Construction Cost (Material + Labour)';
   public static QUANTITY : string = 'Quantity';
+  public static ITEM : string = 'Item';
   }
 
 export class TableHeadings {
@@ -459,6 +466,7 @@ export class Button {
   public static CATEGORY: string = 'Category';
   public static WORKITEM: string = 'WorkItem';
   public static ITEM: string = 'Item';
+  public static ROW: string = 'Row';
   public static COSTHEAD: string = 'CostHead';
 }
 
@@ -491,6 +499,8 @@ export class Menus {
   public static EDIT = 'Edit';
   public static DELETE = 'Delete';
   public static ADD_BUILDING = 'Add Building';
+  public static ADD_BUILDING_TO_PROJECT = 'Add Building to Project';
+  public static CREATE_NEW_PROJECT: string = 'Create New Project';
 }
 
 export class ValueConstant {

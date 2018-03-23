@@ -163,4 +163,15 @@ export class CostSummaryService extends BaseService {
   }
 
 */
+
+  //Get All WorkItems Of Category
+  getAllWorkItemsOfCategory(baseUrl: string, costHeadId : number, categoryId : number) {
+    var url = baseUrl +'/'+ API.COSTHEAD+ '/' + costHeadId + '/' + API.CATEGORY + '/' + categoryId + '/' + API.WORKITEMLIST;
+    return this.httpDelegateService.getAPI(url);
+}
+
+  getRateItemsData(baseUrl: string, rateItemName:string) {
+    var url = baseUrl +'/'+ API.RATES+ '/' +API.RATE_ITEM + '/'+ rateItemName;
+    return this.httpDelegateService.getAPI(url);
+  }
 }

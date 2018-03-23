@@ -17,14 +17,16 @@ import Category = require('../dataaccess/model/project/building/Category');
 import constant = require('../shared/constants');
 let config = require('config');
 let log4js = require('log4js');
+import * as mongoose from 'mongoose';
+let ObjectId = mongoose.Types.ObjectId;
 import alasql = require('alasql');
 import BudgetCostRates = require('../dataaccess/model/project/reports/BudgetCostRates');
 import ThumbRuleRate = require('../dataaccess/model/project/reports/ThumbRuleRate');
 import Constants = require('../../applicationProject/shared/constants');
-import * as mongoose from 'mongoose';
 import QuantityItem = require('../dataaccess/model/project/building/QuantityItem');
+import RateItem = require('../dataaccess/model/project/building/RateItem');
+import {ValueConstant} from "../../../../client/app/shared/constants";
 let CCPromise = require('promise/lib/es6-extensions');
-let ObjectId = mongoose.Types.ObjectId;
 let logger=log4js.getLogger('Project service');
 
 class ProjectService {
@@ -232,6 +234,35 @@ class ProjectService {
     });
   }
 
+  getRateItemsByName(projectId: string, buildingId: string, rateItemName: string, user: User,
+                     callback: (error: any, result: any) => void) {
+    this.buildingRepository.findById(buildingId, (error, building:Building) => {
+      logger.info('Project Service, getRateItemsByName has been hit');
+      if (error) {
+        callback(error, null);
+      } else {
+        let rateItemsArray = building.rates;
+          let newRateItemsArray: Array<RateItem> = new Array<RateItem>();
+        newRateItemsArray = alasql('SELECT * FROM ? where originalName = ?', [rateItemsArray,rateItemName]);
+        callback(null,{ data: newRateItemsArray, access_token: this.authInterceptor.issueTokenWithUid(user)});
+      }
+    });
+  }
+
+  getProjectRateItemsByName(projectId: string, rateItemName: string, user: User, callback: (error: any, result: any) => void) {
+    this.projectRepository.findById(projectId, (error, project:Project) => {
+      logger.info('Project Service, getProjectRateItemsByName has been hit');
+      if (error) {
+        callback(error, null);
+      } else {
+        let rateItemsArray = project.rates;
+        let newRateItemsArray: Array<RateItem> = new Array<RateItem>();
+        newRateItemsArray = alasql('SELECT * FROM ? where originalName = ?', [rateItemsArray,rateItemName]);
+        callback(null,{ data: newRateItemsArray, access_token: this.authInterceptor.issueTokenWithUid(user)});
+      }
+    });
+  }
+
   getInActiveCostHead(projectId: string, buildingId: string, user: User, callback:(error: any, result: any)=> void) {
     logger.info('Project service, getInActiveCostHead has been hit');
     this.buildingRepository.findById(buildingId, (error, result) => {
@@ -423,6 +454,7 @@ class ProjectService {
         callback(error, null);
       } else {
         let costHeads = building.costHeads;
+        let centralizedRates = building.rates;
         for(let costHeadData of costHeads) {
           if(costHeadData.rateAnalysisId === costHeadId) {
             for(let categoryData of costHeadData.categories) {
@@ -430,6 +462,7 @@ class ProjectService {
                 for(let workItemData of categoryData.workItems) {
                   if (workItemData.rateAnalysisId === workItemId) {
                     workItemData.rate=rate;
+                    workItemData.rate.isEstimated = true;
                     break;
                   }
                 }
@@ -441,11 +474,48 @@ class ProjectService {
         }
         let query = {'_id' : buildingId};
         let newData = { $set : {'costHeads' : costHeads}};
+
         this.buildingRepository.findOneAndUpdate(query, newData,{new: true}, (error, result) => {
           if (error) {
             callback(error, null);
           } else {
-            callback(null, {data: 'success', access_token: this.authInterceptor.issueTokenWithUid(user)});
+            if(result) {
+              console.log('building CostHeads Updated');
+
+              let rateItems = rate.rateItems;
+              let promiseArrayForUpdateBuildingCentralizedRates =[];
+
+              for(let rate of rateItems) {
+
+                let rateObjectExistSQL = "SELECT * FROM ? AS rates WHERE rates.item= '"+rate.item+"'";
+                let rateExistArray = alasql(rateObjectExistSQL,[centralizedRates]);
+                if(rateExistArray.length > 0) {
+                  if(rateExistArray[0].rate !== rate.rate) {
+                    //update rate of rateItem
+                    let updateRatePromise = this.createPromiseForRateUpdate(buildingId, rate.item, rate.rate);
+                    promiseArrayForUpdateBuildingCentralizedRates.push(updateRatePromise);
+                  }
+                } else {
+                  //create new rateItem
+                  let rateItem = {
+                    'item' :rate.item,
+                    'originalName' : rate.originalName,
+                    'rate':rate.rate
+                  }
+                  let addNewRateItemPromise = this.createPromiseForAddingNewRateItem(buildingId, rateItem);
+                  promiseArrayForUpdateBuildingCentralizedRates.push(addNewRateItemPromise);
+                }
+              }
+
+              CCPromise.all(promiseArrayForUpdateBuildingCentralizedRates).then(function(data: Array<any>) {
+
+                console.log('Rates Array updated : '+JSON.stringify(centralizedRates));
+                callback(null, { 'success' : 'success' });
+
+              }).catch(function(e:any) {
+                logger.error(' Promise failed for convertCostHeadsFromRateAnalysisToCostControl ! :' +JSON.stringify(e));
+              });
+            }
           }
         });
       }
@@ -462,6 +532,7 @@ class ProjectService {
         callback(error, null);
       } else {
         let projectCostHeads = project.projectCostHeads;
+        let centralizedRatesOfProjects = project.rates;
         for(let costHeadData of projectCostHeads) {
           if(costHeadData.rateAnalysisId === costHeadId) {
             for(let categoryData of costHeadData.categories) {
@@ -469,6 +540,7 @@ class ProjectService {
                 for(let workItemData of categoryData.workItems) {
                   if (workItemData.rateAnalysisId === workItemId) {
                     workItemData.rate=rate;
+                    workItemData.rate.isEstimated = true;
                     break;
                   }
                 }
@@ -484,7 +556,40 @@ class ProjectService {
           if (error) {
             callback(error, null);
           } else {
-            callback(null, {data: 'success', access_token: this.authInterceptor.issueTokenWithUid(user)});
+
+            let rateItems = rate.rateItems;
+            let promiseArrayForProjectCentralizedRates =[];
+
+            for(let rate of rateItems) {
+
+              let rateObjectExistSQL = "SELECT * FROM ? AS rates WHERE rates.item= '"+rate.item+"'";
+              let rateExistArray = alasql(rateObjectExistSQL,[centralizedRatesOfProjects]);
+              if(rateExistArray.length > 0) {
+                if(rateExistArray[0].rate !== rate.rate) {
+                  //update rate of rateItem
+                  let updateRateOfProjectPromise = this.createPromiseForRateUpdateOfProjectRates(projectId, rate.item, rate.rate);
+                  promiseArrayForProjectCentralizedRates.push(updateRateOfProjectPromise);
+                }
+              } else {
+                //create new rateItem
+                let rateItem = {
+                  'item' :rate.item,
+                  'originalName' : rate.originalName,
+                  'rate':rate.rate
+                };
+                let addNewRateOfProjectPromise = this.createPromiseForAddingNewRateItemInProjectRates(projectId, rateItem);
+                promiseArrayForProjectCentralizedRates.push(addNewRateOfProjectPromise);
+              }
+            }
+
+            CCPromise.all(promiseArrayForProjectCentralizedRates).then(function(data: Array<any>) {
+
+              console.log('Rates Array updated : '+JSON.stringify(centralizedRatesOfProjects));
+              callback(null, { 'success' : 'success' });
+
+            }).catch(function(e:any) {
+              logger.error(' Promise failed for convertCostHeadsFromRateAnalysisToCostControl ! :' +JSON.stringify(e));
+            });
           }
         });
       }
@@ -823,6 +928,7 @@ class ProjectService {
                 for (let workItemData of categoryData.workItems) {
                   if (workItemId === workItemData.rateAnalysisId) {
                     quantity  = workItemData.quantity;
+                    quantity.isEstimated = true;
                     quantity.quantityItems = quantityItems;
                     quantity.total = 0;
                     for (let quantityData of quantity.quantityItems) {
@@ -865,6 +971,7 @@ class ProjectService {
                 for (let workItemData of categoryData.workItems) {
                   if (workItemId === workItemData.rateAnalysisId) {
                     quantity  = workItemData.quantity;
+                    quantity.isEstimated = true;
                     quantity.quantityItems = quantityItems;
                     quantity.total = 0;
                     for (let quantityData of quantity.quantityItems) {
@@ -901,7 +1008,6 @@ class ProjectService {
       } else {
         let costHeads = building.costHeads;
         let categories : Array<Category>= new Array<Category>();
-
         for(let costHeadIndex = 0; costHeadIndex<costHeads.length; costHeadIndex++) {
           if(parseInt(costHeadId) === costHeads[costHeadIndex].rateAnalysisId) {
             let categoriesList = costHeads[costHeadIndex].categories;
@@ -917,17 +1023,110 @@ class ProjectService {
     });
   }
 
-  getWorkitemList(projectId:string, buildingId:string, costHeadId:number, categoryId:number, user:User,
-                  callback:(error: any, result: any)=> void) {
-    logger.info('Project service, getWorkitemList has been hit');
-    let rateAnalysisServices : RateAnalysisService = new RateAnalysisService();
-    rateAnalysisServices.getWorkitemList(costHeadId, categoryId, (error, workitemList)=> {
-      if(error) {
+  getWorkitemListOfBuildingCostHead(projectId:string, buildingId:string, costHeadId:number, categoryId:number, user:User,
+                                    callback:(error: any, result: any)=> void) {
+    logger.info('Project service, getWorkitemListOfBuildingCostHead has been hit');
+
+    let query = [
+      { $match: {'_id': ObjectId(buildingId), 'costHeads.rateAnalysisId': costHeadId }},
+      { $unwind: '$costHeads'},
+      { $project : {'costHeads':1}},
+      { $unwind: '$costHeads.categories'},
+      { $match: {'costHeads.categories.rateAnalysisId':categoryId}},
+      { $project : {'costHeads.categories.workItems':1}}
+    ];
+
+    this.buildingRepository.findById(buildingId, (error, response) => {
+      logger.info('Project service, Get workitems By Cost Head & category Id has been hit');
+      if (error) {
         callback(error, null);
-      }else {
-        callback(null, {data: workitemList, access_token: this.authInterceptor.issueTokenWithUid(user)});
+      } else {
+        if(response) {
+          this.buildingRepository.aggregate(query, (error, result) => {
+            logger.info('Project service, Get workitems for specific category has been hit');
+            if (error) {
+              callback(error, null);
+            } else {
+              if(result.length > 0) {
+                let workItemsOfBuildingCategory = result[0].costHeads.categories.workItems;
+                let workItemsListWithBuildingRates = this.getWorkItemListWithCentralizedRates(workItemsOfBuildingCategory, response.rates);
+                callback(null, {data: workItemsListWithBuildingRates, access_token: this.authInterceptor.issueTokenWithUid(user)});
+              }
+            }
+          });
+        }
       }
     });
+  }
+
+  getWorkitemListOfProjectCostHead(projectId:string, costHeadId:number, categoryId:number, user:User,
+                                   callback:(error: any, result: any)=> void) {
+    logger.info('Project service, getWorkitemListOfProjectCostHead has been hit');
+
+    let query = [
+      { $match: {'_id': ObjectId(projectId), 'projectCostHeads.rateAnalysisId': costHeadId }},
+      { $unwind: '$projectCostHeads'},
+      { $project : {'projectCostHeads':1}},
+      { $unwind: '$projectCostHeads.categories'},
+      { $match: {'projectCostHeads.categories.rateAnalysisId':categoryId}},
+      { $project : {'projectCostHeads.categories.workItems':1}}
+    ];
+
+    this.projectRepository.findById(projectId, (error, response) => {
+      logger.info('Project service, Get workitems By Cost Head & category Id has been hit');
+      if (error) {
+        callback(error, null);
+      } else {
+        if(response) {
+          console.log('result : '+JSON.stringify(response.rates));
+          this.projectRepository.aggregate(query, (error, result) => {
+            logger.info('Project service, Get workitems By Cost Head & category Id has been hit');
+            if (error) {
+              callback(error, null);
+            } else {
+              if(result.length > 0) {
+                let workItemsOfCategory = result[0].projectCostHeads.categories.workItems;
+                let workItemsListWithRates = this.getWorkItemListWithCentralizedRates(workItemsOfCategory, response.rates);
+                callback(null, {data: workItemsListWithRates, access_token: this.authInterceptor.issueTokenWithUid(user)});
+              }
+            }
+          });
+        }
+      }
+    });
+  }
+
+  getWorkItemListWithCentralizedRates(workItemsOfCategory: Array<WorkItem>, centralizedRates: Array<any>) {
+    let workItemsListWithRates = new Array<WorkItem>();
+    for (let workItemObj of workItemsOfCategory) {
+      if (workItemObj.active === true) {
+        let workItem: WorkItem = workItemObj;
+        let rateItemsOfWorkItem = workItemObj.rate.rateItems;
+        workItem.rate.rateItems = this.getRatesFromCentralizedrates(rateItemsOfWorkItem, centralizedRates);
+
+        let arrayOfRateItems = workItem.rate.rateItems;
+        let totalOfAllRateItems = alasql('VALUE OF SELECT SUM(totalAmount) FROM ?',[arrayOfRateItems]);
+        workItem.rate.total = parseFloat((totalOfAllRateItems/workItem.rate.quantity).toFixed(Constants.NUMBER_OF_FRACTION_DIGIT));
+
+        let arrayOfQuantityItems = workItem.quantity.quantityItems;
+        let totalOfQuantityItems = alasql('VALUE OF SELECT SUM(quantity) FROM ?',[arrayOfQuantityItems]);
+        workItem.quantity.total = totalOfQuantityItems;
+
+         if(workItem.rate.isEstimated && workItem.quantity.isEstimated) {
+           workItem.amount = parseFloat((workItem.rate.total * workItem.quantity.total).toFixed(Constants.NUMBER_OF_FRACTION_DIGIT));
+         }
+      workItemsListWithRates.push(workItem);
+      }
+    }
+    return workItemsListWithRates;
+  }
+
+  getRatesFromCentralizedrates(rateItemsOfWorkItem: Array<RateItem>, centralizedRates:Array<any>) {
+    let rateItemsSQL = 'SELECT rateItem.item, rateItem.originalName, rateItem.rateAnalysisId, rateItem.type,' +
+      'rateItem.quantity, centralizedRates.rate, rateItem.unit, rateItem.totalAmount, rateItem.totalQuantity ' +
+      'FROM ? AS rateItem JOIN ? AS centralizedRates ON rateItem.item = centralizedRates.item';
+    let rateItemsForWorkItem = alasql(rateItemsSQL, [rateItemsOfWorkItem, centralizedRates]);
+    return rateItemsForWorkItem;
   }
 
   addWorkitem(projectId:string, buildingId:string, costHeadId:number, categoryId:number, workItem: WorkItem,
@@ -1022,43 +1221,25 @@ class ProjectService {
   }
 
   //Get active categories from database
-  getCategoriesOfBuildingCostHead(projectId:string, buildingId:string, costHeadId:number, user:User, callback:(error: any, result: any)=> void) {
+  getCategoriesOfBuildingCostHead(projectId:string, buildingId:string, costHeadId:number, user:User,
+                                  callback:(error: any, result: any)=> void) {
     logger.info('Project service, Get Active Categories has been hit');
     this.buildingRepository.findById(buildingId, (error, building:Building) => {
       if (error) {
         callback(error, null);
       } else {
-        let categories : Array<Category> = new Array<Category>();
         let buildingCostHeads = building.costHeads;
+        let categoriesListWithBuildingRates = {
+          categories : new Array<Category>(),
+          categoriesAmount : 0,
+        };
 
         for(let costHeadData of buildingCostHeads) {
           if(costHeadData.rateAnalysisId === costHeadId) {
-            for (let categoryData of costHeadData.categories) {
-                if (categoryData.active === true) {
-                  let workItems : Array<WorkItem> = new Array<WorkItem>();
-                  for(let workItemData of categoryData.workItems) {
-                    if(workItemData.active) {
-                    workItems.push(workItemData);
-                    for (let singleWorkItem of workItems) {
-                      if (singleWorkItem.quantity.total !== null && singleWorkItem.rate.total !== null
-                        && singleWorkItem.quantity.total !== 0 && singleWorkItem.rate.total !== 0) {
-                        categoryData.amount = parseFloat((singleWorkItem.quantity.total *
-                          singleWorkItem.rate.total + categoryData.amount).toFixed(constant.NUMBER_OF_FRACTION_DIGIT));
-                      } else {
-                        categoryData.amount = 0;
-                        categoryData.amount = 0;
-                        break;
-                      }
-                    }
-                  }
-                  }
-                  categoryData.workItems = workItems;
-                  categories.push(categoryData);
-              }
-            }
+            categoriesListWithBuildingRates = this.getCategoriesListWithCentralizedRates(costHeadData.categories, building.rates);
           }
         }
-        callback(null, {data: categories, access_token: this.authInterceptor.issueTokenWithUid(user)});
+        callback(null, {data: categoriesListWithBuildingRates, access_token: this.authInterceptor.issueTokenWithUid(user)});
       }
     });
   }
@@ -1071,39 +1252,40 @@ class ProjectService {
       if (error) {
         callback(error, null);
       } else {
-        let categories : Array<Category> = new Array<Category>();
         let projectCostHeads = project.projectCostHeads;
+        let categoriesListWithBuildingRates = {
+          categories : new Array<Category>(),
+          categoriesAmount : 0,
+        };
 
         for(let costHeadData of projectCostHeads) {
-          if(costHeadData.rateAnalysisId === costHeadId) {
-            for (let categoryData of costHeadData.categories) {
-              if (categoryData.active === true) {
-                let workItems : Array<WorkItem> = new Array<WorkItem>();
-                for(let workItemData of categoryData.workItems) {
-                  if(workItemData.active) {
-                    workItems.push(workItemData);
-                    for (let singleWorkItem of workItems) {
-                      if (singleWorkItem.quantity.total !== null && singleWorkItem.rate.total !== null
-                        && singleWorkItem.quantity.total !== 0 && singleWorkItem.rate.total !== 0) {
-                        categoryData.amount = parseFloat((singleWorkItem.quantity.total *
-                          singleWorkItem.rate.total + categoryData.amount).toFixed(constant.NUMBER_OF_FRACTION_DIGIT));
-                      } else {
-                        categoryData.amount = 0;
-                        categoryData.amount = 0;
-                        break;
-                      }
-                    }
-                  }
-                }
-                categoryData.workItems = workItems;
-                categories.push(categoryData);
-              }
-            }
+          if (costHeadData.rateAnalysisId === costHeadId) {
+            categoriesListWithBuildingRates = this.getCategoriesListWithCentralizedRates(costHeadData.categories, project.rates);
           }
         }
-        callback(null, {data: categories, access_token: this.authInterceptor.issueTokenWithUid(user)});
+        callback(null, {data: categoriesListWithBuildingRates, access_token: this.authInterceptor.issueTokenWithUid(user)});
       }
     });
+  }
+
+  //Get category list with centralized rate
+  getCategoriesListWithCentralizedRates(categoriesOfCostHead: Array<Category>, centralizedRates: Array<any>) {
+    let categoriesTotalAmount = 0 ;
+
+    let categoriesListWithRates = {
+      categories : new Array<Category>(),
+      categoriesAmount : 0
+    };
+
+    for (let categoryData of categoriesOfCostHead) {
+      categoryData.workItems = this.getWorkItemListWithCentralizedRates(categoryData.workItems, centralizedRates);
+      let calculateWorkItemTotalAmount =  alasql('VALUE OF SELECT SUM(amount) FROM ?',[categoryData.workItems]);
+      categoryData.amount = calculateWorkItemTotalAmount;
+      categoriesTotalAmount = categoriesTotalAmount + calculateWorkItemTotalAmount;
+      categoriesListWithRates.categories.push(categoryData);
+    }
+    categoriesListWithRates.categoriesAmount =  parseFloat((categoriesTotalAmount).toFixed(2));
+    return categoriesListWithRates;
   }
 
   syncProjectWithRateAnalysisData(projectId:string, buildingId:string, user: User, callback: (error:any, result:any)=> void) {
@@ -1161,16 +1343,17 @@ class ProjectService {
     let projectRepository = new ProjectRepository();
 
     rateAnalysisService.convertCostHeadsFromRateAnalysisToCostControl(Constants.BUILDING,
-      (error: any, buildingCostHeadsData: any) => {
+      (error: any, result: any) => {
         if (error) {
           logger.error('Error in updateCostHeadsForBuildingAndProject : convertCostHeadsFromRateAnalysisToCostControl : ' + JSON.stringify(error));
           callback(error, null);
         } else {
           logger.info('GetAllDataFromRateAnalysis success');
           let projectService = new ProjectService();
-          let data = projectService.calculateBudgetCostForBuilding(buildingCostHeadsData, projectData, buildingData);
+          let data = projectService.calculateBudgetCostForBuilding(result.buildingCostHeads, projectData, buildingData);
+          let rates  =  this.getRates(result, data);
           let queryForBuilding = {'_id': buildingId};
-          let updateCostHead = {$set: {'costHeads': data}};
+          let updateCostHead = {$set: {'costHeads': data, 'rates': rates }};
           buildingRepository.findOneAndUpdate(queryForBuilding, updateCostHead, {new: true}, (error: any, response: any) => {
             if (error) {
               logger.error('Error in Update convertCostHeadsFromRateAnalysisToCostControl buildingCostHeadsData  : ' + JSON.stringify(error));
@@ -1201,18 +1384,20 @@ class ProjectService {
   updateBudgetRatesForBuildingCostHeads(entity: string, buildingId:string, projectDetails : Project, buildingDetails : Building) {
     return new CCPromise(function(resolve:any, reject:any) {
       let rateAnalysisService = new RateAnalysisService();
+      let projectService = new ProjectService();
       let buildingRepository = new BuildingRepository();
-      logger.info('Project service, updateBudgetRatesForBuildingCostHeads promise.');
-      rateAnalysisService.convertCostHeadsFromRateAnalysisToCostControl(entity, (error: any, buildingCostHeadsData: any) => {
+      logger.info('Inside updateBudgetRatesForBuildingCostHeads promise.');
+      rateAnalysisService.convertCostHeadsFromRateAnalysisToCostControl(entity, (error: any, result: any) => {
         if (error) {
           logger.err('Error in promise updateBudgetRatesForBuildingCostHeads : ' + JSON.stringify(error));
           reject(error);
         } else {
-
+          logger.info('Inside updateBudgetRatesForBuildingCostHeads success');
           let projectService = new ProjectService();
-          let buildingCostHeads = projectService.calculateBudgetCostForBuilding(buildingCostHeadsData, projectDetails, buildingDetails);
+          let buildingCostHeads = projectService.calculateBudgetCostForBuilding(result.buildingCostHeads, projectDetails, buildingDetails);
+          let rates  = projectService.getRates(result, buildingCostHeads);
           let query = {'_id': buildingId};
-          let newData = {$set: {'costHeads': buildingCostHeads}};
+          let newData = {$set: {'costHeads': buildingCostHeads, 'rates': rates}};
           buildingRepository.findOneAndUpdate(query, newData, {new: true}, (error:any, response:any) => {
             logger.info('Project service, getAllDataFromRateAnalysis has been hit');
             if (error) {
@@ -1230,20 +1415,41 @@ class ProjectService {
     });
   }
 
+  getRates(result: any, costHeads: Array<CostHead>) {
+    let getRatesListSQL = 'SELECT * FROM ? AS q WHERE q.C4 IN (SELECT t.rateAnalysisId ' +
+      'FROM ? AS t)';
+    let rateItems = alasql(getRatesListSQL, [result.rates, costHeads]);
+
+    let rateItemsRateAnalysisSQL = 'SELECT rateItem.C2 AS item, rateItem.C2 AS originalName,' +
+      'rateItem.C12 AS rateAnalysisId, rateItem.C6 AS type,' +
+      'ROUND(rateItem.C7,2) AS quantity, ROUND(rateItem.C3,2) AS rate, unit.C2 AS unit,' +
+      'ROUND(rateItem.C3 * rateItem.C7,2) AS totalAmount, rateItem.C5 AS totalQuantity ' +
+      'FROM ? AS rateItem JOIN ? AS unit ON unit.C1 = rateItem.C9';
+
+    let rateItemsList = alasql(rateItemsRateAnalysisSQL, [rateItems, result.units]);
+
+    let distinctItemsSQL = 'select DISTINCT item,originalName,rate FROM ?';
+    var distinctRates = alasql (distinctItemsSQL, [rateItemsList]);
+
+    return distinctRates;
+  }
+
   updateBudgetRatesForProjectCostHeads(entity: string, projectId:string, projectDetails : Project, buildingDetails : Building) {
     return new CCPromise(function(resolve:any, reject:any){
       let rateAnalysisService = new RateAnalysisService();
       let projectRepository = new ProjectRepository();
-      logger.info('Project service, updateBudgetRatesForProjectCostHeads promise.');
-      rateAnalysisService.convertCostHeadsFromRateAnalysisToCostControl(entity, (error : any, projectCostHeadsData: any) => {
+      logger.info('Inside updateBudgetRatesForProjectCostHeads promise.');
+      rateAnalysisService.convertCostHeadsFromRateAnalysisToCostControl(entity, (error : any, result: any) => {
         if(error) {
           logger.err('Error in updateBudgetRatesForProjectCostHeads promise : ' + JSON.stringify(error));
           reject(error);
         } else {
             let projectService = new ProjectService();
-            let projectCostHeads = projectService.calculateBudgetCostForCommonAmmenities(projectCostHeadsData, projectDetails, buildingDetails);
+            let projectCostHeads = projectService.calculateBudgetCostForCommonAmmenities(
+              result.buildingCostHeads, projectDetails, buildingDetails);
+            let rates  = projectService.getRates(result, projectCostHeads);
             let query = {'_id': projectId};
-            let newData = {$set: {'projectCostHeads': projectCostHeads}};
+            let newData = {$set: {'projectCostHeads': projectCostHeads, 'rates': rates}};
             projectRepository.findOneAndUpdate(query, newData, {new: true}, (error: any, response: any) => {
               logger.info('Project service, getAllDataFromRateAnalysis has been hit');
               if (error) {
@@ -1386,6 +1592,84 @@ class ProjectService {
     return costHeads;
   }
 
+  createPromiseForAddingNewRateItem(buildingId: string, rateItem:any) {
+    return new CCPromise(function(resolve : any, reject : any){
+      logger.info('createPromiseForAddingNewRateItem has been hit for buildingId: '+buildingId+', rateItem : '+rateItem);
+
+      let buildingRepository = new BuildingRepository();
+      let queryAddNewRateItem = {'_id' : buildingId};
+      let addNewRateRateData = { $push : {'rates' : rateItem } };
+      buildingRepository.findOneAndUpdate(queryAddNewRateItem, addNewRateRateData,{new: true}, (error:Error, result:Building) => {
+        if (error) {
+          reject(error);
+        } else {
+          resolve(result);
+        }
+      });
+    }).catch(function(e:any) {
+      logger.error('Promise failed for individual createPromiseForAddingNewRateItem! error :' +JSON.stringify(e));
+    });
+  }
+
+  createPromiseForRateUpdate(buildingId: string, rateItem :string, rateItemRate : number) {
+    return new CCPromise(function(resolve : any, reject : any){
+      logger.info('createPromiseForRateUpdate has been hit for buildingId : '+buildingId+', rateItem : '+rateItem);
+      //update rate
+      let buildingRepository = new BuildingRepository();
+      let queryUpdateRate = {'_id' : buildingId, 'rates.item':rateItem};
+      let updateRate = { $set : {'rates.$.rate' : rateItemRate} };
+      buildingRepository.findOneAndUpdate(queryUpdateRate, updateRate,{new: true}, (error:Error, result:Building) => {
+        if (error) {
+          reject(error);
+        } else {
+          console.log('Rate Updated');
+          resolve(result);
+        }
+      });
+    }).catch(function(e:any) {
+      logger.error('Promise failed for individual createPromiseForRateUpdate ! Error: ' +JSON.stringify(e));
+    });
+  }
+
+  createPromiseForAddingNewRateItemInProjectRates(projectId: string, rateItem:any) {
+    return new CCPromise(function(resolve : any, reject : any){
+      logger.info('createPromiseForAddingNewRateItemInProjectRates has been hit for projectId : '+projectId+', rateItem : '+rateItem);
+
+      let projectRepository = new ProjectRepository();
+      let addNewRateItemQueryProject = {'_id' : projectId};
+      let addNewRateRateDataProject = { $push : {'rates' : rateItem } };
+      projectRepository.findOneAndUpdate(addNewRateItemQueryProject, addNewRateRateDataProject,{new: true}, (error:Error, result:Building) => {
+        if (error) {
+          reject(error);
+        } else {
+          resolve(result);
+        }
+      });
+    }).catch(function(e:any) {
+      logger.error('Promise failed for individual createPromiseForAddingNewRateItemInProjectRates ! error :' +JSON.stringify(e));
+    });
+  }
+
+  createPromiseForRateUpdateOfProjectRates(projectId: string, rateItem :string, rateItemRate : number) {
+    return new CCPromise(function(resolve : any, reject : any){
+      logger.info('createPromiseForRateUpdateOfProjectRates has been hit for projectId : '+projectId+', rateItem : '+rateItem);
+      //update rate
+      let projectRepository = new ProjectRepository();
+      let queryUpdateRateForProject = {'_id' : projectId, 'rates.item':rateItem};
+      let updateRateForProject = { $set : {'rates.$.rate' : rateItemRate} };
+      projectRepository.findOneAndUpdate(queryUpdateRateForProject, updateRateForProject,{new: true}, (error:Error, result:Project) => {
+        if (error) {
+          reject(error);
+        } else {
+          console.log('Rate Updated for Project rates');
+          resolve(result);
+        }
+      });
+    }).catch(function(e:any) {
+      logger.error('Promise failed for individual createPromiseForRateUpdateOfProjectRates ! Error: ' +JSON.stringify(e));
+    });
+  }
+
   private calculateThumbRuleReportForCostHead(budgetedCostAmount: number, costHeadFromRateAnalysis: any,
                                               buildingData: any, costHeads: Array<CostHead>) {
     if (budgetedCostAmount) {
@@ -1436,7 +1720,8 @@ class ProjectService {
     budgetCostRates.sqft = (budgetedCostAmount / area);
     budgetCostRates.sqmt = (budgetCostRates.sqft * config.get(Constants.SQUARE_METER));
     return budgetCostRates;
-  }}
+  }
+}
 
 Object.seal(ProjectService);
 export = ProjectService;

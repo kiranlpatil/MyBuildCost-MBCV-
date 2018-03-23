@@ -84,7 +84,33 @@ if ((req.body.name === undefined) || (req.body.region === undefined) || (req.bod
       }
     });
   }
-
+  getProjectRateItemsByName(req: any, res: any, next: any) {
+    var projectId = req.params.projectId;
+    ProjectInterceptor.validateProjectId(projectId, (error, result) => {
+      if (error) {
+        next(error);
+      } else {
+        if (result === false) {
+          next({
+            reason: Messages.MSG_ERROR_EMPTY_FIELD,
+            message: Messages.MSG_ERROR_EMPTY_FIELD,
+            stackTrace: new Error(),
+            code: 400
+          });
+        }else {
+          if ((req.params.rateItemName === undefined) || (req.params.rateItemName === '')) {
+            next({
+              reason: Messages.MSG_ERROR_EMPTY_FIELD,
+              message: Messages.MSG_ERROR_EMPTY_FIELD,
+              stackTrace: new Error(),
+              code: 400
+            });
+          }
+        }
+        next();
+      }
+    });
+  }
   updateProjectById(req: any, res: any, next: any) {
     var projectId = req.params.projectId;
     ProjectInterceptor.validateProjectId(projectId, (error, result) => {
@@ -256,6 +282,35 @@ if ((req.body.name === undefined) || (req.body.region === undefined) || (req.bod
             stackTrace: new Error(),
             code: 400
           });
+        }
+        next();
+      }
+    });
+  }
+
+  getWorkitemListOfProjectCostHead(req: any, res: any, next: any) {
+    var projectId = req.params.projectId;
+    var costHeadId = req.params.costHeadId;
+    ProjectInterceptor.validateProjectCostHeadIds(projectId, costHeadId, (error, result) => {
+      if (error) {
+        next(error);
+      } else {
+        if (result === false) {
+          next({
+            reason: Messages.MSG_ERROR_EMPTY_FIELD,
+            message: Messages.MSG_ERROR_EMPTY_FIELD,
+            stackTrace: new Error(),
+            code: 400
+          });
+        } else {
+          if ((req.params.categoryId === undefined) || (req.params.categoryId === '') ) {
+            next({
+              reason: Messages.MSG_ERROR_EMPTY_FIELD,
+              message: Messages.MSG_ERROR_EMPTY_FIELD,
+              stackTrace: new Error(),
+              code: 400
+            });
+          }
         }
         next();
       }
@@ -599,6 +654,36 @@ if ((req.body.name === undefined) || (req.body.region === undefined) || (req.bod
     });
   }
 
+  getWorkitemListOfBuildingCostHead(req: any, res: any, next: any) {
+    var projectId = req.params.projectId;
+    var buildingId = req.params.buildingId;
+    var costHeadId = req.params.costHeadId;
+    ProjectInterceptor.validateCostHeadIds(projectId, buildingId, costHeadId, (error, result) => {
+      if (error) {
+        next(error);
+      } else {
+        if (result === false) {
+          next({
+            reason: Messages.MSG_ERROR_EMPTY_FIELD,
+            message: Messages.MSG_ERROR_EMPTY_FIELD,
+            stackTrace: new Error(),
+            code: 400
+          });
+        } else {
+          if ((req.params.categoryId === undefined) || (req.params.categoryId === '')) {
+            next({
+              reason: Messages.MSG_ERROR_EMPTY_FIELD,
+              message: Messages.MSG_ERROR_EMPTY_FIELD,
+              stackTrace: new Error(),
+              code: 400
+            });
+          }
+        }
+        next();
+      }
+    });
+  }
+
   getInActiveWorkItemsOfProjectCostHeads(req: any, res: any, next: any) {
     var projectId = req.params.projectId;
     var costHeadId = parseInt(req.params.costHeadId);
@@ -875,6 +960,33 @@ if ((req.body.name === undefined) || (req.body.region === undefined) || (req.bod
       }
     });
   }
-
+  getRateItemsByName(req: any, res: any, next: any) {
+    var projectId = req.params.projectId;
+    var buildingId = req.params.buildingId;
+    ProjectInterceptor.validateIds(projectId, buildingId, (error, result) => {
+      if (error) {
+        next(error);
+      } else {
+        if (result === false) {
+          next({
+            reason: Messages.MSG_ERROR_EMPTY_FIELD,
+            message: Messages.MSG_ERROR_EMPTY_FIELD,
+            stackTrace: new Error(),
+            code: 400
+          });
+        } else {
+          if ((req.params.rateItemName === undefined) || (req.params.rateItemName === '')) {
+            next({
+              reason: Messages.MSG_ERROR_EMPTY_FIELD,
+              message: Messages.MSG_ERROR_EMPTY_FIELD,
+              stackTrace: new Error(),
+              code: 400
+            });
+          }
+        }
+        next();
+      }
+    });
+  }
 
 }export = ProjectInterceptor;

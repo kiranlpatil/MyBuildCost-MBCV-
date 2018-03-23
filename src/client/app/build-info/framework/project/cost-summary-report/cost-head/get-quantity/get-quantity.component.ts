@@ -8,6 +8,9 @@ import {
 } from '../../../../../../shared/constants';
 import { LoaderService } from '../../../../../../shared/loader/loaders.service';
 import { Category } from '../../../../model/category';
+import { WorkItem } from '../../../../model/work-item';
+import { Router } from '@angular/router';
+import { CommonService } from '../../../../../../../app/shared/services/common.service';
 
 @Component({
   moduleId: module.id,
@@ -20,7 +23,11 @@ export class GetQuantityComponent implements OnInit {
   @Input() quantityItems :  Array<QuantityItem>;
   @Input() categoryDetails :  Array<Category>;
   @Input() categoryRateAnalysisId : number;
+  @Input() workItemRateAnalysisId : number;
+  @Input() workItemsList : Array<WorkItem>;
   @Input() baseUrl : string;
+
+  @Output() categoriesTotalAmount = new EventEmitter<number>();
   @Output() refreshCategoryList = new EventEmitter();
 
   projectId : string;
@@ -35,7 +42,7 @@ export class GetQuantityComponent implements OnInit {
   deleteConfirmationQuantityItem = ProjectElements.QUANTITY_ITEM;
 
   constructor(private costSummaryService : CostSummaryService,  private loaderService: LoaderService,
-              private messageService: MessageService) {
+              private messageService: MessageService, private _router : Router, private commonService: CommonService) {
   }
 
   ngOnInit() {
@@ -142,14 +149,7 @@ export class GetQuantityComponent implements OnInit {
   }
 
   updateQuantityItem(quantityItems : Array<QuantityItem>) {
-    let itemNameRequired = false;
-    for(let quantityItemData of quantityItems) {
-      if(quantityItemData.item === '' || quantityItemData.item === undefined) {
-        itemNameRequired = true;
-        break;
-      }
-    }
-    if(!itemNameRequired) {
+    if(this.validateQuantityIteamName(quantityItems)) {
       this.loaderService.start();
       let costHeadId = parseFloat(SessionStorageService.getSessionValue(SessionStorage.CURRENT_COST_HEAD_ID));
       this.costSummaryService.updateQuantityItems(this.baseUrl, costHeadId, this.categoryRateAnalysisId,
@@ -165,25 +165,39 @@ export class GetQuantityComponent implements OnInit {
     }
   }
 
+  validateQuantityIteamName(quantityItems : Array<QuantityItem>) {
+    for(let quantityItemData of quantityItems) {
+      if(quantityItemData.item === '' || quantityItemData.item === undefined) {
+        return false;
+      }
+    }
+    return true;
+  }
+
   onUpdateQuantityItemsSuccess(success : string) {
     var message = new Message();
     message.isError = false;
     message.custom_message = Messages.MSG_SUCCESS_SAVED_COST_HEAD_ITEM;
     this.messageService.message(message);
 
-    for(let categoryData of this.categoryDetails) {
-      if(categoryData.rateAnalysisId === this.categoryRateAnalysisId) {
-        for(let workItemData of categoryData.workItems) {
-          if(workItemData.rateAnalysisId ===   this.workItemId) {
-            workItemData.quantity.total =  this.quantityTotal;
-          }
-          break;
+    for(let workItemData of this.workItemsList) {
+      if(workItemData.rateAnalysisId === this.workItemRateAnalysisId) {
+        workItemData.quantity.total = this.quantityTotal;
+        workItemData.amount = parseFloat((workItemData.quantity.total * workItemData.rate.total
+        ).toFixed(ValueConstant.NUMBER_OF_FRACTION_DIGIT));
+        if(workItemData.quantity.total !== 0) {
+          workItemData.quantity.isEstimated = true;
+        } else {
+          workItemData.quantity.isEstimated = false;
         }
       }
-      break;
     }
+
+    let categoriesTotal= this.commonService.totalCalculationOfCategories(this.categoryDetails,
+      this.categoryRateAnalysisId, this.workItemsList);
+    this.categoriesTotalAmount.emit(categoriesTotal);
+
       this.loaderService.stop();
-    this.refreshCategoryList.emit();
   }
 
   onUpdateQuantityItemsFailure(error: any) {
@@ -198,16 +212,22 @@ export class GetQuantityComponent implements OnInit {
      this.quantityIndex= quantityIndex;
   }
 
-  deleteQuantityItem() {
-        this.quantityItems.splice(this.quantityIndex,1);
-      this.updateAllQuantity();
+  deleteQuantityItem(quantityIndex: number) {
+
+     this.quantityIndex= quantityIndex;
+     this.quantityItems.splice(this.quantityIndex,1);
+     var message = new Message();
+     message.isError = false;
+     message.custom_message = Messages.MSG_SUCCESS_DELETE_QUANTITY_ITEM;
+     this.messageService.message(message);
+     this.updateAllQuantity();
       }
 
-  deleteElement(elementType : string) {
+ /* deleteElement(elementType : string) {
     if(elementType === ProjectElements.QUANTITY_ITEM) {
       this.deleteQuantityItem();
     }
-  }
+  }*/
 
   getButton() {
     return Button;

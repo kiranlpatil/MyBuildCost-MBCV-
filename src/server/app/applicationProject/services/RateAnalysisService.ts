@@ -190,7 +190,7 @@ class RateAnalysisService {
       rateAnalysisService.getCostHeadsFromRateAnalysis(costHeadsRateAnalysis, categoriesRateAnalysis, workItemsRateAnalysis,
         rateItemsRateAnalysis, unitsRateAnalysis, notesRateAnalysis, buildingCostHeads);
       logger.info('success in  convertCostHeadsFromRateAnalysisToCostControl.');
-      callback(null, buildingCostHeads);
+      callback(null, {'buildingCostHeads' : buildingCostHeads, 'rates' : rateItemsRateAnalysis, 'units' : unitsRateAnalysis});
     }).catch(function(e:any) {
       logger.error(' Promise failed for convertCostHeadsFromRateAnalysisToCostControl ! :' +JSON.stringify(e));
     });
@@ -216,7 +216,8 @@ class RateAnalysisService {
 
   getCostHeadsFromRateAnalysis(costHeadsRateAnalysis: any, categoriesRateAnalysis: any,
                                workItemsRateAnalysis: any, rateItemsRateAnalysis: any,
-                               unitsRateAnalysis: any, notesRateAnalysis: any, buildingCostHeads: Array<CostHead>) {
+                               unitsRateAnalysis: any, notesRateAnalysis: any,
+                               buildingCostHeads: Array<CostHead>) {
     logger.info('getCostHeadsFromRateAnalysis has been hit.');
     for (let costHeadIndex = 0; costHeadIndex < costHeadsRateAnalysis.length; costHeadIndex++) {
 
@@ -289,7 +290,8 @@ class RateAnalysisService {
   }
 
   getWorkItemsFromRateAnalysis(workItemsByCategory: any, rateItemsRateAnalysis: any,
-                                        unitsRateAnalysis: any, notesRateAnalysis: any, buildingWorkItems: Array<WorkItem>) {
+                                        unitsRateAnalysis: any, notesRateAnalysis: any,
+                               buildingWorkItems: Array<WorkItem>) {
 
     logger.info('getWorkItemsFromRateAnalysis has been hit.');
 
@@ -298,7 +300,8 @@ class RateAnalysisService {
       let workItem = new WorkItem(workItemsByCategory[workItemIndex].name,
         workItemsByCategory[workItemIndex].rateAnalysisId);
 
-      let rateItemsRateAnalysisSQL = 'SELECT rateItem.C2 AS item, rateItem.C12 AS rateAnalysisId, rateItem.C6 AS type,' +
+      let rateItemsRateAnalysisSQL = 'SELECT rateItem.C2 AS item, rateItem.C2 AS originalName,' +
+        'rateItem.C12 AS rateAnalysisId, rateItem.C6 AS type,' +
         'ROUND(rateItem.C7,2) AS quantity, ROUND(rateItem.C3,2) AS rate, unit.C2 AS unit,' +
         'ROUND(rateItem.C3 * rateItem.C7,2) AS totalAmount, rateItem.C5 AS totalQuantity ' +
         'FROM ? AS rateItem JOIN ? AS unit ON unit.C1 = rateItem.C9 where rateItem.C1 = '
@@ -312,17 +315,17 @@ class RateAnalysisService {
 
       workItem.rate.rateItems = rateItemsByWorkItem;
       workItem.rate.quantity = rateItemsByWorkItem[0].totalQuantity;
+      workItem.rate.isEstimated = false;
       workItem.rate.notes = notesList[0].notes;
       workItem.rate.imageURL = notesList[0].imageURL;
 
       //Query for System rate quantity should be One
 
-      let rateItemsRateAnalysisSQLForQuantityOne = 'SELECT rateItem.C2 AS item, rateItem.C12 AS rateAnalysisId, rateItem.C6 AS type,' +
-        'ROUND(rateItem.C7 / rateItem.C5,2) AS quantity, ROUND(rateItem.C3,2) AS rate, unit.C2 AS unit,' +
-        'ROUND(rateItem.C3 * rateItem.C7 / rateItem.C5,2) AS totalAmount, rateItem.C5 / rateItem.C5 AS totalQuantity ' +
-        'FROM ? AS rateItem JOIN ? AS unit ON unit.C1 = rateItem.C9 where rateItem.C1 = '
-        + workItemsByCategory[workItemIndex].rateAnalysisId;
-      let rateItemsByWorkItemForQuantityOne = alasql(rateItemsRateAnalysisSQLForQuantityOne, [rateItemsRateAnalysis, unitsRateAnalysis]);
+      let rateItemsRateAnalysisSQLForQuantityOne = 'SELECT item, rateAnalysisId, type,' +
+        'ROUND(quantity / totalQuantity,2) AS quantity,'+
+        'rate, unit, ROUND(quantity / totalQuantity * rate,2) AS totalAmount,' +
+        'ROUND(totalQuantity / totalQuantity,2) AS totalQuantity FROM ?';
+      let rateItemsByWorkItemForQuantityOne = alasql(rateItemsRateAnalysisSQLForQuantityOne, [rateItemsByWorkItem]);
 
       workItem.systemRate.rateItems = rateItemsByWorkItemForQuantityOne;
       workItem.systemRate.quantity = rateItemsByWorkItemForQuantityOne[0].totalQuantity;

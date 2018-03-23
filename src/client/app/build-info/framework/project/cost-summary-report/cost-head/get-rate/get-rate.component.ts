@@ -7,6 +7,11 @@ import {
 import { CostSummaryService } from './../../cost-summary.service';
 import { Rate } from '../../../../model/rate';
 import { LoaderService } from '../../../../../../shared/loader/loaders.service';
+import { WorkItem } from '../../../../model/work-item';
+import { Category } from '../../../../model/category';
+import { CommonService } from '../../../../../../../app/shared/services/common.service';
+import { RateItem } from '../../../../model/rate-item';
+
 
 @Component({
   moduleId: module.id,
@@ -18,19 +23,28 @@ import { LoaderService } from '../../../../../../shared/loader/loaders.service';
 export class GetRateComponent {
 
   @Input() rateItemsArray: Rate;
-  @Input() categoryRateAnalysisId: number;
+  @Input() categoryDetails :  Array<Category>;
+  @Input() categoryRateAnalysisId : number;
+  @Input() workItemRateAnalysisId : number;
+  @Input() workItemsList : Array<WorkItem>;
   @Input() totalAmount: number;
   @Input() baseUrl : string;
   @Input() rateView: string;
   @Input() disableRateField: boolean;
+
+  @Output() categoriesTotalAmount = new EventEmitter<number>();
+  @Output() showWorkItemTabName = new EventEmitter<string>();
   @Output() refreshCategoryList = new EventEmitter();
 
   quantityIncrement: number = 1;
   previousTotalQuantity: number = 1;
   totalItemRateQuantity: number = 0;
+  arrayOfRateItems: Array<RateItem>;
+  selectedRateItem:RateItem;
+  currentRateItem:number;
 
   constructor(private costSummaryService: CostSummaryService,  private loaderService: LoaderService,
-              private messageService: MessageService) {
+              private messageService: MessageService, private commonService: CommonService) {
   }
 
   calculateTotal(choice?:string) {
@@ -46,8 +60,8 @@ export class GetRateComponent {
       this.rateItemsArray.rateItems[i].totalAmount = parseFloat((this.rateItemsArray.rateItems[i].quantity*
         this.rateItemsArray.rateItems[i].rate).toFixed(ValueConstant.NUMBER_OF_FRACTION_DIGIT));
 
-      this.totalAmount = parseFloat((this.totalAmount + (this.rateItemsArray.rateItems[i].quantity *
-        this.rateItemsArray.rateItems[i].rate)).toFixed(ValueConstant.NUMBER_OF_FRACTION_DIGIT));
+      this.totalAmount = parseFloat((this.totalAmount + this.rateItemsArray.rateItems[i].totalAmount
+      ).toFixed(ValueConstant.NUMBER_OF_FRACTION_DIGIT));
 
     }
 
@@ -69,18 +83,33 @@ this.rateItemsArray.total = parseFloat((this.totalAmount / this.rateItemsArray.q
     rate.notes=rateItemsArray.notes;
 
     this.costSummaryService.updateRate( this.baseUrl, costHeadId, this.categoryRateAnalysisId, workItemId, rate).subscribe(
-      rateItem => this.onUpdateRateSuccess(rateItem),
+      success => this.onUpdateRateSuccess(success),
       error => this.onUpdateRateFailure(error)
     );
   }
 
-  onUpdateRateSuccess(rateItem: any) {
+  onUpdateRateSuccess(success : string) {
     var message = new Message();
     message.isError = false;
     message.custom_message = Messages.MSG_SUCCESS_UPDATE_RATE;
     this.messageService.message(message);
-    this.refreshCategoryList.emit();
-    this.loaderService.stop();
+
+    for(let workItemData of this.workItemsList) {
+      if(workItemData.rateAnalysisId === this.workItemRateAnalysisId) {
+        workItemData.rate.total = parseFloat((this.totalAmount / workItemData.rate.quantity
+        ).toFixed(ValueConstant.NUMBER_OF_FRACTION_DIGIT));
+        workItemData.amount = parseFloat((workItemData.quantity.total * workItemData.rate.total
+        ).toFixed(ValueConstant.NUMBER_OF_FRACTION_DIGIT));
+        workItemData.rate.isEstimated = true;
+      }
+    }
+
+    let categoriesTotal= this.commonService.totalCalculationOfCategories(this.categoryDetails,
+      this.categoryRateAnalysisId, this.workItemsList);
+    this.categoriesTotalAmount.emit(categoriesTotal);
+
+    this.showWorkItemTabName = null;
+      this.loaderService.stop();
   }
 
   onUpdateRateFailure(error: any) {
@@ -111,6 +140,31 @@ this.rateItemsArray.total = parseFloat((this.totalAmount / this.rateItemsArray.q
 
   getPreviousQuantity(previousTotalQuantity: number) {
     this.previousTotalQuantity = previousTotalQuantity;
+  }
+
+  getRateItemsData(rateItem: any, index:number) {
+    this.selectedRateItem = rateItem;
+    this.currentRateItem = index;
+
+    this.costSummaryService.getRateItemsData( this.baseUrl,rateItem.originalName).subscribe(
+      rateItemsData => this.onGetRateItemsDataSuccess(rateItemsData),
+      error => this.onGetRateItemsDataFailure(error)
+    );
+  }
+
+  onGetRateItemsDataSuccess(rateItemsData: any) {
+    this.arrayOfRateItems = rateItemsData.data;
+
+    for(let rateObj of rateItemsData.data) {
+      if(rateObj.item === this.selectedRateItem.item) {
+        this.rateItemsArray.rateItems[this.currentRateItem].rate = rateObj.rate;
+        this.calculateTotal();
+      }
+    }
+  }
+
+  onGetRateItemsDataFailure(error: any) {
+    console.log(error);
   }
 
   getButton() {
