@@ -185,7 +185,11 @@ export class GetQuantityComponent implements OnInit {
         workItemData.quantity.total = this.quantityTotal;
         workItemData.amount = parseFloat((workItemData.quantity.total * workItemData.rate.total
         ).toFixed(ValueConstant.NUMBER_OF_FRACTION_DIGIT));
-        workItemData.quantity.isEstimated = true;
+        if(workItemData.quantity.total !== 0) {
+          workItemData.quantity.isEstimated = true;
+        } else {
+          workItemData.quantity.isEstimated = false;
+        }
       }
     }
 
