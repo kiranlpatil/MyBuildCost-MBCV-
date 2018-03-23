@@ -145,7 +145,7 @@ this.rateItemsArray.total = parseFloat((this.totalAmount / this.rateItemsArray.q
   getRateItemsData(rateItem: any, index:number) {
     this.selectedRateItem = rateItem;
     this.currentRateItem = index;
-    console.log('rateItem : '+JSON.stringify(rateItem)+' index : ' +index);
+
     this.costSummaryService.getRateItemsData( this.baseUrl,rateItem.originalName).subscribe(
       rateItemsData => this.onGetRateItemsDataSuccess(rateItemsData),
       error => this.onGetRateItemsDataFailure(error)
@@ -154,9 +154,11 @@ this.rateItemsArray.total = parseFloat((this.totalAmount / this.rateItemsArray.q
 
   onGetRateItemsDataSuccess(rateItemsData: any) {
     this.arrayOfRateItems = rateItemsData.data;
+
     for(let rateObj of rateItemsData.data) {
       if(rateObj.item === this.selectedRateItem.item) {
         this.rateItemsArray.rateItems[this.currentRateItem].rate = rateObj.rate;
+        this.calculateTotal();
       }
     }
   }

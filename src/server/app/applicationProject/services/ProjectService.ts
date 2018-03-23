@@ -1102,7 +1102,21 @@ class ProjectService {
         let workItem: WorkItem = workItemObj;
         let rateItemsOfWorkItem = workItemObj.rate.rateItems;
         workItem.rate.rateItems = this.getRatesFromCentralizedrates(rateItemsOfWorkItem, centralizedRates);
-        workItemsListWithRates.push(workItem);
+
+        let arrayOfRateItems = workItem.rate.rateItems;
+         var totalAmount:number;
+        let totalOfAllRateItems = alasql('VALUE OF SELECT SUM(totalAmount) FROM ?',[arrayOfRateItems]);
+        workItem.rate.total = parseFloat((totalOfAllRateItems/workItem.rate.quantity).toFixed(Constants.NUMBER_OF_FRACTION_DIGIT));
+
+        let arrayOfQuantityItems = workItem.quantity.quantityItems;
+        var quantity:number;
+        let totalOfQuantityItems = alasql('VALUE OF SELECT SUM(quantity) FROM ?',[arrayOfQuantityItems]);
+        workItem.quantity.total = totalOfQuantityItems;
+
+         if(workItem.rate.isEstimated && workItem.quantity.isEstimated) {
+           workItem.amount = parseFloat((workItem.rate.total * workItem.quantity.total).toFixed(Constants.NUMBER_OF_FRACTION_DIGIT));
+         }
+      workItemsListWithRates.push(workItem);
       }
     }
     return workItemsListWithRates;
