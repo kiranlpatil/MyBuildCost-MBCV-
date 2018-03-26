@@ -1023,9 +1023,9 @@ class ProjectService {
     });
   }
 
-  getWorkitemListOfBuildingCostHead(projectId:string, buildingId:string, costHeadId:number, categoryId:number, user:User,
+  getWorkItemListOfBuildingCostHead(projectId:string, buildingId:string, costHeadId:number, categoryId:number, user:User,
                                     callback:(error: any, result: any)=> void) {
-    logger.info('Project service, getWorkitemListOfBuildingCostHead has been hit');
+    logger.info('Project service, getWorkItemListOfBuildingCostHead has been hit');
 
     let query = [
       { $match: {'_id': ObjectId(buildingId), 'costHeads.rateAnalysisId': costHeadId }},
@@ -1059,9 +1059,9 @@ class ProjectService {
     });
   }
 
-  getWorkitemListOfProjectCostHead(projectId:string, costHeadId:number, categoryId:number, user:User,
+  getWorkItemListOfProjectCostHead(projectId:string, costHeadId:number, categoryId:number, user:User,
                                    callback:(error: any, result: any)=> void) {
-    logger.info('Project service, getWorkitemListOfProjectCostHead has been hit');
+    logger.info('Project service, getWorkItemListOfProjectCostHead has been hit');
 
     let query = [
       { $match: {'_id': ObjectId(projectId), 'projectCostHeads.rateAnalysisId': costHeadId }},
