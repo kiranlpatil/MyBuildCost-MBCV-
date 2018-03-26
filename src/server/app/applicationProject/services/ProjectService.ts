@@ -25,6 +25,7 @@ import ThumbRuleRate = require('../dataaccess/model/project/reports/ThumbRuleRat
 import Constants = require('../../applicationProject/shared/constants');
 import QuantityItem = require('../dataaccess/model/project/building/QuantityItem');
 import RateItem = require('../dataaccess/model/project/building/RateItem');
+import CategoriesListWithRates = require('../dataaccess/model/project/building/CategoriesListWithRates');
 import CentralizedRate = require('../dataaccess/model/project/CentralizedRate');
 let CCPromise = require('promise/lib/es6-extensions');
 let logger=log4js.getLogger('Project service');
@@ -235,7 +236,7 @@ class ProjectService {
   }
 
   getBuildingRateItemsByOriginalName(projectId: string, buildingId: string, originalRateItemName: string, user: User,
-                                     callback: (error: any, result: any) => void) {
+                     callback: (error: any, result: any) => void) {
     this.buildingRepository.findById(buildingId, (error, building:Building) => {
       logger.info('Project Service, getBuildingRateItemsByOriginalName has been hit');
       if (error) {
@@ -1239,17 +1240,15 @@ class ProjectService {
         callback(error, null);
       } else {
         let buildingCostHeads = building.costHeads;
-        let categoriesListWithBuildingRates = {
-          categories : new Array<Category>(),
-          categoriesAmount : 0,
-        };
+        let categoriesListWithCentralizedRates : CategoriesListWithRates;
 
         for(let costHeadData of buildingCostHeads) {
           if(costHeadData.rateAnalysisId === costHeadId) {
-            categoriesListWithBuildingRates = this.getCategoriesListWithCentralizedRates(costHeadData.categories, building.rates);
+            categoriesListWithCentralizedRates = this.getCategoriesListWithCentralizedRates(costHeadData.categories, building.rates);
+            break;
           }
         }
-        callback(null, {data: categoriesListWithBuildingRates, access_token: this.authInterceptor.issueTokenWithUid(user)});
+        callback(null, {data: categoriesListWithCentralizedRates, access_token: this.authInterceptor.issueTokenWithUid(user)});
       }
     });
   }
@@ -1263,17 +1262,15 @@ class ProjectService {
         callback(error, null);
       } else {
         let projectCostHeads = project.projectCostHeads;
-        let categoriesListWithBuildingRates = {
-          categories : new Array<Category>(),
-          categoriesAmount : 0,
-        };
+        let categoriesListWithCentralizedRates : CategoriesListWithRates;
 
         for(let costHeadData of projectCostHeads) {
           if (costHeadData.rateAnalysisId === costHeadId) {
-            categoriesListWithBuildingRates = this.getCategoriesListWithCentralizedRates(costHeadData.categories, project.rates);
+            categoriesListWithCentralizedRates = this.getCategoriesListWithCentralizedRates(costHeadData.categories, project.rates);
+            break;
           }
         }
-        callback(null, {data: categoriesListWithBuildingRates, access_token: this.authInterceptor.issueTokenWithUid(user)});
+        callback(null, {data: categoriesListWithCentralizedRates, access_token: this.authInterceptor.issueTokenWithUid(user)});
       }
     });
   }
@@ -1282,19 +1279,21 @@ class ProjectService {
   getCategoriesListWithCentralizedRates(categoriesOfCostHead: Array<Category>, centralizedRates: Array<any>) {
     let categoriesTotalAmount = 0 ;
 
-    let categoriesListWithRates = {
-      categories : new Array<Category>(),
-      categoriesAmount : 0
-    };
+    let categoriesListWithRates : CategoriesListWithRates = new CategoriesListWithRates;
 
     for (let categoryData of categoriesOfCostHead) {
-      categoryData.workItems = this.getWorkItemListWithCentralizedRates(categoryData.workItems, centralizedRates);
-      let calculateWorkItemTotalAmount =  alasql('VALUE OF SELECT SUM(amount) FROM ?',[categoryData.workItems]);
+      let workItems = this.getWorkItemListWithCentralizedRates(categoryData.workItems, centralizedRates);
+      let calculateWorkItemTotalAmount =  alasql('VALUE OF SELECT SUM(amount) FROM ?',[workItems]);
       categoryData.amount = calculateWorkItemTotalAmount;
       categoriesTotalAmount = categoriesTotalAmount + calculateWorkItemTotalAmount;
+      delete categoryData.workItems;
       categoriesListWithRates.categories.push(categoryData);
     }
-    categoriesListWithRates.categoriesAmount =  parseFloat((categoriesTotalAmount).toFixed(2));
+
+    if(categoriesTotalAmount !== 0) {
+      categoriesListWithRates.categoriesAmount = parseFloat((categoriesTotalAmount).toFixed(constant.NUMBER_OF_FRACTION_DIGIT));
+    }
+
     return categoriesListWithRates;
   }
 
