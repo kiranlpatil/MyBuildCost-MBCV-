@@ -343,7 +343,7 @@ export class CostHeadComponent implements OnInit, OnChanges {
     this.messageService.message(message);
 
 
-    this.workItemsList = this.workItemsList.concat(this.calculateWorkItemAmount(this.selectedWorkItemData));
+    this.workItemsList = this.workItemsList.concat(this.calculateTotalOfWorkItemsList(this.selectedWorkItemData));
     this.categoryDetailsTotalAmount = this.commonService.totalCalculationOfCategories(this.categoryDetails,
       this.categoryRateAnalysisId, this.workItemsList);
     this.loaderService.stop();
@@ -461,9 +461,9 @@ export class CostHeadComponent implements OnInit, OnChanges {
   }
 
   // calculation of Quantity * Rate
-  calculateWorkItemAmount(workItemsList : any) {
+  calculateTotalOfWorkItemsList(workItemsList : any) {
       for(let workItemData of workItemsList) {
-        workItemData.amount = workItemData.quantity.total * workItemData.rate.total;
+        workItemData.amount = this.commonService.calculateAmountOfWorkItem(workItemData.quantity.total, workItemData.rate.total);
       }
       return workItemsList;
   }

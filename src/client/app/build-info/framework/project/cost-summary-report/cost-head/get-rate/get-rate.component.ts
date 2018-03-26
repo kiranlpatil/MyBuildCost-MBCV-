@@ -101,7 +101,7 @@ this.rateItemsArray.total = this.commonService.decimalConversion(this.totalAmoun
         if(workItemData.rate.total !== 0) {
           workItemData.rate.isEstimated = true;
           if(workItemData.quantity.isEstimated && workItemData.rate.isEstimated) {
-            workItemData.amount = this.commonService.decimalConversion(workItemData.quantity.total *
+            workItemData.amount = this.commonService.calculateAmountOfWorkItem(workItemData.quantity.total,
               workItemData.rate.total);
           }
         } else {

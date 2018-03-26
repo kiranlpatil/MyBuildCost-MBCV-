@@ -187,7 +187,7 @@ export class GetQuantityComponent implements OnInit {
         if(workItemData.quantity.total !== 0) {
           workItemData.quantity.isEstimated = true;
           if(workItemData.quantity.isEstimated && workItemData.rate.isEstimated) {
-            workItemData.amount = this.commonService.decimalConversion(workItemData.quantity.total *
+            workItemData.amount = this.commonService.calculateAmountOfWorkItem(workItemData.quantity.total,
               workItemData.rate.total);
           }
         } else {
