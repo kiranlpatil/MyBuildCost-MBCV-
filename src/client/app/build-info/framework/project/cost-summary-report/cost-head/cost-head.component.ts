@@ -446,17 +446,17 @@ export class CostHeadComponent implements OnInit, OnChanges {
     this.selectedWorkItems = workItemList;
   }*/
 
-    getAllWorkItemsOfCategory( categoryId : number) {
+    getActiveWorkItemsOfCategory(categoryId : number) {
       let costHeadId = parseInt(SessionStorageService.getSessionValue(SessionStorage.CURRENT_COST_HEAD_ID));
       this.categoryId = categoryId;
       this.categoryRateAnalysisId = categoryId;
-      this.costSummaryService.getAllWorkItemsOfCategory( this.baseUrl, costHeadId, this.categoryId).subscribe(
-        workItemsList => this.onGetAllWorkItemsOfCategorySuccess(workItemsList),
-        error => this.onGetAllWorkItemsOfCategoryFailure(error)
+      this.costSummaryService.getActiveWorkItemsOfCategory( this.baseUrl, costHeadId, this.categoryId).subscribe(
+        workItemsList => this.onGetActiveWorkItemsOfCategorySuccess(workItemsList),
+        error => this.onGetActiveWorkItemsOfCategoryFailure(error)
       );
     }
 
-  onGetAllWorkItemsOfCategorySuccess(workItemsList : any) {
+  onGetActiveWorkItemsOfCategorySuccess(workItemsList : any) {
     this.workItemsList = workItemsList.data;
   }
 
@@ -468,8 +468,8 @@ export class CostHeadComponent implements OnInit, OnChanges {
       return workItemsList;
   }
 
-  onGetAllWorkItemsOfCategoryFailure(error : any) {
-    console.log('onGetAllWorkItemsOfCategoryFailure error : '+JSON.stringify(error));
+  onGetActiveWorkItemsOfCategoryFailure(error : any) {
+    console.log('onGetActiveWorkItemsOfCategoryFailure error : '+JSON.stringify(error));
   }
 
 

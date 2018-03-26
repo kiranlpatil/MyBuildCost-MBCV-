@@ -14,7 +14,7 @@
       <div class="panel-group" *ngFor=" let category of categoryDetails; let categoryIndex = index ">
         <div class="panel panel-default">
           <div class="panel-heading">
-            <div class="panel-title clearfix" (click)="getAllWorkItemsOfCategory(category.rateAnalysisId)">
+            <div class="panel-title clearfix" (click)="getActiveWorkItemsOfCategory(category.rateAnalysisId)">
               <div class="col-sm-12">
                 <a data-toggle="collapse"
                    href="#collapse{{category.rateAnalysisId}}">
