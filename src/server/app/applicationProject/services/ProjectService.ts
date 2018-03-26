@@ -511,11 +511,7 @@ class ProjectService {
                   }
                 } else {
                   //create new rateItem
-                  let rateItem = {
-                    'item' :rate.item,
-                    'originalName' : rate.originalName,
-                    'rate':rate.rate
-                  }
+                  let rateItem : CentralizedRate = new CentralizedRate(rate.item,rate.originalName, rate.rate);
                   let addNewRateItemPromise = this.createPromiseForAddingNewRateItem(buildingId, rateItem);
                   promiseArrayForUpdateBuildingCentralizedRates.push(addNewRateItemPromise);
                 }
@@ -586,11 +582,7 @@ class ProjectService {
                 }
               } else {
                 //create new rateItem
-                let rateItem = {
-                  'item' :rate.item,
-                  'originalName' : rate.originalName,
-                  'rate':rate.rate
-                };
+                let rateItem : CentralizedRate = new CentralizedRate(rate.item,rate.originalName, rate.rate);
                 let addNewRateOfProjectPromise = this.createPromiseForAddingNewRateItemInProjectRates(projectId, rateItem);
                 promiseArrayForProjectCentralizedRates.push(addNewRateOfProjectPromise);
               }
@@ -937,7 +929,8 @@ class ProjectService {
         let quantity  : Quantity;
         for (let costHead of costHeadList) {
           if (costHeadId === costHead.rateAnalysisId) {
-            for (let categoryData of costHead.categories) {
+            let categoriesOfCostHead = costHead.categories;
+            for (let categoryData of categoriesOfCostHead) {
               if (categoryId === categoryData.rateAnalysisId) {
                 for (let workItemData of categoryData.workItems) {
                   if (workItemId === workItemData.rateAnalysisId) {
@@ -1044,34 +1037,25 @@ class ProjectService {
     let query = [
       { $match: {'_id': ObjectId(buildingId), 'costHeads.rateAnalysisId': costHeadId }},
       { $unwind: '$costHeads'},
-      { $project : {'costHeads':1}},
+      { $project : {'costHeads':1,'rates':1}},
       { $unwind: '$costHeads.categories'},
       { $match: {'costHeads.categories.rateAnalysisId':categoryId}},
-      { $project : {'costHeads.categories.workItems':1}}
+      { $project : {'costHeads.categories.workItems':1, 'rates':1}}
     ];
 
-    this.buildingRepository.findById(buildingId, (error, response) => {
-      logger.info('Project service, Get workitems By Cost Head & category Id has been hit');
+    this.buildingRepository.aggregate(query, (error, result) => {
+      logger.info('Project service, Get workitems for specific category has been hit');
       if (error) {
         callback(error, null);
       } else {
-        if(response) {
-          this.buildingRepository.aggregate(query, (error, result) => {
-            logger.info('Project service, Get workitems for specific category has been hit');
-            if (error) {
-              callback(error, null);
-            } else {
-              if(result.length > 0) {
-                let workItemsOfBuildingCategory = result[0].costHeads.categories.workItems;
-                let workItemsListWithBuildingRates = this.getWorkItemListWithCentralizedRates(workItemsOfBuildingCategory, response.rates);
-                callback(null, {data: workItemsListWithBuildingRates, access_token: this.authInterceptor.issueTokenWithUid(user)});
-              } else {
-                let error = new Error();
-                error.message = messages.MSG_ERROR_EMPTY_RESPONSE;
-                callback(error, null);
-              }
-            }
-          });
+        if(result.length > 0) {
+          let workItemsOfBuildingCategory = result[0].costHeads.categories.workItems;
+          let workItemsListWithBuildingRates = this.getWorkItemListWithCentralizedRates(workItemsOfBuildingCategory, result[0].rates);
+          callback(null, {data: workItemsListWithBuildingRates, access_token: this.authInterceptor.issueTokenWithUid(user)});
+        } else {
+          let error = new Error();
+          error.message = messages.MSG_ERROR_EMPTY_RESPONSE;
+          callback(error, null);
         }
       }
     });
@@ -1084,35 +1068,25 @@ class ProjectService {
     let query = [
       { $match: {'_id': ObjectId(projectId), 'projectCostHeads.rateAnalysisId': costHeadId }},
       { $unwind: '$projectCostHeads'},
-      { $project : {'projectCostHeads':1}},
+      { $project : {'projectCostHeads':1,'rates':1}},
       { $unwind: '$projectCostHeads.categories'},
       { $match: {'projectCostHeads.categories.rateAnalysisId':categoryId}},
-      { $project : {'projectCostHeads.categories.workItems':1}}
+      { $project : {'projectCostHeads.categories.workItems':1,'rates':1}}
     ];
 
-    this.projectRepository.findById(projectId, (error, response) => {
+    this.projectRepository.aggregate(query, (error, result) => {
       logger.info('Project service, Get workitems By Cost Head & category Id has been hit');
       if (error) {
         callback(error, null);
       } else {
-        if(response) {
-          console.log('result : '+JSON.stringify(response.rates));
-          this.projectRepository.aggregate(query, (error, result) => {
-            logger.info('Project service, Get workitems By Cost Head & category Id has been hit');
-            if (error) {
-              callback(error, null);
-            } else {
-              if(result.length > 0) {
-                let workItemsOfCategory = result[0].projectCostHeads.categories.workItems;
-                let workItemsListWithRates = this.getWorkItemListWithCentralizedRates(workItemsOfCategory, response.rates);
-                callback(null, {data: workItemsListWithRates, access_token: this.authInterceptor.issueTokenWithUid(user)});
-              } else {
-                let error = new Error();
-                error.message = messages.MSG_ERROR_EMPTY_RESPONSE;
-                callback(error, null);
-              }
-            }
-          });
+        if(result.length > 0) {
+          let workItemsOfCategory = result[0].projectCostHeads.categories.workItems;
+          let workItemsListWithRates = this.getWorkItemListWithCentralizedRates(workItemsOfCategory, result[0].rates);
+          callback(null, {data: workItemsListWithRates, access_token: this.authInterceptor.issueTokenWithUid(user)});
+        } else {
+          let error = new Error();
+          error.message = messages.MSG_ERROR_EMPTY_RESPONSE;
+          callback(error, null);
         }
       }
     });
@@ -1658,7 +1632,8 @@ class ProjectService {
       let projectRepository = new ProjectRepository();
       let addNewRateItemQueryProject = {'_id' : projectId};
       let addNewRateRateDataProject = { $push : {'rates' : rateItem } };
-      projectRepository.findOneAndUpdate(addNewRateItemQueryProject, addNewRateRateDataProject,{new: true}, (error:Error, result:Building) => {
+      projectRepository.findOneAndUpdate(addNewRateItemQueryProject, addNewRateRateDataProject,
+        {new: true}, (error:Error, result:Building) => {
         if (error) {
           reject(error);
         } else {
