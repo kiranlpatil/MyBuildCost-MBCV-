@@ -241,36 +241,38 @@ class ProjectService {
   }
 
   getBuildingRateItemsByOriginalName(projectId: string, buildingId: string, originalRateItemName: string, user: User,
-                     callback: (error: any, result: any) => void) {
-    this.buildingRepository.findById(buildingId, (error, building:Building) => {
+                                     callback: (error: any, result: any) => void) {
+    let projection = {'rates':1, _id: 0};
+    this.buildingRepository.findByIdWithProjection(buildingId, projection, (error, building) => {
       logger.info('Project Service, getBuildingRateItemsByOriginalName has been hit');
       if (error) {
         callback(error, null);
       } else {
         let buildingRateItemsArray = building.rates;
-        let rateItemsArray = this.getRateItemsArray(buildingRateItemsArray, originalRateItemName);
-        callback(null,{ data: rateItemsArray, access_token: this.authInterceptor.issueTokenWithUid(user)});
+        let centralizedRateItemsArray = this.getRateItemsArray(buildingRateItemsArray, originalRateItemName);
+        callback(null,{ data: centralizedRateItemsArray, access_token: this.authInterceptor.issueTokenWithUid(user)});
       }
     });
   }
 
   getRateItemsArray(originalRateItemsArray: Array<CentralizedRate>, originalRateItemName: string) {
 
-    let rateItemsArray: Array<RateItem> = new Array<RateItem>();
-    rateItemsArray = alasql('SELECT * FROM ? where TRIM(originalName) = ?', [originalRateItemsArray, originalRateItemName]);
-    return rateItemsArray;
+    let centralizedRateItemsArray: Array<CentralizedRate>;
+    centralizedRateItemsArray = alasql('SELECT * FROM ? where TRIM(originalName) = ?', [originalRateItemsArray, originalRateItemName]);
+    return centralizedRateItemsArray;
   }
 
   getProjectRateItemsByOriginalName(projectId: string, originalRateItemName: string, user: User,
                                     callback: (error: any, result: any) => void) {
-    this.projectRepository.findById(projectId, (error, project:Project) => {
+   let projection = {'rates':1, _id: 0};
+    this.projectRepository.findByIdWithProjection(projectId, projection, (error, project) => {
       logger.info('Project Service, getProjectRateItemsByOriginalName has been hit');
       if (error) {
         callback(error, null);
       } else {
         let projectRateItemsArray = project.rates;
-        let rateItemsArray = this.getRateItemsArray(projectRateItemsArray, originalRateItemName);
-        callback(null,{ data: rateItemsArray, access_token: this.authInterceptor.issueTokenWithUid(user)});
+        let centralizedRateItemsArray = this.getRateItemsArray(projectRateItemsArray, originalRateItemName);
+        callback(null,{ data: centralizedRateItemsArray, access_token: this.authInterceptor.issueTokenWithUid(user)});
       }
     });
   }

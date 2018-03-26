@@ -86,6 +86,7 @@ if ((req.body.name === undefined) || (req.body.region === undefined) || (req.bod
   }
   getProjectRateItemsByOriginalName(req: any, res: any, next: any) {
     var projectId = req.params.projectId;
+    var originalRateItemName = req.params.originalRateItemName;
     ProjectInterceptor.validateProjectId(projectId, (error, result) => {
       if (error) {
         next(error);
@@ -98,7 +99,7 @@ if ((req.body.name === undefined) || (req.body.region === undefined) || (req.bod
             code: 400
           });
         }else {
-          if ((req.params.originalRateItemName === undefined) || (req.params.originalRateItemName === '')) {
+          if ((originalRateItemName === undefined) || (originalRateItemName=== '')) {
             next({
               reason: Messages.MSG_ERROR_EMPTY_FIELD,
               message: Messages.MSG_ERROR_EMPTY_FIELD,
@@ -963,6 +964,7 @@ if ((req.body.name === undefined) || (req.body.region === undefined) || (req.bod
   getBuildingRateItemsByOriginalName(req: any, res: any, next: any) {
     var projectId = req.params.projectId;
     var buildingId = req.params.buildingId;
+    var originalRateItemName = req.params.originalRateItemName;
     ProjectInterceptor.validateIds(projectId, buildingId, (error, result) => {
       if (error) {
         next(error);
@@ -975,7 +977,7 @@ if ((req.body.name === undefined) || (req.body.region === undefined) || (req.bod
             code: 400
           });
         } else {
-          if ((req.params.originalRateItemName === undefined) || (req.params.originalRateItemName === '')) {
+          if ((originalRateItemName === undefined) || (originalRateItemName=== '')) {
             next({
               reason: Messages.MSG_ERROR_EMPTY_FIELD,
               message: Messages.MSG_ERROR_EMPTY_FIELD,

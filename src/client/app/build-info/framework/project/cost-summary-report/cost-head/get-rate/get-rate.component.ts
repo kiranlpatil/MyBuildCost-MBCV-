@@ -22,7 +22,7 @@ import { RateItem } from '../../../../model/rate-item';
 
 export class GetRateComponent {
 
-  @Input() rateItemsArray: Rate;
+  @Input() rate: Rate;
   @Input() categoryDetails :  Array<Category>;
   @Input() categoryRateAnalysisId : number;
   @Input() workItemRateAnalysisId : number;
@@ -50,22 +50,22 @@ export class GetRateComponent {
   calculateTotal(choice?:string) {
     this.totalAmount = 0;
 
-    for (let i = 0; i < this.rateItemsArray.rateItems.length; i++) {
+    for (let i = 0; i < this.rate.rateItems.length; i++) {
 
       if(choice === 'changeTotalQuantity') {
-        this.rateItemsArray.rateItems[i].quantity = this.commonService.decimalConversion(this.rateItemsArray.rateItems[i].quantity *
+        this.rate.rateItems[i].quantity = this.commonService.decimalConversion(this.rate.rateItems[i].quantity *
           this.quantityIncrement);
       }
 
-      this.rateItemsArray.rateItems[i].totalAmount = this.commonService.decimalConversion(this.rateItemsArray.rateItems[i].quantity*
-        this.rateItemsArray.rateItems[i].rate);
+      this.rate.rateItems[i].totalAmount = this.commonService.decimalConversion(this.rate.rateItems[i].quantity*
+        this.rate.rateItems[i].rate);
 
       this.totalAmount = this.commonService.decimalConversion(this.totalAmount +
-        this.rateItemsArray.rateItems[i].totalAmount);
+        this.rate.rateItems[i].totalAmount);
 
     }
 
-this.rateItemsArray.total = this.commonService.decimalConversion(this.totalAmount / this.rateItemsArray.quantity);
+this.rate.total = this.commonService.decimalConversion(this.totalAmount / this.rate.quantity);
   }
 
   updateRate(rateItemsArray: Rate) {
@@ -131,7 +131,7 @@ this.rateItemsArray.total = this.commonService.decimalConversion(this.totalAmoun
 
         newTotalQuantity=1;
         this.totalItemRateQuantity = newTotalQuantity;
-        this.rateItemsArray.quantity = newTotalQuantity;
+        this.rate.quantity = newTotalQuantity;
         var message = new Message();
         message.isError = false;
         message.custom_message = Messages.MSG_QUANTITY_SHOULD_NOT_ZERO_OR_NULL;
@@ -141,7 +141,7 @@ this.rateItemsArray.total = this.commonService.decimalConversion(this.totalAmoun
           this.quantityIncrement = newTotalQuantity / this.previousTotalQuantity;
           this.calculateTotal('changeTotalQuantity');
           this.totalItemRateQuantity = newTotalQuantity;
-          this.rateItemsArray.quantity = newTotalQuantity;
+          this.rate.quantity = newTotalQuantity;
     }
 
   }
@@ -165,13 +165,13 @@ this.rateItemsArray.total = this.commonService.decimalConversion(this.totalAmoun
 
     for(let rateItemData of rateItemsData) {
       if(rateItemData.item === this.selectedRateItem.item) {
-         this.rateItemsArray.rateItems[this.selectedRateItemIndex].rate = rateItemData.rate;
+         this.rate.rateItems[this.selectedRateItemIndex].rate = rateItemData.rate;
         this.calculateTotal();
       }
     }
     for(let workItemData of this.workItemsList) {
       if(workItemData.rateAnalysisId === this.workItemRateAnalysisId) {
-        workItemData.rate = this.rateItemsArray;
+        workItemData.rate = this.rate;
       }
     }
   }

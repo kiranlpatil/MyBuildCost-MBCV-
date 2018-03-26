@@ -101,7 +101,7 @@
                     <td class="show-embedded-table">
                       <div *ngIf="showWorkItemTab == getLabel().WORKITEM_RATE_TAB">
                         <div class="get-rate-component" *ngIf="compareWorkItemId == workItem.rateAnalysisId && compareCategoryId === category.rateAnalysisId">
-                          <bi-get-rate [rateItemsArray]="rateItemsArray"
+                          <bi-get-rate [rate]="rateItemsArray"
                                        [categoryDetails] ="categoryDetails"
                                        [rateView]="rateView"
                                        [workItemsList] ="workItemsList"
