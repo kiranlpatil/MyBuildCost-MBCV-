@@ -27,6 +27,7 @@ import QuantityItem = require('../dataaccess/model/project/building/QuantityItem
 import RateItem = require('../dataaccess/model/project/building/RateItem');
 import CategoriesListWithRates = require('../dataaccess/model/project/building/CategoriesListWithRates');
 import CentralizedRate = require('../dataaccess/model/project/CentralizedRate');
+import messages  = require('../../applicationProject/shared/messages');
 let CCPromise = require('promise/lib/es6-extensions');
 let logger=log4js.getLogger('Project service');
 
@@ -1030,9 +1031,9 @@ class ProjectService {
     });
   }
 
-  getWorkItemListOfBuildingCostHead(projectId:string, buildingId:string, costHeadId:number, categoryId:number, user:User,
+  getWorkItemListOfBuildingCategory(projectId:string, buildingId:string, costHeadId:number, categoryId:number, user:User,
                                     callback:(error: any, result: any)=> void) {
-    logger.info('Project service, getWorkItemListOfBuildingCostHead has been hit');
+    logger.info('Project service, getWorkItemListOfBuildingCategory has been hit');
 
     let query = [
       { $match: {'_id': ObjectId(buildingId), 'costHeads.rateAnalysisId': costHeadId }},
@@ -1059,6 +1060,8 @@ class ProjectService {
                 let workItemsListWithBuildingRates = this.getWorkItemListWithCentralizedRates(workItemsOfBuildingCategory, response.rates);
                 callback(null, {data: workItemsListWithBuildingRates, access_token: this.authInterceptor.issueTokenWithUid(user)});
               } else {
+                let error = new Error();
+                error.message = messages.MSG_ERROR_EMPTY_RESPONSE;
                 callback(error, null);
               }
             }
@@ -1068,9 +1071,9 @@ class ProjectService {
     });
   }
 
-  getWorkItemListOfProjectCostHead(projectId:string, costHeadId:number, categoryId:number, user:User,
+  getWorkItemListOfProjectCategory(projectId:string, costHeadId:number, categoryId:number, user:User,
                                    callback:(error: any, result: any)=> void) {
-    logger.info('Project service, getWorkItemListOfProjectCostHead has been hit');
+    logger.info('Project service, getWorkItemListOfProjectCategory has been hit');
 
     let query = [
       { $match: {'_id': ObjectId(projectId), 'projectCostHeads.rateAnalysisId': costHeadId }},
@@ -1098,6 +1101,8 @@ class ProjectService {
                 let workItemsListWithRates = this.getWorkItemListWithCentralizedRates(workItemsOfCategory, response.rates);
                 callback(null, {data: workItemsListWithRates, access_token: this.authInterceptor.issueTokenWithUid(user)});
               } else {
+                let error = new Error();
+                error.message = messages.MSG_ERROR_EMPTY_RESPONSE;
                 callback(error, null);
               }
             }
@@ -1276,7 +1281,7 @@ class ProjectService {
   }
 
   //Get category list with centralized rate
-  getCategoriesListWithCentralizedRates(categoriesOfCostHead: Array<Category>, centralizedRates: Array<any>) {
+  getCategoriesListWithCentralizedRates(categoriesOfCostHead: Array<Category>, centralizedRates: Array<CentralizedRate>) {
     let categoriesTotalAmount = 0 ;
 
     let categoriesListWithRates : CategoriesListWithRates = new CategoriesListWithRates;

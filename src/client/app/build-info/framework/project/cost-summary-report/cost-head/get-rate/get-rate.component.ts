@@ -98,9 +98,17 @@ this.rateItemsArray.total = parseFloat((this.totalAmount / this.rateItemsArray.q
       if(workItemData.rateAnalysisId === this.workItemRateAnalysisId) {
         workItemData.rate.total = parseFloat((this.totalAmount / workItemData.rate.quantity
         ).toFixed(ValueConstant.NUMBER_OF_FRACTION_DIGIT));
-        workItemData.amount = parseFloat((workItemData.quantity.total * workItemData.rate.total
-        ).toFixed(ValueConstant.NUMBER_OF_FRACTION_DIGIT));
-        workItemData.rate.isEstimated = true;
+        if(workItemData.rate.total !== 0) {
+          workItemData.rate.isEstimated = true;
+          if(workItemData.quantity.isEstimated && workItemData.rate.isEstimated) {
+            workItemData.amount = parseFloat((workItemData.quantity.total * workItemData.rate.total
+            ).toFixed(ValueConstant.NUMBER_OF_FRACTION_DIGIT));
+          }
+        } else {
+          workItemData.rate.isEstimated = false;
+          workItemData.amount = 0;
+        }
+        break;
       }
     }
 

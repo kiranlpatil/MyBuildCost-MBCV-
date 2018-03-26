@@ -56,8 +56,8 @@ class ProjectRoutes {
 
     //Provide workitemlist for particular category
     router.get('/:projectId/costhead/:costHeadId/category/:categoryId/workitemlist', this.authInterceptor.requiresAuth,
-      this._requestInterceptor.intercept, validator.getWorkItemListOfProjectCostHead,
-      controller.getWorkItemListOfProjectCostHead,  this._responseInterceptor.exit);
+      this._requestInterceptor.intercept, validator.getWorkItemListOfProjectCategory,
+      controller.getWorkItemListOfProjectCategory,  this._responseInterceptor.exit);
 
 
     ///Add and remove a costhead by setting status of workitems to true and false
@@ -180,8 +180,8 @@ this._requestInterceptor.intercept, validator.setCostHeadStatus, controller.setC
 
     //Provide workitemlist for particular category
     router.get('/:projectId/building/:buildingId/costhead/:costHeadId/category/:categoryId/workitemlist',
-    this.authInterceptor.requiresAuth, this._requestInterceptor.intercept, validator.getWorkItemListOfBuildingCostHead,
-      controller.getWorkItemListOfBuildingCostHead,  this._responseInterceptor.exit);
+    this.authInterceptor.requiresAuth, this._requestInterceptor.intercept, validator.getWorkItemListOfBuildingCategory,
+      controller.getWorkItemListOfBuildingCategory,  this._responseInterceptor.exit);
 
     //Add worktitem to category-----delete API
     router.post('/:projectId/building/:buildingId/costhead/:costHeadId/category/:categoryId/workitem',

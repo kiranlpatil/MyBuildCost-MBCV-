@@ -288,7 +288,7 @@ if ((req.body.name === undefined) || (req.body.region === undefined) || (req.bod
     });
   }
 
-  getWorkItemListOfProjectCostHead(req: any, res: any, next: any) {
+  getWorkItemListOfProjectCategory(req: any, res: any, next: any) {
     var projectId = req.params.projectId;
     var costHeadId = req.params.costHeadId;
     ProjectInterceptor.validateProjectCostHeadIds(projectId, costHeadId, (error, result) => {
@@ -654,7 +654,7 @@ if ((req.body.name === undefined) || (req.body.region === undefined) || (req.bod
     });
   }
 
-  getWorkItemListOfBuildingCostHead(req: any, res: any, next: any) {
+  getWorkItemListOfBuildingCategory(req: any, res: any, next: any) {
     var projectId = req.params.projectId;
     var buildingId = req.params.buildingId;
     var costHeadId = req.params.costHeadId;

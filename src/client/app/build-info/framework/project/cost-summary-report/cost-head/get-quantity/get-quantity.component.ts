@@ -184,13 +184,17 @@ export class GetQuantityComponent implements OnInit {
     for(let workItemData of this.workItemsList) {
       if(workItemData.rateAnalysisId === this.workItemRateAnalysisId) {
         workItemData.quantity.total = this.quantityTotal;
-        workItemData.amount = parseFloat((workItemData.quantity.total * workItemData.rate.total
-        ).toFixed(ValueConstant.NUMBER_OF_FRACTION_DIGIT));
         if(workItemData.quantity.total !== 0) {
           workItemData.quantity.isEstimated = true;
+          if(workItemData.quantity.isEstimated && workItemData.rate.isEstimated) {
+            workItemData.amount = parseFloat((workItemData.quantity.total * workItemData.rate.total
+            ).toFixed(ValueConstant.NUMBER_OF_FRACTION_DIGIT));
+          }
         } else {
           workItemData.quantity.isEstimated = false;
+          workItemData.amount = 0;
         }
+        break;
       }
     }
 
