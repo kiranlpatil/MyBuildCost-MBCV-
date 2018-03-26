@@ -1051,6 +1051,8 @@ class ProjectService {
                 let workItemsOfBuildingCategory = result[0].costHeads.categories.workItems;
                 let workItemsListWithBuildingRates = this.getWorkItemListWithCentralizedRates(workItemsOfBuildingCategory, response.rates);
                 callback(null, {data: workItemsListWithBuildingRates, access_token: this.authInterceptor.issueTokenWithUid(user)});
+              } else {
+                callback(error, null);
               }
             }
           });
@@ -1088,6 +1090,8 @@ class ProjectService {
                 let workItemsOfCategory = result[0].projectCostHeads.categories.workItems;
                 let workItemsListWithRates = this.getWorkItemListWithCentralizedRates(workItemsOfCategory, response.rates);
                 callback(null, {data: workItemsListWithRates, access_token: this.authInterceptor.issueTokenWithUid(user)});
+              } else {
+                callback(error, null);
               }
             }
           });
