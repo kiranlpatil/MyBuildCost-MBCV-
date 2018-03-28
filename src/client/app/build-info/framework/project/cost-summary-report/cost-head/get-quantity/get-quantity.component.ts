@@ -152,7 +152,8 @@ export class GetQuantityComponent implements OnInit {
   updateQuantityItem(quantityItems : Array<QuantityItem>) {
     if(this.validateQuantityIteamName(quantityItems)) {
       let quantityObj = {
-        'default' : quantityItems
+        'name' : 'default',
+        'quantityItems' : quantityItems
       };
       this.loaderService.start();
       let costHeadId = parseFloat(SessionStorageService.getSessionValue(SessionStorage.CURRENT_COST_HEAD_ID));

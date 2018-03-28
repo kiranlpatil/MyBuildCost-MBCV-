@@ -24,6 +24,7 @@ import BudgetCostRates = require('../dataaccess/model/project/reports/BudgetCost
 import ThumbRuleRate = require('../dataaccess/model/project/reports/ThumbRuleRate');
 import Constants = require('../../applicationProject/shared/constants');
 import QuantityItem = require('../dataaccess/model/project/building/QuantityItem');
+import QuantityDetails = require('../dataaccess/model/project/building/QuantityDetails');
 import RateItem = require('../dataaccess/model/project/building/RateItem');
 import CategoriesListWithRatesDTO = require('../dataaccess/dto/project/CategoriesListWithRatesDTO');
 import CentralizedRate = require('../dataaccess/model/project/CentralizedRate');
@@ -919,7 +920,7 @@ class ProjectService {
   }
 
   updateQuantityOfBuildingCostHeads(projectId:string, buildingId:string, costHeadId:number, categoryId:number, workItemId:number,
-                                    quantityItems:Map<string,Array<QuantityItem>>, user:User, callback:(error: any, result: any)=> void) {
+                                    quantityDetail:QuantityDetails, user:User, callback:(error: any, result: any)=> void) {
     logger.info('Project service, updateQuantityOfBuildingCostHeads has been hit');
     this.buildingRepository.findById(buildingId, (error, building) => {
       if (error) {
@@ -936,14 +937,22 @@ class ProjectService {
                   if (workItemId === workItemData.rateAnalysisId) {
                     quantity  = workItemData.quantity;
                     quantity.isEstimated = true;
-                    quantity.quantityItems = quantityItems;
-                    quantity.total = 0;
-                    for(let keyQuantity in quantityItems) {
-                      let quantityArray = quantityItems[keyQuantity];
-                      for(let quantityObj of quantityArray) {
-                        quantity.total = quantity.total + quantityObj.quantity;
+
+                    let isExistSQL = 'SELECT name from ? AS quantityDetails where quantityDetails.name="'+quantityDetail.name+'"';
+                    let isExistQuantityDetail = alasql(isExistSQL,[quantity.quantityItemDetails]);
+
+                    if(isExistQuantityDetail.length === 0) {
+                      quantityDetail.total = alasql('VALUE OF SELECT SUM(quantity) FROM ?',[quantityDetail.quantityItems]);
+                      quantity.quantityItemDetails.push(quantityDetail);
+                    } else {
+                      for(let quantityDetailObj of quantity.quantityItemDetails) {
+                        if(quantityDetailObj.name === quantityDetail.name) {
+                          quantityDetailObj.quantityItems = quantityDetail.quantityItems;
+                          quantityDetailObj.total = alasql('VALUE OF SELECT SUM(quantity) FROM ?',[quantityDetail.quantityItems]);
+                        }
                       }
                     }
+                    quantity.total = alasql('VALUE OF SELECT SUM(total) FROM ?',[quantity.quantityItemDetails]);
                   }
                 }
               }
@@ -952,7 +961,8 @@ class ProjectService {
         }
 
           let query = {_id: buildingId};
-          this.buildingRepository.findOneAndUpdate(query, building, {new: true}, (error, building) => {
+          let data = {$set : {'costHeads' : costHeadList}};
+          this.buildingRepository.findOneAndUpdate(query, data, {new: true}, (error, building) => {
             logger.info('Project service, findOneAndUpdate has been hit');
             if (error) {
               callback(error, null);
@@ -1107,12 +1117,8 @@ class ProjectService {
         let totalOfAllRateItems = alasql('VALUE OF SELECT SUM(totalAmount) FROM ?',[arrayOfRateItems]);
         workItem.rate.total = parseFloat((totalOfAllRateItems/workItem.rate.quantity).toFixed(Constants.NUMBER_OF_FRACTION_DIGIT));
 
-        let quantityItems = workItem.quantity.quantityItems;
-
-        for(let keyQuantity in quantityItems) {
-          let quantityArray = quantityItems[keyQuantity];
-          workItem.quantity.total = alasql('VALUE OF SELECT SUM(quantity) FROM ?',[quantityArray]);
-        }
+        let quantityItems = workItem.quantity.quantityItemDetails;
+        workItem.quantity.total = alasql('VALUE OF SELECT SUM(total) FROM ?',[quantityItems]);
 
          if(workItem.rate.isEstimated && workItem.quantity.isEstimated) {
            workItem.amount = this.commonService.decimalConversion(workItem.rate.total * workItem.quantity.total);
