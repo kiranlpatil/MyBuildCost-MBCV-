@@ -360,18 +360,20 @@ class ProjectController {
     let user = req.user;
     let projectId = req.params.projectId;
     let buildingId = req.params.buildingId;
-    let costHeadId = req.params.costHeadId;
-    let categoryId = req.params.categoryId;
-    let workItemId = req.params.workItemId;
-    let item = req.body.item;
+    let costHeadId = parseInt(req.params.costHeadId);
+    let categoryId = parseInt(req.params.categoryId);
+    let workItemId = parseInt(req.params.workItemId);
+    let itemName = req.body.item.name;
+
     let projectservice = new ProjectService();
-    projectservice.deleteQuantityOfBuildingCostHeadsByName( projectId, buildingId, costHeadId, categoryId, workItemId, item, user, (error, result) => {
+    projectservice.deleteQuantityOfBuildingCostHeadsByName( projectId, buildingId, costHeadId,
+      categoryId, workItemId, itemName, user, (error, result) => {
       if (error) {
         next(error);
       } else {
         logger.info('Delete Quantity ' + result);
            logger.debug('Deleted Quantity of Project ID : '+projectId+', Building ID : '+buildingId+
-             ', CostHead : '+costHeadId+', Workitem : '+workItemId+', Item : '+item);
+             ', CostHead : '+costHeadId+', Workitem : '+workItemId+', Item : '+itemName);
         next(new Response(200, result));
       }
     });

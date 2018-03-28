@@ -177,8 +177,11 @@ export class CostHeadComponent implements OnInit, OnChanges {
       if(quantityDetails.length ===0) {
         this.quantityItemsArray = [];
       } else {
-        for (let key of quantityDetails) {
-          this.quantityItemsArray = key.quantityItems;
+        if(quantityDetails[0].name === 'default') {
+          this.quantityItemsArray = quantityDetails[0].quantityItems;
+        } else {
+          this.showWorkItemTab = null;
+          this.quantityItemsArray = [];
         }
       }
       this.workItem = workItem;
