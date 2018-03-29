@@ -147,15 +147,11 @@ export class CostHeadComponent implements OnInit, OnChanges {
       this.workItem = workItem;
       this.workItem.quantity.quantityItemDetails = [];
       for(let quantityDetail of quantityDetails) {
-        if(quantityDetail.name !== 'default') {
+        if(quantityDetail.name !== this.getLabel().DEFAULT_VIEW) {
           this.workItem.quantity.quantityItemDetails.push(quantityDetail);
         }
       }
-/*      if(quantityDetails.length ===0) {
-        this.quantityItemsArray = [];
-      } else if(quantityDetails.name !== 'default') {
-          this.quantityItemsArray = quantityDetails;
-      }*/
+
       this.currentCategoryIndex = categoryIndex;
       this.currentWorkItemIndex = workItemIndex;
       this.showQuantityTab = Label.WORKITEM_DETAILED_QUANTITY_TAB;
@@ -182,7 +178,7 @@ export class CostHeadComponent implements OnInit, OnChanges {
       let quantityDetails: Array<QuantityDetails> = workItem.quantity.quantityItemDetails;
       this.workItem.quantity.quantityItemDetails = [];
       for(let quantityDetail of quantityDetails) {
-        if(quantityDetail.name === 'default') {
+        if(quantityDetail.name === this.getLabel().DEFAULT_VIEW) {
           this.workItem.quantity.quantityItemDetails.push(quantityDetail);
           this.quantityItemsArray = quantityDetail.quantityItems;
           this.keyQuantity = quantityDetail.name;
@@ -191,17 +187,15 @@ export class CostHeadComponent implements OnInit, OnChanges {
       }
 
       if(quantityDetails.length === 0) {
+        let quantityDetail : QuantityDetails = new QuantityDetails();
+        quantityDetail.quantityItems = [];
+        quantityDetail.name = this.getLabel().DEFAULT_VIEW;
+        this.workItem.quantity.quantityItemDetails.push(quantityDetail);
         this.quantityItemsArray = [];
-        this.keyQuantity = 'default';
-      } /*else {
-        if(quantityDetails[0].name === 'default') {
-          this.quantityItemsArray = quantityDetails[0].quantityDetails;
-        } else {
-          this.showWorkItemTab = null;
-          this.quantityItemsArray = [];
-        }
-      }*/
-      this.rateView = 'quantity';
+        this.keyQuantity = this.getLabel().DEFAULT_VIEW;
+      }
+
+      /*this.rateView = 'quantity';*/
       this.currentCategoryIndex = categoryIndex;
       this.currentWorkItemIndex = workItemIndex;
       this.showWorkItemTab = Label.WORKITEM_QUANTITY_TAB;

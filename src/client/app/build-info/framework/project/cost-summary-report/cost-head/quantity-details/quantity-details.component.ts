@@ -34,13 +34,14 @@ export class QuantityDetailsComponent implements OnInit {
 
   }
 
-  getQuantity(quantityDetails: QuantityDetails) {
+  getQuantity(quantityDetail : QuantityDetails) {
     if(this.showWorkItemTabName !==  Label.WORKITEM_QUANTITY_TAB) {
-      if(quantityDetails.quantityItems !== undefined) {
-        this.quantityItemsArray = quantityDetails.quantityItems;
+      if(quantityDetail.quantityItems.length !== 0) {
+        this.quantityItemsArray = quantityDetail.quantityItems;
+        this.keyQuantity = quantityDetail.name;
       } else {
         this.quantityItemsArray = [];
-
+        quantityDetail.name = this.keyQuantity;
       }
       this.showWorkItemTabName = Label.WORKITEM_QUANTITY_TAB;
     }else {

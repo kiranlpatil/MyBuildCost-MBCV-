@@ -445,6 +445,9 @@ export class Label {
   public static WORKITEM_QUANTITY_TAB : string = 'quantity';
   public static WORKITEM_DETAILED_QUANTITY_TAB : string = 'detailedQuantity';
 
+  //Quantity View
+  public static DEFAULT_VIEW = 'default';
+
 }
 
 export class Button {
