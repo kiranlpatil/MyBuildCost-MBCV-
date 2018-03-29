@@ -128,7 +128,7 @@
                                            (showWorkItemTabName)="setShowWorkItemTab($event)"
                                            [categoryRateAnalysisId]="category.rateAnalysisId"
                                            [workItemRateAnalysisId]="workItem.rateAnalysisId"
-                                           [keyQuantity]="'default'"
+                                           [keyQuantity]="keyQuantity"
                                            [baseUrl] = "baseUrl">
                           </bi-get-quantity>
                         </div>
@@ -137,7 +137,7 @@
                       <div *ngIf="showQuantityTab == getLabel().WORKITEM_DETAILED_QUANTITY_TAB">
                         <div *ngIf="compareWorkItemId == workItem.rateAnalysisId && compareCategoryId === category.rateAnalysisId">
                           <bi-quantity-details
-                                            [quantityItems]="workItem.quantity.quantityItemDetails"
+                            [quantityDetails]="workItem.quantity.quantityItemDetails"
                                             [workItem] ="workItem"
                                             [workItemsList] ="workItemsList"
                                             [categoryDetails] ="categoryDetails"

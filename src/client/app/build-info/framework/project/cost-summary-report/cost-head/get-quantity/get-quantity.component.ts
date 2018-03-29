@@ -22,6 +22,7 @@ import { QuantityDetails } from '../../../../model/quantity-details';
 
 export class GetQuantityComponent implements OnInit {
   @Input() quantityItems :  Array<QuantityItem>;
+  @Input() quantityDetails :  Array<QuantityDetails>;
   @Input() categoryDetails :  Array<Category>;
   @Input() categoryRateAnalysisId : number;
   @Input() workItemRateAnalysisId : number;

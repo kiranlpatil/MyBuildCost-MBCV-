@@ -35,6 +35,7 @@
 
   <div *ngIf="showWorkItemTabName == getLabel().WORKITEM_QUANTITY_TAB">
     <bi-get-quantity [quantityItems]="quantityItemsArray"
+                     [quantityDetails]="quantityDetails"
                      [categoryRateAnalysisId]="categoryRateAnalysisId"
                      [categoryDetails] ="categoryDetails"
                      [keyQuantity]="keyQuantity"

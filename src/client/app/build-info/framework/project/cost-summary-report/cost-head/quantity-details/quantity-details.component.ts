@@ -15,7 +15,7 @@ import { QuantityDetails } from '../../../../model/quantity-details';
 
 export class QuantityDetailsComponent implements OnInit {
 
-  @Input() quantityItems : Array<QuantityDetails>;
+  @Input() quantityDetails : Array<QuantityDetails>;
   @Input() workItem : Array<WorkItem>;
   @Input() workItemsList : Array<WorkItem>;
   @Input() categoryDetails :  Array<Category>;
@@ -25,22 +25,19 @@ export class QuantityDetailsComponent implements OnInit {
   @Output() categoriesTotalAmount = new EventEmitter<number>();
     quantityItemsArray:any = {};
     workItemData :Array<WorkItem>;
-    quantityDetails : Array<QuantityDetails>;
     keyQuantity:string;
     showWorkItemTabName: string=null;
     amount:number;
 
   ngOnInit() {
     this.workItemData = this.workItem;
-    this.quantityDetails = this.quantityItems;
-    console.log(this.quantityDetails);
+
   }
 
   getQuantity(quantityDetails: QuantityDetails) {
     if(this.showWorkItemTabName !==  Label.WORKITEM_QUANTITY_TAB) {
       if(quantityDetails.quantityItems !== undefined) {
         this.quantityItemsArray = quantityDetails.quantityItems;
-    /*    this.keyQuantity = quantityDetails.name;*/
       } else {
         this.quantityItemsArray = [];
 
