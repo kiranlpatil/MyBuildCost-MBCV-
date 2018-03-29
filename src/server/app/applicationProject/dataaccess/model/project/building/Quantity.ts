@@ -1,13 +1,14 @@
-import QuantityItem = require('./QuantityItem');
+import QuantityDetails = require('./QuantityDetails');
 
 class Quantity {
   total: number;
   isEstimated : boolean;
-  quantityItems: Map<string, Array<QuantityItem>> = new Map();
+  quantityItemDetails: Array<QuantityDetails>;
 
   constructor() {
     this.total = 0;
     this.isEstimated = false;
+    this.quantityItemDetails = new Array<QuantityDetails>();
   }
 }
 export = Quantity;
