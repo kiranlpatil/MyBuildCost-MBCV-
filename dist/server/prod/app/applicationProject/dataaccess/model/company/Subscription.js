@@ -1,0 +1,9 @@
+"use strict";
+var Subscription = (function () {
+    function Subscription() {
+    }
+    return Subscription;
+}());
+module.exports = Subscription;
+
+//# sourceMappingURL=data:application/json;charset=utf8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImFwcC9hcHBsaWNhdGlvblByb2plY3QvZGF0YWFjY2Vzcy9tb2RlbC9jb21wYW55L1N1YnNjcmlwdGlvbi50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiO0FBQUE7SUFBQTtJQUtBLENBQUM7SUFBRCxtQkFBQztBQUFELENBTEEsQUFLQyxJQUFBO0FBQ0QsaUJBQVMsWUFBWSxDQUFDIiwiZmlsZSI6ImFwcC9hcHBsaWNhdGlvblByb2plY3QvZGF0YWFjY2Vzcy9tb2RlbC9jb21wYW55L1N1YnNjcmlwdGlvbi5qcyIsInNvdXJjZXNDb250ZW50IjpbImNsYXNzIFN1YnNjcmlwdGlvbiB7XG4gIF9pZD86c3RyaW5nO1xuICBwcmljZTogbnVtYmVyO1xuICBkYXlzOiBudW1iZXI7XG4gIG51bU9mUHJvamVjdHM6IG51bWJlcjtcbn1cbmV4cG9ydCA9IFN1YnNjcmlwdGlvbjtcbiJdfQ==
