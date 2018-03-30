@@ -581,6 +581,7 @@ export class CostHeadComponent implements OnInit, OnChanges {
 
   setCategoriesTotal( categoriesTotal : number) {
     this.categoryDetailsTotalAmount = categoriesTotal;
+    this.refreshWorkItemList();
   }
 
   setShowWorkItemTab( tabName : string) {
