@@ -81,7 +81,7 @@ class ProjectRoutes {
 
     //ToDo : delete api after testing
     //Delete quantityitem from  quantity    //delete this API
-    router.post('/:projectId/costhead/:costHeadId/category/:categoryId/workitem/:workItemId/quantity/item',
+    router.put('/:projectId/costhead/:costHeadId/category/:categoryId/workitem/:workItemId/quantity/item',
       this.authInterceptor.requiresAuth, this._requestInterceptor.intercept, validator.deleteQuantityOfProjectCostHeadsByName,
       controller.deleteQuantityOfProjectCostHeadsByName, this._responseInterceptor.exit);
 
@@ -200,7 +200,7 @@ this.authInterceptor.requiresAuth, this._requestInterceptor.intercept, controlle
       controller.updateQuantityOfBuildingCostHeads, this._responseInterceptor.exit);
 
     //Delete quantityitem from  quantity
-    router.delete('/:projectId/building/:buildingId/costhead/:costHeadId/category/:categoryId/workitem/:workItemId/quantity/item',
+    router.put('/:projectId/building/:buildingId/costhead/:costHeadId/category/:categoryId/workitem/:workItemId/quantity/item',
       this.authInterceptor.requiresAuth, this._requestInterceptor.intercept, validator.deleteQuantityOfBuildingCostHeadsByName,
       controller.deleteQuantityOfBuildingCostHeadsByName, this._responseInterceptor.exit);
 
