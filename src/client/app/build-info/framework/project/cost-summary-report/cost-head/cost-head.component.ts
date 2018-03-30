@@ -168,39 +168,47 @@ export class CostHeadComponent implements OnInit, OnChanges {
     if( this.showWorkItemTab !== Label.WORKITEM_QUANTITY_TAB || this.compareCategoryId !== categoryId ||
       this.compareWorkItemId !== workItem.rateAnalysisId) {
 
-      this.setItemId(categoryId, workItem.rateAnalysisId);
+      if ((workItem.quantity.quantityItemDetails.length > 1) || (workItem.quantity.quantityItemDetails.length === 1 &&
+          workItem.quantity.quantityItemDetails[0].name !== this.getLabel().DEFAULT_VIEW)) {
+        this.getDetailedQuantity(categoryId, workItem, categoryIndex, workItemIndex);
+      } else {
 
-      this.workItemId = workItem.rateAnalysisId;
-      SessionStorageService.setSessionValue(SessionStorage.CURRENT_WORKITEM_ID, this.workItemId);
+        this.setItemId(categoryId, workItem.rateAnalysisId);
 
-      this.workItem = workItem;
+        this.workItemId = workItem.rateAnalysisId;
+        SessionStorageService.setSessionValue(SessionStorage.CURRENT_WORKITEM_ID, this.workItemId);
 
-      let quantityDetails: Array<QuantityDetails> = workItem.quantity.quantityItemDetails;
-      let defaultQuantityExists : boolean = false;
-      this.workItem.quantity.quantityItemDetails = [];
-      for(let quantityDetail of quantityDetails) {
-        if(quantityDetail.name === this.getLabel().DEFAULT_VIEW) {
-          this.workItem.quantity.quantityItemDetails.push(quantityDetail);
-          this.quantityItemsArray = quantityDetail.quantityItems;
-          this.keyQuantity = quantityDetail.name;
-          defaultQuantityExists = true;
-          break;
+        this.workItem = workItem;
+
+        let quantityDetails: Array<QuantityDetails> = workItem.quantity.quantityItemDetails;
+        let defaultQuantityExists: boolean = false;
+        this.workItem.quantity.quantityItemDetails = [];
+        for (let quantityDetail of quantityDetails) {
+          if (quantityDetail.name === this.getLabel().DEFAULT_VIEW) {
+            this.workItem.quantity.quantityItemDetails.push(quantityDetail);
+            this.quantityItemsArray = quantityDetail.quantityItems;
+            this.keyQuantity = quantityDetail.name;
+            defaultQuantityExists = true;
+            break;
+          }
         }
-      }
 
-      if(defaultQuantityExists === false) {
-        let quantityDetail : QuantityDetails = new QuantityDetails();
-        quantityDetail.quantityItems = [];
-        quantityDetail.name = this.getLabel().DEFAULT_VIEW;
-        this.workItem.quantity.quantityItemDetails.push(quantityDetail);
-        this.quantityItemsArray = [];
-        this.keyQuantity = this.getLabel().DEFAULT_VIEW;
-      }
+        if (defaultQuantityExists === false) {
+          let quantityDetail: QuantityDetails = new QuantityDetails();
+          quantityDetail.quantityItems = [];
+          quantityDetail.name = this.getLabel().DEFAULT_VIEW;
+          this.workItem.quantity.quantityItemDetails.push(quantityDetail);
+          this.quantityItemsArray = [];
+          this.keyQuantity = this.getLabel().DEFAULT_VIEW;
 
-      /*this.rateView = 'quantity';*/
-      this.currentCategoryIndex = categoryIndex;
-      this.currentWorkItemIndex = workItemIndex;
-      this.showWorkItemTab = Label.WORKITEM_QUANTITY_TAB;
+
+        }
+
+        /*this.rateView = 'quantity';*/
+        this.currentCategoryIndex = categoryIndex;
+        this.currentWorkItemIndex = workItemIndex;
+        this.showWorkItemTab = Label.WORKITEM_QUANTITY_TAB;
+      }
     } else {
       this.showWorkItemTab = null;
     }
