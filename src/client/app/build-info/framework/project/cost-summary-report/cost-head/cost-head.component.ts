@@ -135,17 +135,12 @@ export class CostHeadComponent implements OnInit, OnChanges {
   }
 
   getQuantity(categoryId: number, workItem: WorkItem, categoryIndex: number, workItemIndex:number) {
-    if (this.showQuantityTab !== Label.WORKITEM_DETAILED_QUANTITY_TAB ||
-      this.compareCategoryId !== categoryId || this.compareWorkItemId !== workItem.rateAnalysisId) {
       if ((workItem.quantity.quantityItemDetails.length > 1) || (workItem.quantity.quantityItemDetails.length === 1 &&
           workItem.quantity.quantityItemDetails[0].name !== Label.DEFAULT_VIEW)) {
         this.getDetailedQuantity(categoryId, workItem, categoryIndex, workItemIndex);
       } else {
         this.getDefaultQuantity(categoryId, workItem, categoryIndex, workItemIndex);
       }
-    } else {
-      this.showWorkItemTab = null;
-    }
   }
 
   getDetailedQuantity(categoryId: number, workItem: WorkItem, categoryIndex: number, workItemIndex:number) {
@@ -170,6 +165,8 @@ export class CostHeadComponent implements OnInit, OnChanges {
       this.currentWorkItemIndex = workItemIndex;
       this.showQuantityTab = Label.WORKITEM_DETAILED_QUANTITY_TAB;
 
+    } else {
+      this.showWorkItemTab = null;
     }
   }
 
@@ -217,7 +214,7 @@ export class CostHeadComponent implements OnInit, OnChanges {
 
         }
 
-        this.rateView = 'quantity';
+        this.rateView = Label.WORKITEM_QUANTITY_TAB;
         this.currentCategoryIndex = categoryIndex;
         this.currentWorkItemIndex = workItemIndex;
         this.showWorkItemTab = Label.WORKITEM_QUANTITY_TAB;
@@ -237,7 +234,7 @@ export class CostHeadComponent implements OnInit, OnChanges {
       this.calculateTotalForRateView();
       this.currentCategoryIndex = categoryIndex;
       this.currentWorkItemIndex = workItemIndex;
-      this.rateView = 'rate';
+      this.rateView = Label.WORKITEM_RATE_TAB;
       this.setRateFlags(displayRateView, disableRateField);
     } else {
       this.showWorkItemTab = null;
@@ -256,7 +253,7 @@ export class CostHeadComponent implements OnInit, OnChanges {
       this.calculateQuantity(workItem);
       this.calculateTotalForRateView();
       this.setRateFlags(displayRateView, disableRateField);
-      this.rateView = 'cost';
+      this.rateView = Label.WORKITEM_RATE_BY_QUANTITY_TAB;
       this.currentCategoryIndex = categoryIndex;
       this.currentWorkItemIndex = workItemIndex;
     } else {
@@ -274,7 +271,7 @@ export class CostHeadComponent implements OnInit, OnChanges {
       this.setItemId(categoryId, workItemId);
       this.setWorkItemDataForRateView(workItem.rateAnalysisId, workItem.systemRate);
       this.calculateTotalForRateView();
-      this.rateView = 'systemRA';
+      this.rateView = Label.WORKITEM_SYSTEM_RATE_TAB;
       this.currentCategoryIndex = categoryIndex;
       this.currentWorkItemIndex = workItemIndex;
       this.setRateFlags(displayRateView, disableRateField);

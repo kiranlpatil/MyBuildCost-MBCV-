@@ -442,6 +442,8 @@ export class Label {
   public static GET_SYSTEM_RATE : string = 'getSystemRate';
   public static GET_RATE_BY_QUANTITY : string = 'getRateByQuantity';
   public static WORKITEM_RATE_TAB : string = 'rate';
+  public static WORKITEM_RATE_BY_QUANTITY_TAB : string = 'cost';
+  public static WORKITEM_SYSTEM_RATE_TAB : string = 'systemRA';
   public static WORKITEM_QUANTITY_TAB : string = 'quantity';
   public static QUANTITY_VIEW : string = 'default';
   public static WORKITEM_DETAILED_QUANTITY_TAB : string = 'detailedQuantity';
