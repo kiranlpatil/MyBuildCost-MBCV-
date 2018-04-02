@@ -182,7 +182,6 @@ export class GetQuantityComponent implements OnInit {
   }
 
   onUpdateQuantityItemsSuccess(success : string) {
-    /*this.refreshWorkItemList.emit(this.categoryRateAnalysisId);*/
     var message = new Message();
     message.isError = false;
     message.custom_message = Messages.MSG_SUCCESS_SAVED_COST_HEAD_ITEM;

@@ -1,8 +1,8 @@
 <div *ngIf="workItemData">
-<table>
-  <tbody>
+  <table>
+    <tbody>
 
-  <div *ngFor="let quantity of quantityDetails; let quantityIndex = index ">
+      <div *ngFor="let quantity of quantityDetails; let quantityIndex = index ">
     <td>
       <input type="text" [ngModel]="quantity.name"  (blur)="onInputKeyQuantity($event.target.value)">
     </td>
@@ -22,7 +22,7 @@
 
     <td>
       <div *ngIf="workItemData.rate.isEstimated">
-          {{workItemData.rate.total}}
+          {{ workItemData.rate.total|number }}
       </div>
       <div *ngIf="!workItemData.rate.isEstimated">
         -
@@ -31,7 +31,7 @@
 
     <td>
       <div *ngIf="workItemData.rate.isEstimated">
-        {{ quantity.total * workItemData.rate.total}}
+        {{ (quantity.total * workItemData.rate.total)|number }}
       </div>
       <div *ngIf="!workItemData.rate.isEstimated">
         -
