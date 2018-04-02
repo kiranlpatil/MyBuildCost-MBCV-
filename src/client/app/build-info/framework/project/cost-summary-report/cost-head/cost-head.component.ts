@@ -143,6 +143,7 @@ export class CostHeadComponent implements OnInit, OnChanges {
       }
   }
 
+  //Get detailed quantity
   getDetailedQuantity(categoryId: number, workItem: WorkItem, categoryIndex: number, workItemIndex:number) {
     if( this.showQuantityTab !== Label.WORKITEM_DETAILED_QUANTITY_TAB ||
       this.compareCategoryId !== categoryId || this.compareWorkItemId !== workItem.rateAnalysisId) {
@@ -170,13 +171,14 @@ export class CostHeadComponent implements OnInit, OnChanges {
     }
   }
 
+  //Add blank detailed quantity at last
   addNewDetailedQuantity(categoryId: number, workItem: WorkItem, categoryIndex: number, workItemIndex:number) {
     this.getDetailedQuantity(categoryId, workItem, categoryIndex, workItemIndex);
       let quantityDetail :QuantityDetails = new QuantityDetails();
       this.workItem.quantity.quantityItemDetails.push(quantityDetail);
   }
 
-
+  //Get Default Quantity (If floor wise or building wise quantity is not added)
   getDefaultQuantity(categoryId: number, workItem: WorkItem, categoryIndex: number, workItemIndex:number) {
     if( this.showWorkItemTab !== Label.WORKITEM_QUANTITY_TAB || this.compareCategoryId !== categoryId ||
       this.compareWorkItemId !== workItem.rateAnalysisId) {
@@ -190,7 +192,6 @@ export class CostHeadComponent implements OnInit, OnChanges {
 
         let quantityDetails: Array<QuantityDetails> = workItem.quantity.quantityItemDetails;
         if( quantityDetails.length !==0 ) {
-        let defaultQuantityExists: boolean = false;
         this.workItem.quantity.quantityItemDetails = [];
 
         let defaultQuantityDetail = quantityDetails.filter(
@@ -198,7 +199,7 @@ export class CostHeadComponent implements OnInit, OnChanges {
             return defaultQuantityDetail.name === Label.DEFAULT_VIEW;
           });
 
-        this.workItem.quantity.quantityItemDetails.push(defaultQuantityDetail[0]);
+        this.workItem.quantity.quantityItemDetails = defaultQuantityDetail;
         this.quantityItemsArray = defaultQuantityDetail[0].quantityItems;
         this.keyQuantity = defaultQuantityDetail[0].name;
         } else {
@@ -214,7 +215,6 @@ export class CostHeadComponent implements OnInit, OnChanges {
 
         }
 
-        this.rateView = Label.WORKITEM_QUANTITY_TAB;
         this.currentCategoryIndex = categoryIndex;
         this.currentWorkItemIndex = workItemIndex;
         this.showWorkItemTab = Label.WORKITEM_QUANTITY_TAB;
