@@ -182,15 +182,15 @@ export class GetQuantityComponent implements OnInit {
   }
 
   onUpdateQuantityItemsSuccess(success : string) {
-    this.refreshWorkItemList.emit(this.categoryRateAnalysisId);
+    /*this.refreshWorkItemList.emit(this.categoryRateAnalysisId);*/
     var message = new Message();
     message.isError = false;
     message.custom_message = Messages.MSG_SUCCESS_SAVED_COST_HEAD_ITEM;
     this.messageService.message(message);
 
-/*    for(let workItemData of this.workItemsList) {
-      if(workItemData.rateAnalysisId === this.workItemRateAnalysisId) {
-        workItemData.quantity.total = this.quantityTotal;
+    for(let workItemData of this.workItemsList) {
+      if(workItemData.rateAnalysisId === this.workItemId) {
+        this.calculateTotalOfQuantityItemDetails(workItemData);
         if(workItemData.quantity.total !== 0) {
           workItemData.quantity.isEstimated = true;
           if(workItemData.quantity.isEstimated && workItemData.rate.isEstimated) {
@@ -207,7 +207,7 @@ export class GetQuantityComponent implements OnInit {
 
     let categoriesTotal= this.commonService.totalCalculationOfCategories(this.categoryDetails,
       this.categoryRateAnalysisId, this.workItemsList);
-    this.categoriesTotalAmount.emit(categoriesTotal);*/
+    this.categoriesTotalAmount.emit(categoriesTotal);
     this.showWorkItemTabName.emit('');
       this.loaderService.stop();
   }
@@ -219,6 +219,24 @@ export class GetQuantityComponent implements OnInit {
     this.messageService.message(message);
     this.loaderService.stop();
   }
+
+  calculateTotalOfQuantityItemDetails(workItemData : WorkItem) {
+    let quantityItemDetailsTotal = 0;
+    for(let quantityItemDetail of workItemData.quantity.quantityItemDetails) {
+      this.calculateTotalOfQuantityItems(quantityItemDetail);
+      quantityItemDetailsTotal = quantityItemDetailsTotal + quantityItemDetail.total;
+    }
+    workItemData.quantity.total = quantityItemDetailsTotal;
+  }
+
+  calculateTotalOfQuantityItems(quantityItemDetail : QuantityDetails) {
+    let quantityItemTotal = 0;
+    for(let quantityItemData of quantityItemDetail.quantityItems) {
+      quantityItemTotal = quantityItemTotal + quantityItemData.quantity;
+    }
+    quantityItemDetail.total = quantityItemTotal;
+  }
+
 
   setQuantityItemNameForDelete(quantityIndex: number) {
      this.quantityIndex= quantityIndex;
