@@ -54,6 +54,8 @@ import { CostSummaryComponent } from './build-info/framework/project/cost-summar
 import { CostSummaryService } from './build-info/framework/project/cost-summary-report/cost-summary.service';
 import { MaterialTakeoffComponent } from './build-info/framework/project/material-takeoff/material-takeoff.component';
 import { MaterialTakeoffService } from './build-info/framework/project/material-takeoff/material-takeoff.service';
+import { MaterialTotalComponent } from './build-info/framework/project/material-takeoff/material-total/material-total.component';
+import { MaterialTotalService } from './build-info/framework/project/material-takeoff/material-total/material-total.service';
 import { CostHeadComponent } from './build-info/framework/project/cost-summary-report/cost-head/cost-head.component';
 import { CostSummaryPipe } from './build-info/framework/project/cost-summary-report/cost-summary.pipe';
 import { GetQuantityComponent } from './build-info/framework/project/cost-summary-report/cost-head/get-quantity/get-quantity.component';
@@ -112,6 +114,7 @@ import { QuantityDetailsComponent } from './build-info/framework/project/cost-su
     CostSummaryPipe,
     GetQuantityComponent,
     MaterialTakeoffComponent,
+    MaterialTotalComponent,
     GetRateComponent,
     ProjectItemComponent,
     QuantityDetailsComponent,
@@ -158,7 +161,8 @@ import { QuantityDetailsComponent } from './build-info/framework/project/cost-su
     ProjectService,
     BuildingService,
     CostSummaryService,
-    MaterialTakeoffService
+    MaterialTakeoffService,
+    MaterialTotalService
     // MaterialTakeoffService
   ],
   bootstrap: [AppComponent]

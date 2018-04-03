@@ -37,6 +37,9 @@ export class MaterialTakeoffComponent implements OnInit {
     'Cost Head Wise', 'Material Wise'
   ];
 
+  //Material details send to material total component
+  materialTakeOffDetails :any[];
+
   constructor( private activatedRoute:ActivatedRoute,  private _router : Router, private materialTakeoffService : MaterialTakeoffService) {
   }
 
@@ -52,17 +55,37 @@ export class MaterialTakeoffComponent implements OnInit {
       flatReport => this.onGetListSuccess(flatReport),
       error => this.onGetListFailure(error)
     );*/
-   /* this.flatReport = [
+    this.flatReport = [
       {
-        'building' : '',
-        'costHead' : '',
-        'workItem' : '',
-        'material' : '',
-        'quantity' : '',
-        'label' : '',
-        'unit' : ''
+        "building" : "Build1",
+        "costHead" : "RCC",
+        "workItem" : "Abc",
+        'material' : "Cement",
+        "label" : "Floor1",
+        "quantity" : 12,
+        "unit" : "sqm"
+      },
+      {
+        "building" : "Build2",
+        "costHead" : "RCC",
+        "workItem" : "Abc",
+        'material' : "Cement",
+        "label" : "Floor1",
+        "quantity" : 12,
+        "unit" : "sqm"
+      },
+      {
+        "building" : "Build3",
+        "costHead" : "RCC",
+        "workItem" : "Abc",
+        'material' : "Cement",
+        "label" : "Floor1",
+        "quantity" : 12,
+        "unit" : "sqm"
       }
-    ];*/
+    ];
+
+    /*this.buildingList = this.materialTakeoffService.getDistinctBuildingList(this.flatReport);*/
 
     /*this.materialReport = this.materialTakeoffService.buildMaterialReport(this.building, this.secondaryFilter,
       this.groupBy, this.flatReport);*/
@@ -71,6 +94,56 @@ export class MaterialTakeoffComponent implements OnInit {
     this.building = 'Build1';
     this.secondaryFilterHeading = 'Cost Head';
     this.secondaryFilterList = this.costHeadList;
+    this.materialTakeOffDetails = {
+      "building": "Build1",
+      "name": "RCC",
+      "materialDetails": [
+        {
+          "name": "Cement",
+          "itemDetails": [
+            {
+              "item": "Abc",
+              "quantity": 12,
+              "unit": "Bags"
+            },
+            {
+              "item": "Efg",
+              "quantity": 16,
+              "unit": "Bags"
+            },
+            {
+              "item": "Hij",
+              "quantity": 18,
+              "unit": "Bags"
+            }
+          ],
+          "unit": "Bags",
+          "total": 46
+        },
+        {
+          "name": "Sand",
+          "itemDetails": [
+            {
+              "item": "Xyz",
+              "quantity": 34,
+              "unit": "Bags"
+            },
+            {
+              "item": "Pqr",
+              "quantity": 19,
+              "unit": "Bags"
+            },
+            {
+              "item": "Stq",
+              "quantity": 99,
+              "unit": "Bags"
+            }
+          ],
+          "unit": "Bags",
+          "total": 152
+        }
+      ]
+    };
   }
 
 /*  onGetListSuccess(flatReport : any) {
