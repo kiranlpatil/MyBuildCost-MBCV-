@@ -170,6 +170,7 @@ export class Messages {
   public static MSG_SUCCESS_ADD_CATEGORY: string = 'Category added successfully.';
   public static MSG_SUCCESS_DELETE_CATEGORY: string = 'Category deleted successfully.';
   public static MSG_SUCCESS_DELETE_QUANTITY_ITEM: string = 'Quantity item deleted successfully.';
+  public static MSG_SUCCESS_DELETE_QUANTITY_DETAILS: string = 'Quantity Details deleted successfully.';
   public static MSG_ALREADY_ADDED_ALL_CATEGORIES: string = 'Already added all Categories.';
   public static MSG_SUCCESS_ADD_WORKITEM: string = 'Workitem added successfully.';
   public static MSG_ALREADY_ADDED_ALL_WORKITEMS: string = 'Already added all workitems.';
@@ -490,6 +491,7 @@ export class ProjectElements {
   public static WORK_ITEM = 'WorkItem';
   public static BUILDING = 'Building';
   public static QUANTITY_ITEM = 'Quantity Item';
+  public static QUANTITY_DETAILS = 'Quantity Details';
   public static CATEGORY = 'Category';
   public static SLAB_AREA = 'Slab Area';
   public static SALEABLE_AREA = 'Saleable Area';

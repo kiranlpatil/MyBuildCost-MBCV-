@@ -2,7 +2,7 @@
   <table>
     <tbody>
 
-      <div *ngFor="let quantity of quantityDetails; let quantityIndex = index ">
+    <div *ngFor="let quantity of quantityDetails">
     <td>
       <input type="text" [ngModel]="quantity.name"  (blur)="onInputKeyQuantity($event.target.value)">
     </td>
@@ -31,16 +31,17 @@
         -
       </div>
     </td>
+        <td>
+          <div data-toggle="modal" title="Delete Quantity Details"
+               data-target="#deleteQuantityDetails"
+               (click)="setQuantityNameForDelete(quantity.name)">
+            <img alt="Delete Quantity Details" src="assets/build-info/dashboard/delete.png" />
+          </div>
+        </td>
+    </div>
 
-    <td>
-      <div (click)="deleteQuantityByName(quantity.name,quantityIndex)">
-      <img alt="Delete Quantity" src="assets/build-info/dashboard/delete-blue.png" />
-      </div>
-    </td>
-  </div>
-
-  <div *ngIf="showWorkItemTabName == getLabel().WORKITEM_QUANTITY_TAB">
-    <bi-get-quantity [quantityItems]="quantityItemsArray"
+      <div *ngIf="showWorkItemTabName == getLabel().WORKITEM_QUANTITY_TAB">
+        <bi-get-quantity [quantityItems]="quantityItemsArray"
                      [quantityDetails]="quantityDetails"
                      [categoryRateAnalysisId]="categoryRateAnalysisId"
                      [categoryDetails] ="categoryDetails"
@@ -48,8 +49,8 @@
                      [workItemsList] ="workItemsList"
                      (showWorkItemTabName)="setShowWorkItemTab($event)"
                      [baseUrl] = "baseUrl">
-    </bi-get-quantity>
-  </div>
+         </bi-get-quantity>
+       </div>
   </tbody>
 </table>
 </div>

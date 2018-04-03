@@ -1,4 +1,4 @@
-import { Component, OnInit , OnChanges } from '@angular/core';
+import { Component, OnInit, OnChanges, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Messages, ProjectElements, NavigationRoutes, TableHeadings, Button, Label, ValueConstant } from '../../../../../shared/constants';
 import { API,SessionStorage, SessionStorageService, Message, MessageService } from '../../../../../shared/index';
@@ -11,6 +11,7 @@ import { WorkItem } from '../../../model/work-item';
 import { QuantityItem } from '../../../model/quantity-item';
 import { QuantityDetails } from '../../../model/quantity-details';
 import { LoaderService } from '../../../../../shared/loader/loaders.service';
+import { QuantityDetailsComponent } from './quantity-details/quantity-details.component';
 
 
 @Component({
@@ -21,6 +22,9 @@ import { LoaderService } from '../../../../../shared/loader/loaders.service';
 })
 
 export class CostHeadComponent implements OnInit, OnChanges {
+
+  @ViewChild(QuantityDetailsComponent) child: QuantityDetailsComponent;
+
   projectId : string;
   viewTypeValue: string;
   baseUrl:string;
@@ -44,6 +48,7 @@ export class CostHeadComponent implements OnInit, OnChanges {
   workItemsList: Array<WorkItem>;
   deleteConfirmationCategory = ProjectElements.CATEGORY;
   deleteConfirmationWorkItem = ProjectElements.WORK_ITEM;
+  deleteConfirmationForQuantityDetails = ProjectElements.QUANTITY_DETAILS;
 
   private showWorkItemList:boolean=false;
   private showWorkItemTab : string = null;
@@ -551,9 +556,9 @@ export class CostHeadComponent implements OnInit, OnChanges {
 
 
   deleteElement(elementType : string) {
-   /* if(elementType === ProjectElements.CATEGORY) {
-      this.deactivateCategory();
-    }*/
+    if(elementType === ProjectElements.QUANTITY_DETAILS) {
+      this.child.deleteQuantityDetailsByName();
+    }
     if(elementType === ProjectElements.WORK_ITEM) {
       this.deactivateWorkItem();
     }
