@@ -1,6 +1,24 @@
 <bi-project-header></bi-project-header>
 <section class="wrapper">
   <div class="container text-center">
-    <h4>Material-takeoff</h4>
+    <div class="col-md-12">
+      <div class="col-md-4">
+        <select (change)="onChangeGroupBy($event.target.value)">
+          <option *ngFor="let groupBy of groupByList" [value]="groupBy">{{ groupBy }}</option>
+        </select>
+      </div>
+      <div class="col-md-4">
+        {{ secondaryFilterHeading }}
+        <select (change)="onChangeSecondFilter($event.target.value)">
+          <option *ngFor="let secondaryFilter of secondaryFilterList" [value]="secondaryFilter">{{ secondaryFilter }}</option>
+        </select>
+      </div>
+      <div class="col-md-4">
+        Building
+        <select (change)="onChangeBuilding($event.target.value)">
+          <option *ngFor="let building of buildingList" [value]="building">{{ building }}</option>
+        </select>
+      </div>
+    </div>
   </div>
 </section>
