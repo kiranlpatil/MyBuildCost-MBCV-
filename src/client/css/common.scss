@@ -845,3 +845,10 @@ img[alt] {
   }
 }
 
+.add-work-item {
+  .collapse.in {
+    display: block;
+    height: auto !important;
+  }
+}
+

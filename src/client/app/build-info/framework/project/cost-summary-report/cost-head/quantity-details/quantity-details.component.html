@@ -19,8 +19,6 @@
 
         <td>-</td>
 
-        <td>-</td>
-
         <td>
           <div *ngIf="workItemData.rate.isEstimated">
             {{ (quantity.total * workItemData.rate.total)|number }}
@@ -29,11 +27,15 @@
             -
           </div>
         </td>
+
+        <td>-</td>
+
+
         <td>
           <div data-toggle="modal" title="Delete Quantity Details"
                data-target="#deleteQuantityDetails"
-               (click)="setQuantityNameForDelete(quantity.name)">
-            <img alt="Delete Quantity Details" src="assets/build-info/dashboard/delete.png" />
+               (click)="setQuantityNameForDelete(quantity.name)" class="delete-Quantity-details">
+            <img alt="Delete Quantity Details" src="assets/build-info/dashboard/delete-blue.png" />
           </div>
         </td>
       </tr>
