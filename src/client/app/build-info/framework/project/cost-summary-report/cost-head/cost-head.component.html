@@ -89,10 +89,10 @@
 
                                 <!--Cost-->
                                 <td>
-                                  <div class="edit-cost" *ngIf="workItem.amount == 0">
+                                  <div class="edit-cost-null" *ngIf="workItem.amount == 0">
                                     -
                                   </div>
-                                  <div class="edit-cost" [class.active]="(rateView==='cost' && workItemIndex===currentWorkItemIndex && currentCategoryIndex === categoryIndex)"
+                                  <div class="edit-cost" [class.active-cost]="(rateView==='cost' && workItemIndex===currentWorkItemIndex && currentCategoryIndex === categoryIndex)"
                                        *ngIf="workItem.amount != 0"
                                        (click)="getRateByQuantity( getLabel().GET_RATE_BY_QUANTITY, category.rateAnalysisId, workItem.rateAnalysisId, workItem, true, categoryIndex, workItemIndex)">
                                     {{ (workItem.amount)|number}}

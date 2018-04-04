@@ -71,4 +71,15 @@
     cursor: pointer;
     width: 20px;
   }
+
+  .edit-cost-null {
+    display: inline-block;
+    padding: 5px;
+  }
+
+  .edit-cost {
+    border-bottom: 1px solid $body-text;
+    display: inline-block;
+    padding: 5px;
+  }
 }
