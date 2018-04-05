@@ -341,6 +341,7 @@ export class CostHeadComponent implements OnInit, OnChanges {
       ).toFixed(ValueConstant.NUMBER_OF_FRACTION_DIGIT));
      }
 
+    this.totalAmount = Math.round(this.totalAmount);
     this.rateItemsArray.total= parseFloat((this.totalAmount/this.rateItemsArray.quantity).toFixed(ValueConstant.NUMBER_OF_FRACTION_DIGIT));
   }
 
@@ -449,7 +450,32 @@ export class CostHeadComponent implements OnInit, OnChanges {
     this.categoryIdForInActive = categoryId;
   }
 
-/*  deactivateCategory() {
+  changeDirectQuantity(categoryId : number, workItemId: number, directQuantity : number) {
+    if(directQuantity !== null || directQuantity !== 0) {
+      this.loaderService.start();
+      this.costSummaryService.updateDirectQuantityAmount(this.baseUrl, this.costHeadId, categoryId, workItemId, directQuantity).subscribe(
+        workItemList => this.onChangeDirectQuantitySuccess(workItemList),
+        error => this.onChangeDirectQuantityFailure(error)
+      );
+    }
+  }
+
+  onChangeDirectQuantitySuccess(success : any) {
+    console.log('success : '+JSON.stringify(success));
+    var message = new Message();
+    message.isError = false;
+    message.custom_message = Messages.MSG_SUCCESS_UPDATE_DIRECT_QUANTITY_OF_WORKITEM;
+    this.messageService.message(message);
+    this.refreshWorkItemList();
+    this.loaderService.stop();
+  }
+
+  onChangeDirectQuantityFailure(error : any) {
+    console.log('error : '+JSON.stringify(error));
+    this.loaderService.stop();
+  }
+
+  /*  deactivateCategory() {
     let projectId=SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT_ID);
     let buildingId=SessionStorageService.getSessionValue(SessionStorage.CURRENT_BUILDING);
 
@@ -530,6 +556,7 @@ export class CostHeadComponent implements OnInit, OnChanges {
   refreshCategoryList() {
     this.getCategories( this.projectId, this.costHeadId);
     this.showWorkItemTab = null;
+    this.showQuantityTab = null;
     this.displayRateView = null;
   }
 
@@ -602,5 +629,10 @@ export class CostHeadComponent implements OnInit, OnChanges {
   setShowWorkItemTab( tabName : string) {
     this.showWorkItemTab = tabName;
     this.refreshCategoryList();
+  }
+
+  closeRateView() {
+    this.showWorkItemTab = null;
+    this.displayRateView = null;
   }
 }

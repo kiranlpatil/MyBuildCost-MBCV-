@@ -61,22 +61,13 @@
                                   <button class="add-more-details-btn">{{getButton().ADD_MORE_DETAILS}} </button>
                                 </td>-->
                                 <td>
-                                  <!--<div class="edit-field" [class.active]="(rateView==='quantity' && workItemIndex===currentWorkItemIndex && currentCategoryIndex === categoryIndex)">
-                                    <input [(ngModel)]="workItem.quantity.total" id="directQuantity" size="10" class="form-control clear">
-                                  </div>-->
-                                  <div class="edit-field" [class.active]="(rateView==='quantity' && workItemIndex===currentWorkItemIndex && currentCategoryIndex === categoryIndex)"
-                                       *ngIf="workItem.quantity.total != 0"
-                                       (click)="getQuantity(category.rateAnalysisId, workItem, categoryIndex, workItemIndex)">
-                                    <i class="icon-calculator icon-large icon-white"></i>
-                                    <input [(ngModel)]="workItem.quantity.total" id="quantity" size="10" class="form-control clear">
-                                  </div>
-                                  <button *ngIf="workItem.quantity.total == 0"
-                                          type="button"
-                                          id="getQuantity{{categoryIndex}}"
-                                          class="btn-get-amount" [class.active]="(rateView==='quantity' && workItemIndex===currentWorkItemIndex && currentCategoryIndex === categoryIndex)"
+                                  <div class="edit-field" [class.active]="(rateView==='quantity' && workItemIndex===currentWorkItemIndex && currentCategoryIndex === categoryIndex)">
+                                    <input type="number" [(ngModel)]="workItem.quantity.total" (change)="changeDirectQuantity(category.rateAnalysisId, workItem.rateAnalysisId, workItem.quantity.total)" id="directQuantity" size="10" class="form-control clear">
+                                    <span class="glyphicon glyphicon-calendar" id="getQuantity{{categoryIndex}}"
+                                          [class.active]="(rateView==='quantity' && workItemIndex===currentWorkItemIndex && currentCategoryIndex === categoryIndex)"
                                           (click)="getQuantity(category.rateAnalysisId, workItem, categoryIndex, workItemIndex)">
-                                    {{getButton().GET_QUANTITY}}
-                                  </button>
+                                  </span>
+                                  </div>
                                 </td>
                                 <td>{{ workItem.unit }}</td>
                                 <td>
@@ -120,9 +111,7 @@
                                     <img alt="Delete Work Item" src="assets/build-info/dashboard/delete-blue.png" />
                                   </div>
                                 </td>
-                              </tr>
-                              <tr class="hide-hover" *ngIf="showWorkItemTab == getLabel().WORKITEM_RATE_TAB || showWorkItemTab == getLabel().WORKITEM_QUANTITY_TAB">
-                                <td id="show-embedded-table">
+                                <td id="show-embedded-table" *ngIf="showWorkItemTab == getLabel().WORKITEM_RATE_TAB || showWorkItemTab == getLabel().WORKITEM_QUANTITY_TAB">
                                   <div *ngIf="showWorkItemTab == getLabel().WORKITEM_RATE_TAB">
                                     <div class="get-rate-component" *ngIf="compareWorkItemId == workItem.rateAnalysisId && compareCategoryId === category.rateAnalysisId">
                                       <bi-get-rate [rate]="rateItemsArray"
@@ -133,6 +122,7 @@
                                                    [workItemRateAnalysisId]="workItem.rateAnalysisId"
                                                    [totalAmount]="totalAmount"
                                                    (categoriesTotalAmount)="setCategoriesTotal($event)"
+                                                   (closeRateView)="closeRateView($event)"
                                                    (showWorkItemTabName)="setShowWorkItemTab($event)"
                                                    [baseUrl] = "baseUrl"
                                                    [disableRateField]="disableRateField">
@@ -142,7 +132,7 @@
 
                                   <div *ngIf="showWorkItemTab == getLabel().WORKITEM_QUANTITY_TAB">
                                     <div *ngIf="compareWorkItemId == workItem.rateAnalysisId && compareCategoryId === category.rateAnalysisId">
-                                     <!-- <span class="glyphicon glyphicon-remove" (click)="closeQuantityTab()"></span>-->
+                                      <!-- <span class="glyphicon glyphicon-remove" (click)="closeQuantityTab()"></span>-->
                                       <bi-get-quantity [quantityItems]="quantityItemsArray"
                                                        [categoryDetails] ="categoryDetails"
                                                        [workItemsList] ="workItemsList"

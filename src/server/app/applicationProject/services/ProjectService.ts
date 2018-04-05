@@ -541,7 +541,57 @@ class ProjectService {
     });
   }
 
-  //Update rate of project cost heads
+
+  //Update Direct Rate of building costheads
+  updateDirectRateOfBuildingWorkItems(projectId:string, buildingId:string, costHeadId:number, categoryId:number, workItemId:number,
+                                      directRate:number, user:User, callback:(error: any, result: any)=> void) {
+
+    logger.info('Project service, updateDirectRateOfBuildingWorkItems has been hit');
+      let projection = {'costHeads':1};
+      this.buildingRepository.findByIdWithProjection(buildingId, projection, (error, building) => {
+      if (error) {
+        callback(error, null);
+      } else {
+        let costHeadList = building.costHeads;
+        this.updateDirectRate(costHeadList, costHeadId, categoryId, workItemId, directRate);
+
+        let query = {_id: buildingId};
+        let data = {$set : {'costHeads' : costHeadList}};
+        this.buildingRepository.findOneAndUpdate(query, data, {new: true}, (error, building) => {
+          logger.info('Project service, findOneAndUpdate has been hit');
+          if (error) {
+            callback(error, null);
+          } else {
+            callback(null, {data: 'success', access_token: this.authInterceptor.issueTokenWithUid(user)});
+          }
+        });
+      }
+    });
+  }
+
+  updateDirectRate(costHeadList: Array<CostHead>, costHeadId: number, categoryId: number,
+                   workItemId: number, directRate: number) {
+      let rate: Rate;
+      for (let costHead of costHeadList) {
+        if (costHeadId === costHead.rateAnalysisId) {
+          let categoriesOfCostHead = costHead.categories;
+          for (let categoryData of categoriesOfCostHead) {
+            if (categoryId === categoryData.rateAnalysisId) {
+              for (let workItemData of categoryData.workItems) {
+                if (workItemId === workItemData.rateAnalysisId) {
+                  rate = workItemData.rate;
+                  rate.total = directRate;
+                  rate.rateItems = [];
+                  workItemData.isDirectRate = true;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
+//Update rate of project cost heads
   updateRateOfProjectCostHeads(projectId:string, costHeadId:number,categoryId:number,
              workItemId:number, rate :Rate, user : User, callback:(error: any, result: any)=> void) {
     logger.info('Project service, Update rate of project cost heads has been hit');
@@ -614,6 +664,34 @@ class ProjectService {
             } else {
               callback(null, { 'data' : 'success' });
             }
+          }
+        });
+      }
+    });
+  }
+
+  //Update Direct Rates of Project Costheads
+  updateDirectRateOfProjectWorkItems(projectId:string, costHeadId:number, categoryId:number, workItemId:number,
+                                     directRate:number, user:User, callback:(error: any, result: any)=> void) {
+
+    logger.info('Project service, updateDirectRateOfProjectWorkItems has been hit');
+    let projection = {'projectCostHeads':1};
+    this.projectRepository.findByIdWithProjection(projectId, projection, (error, project) => {
+      if (error) {
+        callback(error, null);
+      } else {
+
+        let costHeadList = project.projectCostHeads;
+        this.updateDirectRate(costHeadList, costHeadId, categoryId, workItemId, directRate);
+
+        let query = {_id: projectId};
+        let data = {$set : {'projectCostHeads' : costHeadList}};
+        this.projectRepository.findOneAndUpdate(query, data, {new: true}, (error, project) => {
+          logger.info('Project service, findOneAndUpdate has been hit');
+          if (error) {
+            callback(error, null);
+          } else {
+            callback(null, {data: 'success', access_token: this.authInterceptor.issueTokenWithUid(user)});
           }
         });
       }
@@ -918,32 +996,16 @@ class ProjectService {
     });
   }
 
-  updateDirectQuantityOfBuildingCostHeads(projectId:string, buildingId:string, costHeadId:number, categoryId:number, workItemId:number,
+  updateDirectQuantityOfBuildingWorkItems(projectId:string, buildingId:string, costHeadId:number, categoryId:number, workItemId:number,
                                           directQuantity:number, user:User, callback:(error: any, result: any)=> void) {
     logger.info('Project service, updateDirectQuantityOfBuildingCostHeads has been hit');
-    this.buildingRepository.findById(buildingId, (error, building) => {
+    let projection = { costHeads : 1 };
+    this.buildingRepository.findByIdWithProjection(buildingId, projection, (error, building) => {
       if (error) {
         callback(error, null);
       } else {
         let costHeadList = building.costHeads;
-        let quantity  : Quantity;
-        for (let costHead of costHeadList) {
-          if (costHeadId === costHead.rateAnalysisId) {
-            let categoriesOfCostHead = costHead.categories;
-            for (let categoryData of categoriesOfCostHead) {
-              if (categoryId === categoryData.rateAnalysisId) {
-                for (let workItemData of categoryData.workItems) {
-                  if (workItemId === workItemData.rateAnalysisId) {
-                    quantity  = workItemData.quantity;
-                    quantity.isEstimated = true;
-                    quantity.total = directQuantity;
-                    quantity.quantityItemDetails = [];
-                  }
-                }
-              }
-            }
-          }
-        }
+        this.setDirectQuantityOfWorkItem(costHeadList, costHeadId, categoryId, workItemId, directQuantity);
 
         let query = {_id: buildingId};
         let data = {$set : {'costHeads' : costHeadList}};
@@ -957,6 +1019,54 @@ class ProjectService {
         });
       }
     });
+  }
+
+  updateDirectQuantityOfProjectWorkItems(projectId:string, costHeadId:number, categoryId:number, workItemId:number,
+                                          directQuantity:number, user:User, callback:(error: any, result: any)=> void) {
+    logger.info('Project service, updateDirectQuantityOfProjectWorkItems has been hit');
+    let projection = { projectCostHeads : 1 };
+    this.projectRepository.findByIdWithProjection(projectId, projection,(error, project) => {
+      if (error) {
+        callback(error, null);
+      } else {
+        let costHeadList = project.projectCostHeads;
+        this.setDirectQuantityOfWorkItem(costHeadList, costHeadId, categoryId, workItemId, directQuantity);
+
+        let query = {_id: projectId};
+        let data = {$set : {'projectCostHeads' : costHeadList}};
+        this.projectRepository.findOneAndUpdate(query, data, {new: true}, (error, building) => {
+          logger.info('Project service, findOneAndUpdate has been hit');
+          if (error) {
+            callback(error, null);
+          } else {
+            callback(null, {data: 'success', access_token: this.authInterceptor.issueTokenWithUid(user)});
+          }
+        });
+      }
+    });
+  }
+
+  setDirectQuantityOfWorkItem(costHeadList: Array<CostHead>, costHeadId: number,
+                              categoryId: number, workItemId: number, directQuantity: number) {
+    let quantity: Quantity;
+    for (let costHead of costHeadList) {
+      if (costHeadId === costHead.rateAnalysisId) {
+        let categoriesOfCostHead = costHead.categories;
+        for (let categoryData of categoriesOfCostHead) {
+          if (categoryId === categoryData.rateAnalysisId) {
+            for (let workItemData of categoryData.workItems) {
+              if (workItemId === workItemData.rateAnalysisId) {
+                quantity = workItemData.quantity;
+                quantity.isEstimated = true;
+                quantity.isDirectQuantity = true;
+                quantity.total = directQuantity;
+                quantity.quantityItemDetails = [];
+              }
+            }
+          }
+        }
+      }
+    }
   }
 
   updateQuantityItemsOfWorkItem(quantity: Quantity, quantityDetail: QuantityDetails) {
@@ -1142,10 +1252,15 @@ class ProjectService {
 
         let arrayOfRateItems = workItem.rate.rateItems;
         let totalOfAllRateItems = alasql('VALUE OF SELECT ROUND(SUM(totalAmount),2) FROM ?',[arrayOfRateItems]);
-        workItem.rate.total = parseFloat((totalOfAllRateItems/workItem.rate.quantity).toFixed(Constants.NUMBER_OF_FRACTION_DIGIT));
+        if(!workItem.isDirectRate) {
+          workItem.rate.total = parseFloat((totalOfAllRateItems / workItem.rate.quantity).toFixed(Constants.NUMBER_OF_FRACTION_DIGIT));
+        }
 
         let quantityItems = workItem.quantity.quantityItemDetails;
-        workItem.quantity.total = alasql('VALUE OF SELECT ROUND(SUM(total),2) FROM ?',[quantityItems]);
+
+        if(!workItem.quantity.isDirectQuantity) {
+            workItem.quantity.total = alasql('VALUE OF SELECT ROUND(SUM(total),2) FROM ?',[quantityItems]);
+        }
 
          if(workItem.rate.isEstimated && workItem.quantity.isEstimated) {
            workItem.amount = this.commonService.decimalConversion(workItem.rate.total * workItem.quantity.total);
