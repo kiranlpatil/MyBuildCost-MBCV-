@@ -120,9 +120,7 @@
                                     <img alt="Delete Work Item" src="assets/build-info/dashboard/delete-blue.png" />
                                   </div>
                                 </td>
-                              </tr>
-                              <tr class="hide-hover" *ngIf="showWorkItemTab == getLabel().WORKITEM_RATE_TAB || showWorkItemTab == getLabel().WORKITEM_QUANTITY_TAB">
-                                <td id="show-embedded-table">
+                                <td id="show-embedded-table" *ngIf="showWorkItemTab == getLabel().WORKITEM_RATE_TAB || showWorkItemTab == getLabel().WORKITEM_QUANTITY_TAB">
                                   <div *ngIf="showWorkItemTab == getLabel().WORKITEM_RATE_TAB">
                                     <div class="get-rate-component" *ngIf="compareWorkItemId == workItem.rateAnalysisId && compareCategoryId === category.rateAnalysisId">
                                       <bi-get-rate [rate]="rateItemsArray"
@@ -142,7 +140,7 @@
 
                                   <div *ngIf="showWorkItemTab == getLabel().WORKITEM_QUANTITY_TAB">
                                     <div *ngIf="compareWorkItemId == workItem.rateAnalysisId && compareCategoryId === category.rateAnalysisId">
-                                     <!-- <span class="glyphicon glyphicon-remove" (click)="closeQuantityTab()"></span>-->
+                                      <!-- <span class="glyphicon glyphicon-remove" (click)="closeQuantityTab()"></span>-->
                                       <bi-get-quantity [quantityItems]="quantityItemsArray"
                                                        [categoryDetails] ="categoryDetails"
                                                        [workItemsList] ="workItemsList"
