@@ -153,7 +153,7 @@ export class GetQuantityComponent implements OnInit {
   }
 
   updateQuantityItem(quantityItems : Array<QuantityItem>) {
-    if(this.validateQuantityIteamName(quantityItems)) {
+    if(this.validateQuantityIteamName(quantityItems) && (this.keyQuantity !== null && this.keyQuantity !== undefined)) {
       let quantityObj : QuantityDetails = new QuantityDetails();
       quantityObj.name = this.keyQuantity;
       quantityObj.quantityItems = quantityItems;
@@ -167,7 +167,11 @@ export class GetQuantityComponent implements OnInit {
     } else {
       var message = new Message();
       message.isError = false;
-      message.custom_message = Messages.MSG_ERROR_VALIDATION_QUANTITY_REQUIRED;
+      if(this.keyQuantity !== null && this.keyQuantity !== undefined) {
+        message.custom_message = Messages.MSG_ERROR_VALIDATION_QUANTITY_REQUIRED;
+      } else {
+        message.custom_message = Messages.MSG_ERROR_VALIDATION_QUANTITY_NAME_REQUIRED;
+      }
       this.messageService.message(message);
     }
   }

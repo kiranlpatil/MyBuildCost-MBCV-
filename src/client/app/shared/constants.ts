@@ -186,8 +186,9 @@ export class Messages {
   public static MSG_ERROR_VALIDATION_QUANTITY_HEIGHT_REQUIRED = 'Enter height';
   public static MSG_ERROR_VALIDATION_QUANTITY_QUANTITY_REQUIRED = 'Enter quantity';
   public static MSG_ERROR_VALIDATION_QUANTITY_UNIT_REQUIRED = 'Enter unit';
-  public static MSG_ERROR_VALIDATION_QUANTITY_REQUIRED = 'Some where Quantity field is blank. Please fill it';
-  public static LOGIN_INFO: string = 'Enter your details Below.';
+  public static MSG_ERROR_VALIDATION_QUANTITY_REQUIRED = 'Quantity details item name is required';
+  public static MSG_ERROR_VALIDATION_QUANTITY_NAME_REQUIRED = 'Quantity details name is required';
+  public static LOGIN_INFO: string = 'Enter your details below';
 }
 
 export class NavigationRoutes {
@@ -432,6 +433,7 @@ export class Label {
   public static COSTING_BY_UNIT : string = 'Costing in ';
   public static COSTING_PER_AREA : string = 'Costing per ';
   public static TOTAL : string = 'Total ';
+  public static NOTES : string = 'Notes ';
   public static BUDGETED_COST : string = 'Budgeted Cost ';
   public static ESTIMATED_COST : string = 'Estimated Cost ';
   public static COST_HEAD : string = 'Cost Head';
