@@ -328,6 +328,35 @@ class ProjectController {
     }
   }
 
+  //Update Direct Rate of Building Costheads
+  updateDirectRateOfBuildingWorkItems(req: express.Request, res: express.Response, next: any): void {
+    try {
+      logger.info('Project controller, update DirectRate Of Building WorkItems has been hit');
+      let user = req.user;
+      let projectId = req.params.projectId;
+      let buildingId = req.params.buildingId;
+      let costHeadId = parseInt(req.params.costHeadId);
+      let categoryId = parseInt(req.params.categoryId);
+      let workItemId = parseInt(req.params.workItemId);
+      let directRate = req.body.directRate;
+
+      let projectService = new ProjectService();
+      projectService.updateDirectRateOfBuildingWorkItems( projectId, buildingId, costHeadId,
+        categoryId, workItemId, directRate, user, (error, result) => {
+          if(error) {
+            next(error);
+          } else {
+            logger.info('update DirectRate Of Building WorkItems success');
+            next(new Response(200,result));
+          }
+        });
+    } catch(e) {
+      next(new CostControllException(e.message,e.stack));
+    }
+  }
+
+
+
   //Update rate of project cost heads
   updateRateOfProjectCostHeads(req: express.Request, res: express.Response, next: any): void {
     try {
@@ -345,6 +374,34 @@ class ProjectController {
         } else {
           logger.info('Update rate of project cost heads Success');
           logger.debug('Update rate of project cost heads of Project ID : '+projectId);
+          next(new Response(200,result));
+        }
+      });
+    } catch(e) {
+      next(new CostControllException(e.message,e.stack));
+    }
+  }
+
+  //Update Direct Rate of Project costheads
+
+  updateDirectRateOfProjectWorkItems(req: express.Request, res: express.Response, next: any): void {
+    try {
+      logger.info('Project Controller,update DirectRate Of Project WorkItems has been hit');
+      let user = req.user;
+      let projectId =  req.params.projectId;
+      let costHeadId = parseInt(req.params.costHeadId);
+      let categoryId = parseInt(req.params.categoryId);
+      let workItemId = parseInt(req.params.workItemId);
+      let directRate = req.body.directRate;
+
+      let projectService = new ProjectService();
+      projectService.updateDirectRateOfProjectWorkItems( projectId, costHeadId,categoryId ,workItemId,
+        directRate, user, (error, result) => {
+        if(error) {
+          next(error);
+        } else {
+          logger.info('update DirectRate Of Project WorkItems Success');
+          logger.debug('update DirectRate Of Project WorkItems of Project ID : '+projectId);
           next(new Response(200,result));
         }
       });

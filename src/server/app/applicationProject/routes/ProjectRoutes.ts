@@ -92,6 +92,11 @@ class ProjectRoutes {
       this.authInterceptor.requiresAuth, this._requestInterceptor.intercept, validator.updateRateOfProjectCostHeads,
       controller.updateRateOfProjectCostHeads, this._responseInterceptor.exit);
 
+    //Update DirectRate  of workItem
+    router.put('/:projectId/costhead/:costHeadId/category/:categoryId/workitem/:workItemId/direct/rate',
+      this.authInterceptor.requiresAuth, this._requestInterceptor.intercept, validator.updateDirectRateOfProjectWorkItems,
+      controller.updateDirectRateOfProjectWorkItems, this._responseInterceptor.exit);
+
 
 
     /*.....Building-Routes.....*/
@@ -223,6 +228,12 @@ this.authInterceptor.requiresAuth, this._requestInterceptor.intercept, controlle
     router.put('/:projectId/building/:buildingId/rate/costhead/:costHeadId/category/:categoryId/workitem/:workItemId',
       this.authInterceptor.requiresAuth, this._requestInterceptor.intercept, validator.updateRateOfBuildingCostHeads,
       controller.updateRateOfBuildingCostHeads, this._responseInterceptor.exit);
+
+    //Update DirectRate  of workItem
+    router.put('/:projectId/building/:buildingId/costhead/:costHeadId/category/:categoryId/workitem/:workItemId/direct/rate',
+      this.authInterceptor.requiresAuth, this._requestInterceptor.intercept, validator.updateDirectRateOfBuildingWorkItems,
+      controller.updateDirectRateOfBuildingWorkItems, this._responseInterceptor.exit);
+
 
     /*Building- Routes: Rate Analysis Communication*/
 

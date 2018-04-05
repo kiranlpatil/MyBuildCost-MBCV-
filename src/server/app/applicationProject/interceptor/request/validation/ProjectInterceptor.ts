@@ -940,6 +940,41 @@ if ((req.body.name === undefined) || (req.body.region === undefined) || (req.bod
     });
   }
 
+  updateDirectRateOfBuildingWorkItems(req: any, res: any, next: any) {
+    var projectId = req.params.projectId;
+    var buildingId = req.params.buildingId;
+    var costHeadId = req.params.costHeadId;
+    var categoryId = parseInt(req.params.categoryId);
+    var workItemId = parseInt(req.params.workItemId);
+    var directRate = req.body.directRate;
+
+    ProjectInterceptor.validateCostHeadIds(projectId, buildingId, costHeadId, (error, result) => {
+      if (error) {
+              next(error);
+            } else {
+                  if (result === false) {
+                  next({
+                      reason: Messages.MSG_ERROR_EMPTY_FIELD,
+                      message: Messages.MSG_ERROR_EMPTY_FIELD,
+                      stackTrace: new Error(),
+                      code: 400
+                    });
+                } else {
+                    if ((categoryId === undefined) || (workItemId === undefined) || (directRate === undefined) ||
+                      (categoryId === null) || (workItemId === null) || (directRate === '')) {
+                      next({
+                        reason: Messages.MSG_ERROR_EMPTY_FIELD,
+                        message: Messages.MSG_ERROR_EMPTY_FIELD,
+                        stackTrace: new Error(),
+                        code: 400
+                      });
+                    }
+                  }
+            next();
+           }
+     });
+  }
+
   updateRateOfBuildingCostHeads(req: any, res: any, next: any) {
     var projectId = req.params.projectId;
     var buildingId = req.params.buildingId;
@@ -996,6 +1031,40 @@ if ((req.body.name === undefined) || (req.body.region === undefined) || (req.bod
             (req.body.rateItems === undefined)  || (req.body.total  === undefined) || (req.body.unit === undefined) ||
             (categoryId === null) || (workItemId === null) || (req.body.quantity  === '') ||
             (req.body.rateItems === '')  || (req.body.total  === '') || (req.body.unit === '')) {
+            next({
+              reason: Messages.MSG_ERROR_EMPTY_FIELD,
+              message: Messages.MSG_ERROR_EMPTY_FIELD,
+              stackTrace: new Error(),
+              code: 400
+            });
+          }
+        }
+        next();
+      }
+    });
+  }
+
+  updateDirectRateOfProjectWorkItems(req: any, res: any, next: any) {
+    var projectId = req.params.projectId;
+    var costHeadId = req.params.costHeadId;
+    var categoryId = parseInt(req.params.categoryId);
+    var workItemId = parseInt(req.params.workItemId);
+    var directRate = req.body.directRate;
+
+    ProjectInterceptor.validateProjectCostHeadIds(projectId, costHeadId, (error, result) => {
+      if (error) {
+        next(error);
+      } else {
+        if (result === false) {
+          next({
+            reason: Messages.MSG_ERROR_EMPTY_FIELD,
+            message: Messages.MSG_ERROR_EMPTY_FIELD,
+            stackTrace: new Error(),
+            code: 400
+          });
+        } else {
+          if ((categoryId === undefined) || (workItemId === undefined) || (directRate === undefined) ||
+            (categoryId === null) || (workItemId === null) || (directRate === '')) {
             next({
               reason: Messages.MSG_ERROR_EMPTY_FIELD,
               message: Messages.MSG_ERROR_EMPTY_FIELD,
