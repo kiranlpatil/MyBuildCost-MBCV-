@@ -207,7 +207,7 @@ this.authInterceptor.requiresAuth, this._requestInterceptor.intercept, controlle
     //update direct quantity Building
     router.put('/:projectId/building/:buildingId/costhead/:costHeadId/category/:categoryId/workitem/:workItemId/direct/quantity',
       this.authInterceptor.requiresAuth, this._requestInterceptor.intercept, validator.updateDirectQuantityOfBuildingCostHeads,
-      controller.updateDirectQuantityOfBuildingCostHeads, this._responseInterceptor.exit);
+      controller.updateDirectQuantityOfBuildingWorkItems, this._responseInterceptor.exit);
 
     //update direct quantity Project
     router.put('/:projectId/costhead/:costHeadId/category/:categoryId/workitem/:workItemId/direct/quantity',

@@ -657,7 +657,7 @@ class ProjectController {
     }
   }
 
-  updateDirectQuantityOfBuildingCostHeads(req: express.Request, res: express.Response, next: any): void {
+  updateDirectQuantityOfBuildingWorkItems(req: express.Request, res: express.Response, next: any): void {
     try {
       logger.info('Project controller, updateDirectQuantityOfBuildingCostHeads has been hit');
       let user = req.user;
@@ -669,7 +669,7 @@ class ProjectController {
       let directQuantity = req.body.directQuantity;
 
       let projectService = new ProjectService();
-      projectService.updateDirectQuantityOfBuildingCostHeads( projectId, buildingId, costHeadId,
+      projectService.updateDirectQuantityOfBuildingWorkItems( projectId, buildingId, costHeadId,
         categoryId, workItemId, directQuantity, user, (error, result) => {
         if(error) {
           next(error);

@@ -996,10 +996,11 @@ class ProjectService {
     });
   }
 
-  updateDirectQuantityOfBuildingCostHeads(projectId:string, buildingId:string, costHeadId:number, categoryId:number, workItemId:number,
+  updateDirectQuantityOfBuildingWorkItems(projectId:string, buildingId:string, costHeadId:number, categoryId:number, workItemId:number,
                                           directQuantity:number, user:User, callback:(error: any, result: any)=> void) {
     logger.info('Project service, updateDirectQuantityOfBuildingCostHeads has been hit');
-    this.buildingRepository.findById(buildingId, (error, building) => {
+    let projection = { costHeads : 1 };
+    this.buildingRepository.findByIdWithProjection(buildingId, projection, (error, building) => {
       if (error) {
         callback(error, null);
       } else {
@@ -1023,7 +1024,8 @@ class ProjectService {
   updateDirectQuantityOfProjectWorkItems(projectId:string, costHeadId:number, categoryId:number, workItemId:number,
                                           directQuantity:number, user:User, callback:(error: any, result: any)=> void) {
     logger.info('Project service, updateDirectQuantityOfProjectWorkItems has been hit');
-    this.projectRepository.findById(projectId, (error, project) => {
+    let projection = { projectCostHeads : 1 };
+    this.projectRepository.findByIdWithProjection(projectId, projection,(error, project) => {
       if (error) {
         callback(error, null);
       } else {
