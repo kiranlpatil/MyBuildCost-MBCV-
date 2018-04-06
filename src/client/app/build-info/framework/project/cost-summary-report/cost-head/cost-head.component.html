@@ -4,11 +4,13 @@
   </header>
   <div class="container">
     <div class="col-xs-12 no-padding">
-      <h4 class="building-name">
-        <span class="building-label"> {{ viewTypeValue }} </span>
-        <span class="text-left"> ( {{ costHeadName }} ) </span>
-        <div class="col-md-6 text-right pull-right padding-right5 total-cost">
-          <span class="text-left total-amount-work"> {{categoryDetailsTotalAmount|number}} </span>
+      <h4 class="building-name clearfix">
+        <div class="col-md-8">
+          <span class="building-label"> {{ viewTypeValue }} </span>
+          <span class="text-left"> ( {{ costHeadName }} ) </span>
+        </div>
+        <div class="col-md-4 text-right padding-right5">
+          <span class="text-left total-amount-work total-cost"> {{categoryDetailsTotalAmount|number}} </span>
         </div>
       </h4>
       <div class="panel-group" *ngFor=" let category of categoryDetails; let categoryIndex = index ">
@@ -63,42 +65,51 @@
                                 <td>
                                   <div class="edit-field" [class.active]="(rateView==='quantity' && workItemIndex===currentWorkItemIndex && currentCategoryIndex === categoryIndex)">
                                     <input type="number" [(ngModel)]="workItem.quantity.total" (change)="changeDirectQuantity(category.rateAnalysisId, workItem.rateAnalysisId, workItem.quantity.total)" id="directQuantity" size="10" class="form-control clear">
-                                    <span class="glyphicon glyphicon-calendar" id="getQuantity{{categoryIndex}}"
+                                    <span id="getQuantity{{categoryIndex}}"
                                           [class.active]="(rateView==='quantity' && workItemIndex===currentWorkItemIndex && currentCategoryIndex === categoryIndex)"
                                           (click)="getQuantity(category.rateAnalysisId, workItem, categoryIndex, workItemIndex)">
+                                       <img src="assets/build-info/dashboard/calculator2.png" />
                                   </span>
                                   </div>
                                 </td>
                                 <td>{{ workItem.unit }}</td>
                                 <td>
-                                  <div class="edit-field" [class.active]="(rateView==='rate' && workItemIndex===currentWorkItemIndex && currentCategoryIndex === categoryIndex)"
-                                       *ngIf="workItem.rate.isEstimated === true"
-                                       (click)="getRate( getLabel().GET_RATE, category.rateAnalysisId, workItem.rateAnalysisId, workItem, false, categoryIndex, workItemIndex)">
-                                    <input [(ngModel)]="workItem.rate.total" id="rate" size="10" class="form-control clear">
+                                  <div class="edit-field" [class.active]="(rateView==='rate' && workItemIndex===currentWorkItemIndex && currentCategoryIndex === categoryIndex)">
+                                    <input *ngIf="workItem.isDirectRate" type = "number" [(ngModel)]="workItem.rate.total" (change)="changeDirectRate(category.rateAnalysisId,workItem.rateAnalysisId, workItem.rate.total)" id="directRate1" size="10" class="form-control clear">
+                                    <input *ngIf="!workItem.isDirectRate && workItem.rate.isEstimated" type = "number" [(ngModel)]="workItem.rate.total" (change)="changeDirectRate(category.rateAnalysisId,workItem.rateAnalysisId, workItem.rate.total)" id="directRate" size="10" class="form-control clear">
+                                     <span id ="getRate{{categoryIndex}}"
+                                          [class.active]="(rateView==='rate' && workItemIndex===currentWorkItemIndex && currentCategoryIndex === categoryIndex)"
+                                       *ngIf="workItem.isDirectRate === false" (click)="getRate( getLabel().GET_RATE, category.rateAnalysisId, workItem.rateAnalysisId, workItem, false, categoryIndex, workItemIndex)">
+                                     <img src="assets/build-info/dashboard/calculator2.png" />
+                                     </span>
                                   </div>
-                                  <button class="btn-get-amount" [class.active]="(rateView==='rate' && workItemIndex===currentWorkItemIndex && currentCategoryIndex === categoryIndex)"
-                                          *ngIf="workItem.rate.isEstimated === false"
-                                          type="button"
-                                          (click)="getRate( getLabel().GET_RATE, category.rateAnalysisId, workItem.rateAnalysisId, workItem, false, categoryIndex, workItemIndex)">{{getButton().GET_RATE}}</button>
                                 </td>
 
                                 <!--Cost-->
                                 <td>
-                                  <div class="edit-cost-null" *ngIf="workItem.amount == 0">
+                                  <div class="edit-cost-null" *ngIf="workItem.amount == 0  && workItem.isDirectRate === false">
                                     -
                                   </div>
                                   <div class="edit-cost" [class.active-cost]="(rateView==='cost' && workItemIndex===currentWorkItemIndex && currentCategoryIndex === categoryIndex)"
-                                       *ngIf="workItem.amount != 0"
+                                       *ngIf="workItem.amount != 0 && workItem.isDirectRate === false"
                                        (click)="getRateByQuantity( getLabel().GET_RATE_BY_QUANTITY, category.rateAnalysisId, workItem.rateAnalysisId, workItem, true, categoryIndex, workItemIndex)">
+                                    {{ (workItem.amount)|number}}
+                                  </div>
+                                  <div  *ngIf="workItem.isDirectRate">
                                     {{ (workItem.amount)|number}}
                                   </div>
                                 </td>
 
                                 <!--RateAnalysis-->
                                 <td>
-                                  <button class="btn-get-amount" [class.active]="(rateView==='systemRA' && workItemIndex===currentWorkItemIndex && currentCategoryIndex === categoryIndex)"
-                                          type="button"
-                                          (click)="getSystemRate( getLabel().GET_SYSTEM_RATE, category.rateAnalysisId, workItem.rateAnalysisId, workItem, true, categoryIndex, workItemIndex)">{{getButton().SYSTEM_RA}}</button>
+                                 <div  *ngIf=" workItem.isDirectRate === false">
+                                   <button class="btn-get-amount" [class.active]="(rateView==='systemRA' && workItemIndex===currentWorkItemIndex && currentCategoryIndex === categoryIndex)"
+                                          type="button" (click)="getSystemRate( getLabel().GET_SYSTEM_RATE, category.rateAnalysisId, workItem.rateAnalysisId, workItem, true, categoryIndex, workItemIndex)">{{getButton().SYSTEM_RA}}
+                                   </button>
+                                 </div>
+                                  <div *ngIf=" workItem.isDirectRate">
+                                    -
+                                  </div>
                                 </td>
                                 <td>
                                   <button class="add-more-details"
@@ -153,7 +164,7 @@
                     </div>
                     </td>
                   </tr>
-                  <tr *ngIf="showQuantityTab == getLabel().WORKITEM_DETAILED_QUANTITY_TAB">
+                  <tr *ngIf="showQuantityTab == getLabel().WORKITEM_DETAILED_QUANTITY_TAB && ( currentCategoryIndex === categoryIndex && currentWorkItemIndex === workItemIndex )">
                     <td colspan="8" class="add-work-item">
                       <div id="collapseDetails{{workItemIndex}}" class="panel-collapse collapse" [class.in]="showQuantityDetails">
                         <div class="panel-body">

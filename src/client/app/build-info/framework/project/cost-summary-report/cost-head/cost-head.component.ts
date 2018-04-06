@@ -180,9 +180,9 @@ export class CostHeadComponent implements OnInit, OnChanges {
   addNewDetailedQuantity(categoryId: number, workItem: WorkItem, categoryIndex: number, workItemIndex:number) {
     this.showWorkItemTab = Label.WORKITEM_DETAILED_QUANTITY_TAB;
     this.getDetailedQuantity(categoryId, workItem, categoryIndex, workItemIndex);
-      let quantityDetail :QuantityDetails = new QuantityDetails();
-      this.workItem.quantity.quantityItemDetails.push(quantityDetail);
-      this.showHideQuantityDetails(categoryId,workItemIndex);
+    let quantityDetail: QuantityDetails = new QuantityDetails();
+    this.workItem.quantity.quantityItemDetails.push(quantityDetail);
+    this.showHideQuantityDetails(categoryId, workItemIndex);
   }
 
   showHideQuantityDetails(categoryId:number,workItemIndex:number) {
@@ -472,6 +472,29 @@ export class CostHeadComponent implements OnInit, OnChanges {
 
   onChangeDirectQuantityFailure(error : any) {
     console.log('error : '+JSON.stringify(error));
+    this.loaderService.stop();
+  }
+
+  changeDirectRate(categoryId : number, workItemId: number, directRate : number) {
+    if(directRate !== null || directRate !== 0) {
+      this.loaderService.start();
+      this.costSummaryService.updateDirectRate(this.baseUrl, this.costHeadId, categoryId, workItemId, directRate).subscribe(
+        success => this.onUpdateDirectRateSuccess(success),
+        error => this.onUpdateDirectRateFailure(error)
+      );
+    }
+  }
+
+  onUpdateDirectRateSuccess(success : any) {
+    var message = new Message();
+    message.isError = false;
+    message.custom_message = Messages.MSG_SUCCESS_UPDATE_RATE;
+    this.messageService.message(message);
+    this.refreshWorkItemList();
+    this.loaderService.stop();
+  }
+
+  onUpdateDirectRateFailure(error : any) {
     this.loaderService.stop();
   }
 
