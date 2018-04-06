@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MaterialTakeoffService } from './material-takeoff.service';
-import { MaterialTakeOffReport } from '../../model/material-take-off-report';
 import { MaterialTakeOffElements } from '../../../../shared/constants';
 
 @Component({
@@ -12,26 +11,18 @@ import { MaterialTakeOffElements } from '../../../../shared/constants';
 
 export class MaterialTakeoffComponent implements OnInit {
 
-  projectId : string = null;
-  groupBy : string = MaterialTakeOffElements.COST_HEAD_WISE;
+  projectId : string;
+  groupBy : string;
   secondaryFilter : string;
-  secondaryFilterHeading : string = null;
-  secondaryFilterList : any[];
+  secondaryFilterHeading : string;
   building : string;
-  list : any;
 
-  flatReport : any[];
+  costHeadList: Array<string>;
+  materialList: Array<string>;
+  buildingList: Array<string>;
+  groupByList: Array<string>;
+  secondaryFilterList : Array<string>;
 
-  public costHeadList: any[];
-
-  public materialList: any[];
-
-  public buildingList: any[];
-
-  public groupByList: any[];
-
-
-  //Material details send to material total component
   materialTakeOffDetails :any;
 
   constructor( private activatedRoute:ActivatedRoute,  private _router : Router, private materialTakeoffService : MaterialTakeoffService) {
@@ -44,71 +35,22 @@ export class MaterialTakeoffComponent implements OnInit {
     this.activatedRoute.params.subscribe(params => {
       this.projectId = params['projectId'];
     });
-    this.getMaterialFiltersList(this.projectId);
+    this.materialFiltersList(this.projectId);
   }
 
-  getMaterialFiltersList(projectId : string) {
-    this.materialTakeoffService.getMaterialFiltersList(projectId).subscribe(
-      materialFiltersList => this.onGetMaterialFiltersListSuccess(materialFiltersList),
-      error => this.onGetMaterialFiltersListFailure(error)
+  materialFiltersList(projectId : string) {
+    this.materialTakeoffService.materialFiltersList(projectId).subscribe(
+      materialFiltersList => this.onMaterialFiltersListSuccess(materialFiltersList),
+      error => this.onMaterialFiltersListFailure(error)
     );
-    /*this.flatReport = [
-      {
-        "building" : "Build1",
-        "costHead" : "RCC",
-        "workItem" : "Abc",
-        'material' : "Cement",
-        "label" : "Floor1",
-        "quantity" : 12,
-        "unit" : "sqm"
-      },
-      {
-        "building" : "Build1",
-        "costHead" : "External Plaster",
-        "workItem" : "Abc",
-        'material' : "Cement",
-        "label" : "Floor1",
-        "quantity" : 15,
-        "unit" : "sqm"
-      },
-      {
-        "building" : "Build1",
-        "costHead" : "External Plaster",
-        "workItem" : "Abc",
-        'material' : "Sand",
-        "label" : "Floor1",
-        "quantity" : 76,
-        "unit" : "sqm"
-      },
-      {
-        "building" : "Build1",
-        "costHead" : "RCC",
-        "workItem" : "Abc",
-        'material' : "Cement",
-        "label" : "Floor1",
-        "quantity" : 65,
-        "unit" : "sqm"
-      },
-      {
-        "building" : "Build1",
-        "costHead" : "RCC",
-        "workItem" : "Abc",
-        'material' : "Cement",
-        "label" : "Floor1",
-        "quantity" : 34,
-        "unit" : "sqm"
-      }
-    ];*/
-
   }
 
 
-  onGetMaterialFiltersListSuccess(materialFiltersList : any) {
-    this.list = materialFiltersList;
-    this.extractList(this.list);
+  onMaterialFiltersListSuccess(materialFiltersList : Array<string>) {
+    this.extractList(materialFiltersList);
   }
 
-  onGetMaterialFiltersListFailure(error : any) {
+  onMaterialFiltersListFailure(error : any) {
     console.log(error);
   }
 
@@ -121,8 +63,55 @@ export class MaterialTakeoffComponent implements OnInit {
     this.secondaryFilterList = this.costHeadList;
     this.secondaryFilter = this.costHeadList[0];
 
+    this.groupBy = MaterialTakeOffElements.COST_HEAD_WISE;
+
     this.materialList = list.materialList;
 
+    this.buildMaterialTakeOffDetails(this.groupBy, this.secondaryFilter, this.building);
+
+  }
+
+  onChangeGroupBy(groupBy : string) {
+    this.groupBy = groupBy;
+    if(this.groupBy === MaterialTakeOffElements.COST_HEAD_WISE) {
+      this.secondaryFilterList = this.costHeadList;
+      this.secondaryFilterHeading = MaterialTakeOffElements.COST_HEAD;
+    } else {
+      this.secondaryFilterList = this.materialList;
+      this.secondaryFilterHeading = MaterialTakeOffElements.MATERIAL;
+    }
+
+    this.buildMaterialTakeOffDetails(this.groupBy, this.secondaryFilter, this.building);
+
+  }
+
+  onChangeSecondFilter(secondFilter : string) {
+    this.secondaryFilter = secondFilter;
+    this.buildMaterialTakeOffDetails(this.groupBy, this.secondaryFilter, this.building);
+  }
+
+  onChangeBuilding(building : string) {
+    this.building = building;
+    this.buildMaterialTakeOffDetails(this.groupBy, this.secondaryFilter, this.building);
+  }
+
+  getMaterialTakeOffElements() {
+    return MaterialTakeOffElements;
+  }
+
+  buildMaterialTakeOffDetails(groupBy : string, secondaryFilter : string, building : string) {
+    if(groupBy === MaterialTakeOffElements.COST_HEAD_WISE && building === MaterialTakeOffElements.ALL_BUILDINGS) {
+      this.costHeadWiseAllBuildings();
+    } else if(groupBy === MaterialTakeOffElements.COST_HEAD_WISE && building !== MaterialTakeOffElements.ALL_BUILDINGS) {
+      this.costHeadWiseSingleBuilding();
+    } else if(groupBy === MaterialTakeOffElements.MATERIAL_WISE && building === MaterialTakeOffElements.ALL_BUILDINGS) {
+      this.materialWiseAllBuildings();
+    } else if(groupBy === MaterialTakeOffElements.MATERIAL_WISE && building !== MaterialTakeOffElements.ALL_BUILDINGS) {
+      this.materialWiseSingleBuilding();
+    }
+  }
+
+  costHeadWiseAllBuildings() {
     this.materialTakeOffDetails = {
       "RCC": {
         "header": "All Building",
@@ -140,29 +129,92 @@ export class MaterialTakeoffComponent implements OnInit {
                   "column-one": "Building A",
                   "column-two": 435,
                   "column-three": "BAG",
-                  "subContent": {
-                    "1st Floor": {
-                      "column-one": "1st Floor",
-                      "column-two": 32,
-                      "column-three": "BAG"
-                    },
-                    "2nd Floor": {
-                      "column-one": "2nd Floor",
-                      "column-two": 32,
-                      "column-three": "BAG"
-                    },
-                    "3rd Floor": {
-                      "column-one": "3rd Floor",
-                      "column-two": 32,
-                      "column-three": "BAG"
-                    }
-                  }
+                  "subContent": {}
                 },
                 "Building B": {
                   "column-one": "Building B",
                   "column-two": 435,
                   "column-three": "BAG",
-                  "subContent": {
+                  "subContent": {}
+                },
+                "Building C": {
+                  "column-one": "Building C",
+                  "column-two": 435,
+                  "column-three": "BAG",
+                  "subContent": {}
+                }
+
+
+              },
+              "footer": {
+                "column-one": "Total",
+                "column-two": 878,
+                "column-three": "BAG"
+              }
+            }
+          },
+          "Sand": {
+            "header": "1970 Bags",
+            "table": {
+              "headers": {
+                "column-one": "Building Name",
+                "column-two": "Quantity",
+                "column-three": "Unit"
+              },
+              "content": {
+                "Building A": {
+                  "column-one": "Building A",
+                  "column-two": 435,
+                  "column-three": "BAG",
+                  "subContent": {}
+                },
+                "Building B": {
+                  "column-one": "Building B",
+                  "column-two": 435,
+                  "column-three": "BAG",
+                  "subContent": {}
+                },
+                "Building C": {
+                  "column-one": "Building C",
+                  "column-two": 435,
+                  "column-three": "BAG",
+                  "subContent": {}
+                }
+
+              },
+              "footer": {
+                "column-one": "Total",
+                "column-two": 878,
+                "column-three": "BAG"
+              }
+
+            }
+          }
+        }
+
+      }
+    };
+  }
+
+  costHeadWiseSingleBuilding() {
+    this.materialTakeOffDetails = {
+      "RCC": {
+        "header": "Build1",
+        "secondaryView": {
+          "cement": {
+            "header": "3456 Bags",
+            "table": {
+              "headers": {
+                "column-one": "Item",
+                "column-two": "Quantity",
+                "column-three": "Unit"
+              },
+              "content": {
+                "WorkItem 1": {
+                  "column-one": "WorkItem 1",
+                  "column-two": 435,
+                  "column-three": "BAG",
+                  "subContent":  {
                     "1st Floor": {
                       "column-one": "1st Floor",
                       "column-two": 32,
@@ -180,11 +232,55 @@ export class MaterialTakeoffComponent implements OnInit {
                     }
                   }
                 },
-                "Building C": {
-                  "column-one": "Building C",
-                  "column-two": 435,
+                "WorkItem 2": {
+                  "column-one": "WorkItem 2",
+                  "column-two": 865,
                   "column-three": "BAG",
-                  "subContent": {
+                  "subContent":  {
+                    "1st Floor": {
+                      "column-one": "1st Floor",
+                      "column-two": 32,
+                      "column-three": "BAG"
+                    },
+                    "2nd Floor": {
+                      "column-one": "2nd Floor",
+                      "column-two": 32,
+                      "column-three": "BAG"
+                    },
+                    "3rd Floor": {
+                      "column-one": "3rd Floor",
+                      "column-two": 32,
+                      "column-three": "BAG"
+                    }
+                  }
+                },
+                "WorkItem 3": {
+                  "column-one": "WorkItem 4",
+                  "column-two": 363,
+                  "column-three": "BAG",
+                  "subContent":  {
+                    "1st Floor": {
+                      "column-one": "1st Floor",
+                      "column-two": 32,
+                      "column-three": "BAG"
+                    },
+                    "2nd Floor": {
+                      "column-one": "2nd Floor",
+                      "column-two": 32,
+                      "column-three": "BAG"
+                    },
+                    "3rd Floor": {
+                      "column-one": "3rd Floor",
+                      "column-two": 32,
+                      "column-three": "BAG"
+                    }
+                  }
+                },
+                "WorkItem 4": {
+                  "column-one": "WorkItem 4",
+                  "column-two": 87,
+                  "column-three": "BAG",
+                  "subContent":  {
                     "1st Floor": {
                       "column-one": "1st Floor",
                       "column-two": 32,
@@ -213,19 +309,19 @@ export class MaterialTakeoffComponent implements OnInit {
             }
           },
           "Sand": {
-            "header": "1970 Bags",
+            "header": "8964 Bags",
             "table": {
               "headers": {
-                "column-one": "Building Name",
+                "column-one": "Item",
                 "column-two": "Quantity",
                 "column-three": "Unit"
               },
               "content": {
-                "Building A": {
-                  "column-one": "Building A",
-                  "column-two": 435,
+                "WorkItem A": {
+                  "column-one": "WorkItem A",
+                  "column-two": 63,
                   "column-three": "BAG",
-                  "subContent": {
+                  "subContent":  {
                     "1st Floor": {
                       "column-one": "1st Floor",
                       "column-two": 32,
@@ -243,11 +339,11 @@ export class MaterialTakeoffComponent implements OnInit {
                     }
                   }
                 },
-                "Building B": {
-                  "column-one": "Building B",
-                  "column-two": 435,
+                "WorkItem B": {
+                  "column-one": "WorkItem B",
+                  "column-two": 78,
                   "column-three": "BAG",
-                  "subContent": {
+                  "subContent":  {
                     "1st Floor": {
                       "column-one": "1st Floor",
                       "column-two": 32,
@@ -265,11 +361,11 @@ export class MaterialTakeoffComponent implements OnInit {
                     }
                   }
                 },
-                "Building C": {
-                  "column-one": "Building C",
-                  "column-two": 435,
+                "WorkItem C": {
+                  "column-one": "WorkItem C",
+                  "column-two": 54,
                   "column-three": "BAG",
-                  "subContent": {
+                  "subContent":  {
                     "1st Floor": {
                       "column-one": "1st Floor",
                       "column-two": 32,
@@ -303,30 +399,167 @@ export class MaterialTakeoffComponent implements OnInit {
     };
   }
 
-  onChangeGroupBy(groupBy : any) {
-    this.groupBy = groupBy;
-    console.log('Group By :'+this.groupBy);
-    if(this.groupBy === MaterialTakeOffElements.COST_HEAD_WISE) {
-      this.secondaryFilterList = this.costHeadList;
-      this.secondaryFilterHeading = MaterialTakeOffElements.COST_HEAD;
-    } else {
-      this.secondaryFilterList = this.materialList;
-      this.secondaryFilterHeading = MaterialTakeOffElements.MATERIAL;
-    }
+  materialWiseAllBuildings() {
+    this.materialTakeOffDetails = {
+      "Cement": {
+        "header": "All Building",
+        "secondaryView": {
+          "Cement Build1 :": {
+            "header": "1970 Bags",
+            "table": {
+              "headers": {
+                "column-one": "Item",
+                "column-two": "Quantity",
+                "column-three": "Unit"
+              },
+              "content": {
+                "Workitem A": {
+                  "column-one": "Workitem A",
+                  "column-two": 435,
+                  "column-three": "BAG",
+                  "subContent": {}
+                },
+                "Workitem B": {
+                  "column-one": "Workitem B",
+                  "column-two": 435,
+                  "column-three": "BAG",
+                  "subContent": {}
+                },
+                "Workitem C": {
+                  "column-one": "Workitem C",
+                  "column-two": 435,
+                  "column-three": "BAG",
+                  "subContent": {}
+                }
 
+
+              },
+              "footer": {
+                "column-one": "Total",
+                "column-two": 878,
+                "column-three": "BAG"
+              }
+            }
+          },
+          "Cement": {
+            "header": "Build 2 : 1970 Bags",
+            "table": {
+              "headers": {
+                "column-one": "Item",
+                "column-two": "Quantity",
+                "column-three": "Unit"
+              },
+              "content": {
+                "Workitem A": {
+                  "column-one": "Workitem A",
+                  "column-two": 435,
+                  "column-three": "BAG",
+                  "subContent": {}
+                },
+                "Workitem B": {
+                  "column-one": "Workitem B",
+                  "column-two": 435,
+                  "column-three": "BAG",
+                  "subContent": {}
+                },
+                "Workitem C": {
+                  "column-one": "Workitem C",
+                  "column-two": 435,
+                  "column-three": "BAG",
+                  "subContent": {}
+                }
+
+              },
+              "footer": {
+                "column-one": "Total",
+                "column-two": 878,
+                "column-three": "BAG"
+              }
+
+            }
+          }
+        }
+
+      }
+    };
   }
 
-  onChangeSecondFilter(secondFilter : any) {
-    this.secondaryFilter = secondFilter;
-    console.log('Second Filter :'+this.secondaryFilter);
-  }
+  materialWiseSingleBuilding() {
+    this.materialTakeOffDetails = {
+      "Cement": {
+        "header": "Build1",
+        "secondaryView": {
+          "Cement": {
+            "header": "1970 Bags",
+            "table": {
+              "headers": {
+                "column-one": "Item",
+                "column-two": "Quantity",
+                "column-three": "Unit"
+              },
+              "content": {
+                "Workitem A": {
+                  "column-one": "Workitem A",
+                  "column-two": 435,
+                  "column-three": "BAG",
+                  "subContent": {
+                    "1st Floor": {
+                      "column-one": "1st Floor",
+                      "column-two": 32,
+                      "column-three": "BAG"
+                    },
+                    "2nd Floor": {
+                      "column-one": "2nd Floor",
+                      "column-two": 32,
+                      "column-three": "BAG"
+                    },
+                    "3rd Floor": {
+                      "column-one": "3rd Floor",
+                      "column-two": 32,
+                      "column-three": "BAG"
+                    }
+                  }
+                },
+                "Workitem B": {
+                  "column-one": "Workitem B",
+                  "column-two": 435,
+                  "column-three": "BAG",
+                  "subContent": {
+                    "1st Floor": {
+                      "column-one": "1st Floor",
+                      "column-two": 32,
+                      "column-three": "BAG"
+                    },
+                    "2nd Floor": {
+                      "column-one": "2nd Floor",
+                      "column-two": 32,
+                      "column-three": "BAG"
+                    },
+                    "3rd Floor": {
+                      "column-one": "3rd Floor",
+                      "column-two": 32,
+                      "column-three": "BAG"
+                    }
+                  }
+                },
+                "Workitem C": {
+                  "column-one": "Workitem C",
+                  "column-two": 435,
+                  "column-three": "BAG",
+                  "subContent": {}
+                }
 
-  onChangeBuilding(building : any) {
-    this.building = building;
-    console.log('Building :'+this.building);
-  }
 
-  getMaterialTakeOffElements() {
-    return MaterialTakeOffElements;
+              },
+              "footer": {
+                "column-one": "Total",
+                "column-two": 878,
+                "column-three": "BAG"
+              }
+            }
+          }
+          }
+        }
+    };
   }
 }

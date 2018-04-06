@@ -12,8 +12,7 @@ export class MaterialTakeoffService extends BaseService {
     super();
   }
 
-  getMaterialFiltersList(projectId: string) {
-    console.log('getMaterialFiltersList');
+  materialFiltersList(projectId: string) {
     var url = API.REPORT_MATERIAL_TAKE_OFF + '/' + API.PROJECT + '/' +projectId+ '/' + API.MATERIAL_FILTERS_LIST;
     console.log(url);
     return this.httpDelegateService.getAPI(url);

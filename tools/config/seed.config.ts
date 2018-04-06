@@ -460,6 +460,7 @@ export class SeedConfig {
    */
   NPM_DEPENDENCIES: InjectableDependency[] = [
     { src: 'core-js/client/shim.min.js', inject: 'shims' },
+    {src:'alasql/dist/alasql.min.js', inject:'libs'},
     { src: 'zone.js/dist/zone.js', inject: 'libs' },
     {
       src: 'zone.js/dist/long-stack-trace-zone.js',
@@ -558,6 +559,7 @@ export class SeedConfig {
         'node_modules/@angular/router/bundles/router-testing.umd.js',
       'html2canvas': 'node_modules/html2canvas/dist/html2canvas.min.js',
       'lodash': 'node_modules/lodash/lodash.js',
+      'alasql': 'node_modules/alasql/dist/alasql.js',
       //'jspdf': 'node_modules/jspdf/dist/jspdf.min.js',
       'app/': `${this.APP_BASE}app/`,
       // For test config
@@ -662,11 +664,11 @@ export class SeedConfig {
       loadsh: {
         main: 'dist/lodash.js',
         defaultExtension: 'js'
-      }/*,
-      jspdf: {
-        main: 'dist/jspdf.min.js',
+      },
+      alasql: {
+        main: 'dist/alasql.js',
         defaultExtension: 'js'
-      }*/
+      }
     }
   };
 
