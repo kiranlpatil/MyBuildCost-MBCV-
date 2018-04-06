@@ -180,9 +180,9 @@ export class CostHeadComponent implements OnInit, OnChanges {
   addNewDetailedQuantity(categoryId: number, workItem: WorkItem, categoryIndex: number, workItemIndex:number) {
     this.showWorkItemTab = Label.WORKITEM_DETAILED_QUANTITY_TAB;
     this.getDetailedQuantity(categoryId, workItem, categoryIndex, workItemIndex);
-      let quantityDetail :QuantityDetails = new QuantityDetails();
-      this.workItem.quantity.quantityItemDetails.push(quantityDetail);
-      this.showHideQuantityDetails(categoryId,workItemIndex);
+    let quantityDetail: QuantityDetails = new QuantityDetails();
+    this.workItem.quantity.quantityItemDetails.push(quantityDetail);
+    this.showHideQuantityDetails(categoryId, workItemIndex);
   }
 
   showHideQuantityDetails(categoryId:number,workItemIndex:number) {

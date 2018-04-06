@@ -164,7 +164,7 @@
                     </div>
                     </td>
                   </tr>
-                  <tr *ngIf="showQuantityTab == getLabel().WORKITEM_DETAILED_QUANTITY_TAB">
+                  <tr *ngIf="showQuantityTab == getLabel().WORKITEM_DETAILED_QUANTITY_TAB && ( currentCategoryIndex === categoryIndex && currentWorkItemIndex === workItemIndex )">
                     <td colspan="8" class="add-work-item">
                       <div id="collapseDetails{{workItemIndex}}" class="panel-collapse collapse" [class.in]="showQuantityDetails">
                         <div class="panel-body">
