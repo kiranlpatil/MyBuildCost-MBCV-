@@ -39,6 +39,7 @@ export class CostHeadComponent implements OnInit, OnChanges {
   categoryDetails: Array<Category>;
   categoryDetailsTotalAmount: number=0;
   workItem: WorkItem;
+  ratePerUnitAmount : number = 0;
   totalAmount : number = 0;
   totalAmountOfMaterial : number = 0;
   totalAmountOfLabour : number = 0;
@@ -335,8 +336,10 @@ export class CostHeadComponent implements OnInit, OnChanges {
 
   calculateTotalForRateView() {
     this.rateItemsArray.total=0;
+    this.ratePerUnitAmount = 0;
      this.totalAmount =  this.calculateTotalForRateItems(this.rateItemsArray.rateItems);
-    this.rateItemsArray.total= parseFloat((this.totalAmount/this.rateItemsArray.quantity).toFixed(ValueConstant.NUMBER_OF_FRACTION_DIGIT));
+    this.ratePerUnitAmount = this.commonService.decimalConversion(this.totalAmount / this.rateItemsArray.quantity);
+    this.rateItemsArray.total= this.ratePerUnitAmount;
   }
 
   calculateTotalForRateItems(rateItems : Array<RateItem>) {

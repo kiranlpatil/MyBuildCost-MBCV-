@@ -28,6 +28,7 @@ export class GetRateComponent {
   @Input() workItemRateAnalysisId : number;
   @Input() workItemsList : Array<WorkItem>;
   @Input() totalAmount: number;
+  @Input() ratePerUnitAmount : number;
   @Input() totalAmountOfMaterial: number;
   @Input() totalAmountOfLabour: number;
   @Input() totalAmountOfMaterialAndLabour: number;
@@ -53,6 +54,7 @@ export class GetRateComponent {
   }
 
   calculateTotal(choice?:string) {
+    this.ratePerUnitAmount = 0;
     this.totalAmount = 0;
     this.totalAmountOfLabour = 0;
     this.totalAmountOfMaterial=0;
@@ -93,6 +95,7 @@ export class GetRateComponent {
       this.totalAmount = this.totalAmountOfMaterial + this.totalAmountOfLabour +this.totalAmountOfMaterialAndLabour;
         this.totalAmount = Math.round(this.totalAmount);
     }
+    this.ratePerUnitAmount = this.commonService.decimalConversion(this.totalAmount / this.rate.quantity);
 
   }
   updateRate(rateItemsArray: Rate) {
@@ -141,8 +144,7 @@ export class GetRateComponent {
 
     for(let workItemData of this.workItemsList) {
       if(workItemData.rateAnalysisId === this.workItemRateAnalysisId) {
-        workItemData.rate.total = this.commonService.decimalConversion(this.totalAmount /
-          workItemData.rate.quantity);
+        workItemData.rate.total = this.ratePerUnitAmount;
         if(workItemData.rate.total !== 0) {
           workItemData.rate.isEstimated = true;
           if(workItemData.quantity.isEstimated && workItemData.rate.isEstimated) {
