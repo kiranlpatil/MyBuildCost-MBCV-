@@ -2,11 +2,11 @@
 <section class="wrapper">
 
   <div class="panel panel-default">
-    <div class="panel-group"  *ngFor="let materialData of materialTakeOffDetails | keys; let materialDataIndex = index">
+    <div class="panel-group"  *ngFor="let materialData of MaterialTakeOffReport | keys; let materialDataIndex = index">
       <div class="panel-heading">
         <h4 class="panel-title">
           <a data-toggle="collapse" href="#materialData{{materialDataIndex}}">
-              {{materialData}} {{ materialTakeOffDetails[materialData].header }}
+            {{materialData}} {{ MaterialTakeOffReport[materialData].header }}
           </a>
         </h4>
       </div>
@@ -14,54 +14,55 @@
 
       <div id="materialData{{materialDataIndex}}" class="panel-collapse collapse">
         <div class="panel-body">
-          <div *ngFor="let secondaryViewData of materialTakeOffDetails[materialData].secondaryView | keys; let secondaryViewDataIndex = index">
+          <div *ngFor="let secondaryViewData of MaterialTakeOffReport[materialData].secondaryView | keys; let secondaryViewDataIndex = index">
             <div class="col-md-12">
 
               <div class="panel panel-default">
                 <div class="panel-group">
                   <div class="panel-heading">
                       <a data-toggle="collapse" href="#secondaryViewData{{secondaryViewDataIndex}}">
-                        {{secondaryViewData}} {{ materialTakeOffDetails[materialData].secondaryView[secondaryViewData].header }}
+                        {{secondaryViewData}} {{
+                        MaterialTakeOffReport[materialData].secondaryView[secondaryViewData].header }}
                       </a>
                   </div>
 
                   <div id="secondaryViewData{{secondaryViewDataIndex}}" class="panel-collapse collapse">
 
-                    <div *ngFor="let tableView of materialTakeOffDetails[materialData].secondaryView[secondaryViewData].table | keys; let tableViewIndex = index" class="col-md-12">
+                    <div *ngFor="let tableView of MaterialTakeOffReport[materialData].secondaryView[secondaryViewData].table | keys; let tableViewIndex = index" class="col-md-12">
 
                       <div class="panel">
                         <div class="panel-group">
                           <div class="panel-body">
 
-                            <div *ngFor="let tableHeader of materialTakeOffDetails[materialData].secondaryView[secondaryViewData].table[tableView] | keys; let tableHeaderIndex = index">
+                            <div *ngFor="let tableHeader of MaterialTakeOffReport[materialData].secondaryView[secondaryViewData].table[tableView] | keys; let tableHeaderIndex = index">
 
                               <div *ngIf="tableView != getMaterialTakeOffElements().CONTENT" class="col-md-4">
-                                 {{materialTakeOffDetails[materialData].secondaryView[secondaryViewData].table[tableView][tableHeader]}}
+                                {{MaterialTakeOffReport[materialData].secondaryView[secondaryViewData].table[tableView][tableHeader]}}
                               </div>
 
                               <div *ngIf="tableView == getMaterialTakeOffElements().CONTENT" class="col-md-12">
 
-                                <div *ngFor="let tableData of materialTakeOffDetails[materialData].secondaryView[secondaryViewData].table[tableView][tableHeader] | keys">
+                                <div *ngFor="let tableData of MaterialTakeOffReport[materialData].secondaryView[secondaryViewData].table[tableView][tableHeader] | keys">
 
                                   <a data-toggle="collapse" href="#item{{tableHeaderIndex}}{{secondaryViewDataIndex}}">
                                     <div *ngIf="tableData != getMaterialTakeOffElements().SUB_CONTENT " class="col-md-4">
-                                        {{materialTakeOffDetails[materialData].secondaryView[secondaryViewData].table[tableView][tableHeader][tableData]}}
+                                      {{MaterialTakeOffReport[materialData].secondaryView[secondaryViewData].table[tableView][tableHeader][tableData]}}
                                     </div>
                                   </a>
 
                                     <div id="item{{tableHeaderIndex}}{{secondaryViewDataIndex}}" class="panel-collapse collapse  col-md-12" *ngIf="tableData == getMaterialTakeOffElements().SUB_CONTENT ">
 
-                                      <div *ngFor="let tableSubContentData of materialTakeOffDetails[materialData].secondaryView[secondaryViewData].table[tableView][tableHeader][tableData] | keys ">
+                                      <div *ngFor="let tableSubContentData of MaterialTakeOffReport[materialData].secondaryView[secondaryViewData].table[tableView][tableHeader][tableData] | keys ">
 
                                         <div class="col-md-12">
 
                                           <div class="panel">
                                             <div class="panel-group">
                                               <div class="panel-body">
-                                                  <div *ngFor="let tableSubContentSubData of materialTakeOffDetails[materialData].secondaryView[secondaryViewData].table[tableView][tableHeader][tableData][tableSubContentData] | keys">
+                                                  <div *ngFor="let tableSubContentSubData of MaterialTakeOffReport[materialData].secondaryView[secondaryViewData].table[tableView][tableHeader][tableData][tableSubContentData] | keys">
 
                                                     <div class="col-md-4">
-                                                      {{materialTakeOffDetails[materialData].secondaryView[secondaryViewData].table[tableView][tableHeader][tableData][tableSubContentData][tableSubContentSubData]}}
+                                                      {{MaterialTakeOffReport[materialData].secondaryView[secondaryViewData].table[tableView][tableHeader][tableData][tableSubContentData][tableSubContentSubData]}}
                                                     </div>
                                                   </div>
                                               </div>

@@ -10,7 +10,7 @@ import { MaterialTakeOffElements } from '../../../../../shared/constants';
 
 export class MaterialTakeOffReportComponent  {
 
-  @Input() materialTakeOffDetails : any;
+  @Input() MaterialTakeOffReport : any;
 
 
   getMaterialTakeOffElements() {

@@ -23,7 +23,7 @@ export class MaterialTakeoffComponent implements OnInit {
   groupByList: Array<string>;
   secondaryFilterList : Array<string>;
 
-  materialTakeOffDetails :any;
+  materialTakeOffReport :any;
 
   constructor( private activatedRoute:ActivatedRoute,  private _router : Router, private materialTakeoffService : MaterialTakeoffService) {
   this.groupByList = [
@@ -67,7 +67,7 @@ export class MaterialTakeoffComponent implements OnInit {
 
     this.materialList = list.materialList;
 
-    this.buildMaterialTakeOffDetails(this.groupBy, this.secondaryFilter, this.building);
+    this.buildMaterialTakeOffReport(this.groupBy, this.secondaryFilter, this.building);
 
   }
 
@@ -81,25 +81,25 @@ export class MaterialTakeoffComponent implements OnInit {
       this.secondaryFilterHeading = MaterialTakeOffElements.MATERIAL;
     }
 
-    this.buildMaterialTakeOffDetails(this.groupBy, this.secondaryFilter, this.building);
+    this.buildMaterialTakeOffReport(this.groupBy, this.secondaryFilter, this.building);
 
   }
 
   onChangeSecondFilter(secondFilter : string) {
     this.secondaryFilter = secondFilter;
-    this.buildMaterialTakeOffDetails(this.groupBy, this.secondaryFilter, this.building);
+    this.buildMaterialTakeOffReport(this.groupBy, this.secondaryFilter, this.building);
   }
 
   onChangeBuilding(building : string) {
     this.building = building;
-    this.buildMaterialTakeOffDetails(this.groupBy, this.secondaryFilter, this.building);
+    this.buildMaterialTakeOffReport(this.groupBy, this.secondaryFilter, this.building);
   }
 
   getMaterialTakeOffElements() {
     return MaterialTakeOffElements;
   }
 
-  buildMaterialTakeOffDetails(groupBy : string, secondaryFilter : string, building : string) {
+  buildMaterialTakeOffReport(groupBy : string, secondaryFilter : string, building : string) {
     if(groupBy === MaterialTakeOffElements.COST_HEAD_WISE && building === MaterialTakeOffElements.ALL_BUILDINGS) {
       this.costHeadWiseAllBuildings();
     } else if(groupBy === MaterialTakeOffElements.COST_HEAD_WISE && building !== MaterialTakeOffElements.ALL_BUILDINGS) {
@@ -112,7 +112,7 @@ export class MaterialTakeoffComponent implements OnInit {
   }
 
   costHeadWiseAllBuildings() {
-    this.materialTakeOffDetails = {
+    this.materialTakeOffReport = {
       "RCC": {
         "header": "All Building",
         "secondaryView": {
@@ -197,7 +197,7 @@ export class MaterialTakeoffComponent implements OnInit {
   }
 
   costHeadWiseSingleBuilding() {
-    this.materialTakeOffDetails = {
+    this.materialTakeOffReport = {
       "RCC": {
         "header": "Build1",
         "secondaryView": {
@@ -400,7 +400,7 @@ export class MaterialTakeoffComponent implements OnInit {
   }
 
   materialWiseAllBuildings() {
-    this.materialTakeOffDetails = {
+    this.materialTakeOffReport = {
       "Cement": {
         "header": "All Building",
         "secondaryView": {
@@ -485,7 +485,7 @@ export class MaterialTakeoffComponent implements OnInit {
   }
 
   materialWiseSingleBuilding() {
-    this.materialTakeOffDetails = {
+    this.materialTakeOffReport = {
       "Cement": {
         "header": "Build1",
         "secondaryView": {
