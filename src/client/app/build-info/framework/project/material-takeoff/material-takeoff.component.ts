@@ -104,6 +104,8 @@ export class MaterialTakeoffComponent implements OnInit {
       this.costHeadWiseAllBuildings();
     } else if(groupBy === MaterialTakeOffElements.COST_HEAD_WISE && building !== MaterialTakeOffElements.ALL_BUILDINGS) {
       this.costHeadWiseSingleBuilding();
+    } else if(groupBy === MaterialTakeOffElements.MATERIAL_WISE && building === MaterialTakeOffElements.ALL_BUILDINGS) {
+      this.materialWiseAllBuildings();
     }
   }
 
@@ -378,6 +380,91 @@ export class MaterialTakeoffComponent implements OnInit {
                       "column-three": "BAG"
                     }
                   }
+                }
+
+              },
+              "footer": {
+                "column-one": "Total",
+                "column-two": 878,
+                "column-three": "BAG"
+              }
+
+            }
+          }
+        }
+
+      }
+    };
+  }
+
+  materialWiseAllBuildings() {
+    this.materialTakeOffDetails = {
+      "Cement": {
+        "header": "All Building",
+        "secondaryView": {
+          "Cement Build1 :": {
+            "header": "1970 Bags",
+            "table": {
+              "headers": {
+                "column-one": "Item",
+                "column-two": "Quantity",
+                "column-three": "Unit"
+              },
+              "content": {
+                "Workitem A": {
+                  "column-one": "Workitem A",
+                  "column-two": 435,
+                  "column-three": "BAG",
+                  "subContent": {}
+                },
+                "Workitem B": {
+                  "column-one": "Workitem B",
+                  "column-two": 435,
+                  "column-three": "BAG",
+                  "subContent": {}
+                },
+                "Workitem C": {
+                  "column-one": "Workitem C",
+                  "column-two": 435,
+                  "column-three": "BAG",
+                  "subContent": {}
+                }
+
+
+              },
+              "footer": {
+                "column-one": "Total",
+                "column-two": 878,
+                "column-three": "BAG"
+              }
+            }
+          },
+          "Cement": {
+            "header": "Build 2 : 1970 Bags",
+            "table": {
+              "headers": {
+                "column-one": "Item",
+                "column-two": "Quantity",
+                "column-three": "Unit"
+              },
+              "content": {
+                "Workitem A": {
+                  "column-one": "Workitem A",
+                  "column-two": 435,
+                  "column-three": "BAG",
+                  "subContent": {}
+                },
+                "Workitem B": {
+                  "column-one": "Workitem B",
+                  "column-two": 435,
+                  "column-three": "BAG",
+                  "subContent": {}
+                },
+                "Workitem C": {
+                  "column-one": "Workitem C",
+                  "column-two": 435,
+                  "column-three": "BAG",
+                  "subContent": {}
                 }
 
               },
