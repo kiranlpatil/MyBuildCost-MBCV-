@@ -104,6 +104,10 @@ export class Messages {
   public static MSG_ERROR_VALIDATION_NO_OF_LIFTS_REQUIRED = 'Enter no. of lifts';
   public static MSG_ERROR_VALIDATION_ALPHABATES = 'Enter alphabates only';
 
+  public static MSG_ERROR_VALIDATION_ADD_AT_LEAST_ONE_APARTMENT_CONFIGURATION = 'Add at least one Apartment Configuration';
+  public static MSG_ERROR_VALIDATION_NUMBER_OF_FLOORS = 'The value of total number of floors should be more than number of parking floors';
+
+
   public static MSG_RESET_MOBILE_NUMBER = 'Enter your new mobile number and we will send you a verification code on mobile' +
     ' number you have entered.';
   public static MSG_RESET_EMAIL_ADDRESS = 'Enter your new account email address and we will send you a link to reset your email' +
