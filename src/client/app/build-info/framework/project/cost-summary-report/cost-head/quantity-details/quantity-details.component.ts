@@ -64,13 +64,20 @@ export class QuantityDetailsComponent implements OnInit {
   }
 
   deleteQuantityDetailsByName() {
-    this.loaderService.start();
-    let costHeadId = parseInt(SessionStorageService.getSessionValue(SessionStorage.CURRENT_COST_HEAD_ID));
-    this.costSummaryService.deleteQuantityDetailsByName(this.baseUrl, costHeadId, this.categoryRateAnalysisId,
-      this.workItemRateAnalysisId, this.quantityName).subscribe(
-      success => this.onDeleteQuantityDetailsByNameSuccess(success),
-      error => this.onDeleteQuantityDetailsByNameFailure(error)
-    );
+    if(this.quantityName !== null && this.quantityName !== undefined && this.quantityName !== '') {
+      this.loaderService.start();
+      let costHeadId = parseInt(SessionStorageService.getSessionValue(SessionStorage.CURRENT_COST_HEAD_ID));
+      this.costSummaryService.deleteQuantityDetailsByName(this.baseUrl, costHeadId, this.categoryRateAnalysisId,
+        this.workItemRateAnalysisId, this.quantityName).subscribe(
+        success => this.onDeleteQuantityDetailsByNameSuccess(success),
+        error => this.onDeleteQuantityDetailsByNameFailure(error)
+      );
+    } else {
+      var message = new Message();
+      message.isError = false;
+      message.custom_message = Messages.MSG_ERROR_VALIDATION_QUANTITY_NAME_REQUIRED;
+      this.messageService.message(message);
+    }
   }
 
   onDeleteQuantityDetailsByNameSuccess(success: any) {
@@ -93,8 +100,10 @@ export class QuantityDetailsComponent implements OnInit {
   }
 
 
-  onInputKeyQuantity(keyQuantity: string) {
-    this.keyQuantity = keyQuantity;
+  changeQuantityName(keyQuantity: string) {
+    if(keyQuantity !== null && keyQuantity !== undefined && keyQuantity !== '') {
+      this.keyQuantity = keyQuantity;
+    }
   }
 
   getLabel() {

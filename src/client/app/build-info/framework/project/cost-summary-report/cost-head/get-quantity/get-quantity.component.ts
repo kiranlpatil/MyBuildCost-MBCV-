@@ -132,7 +132,10 @@ export class GetQuantityComponent implements OnInit {
   }
 
   updateQuantityItem(quantityItems : Array<QuantityItem>) {
-    if(this.validateQuantityItem(quantityItems) && (this.keyQuantity !== null && this.keyQuantity !== undefined)) {
+
+    if(this.validateQuantityItem(quantityItems) && (this.keyQuantity !== ''
+        && this.keyQuantity !== null && this.keyQuantity !== undefined)) {
+
       let quantityObj : QuantityDetails = new QuantityDetails();
       quantityObj.name = this.keyQuantity;
       quantityObj.quantityItems = quantityItems;
