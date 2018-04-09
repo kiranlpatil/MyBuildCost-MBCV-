@@ -1,5 +1,5 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import {Messages, Button, TableHeadings, Label, Headings, ValueConstant} from '../../../../../../shared/constants';
+import { Messages, Button, TableHeadings, Label, Headings, ValueConstant } from '../../../../../../shared/constants';
 import {
   SessionStorage, SessionStorageService,
   Message, MessageService
@@ -28,6 +28,9 @@ export class GetRateComponent {
   @Input() workItemRateAnalysisId : number;
   @Input() workItemsList : Array<WorkItem>;
   @Input() totalAmount: number;
+  @Input() totalAmountOfMaterial: number;
+  @Input() totalAmountOfLabour: number;
+  @Input() totalAmountOfMaterialAndLabour: number;
   @Input() baseUrl : string;
   @Input() rateView: string;
   @Input() disableRateField: boolean;
@@ -43,6 +46,7 @@ export class GetRateComponent {
   arrayOfRateItems: Array<RateItem>;
   selectedRateItem:RateItem;
   selectedRateItemIndex:number;
+  type : string;
 
   constructor(private costSummaryService: CostSummaryService,  private loaderService: LoaderService,
               private messageService: MessageService, private commonService: CommonService) {
@@ -50,25 +54,47 @@ export class GetRateComponent {
 
   calculateTotal(choice?:string) {
     this.totalAmount = 0;
+    this.totalAmountOfLabour = 0;
+    this.totalAmountOfMaterial=0;
+    this.totalAmountOfMaterialAndLabour = 0;
 
-    for (let i = 0; i < this.rate.rateItems.length; i++) {
-
+    for (let rateItemsIndex in this.rate.rateItems) {
       if(choice === 'changeTotalQuantity') {
-        this.rate.rateItems[i].quantity = this.commonService.decimalConversion(this.rate.rateItems[i].quantity *
+        this.rate.rateItems[rateItemsIndex].quantity = this.commonService.decimalConversion(this.rate.rateItems[rateItemsIndex].quantity *
           this.quantityIncrement);
       }
+      this.type = this.rate.rateItems[rateItemsIndex].type;
+        switch (this.type) {
+          case 'M' :
+              this.rate.rateItems[rateItemsIndex].totalAmount = this.commonService.decimalConversion(
+                this.rate.rateItems[rateItemsIndex].quantity * this.rate.rateItems[rateItemsIndex].rate);
 
-      this.rate.rateItems[i].totalAmount = this.commonService.decimalConversion(this.rate.rateItems[i].quantity*
-        this.rate.rateItems[i].rate);
+              this.totalAmountOfMaterial = Math.round(this.totalAmountOfMaterial + this.rate.rateItems[rateItemsIndex].totalAmount);
 
-      this.totalAmount = this.commonService.decimalConversion(this.totalAmount +
-        this.rate.rateItems[i].totalAmount);
+               break;
 
+          case 'L' :
+              this.rate.rateItems[rateItemsIndex].totalAmount = this.commonService.decimalConversion(
+                this.rate.rateItems[rateItemsIndex].quantity * this.rate.rateItems[rateItemsIndex].rate);
+
+              this.totalAmountOfLabour = Math.round(this.totalAmountOfLabour + this.rate.rateItems[rateItemsIndex].totalAmount);
+
+              break;
+
+          case 'M + L' :
+              this.rate.rateItems[rateItemsIndex].totalAmount = this.commonService.decimalConversion(
+                this.rate.rateItems[rateItemsIndex].quantity * this.rate.rateItems[rateItemsIndex].rate);
+
+              this.totalAmountOfMaterialAndLabour = Math.round(this.totalAmountOfMaterialAndLabour +
+                 this.rate.rateItems[rateItemsIndex].totalAmount);
+
+              break;
+              }
+      this.totalAmount = this.totalAmountOfMaterial + this.totalAmountOfLabour +this.totalAmountOfMaterialAndLabour;
+        this.totalAmount = Math.round(this.totalAmount);
     }
 
-this.rate.total = this.commonService.decimalConversion(this.totalAmount / this.rate.quantity);
   }
-
   updateRate(rateItemsArray: Rate) {
     this.loaderService.start();
      let costHeadId = parseInt(SessionStorageService.getSessionValue(SessionStorage.CURRENT_COST_HEAD_ID));

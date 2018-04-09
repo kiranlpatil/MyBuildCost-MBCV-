@@ -12,6 +12,7 @@ import { QuantityItem } from '../../../model/quantity-item';
 import { QuantityDetails } from '../../../model/quantity-details';
 import { LoaderService } from '../../../../../shared/loader/loaders.service';
 import { QuantityDetailsComponent } from './quantity-details/quantity-details.component';
+import { RateItem } from '../../../model/rate-item';
 
 
 @Component({
@@ -39,11 +40,15 @@ export class CostHeadComponent implements OnInit, OnChanges {
   categoryDetailsTotalAmount: number=0;
   workItem: WorkItem;
   totalAmount : number = 0;
+  totalAmountOfMaterial : number = 0;
+  totalAmountOfLabour : number = 0;
+  totalAmountOfMaterialAndLabour : number = 0;
   categoryRateAnalysisId:number;
   compareWorkItemRateAnalysisId:number;
   quantity:number=0;
   rateFromRateAnalysis:number=0;
   unit:string='';
+  choice:string;
   showCategoryList: boolean = false;
   workItemsList: Array<WorkItem>;
   deleteConfirmationCategory = ProjectElements.CATEGORY;
@@ -329,20 +334,45 @@ export class CostHeadComponent implements OnInit, OnChanges {
   }
 
   calculateTotalForRateView() {
-    this.totalAmount=0;
     this.rateItemsArray.total=0;
-
-    for(let rateItemsIndex=0; rateItemsIndex < this.rateItemsArray.rateItems.length; rateItemsIndex++) {
-
-      this.rateItemsArray.rateItems[rateItemsIndex].totalAmount = parseFloat((this.rateItemsArray.rateItems[rateItemsIndex].quantity*
-        this.rateItemsArray.rateItems[rateItemsIndex].rate).toFixed(ValueConstant.NUMBER_OF_FRACTION_DIGIT));
-
-      this.totalAmount = parseFloat((this.totalAmount + this.rateItemsArray.rateItems[rateItemsIndex].totalAmount
-      ).toFixed(ValueConstant.NUMBER_OF_FRACTION_DIGIT));
-     }
-
-    this.totalAmount = Math.round(this.totalAmount);
+     this.totalAmount =  this.calculateTotalForRateItems(this.rateItemsArray.rateItems);
     this.rateItemsArray.total= parseFloat((this.totalAmount/this.rateItemsArray.quantity).toFixed(ValueConstant.NUMBER_OF_FRACTION_DIGIT));
+  }
+
+  calculateTotalForRateItems(rateItems : Array<RateItem>) {
+    this.totalAmount = 0;
+    this.totalAmountOfMaterial = 0;
+    this.totalAmountOfLabour = 0;
+    this.totalAmountOfMaterialAndLabour = 0;
+    for (let rateItemsIndex in  rateItems) {
+      this.choice = rateItems[rateItemsIndex].type;
+      switch (this.choice) {
+        case 'M':
+          this.rateItemsArray.rateItems[rateItemsIndex].totalAmount = parseFloat((this.rateItemsArray.rateItems[rateItemsIndex].quantity *
+            this.rateItemsArray.rateItems[rateItemsIndex].rate).toFixed(ValueConstant.NUMBER_OF_FRACTION_DIGIT));
+
+          this.totalAmountOfMaterial = Math.round(this.totalAmountOfMaterial + this.rateItemsArray.rateItems[rateItemsIndex].totalAmount);
+          break;
+
+        case 'L':
+          this.rateItemsArray.rateItems[rateItemsIndex].totalAmount = parseFloat((this.rateItemsArray.rateItems[rateItemsIndex].quantity *
+            this.rateItemsArray.rateItems[rateItemsIndex].rate).toFixed(ValueConstant.NUMBER_OF_FRACTION_DIGIT));
+
+          this.totalAmountOfLabour = Math.round(this.totalAmountOfLabour + this.rateItemsArray.rateItems[rateItemsIndex].totalAmount);
+          break;
+
+        case 'M + L':
+          this.rateItemsArray.rateItems[rateItemsIndex].totalAmount = parseFloat((this.rateItemsArray.rateItems[rateItemsIndex].quantity *
+            this.rateItemsArray.rateItems[rateItemsIndex].rate).toFixed(ValueConstant.NUMBER_OF_FRACTION_DIGIT));
+
+          this.totalAmountOfMaterialAndLabour = Math.round(this.totalAmountOfMaterialAndLabour +
+            this.rateItemsArray.rateItems[rateItemsIndex].totalAmount);
+          break;
+      }
+      this.totalAmount = this.totalAmountOfMaterial + this.totalAmountOfLabour + this.totalAmountOfMaterialAndLabour;
+      this.totalAmount = Math.round(this.totalAmount);
+    }
+    return (this.totalAmount);
   }
 
   setIdsForDeleteWorkItem(categoryId: string, workItemId: string,workItemIndex:number) {

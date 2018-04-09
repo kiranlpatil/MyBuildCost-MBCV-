@@ -436,6 +436,7 @@ export class Label {
   public static COSTING_BY_UNIT : string = 'Costing in ';
   public static COSTING_PER_AREA : string = 'Costing per ';
   public static TOTAL : string = 'Total ';
+  public static SUBTOTAL : string = 'Sub Total';
   public static NOTES : string = 'Notes ';
   public static BUDGETED_COST : string = 'Budgeted Cost ';
   public static ESTIMATED_COST : string = 'Estimated Cost ';
