@@ -42,8 +42,8 @@
               <tbody>
                 <tr *ngFor="let item of rateItem.value; let i=index">
                   <td>
-                    <input  id="itemDescription"  class="form-control remark-input" (keyup)="getRateItemsByOriginalName(item, i)"
-                           list="RateItems" [(ngModel)]="item.itemName"/>
+                    <input id="itemDescription" class="form-control remark-input" (mouseover)="getRateItemsByOriginalName(item, i)"
+                           list="RateItems" [(ngModel)]="item.itemName"  (mousedown)="getItemName($event)" (blur)="setItemName($event); getRateItemsByOriginalName(item, i)"/>
                       <datalist id="RateItems" >
                         <option *ngFor="let rateItem of arrayOfRateItems" value="{{rateItem.itemName}}"></option>    
                      </datalist>
