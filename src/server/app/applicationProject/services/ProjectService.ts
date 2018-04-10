@@ -1649,6 +1649,7 @@ class ProjectService {
 
           let workItem : WorkItem = new WorkItem(configWorkItem.name, configWorkItem.rateAnalysisId);
           workItem.isDirectRate = true;
+          workItem.unit = configWorkItem.measurementUnit;
 
           if(configWorkItem.directRate !== null) {
             workItem.rate.total = configWorkItem.directRate;
