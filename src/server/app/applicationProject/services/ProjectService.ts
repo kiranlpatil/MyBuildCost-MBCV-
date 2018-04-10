@@ -1724,7 +1724,7 @@ class ProjectService {
 
           case Constants.RCC_BAND_OR_PATLI : {
             budgetCostFormulae = config.get(Constants.BUDGETED_COST_FORMULAE + costHead.name).toString();
-            calculateBudgtedCost = budgetCostFormulae.replace(Constants.SLAB_AREA, projectDetails.slabArea);
+            calculateBudgtedCost = budgetCostFormulae.replace(Constants.SLAB_AREA, buildingDetails.totalSlabArea);
             budgetedCostAmount = eval(calculateBudgtedCost);
             this.calculateThumbRuleReportForCostHead(budgetedCostAmount, costHead, buildingDetails, costHeads);
             break;
