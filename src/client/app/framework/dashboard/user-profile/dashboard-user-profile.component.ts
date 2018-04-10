@@ -65,6 +65,8 @@ export class DashboardProfileComponent implements OnInit {
         .subscribe(
           user => this.onProfileUpdateSuccess(user),
           error => this.onProfileUpdateError(error));
+      SessionStorageService.setSessionValue(SessionStorage.FIRST_NAME, this.model.first_name);
+      this.profileService.onProfileUpdate(this.model);
     }
   }
 
