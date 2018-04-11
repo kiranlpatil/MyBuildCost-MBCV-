@@ -104,6 +104,10 @@ export class Messages {
   public static MSG_ERROR_VALIDATION_NO_OF_LIFTS_REQUIRED = 'Enter no. of lifts';
   public static MSG_ERROR_VALIDATION_ALPHABATES = 'Enter alphabates only';
 
+  public static MSG_ERROR_VALIDATION_ADD_AT_LEAST_ONE_APARTMENT_CONFIGURATION = 'Add at least one Apartment Configuration';
+  public static MSG_ERROR_VALIDATION_NUMBER_OF_FLOORS = 'The value of total number of floors should be more than number of parking floors';
+
+
   public static MSG_RESET_MOBILE_NUMBER = 'Enter your new mobile number and we will send you a verification code on mobile' +
     ' number you have entered.';
   public static MSG_RESET_EMAIL_ADDRESS = 'Enter your new account email address and we will send you a link to reset your email' +
@@ -162,9 +166,9 @@ export class Messages {
   public static MSG_SUCCESS_CLONED_BUILDING_DETAILS: string = 'Your building cloned successfully.';
   public static MSG_SUCCESS_UPDATE_PROJECT_DETAILS: string = 'Your project updated successfully.';
   public static MSG_SUCCESS_UPDATE_BUILDING_DETAILS: string = 'Your building details updated successfully.';
-  public static MSG_SUCCESS_DELETE_BUILDING: string = 'Your building deleted successfully.';
+  public static MSG_SUCCESS_DELETE_BUILDING: string = 'Building deleted successfully.';
   public static MSG_SUCCESS_ADD_COSTHEAD: string = 'Costhead added successfully.';
-  public static MSG_SUCCESS_DELETE_COSTHEAD: string = 'Your costhead deleted successfully.';
+  public static MSG_SUCCESS_DELETE_COSTHEAD: string = 'Costhead deleted successfully.';
   public static MSG_SUCCESS_DELETE_ITEM: string = 'Your item deleted successfully.';
   public static MSG_SUCCESS_UPDATE_RATE: string = 'Rate updated.';
   public static MSG_QUANTITY_SHOULD_NOT_ZERO_OR_NULL: string = 'Quantity should not zero or null.';
@@ -436,6 +440,7 @@ export class Label {
   public static COSTING_BY_UNIT : string = 'Costing in ';
   public static COSTING_PER_AREA : string = 'Costing per ';
   public static TOTAL : string = 'Total ';
+  public static SUBTOTAL : string = 'Sub Total';
   public static NOTES : string = 'Notes ';
   public static BUDGETED_COST : string = 'Budgeted Cost ';
   public static ESTIMATED_COST : string = 'Estimated Cost ';

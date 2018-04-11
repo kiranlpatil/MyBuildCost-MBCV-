@@ -356,18 +356,13 @@ class RateAnalysisService {
       workItem.rate.notes = notesList[0].notes;
       workItem.rate.imageURL = notesList[0].imageURL;
 
-      //Query for System rate quantity should be One
+      //System rate
 
-      let rateItemsRateAnalysisSQLForQuantityOne = 'SELECT itemName, rateAnalysisId, type,' +
-        'ROUND(quantity / totalQuantity,2) AS quantity,'+
-        'rate, unit, ROUND(quantity / totalQuantity * rate,2) AS totalAmount,' +
-        'ROUND(totalQuantity / totalQuantity,2) AS totalQuantity FROM ?';
-      let rateItemsByWorkItemForQuantityOne = alasql(rateItemsRateAnalysisSQLForQuantityOne, [rateItemsByWorkItem]);
-
-      workItem.systemRate.rateItems = rateItemsByWorkItemForQuantityOne;
-      workItem.systemRate.quantity = rateItemsByWorkItemForQuantityOne[0].totalQuantity;
+      workItem.systemRate.rateItems = rateItemsByWorkItem;
+      workItem.systemRate.quantity = rateItemsByWorkItem[0].totalQuantity;
       workItem.systemRate.notes = notesList[0].notes;
       workItem.systemRate.imageURL = notesList[0].imageURL;
+
 
       buildingWorkItems.push(workItem);
     }

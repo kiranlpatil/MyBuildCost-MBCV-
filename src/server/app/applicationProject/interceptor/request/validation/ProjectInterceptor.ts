@@ -764,6 +764,7 @@ if ((req.body.name === undefined) || (req.body.region === undefined) || (req.bod
           });
         } else {
           if ((req.params.categoryId === undefined) || (req.params.workItemId === undefined) || (projectDetails === undefined) ||
+            (projectDetails.name === undefined) || (projectDetails.name === '') ||
             (req.params.categoryId === '') || (req.params.workItemId === '') || (projectDetails === '')) {
             next({
               reason: Messages.MSG_ERROR_EMPTY_FIELD,

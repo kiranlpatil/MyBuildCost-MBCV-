@@ -3,7 +3,7 @@
     <tbody>
       <tr *ngFor="let quantity of quantityDetails">
         <td>
-          <input  class="form-control clear quantity-name" type="text" [ngModel]="quantity.name"  (blur)="onInputKeyQuantity($event.target.value)">
+          <input  class="form-control clear quantity-name" type="text" [(ngModel)]="quantity.name"  (change)="changeQuantityName(quantity.name)">
         </td>
 
         <td>
@@ -32,9 +32,9 @@
 
 
         <td>
-          <div *ngIf="keyQuantity" data-toggle="modal" title="Delete Quantity Details"
+          <div data-toggle="modal" title="Delete Quantity Details"
                data-target="#deleteQuantityDetails"
-               (click)="setQuantityNameForDelete(quantity.name)" class="delete-Quantity-details">
+               (click)="setQuantityNameForDelete(quantity.name, workItemData)" class="delete-Quantity-details">
             <img alt="Delete Quantity Details" src="assets/build-info/dashboard/delete-blue.png" />
           </div>
         </td>
@@ -49,6 +49,7 @@
                              [categoryDetails] ="categoryDetails"
                              [keyQuantity]="keyQuantity"
                              [workItemsList] ="workItemsList"
+                             (closeQuantityView) = "closeQuantityView($event)"
                              (showWorkItemTabName)="setShowWorkItemTab($event)"
                              [baseUrl] = "baseUrl">
             </bi-get-quantity>
