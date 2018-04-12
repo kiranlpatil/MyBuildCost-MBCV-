@@ -435,22 +435,24 @@ class ReportService {
   }
 
   private alasqlQueryForMaterialTakeOffDataCostHeadWise(building: string, element: string) {
-    let select: string = '';
-    let from: string = ' FROM ? ';
-    let where: string = '';
-    let groupBy: string = '';
-    let orderBy: string = '';
+    let select: string = Constants.STR_EMPTY;
+    let from: string = Constants.ALASQL_FROM;
+    let where: string = Constants.STR_EMPTY;
+    let groupBy: string = Constants.STR_EMPTY;
+    let orderBy: string = Constants.STR_EMPTY;
     let sqlQuery: string;
-    if (building !== 'All Buildings') {
-      select = 'SELECT materialName AS header, workItemName AS rowValue, quantityName AS subValue, SUM(quantity) AS Total, unit ';
-      where = 'WHERE costHeadName = "' + element + '" AND buildingName = "' + building + '" ';
-      groupBy = 'GROUP BY materialName,workItemName, quantityName, unit ';
-      orderBy = 'ORDER BY materialName,workItemName ';
+    if (building !== Constants.STR_ALL_BUILDING) {
+      select = Constants.ALASQL_SELECT_MATERIAL_TAKEOFF_COSTHEAD_WISE + Constants.STR_COMMA_SPACE +
+        Constants.ALASQL_SELECT_QUANTITY_NAME_AS;
+      where = Constants.ALASQL_WHERE_COSTHEAD_NAME_EQUALS_TO + element + Constants.STR_DOUBLE_INVERTED_COMMA
+        + Constants.STR_AND + Constants.ALASQL_SELECT_BUILDING_NAME + building + Constants.STR_DOUBLE_INVERTED_COMMA;
+      groupBy = Constants.ALASQL_GROUP_MATERIAL_WORKITEM_QUANTITY_MATERIAL_TAKEOFF_COSTHEAD_WISE;
+      orderBy = Constants.ALASQL_ORDER_BY_MATERIAL_WORKITEM_COSTHEAD_WISE;
     } else {
-      select = 'SELECT materialName AS header, buildingName AS rowValue, SUM(quantity) AS Total, unit ';
-      where = 'WHERE costHeadName = "' + element + '" ';
-      groupBy = 'GROUP BY materialName, buildingName, quantityName, unit ';
-      orderBy = 'ORDER BY materialName, buildingName ';
+      select = Constants.ALASQL_SELECT_MATERIAL_TAKEOFF_COSTHEAD_WISE_FOR_ALL_BUILDINGS;
+      where = Constants.ALASQL_WHERE_COSTHEAD_NAME_EQUALS_TO + element + Constants.STR_DOUBLE_INVERTED_COMMA;
+      groupBy = Constants.ALASQL_GROUP_MATERIAL_BUILDING_QUANTITY_MATERIAL_TAKEOFF_COSTHEAD_WISE_FOR_ALL_BUILDINGS;
+      orderBy = Constants.ALASQL_ORDER_BY_MATERIAL_BUILDING_MATERIAL_TAKEOFF_COSTHEAD_WISE;
     }
     sqlQuery = select + from + where + groupBy + orderBy;
     return sqlQuery;
@@ -458,11 +460,11 @@ class ReportService {
 
   private getMaterialTakeOffFilterObject(buildings: Array<Building>) {
     let materialTakeOffFlatDetailsArray: Array<MaterialTakeOffFlatDetailsDTO> = this.getBuildingMaterialDetails(buildings);
-    let column: string = 'buildingName';
+    let column: string = Constants.STR_BUILDING_NAME;
     let buildingList: Array<string> = this.getDistinctArrayOfStringFromAlasql(column, materialTakeOffFlatDetailsArray);
-    column = 'costHeadName';
+    column = Constants.STR_COSTHEAD_NAME;
     let costHeadList: Array<string> = this.getDistinctArrayOfStringFromAlasql(column, materialTakeOffFlatDetailsArray);
-    column = 'materialName';
+    column = Constants.STR_Material_NAME;
     let materialList: Array<string> = this.getDistinctArrayOfStringFromAlasql(column, materialTakeOffFlatDetailsArray);
     let materialTakeOffFiltersObject: MaterialTakeOffFiltersListDTO = new MaterialTakeOffFiltersListDTO(buildingList, costHeadList,
       materialList);
