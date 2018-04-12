@@ -12,9 +12,22 @@ import { MaterialTakeOffElements } from '../../../../../shared/constants';
 export class MaterialTakeOffReportComponent  {
 
   @Input() MaterialTakeOffReport : any;
+  viewSubContent : boolean = false;
+  headerIndex : number;
+  dataIndex : number;
 
 
   getMaterialTakeOffElements() {
     return MaterialTakeOffElements;
+  }
+
+  showSubContent(secondaryViewDataIndex : number, tableHeaderIndex : number) {
+    if(this.viewSubContent !== true || this.dataIndex !== secondaryViewDataIndex || this.headerIndex !== tableHeaderIndex) {
+      this.dataIndex = secondaryViewDataIndex;
+      this.headerIndex = tableHeaderIndex;
+      this.viewSubContent = true;
+    } else {
+      this.viewSubContent = false;
+    }
   }
 }

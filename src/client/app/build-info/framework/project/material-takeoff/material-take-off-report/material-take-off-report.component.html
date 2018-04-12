@@ -17,7 +17,7 @@
       </div>
 
 
-      <div id="materialData{{materialDataIndex}}" class="panel-collapse collapse">
+      <div id="materialData{{materialDataIndex}}" class="panel-collapse">
         <div class="panel-body">
           <div *ngFor="let secondaryViewData of MaterialTakeOffReport[materialData].secondaryView | keys; let secondaryViewDataIndex = index">
             <div class="col-md-12 no-padding">
@@ -61,7 +61,7 @@
                               </div>
 
                               <!--content-->
-                              <div *ngIf="tableView == getMaterialTakeOffElements().CONTENT" class="col-md-12 no-padding">
+                              <div *ngIf="tableView == getMaterialTakeOffElements().CONTENT" class="col-md-12 no-padding" (click)="showSubContent(secondaryViewDataIndex, tableHeaderIndex)">
 
                                 <div class="panel-group no-border">
                                   <div class="panel panel-default">
@@ -72,7 +72,9 @@
                                       </bi-actual-content>
                                     </div>
 
-                                    <div class="col-md-12 no-padding">
+                                    <div class="col-md-12 no-padding" *ngIf="viewSubContent
+                                     && tableHeaderIndex === headerIndex
+                                      && secondaryViewDataIndex === dataIndex">
                                       <bi-sub-content
                                         [content]="MaterialTakeOffReport[materialData].secondaryView[secondaryViewData].table[tableView][tableHeader]">
                                       </bi-sub-content>
