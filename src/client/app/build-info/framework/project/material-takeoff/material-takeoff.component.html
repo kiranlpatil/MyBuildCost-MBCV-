@@ -4,13 +4,14 @@
     <div class="col-sm-9 col-xs-12 padding-right30 left-content">
       <div class="pull-left no-padding">
         <select class="select-costing no-margin" (change)="onChangeGroupBy($event.target.value)">
-          <option *ngFor="let groupBy of groupByList" [value]="groupBy">{{ groupBy }}</option>
+          <option *ngFor="let elementWiseReport of elementWiseReportList" [value]="elementWiseReport">{{
+            elementWiseReport }}</option>
         </select>
       </div>
       <div class="pull-left no-padding">
-        {{ secondaryFilterHeading }}
+        {{ elementHeading }}
         <select class="select-costing no-margin" (change)="onChangeSecondFilter($event.target.value)">
-          <option *ngFor="let secondaryFilter of secondaryFilterList" [value]="secondaryFilter">{{ secondaryFilter }}</option>
+          <option *ngFor="let element of elementList" [value]="element">{{ element }}</option>
         </select>
       </div>
       <div class="pull-left no-padding">
