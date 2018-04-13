@@ -10,6 +10,50 @@
       }
     }
   }
+  .item-header {
+    display: inline-block;
+    background: #ffffff;
+    border: 0;
+    border-radius: 8px;
+    box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.05);
+    font-weight: bold;
+    min-height: 50px;
+    margin: 6px 0 0;
+    padding: 25px 15px;
+    position: relative;
+    width: 100%;
+  }
+  .inner-item-list {
+    display: inline-block;
+    background: #ffffff;
+    border: 0;
+    border-radius: 8px;
+    box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.05);
+    min-height: 37px;
+    margin: 6px 0 0;
+    padding: 8px 15px;
+    width: 100%;
+  }
+  .item-footer {
+    display: inline-block;
+    background: #ffffff;
+    border: 0;
+    border-radius: 8px;
+    box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.05);
+    font-weight: bold;
+    min-height: 50px;
+    margin: 6px 0 0;
+    padding: 15px 15px;
+    position: relative;
+    width: 100%;
+  }
+  .collapse-list-item {
+    .row-list {
+      padding: 4px 10px 0 28px;
+      display: inline-block;
+      width: 100%;
+    }
+  }
 }
 
 .building-name{

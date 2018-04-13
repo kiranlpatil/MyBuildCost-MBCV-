@@ -40,25 +40,30 @@
                   <div id="secondaryViewData{{secondaryViewDataIndex}}" class="panel-collapse collapse">
 
                     <!--header-->
-                    <bi-table-row
-                      [rows]="materialTakeOffReport[materialData].secondaryView[secondaryViewData].table.header">
-                    </bi-table-row>
+                    <div class="item-header">
+                      <bi-table-row
+                        [rows]="materialTakeOffReport[materialData].secondaryView[secondaryViewData].table.header">
+                      </bi-table-row>
+                    </div>
 
                     <!--content-->
                     <div *ngFor="let content of materialTakeOffReport[materialData].secondaryView[secondaryViewData].table.content | keys; let contentIndex = index">
 
-                      <div (click)="showSubContent(secondaryViewDataIndex, contentIndex)">
+                      <div class="inner-item-list" (click)="showSubContent(secondaryViewDataIndex, contentIndex)">
+
                       <!--content-->
+                      <span class="caret"></span>
                       <bi-table-row
                         [rows]="materialTakeOffReport[materialData].secondaryView[secondaryViewData].table.content[content]">
                       </bi-table-row>
 
                       <!--sub content-->
-                        <div *ngIf="dataIndex === secondaryViewDataIndex &&
+                        <div  *ngIf="dataIndex === secondaryViewDataIndex &&
                                     headerIndex === contentIndex &&
                                     viewSubContent">
-                          <div *ngFor="let subContent of materialTakeOffReport[materialData].secondaryView[secondaryViewData].table.content[content].subContent | keys;">
+                          <div class="collapse-list-item" *ngFor="let subContent of materialTakeOffReport[materialData].secondaryView[secondaryViewData].table.content[content].subContent | keys;">
                             <bi-table-row
+                              [customClass]="'row-list'"
                               [rows]="materialTakeOffReport[materialData].secondaryView[secondaryViewData].table.content[content].subContent[subContent]">
                             </bi-table-row>
                           </div>
@@ -69,9 +74,12 @@
                     </div>
 
                     <!--footer-->
-                    <bi-table-row
-                      [rows]="materialTakeOffReport[materialData].secondaryView[secondaryViewData].table.footer">
-                    </bi-table-row>
+                    <div class="item-footer">
+                      <bi-table-row
+                        [customClass]="'footer-row'"
+                        [rows]="materialTakeOffReport[materialData].secondaryView[secondaryViewData].table.footer">
+                      </bi-table-row>
+                    </div>
 
                   </div>
                 </div>
