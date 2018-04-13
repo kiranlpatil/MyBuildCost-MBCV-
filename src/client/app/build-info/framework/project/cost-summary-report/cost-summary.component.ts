@@ -16,7 +16,7 @@ import { BuildingReport } from '../../model/building-report';
 import ProjectReport = require('../../model/project-report');
 import { LoaderService } from '../../../../shared/loader/loaders.service';
 import * as jsPDF from 'jspdf';
-
+/*/// <reference path='../../../../../../../tools/manual_typings/project/jspdf.d.ts'/>*/
 @Component({
   moduleId: module.id,
   selector: 'bi-cost-summary-report',
