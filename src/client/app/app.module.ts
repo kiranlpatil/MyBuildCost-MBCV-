@@ -74,6 +74,7 @@ import { QuantityDetailsComponent }
 from './build-info/framework/project/cost-summary-report/cost-head/quantity-details/quantity-details.component';
 import { CostHeadReportComponent } from './build-info/framework/project/report-templates/cost-head-report/cost-head-report.component';
 import { CostSummaryReportComponent } from './build-info/framework/project/report-templates/cost-summary-report/cost-summary-report.component'
+import {CloneBuildingComponent} from "./build-info/framework/project/building/clone-building/clone-building.component";
 
 @NgModule({
   imports: [
@@ -106,6 +107,7 @@ import { CostSummaryReportComponent } from './build-info/framework/project/repor
     CreateProjectComponent,
     ProjectListComponent,
     CreateBuildingComponent,
+    CloneBuildingComponent,
     ProjectDetailsComponent,
     BuildingListComponent,
     ProjectHeaderComponent,

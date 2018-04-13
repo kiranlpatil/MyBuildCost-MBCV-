@@ -1,8 +1,10 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { Label } from '../../../../shared/constants';
+import { Label, NavigationRoutes, ValueConstant } from '../../../../shared/constants';
 import { ValidationService } from '../../../../shared/customvalidations/validation.service';
 import { Building } from '../../model/building';
+import { SessionStorage, SessionStorageService } from '../../../../shared/index';
+import { Router } from "@angular/router";
 
 @Component({
   moduleId: module.id,
@@ -20,9 +22,12 @@ export class BuildingFormComponent {
   buildingForm:  FormGroup;
   public isShowErrorMessage: boolean = false;
   public errorMessage: boolean = false;
+  private actionItems:string[]=new Array(0);
+  private view: string | '';
 
-  constructor( private formBuilder: FormBuilder) {
-
+  constructor( private formBuilder: FormBuilder, private _router: Router) {
+    this.actionItems=ValueConstant.ACTION_ITEMS.slice();
+    this.view=SessionStorageService.getSessionValue(SessionStorage.CURRENT_VIEW);
     this.buildingForm = this.formBuilder.group({
       name : ['', ValidationService.requiredBuildingName],
       totalSlabArea :['', ValidationService.requiredSlabArea],
@@ -39,12 +44,12 @@ export class BuildingFormComponent {
       numOfFiveBHK :[''],
       numOfLifts :['']
     });
-
   }
 
   submitForm() {
     if(this.buildingForm.valid) {
       this.buildingModel = this.buildingForm.value;
+      this.view==='cloneBuilding'? this.buildingModel.actionItems=this.actionItems:console.log();
       this.onSubmitEvent.emit(this.buildingModel);
     } else {
       this.isShowErrorMessage = true;
@@ -54,5 +59,14 @@ export class BuildingFormComponent {
   getLabels() {
     return Label;
   }
-
+  selectItem(event:any) {
+    if(event.target.checked) {
+      this.actionItems.push(event.target.value);
+    }else {
+      this.actionItems.splice(this.actionItems.indexOf(event.target.value),1);
+    }
+  }
+  navigateTo(navigate:string) {
+    let projectId = SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT_ID);
+    this._router.navigate([NavigationRoutes.APP_PROJECT,projectId,NavigationRoutes.APP_COST_SUMMARY]);  }
 }

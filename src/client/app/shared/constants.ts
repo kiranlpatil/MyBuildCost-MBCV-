@@ -208,6 +208,7 @@ export class NavigationRoutes {
   public static APP_CREATE_PROJECT: string = '/create-project';
   public static APP_VIEW_BUILDING_DETAILS: string = 'building/details';
   public static APP_CREATE_BUILDING: string = '/create-building';
+  public static APP_CLONE_BUILDING: string = '/clone-building';
   public static APP_LIST_PROJECT: string = 'project/list';
   public static APP_COST_SUMMARY: string = 'cost-summary';
   public static APP_COST_HEAD: string = 'cost-head';
@@ -238,6 +239,7 @@ export class SessionStorage {
   public static VERIFY_PHONE_VALUE = 'verify_phone_value';
   public static CHANGE_MAIL_VALUE = 'change_mail_value';
   public static CURRENT_PROJECT_ID = 'current_project_id';
+  public static CURRENT_BUILDING_ID = 'current_project_id';
   public static CURRENT_PROJECT_NAME = 'current_project_name';
   public static CURRENT_BUILDING = 'current_building_id';
   public static CURRENT_COST_HEAD_ID = 'current_cost_head_id';
@@ -431,6 +433,7 @@ export class Label {
   public static NUM_OF_PARKING_FLOORS : string = 'No. of parking floors';
   public static CARPET_AREA_OF_PARKING : string = 'Carpet area of parking ';
   public static APARTMENT_CONFIGURATION: string = 'Apartment Configuration';
+  public static CLONE_BUILDING_MESSAGE: string = 'Also copy following details from ';
   public static NUM_OF_ONE_BHK: string = 'No. of 1 BHKs';
   public static NUM_OF_TWO_BHK: string = 'No. of 2 BHKs';
   public static NUM_OF_THREE_BHK: string = 'No. of 3 BHKs';
@@ -548,10 +551,12 @@ export class Menus {
   public static DELETE = 'Delete';
   public static ADD_BUILDING = 'Add Building';
   public static ADD_BUILDING_TO_PROJECT = 'Add Building to Project';
+  public static COPY_BUILDING = 'Copy Building';
   public static CREATE_NEW_PROJECT: string = 'Create New Project';
 }
 
 export class ValueConstant {
-
+//array of actions for copy building
+  public static ACTION_ITEMS:string[]=['CostHead','Category','Work Items','Quantity','Rate Analysis'];
   public static NUMBER_OF_FRACTION_DIGIT = 2;
 }

@@ -38,10 +38,9 @@ export class BuildingService extends BaseService {
     return this.httpDelegateService.getAPI(url);
   }
 
-  cloneBuildingCostHeads( projectId : string, clonedBuildingId : string, cloneCostHead : any) {
-    let updateData = {'costHead' : cloneCostHead};
+  cloneBuildingCostHeads( projectId : string, clonedBuildingId : string, buildingDetails : any) {
     var url =  API.PROJECT + '/' + projectId  + '/'+ API.BUILDING + '/' + clonedBuildingId + '/' +API.CLONE;
-    return this.httpDelegateService.putAPI(url, updateData);
+    return this.httpDelegateService.putAPI(url, buildingDetails);
   }
 
   syncBuildingWithRateAnalysis( projectId : string, buildingId : string): Observable<Building> {

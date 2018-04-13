@@ -199,70 +199,91 @@ class ProjectService {
     });
   }
 
-  cloneBuildingDetails( buildingId:string, buildingDetails:any, user:User, callback:(error: any, result: any)=> void) {
+  cloneBuildingDetails( projectId:string,buildingId:string, buildingDetails:any, user:User, callback:(error: any, result: any)=> void) {
     logger.info('Project service, cloneBuildingDetails has been hit');
     let query = { _id : buildingId };
-    this.buildingRepository.findById(buildingId, (error, result) => {
-      logger.info('Project service, findById has been hit');
-      if (error) {
-        callback(error, null);
-      } else {
-        let clonedCostHeadDetails :Array<CostHead>=[];
-        let costHeads =buildingDetails.costHeads;
-        let resultCostHeads = result.costHeads;
-        for(let costHead of costHeads) {
-          for(let resultCostHead of resultCostHeads) {
-            if(costHead.name === resultCostHead.name) {
-              let clonedCostHead = new CostHead;
-              clonedCostHead.name = resultCostHead.name;
-              clonedCostHead.rateAnalysisId = resultCostHead.rateAnalysisId;
-              clonedCostHead.active = costHead.active;
-              clonedCostHead.thumbRuleRate = resultCostHead.thumbRuleRate;
-
-              if(costHead.active) {
-
-                let categoryList = costHead.category;
-                let resultCategoryList = resultCostHead.categories;
-                for(let resultCategoryIndex=0; resultCategoryIndex<resultCategoryList.length; resultCategoryIndex++) {
-                  for(let categoryIndex=0 ; categoryIndex<categoryList.length; categoryIndex++) {
-                    if(categoryList[categoryIndex].name === resultCategoryList[resultCategoryIndex].name) {
-                      if(!categoryList[categoryIndex].active) {
-                        resultCategoryList.splice(resultCategoryIndex,1);
-                      } else {
-                        let resultWorkitemList = resultCategoryList[resultCategoryIndex].workItems;
-                        let workItemList = categoryList[categoryIndex].workItems;
-
-                        for(let resultWorkitemIndex=0;  resultWorkitemIndex < resultWorkitemList.length; resultWorkitemIndex++) {
-                          for(let workitemIndex=0;  workitemIndex < workItemList.length; workitemIndex++) {
-                            if(!workItemList[workitemIndex].active) {
-                              resultWorkitemList.splice(resultWorkitemIndex, 1);
-                            }
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-                clonedCostHead.categories = resultCostHead.categories;
-              } else {
-                clonedCostHead.categories = resultCostHead.categories;
-              }
-                clonedCostHeadDetails.push(clonedCostHead);
-            }
-          }
+    if(buildingDetails.actionItems.indexOf('CostHead') === -1) {
+      this.createBuilding( projectId, buildingDetails, user, (error, result) => {
+        if(error) {
+          callback(error,null);
+        } else {
+          callback(null, result);
         }
+      });
+    } else {
+      this.buildingRepository.findById(buildingId, (error, result) => {
+        logger.info('Project service, findById has been hit');
+        if (error) {
+          callback(error, null);
+        } else {
+          let clonedCostHeadDetails :Array<CostHead>=[];
+          let costHeads = result.costHeads;
+          let activeCostHeads=costHeads.filter(costHead => costHead.active);
+          let activeCostHeadWithActiveCatagory:any[]=new Array();
+          let activeCostHeadWithActiveCatagoryWithActiveWorkItem:any[]=new Array();
+          /* if(buildingDetails.actionItem.indexOf('catagories') !== -1) {
+             for(let i=0;i<activeCostHeads.length;i++) {
+               for(let j=0;j< activeCostHeads[i].categories.length;j++) {
+                 if(activeCostHeads[i].categories[j].active) {
+                   activeCostHeadWithActiveCatagory.push(activeCostHeads[i]);
+                   if(buildingDetails.actionItem.indexOf('workitem')!== -1) {
+                     for(let workItem of catagory.workItems){
+                       if( workItem.active){
+                         activeCostHeadWithActiveCatagoryWithActiveWorkItem.push(activeCostHead);
+                       }
+                     }
+                   }
+                 } else {
+                   activeCostHeads[i].categories=[];
+                   activeCostHeadWithActiveCatagory.push(activeCostHeads[i]);
+                 }
+               }
+             }
+           }else{
+             activeCostHeads.map(costHead => costHead.categories=[])
+           }*/
+          /* for(let costHead of costHeads) {
+                 if(costHead.active) {
+                   let categoryList = costHead.category;
+                   let resultCategoryList = resultCostHead.categories;
+                   for(let resultCategoryIndex=0; resultCategoryIndex<resultCategoryList.length; resultCategoryIndex++) {
+                     for(let categoryIndex=0 ; categoryIndex<categoryList.length; categoryIndex++) {
+                       if(categoryList[categoryIndex].name === resultCategoryList[resultCategoryIndex].name) {
+                         if(!categoryList[categoryIndex].active) {
+                           resultCategoryList.splice(resultCategoryIndex,1);
+                         } else {
+                           let resultWorkitemList = resultCategoryList[resultCategoryIndex].workItems;
+                           let workItemList = categoryList[categoryIndex].workItems;
 
-        let updateBuildingCostHeads = {'costHeads' : clonedCostHeadDetails};
-        this.buildingRepository.findOneAndUpdate(query, updateBuildingCostHeads,{new: true}, (error, result) => {
-          logger.info('Project service, findOneAndUpdate has been hit');
-          if (error) {
-            callback(error, null);
-          } else {
-            callback(null, {data: result, access_token: this.authInterceptor.issueTokenWithUid(user)});
-          }
-        });
-      }
-    });
+                           for(let resultWorkitemIndex=0;  resultWorkitemIndex < resultWorkitemList.length; resultWorkitemIndex++) {
+                             for(let workitemIndex=0;  workitemIndex < workItemList.length; workitemIndex++) {
+                               if(!workItemList[workitemIndex].active) {
+                                 resultWorkitemList.splice(resultWorkitemIndex, 1);
+                               }
+                             }
+                           }
+                         }
+                       }
+                     }
+                   }
+                   clonedCostHead.categories = resultCostHead.categories;
+                 } else {
+                   clonedCostHead.categories = resultCostHead.categories;
+                 }
+                 clonedCostHeadDetails.push(clonedCostHead);
+
+           }*/
+          buildingDetails.costHeads=activeCostHeads;
+          this.createBuilding( projectId, buildingDetails, user, (error, result) => {
+            if(error) {
+              callback(error,null);
+            } else {
+              callback(null, result);
+            }
+          });
+        }
+      });
+    }
   }
 
   getBuildingById(projectId : string, buildingId : string, user: User, callback:(error: any, result: any)=> void) {
