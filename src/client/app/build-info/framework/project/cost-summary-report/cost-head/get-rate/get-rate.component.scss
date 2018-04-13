@@ -251,7 +251,7 @@
 input[disabled],
 input[readonly],
 textarea[disabled] {
-  background: $white;
-  color: $text-disabled;
+  background: $disabled-input-bg;
+  color: $disable-input;
 }
 
