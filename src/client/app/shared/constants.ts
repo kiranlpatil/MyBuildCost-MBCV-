@@ -537,6 +537,9 @@ export class MaterialTakeOffElements {
   public static COLUMN_THREE = 'columnThree';
   public static ELEMENT_WISE_REPORT_COST_HEAD = 'costHead';
   public static ELEMENT_WISE_REPORT_MATERIAL = 'material';
+  public static ERROR_MESSAGE_MATERIAL_TAKE_OFF_REPORT_OF = 'Material take off report of ';
+  public static ERROR_MESSAGE_IS_NOT_FOUND_FOR = ' is not found for ';
+  public static ERROR_MESSAGE_BUILDING = ' building.';
 }
 
 export class Menus {

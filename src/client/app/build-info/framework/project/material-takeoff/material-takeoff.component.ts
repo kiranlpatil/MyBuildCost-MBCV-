@@ -4,6 +4,7 @@ import { MaterialTakeOffService } from './material-takeoff.service';
 import { MaterialTakeOffElements } from '../../../../shared/constants';
 import { MaterialTakeOffFilters } from '../../model/material-take-off-filters';
 import { MaterialTakeOffElement } from '../../model/material-take-off-element';
+import { Message, MessageService } from '../../../../shared/index';
 
 @Component({
   moduleId: module.id,
@@ -24,10 +25,12 @@ export class MaterialTakeoffComponent implements OnInit {
   buildings: Array<string>;
   elementWiseReports: Array<MaterialTakeOffElement> = new Array<MaterialTakeOffElement>();
   elements : Array<string>;
+  elementFound : boolean;
 
   materialTakeOffReport :any;
 
-  constructor( private activatedRoute:ActivatedRoute,  private _router : Router, private materialTakeoffService : MaterialTakeOffService) {
+  constructor( private activatedRoute:ActivatedRoute,  private _router : Router, private materialTakeoffService : MaterialTakeOffService,
+               private messageService : MessageService) {
 
     let costHeadElement = {
       elementKey : MaterialTakeOffElements.ELEMENT_WISE_REPORT_COST_HEAD,
@@ -122,9 +125,20 @@ export class MaterialTakeoffComponent implements OnInit {
 
   onGetMaterialTakeOffReportSuccess(materialTakeOffReport : any) {
     this.materialTakeOffReport = materialTakeOffReport;
+    this.elementFound = true;
+
   }
 
   onGetMaterialTakeOffReportFailure(error : any) {
     console.log(error);
+
+    this.elementFound = false;
+
+    var message = new Message();
+    message.isError = false;
+    message.custom_message = this.getMaterialTakeOffElements().ERROR_MESSAGE_MATERIAL_TAKE_OFF_REPORT_OF +
+      this.selectedElement + this.getMaterialTakeOffElements().ERROR_MESSAGE_IS_NOT_FOUND_FOR + this.building
+    + this.getMaterialTakeOffElements().ERROR_MESSAGE_BUILDING;
+    this.messageService.message(message);
   }
 }
