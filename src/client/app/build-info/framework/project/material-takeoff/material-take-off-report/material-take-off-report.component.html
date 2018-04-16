@@ -24,7 +24,7 @@
                 <div class="panel-group no-border">
                   <div class="panel-heading">
                     <h4 class="panel-title">
-                      <a data-toggle="collapse" href="#secondaryViewData{{secondaryViewDataIndex}}">
+                      <a data-toggle="collapse" href="#secondaryViewData{{secondaryViewDataIndex}}" [class.collapsed]="secondaryViewDataIndex != 0">
                         <span class="caret"></span>
                         <span class="">{{secondaryViewKey}}</span>
                         <span class="slab-area">
@@ -35,7 +35,7 @@
 
                   </div>
 
-                  <div id="secondaryViewData{{secondaryViewDataIndex}}" class="panel-collapse collapse">
+                  <div id="secondaryViewData{{secondaryViewDataIndex}}" class="panel-collapse collapse" [class.in]="secondaryViewDataIndex === 0">
 
                     <!--header-->
                     <div class="item-header">
