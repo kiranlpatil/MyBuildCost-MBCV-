@@ -12,11 +12,10 @@ import {SessionStorage} from "../../../../../shared/constants";
 
 export class CostSummaryReportComponent {
   @ViewChild('content') content: ElementRef;
-  @Input() buildingsReport: any;
-  constructor() {}
-
-  getCurrentProjectName() {
-    return SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT_NAME);
+  @Input() buildingReport: any;
+  currentProjectName: string;
+  constructor() {
+    this.currentProjectName = SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT_NAME);
   }
 
   downloadToPdf() {

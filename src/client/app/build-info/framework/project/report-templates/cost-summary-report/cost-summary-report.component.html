@@ -1,7 +1,6 @@
-<div *ngIf="buildingsReport" id="content" #content style="display: none">
+<div *ngIf="buildingReport" id="content" #content style="display: none">
   <h2 style="font-family:'Arial, Helvetica, sans-serif';font-size:16px; border-bottom: 1px solid #000;">
     Budgeted & Estimated Cost Report for Mont Vert Belbrook </h2>
-  <div *ngFor="let building of buildingsReport; let i = index">
   <div style="font-family:'Arial, Helvetica, sans-serif';font-size:12px;">
     <div style="padding-bottom: 5px;">
       <strong>Company Name:</strong>
@@ -9,11 +8,11 @@
     </div>
     <div style="padding-bottom: 5px;">
       <strong>Project Name:</strong>
-      <span>{{getCurrentProjectName()}}</span>
+      <span>{{currentProjectName}}</span>
     </div>
     <div style="padding-bottom: 5px;">
       <strong>Building Name:</strong>
-      <span>{{ building.name }}</span>
+      <span>{{ buildingReport.name }}</span>
     </div>
     <div style="padding-bottom: 5px;">
       <strong>Generated on:</strong>
@@ -30,17 +29,14 @@
       <th width="400"> Estimated - <hr>Rate/sqft Slab Area </th>
       <th width="400">Estimated - Budgeted Cost </th>
     </tr>
-    <div *ngIf="(building.thumbRule && building.estimate)">
-    <tr *ngFor="let thumbRuleItem of building.thumbRule.thumbRuleReports; let i = index">
+    <tr *ngFor="let thumbRuleItem of buildingReport.thumbRule.thumbRuleReports; let i = index">
       <td>{{thumbRuleItem.name}}</td>
       <td align="right">{{ thumbRuleItem.rate | number }}</td>
       <td align="right">{{thumbRuleItem.amount}}</td>
-      <td align="right">{{ building.estimate.estimatedCosts[i].rate | number }}</td>
-      <td align="right">{{ building.estimate.estimatedCosts[i].total | number }}</td>
+      <td align="right">{{ buildingReport.estimate.estimatedCosts[i].rate | number }}</td>
+      <td align="right">{{ buildingReport.estimate.estimatedCosts[i].total | number }}</td>
     </tr>
-    </div>
   </table>
-  </div>
 </div>
 
-<button (click)="downloadToPdf()">Download Cost Summary PDF</button>
+<p (click)="downloadToPdf()">Print Pdf</p>
