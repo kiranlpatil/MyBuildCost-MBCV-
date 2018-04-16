@@ -1,5 +1,7 @@
 import {Component, ElementRef, Input, ViewChild} from '@angular/core';
 import * as jsPDF from 'jspdf';
+import {SessionStorageService} from "../../../../../shared/services/session.service";
+import {SessionStorage} from "../../../../../shared/constants";
 /*/// <reference path='../../../../../../../tools/manual_typings/project/jspdf.d.ts'/>*/
 
 @Component({
@@ -9,11 +11,13 @@ import * as jsPDF from 'jspdf';
 })
 
 export class CostSummaryReportComponent {
-  @ViewChild('costSummary') costSummary: ElementRef;
+  @ViewChild('content') content: ElementRef;
   @Input() buildingsReport: any;
-  constructor() {
-  }
+  constructor() {}
 
+  getCurrentProjectName() {
+    return SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT_NAME);
+  }
 
   downloadToPdf() {
     let doc = new jsPDF();
@@ -23,8 +27,8 @@ export class CostSummaryReportComponent {
       }
     };
 
-    let costSummary = this.costSummary.nativeElement;
-    doc.fromHTML(costSummary.innerHTML, 10, 10, {
+    let content = this.content.nativeElement;
+    doc.fromHTML(content.innerHTML, 10, 10, {
       'width': 20,
       'elementHandlers': specialElementHandlers
     });
