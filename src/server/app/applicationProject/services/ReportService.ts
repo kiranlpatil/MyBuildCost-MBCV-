@@ -360,7 +360,7 @@ class ReportService {
           responseData[element]= materialTakeOffReport;
           callback(null, responseData);
         }else {
-          callback(new CostControllException('Material TakeOff Report Not Found', null), null);
+          callback(new CostControllException('Material TakeOff Report Not Found For '+ building , null), null);
         }
       }
     });
@@ -369,84 +369,56 @@ class ReportService {
   private populateMaterialTakeOffReportFromRowData(materialReportRowData: any, materialTakeOffReport: MaterialTakeOffReport,
                                                    elementWiseReport: string, building: string) {
     for (let record of materialReportRowData) {
-      /*if (materialTakeOffReport.secondaryView[record.header] === undefined &&
+      if (materialTakeOffReport.secondaryView[record.header] === undefined ||
         materialTakeOffReport.secondaryView[record.header] === null) {
         materialTakeOffReport.title = building;
         materialTakeOffReport.secondaryView[record.header] = {};
       }
       let materialTakeOffSecondaryView: MaterialTakeOffSecondaryView = materialTakeOffReport.secondaryView[record.header];
-      if(materialTakeOffSecondaryView.table === undefined) {
+      if(materialTakeOffSecondaryView.table === undefined || materialTakeOffSecondaryView.table === null) {
         materialTakeOffSecondaryView.table = new MaterialTakeOffTableView(null, null, null);
       }
       let table: MaterialTakeOffTableView = materialTakeOffSecondaryView.table;
+      if(table.content === null) {
+        table.content = {};
+      }
+
       if(table.header === null) {
-        let columnOne: 'Item';
-        let columnTwo: 'Quantity';
-        let columnThree: 'Unit';
-        if(elementWiseReport === )
-        new MaterialTakeOffTableViewHeaders('Item', 'Quantity', 'Unit');
-      }
-
-
-      if(materialTakeOffSecondaryView.title === undefined) {
-        materialTakeOffSecondaryView.title = 'send'; //TODO
-      }
-      if(materialTakeOffSecondaryView.title === undefined) {
-        materialTakeOffSecondaryView.title = 'head'; //TODO
-      }
-
-
-*/
-
-
-
-      if (materialTakeOffReport.secondaryView[record.header] !== undefined &&
-        materialTakeOffReport.secondaryView[record.header] !== null) {         // check if material is in map
-        let materialTakeOffSecondaryView: MaterialTakeOffSecondaryView =
-          materialTakeOffReport.secondaryView[record.header];
-        let table: MaterialTakeOffTableView = materialTakeOffSecondaryView.table;
-        if (table.content[record.rowValue] !== undefined && table.content[record.rowValue] !== null) {
-          let tableViewContent: MaterialTakeOffTableViewContent = table.content[record.rowValue];
-          tableViewContent.columnTwo = tableViewContent.columnTwo + record.Total;   // update total
-          if (record.subValue) {
-            tableViewContent.subContent[record.subValue] =
-              new MaterialTakeOffTableViewSubContent(record.subValue, record.Total, record.unit);
-          }
-        } else {
-          let subContentMap = {};
-          if (record.subValue) {
-            let materialTakeOffTableViewSubContent =
-              new MaterialTakeOffTableViewSubContent(record.subValue, record.Total, record.unit);
-            subContentMap[record.subValue] = materialTakeOffTableViewSubContent;
-          }
-          let tableViewContent: MaterialTakeOffTableViewContent =
-            new MaterialTakeOffTableViewContent(record.rowValue, record.Total, record.unit, subContentMap);
-          table.content[record.rowValue] = tableViewContent;
+        let columnOne: string = 'Item';
+        let columnTwo: string = 'Quantity';
+        let columnThree: string =  'Unit';
+        if(elementWiseReport === Constants.STR_COSTHEAD && building === Constants.STR_ALL_BUILDING){
+          columnOne = 'Building';
         }
-        table.footer.columnTwo = table.footer.columnTwo + record.Total;
-        materialTakeOffSecondaryView.title = table.footer.columnTwo + ' ' + record.unit;
-      } else {
-        let subContentMap = {};
-        if (record.subValue) {
-          let materialTakeOffTableViewSubContent = new MaterialTakeOffTableViewSubContent(record.subValue, record.Total, 'BAG');
-          subContentMap[record.subValue] = materialTakeOffTableViewSubContent;
-        }
-        let tableViewContent: MaterialTakeOffTableViewContent =
-          new MaterialTakeOffTableViewContent(record.rowValue, record.Total, record.unit, subContentMap);
-        let tableViewContentMap = {};
-        tableViewContentMap[record.rowValue] = tableViewContent;
-        let materialTakeOffTableViewHeader: MaterialTakeOffTableViewHeaders =
-          new MaterialTakeOffTableViewHeaders('Item', 'Quantity', 'Unit');
-        let materialTakeOffTableViewFooter: MaterialTakeOffTableViewFooter =
-          new MaterialTakeOffTableViewFooter('Total', record.Total, record.unit);
-        let table: MaterialTakeOffTableView =
-          new MaterialTakeOffTableView(materialTakeOffTableViewHeader, tableViewContentMap, materialTakeOffTableViewFooter);
-        let materialTakeOffSecondaryView: MaterialTakeOffSecondaryView =
-          new MaterialTakeOffSecondaryView(materialTakeOffTableViewFooter.columnTwo + ' ' + materialTakeOffTableViewFooter.columnThree,
-            table);
-        materialTakeOffReport.title = building;
-        materialTakeOffReport.secondaryView[record.header] = materialTakeOffSecondaryView;
+        table.header = new MaterialTakeOffTableViewHeaders(columnOne, columnTwo, columnThree);
       }
+
+      let materialTakeOffTableViewSubContent = null;
+      if (record.subValue && record.subValue !== 'default') {
+        materialTakeOffTableViewSubContent =
+          new MaterialTakeOffTableViewSubContent(record.subValue, record.Total, record.unit);
+      }
+
+      if(table.content[record.rowValue] === undefined || table.content[record.rowValue] === null) {
+        table.content[record.rowValue] = new MaterialTakeOffTableViewContent(record.rowValue, 0, record.unit, {});
+      }
+
+      let tableViewContent: MaterialTakeOffTableViewContent = table.content[record.rowValue];
+      tableViewContent.columnTwo = tableViewContent.columnTwo + record.Total;   // update total
+
+      if(materialTakeOffTableViewSubContent) {
+        tableViewContent.subContent[record.subValue] = materialTakeOffTableViewSubContent;
+      }
+
+      let materialTakeOffTableViewFooter: MaterialTakeOffTableViewFooter = null;
+      if(table.footer === undefined || table.footer === null) {
+        table.footer =
+          new MaterialTakeOffTableViewFooter('Total', 0, record.unit);
+      }
+      materialTakeOffTableViewFooter = table.footer;
+      materialTakeOffTableViewFooter.columnTwo =  materialTakeOffTableViewFooter.columnTwo + record.Total;
+      materialTakeOffSecondaryView.title = materialTakeOffTableViewFooter.columnTwo + ' '
+        + materialTakeOffTableViewFooter.columnThree;
     }
   }
 
