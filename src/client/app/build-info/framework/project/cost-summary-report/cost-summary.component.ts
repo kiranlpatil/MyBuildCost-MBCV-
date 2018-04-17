@@ -2,7 +2,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router , ActivatedRoute } from '@angular/router';
 import {
   NavigationRoutes, ProjectElements, Button, Menus, Headings, Label,
-  ValueConstant
+  ValueConstant, CurrentView
 } from '../../../../shared/constants';
 import { SessionStorage, SessionStorageService,  Message, Messages, MessageService } from '../../../../shared/index';
 import { CostSummaryService } from './cost-summary.service';
@@ -93,7 +93,7 @@ export class CostSummaryComponent implements OnInit {
   }
 
   ngOnInit() {
-    SessionStorageService.setSessionValue(SessionStorage.CURRENT_VIEW,'costSummary');
+    SessionStorageService.setSessionValue(SessionStorage.CURRENT_VIEW, CurrentView.COST_SUMMARY);
     this.activatedRoute.params.subscribe(params => {
       this.projectId = params['projectId'];
       if(this.projectId) {

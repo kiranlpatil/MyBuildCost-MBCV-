@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MaterialTakeOffService } from './material-takeoff.service';
-import { MaterialTakeOffElements } from '../../../../shared/constants';
+import { MaterialTakeOffElements, CurrentView } from '../../../../shared/constants';
 import { MaterialTakeOffFilters } from '../../model/material-take-off-filters';
 import { MaterialTakeOffElement } from '../../model/material-take-off-element';
-import { Message, MessageService } from '../../../../shared/index';
+import { Message, MessageService,SessionStorage, SessionStorageService } from '../../../../shared/index';
 
 @Component({
   moduleId: module.id,
@@ -45,6 +45,7 @@ export class MaterialTakeoffComponent implements OnInit {
   }
 
   ngOnInit() {
+    SessionStorageService.setSessionValue(SessionStorage.CURRENT_VIEW, CurrentView.MATERIAL_TAKE_OFF);
     this.activatedRoute.params.subscribe(params => {
       this.projectId = params['projectId'];
     });

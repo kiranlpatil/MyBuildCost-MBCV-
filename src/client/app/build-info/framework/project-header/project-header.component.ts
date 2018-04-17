@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { SessionStorage, SessionStorageService } from '../../../shared/index';
-import { Menus, NavigationRoutes } from '../../../shared/constants';
+import { Menus, NavigationRoutes, CurrentView } from '../../../shared/constants';
 
 @Component({
   moduleId: module.id,
@@ -29,6 +29,14 @@ export class ProjectHeaderComponent implements OnInit {
 
   getMenus() {
     return Menus;
+  }
+
+  getCurrentView() {
+    return SessionStorageService.getSessionValue(SessionStorage.CURRENT_VIEW);
+  }
+
+  currentView() {
+    return CurrentView;
   }
 
 }
