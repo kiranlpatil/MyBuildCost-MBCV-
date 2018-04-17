@@ -564,3 +564,10 @@ export class ValueConstant {
 
   public static NUMBER_OF_FRACTION_DIGIT = 2;
 }
+
+export class CurrentView {
+
+  public static COST_SUMMARY = 'costSummary';
+  public static MATERIAL_TAKE_OFF = 'materialTakeOff';
+  public static PROJECT_DETAILS = 'projectDetails';
+}

@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Messages } from '../../../../shared/constants';
+import { CurrentView, Messages} from '../../../../shared/constants';
 import { ProjectService } from '../project.service';
 import { Project } from './../../model/project';
-import { Message, MessageService } from '../../../../shared/index';
-import { SessionStorage, SessionStorageService } from '../../../../shared/index';
+import { Message, MessageService,SessionStorage, SessionStorageService } from '../../../../shared/index';
 
 @Component({
   moduleId: module.id,
@@ -25,6 +24,7 @@ export class ProjectDetailsComponent implements OnInit {
   }
 
   ngOnInit() {
+    SessionStorageService.setSessionValue(SessionStorage.CURRENT_VIEW,CurrentView.PROJECT_DETAILS);
     this.activatedRoute.params.subscribe(params => {
      this.projectId = params['projectId'];
       if(this.projectId) {
