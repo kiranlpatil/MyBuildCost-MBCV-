@@ -82,8 +82,9 @@ export class GetRateComponent implements OnInit {
 
     for (let rateItemsIndex in this.rate.rateItems) {
       if(choice === 'changeTotalQuantity') {
-        this.rate.rateItems[rateItemsIndex].quantity =this.rate.rateItems[rateItemsIndex].quantity *
-          this.quantityIncrement;
+        this.rate.rateItems[rateItemsIndex].quantity = parseFloat((
+          this.rate.rateItems[rateItemsIndex].quantity *
+          this.quantityIncrement).toFixed(ValueConstant.NUMBER_OF_FRACTION_DIGIT));
       }
       this.type = this.rate.rateItems[rateItemsIndex].type;
         switch (this.type) {
