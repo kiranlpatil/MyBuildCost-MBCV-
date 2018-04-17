@@ -11,11 +11,10 @@
         <li>
           <a type="button"  [routerLinkActive]="['active']"  [routerLink]="['/project', getCurrentProjectId(),'details']" >{{getMenus().PROJECT_DETAILS}}</a>
         </li>
-        <li>
+        <li *ngIf="getCurrentView() === currentView().COST_SUMMARY">
           <a (click)="goToCreateBuilding()"><span class="glyphicon glyphicon-plus"></span>{{getMenus().ADD_BUILDING}}</a>
         </li>
       </ul>
     </div>
   </div>
 </header>
-
