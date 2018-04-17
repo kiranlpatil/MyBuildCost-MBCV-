@@ -15,8 +15,7 @@ import { EstimateReport } from '../../model/estimate-report';
 import { BuildingReport } from '../../model/building-report';
 import ProjectReport = require('../../model/project-report');
 import { LoaderService } from '../../../../shared/loader/loaders.service';
-import * as jsPDF from 'jspdf';
-/*/// <reference path='../../../../../../../tools/manual_typings/project/jspdf.d.ts'/>*/
+
 @Component({
   moduleId: module.id,
   selector: 'bi-cost-summary-report',
@@ -405,23 +404,6 @@ export class CostSummaryComponent implements OnInit {
 
   getProjectElements() {
     return ProjectElements;
-  }
-
-  downloadToPdf() {
-    let doc = new jsPDF();
-    let specialElementHandlers = {
-      '#editor': function (element : any, renderer : any) {
-        return true;
-      }
-    };
-
-    let content = this.content.nativeElement;
-    doc.fromHTML(content.innerHTML, 5, 5, {
-      'width': 1900,
-      'elementHandlers': specialElementHandlers
-    });
-
-    doc.save('test.pdf');
   }
 
 }

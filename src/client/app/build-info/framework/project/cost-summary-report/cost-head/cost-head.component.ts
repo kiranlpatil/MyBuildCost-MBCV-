@@ -484,13 +484,13 @@ export class CostHeadComponent implements OnInit, OnChanges {
 
   refreshCategoryList() {
     this.getCategories( this.projectId, this.costHeadId);
-    this.showWorkItemTab = null;
-    this.showQuantityTab = null;
+    //this.showWorkItemTab = null;
+    //this.showQuantityTab = null;
     this.displayRateView = null;
   }
 
   refreshWorkItemList() {
-    this.refreshCategoryList();
+    //this.refreshCategoryList();
   }
 
 /*  setSelectedWorkItems(workItemList:any) {
@@ -562,7 +562,7 @@ export class CostHeadComponent implements OnInit, OnChanges {
   }
 
   setShowWorkItemTab( tabName : string) {
-    this.showWorkItemTab = tabName;
+    //this.showWorkItemTab = tabName;
   }
 
   closeRateView() {

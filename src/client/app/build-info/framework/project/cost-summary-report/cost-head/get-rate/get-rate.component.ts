@@ -179,10 +179,10 @@ export class GetRateComponent implements OnInit {
     }
 
     let categoriesTotal= this.commonService.totalCalculationOfCategories(this.categoryDetails,
-      this.categoryRateAnalysisId, this.workItemsList);
+    this.categoryRateAnalysisId, this.workItemsList);
     this.categoriesTotalAmount.emit(categoriesTotal);
-    this.showWorkItemTabName.emit('');
-      this.loaderService.stop();
+    //this.showWorkItemTabName.emit('');
+    this.loaderService.stop();
   }
 
   onUpdateRateFailure(error: any) {
