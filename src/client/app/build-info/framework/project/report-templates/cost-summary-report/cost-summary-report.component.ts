@@ -1,8 +1,6 @@
 import { Component, ElementRef, Input, ViewChild } from '@angular/core';
 import { SessionStorageService } from '../../../../../shared/services/session.service';
 import { SessionStorage } from '../../../../../shared/constants';
-import {ProjectService} from "../../project.service";
-import {Project} from "../../../model/project";
 
 @Component({
   moduleId: module.id,
@@ -18,35 +16,16 @@ export class CostSummaryReportComponent {
   @Input() buildingReport: any;
   @Input() costingByUnit: any;
   @Input() costingByArea: any;
-  project: Project[];
   currentProjectName: string;
   company_name: string;
   isBudgetedAndEstimated: boolean = false;
   isBudgeted: boolean = false;
   isEstimated: boolean = false;
-  projectCreatedDate: any;
+  generatedDate: Date = new Date();
 
-  constructor(private projectService: ProjectService) {
-    let projectId = SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT_ID);
+  constructor() {
     this.company_name = SessionStorageService.getSessionValue(SessionStorage.COMPANY_NAME);
     this.currentProjectName = SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT_NAME);
-    this.getProject(projectId);
-  }
-
-  getProject(projectId:any) {
-    this.projectService.getProject(projectId).subscribe(
-      project => this.onGetProjectSuccess(project),
-      error => this.onGetProjectFailure(error)
-    );
-  }
-
-  onGetProjectSuccess(project : any) {
-    this.project = project.data;
-    this.projectCreatedDate = this.project[0].createdAt;
-  }
-
-  onGetProjectFailure(error : any) {
-    console.log(error);
   }
 
   downloadToPdf(reportType: string) {
