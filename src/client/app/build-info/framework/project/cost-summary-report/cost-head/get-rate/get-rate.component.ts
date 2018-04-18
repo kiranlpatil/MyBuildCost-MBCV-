@@ -58,21 +58,6 @@ export class GetRateComponent implements OnInit {
     this.calculateTotal();
   }
 
-  getItemName(event : any) {
-
-    if (event.target.value !== '') {
-      this.selectedItemName = event.target.value;
-      event.target.value = '';
-    }
-  }
-
-  setItemName(event : any) {
-    if (event.target.value === '') {
-      event.target.value = this.selectedItemName;
-    }
-  }
-
-
   calculateTotal(choice?:string) {
     this.ratePerUnitAmount = 0;
     this.totalAmount = 0;
@@ -82,8 +67,9 @@ export class GetRateComponent implements OnInit {
 
     for (let rateItemsIndex in this.rate.rateItems) {
       if(choice === 'changeTotalQuantity') {
-        this.rate.rateItems[rateItemsIndex].quantity =this.rate.rateItems[rateItemsIndex].quantity *
-          this.quantityIncrement;
+        this.rate.rateItems[rateItemsIndex].quantity = parseFloat((
+          this.rate.rateItems[rateItemsIndex].quantity *
+          this.quantityIncrement).toFixed(ValueConstant.NUMBER_OF_FRACTION_DIGIT));
       }
       this.type = this.rate.rateItems[rateItemsIndex].type;
         switch (this.type) {
@@ -179,10 +165,10 @@ export class GetRateComponent implements OnInit {
     }
 
     let categoriesTotal= this.commonService.totalCalculationOfCategories(this.categoryDetails,
-      this.categoryRateAnalysisId, this.workItemsList);
+    this.categoryRateAnalysisId, this.workItemsList);
     this.categoriesTotalAmount.emit(categoriesTotal);
-    this.showWorkItemTabName.emit('');
-      this.loaderService.stop();
+    //this.showWorkItemTabName.emit('');
+    this.loaderService.stop();
   }
 
   onUpdateRateFailure(error: any) {
@@ -215,36 +201,59 @@ export class GetRateComponent implements OnInit {
     this.previousTotalQuantity = previousTotalQuantity;
   }
 
-  getRateItemsByOriginalName(rateItem: any, rateItemKey : string, index:number) {
-    this.selectedRateItem = rateItem;
-    this.selectedRateItemIndex = index;
-    this.selectedRateItemKey = rateItemKey;
+  getItemName(event : any) {
 
-    this.costSummaryService.getRateItemsByOriginalName( this.baseUrl,rateItem.originalItemName).subscribe(
-      rateItemsData => this.onGetRateItemsByOriginalNameSuccess(rateItemsData.data),
-      error => this.onGetRateItemsByOriginalNameFailure(error)
-    );
+    if (event.target.value !== '') {
+      this.selectedItemName = event.target.value;
+      event.target.value = '';
+    }
+  }
+
+  setItemName(event : any) {
+    if (event.target.value === '') {
+      event.target.value = this.selectedItemName;
+    }
+  }
+
+  getRateItemsByOriginalName(rateItem: any, index:number) {
+      this.selectedRateItem = rateItem;
+      this.selectedRateItemIndex = index;
+
+      this.costSummaryService.getRateItemsByOriginalName(this.baseUrl, rateItem.originalItemName).subscribe(
+        rateItemsData => this.onGetRateItemsByOriginalNameSuccess(rateItemsData.data),
+        error => this.onGetRateItemsByOriginalNameFailure(error)
+      );
   }
 
   onGetRateItemsByOriginalNameSuccess(rateItemsData: any) {
-    this.arrayOfRateItems = rateItemsData;
+      this.arrayOfRateItems = rateItemsData;
+  }
 
-    for(let rateItemData of rateItemsData) {
-      if(rateItemData.itemName === this.selectedRateItem.itemName) {
-         for(let rateItem of this.rate.rateItems) {
-           if(rateItem.itemName === this.selectedRateItem.itemName) {
-             rateItem.rate = rateItemData.rate;
-             this.calculateTotal();
-             break;
-           }
-         }
-         break;
-      }
-    }
-    for(let workItemData of this.workItemsList) {
-      if(workItemData.rateAnalysisId === this.workItemRateAnalysisId) {
-        workItemData.rate = this.rate;
-      }
+  setRate(rateItemsData : any) {
+
+    let selectedItemName = this.selectedRateItem.itemName;
+    let rateItemData : Array<RateItem> = rateItemsData.filter(
+      function( rateItemData1: any){
+        return rateItemData1.itemName === selectedItemName;
+      });
+
+    if(rateItemData.length !== 0) {
+      let rateItems: Array<RateItem> = this.rate.rateItems.filter(
+        function (rateItems: any) {
+          return rateItems.itemName === selectedItemName;
+        });
+
+      rateItems[0].rate = rateItemData[0].rate;
+
+      this.calculateTotal();
+
+      let workItemRateAnalysisId = this.workItemRateAnalysisId;
+      let workItemData: Array<WorkItem> = this.workItemsList.filter(
+        function (workItemData: any) {
+          return workItemData.rateAnalysisId === workItemRateAnalysisId;
+        });
+
+      workItemData[0].rate = this.rate;
     }
   }
 

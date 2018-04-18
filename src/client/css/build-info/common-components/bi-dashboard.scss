@@ -20,10 +20,11 @@
     border-radius: 6px;
     color: $heading;
     font-size: 12px;
-    margin-right: 15px;
-    padding: 2px 16px 2px 7px;
-    width: auto;
     font-weight: 400;
+    margin-right: 15px;
+    max-width: 165px;
+    padding: 2px 20px 2px 7px;
+    width: auto;
 
     &:focus {
       border: 1px solid $gray-dark;
@@ -70,6 +71,20 @@
     &:focus{
       border: 1px solid $persian-green;
       color: $persian-green;
+    }
+  }
+}
+
+.building-name {
+  .btn-print {
+    padding: 0;
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translate(0 , -50%);
+
+    span {
+      font-size: 16px;
     }
   }
 }

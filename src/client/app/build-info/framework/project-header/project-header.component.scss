@@ -2,14 +2,15 @@
 
 .header-container {
   background: $page-background;
-  top: 80px;
   height: 60px;
   padding-top: 13px;
   position: fixed;
+  top: 80px;
   width: 100%;
   z-index: 2;
 
   ul {
+    float: left;
     padding: 0;
     text-align: left;
 
@@ -20,45 +21,47 @@
       &:first-child {
         padding-left: 0;
       }
-
-      &:last-child {
-        float: right;
-        padding: 5px 0 0 0;
-
-        a {
-          color: $dashboard-link;
-          padding: 5px 15px;
-          border: 1px solid $dashboard-link;
-          border-radius: 15px;
-
-          span {
-            padding-right: 5px;
-          }
-
-          &:hover,
-          &:active,
-          &:focus {
-            color: $white;
-            background-color: $dashboard-link;
-            padding: 5px 15px;
-            border: 1px solid $dashboard-link;
-            border-radius: 15px;
-          }
-        }
-      }
     }
 
     li > a {
       color: $inactive-link;
-      padding: 5px 1px;
       border-bottom: 2px solid transparent;
       font-size: 12px;
       font-weight: 600;
+      padding: 5px 1px;
     }
 
     li > a.active{
-      color: $link-color;
       border-bottom: 2px solid $theme-color;
+      color: $link-color;
+    }
+  }
+
+  .add-building-link {
+    float: right;
+    padding: 5px 0 0 0;
+
+    a {
+      color: $dashboard-link;
+      border: 1px solid $dashboard-link;
+      border-radius: 15px;
+      font-size: 12px;
+      font-weight: 600;
+      padding: 5px 15px;
+
+      span {
+        padding-right: 5px;
+      }
+
+      &:hover,
+      &:active,
+      &:focus {
+        color: $white;
+        background-color: $dashboard-link;
+        border: 1px solid $dashboard-link;
+        border-radius: 15px;
+        padding: 5px 15px;
+      }
     }
   }
 }

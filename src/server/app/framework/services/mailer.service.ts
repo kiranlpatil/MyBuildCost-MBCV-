@@ -22,16 +22,7 @@ class SendMailService {
        callback: (error: Error, result: SentMessageInfo) => void, carbonCopy?: string,attachment?:any) {
 
     let content = fs.readFileSync(path.resolve() + config.get('application.publicPath') + 'templates/' + templateName).toString();
-    if(content) {
-      console.log('content resolve : '+JSON.stringify(content));
-      let result = content;
-      callback(null, null);
-    } else {
-      let content2 = fs.readFileSync(config.get('application.publicPath') + 'templates/' + templateName).toString();
-      console.log('content  publicPath: '+JSON.stringify(content2));
-      callback(null, null);
-    }
-    /*data.forEach((value: string, key: string) => {
+    data.forEach((value: string, key: string) => {
       content = content.replace(key, value);
     });
 
@@ -48,7 +39,7 @@ class SendMailService {
         loggerService.logError(' Error in mail send ' + error);
       }
       callback(error, response);
-    });*/
+    });
   }
 }
 

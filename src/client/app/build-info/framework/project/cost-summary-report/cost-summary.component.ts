@@ -2,7 +2,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router , ActivatedRoute } from '@angular/router';
 import {
   NavigationRoutes, ProjectElements, Button, Menus, Headings, Label,
-  ValueConstant
+  ValueConstant, CurrentView
 } from '../../../../shared/constants';
 import { SessionStorage, SessionStorageService,  Message, Messages, MessageService } from '../../../../shared/index';
 import { CostSummaryService } from './cost-summary.service';
@@ -15,8 +15,7 @@ import { EstimateReport } from '../../model/estimate-report';
 import { BuildingReport } from '../../model/building-report';
 import ProjectReport = require('../../model/project-report');
 import { LoaderService } from '../../../../shared/loader/loaders.service';
-import * as jsPDF from 'jspdf';
-/*/// <reference path='../../../../../../../tools/manual_typings/project/jspdf.d.ts'/>*/
+
 @Component({
   moduleId: module.id,
   selector: 'bi-cost-summary-report',
@@ -93,7 +92,7 @@ export class CostSummaryComponent implements OnInit {
   }
 
   ngOnInit() {
-    SessionStorageService.setSessionValue(SessionStorage.CURRENT_VIEW,'costSummary');
+    SessionStorageService.setSessionValue(SessionStorage.CURRENT_VIEW, CurrentView.COST_SUMMARY);
     this.activatedRoute.params.subscribe(params => {
       this.projectId = params['projectId'];
       if(this.projectId) {
@@ -402,23 +401,6 @@ export class CostSummaryComponent implements OnInit {
 
   getProjectElements() {
     return ProjectElements;
-  }
-
-  downloadToPdf() {
-    let doc = new jsPDF();
-    let specialElementHandlers = {
-      '#editor': function (element : any, renderer : any) {
-        return true;
-      }
-    };
-
-    let content = this.content.nativeElement;
-    doc.fromHTML(content.innerHTML, 5, 5, {
-      'width': 1900,
-      'elementHandlers': specialElementHandlers
-    });
-
-    doc.save('test.pdf');
   }
 
 }

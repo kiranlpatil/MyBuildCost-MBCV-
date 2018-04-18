@@ -14,6 +14,7 @@ import { LoaderService } from '../../../../../shared/loader/loaders.service';
 import { QuantityDetailsComponent } from './quantity-details/quantity-details.component';
 import { RateItem } from '../../../model/rate-item';
 
+declare var $: any;
 
 @Component({
   moduleId: module.id,
@@ -31,7 +32,6 @@ export class CostHeadComponent implements OnInit, OnChanges {
   baseUrl:string;
   viewType:string;
   keyQuantity:string;
-  currentKey:string;
   costHeadName: string;
   costHeadId:number;
   workItemId: number;
@@ -117,6 +117,9 @@ export class CostHeadComponent implements OnInit, OnChanges {
   onGetCategoriesSuccess(categoryDetails: any) {
     this.categoryDetails = categoryDetails.data.categories;
     this.categoryDetailsTotalAmount = categoryDetails.data.categoriesAmount;
+    if(this.categoryRateAnalysisId) {
+      this.getActiveWorkItemsOfCategory(this.categoryRateAnalysisId);
+    }
   }
 
   calculateCategoriesTotal() {
@@ -431,10 +434,21 @@ export class CostHeadComponent implements OnInit, OnChanges {
     this.categoryIdForInActive = categoryId;
   }
 
-  changeDirectQuantity(categoryId : number, workItemId: number, directQuantity : number) {
-    if(directQuantity !== null || directQuantity !== 0) {
+  setDirectQuantity(categoryId : number, workItemId: number, directQuantity : number) {
+    this.categoryId = categoryId;
+    this.workItemId = workItemId;
+    this.directQuantity = directQuantity;
+  }
+
+  displayModal() {
+    $('#updateDirectQuantity').modal('show');
+  }
+
+  changeDirectQuantity() {
+    if( this.directQuantity !== null ||  this.directQuantity !== 0) {
       this.loaderService.start();
-      this.costSummaryService.updateDirectQuantityAmount(this.baseUrl, this.costHeadId, categoryId, workItemId, directQuantity).subscribe(
+      this.costSummaryService.updateDirectQuantityAmount(this.baseUrl, this.costHeadId, this.categoryId,
+        this.workItemId, this.directQuantity).subscribe(
         workItemList => this.onChangeDirectQuantitySuccess(workItemList),
         error => this.onChangeDirectQuantityFailure(error)
       );
@@ -479,93 +493,15 @@ export class CostHeadComponent implements OnInit, OnChanges {
     this.loaderService.stop();
   }
 
-  /*  deactivateCategory() {
-    let projectId=SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT_ID);
-    let buildingId=SessionStorageService.getSessionValue(SessionStorage.CURRENT_BUILDING);
-
-    this.costSummaryService.deactivateCategory( projectId, buildingId, this.costHeadId, this.categoryIdForInActive).subscribe(
-      deactivatedCategory => this.onDeactivateCategorySuccess(deactivatedCategory),
-      error => this.onDeactivateCategoryFailure(error)
-    );
-  }
-
-  onDeactivateCategorySuccess(deactivatedCategory : any) {
-    let categoryList = lodsh.clone(this.categoryDetails);
-    this.categoryDetails = this.commonService.removeDuplicateItmes(categoryList, deactivatedCategory.data);
-    this.calculateCategoriesTotal();
-    var message = new Message();
-    message.isError = false;
-    message.custom_message = Messages.MSG_SUCCESS_DELETE_CATEGORY;
-    this.messageService.message(message);
-/!*    this.getCategories( this.projectId, this.costHeadId);*!/
-  }
-
-  onDeactivateCategoryFailure(error : any) {
-    console.log('In Active Category error : '+JSON.stringify(error));
-  }*/
-
- /* getInActiveCategories() {
-    let projectId = SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT_ID);
-    let buildingId = SessionStorageService.getSessionValue(SessionStorage.CURRENT_BUILDING);
-
-    this.costSummaryService.getInActiveCategories( projectId, buildingId, this.costHeadId).subscribe(
-      categoryList => this.onGetInActiveCategoriesSuccess(categoryList),
-      error => this.onGetInActiveCategoriesFailure(error)
-    );
-  }
-
-  onGetInActiveCategoriesSuccess(categoryList : any) {
-    if(categoryList.data.length!==0) {
-    this.categoryArray = categoryList.data;
-    this.showCategoryList = true;
-    } else {
-      var message = new Message();
-      message.isError = false;
-      message.custom_message = Messages.MSG_ALREADY_ADDED_ALL_CATEGORIES;
-      this.messageService.message(message);
-    }
-  }
-
-  onGetInActiveCategoriesFailure(error : any) {
-    console.log('categoryList error : '+JSON.stringify(error));
-  }*/
-
-  /*onChangeActivateSelectedCategory(selectedCategoryId : number ) {
-    let projectId=SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT_ID);
-    let buildingId=SessionStorageService.getSessionValue(SessionStorage.CURRENT_BUILDING);
-
-    this.costSummaryService.activateCategory( projectId, buildingId, this.costHeadId, selectedCategoryId).subscribe(
-      building => this.onActivateCategorySuccess(building),
-      error => this.onActivateCategoryFailure(error)
-    );
-  }
-
-  onActivateCategorySuccess(activatedCategory : any) {
-    this.categoryDetails = this.categoryDetails.concat(activatedCategory.data);
-    this.calculateCategoriesTotal();
-
-    let categoryList = lodsh.clone(this.categoryArray);
-    this.categoryArray = this.commonService.removeDuplicateItmes(categoryList, this.categoryDetails);
-
-    var message = new Message();
-    message.isError = false;
-    message.custom_message = Messages.MSG_SUCCESS_ADD_CATEGORY;
-    this.messageService.message(message);
-  }
-
-  onActivateCategoryFailure(error : any) {
-    console.log('building error : '+ JSON.stringify(error));
-  }
-*/
   refreshCategoryList() {
     this.getCategories( this.projectId, this.costHeadId);
-    this.showWorkItemTab = null;
-    this.showQuantityTab = null;
-    this.displayRateView = null;
+    //this.showWorkItemTab = null;
+    //this.showQuantityTab = null;
+    //this.displayRateView = null;
   }
 
   refreshWorkItemList() {
-    this.refreshCategoryList();
+    //this.refreshCategoryList();
   }
 
 /*  setSelectedWorkItems(workItemList:any) {
@@ -608,11 +544,11 @@ export class CostHeadComponent implements OnInit, OnChanges {
     }
   }
 
- /* updateElement(quantityType : string) {
-      if(quantityType === ProjectElements.DIRECT_QUANTITY) {
+  updateElement(elementType : string) {
+      if(elementType === ProjectElements.DIRECT_QUANTITY) {
         this.changeDirectQuantity();
       }
-  }*/
+    }
 
   goBack() {
     let projectId = SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT_ID);
@@ -633,12 +569,11 @@ export class CostHeadComponent implements OnInit, OnChanges {
 
   setCategoriesTotal( categoriesTotal : number) {
     this.categoryDetailsTotalAmount = categoriesTotal;
-    this.refreshWorkItemList();
+    this.refreshCategoryList();
   }
 
   setShowWorkItemTab( tabName : string) {
-    this.showWorkItemTab = tabName;
-    this.refreshCategoryList();
+    //this.showWorkItemTab = tabName;
   }
 
   closeRateView() {

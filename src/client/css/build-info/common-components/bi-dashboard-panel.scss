@@ -42,6 +42,9 @@
       position: absolute;
       top: 0;
       width: 100%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
 
       .caret {
         position: absolute;
@@ -76,8 +79,8 @@
       border: 0;
       border-radius: 0;
       box-shadow: 10px 10px 10px $panel-shadow;
-      min-width: 105px;
-      padding: 0;
+      min-width: 170px;
+      padding: 5px 0 0;
       z-index: 98;
     }
 
