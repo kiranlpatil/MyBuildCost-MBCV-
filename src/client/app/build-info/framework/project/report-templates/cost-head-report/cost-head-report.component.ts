@@ -1,5 +1,4 @@
-import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
-import * as jsPDF from 'jspdf';
+import { AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { CostSummaryService } from '../../cost-summary-report/cost-summary.service';
 import { SessionStorage, SessionStorageService } from '../../../../../shared/index';
 
@@ -9,15 +8,19 @@ import { SessionStorage, SessionStorageService } from '../../../../../shared/ind
   templateUrl: 'cost-head-report.component.html'
 })
 
-export class CostHeadReportComponent implements OnInit {
+export class CostHeadReportComponent implements OnInit, AfterViewInit  {
 
-  @ViewChild('content') content: ElementRef;
+  @ViewChild('content', {read: ElementRef}) content: ElementRef;
   @Input() costHeadId: number;
 
   costHead : any;
 
   constructor(private costSummaryService : CostSummaryService) {
     console.log('constructor');
+  }
+
+  ngAfterViewInit(): void {
+    console.log(this.content.nativeElement.innerHTML);
   }
 
   ngOnInit() {
@@ -39,20 +42,17 @@ export class CostHeadReportComponent implements OnInit {
     console.log('categoryDetails error : '+JSON.stringify(error));
   }
 
-  downloadToPdf() {
-    let doc = new jsPDF();
-    let specialElementHandlers = {
-      '#editor': function (element : any, renderer : any) {
-        return true;
-      }
-    };
-
-    let content = this.content.nativeElement;
-    doc.fromHTML(content.innerHTML, 10, 10, {
-      'width': 20,
-      'elementHandlers': specialElementHandlers
-    });
-
-    doc.save('cost-head-report.pdf');
+  downloadToPDF() {
+    let contentDiv = document.createElement('div');
+    let content = this.content.nativeElement.innerHTML;
+    contentDiv.innerHTML = content;
+    contentDiv.setAttribute('id','print-div');
+    document.getElementById('tpl-app').style.display = 'none';
+    window.document.body.appendChild(contentDiv);
+    window.document.close();
+    window.print();
+    var elem = document.querySelector('#print-div');
+    elem.parentNode.removeChild(elem);
+    document.getElementById('tpl-app').style.display = 'initial';
   }
 }

@@ -45,7 +45,7 @@
                     </div>
 
                     <!--content-->
-                    <div *ngFor="let content of materialTakeOffReport[materialKey].secondaryView[secondaryViewKey].table.content | keys; let contentIndex = index">
+                    <div *ngFor="let content of materialTakeOffReport[materialKey].secondaryView[secondaryViewKey].table.content | keys:getMaterialTakeOffElements().SORT; let contentIndex = index">
 
                       <div class="inner-item-list">
 
@@ -54,7 +54,9 @@
                           <div class="panel-group">
                             <div class="panel-heading">
                               <h4 class="panel-title">
-                                <a (click)="showSubContent(secondaryViewDataIndex, contentIndex)">
+                                <a [class.collapsed]="dataIndex !== secondaryViewDataIndex ||
+                                        headerIndex !== contentIndex ||
+                                        !viewSubContent" (click)="showSubContent(secondaryViewDataIndex, contentIndex)">
                                   <bi-table-row [customClass]="'item-inner-row'"
                                     [rows]="materialTakeOffReport[materialKey].secondaryView[secondaryViewKey].table.content[content]">
                                   </bi-table-row>
@@ -65,8 +67,7 @@
                             <div class="panel-body" [class.in]="dataIndex === secondaryViewDataIndex &&
                                         headerIndex === contentIndex &&
                                         viewSubContent">
-                              <!--sub content-->
-                              <div class="collapse-list-item" *ngFor="let subContent of materialTakeOffReport[materialKey].secondaryView[secondaryViewKey].table.content[content].subContent | keys;">
+                              <div class="collapse-list-item" *ngFor="let subContent of materialTakeOffReport[materialKey].secondaryView[secondaryViewKey].table.content[content].subContent | keys:getMaterialTakeOffElements().SORT;">
                                 <bi-table-row
                                   [customClass]="'row-list'"
                                   [rows]="materialTakeOffReport[materialKey].secondaryView[secondaryViewKey].table.content[content].subContent[subContent]">
