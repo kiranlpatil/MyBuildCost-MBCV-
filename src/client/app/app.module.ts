@@ -75,7 +75,6 @@ import { QuantityDetailsComponent }
 from './build-info/framework/project/cost-summary-report/cost-head/quantity-details/quantity-details.component';
 import { CostHeadReportComponent } from './build-info/framework/project/report-templates/cost-head-report/cost-head-report.component';
 import { CostSummaryReportComponent } from './build-info/framework/project/report-templates/cost-summary-report/cost-summary-report.component';
-import { SingleElementReportComponent } from './build-info/framework/project/report-templates/material-take-off-report/single-element-report/single-element-report.component';
 import { AllElementReportComponent } from './build-info/framework/project/report-templates/material-take-off-report/all-element-report/all-element-report.component';
 import { CostHeadWiseSingleElementComponent } from './build-info/framework/project/report-templates/material-take-off-report/table-view/table-view.component';
 import { PdfHeaderComponent } from './build-info/framework/project/report-templates/material-take-off-report/pdf-header/pdf-header.component';
@@ -125,7 +124,6 @@ import { CommonAmenitiesReportComponent } from './build-info/framework/project/r
     GetQuantityComponent,
     MaterialTakeoffComponent,
     MaterialTakeOffReportComponent,
-    SingleElementReportComponent,
     AllElementReportComponent,
     CostHeadWiseSingleElementComponent,
     PdfHeaderComponent,
