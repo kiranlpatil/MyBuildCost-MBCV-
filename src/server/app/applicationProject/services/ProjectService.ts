@@ -131,8 +131,9 @@ class ProjectService {
         let buildings = projectAndBuildingDetails.data[0].buildings;
         let buildingData: Building;
         delete projectDetails._id;
-        projectDetails.projectCostHeads = this.calculateBudgetCostForCommonAmmenities(
-          projectData.projectCostHeads,projectData, buildingData);
+        projectDetails.projectCostHeads = projectData.projectCostHeads;
+        projectDetails.buildings = projectData.buildings;
+        projectDetails.projectCostHeads = this.calculateBudgetCostForCommonAmmenities(projectData.projectCostHeads, projectDetails);
 
         this.projectRepository.findOneAndUpdate(query, projectDetails, {new: true}, (error, result) => {
           logger.info('Project service, findOneAndUpdate has been hit');
@@ -175,8 +176,7 @@ class ProjectService {
       if (error) {
         callback(error, null);
       } else {
-        let projectDetails : Project;
-        buildingDetails.costHeads = this.calculateBudgetCostForBuilding(result.costHeads, projectDetails, buildingDetails);
+        buildingDetails.costHeads = this.calculateBudgetCostForBuilding(result.costHeads, buildingDetails);
 
         this.buildingRepository.findOneAndUpdate(query, buildingDetails,{new: true}, (error, result) => {
           logger.info('Project service, findOneAndUpdate has been hit');
@@ -443,45 +443,6 @@ class ProjectService {
         building.numOfFiveBHK = result.numOfFiveBHK;
         building.numOfLifts = result.numOfLifts;
 
-        /*let clonedCostHeadArray : Array<ClonedCostHead> = [];
-
-        for(let costHeadIndex = 0; costHeadIndex < clonedBuilding.length; costHeadIndex++) {
-
-          let clonedCostHead = new ClonedCostHead;
-          clonedCostHead.name = clonedBuilding[costHeadIndex].name;
-          clonedCostHead.rateAnalysisId = clonedBuilding[costHeadIndex].rateAnalysisId;
-          clonedCostHead.active = clonedBuilding[costHeadIndex].active;
-          clonedCostHead.budgetedCostAmount = clonedBuilding[costHeadIndex].budgetedCostAmount;
-
-          let clonedWorkItemArray : Array<ClonedWorkItem> = [];
-          let clonedCategoryArray : Array<ClonedCategory> = [];
-          let categoryArray = clonedBuilding[costHeadIndex].categories;
-
-          for(let categoryIndex=0; categoryIndex<categoryArray.length; categoryIndex++) {
-            let clonedCategory = new ClonedCategory();
-            clonedCategory.name = categoryArray[categoryIndex].name;
-            clonedCategory.rateAnalysisId = categoryArray[categoryIndex].rateAnalysisId;
-            clonedCategory.amount = categoryArray[categoryIndex].amount;
-            clonedCategory.active = true;
-
-            let workitemArray = categoryArray[categoryIndex].workItems;
-            for(let workitemIndex=0; workitemIndex< workitemArray.length; workitemIndex++) {
-              let clonedWorkItem = new ClonedWorkItem();
-              clonedWorkItem.name = workitemArray[workitemIndex].name;
-              clonedWorkItem.rateAnalysisId =  workitemArray[workitemIndex].rateAnalysisId;
-              clonedWorkItem.unit =  workitemArray[workitemIndex].unit;
-              clonedWorkItem.amount = workitemArray[workitemIndex].amount;
-              clonedWorkItem.rate = workitemArray[workitemIndex].rate;
-              clonedWorkItem.quantity = workitemArray[workitemIndex].quantity;
-              clonedWorkItemArray.push(clonedWorkItem);
-            }
-            clonedCategory.workItems = clonedWorkItemArray;
-            clonedCategoryArray.push(clonedCategory);
-          }
-          clonedCostHead.categories = clonedCategoryArray;
-          clonedCostHeadArray.push(clonedCostHead);
-        }*/
-        building.costHeads = result.costHeads;
         callback(null, {data: building, access_token: this.authInterceptor.issueTokenWithUid(user)});
       }
     });
@@ -1593,7 +1554,7 @@ class ProjectService {
 
           let configCostHeads = config.get('configCostHeads');
           this.convertConfigCostHeads(configCostHeads , buidingCostHeads);
-          let data = projectService.calculateBudgetCostForBuilding(buidingCostHeads, projectData, buildingData);
+          let data = projectService.calculateBudgetCostForBuilding(buidingCostHeads, buildingData);
 
           let rates  =  this.getRates(result, data);
           let queryForBuilding = {'_id': buildingId};
@@ -1606,7 +1567,7 @@ class ProjectService {
             } else {
               logger.info('UpdateBuildingCostHead success');
               let projectCostHeads = projectService.calculateBudgetCostForCommonAmmenities(
-                projectData.projectCostHeads,projectData, buildingData);
+                projectData.projectCostHeads, projectData);
               let queryForProject = {'_id': projectId};
               let updateProjectCostHead = {$set: {'projectCostHeads': projectCostHeads}};
               logger.info('Calling update project Costheads has been hit');
@@ -1643,7 +1604,7 @@ class ProjectService {
           let configCostHeads = config.get('configCostHeads');
           projectService.convertConfigCostHeads(configCostHeads , buidingCostHeads);
 
-          let buildingCostHeads = projectService.calculateBudgetCostForBuilding(buidingCostHeads, projectDetails, buildingDetails);
+          let buildingCostHeads = projectService.calculateBudgetCostForBuilding(buidingCostHeads, buildingDetails);
           let rates  = projectService.getRates(result, buildingCostHeads);
 
           let query = {'_id': buildingId};
@@ -1741,7 +1702,7 @@ class ProjectService {
             projectService.convertConfigCostHeads(configProjectCostHeads , costHeadsFromRateAnalysis);
 
             let projectCostHeads = projectService.calculateBudgetCostForCommonAmmenities(
-              costHeadsFromRateAnalysis, projectDetails, buildingDetails);
+              costHeadsFromRateAnalysis, projectDetails);
             let rates  = projectService.getRates(result, projectCostHeads);
 
             let query = {'_id': projectId};
@@ -1765,7 +1726,7 @@ class ProjectService {
     });
   }
 
-  calculateBudgetCostForBuilding(costHeadsRateAnalysis: any, projectDetails : Project, buildingDetails : any) {
+  calculateBudgetCostForBuilding(costHeadsRateAnalysis: any, buildingDetails : any) {
     logger.info('Project service, calculateBudgetCostForBuilding has been hit');
     let costHeads:Array<CostHead> = new Array<CostHead>();
     let budgetedCostAmount: number;
@@ -1911,7 +1872,7 @@ class ProjectService {
     return costHeads;
   }
 
-  calculateBudgetCostForCommonAmmenities(costHeadsRateAnalysis: any, projectDetails : Project, buildingDetails : any) {
+  calculateBudgetCostForCommonAmmenities(costHeadsRateAnalysis: any, projectDetails : Project) {
     logger.info('Project service, calculateBudgetCostForCommonAmmenities has been hit');
 
     let costHeads:Array<CostHead> = new Array<CostHead>();
