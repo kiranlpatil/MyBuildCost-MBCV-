@@ -18,10 +18,11 @@ export class MaterialTakeOffReportComponent  {
   headerIndex : number;
   dataIndex : number;
   projectName : string;
+  companyName : string;
 
   constructor() {
     this.projectName = SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT_NAME);
-    console.log('Project name  : ->'+this.projectName);
+    this.companyName = SessionStorageService.getSessionValue(SessionStorage.COMPANY_NAME);
   }
 
   getMaterialTakeOffElements() {

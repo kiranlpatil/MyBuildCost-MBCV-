@@ -8,6 +8,7 @@ import { MaterialTakeOffElements, PDFReportHeaders } from '../../../../../../sha
 })
 
 export class PdfHeaderComponent {
+  @Input() companyName : string;
   @Input() projectName : string;
   @Input() buildingName : string;
   public generatedDate: Date = new Date();

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   moduleId: module.id,
@@ -6,13 +6,9 @@ import { Component, Input, OnInit } from '@angular/core';
   templateUrl: 'table-row.component.html',
 })
 
-export class TableRowDataComponent implements OnInit{
+export class TableRowDataComponent {
 
   @Input() tableData : any;
-
-  ngOnInit() {
-    console.log('tableData -> '+JSON.stringify(this.tableData));
-  }
 
 }
 
