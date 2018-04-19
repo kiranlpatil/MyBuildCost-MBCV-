@@ -74,6 +74,7 @@ import { QuantityDetailsComponent }
 from './build-info/framework/project/cost-summary-report/cost-head/quantity-details/quantity-details.component';
 import { CostHeadReportComponent } from './build-info/framework/project/report-templates/cost-head-report/cost-head-report.component';
 import { CostSummaryReportComponent } from './build-info/framework/project/report-templates/cost-summary-report/cost-summary-report.component'
+import {Attachment} from "./build-info/framework/project/cost-summary-report/cost-head/attachment/attachment.component";
 
 @NgModule({
   imports: [
@@ -136,7 +137,8 @@ import { CostSummaryReportComponent } from './build-info/framework/project/repor
 
     PageNotFoundComponent,
     CommonAmenitiesComponent,
-    CostSummaryReportComponent
+    CostSummaryReportComponent,
+    Attachment
   ],
 
   providers: [

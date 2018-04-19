@@ -124,6 +124,9 @@
                                           title="Add More Details">
                                     <span class="glyphicon glyphicon-plus-sign"></span>
                                   </button>
+                                  <bi-attachment [projectId]="projectId"
+                                  [workItemId]="workItemId" [categoryId]="categoryId"
+                                  [buildingId]="buildingId"></bi-attachment>
                                   <div data-toggle="modal" data-target="#deleteWorkItem" class="delete-cost-head" title="Delete Work Item"
                                        (click)="setIdsForDeleteWorkItem(category.rateAnalysisId,workItem.rateAnalysisId,workItemIndex )">
                                     <img alt="Delete Work Item" src="assets/build-info/dashboard/delete-blue.png" />
