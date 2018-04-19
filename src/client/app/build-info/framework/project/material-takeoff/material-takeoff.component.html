@@ -24,6 +24,8 @@
       <div *ngIf="elementFound">
         <bi-material-take-off-report
           [materialTakeOffReport]="materialTakeOffReport"
+          [elementType]="elementWiseReport"
+          [elementName]="selectedElement"
           [buildingName]="building">
         </bi-material-take-off-report>
       </div>

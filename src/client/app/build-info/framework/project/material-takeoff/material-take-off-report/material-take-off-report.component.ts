@@ -14,6 +14,8 @@ export class MaterialTakeOffReportComponent  {
 
   @Input() materialTakeOffReport : any;
   @Input() buildingName : string;
+  @Input() elementType : string;
+  @Input() elementName : string;
   viewSubContent : boolean = false;
   headerIndex : number;
   dataIndex : number;

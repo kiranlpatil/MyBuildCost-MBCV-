@@ -11,6 +11,8 @@ import { CommonService } from '../../../../../../shared/services/common.service'
 export class AllElementReportComponent {
   @ViewChild('content', {read: ElementRef}) content: ElementRef;
   @Input() buildingName : string;
+  @Input() elementType : string;
+  @Input() elementName : string;
   @Input() materialTakeOffReport : any;
   public generatedDate: Date = new Date();
 

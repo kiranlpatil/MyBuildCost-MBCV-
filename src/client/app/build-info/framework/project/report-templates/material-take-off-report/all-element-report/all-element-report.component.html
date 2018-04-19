@@ -1,9 +1,11 @@
-<p (click)="downloadToPdf()">Print Pdf</p>
+<p (click)="downloadToPdf()">Download Report</p>
 
 
 <div id="content" #content style="display: none">
 
   <bi-pdf-header
+    [elementType]="elementType"
+    [elementName]="elementName"
     [buildingName]="buildingName">
   </bi-pdf-header>
 
