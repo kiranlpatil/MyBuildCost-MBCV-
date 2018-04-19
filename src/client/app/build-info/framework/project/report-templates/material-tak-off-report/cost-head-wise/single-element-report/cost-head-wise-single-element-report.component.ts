@@ -1,13 +1,13 @@
 import { Component, ElementRef, Input, ViewChild } from '@angular/core';
-import { MaterialTakeOffElements, PDFReportHeaders } from '../../../../../../shared/constants';
+import { MaterialTakeOffElements, PDFReportHeaders } from '../../../../../../../shared/constants';
 
 @Component({
   moduleId: module.id,
-  selector: 'bi-cost-head-wise-material-take-off-report',
-  templateUrl: 'cost-head-wise-material-take-off-report.component.html',
+  selector: 'bi-cost-head-wise-single-element-report',
+  templateUrl: 'cost-head-wise-single-element-report.component.html',
 })
 
-export class CostHeadWiseMaterialTakeOffDataReportComponent {
+export class CostHeadWiseSingleElementReportComponent {
   @ViewChild('content', {read: ElementRef}) content: ElementRef;
   @Input() projectName : string;
   @Input() buildingName : string;

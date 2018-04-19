@@ -1,6 +1,4 @@
-import { Component, ElementRef, Input, ViewChild, OnInit } from '@angular/core';
-import { SessionStorageService } from '../../../../../../../shared/services/session.service';
-import { SessionStorage } from '../../../../../../../shared/constants';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   moduleId: module.id,

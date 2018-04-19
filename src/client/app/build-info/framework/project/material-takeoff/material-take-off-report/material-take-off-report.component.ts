@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import {MaterialTakeOffElements, SessionStorage} from '../../../../../shared/constants';
-import {SessionStorageService} from "../../../../../shared/services/session.service";
+import {SessionStorageService} from '../../../../../shared/services/session.service';
 
 
 @Component({
