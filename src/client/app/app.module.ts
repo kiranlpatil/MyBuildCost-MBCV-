@@ -37,6 +37,7 @@ import { UserChangePasswordService } from './framework/dashboard/user-change-pas
 import { AuthGuardService } from './shared/services/auth-guard.service';
 import { HttpDelegateService } from './shared/services/http-delegate.service';
 
+
 //Application IMPORTS
 
 import { ProjectService } from './build-info/framework/project/project.service';
@@ -79,6 +80,7 @@ import { AllElementReportComponent } from './build-info/framework/project/report
 import { CostHeadWiseSingleElementComponent } from './build-info/framework/project/report-templates/material-take-off-report/table-view/table-view.component';
 import { PdfHeaderComponent } from './build-info/framework/project/report-templates/material-take-off-report/pdf-header/pdf-header.component';
 import { TableRowDataComponent } from './build-info/framework/project/report-templates/material-take-off-report/table-row/table-row.component';
+import { CommonAmenitiesReportComponent } from './build-info/framework/project/report-templates/common-amenities-report/common-amenities-report.component';
 
 @NgModule({
   imports: [
@@ -146,7 +148,8 @@ import { TableRowDataComponent } from './build-info/framework/project/report-tem
 
     PageNotFoundComponent,
     CommonAmenitiesComponent,
-    CostSummaryReportComponent
+    CostSummaryReportComponent,
+    CommonAmenitiesReportComponent
   ],
 
   providers: [
