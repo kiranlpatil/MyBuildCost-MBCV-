@@ -1,0 +1,5 @@
+class SubscriptionInterceptor {
+
+}
+
+export = SubscriptionInterceptor;
