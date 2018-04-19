@@ -1555,10 +1555,12 @@ class ProjectService {
           let configCostHeads = config.get('configCostHeads');
           this.convertConfigCostHeads(configCostHeads , buidingCostHeads);
           let data = projectService.calculateBudgetCostForBuilding(buidingCostHeads, buildingData);
+          let sortedCostHeads = alasql('SELECT * FROM ? ORDER BY priorityId',[data]);
 
           let rates  =  this.getRates(result, data);
           let queryForBuilding = {'_id': buildingId};
-          let updateCostHead = {$set: {'costHeads': data, 'rates': rates }};
+
+          let updateCostHead = {$set: {'costHeads': sortedCostHeads, 'rates': rates }};
           buildingRepository.findOneAndUpdate(queryForBuilding, updateCostHead, {new: true}, (error: any, response: any) => {
             if (error) {
               logger.error('Error in Update convertCostHeadsFromRateAnalysisToCostControl buildingCostHeadsData  : '
@@ -1605,10 +1607,11 @@ class ProjectService {
           projectService.convertConfigCostHeads(configCostHeads , buidingCostHeads);
 
           let buildingCostHeads = projectService.calculateBudgetCostForBuilding(buidingCostHeads, buildingDetails);
+          let sortedCostHeads = alasql('SELECT * FROM ? ORDER BY priorityId',[buildingCostHeads]);
           let rates  = projectService.getRates(result, buildingCostHeads);
 
           let query = {'_id': buildingId};
-          let newData = {$set: {'costHeads': buildingCostHeads, 'rates': rates}};
+          let newData = {$set: {'costHeads': sortedCostHeads, 'rates': rates}};
           buildingRepository.findOneAndUpdate(query, newData, {new: true}, (error:any, response:any) => {
             logger.info('Project service, getAllDataFromRateAnalysis has been hit');
             if (error) {
@@ -1652,6 +1655,7 @@ class ProjectService {
 
       let costHead : CostHead = new CostHead();
       costHead.name = configCostHead.name;
+      costHead.priorityId = configCostHead.priorityId;
       costHead.rateAnalysisId = configCostHead.rateAnalysisId;
       let categoriesList = new Array<Category>();
 
@@ -1703,10 +1707,13 @@ class ProjectService {
 
             let projectCostHeads = projectService.calculateBudgetCostForCommonAmmenities(
               costHeadsFromRateAnalysis, projectDetails);
+
+          let sortedProjectCostHeads = alasql('SELECT * FROM ? ORDER BY priorityId',[projectCostHeads]);
+
             let rates  = projectService.getRates(result, projectCostHeads);
 
             let query = {'_id': projectId};
-            let newData = {$set: {'projectCostHeads': projectCostHeads, 'rates': rates}};
+            let newData = {$set: {'projectCostHeads': sortedProjectCostHeads, 'rates': rates}};
 
             projectRepository.findOneAndUpdate(query, newData, {new: true}, (error: any, response: any) => {
               logger.info('Project service, getAllDataFromRateAnalysis has been hit');
