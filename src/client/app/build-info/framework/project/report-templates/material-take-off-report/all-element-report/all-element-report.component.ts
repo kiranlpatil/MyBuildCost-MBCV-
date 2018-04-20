@@ -16,19 +16,12 @@ export class AllElementReportComponent {
   @Input() materialTakeOffReport : any;
   public generatedDate: Date = new Date();
 
+  constructor(private commonService : CommonService) {
+  }
+
   downloadToPdf() {
-    console.log('reportData -> '+JSON.stringify(this.materialTakeOffReport));
-    let contentDiv = document.createElement('div');
     let content = this.content.nativeElement.innerHTML;
-    contentDiv.innerHTML = content;
-    contentDiv.setAttribute('id','print-div');
-    document.getElementById('tpl-app').style.display = 'none';
-    window.document.body.appendChild(contentDiv);
-    window.document.close();
-    window.print();
-    var elem = document.querySelector('#print-div');
-    elem.parentNode.removeChild(elem);
-    document.getElementById('tpl-app').style.display = 'initial';
+    this.commonService.downloadToPdf(content);
   }
 
   getMaterialTakeOffElements() {
