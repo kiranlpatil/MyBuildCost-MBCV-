@@ -1,43 +1,43 @@
-<div>
-
-  <table width="100%">
-    <!--header-->
-    <tr width="100%">
-      <bi-table-row-pdf
-        [tableData]="reportData.header">
-      </bi-table-row-pdf>
+<table width="100%" border="1" bordercolor="#ccc" style="font-size:10px;text-align: left;margin: 0 0 20px;float:left">
+  <thead>
+    <tr>
+      <th width="60%" style="padding: 10px 5px; text-align: left">{{reportData.header.columnOne}}</th>
+      <th width="40%" style="padding: 10px 5px; text-align: right">{{reportData.header.columnTwo}}</th>
     </tr>
-  </table>
-
-  <table *ngFor="let contentData of reportData.content | keys:getMaterialTakeOffElements().SORT"  width="100%">
-    <!--content-->
-
-    <!--actual content-->
-    <tr width="100%">
-      <bi-table-row-pdf
-        [tableData]="reportData.content[contentData]">
-      </bi-table-row-pdf>
+  </thead>
+  <tbody>
+     <tr *ngFor="let contentData of reportData.content | keys:getMaterialTakeOffElements().SORT"  width="100%">
+       <td colspan="3">
+         <table width="100%" style="text-align: left">
+           <!--actual content-->
+           <tr>
+             <td width="60%" style="padding: 5px; border-right: 1px solid #ccc;font-weight: bold;">
+               {{reportData.content[contentData].columnOne}}
+             </td>
+             <td width="40%" align="right" style="padding: 5px; font-weight: bold;">
+               {{reportData.content[contentData].columnTwo}} {{reportData.content[contentData].columnThree}}
+             </td>
+           </tr>
+           <!--subContent content-->
+           <tr *ngFor="let subContentData of reportData.content[contentData].subContent | keys:getMaterialTakeOffElements().SORT">
+             <td width="60%" style="padding: 5px; border-right: 1px solid #ccc;">
+               {{reportData.content[contentData].subContent[subContentData].columnOne}}
+             </td>
+             <td width="40%" align="right" style="padding: 5px;">
+               {{reportData.content[contentData].subContent[subContentData].columnTwo}} {{reportData.content[contentData].subContent[subContentData].columnThree}}
+             </td>
+           </tr>
+         </table>
+       </td>
+     </tr>
+  </tbody>
+  <tfoot>
+    <tr>
+      <td width="60%" style="padding: 5px;font-weight: bold;">{{reportData.footer.columnOne}}</td>
+      <td width="40%" align="right" style="padding: 5px;font-weight: bold;">{{reportData.footer.columnTwo}} {{reportData.footer.columnThree}}</td>
     </tr>
-
-    <!--subContent content-->
-    <tr *ngFor="let subContentData of reportData.content[contentData].subContent | keys:getMaterialTakeOffElements().SORT" width="100%">
-      <bi-table-row-pdf
-        [tableData]="reportData.content[contentData].subContent[subContentData]">
-      </bi-table-row-pdf>
-    </tr>
-
-  </table>
-
-
-  <table width="100%">
-    <!--footer-->
-    <tr width="100%">
-      <bi-table-row-pdf
-        [tableData]="reportData.footer">
-      </bi-table-row-pdf>
-    </tr>
+  </tfoot>
+</table>
 
 
 
-  </table>
-</div>
