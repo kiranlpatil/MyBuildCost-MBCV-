@@ -1,14 +1,14 @@
 import { Component, ElementRef, Input, ViewChild } from '@angular/core';
-import { MaterialTakeOffElements, PDFReportHeaders } from '../../../../../../shared/constants';
-import { CommonService } from '../../../../../../shared/services/common.service';
+import { MaterialTakeOffElements, PDFReportHeaders } from '../../../../../shared/constants';
+import { CommonService } from '../../../../../shared/services/common.service';
 
 @Component({
   moduleId: module.id,
-  selector: 'bi-all-element-report',
-  templateUrl: 'all-element-report.component.html',
+  selector: 'bi-material-take-off-pdf-report',
+  templateUrl: 'material-take-off-pdf-report.component.html',
 })
 
-export class AllElementReportComponent {
+export class MaterialTakeOffPdfReportComponent {
   @ViewChild('content', {read: ElementRef}) content: ElementRef;
   @Input() buildingName : string;
   @Input() elementType : string;

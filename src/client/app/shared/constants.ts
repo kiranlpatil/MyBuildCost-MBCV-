@@ -557,6 +557,7 @@ export class PDFReportHeaders {
   public static COMPANY_NAME = 'Company Name : ';
   public static PROJECT_NAME = 'Project Name : ';
   public static BUILDING_NAME = 'Building Name : ';
+  public static BUILDING = 'Building : ';
   public static GENERATED_ON = 'Generated on : ';
   public static DATE_FORMAT = 'dd MMM yyyy';
   public static COST_HEAD_NAME = 'Cost Head Name : ';

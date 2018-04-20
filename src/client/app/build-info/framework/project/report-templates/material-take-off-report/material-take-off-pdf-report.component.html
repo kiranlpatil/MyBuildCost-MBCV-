@@ -8,10 +8,6 @@
   </bi-pdf-header>
 
   <div  *ngFor="let materialKey of materialTakeOffReport | keys;">
-    <h4 style="text-align:left;">
-      <span>{{materialKey}}</span>
-      <span>{{ materialTakeOffReport[materialKey].title }}</span>
-    </h4>
 
     <div *ngFor="let secondaryViewKey of materialTakeOffReport[materialKey].secondaryView | keys:getMaterialTakeOffElements().SORT;" style="clear: both;width: 400px;">
       <table width="100%" align="left" style="margin-bottom: 5px;float:left">
