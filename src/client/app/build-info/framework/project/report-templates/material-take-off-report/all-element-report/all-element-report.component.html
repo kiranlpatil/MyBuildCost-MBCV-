@@ -1,8 +1,6 @@
-<p (click)="downloadToPdf()">Download Report</p>
-
+<button class="btn-print" (click)="downloadToPdf()"><span class="glyphicon glyphicon-print"></span>Print/Download</button>
 
 <div id="content" #content style="display: none">
-
   <bi-pdf-header
     [elementType]="elementType"
     [elementName]="elementName"
@@ -10,45 +8,22 @@
   </bi-pdf-header>
 
   <div  *ngFor="let materialKey of materialTakeOffReport | keys;">
-    <div class="">
-      <h4 class="">
-        <div class="col-sm-12">
-          <span class="">{{materialKey}}</span>
-          <span class="">
-                {{ materialTakeOffReport[materialKey].title }}
-              </span>
-        </div>
-      </h4>
+    <h4 style="text-align:left;">
+      <span>{{materialKey}}</span>
+      <span>{{ materialTakeOffReport[materialKey].title }}</span>
+    </h4>
 
-
-      <div *ngFor="let secondaryViewKey of materialTakeOffReport[materialKey].secondaryView | keys:getMaterialTakeOffElements().SORT;">
-        <div class="col-md-12">
-
-          <div class="">
-            <h4 class="">
-              <span class=""></span>
-              <span class="">{{secondaryViewKey}}</span>
-              <span class="">
-                         {{materialTakeOffReport[materialKey].secondaryView[secondaryViewKey].title }}
-                        </span>
-            </h4>
-
-          </div>
-
-          <div>
-
-            <!--pdf report-->
-            <bi-table-view
-              [reportData]="materialTakeOffReport[materialKey].secondaryView[secondaryViewKey].table">
-            </bi-table-view>
-
-
-          </div>
-
-
-        </div>
-      </div>
-
+    <div *ngFor="let secondaryViewKey of materialTakeOffReport[materialKey].secondaryView | keys:getMaterialTakeOffElements().SORT;" style="clear: both;width: 400px;">
+      <table width="100%" align="left" style="margin-bottom: 5px;float:left">
+        <thead style="font-size:12px;">
+        <th width="60%">{{secondaryViewKey}}</th>
+        <th width="40%" style="text-align: right">{{materialTakeOffReport[materialKey].secondaryView[secondaryViewKey].title }}</th>
+        </thead>
+      </table>
+      <!--pdf report-->
+      <bi-table-view
+        [reportData]="materialTakeOffReport[materialKey].secondaryView[secondaryViewKey].table">
+      </bi-table-view>
     </div>
   </div>
 
