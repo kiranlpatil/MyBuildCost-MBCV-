@@ -59,21 +59,33 @@ class UserService {
             let subScriptionService = new SubscriptionService();
             subScriptionService.getSubscriptionPackageByName('Free', (err: any,
                                                                       freeSubscription: Array<SubscriptionPackage>) => {
-              let user: UserModel = item;
-              this.assignFreeSubscriptionPackage(user, freeSubscription[0]);
-              this.userRepository.create(user, (err, res) => {
-                if (err) {
-                  callback(new Error(Messages.MSG_ERROR_REGISTRATION_MOBILE_NUMBER), null);
-                } else {
-                  callback(null, res);
-                }
-              });
-            })
+              if (freeSubscription.length > 0) {
+                this.assignFreeSubscriptionAndCreateUser(item, freeSubscription[0], callback);
+              }else {
+                subScriptionService.addSubscriptionPackage(config.get('subscription.package.Free'),
+                  (err: any, freeSubscription)=> {
+                    this.assignFreeSubscriptionAndCreateUser(item, freeSubscription, callback);
+                });
+              }
+
+            });
 
           }
         });
       }
 
+    });
+  }
+
+  private assignFreeSubscriptionAndCreateUser(item: any, freeSubscription: SubscriptionPackage, callback: (error: any, result: any) => void) {
+    let user: UserModel = item;
+    this.assignFreeSubscriptionPackage(user, freeSubscription);
+    this.userRepository.create(user, (err, res) => {
+      if (err) {
+        callback(new Error(Messages.MSG_ERROR_REGISTRATION_MOBILE_NUMBER), null);
+      } else {
+        callback(null, res);
+      }
     });
   }
 
