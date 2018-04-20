@@ -31,10 +31,10 @@ class SubscriptionRout {
 
     //Add Subscription Package
     router.post('/', this.authInterceptor.requiresAuth, this._requestInterceptor.intercept,
-      /*this.reportRequestValidator.getMaterialTakeOffReport,*/ controller.addSubscriptionPackage, this._responseInterceptor.exit);
+      this.reportRequestValidator.addSubscriptionPackage, controller.addSubscriptionPackage, this._responseInterceptor.exit);
 
     router.post('/by/name', this.authInterceptor.requiresAuth, this._requestInterceptor.intercept,
-      /*this.reportRequestValidator.getMaterialTakeOffReport,*/ controller.getSubscriptionPackageByName, this._responseInterceptor.exit);
+      this.reportRequestValidator.getSubscriptionPackageByName, controller.getSubscriptionPackageByName, this._responseInterceptor.exit);
 
     return router;
   }
