@@ -37,6 +37,7 @@ import { UserChangePasswordService } from './framework/dashboard/user-change-pas
 import { AuthGuardService } from './shared/services/auth-guard.service';
 import { HttpDelegateService } from './shared/services/http-delegate.service';
 
+
 //Application IMPORTS
 
 import { ProjectService } from './build-info/framework/project/project.service';
@@ -73,7 +74,16 @@ import { SharePrintPageComponent } from './build-info/framework/project-header/s
 import { QuantityDetailsComponent }
 from './build-info/framework/project/cost-summary-report/cost-head/quantity-details/quantity-details.component';
 import { CostHeadReportComponent } from './build-info/framework/project/report-templates/cost-head-report/cost-head-report.component';
-import { CostSummaryReportComponent } from './build-info/framework/project/report-templates/cost-summary-report/cost-summary-report.component'
+import { CostSummaryReportComponent }
+from './build-info/framework/project/report-templates/cost-summary-report/cost-summary-report.component';
+import { MaterialTakeOffPdfReportComponent }
+from './build-info/framework/project/report-templates/material-take-off-report/material-take-off-pdf-report.component';
+import { CostHeadWiseSingleElementComponent }
+from './build-info/framework/project/report-templates/material-take-off-report/table-view/table-view.component';
+import { PdfHeaderComponent }
+from './build-info/framework/project/report-templates/material-take-off-report/pdf-header/pdf-header.component';
+import { CommonAmenitiesReportComponent }
+from './build-info/framework/project/report-templates/common-amenities-report/common-amenities-report.component';
 import {CloneBuildingComponent} from "./build-info/framework/project/building/clone-building/clone-building.component";
 
 @NgModule({
@@ -120,6 +130,9 @@ import {CloneBuildingComponent} from "./build-info/framework/project/building/cl
     GetQuantityComponent,
     MaterialTakeoffComponent,
     MaterialTakeOffReportComponent,
+    MaterialTakeOffPdfReportComponent,
+    CostHeadWiseSingleElementComponent,
+    PdfHeaderComponent,
     TableRowComponent,
     GetRateComponent,
     ProjectItemComponent,
@@ -138,7 +151,8 @@ import {CloneBuildingComponent} from "./build-info/framework/project/building/cl
 
     PageNotFoundComponent,
     CommonAmenitiesComponent,
-    CostSummaryReportComponent
+    CostSummaryReportComponent,
+    CommonAmenitiesReportComponent
   ],
 
   providers: [
