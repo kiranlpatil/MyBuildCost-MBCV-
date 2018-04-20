@@ -31,6 +31,9 @@ import CentralizedRate = require('../dataaccess/model/project/CentralizedRate');
 import messages  = require('../../applicationProject/shared/messages');
 import { CommonService } from '../../applicationProject/shared/CommonService';
 import WorkItemListWithRatesDTO = require('../dataaccess/dto/project/WorkItemListWithRatesDTO');
+import * as path from 'path';
+import * as multiparty from 'multiparty';
+import { AttachmentDetailsModel } from '../dataaccess/model/project/building/AttachmentDetails';
 
 let CCPromise = require('promise/lib/es6-extensions');
 let logger=log4js.getLogger('Project service');
@@ -2009,6 +2012,57 @@ class ProjectService {
     }).catch(function(e:any) {
       logger.error('Promise failed for individual createPromiseForRateUpdateOfProjectRates ! Error: ' +JSON.stringify(e.message));
       CCPromise.reject(e.message);
+    });
+  }
+
+  addAttachmentToWorkItem(projectId: string, buildingId: string, costHeadId: number, categoryId: number,
+                          workItemId: number,fileData: any, callback: (error: Error, attachmentDetails: AttachmentDetailsModel) => void) {
+    __dirname = path.resolve() + config.get('application.attachmentPath');
+    let form = new multiparty.Form({uploadDir: __dirname});
+    form.parse(fileData, (err: Error, fields: any, files: any) => {
+      if (err) {
+        callback(err, null);
+      } else {
+
+        let file_path = files.file[0].path;
+        let assignedFileName = file_path.substr(files.file[0].path.lastIndexOf('\\') + 1);
+
+        let attachmentObject: AttachmentDetailsModel = new AttachmentDetailsModel();
+        attachmentObject.fileName = files.file[0].originalFilename;
+        attachmentObject.assignedFileName = assignedFileName;
+
+        let projection = {costHeads: 1};
+        this.buildingRepository.findByIdWithProjection(buildingId, projection, (error, building) => {
+          if (error) {
+            callback(error, null);
+          } else {
+            let costHeadList = building.costHeads;
+            for (let costHead of costHeadList) {
+              if (costHeadId === costHead.rateAnalysisId) {
+                let categoriesOfCostHead = costHead.categories;
+                for (let categoryData of categoriesOfCostHead) {
+                  if (categoryId === categoryData.rateAnalysisId) {
+                    for (let workItemData of categoryData.workItems) {
+                      if (workItemId === workItemData.rateAnalysisId) {
+                      workItemData.attachmentDetails.push(attachmentObject);
+                      }
+                    }
+                  }
+                }
+              }
+            }
+            let query = {_id: buildingId};
+            let updateData = {$set : {'costHeads' : costHeadList}};
+            this.buildingRepository.findOneAndUpdate(query, updateData, {new: true}, (error, response) => {
+              if (error) {
+                callback(error, null);
+              } else {
+                callback(null, response.attachmentObject);
+              }
+            });
+          }
+        });
+      }
     });
   }
 

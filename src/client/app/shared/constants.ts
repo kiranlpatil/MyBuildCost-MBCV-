@@ -298,6 +298,7 @@ export class API {
   public static QUANTITY = 'quantity';
   public static ITEM = 'item';
   public static DIRECT = 'direct';
+  public static FILE = 'uploadFile';
   public static SYNC_RATE_ANALYSIS = 'syncWithRateAnalysis';
 
   public static THUMBRULE_RULE_RATE='report/thumbRuleRate';

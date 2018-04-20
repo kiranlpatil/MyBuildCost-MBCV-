@@ -1053,7 +1053,31 @@ class ProjectController {
     }
   }
 
-
+  addAttachmentToWorkItem(req: express.Request, res: express.Response, next: express.NextFunction) {
+    try {
+      let projectService = new ProjectService();
+      var projectId = req.params.projectId;
+      var buildingId = req.params.buildingId;
+      let costHeadId = parseInt(req.params.costHeadId);
+      let categoryId = parseInt(req.params.categoryId);
+      let workItemId = parseInt(req.params.workItemId);
+      var fileName = req;
+      projectService.addAttachmentToWorkItem( projectId, buildingId ,costHeadId, categoryId, workItemId,fileName ,(error, response) => {
+        if (error) {
+          next(error);
+        } else {
+          res.status(200).send({response});
+        }
+      });
+    } catch (e) {
+      next({
+        reason: e.message,
+        message: e.message,
+        stackTrace: e,
+        code: 403
+      })
+    }
+  }
 
 }
 export  = ProjectController;

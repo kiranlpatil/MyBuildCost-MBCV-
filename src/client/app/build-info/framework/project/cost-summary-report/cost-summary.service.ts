@@ -1,5 +1,8 @@
 import { Injectable } from '@angular/core';
-import { API, BaseService, SessionStorage, SessionStorageService, MessageService } from '../../../../shared/index';
+import {
+  API, BaseService, SessionStorage, SessionStorageService, MessageService,
+  AppSettings
+} from '../../../../shared/index';
 import { HttpDelegateService } from '../../../../shared/services/http-delegate.service';
 import { QuantityItem } from '../../model/quantity-item';
 import { Rate } from '../../model/rate';
@@ -207,5 +210,13 @@ export class CostSummaryService extends BaseService {
   getRateItemsByOriginalName(baseUrl: string, originalRateItemName:string) {
     var url = baseUrl +'/'+ API.RATES+ '/' +API.RATE_ITEM + '/'+ originalRateItemName;
     return this.httpDelegateService.getAPI(url);
+  }
+
+  addAttachment(baseUrl: string, costHeadId:number,categoryId:number,workItemId:number, filesToUpload: Array<File> ) {
+    var url = AppSettings.API_ENDPOINT + baseUrl + '/' + API.COSTHEAD +'/' +
+      costHeadId + '/' + API.CATEGORY + '/'+categoryId + '/' + API.WORKITEM + '/'+workItemId + '/'+ API.FILE;
+    console.log('attachment url = ', url);
+    let body = {fileName : filesToUpload };
+    return this.httpDelegateService.xhrAPIRequest(url, body);
   }
 }

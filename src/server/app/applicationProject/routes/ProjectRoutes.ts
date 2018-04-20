@@ -256,7 +256,15 @@ this.authInterceptor.requiresAuth, this._requestInterceptor.intercept, controlle
     //sync building with rate Analysis data
     router.get('/:projectId/building/:buildingId/syncWithRateAnalysis', this.authInterceptor.requiresAuth, this._requestInterceptor.intercept,
       validator.syncProjectWithRateAnalysisData, controller.syncProjectWithRateAnalysisData, this._responseInterceptor.exit);
+
+    /* Attachment Routes */
+
+    //update file in workItem
+    router.put('/:projectId/building/:buildingId/costhead/:costHeadId/category/:categoryId/workitem/:workItemId/uploadFile',
+      controller.addAttachmentToWorkItem);
     return router;
+
+
   }
 }
 

@@ -1128,4 +1128,38 @@ if ((req.body.name === undefined) || (req.body.region === undefined) || (req.bod
     });
   }
 
+  addAttachmentToWorkItem(req: any, res: any, next: any) {
+    var projectId = req.params.projectId;
+    var buildingId = req.params.buildingId;
+    var costHeadId = req.params.costHeadId;
+    var categoryId = req.params.categoryId;
+    var workItemId = req.params.workItemId;
+    var fileName = req.body.fileName;
+
+    ProjectInterceptor.validateCostHeadIds(projectId, buildingId, costHeadId,  (error, result) => {
+      if (error) {
+        next(error);
+      } else {
+        if (result === false) {
+          next({
+            reason: Messages.MSG_ERROR_EMPTY_FIELD,
+            message: Messages.MSG_ERROR_EMPTY_FIELD,
+            stackTrace: new Error(),
+            code: 400
+          });
+        } else {
+          if( (categoryId === undefined) || (categoryId === '') ||
+            (workItemId === undefined) || (workItemId === '') || (fileName === undefined) || (fileName === '')) {
+            next({
+              reason: Messages.MSG_ERROR_EMPTY_FIELD,
+              message: Messages.MSG_ERROR_EMPTY_FIELD,
+              stackTrace: new Error(),
+              code: 400
+            });
+          }
+        }
+        next();
+      }
+    });
+   }
 }export = ProjectInterceptor;

@@ -1,7 +1,5 @@
-<div>
-  <input type="file" (change)="onFileSelect($event)">
+<div><input type="file" (change)="onFileSelect($event)">
+ <button (click)="addAttachment()"> Add Attachment</button>
 </div>
 
-<div>Add Attachment
-<button (click)="addAttachment()"></button>
-</div>
+<div *ngIf="errorMessage!=''">{{errorMessage}}</div>
