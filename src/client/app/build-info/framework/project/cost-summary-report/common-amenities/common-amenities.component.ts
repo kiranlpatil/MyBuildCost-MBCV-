@@ -25,6 +25,7 @@ export class CommonAmenitiesComponent implements OnInit {
   costHeadId:number;
   currentProjectCostHeadId : number;
   showProjectCostHeadList : boolean;
+  showGrandTotalPanelTable:boolean=true;
   inActiveProjectCostHeads = new Array<CostHead>();
 
   constructor(private activatedRoute: ActivatedRoute, private _router : Router, private costSummaryService : CostSummaryService,
@@ -153,6 +154,10 @@ export class CommonAmenitiesComponent implements OnInit {
 
   getProjectElements() {
     return ProjectElements;
+  }
+
+  showGrandTotalTable() {
+    this.showGrandTotalPanelTable = !this.showGrandTotalPanelTable;
   }
 }
 

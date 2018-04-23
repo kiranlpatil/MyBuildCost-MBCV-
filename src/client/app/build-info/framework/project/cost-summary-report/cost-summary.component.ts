@@ -46,6 +46,7 @@ export class CostSummaryComponent implements OnInit {
   estimatedItem: EstimateReport;
   showCostHeadList:boolean=false;
   showGrandTotalPanelBody:boolean=true;
+  //showGrandTotalPanelTable= new Array<boolean>(10);
   compareIndex:number=0;
 
  public inActiveCostHeadArray: Array<CostHead>;
@@ -104,6 +105,7 @@ export class CostSummaryComponent implements OnInit {
   setBuildingId( i:number, buildingId: string) {
     this.compareIndex = i;
     SessionStorageService.setSessionValue(SessionStorage.CURRENT_BUILDING, buildingId);
+    //this.showGrandTotalPanelTable[this.compareIndex] = !this.showGrandTotalPanelTable[this.compareIndex];
   }
 
   getAllInActiveCostHeads(buildingId: string) {

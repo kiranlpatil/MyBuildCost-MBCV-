@@ -59,7 +59,6 @@
     }
 
     td {
-      font-weight: 600;
       text-align: center;
 
       &:first-child {
@@ -154,8 +153,8 @@
   }
 
   .estimated-cost {
-    width: 120px;
     display: block;
+    width: 100px;
   }
 
   .select-item {
