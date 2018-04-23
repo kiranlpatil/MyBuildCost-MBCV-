@@ -32,6 +32,7 @@ import MaterialTakeOffTableViewSubContent = require('../dataaccess/model/project
 import MaterialTakeOffTableViewHeaders = require('../dataaccess/model/project/reports/MaterialTakeOffTableViewHeaders');
 import MaterialTakeOffTableViewFooter = require('../dataaccess/model/project/reports/MaterialTakeOffTableViewFooter');
 import CostControllException = require("../exception/CostControllException");
+import MaterialTakeOffView = require("../dataaccess/model/project/reports/MaterialTakeOffView");
 let config = require('config');
 var log4js = require('log4js');
 var logger=log4js.getLogger('Report Service');
@@ -351,6 +352,11 @@ class ReportService {
       if (materialTakeOffReport.secondaryView[record.header] === undefined ||
         materialTakeOffReport.secondaryView[record.header] === null) {
         materialTakeOffReport.title = building;
+        /*if(elementWiseReport === Constants.STR_MATERIAL) {*/
+          let materialTakeOffReportSubTitle: MaterialTakeOffView = new MaterialTakeOffView('', 0, '');
+          // materialTakeOffView arguments total+unit, total, unit
+          materialTakeOffReport.subTitle = materialTakeOffReportSubTitle;
+        /*}*/
         materialTakeOffReport.secondaryView[record.header] = {};
       }
       let materialTakeOffSecondaryView: MaterialTakeOffSecondaryView = materialTakeOffReport.secondaryView[record.header];
@@ -398,6 +404,12 @@ class ReportService {
       materialTakeOffTableViewFooter.columnTwo =  materialTakeOffTableViewFooter.columnTwo + record.Total;
       materialTakeOffSecondaryView.title = materialTakeOffTableViewFooter.columnTwo + ' '
         + materialTakeOffTableViewFooter.columnThree;
+      if(elementWiseReport === Constants.STR_MATERIAL) {
+        materialTakeOffReport.subTitle.columnTwo = materialTakeOffReport.subTitle.columnTwo + record.Total;
+        materialTakeOffReport.subTitle.columnThree = record.unit;
+        materialTakeOffReport.subTitle.columnOne = ': '+materialTakeOffReport.subTitle.columnTwo +' '+
+          materialTakeOffReport.subTitle.columnThree;
+      }
     }
   }
 
