@@ -1,5 +1,18 @@
-<div><input type="file" (change)="onFileSelect($event)">
- <button (click)="addAttachment()"> Add Attachment</button>
-</div>
+     Attachments
+  <ul class="nav navbar-nav navbar-right">
+      <li id="Attachments" *ngFor="let file of fileNamesList">
+      {{file.fileName}}
+      <span *ngIf="file.fileName" (click)="deleteAttachment(file.assignedFileName)"><img alt="Delete Work Item" src="assets/build-info/dashboard/delete-blue.png" /></span> 
+     </li>
+     <li class="dropdown last-child">
+       <div class="dropdown">
+          <input type="file" (change)="onFileSelect($event)">
+          <button (click)="addAttachment()">  {{getButton().ATTACH_FILE}} </button>
+          <div *ngIf="errorMessage!=''">{{errorMessage}}</div>
+         <button (click)="closeAttachmentView()">{{getButton().CANCEL_BUTTON}} </button>
+       </div>
+      </li>
+  </ul>
 
-<div *ngIf="errorMessage!=''">{{errorMessage}}</div>
+
+

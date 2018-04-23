@@ -299,6 +299,8 @@ export class API {
   public static ITEM = 'item';
   public static DIRECT = 'direct';
   public static FILE = 'uploadFile';
+  public static FILE_LIST = 'fileNameList';
+  public static DELETE_FILE = 'deleteFile';
   public static SYNC_RATE_ANALYSIS = 'syncWithRateAnalysis';
 
   public static THUMBRULE_RULE_RATE='report/thumbRuleRate';
@@ -503,6 +505,7 @@ export class Button {
   public static ITEM: string = 'Item';
   public static ROW: string = 'Row';
   public static COSTHEAD: string = 'Cost Head';
+  public static ATTACH_FILE: string = 'Attach File';
 }
 
 export class Units {
@@ -567,6 +570,11 @@ export class Menus {
 export class ValueConstant {
 
   public static NUMBER_OF_FRACTION_DIGIT = 2;
+  public static  FILE_SIZE = 500000000000;
+}
+
+export class FileAttachment {
+  public static EXTENSIONS_FOR_FILE = new Array('txt', 'pdf', 'doc','docx','text/plain');
 }
 
 export class CurrentView {

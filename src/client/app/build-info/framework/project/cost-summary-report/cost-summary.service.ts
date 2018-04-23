@@ -215,8 +215,19 @@ export class CostSummaryService extends BaseService {
   addAttachment(baseUrl: string, costHeadId:number,categoryId:number,workItemId:number, filesToUpload: Array<File> ) {
     var url = AppSettings.API_ENDPOINT + baseUrl + '/' + API.COSTHEAD +'/' +
       costHeadId + '/' + API.CATEGORY + '/'+categoryId + '/' + API.WORKITEM + '/'+workItemId + '/'+ API.FILE;
-    console.log('attachment url = ', url);
     let body = {fileName : filesToUpload };
     return this.httpDelegateService.xhrAPIRequest(url, body);
+  }
+  getPresentFilesForWorkItem(baseUrl: string, costHeadId:number,categoryId:number,workItemId:number) {
+    var url = baseUrl +'/' + API.COSTHEAD +'/' +
+    costHeadId + '/' + API.CATEGORY + '/'+categoryId + '/' + API.WORKITEM + '/'+workItemId + '/' + API.FILE_LIST;
+    return this.httpDelegateService.getAPI(url);
+  }
+
+  deleteAttachment(baseUrl: string, costHeadId:number, categoryId:number, workItemId:number, assignedFileName:any) {
+    var url = baseUrl +'/' + API.COSTHEAD +'/' +
+      costHeadId + '/' + API.CATEGORY + '/'+categoryId + '/' + API.WORKITEM + '/'+workItemId + '/' + API.DELETE_FILE;
+    let body = {assignedFileName : assignedFileName };
+    return this.httpDelegateService.putAPI(url, body);
   }
 }

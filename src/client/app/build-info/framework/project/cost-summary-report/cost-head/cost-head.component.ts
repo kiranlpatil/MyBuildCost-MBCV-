@@ -56,6 +56,7 @@ export class CostHeadComponent implements OnInit, OnChanges {
   private showWorkItemList:boolean=false;
   private showWorkItemTab : string = null;
   private showQuantityTab : string = null;
+  private showAttachmentView : string = null;
   private compareWorkItemId:number=0;
   private compareCategoryId:number=0;
   private quantityItemsArray: Array<QuantityItem> = [];
@@ -585,5 +586,11 @@ export class CostHeadComponent implements OnInit, OnChanges {
   closeQuantityView() {
     this.showQuantityTab = null;
     this.showWorkItemTab = null;
+  }
+  closeAttachmentView() {
+      this.showAttachmentView = null;
+  }
+  setVariable() {
+      this.showAttachmentView = Button.ATTACH_FILE;
   }
 }
