@@ -20,8 +20,8 @@
     },
     "exportFilePathServer": "/server/prod/public/exported-files/",
     "downloadFilePathClient": "/public/exported-files/",
-    "publicPath":"/server/dev/app/framework/public/",
-    "profilePath":"/server/prod/public/profileImage",
+    "publicPath":"/src/server/app/framework/public/",
+    "profilePath":"/src/server/public/profileImage",
     "profilePathForClient":"/public/profileImage/",
     "limitForQuery" : 10,
     "mail": {
