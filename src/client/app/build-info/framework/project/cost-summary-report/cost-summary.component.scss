@@ -36,8 +36,13 @@
   text-align: left;
 }
 .cost-summary-row-list {
+  th {
+    &:first-child {
+      border-radius: 0 !important;
+    }
+  }
   .text-center {
-    text-align: centerc;
+    text-align: center;
   }
 }
 .collapse-items {
