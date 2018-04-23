@@ -5,7 +5,7 @@ import { NavigationRoutes, Menus } from '../../../../shared/constants';
 import { ProjectService } from '../../project/project.service';
 import { SessionStorage,SessionStorageService } from '../../../../shared/index';
 import { Project } from './../../model/project';
-import { ProjectNameChangeService } from '../../../../shared/services/projectNameChangeService';
+import { ProjectNameChangeService } from '../../../../shared/services/project-name-change.service';
 
 @Component({
   moduleId: module.id,

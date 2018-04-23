@@ -4,7 +4,7 @@ import { CurrentView, Messages } from '../../../../shared/constants';
 import { ProjectService } from '../project.service';
 import { Project } from './../../model/project';
 import { Message, MessageService,SessionStorage, SessionStorageService } from '../../../../shared/index';
-import { ProjectNameChangeService } from '../../../../shared/services/projectNameChangeService';
+import { ProjectNameChangeService } from '../../../../shared/services/project-name-change.service';
 
 @Component({
   moduleId: module.id,

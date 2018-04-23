@@ -85,7 +85,7 @@ import { PdfHeaderComponent }
 from './build-info/framework/project/report-templates/material-take-off-report/pdf-header/pdf-header.component';
 import { CommonAmenitiesReportComponent }
 from './build-info/framework/project/report-templates/common-amenities-report/common-amenities-report.component';
-import { ProjectNameChangeService } from './shared/services/projectNameChangeService';
+import { ProjectNameChangeService } from './shared/services/project-name-change.service';
 
 @NgModule({
   imports: [
