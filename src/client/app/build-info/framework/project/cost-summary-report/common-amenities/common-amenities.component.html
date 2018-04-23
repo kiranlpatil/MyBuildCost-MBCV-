@@ -52,6 +52,9 @@
               <td class="border-left">{{thumbRuleItem.name}}</td>
               <td class="border-left">{{thumbRuleItem.rate| number: '1.2-2'}}</td>
               <td class="border-left">
+                 <span class="budgeted-amount">
+                      {{thumbRuleItem.amount | number: '1.0-0'  }}
+                </span>
                 <div class="edit-field">
                   <input type="number"
                          [(ngModel)]="thumbRuleItem.amount"

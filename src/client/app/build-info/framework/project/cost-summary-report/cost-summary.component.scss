@@ -105,7 +105,12 @@
       text-align: right;
     }
 
+    td:nth-child(3) > .budgeted-amount {
+      display: block;
+    }
+
     td:nth-child(3) > .edit-field {
+      display: none;
       input {
         text-align: right;
       }
@@ -130,6 +135,16 @@
 
       &:last-child {
         border-radius: 0 6px 6px 0;
+      }
+    }
+
+    &:hover {
+      td:nth-child(3) > .budgeted-amount {
+        display: none;
+      }
+
+      td:nth-child(3) > .edit-field {
+        display: block;
       }
     }
   }

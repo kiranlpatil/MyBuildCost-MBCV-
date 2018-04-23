@@ -59,6 +59,7 @@ export class ProjectDetailsComponent implements OnInit {
 
   onUpdateProjectSuccess(result: any) {
     if (result !== null) {
+      SessionStorageService.setSessionValue(SessionStorage.CURRENT_PROJECT_NAME, result.data.name);
       var message = new Message();
       message.isError = false;
       message.custom_message = Messages.MSG_SUCCESS_UPDATE_PROJECT_DETAILS;
