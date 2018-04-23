@@ -261,10 +261,16 @@ this.authInterceptor.requiresAuth, this._requestInterceptor.intercept, controlle
 
     //update file in workItem
     router.put('/:projectId/building/:buildingId/costhead/:costHeadId/category/:categoryId/workitem/:workItemId/uploadFile',
-      controller.addAttachmentToWorkItem);
+     validator.addAttachmentToWorkItem, controller.addAttachmentToWorkItem);
+
+    router.get('/:projectId/building/:buildingId/costhead/:costHeadId/category/:categoryId/workitem/:workItemId/fileNameList',
+      this.authInterceptor.requiresAuth, this._requestInterceptor.intercept, validator.getRate, controller.getPresentFilesForWorkItem, this._responseInterceptor.exit);
+
+    router.put('/:projectId/building/:buildingId/costhead/:costHeadId/category/:categoryId/workitem/:workItemId/deleteFile',
+     controller.deleteAttachmentOfWorkItem);
+
+
     return router;
-
-
   }
 }
 

@@ -37,6 +37,7 @@ import { AttachmentDetailsModel } from '../dataaccess/model/project/building/Att
 
 let CCPromise = require('promise/lib/es6-extensions');
 let logger=log4js.getLogger('Project service');
+const fs = require('fs');
 
 class ProjectService {
   APP_NAME: string;
@@ -2065,6 +2066,86 @@ class ProjectService {
       }
     });
   }
+
+  getPresentFilesForWorkItem(projectId: string, buildingId: string, costHeadId: number, categoryId: number,
+                             workItemId: number,callback: (error: any, result: any) => void) {
+    logger.info('Project service, updateDirectQuantityOfBuildingCostHeads has been hit');
+    let projection = { costHeads : 1 };
+    this.buildingRepository.findByIdWithProjection(buildingId, projection, (error, building) => {
+      if (error) {
+        callback(error, null);
+      } else {
+        let costHeadList = building.costHeads;
+        let ArrayOfAttachmentModels = new Array<AttachmentDetailsModel>();
+        for (let costHead of costHeadList) {
+          if (costHeadId === costHead.rateAnalysisId) {
+            let categoriesOfCostHead = costHead.categories;
+            for (let categoryData of categoriesOfCostHead) {
+              if (categoryId === categoryData.rateAnalysisId) {
+                for (let workItemData of categoryData.workItems) {
+                  if (workItemId === workItemData.rateAnalysisId) {
+                    ArrayOfAttachmentModels = workItemData.attachmentDetails;
+                  }
+                }
+              }
+            }
+          }
+        }
+        callback(null,{data:ArrayOfAttachmentModels});
+        }
+    });
+  }
+
+  deleteAttachmentOfWorkItem(projectId: string, buildingId: string, costHeadId: number, categoryId: number,
+                             workItemId: number, assignedFileName: any,callback: (error: any, result: any) => void) {
+    logger.info('Project service, updateDirectQuantityOfBuildingCostHeads has been hit');
+    let projection = { costHeads : 1 };
+    this.buildingRepository.findByIdWithProjection(buildingId, projection, (error, building) => {
+      if (error) {
+        callback(error, null);
+      } else {
+        let costHeadList = building.costHeads;
+        let ArrayOfAttachmentModels = new Array<AttachmentDetailsModel>();
+        for (let costHead of costHeadList) {
+          if (costHeadId === costHead.rateAnalysisId) {
+            let categoriesOfCostHead = costHead.categories;
+            for (let categoryData of categoriesOfCostHead) {
+              if (categoryId === categoryData.rateAnalysisId) {
+                for (let workItemData of categoryData.workItems) {
+                  if (workItemId === workItemData.rateAnalysisId) {
+                    ArrayOfAttachmentModels = workItemData.attachmentDetails;
+                    for(let fileIndex in ArrayOfAttachmentModels) {
+                      if(ArrayOfAttachmentModels[fileIndex].assignedFileName === assignedFileName) {
+                        ArrayOfAttachmentModels.splice(parseInt(fileIndex),1);
+                        break;
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+
+        let query = { _id : buildingId };
+        let data = { $set : {'costHeads' : building.costHeads }};
+        this.buildingRepository.findOneAndUpdate(query, data,{new: true}, (error, building) => {
+          logger.info('Project service, findOneAndUpdate has been hit');
+          if (error) {
+            callback(error, null);
+          } else {
+            fs.unlink('.'+ config.get('application.attachmentPath')+'/'+ assignedFileName, (err:Error) => {
+              if (err) {
+                callback(error, null);
+              }
+            });
+            callback(null, {data :'success'});
+          }
+        });
+      }
+    });
+  }
+
 
   private calculateThumbRuleReportForCostHead(budgetedCostAmount: number, costHeadFromRateAnalysis: any,
                                               buildingData: any, costHeads: Array<CostHead>) {
