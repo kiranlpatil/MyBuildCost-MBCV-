@@ -33,17 +33,43 @@
     <tbody>
     <tr *ngFor="let thumbRuleItem of amenitiesReport.thumbRule.thumbRuleReports; let currentAmenitieIndex = index">
       <td style="padding: 5px;">{{thumbRuleItem.name}}</td>
-      <td style="padding: 5px;" align="right">{{ thumbRuleItem.rate | number }}</td>
-      <td style="padding: 5px;" align="right">{{thumbRuleItem.amount}}</td>
-      <td style="padding: 5px;" align="right">{{ amenitiesReport.estimate.estimatedCosts[currentAmenitieIndex].rate | number }}</td>
-      <td style="padding: 5px;" align="right">{{ amenitiesReport.estimate.estimatedCosts[currentAmenitieIndex].total | number }}</td>
+      <td style="padding: 5px;" align="right">
+        <span *ngIf="thumbRuleItem.rate !== 0">{{ thumbRuleItem.rate | number }}</span>
+        <span *ngIf="thumbRuleItem.rate === 0">-</span>
+      </td>
+      <td style="padding: 5px;" align="right">
+        <span *ngIf="thumbRuleItem.amount !== 0">{{thumbRuleItem.amount | number }}</span>
+        <span *ngIf="thumbRuleItem.amount === 0">-</span>
+      </td>
+      <td style="padding: 5px;" align="right">
+        <span *ngIf="amenitiesReport.estimate.estimatedCosts[currentAmenitieIndex].rate !== 0">
+          {{ amenitiesReport.estimate.estimatedCosts[currentAmenitieIndex].rate | number }}
+        </span>
+        <span *ngIf="amenitiesReport.estimate.estimatedCosts[currentAmenitieIndex].rate === 0">-</span>
+      </td>
+      <td style="padding: 5px;" align="right">
+        <span *ngIf="amenitiesReport.estimate.estimatedCosts[currentAmenitieIndex].total !== 0">
+          {{ amenitiesReport.estimate.estimatedCosts[currentAmenitieIndex].total | number }}
+        </span>
+        <span *ngIf="amenitiesReport.estimate.estimatedCosts[currentAmenitieIndex].total === 0">-</span>
+      </td>
     </tr>
     <tr>
       <td style="padding: 5px;font-weight: bold;" width="">TOTAL</td>
       <td style="padding: 5px;font-weight: bold;" align="right" width="">{{ amenitiesReport.thumbRule.totalRate|number: '1.2-2' }}</td>
       <td style="padding: 5px;font-weight: bold;" align="right" width="">{{getProjectElements().RS}} {{ amenitiesReport.thumbRule.totalBudgetedCost|number : '1.0-0'}}</td>
-      <td style="padding: 5px;font-weight: bold;" align="right" width="">{{ amenitiesReport.estimate.totalRate|number: '1.2-2'}}</td>
-      <td style="padding: 5px;font-weight: bold;" align="right" width="">{{getProjectElements().RS}} {{ amenitiesReport.estimate.totalEstimatedCost|number: '1.2-2'}}</td>
+      <td style="padding: 5px;font-weight: bold;" align="right" width="">
+        <span *ngIf="amenitiesReport.estimate.totalRate !== 0">
+          {{ amenitiesReport.estimate.totalRate|number: '1.2-2'}}
+        </span>
+        <span *ngIf="amenitiesReport.estimate.totalRate === 0">-</span>
+      </td>
+      <td style="padding: 5px;font-weight: bold;" align="right" width="">
+        <span *ngIf="amenitiesReport.estimate.totalEstimatedCost !== 0">
+          {{getProjectElements().RS}} {{ amenitiesReport.estimate.totalEstimatedCost|number: '1.2-2'}}
+        </span>
+        <span *ngIf="amenitiesReport.estimate.totalEstimatedCost === 0">-</span>
+      </td>
     </tr>
     </tbody>
   </table>
@@ -82,8 +108,14 @@
     <tbody>
     <tr *ngFor="let thumbRuleItem of amenitiesReport.thumbRule.thumbRuleReports; let currentAmenitieIndex = index">
       <td style="padding: 5px;">{{thumbRuleItem.name}}</td>
-      <td style="padding: 5px;" align="right">{{ thumbRuleItem.rate | number }}</td>
-      <td style="padding: 5px;" align="right">{{thumbRuleItem.amount}}</td>
+      <td style="padding: 5px;" align="right">
+        <span *ngIf="thumbRuleItem.rate !== 0">{{ thumbRuleItem.rate | number }}</span>
+        <span *ngIf="thumbRuleItem.rate === 0">-</span>
+      </td>
+      <td style="padding: 5px;" align="right">
+        <span *ngIf="thumbRuleItem.amount !== 0">{{thumbRuleItem.amount}}</span>
+        <span *ngIf="thumbRuleItem.amount === 0">-</span>
+      </td>
     </tr>
     <tr>
       <td style="padding: 5px;font-weight: bold;" width="">TOTAL</td>
@@ -127,13 +159,31 @@
     <tbody>
       <tr *ngFor="let thumbRuleItem of amenitiesReport.thumbRule.thumbRuleReports; let currentAmenitieIndex = index">
         <td style="padding: 5px;">{{thumbRuleItem.name}}</td>
-        <td style="padding: 5px;" align="right">{{ amenitiesReport.estimate.estimatedCosts[currentAmenitieIndex].rate | number }}</td>
-        <td style="padding: 5px;" align="right">{{ amenitiesReport.estimate.estimatedCosts[currentAmenitieIndex].total | number }}</td>
+        <td style="padding: 5px;" align="right">
+          <span *ngIf="amenitiesReport.estimate.estimatedCosts[currentAmenitieIndex].rate !== 0">
+            {{ amenitiesReport.estimate.estimatedCosts[currentAmenitieIndex].rate | number }}
+          </span>
+          <span *ngIf="amenitiesReport.estimate.estimatedCosts[currentAmenitieIndex].rate === 0">-</span>
+        </td>
+        <td style="padding: 5px;" align="right">
+          <span *ngIf="amenitiesReport.estimate.estimatedCosts[currentAmenitieIndex].total !== 0">
+            {{ amenitiesReport.estimate.estimatedCosts[currentAmenitieIndex].total | number }}
+          </span>
+          <span *ngIf="amenitiesReport.estimate.estimatedCosts[currentAmenitieIndex].total === 0">-</span>
+        </td>
       </tr>
       <tr>
         <td style="padding: 5px;font-weight: bold;" width="">TOTAL</td>
-        <td style="padding: 5px;font-weight: bold;" align="right" width="">{{ amenitiesReport.estimate.totalRate|number: '1.2-2'}}</td>
-        <td style="padding: 5px;font-weight: bold;" align="right" width="">{{getProjectElements().RS}} {{ amenitiesReport.estimate.totalEstimatedCost|number: '1.2-2'}}</td>
+        <td style="padding: 5px;font-weight: bold;" align="right" width="">
+          <span *ngIf="amenitiesReport.estimate.totalRate !== 0">{{ amenitiesReport.estimate.totalRate|number: '1.2-2'}}</span>
+          <span *ngIf="amenitiesReport.estimate.totalRate === 0">-</span>
+        </td>
+        <td style="padding: 5px;font-weight: bold;" align="right" width="">
+          <span *ngIf="amenitiesReport.estimate.totalEstimatedCost !== 0">
+            {{getProjectElements().RS}} {{ amenitiesReport.estimate.totalEstimatedCost|number: '1.2-2'}}
+          </span>
+          <span *ngIf="amenitiesReport.estimate.totalEstimatedCost === 0">-</span>
+        </td>
       </tr>
     </tbody>
   </table>

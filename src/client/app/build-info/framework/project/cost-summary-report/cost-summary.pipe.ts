@@ -9,7 +9,7 @@ export class CostSummaryPipe implements PipeTransform {
         return Object.keys(value).sort(function (a, b) {
           return a.toLowerCase().localeCompare(b.toLowerCase());
         });
-      } else if(operation === 'checkSubContent') {
+      } else if(operation === MaterialTakeOffElements.CHECK_SUB_CONTENT_PRESENT) {
          return (Object.keys(value).length !== 0 ? true : false);
       }else {
         return Object.keys(value);
