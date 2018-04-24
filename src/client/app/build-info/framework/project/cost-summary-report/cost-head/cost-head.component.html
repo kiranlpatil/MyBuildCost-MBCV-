@@ -14,13 +14,13 @@
         </div>
         <bi-cost-head-report-pdf [categoryDetails]="categoryDetails" [categoryDetailsTotalAmount]="categoryDetailsTotalAmount"></bi-cost-head-report-pdf>
       </h4>
-      <div class="panel-group" *ngFor=" let category of categoryDetails; let categoryIndex = index ">
-        <div class="panel panel-default">
+      <div class="panel-group" id="cost-head-panels">
+        <div class="panel panel-default" *ngFor=" let category of categoryDetails; let categoryIndex = index ">
           <div class="panel-heading">
             <div class="panel-title clearfix" (click)="getActiveWorkItemsOfCategory(category.rateAnalysisId)">
               <div class="col-sm-12">
                 <a data-toggle="collapse"
-                   href="#collapse{{category.rateAnalysisId}}" class="collapsed cost-head-lists">
+                   href="#collapse{{category.rateAnalysisId}}" data-parent="#cost-head-panels" class="collapsed cost-head-lists">
                   <span class="caret"></span>
                   <span class="category-name">{{ category.name }}</span>
                   <span class="text-right pull-right total-cost">{{ category.amount|number :'1.0-0'}}</span>
@@ -45,26 +45,26 @@
                   </tr>
                   </thead>
                   <tbody>
-                  <tr [class.hide-hover]="rateView==='systemRA' || rateView==='rate' || rateView==='cost' || rateView==='quantity'">
-                    <td class="work-item-panel">
-                      <div class="panel-group">
-                        <div class="panel panel-default">
-                              <table>
-                                <tr id="show-embedded-table-row">
-                                  <td>
-                                    <div class="panel-heading">
-                                      <div class="panel-title clearfix" >
-                                        <a data-toggle="collapse" href="#collapseDetails{{workItemIndex}}"
-                                           class="work-item-panel-row collapsed">
-                                        <span class="caret"></span>{{ workItem.name }}</a>
-                                      </div>
+                    <tr [class.hide-hover]="rateView==='systemRA' || rateView==='rate' || rateView==='cost' || rateView==='quantity'">
+                      <td class="work-item-panel">
+                        <div class="panel-group" id="category-panel">
+                          <div class="panel panel-default">
+                            <table>
+                              <tr id="show-embedded-table-row">
+                                <td>
+                                  <div class="panel-heading">
+                                    <div class="panel-title clearfix" >
+                                      <a data-toggle="collapse" href="#collapseDetails{{workItemIndex}}"
+                                         class="work-item-panel-row collapsed" data-parent="#category-panel" (click)="toggleWorkItemPanel(workItemIndex)">
+                                      <span class="caret"></span>{{ workItem.name }}</a>
                                     </div>
-                                  </td>
-                                  <!--<td>
-                                    <button class="add-more-details-btn">{{getButton().ADD_MORE_DETAILS}} </button>
-                                  </td>-->
-                                  <td>
-                                    <div class="edit-field" [class.active]="(rateView==='quantity' && workItemIndex===currentWorkItemIndex && currentCategoryIndex === categoryIndex)">
+                                  </div>
+                                </td>
+                                <!--<td>
+                                  <button class="add-more-details-btn">{{getButton().ADD_MORE_DETAILS}} </button>
+                                </td>-->
+                                <td>
+                                  <div class="edit-field" [class.active]="(rateView==='quantity' && workItemIndex===currentWorkItemIndex && currentCategoryIndex === categoryIndex)">
 
                                       <input type="number" [(ngModel)]="workItem.quantity.total" (blur)="displayModal()" (change)="setDirectQuantity(category.rateAnalysisId, workItem.rateAnalysisId, workItem.quantity.total)"
                                               id="directQuantity" size="10" class="form-control clear">
@@ -148,52 +148,52 @@
                                       </div>
                                     </div>
 
-                                    <div *ngIf="showWorkItemTab == getLabel().WORKITEM_QUANTITY_TAB">
-                                      <div *ngIf="compareWorkItemId == workItem.rateAnalysisId && compareCategoryId === category.rateAnalysisId">
-                                        <!-- <span class="glyphicon glyphicon-remove" (click)="closeQuantityTab()"></span>-->
-                                        <bi-get-quantity [quantityItems]="quantityItemsArray"
-                                                         [categoryDetails] ="categoryDetails"
-                                                         [workItemsList] ="workItemsList"
-                                                         (categoriesTotalAmount)="setCategoriesTotal($event)"
-                                                         (showWorkItemTabName)="setShowWorkItemTab($event)"
-                                                         (refreshWorkItemList)="refreshWorkItemList($event)"
-                                                         (closeQuantityView) = "closeQuantityView($event)"
-                                                         [categoryRateAnalysisId]="category.rateAnalysisId"
-                                                         [workItemRateAnalysisId]="workItem.rateAnalysisId"
-                                                         [keyQuantity]="keyQuantity"
-                                                         [baseUrl] = "baseUrl">
-                                        </bi-get-quantity>
+                                  <div *ngIf="showWorkItemTab == getLabel().WORKITEM_QUANTITY_TAB">
+                                    <div *ngIf="compareWorkItemId == workItem.rateAnalysisId && compareCategoryId === category.rateAnalysisId">
+                                      <!-- <span class="glyphicon glyphicon-remove" (click)="closeQuantityTab()"></span>-->
+                                      <bi-get-quantity [quantityItems]="quantityItemsArray"
+                                                       [categoryDetails] ="categoryDetails"
+                                                       [workItemsList] ="workItemsList"
+                                                       (categoriesTotalAmount)="setCategoriesTotal($event)"
+                                                       (showWorkItemTabName)="setShowWorkItemTab($event)"
+                                                       (refreshWorkItemList)="refreshWorkItemList($event)"
+                                                       (closeQuantityView) = "closeQuantityView($event)"
+                                                       [categoryRateAnalysisId]="category.rateAnalysisId"
+                                                       [workItemRateAnalysisId]="workItem.rateAnalysisId"
+                                                       [keyQuantity]="keyQuantity"
+                                                       [baseUrl] = "baseUrl">
+                                      </bi-get-quantity>
+                                    </div>
+                                  </div>
+                                </td>
+                              </tr>
+                              <tr class="add-work-item-row">
+                                <td colspan="8" class="add-work-item">
+                                  <div id="collapseDetails{{workItemIndex}}" class="panel-collapse collapse">
+                                    <div class="panel-body">
+                                      <div>
+                                        <!--<span class="glyphicon glyphicon-remove" (click)="closeDetailedQuantityTab()"></span>showQuantityTab == getLabel().WORKITEM_DETAILED_QUANTITY_TAB &&-->
+                                        <bi-quantity-details
+                                          [quantityDetails]="workItem.quantity.quantityItemDetails"
+                                          [workItem] ="workItem"
+                                          [workItemsList] ="workItemsList"
+                                          [categoryDetails] ="categoryDetails"
+                                          (categoriesTotalAmount)="setCategoriesTotal($event)"
+                                          (refreshWorkItemList)="refreshWorkItemList($event)"
+                                          [categoryRateAnalysisId]="category.rateAnalysisId"
+                                          [workItemRateAnalysisId]="workItem.rateAnalysisId"
+                                          [baseUrl] = "baseUrl">
+                                        </bi-quantity-details>
                                       </div>
                                     </div>
-                                  </td>
-                                </tr>
-                              </table>
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr *ngIf="showQuantityTab == getLabel().WORKITEM_DETAILED_QUANTITY_TAB && ( currentCategoryIndex === categoryIndex && currentWorkItemIndex === workItemIndex )">
-                    <td colspan="8" class="add-work-item">
-                      <div id="collapseDetails{{workItemIndex}}" class="panel-collapse collapse" [class.in]="showQuantityDetails">
-                        <div class="panel-body">
-                          <div >
-                            <!--<span class="glyphicon glyphicon-remove" (click)="closeDetailedQuantityTab()"></span>-->
-                            <bi-quantity-details
-                              [quantityDetails]="workItem.quantity.quantityItemDetails"
-                              [workItem] ="workItem"
-                              [workItemsList] ="workItemsList"
-                              [categoryDetails] ="categoryDetails"
-                              (categoriesTotalAmount)="setCategoriesTotal($event)"
-                              (refreshWorkItemList)="refreshWorkItemList($event)"
-                              [categoryRateAnalysisId]="category.rateAnalysisId"
-                              [workItemRateAnalysisId]="workItem.rateAnalysisId"
-                              [baseUrl] = "baseUrl">
-                            </bi-quantity-details>
+                                  </div>
+                                </td>
+                              </tr>
+                            </table>
                           </div>
                         </div>
-                      </div>
-                    </td>
-                  </tr>
+                      </td>
+                    </tr>
                   </tbody>
                 </table>
               </div>

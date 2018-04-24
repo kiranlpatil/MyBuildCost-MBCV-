@@ -39,6 +39,7 @@
     .category-name {
       display: inline-block;
       overflow: hidden;
+      padding-top: 3px;
       text-overflow: ellipsis;
       white-space: nowrap;
       width: calc(100% - 300px);
@@ -49,8 +50,9 @@
   }
 
   .total-cost {
-  margin-right: 211px;
-}
+    margin-right: 211px;
+    padding-top: 3px;
+  }
 }
 
 .building-name{
@@ -177,6 +179,11 @@
     .edit-field {
       margin: 2px;
     }
+  }
+
+  .add-work-item-row {
+    float:left;
+    width: 100%;
   }
 
   tr > .add-work-item {
@@ -325,3 +332,17 @@
     white-space: inherit;
   }
 }
+.display-body {
+  display: block !important;
+  height: auto !important;
+}
+
+.hide-body {
+  display: none !important;
+  height: 0 !important;
+}
+
+.disable-link {
+  pointer-events: none;
+}
+

@@ -46,6 +46,7 @@ export class CostHeadComponent implements OnInit, OnChanges {
   rateFromRateAnalysis:number=0;
   unit:string='';
   showCategoryList: boolean = false;
+  displayCategory: boolean = false;
   workItemsList: Array<WorkItem>;
   deleteConfirmationCategory = ProjectElements.CATEGORY;
   deleteConfirmationWorkItem = ProjectElements.WORK_ITEM;
@@ -102,7 +103,7 @@ export class CostHeadComponent implements OnInit, OnChanges {
 
       SessionStorageService.setSessionValue(SessionStorage.CURRENT_COST_HEAD_ID, this.costHeadId);
       SessionStorageService.setSessionValue(SessionStorage.CURRENT_COST_HEAD_NAME, this.costHeadName);
-      this.getCategories( this.projectId, this.costHeadId);
+      this.getCategories(this.projectId, this.costHeadId);
 
     });
   }
@@ -184,6 +185,13 @@ export class CostHeadComponent implements OnInit, OnChanges {
   //Add blank detailed quantity at last
   addNewDetailedQuantity(categoryId: number, workItem: WorkItem, categoryIndex: number, workItemIndex:number) {
     this.showWorkItemTab = Label.WORKITEM_DETAILED_QUANTITY_TAB;
+    //this.toggleWorkItemPanel(workItemIndex);
+    var element = document.getElementById('collapseDetails'+workItemIndex);
+    if(element.classList.contains('hide-body')) {
+      element.classList.remove('hide-body');
+    }
+    element.classList.add('display-body');
+
     this.getDetailedQuantity(categoryId, workItem, categoryIndex, workItemIndex);
     let quantityDetail: QuantityDetails = new QuantityDetails();
     this.workItem.quantity.quantityItemDetails.push(quantityDetail);
@@ -508,6 +516,16 @@ export class CostHeadComponent implements OnInit, OnChanges {
 /*  setSelectedWorkItems(workItemList:any) {
     this.selectedWorkItems = workItemList;
   }*/
+  toggleWorkItemPanel(workItemIndex : number) {
+    var element = document.getElementById('collapseDetails'+workItemIndex);
+    if(element.classList.contains('display-body')) {
+      element.classList.remove('display-body');
+      element.classList.add('hide-body');
+    } else if(element.classList.contains('hide-body')) {
+      element.classList.remove('hide-body');
+      element.classList.add('display-body');
+    }
+  }
 
     getActiveWorkItemsOfCategory(categoryId : number) {
       let costHeadId = parseInt(SessionStorageService.getSessionValue(SessionStorage.CURRENT_COST_HEAD_ID));
