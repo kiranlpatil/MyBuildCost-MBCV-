@@ -50,11 +50,15 @@
           <tbody *ngIf="amenitiesReport.thumbRule  && amenitiesReport.estimate" >
             <tr *ngFor="let thumbRuleItem of amenitiesReport.thumbRule.thumbRuleReports; let currentAmenitieIndex = index" class="delete-cost-head-cell">
               <td class="border-left">{{thumbRuleItem.name}}</td>
-              <td class="border-left">{{thumbRuleItem.rate| number: '1.2-2'}}</td>
               <td class="border-left">
-                 <span class="budgeted-amount">
+                <span *ngIf="thumbRuleItem.rate !== 0">{{thumbRuleItem.rate| number: '1.2-2'}}</span>
+                <span *ngIf="thumbRuleItem.rate === 0">-</span>
+              </td>
+              <td class="border-left">
+                 <span class="budgeted-amount" *ngIf="thumbRuleItem.amount !== 0">
                       {{thumbRuleItem.amount | number: '1.0-0'  }}
-                </span>
+                  </span>
+                  <span class="budgeted-amount" *ngIf="thumbRuleItem.amount === 0">-</span>
                 <div class="edit-field">
                   <input type="number"
                          [(ngModel)]="thumbRuleItem.amount"

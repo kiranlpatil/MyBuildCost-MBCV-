@@ -41,17 +41,47 @@
     <tbody>
       <tr *ngFor="let thumbRuleItem of buildingReport.thumbRule.thumbRuleReports; let i = index">
         <td style="padding: 5px;">{{thumbRuleItem.name}}</td>
-        <td style="padding: 5px;" align="right">{{ thumbRuleItem.rate | number: '1.2-2' }}</td>
-        <td style="padding: 5px;" align="right">{{thumbRuleItem.amount| number : '1.0-0'}}</td>
-        <td style="padding: 5px;" align="right">{{ buildingReport.estimate.estimatedCosts[i].rate | number : '1.2-2' }}</td>
-        <td style="padding: 5px;" align="right">{{ buildingReport.estimate.estimatedCosts[i].total | number : '1.0-0' }}</td>
+        <td style="padding: 5px;" align="right">
+          <span *ngIf="thumbRuleItem.rate !== 0">
+            {{ thumbRuleItem.rate | number: '1.2-2' }}
+          </span>
+          <span *ngIf="thumbRuleItem.rate === 0">-</span>
+        </td>
+        <td style="padding: 5px;" align="right">
+          <span *ngIf="thumbRuleItem.amount !== 0">
+            {{thumbRuleItem.amount| number : '1.0-0'}}
+          </span>
+          <span *ngIf="thumbRuleItem.amount === 0">-</span>
+        </td>
+        <td style="padding: 5px;" align="right">
+          <span *ngIf="buildingReport.estimate.estimatedCosts[i].rate !== 0">
+            {{ buildingReport.estimate.estimatedCosts[i].rate | number : '1.2-2' }}
+          </span>
+          <span *ngIf="buildingReport.estimate.estimatedCosts[i].rate === 0">-</span>
+        </td>
+        <td style="padding: 5px;" align="right">
+          <span *ngIf="buildingReport.estimate.estimatedCosts[i].total !== 0">
+            {{ buildingReport.estimate.estimatedCosts[i].total | number : '1.0-0' }}
+          </span>
+          <span *ngIf="buildingReport.estimate.estimatedCosts[i].total === 0">-</span>
+        </td>
       </tr>
       <tr>
         <td style="padding: 5px;font-weight: bold;" width="">TOTAL</td>
         <td style="padding: 5px;font-weight: bold;" align="right" width="">{{ buildingReport.thumbRule.totalRate | number: '1.2-2' }}</td>
         <td style="padding: 5px;font-weight: bold;" align="right" width="">{{getProjectElements().RS}} {{ buildingReport.thumbRule.totalBudgetedCost | number : '1.0-0'}}</td>
-        <td style="padding: 5px;font-weight: bold;" align="right" width="">{{ buildingReport.estimate.totalRate | number: '1.2-2'}}</td>
-        <td style="padding: 5px;font-weight: bold;" align="right" width="">{{getProjectElements().RS}} {{ buildingReport.estimate.totalEstimatedCost | number: '1.0-0'}}</td>
+        <td style="padding: 5px;font-weight: bold;" align="right" width="">
+          <span *ngIf="buildingReport.estimate.totalRate !== 0">
+            {{ buildingReport.estimate.totalRate | number: '1.2-2'}}
+          </span>
+          <span *ngIf="buildingReport.estimate.totalRate === 0">-</span>
+        </td>
+        <td style="padding: 5px;font-weight: bold;" align="right" width="">
+          <span *ngIf="buildingReport.estimate.totalEstimatedCost !== 0">
+            {{getProjectElements().RS}} {{ buildingReport.estimate.totalEstimatedCost | number: '1.0-0'}}
+          </span>
+          <span *ngIf="buildingReport.estimate.totalEstimatedCost === 0">-</span>
+        </td>
       </tr>
     </tbody>
   </table>
@@ -97,8 +127,16 @@
     <tbody>
       <tr *ngFor="let thumbRuleItem of buildingReport.thumbRule.thumbRuleReports; let i = index">
         <td style="padding: 5px;">{{thumbRuleItem.name}}</td>
-        <td style="padding: 5px;" align="right">{{ thumbRuleItem.rate | number: '1.2-2' }}</td>
-        <td style="padding: 5px;" align="right">{{thumbRuleItem.amount | number : '1.0-0'}}</td>
+        <td style="padding: 5px;" align="right">
+          <span *ngIf="thumbRuleItem.rate !== 0">
+            {{ thumbRuleItem.rate | number: '1.2-2' }}
+          </span>
+          <span *ngIf="thumbRuleItem.rate === 0">-</span>
+        </td>
+        <td style="padding: 5px;" align="right">
+          <span *ngIf="thumbRuleItem.amount !== 0">{{thumbRuleItem.amount | number : '1.0-0'}}</span>
+          <span *ngIf="thumbRuleItem.amount === 0">-</span>
+        </td>
       </tr>
       <tr>
         <th style="padding: 5px;">TOTAL</th>
