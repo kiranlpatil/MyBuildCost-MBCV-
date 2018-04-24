@@ -1,5 +1,4 @@
 import { Component, ElementRef, Input, ViewChild } from '@angular/core';
-import * as jsPDF from 'jspdf';
 import { SessionStorage } from '../../../../../shared/constants';
 import { SessionStorageService } from '../../../../../shared/services/session.service';
 import { ProjectElements } from '../../../../../shared/constants';
@@ -12,14 +11,17 @@ import { ProjectElements } from '../../../../../shared/constants';
 })
 
 export class CommonAmenitiesReportComponent {
-@ViewChild('content') content: ElementRef;
-@Input() amenitiesReport: any;
-@Input() costingByUnit: any;
-@Input() costingByArea: any;
+
+  @ViewChild('amenitiesBothReport') amenitiesBothReport: ElementRef;
+  @ViewChild('amenitiesBudgetedReport') amenitiesBudgetedReport: ElementRef;
+  @ViewChild('amenitiesEstimatedReport') amenitiesEstimatedReport: ElementRef;
+  @Input() amenitiesReport: any;
+  @Input() costingByUnit: any;
+  @Input() costingByArea: any;
+
   isBudgeted: boolean = false;
   isEstimated: boolean = false;
   generatedDate: Date = new Date();
-  costReportFor: string;
   currentProjectName: string;
   company_name: string;
 
@@ -29,34 +31,18 @@ export class CommonAmenitiesReportComponent {
   }
 
   downloadToPdf(reportType: string) {
+    let content:any;
     switch (reportType) {
-      case 'Budgeted and Estimated cost report':
-        this.isBudgeted = true;
-        this.isEstimated = true;
-        this.costReportFor = 'Budgeted & Estimated';
+      case 'budgetedAndEstimatedCostReport':
+        content = this.amenitiesBothReport.nativeElement.innerHTML;
         break;
-      case 'Budgeted cost report':
-        this.isBudgeted = true;
-        this.isEstimated = false;
-        this.costReportFor = 'Budgeted';
+      case 'budgetedCostreport':
+        content = this.amenitiesBudgetedReport.nativeElement.innerHTML;break;
+      case 'estimatedCostReport':
+        content = this.amenitiesEstimatedReport.nativeElement.innerHTML;
         break;
-      case 'Estimated cost report':
-        this.isEstimated = true;
-        this.isBudgeted = false;
-        this.costReportFor = 'Estimated';
-        break;
-      default:
-        this.isBudgeted = false;
-        this.isEstimated = false;
     }
-    setTimeout(()=> {
-      this.print();
-    }, 100);
-  }
-
-  print() {
     let contentDiv = document.createElement('div');
-    let content = this.content.nativeElement.innerHTML;
     contentDiv.innerHTML = content;
     contentDiv.setAttribute('id','print-div');
     document.getElementById('tpl-app').style.display = 'none';
