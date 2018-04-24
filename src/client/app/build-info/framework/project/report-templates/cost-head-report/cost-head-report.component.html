@@ -25,7 +25,7 @@
       <table *ngIf="category.workItems.length !==0 && category.amount !== 0" width="100%" align="left" cellspacing="10" style="float:left;">
         <thead style="font-size:12px;">
           <th width="60%">{{category.name}}</th>
-          <th width="40%" style="text-align: right">{{category.amount |number :'1.0-0'}}</th>
+          <th width="40%" style="text-align: right">{{getProjectElements().RS}} {{category.amount |number :'1.0-0'}}</th>
         </thead>
       </table>
       <table *ngIf="category.workItems.length !==0 && category.amount !== 0" border="1" bordercolor="#bbb" width="100%" align="left" style="margin: 5px 0 20px;float:left;">
@@ -51,7 +51,7 @@
       <table width="100%" align="left" cellspacing="10">
         <thead style="font-size:12px; font-weight: bold">
           <th width="60%">Total</th>
-          <th width="40%" style="text-align: right">{{categoryDetailsTotalAmount|number :'1.0-0'}}</th>
+          <th width="40%" style="text-align: right">{{getProjectElements().RS}} {{categoryDetailsTotalAmount|number :'1.0-0'}}</th>
         </thead>
       </table>
     </div>

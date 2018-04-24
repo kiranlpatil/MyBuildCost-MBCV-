@@ -49,9 +49,9 @@
       <tr>
         <td style="padding: 5px;font-weight: bold;" width="">TOTAL</td>
         <td style="padding: 5px;font-weight: bold;" align="right" width="">{{ buildingReport.thumbRule.totalRate | number: '1.2-2' }}</td>
-        <td style="padding: 5px;font-weight: bold;" align="right" width="">{{ buildingReport.thumbRule.totalBudgetedCost | number : '1.0-0'}}</td>
+        <td style="padding: 5px;font-weight: bold;" align="right" width="">{{getProjectElements().RS}} {{ buildingReport.thumbRule.totalBudgetedCost | number : '1.0-0'}}</td>
         <td style="padding: 5px;font-weight: bold;" align="right" width="">{{ buildingReport.estimate.totalRate | number: '1.2-2'}}</td>
-        <td style="padding: 5px;font-weight: bold;" align="right" width="">{{ buildingReport.estimate.totalEstimatedCost | number: '1.0-0'}}</td>
+        <td style="padding: 5px;font-weight: bold;" align="right" width="">{{getProjectElements().RS}} {{ buildingReport.estimate.totalEstimatedCost | number: '1.0-0'}}</td>
       </tr>
     </tbody>
   </table>
@@ -103,7 +103,7 @@
       <tr>
         <th style="padding: 5px;">TOTAL</th>
         <th style="padding: 5px;text-align: right;">{{ buildingReport.thumbRule.totalRate | number: '1.2-2' }}</th>
-        <th style="padding: 5px;text-align: right;">{{ buildingReport.thumbRule.totalBudgetedCost | number : '1.0-0'}}</th>
+        <th style="padding: 5px;text-align: right;">{{getProjectElements().RS}} {{ buildingReport.thumbRule.totalBudgetedCost | number : '1.0-0'}}</th>
       </tr>
     </tbody>
   </table>
@@ -164,7 +164,7 @@
       <tr>
         <th style="padding: 5px;">TOTAL</th>
         <th style="padding: 5px;text-align: right;">{{ buildingReport.estimate.totalRate|number: '1.2-2'}}</th>
-        <th style="padding: 5px;text-align: right;">{{ buildingReport.estimate.totalEstimatedCost|number: '1.0-0'}}</th>
+        <th style="padding: 5px;text-align: right;">{{getProjectElements().RS}} {{ buildingReport.estimate.totalEstimatedCost|number: '1.0-0'}}</th>
       </tr>
     </tbody>
   </table>
