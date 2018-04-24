@@ -352,10 +352,11 @@ class ReportService {
       if (materialTakeOffReport.secondaryView[record.header] === undefined ||
         materialTakeOffReport.secondaryView[record.header] === null) {
         materialTakeOffReport.title = building;
-        /*if(elementWiseReport === Constants.STR_MATERIAL) {*/
+        if(materialTakeOffReport.subTitle === null || materialTakeOffReport.subTitle === undefined){
           let materialTakeOffReportSubTitle: MaterialTakeOffView = new MaterialTakeOffView('', 0, '');
-          // materialTakeOffView arguments total+unit, total, unit
           materialTakeOffReport.subTitle = materialTakeOffReportSubTitle;
+        }
+
         /*}*/
         materialTakeOffReport.secondaryView[record.header] = {};
       }

@@ -39,6 +39,7 @@
     .category-name {
       display: inline-block;
       overflow: hidden;
+      padding-top: 3px;
       text-overflow: ellipsis;
       white-space: nowrap;
       width: calc(100% - 300px);
@@ -49,8 +50,9 @@
   }
 
   .total-cost {
-  margin-right: 211px;
-}
+    margin-right: 211px;
+    padding-top: 3px;
+  }
 }
 
 .building-name{
@@ -179,6 +181,11 @@
     }
   }
 
+  .add-work-item-row {
+    float:left;
+    width: 100%;
+  }
+
   tr > .add-work-item {
     padding: 0;
     width: 100% !important;
@@ -253,7 +260,7 @@
   margin-top: -5px;
   padding: 0;
   position: relative;
-  z-index: 10;
+  //z-index: 10;
 }
 
 .add-item-table{
@@ -318,5 +325,31 @@
       width: calc(100% - 356px);
     }
   }
+}
+
+.file-attachment {
+  .dropdown-menu {
+    left: inherit !important;
+    right: 100%;
+  }
+}
+
+@-moz-document url-prefix() {
+  .panel-default .panel-heading a.cost-head-lists {
+    white-space: inherit;
+  }
+}
+.display-body {
+  display: block !important;
+  height: auto !important;
+}
+
+.hide-body {
+  display: none !important;
+  height: 0 !important;
+}
+
+.disable-link {
+  pointer-events: none;
 }
 
