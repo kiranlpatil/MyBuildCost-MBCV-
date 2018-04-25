@@ -13,6 +13,7 @@ import { QuantityDetails } from '../../../model/quantity-details';
 import { LoaderService } from '../../../../../shared/loader/loaders.service';
 import { QuantityDetailsComponent } from './quantity-details/quantity-details.component';
 import { RateItem } from '../../../model/rate-item';
+import { AttachmentComponent } from './attachment/attachment.component';
 
 declare var $: any;
 
@@ -26,6 +27,7 @@ declare var $: any;
 export class CostHeadComponent implements OnInit, OnChanges {
 
   @ViewChild(QuantityDetailsComponent) child: QuantityDetailsComponent;
+  @ViewChild(AttachmentComponent) childVar: AttachmentComponent;
 
   projectId : string;
   viewTypeValue: string;
@@ -52,6 +54,7 @@ export class CostHeadComponent implements OnInit, OnChanges {
   deleteConfirmationCategory = ProjectElements.CATEGORY;
   deleteConfirmationWorkItem = ProjectElements.WORK_ITEM;
   deleteConfirmationForQuantityDetails = ProjectElements.QUANTITY_DETAILS;
+  deleteConfirmationForAttachment = ProjectElements.ATTACHMENT;
   updateConfirmationForDirectQuantity = ProjectElements.DIRECT_QUANTITY;
   public showQuantityDetails:boolean=false;
   private showWorkItemList:boolean=false;
@@ -158,8 +161,8 @@ export class CostHeadComponent implements OnInit, OnChanges {
 
   //Get detailed quantity
   getDetailedQuantity(categoryId: number, workItem: WorkItem, categoryIndex: number, workItemIndex:number) {
-    if( this.showQuantityTab !== Label.WORKITEM_DETAILED_QUANTITY_TAB ||
-      this.compareCategoryId !== categoryId || this.compareWorkItemId !== workItem.rateAnalysisId) {
+    /*if( this.showQuantityTab !== Label.WORKITEM_DETAILED_QUANTITY_TAB ||
+      this.compareCategoryId !== categoryId || this.compareWorkItemId !== workItem.rateAnalysisId) {*/
 
       this.setItemId(categoryId, workItem.rateAnalysisId);
 
@@ -179,9 +182,9 @@ export class CostHeadComponent implements OnInit, OnChanges {
       this.currentWorkItemIndex = workItemIndex;
       this.showQuantityTab = Label.WORKITEM_DETAILED_QUANTITY_TAB;
 
-    } else {
+    /*} else {
       this.showWorkItemTab = null;
-    }
+    }*/
   }
 
   //Add blank detailed quantity at last
@@ -562,6 +565,9 @@ export class CostHeadComponent implements OnInit, OnChanges {
     }
     if(elementType === ProjectElements.WORK_ITEM) {
       this.deactivateWorkItem();
+    }
+    if(elementType === ProjectElements.ATTACHMENT) {
+      this.childVar.removeAttachment();
     }
   }
 

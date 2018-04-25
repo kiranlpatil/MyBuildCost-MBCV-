@@ -246,6 +246,10 @@
   <bi-delete-confirmation-modal [elementType]="deleteConfirmationForQuantityDetails" (deleteElementEvent)="deleteElement($event)"></bi-delete-confirmation-modal>
 </div>
 
+<div class="modal fade default-modal" id="removeAttachment" role="dialog">
+  <bi-delete-confirmation-modal [elementType]="deleteConfirmationForAttachment" (deleteElementEvent)="deleteElement($event)"></bi-delete-confirmation-modal>
+</div>
+
 <div class="modal fade default-modal" id="updateDirectQuantity" role="dialog">
   <bi-update-confirmation-modal [elementType]="updateConfirmationForDirectQuantity" (updateElementEvent)="updateElement($event)"></bi-update-confirmation-modal>
 </div>

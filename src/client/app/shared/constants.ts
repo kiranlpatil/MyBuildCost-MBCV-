@@ -537,6 +537,7 @@ export class ProjectElements {
   public static DIRECT_QUANTITY = 'Direct Quantity';
   public static QUANTITY_DETAILS = 'Quantity Details';
   public static QUANTITY = 'Quantity';
+  public static ATTACHMENT = 'Attachment';
   public static CATEGORY = 'Category';
   public static SLAB_AREA = 'Slab Area';
   public static SALEABLE_AREA = 'Saleable Area';
@@ -607,7 +608,7 @@ export class ValueConstant {
 }
 
 export class FileAttachment {
-  public static EXTENSIONS_FOR_FILE = new Array('txt');
+  public static EXTENSIONS_FOR_FILE = new Array();
 }
 
 export class CurrentView {
