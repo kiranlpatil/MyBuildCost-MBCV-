@@ -75,7 +75,7 @@
                                     </span>
                                     </div>
                                   </td>
-                                  <td>{{ workItem.unit }}</td>
+                                <td><span class="value">{{ workItem.unit }}</span></td>
                                   <td>
                                     <div class="edit-field">
                                       <input *ngIf="workItem.isDirectRate" type = "number" [(ngModel)]="workItem.rate.total" (change)="changeDirectRate(category.rateAnalysisId,workItem.rateAnalysisId, workItem.rate.total)" id="directRate1" size="10" class="form-control clear">

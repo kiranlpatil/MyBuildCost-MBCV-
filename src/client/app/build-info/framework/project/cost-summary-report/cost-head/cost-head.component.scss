@@ -279,6 +279,11 @@
     padding: 7px 5px 5px;
   }
 
+  .value {
+    padding: 9px 0;
+    display: inline-block;
+  }
+
   .active {
     background: $azure;
     border: 1px solid $dashboard-link;
