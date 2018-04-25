@@ -71,7 +71,6 @@ import { DeleteConfirmationModalComponent } from './shared/delete-confirmation-m
 import { UpdateConfirmationModalComponent } from './shared/update-confirmation-modal/update-confirmation-modal.component';
 import { ProjectFormComponent } from './build-info/framework/shared/project-form/project-form.component';
 import { BuildingFormComponent } from './build-info/framework/shared/building-form/building-form.component';
-import { SharePrintPageComponent } from './build-info/framework/project-header/share-print-page/share-print-page.component';
 import { QuantityDetailsComponent }
 from './build-info/framework/project/cost-summary-report/cost-head/quantity-details/quantity-details.component';
 import { CostHeadReportComponent } from './build-info/framework/project/report-templates/cost-head-report/cost-head-report.component';
@@ -122,7 +121,6 @@ import { ProjectNameChangeService } from './shared/services/project-name-change.
     BuildingListComponent,
     ProjectHeaderComponent,
     ProjectListHeaderComponent,
-    SharePrintPageComponent,
     BuildingDetailsComponent,
     CostSummaryComponent,
     CostHeadComponent,
