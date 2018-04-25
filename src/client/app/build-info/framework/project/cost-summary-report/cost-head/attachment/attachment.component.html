@@ -1,0 +1,15 @@
+  <label>Attachments</label>
+  <li id="Attachments" *ngFor="let file of fileNamesList">
+        {{file.fileName}}
+    <a class="glyphicon glyphicon-arrow-down" href="{{path}}{{file.assignedFileName}}" download="{{file.fileName}}"></a> 
+   <span data-toggle="modal" data-target="#removeAttachment" (click)="setNameOfAttachment(file.assignedFileName)"><img alt="Delete Work Item" src="assets/build-info/dashboard/delete-blue.png" /></span> 
+ </li>
+
+ <li class="dropdown last-child">
+   <div class="dropdown">
+      <input #fileInput type="file" (change)="onFileSelect($event)">
+      <button [disabled]="!enableUploadOption" (click)="addAttachment()">  {{getButton().ATTACH_FILE}} </button>
+     <button (click)="closeAttachmentView()">{{getButton().CANCEL_BUTTON}} </button>
+   </div>
+  </li>
+

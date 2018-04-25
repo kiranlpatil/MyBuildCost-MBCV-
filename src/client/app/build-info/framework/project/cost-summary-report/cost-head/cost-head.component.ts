@@ -13,6 +13,7 @@ import { QuantityDetails } from '../../../model/quantity-details';
 import { LoaderService } from '../../../../../shared/loader/loaders.service';
 import { QuantityDetailsComponent } from './quantity-details/quantity-details.component';
 import { RateItem } from '../../../model/rate-item';
+import { AttachmentComponent } from './attachment/attachment.component';
 
 declare var $: any;
 
@@ -26,6 +27,7 @@ declare var $: any;
 export class CostHeadComponent implements OnInit, OnChanges {
 
   @ViewChild(QuantityDetailsComponent) child: QuantityDetailsComponent;
+  @ViewChild(AttachmentComponent) childVar: AttachmentComponent;
 
   projectId : string;
   viewTypeValue: string;
@@ -34,6 +36,7 @@ export class CostHeadComponent implements OnInit, OnChanges {
   keyQuantity:string;
   costHeadName: string;
   costHeadId:number;
+  buildingId:any;
   workItemId: number;
   categoryId: number;
   directQuantity: number;
@@ -46,15 +49,18 @@ export class CostHeadComponent implements OnInit, OnChanges {
   rateFromRateAnalysis:number=0;
   unit:string='';
   showCategoryList: boolean = false;
+  displayCategory: boolean = false;
   workItemsList: Array<WorkItem>;
   deleteConfirmationCategory = ProjectElements.CATEGORY;
   deleteConfirmationWorkItem = ProjectElements.WORK_ITEM;
   deleteConfirmationForQuantityDetails = ProjectElements.QUANTITY_DETAILS;
+  deleteConfirmationForAttachment = ProjectElements.ATTACHMENT;
   updateConfirmationForDirectQuantity = ProjectElements.DIRECT_QUANTITY;
   public showQuantityDetails:boolean=false;
   private showWorkItemList:boolean=false;
   private showWorkItemTab : string = null;
   private showQuantityTab : string = null;
+  private showAttachmentView : string = null;
   private compareWorkItemId:number=0;
   private compareCategoryId:number=0;
   private quantityItemsArray: Array<QuantityItem> = [];
@@ -92,8 +98,8 @@ export class CostHeadComponent implements OnInit, OnChanges {
 
 
       if(this.viewType ===  API.BUILDING ) {
-        let buildingId = SessionStorageService.getSessionValue(SessionStorage.CURRENT_BUILDING);
-        this.baseUrl = '' +API.PROJECT + '/' + this.projectId + '/' + '' +  API.BUILDING+ '/' + buildingId;
+         this.buildingId = SessionStorageService.getSessionValue(SessionStorage.CURRENT_BUILDING);
+        this.baseUrl = '' +API.PROJECT + '/' + this.projectId + '/' + '' +  API.BUILDING+ '/' + this.buildingId;
       } else if(this.viewType === API.COMMON_AMENITIES) {
         this.baseUrl = '' +API.PROJECT + '/' + this.projectId;
       } else {
@@ -102,7 +108,7 @@ export class CostHeadComponent implements OnInit, OnChanges {
 
       SessionStorageService.setSessionValue(SessionStorage.CURRENT_COST_HEAD_ID, this.costHeadId);
       SessionStorageService.setSessionValue(SessionStorage.CURRENT_COST_HEAD_NAME, this.costHeadName);
-      this.getCategories( this.projectId, this.costHeadId);
+      this.getCategories(this.projectId, this.costHeadId);
 
     });
   }
@@ -155,8 +161,8 @@ export class CostHeadComponent implements OnInit, OnChanges {
 
   //Get detailed quantity
   getDetailedQuantity(categoryId: number, workItem: WorkItem, categoryIndex: number, workItemIndex:number) {
-    if( this.showQuantityTab !== Label.WORKITEM_DETAILED_QUANTITY_TAB ||
-      this.compareCategoryId !== categoryId || this.compareWorkItemId !== workItem.rateAnalysisId) {
+    /*if( this.showQuantityTab !== Label.WORKITEM_DETAILED_QUANTITY_TAB ||
+      this.compareCategoryId !== categoryId || this.compareWorkItemId !== workItem.rateAnalysisId) {*/
 
       this.setItemId(categoryId, workItem.rateAnalysisId);
 
@@ -176,14 +182,21 @@ export class CostHeadComponent implements OnInit, OnChanges {
       this.currentWorkItemIndex = workItemIndex;
       this.showQuantityTab = Label.WORKITEM_DETAILED_QUANTITY_TAB;
 
-    } else {
+    /*} else {
       this.showWorkItemTab = null;
-    }
+    }*/
   }
 
   //Add blank detailed quantity at last
   addNewDetailedQuantity(categoryId: number, workItem: WorkItem, categoryIndex: number, workItemIndex:number) {
     this.showWorkItemTab = Label.WORKITEM_DETAILED_QUANTITY_TAB;
+    //this.toggleWorkItemPanel(workItemIndex);
+    var element = document.getElementById('collapseDetails'+workItemIndex);
+    if(element.classList.contains('hide-body')) {
+      element.classList.remove('hide-body');
+    }
+    element.classList.add('display-body');
+
     this.getDetailedQuantity(categoryId, workItem, categoryIndex, workItemIndex);
     let quantityDetail: QuantityDetails = new QuantityDetails();
     this.workItem.quantity.quantityItemDetails.push(quantityDetail);
@@ -508,6 +521,16 @@ export class CostHeadComponent implements OnInit, OnChanges {
 /*  setSelectedWorkItems(workItemList:any) {
     this.selectedWorkItems = workItemList;
   }*/
+  toggleWorkItemPanel(workItemIndex : number) {
+    var element = document.getElementById('collapseDetails'+workItemIndex);
+    if(element.classList.contains('display-body')) {
+      element.classList.remove('display-body');
+      element.classList.add('hide-body');
+    } else if(element.classList.contains('hide-body')) {
+      element.classList.remove('hide-body');
+      element.classList.add('display-body');
+    }
+  }
 
     getActiveWorkItemsOfCategory(categoryId : number) {
       let costHeadId = parseInt(SessionStorageService.getSessionValue(SessionStorage.CURRENT_COST_HEAD_ID));
@@ -542,6 +565,9 @@ export class CostHeadComponent implements OnInit, OnChanges {
     }
     if(elementType === ProjectElements.WORK_ITEM) {
       this.deactivateWorkItem();
+    }
+    if(elementType === ProjectElements.ATTACHMENT) {
+      this.childVar.removeAttachment();
     }
   }
 
@@ -585,5 +611,11 @@ export class CostHeadComponent implements OnInit, OnChanges {
   closeQuantityView() {
     this.showQuantityTab = null;
     this.showWorkItemTab = null;
+  }
+  closeAttachmentView() {
+      this.showAttachmentView = null;
+  }
+  setVariable() {
+      this.showAttachmentView = Button.ATTACH_FILE;
   }
 }
