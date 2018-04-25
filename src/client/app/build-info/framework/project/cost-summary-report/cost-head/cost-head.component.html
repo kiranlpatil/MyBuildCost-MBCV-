@@ -124,16 +124,19 @@
                                             title="Add More Details">
                                       <span class="glyphicon glyphicon-plus-sign"></span>
                                     </button>
-                                    <div class="dropdown file-attachment">
-                                      <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                                        <span class="glyphicon glyphicon-paperclip" (click)="setVariable()"></span>
-                                      </a>
-                                      <ul class="dropdown-menu">
+                                    <div class="file-attachment" [class.attachment-menu-open]="showAttachmentView == getButton().ATTACH_FILE && workItemIndex===currentWorkItemIndex && currentCategoryIndex === categoryIndex">
+                                      <span  *ngIf="workItem.attachmentDetails.length == 0"(click)="setVariable(category.rateAnalysisId, workItem.rateAnalysisId, categoryIndex, workItemIndex)">
+                                        <img src="assets/build-info/dashboard/attach-file.png" alt="Attach Files" />
+                                      </span>
+                                      <span *ngIf="workItem.attachmentDetails.length != 0" (click)="setVariable(category.rateAnalysisId, workItem.rateAnalysisId, categoryIndex, workItemIndex)">
+                                        <img src="assets/build-info/dashboard/file-attached.png" alt="Attach Files" />
+                                      </span>
+                                      <div class="attachment-menu" *ngIf="showAttachmentView == getButton().ATTACH_FILE && workItemIndex===currentWorkItemIndex && currentCategoryIndex === categoryIndex">
                                         <bi-attachment [costHeadId]="costHeadId"
                                                        [categoryId]="categoryId"
                                                        [baseUrl] = "baseUrl" (showAttachmentView)="closeAttachmentView($event)"
                                                        [workItem]="workItem"></bi-attachment>
-                                      </ul>
+                                      </div>
                                     </div>
                                     <div data-toggle="modal" data-target="#deleteWorkItem" class="delete-cost-head" title="Delete Work Item"
                                          (click)="setIdsForDeleteWorkItem(category.rateAnalysisId,workItem.rateAnalysisId,workItemIndex )">
