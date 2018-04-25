@@ -534,6 +534,7 @@ export class ProjectElements {
   public static DIRECT_QUANTITY = 'Direct Quantity';
   public static QUANTITY_DETAILS = 'Quantity Details';
   public static QUANTITY = 'Quantity';
+  public static ATTACHMENT = 'Attachment';
   public static CATEGORY = 'Category';
   public static SLAB_AREA = 'Slab Area';
   public static SALEABLE_AREA = 'Saleable Area';
