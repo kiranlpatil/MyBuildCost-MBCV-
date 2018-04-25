@@ -113,9 +113,9 @@ export class Messages {
   public static MSG_RESET_MOBILE_NUMBER = 'Enter your new mobile number and we will send you a verification code on mobile' +
     ' number you have entered.';
   public static MSG_RESET_EMAIL_ADDRESS = 'Enter your new account email address and we will send you a link to reset your email' +
-    'address.';
+    ' address.';
   public static MSG_EMAIL_ACTIVATION = 'Your email has been activated. You may start using your account with new email address' +
-    'immediately.';
+    ' immediately.';
   public static MSG_CONTACT_US = 'Please provide the following details and we will get back to you soon.';
   public static MSG_YEAR_NO_MATCH_FOUND = 'The year doesn\'t look right. Be sure to use your actual year of birth.';
   public static MSG_FORGOT_PASSWORD = 'Enter your e-mail address below and we\'ll get you back on track.';
@@ -127,8 +127,8 @@ export class Messages {
   public static MSG_VERIFY_USER_3 = 'One Time Password(OTP) will be sent on following mobile number.';
   public static MSG_VERIFY_USER_4 = 'You are almost done! We need to verify your email id before you can start using the system.';
   public static MSG_EMAIL_NOT_MATCH = 'E-mail does not match.';
-  public static MSG_CHANGE_PASSWORD = 'Your password protects your account so password must be strong.' +
-    'Changing your password will sign you out of all your devices, including your phone.' +
+  public static MSG_CHANGE_PASSWORD = 'Your password protects your account so password must be strong. ' +
+    'Changing your password will sign you out of all your devices, including your phone. ' +
     'You will need to enter your new password on all your devices.';
   public static MSG_MOBILE_NUMBER_NOT_MATCH = 'Mobile Number does not match.';
   public static MSG_MOBILE_NUMBER_Change_SUCCESS = 'Mobile number changed successfully.You can Sign In again by clicking on "yes" button,' +

@@ -49,6 +49,7 @@ export class AttachmentComponent implements OnInit {
               if (this.filesToUpload[0].size <= ValueConstant.FILE_SIZE) {
                   this.fileName = this.filesToUpload[0].name;
                   this.enableUploadOption = true;
+                  this.addAttachment();
                  } else {
                   this.message.custom_message = Messages.MSG_ERROR_VALIDATION_OF_FILE_SIZE;
                   this.messageService.message(this.message);
