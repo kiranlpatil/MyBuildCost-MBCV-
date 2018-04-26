@@ -1,15 +1,24 @@
-  <label>Attachments</label>
-  <li id="Attachments" *ngFor="let file of fileNamesList">
-        {{file.fileName}}
-    <a class="glyphicon glyphicon-arrow-down" href="{{path}}{{file.assignedFileName}}" download="{{file.fileName}}"></a> 
-   <span data-toggle="modal" data-target="#removeAttachment" (click)="setNameOfAttachment(file.assignedFileName)"><img alt="Delete Work Item" src="assets/build-info/dashboard/delete-blue.png" /></span> 
- </li>
-
- <li class="dropdown last-child">
-   <div class="dropdown">
-      <input #fileInput type="file" (change)="onFileSelect($event)">
-      <button [disabled]="!enableUploadOption" (click)="addAttachment()">  {{getButton().ATTACH_FILE}} </button>
-     <button (click)="closeAttachmentView()">{{getButton().CANCEL_BUTTON}} </button>
-   </div>
+<h5>Attachment(s)</h5>
+<ul>
+ <li id="Attachments" *ngFor="let file of fileNamesList">
+    <p>{{file.fileName}}</p>
+    <div class="file-actions">
+      <a href="{{path}}{{file.assignedFileName}}" download="{{file.fileName}}">
+        <img alt="Delete Work Item" src="assets/build-info/dashboard/download-attachment.jpg" />
+      </a> 
+      <button class="delete-attachment" type="button" data-toggle="modal" data-target="#removeAttachment" (click)="setNameOfAttachment(file.assignedFileName)">
+        <img alt="Delete Work Item" src="assets/build-info/dashboard/delete-blue.png" />
+      </button> 
+    </div>
   </li>
+</ul>
+<div class="attachment-actions">
+  <button (click)="closeAttachmentView()" class="btn btn-default">{{getButton().CANCEL_BUTTON}} </button>
+  <div class="btn-attach-file">
+    <label for="file-input" class="btn btn-primary">
+    {{getButton().ATTACH_FILE}}
+    </label>
+    <input #fileInput id="file-input" type="file" (change)="onFileSelect($event)" class="btn btn-primary">
+  </div>
+</div>
 

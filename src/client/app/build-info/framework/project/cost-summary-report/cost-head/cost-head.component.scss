@@ -106,7 +106,7 @@
       display: inline-block;
       font-size: 16px;
       opacity: 0;
-      padding: 10px 5px 5px;
+      padding: 10px 3px 5px;
       position: relative;
       transition: opacity 0.5s ease-in-out;
       width: auto;
@@ -116,6 +116,71 @@
         border: 0;
         box-shadow: none;
       }
+    }
+
+    .file-attachment {
+      display: inline-block;
+      position: relative;
+
+      .attachment-menu {
+        background: $white;
+        border: 1px solid $table-border;
+        box-shadow: 3px 3px 5px $gray;
+        padding: 15px 20px;
+        position: absolute;
+        text-align: left;
+        top: 24px;
+        right: -34px;
+        width: 400px;
+        z-index: 1;
+      }
+    }
+
+    .attachment-menu:after, .attachment-menu:before {
+      bottom: 100%;
+      border: solid transparent;
+      content: " ";
+      height: 0;
+      left: 91.5%;
+      pointer-events: none;
+      position: absolute;
+      width: 0;
+    }
+
+    .attachment-menu:after {
+      border-color: rgba(136, 183, 213, 0);
+      border-bottom-color: $white;
+      border-width: 8px;
+      margin-left: -18px;
+    }
+    .attachment-menu:before {
+      border-color: rgba(194, 225, 245, 0);
+      border-bottom-color: $table-border;
+      border-width: 10px;
+      margin-left: -20px;
+    }
+
+    .file-attachment > span,
+    .attachment-menu-open > span {
+      color: $dashboard-link;
+      cursor: pointer;
+      padding: 5px 3px 5px 2px;
+      position: relative;
+      top: -4px;
+      transition: opacity 0.5s ease-in-out;
+      width: auto;
+    }
+
+    .file-attachment > span {
+      opacity: 0;
+    }
+
+    .file-attachment > .file-attached {
+      opacity: 1 !important;
+    }
+
+    .attachment-menu-open > span {
+      opacity: 1;
     }
 
     .delete-cost-head {
@@ -130,7 +195,8 @@
 
     &:hover {
       .delete-cost-head,
-      .add-more-details {
+      .add-more-details,
+      .file-attachment > span {
         opacity: 1;
       }
     }
@@ -146,7 +212,7 @@
     float: left;
 
     &:nth-child(1) {
-      width: 349px;
+      width: 329px;
     }
 
     &:nth-child(2),
@@ -215,6 +281,11 @@
     //border-bottom: 1px solid $body-text;
     display: inline-block;
     padding: 7px 5px 5px;
+  }
+
+  .value {
+    padding: 9px 0;
+    display: inline-block;
   }
 
   .active {
