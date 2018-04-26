@@ -158,7 +158,7 @@ class ProjectRoutes {
 
     //Update details of cloned building
     router.put('/:projectId/building/:buildingId/clone',this.authInterceptor.requiresAuth, this._requestInterceptor.intercept,
-      controller.cloneBuildingById, this._responseInterceptor.exit);
+      validator.cloneBuilding,controller.cloneBuilding, this._responseInterceptor.exit);
 
      /*Building- Routes: CostHead*/
 

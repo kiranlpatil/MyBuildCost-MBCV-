@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Messages, NavigationRoutes, ImagePath, Headings, Button } from '../../../../../shared/constants';
 import { SessionStorage, SessionStorageService,  Message,
   MessageService } from '../../../../../shared/index';
@@ -17,29 +17,51 @@ import { LoaderService } from '../../../../../shared/loader/loaders.service';
 export class CloneBuildingComponent  implements  OnInit {
 
   BODY_BACKGROUND_TRANSPARENT: string;
+  cloneBuildingModel: Building;
   public isUserSignIn:number;
-  private cloneBuildingModel: Building;
-  constructor(private buildingService: BuildingService,private activatedRoute: ActivatedRoute,
+  buildingId:string;
+
+  constructor(private buildingService: BuildingService,
               private loaderService: LoaderService,
               private _router: Router, private messageService: MessageService) {
     this.BODY_BACKGROUND_TRANSPARENT = ImagePath.BODY_BACKGROUND_TRANSPARENT;
   }
+
   ngOnInit() {
     this.isUserSignIn = parseFloat(SessionStorageService.getSessionValue(SessionStorage.IS_USER_SIGN_IN));
     SessionStorageService.setSessionValue(SessionStorage.CURRENT_VIEW,'cloneBuilding');
-      let projectId = SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT_ID);
-      let buildingId = SessionStorageService.getSessionValue(SessionStorage.CURRENT_BUILDING);
-        this.getBuildingDetails(projectId,buildingId);
+    this.buildingId = SessionStorageService.getSessionValue(SessionStorage.CURRENT_BUILDING);
+    this.fetchBuilding();
   }
-   getBuildingDetails(projectId:string,buildingId:string) {
-    this.buildingService.getBuildingDetailsForClone(projectId, buildingId).subscribe(
-      building => this.onGetBuildingDetailsForCloneSuccess(building),
-      error => this.onGetBuildingDetailsForCloneFailure(error)
+  fetchBuilding() {
+    let projectId=SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT_ID);
+    this.buildingService.getBuilding(projectId,this.buildingId).subscribe(
+      building => this.onGetBuildingSuccess(building),
+      error => this.onGetBuildingFailure(error)
     );
   }
+
+  onGetBuildingSuccess(building : any) {
+    this.cloneBuildingModel = building.data;
+    this.cloneBuildingModel.name = '';
+  }
+
+  onGetBuildingFailure(error : any) {
+    let message = new Message();
+
+    if (error.err_code === 404 || error.err_code === 0) {
+      message.error_msg = error.err_msg;
+      message.isError = true;
+      this.messageService.message(message);
+    } else {
+      message.error_msg = error.err_msg;
+      message.isError = true;
+      this.messageService.message(message);
+    }
+  }
+
   goBack() {
-    let projectId = SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT_ID);
-    this._router.navigate([NavigationRoutes.APP_PROJECT,projectId,NavigationRoutes.APP_COST_SUMMARY]);
+    window.history.back();
   }
 
   onSubmit(buildingModel : Building) {
@@ -48,18 +70,18 @@ export class CloneBuildingComponent  implements  OnInit {
         this.loaderService.start();
         let projectId = SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT_ID);
         let buildingId = SessionStorageService.getSessionValue(SessionStorage.CURRENT_BUILDING);
-        this.buildingService.cloneBuildingCostHeads(projectId,buildingId, buildingModel)
+        this.buildingService.cloneBuilding(projectId,buildingId, buildingModel)
           .subscribe(
-            building => this.onCreateBuildingSuccess(building),
-            error => this.onCreateBuildingFailure(error));
+            building => this.onCloneBuildingSuccess(building),
+            error => this.onCloneBuildingFailure(error));
       } else {
-          var message = new Message();
+          let message = new Message();
           message.isError = false;
           message.custom_message = Messages.MSG_ERROR_VALIDATION_ADD_AT_LEAST_ONE_APARTMENT_CONFIGURATION;
           this.messageService.message(message);
       }
     } else {
-      message = new Message();
+      let message = new Message();
       message.isError = false;
       message.custom_message = Messages.MSG_ERROR_VALIDATION_NUMBER_OF_FLOORS;
       this.messageService.message(message);
@@ -86,15 +108,27 @@ export class CloneBuildingComponent  implements  OnInit {
     }
   }
 
-  onCreateBuildingSuccess(building : any) {
-    var message = new Message();
+  onCloneBuildingSuccess(building : Building) {
+    let message = new Message();
     message.isError = false;
-    message.custom_message = Messages.MSG_SUCCESS_ADD_BUILDING_PROJECT;
+    message.custom_message = Messages.MSG_SUCCESS_COPY_BUILDING_PROJECT;
     this.messageService.message(message);
     this.loaderService.stop();
+    let projectId = SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT_ID);
+    this._router.navigate([NavigationRoutes.APP_PROJECT, projectId, NavigationRoutes.APP_COST_SUMMARY]);
   }
-  onCreateBuildingFailure(error : any) {
-    console.log(error);
+
+  onCloneBuildingFailure(error : any) {
+    let message = new Message();
+    if (error.err_code === 404 || error.err_code === 0) {
+      message.error_msg = error.err_msg;
+      message.isError = true;
+      this.messageService.message(message);
+    } else {
+      message.error_msg = error.err_msg;
+      message.isError = true;
+      this.messageService.message(message);
+    }
     this.loaderService.stop();
   }
 
@@ -106,12 +140,4 @@ export class CloneBuildingComponent  implements  OnInit {
     return Button;
   }
 
-  onGetBuildingDetailsForCloneSuccess(building: any) {
-    this.cloneBuildingModel = building.data;
-    this.cloneBuildingModel.name = '';
-  }
-
-  onGetBuildingDetailsForCloneFailure(error: any) {
-    console.log(error);
-  }
 }

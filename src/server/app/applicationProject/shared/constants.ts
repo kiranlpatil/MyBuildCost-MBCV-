@@ -17,6 +17,12 @@ class Constants {
   public static RATE_ANALYSIS_DATA : string = 'RateAnalysisData';
   public static RATE_ANALYSIS_UOM : string = 'UOM';
   public static THUMBRULE_RATE : string = 'thumbRuleRate';
+  public static COST_HEAD_CLONE='Cost Head';
+  public static WORK_ITEM_CLONE='Work Item';
+  public static CATEGORY_CLONE='Category';
+  public static RATE_ANALYSIS_CLONE='Rate Analysis';
+  public static QUANTITY_CLONE : string = 'Quantity';
+
 
   public static BUDGETED_COST_FORMULAE : string = 'budgetedCostFormulae.';
   public static CARPET_AREA : string = 'carpetArea';
@@ -62,6 +68,8 @@ class Constants {
 
   // Value Constant
   public static NUMBER_OF_FRACTION_DIGIT = 2;
+  public static CLONE_ITEMS:string[]=['Cost Head','Category','Work Item','Quantity','Rate Analysis'];
+
 
   //STR Constants
   public static STR_ALL_BUILDING = 'All Buildings';

@@ -171,7 +171,7 @@ class ProjectController {
     }
   }
 
-  cloneBuildingById(req: express.Request, res: express.Response, next: any): void {
+  cloneBuilding(req: express.Request, res: express.Response, next: any): void {
     try {
       logger.info('Project controller, cloneBuilding has been hit');
       let user = req.user;

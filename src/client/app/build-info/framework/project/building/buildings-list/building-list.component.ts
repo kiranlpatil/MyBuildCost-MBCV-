@@ -83,7 +83,7 @@ export class BuildingListComponent implements OnInit {
 
   updateBuildingByCostHead(cloneCostHead: any) {
     let projectId=SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT_ID);
-    this.buildingService.cloneBuildingCostHeads(projectId, this.clonedBuildingId, cloneCostHead).subscribe(
+    this.buildingService.cloneBuilding(projectId, this.clonedBuildingId, cloneCostHead).subscribe(
       project => this.onCloneBuildingCostHeadsSuccess(project),
       error => this.onCloneBuildingCostHeadsFailure(error)
     );

@@ -32,13 +32,7 @@ export class BuildingService extends BaseService {
     var url = API.PROJECT + '/' + projectId + '/' + API.BUILDING + '/' + buildingId;
     return this.httpDelegateService.deleteAPI(url);
   }
-
-  getBuildingDetailsForClone( projectId : string, buildingId : string): Observable<Building> {
-    var url = API.PROJECT + '/' + projectId + '/' +API.BUILDING + '/' + buildingId + '/' + API.CLONE;
-    return this.httpDelegateService.getAPI(url);
-  }
-
-  cloneBuildingCostHeads( projectId : string, clonedBuildingId : string, buildingDetails : any) {
+  cloneBuilding( projectId : string, clonedBuildingId : string, buildingDetails : any) {
     var url =  API.PROJECT + '/' + projectId  + '/'+ API.BUILDING + '/' + clonedBuildingId + '/' +API.CLONE;
     return this.httpDelegateService.putAPI(url, buildingDetails);
   }

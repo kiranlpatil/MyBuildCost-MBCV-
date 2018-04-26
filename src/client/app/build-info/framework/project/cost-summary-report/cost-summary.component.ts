@@ -316,7 +316,7 @@ export class CostSummaryComponent implements OnInit {
 
   cloneBuildingCostHeads(cloneCostHead: CostHead) {
     let projectId=SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT_ID);
-    this.buildingService.cloneBuildingCostHeads( projectId, this.cloneBuildingId, cloneCostHead).subscribe(
+    this.buildingService.cloneBuilding( projectId, this.cloneBuildingId, cloneCostHead).subscribe(
       project => this.onCloneBuildingCostHeadsSuccess(project),
       error => this.onCloneBuildingCostHeadsFailure(error)
     );

@@ -364,61 +364,8 @@ class RateAnalysisService {
                                buildingWorkItems: Array<WorkItem>, configWorkItems: Array<any>) {
 
     logger.info('getWorkItemsFromRateAnalysis has been hit.');
-
-    /* for (let workItemIndex = 0; workItemIndex < workItemsByCategory.length; workItemIndex++) {
-   //  for (let workItemIndex of workItemsByCategory ) {
-
-       let workItem = new WorkItem(workItemsByCategory[workItemIndex].name,
-         workItemsByCategory[workItemIndex].rateAnalysisId);
-
-       if(configWorkItems.length > 0) {
-         for(let configWorkItem of configWorkItems) {
-           if(configWorkItem.name === workItemsByCategory[workItemIndex].name) {
-             workItem.unit = configWorkItem.measurementUnit;
-           }
-         }
-       }
-
-      let rateItemsRateAnalysisSQL = 'SELECT rateItem.C2 AS itemName, rateItem.C2 AS originalItemName,' +
-        'rateItem.C12 AS rateAnalysisId, rateItem.C6 AS type,' +
-        'ROUND(rateItem.C7,2) AS quantity, ROUND(rateItem.C3,2) AS rate, unit.C2 AS unit,' +
-        'ROUND(rateItem.C3 * rateItem.C7,2) AS totalAmount, rateItem.C5 AS totalQuantity,  rateItem.C13 AS notesRateAnalysisId ' +
-        'FROM ? AS rateItem JOIN ? AS unit ON unit.C1 = rateItem.C9 where rateItem.C1 = '
-        + workItemsByCategory[workItemIndex].rateAnalysisId;
-      let rateItemsByWorkItem = alasql(rateItemsRateAnalysisSQL, [rateItemsRateAnalysis, unitsRateAnalysis]);
-
-      //TODO : Remove HardCoding for notes API
-      let notesRateAnalysisSQL = 'SELECT notes.C2 AS notes, notes.C3 AS imageURL FROM ? AS notes where notes.C1 = '+
-        rateItemsByWorkItem[0].notesRateAnalysisId;
-      //+ rateItemsByWorkItem[notesIndex].notesId;
-      let notesList = alasql(notesRateAnalysisSQL, [notesRateAnalysis]);
-
-       workItem.rate.rateItems = rateItemsByWorkItem;
-       if(rateItemsByWorkItem && rateItemsByWorkItem.length > 0) {
-         workItem.rate.quantity = rateItemsByWorkItem[0].totalQuantity;
-         workItem.systemRate.quantity = rateItemsByWorkItem[0].totalQuantity;
-       } else {
-         workItem.rate.quantity = 1;
-         workItem.systemRate.quantity = 1;
-       }
-       workItem.rate.isEstimated = false;
-       workItem.rate.notes = notesList[0].notes;
-       workItem.rate.imageURL = notesList[0].imageURL;
-
-       //System rate
-
-       workItem.systemRate.rateItems = rateItemsByWorkItem;
-       workItem.systemRate.notes = notesList[0].notes;
-       workItem.systemRate.imageURL = notesList[0].imageURL;
-
-
-       buildingWorkItems.push(workItem);
-     }*/
-
     for (let categoryWorkitem of workItemsByCategory) {
-      //  for (let workItemIndex of workItemsByCategory ) {
-
-      let workItem = this.addRateAnylysisToWorkitem(categoryWorkitem, configWorkItems, rateItemsRateAnalysis,
+      let workItem = this.getRateAnalysis(categoryWorkitem, configWorkItems, rateItemsRateAnalysis,
         unitsRateAnalysis, notesRateAnalysis);
 
 
@@ -426,10 +373,12 @@ class RateAnalysisService {
     }
   }
 
-  addRateAnylysisToWorkitem(categoryWorkitem: any, configWorkItems: Array<any>, rateItemsRateAnalysis: any,
+  getRateAnalysis(categoryWorkitem: WorkItem, configWorkItems: Array<any>, rateItemsRateAnalysis: any,
                             unitsRateAnalysis: any, notesRateAnalysis: any) {
-    let workItem = new WorkItem(categoryWorkitem.name, categoryWorkitem.rateAnalysisId);
-
+    let  workItem = new WorkItem(categoryWorkitem.name, categoryWorkitem.rateAnalysisId);
+    if(categoryWorkitem.active!==undefined && categoryWorkitem.active!==null) {
+      workItem=categoryWorkitem;
+      }
     if (configWorkItems.length > 0) {
       for (let configWorkItem of configWorkItems) {
         if (configWorkItem.name === categoryWorkitem.name) {
@@ -441,19 +390,20 @@ class RateAnalysisService {
     let rateItemsRateAnalysisSQL = 'SELECT rateItem.C2 AS itemName, rateItem.C2 AS originalItemName,' +
       'rateItem.C12 AS rateAnalysisId, rateItem.C6 AS type,' +
       'ROUND(rateItem.C7,2) AS quantity, ROUND(rateItem.C3,2) AS rate, unit.C2 AS unit,' +
-      'ROUND(rateItem.C3 * rateItem.C7,2) AS totalAmount, rateItem.C5 AS totalQuantity,  rateItem.C13 AS notesRateAnalysisId ' +
+      'ROUND(rateItem.C3 * rateItem.C7,2) AS totalAmount, rateItem.C5 AS totalQuantity, rateItem.C13 AS notesRateAnalysisId  ' +
       'FROM ? AS rateItem JOIN ? AS unit ON unit.C1 = rateItem.C9 where rateItem.C1 = '
       + categoryWorkitem.rateAnalysisId;
     let rateItemsByWorkItem = alasql(rateItemsRateAnalysisSQL, [rateItemsRateAnalysis, unitsRateAnalysis]);
-
-    //TODO : Remove HardCoding for notes API
-    let notesRateAnalysisSQL = 'SELECT notes.C2 AS notes, notes.C3 AS imageURL FROM ? AS notes where notes.C1 = '+
-      rateItemsByWorkItem[0].notesRateAnalysisId;
-    //+ rateItemsByWorkItem[notesIndex].notesId;
-    let notesList = alasql(notesRateAnalysisSQL, [notesRateAnalysis]);
-
+    let notes = '';
+    let imageURL = '';
     workItem.rate.rateItems = rateItemsByWorkItem;
     if (rateItemsByWorkItem && rateItemsByWorkItem.length > 0) {
+      let notesRateAnalysisSQL = 'SELECT notes.C2 AS notes, notes.C3 AS imageURL FROM ? AS notes where notes.C1 = '+
+        rateItemsByWorkItem[0].notesRateAnalysisId;
+      let notesList = alasql(notesRateAnalysisSQL, [notesRateAnalysis]);
+      notes = notesList[0].notes;
+      imageURL = notesList[0].imageURL;
+
       workItem.rate.quantity = rateItemsByWorkItem[0].totalQuantity;
       workItem.systemRate.quantity = rateItemsByWorkItem[0].totalQuantity;
     } else {
@@ -461,14 +411,14 @@ class RateAnalysisService {
       workItem.systemRate.quantity = 1;
     }
     workItem.rate.isEstimated = false;
-    workItem.rate.notes = notesList[0].notes;
-    workItem.rate.imageURL = notesList[0].imageURL;
+    workItem.rate.notes = notes;
+    workItem.rate.imageURL =imageURL;
 
     //System rate
 
     workItem.systemRate.rateItems = rateItemsByWorkItem;
-    workItem.systemRate.notes = notesList[0].notes;
-    workItem.systemRate.imageURL = notesList[0].imageURL;
+    workItem.systemRate.notes = notes;
+    workItem.systemRate.imageURL = imageURL;
     return workItem;
   }
 }

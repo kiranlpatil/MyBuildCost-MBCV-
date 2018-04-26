@@ -5,12 +5,12 @@ import { AttachmentDetailsModel } from './AttachmentDetails';
 
 class WorkItem {
   name: string;
-  rateAnalysisId:number;
+  rateAnalysisId: number;
   quantity: Quantity;
   unit: string;
   rate: Rate;
   systemRate: Rate;
-  isDirectRate : boolean;
+  isDirectRate: boolean;
   amount: number;
   remarks: string;
   active: boolean;
@@ -26,7 +26,7 @@ class WorkItem {
     this.attachmentDetails = new Array<AttachmentDetailsModel>();
     this.amount = 0;
     this.isDirectRate = false;
-    this.active = false;
+    this.active=false;
     this.remarks = '';
   }
 }

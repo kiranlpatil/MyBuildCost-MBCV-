@@ -93,19 +93,18 @@
       </div>
     </div>
   </div>
-  <p class="form-sub-heading" *ngIf="view=='cloneBuilding'">{{ getLabels().CLONE_BUILDING_MESSAGE }}</p>
+  <p class="form-sub-heading" *ngIf="view=='cloneBuilding'">{{ getLabels().CLONE_BUILDING_MESSAGE }} {{buildingModel.name}}</p>
   <div  class="form-group"  *ngIf="view=='cloneBuilding'">
     <div class="default-checkbox"*ngFor="let cloneItem of cloneItemsArray;let i=index">
     <input id="checkbox{{i}}" type="checkbox" name="choices"
            value="{{cloneItem}}" (click)="selectItem($event)" [disabled]="i > cloneItems.length" [checked]="cloneItems.indexOf(cloneItem)!= -1"/>
       <label for="checkbox{{i}}">{{ cloneItem }}</label>
-      <!-- <label for="checkbox{{i}}">{{ cloneItem }}</label>-->
     </div>
   </div>
   <!--  <div class="col-xs-12 error-msg alert alert-danger form-alert" [hidden]="isShowErrorMessage">
       <b>{{ errorMessage }}</b></div>-->
   <div class="button-group">
+    <button type="button" class="btn btn-default" (click)="onCancel()"  *ngIf="view=='cloneBuilding'">Cancel</button>
     <button type="submit" class="btn btn-primary">{{ submitActionLabel }}</button>
-    <button type="button" class="btn btn-default" (click)="navigateTo('/dashboard')"  *ngIf="view=='cloneBuilding'">Cancel</button>
   </div>
 </form>

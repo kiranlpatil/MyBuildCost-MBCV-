@@ -19,39 +19,39 @@ export class BuildingFormComponent {
   @Input() buildingModel?: Building = new Building();
   @Output() onSubmitEvent = new EventEmitter<Building>();
 
-  buildingForm:  FormGroup;
+  buildingForm: FormGroup;
   public isShowErrorMessage: boolean = false;
   public errorMessage: boolean = false;
-  actionItems:string[]=new Array(0);
-  actionItemsArray:string[]=ValueConstant.ACTION_ITEMS.slice();
+  cloneItems: string[] = new Array(0);
+  cloneItemsArray: string[] = ValueConstant.CLONE_ITEMS.slice();
 
   private view: string | '';
 
-  constructor( private formBuilder: FormBuilder, private _router: Router) {
+  constructor(private formBuilder: FormBuilder, private _router: Router) {
     //this.actionItems=ValueConstant.ACTION_ITEMS.slice();
-    this.view=SessionStorageService.getSessionValue(SessionStorage.CURRENT_VIEW);
+    this.view = SessionStorageService.getSessionValue(SessionStorage.CURRENT_VIEW);
     this.buildingForm = this.formBuilder.group({
-      name : ['', ValidationService.requiredBuildingName],
-      totalSlabArea :['', ValidationService.requiredSlabArea],
-      totalCarpetAreaOfUnit :['', ValidationService.requiredCarpetArea],
-      totalSaleableAreaOfUnit :['', ValidationService.requiredSalebleArea],
-      plinthArea :['', ValidationService.requiredPlinthArea],
-      totalNumOfFloors :['', ValidationService.requiredTotalNumOfFloors],
-      numOfParkingFloors :['', ValidationService.requiredNumOfParkingFloors],
-      carpetAreaOfParking :['', ValidationService.requiredCarpetAreaOfParking],
-      numOfOneBHK : [''],
-      numOfTwoBHK :[''],
-      numOfThreeBHK :[''],
-      numOfFourBHK :[''],
-      numOfFiveBHK :[''],
-      numOfLifts :['']
+      name: ['', ValidationService.requiredBuildingName],
+      totalSlabArea: ['', ValidationService.requiredSlabArea],
+      totalCarpetAreaOfUnit: ['', ValidationService.requiredCarpetArea],
+      totalSaleableAreaOfUnit: ['', ValidationService.requiredSalebleArea],
+      plinthArea: ['', ValidationService.requiredPlinthArea],
+      totalNumOfFloors: ['', ValidationService.requiredTotalNumOfFloors],
+      numOfParkingFloors: ['', ValidationService.requiredNumOfParkingFloors],
+      carpetAreaOfParking: ['', ValidationService.requiredCarpetAreaOfParking],
+      numOfOneBHK: [''],
+      numOfTwoBHK: [''],
+      numOfThreeBHK: [''],
+      numOfFourBHK: [''],
+      numOfFiveBHK: [''],
+      numOfLifts: ['']
     });
   }
 
   submitForm() {
-    if(this.buildingForm.valid) {
+    if (this.buildingForm.valid) {
       this.buildingModel = this.buildingForm.value;
-      this.view==='cloneBuilding'? this.buildingModel.actionItems=this.actionItems:console.log();
+      this.view === 'cloneBuilding' ? this.buildingModel.cloneItems = this.cloneItems : console.log();
       this.onSubmitEvent.emit(this.buildingModel);
     } else {
       this.isShowErrorMessage = true;
@@ -61,14 +61,14 @@ export class BuildingFormComponent {
   getLabels() {
     return Label;
   }
-  selectItem(event:any) {
-    if(event.target.checked) {
-      this.actionItems.push(event.target.value);
-    }else {
-      this.actionItems.splice(this.actionItems.indexOf(event.target.value));
+
+  selectItem(event: any) {
+    if (event.target.checked) {
+      this.cloneItems.push(event.target.value);
+    } else {
+      this.cloneItems.splice(this.cloneItems.indexOf(event.target.value));
     }
   }
-  navigateTo(navigate:string) {
-    let projectId = SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT_ID);
-    this._router.navigate([NavigationRoutes.APP_PROJECT,projectId,NavigationRoutes.APP_COST_SUMMARY]);  }
+  onCancel() {
+    window.history.back();  }
 }

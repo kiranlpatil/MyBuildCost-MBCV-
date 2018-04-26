@@ -31,6 +31,9 @@ import { AttachmentDetailsModel } from '../dataaccess/model/project/building/Att
 let config = require('config');
 let log4js = require('log4js');
 import * as mongoose from 'mongoose';
+
+//import RateItemsAnalysisData = require("../dataaccess/model/project/building/RateItemsAnalysisData");
+
 let CCPromise = require('promise/lib/es6-extensions');
 let logger=log4js.getLogger('Project service');
 const fs = require('fs');
@@ -41,11 +44,6 @@ class ProjectService {
   costHeadId: number;
   categoryId: number;
   workItemId: number;
-  rateAnalysisData: any;
-  rateItemsRateAnalysis: number[] = new Array();
-  notesRateAnalysis: string[] = new Array();
-  unitsRateAnalysis: string[] = new Array();
-  costHeadsRateAnalysis: any[] = new Array();
   private projectRepository: ProjectRepository;
   private buildingRepository: BuildingRepository;
   private authInterceptor: AuthInterceptor;
@@ -232,144 +230,112 @@ class ProjectService {
   }
 
 
-  cloneBuildingDetails(projectId: string, buildingId: string, buildingDetails: any, user: User, callback: (error: any, result: any) => void) {
+  cloneBuildingDetails(projectId: string, buildingId: string, oldBuildingDetails: Building, user: User, callback: (error: Error, result: any) => void) {
     logger.info('Project service, cloneBuildingDetails has been hit');
-    let query = {_id: buildingId};
-    this.buildingRepository.findById(buildingId, (error, result) => {
+    this.buildingRepository.findById(buildingId, (error, building) => {
       logger.info('Project service, findById has been hit');
       if (error) {
         callback(error, null);
       } else {
-        let costHeads: any = result.costHeads;
-
-        if (buildingDetails.actionItems && buildingDetails.actionItems.indexOf('Rate Analysis') === -1) {
+        let costHeads:CostHead[] = building.costHeads;
+        let rateAnalysisData;
+        if (oldBuildingDetails.cloneItems && oldBuildingDetails.cloneItems.indexOf(Constants.RATE_ANALYSIS_CLONE) === -1) {
           let rateAnalysisService: RateAnalysisService = new RateAnalysisService();
-          rateAnalysisService.syncRateitemFromRateAnalysis('building', buildingDetails,
+          rateAnalysisService.syncRateitemFromRateAnalysis(Constants.STR_BUILDING ,oldBuildingDetails,
             (error, data) => {
               if (error) {
                 callback(error, null);
               } else {
-                this.rateItemsRateAnalysis = data[0][Constants.RATE_ANALYSIS_DATA];
-                this.notesRateAnalysis = data[1][Constants.RATE_ANALYSIS_DATA];
-                this.unitsRateAnalysis = data[2][Constants.RATE_ANALYSIS_UOM];
-                this.costHeadsRateAnalysis = data[3][Constants.RATE_ANALYSIS_ITEM_TYPE];
-                this.rateAnalysisData = {
-                  rates: this.rateItemsRateAnalysis,
-                  units: this.unitsRateAnalysis,
-                  costHeads: this.costHeadsRateAnalysis
+                rateAnalysisData = {
+                  rates: data[0][Constants.RATE_ANALYSIS_DATA],
+                  notes: data[1][Constants.RATE_ANALYSIS_DATA],
+                  units: data[2][Constants.RATE_ANALYSIS_UOM],
+                  costHeads: data[3][Constants.RATE_ANALYSIS_ITEM_TYPE]
                 };
-                buildingDetails.costHeads = this.calculateBudgetCostForBuilding(result.costHeads, buildingDetails);
-                this.cloneCostHeads(costHeads, buildingDetails,
-                  this.rateItemsRateAnalysis, this.notesRateAnalysis, this.unitsRateAnalysis);
-                buildingDetails.rates = result.rates;
-                this.createBuilding(projectId, buildingDetails, user, (error, res) => {
-                  if (error) {
-                    callback(error, null);
-                  } else {
-                    callback(null, res);
-                  }
-                });
+
+                this.getRatesAndCostHeads(projectId,oldBuildingDetails, building, costHeads,rateAnalysisData,user, callback);
               }
             });
         } else {
-          buildingDetails.costHeads = this.calculateBudgetCostForBuilding(result.costHeads, buildingDetails);
-          this.cloneCostHeads(costHeads, buildingDetails,
-            null, null, null);
-          buildingDetails.rates = result.rates;
-          this.createBuilding(projectId, buildingDetails, user, (error, res) => {
-            if (error) {
-              callback(error, null);
-            } else {
-              callback(null, res);
-            }
-          });
+          this.getRatesAndCostHeads(projectId,oldBuildingDetails, building, costHeads,rateAnalysisData,user, callback);
         }
 
       }
     });
   }
 
+  getRatesAndCostHeads(projectId: string,oldBuildingDetails: Building, building:Building, costHeads: CostHead[],rateAnalysisData:any,
+              user: User, callback: (error: Error, result: Building) => void) {
+    oldBuildingDetails.costHeads = this.calculateBudgetCostForBuilding(building.costHeads, oldBuildingDetails);
 
-  cloneCostHeads(costHeads: any, buildingDetails: any, rateItemsRateAnalysis: any, notesRateAnalysis: any, unitsRateAnalysis: any) {
-    let isClone: boolean = false;
-    if (buildingDetails.actionItems.indexOf('CostHead') !== -1) {
-      isClone = true;
+    this.cloneCostHeads(costHeads, oldBuildingDetails,rateAnalysisData);
+
+    if(oldBuildingDetails.cloneItems.indexOf(Constants.RATE_ANALYSIS_CLONE) === -1) {
+      oldBuildingDetails.rates=this.getCentralizedRates(rateAnalysisData, oldBuildingDetails.costHeads);
+    } else {
+      oldBuildingDetails.rates = building.rates;
     }
+
+    this.createBuilding(projectId, oldBuildingDetails, user, (error, res) => {
+      if (error) {
+        callback(error, null);
+      } else {
+        callback(null, res);
+      }
+    });
+  }
+
+  cloneCostHeads(costHeads: any[], oldBuildingDetails: Building,rateAnalysisData:any) {
+    let isClone: boolean = (oldBuildingDetails.cloneItems && oldBuildingDetails.cloneItems.indexOf(Constants.COST_HEAD_CLONE) !== -1);
     for (let costHeadIndex in costHeads) {
-      if (costHeadIndex < costHeads.length) {
+      if (parseInt(costHeadIndex) < costHeads.length) {
         let costHead = costHeads[costHeadIndex];
         if (!isClone) {
           costHead.active = false;
         }
-        costHead = this.cloneCategory(costHead.categories, buildingDetails.actionItems,
-          rateItemsRateAnalysis, notesRateAnalysis, unitsRateAnalysis);
-        costHeads[costHeadIndex] = costHead;
+        costHeads[costHeadIndex] = this.cloneCategory(costHead.categories, oldBuildingDetails.cloneItems,rateAnalysisData);
       }
     }
     return costHeads;
   }
 
-  cloneCategory(categories: any, actionItems: string[], rateItemsRateAnalysis: any, notesRateAnalysis: any, unitsRateAnalysis: any) {
-    let isClone: boolean = false;
-    if (actionItems.indexOf('Category') !== -1) {
-      isClone = true;
-    }
+  cloneCategory(categories: Category[], cloneItems: string[],rateAnalysisData:any) {
+    let isClone: boolean =(cloneItems && cloneItems.indexOf(Constants.CATEGORY_CLONE) !== -1);
     for (let categoryIndex in categories) {
       let category = categories[categoryIndex];
       if (!isClone) {
         category.active = false;
       }
-      categories[categoryIndex].workItems = this.cloneWorkItems(category.workItems, actionItems, rateItemsRateAnalysis,
-        notesRateAnalysis, unitsRateAnalysis);
-
+      categories[categoryIndex].workItems = this.cloneWorkItems(category.workItems, cloneItems,rateAnalysisData);
     }
     return categories;
   }
 
-  cloneWorkItems(workItems: any, actionItems: string[], rateItemsRateAnalysis: any, notesRateAnalysis: any, unitsRateAnalysis: any) {
-    let isClone: boolean = false;
-
-    if (actionItems.indexOf('Work Items') !== -1) {
-      isClone = true;
-    }
-
+  cloneWorkItems(workItems: WorkItem[], cloneItems: string[],rateAnalysisData:any) {
+    let isClone: boolean = (cloneItems && cloneItems.indexOf(Constants.WORK_ITEM_CLONE) !== -1);
     for (let workItemIndex in workItems) {
       let workItem = workItems[workItemIndex];
       if (!isClone) {
         workItem.active = false;
       }
-      (actionItems.indexOf('Rate Analysis') === -1) ? this.getRatesFromRateAnalysis(workItem.rateAnalysisId, this.rateAnalysisData) : console.log('rate analysis checked');
-      workItems[workItemIndex] = this.cloneRate(workItem, actionItems, rateItemsRateAnalysis, notesRateAnalysis,
-        unitsRateAnalysis);
+      this.cloneRate(workItem, cloneItems,rateAnalysisData);
+      this.cloneQuantity(workItem, cloneItems);
     }
     return workItems;
   }
 
-  cloneRate(workItem: any, actionItems: string[], rateItemsRateAnalysis: any, notesRateAnalysis: any, unitsRateAnalysis: any) {
-    let isClone: boolean = false;
+  cloneRate(workItem: WorkItem, cloneItems: string[],rateAnalysisData:any) {
+    let isClone: boolean = cloneItems && cloneItems.indexOf(Constants.RATE_ANALYSIS_CLONE) !== -1;
     let rateAnalysisService: RateAnalysisService = new RateAnalysisService();
-    let buildingWorkItems: Array<WorkItem> = new Array<WorkItem>();
     let configWorkItems = new Array<WorkItem>();
-    if (actionItems && actionItems.indexOf('Rate Analysis') !== -1) {
-      isClone = true;
-    }
     if (!isClone) {
-      workItem = rateAnalysisService.addRateAnylysisToWorkitem(workItem, configWorkItems, rateItemsRateAnalysis,
-        unitsRateAnalysis, notesRateAnalysis)
-      workItem.rate.quantity = 0;
-      workItem.rate.isEstimated = false;
-      //workItems.rate.total = 0;
-      /* workItems.rate.rateItems = [];*/
-    }
-    return this.cloneQuantity(workItem, actionItems, rateItemsRateAnalysis, notesRateAnalysis, unitsRateAnalysis);
+      workItem = rateAnalysisService.getRateAnalysis(workItem, configWorkItems, rateAnalysisData.rates,
+        rateAnalysisData.units, rateAnalysisData.notes);
+      }
+      }
 
-  }
-
-  cloneQuantity(workItem: any, actionItems: string[], rateItemsRateAnalysis: any, notesRateAnalysis: any, unitsRateAnalysis: any) {
-    let isClone: boolean = false;
-    if (actionItems && actionItems.indexOf('Quantity') !== -1) {
-      isClone = true;
-    }
+  cloneQuantity(workItem: WorkItem, cloneItems: string[]) {
+    let isClone: boolean = (cloneItems && cloneItems.indexOf(Constants.QUANTITY_CLONE) !== -1);
     if (!isClone) {
       workItem.quantity.quantityItemDetails = [];
       workItem.quantity.isDirectQuantity = false;
@@ -1756,10 +1722,11 @@ class ProjectService {
     return distinctRates;
   }
 
-  getRatesFromRateAnalysis(workItemRateAnalysisId: string, result: any) {
-    /*let getRatesListSQL = 'SELECT * FROM ? AS q WHERE q.C4 IN (SELECT t.rateAnalysisId ' +
+  getCentralizedRates(result: any, costHeads : Array<CostHead>) {
+
+    let getRatesListSQL = 'SELECT * FROM ? AS q WHERE q.C4 IN (SELECT t.rateAnalysisId ' +
       'FROM ? AS t)';
-    let rateItems = alasql(getRatesListSQL, [result.rates, result.costHeads]);*/
+    let rateItems = alasql(getRatesListSQL, [result.rates, costHeads]);
 
     let rateItemsRateAnalysisSQL = 'SELECT rateItem.C2 AS itemName, rateItem.C2 AS originalItemName,' +
       'rateItem.C12 AS rateAnalysisId, rateItem.C6 AS type,' +
@@ -1767,7 +1734,7 @@ class ProjectService {
       'ROUND(rateItem.C3 * rateItem.C7,2) AS totalAmount, rateItem.C5 AS totalQuantity ' +
       'FROM ? AS rateItem JOIN ? AS unit ON unit.C1 = rateItem.C9';
 
-    let rateItemsList = alasql(rateItemsRateAnalysisSQL, [result.rates, result.units]);
+    let rateItemsList = alasql(rateItemsRateAnalysisSQL, [rateItems, result.units]);
 
     let distinctItemsSQL = 'select DISTINCT itemName,originalItemName,rate FROM ?';
     var distinctRates = alasql(distinctItemsSQL, [rateItemsList]);

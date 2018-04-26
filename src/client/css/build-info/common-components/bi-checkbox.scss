@@ -14,6 +14,10 @@
   width: initial;
 }
 
+.default-checkbox input[disabled] + label {
+  opacity: 0.3;
+}
+
 .default-checkbox label {
   cursor: pointer;
   font-weight: 400 !important;

@@ -8,7 +8,7 @@ class Quantity {
 
   constructor() {
     this.total = 0;
-    this.isEstimated = false;
+    this.isEstimated =false;
     this.isDirectQuantity = false;
     this.quantityItemDetails = new Array<QuantityDetails>();
   }
