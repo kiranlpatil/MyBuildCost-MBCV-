@@ -1,12 +1,8 @@
-@import '../../../../css/common';
+@import '../../../framework/landing-page/landing-page.component';
 
 .activate-user {
-  background-position: 0 0;
-
   .content {
-
     h5 {
-      text-align: left;
       font-size: 20px;
       background: transparent !important;
       border: 0 !important;
@@ -15,9 +11,5 @@
     p {
       margin-bottom: 20px;
     }
-  }
-
-  .inner-content {
-    padding: 15px;
   }
 }
