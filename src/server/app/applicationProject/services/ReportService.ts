@@ -336,6 +336,7 @@ class ReportService {
           let materialTakeOffReport: MaterialTakeOffReport = new MaterialTakeOffReport(null, null);
           materialTakeOffReport.secondaryView = {};
           this.populateMaterialTakeOffReportFromRowData(materialReportRowData, materialTakeOffReport, elementWiseReport, building);
+          this.calculateTotalOfMaterialTakeReport(materialTakeOffReport, elementWiseReport);
           let responseData = {};
           responseData[element]= materialTakeOffReport;
           callback(null, responseData);
@@ -344,6 +345,45 @@ class ReportService {
         }
       }
     });
+  }
+
+  calculateTotalOfMaterialTakeReport(materialTakeOffReport : any, elementWiseReport : string) {
+
+    let reportTotal = 0;
+    let recordUnit;
+
+        let secondaryViewMaterialData = materialTakeOffReport.secondaryView;
+        for (let secondaryViewData of Object.keys(secondaryViewMaterialData)) {
+
+          //content
+          let contentTotal = 0;
+          let table = secondaryViewMaterialData[secondaryViewData].table;
+
+          for (let content of Object.keys(table.content)) {
+            if (Object.keys(table.content[content].subContent).length > 0) {
+              table.content[content].columnTwo = 0;
+              for (let subContent of Object.keys(table.content[content].subContent)) {
+                table.content[content].columnTwo = parseFloat(table.content[content].columnTwo) +
+                  parseFloat(table.content[content].subContent[subContent].columnTwo);
+                console.log(' : '+table.content[content].columnTwo);
+              }
+            }
+            table.content[content].columnTwo = Math.ceil(table.content[content].columnTwo);
+            contentTotal = contentTotal + table.content[content].columnTwo;
+          }
+
+          //footer
+          table.footer.columnTwo = contentTotal;
+          secondaryViewMaterialData[secondaryViewData].title = contentTotal + ' ' + table.footer.columnThree;
+          reportTotal = reportTotal + contentTotal;
+          recordUnit = table.footer.columnThree;
+        }
+
+        if (elementWiseReport === Constants.STR_MATERIAL) {
+          materialTakeOffReport.subTitle.columnTwo = reportTotal;
+          materialTakeOffReport.subTitle.columnThree = recordUnit;
+          materialTakeOffReport.subTitle.columnOne = ': ' + reportTotal + ' ' + materialTakeOffReport.subTitle.columnThree;
+        }
   }
 
   private populateMaterialTakeOffReportFromRowData(materialReportRowData: any, materialTakeOffReport: MaterialTakeOffReport,
@@ -373,7 +413,7 @@ class ReportService {
         let columnOne: string = 'Item';
         let columnTwo: string = 'Quantity';
         let columnThree: string =  'Unit';
-        if(elementWiseReport === Constants.STR_COSTHEAD && building === Constants.STR_ALL_BUILDING){
+        if(elementWiseReport === Constants.STR_COSTHEAD && building === Constants.STR_ALL_BUILDING) {
           columnOne = 'Building';
         }
         table.header = new MaterialTakeOffTableViewHeaders(columnOne, columnTwo, columnThree);
@@ -393,6 +433,8 @@ class ReportService {
       tableViewContent.columnTwo = tableViewContent.columnTwo + record.Total;   // update total
 
       if(materialTakeOffTableViewSubContent) {
+        materialTakeOffTableViewSubContent.columnTwo = parseFloat(
+          materialTakeOffTableViewSubContent.columnTwo).toFixed(Constants.NUMBER_OF_FRACTION_DIGIT);
         tableViewContent.subContent[record.subValue] = materialTakeOffTableViewSubContent;
       }
 
@@ -400,16 +442,6 @@ class ReportService {
       if(table.footer === undefined || table.footer === null) {
         table.footer =
           new MaterialTakeOffTableViewFooter('Total', 0, record.unit);
-      }
-      materialTakeOffTableViewFooter = table.footer;
-      materialTakeOffTableViewFooter.columnTwo =  materialTakeOffTableViewFooter.columnTwo + record.Total;
-      materialTakeOffSecondaryView.title = materialTakeOffTableViewFooter.columnTwo + ' '
-        + materialTakeOffTableViewFooter.columnThree;
-      if(elementWiseReport === Constants.STR_MATERIAL) {
-        materialTakeOffReport.subTitle.columnTwo = materialTakeOffReport.subTitle.columnTwo + record.Total;
-        materialTakeOffReport.subTitle.columnThree = record.unit;
-        materialTakeOffReport.subTitle.columnOne = ': '+materialTakeOffReport.subTitle.columnTwo +' '+
-          materialTakeOffReport.subTitle.columnThree;
       }
     }
   }
@@ -559,7 +591,7 @@ class ReportService {
                                                   quantity: number) {
     for (let rateItem of workItem.rate.rateItems) {
       let materialTakeOffFlatDetailDTO = new MaterialTakeOffFlatDetailsDTO(buildingName, costHeadName, categoryName,
-        workItemName, rateItem.itemName, quantityName, Math.ceil(((quantity / workItem.rate.quantity) * rateItem.quantity)),
+        workItemName, rateItem.itemName, quantityName, (quantity / workItem.rate.quantity) * rateItem.quantity,
         rateItem.unit);
       materialTakeOffFlatDetailsArray.push(materialTakeOffFlatDetailDTO);
     }

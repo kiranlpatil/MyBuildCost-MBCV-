@@ -599,10 +599,6 @@ export class CostHeadComponent implements OnInit, OnChanges {
     this.refreshCategoryList();
   }
 
-  setShowWorkItemTab( tabName : string) {
-    //this.showWorkItemTab = tabName;
-  }
-
   closeRateView() {
     this.showWorkItemTab = null;
     this.displayRateView = null;
@@ -616,7 +612,7 @@ export class CostHeadComponent implements OnInit, OnChanges {
       this.showAttachmentView = null;
   }
   setVariable(categoryId: number, workItemId:number, categoryIndex: number, workItemIndex:number) {
-    if(this.compareCategoryId !== categoryId || this.compareWorkItemId !== workItemId) {
+    if(this.showAttachmentView !== Label.ATTACH_FILE || this.compareCategoryId !== categoryId || this.compareWorkItemId !== workItemId) {
       this.showAttachmentView = Button.ATTACH_FILE;
       this.currentCategoryIndex = categoryIndex;
       this.currentWorkItemIndex = workItemIndex;
