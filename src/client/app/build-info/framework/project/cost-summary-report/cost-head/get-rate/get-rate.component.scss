@@ -50,6 +50,7 @@
           border: 1px solid $white;
           border-radius: 0;
           box-shadow: none;
+          color: $black-theme-color;
           display: block;
           font-size: 11px;
           height: 24px;
@@ -106,7 +107,7 @@
         span {
           display: inline-block;
           padding-right: 3px;
-          width: 70px;
+          //min-width: 100px;
         }
       }
 
@@ -216,6 +217,36 @@
         &:last-child {
           width: 30%;
         }
+
+        p{
+          font-size: 11px;
+        }
+      }
+    }
+
+    .nav-tabs {
+      border: 0;
+      margin-bottom: 7px;
+
+      li {
+        margin-right: 10px;
+      }
+      li > a {
+        color: $heading;
+        border: 0;
+        border-bottom: 2px solid transparent;
+        padding: 1px 3px;
+
+        &:hover,
+        &:active,
+        &:focus {
+          background: transparent;
+        }
+      }
+
+      li.active > a {
+        background: transparent;
+        border-bottom: 2px solid $jagged-ice;
       }
     }
   }
