@@ -34,8 +34,8 @@
     <td class="get-amount-value">
       <input  type="number" [(ngModel)]= "quantityItem.quantity"  id="qty" class="form-control" disabled/>
     </td>
-    <td class="get-amount-value text-center get-unit">
-      <input [(ngModel)]="quantityItem.unit" id="unit" class="form-control unit-input text-center" required/>
+    <td class="get-amount-value text-left get-unit">
+      <input [(ngModel)]="quantityItem.unit" id="unit" class="form-control unit-input text-left" disabled/>
     </td>
     <td colspan="2" class="get-amount-value get-delete text-center">
       <div class="col-xs-2 padding-top-2">
@@ -50,7 +50,7 @@
       </div>
     </td>
   </tr>
-  <tr>
+  <tr class="total-amt-row">
     <td class="total-amount text-center">
       <label>{{getTableHeadings().TOTAL}}</label>
     </td>

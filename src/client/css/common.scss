@@ -874,7 +874,7 @@ input[disabled],
 input[readonly],
 textarea[disabled] {
   background: $disabled-input-bg;
-  color: $disable-input;
+  color: $disable-input !important;
 }
 
 @media only screen and (max-width: 767px) {

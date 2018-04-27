@@ -65,16 +65,14 @@
                                 </td>-->
                                 <td>
                                   <div class="edit-field" [class.active]="(rateView==='quantity' && workItemIndex===currentWorkItemIndex && currentCategoryIndex === categoryIndex)">
-
-                                      <input type="number" [(ngModel)]="workItem.quantity.total" (blur)="displayModal()" (change)="setDirectQuantity(category.rateAnalysisId, workItem.rateAnalysisId, workItem.quantity.total)"
-                                              id="directQuantity" size="10" class="form-control clear">
-
-                                      <span class="calculator" id="getQuantity{{categoryIndex}}"
-                                            (click)="getQuantity(category.rateAnalysisId, workItem, categoryIndex, workItemIndex)">
-                                         <img src="assets/build-info/dashboard/calculator2.png" />
+                                    <input type="number" [(ngModel)]="workItem.quantity.total" (blur)="displayModal()" (change)="setDirectQuantity(category.rateAnalysisId, workItem.rateAnalysisId, workItem.quantity.total)"
+                                            id="directQuantity" size="10" class="form-control clear">
+                                    <span class="calculator" id="getQuantity{{categoryIndex}}"
+                                          (click)="getQuantity(category.rateAnalysisId, workItem, categoryIndex, workItemIndex)">
+                                       <img src="assets/build-info/dashboard/calculator2.png" />
                                     </span>
-                                    </div>
-                                  </td>
+                                  </div>
+                                </td>
                                 <td><span class="value">{{ workItem.unit }}</span></td>
                                   <td>
                                     <div class="edit-field">
@@ -135,6 +133,7 @@
                                         <bi-attachment [costHeadId]="costHeadId"
                                                        [categoryId]="categoryId"
                                                        [baseUrl] = "baseUrl" (showAttachmentView)="closeAttachmentView($event)"
+                                                       (workItemRefresh) = "workItemRefresh($event)"
                                                        [workItem]="workItem"></bi-attachment>
                                       </div>
                                     </div>

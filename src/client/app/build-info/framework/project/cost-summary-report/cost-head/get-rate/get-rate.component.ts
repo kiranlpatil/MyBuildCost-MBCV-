@@ -1,5 +1,8 @@
 import { Component, Input, Output, EventEmitter, ViewChild, ElementRef, OnInit } from '@angular/core';
-import { Messages, Button, TableHeadings, Label, Headings, ValueConstant } from '../../../../../../shared/constants';
+import {
+  Messages, Button, TableHeadings, Label, Headings, ValueConstant,
+  StandardNotes
+} from '../../../../../../shared/constants';
 import {
   SessionStorage, SessionStorageService,
   Message, MessageService
@@ -31,6 +34,7 @@ export class GetRateComponent implements OnInit {
   @Input() baseUrl : string;
   @Input() rateView: string;
   @Input() disableRateField: boolean;
+  @Input() displayDisclaimar: boolean;
 
   @Output() categoriesTotalAmount = new EventEmitter<number>();
   @Output() refreshCategoryList = new EventEmitter();
@@ -279,5 +283,9 @@ export class GetRateComponent implements OnInit {
 
   getHeadings() {
     return Headings;
+  }
+
+  getStandardNotes() {
+    return StandardNotes;
   }
 }

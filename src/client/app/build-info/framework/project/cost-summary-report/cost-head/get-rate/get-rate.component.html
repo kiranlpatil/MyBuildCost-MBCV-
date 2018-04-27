@@ -90,7 +90,10 @@
       </tbody>
       <tfoot>
         <tr>
-          <td class="grand-total-amount" colspan="5">
+          <td rowspan="2">
+            <button type="button" *ngIf="!disableRateField" class="save-btn" (click)="updateRate(rate)">{{ getButton().SAVE }}</button>
+          </td>
+          <td class="grand-total-amount" colspan="4">
             <label *ngIf="totalAmountOfMaterial && totalAmountOfLabour && !totalAmountOfMaterialAndLabour">{{ getLabel().TOTAL_A_B}}:</label>
             <label *ngIf="totalAmountOfMaterial && totalAmountOfLabour && totalAmountOfMaterialAndLabour ">{{ getLabel().TOTAL_A_B_C}}:</label>
             <label *ngIf="totalAmountOfMaterial && !totalAmountOfLabour && !totalAmountOfMaterialAndLabour ">{{ getLabel().TOTAL_A}}:</label>
@@ -98,7 +101,7 @@
           </td>
         </tr>
         <tr>
-          <td class="grand-total-amount" colspan="5">
+          <td class="grand-total-amount" colspan="4">
             <label>Rate per unit:</label>
             <span>{{ ratePerUnitAmount|number: '1.2-2'}}</span>
           </td>
@@ -108,23 +111,32 @@
   </div>
   <table class="notes-table">
     <thead>
-      <th>{{ getLabel().NOTES }}</th>
+      <th>
+        <ul class="nav nav-tabs">
+          <li class="active"><a data-toggle="tab" href="#notes">{{ getLabel().NOTES }}</a></li>
+          <li *ngIf="rateView === getLabel().WORKITEM_SYSTEM_RATE_TAB"><a data-toggle="tab" href="#disclaimer">{{getButton().STANDARD_NOTE}}</a></li>
+        </ul>
+      </th>
       <th></th>
     </thead>
     <tbody>
       <tr>
         <td class="alignment-top">
-          <textarea rows="4" cols="80" [(ngModel)]="rate.notes" id="rateNotes" [disabled]="disableRateField">
-            </textarea>
+          <div class="tab-content">
+            <div id="notes" class="tab-pane fade in active">
+              <p>{{rate.notes}}</p>
+            </div>
+            <div id="disclaimer" class="tab-pane fade"  *ngIf="rateView === getLabel().WORKITEM_SYSTEM_RATE_TAB" >
+              <bi-disclaimer-component [note]="getStandardNotes().Notes"></bi-disclaimer-component>
+            </div>
+          </div>
         </td>
-        <td>
+        <td class="alignment-top">
           <img *ngIf="rate.imageURL != ''" id="rateImageURL" src="{{rate.imageURL}}">
         </td>
       </tr>
     </tbody>
   </table>
-  <button type="button" *ngIf="!disableRateField" class="save-btn" (click)="updateRate(rate)">{{ getButton().SAVE }}</button>
-
 </div>
 
 
