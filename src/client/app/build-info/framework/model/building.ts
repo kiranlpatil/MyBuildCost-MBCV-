@@ -14,4 +14,5 @@ export class Building {
   numOfFourBHK:number = 0;
   numOfFiveBHK:number = 0;
   numOfLifts: number = 0;
+  cloneItems?:string[];
 }

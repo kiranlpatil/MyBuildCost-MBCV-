@@ -2,7 +2,7 @@ import Messages=require('../../../shared/messages');
 
 
 class ProjectInterceptor {
-  public static validateProjectId(projectId: string,  callback: (error: any, result: any) => void) {
+  public static validateProjectId(projectId: string, callback: (error: any, result: any) => void) {
     if ((projectId === undefined) || (projectId === '')) {
       callback(null, false);
     } else callback(null, true);
@@ -14,21 +14,21 @@ class ProjectInterceptor {
     } else callback(null, true);
   }
 
-public static validateCostHeadIds(projectId: string, buildingId: string, costHeadId: string, callback: (error: any, result: any) => void) {
-if((projectId === undefined || buildingId === undefined || costHeadId === undefined) || (projectId === '' || buildingId === '' || costHeadId === '')) {
+  public static validateCostHeadIds(projectId: string, buildingId: string, costHeadId: string, callback: (error: any, result: any) => void) {
+    if ((projectId === undefined || buildingId === undefined || costHeadId === undefined) || (projectId === '' || buildingId === '' || costHeadId === '')) {
       callback(null, false);
     } else callback(null, true);
   }
 
   public static validateProjectCostHeadIds(projectId: string, costHeadId: number, callback: (error: any, result: any) => void) {
-    if((projectId === undefined || costHeadId === undefined) || (projectId === '' || costHeadId === null)) {
+    if ((projectId === undefined || costHeadId === undefined) || (projectId === '' || costHeadId === null)) {
       callback(null, false);
     } else callback(null, true);
   }
 
   public static validateIdsForUpdateRate(projectId: string, buildingId: string, costHeadId: number, categoryId: number,
                                          workItemId: number, callback: (error: any, result: any) => void) {
-    if((projectId === undefined || buildingId === undefined || costHeadId === undefined || categoryId === undefined ||
+    if ((projectId === undefined || buildingId === undefined || costHeadId === undefined || categoryId === undefined ||
         workItemId === undefined) || (projectId === '' || buildingId === '' || costHeadId === null || categoryId === null ||
         workItemId === null)) {
       callback(null, false);
@@ -37,25 +37,21 @@ if((projectId === undefined || buildingId === undefined || costHeadId === undefi
 
   public static validateCategoryIds(projectId: string, buildingId: string, costHeadId: number, categoryId: number,
                                     activeStatus: number, callback: (error: any, result: any) => void) {
-    if((projectId === undefined || buildingId === undefined || costHeadId === undefined || categoryId === undefined ||
+    if ((projectId === undefined || buildingId === undefined || costHeadId === undefined || categoryId === undefined ||
         activeStatus === undefined) || (projectId === '' || buildingId === '' || costHeadId === null || categoryId === null
         || activeStatus === null)) {
       callback(null, false);
     } else callback(null, true);
   }
 
-
-  constructor() {
-  }
-
   createProject(req: any, res: any, next: any) {
-if ((req.body.name === undefined) || (req.body.region === undefined) || (req.body.plotArea === undefined) || (req.body.plotPeriphery === undefined) ||
-    (req.body.podiumArea === undefined) || (req.body.openSpace === undefined) || (req.body.slabArea === undefined) || (req.body.poolCapacity === undefined) ||
+    if ((req.body.name === undefined) || (req.body.region === undefined) || (req.body.plotArea === undefined) || (req.body.plotPeriphery === undefined) ||
+      (req.body.podiumArea === undefined) || (req.body.openSpace === undefined) || (req.body.slabArea === undefined) || (req.body.poolCapacity === undefined) ||
       (req.body.projectDuration === undefined) || (req.body.totalNumOfBuildings === undefined) ||
-  (req.body.name === '') || (req.body.region === '') || (req.body.plotArea === '') ||
-  (req.body.plotPeriphery === '') || (req.body.podiumArea === '') || (req.body.openSpace === '') ||
-  (req.body.slabArea === '') || (req.body.poolCapacity === '') || (req.body.projectDuration === '') ||
-  (req.body.totalNumOfBuildings === '')) {
+      (req.body.name === '') || (req.body.region === '') || (req.body.plotArea === '') ||
+      (req.body.plotPeriphery === '') || (req.body.podiumArea === '') || (req.body.openSpace === '') ||
+      (req.body.slabArea === '') || (req.body.poolCapacity === '') || (req.body.projectDuration === '') ||
+      (req.body.totalNumOfBuildings === '')) {
       next({
         reason: Messages.MSG_ERROR_EMPTY_FIELD,
         message: Messages.MSG_ERROR_EMPTY_FIELD,
@@ -84,6 +80,7 @@ if ((req.body.name === undefined) || (req.body.region === undefined) || (req.bod
       }
     });
   }
+
   getProjectRateItemsByOriginalName(req: any, res: any, next: any) {
     var projectId = req.params.projectId;
     var originalRateItemName = req.params.originalRateItemName;
@@ -98,8 +95,8 @@ if ((req.body.name === undefined) || (req.body.region === undefined) || (req.bod
             stackTrace: new Error(),
             code: 400
           });
-        }else {
-          if ((originalRateItemName === undefined) || (originalRateItemName=== '')) {
+        } else {
+          if ((originalRateItemName === undefined) || (originalRateItemName === '')) {
             next({
               reason: Messages.MSG_ERROR_EMPTY_FIELD,
               message: Messages.MSG_ERROR_EMPTY_FIELD,
@@ -112,6 +109,7 @@ if ((req.body.name === undefined) || (req.body.region === undefined) || (req.bod
       }
     });
   }
+
   updateProjectById(req: any, res: any, next: any) {
     var projectId = req.params.projectId;
     ProjectInterceptor.validateProjectId(projectId, (error, result) => {
@@ -161,7 +159,7 @@ if ((req.body.name === undefined) || (req.body.region === undefined) || (req.bod
         } else {
           if ((req.body.name === undefined) || (req.body.totalSlabArea === undefined) || (req.body.totalCarpetAreaOfUnit === undefined) ||
             (req.body.totalSaleableAreaOfUnit === undefined) || (req.body.plinthArea === undefined) || (req.body.totalNumOfFloors === undefined) ||
-            (req.body.numOfParkingFloors === undefined) || (req.body.carpetAreaOfParking === undefined) ||(req.body.name === '') ||
+            (req.body.numOfParkingFloors === undefined) || (req.body.carpetAreaOfParking === undefined) || (req.body.name === '') ||
             (req.body.totalSlabArea === '') || (req.body.totalCarpetAreaOfUnit === '') || (req.body.totalSaleableAreaOfUnit === '') ||
             (req.body.plinthArea === '') || (req.body.totalNumOfFloors === '') || (req.body.numOfParkingFloors === '') || (req.body.carpetAreaOfParking === '')) {
             next({
@@ -213,7 +211,7 @@ if ((req.body.name === undefined) || (req.body.region === undefined) || (req.bod
           });
         } else {
           if ((req.body.name === undefined) || (req.body.totalSlabArea === undefined) || (req.body.totalCarpetAreaOfUnit === undefined) || (req.body.totalSaleableAreaOfUnit === undefined) ||
-              (req.body.plinthArea === undefined) || (req.body.totalNumOfFloors === undefined) || (req.body.numOfParkingFloors === undefined) || (req.body.carpetAreaOfParking === undefined) ||
+            (req.body.plinthArea === undefined) || (req.body.totalNumOfFloors === undefined) || (req.body.numOfParkingFloors === undefined) || (req.body.carpetAreaOfParking === undefined) ||
             (req.body.name === '') || (req.body.totalSlabArea === '') || (req.body.totalCarpetAreaOfUnit === '') || (req.body.totalSaleableAreaOfUnit === '') ||
             (req.body.plinthArea === '') || (req.body.totalNumOfFloors === '') || (req.body.numOfParkingFloors === '') || (req.body.carpetAreaOfParking === '')) {
             next({
@@ -269,6 +267,38 @@ if ((req.body.name === undefined) || (req.body.region === undefined) || (req.bod
     });
   }
 
+  cloneBuilding(req: any, res: any, next: any) {
+    var projectId = req.params.projectId;
+    var buildingId = req.params.buildingId;
+    ProjectInterceptor.validateIds(projectId, buildingId, (error, result) => {
+      if (error) {
+        next(error);
+      } else {
+        if (result === false) {
+          next({
+            reason: Messages.MSG_ERROR_EMPTY_FIELD,
+            message: Messages.MSG_ERROR_EMPTY_FIELD,
+            stackTrace: new Error(),
+            code: 400
+          });
+        } else {
+          if ((req.body.name === undefined) || (req.body.totalSlabArea === undefined) || (req.body.totalCarpetAreaOfUnit === undefined) || (req.body.totalSaleableAreaOfUnit === undefined) ||
+             (req.body.plinthArea === undefined) || (req.body.totalNumOfFloors === undefined) || (req.body.numOfParkingFloors === undefined) || (req.body.carpetAreaOfParking === undefined) ||
+            (req.body.name === '') || (req.body.totalSlabArea === '') || (req.body.totalCarpetAreaOfUnit === '') || (req.body.totalSaleableAreaOfUnit === '') ||
+            (req.body.plinthArea === '') || (req.body.totalNumOfFloors === '') || (req.body.numOfParkingFloors === '') || (req.body.carpetAreaOfParking === '')) {
+            next({
+              reason: Messages.MSG_ERROR_EMPTY_FIELD,
+              message: Messages.MSG_ERROR_EMPTY_FIELD,
+              stackTrace: new Error(),
+              code: 400
+            });
+          }
+        }
+        next();
+      }
+    });
+  }
+
   getCategoriesOfProjectCostHead(req: any, res: any, next: any) {
     var projectId = req.params.projectId;
     var costHeadId = req.params.costHeadId;
@@ -304,7 +334,7 @@ if ((req.body.name === undefined) || (req.body.region === undefined) || (req.bod
             code: 400
           });
         } else {
-          if ((req.params.categoryId === undefined) || (req.params.categoryId === '') ) {
+          if ((req.params.categoryId === undefined) || (req.params.categoryId === '')) {
             next({
               reason: Messages.MSG_ERROR_EMPTY_FIELD,
               message: Messages.MSG_ERROR_EMPTY_FIELD,
@@ -322,7 +352,7 @@ if ((req.body.name === undefined) || (req.body.region === undefined) || (req.bod
     var projectId = req.params.projectId;
     var buildingId = req.params.buildingId;
     var costHeadId = req.params.costHeadId;
-    ProjectInterceptor.validateCostHeadIds(projectId, buildingId, costHeadId,  (error, result) => {
+    ProjectInterceptor.validateCostHeadIds(projectId, buildingId, costHeadId, (error, result) => {
       if (error) {
         next(error);
       } else {
@@ -334,7 +364,7 @@ if ((req.body.name === undefined) || (req.body.region === undefined) || (req.bod
             code: 400
           });
         } else {
-          if((req.params.activeStatus === undefined) || (req.params.activeStatus === '') ) {
+          if ((req.params.activeStatus === undefined) || (req.params.activeStatus === '')) {
             next({
               reason: Messages.MSG_ERROR_EMPTY_FIELD,
               message: Messages.MSG_ERROR_EMPTY_FIELD,
@@ -565,7 +595,7 @@ if ((req.body.name === undefined) || (req.body.region === undefined) || (req.bod
     var projectId = req.params.projectId;
     var buildingId = req.params.buildingId;
     var costHeadId = req.params.costHeadId;
-    ProjectInterceptor.validateCostHeadIds(projectId, buildingId, costHeadId,  (error, result) => {
+    ProjectInterceptor.validateCostHeadIds(projectId, buildingId, costHeadId, (error, result) => {
       if (error) {
         next(error);
       } else {
@@ -577,8 +607,8 @@ if ((req.body.name === undefined) || (req.body.region === undefined) || (req.bod
             code: 400
           });
         } else {
-      if( (req.params.workItemId === undefined) || (req.params.workItemId === '') ||
-        (req.params.activeStatus === undefined) || (req.params.activeStatus === '')) {
+          if ((req.params.workItemId === undefined) || (req.params.workItemId === '') ||
+            (req.params.activeStatus === undefined) || (req.params.activeStatus === '')) {
             next({
               reason: Messages.MSG_ERROR_EMPTY_FIELD,
               message: Messages.MSG_ERROR_EMPTY_FIELD,
@@ -609,8 +639,8 @@ if ((req.body.name === undefined) || (req.body.region === undefined) || (req.bod
             code: 400
           });
         } else {
-          if( (categoryId === undefined) || (categoryId === null) ||
-             (workItemId === undefined) || (workItemId === null) ||
+          if ((categoryId === undefined) || (categoryId === null) ||
+            (workItemId === undefined) || (workItemId === null) ||
             (req.params.activeStatus === undefined) || (req.params.activeStatus === '')) {
             next({
               reason: Messages.MSG_ERROR_EMPTY_FIELD,
@@ -892,7 +922,7 @@ if ((req.body.name === undefined) || (req.body.region === undefined) || (req.bod
             code: 400
           });
         } else {
-          if ((req.params.categoryId === undefined) || (req.params.workItemId === undefined) || ( itemName === undefined) ||
+          if ((req.params.categoryId === undefined) || (req.params.workItemId === undefined) || (itemName === undefined) ||
             (req.params.categoryId === '') || (req.params.workItemId === '') || (itemName === '')) {
             next({
               reason: Messages.MSG_ERROR_EMPTY_FIELD,
@@ -926,7 +956,7 @@ if ((req.body.name === undefined) || (req.body.region === undefined) || (req.bod
             code: 400
           });
         } else {
-          if ((categoryId === undefined) || (workItemId === undefined) || ( itemName === undefined) ||
+          if ((categoryId === undefined) || (workItemId === undefined) || (itemName === undefined) ||
             (categoryId === null) || (workItemId === null) || (itemName === '')) {
             next({
               reason: Messages.MSG_ERROR_EMPTY_FIELD,
@@ -951,29 +981,29 @@ if ((req.body.name === undefined) || (req.body.region === undefined) || (req.bod
 
     ProjectInterceptor.validateCostHeadIds(projectId, buildingId, costHeadId, (error, result) => {
       if (error) {
-              next(error);
-            } else {
-                  if (result === false) {
-                  next({
-                      reason: Messages.MSG_ERROR_EMPTY_FIELD,
-                      message: Messages.MSG_ERROR_EMPTY_FIELD,
-                      stackTrace: new Error(),
-                      code: 400
-                    });
-                } else {
-                    if ((categoryId === undefined) || (workItemId === undefined) || (directRate === undefined) ||
-                      (categoryId === null) || (workItemId === null) || (directRate === '')) {
-                      next({
-                        reason: Messages.MSG_ERROR_EMPTY_FIELD,
-                        message: Messages.MSG_ERROR_EMPTY_FIELD,
-                        stackTrace: new Error(),
-                        code: 400
-                      });
-                    }
-                  }
-            next();
-           }
-     });
+        next(error);
+      } else {
+        if (result === false) {
+          next({
+            reason: Messages.MSG_ERROR_EMPTY_FIELD,
+            message: Messages.MSG_ERROR_EMPTY_FIELD,
+            stackTrace: new Error(),
+            code: 400
+          });
+        } else {
+          if ((categoryId === undefined) || (workItemId === undefined) || (directRate === undefined) ||
+            (categoryId === null) || (workItemId === null) || (directRate === '')) {
+            next({
+              reason: Messages.MSG_ERROR_EMPTY_FIELD,
+              message: Messages.MSG_ERROR_EMPTY_FIELD,
+              stackTrace: new Error(),
+              code: 400
+            });
+          }
+        }
+        next();
+      }
+    });
   }
 
   updateRateOfBuildingCostHeads(req: any, res: any, next: any) {
@@ -994,10 +1024,10 @@ if ((req.body.name === undefined) || (req.body.region === undefined) || (req.bod
             code: 400
           });
         } else {
-          if ((req.params.categoryId === undefined) || (req.params.workItemId === undefined) ||(req.body.quantity  === undefined)  ||
-            (req.body.rateItems === undefined)  || (req.body.total  === undefined) || (req.body.unit === undefined) ||
-            (req.params.categoryId === '') || (req.params.workItemId === '') || (req.body.quantity  === '') ||
-            (req.body.rateItems === '')  || (req.body.total  === '') || (req.body.unit === '')) {
+          if ((req.params.categoryId === undefined) || (req.params.workItemId === undefined) || (req.body.quantity === undefined) ||
+            (req.body.rateItems === undefined) || (req.body.total === undefined) || (req.body.unit === undefined) ||
+            (req.params.categoryId === '') || (req.params.workItemId === '') || (req.body.quantity === '') ||
+            (req.body.rateItems === '') || (req.body.total === '') || (req.body.unit === '')) {
             next({
               reason: Messages.MSG_ERROR_EMPTY_FIELD,
               message: Messages.MSG_ERROR_EMPTY_FIELD,
@@ -1028,10 +1058,10 @@ if ((req.body.name === undefined) || (req.body.region === undefined) || (req.bod
             code: 400
           });
         } else {
-          if ((categoryId === undefined) || (workItemId === undefined) ||(req.body.quantity  === undefined)  ||
-            (req.body.rateItems === undefined)  || (req.body.total  === undefined) || (req.body.unit === undefined) ||
-            (categoryId === null) || (workItemId === null) || (req.body.quantity  === '') ||
-            (req.body.rateItems === '')  || (req.body.total  === '') || (req.body.unit === '')) {
+          if ((categoryId === undefined) || (workItemId === undefined) || (req.body.quantity === undefined) ||
+            (req.body.rateItems === undefined) || (req.body.total === undefined) || (req.body.unit === undefined) ||
+            (categoryId === null) || (workItemId === null) || (req.body.quantity === '') ||
+            (req.body.rateItems === '') || (req.body.total === '') || (req.body.unit === '')) {
             next({
               reason: Messages.MSG_ERROR_EMPTY_FIELD,
               message: Messages.MSG_ERROR_EMPTY_FIELD,
@@ -1098,6 +1128,7 @@ if ((req.body.name === undefined) || (req.body.region === undefined) || (req.bod
       }
     });
   }
+
   getBuildingRateItemsByOriginalName(req: any, res: any, next: any) {
     var projectId = req.params.projectId;
     var buildingId = req.params.buildingId;
@@ -1114,7 +1145,7 @@ if ((req.body.name === undefined) || (req.body.region === undefined) || (req.bod
             code: 400
           });
         } else {
-          if ((originalRateItemName === undefined) || (originalRateItemName=== '')) {
+          if ((originalRateItemName === undefined) || (originalRateItemName === '')) {
             next({
               reason: Messages.MSG_ERROR_EMPTY_FIELD,
               message: Messages.MSG_ERROR_EMPTY_FIELD,

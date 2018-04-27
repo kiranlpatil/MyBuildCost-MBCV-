@@ -277,11 +277,8 @@ export class CostSummaryComponent implements OnInit {
   }
 
   cloneBuilding(buildingId: string) {
-    let projectId=SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT_ID);
-    this.buildingService.getBuildingDetailsForClone( projectId, buildingId).subscribe(
-      building => this.onGetBuildingDetailsForCloneSuccess(building),
-      error => this.onGetBuildingDetailsForCloneFailure(error)
-    );
+    SessionStorageService.setSessionValue(SessionStorage.CURRENT_BUILDING, buildingId);
+    this._router.navigate([NavigationRoutes.APP_CLONE_BUILDING]);
   }
 
   onGetBuildingDetailsForCloneSuccess(building: any) {
@@ -319,7 +316,7 @@ export class CostSummaryComponent implements OnInit {
 
   cloneBuildingCostHeads(cloneCostHead: CostHead) {
     let projectId=SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT_ID);
-    this.buildingService.cloneBuildingCostHeads( projectId, this.cloneBuildingId, cloneCostHead).subscribe(
+    this.buildingService.cloneBuilding( projectId, this.cloneBuildingId, cloneCostHead).subscribe(
       project => this.onCloneBuildingCostHeadsSuccess(project),
       error => this.onCloneBuildingCostHeadsFailure(error)
     );

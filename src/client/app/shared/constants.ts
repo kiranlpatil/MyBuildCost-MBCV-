@@ -165,6 +165,9 @@ export class Messages {
   public static MSG_SUCCESS_PROJECT_CREATION: string = 'Project has been created successfully.';
   public static MSG_SUCCESS_ADD_BUILDING_PROJECT: string = 'Building has been successfully added to project.\n' +
     'Please wait while we are synching data from rate analysis.';
+  public static MSG_SUCCESS_COPY_BUILDING_PROJECT: string = 'Building has been successfully copied to project.\n' +
+    'Please wait while we are synching data from rate analysis.';
+
   public static MSG_SUCCESS_CLONED_BUILDING_DETAILS: string = 'Your building cloned successfully.';
   public static MSG_SUCCESS_UPDATE_PROJECT_DETAILS: string = 'Your project updated successfully.';
   public static MSG_SUCCESS_UPDATE_BUILDING_DETAILS: string = 'Your building details updated successfully.';
@@ -219,6 +222,7 @@ export class NavigationRoutes {
   public static APP_CREATE_PROJECT: string = '/create-project';
   public static APP_VIEW_BUILDING_DETAILS: string = 'building/details';
   public static APP_CREATE_BUILDING: string = '/create-building';
+  public static APP_CLONE_BUILDING: string = '/clone-building';
   public static APP_LIST_PROJECT: string = 'project/list';
   public static APP_COST_SUMMARY: string = 'cost-summary';
   public static APP_COST_HEAD: string = 'cost-head';
@@ -249,6 +253,7 @@ export class SessionStorage {
   public static VERIFY_PHONE_VALUE = 'verify_phone_value';
   public static CHANGE_MAIL_VALUE = 'change_mail_value';
   public static CURRENT_PROJECT_ID = 'current_project_id';
+  public static CURRENT_BUILDING_ID = 'current_project_id';
   public static CURRENT_PROJECT_NAME = 'current_project_name';
   public static CURRENT_BUILDING_NAME = 'current_building_name';
   public static CURRENT_BUILDING = 'current_building_id';
@@ -449,6 +454,7 @@ export class Label {
   public static NUM_OF_PARKING_FLOORS : string = 'No. of parking floors';
   public static CARPET_AREA_OF_PARKING : string = 'Carpet area of parking ';
   public static APARTMENT_CONFIGURATION: string = 'Apartment Configuration';
+  public static CLONE_BUILDING_MESSAGE: string = 'Also copy following details from building ';
   public static NUM_OF_ONE_BHK: string = 'No. of 1 BHKs';
   public static NUM_OF_TWO_BHK: string = 'No. of 2 BHKs';
   public static NUM_OF_THREE_BHK: string = 'No. of 3 BHKs';
@@ -588,16 +594,18 @@ export class Menus {
   public static MATERIAL_TAKEOFF = 'Material Takeoff';
   public static PROJECT_DETAILS = 'Project Details';
   public static MY_PROJECTS = 'My Projects';
-  public static CLONE = 'Clone';
+  public static CLONE = 'Copy As New Building';
   public static EDIT = 'Edit';
   public static DELETE = 'Delete';
   public static ADD_BUILDING = 'Add Building';
   public static ADD_BUILDING_TO_PROJECT = 'Add Building to Project';
+  public static COPY_BUILDING = 'Copy Building';
   public static CREATE_NEW_PROJECT: string = 'Create New Project';
 }
 
 export class ValueConstant {
-
+//array of actions for copy building
+  public static CLONE_ITEMS:string[]=['Cost Head','Category','Work Item','Quantity','Rate Analysis'];
   public static NUMBER_OF_FRACTION_DIGIT = 2;
   public static  FILE_SIZE = 5000000;
 }

@@ -171,14 +171,15 @@ class ProjectController {
     }
   }
 
-  cloneBuildingById(req: express.Request, res: express.Response, next: any): void {
+  cloneBuilding(req: express.Request, res: express.Response, next: any): void {
     try {
       logger.info('Project controller, cloneBuilding has been hit');
       let user = req.user;
       let buildingId = req.params.buildingId;
+      let projectId = req.params.projectId;
       let buildingDetails = <Building> req.body;
       let projectService = new ProjectService();
-      projectService.cloneBuildingDetails( buildingId, buildingDetails, user, (error, result) => {
+      projectService.cloneBuildingDetails(projectId, buildingId, buildingDetails, user, (error, result) => {
         if(error) {
           next(error);
         } else {

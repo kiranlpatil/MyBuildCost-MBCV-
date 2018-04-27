@@ -74,7 +74,6 @@ import { BuildingFormComponent } from './build-info/framework/shared/building-fo
 import { QuantityDetailsComponent }
 from './build-info/framework/project/cost-summary-report/cost-head/quantity-details/quantity-details.component';
 import { CostHeadReportComponent } from './build-info/framework/project/report-templates/cost-head-report/cost-head-report.component';
-import { CostSummaryReportComponent } from './build-info/framework/project/report-templates/cost-summary-report/cost-summary-report.component'
 import { AttachmentComponent } from './build-info/framework/project/cost-summary-report/cost-head/attachment/attachment.component';
 import { MaterialTakeOffPdfReportComponent }
 from './build-info/framework/project/report-templates/material-take-off-report/material-take-off-pdf-report.component';
@@ -84,7 +83,9 @@ import { PdfHeaderComponent }
 from './build-info/framework/project/report-templates/material-take-off-report/pdf-header/pdf-header.component';
 import { CommonAmenitiesReportComponent }
 from './build-info/framework/project/report-templates/common-amenities-report/common-amenities-report.component';
+import { CloneBuildingComponent} from './build-info/framework/project/building/clone-building/clone-building.component';
 import { ProjectNameChangeService } from './shared/services/project-name-change.service';
+import {CostSummaryReportComponent} from "./build-info/framework/project/report-templates/cost-summary-report/cost-summary-report.component";
 
 @NgModule({
   imports: [
@@ -117,6 +118,7 @@ import { ProjectNameChangeService } from './shared/services/project-name-change.
     CreateProjectComponent,
     ProjectListComponent,
     CreateBuildingComponent,
+    CloneBuildingComponent,
     ProjectDetailsComponent,
     BuildingListComponent,
     ProjectHeaderComponent,

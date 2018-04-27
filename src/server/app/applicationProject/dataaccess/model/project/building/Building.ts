@@ -19,5 +19,6 @@ class Building {
   numOfFiveBHK:number;
   numOfLifts: number;
   costHeads: Array<CostHead>;
+  cloneItems?:string[];
 }
 export = Building;

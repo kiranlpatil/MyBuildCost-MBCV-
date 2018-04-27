@@ -45,7 +45,7 @@
                     </cost-summary-report-pdf>
                   </div>
                 </li>
-                <li><p  data-toggle="modal" data-target="#myModal" (click)="cloneBuilding(building._id)">{{getMenus().CLONE}}</p></li>
+                <li><p  data-toggle="modal" (click)="cloneBuilding(building._id)">{{getMenus().CLONE}}</p></li>
                 <li><p (click)="goToEditBuilding(building._id)">{{getMenus().EDIT}}</p></li>
                 <li><p data-toggle="modal" data-target="#deleteBuilding" (click)="setIdForDeleteBuilding(building._id)">{{getMenus().DELETE}}</p></li>
                 <!--<li><p (click)="downloadToPdf()">Print PDF</p></li>-->
@@ -386,3 +386,6 @@
   </div>
 
 </section>
+
+
+<!--<cost-summary-report-pdf [buildingsReport]="buildingsReport"></cost-summary-report-pdf>-->
