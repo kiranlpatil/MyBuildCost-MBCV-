@@ -106,9 +106,11 @@
       }
 
       .calculator {
+        opacity: 1;
         position: absolute;
         right: -14px;
         top: 6px;
+        transition: opacity 0.5s ease-in-out;
         width: 12px;
       }
     }
@@ -127,6 +129,10 @@
         input[readonly] {
           background: url('../assets/build-info/dashboard/edit-bg.png') no-repeat 95% 46%;
           border: 1px solid transparent;
+        }
+
+        .calculator {
+          opacity: 1;
         }
 
       }

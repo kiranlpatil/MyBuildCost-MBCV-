@@ -193,10 +193,16 @@
       top: -5px;
     }
 
+    .btn-get-amount {
+      opacity: 1;
+      transition: opacity 0.5s ease-in-out;
+    }
+
     &:hover {
       .delete-cost-head,
       .add-more-details,
-      .file-attachment > span {
+      .file-attachment > span,
+      .btn-get-amount {
         opacity: 1;
       }
     }
@@ -263,24 +269,27 @@
 
   .edit-cost-null {
     display: inline-block;
-    padding: 5px;
+    padding: 4px 5px 5px;
   }
 
   .edit-cost {
     border-bottom: 1px solid $body-text;
     display: inline-block;
-    padding: 5px;
+    padding: 4px 2px 2px;
+    cursor: pointer;
   }
 
   .edit-rate-null {
     display: inline-block;
-    padding: 7px 5px 5px;
+    padding: 6px 5px 5px;
+    cursor: default;
   }
 
   .edit-rate {
     //border-bottom: 1px solid $body-text;
     display: inline-block;
-    padding: 7px 5px 5px;
+    padding: 6px 2px 2px;
+    cursor: default;
   }
 
   .value {
