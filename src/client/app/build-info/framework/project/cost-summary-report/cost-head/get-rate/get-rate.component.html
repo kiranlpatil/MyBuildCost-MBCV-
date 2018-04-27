@@ -121,6 +121,10 @@
           <img *ngIf="rate.imageURL != ''" id="rateImageURL" src="{{rate.imageURL}}">
         </td>
       </tr>
+      <tr  *ngIf="rateView === getLabel().WORKITEM_SYSTEM_RATE_TAB">
+        {{getButton().STANDARD_NOTE}}
+        <bi-disclaimer-component [note]="getStandardNotes().Notes"></bi-disclaimer-component>
+      </tr>
     </tbody>
   </table>
   <button type="button" *ngIf="!disableRateField" class="save-btn" (click)="updateRate(rate)">{{ getButton().SAVE }}</button>

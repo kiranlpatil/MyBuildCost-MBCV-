@@ -625,9 +625,9 @@ export class CurrentView {
 export class StandardNotes {
   public static Notes = '<ul><li>The material consumption constants and rate are based on various sources' +
     ' from the construction industry. This information may vary from project-to-project or' +
-    ' place-to-place depending on construction methods and practices.\n</li></ul>' +
-    'The material consumption constants are including wastages as per standard practices.\n' +
-    'The contents/services under this rate analysis shall be used only for reference. The user shall verify the' +
+    ' place-to-place depending on construction methods and practices.\n</li>' +
+    '<li>The material consumption constants are including wastages as per standard practices.\n</li>' +
+    '<li>The contents/services under this rate analysis shall be used only for reference. The user shall verify the' +
     ' content before using it. Big Slice Technologies Pvt. Ltd. (OPC) shall not be held responsible for any' +
-    ' consequences resulted due to use of the contents/services of this rate analysis.\n';
+    ' consequences resulted due to use of the contents/services of this rate analysis.\n</li></ul>';
 }

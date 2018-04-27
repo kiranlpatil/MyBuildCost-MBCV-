@@ -86,6 +86,7 @@ from './build-info/framework/project/report-templates/common-amenities-report/co
 import { CloneBuildingComponent} from './build-info/framework/project/building/clone-building/clone-building.component';
 import { ProjectNameChangeService } from './shared/services/project-name-change.service';
 import {CostSummaryReportComponent} from "./build-info/framework/project/report-templates/cost-summary-report/cost-summary-report.component";
+import { DisclaimerComponent } from './shared/disclaimer-component/disclaimer-component';
 
 @NgModule({
   imports: [
@@ -143,6 +144,7 @@ import {CostSummaryReportComponent} from "./build-info/framework/project/report-
     GroupByPipe,
     DeleteConfirmationModalComponent,
     UpdateConfirmationModalComponent,
+    DisclaimerComponent,
     ProjectFormComponent,
     BuildingFormComponent,
 
