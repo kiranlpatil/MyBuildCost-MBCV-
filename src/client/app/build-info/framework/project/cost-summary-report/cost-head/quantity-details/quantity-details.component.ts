@@ -139,7 +139,7 @@ export class QuantityDetailsComponent implements OnInit {
   getRateByQuantity(floorIndex : number, costQuantity : number, showInnerView : string) {
     if(floorIndex !== this.currentFloorIndex || this.showInnerView !== showInnerView) {
       this.setFloorIndex(floorIndex);
-      this.setWorkItemDataForRateView(this.workItemRateAnalysisId, this.workItem.rate);
+      this.setWorkItemDataForRateView(this.workItemRateAnalysisId, this.workItem[0].rate);
       this.calculateQuantity(this.workItem,costQuantity);
       this.showInnerView =  this.getLabel().GET_RATE_BY_QUANTITY;
     } else {
@@ -158,7 +158,7 @@ export class QuantityDetailsComponent implements OnInit {
     this.unit = lodsh.cloneDeep(rate.unit);
   }
 
-  calculateQuantity(workItem : WorkItem, costQuantity : number) {
+  calculateQuantity(workItem : any, costQuantity : number) {
     this.previousRateQuantity = lodsh.cloneDeep(workItem.rate.quantity);
     this.rateItemsArray.quantity = costQuantity;
     this.quantityIncrement = this.rateItemsArray.quantity / this.previousRateQuantity;
