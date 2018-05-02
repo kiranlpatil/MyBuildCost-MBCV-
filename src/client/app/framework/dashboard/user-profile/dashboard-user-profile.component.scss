@@ -96,7 +96,6 @@
 
   .btn-primary {
     display: table;
-    line-height: 38px;
     margin: 0 auto 20px;
   }
 }
@@ -152,5 +151,9 @@
     form {
       padding: 15px 0 0;
     }
+  }
+
+  .wrapper {
+    padding: 20px 0 0;
   }
 }

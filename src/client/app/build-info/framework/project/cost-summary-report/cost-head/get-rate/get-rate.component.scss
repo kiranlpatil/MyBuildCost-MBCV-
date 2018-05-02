@@ -169,6 +169,10 @@
         tr > td {
           background: $white;
           border-right: 1px solid $azure;
+
+          &:last-child {
+            text-align: right;
+          }
         }
       }
 
@@ -181,6 +185,7 @@
           }
           &:last-child {
             border-radius: 0 0 5px 0;
+            text-align: right;
           }
         }
       }
