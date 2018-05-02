@@ -202,6 +202,7 @@ export class Messages {
   public static MSG_ERROR_VALIDATION_QUANTITY_REQUIRED = 'Fields can not be empty';
   public static MSG_ERROR_VALIDATION_QUANTITY_NAME_REQUIRED = 'Quantity details name is required';
   public static LOGIN_INFO: string = 'Enter your details below';
+  public static MSG_SUCCESS_ALREADY_ADDED_ALL_COSTHEADS: string = 'Already added all CostHeads.';
 
   //File Attachment messages
 

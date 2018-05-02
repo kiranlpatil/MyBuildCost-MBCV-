@@ -76,9 +76,17 @@ export class CommonAmenitiesComponent implements OnInit {
   }
 
   onGetAllInActiveCostHeadsSuccess(inActiveCostHeads : any) {
-    this.inActiveProjectCostHeads = inActiveCostHeads.data;
-    this.showProjectCostHeadList = true;
-    this.getReportDetails.emit();
+    if(inActiveCostHeads.data.length !== 0) {
+      this.inActiveProjectCostHeads = inActiveCostHeads.data;
+      this.showProjectCostHeadList = true;
+      this.getReportDetails.emit();
+    } else {
+      this.showProjectCostHeadList = false;
+      let message = new Message();
+      message.isError = false;
+      message.custom_message = Messages.MSG_SUCCESS_ALREADY_ADDED_ALL_COSTHEADS;
+      this.messageService.message(message);
+    }
   }
 
   onGetAllInActiveCostHeadsFailure(error : any) {
