@@ -83,7 +83,7 @@
                                     <div class="edit-rate" *ngIf="!workItem.isDirectRate && workItem.rate.isEstimated">
                                       {{workItem.rate.total|number : '1.2-2'}}
                                     </div>
-                                    <div class="edit-rate-null" *ngIf="!workItem.rate.total">
+                                    <div class="edit-rate-null" *ngIf="!workItem.rate.total || !workItem.rate.isEstimated">
                                       -
                                     </div>
                                      <span class="calculator"  id ="getRate{{categoryIndex}}"
@@ -193,7 +193,7 @@
                                           [workItemsList] ="workItemsList"
                                           [categoryDetails] ="categoryDetails"
                                           (categoriesTotalAmount)="setCategoriesTotal($event)"
-                                          (refreshWorkItemList)="refreshWorkItemList($event)"
+                                          (refreshWorkItemList)="refreshCategoryList($event)"
                                           [categoryRateAnalysisId]="category.rateAnalysisId"
                                           [workItemRateAnalysisId]="workItem.rateAnalysisId"
                                           [baseUrl] = "baseUrl">
