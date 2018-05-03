@@ -17,6 +17,7 @@ export class BuildingFormComponent {
 
   @Input() submitActionLabel: string;
   @Input() buildingModel?: Building = new Building();
+  @Input() buildingName?:string;
   @Output() onSubmitEvent = new EventEmitter<Building>();
 
   buildingForm: FormGroup;
@@ -24,11 +25,11 @@ export class BuildingFormComponent {
   public errorMessage: boolean = false;
   cloneItems: string[] = new Array(0);
   cloneItemsArray: string[] = ValueConstant.CLONE_ITEMS.slice();
-
+  cloneItemsStatus: boolean[] = new Array(ValueConstant.CLONE_ITEMS.length);
   private view: string | '';
 
   constructor(private formBuilder: FormBuilder, private _router: Router) {
-    //this.actionItems=ValueConstant.ACTION_ITEMS.slice();
+    this.cloneItemsStatus.fill(false).fill(true,0,1);
     this.view = SessionStorageService.getSessionValue(SessionStorage.CURRENT_VIEW);
     this.buildingForm = this.formBuilder.group({
       name: ['', ValidationService.requiredBuildingName],
@@ -61,14 +62,24 @@ export class BuildingFormComponent {
   getLabels() {
     return Label;
   }
-
   selectItem(event: any) {
     if (event.target.checked) {
       this.cloneItems.push(event.target.value);
+      if(this.cloneItems.indexOf(event.target.value)>=2) {
+        this.cloneItemsStatus.fill(true);
+      } else {
+        this.cloneItemsStatus.fill(true,this.cloneItems.indexOf(event.target.value),(this.cloneItems.indexOf(event.target.value)+2));
+      }
     } else {
+      if(this.cloneItems.indexOf(event.target.value)===2) {
+        this.cloneItemsStatus.fill(false,(this.cloneItems.indexOf(event.target.value)+1),5);
+      } else if(this.cloneItems.indexOf(event.target.value)<2) {
+        this.cloneItemsStatus.fill(false).fill(true,0,(this.cloneItems.indexOf(event.target.value)+1));
+      }
       this.cloneItems.splice(this.cloneItems.indexOf(event.target.value));
     }
   }
   onCancel() {
-    window.history.back();  }
+    window.history.back();
+  }
 }

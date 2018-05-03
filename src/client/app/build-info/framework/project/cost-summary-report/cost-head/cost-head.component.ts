@@ -31,6 +31,7 @@ export class CostHeadComponent implements OnInit, OnChanges {
 
   projectId : string;
   viewTypeValue: string;
+  quantityName: string;
   baseUrl:string;
   viewType:string;
   keyQuantity:string;
@@ -558,10 +559,16 @@ export class CostHeadComponent implements OnInit, OnChanges {
     console.log('onGetActiveWorkItemsOfCategoryFailure error : '+JSON.stringify(error));
   }
 
+  setQuantityName(qtyName : string) {
+    this.quantityName = qtyName;
+  }
+  setWorkItemId(workItemId:number) {
+    this.workItemId = workItemId;
+  }
 
   deleteElement(elementType : string) {
     if(elementType === ProjectElements.QUANTITY_DETAILS) {
-      this.child.deleteQuantityDetailsByName();
+      this.child.deleteQuantityDetailsByName(this.quantityName,this.workItemId);
     }
     if(elementType === ProjectElements.WORK_ITEM) {
       this.deactivateWorkItem();

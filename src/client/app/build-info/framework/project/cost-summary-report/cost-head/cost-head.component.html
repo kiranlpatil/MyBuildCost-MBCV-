@@ -193,6 +193,8 @@
                                           [workItemsList] ="workItemsList"
                                           [categoryDetails] ="categoryDetails"
                                           (categoriesTotalAmount)="setCategoriesTotal($event)"
+                                          (quantityName)="setQuantityName($event)"
+                                          (workItemRateId)="setWorkItemId($event)"
                                           (refreshWorkItemList)="refreshCategoryList($event)"
                                           [categoryRateAnalysisId]="category.rateAnalysisId"
                                           [workItemRateAnalysisId]="workItem.rateAnalysisId"

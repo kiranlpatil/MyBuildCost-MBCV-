@@ -1,4 +1,6 @@
 <div *ngIf="quantityItems!==undefined" class="get-quantity-section">
+  <button *ngIf="innerView !== getLabel().WORKITEM_QUANTITY_TAB" class="close" (click)="closeQuantityTab()"><img src="assets/framework/images/close/close-black.svg" /></button>
+  <button *ngIf="innerView === getLabel().WORKITEM_QUANTITY_TAB" class="close" (click)="closeInnerViewTab()"><img src="assets/framework/images/close/close-black.svg" /></button>
   <table class="table">
     <thead>
       <th>{{getTableHeadings().ITEM}}</th>
@@ -38,13 +40,6 @@
       <input [(ngModel)]="quantityItem.unit" id="unit" class="form-control unit-input text-left" disabled/>
     </td>
     <td colspan="2" class="get-amount-value get-delete text-center">
-      <div class="col-xs-2 padding-top-2">
-        <img src="assets/build-info/dashboard/attachment.png" />
-      </div>
-     <!-- <div class="col-xs-2">
-      <span title="Delete" data-toggle="modal" data-target="#deleteQuantity"
-            (click)="setQuantityItemNameForDelete(quantityIndex)" class="glyphicon glyphicon-trash"></span>
-      </div>-->
       <div class="col-xs-2">
       <span title="Delete Quantity Item" (click)="deleteQuantityItem(quantityIndex)" class="glyphicon glyphicon-trash"></span>
       </div>
