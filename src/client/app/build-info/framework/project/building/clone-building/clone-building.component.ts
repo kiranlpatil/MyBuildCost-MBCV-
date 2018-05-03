@@ -1,12 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Messages, NavigationRoutes, ImagePath, Headings, Button } from '../../../../../shared/constants';
-import { SessionStorage, SessionStorageService,  Message,
-  MessageService } from '../../../../../shared/index';
+import { SessionStorage, SessionStorageService, Message, MessageService,} from '../../../../../shared/index';
 import { Building } from '../../../model/building';
 import { BuildingService } from './../building.service';
 import { LoaderService } from '../../../../../shared/loader/loaders.service';
-
 @Component({
   moduleId: module.id,
   selector: 'bi-clone-building',
@@ -20,6 +18,9 @@ export class CloneBuildingComponent  implements  OnInit {
   cloneBuildingModel: Building;
   public isUserSignIn:number;
   buildingId:string;
+  oldBuildingName: string;
+
+
 
   constructor(private buildingService: BuildingService,
               private loaderService: LoaderService,
@@ -43,6 +44,7 @@ export class CloneBuildingComponent  implements  OnInit {
 
   onGetBuildingSuccess(building : any) {
     this.cloneBuildingModel = building.data;
+    this.oldBuildingName = this.cloneBuildingModel.name;
     this.cloneBuildingModel.name = '';
   }
 
@@ -65,28 +67,38 @@ export class CloneBuildingComponent  implements  OnInit {
   }
 
   onSubmit(buildingModel : Building) {
-    if(this.checkNumberOfFloors(buildingModel.totalNumOfFloors, buildingModel.numOfParkingFloors)) {
-      if(this.checkApartmentConfiguration(buildingModel)) {
-        this.loaderService.start();
-        let projectId = SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT_ID);
-        let buildingId = SessionStorageService.getSessionValue(SessionStorage.CURRENT_BUILDING);
-        this.buildingService.cloneBuilding(projectId,buildingId, buildingModel)
-          .subscribe(
-            building => this.onCloneBuildingSuccess(building),
-            error => this.onCloneBuildingFailure(error));
-      } else {
+    if(this.oldBuildingName!==buildingModel.name) {
+      if (this.checkNumberOfFloors(buildingModel.totalNumOfFloors, buildingModel.numOfParkingFloors)) {
+        if (this.checkApartmentConfiguration(buildingModel)) {
+          this.loaderService.start();
+          let projectId = SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT_ID);
+          let buildingId = SessionStorageService.getSessionValue(SessionStorage.CURRENT_BUILDING);
+          this.buildingService.cloneBuilding(projectId, buildingId, buildingModel)
+            .subscribe(
+              building => this.onCloneBuildingSuccess(building),
+              error => this.onCloneBuildingFailure(error));
+        } else {
           let message = new Message();
           message.isError = false;
           message.custom_message = Messages.MSG_ERROR_VALIDATION_ADD_AT_LEAST_ONE_APARTMENT_CONFIGURATION;
           this.messageService.message(message);
+        }
+
+
+      } else {
+        let message = new Message();
+        message.isError = false;
+        message.custom_message = Messages.MSG_ERROR_VALIDATION_NUMBER_OF_FLOORS;
+        this.messageService.message(message);
       }
-    } else {
+    }else {
       let message = new Message();
       message.isError = false;
-      message.custom_message = Messages.MSG_ERROR_VALIDATION_NUMBER_OF_FLOORS;
+      message.custom_message = Messages.MSG_ERROR_VALIDATION_SAME_BUILDING_NAME;
       this.messageService.message(message);
     }
   }
+
 
   checkNumberOfFloors(totalNumOfFloors : number, numOfParkingFloors : number) {
     if(totalNumOfFloors > numOfParkingFloors) {

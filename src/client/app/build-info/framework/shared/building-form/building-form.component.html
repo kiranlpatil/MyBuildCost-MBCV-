@@ -93,11 +93,11 @@
       </div>
     </div>
   </div>
-  <p class="form-sub-heading" *ngIf="view=='cloneBuilding'">{{ getLabels().CLONE_BUILDING_MESSAGE }} {{buildingModel.name}}</p>
+  <p class="form-sub-heading" *ngIf="view=='cloneBuilding'">{{ getLabels().CLONE_BUILDING_MESSAGE }}{{buildingName}}</p>
   <div  class="form-group"  *ngIf="view=='cloneBuilding'">
     <div class="default-checkbox"*ngFor="let cloneItem of cloneItemsArray;let i=index">
     <input id="checkbox{{i}}" type="checkbox" name="choices"
-           value="{{cloneItem}}" (click)="selectItem($event)" [disabled]="i > cloneItems.length" [checked]="cloneItems.indexOf(cloneItem)!= -1"/>
+           value="{{cloneItem}}" (click)="selectItem($event)" [disabled]="!cloneItemsStatus[i]" [checked]="cloneItems.indexOf(cloneItem)!= -1"/>
       <label for="checkbox{{i}}">{{ cloneItem }}</label>
     </div>
   </div>
