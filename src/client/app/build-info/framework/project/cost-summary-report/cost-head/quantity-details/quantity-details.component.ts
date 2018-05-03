@@ -29,6 +29,8 @@ export class QuantityDetailsComponent implements OnInit {
 
   @Output() categoriesTotalAmount = new EventEmitter<number>();
   @Output() refreshWorkItemList = new EventEmitter();
+  @Output() quantityName = new EventEmitter<String>();
+  @Output() workItemRateId = new EventEmitter<number>();
 
   workItemId : number;
   rateItemsArray : Rate;
@@ -42,7 +44,7 @@ export class QuantityDetailsComponent implements OnInit {
   quantityItemsArray: any = {};
   workItemData: WorkItem;
   keyQuantity: string;
-  quantityName: string;
+  currentQuantityName: string;
   showQuantityTab : string = null;
   currentQuantityIndex : number;
   constructor(private costSummaryService: CostSummaryService, private messageService: MessageService,
@@ -53,47 +55,6 @@ export class QuantityDetailsComponent implements OnInit {
     this.workItemData = this.workItem;
 
   }
-
-  setQuantityNameForDelete(quantityName: string) {
-    this.quantityName = quantityName;
-  }
-
-  deleteQuantityDetailsByName() {
-    if(this.quantityName !== null && this.quantityName !== undefined && this.quantityName !== '') {
-      this.loaderService.start();
-      let costHeadId = parseInt(SessionStorageService.getSessionValue(SessionStorage.CURRENT_COST_HEAD_ID));
-      this.costSummaryService.deleteQuantityDetailsByName(this.baseUrl, costHeadId, this.categoryRateAnalysisId,
-        this.workItemRateAnalysisId, this.quantityName).subscribe(
-        success => this.onDeleteQuantityDetailsByNameSuccess(success),
-        error => this.onDeleteQuantityDetailsByNameFailure(error)
-      );
-    } else {
-      var message = new Message();
-      message.isError = false;
-      message.custom_message = Messages.MSG_ERROR_VALIDATION_QUANTITY_NAME_REQUIRED;
-      this.messageService.message(message);
-    }
-  }
-
-  onDeleteQuantityDetailsByNameSuccess(success: any) {
-    for (let quantityIndex in this.quantityDetails) {
-      if (this.quantityDetails[quantityIndex].name === this.quantityName) {
-        this.quantityDetails.splice(parseInt(quantityIndex),1);
-        break;
-      }
-    }
-    var message = new Message();
-    message.isError = false;
-    message.custom_message = Messages.MSG_SUCCESS_DELETE_QUANTITY_DETAILS;
-    this.messageService.message(message);
-    this.refreshWorkItemList.emit();
-    this.loaderService.stop();
-  }
-
-  onDeleteQuantityDetailsByNameFailure(error: any) {
-    console.log('Delete Quantity error');
-  }
-
 
   changeQuantityName(keyQuantity: string) {
     if(keyQuantity !== null && keyQuantity !== undefined && keyQuantity !== '') {
@@ -166,5 +127,47 @@ export class QuantityDetailsComponent implements OnInit {
         this.rateItemsArray.rateItems[rateItemsIndex].quantity *
         this.quantityIncrement).toFixed(ValueConstant.NUMBER_OF_FRACTION_DIGIT));
     }
+  }
+
+  setQuantityNameForDelete(quantityName: string) {
+    this.quantityName.emit(quantityName);
+    this.workItemRateId.emit(this.workItemRateAnalysisId);
+  }
+
+  deleteQuantityDetailsByName(quantityName: string, workItemRateID:number) {
+    if(quantityName !== null && quantityName !== undefined && quantityName !== '') {
+      this.currentQuantityName = quantityName;
+      this.loaderService.start();
+      let costHeadId = parseInt(SessionStorageService.getSessionValue(SessionStorage.CURRENT_COST_HEAD_ID));
+      this.costSummaryService.deleteQuantityDetailsByName(this.baseUrl, costHeadId, this.categoryRateAnalysisId,
+        workItemRateID, quantityName).subscribe(
+        success => this.onDeleteQuantityDetailsByNameSuccess(success),
+        error => this.onDeleteQuantityDetailsByNameFailure(error)
+      );
+    } else {
+      var message = new Message();
+      message.isError = false;
+      message.custom_message = Messages.MSG_ERROR_VALIDATION_QUANTITY_NAME_REQUIRED;
+      this.messageService.message(message);
+    }
+  }
+
+  onDeleteQuantityDetailsByNameSuccess(success: any) {
+    for (let quantityIndex in this.quantityDetails) {
+      if (this.quantityDetails[quantityIndex].name ===  this.currentQuantityName) {
+        this.quantityDetails.splice(parseInt(quantityIndex),1);
+        break;
+      }
+    }
+    var message = new Message();
+    message.isError = false;
+    message.custom_message = Messages.MSG_SUCCESS_DELETE_QUANTITY_DETAILS;
+    this.messageService.message(message);
+    this.refreshWorkItemList.emit();
+    this.loaderService.stop();
+  }
+
+  onDeleteQuantityDetailsByNameFailure(error: any) {
+    console.log('Delete Quantity error');
   }
 }
