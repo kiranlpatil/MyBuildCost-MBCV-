@@ -6,6 +6,7 @@ import {
 import { CostSummaryService } from '../../cost-summary.service';
 import { Button, FileAttachment, Messages, ValueConstant } from '../../../../../../shared/constants';
 import { AttachmentDetailsModel } from '../../../../model/attachment-details';
+import { WorkItem } from '../../../../model/work-item';
 
 @Component({
   moduleId: module.id,
@@ -17,8 +18,8 @@ import { AttachmentDetailsModel } from '../../../../model/attachment-details';
 export class AttachmentComponent implements OnInit {
   @Input() costHeadId: number;
   @Input() categoryId: number;
-  @Input() baseUrl: any;
-  @Input() workItem: any;
+  @Input() baseUrl: string;
+  @Input() workItem: WorkItem;
 
   @Output() showAttachmentView = new EventEmitter();
   @Output() workItemRefresh = new EventEmitter();
@@ -34,6 +35,7 @@ export class AttachmentComponent implements OnInit {
   private path: any;
   private fileNamesList: Array<AttachmentDetailsModel>;
   private attachmentFiles: Array<AttachmentDetailsModel>;
+  private attachmentFilesCheck: Array<AttachmentDetailsModel>;
   private enableUploadOption: boolean = false;
   private excludedFileExtension = FileAttachment.EXTENSIONS_FOR_FILE;
 
@@ -61,6 +63,7 @@ export class AttachmentComponent implements OnInit {
 
   ngOnInit() {
      this.workItemId = this.workItem.rateAnalysisId;
+    this.attachmentFilesCheck = this.workItem.attachmentDetails;
      this.path = AppSettings.IP + AppSettings.PUBLIC + AppSettings.ATTACHMENT_FILES;
      this.getPresentFilesForWorkItem();
   }
