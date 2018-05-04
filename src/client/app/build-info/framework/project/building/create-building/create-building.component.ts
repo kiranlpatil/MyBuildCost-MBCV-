@@ -92,7 +92,7 @@ export class CreateBuildingComponent  implements  OnInit {
       error => this.onSyncBuildingWithRateAnalysisFailure(error));
   }
 
-  onSyncBuildingWithRateAnalysisSuccess(project : Project) {
+  onSyncBuildingWithRateAnalysisSuccess(project : any) {
     let projectId = SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT_ID);
     let numOfbuildings = (project.buildings.length - 1);
     this.loaderService.stop();
