@@ -219,7 +219,10 @@ export class GetRateComponent implements OnInit {
     if (event.target.value === '' && !changeEvent) {
       event.target.value = this.selectedItemName;
     }
+
+    if(this.arrayOfRateItems !== undefined) {
       this.setRate(this.arrayOfRateItems);
+    }
   }
 
   getRateItemsByOriginalName(rateItem: any, index:number) {

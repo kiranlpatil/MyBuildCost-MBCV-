@@ -83,7 +83,7 @@ class ProjectInterceptor {
 
   getProjectRateItemsByOriginalName(req: any, res: any, next: any) {
     var projectId = req.params.projectId;
-    var originalRateItemName = req.params.originalRateItemName;
+    var originalRateItemName = req.body.originalRateItemName;
     ProjectInterceptor.validateProjectId(projectId, (error, result) => {
       if (error) {
         next(error);
@@ -1132,7 +1132,7 @@ class ProjectInterceptor {
   getBuildingRateItemsByOriginalName(req: any, res: any, next: any) {
     var projectId = req.params.projectId;
     var buildingId = req.params.buildingId;
-    var originalRateItemName = req.params.originalRateItemName;
+    var originalRateItemName = req.body.originalRateItemName;
     ProjectInterceptor.validateIds(projectId, buildingId, (error, result) => {
       if (error) {
         next(error);
