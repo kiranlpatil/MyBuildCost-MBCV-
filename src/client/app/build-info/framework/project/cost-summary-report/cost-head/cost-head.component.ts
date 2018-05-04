@@ -395,6 +395,7 @@ export class CostHeadComponent implements OnInit, OnChanges {
       this.workItemListArray = workItemList.data;
       this.showWorkItemList = true;
     } else {
+      this.showWorkItemList = false;
       var message = new Message();
       message.isError = false;
       message.custom_message = Messages.MSG_ALREADY_ADDED_ALL_WORKITEMS;
@@ -500,7 +501,7 @@ export class CostHeadComponent implements OnInit, OnChanges {
     message.isError = false;
     message.custom_message = Messages.MSG_SUCCESS_UPDATE_DIRECT_RATE_OF_WORKITEM;
     this.messageService.message(message);
-    this.refreshWorkItemList();
+    this.refreshCategoryList();
     this.loaderService.stop();
   }
 
@@ -515,9 +516,7 @@ export class CostHeadComponent implements OnInit, OnChanges {
     //this.displayRateView = null;
   }
 
-  refreshWorkItemList() {
-    //this.refreshCategoryList();
-  }
+
 
 /*  setSelectedWorkItems(workItemList:any) {
     this.selectedWorkItems = workItemList;
@@ -534,6 +533,7 @@ export class CostHeadComponent implements OnInit, OnChanges {
   }
 
     getActiveWorkItemsOfCategory(categoryId : number) {
+      this.closeAllTabs();
       let costHeadId = parseInt(SessionStorageService.getSessionValue(SessionStorage.CURRENT_COST_HEAD_ID));
       this.categoryId = categoryId;
       this.categoryRateAnalysisId = categoryId;
@@ -545,6 +545,17 @@ export class CostHeadComponent implements OnInit, OnChanges {
 
   onGetActiveWorkItemsOfCategorySuccess(workItemsList : any) {
     this.workItemsList = workItemsList.data;
+    this.toggleWorkItemView();
+  }
+
+  toggleWorkItemView() {
+    if($('#collapse'+this.categoryRateAnalysisId).hasClass('display-body')) {
+      $('#collapse'+this.categoryRateAnalysisId).removeClass('display-body');
+      $('#collapse'+this.categoryRateAnalysisId).addClass('hide-body');
+    } else {
+      $('#collapse' + this.categoryRateAnalysisId).removeClass('hide-body');
+      $('#collapse'+this.categoryRateAnalysisId).addClass('display-body');
+    }
   }
 
   // calculation of Quantity * Rate
@@ -617,6 +628,12 @@ export class CostHeadComponent implements OnInit, OnChanges {
   }
   closeAttachmentView() {
       this.showAttachmentView = null;
+  }
+
+  closeAllTabs() {
+    this.closeRateView();
+    this.closeQuantityView();
+    this.closeAttachmentView();
   }
 
   workItemRefresh() {

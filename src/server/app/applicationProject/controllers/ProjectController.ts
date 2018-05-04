@@ -1013,7 +1013,7 @@ class ProjectController {
       let user = req.user;
       let projectId = req.params.projectId;
       let buildingId = req.params.buildingId;
-      let originalRateItemName = req.params.originalRateItemName;
+      let originalRateItemName = req.body.originalRateItemName;
       let projectService = new ProjectService();
 
       projectService.getBuildingRateItemsByOriginalName( projectId, buildingId, originalRateItemName, user, (error, result) => {
@@ -1036,7 +1036,7 @@ class ProjectController {
       logger.info('Project controller, getProjectRateItemsByName has been hit');
       let user = req.user;
       let projectId = req.params.projectId;
-      let originalRateItemName = req.params.originalRateItemName;
+      let originalRateItemName = req.body.originalRateItemName;
       let projectService = new ProjectService();
 
       projectService.getProjectRateItemsByOriginalName( projectId, originalRateItemName, user, (error, result) => {

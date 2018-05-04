@@ -1,4 +1,4 @@
-<h5>Attachment(s)</h5>
+<h5 *ngIf="attachmentFilesCheck.length != 0">Attachment(s)</h5>
 <ul>
  <li id="Attachments" *ngFor="let file of fileNamesList">
     <p>{{file.fileName}}</p>

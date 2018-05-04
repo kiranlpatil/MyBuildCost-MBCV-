@@ -208,8 +208,9 @@ export class CostSummaryService extends BaseService {
 }
 
   getRateItemsByOriginalName(baseUrl: string, originalRateItemName:string) {
-    var url = baseUrl +'/'+ API.RATES+ '/' +API.RATE_ITEM + '/'+ originalRateItemName;
-    return this.httpDelegateService.getAPI(url);
+    var url = baseUrl +'/'+ API.RATES+ '/' +API.RATE_ITEM;
+    let body = {originalRateItemName : originalRateItemName };
+    return this.httpDelegateService.putAPI(url, body);
   }
 
   addAttachment(baseUrl: string, costHeadId:number,categoryId:number,workItemId:number, filesToUpload: Array<File> ) {
