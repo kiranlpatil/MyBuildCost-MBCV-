@@ -46,7 +46,6 @@ export class QuantityDetailsComponent implements OnInit {
   keyQuantity: string;
   currentQuantityName: string;
   showQuantityTab : string = null;
-  currentQuantityIndex : number;
   constructor(private costSummaryService: CostSummaryService, private messageService: MessageService,
               private loaderService: LoaderService) {
   }
@@ -147,8 +146,9 @@ export class QuantityDetailsComponent implements OnInit {
     } else {
       var message = new Message();
       message.isError = false;
-      message.custom_message = Messages.MSG_ERROR_VALIDATION_QUANTITY_NAME_REQUIRED;
+      message.custom_message = Messages.MSG_SUCCESS_DELETE_QUANTITY_DETAILS;
       this.messageService.message(message);
+      this.refreshWorkItemList.emit();
     }
   }
 
