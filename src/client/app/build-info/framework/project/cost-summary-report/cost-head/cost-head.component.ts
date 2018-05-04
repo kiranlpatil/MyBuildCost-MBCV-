@@ -500,7 +500,7 @@ export class CostHeadComponent implements OnInit, OnChanges {
     message.isError = false;
     message.custom_message = Messages.MSG_SUCCESS_UPDATE_DIRECT_RATE_OF_WORKITEM;
     this.messageService.message(message);
-    this.refreshWorkItemList();
+    this.refreshCategoryList();
     this.loaderService.stop();
   }
 
@@ -515,9 +515,7 @@ export class CostHeadComponent implements OnInit, OnChanges {
     //this.displayRateView = null;
   }
 
-  refreshWorkItemList() {
-    //this.refreshCategoryList();
-  }
+
 
 /*  setSelectedWorkItems(workItemList:any) {
     this.selectedWorkItems = workItemList;
