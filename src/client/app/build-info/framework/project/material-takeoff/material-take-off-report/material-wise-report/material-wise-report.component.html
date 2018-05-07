@@ -1,0 +1,55 @@
+  <div *ngFor="let content of materialWiseContent | keys:getMaterialTakeOffElements().SORT; let contentIndex = index">
+
+                      <div class="inner-item-list">
+
+                      <!--content-->
+                        <div class="panel panel-default">
+                          <div class="panel-group">
+                            <div class="panel-heading">
+                              <h4 class="panel-title">
+                                <a [class.collapsed]="dataIndex !== secondaryViewDataIndex ||
+                                        headerIndex !== contentIndex ||
+                                        !viewSubContent" (click)="showSubContent(secondaryViewDataIndex, contentIndex)">
+                                  <bi-table-row [customClass]="'item-inner-row'"
+                                    [rows]="materialWiseContent[content]">
+                                  </bi-table-row>
+                                  <span *ngIf="materialWiseContent[content].subContent | keys:getMaterialTakeOffElements().CHECK_SUB_CONTENT_PRESENT" class="caret"></span>
+                                </a>
+                              </h4>
+                            </div>
+
+                            <div class="panel-body" *ngIf="dataIndex === secondaryViewDataIndex &&
+                                        headerIndex === contentIndex &&
+                                        viewSubContent">
+                              <div class="collapse-list-item" *ngFor="let subContent of materialWiseContent[content].subContent | keys:getMaterialTakeOffElements().SORT; let subContentIndex = index">
+                                <div (click)="showInnerSubContent(materialWiseContent[content].subContent[subContent].subContent,subContentIndex)">
+                                <bi-table-row
+                                  [customClass]="'row-list'"
+                                  [rows]="materialWiseContent[content].subContent[subContent]">
+                                </bi-table-row>
+                                <span *ngIf="materialWiseContent[content].subContent[subContent].subContent | keys:getMaterialTakeOffElements().CHECK_SUB_CONTENT_PRESENT" class="caret"></span>
+
+
+                                <!--Inner sub content-->
+                                <div class="panel-body" *ngIf="dataIndex === secondaryViewDataIndex &&
+                                        headerIndex === contentIndex  && nestedSubContentIndex === subContentIndex && viewSubContent && viewNestedSubContent">
+                                  <div class="collapse-list-item" *ngFor="let innerSubContent of materialWiseContent[content].subContent[subContent].subContent | keys:getMaterialTakeOffElements().SORT;">
+                                    <bi-table-row
+                                      [customClass]="'row-list'"
+                                      [rows]="materialWiseContent[content].subContent[subContent].subContent[innerSubContent]">
+                                    </bi-table-row>
+                                  </div>
+                                </div>
+
+
+                              </div>
+                              </div>
+                            </div>
+
+
+                          </div>
+                        </div>
+
+                      </div>
+
+                    </div>
