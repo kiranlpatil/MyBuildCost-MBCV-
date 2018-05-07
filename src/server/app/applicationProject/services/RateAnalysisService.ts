@@ -368,22 +368,29 @@ class RateAnalysisService {
     for (let categoryWorkitem of workItemsByCategory) {
       let workItem = this.getRateAnalysis(categoryWorkitem, configWorkItems, rateItemsRateAnalysis,
         unitsRateAnalysis, notesRateAnalysis);
-
-
       buildingWorkItems.push(workItem);
     }
   }
 
   getRateAnalysis(categoryWorkitem: WorkItem, configWorkItems: Array<any>, rateItemsRateAnalysis: any,
                             unitsRateAnalysis: any, notesRateAnalysis: any) {
+
     let  workItem = new WorkItem(categoryWorkitem.name, categoryWorkitem.rateAnalysisId);
     if(categoryWorkitem.active!==undefined && categoryWorkitem.active!==null) {
       workItem=categoryWorkitem;
-      }
+    }
+
     if (configWorkItems.length > 0) {
       for (let configWorkItem of configWorkItems) {
         if (configWorkItem.name === categoryWorkitem.name) {
           workItem.unit = configWorkItem.measurementUnit;
+          workItem.isMeasurementSheet = configWorkItem.isMeasurementSheet;
+          workItem.isRateAnalysis = configWorkItem.isRateAnalysis;
+          workItem.rateAnalysisPerUnit = configWorkItem.rateAnalysisPerUnit;
+          workItem.isItemBreakdownRequired = configWorkItem.isItemBreakdownRequired;
+          workItem.length = configWorkItem.length;
+          workItem.breadthOrWidth = configWorkItem.breadthOrWidth;
+          workItem.height = configWorkItem.height;
         }
       }
     }
@@ -398,6 +405,7 @@ class RateAnalysisService {
     let notes = '';
     let imageURL = '';
     workItem.rate.rateItems = rateItemsByWorkItem;
+
     if (rateItemsByWorkItem && rateItemsByWorkItem.length > 0) {
       let notesRateAnalysisSQL = 'SELECT notes.C2 AS notes, notes.C3 AS imageURL FROM ? AS notes where notes.C1 = '+
         rateItemsByWorkItem[0].notesRateAnalysisId;

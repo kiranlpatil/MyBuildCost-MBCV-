@@ -7,6 +7,16 @@ class WorkItem {
   name: string;
   rateAnalysisId: number;
   quantity: Quantity;
+
+  isMeasurementSheet : boolean;
+  isRateAnalysis : boolean;
+  rateAnalysisPerUnit: number;
+  rateAnalysisUnit : string;
+  isItemBreakdownRequired : boolean;
+  length: boolean;
+  breadthOrWidth : boolean;
+  height : boolean;
+
   unit: string;
   rate: Rate;
   systemRate: Rate;
