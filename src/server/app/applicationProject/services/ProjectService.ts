@@ -152,21 +152,48 @@ class ProjectService {
   }
 
   createBuilding(projectId: string, buildingDetails: Building, user: User, callback: (error: any, result: any) => void) {
-    this.buildingRepository.create(buildingDetails, (error, result) => {
-      logger.info('Project service, create has been hit');
-      if (error) {
+
+    logger.info('Report Service, getMaterialFilters has been hit');
+    let query = { _id: projectId};
+    let populate = {path : 'buildings', select: ['name']};
+    this.projectRepository.findAndPopulate(query, populate, (error, result) => {
+      logger.info('Report Service, findAndPopulate has been hit');
+      if(error) {
         callback(error, null);
       } else {
-        let query = {_id: projectId};
-        let newData = {$push: {buildings: result._id}};
-        this.projectRepository.findOneAndUpdate(query, newData, {new: true}, (error, status) => {
-          logger.info('Project service, findOneAndUpdate has been hit');
-          if (error) {
-            callback(error, null);
-          } else {
-            callback(null, {data: result, access_token: this.authInterceptor.issueTokenWithUid(user)});
-          }
-        });
+        let buildingName = buildingDetails.name;
+
+        let building: Array<Building> = result[0].buildings.filter(
+          function (building: any) {
+            return building.name === buildingName;
+          });
+
+        if(building.length === 0) {
+          this.buildingRepository.create(buildingDetails, (error, result) => {
+            logger.info('Project service, create has been hit');
+            if (error) {
+              callback(error, null);
+            } else {
+              let query = {_id: projectId};
+              let newData = {$push: {buildings: result._id}};
+              this.projectRepository.findOneAndUpdate(query, newData, {new: true}, (error, status) => {
+                logger.info('Project service, findOneAndUpdate has been hit');
+                if (error) {
+                  callback(error, null);
+                } else {
+                  callback(null, {data: result, access_token: this.authInterceptor.issueTokenWithUid(user)});
+                }
+              });
+            }
+          });
+
+        } else {
+          let error = new Error();
+          error.message = messages.MSG_ERROR_BUILDING_NAME_ALREADY_EXIST;
+          callback(error, null);
+        }
+
+
       }
     });
   }
@@ -230,38 +257,69 @@ class ProjectService {
   }
 
 
-  cloneBuildingDetails(projectId: string, buildingId: string, oldBuildingDetails: Building, user: User, callback: (error: Error, result: any) => void) {
+  cloneBuildingDetails(projectId: string, buildingId: string, oldBuildingDetails: Building, user: User,
+                       callback: (error: Error, result: any) => void) {
     logger.info('Project service, cloneBuildingDetails has been hit');
-    this.buildingRepository.findById(buildingId, (error, building) => {
-      logger.info('Project service, findById has been hit');
-      if (error) {
+
+    let query = { _id: projectId};
+    let populate = {path : 'buildings', select: ['name']};
+    this.projectRepository.findAndPopulate(query, populate, (error, result) => {
+      logger.info('Report Service, findAndPopulate has been hit');
+      if(error) {
         callback(error, null);
       } else {
-        let costHeads:CostHead[] = building.costHeads;
-        let rateAnalysisData;
-        if (oldBuildingDetails.cloneItems && oldBuildingDetails.cloneItems.indexOf(Constants.RATE_ANALYSIS_CLONE) === -1) {
-          let rateAnalysisService: RateAnalysisService = new RateAnalysisService();
-          rateAnalysisService.syncRateitemFromRateAnalysis(Constants.STR_BUILDING ,oldBuildingDetails,
-            (error, data) => {
-              if (error) {
-                callback(error, null);
-              } else {
-                rateAnalysisData = {
-                  rates: data[0][Constants.RATE_ANALYSIS_DATA],
-                  notes: data[1][Constants.RATE_ANALYSIS_DATA],
-                  units: data[2][Constants.RATE_ANALYSIS_UOM],
-                  costHeads: data[3][Constants.RATE_ANALYSIS_ITEM_TYPE]
-                };
+        let buildingName = oldBuildingDetails.name;
 
+        let building: Array<Building> = result[0].buildings.filter(
+          function (building: any) {
+            return building.name === buildingName;
+          });
+
+        if(building.length === 0) {
+
+          this.buildingRepository.findById(buildingId, (error, building) => {
+            logger.info('Project service, findById has been hit');
+            if (error) {
+              callback(error, null);
+            } else {
+              let costHeads:CostHead[] = building.costHeads;
+              let rateAnalysisData;
+              if (oldBuildingDetails.cloneItems && oldBuildingDetails.cloneItems.indexOf(Constants.RATE_ANALYSIS_CLONE) === -1) {
+                let rateAnalysisService: RateAnalysisService = new RateAnalysisService();
+                rateAnalysisService.syncRateitemFromRateAnalysis(Constants.STR_BUILDING ,oldBuildingDetails,
+                  (error, data) => {
+                    if (error) {
+                      callback(error, null);
+                    } else {
+                      rateAnalysisData = {
+                        rates: data[0][Constants.RATE_ANALYSIS_DATA],
+                        notes: data[1][Constants.RATE_ANALYSIS_DATA],
+                        units: data[2][Constants.RATE_ANALYSIS_UOM],
+                        costHeads: data[3][Constants.RATE_ANALYSIS_ITEM_TYPE]
+                      };
+
+                      this.getRatesAndCostHeads(projectId,oldBuildingDetails, building, costHeads,rateAnalysisData,user, callback);
+                    }
+                  });
+              } else {
                 this.getRatesAndCostHeads(projectId,oldBuildingDetails, building, costHeads,rateAnalysisData,user, callback);
               }
-            });
+
+            }
+          });
+
+
         } else {
-          this.getRatesAndCostHeads(projectId,oldBuildingDetails, building, costHeads,rateAnalysisData,user, callback);
+          let error = new Error();
+          error.message = messages.MSG_ERROR_BUILDING_NAME_ALREADY_EXIST;
+          callback(error, null);
         }
+
 
       }
     });
+
+
   }
 
   getRatesAndCostHeads(projectId: string,oldBuildingDetails: Building, building:Building, costHeads: CostHead[],rateAnalysisData:any,
