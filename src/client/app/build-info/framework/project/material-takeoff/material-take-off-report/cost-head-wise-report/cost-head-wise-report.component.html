@@ -4,12 +4,29 @@
 
     <!--content-->
 
-        <div class="panel panel-default">
-          <div class="panel-group">
+        <div class="panel-group">
+          <div class="panel panel-default" *ngFor="let subContent of costHeadWiseContent[content].subContent | keys:getMaterialTakeOffElements().SORT; let subContentIndex = index">
             <div class="panel-heading">
               <h4 class="panel-title">
-                <div class="panel-body">
-                <div class="collapse-list-item" *ngFor="let subContent of costHeadWiseContent[content].subContent | keys:getMaterialTakeOffElements().SORT; let subContentIndex = index">
+                <a data-toggle="collapse" href="#collapsepanel{{subContentIndex}}">
+                  <bi-table-row
+                    [customClass]="'row-list'"
+                    [rows]="costHeadWiseContent[content].subContent[subContent]">
+                  </bi-table-row>
+                 <span class="caret"></span>
+                </a>
+
+                <div id="collapsepanel{{subContentIndex}}" class="panel-collapse collapse">
+                  <div class="panel-body">
+                    <div class="collapse-list-item" *ngFor="let innerSubContent of costHeadWiseContent[content].subContent[subContent].subContent | keys:getMaterialTakeOffElements().SORT;">
+                      <bi-table-row
+                        [customClass]="'row-list'"
+                        [rows]="costHeadWiseContent[content].subContent[subContent].subContent[innerSubContent]">
+                      </bi-table-row>
+                    </div>
+                  </div>
+                </div>
+                <!--<a class="collapse-list-item" *ngFor="let subContent of costHeadWiseContent[content].subContent | keys:getMaterialTakeOffElements().SORT; let subContentIndex = index">
                   <div (click)="showInnerSubContent(costHeadWiseContent[content].subContent[subContent].subContent, secondaryViewDataIndex, contentIndex, subContentIndex)">
                     <bi-table-row
                       [customClass]="'row-list'"
@@ -18,21 +35,20 @@
                     <span *ngIf="costHeadWiseContent[content].subContent[subContent].subContent | keys:getMaterialTakeOffElements().CHECK_SUB_CONTENT_PRESENT" class="caret"></span>
 
 
-                    <!--Inner sub content-->
-                    <div class="panel-body" *ngIf="dataIndex === secondaryViewDataIndex &&
-                                        headerIndex === contentIndex  && nestedSubContentIndex === subContentIndex && viewSubContent && viewNestedSubContent">
-                      <div class="collapse-list-item" *ngFor="let innerSubContent of costHeadWiseContent[content].subContent[subContent].subContent | keys:getMaterialTakeOffElements().SORT;">
-                        <bi-table-row
-                          [customClass]="'row-list'"
-                          [rows]="costHeadWiseContent[content].subContent[subContent].subContent[innerSubContent]">
-                        </bi-table-row>
-                      </div>
-                    </div>
-
-
                   </div>
-                </div>
-              </div>
+                </a>
+
+
+                &lt;!&ndash;Inner sub content&ndash;&gt;
+                <div class="panel-body" *ngIf="dataIndex === secondaryViewDataIndex &&
+                                        headerIndex === contentIndex  && nestedSubContentIndex === subContentIndex && viewSubContent && viewNestedSubContent">
+                  <div class="collapse-list-item" *ngFor="let innerSubContent of costHeadWiseContent[content].subContent[subContent].subContent | keys:getMaterialTakeOffElements().SORT;">
+                    <bi-table-row
+                      [customClass]="'row-list'"
+                      [rows]="costHeadWiseContent[content].subContent[subContent].subContent[innerSubContent]">
+                    </bi-table-row>
+                  </div>
+                </div>-->
               </h4>
             </div>
           </div>
