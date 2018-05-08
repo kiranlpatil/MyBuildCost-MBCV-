@@ -39,6 +39,7 @@ export class CostHeadComponent implements OnInit, OnChanges {
   costHeadId:number;
   buildingId:any;
   workItemId: number;
+  quantityId: number;
   categoryId: number;
   directQuantity: number;
   categoryDetails: Array<Category>;
@@ -67,6 +68,7 @@ export class CostHeadComponent implements OnInit, OnChanges {
   private quantityItemsArray: Array<QuantityItem> = [];
   private rateItemsArray: Rate;
   private categoryArray : Array<Category> = [];
+  private showHideAddItemButton:boolean=true;
 
   private workItemListArray: Array<WorkItem> = [];
   private categoryListArray : Array<Category> = [];
@@ -233,6 +235,7 @@ export class CostHeadComponent implements OnInit, OnChanges {
             this.workItem.quantity.quantityItemDetails = defaultQuantityDetail;
             this.quantityItemsArray = lodsh.cloneDeep(defaultQuantityDetail[0].quantityItems);
             this.keyQuantity = defaultQuantityDetail[0].name;
+            this.quantityId = defaultQuantityDetail[0].id;
         } else {
             let quantityDetail: QuantityDetails = new QuantityDetails();
             quantityDetail.quantityItems = [];
@@ -372,6 +375,7 @@ export class CostHeadComponent implements OnInit, OnChanges {
     this.categoryDetailsTotalAmount = this.commonService.totalCalculationOfCategories(this.categoryDetails,
       this.categoryRateAnalysisId, this.workItemsList);
     this.loaderService.stop();
+    this.refreshCategoryList();
   }
 
   onDeActivateWorkItemFailure(error: any) {
@@ -396,11 +400,7 @@ export class CostHeadComponent implements OnInit, OnChanges {
       this.showWorkItemList = true;
     } else {
       this.showWorkItemList = false;
-      var message = new Message();
-      message.isError = true;
-      message.error_msg = Messages.MSG_ALREADY_ADDED_ALL_WORKITEMS;
-      this.messageService.message(message);
-    }
+      }
   }
 
   onGetInActiveWorkItemsFailure(error:any) {
@@ -439,6 +439,7 @@ export class CostHeadComponent implements OnInit, OnChanges {
     this.categoryDetailsTotalAmount = this.commonService.totalCalculationOfCategories(this.categoryDetails,
       this.categoryRateAnalysisId, this.workItemsList);
     this.loaderService.stop();
+    this.refreshCategoryList();
   }
 
   onActivateWorkItemFailure(error:any) {
@@ -544,7 +545,8 @@ export class CostHeadComponent implements OnInit, OnChanges {
     }
 
   onGetActiveWorkItemsOfCategorySuccess(workItemsList : any) {
-    this.workItemsList = workItemsList.data;
+    this.workItemsList = workItemsList.data.workItems;
+    this.showHideAddItemButton=workItemsList.data.showHideAddButton;
     this.toggleWorkItemView();
   }
 
