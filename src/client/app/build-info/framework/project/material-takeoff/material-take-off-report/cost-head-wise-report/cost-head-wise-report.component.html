@@ -13,7 +13,7 @@
                     [customClass]="'row-list'"
                     [rows]="costHeadWiseContent[content].subContent[subContent]">
                   </bi-table-row>
-                 <span class="caret"></span>
+                  <span *ngIf="costHeadWiseContent[content].subContent[subContent].subContent | keys:getMaterialTakeOffElements().CHECK_SUB_CONTENT_PRESENT" class="caret"></span>
                 </a>
 
 
