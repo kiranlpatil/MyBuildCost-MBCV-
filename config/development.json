@@ -1550,7 +1550,7 @@
           "rateAnalysisId" : 100083,
           "workItems" : [
             {
-              "name" : "P.C.C. ( M - 7.5 grade)",
+              "name" : "P.C.C.  ( M - 7.5 grade )",
               "rateAnalysisId" : 100084,
               "isMeasurementSheet" : true,
               "measurementUnit" : "cum",
@@ -8286,17 +8286,17 @@
               "name" : "Brick bat waterproofing upto 150 mm thk for top terraces",
               "rateAnalysisId" : 100220,
               "isMeasurementSheet" : true,
-              "measurementUnit" : "cum",
+              "measurementUnit" : "Sqm",
               "isRateAnalysis" : true,
-              "rateAnalysisPerUnit" : 1,
-              "rateAnalysisUnit" : "cum",
+              "rateAnalysisPerUnit" : 100,
+              "rateAnalysisUnit" : "sft",
               "isDirectRate" : false,
               "directRate" : null,
               "directRatePerUnit" : null,
-              "isItemBreakdownRequired" : false,
+              "isItemBreakdownRequired" : true,
               "length" : true,
               "breadthOrWidth" : true,
-              "height" : true
+              "height" : false
             },
             {
               "name" : "Brick Bat waterproofing upto 150 mm thk for attached terraces with 200 mm sunk",
