@@ -14,6 +14,7 @@ import { LoaderService } from '../../../../../shared/loader/loaders.service';
 import { QuantityDetailsComponent } from './quantity-details/quantity-details.component';
 import { RateItem } from '../../../model/rate-item';
 import { AttachmentComponent } from './attachment/attachment.component';
+import { AttachmentDetailsModel } from '../../../model/attachment-details';
 
 declare var $: any;
 
@@ -52,6 +53,7 @@ export class CostHeadComponent implements OnInit, OnChanges {
   unit:string='';
   showCategoryList: boolean = false;
   displayCategory: boolean = false;
+  fileNamesList:Array<AttachmentDetailsModel>;
   workItemsList: Array<WorkItem>;
   deleteConfirmationCategory = ProjectElements.CATEGORY;
   deleteConfirmationWorkItem = ProjectElements.WORK_ITEM;
@@ -68,6 +70,7 @@ export class CostHeadComponent implements OnInit, OnChanges {
   private quantityItemsArray: Array<QuantityItem> = [];
   private rateItemsArray: Rate;
   private categoryArray : Array<Category> = [];
+  private showHideAddItemButton:boolean=true;
 
   private workItemListArray: Array<WorkItem> = [];
   private categoryListArray : Array<Category> = [];
@@ -157,7 +160,7 @@ export class CostHeadComponent implements OnInit, OnChanges {
           workItem.quantity.quantityItemDetails[0].name !== Label.DEFAULT_VIEW)) {
         this.getDetailedQuantity(categoryId, workItem, categoryIndex, workItemIndex);
       } else {
-        this.getDefaultQuantity(categoryId, workItem, categoryIndex, workItemIndex);
+          this.getDefaultQuantity(categoryId, workItem, categoryIndex, workItemIndex);
       }
   }
 
@@ -374,6 +377,7 @@ export class CostHeadComponent implements OnInit, OnChanges {
     this.categoryDetailsTotalAmount = this.commonService.totalCalculationOfCategories(this.categoryDetails,
       this.categoryRateAnalysisId, this.workItemsList);
     this.loaderService.stop();
+    this.refreshCategoryList();
   }
 
   onDeActivateWorkItemFailure(error: any) {
@@ -398,11 +402,7 @@ export class CostHeadComponent implements OnInit, OnChanges {
       this.showWorkItemList = true;
     } else {
       this.showWorkItemList = false;
-      var message = new Message();
-      message.isError = true;
-      message.error_msg = Messages.MSG_ALREADY_ADDED_ALL_WORKITEMS;
-      this.messageService.message(message);
-    }
+      }
   }
 
   onGetInActiveWorkItemsFailure(error:any) {
@@ -441,6 +441,7 @@ export class CostHeadComponent implements OnInit, OnChanges {
     this.categoryDetailsTotalAmount = this.commonService.totalCalculationOfCategories(this.categoryDetails,
       this.categoryRateAnalysisId, this.workItemsList);
     this.loaderService.stop();
+    this.refreshCategoryList();
   }
 
   onActivateWorkItemFailure(error:any) {
@@ -452,7 +453,7 @@ export class CostHeadComponent implements OnInit, OnChanges {
     this.categoryIdForInActive = categoryId;
   }
 
-  setDirectQuantity(categoryId : number, workItemId: number, directQuantity : number) {
+/*  setDirectQuantity(categoryId : number, workItemId: number, directQuantity : number) {
     this.categoryId = categoryId;
     this.workItemId = workItemId;
     this.directQuantity = directQuantity;
@@ -460,13 +461,13 @@ export class CostHeadComponent implements OnInit, OnChanges {
 
   displayModal() {
     $('#updateDirectQuantity').modal('show');
-  }
+  }*/
 
-  changeDirectQuantity() {
-    if( this.directQuantity !== null ||  this.directQuantity !== 0) {
+  changeDirectQuantity(categoryId : number, workItemId: number, directQuantity : number) {
+    if( directQuantity !== null ||  directQuantity !== 0) {
       this.loaderService.start();
-      this.costSummaryService.updateDirectQuantityAmount(this.baseUrl, this.costHeadId, this.categoryId,
-        this.workItemId, this.directQuantity).subscribe(
+      this.costSummaryService.updateDirectQuantityAmount(this.baseUrl, this.costHeadId, categoryId,
+        workItemId, directQuantity).subscribe(
         workItemList => this.onChangeDirectQuantitySuccess(workItemList),
         error => this.onChangeDirectQuantityFailure(error)
       );
@@ -523,9 +524,10 @@ export class CostHeadComponent implements OnInit, OnChanges {
 /*  setSelectedWorkItems(workItemList:any) {
     this.selectedWorkItems = workItemList;
   }*/
-  toggleWorkItemPanel(workItemIndex : number) {
+  toggleWorkItemPanel(workItemIndex : number, workItem : WorkItem) {
     var element = document.getElementById('collapseDetails'+workItemIndex);
-    if(element.classList.contains('display-body')) {
+    if(element.classList.contains('display-body') || (workItem.quantity.quantityItemDetails.length > 0 &&
+        workItem.quantity.quantityItemDetails[0].name === 'default')) {
       element.classList.remove('display-body');
       element.classList.add('hide-body');
     } else if(element.classList.contains('hide-body')) {
@@ -546,7 +548,8 @@ export class CostHeadComponent implements OnInit, OnChanges {
     }
 
   onGetActiveWorkItemsOfCategorySuccess(workItemsList : any) {
-    this.workItemsList = workItemsList.data;
+    this.workItemsList = workItemsList.data.workItems;
+    this.showHideAddItemButton=workItemsList.data.showHideAddButton;
     this.toggleWorkItemView();
   }
 
@@ -591,11 +594,11 @@ export class CostHeadComponent implements OnInit, OnChanges {
     }
   }
 
-  updateElement(elementType : string) {
+/*  updateElement(elementType : string) {
       if(elementType === ProjectElements.DIRECT_QUANTITY) {
         this.changeDirectQuantity();
       }
-    }
+    }*/
 
   goBack() {
     let projectId = SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT_ID);
@@ -639,15 +642,41 @@ export class CostHeadComponent implements OnInit, OnChanges {
   }
 
   workItemRefresh() {
-    this.getActiveWorkItemsOfCategory(this.categoryId);
+    this.getCategories( this.projectId, this.costHeadId);
   }
   setVariable(categoryId: number, workItemId:number, categoryIndex: number, workItemIndex:number) {
     if(this.showAttachmentView !== Label.ATTACH_FILE || this.compareCategoryId !== categoryId || this.compareWorkItemId !== workItemId) {
       this.showAttachmentView = Button.ATTACH_FILE;
       this.currentCategoryIndex = categoryIndex;
       this.currentWorkItemIndex = workItemIndex;
+      this.fileNamesList = [];
+      this.getPresentFilesForWorkItem(workItemId);
     } else {
       this.showAttachmentView = null;
     }
+  }
+
+  getPresentFilesForWorkItem(workItemId:number) {
+    this.costSummaryService.getPresentFilesForWorkItem(this.baseUrl,this.costHeadId,this.categoryId,workItemId).subscribe(
+      fileNamesList => this.onGetPresentFilesForWorkItemSuccess(fileNamesList),
+      error => this.onGetPresentFilesForWorkItemFailure(error)
+    );
+  }
+  onGetPresentFilesForWorkItemSuccess(fileNamesList : any) {
+     this.fileNamesList = fileNamesList.response.data;
+  }
+  onGetPresentFilesForWorkItemFailure(error: any) {
+    let message = new Message();
+    if (error.err_code === 404 || error.err_code === 0) {
+      message.error_msg = error.err_msg;
+      message.isError = true;
+      this.messageService.message(message);
+    } else {
+      message.error_msg = error.err_msg;
+      message.isError = true;
+      this.messageService.message(message);
+    }
+    this.loaderService.stop();
+    console.log(error);
   }
 }
