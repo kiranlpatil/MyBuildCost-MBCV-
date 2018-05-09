@@ -5,8 +5,8 @@
         <h4 class="panel-title">
           <div class="col-sm-12">
             <a class="building-name">
-              <span class="">{{materialKey}}</span>
-              <span class="slab-area">
+              <span class="" [title]="materialKey">{{materialKey}}</span>
+              <span class="slab-area" [title]="materialTakeOffReport[materialKey].title + materialTakeOffReport[materialKey].subTitle.columnOne">
                 {{ materialTakeOffReport[materialKey].title + materialTakeOffReport[materialKey].subTitle.columnOne}}
               </span>
               <!--pdf report-->
