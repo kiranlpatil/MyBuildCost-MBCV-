@@ -8,7 +8,7 @@
           <div class="panel panel-default" *ngFor="let subContent of costHeadWiseContent[content].subContent | keys:getMaterialTakeOffElements().SORT; let subContentIndex = index">
             <div class="panel-heading">
               <h4 class="panel-title">
-                <a data-toggle="collapse" href="#collapsepanel{{subContentIndex}}">
+                <a data-toggle="collapse" class="collapsed" href="#collapsepanel{{subContentIndex}}">
                   <bi-table-row
                     [customClass]="'row-list'"
                     [rows]="costHeadWiseContent[content].subContent[subContent]">
