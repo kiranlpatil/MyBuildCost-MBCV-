@@ -18,11 +18,13 @@
 
 
                 <!--sub content-->
-                <div id="collapsepanel{{subContentIndex}}" class="panel-collapse collapse">
+                <div
+                  *ngIf="costHeadWiseContent[content].subContent[subContent].subContent | keys:getMaterialTakeOffElements().CHECK_SUB_CONTENT_PRESENT"
+                  id="collapsepanel{{subContentIndex}}" class="panel-collapse collapse">
                   <div class="panel-body">
                     <div class="collapse-list-item" *ngFor="let innerSubContent of costHeadWiseContent[content].subContent[subContent].subContent | keys:getMaterialTakeOffElements().SORT;">
                       <bi-table-row
-                        [customClass]="'row-list'"
+                        [customClass]="'row-list sub-items-list'"
                         [rows]="costHeadWiseContent[content].subContent[subContent].subContent[innerSubContent]">
                       </bi-table-row>
                     </div>

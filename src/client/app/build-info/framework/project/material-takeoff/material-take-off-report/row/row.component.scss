@@ -12,6 +12,10 @@
   .col-md-6 {
     padding: 0 0 0 40px;
   }
+  .row-lists {
+    line-height: 1.4;
+    white-space: initial;
+  }
 }
 
 .item-inner-row {
@@ -29,6 +33,7 @@
     font-size: 12px;
     margin: 0;
     padding: 15px;
+    white-space: initial;
   }
   .col-md-6 {
     overflow: hidden;
@@ -69,5 +74,26 @@
   .row-lists {
     font-weight: bold;
     padding-left: 15px;
+  }
+}
+
+.sub-items {
+  .item-description {
+    padding-left: 30px;
+  }
+}
+
+.sub-items-list {
+  .row-lists {
+    font-weight: normal;
+    color: #8290A8;
+  }
+  .item-description {
+    padding-left: 25px;
+  }
+}
+.material-take-off-sub-items {
+  .item-description {
+    padding-left: 35px;
   }
 }
