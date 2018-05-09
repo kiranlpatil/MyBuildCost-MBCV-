@@ -54,24 +54,10 @@ export class MaterialTakeoffComponent implements OnInit {
       this.projectId = params['projectId'];
     });
     this.getMaterialFiltersList(this.projectId);
-
-    /*$('.filter-dropdrown .dropdown-menu li select').on({
-     'click':function(e: any){
-     e.stopPropagation();
-     }
-     });*/
-
-   /* $('.filter-dropdrown').on('hide.bs.dropdown', function () {
-      return false;
-    });*/
-
-
   }
 
-  showDropdown() {
-    $('.dropdown-menu li').click(function(e) {
-      e.stopPropagation();
-    });
+  showDropdown(e: any) {
+    e.stopPropagation();
   }
 
   getMaterialFiltersList(projectId : string) {

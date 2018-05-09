@@ -84,7 +84,6 @@
       box-shadow: 10px 10px 10px $panel-shadow;
       min-width: 170px;
       padding: 5px 0 0;
-      z-index: 98;
     }
 
     .menu-items > .dropdown-menu li {
@@ -149,5 +148,46 @@
 .grand-total-table {
   .panel-title {
     padding: 20px 0;
+  }
+}
+
+@media only screen and (max-width: 767px) {
+
+  .panel-default {
+    .panel-heading {
+      .menu-items {
+        right: 5px;
+        top: 10px;
+        width: 14px;
+      }
+
+      .menu-items > a {
+        width: 14px;
+      }
+
+      .menu-items > a > img {
+        padding: 3px 5px;
+      }
+
+      a {
+        .caret {
+          left: 7px;
+        }
+      }
+
+      a > .slab-area {
+        display: block;
+        font-size: 12px;
+        font-weight: 600;
+        margin: 5px 0 0 0;
+        width: 100%;
+      }
+    }
+  }
+
+  .grand-total-table {
+    .panel-title {
+      padding: 0;
+    }
   }
 }

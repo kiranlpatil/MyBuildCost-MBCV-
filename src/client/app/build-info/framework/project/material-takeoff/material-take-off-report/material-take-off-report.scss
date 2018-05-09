@@ -129,19 +129,12 @@
       a {
         background: $white;
         float: left;
-        font-size: 20px;
+        font-size: 18px;
         overflow: auto;
         padding: 15px 10px;
         position: relative;
         text-overflow: clip;
         white-space: normal;
-      }
-
-      a > .slab-area {
-        display: block;
-        font-size: 12px;
-        margin: 5px 0 0 0;
-        width: 100%;
       }
     }
   }
@@ -190,11 +183,6 @@
       .panel-heading {
         float: left;
         min-height: inherit;
-        a {
-          .caret {
-            left : 7px;
-          }
-        }
       }
     }
   }
@@ -205,6 +193,11 @@
     box-shadow: 0 5px 5px rgba(0, 0, 0, 0.05);
     font-size: 12px;
     margin: 0;
-    padding: 10px !important;
+    padding: 10px 25px 10px 10px !important;
+
+    .slab-area {
+      display: inline-block !important;
+      width: auto !important;
+    }
   }
 }
