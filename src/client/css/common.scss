@@ -676,7 +676,9 @@ control-messages {
 }
 
 @media only screen and (max-width: 767px) {
-
+  .container {
+    padding: 0 10px;
+  }
   .padding-left15,
   .padding-right15 {
     padding: 0;
