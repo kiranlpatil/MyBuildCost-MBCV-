@@ -39,6 +39,7 @@ class Constants {
   public static NUM_OF_FIVE_BHK : string = 'numOfFiveBHK';
   public static NUM_OF_FLOORS : string = 'numOfFloors';
   public static NUM_OF_LIFTS : string = 'numOfLifts';
+  public static PROJECT_PERIPHERRY : string = 'projectPeriphery';
   public static NUM_OF_PARKING_FLOORS : string = 'numOfParkingFloors';
   public static TOTAL_SLAB_AREA_OF_CLUB_HOUSE : string = 'totalSlabAreaOfClubHouse';
   public static SWIMMING_POOL_CAPACITY : string = 'swimmingPoolCapacity';
@@ -64,7 +65,7 @@ class Constants {
   public static DEWATERING : string = 'Dewatering';
   public static GARBAGE_CHUTE : string = 'Garbage chute';
   public static LIFT : string = 'Lift';
-  public static DOORS : string = 'Doors';
+  public static DOORS : string = 'Door Frames';
   public static DADO_OR_WALL_TILING : string = 'Dado / wall tiling';
   public static FLOORING : string = 'Flooring';
   public static EXCAVATION : string = 'Excavation';
@@ -81,10 +82,10 @@ class Constants {
   public static PIPED_GAS_SYSTEM : string = 'Piped gas system';
   public static SKY_LOUNGE_ON_TOP_TERRACE : string = 'Sky lounge on top terrace';
   public static FIRE_FIGHTING_SYSTEM : string = 'Fire fighting system';
-  public static SECURITY_AUTOMATION : string = 'Security automation';
+  public static SECURITY_AUTOMATION : string = 'Safety and Security automation';
   public static SHOWER_ENCLOSURES : string = 'Shower Enclosures';
   public static FALSE_CEILING : string = 'False ceiling';
-  public static SPECIAL_ELEVATIONAL_FEATURES_IN_FRP_FERRO_GRC : string = 'Special elevational features in FRP/Ferro/GRC ';
+  public static SPECIAL_ELEVATIONAL_FEATURES_IN_FRP_FERRO_GRC : string = 'Special elevational features in FRP/Ferro/GRC';
   public static BOARDS_AND_SIGNAGES_INSIDE_BUILDING : string = 'Boards & Signages inside building';
 
   // Value Constant

@@ -741,12 +741,12 @@
     "Pest Control" : "carpetArea * 1.35 * 2",
     "Solar water heating system" : "carpetArea * 1.35 * 20",
     "Piped gas system" : "12000 * (numOfOneBHK + numOfTwoBHK + numOfThreeBHK + numOfFourBHK + numOfFiveBHK) + 300000",
-    "Sky lounge on top terrace" : "(slabArea / (numOfFloors + numfOfParkingFloors)) * 150",
+    "Sky lounge on top terrace" : "(slabArea / (numOfFloors + numOfParkingFloors)) * 150",
     "Fire fighting system" : "( 50000 * numOfFloors)",
-    "Security automation" : "15000 * (numOfOneBHK + numOfTwoBHK + numOfThreeBHK + numOfFourBHK + numOfFiveBHK) + 3500 * numOfBuildings + 3500 * 2 + 15000",
+    "Safety and Security automation" : "15000 * (numOfOneBHK + numOfTwoBHK + numOfThreeBHK + numOfFourBHK + numOfFiveBHK) + 3500 * numOfBuildings + 3500 * 2 + 15000",
     "Shower Enclosures" : "15000 * (1 * numOfOneBHK + 1 * numOfTwoBHK + 2 * numOfThreeBHK + 3 * numOfFourBHK + 4 * numOfFiveBHK)",
     "False ceiling" : "100 * (40 * numOfOneBHK + 80 * numOfTwoBHK + 120 * numOfThreeBHK + 160 * numOfFourBHK + 200 * numOfFiveBHK)",
-    "Special elevational features in FRP/Ferro/GRC " : "carpetArea * 1.35 * 25",
+    "Special elevational features" : "carpetArea * 1.35 * 25",
     "Boards & Signages inside building" : "700 * (numOfOneBHK + numOfTwoBHK + numOfThreeBHK + numOfFourBHK + numOfFiveBHK) + 60000 + 100 * numOfFloors",
     "Safety measures" : "carpetArea * 1.35 * 5",
 
@@ -5902,7 +5902,7 @@
       ]
     },
     {
-      "name" : "Doors with frames",
+      "name" : "Door Frames",
       "priorityId": 13,
       "rateAnalysisId" : 100398,
       "categories" : [
@@ -9200,7 +9200,7 @@
       ]
     },
     {
-      "name" : "Special elevational features",
+      "name" : "Special elevational features in FRP/Ferro/GRC",
       "priorityId": 32,
       "rateAnalysisId" : 100554,
       "categories" : [

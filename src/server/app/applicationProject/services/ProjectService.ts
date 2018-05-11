@@ -2285,11 +2285,18 @@ class ProjectService {
           break;
         }
         case Constants.DOORS : {
-          /*budgetCostFormulae = config.get(Constants.BUDGETED_COST_FORMULAE + costHead.name).toString();
-          calculateBudgtedCost = budgetCostFormulae.replace(Constants.NUM_OF_FLOORS, buildingDetails.totalNumOfFloors)
-            .replace(Constants.NUM_OF_LIFTS, buildingDetails.numOfLifts);
-          budgetedCostAmount = eval(calculateBudgtedCost);*/
-          budgetedCostAmount = 1;
+          budgetCostFormulae = config.get(Constants.BUDGETED_COST_FORMULAE + costHead.name).toString();
+          calculateBudgtedCost = budgetCostFormulae.replace(Constants.NUM_OF_ONE_BHK, buildingDetails.numOfOneBHK)
+            .replace(Constants.NUM_OF_TWO_BHK, buildingDetails.numOfTwoBHK)
+            .replace(Constants.NUM_OF_THREE_BHK, buildingDetails.numOfThreeBHK)
+            .replace(Constants.NUM_OF_FOUR_BHK, buildingDetails.numOfFourBHK)
+            .replace(Constants.NUM_OF_FIVE_BHK, buildingDetails.numOfFiveBHK)
+            .replace(Constants.NUM_OF_ONE_BHK, buildingDetails.numOfOneBHK)
+            .replace(Constants.NUM_OF_TWO_BHK, buildingDetails.numOfTwoBHK)
+            .replace(Constants.NUM_OF_THREE_BHK, buildingDetails.numOfThreeBHK)
+            .replace(Constants.NUM_OF_FOUR_BHK, buildingDetails.numOfFourBHK)
+            .replace(Constants.NUM_OF_FIVE_BHK, buildingDetails.numOfFiveBHK);
+          budgetedCostAmount = eval(calculateBudgtedCost);
           this.calculateThumbRuleReportForCostHead(budgetedCostAmount, costHead, buildingDetails, costHeads);
           break;
         }
@@ -2381,9 +2388,11 @@ class ProjectService {
           break;
         }
         case Constants.ELECTRICAL_LIGHT_FITTINGS_IN_COMMON_AREAS : {
-          budgetCostFormulae = config.get(Constants.BUDGETED_COST_FORMULAE + costHead.name).toString();
-          calculateBudgtedCost = budgetCostFormulae.replace(Constants.CARPET_AREA, buildingDetails.totalCarpetAreaOfUnit);
-          budgetedCostAmount = eval(calculateBudgtedCost);
+          /*budgetCostFormulae = config.get(Constants.BUDGETED_COST_FORMULAE + costHead.name).toString();
+          calculateBudgtedCost = budgetCostFormulae.replace(Constants.CARPET_AREA, buildingDetails.totalCarpetAreaOfUnit)
+            .replace(Constants.PROJECT_PERIPHERRY, buildingDetails.totalCarpetAreaOfUnit);
+          budgetedCostAmount = eval(calculateBudgtedCost);*/
+          budgetedCostAmount = 1;
           this.calculateThumbRuleReportForCostHead(budgetedCostAmount, costHead, buildingDetails, costHeads);
           break;
         }
@@ -2429,7 +2438,7 @@ class ProjectService {
           break;
         }
         case Constants.SECURITY_AUTOMATION : {
-          budgetCostFormulae = config.get(Constants.BUDGETED_COST_FORMULAE + costHead.name).toString();
+          budgetCostFormulae = config.get(Constants.BUDGETED_COST_FORMULAE + 'Safety and Security automation').toString();
           /*calculateBudgtedCost = budgetCostFormulae.replace(Constants.NUM_OF_ONE_BHK, buildingDetails.numOfOneBHK)
             .replace(Constants.NUM_OF_TWO_BHK, buildingDetails.numOfTwoBHK)
             .replace(Constants.NUM_OF_THREE_BHK, buildingDetails.numOfThreeBHK)
@@ -2464,7 +2473,7 @@ class ProjectService {
           break;
         }
         case Constants.SPECIAL_ELEVATIONAL_FEATURES_IN_FRP_FERRO_GRC : {
-          budgetCostFormulae = config.get(Constants.BUDGETED_COST_FORMULAE + costHead.name).toString();
+          budgetCostFormulae = config.get(Constants.BUDGETED_COST_FORMULAE + 'Special elevational features').toString();
           calculateBudgtedCost = budgetCostFormulae.replace(Constants.CARPET_AREA, buildingDetails.totalCarpetAreaOfUnit);
           budgetedCostAmount = eval(calculateBudgtedCost);
           this.calculateThumbRuleReportForCostHead(budgetedCostAmount, costHead, buildingDetails, costHeads);
