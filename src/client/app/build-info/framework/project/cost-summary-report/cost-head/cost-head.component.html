@@ -62,6 +62,7 @@
                                   <button class="add-more-details-btn">{{getButton().ADD_MORE_DETAILS}} </button>
                                 </td>-->
                                 <td>
+                                  <span class="mobile-headings">{{getTableHeadings().QUANTITY}}</span>
                                   <div class="edit-field" [class.active]="(rateView==='quantity' && workItemIndex===currentWorkItemIndex && currentCategoryIndex === categoryIndex)">
                                     <input type="number" [(ngModel)]="workItem.quantity.total" (change)="changeDirectQuantity(category.rateAnalysisId, workItem.rateAnalysisId, workItem.quantity.total)"
                                             id="directQuantity" size="10" class="form-control clear">
@@ -72,10 +73,12 @@
                                   </div>
                                 </td>
                                 <td>
+                                  <span class="mobile-headings">{{getTableHeadings().UNIT}}</span>
                                   <span class="value" *ngIf="workItem.unit">{{ workItem.unit }}</span>
                                   <span class="value" *ngIf="!workItem.unit">-</span>
                                 </td>
                                 <td>
+                                  <span class="mobile-headings">{{getTableHeadings().RATE_PER_UNIT}}</span>
                                   <div class="edit-field">
                                     <input *ngIf="workItem.isDirectRate" type = "number" [(ngModel)]="workItem.rate.total" (change)="changeDirectRate(category.rateAnalysisId,workItem.rateAnalysisId, workItem.rate.total)" id="directRate1" size="10" class="form-control clear">
                                     <div class="edit-rate" *ngIf="!workItem.isDirectRate && workItem.rate.isEstimated">
@@ -91,32 +94,34 @@
                                   </div>
                                 </td>
 
-                                  <!--Cost-->
-                                  <td>
-                                    <div class="edit-cost-null" *ngIf="workItem.amount == 0  && workItem.isDirectRate === false">
-                                      -
-                                    </div>
-                                    <div class="edit-cost" [class.active-cost]="(rateView==='cost' && workItemIndex===currentWorkItemIndex && currentCategoryIndex === categoryIndex)"
-                                         *ngIf="workItem.amount != 0 && workItem.isDirectRate === false"
-                                         (click)="getRateByQuantity( getLabel().GET_RATE_BY_QUANTITY, category.rateAnalysisId, workItem.rateAnalysisId, workItem, true, categoryIndex, workItemIndex)">
-                                      {{ (workItem.amount)|number : '1.0-0'}}
-                                    </div>
-                                    <div  *ngIf="workItem.isDirectRate">
-                                      {{ (workItem.amount)|number : '1.0-0'}}
-                                    </div>
-                                  </td>
+                                <!--Cost-->
+                                <td>
+                                  <span class="mobile-headings">{{getTableHeadings().RATEANALYSIS}}</span>
+                                  <div class="edit-cost-null" *ngIf="workItem.amount == 0  && workItem.isDirectRate === false">
+                                    -
+                                  </div>
+                                  <div class="edit-cost" [class.active-cost]="(rateView==='cost' && workItemIndex===currentWorkItemIndex && currentCategoryIndex === categoryIndex)"
+                                       *ngIf="workItem.amount != 0 && workItem.isDirectRate === false"
+                                       (click)="getRateByQuantity( getLabel().GET_RATE_BY_QUANTITY, category.rateAnalysisId, workItem.rateAnalysisId, workItem, true, categoryIndex, workItemIndex)">
+                                    {{ (workItem.amount)|number : '1.0-0'}}
+                                  </div>
+                                  <div  *ngIf="workItem.isDirectRate">
+                                    {{ (workItem.amount)|number : '1.0-0'}}
+                                  </div>
+                                </td>
 
-                                  <!--RateAnalysis-->
-                                  <td>
-                                   <div  *ngIf=" workItem.isDirectRate === false">
-                                     <button class="btn-get-amount" [class.active]="(rateView==='systemRA' && workItemIndex===currentWorkItemIndex && currentCategoryIndex === categoryIndex)"
-                                            type="button" (click)="getSystemRate( getLabel().GET_SYSTEM_RATE, category.rateAnalysisId, workItem.rateAnalysisId, workItem, true, categoryIndex, workItemIndex)">{{getButton().SYSTEM_RA}}
-                                     </button>
-                                   </div>
-                                    <div *ngIf=" workItem.isDirectRate">
-                                      -
-                                    </div>
-                                  </td>
+                                <!--RateAnalysis-->
+                                <td>
+                                  <span class="mobile-headings">{{getTableHeadings().COST}}</span>
+                                  <div  *ngIf=" workItem.isDirectRate === false">
+                                   <button class="btn-get-amount" [class.active]="(rateView==='systemRA' && workItemIndex===currentWorkItemIndex && currentCategoryIndex === categoryIndex)"
+                                          type="button" (click)="getSystemRate( getLabel().GET_SYSTEM_RATE, category.rateAnalysisId, workItem.rateAnalysisId, workItem, true, categoryIndex, workItemIndex)">{{getButton().SYSTEM_RA}}
+                                   </button>
+                                  </div>
+                                  <div *ngIf=" workItem.isDirectRate">
+                                    -
+                                  </div>
+                                </td>
                                   <td>
                                     <div class="file-attachment" [class.attachment-menu-open]="(showAttachmentView == getLabel().ATTACH_FILE && workItemIndex===currentWorkItemIndex && currentCategoryIndex === categoryIndex)">
                                       <span  *ngIf="workItem.attachmentDetails.length == 0"(click)="setVariable(category.rateAnalysisId, workItem.rateAnalysisId, categoryIndex, workItemIndex)">

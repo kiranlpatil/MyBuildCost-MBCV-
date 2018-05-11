@@ -131,10 +131,6 @@
         text-align: right;
         width: 120px;
       }
-
-      .mobile-headings {
-        display: none;
-      }
     }
 
     th {
@@ -307,14 +303,6 @@
         &:nth-child(7) {
           float: left;
           width: 60%;
-        }
-
-        .mobile-headings {
-          color: $body-text;
-          display: block;
-          font-weight: 400;
-          padding: 0;
-          width: 100%;
         }
 
         .border-top {
