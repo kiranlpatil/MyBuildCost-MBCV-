@@ -6,8 +6,8 @@
     <div class="col-xs-12 no-padding">
       <h4 class="building-name clearfix costhead-building-name">
         <div class="col-sm-8 padding-left0">
-          <span class="building-label"> {{ viewTypeValue }} </span>
-          <span class="text-left"> ( {{ costHeadName }} ) </span>
+          <span class="building-label"> {{ costHeadName }} </span>
+          <span class="text-left"> ( {{ viewTypeValue }} ) </span>
         </div>
         <div class="col-sm-4 text-right padding-right5">
           <span class="text-left total-amount-work total-cost"> {{categoryDetailsTotalAmount|number : '1.0-0'}} </span>
@@ -232,7 +232,7 @@
                     <td colspan="6">&nbsp;</td>
                   </tr>
                   <tr>
-                    <td  class="add-items" colspan="7">
+                    <td  class="add-items hidden-xs" colspan="7">
                       <button type="button" class="btn-add-item"
                               (click)="getInActiveWorkItems(category.rateAnalysisId,categoryIndex)" [disabled]="showHideAddItemButton">
                         <span class="glyphicon glyphicon-plus"></span> {{getButton().ADD}} {{getButton().ITEM}}</button>
