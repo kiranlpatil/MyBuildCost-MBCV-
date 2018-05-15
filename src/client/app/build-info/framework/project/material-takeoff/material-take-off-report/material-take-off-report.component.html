@@ -9,6 +9,10 @@
               class="slab-area" [title]="materialTakeOffReport[materialKey].title + materialTakeOffReport[materialKey].subTitle.columnOne">
               {{ materialTakeOffReport[materialKey].title + materialTakeOffReport[materialKey].subTitle.columnOne}}
             </span>
+            <span *ngIf="elementType === getMaterialTakeOffElements().ELEMENT_WISE_REPORT_COST_HEAD && buildingName !== getMaterialTakeOffElements().ALL_BUILDINGS"
+                  class="slab-area" [title]="buildingName">
+              {{ buildingName }}
+            </span>
             <!--pdf report-->
             <div>
               <bi-material-take-off-pdf-report
