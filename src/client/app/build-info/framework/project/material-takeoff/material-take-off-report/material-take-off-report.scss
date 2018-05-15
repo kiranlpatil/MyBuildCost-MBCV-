@@ -171,10 +171,19 @@
         float: left;
         font-size: 18px;
         overflow: auto;
-        padding: 15px 10px;
+        padding: 10px 10px 10px 20px;
         position: relative;
         text-overflow: clip;
         white-space: normal;
+      }
+
+      a > .caret {
+        top: 17px;
+      }
+
+      .slab-area {
+        display: inline-block !important;
+        width: auto !important;
       }
     }
   }
