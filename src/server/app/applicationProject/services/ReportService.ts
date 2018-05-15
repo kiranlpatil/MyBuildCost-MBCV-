@@ -412,11 +412,11 @@ class ReportService {
       reportTotal = reportTotal + contentTotal;
       recordUnit = table.footer.columnThree;
 
-      if (elementWiseReport === Constants.STR_MATERIAL) {
+
         materialTakeOffReport.subTitle.columnTwo = reportTotal;
         materialTakeOffReport.subTitle.columnThree = recordUnit;
         materialTakeOffReport.subTitle.columnOne = ': ' + reportTotal + ' ' + materialTakeOffReport.subTitle.columnThree;
-      }
+
     }
   }
 
