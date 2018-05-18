@@ -176,7 +176,7 @@
         float: left;
         font-size: 18px;
         overflow: auto;
-        padding: 10px 10px 10px 20px;
+        padding: 10px;
         position: relative;
         text-overflow: clip;
         white-space: normal;
@@ -189,6 +189,10 @@
       .slab-area {
         display: inline-block !important;
         width: auto !important;
+      }
+      .row-lists-right {
+        padding: 0;
+        text-align: right;
       }
     }
   }
