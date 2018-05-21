@@ -862,7 +862,7 @@
       "rateAnalysisId" : 100007,
       "categories" : [
         {
-          "name" : "default",
+          "name" : "Work Items",
           "rateAnalysisId" : 100008,
           "workItems" : [
             {
@@ -1217,7 +1217,7 @@
       "rateAnalysisId" : 100054,
       "categories" : [
         {
-          "name" : "default",
+          "name" : "Work Items",
           "rateAnalysisId" : 100055,
           "workItems" : [
             {
@@ -1282,7 +1282,7 @@
       "rateAnalysisId" : 100059,
       "categories" : [
         {
-          "name" : "default",
+          "name" : "Work Items",
           "rateAnalysisId" : 100060,
           "workItems" : [
             {
@@ -1490,7 +1490,7 @@
       "rateAnalysisId" : 100076,
       "categories" : [
         {
-          "name" : "default",
+          "name" : "Work Items",
           "rateAnalysisId" : 100077,
           "workItems" : [
             {
@@ -1521,8 +1521,7 @@
       "priorityId": 1,
       "categories" : [
         {
-          "name" : "default",
-          "rateAnalysisId" : 0,
+          "name" : "Work Items",
           "workItems" : [
             {
               "name" : "230 mm thk dry rubble soling with murum filling in gaps and compacting",
@@ -6822,7 +6821,7 @@
       "rateAnalysisId" : 100473,
       "categories" : [
         {
-          "name" : "default",
+          "name" : "Work Items",
           "rateAnalysisId" : 100474,
           "workItems" : [
             {
@@ -6899,7 +6898,7 @@
       "rateAnalysisId" : 100481,
       "categories" : [
         {
-          "name" : "default",
+          "name" : "Work Items",
           "rateAnalysisId" : 100482,
           "workItems" : [
             {
@@ -7241,7 +7240,7 @@
       "priorityId": 23,
       "categories" : [
         {
-          "name" : "default",
+          "name" : "Work Items",
           "rateAnalysisId" : 100510,
           "workItems" : [
             {
@@ -7269,7 +7268,7 @@
       "priorityId": 24,
       "categories" : [
         {
-          "name" : "default",
+          "name" : "Work Items",
           "rateAnalysisId" : 100513,
           "workItems" : [
             {
@@ -7297,7 +7296,7 @@
       "priorityId": 25,
       "categories" : [
         {
-          "name" : "default",
+          "name" : "Work Items",
           "rateAnalysisId" : 100516,
           "workItems" : [
             {
@@ -7404,7 +7403,7 @@
       "rateAnalysisId" : 100525,
       "categories" : [
         {
-          "name" : "default",
+          "name" : "Work Items",
           "rateAnalysisId" : 100526,
           "workItems" : [
             {
@@ -7433,7 +7432,7 @@
       "rateAnalysisId" : 100528,
       "categories" : [
         {
-          "name" : "default",
+          "name" : "Work Items",
           "rateAnalysisId" : 100529,
           "workItems" : [
             {
@@ -7636,7 +7635,7 @@
       "rateAnalysisId" : 100540,
       "categories" : [
         {
-          "name" : "default",
+          "name" : "Work Items",
           "rateAnalysisId" : 100541,
           "workItems" : [
             {
@@ -7906,7 +7905,7 @@
       "rateAnalysisId" : 100555,
       "categories" : [
         {
-          "name" : "default",
+          "name" : "Work Items",
           "rateAnalysisId" : 100556,
           "workItems" : [
             {
@@ -8428,7 +8427,7 @@
       "rateAnalysisId" : 100473,
       "categories" : [
         {
-          "name" : "default",
+          "name" : "Work Items",
           "rateAnalysisId" : 100474,
           "workItems" : [
             {
@@ -9710,7 +9709,7 @@
       "rateAnalysisId" : 100007,
       "categories" : [
         {
-          "name" : "default",
+          "name" : "Work Items",
           "rateAnalysisId" : 100008,
           "workItems" : [
             {

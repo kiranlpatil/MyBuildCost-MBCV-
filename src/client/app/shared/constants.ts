@@ -191,6 +191,7 @@ export class Messages {
   public static MSG_SUCCESS_UPDATE_THUMBRULE_RATE_COSTHEAD: string = 'Thumbrule rate for CostHead updated successfully.';
   public static MSG_SUCCESS_UPDATE_DIRECT_QUANTITY_OF_WORKITEM : string = 'Quantity for workitem updated successfully.';
   public static MSG_SUCCESS_UPDATE_DIRECT_RATE_OF_WORKITEM : string = 'Rate for workitem updated successfully.';
+  public static MSG_SUCCESS_UPDATE_QUANTITY_NAME_WORKITEM : string = 'Quantity name updated successfully.';
 
   //Quantity view required fields
   public static MSG_ERROR_VALIDATION_QUANTITY_ITEM_REQUIRED = 'Enter item';
@@ -201,7 +202,7 @@ export class Messages {
   public static MSG_ERROR_VALIDATION_QUANTITY_QUANTITY_REQUIRED = 'Enter quantity';
   public static MSG_ERROR_VALIDATION_QUANTITY_UNIT_REQUIRED = 'Enter unit';
   public static MSG_ERROR_VALIDATION_QUANTITY_REQUIRED = 'Fields can not be empty';
-  public static MSG_ERROR_VALIDATION_QUANTITY_NAME_REQUIRED = 'Quantity details name is required';
+  public static MSG_ERROR_VALIDATION_QUANTITY_NAME_REQUIRED = 'Flat/Floor/Parking details can not be empty';
   public static LOGIN_INFO: string = 'Enter your details below';
   public static MSG_SUCCESS_ALREADY_ADDED_ALL_COSTHEADS: string = 'Already added all CostHeads.';
 
@@ -244,6 +245,7 @@ export class SessionStorage {
   public static IS_LOGGED_IN = 'is_user_logged_in';
   public static IS_USER_SIGN_IN = 'is_user_register';
   public static CURRENT_VIEW = 'current_view';
+  public static FROM_VIEW = 'from_view';
   public static USER_ID = 'user_id';
   public static MOBILE_NUMBER = 'mobile_number';
   public static VERIFIED_MOBILE_NUMBER = 'verified_mobile_number';
@@ -315,8 +317,10 @@ export class API {
   public static WORKITEMLIST = 'workitemlist';
   public static WORKITEM_ALL = 'workitem/all';
   public static QUANTITY = 'quantity';
+  public static QUANTITY_ITEM_DETAILS= 'quantityItemDetails';
   public static ITEM = 'item';
   public static DIRECT = 'direct';
+  public static DIRECT_QUANTITY = 'directQuantity';
   public static FILE = 'uploadFile';
   public static FILE_LIST = 'fileNameList';
   public static DELETE_FILE = 'deleteFile';
@@ -495,6 +499,7 @@ export class Label {
   public static QUANTITY_VIEW : string = 'default';
   public static WORKITEM_DETAILED_QUANTITY_TAB : string = 'detailedQuantity';
   public static ATTACH_FILE : string = 'Attach File';
+  public static DIRECT_QUANTITY : string = 'directQty';
 
   //Quantity View
   public static DEFAULT_VIEW = 'default';
@@ -560,6 +565,7 @@ export class ProjectElements {
 
 export class MaterialTakeOffElements {
 
+  public static TOTAL_QUANTITY = 'Total Quantity';
   public static COST_HEAD_WISE = 'Cost Head wise';
   public static ALL_BUILDINGS = 'All Buildings';
   public static BUILDING = 'Building';
@@ -625,6 +631,11 @@ export class CurrentView {
   public static COST_SUMMARY = 'costSummary';
   public static MATERIAL_TAKE_OFF = 'materialTakeOff';
   public static PROJECT_DETAILS = 'projectDetails';
+}
+
+export class ScrollView {
+
+  public static GO_TO_RECENT_BUILDING = 'goToRecentBuilding';
 }
 
 export class StandardNotes {
