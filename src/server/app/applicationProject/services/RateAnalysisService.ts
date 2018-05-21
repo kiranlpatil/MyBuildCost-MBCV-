@@ -325,7 +325,7 @@ class RateAnalysisService {
   getWorkitemsForConfigCategory(configWorkitems:any) {
     let workItemsList = new Array<WorkItem>();
     for(let workitemIndex=0; workitemIndex < configWorkitems.length; workitemIndex++) {
-      let configWorkitem = new WorkItem(configWorkitems[workitemIndex].name, configWorkitems[workitemIndex].rateAnalysisId);
+      let configWorkitem = this.convertConfigorkitem(configWorkitems[workitemIndex]);
       workItemsList.push(configWorkitem);
     }
     return workItemsList;

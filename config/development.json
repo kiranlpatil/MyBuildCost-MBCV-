@@ -1722,27 +1722,6 @@
           ]
         },
         {
-          "name" : "RCC labour on Slab area basis",
-          "rateAnalysisId" : 100097,
-          "workItems" : [
-            {
-              "name" : "Providing RCC labour i/c shuttering on slab area basis",
-              "rateAnalysisId" : 100098,
-              "isMeasurementSheet" : true,
-              "measurementUnit" : "cum",
-              "isRateAnalysis" : true,
-              "rateAnalysisPerUnit" : 1,
-              "rateAnalysisUnit" : "cum",
-              "directRate" : null,
-              "directRatePerUnit" : null,
-              "isItemBreakdownRequired" : true,
-              "length" : true,
-              "breadthOrWidth" : true,
-              "height" : true
-            }
-          ]
-        },
-        {
           "name" : "Steel",
           "rateAnalysisId" : 101000,
           "workItems" : [
@@ -1765,7 +1744,7 @@
         },
         {
           "name" : "RCC labour on Slab area basis",
-          "rateAnalysisId" : 101002,
+          "rateAnalysisId" : 100096,
           "workItems" : [
             {
               "name" : "Providing RCC labour i/c shuttering on slab area basis",
