@@ -85,6 +85,7 @@ export class QuantityDetailsComponent implements OnInit {
   }
 
   getQuantity(quantityDetail : QuantityDetails, floorIndex : number, showInnerView : string) {
+    SessionStorageService.setSessionValue(SessionStorage.CURRENT_WORKITEM_ID, this.workItemRateAnalysisId);
     if(quantityDetail.name !== undefined) {
       if (floorIndex !== this.currentFloorIndex || this.showInnerView !== showInnerView) {
         this.setFloorIndex(floorIndex);
