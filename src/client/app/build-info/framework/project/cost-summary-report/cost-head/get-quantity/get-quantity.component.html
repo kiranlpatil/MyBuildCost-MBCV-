@@ -25,13 +25,13 @@
       <input type="number" [(ngModel)]="quantityItem.nos" id="numbers" (change)="updateQuantity('updateNos')" class="form-control" required/>
     </td>
     <td class="get-amount-value">
-      <input type="number" [(ngModel)]="quantityItem.length" id="length" (change)="updateQuantity('updateLength')" class="form-control" required/>
+      <input type="number" [disabled]="!workItem.length" *ngIf="workItem" [(ngModel)]="quantityItem.length" id="length" (change)="updateQuantity('updateLength')" class="form-control" required/>
     </td>
     <td class="get-amount-value">
-      <input  type="number" [(ngModel)]="quantityItem.breadth" id="breadth" (change)="updateQuantity('updateBreadth')" class="form-control"/>
+      <input  type="number" [disabled]="!workItem.breadthOrWidth" *ngIf="workItem" [(ngModel)]="quantityItem.breadth" id="breadth" (change)="updateQuantity('updateBreadth')" class="form-control"/>
     </td>
     <td class="get-amount-value">
-      <input type="number" [(ngModel)]="quantityItem.height" id="height" (change)="updateQuantity('updateHeight')" class="form-control" required/>
+      <input type="number" [disabled]="!workItem.height" *ngIf="workItem" [(ngModel)]="quantityItem.height" id="height" (change)="updateQuantity('updateHeight')" class="form-control" required/>
     </td>
     <td class="get-amount-value">
       <input  type="number" [(ngModel)]= "quantityItem.quantity"  id="qty" class="form-control" disabled/>

@@ -67,11 +67,10 @@
                                     <input type="number" [(ngModel)]="workItem.quantity.total" (focus)="setQuantityTotal(workItem.quantity.total)"
                                            (change)="showUpdateDirectQuantityModal(workItem, category.rateAnalysisId, workItemIndex)"
                                             id="directQuantity" size="10" class="form-control clear">
-                                    <span class="calculator" id="getQuantity{{categoryIndex}}"
-                                          (click)="updateMeasurementSheet(category.rateAnalysisId, workItem, categoryIndex, workItemIndex)">
-                                          <!--(click)="getQuantity(category.rateAnalysisId, workItem, categoryIndex, workItemIndex)">-->
+                                    <span class="calculator" id="getQuantity{{categoryIndex}}" [class.disabled]="!workItem.isMeasurementSheet" (click)="updateMeasurementSheet(category.rateAnalysisId, workItem, categoryIndex, workItemIndex)">
                                        <img src="assets/build-info/dashboard/calculator2.png" />
                                     </span>
+
                                   </div>
                                 </td>
                                 <td>
@@ -142,7 +141,7 @@
                                                        [workItem]="workItem"></bi-attachment>
                                       </div>
                                     </div>
-                                    <button class="add-more-details"
+                                    <button class="add-more-details" [disabled]="!workItem.isItemBreakdownRequired"
                                             (click)="showAddFloorwiseQuantityModal(workItem, workItemIndex, category.rateAnalysisId, categoryIndex)"
                                             title="Add More Details">
                                       <span class="glyphicon glyphicon-plus-sign"></span>
@@ -177,6 +176,7 @@
                                       <bi-get-quantity [quantityItems]="quantityItemsArray"
                                                        [categoryDetails] ="categoryDetails"
                                                        [workItemsList] ="workItemsList"
+                                                       [workItem]="workItem"
                                                        [workItemUnit] = "workItem.unit"
                                                        (categoriesTotalAmount)="setCategoriesTotal($event)"
                                                        (refreshWorkItemList)="refreshWorkItemList($event)"
@@ -189,6 +189,10 @@
                                       </bi-get-quantity>
                                     </div>
                                   </div>
+
+                                  <!--<div *ngIf="workItem.isSteelWorkItem">
+                                    WorkItem with steel
+                                  </div>-->
                                 </td>
 
                                 <div class="modal fade default-modal" id="updateDirectQuantity{{workItemIndex}}" role="dialog">

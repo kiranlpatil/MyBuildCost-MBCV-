@@ -8,9 +8,12 @@ import alasql = require('alasql');
 import Rate = require('../dataaccess/model/project/building/Rate');
 import CostHead = require('../dataaccess/model/project/building/CostHead');
 import Category = require('../dataaccess/model/project/building/Category');
+import Quantity = require('../dataaccess/model/project/building/Quantity');
+
 import Constants = require('../shared/constants');
 import RateAnalysisRepository = require('../dataaccess/repository/RateAnalysisRepository');
 import RateAnalysis = require('../dataaccess/model/RateAnalysis/RateAnalysis');
+import { AttachmentDetailsModel } from '../dataaccess/model/project/building/AttachmentDetails';
 
 let request = require('request');
 let config = require('config');
@@ -233,18 +236,19 @@ class RateAnalysisService {
     logger.info('getCostHeadsFromRateAnalysis has been hit.');
     //let budgetCostHeads = config.get('budgetedCostFormulae');
     for (let costHeadIndex = 0; costHeadIndex < costHeadsRateAnalysis.length; costHeadIndex++) {
-      if(config.has('budgetedCostFormulae.'+ costHeadsRateAnalysis[costHeadIndex].C2)) {
-        let costHead = new CostHead();
-        costHead.name = costHeadsRateAnalysis[costHeadIndex].C2;
-        let configCostHeads = config.get('costHeads');
-        let categories = new Array<Category>();
+
+    if(config.has('budgetedCostFormulae.'+ costHeadsRateAnalysis[costHeadIndex].C2)) {
+      let costHead = new CostHead();
+      costHead.name = costHeadsRateAnalysis[costHeadIndex].C2;
+      let configCostHeads = config.get('costHeads');
+      let categories = new Array<Category>();
 
         if (configCostHeads.length > 0) {
-          for (let configCostHead of configCostHeads) {
-            if (configCostHead.name === costHead.name) {
-              costHead.priorityId = configCostHead.priorityId;
-              categories = configCostHead.categories;
-            }
+          let isCostHeadExistSQL = 'SELECT * FROM ? AS workitems WHERE TRIM(workitems.name)= ?';
+          let costHeadExistArray = alasql(isCostHeadExistSQL,[configCostHeads, costHead.name]);
+          if(costHeadExistArray.length !== 0 ) {
+            costHead.priorityId = costHeadExistArray[0].priorityId;
+            categories = costHeadExistArray[0].categories;
           }
         }
         costHead.rateAnalysisId = costHeadsRateAnalysis[costHeadIndex].C1;
@@ -266,6 +270,8 @@ class RateAnalysisService {
         costHead.categories = buildingCategories;
         costHead.thumbRuleRate = config.get(Constants.THUMBRULE_RATE);
         buildingCostHeads.push(costHead);
+      } else {
+        console.log('CostHead Unavaialabel : '+costHeadsRateAnalysis[costHeadIndex].C2);
       }
     }
   }
@@ -281,6 +287,9 @@ class RateAnalysisService {
       let category = new Category(categoriesByCostHead[categoryIndex].name, categoriesByCostHead[categoryIndex].rateAnalysisId);
       let configWorkItems = new Array<WorkItem>();
 
+      /*if(categoriesByCostHead[categoryIndex].name === 'RCC band / patli') {
+        console.log('debug');
+      }*/
       if (configCategories.length > 0) {
         for (let configCategory of configCategories) {
           if (configCategory.name === categoriesByCostHead[categoryIndex].name) {
@@ -301,6 +310,28 @@ class RateAnalysisService {
       category.workItems = buildingWorkItems;
       buildingCategories.push(category);
     }
+
+    if(configCategories.length > 0) {
+
+      for(let configCategoryIndex=0; configCategoryIndex < configCategories.length; configCategoryIndex++) {
+        let isCategoryExistsSQL = 'SELECT * FROM ? AS workitems WHERE TRIM(workitems.name)= ?';
+        let categoryExistsArray = alasql(isCategoryExistsSQL,[categoriesByCostHead, configCategories[configCategoryIndex].name]);
+        if(categoryExistsArray.length === 0) {
+          let configCat = new Category(configCategories[configCategoryIndex].name, configCategories[configCategoryIndex].rateAnalysisId);
+          configCat.workItems = this.getWorkitemsForConfigCategory(configCategories[configCategoryIndex].workItems);
+          buildingCategories.push(configCat);
+        }
+      }
+    }
+  }
+
+  getWorkitemsForConfigCategory(configWorkitems:any) {
+    let workItemsList = new Array<WorkItem>();
+    for(let workitemIndex=0; workitemIndex < configWorkitems.length; workitemIndex++) {
+      let configWorkitem = this.convertConfigorkitem(configWorkitems[workitemIndex]);
+      workItemsList.push(configWorkitem);
+    }
+    return workItemsList;
   }
 
   getWorkItemsWithoutCategoryFromRateAnalysis(costHeadRateAnalysisId: number, workItemsRateAnalysis: any,
@@ -372,61 +403,105 @@ class RateAnalysisService {
 
     logger.info('getWorkItemsFromRateAnalysis has been hit.');
     for (let categoryWorkitem of workItemsByCategory) {
-      let workItem = this.getRateAnalysis(categoryWorkitem, configWorkItems, rateItemsRateAnalysis,
-        unitsRateAnalysis, notesRateAnalysis);
-
-
-      buildingWorkItems.push(workItem);
+        let workItem = this.getRateAnalysis(categoryWorkitem, configWorkItems, rateItemsRateAnalysis,
+          unitsRateAnalysis, notesRateAnalysis);
+        if(workItem) {
+          buildingWorkItems.push(workItem);
+        }
     }
+    for(let configWorkItem of configWorkItems) {
+      let isWorkItemExistSQL = 'SELECT * FROM ? AS workitems WHERE TRIM(workitems.name)= ?';
+      let workItemExistArray = alasql(isWorkItemExistSQL,[workItemsByCategory, configWorkItem.name]);
+      if(workItemExistArray.length === 0 ) {
+        let workitem = this.convertConfigorkitem(configWorkItem);
+        buildingWorkItems.push(workitem);
+      }
+    }
+  }
+
+  convertConfigorkitem(configWorkItem : any) {
+
+    let workItem = new WorkItem(configWorkItem.name, configWorkItem.rateAnalysisId);
+    workItem.isDirectRate = !configWorkItem.isRateAnalysis;
+    workItem.isRateAnalysis = configWorkItem.isRateAnalysis;
+    workItem.isMeasurementSheet = configWorkItem.isMeasurementSheet;
+    workItem.isSteelWorkItem = configWorkItem.isSteelWorkItem;
+    workItem.rateAnalysisPerUnit = configWorkItem.rateAnalysisPerUnit;
+    workItem.rateAnalysisUnit = configWorkItem.rateAnalysisUnit;
+    workItem.isItemBreakdownRequired = configWorkItem.isItemBreakdownRequired;
+    workItem.length = configWorkItem.length;
+    workItem.breadthOrWidth = configWorkItem.breadthOrWidth;
+    workItem.height = configWorkItem.height;
+    workItem.unit = configWorkItem.measurementUnit;
+
+    if(!configWorkItem.isRateAnalysis) {
+      workItem.rate.total = configWorkItem.directRate;
+      workItem.rate.unit = configWorkItem.directRatePerUnit;
+      workItem.rate.isEstimated = true;
+    }
+
+    return workItem;
   }
 
   getRateAnalysis(categoryWorkitem: WorkItem, configWorkItems: Array<any>, rateItemsRateAnalysis: any,
                             unitsRateAnalysis: any, notesRateAnalysis: any) {
-    let  workItem = new WorkItem(categoryWorkitem.name, categoryWorkitem.rateAnalysisId);
-    if(categoryWorkitem.active!==undefined && categoryWorkitem.active!==null) {
-      workItem=categoryWorkitem;
+
+    let isWorkItemExistSQL = 'SELECT * FROM ? AS workitems WHERE TRIM(workitems.name)= ?';
+    let workItemExistArray = alasql(isWorkItemExistSQL,[configWorkItems, categoryWorkitem.name]);
+
+    if(workItemExistArray.length !== 0) {
+
+      let  workItem = new WorkItem(categoryWorkitem.name, categoryWorkitem.rateAnalysisId);
+
+      if(categoryWorkitem.active!==undefined && categoryWorkitem.active!==null) {
+        workItem = categoryWorkitem;
       }
-    if (configWorkItems.length > 0) {
-      for (let configWorkItem of configWorkItems) {
-        if (configWorkItem.name === categoryWorkitem.name) {
-          workItem.unit = configWorkItem.measurementUnit;
-        }
+
+      workItem.unit = workItemExistArray[0].measurementUnit;
+      workItem.isMeasurementSheet = workItemExistArray[0].isMeasurementSheet;
+      workItem.isRateAnalysis = workItemExistArray[0].isRateAnalysis;
+      workItem.rateAnalysisPerUnit = workItemExistArray[0].rateAnalysisPerUnit;
+      workItem.isItemBreakdownRequired = workItemExistArray[0].isItemBreakdownRequired;
+      workItem.length = workItemExistArray[0].length;
+      workItem.breadthOrWidth = workItemExistArray[0].breadthOrWidth;
+      workItem.height = workItemExistArray[0].height;
+
+      let rateItemsRateAnalysisSQL = 'SELECT rateItem.C2 AS itemName, rateItem.C2 AS originalItemName,' +
+        'rateItem.C12 AS rateAnalysisId, rateItem.C6 AS type,' +
+        'ROUND(rateItem.C7,2) AS quantity, ROUND(rateItem.C3,2) AS rate, unit.C2 AS unit,' +
+        'ROUND(rateItem.C3 * rateItem.C7,2) AS totalAmount, rateItem.C5 AS totalQuantity, rateItem.C13 AS notesRateAnalysisId  ' +
+        'FROM ? AS rateItem JOIN ? AS unit ON unit.C1 = rateItem.C9 where rateItem.C1 = '
+        + categoryWorkitem.rateAnalysisId;
+      let rateItemsByWorkItem = alasql(rateItemsRateAnalysisSQL, [rateItemsRateAnalysis, unitsRateAnalysis]);
+      let notes = '';
+      let imageURL = '';
+      workItem.rate.rateItems = rateItemsByWorkItem;
+
+      if (rateItemsByWorkItem && rateItemsByWorkItem.length > 0) {
+        let notesRateAnalysisSQL = 'SELECT notes.C2 AS notes, notes.C3 AS imageURL FROM ? AS notes where notes.C1 = '+
+          rateItemsByWorkItem[0].notesRateAnalysisId;
+        let notesList = alasql(notesRateAnalysisSQL, [notesRateAnalysis]);
+        notes = notesList[0].notes;
+        imageURL = notesList[0].imageURL;
+
+        workItem.rate.quantity = rateItemsByWorkItem[0].totalQuantity;
+        workItem.systemRate.quantity = rateItemsByWorkItem[0].totalQuantity;
+      } else {
+        workItem.rate.quantity = 1;
+        workItem.systemRate.quantity = 1;
       }
+      workItem.rate.isEstimated = true;
+      workItem.rate.notes = notes;
+      workItem.rate.imageURL =imageURL;
+
+      //System rate
+
+      workItem.systemRate.rateItems = rateItemsByWorkItem;
+      workItem.systemRate.notes = notes;
+      workItem.systemRate.imageURL = imageURL;
+      return workItem;
     }
-
-    let rateItemsRateAnalysisSQL = 'SELECT rateItem.C2 AS itemName, rateItem.C2 AS originalItemName,' +
-      'rateItem.C12 AS rateAnalysisId, rateItem.C6 AS type,' +
-      'ROUND(rateItem.C7,2) AS quantity, ROUND(rateItem.C3,2) AS rate, unit.C2 AS unit,' +
-      'ROUND(rateItem.C3 * rateItem.C7,2) AS totalAmount, rateItem.C5 AS totalQuantity, rateItem.C13 AS notesRateAnalysisId  ' +
-      'FROM ? AS rateItem JOIN ? AS unit ON unit.C1 = rateItem.C9 where rateItem.C1 = '
-      + categoryWorkitem.rateAnalysisId;
-    let rateItemsByWorkItem = alasql(rateItemsRateAnalysisSQL, [rateItemsRateAnalysis, unitsRateAnalysis]);
-    let notes = '';
-    let imageURL = '';
-    workItem.rate.rateItems = rateItemsByWorkItem;
-    if (rateItemsByWorkItem && rateItemsByWorkItem.length > 0) {
-      let notesRateAnalysisSQL = 'SELECT notes.C2 AS notes, notes.C3 AS imageURL FROM ? AS notes where notes.C1 = '+
-        rateItemsByWorkItem[0].notesRateAnalysisId;
-      let notesList = alasql(notesRateAnalysisSQL, [notesRateAnalysis]);
-      notes = notesList[0].notes;
-      imageURL = notesList[0].imageURL;
-
-      workItem.rate.quantity = rateItemsByWorkItem[0].totalQuantity;
-      workItem.systemRate.quantity = rateItemsByWorkItem[0].totalQuantity;
-    } else {
-      workItem.rate.quantity = 1;
-      workItem.systemRate.quantity = 1;
-    }
-    workItem.rate.isEstimated = true;
-    workItem.rate.notes = notes;
-    workItem.rate.imageURL =imageURL;
-
-    //System rate
-
-    workItem.systemRate.rateItems = rateItemsByWorkItem;
-    workItem.systemRate.notes = notes;
-    workItem.systemRate.imageURL = imageURL;
-    return workItem;
+    return null;
   }
 
   SyncRateAnalysis() {
@@ -477,6 +552,13 @@ class RateAnalysisService {
           let workItem: WorkItem = new WorkItem(configWorkItem.name, configWorkItem.rateAnalysisId);
           workItem.isDirectRate = true;
           workItem.unit = configWorkItem.measurementUnit;
+          workItem.isMeasurementSheet = configWorkItem.isMeasurementSheet;
+          workItem.isRateAnalysis = configWorkItem.isRateAnalysis;
+          workItem.rateAnalysisPerUnit = configWorkItem.rateAnalysisPerUnit;
+          workItem.isItemBreakdownRequired = configWorkItem.isItemBreakdownRequired;
+          workItem.length = configWorkItem.length;
+          workItem.breadthOrWidth = configWorkItem.breadthOrWidth;
+          workItem.height = configWorkItem.height;
 
           if (configWorkItem.directRate !== null) {
             workItem.rate.total = configWorkItem.directRate;

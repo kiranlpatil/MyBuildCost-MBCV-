@@ -32,6 +32,8 @@ export class GetQuantityComponent implements OnInit {
   @Input() keyQuantity : string;
   @Input() quantityId : number;
   @Input() innerView: string;
+  @Input() workItem ?: WorkItem;
+
 
   @Output() closeQuantityView = new EventEmitter();
   @Output() closeInnerView = new EventEmitter();
@@ -108,8 +110,10 @@ export class GetQuantityComponent implements OnInit {
       var number = this.quantityItems[quantityIndex].nos;
       var length = this.quantityItems[quantityIndex].length;
       var height = this.quantityItems[quantityIndex].height;
+      var breadth =this.quantityItems[quantityIndex].breadth;
 
-      this.quantityItems[quantityIndex].quantity = this.commonService.decimalConversion( number * length * height );
+      this.quantityItems[quantityIndex].quantity = this.commonService.decimalConversion( number * (this.workItem.length?length:1)*
+        (this.workItem.breadthOrWidth?breadth:1)*(this.workItem.height?height:1) );
       this.quantityTotal = this.commonService.decimalConversion(this.quantityTotal +
         this.quantityItems[quantityIndex].quantity);
       }
