@@ -243,6 +243,14 @@ export class CostHeadComponent implements OnInit, OnChanges {
       this.showQuantityDetails = false;
     }
   }
+  updateSteelMeasurementSheet() {
+
+    if( this.showWorkItemTab !== Label.WORKITEM_QUANTITY_TAB){
+      this.showWorkItemTab=Label.WORKITEM_STEEL_QUANTITY_TAB;
+
+    }
+
+    }
 
   //Get Default Quantity (If floor wise or building wise quantity is not added)
   getDefaultQuantity(categoryId: number, workItem: WorkItem, categoryIndex: number, workItemIndex:number) {
@@ -278,7 +286,7 @@ export class CostHeadComponent implements OnInit, OnChanges {
         this.currentCategoryIndex = categoryIndex;
         this.currentWorkItemIndex = workItemIndex;
         this.showWorkItemTab = Label.WORKITEM_QUANTITY_TAB;
-    } else {
+        } else {
       this.showWorkItemTab = null;
     }
   }

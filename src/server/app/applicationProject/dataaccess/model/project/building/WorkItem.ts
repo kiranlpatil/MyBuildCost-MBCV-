@@ -16,7 +16,7 @@ class WorkItem {
   length: boolean;
   breadthOrWidth : boolean;
   height : boolean;
-  isSteelWorkItem : boolean;
+  isSteelWorkItem : boolean=false;
 
   unit: string;
   rate: Rate;

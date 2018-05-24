@@ -1,0 +1,118 @@
+<div>
+  <table class="table">
+    <thead>
+    <th>{{ getTableHeadings().ITEM }}</th>
+    <th>{{ getTableHeadings().DIAMETER }}
+      <span>{{ getTableHeadings().MM_UNIT }}</span>
+    </th>
+    <th>{{ getTableHeadings().LENGTH }}
+      <span>{{ getTableHeadings().MTR_UNIT }}</span>
+    </th>
+    <th>{{ getTableHeadings().NUMBERS }}</th>
+    <th>{{ getTableHeadings().SIX_MM }}</th>
+    <th>{{ getTableHeadings().EIGHT_MM }}</th>
+    <th>{{ getTableHeadings().TEN_MM }}</th>
+    <th>{{ getTableHeadings().TWELVE_MM }}</th>
+    <th>{{ getTableHeadings().SIXTEEN_MM }}</th>
+    <th>{{ getTableHeadings().TWENTY_MM }}</th>
+    <th>{{ getTableHeadings().TWENTYFIVE_MM }}</th>
+    <th class="hidden-xs">&nbsp;</th>
+    <th class="hidden-xs">&nbsp;</th>
+    </thead>
+    <tbody>
+    <tr *ngFor="let quantityItemSteel of steelQuantityItems;  let quantityIndex= index ">
+      <td>
+        <input [(ngModel)]="quantityItemSteel.item" id="costitem"  class="form-control" [class.required-field]="quantityItemSteel.item == ''"/>
+      </td>
+      <td>
+        <select  (change)="onDiameterSelect($event.target.value)">
+          <option [value]="6">6</option>
+          <option *ngFor="let diameter of diameterValuesArray" [value]="diameter">{{ diameter }}</option>
+        </select></td>
+      <td>
+        <input type="number" [(ngModel)]="quantityItemSteel.length" id="length" class="form-control" required/>
+      </td>
+      <td>
+        <input  type="number"   [(ngModel)]="quantityItemSteel.nos" id="nos" class="form-control"/>
+      </td>
+      <td>
+        <input type="number"  [(ngModel)]="quantityItemSteel.six" id="sixmm"  class="form-control" disabled/>
+      </td>
+      <td>
+        <input  type="number" [(ngModel)]= "quantityItemSteel.eight"  id="eightmm" class="form-control" disabled/>
+      </td>
+      <td>
+        <input  type="number" [(ngModel)]= "quantityItemSteel.ten"  id="tenmm" class="form-control" disabled/>
+      </td>
+      <td>
+        <input  type="number" [(ngModel)]= "quantityItemSteel.twelve"  id="twelvemm" class="form-control" disabled/>
+      </td>
+      <td>
+        <input  type="number" [(ngModel)]= "quantityItemSteel.sixteen"  id="sixteenmm" class="form-control" disabled/>
+      </td>
+      <td>
+        <input  type="number" [(ngModel)]= "quantityItemSteel.twenty"  id="twentymm" class="form-control" disabled/>
+      </td>
+      <td>
+        <input  type="number" [(ngModel)]= "quantityItemSteel.twentyFive"  id="twentyFivemm" class="form-control" disabled/>
+      </td>
+      <td>
+        <input  type="number" [(ngModel)]= "quantityItemSteel.thirty"  id="thirtymm" class="form-control" disabled/>
+      </td>
+
+      <td colspan="2">
+        <div class="col-xs-2">
+          <span title="Delete Quantity Item"  class="glyphicon glyphicon-trash"></span>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <label>{{ getTableHeadings().WEIGHT_IN_KG }}</label>
+      </td>
+      <td>
+        <span> </span>
+      </td>
+      <td>
+        <span> </span>
+      </td>
+      <td>
+        <span> </span>
+      </td>
+      <td>
+        <span> 0 </span>
+      </td>
+      <td>
+        <span> 0 </span>
+      </td>
+      <td>
+        <span> 0 </span>
+      </td>
+      <td>
+        <span> 0 </span>
+      </td>
+      <td>
+        <span> 0 </span>
+      </td>
+      <td>
+        <span> 0 </span>
+      </td>
+      <td>
+        <span> 0 </span>
+      </td>
+      <td>
+        <span> 0 </span>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+  <button type="button" class="hidden-xs">+ {{ getButton().ADD }} {{ getButton().ROW }}</button>
+  <button type="submit" class="hidden-xs">{{ getButton().SAVE }}</button>
+  <!--<button *ngIf="innerView !== getLabel().WORKITEM_QUANTITY_TAB" class="cancel hidden-xs" (click)="closeQuantityTab()">{{ getButton().CANCEL_BUTTON }}</button>
+  <button *ngIf="innerView === getLabel().WORKITEM_QUANTITY_TAB" class="cancel hidden-xs" (click)="closeInnerViewTab()">{{ getButton().CANCEL_BUTTON }}</button>
+--></div>
+
+<!--<div class="modal fade" id="deleteQuantity" role="dialog">
+  <bi-delete-confirmation-modal [elementType]="deleteConfirmationQuantityItem" (deleteElementEvent)="deleteElement($event)"></bi-delete-confirmation-modal>
+</div>-->

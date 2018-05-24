@@ -93,6 +93,7 @@ import {CostSummaryReportComponent} from './build-info/framework/project/report-
 import { DisclaimerComponent } from './shared/disclaimer-component/disclaimer-component';
 import {
   SortByCategoryAmountPipe} from './build-info/framework/project/cost-summary-report/cost-head/sort-by-category-amount.pipe';
+import { GetSteelQuantityComponent} from './build-info/framework/project/cost-summary-report/cost-head/get-quantity-steel/get-quantity-steel.component';
 
 @NgModule({
   imports: [
@@ -136,6 +137,7 @@ import {
     CostSummaryPipe,
     SortByCategoryAmountPipe,
     GetQuantityComponent,
+    GetSteelQuantityComponent,
     MaterialTakeoffComponent,
     CostHeadWiseReportComponent,
     MaterialWiseReportComponent,

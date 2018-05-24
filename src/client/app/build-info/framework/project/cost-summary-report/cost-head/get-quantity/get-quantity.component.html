@@ -18,9 +18,6 @@
     <td class="get-amount-value">
       <input [(ngModel)]="quantityItem.item" id="costitem"  class="form-control" [class.required-field]="quantityItem.item == ''"/>
     </td>
-    <!--<td class="remark-icon">
-      <img title="{{quantityItem.remarks}}" src="assets/build-info/dashboard/comment.png" width="16" height="16" />
-    </td>-->
     <td  class="get-amount-value">
       <input type="number" [(ngModel)]="quantityItem.nos" id="numbers" (change)="updateQuantity('updateNos')" class="form-control" required/>
     </td>

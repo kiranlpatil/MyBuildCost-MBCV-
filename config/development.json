@@ -7892,7 +7892,7 @@
             {
               "name" : "Boards & Signages inside building",
               "rateAnalysisId" : 100557,
-              "isMeasurementSheet" : true,
+              "isMeasurementSheet" : false,
               "measurementUnit" : "cum",
               "isRateAnalysis" : true,
               "rateAnalysisPerUnit" : 1,
