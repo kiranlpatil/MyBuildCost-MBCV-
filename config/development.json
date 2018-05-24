@@ -9632,7 +9632,6 @@
     }
   ],
 
-  //By shree
   "configProjectCostHeads" : [
     {
       "name" : "Club House",
@@ -12416,93 +12415,6 @@
       ]
     },
     {
-      "name" : "Finance cost",
-      "priorityId": 137,
-      "rateAnalysisId" : 200235,
-      "categories" : [
-        {
-          "name" : "Estimated cost will be same as budgeted cost. Estimated cost will be non clickable/non editable.",
-          "rateAnalysisId" : 200236,
-          "workItems" : [
-            {
-              "name" : "",
-              "rateAnalysisId" : 200237,
-              "isMeasurementSheet" : false,
-              "measurementUnit" : null,
-              "isRateAnalysis" : false,
-              "rateAnalysisPerUnit" : null,
-              "rateAnalysisUnit" : null,
-              "isDirectRate" : false,
-              "directRate" : null,
-              "directRatePerUnit" : null,
-              "isItemBreakdownRequired" : false,
-              "length" : null,
-              "breadthOrWidth" : null,
-              "height" : null
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "name" : "Administrative charges",
-      "priorityId": 138,
-      "rateAnalysisId" : 200238,
-      "categories" : [
-        {
-          "name" : "Estimated cost will be same as budgeted cost. Estimated cost will be non clickable/non editable.",
-          "rateAnalysisId" : 200239,
-          "workItems" : [
-            {
-              "name" : "",
-              "rateAnalysisId" : 200240,
-              "isMeasurementSheet" : false,
-              "measurementUnit" : null,
-              "isRateAnalysis" : false,
-              "rateAnalysisPerUnit" : null,
-              "rateAnalysisUnit" : null,
-              "isDirectRate" : false,
-              "directRate" : null,
-              "directRatePerUnit" : null,
-              "isItemBreakdownRequired" : false,
-              "length" : null,
-              "breadthOrWidth" : null,
-              "height" : null
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "name" : "Local body-  Project sanctioning charges",
-      "priorityId": 139,
-      "rateAnalysisId" : 200241,
-      "categories" : [
-        {
-          "name" : "Estimated cost will be same as budgeted cost. Estimated cost will be non clickable/non editable.",
-          "rateAnalysisId" : 200242,
-          "workItems" : [
-            {
-              "name" : "",
-              "rateAnalysisId" : 200243,
-              "isMeasurementSheet" : false,
-              "measurementUnit" : null,
-              "isRateAnalysis" : false,
-              "rateAnalysisPerUnit" : null,
-              "rateAnalysisUnit" : null,
-              "isDirectRate" : false,
-              "directRate" : null,
-              "directRatePerUnit" : null,
-              "isItemBreakdownRequired" : false,
-              "length" : null,
-              "breadthOrWidth" : null,
-              "height" : null
-            }
-          ]
-        }
-      ]
-    },
-    {
       "name" : "Security charges during project period",
       "priorityId": 140,
       "rateAnalysisId" : 200244,
@@ -12549,7 +12461,6 @@
     }
   ],
 
-  //By shree
   "fixedCostConfigProjectCostHeads" : [
     {
       "name" : "Temporary electrification",
