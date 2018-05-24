@@ -6047,7 +6047,6 @@
           "workItems" : [
             {
               "name" : "Concrete door frame for door size 3'0\"x 7'0\".",
-              "rateAnalysisId" : 100410,
               "isMeasurementSheet" : false,
               "measurementUnit" : "No.",
               "isRateAnalysis" : true,

@@ -243,10 +243,11 @@ export class CostHeadComponent implements OnInit, OnChanges {
       this.showQuantityDetails = false;
     }
   }
-  updateSteelMeasurementSheet() {
-
-    if( this.showWorkItemTab !== Label.WORKITEM_QUANTITY_TAB){
+  updateSteelMeasurementSheet(categoryId: number, workItem : WorkItem, categoryIndex : number, workItemIndex : number) {
+    if( this.showWorkItemTab !== Label.WORKITEM_QUANTITY_TAB) {
       this.showWorkItemTab=Label.WORKITEM_STEEL_QUANTITY_TAB;
+      }else {
+      this.showWorkItemTab=null;
 
     }
 

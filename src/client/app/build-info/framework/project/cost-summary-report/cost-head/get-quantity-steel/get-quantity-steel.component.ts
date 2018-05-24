@@ -24,7 +24,7 @@ import {SteelQuantityItem} from "../../../../model/steelQuantityItem";
 
 export class GetSteelQuantityComponent implements OnInit {
   diameterValuesArray:any[] =ValueConstant.STEEL_DIAMETER_VALUES.slice();
-  steelQuantityItems: Array<SteelQuantityItem>;
+  steelQuantityItems: Array<SteelQuantityItem>=new Array<SteelQuantityItem>();
   selectedDiameterValue:number;
 
   ngOnInit() {

@@ -1,4 +1,4 @@
-<div>
+<div class="get-quantity-section">
   <table class="table">
     <thead>
     <th>{{ getTableHeadings().ITEM }}</th>
@@ -16,6 +16,8 @@
     <th>{{ getTableHeadings().SIXTEEN_MM }}</th>
     <th>{{ getTableHeadings().TWENTY_MM }}</th>
     <th>{{ getTableHeadings().TWENTYFIVE_MM }}</th>
+    <th>{{ getTableHeadings().THIRTY_MM }}</th>
+
     <th class="hidden-xs">&nbsp;</th>
     <th class="hidden-xs">&nbsp;</th>
     </thead>
@@ -30,34 +32,34 @@
           <option *ngFor="let diameter of diameterValuesArray" [value]="diameter">{{ diameter }}</option>
         </select></td>
       <td>
-        <input type="number" [(ngModel)]="quantityItemSteel.length" id="length" class="form-control" required/>
+        <input  type="number" class="get-amount-value" [(ngModel)]="quantityItemSteel.length" id="length" class="form-control" required/>
       </td>
       <td>
-        <input  type="number"   [(ngModel)]="quantityItemSteel.nos" id="nos" class="form-control"/>
+        <input  type="number"   class="get-amount-value" [(ngModel)]="quantityItemSteel.nos" id="nos" class="form-control"/>
       </td>
       <td>
-        <input type="number"  [(ngModel)]="quantityItemSteel.six" id="sixmm"  class="form-control" disabled/>
+        <input type="number"  class="get-amount-value" [(ngModel)]="quantityItemSteel.six" id="sixmm"  class="form-control" disabled/>
       </td>
       <td>
-        <input  type="number" [(ngModel)]= "quantityItemSteel.eight"  id="eightmm" class="form-control" disabled/>
+        <input  type="number"  class="get-amount-value" [(ngModel)]= "quantityItemSteel.eight"  id="eightmm" class="form-control" disabled/>
       </td>
       <td>
-        <input  type="number" [(ngModel)]= "quantityItemSteel.ten"  id="tenmm" class="form-control" disabled/>
+        <input  type="number"  class="get-amount-value" [(ngModel)]= "quantityItemSteel.ten"  id="tenmm" class="form-control" disabled/>
       </td>
       <td>
-        <input  type="number" [(ngModel)]= "quantityItemSteel.twelve"  id="twelvemm" class="form-control" disabled/>
+        <input  type="number"  class="get-amount-value" [(ngModel)]= "quantityItemSteel.twelve"  id="twelvemm" class="form-control" disabled/>
       </td>
       <td>
-        <input  type="number" [(ngModel)]= "quantityItemSteel.sixteen"  id="sixteenmm" class="form-control" disabled/>
+        <input  type="number"  class="get-amount-value" [(ngModel)]= "quantityItemSteel.sixteen"  id="sixteenmm" class="form-control" disabled/>
       </td>
       <td>
-        <input  type="number" [(ngModel)]= "quantityItemSteel.twenty"  id="twentymm" class="form-control" disabled/>
+        <input  type="number"  class="get-amount-value" [(ngModel)]= "quantityItemSteel.twenty"  id="twentymm" class="form-control" disabled/>
       </td>
       <td>
-        <input  type="number" [(ngModel)]= "quantityItemSteel.twentyFive"  id="twentyFivemm" class="form-control" disabled/>
+        <input  type="number"  class="get-amount-value" [(ngModel)]= "quantityItemSteel.twentyFive"  id="twentyFivemm" class="form-control" disabled/>
       </td>
       <td>
-        <input  type="number" [(ngModel)]= "quantityItemSteel.thirty"  id="thirtymm" class="form-control" disabled/>
+        <input  type="number"  class="get-amount-value" [(ngModel)]= "quantityItemSteel.thirty"  id="thirtymm" class="form-control" disabled/>
       </td>
 
       <td colspan="2">
