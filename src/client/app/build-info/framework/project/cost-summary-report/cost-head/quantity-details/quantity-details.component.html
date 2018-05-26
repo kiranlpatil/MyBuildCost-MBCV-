@@ -18,6 +18,10 @@
                   (click)="updateFloorwiseQunatityConfirmation(quantity, getLabel().WORKITEM_QUANTITY_TAB, quantityIndex)">
                  <img src="assets/build-info/dashboard/calculator2.png" />
             </span>
+            <span class="calculator" id="getQuantity1{{quantityIndex}}"
+                  (click)="updateFloorwiseQunatityConfirmation(quantity, getLabel().WORKITEM_STEEL_QUANTITY_TAB, quantityIndex)">
+                 <img src="assets/build-info/dashboard/calculator2.png" />
+            </span>
           </div>
         </td>
 
@@ -84,7 +88,8 @@
               </div>
           </div>
           <div *ngIf="quantityIndex === currentFloorIndex && showInnerView === getLabel().WORKITEM_STEEL_QUANTITY_TAB">
-            <bi-get-quantity-steel [steelQuantityItems]="quantityItemsArray"
+            <bi-get-quantity-steel [steelQuantityItems]="steelquantityItem.steelQuantityItem"
+                                   [totalDiamterQuantity]="steelquantityItem"
                                  [quantityDetails]="quantityDetails"
                                  [workItem]="workItem"
                                    [categoryDetails] ="categoryDetails"

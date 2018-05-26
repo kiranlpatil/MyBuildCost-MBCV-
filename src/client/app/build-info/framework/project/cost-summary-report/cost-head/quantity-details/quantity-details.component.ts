@@ -12,6 +12,8 @@ import {
 import { CostSummaryService } from '../../cost-summary.service';
 import { LoaderService } from '../../../../../../shared/loader/loaders.service';
 import { Rate } from '../../../../model/rate';
+import {SteelQuantityItem} from "../../../../model/steelQuantityItem";
+import {SteelQuantityItems} from "../../../../model/SteelQuantityItems";
 declare var $: any;
 
 @Component({
@@ -46,7 +48,7 @@ export class QuantityDetailsComponent implements OnInit {
   previousRateQuantity : number = 0;
   quantityIncrement : number = 1;
   total : number;
-
+steelquantityItem:any;
   currentFloorIndex : number;
   showInnerView : string;
   quantity : QuantityDetails;
@@ -93,8 +95,16 @@ export class QuantityDetailsComponent implements OnInit {
     if(quantityDetail.name !== undefined) {
       if (floorIndex !== this.currentFloorIndex || this.showInnerView !== showInnerView) {
         this.setFloorIndex(floorIndex);
-        if (quantityDetail.quantityItems.length !== 0) {
+        if (showInnerView !=this.getLabel().WORKITEM_STEEL_QUANTITY_TAB && quantityDetail.quantityItems.length !== 0 ) {
           this.quantityItemsArray = lodsh.cloneDeep(quantityDetail.quantityItems);
+          this.keyQuantity = quantityDetail.name;
+          this.quantityId = quantityDetail.id;
+        }else if(showInnerView==this.getLabel().WORKITEM_STEEL_QUANTITY_TAB){
+          if( quantityDetail.steelQuantityItems ){
+            this.steelquantityItem=quantityDetail.steelQuantityItems;
+          }else{
+            this.steelquantityItem=new SteelQuantityItems();
+          }
           this.keyQuantity = quantityDetail.name;
           this.quantityId = quantityDetail.id;
         } else {
@@ -133,7 +143,7 @@ export class QuantityDetailsComponent implements OnInit {
     } else {
       if(flag === Label.DIRECT_QUANTITY) {
         this.updateQuantityDetails(quantity, flag, quantityIndex);
-      } else if(flag === Label.WORKITEM_QUANTITY_TAB) {
+      } else if(flag === Label.WORKITEM_QUANTITY_TAB || flag === Label.WORKITEM_STEEL_QUANTITY_TAB ) {
         this.getQuantity(quantity, quantityIndex, flag);
       }
     }

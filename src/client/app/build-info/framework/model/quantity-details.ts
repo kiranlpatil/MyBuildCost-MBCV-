@@ -10,6 +10,6 @@ export class QuantityDetails {
   steelQuantityItems?: SteelQuantityItems;
   constructor() {
     this.total = 0;
-    this.quantityItems = new Array<QuantityItem>();
+    //his.quantityItems = new Array<QuantityItem>();
   }
 }
