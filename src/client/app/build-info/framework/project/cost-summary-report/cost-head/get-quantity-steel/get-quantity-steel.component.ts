@@ -12,8 +12,8 @@ import { WorkItem } from '../../../../model/work-item';
 import { Router } from '@angular/router';
 import { CommonService } from '../../../../../../../app/shared/services/common.service';
 import { QuantityDetails } from '../../../../model/quantity-details';
-import {SteelQuantityItem} from "../../../../model/steelQuantityItem";
-import {SteelQuantityItems} from "../../../../model/SteelQuantityItems";
+import { SteelQuantityItem } from '../../../../model/steelQuantityItem';
+import { SteelQuantityItems } from '../../../../model/SteelQuantityItems';
 
 
 @Component({

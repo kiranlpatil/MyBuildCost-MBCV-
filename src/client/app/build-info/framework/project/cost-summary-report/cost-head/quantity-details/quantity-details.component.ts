@@ -177,7 +177,7 @@ export class QuantityDetailsComponent implements OnInit {
       quantityDetailsObj.id =  quantity.id;
       quantityDetailsObj.name = quantity.name;
       quantityDetailsObj.total = quantity.total;
-      if(flag === Label.NAME) {
+    /*  if(flag === Label.NAME) {
         quantityDetailsObj.quantityItems = quantity.quantityItems;
       } else if(flag === Label.DIRECT_QUANTITY) {
         quantityDetailsObj.quantityItems = [];
@@ -185,7 +185,7 @@ export class QuantityDetailsComponent implements OnInit {
         this.showInnerView = null;
       } else {
         console.log('error');
-      }
+      }*/
       this.loaderService.start();
 
       this.costSummaryService.updateQuantityDetails(this.baseUrl, costHeadId, this.categoryRateAnalysisId,

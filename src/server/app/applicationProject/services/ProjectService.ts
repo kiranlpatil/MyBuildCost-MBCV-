@@ -33,6 +33,7 @@ let log4js = require('log4js');
 import * as mongoose from 'mongoose';
 import RateAnalysis = require('../dataaccess/model/RateAnalysis/RateAnalysis');
 import SteelQuantityDetails = require('../dataaccess/model/project/building/SteelQuantityDetails');
+import SteelQuantityItems = require("../dataaccess/model/project/building/SteelQuantityItems");
 
 //import RateItemsAnalysisData = require("../dataaccess/model/project/building/RateItemsAnalysisData");
 
@@ -1665,13 +1666,19 @@ class ProjectService {
             for (let quantityIndex = 0; quantityIndex < quantityDetails.length; quantityIndex++) {
               if (quantityDetails[quantityIndex].id === quantityDetailsObj.id) {
                 quantityDetails[quantityIndex].name = quantityDetailsObj.name;
-                if( quantityDetailsObj.quantityItems.length === 0) {
+            /*    if( quantityDetailsObj.quantityItems.length === 0) {
                   quantityDetails[quantityIndex].quantityItems = [];
                   quantityDetails[quantityIndex].isDirectQuantity = true;
                 } else {
                   quantityDetails[quantityIndex].quantityItems = quantityDetailsObj.quantityItems;
                   quantityDetails[quantityIndex].isDirectQuantity = false;
-                }
+                }*/
+            if(quantityDetailsObj.steelQuantityItems) {
+              quantityDetails[quantityIndex].steelQuantityItems = new SteelQuantityItems();
+            }else if(quantityDetailsObj.quantityItems) {
+              quantityDetails[quantityIndex].quantityItems = [];
+            }
+                quantityDetails[quantityIndex].isDirectQuantity = true;
                 quantityDetails[quantityIndex].total = quantityDetailsObj.total;
               }
             }
@@ -1732,7 +1739,7 @@ class ProjectService {
           } else {
             quantityDetail.id = quantityId;
             quantityDetail.isDirectQuantity = false;
-            quantityDetail.total = alasql('VALUE OF SELECT ROUND(SUM(quantity),2) FROM ?', [quantityDetail.quantityItems]);
+           // quantityDetail.total = alasql('VALUE OF SELECT ROUND(SUM(quantity),2) FROM ?', [quantityDetail.quantityItems]);
             quantity.quantityItemDetails.push(quantityDetail);
           }
           /*else {
@@ -1757,10 +1764,11 @@ class ProjectService {
                  }*/
         }else {
           quantity.quantityItemDetails = [];
-          console.log('quantity : '+JSON.stringify(quantity));
+       //   console.log('quantity : '+JSON.stringify(quantity));
           quantityDetail.id = quantityId;
-          quantityDetail.total = alasql('VALUE OF SELECT ROUND(SUM(quantity),2) FROM ?', [quantityDetail.quantityItems]);
-          console.log(quantity.quantityItemDetails);
+          quantityDetail.isDirectQuantity = false;
+         // quantityDetail.total = alasql('VALUE OF SELECT ROUND(SUM(quantity),2) FROM ?', [quantityDetail.quantityItems]);
+        //  console.log(quantity.quantityItemDetails);
           quantity.quantityItemDetails.push(quantityDetail);
         }
       }

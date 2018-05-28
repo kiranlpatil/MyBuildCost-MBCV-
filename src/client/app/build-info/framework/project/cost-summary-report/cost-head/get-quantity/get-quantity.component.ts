@@ -194,7 +194,7 @@ export class GetQuantityComponent implements OnInit {
         return workItemData.rateAnalysisId === workItemId;
       });
 
-    this.commonService.calculateTotalOfQuantityItemDetails(workItemData[0]);
+   // this.commonService.calculateTotalOfQuantityItemDetails(workItemData[0]);
 
       if(workItemData[0].quantity.total !== 0) {
         workItemData[0].quantity.isEstimated = true;
