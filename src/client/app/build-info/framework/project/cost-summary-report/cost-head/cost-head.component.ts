@@ -675,6 +675,10 @@ debugger
     return Label;
   }
 
+  getMessages() {
+    return Messages;
+  }
+
   setCategoriesTotal( categoriesTotal : number) {
     this.categoryDetailsTotalAmount = categoriesTotal;
     this.refreshCategoryList();
