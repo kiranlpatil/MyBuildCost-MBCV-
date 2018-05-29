@@ -672,9 +672,9 @@ class ReportService {
                                                   quantity: number) {
     if(categoryName === Constants.STEEL) {
       for (let quantityItem of workItem.quantity.quantityItemDetails) {
-          for(let material of Object.keys(quantityItem.steelQuantityItems.totalWeightOfBar)) {
+          for(let material of Object.keys(quantityItem.steelQuantityItems.totalWeightOfDiameter)) {
             let materialTakeOffFlatDetailDTO = new MaterialTakeOffFlatDetailsDTO(buildingName, costHeadName, categoryName,
-              workItemName, material, quantityName, quantityItem.steelQuantityItems.totalWeightOfBar[material],
+              workItemName, material, quantityName, quantityItem.steelQuantityItems.totalWeightOfDiameter[material],
               quantityItem.steelQuantityItems.unit);
             materialTakeOffFlatDetailsArray.push(materialTakeOffFlatDetailDTO);
           }
