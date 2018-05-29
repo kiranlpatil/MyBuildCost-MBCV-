@@ -671,9 +671,7 @@ export class Animations {
   public static getListItemAnimationStyle(index : number, delayFactor : number) {
     return {
       'transition-delay': index * delayFactor + 's',
-      'opacity': 1,
-      // 'margin-top': '5px',
-      'transform': 'scale(1)'
+      'opacity': 1
     };
   }
 }
