@@ -101,7 +101,7 @@ export class QuantityDetailsComponent implements OnInit {
           this.quantityId = quantityDetail.id;
         }else if(showInnerView == this.getLabel().WORKITEM_STEEL_QUANTITY_TAB) {
           if( quantityDetail.steelQuantityItems ) {
-            this.steelquantityItem=quantityDetail.steelQuantityItems;
+            this.steelquantityItem=lodsh.cloneDeep(quantityDetail.steelQuantityItems);
           }else {
             this.steelquantityItem=new SteelQuantityItems();
           }
