@@ -282,30 +282,31 @@ export class CostHeadComponent implements OnInit, OnChanges, AfterViewInit {
   //Get Default Quantity (If floor wise or building wise quantity is not added)
   getDefaultQuantity(categoryId: number, workItem: WorkItem, categoryIndex: number, workItemIndex:number) {
 
-    if( this.showWorkItemTab !== Label.WORKITEM_QUANTITY_TAB || this.compareCategoryId !== categoryId ||
-      this.compareWorkItemId !== workItem.rateAnalysisId) {
-
+    if((this.showWorkItemTab !== Label.WORKITEM_QUANTITY_TAB || this.compareCategoryId !== categoryId ||
+      this.compareWorkItemId !== workItem.rateAnalysisId)) {
+      if((this.showWorkItemTab !== Label.WORKITEM_STEEL_QUANTITY_TAB || this.compareCategoryId !== categoryId ||
+          this.compareWorkItemId !== workItem.rateAnalysisId)) {
         this.setItemId(categoryId, workItem.rateAnalysisId);
         this.workItemId = workItem.rateAnalysisId;
         SessionStorageService.setSessionValue(SessionStorage.CURRENT_WORKITEM_ID, this.workItemId);
         this.workItem = workItem;
         let quantityDetails: Array<QuantityDetails> = workItem.quantity.quantityItemDetails;
 
-        if( quantityDetails.length !==0 && quantityDetails[0].name === Label.DEFAULT_VIEW && !this.workItem.isSteelWorkItem) {
-            this.workItem.quantity.quantityItemDetails = [];
-            let defaultQuantityDetail = quantityDetails.filter(
-              function( defaultQuantityDetail: any){
-                return defaultQuantityDetail.name === Label.DEFAULT_VIEW;
-              });
-            this.workItem.quantity.quantityItemDetails = defaultQuantityDetail;
-            this.quantityItemsArray = lodsh.cloneDeep(defaultQuantityDetail[0].quantityItems);
-            this.keyQuantity = defaultQuantityDetail[0].name;
-            this.quantityId = defaultQuantityDetail[0].id;
-        } else if(quantityDetails.length !==0 && quantityDetails[0].name === Label.DEFAULT_VIEW && this.workItem.isSteelWorkItem){
+        if (quantityDetails.length !== 0 && quantityDetails[0].name === Label.DEFAULT_VIEW && !this.workItem.isSteelWorkItem) {
+          this.workItem.quantity.quantityItemDetails = [];
+          let defaultQuantityDetail = quantityDetails.filter(
+            function (defaultQuantityDetail: any) {
+              return defaultQuantityDetail.name === Label.DEFAULT_VIEW;
+            });
+          this.workItem.quantity.quantityItemDetails = defaultQuantityDetail;
+          this.quantityItemsArray = lodsh.cloneDeep(defaultQuantityDetail[0].quantityItems);
+          this.keyQuantity = defaultQuantityDetail[0].name;
+          this.quantityId = defaultQuantityDetail[0].id;
+        } else if (quantityDetails.length !== 0 && quantityDetails[0].name === Label.DEFAULT_VIEW && this.workItem.isSteelWorkItem) {
 
           this.workItem.quantity.quantityItemDetails = [];
           let defaultQuantityDetail = quantityDetails.filter(
-            function( defaultQuantityDetail: any){
+            function (defaultQuantityDetail: any) {
               return defaultQuantityDetail.name === Label.DEFAULT_VIEW;
             });
           this.workItem.quantity.quantityItemDetails = defaultQuantityDetail;
@@ -313,21 +314,24 @@ export class CostHeadComponent implements OnInit, OnChanges, AfterViewInit {
           this.keyQuantity = defaultQuantityDetail[0].name;
           this.quantityId = defaultQuantityDetail[0].id;
         } else {
-            let quantityDetail: QuantityDetails = new QuantityDetails();
-            quantityDetail.quantityItems = [];
-            quantityDetail.name = this.getLabel().DEFAULT_VIEW;
-            if(this.workItem.isSteelWorkItem) {
-              this.steelQuantityItemsArray=new SteelQuantityItems();
-            }else {
-              this.quantityItemsArray = [];
-            }
-           // this.workItem.quantity.quantityItemDetails.push(quantityDetail);
-            this.keyQuantity = this.getLabel().DEFAULT_VIEW;
+          let quantityDetail: QuantityDetails = new QuantityDetails();
+          quantityDetail.quantityItems = [];
+          quantityDetail.name = this.getLabel().DEFAULT_VIEW;
+          if (this.workItem.isSteelWorkItem) {
+            this.steelQuantityItemsArray = new SteelQuantityItems();
+          } else {
+            this.quantityItemsArray = [];
           }
+          // this.workItem.quantity.quantityItemDetails.push(quantityDetail);
+          this.keyQuantity = this.getLabel().DEFAULT_VIEW;
+        }
         this.currentCategoryIndex = categoryIndex;
         this.currentWorkItemIndex = workItemIndex;
-      this.showWorkItemTab =this.workItem.isSteelWorkItem? Label.WORKITEM_STEEL_QUANTITY_TAB:Label.WORKITEM_QUANTITY_TAB;
-        } else {
+        this.showWorkItemTab = this.workItem.isSteelWorkItem ? Label.WORKITEM_STEEL_QUANTITY_TAB : Label.WORKITEM_QUANTITY_TAB;
+      }else {
+         this.showWorkItemTab=null;
+      }
+    } else {
       this.showWorkItemTab = null;
     }
   }
