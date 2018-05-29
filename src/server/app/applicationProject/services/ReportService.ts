@@ -659,22 +659,11 @@ class ReportService {
       this.createAndAddMaterialDTOObjectInDTOArray(workItem, buildingName, costHeadName, categoryName, workItemName, quantityName,
         materialTakeOffFlatDetailsArray, workItem.quantity.total);
     } else if (workItem.quantity.isEstimated && workItem.rate.isEstimated) {
-
-
-      if(workItem.isSteelWorkItem) {
         for (let quantity of workItem.quantity.quantityItemDetails) {
           quantityName = quantity.name;
           this.createAndAddMaterialDTOObjectInDTOArray(workItem, buildingName, costHeadName, categoryName, workItemName, quantityName,
             materialTakeOffFlatDetailsArray, quantity.total);
         }
-      } else {
-        for (let quantity of workItem.quantity.quantityItemDetails) {
-          quantityName = quantity.name;
-          this.createAndAddMaterialDTOObjectInDTOArray(workItem, buildingName, costHeadName, categoryName, workItemName, quantityName,
-            materialTakeOffFlatDetailsArray, quantity.total);
-        }
-      }
-
     }
   }
 
