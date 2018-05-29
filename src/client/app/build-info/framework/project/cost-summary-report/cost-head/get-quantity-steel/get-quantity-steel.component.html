@@ -1,6 +1,6 @@
 <div class="get-quantity-section">
-  <button *ngIf="innerView !== getLabel().WORKITEM_QUANTITY_TAB" class="close" (click)="closeQuantityTab()"><img src="assets/framework/images/close/close-black.svg" /></button>
-  <button *ngIf="innerView === getLabel().WORKITEM_QUANTITY_TAB" class="close" (click)="closeInnerViewTab()"><img src="assets/framework/images/close/close-black.svg" /></button>
+  <button *ngIf="innerView !== getLabel().WORKITEM_STEEL_QUANTITY_TAB" class="close" (click)="closeQuantityTab()"><img src="assets/framework/images/close/close-black.svg" /></button>
+  <button *ngIf="innerView === getLabel().WORKITEM_STEEL_QUANTITY_TAB" class="close" (click)="closeInnerViewTab()"><img src="assets/framework/images/close/close-black.svg" /></button>
   <span>Calculated weight for each displayed in below columns</span>
   <table class="table">
     <thead>
@@ -42,7 +42,9 @@
         <input  type="number"   class="get-amount-value" [(ngModel)]="quantityItemSteel.nos" id="nos"  style="width:150%" class="form-control"/>
       </td>
       <td *ngFor="let diameter of getValueConstant().STEEL_DIAMETER_VALUES;let j=index">
+        <div *ngIf="getDiameterQuantityFun(quantityIndex,diameter,getValueConstant().STEEL_DIAMETER_STRING_VALUES[j],getValueConstant().TOTAL_STEEL_DIAMETER_STRING_VALUES[j])!==0.00">
         <span disabled >{{getDiameterQuantityFun(quantityIndex,diameter,getValueConstant().STEEL_DIAMETER_STRING_VALUES[j],getValueConstant().TOTAL_STEEL_DIAMETER_STRING_VALUES[j])|number:'1.2-2'}}kg</span>
+        </div>
       </td>
 
       <td colspan="2">
@@ -66,17 +68,19 @@
       </td>
 
       <td *ngFor="let diameter of getValueConstant().STEEL_DIAMETER_VALUES;let k=index">
-
+        <div *ngIf="getTotalDiameterQuantity(diameter,k)!==0.00">
         <span>{{getTotalDiameterQuantity(diameter,k)|number:'1.2-2'}}kg</span>
+        </div>
       </td>
+
     </tr>
     </tbody>
   </table>
 
   <button type="button" class="hidden-xs" (click)="addQuantityItem()">+ {{ getButton().ADD }} {{ getButton().ROW }}</button>
   <button type="submit" class="hidden-xs" (click)="updateQuantityItem(totalDiamterQuantity)">{{ getButton().SAVE }}</button>
-  <button *ngIf="innerView !== getLabel().WORKITEM_QUANTITY_TAB" class="cancel hidden-xs" (click)="closeQuantityTab()">{{getButton().CANCEL_BUTTON}}</button>
-  <button *ngIf="innerView === getLabel().WORKITEM_QUANTITY_TAB" class="cancel hidden-xs" (click)="closeInnerViewTab()">{{getButton().CANCEL_BUTTON}}</button>
+  <button *ngIf="innerView !== getLabel().WORKITEM_STEEL_QUANTITY_TAB" class="cancel hidden-xs" (click)="closeQuantityTab()">{{getButton().CANCEL_BUTTON}}</button>
+  <button *ngIf="innerView === getLabel().WORKITEM_STEEL_QUANTITY_TAB" class="cancel hidden-xs" (click)="closeInnerViewTab()">{{getButton().CANCEL_BUTTON}}</button>
 
 
 </div>
