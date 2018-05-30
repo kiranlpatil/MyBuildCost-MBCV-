@@ -70,11 +70,11 @@ export class GetSteelQuantityComponent implements OnInit {
     return 0;
   }
 
-  getTotalDiameterQuantity(diameter :number,k:number) {
+  getTotalDiameterQuantity(diameter :number,index:number) {
     let tempArray:any;
    for(let steelQuantityItemIndex in this.steelQuantityItems) {
     let steelQuantityItem: any =  this.steelQuantityItems[steelQuantityItemIndex];
-    if (diameter === parseInt(this.steelQuantityItems[steelQuantityItemIndex].diameter) && this.steelQuantityItems[steelQuantityItemIndex].weight != 0) {
+    if (diameter == parseInt(this.steelQuantityItems[steelQuantityItemIndex].diameter) && this.steelQuantityItems[steelQuantityItemIndex].weight !== 0) {
       if(tempArray == undefined) {
         tempArray= {};
       }
@@ -86,9 +86,9 @@ export class GetSteelQuantityComponent implements OnInit {
   }
   if(tempArray && tempArray[diameter] ) {
      if((<any>this.totalDiamterQuantity.totalWeightOfDiameter===undefined)) {
-       (<any>this.totalDiamterQuantity.totalWeightOfDiameter)={};
+       (<any>this.totalDiamterQuantity.totalWeightOfDiameter)= {};
      }
-    (<any>this.totalDiamterQuantity.totalWeightOfDiameter)[this.getValueConstant().STEEL_DIAMETER_STRING_VALUES[k]]=
+    (<any>this.totalDiamterQuantity.totalWeightOfDiameter)[this.getValueConstant().STEEL_DIAMETER_STRING_VALUES[index]]=
       tempArray[diameter].reduce((acc:any, val:any) => { return acc + val; });
     return tempArray[diameter].reduce((acc:any, val:any) => { return acc + val; });
   }
