@@ -1632,9 +1632,15 @@ class ProjectService {
               quantityDetails[quantityIndex].quantityItems = [];
             }
                 }*/
-                quantityDetails[quantityIndex].quantityItems = [];
-                quantityDetails[quantityIndex].steelQuantityItems = new SteelQuantityItems();
-                quantityDetails[quantityIndex].isDirectQuantity = true;
+                if( quantityDetailsObj.quantityItems.length === 0 && quantityDetailsObj.steelQuantityItems.steelQuantityItem.length === 0) {
+                  quantityDetails[quantityIndex].quantityItems = [];
+                  quantityDetails[quantityIndex].steelQuantityItems = new SteelQuantityItems();
+                  quantityDetails[quantityIndex].isDirectQuantity = true;
+                } else if(quantityDetailsObj.quantityItems.length !== 0 || quantityDetailsObj.steelQuantityItems.steelQuantityItem.length !==0 ) {
+                  quantityDetails[quantityIndex].quantityItems = quantityDetailsObj.quantityItems;
+                  quantityDetails[quantityIndex].steelQuantityItems = quantityDetailsObj.steelQuantityItems;
+                  quantityDetails[quantityIndex].isDirectQuantity = false;
+                }
                 quantityDetails[quantityIndex].total = quantityDetailsObj.total;
               }
             }

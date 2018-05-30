@@ -180,8 +180,13 @@ export class QuantityDetailsComponent implements OnInit {
       quantityDetailsObj.name = quantity.name;
       quantityDetailsObj.total = quantity.total;
       if(flag === Label.NAME) {
-        quantityDetailsObj.quantityItems = [];
-        quantityDetailsObj.steelQuantityItems = new SteelQuantityItems();
+        if(quantity.quantityItems || quantity.steelQuantityItems) {
+          quantityDetailsObj.quantityItems = quantity.quantityItems;
+          quantityDetailsObj.steelQuantityItems = quantity.steelQuantityItems;
+        }else {
+          quantityDetailsObj.quantityItems = [];
+          quantityDetailsObj.steelQuantityItems = new SteelQuantityItems();
+        }
       } else if(flag === Label.DIRECT_QUANTITY) {
         quantityDetailsObj.quantityItems = [];
         quantityDetailsObj.steelQuantityItems = new SteelQuantityItems();
