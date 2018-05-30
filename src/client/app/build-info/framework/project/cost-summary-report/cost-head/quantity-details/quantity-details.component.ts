@@ -141,7 +141,6 @@ export class QuantityDetailsComponent implements OnInit {
     }
     if((flag === Label.DIRECT_QUANTITY &&  quantity.quantityItems.length !== 0 && quantity.total !== 0) ||
       (flag === Label.WORKITEM_QUANTITY_TAB && quantity.quantityItems.length === 0 && quantity.total !== 0)) {
-      console.log('Update Modal');
       $('#updateFloorwiseQuantityModal'+quantityIndex).modal();
     } else {
       if(flag === Label.DIRECT_QUANTITY) {
