@@ -2,8 +2,8 @@
   <div class="building-image">
     <img src="assets/build-info/create-new-project/create-new-project.png" />
     <div class="project-actions">
-      <button class="btn btn-view" (click)="navigateToSelectedProject(project.projectId,project.projectName)">View</button>
+      <button class="btn btn-view" (click)="navigateToSelectedProject(project.projectId, project.projectName, project.numOfDaysToExpire)">View</button>
     </div>
   </div>
 </div>
-<h4 (click)="navigateToSelectedProject(project.projectId,project.projectName)">{{project.projectName}}</h4>
+<h4 (click)="navigateToSelectedProject(project.projectId, project.projectName, project.numOfDaysToExpire)">{{project.projectName}}</h4>

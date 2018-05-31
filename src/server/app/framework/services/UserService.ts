@@ -736,7 +736,7 @@ class UserService {
 
               //activation date for project subscription
               let activation_date = new Date(subscription.activationDate);
-              let expiryDate = new Date();
+              let expiryDate = new Date(subscription.activationDate);
               projectSubscription.expiryDate = new Date(expiryDate.setDate(activation_date.getDate() + subscription.validity));
 
               //expiry date for project subscription
@@ -775,8 +775,8 @@ class UserService {
     let ONEDAY = 1000 * 60 * 60 * 24;
     let date1_ms = date1.getTime();
     let date2_ms = date2.getTime();
-    let difference_ms = Math.abs(date1_ms - date2_ms);
-    return Math.round(difference_ms/ONEDAY);
+    let difference_ms = (date1_ms - date2_ms);
+    return (difference_ms/ONEDAY);
   }
 
   getProjectSubscription(user: User, projectId: string, callback:(error : any, result :any)=>void) {
