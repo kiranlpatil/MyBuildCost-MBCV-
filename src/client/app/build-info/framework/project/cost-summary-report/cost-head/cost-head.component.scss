@@ -445,15 +445,15 @@
     white-space: inherit;
   }
 }
-//.display-body {
-//  display: block !important;
-//  height: auto !important;
-//}
-//
-//.hide-body {
-//  display: none !important;
-//  height: 0 !important;
-//}
+.display-body {
+  display: block !important;
+  height: auto !important;
+}
+
+.hide-body {
+  display: none !important;
+  height: 0 !important;
+}
 .cost-head-panel-wrapper {
   box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.05);
   display: none;
