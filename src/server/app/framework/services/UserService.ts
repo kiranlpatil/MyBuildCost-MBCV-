@@ -33,6 +33,7 @@ class UserService {
 
   constructor() {
     this.userRepository = new UserRepository();
+    this.projectRepository = new ProjectRepository();
     this.APP_NAME = ProjectAsset.APP_NAME;
   }
 
@@ -782,7 +783,34 @@ class UserService {
       if (error) {
         callback(error, null);
       } else {
-        callback(null, result);
+        let query = { _id: projectId};
+        let populate = {path : 'buildings'};
+        this.projectRepository.findAndPopulate(query, populate, (error, resp) => {
+          if (error) {
+            callback(error, null);
+          } else {
+            let projectSubscription = new ProjectSubscriptionDetails();
+            projectSubscription.projectName = resp[0].name;
+            projectSubscription.projectId = resp[0]._id;
+            projectSubscription.numOfBuildingsAllocated = result[0].subscription.numOfBuildings;
+            projectSubscription.numOfBuildingsRemaining = (result[0].subscription.numOfBuildings - resp[0].buildings.length);
+            let activation_date = new Date(result[0].subscription.activationDate);
+            let expiryDate = new Date(result[0].subscription.activationDate);
+            projectSubscription.expiryDate = new Date(expiryDate.setDate(activation_date.getDate() + result[0].subscription.validity));
+
+            //expiry date for project subscription
+            let current_date = new Date();
+            projectSubscription.numOfDaysToExpire = this.daysdifference(projectSubscription.expiryDate, current_date);
+
+            if(projectSubscription.numOfDaysToExpire < 30 && projectSubscription.numOfDaysToExpire >=0) {
+              projectSubscription.warningMessage = projectSubscription.numOfDaysToExpire +
+                ' days are remaining to expire. Please renew Project';
+            } else if(projectSubscription.numOfDaysToExpire < 0) {
+              projectSubscription.expiryMessage = 'Please renew project. project is expired';
+            }
+            callback(null, projectSubscription);
+          }
+        });
       }
     });
   }

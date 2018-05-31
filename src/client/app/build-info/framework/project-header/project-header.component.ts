@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { SessionStorage, SessionStorageService } from '../../../shared/index';
 import { Menus, NavigationRoutes, CurrentView } from '../../../shared/constants';
+import { CostSummaryService } from '../project/cost-summary-report/cost-summary.service';
 
 @Component({
   moduleId: module.id,
@@ -16,7 +17,7 @@ export class ProjectHeaderComponent implements OnInit {
   @Output() toggleClassView = new EventEmitter<boolean>();
   @Input () isActiveAddBuildingButton?:boolean;
 
-  constructor(private _router: Router) {
+  constructor(private _router: Router, private costSummaryService : CostSummaryService) {
   }
 
   ngOnInit() {
@@ -28,7 +29,26 @@ export class ProjectHeaderComponent implements OnInit {
   }
 
   goToCreateBuilding() {
-    this._router.navigate([NavigationRoutes.APP_CREATE_BUILDING]);
+    let userId = SessionStorageService.getSessionValue(SessionStorage.USER_ID);
+    let projectId = SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT_ID);
+    this.costSummaryService.checkLimitationOfBuilding(userId, projectId).subscribe(
+      status=>this.checkLimitationOfBuildingSuccess(status),
+      error=>this.checkLimitationOfBuildingFailure(error)
+    );
+  }
+
+  checkLimitationOfBuildingSuccess(status:any) {
+    if(status.numOfBuildingsRemaining > 0) {
+      this._router.navigate([NavigationRoutes.APP_CREATE_BUILDING]);
+    } else {
+      //change package name with addOn packages
+      let packageName = 'Premium';
+      this._router.navigate([NavigationRoutes.APP_PACKAGE_SUMMARY, packageName]);
+    }
+  }
+
+  checkLimitationOfBuildingFailure(error:any) {
+    console.log(error);
   }
 
   getMenus() {

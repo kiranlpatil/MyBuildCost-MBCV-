@@ -184,19 +184,6 @@ export class CostSummaryComponent implements OnInit, AfterViewInit {
       SessionStorageService.setSessionValue(SessionStorage.FROM_VIEW, null);
       this.costSummaryService.moveRecentBuildingAtTop( this.projectReport.buildings.length - 1);
     }
-    /*this.costSummaryService.checkLimitationOfBuilding(this.userId,this.projectId).subscribe(
-      status=>this.checkLimitationOfBuildingSuccess(status),
-      error=>this.checkLimitationOfBuildingFailure(error)
-    );*/
-  }
-  checkLimitationOfBuildingSuccess(status:any){
-    this.isActiveAddBuildingButton=status.data.isActiveAddBuildingButton;
-  }
-  checkLimitationOfBuildingFailure(error:any){
- console.log(error);
-  }
-  onGetCostSummaryReportFailure(error : any) {
-    console.log('onGetCostInFail()'+error);
   }
 
   //TODO : Check if can merge
@@ -206,6 +193,10 @@ export class CostSummaryComponent implements OnInit, AfterViewInit {
       projectCostPer => this.onGetCostSummaryReportSuccess(projectCostPer),
       error => this.onGetCostSummaryReportFailure(error)
     );
+  }
+
+  onGetCostSummaryReportFailure(error : any) {
+    console.log('onGetCostInFail()'+error);
   }
 
   setIdsToInActiveCostHead(buildingId: string, costHeadId: number) {
