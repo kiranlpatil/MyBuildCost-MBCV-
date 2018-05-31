@@ -72,7 +72,7 @@
                                             id="directQuantity" size="10" class="form-control clear">
                                     <span class="calculator"
                                           id="getQuantity{{categoryIndex}}"
-                                          [class.disabled]="!workItem.isMeasurementSheet"
+                                          *ngIf="workItem.isMeasurementSheet"
                                           (click)="updateMeasurementSheet(category.rateAnalysisId, workItem, categoryIndex, workItemIndex);">
                                        <img src="assets/build-info/dashboard/calculator2.png" />
                                     </span>
