@@ -1,8 +1,8 @@
 class SteelQuantityItem {
   item: string;
-  diameterOfBar : number;
-  lengthOfBar : number;
-  nosOfBar: number;
-  totalWeightOfBar : number;
+  diameter : number;
+  length : number;
+  nos: number;
+  weight : number;
 }
 export = SteelQuantityItem;

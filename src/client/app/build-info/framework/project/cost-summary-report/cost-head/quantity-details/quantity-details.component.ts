@@ -12,6 +12,8 @@ import {
 import { CostSummaryService } from '../../cost-summary.service';
 import { LoaderService } from '../../../../../../shared/loader/loaders.service';
 import { Rate } from '../../../../model/rate';
+import {SteelQuantityItem} from "../../../../model/steelQuantityItem";
+import {SteelQuantityItems} from "../../../../model/SteelQuantityItems";
 declare var $: any;
 
 @Component({
@@ -46,7 +48,7 @@ export class QuantityDetailsComponent implements OnInit {
   previousRateQuantity : number = 0;
   quantityIncrement : number = 1;
   total : number;
-
+  steelquantityItem:any;
   currentFloorIndex : number;
   showInnerView : string;
   quantity : QuantityDetails;
@@ -93,8 +95,16 @@ export class QuantityDetailsComponent implements OnInit {
     if(quantityDetail.name !== undefined) {
       if (floorIndex !== this.currentFloorIndex || this.showInnerView !== showInnerView) {
         this.setFloorIndex(floorIndex);
-        if (quantityDetail.quantityItems.length !== 0) {
+        if (showInnerView !== this.getLabel().WORKITEM_STEEL_QUANTITY_TAB && quantityDetail.quantityItems && quantityDetail.quantityItems.length !== 0 ) {
           this.quantityItemsArray = lodsh.cloneDeep(quantityDetail.quantityItems);
+          this.keyQuantity = quantityDetail.name;
+          this.quantityId = quantityDetail.id;
+        }else if(showInnerView == this.getLabel().WORKITEM_STEEL_QUANTITY_TAB) {
+          if( quantityDetail.steelQuantityItems ) {
+            this.steelquantityItem=lodsh.cloneDeep(quantityDetail.steelQuantityItems);
+          }else {
+            this.steelquantityItem=new SteelQuantityItems();
+          }
           this.keyQuantity = quantityDetail.name;
           this.quantityId = quantityDetail.id;
         } else {
@@ -112,7 +122,7 @@ export class QuantityDetailsComponent implements OnInit {
             this.quantityId = quantityDetail.id;
           }
         }
-        this.showInnerView = this.getLabel().WORKITEM_QUANTITY_TAB;
+        this.showInnerView = showInnerView;
       } else {
         this.showInnerView = null;
       }
@@ -126,13 +136,19 @@ export class QuantityDetailsComponent implements OnInit {
 
   updateFloorwiseQunatityConfirmation(quantity :any, flag : string, quantityIndex ?: number) {
     this.flagForFloorwiseQuantity = flag;
-    if((flag === Label.DIRECT_QUANTITY && quantity.quantityItems.length !== 0 && quantity.total !== 0) ||
-      (flag === Label.WORKITEM_QUANTITY_TAB && quantity.quantityItems.length === 0 && quantity.total !== 0)) {
+    if(quantity.quantityItems===undefined) {
+      quantity.quantityItems=[];
+    }
+    if((flag === Label.DIRECT_QUANTITY && quantity.quantityItems &&  quantity.quantityItems.length !== 0 && quantity.total !== 0) ||
+      (flag === Label.WORKITEM_QUANTITY_TAB && quantity.quantityItems && quantity.quantityItems.length === 0 && quantity.total !== 0)) {
+      $('#updateFloorwiseQuantityModal'+quantityIndex).modal();
+    }else if((flag === Label.DIRECT_QUANTITY && quantity.steelQuantityItems && quantity.steelQuantityItems.steelQuantityItem.length !==0 && quantity.total !== 0) ||
+      (flag === Label.WORKITEM_STEEL_QUANTITY_TAB && quantity.steelQuantityItems && quantity.steelQuantityItems.steelQuantityItem.length ===0 && quantity.total !== 0)) {
       $('#updateFloorwiseQuantityModal'+quantityIndex).modal();
     } else {
       if(flag === Label.DIRECT_QUANTITY) {
         this.updateQuantityDetails(quantity, flag, quantityIndex);
-      } else if(flag === Label.WORKITEM_QUANTITY_TAB) {
+      } else if(flag === Label.WORKITEM_QUANTITY_TAB || flag === Label.WORKITEM_STEEL_QUANTITY_TAB ) {
         this.getQuantity(quantity, quantityIndex, flag);
       }
     }
@@ -141,7 +157,7 @@ export class QuantityDetailsComponent implements OnInit {
   updateDetailedQuanityAfterConfirmation(quantityData : any) {
     if(quantityData.detailedQuantityFlag === Label.DIRECT_QUANTITY) {
       this.updateQuantityDetails(quantityData.quantity, quantityData.detailedQuantityFlag, quantityData.quantityIndex);
-    } else if(quantityData.detailedQuantityFlag === Label.WORKITEM_QUANTITY_TAB) {
+    } else if(quantityData.detailedQuantityFlag === Label.WORKITEM_QUANTITY_TAB ||quantityData.detailedQuantityFlag === Label.WORKITEM_STEEL_QUANTITY_TAB  ) {
       this.getQuantity(quantityData.quantity, quantityData.quantityIndex, quantityData.detailedQuantityFlag);
     }
   }
@@ -164,14 +180,29 @@ export class QuantityDetailsComponent implements OnInit {
       quantityDetailsObj.name = quantity.name;
       quantityDetailsObj.total = quantity.total;
       if(flag === Label.NAME) {
-        quantityDetailsObj.quantityItems = quantity.quantityItems;
+        if(quantity.quantityItems || quantity.steelQuantityItems) {
+          quantityDetailsObj.quantityItems = quantity.quantityItems;
+          quantityDetailsObj.steelQuantityItems = quantity.steelQuantityItems;
+        }else {
+          quantityDetailsObj.quantityItems = [];
+          quantityDetailsObj.steelQuantityItems = new SteelQuantityItems();
+        }
       } else if(flag === Label.DIRECT_QUANTITY) {
         quantityDetailsObj.quantityItems = [];
+        quantityDetailsObj.steelQuantityItems = new SteelQuantityItems();
         this.quantityDetails[quantityIndex].quantityItems = [];
+        this.quantityDetails[quantityIndex].steelQuantityItems =  new SteelQuantityItems();
         this.showInnerView = null;
       } else {
         console.log('error');
       }
+  /*    if(quantity.quantityItems) {
+        quantityDetailsObj.quantityItems = [];
+        this.quantityDetails[quantityIndex].quantityItems = [];
+      } else if(quantity.steelQuantityItems) {
+        quantityDetailsObj.steelQuantityItems = new SteelQuantityItems();
+        this.quantityDetails[quantityIndex].steelQuantityItems = new SteelQuantityItems();
+      }*/
       this.loaderService.start();
 
       this.costSummaryService.updateQuantityDetails(this.baseUrl, costHeadId, this.categoryRateAnalysisId,
