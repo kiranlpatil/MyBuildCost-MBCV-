@@ -16,6 +16,8 @@ import { RateItem } from '../../../model/rate-item';
 import { AttachmentComponent } from './attachment/attachment.component';
 import { AttachmentDetailsModel } from '../../../model/attachment-details';
 import { trigger, state, style, animate, transition } from '@angular/animations';
+import Any = jasmine.Any;
+import {SteelQuantityItems} from "../../../model/SteelQuantityItems";
 
 declare var $: any;
 
@@ -104,6 +106,7 @@ export class CostHeadComponent implements OnInit, OnChanges, AfterViewInit {
   private compareWorkItemId:number=0;
   private compareCategoryId:number=0;
   private quantityItemsArray: Array<QuantityItem> = [];
+  private steelQuantityItemsArray: any;
   private rateItemsArray: Rate;
   private categoryArray : Array<Category> = [];
   private showHideAddItemButton:boolean=true;
@@ -128,9 +131,9 @@ export class CostHeadComponent implements OnInit, OnChanges, AfterViewInit {
               private loaderService: LoaderService) {
   }
 
-  toggleState() {
+  /*toggleState() {
     this.state = this.state === 'active' ? 'inactive' : 'active';
-  }
+  }*/
 
   ngOnInit() {
     this.activatedRoute.params.subscribe(params => {
@@ -195,7 +198,7 @@ export class CostHeadComponent implements OnInit, OnChanges, AfterViewInit {
     }
   }
 
-  updateMeasurementSheet(categoryId: number, workItem : WorkItem, categoryIndex : number, workItemIndex : number) {
+  updateMeasurementSheet(categoryId: number, workItem : WorkItem, categoryIndex : number, workItemIndex : number,flag:string) {
     if(workItem.quantity.isDirectQuantity ||
       (workItem.quantity.quantityItemDetails.length > 0 && workItem.quantity.quantityItemDetails[0].name !== 'default')) {
       $('#updateMeasurementQuantity'+workItemIndex).modal();
@@ -211,18 +214,14 @@ export class CostHeadComponent implements OnInit, OnChanges, AfterViewInit {
           workItem.quantity.quantityItemDetails[0].name !== Label.DEFAULT_VIEW)) {
         this.getDetailedQuantity(categoryId, workItem, categoryIndex, workItemIndex);
       } else {
-          this.getDefaultQuantity(categoryId, workItem, categoryIndex, workItemIndex);
+          this.getDefaultQuantity(categoryId, workItem, categoryIndex, workItemIndex,);
       }
   }
 
   //Get detailed quantity
   getDetailedQuantity(categoryId: number, workItem: WorkItem, categoryIndex: number, workItemIndex:number) {
-    /*if( this.showQuantityTab !== Label.WORKITEM_DETAILED_QUANTITY_TAB ||
-      this.compareCategoryId !== categoryId || this.compareWorkItemId !== workItem.rateAnalysisId) {*/
-
-      this.setItemId(categoryId, workItem.rateAnalysisId);
-
-      this.workItemId = workItem.rateAnalysisId;
+    this.setItemId(categoryId, workItem.rateAnalysisId);
+    this.workItemId = workItem.rateAnalysisId;
       SessionStorageService.setSessionValue(SessionStorage.CURRENT_WORKITEM_ID, this.workItemId);
 
       let quantityDetails: Array<QuantityDetails> = workItem.quantity.quantityItemDetails;
@@ -238,10 +237,7 @@ export class CostHeadComponent implements OnInit, OnChanges, AfterViewInit {
       this.currentWorkItemIndex = workItemIndex;
       this.showQuantityTab = Label.WORKITEM_DETAILED_QUANTITY_TAB;
 
-    /*} else {
-      this.showWorkItemTab = null;
-    }*/
-  }
+      }
 
   showAddFloorwiseQuantityModal(workItem : WorkItem, workItemIndex : number, categoryId: number, categoryIndex : number) {
     if(workItem.quantity.isDirectQuantity ||
@@ -261,7 +257,7 @@ export class CostHeadComponent implements OnInit, OnChanges, AfterViewInit {
   //Add blank detailed quantity at last
   addNewDetailedQuantity(categoryId: number, workItem: WorkItem, categoryIndex: number, workItemIndex:number) {
     this.showWorkItemTab = Label.WORKITEM_DETAILED_QUANTITY_TAB;
-    //this.toggleWorkItemPanel(workItemIndex);
+    this.toggleWorkItemPanel(workItemIndex);
     var element = document.getElementById('collapseDetails'+workItemIndex);
     if(element.classList.contains('hide-body')) {
       element.classList.remove('hide-body');
@@ -282,40 +278,59 @@ export class CostHeadComponent implements OnInit, OnChanges, AfterViewInit {
     }
   }
 
+
   //Get Default Quantity (If floor wise or building wise quantity is not added)
   getDefaultQuantity(categoryId: number, workItem: WorkItem, categoryIndex: number, workItemIndex:number) {
 
-    if( this.showWorkItemTab !== Label.WORKITEM_QUANTITY_TAB || this.compareCategoryId !== categoryId ||
-      this.compareWorkItemId !== workItem.rateAnalysisId) {
-
+    if((this.showWorkItemTab !== Label.WORKITEM_QUANTITY_TAB || this.compareCategoryId !== categoryId ||
+      this.compareWorkItemId !== workItem.rateAnalysisId)) {
+      if((this.showWorkItemTab !== Label.WORKITEM_STEEL_QUANTITY_TAB || this.compareCategoryId !== categoryId ||
+          this.compareWorkItemId !== workItem.rateAnalysisId)) {
         this.setItemId(categoryId, workItem.rateAnalysisId);
         this.workItemId = workItem.rateAnalysisId;
         SessionStorageService.setSessionValue(SessionStorage.CURRENT_WORKITEM_ID, this.workItemId);
         this.workItem = workItem;
         let quantityDetails: Array<QuantityDetails> = workItem.quantity.quantityItemDetails;
 
-        if( quantityDetails.length !==0 && quantityDetails[0].name === Label.DEFAULT_VIEW) {
-            this.workItem.quantity.quantityItemDetails = [];
-            let defaultQuantityDetail = quantityDetails.filter(
-              function( defaultQuantityDetail: any){
-                return defaultQuantityDetail.name === Label.DEFAULT_VIEW;
-              });
-            this.workItem.quantity.quantityItemDetails = defaultQuantityDetail;
-            this.quantityItemsArray = lodsh.cloneDeep(defaultQuantityDetail[0].quantityItems);
-            this.keyQuantity = defaultQuantityDetail[0].name;
-            this.quantityId = defaultQuantityDetail[0].id;
-        } else {
-            let quantityDetail: QuantityDetails = new QuantityDetails();
-            quantityDetail.quantityItems = [];
-            quantityDetail.name = this.getLabel().DEFAULT_VIEW;
-           // this.workItem.quantity.quantityItemDetails.push(quantityDetail);
-            this.quantityItemsArray = [];
-            this.keyQuantity = this.getLabel().DEFAULT_VIEW;
-          }
+        if (quantityDetails.length !== 0 && quantityDetails[0].name === Label.DEFAULT_VIEW && !this.workItem.isSteelWorkItem) {
+          this.workItem.quantity.quantityItemDetails = [];
+          let defaultQuantityDetail = quantityDetails.filter(
+            function (defaultQuantityDetail: any) {
+              return defaultQuantityDetail.name === Label.DEFAULT_VIEW;
+            });
+          this.workItem.quantity.quantityItemDetails = defaultQuantityDetail;
+          this.quantityItemsArray = lodsh.cloneDeep(defaultQuantityDetail[0].quantityItems);
+          this.keyQuantity = defaultQuantityDetail[0].name;
+          this.quantityId = defaultQuantityDetail[0].id;
+        } else if (quantityDetails.length !== 0 && quantityDetails[0].name === Label.DEFAULT_VIEW && this.workItem.isSteelWorkItem) {
 
+          this.workItem.quantity.quantityItemDetails = [];
+          let defaultQuantityDetail = quantityDetails.filter(
+            function (defaultQuantityDetail: any) {
+              return defaultQuantityDetail.name === Label.DEFAULT_VIEW;
+            });
+          this.workItem.quantity.quantityItemDetails = defaultQuantityDetail;
+          this.steelQuantityItemsArray = lodsh.cloneDeep(defaultQuantityDetail[0].steelQuantityItems);
+          this.keyQuantity = defaultQuantityDetail[0].name;
+          this.quantityId = defaultQuantityDetail[0].id;
+        } else {
+          let quantityDetail: QuantityDetails = new QuantityDetails();
+          quantityDetail.quantityItems = [];
+          quantityDetail.name = this.getLabel().DEFAULT_VIEW;
+          if (this.workItem.isSteelWorkItem) {
+            this.steelQuantityItemsArray = new SteelQuantityItems();
+          } else {
+            this.quantityItemsArray = [];
+          }
+          // this.workItem.quantity.quantityItemDetails.push(quantityDetail);
+          this.keyQuantity = this.getLabel().DEFAULT_VIEW;
+        }
         this.currentCategoryIndex = categoryIndex;
         this.currentWorkItemIndex = workItemIndex;
-        this.showWorkItemTab = Label.WORKITEM_QUANTITY_TAB;
+        this.showWorkItemTab = this.workItem.isSteelWorkItem ? Label.WORKITEM_STEEL_QUANTITY_TAB : Label.WORKITEM_QUANTITY_TAB;
+      }else {
+         this.showWorkItemTab=null;
+      }
     } else {
       this.showWorkItemTab = null;
     }
@@ -327,7 +342,7 @@ export class CostHeadComponent implements OnInit, OnChanges, AfterViewInit {
 
     if(this.showWorkItemTab !== Label.WORKITEM_RATE_TAB || this.displayRateView !== displayRateView ||
       this.compareCategoryId !== categoryId || this.compareWorkItemId !== workItemId) {
-      this.toggleState();
+      //this.toggleState();
       this.setItemId(categoryId, workItemId);
       this.setWorkItemDataForRateView(workItem.rateAnalysisId, workItem.rate);
       this.currentCategoryIndex = categoryIndex;
@@ -335,7 +350,7 @@ export class CostHeadComponent implements OnInit, OnChanges, AfterViewInit {
       this.rateView = Label.WORKITEM_RATE_TAB;
       this.setRateFlags(displayRateView, disableRateField);
     } else {
-      this.toggleState();
+      //this.toggleState();
       this.showWorkItemTab = null;
       this.displayRateView = null;
     }
@@ -366,7 +381,7 @@ export class CostHeadComponent implements OnInit, OnChanges, AfterViewInit {
 
     if(this.showWorkItemTab !== Label.WORKITEM_RATE_TAB || this.displayRateView !== displayRateView ||
       this.compareCategoryId !== categoryId || this.compareWorkItemId !== workItemId) {
-      this.toggleState();
+      //this.toggleState();
       this.setItemId(categoryId, workItemId);
       this.setWorkItemDataForRateView(workItem.rateAnalysisId, workItem.systemRate);
       this.rateView = Label.WORKITEM_SYSTEM_RATE_TAB;
@@ -374,7 +389,7 @@ export class CostHeadComponent implements OnInit, OnChanges, AfterViewInit {
       this.currentWorkItemIndex = workItemIndex;
       this.setRateFlags(displayRateView, disableRateField);
     } else {
-      this.toggleState();
+      //this.toggleState();
       this.showWorkItemTab = null;
       this.displayRateView = null;
     }
@@ -594,23 +609,10 @@ export class CostHeadComponent implements OnInit, OnChanges, AfterViewInit {
 /*  setSelectedWorkItems(workItemList:any) {
     this.selectedWorkItems = workItemList;
   }*/
-  toggleWorkItemPanel(workItemIndex : number, workItem : WorkItem) {
+
+  toggleWorkItemPanel(workItemIndex : number) {
     var element = document.getElementById('collapseDetails'+workItemIndex);
-
-    // if($('#collapseDetails'+workItemIndex).hasClass('display-body')) {
-    //   $('#collapseDetails'+workItemIndex).removeClass('display-body');
-    //   $('#collapseDetails'+workItemIndex).addClass('hide-body').stop().slideUp();
-    // }
-    // else {
-    //   $('.cost-head-panel-wrapper').removeClass('display-body');
-    //   $('.cost-head-panel-wrapper').addClass('hide-body').slideUp();
-    //   $('#collapseDetails' + workItemIndex+'.cost-head-panel-wrapper').removeClass('hide-body');
-    //   $('#collapseDetails'+workItemIndex+'.cost-head-panel-wrapper').addClass('display-body').stop().slideDown();
-    // }
-
-    if(element.classList.contains('display-body') || (workItem.quantity.quantityItemDetails.length > 0 &&
-        workItem.quantity.quantityItemDetails[0].name === 'default') || workItem.quantity.isDirectQuantity === true ||
-      workItem.quantity.isEstimated === false) {
+    if(element.classList.contains('display-body')) {
       element.classList.remove('display-body');
       element.classList.add('hide-body');
     } else if(element.classList.contains('hide-body')) {
@@ -637,17 +639,13 @@ export class CostHeadComponent implements OnInit, OnChanges, AfterViewInit {
   }
 
   toggleWorkItemView() {
-    setTimeout(() => {
-      if($('#collapse'+this.categoryRateAnalysisId+'.cost-head-panel-wrapper').hasClass('display-body')) {
-        $('#collapse'+this.categoryRateAnalysisId+'.cost-head-panel-wrapper').removeClass('display-body');
-        $('#collapse'+this.categoryRateAnalysisId+'.cost-head-panel-wrapper').addClass('hide-body').stop().slideUp();
-      } else {
-        $('.cost-head-panel-wrapper').removeClass('display-body');
-        $('.cost-head-panel-wrapper').addClass('hide-body').slideUp();
-        $('#collapse' + this.categoryRateAnalysisId+'.cost-head-panel-wrapper').removeClass('hide-body');
-        $('#collapse'+this.categoryRateAnalysisId+'.cost-head-panel-wrapper').addClass('display-body').stop().slideDown();
-      }
-    },50);
+    if($('#collapse'+this.categoryRateAnalysisId).hasClass('display-body')) {
+      $('#collapse'+this.categoryRateAnalysisId).removeClass('display-body');
+      $('#collapse'+this.categoryRateAnalysisId).addClass('hide-body');
+    } else {
+      $('#collapse' + this.categoryRateAnalysisId).removeClass('hide-body');
+      $('#collapse'+this.categoryRateAnalysisId).addClass('display-body');
+    }
   }
 
   // calculation of Quantity * Rate
@@ -789,7 +787,6 @@ export class CostHeadComponent implements OnInit, OnChanges, AfterViewInit {
 
   ngAfterViewInit() {
     setTimeout(() => {
-      console.log('animated');
       this.animateView = true;
     },150);
   }

@@ -677,6 +677,7 @@ class ProjectController {
     }
   }
 
+
   updateDirectQuantityOfBuildingWorkItems(req: express.Request, res: express.Response, next: any): void {
     try {
       logger.info('Project controller, updateDirectQuantityOfBuildingCostHeads has been hit');

@@ -149,6 +149,7 @@ export class GetQuantityComponent implements OnInit {
       quantityObj.id = this.quantityId;
       quantityObj.name = this.keyQuantity;
       quantityObj.quantityItems = quantityItems;
+      quantityObj.total = this.quantityTotal;
       this.loaderService.start();
       let costHeadId = parseFloat(SessionStorageService.getSessionValue(SessionStorage.CURRENT_COST_HEAD_ID));
       this.costSummaryService.updateQuantityItems(this.baseUrl, costHeadId, this.categoryRateAnalysisId,
@@ -193,7 +194,7 @@ export class GetQuantityComponent implements OnInit {
         return workItemData.rateAnalysisId === workItemId;
       });
 
-    this.commonService.calculateTotalOfQuantityItemDetails(workItemData[0]);
+   // this.commonService.calculateTotalOfQuantityItemDetails(workItemData[0]);
 
       if(workItemData[0].quantity.total !== 0) {
         workItemData[0].quantity.isEstimated = true;

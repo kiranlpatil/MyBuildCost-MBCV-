@@ -32,6 +32,7 @@ let config = require('config');
 let log4js = require('log4js');
 import * as mongoose from 'mongoose';
 import RateAnalysis = require('../dataaccess/model/RateAnalysis/RateAnalysis');
+import SteelQuantityItems = require("../dataaccess/model/project/building/SteelQuantityItems");
 
 //import RateItemsAnalysisData = require("../dataaccess/model/project/building/RateItemsAnalysisData");
 
@@ -1304,10 +1305,11 @@ class ProjectService {
     });
   }
 
+
   updateQuantityOfBuildingCostHeads(projectId: string, buildingId: string, costHeadId: number, categoryId: number, workItemId: number,
                                     quantityDetail: QuantityDetails, user: User, callback: (error: any, result: any) => void) {
     logger.info('Project service, updateQuantityOfBuildingCostHeads has been hit');
-    let query = {_id: buildingId};
+  /*  let query = {_id: buildingId};
     let projection = {costHeads:{
         $elemMatch :{rateAnalysisId : costHeadId, categories: {
             $elemMatch:{rateAnalysisId: categoryId,workItems: {
@@ -1354,6 +1356,52 @@ class ProjectService {
             }
           });
         }
+    });*/
+    let query = [
+      {$match: {'_id': ObjectId(buildingId), 'costHeads.rateAnalysisId': costHeadId}},
+      {$unwind: '$costHeads'},
+      {$project: {'costHeads': 1}},
+      {$unwind: '$costHeads.categories'},
+      {$match: {'costHeads.categories.rateAnalysisId': categoryId}},
+      {$project: {'costHeads.categories.workItems': 1}},
+      {$unwind: '$costHeads.categories.workItems'},
+      {$match: {'costHeads.categories.workItems.rateAnalysisId': workItemId}},
+      {$project: {'costHeads.categories.workItems.quantity': 1}},
+    ];
+
+    this.buildingRepository.aggregate(query, (error, result) => {
+      if (error) {
+        callback(error, null);
+      } else {
+        if (result.length > 0) {
+          let quantity= result[0].costHeads.categories.workItems.quantity;
+          quantity.isEstimated = true;
+          if(quantity.isDirectQuantity === true) {
+            quantity.isDirectQuantity = false;
+          }
+          this.updateQuantityItemsOfWorkItem( quantity, quantityDetail);
+
+          let query = {_id: buildingId};
+          let updateQuery = {$set:{'costHeads.$[costHead].categories.$[category].workItems.$[workItem].quantity':quantity}};
+          let arrayFilter = [
+            {'costHead.rateAnalysisId':costHeadId},
+            {'category.rateAnalysisId': categoryId},
+            {'workItem.rateAnalysisId':workItemId}
+          ];
+          this.buildingRepository.findOneAndUpdate(query, updateQuery, {arrayFilters:arrayFilter, new: true}, (error, building) => {
+            logger.info('Project service, findOneAndUpdate has been hit');
+            if (error) {
+              callback(error, null);
+            } else {
+              callback(null, {data: 'success', access_token: this.authInterceptor.issueTokenWithUid(user)});
+            }
+          });
+        }else {
+          let error = new Error();
+          error.message = messages.MSG_ERROR_EMPTY_RESPONSE;
+          callback(error, null);
+        }
+      }
     });
   }
 
@@ -1365,7 +1413,7 @@ class ProjectService {
     let updateQuery = {$set:{'costHeads.$[costHead].categories.$[category].workItems.$[workItem].quantity.isEstimated':true,
         'costHeads.$[costHead].categories.$[category].workItems.$[workItem].quantity.isDirectQuantity':true,
         'costHeads.$[costHead].categories.$[category].workItems.$[workItem].quantity.total':directQuantity,
-        'costHeads.$[costHead].categories.$[category].workItems.$[workItem].quantity.quantityItemDetails':[]
+        'costHeads.$[costHead].categories.$[category].workItems.$[workItem].quantity.quantityItemDetails':[],
       }};
 
     let arrayFilter = [
@@ -1572,11 +1620,25 @@ class ProjectService {
             for (let quantityIndex = 0; quantityIndex < quantityDetails.length; quantityIndex++) {
               if (quantityDetails[quantityIndex].id === quantityDetailsObj.id) {
                 quantityDetails[quantityIndex].name = quantityDetailsObj.name;
-                if( quantityDetailsObj.quantityItems.length === 0) {
+            /*    if( quantityDetailsObj.quantityItems.length === 0) {
                   quantityDetails[quantityIndex].quantityItems = [];
                   quantityDetails[quantityIndex].isDirectQuantity = true;
                 } else {
                   quantityDetails[quantityIndex].quantityItems = quantityDetailsObj.quantityItems;
+                  quantityDetails[quantityIndex].isDirectQuantity = false;
+                   if(quantityDetailsObj.steelQuantityItems) {
+              quantityDetails[quantityIndex].steelQuantityItems = new SteelQuantityItems();
+            }else if(quantityDetailsObj.quantityItems.length === 0) {
+              quantityDetails[quantityIndex].quantityItems = [];
+            }
+                }*/
+                if( quantityDetailsObj.quantityItems.length === 0 && quantityDetailsObj.steelQuantityItems.steelQuantityItem.length === 0) {
+                  quantityDetails[quantityIndex].quantityItems = [];
+                  quantityDetails[quantityIndex].steelQuantityItems = new SteelQuantityItems();
+                  quantityDetails[quantityIndex].isDirectQuantity = true;
+                } else if(quantityDetailsObj.quantityItems.length !== 0 || quantityDetailsObj.steelQuantityItems.steelQuantityItem.length !==0 ) {
+                  quantityDetails[quantityIndex].quantityItems = quantityDetailsObj.quantityItems;
+                  quantityDetails[quantityIndex].steelQuantityItems = quantityDetailsObj.steelQuantityItems;
                   quantityDetails[quantityIndex].isDirectQuantity = false;
                 }
                 quantityDetails[quantityIndex].total = quantityDetailsObj.total;
@@ -1601,10 +1663,10 @@ class ProjectService {
     if (quantity.quantityItemDetails.length === 0) {
         if(quantityDetail.id === undefined) {
           quantityDetail.id = quantityId;
-          quantityDetail.total = alasql('VALUE OF SELECT ROUND(SUM(quantity),2) FROM ?', [quantityDetail.quantityItems]);
+          //quantityDetail.total = alasql('VALUE OF SELECT ROUND(SUM(quantity),2) FROM ?', [quantityDetail.quantityItems]);
           quantity.quantityItemDetails.push(quantityDetail);
         } else {
-          quantityDetail.total = alasql('VALUE OF SELECT ROUND(SUM(quantity),2) FROM ?', [quantityDetail.quantityItems]);
+          //quantityDetail.total = alasql('VALUE OF SELECT ROUND(SUM(quantity),2) FROM ?', [quantityDetail.quantityItems]);
           quantity.quantityItemDetails.push(quantityDetail);
         }
     } else {
@@ -1615,49 +1677,60 @@ class ProjectService {
       if (isDefaultExistsQuantityDetail.length > 0) {
         quantityDetail.id = quantityId;
         quantity.quantityItemDetails = [];
-        quantityDetail.total = alasql('VALUE OF SELECT ROUND(SUM(quantity),2) FROM ?', [quantityDetail.quantityItems]);
+      //  quantityDetail.total = alasql('VALUE OF SELECT ROUND(SUM(quantity),2) FROM ?', [quantityDetail.quantityItems]);
         quantity.quantityItemDetails.push(quantityDetail);
 
       } else {
         if (quantityDetail.name !== 'default') {
-          let isItemAlreadyExistSQL = 'SELECT id from ? AS quantityDetails where quantityDetails.id="' + quantityDetail.id + '"';
+          let isItemAlreadyExistSQL = 'SELECT id from ? AS quantityDetails where quantityDetails.id=' + quantityDetail.id + '';
           let isItemAlreadyExists = alasql(isItemAlreadyExistSQL, [quantity.quantityItemDetails]);
 
           if (isItemAlreadyExists.length > 0) {
             for (let quantityIndex = 0; quantityIndex < quantity.quantityItemDetails.length; quantityIndex++) {
               if (quantity.quantityItemDetails[quantityIndex].id === quantityDetail.id) {
                 quantity.quantityItemDetails[quantityIndex].isDirectQuantity = false;
-                quantity.quantityItemDetails[quantityIndex].quantityItems = quantityDetail.quantityItems;
-                quantity.quantityItemDetails[quantityIndex].total = alasql('VALUE OF SELECT ROUND(SUM(quantity),2) FROM ?',
-                  [quantityDetail.quantityItems]);
+                if (quantityDetail.steelQuantityItems) {
+                  quantity.quantityItemDetails[quantityIndex].steelQuantityItems = quantityDetail.steelQuantityItems;
+                  quantity.quantityItemDetails[quantityIndex].total = quantityDetail.total;
+                } else {
+                  quantity.quantityItemDetails[quantityIndex].quantityItems = quantityDetail.quantityItems;
+                  quantity.quantityItemDetails[quantityIndex].total = quantityDetail.total;
+                }
               }
             }
-
           } else {
-            if(quantityDetail.id === undefined) {
-                quantityDetail.id = quantityId;
-                quantityDetail.isDirectQuantity = false;
-                quantityDetail.total = alasql('VALUE OF SELECT ROUND(SUM(quantity),2) FROM ?', [quantityDetail.quantityItems]);
-                quantity.quantityItemDetails.push(quantityDetail);
-
-            }else {
-              for (let quantityIndex = 0; quantityIndex < quantity.quantityItemDetails.length; quantityIndex++) {
-                  if (quantity.quantityItemDetails[quantityIndex].id === quantityDetail.id) {
-                    quantity.quantityItemDetails[quantityIndex].name = quantityDetail.name;
-                    quantity.quantityItemDetails[quantityIndex].isDirectQuantity = false;
-                    quantity.quantityItemDetails[quantityIndex].quantityItems = quantityDetail.quantityItems;
-                    quantity.quantityItemDetails[quantityIndex].total = alasql('VALUE OF SELECT ROUND(SUM(quantity),2) FROM ?',
-                      [quantityDetail.quantityItems]);
-                   }
-               }
-            }
+            quantityDetail.id = quantityId;
+            quantityDetail.isDirectQuantity = false;
+           // quantityDetail.total = alasql('VALUE OF SELECT ROUND(SUM(quantity),2) FROM ?', [quantityDetail.quantityItems]);
+            quantity.quantityItemDetails.push(quantityDetail);
           }
-        } else {
+          /*else {
+                     if(quantityDetail.id === undefined) {
+                         quantityDetail.id = quantityId;
+                         quantityDetail.isDirectQuantity = false;
+                        // quantityDetail.total = alasql('VALUE OF SELECT ROUND(SUM(quantity),2) FROM ?', [quantityDetail.quantityItems]);
+                         quantity.quantityItemDetails.push(quantityDetail);
+
+                     }else {
+                       for (let quantityIndex = 0; quantityIndex < quantity.quantityItemDetails.length; quantityIndex++) {
+                           if (quantity.quantityItemDetails[quantityIndex].id === quantityDetail.id) {
+                             quantity.quantityItemDetails[quantityIndex].name = quantityDetail.name;
+                             quantity.quantityItemDetails[quantityIndex].isDirectQuantity = false;
+                             quantity.quantityItemDetails[quantityIndex].quantityItems = quantityDetail.quantityItems;
+                             quantity.quantityItemDetails[quantityIndex].total = alasql('VALUE OF SELECT ROUND(SUM(quantity),2) FROM ?',
+                               [quantityDetail.quantityItems]);
+                            }
+                        }
+                     }
+                   }
+                 }*/
+        }else {
           quantity.quantityItemDetails = [];
-          console.log('quantity : '+JSON.stringify(quantity));
+       //   console.log('quantity : '+JSON.stringify(quantity));
           quantityDetail.id = quantityId;
-          quantityDetail.total = alasql('VALUE OF SELECT ROUND(SUM(quantity),2) FROM ?', [quantityDetail.quantityItems]);
-          console.log(quantity.quantityItemDetails);
+          quantityDetail.isDirectQuantity = false;
+         // quantityDetail.total = alasql('VALUE OF SELECT ROUND(SUM(quantity),2) FROM ?', [quantityDetail.quantityItems]);
+        //  console.log(quantity.quantityItemDetails);
           quantity.quantityItemDetails.push(quantityDetail);
         }
       }

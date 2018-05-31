@@ -6,10 +6,6 @@ export class AppSettings {
   //public static HOST_NAME = '104.211.102.201';
   public static HOST_NAME = '104.211.102.201';
 
-  public static get API_ENDPOINT(): string {
-    return this.IP + '/api/';
-  }
-
   public static INITIAL_THEM = 'container-fluid dark-theme';
   public static LIGHT_THEM = 'container-fluid light-theme';
   public static IS_SOCIAL_LOGIN_YES = 'YES';
@@ -17,6 +13,10 @@ export class AppSettings {
   public static HTTP_CLIENT = 'http://';
   public static PUBLIC = '/server/public';
   public static ATTACHMENT_FILES = '/attachment-files/';
+
+  public static get API_ENDPOINT(): string {
+    return this.IP + '/api/';
+  }
 }
 
 
@@ -95,12 +95,12 @@ export class Messages {
   public static MSG_ERROR_VALIDATION_BUILDING_NAME_REQUIRED = 'Enter building name';
   public static MSG_ERROR_VALIDATION_SLAB_AREA_REQUIRED = 'Enter slab area';
   public static MSG_ERROR_VALIDATION_CARPET_AREA_REQUIRED = 'Enter carpet area';
-  public static MSG_ERROR_VALIDATION_PARKING_AREA_REQUIRED  = 'Enter parking area';
-  public static MSG_ERROR_VALIDATION_SALEBLE_AREA_REQUIRED  = 'Enter saleable area';
-  public static MSG_ERROR_VALIDATION_PLINTH_AREA_REQUIRED  = 'Enter plinth area';
-  public static MSG_ERROR_VALIDATION_NO_OF_FLOORS_REQUIRED  = 'Enter no. of floors';
-  public static MSG_ERROR_VALIDATION_NO_OF_PARKING_FLOORS_REQUIRED  = 'Enter no. of parking floors';
-  public static MSG_ERROR_VALIDATION_CARPET_AREA_OF_PARKING_REQUIRED  = 'Enter carpet area of parking floors';
+  public static MSG_ERROR_VALIDATION_PARKING_AREA_REQUIRED = 'Enter parking area';
+  public static MSG_ERROR_VALIDATION_SALEBLE_AREA_REQUIRED = 'Enter saleable area';
+  public static MSG_ERROR_VALIDATION_PLINTH_AREA_REQUIRED = 'Enter plinth area';
+  public static MSG_ERROR_VALIDATION_NO_OF_FLOORS_REQUIRED = 'Enter no. of floors';
+  public static MSG_ERROR_VALIDATION_NO_OF_PARKING_FLOORS_REQUIRED = 'Enter no. of parking floors';
+  public static MSG_ERROR_VALIDATION_CARPET_AREA_OF_PARKING_REQUIRED = 'Enter carpet area of parking floors';
   public static MSG_ERROR_VALIDATION_ONE_BHK_REQUIRED = 'Enter no. of one BHKs';
   public static MSG_ERROR_VALIDATION_TWO_BHK_REQUIRED = 'Enter no. of two BHKs';
   public static MSG_ERROR_VALIDATION_THREE_BHK_REQUIRED = 'Enter no. of three BHKs';
@@ -121,7 +121,7 @@ export class Messages {
   public static MSG_YEAR_NO_MATCH_FOUND = 'The year doesn\'t look right. Be sure to use your actual year of birth.';
   public static MSG_FORGOT_PASSWORD = 'Enter your e-mail address below and we\'ll get you back on track.';
   public static MSG_CONFIRM_PASSWORD = 'Passwords are not matching.';
-  public static MSG_CHANGE_PASSWORD_SUCCESS ='Password changed successfully. ' +
+  public static MSG_CHANGE_PASSWORD_SUCCESS = 'Password changed successfully. ' +
     'You can Sign In again with new password by clicking on "YES" button, Please click on "No" button to continue the session.';
   public static MSG_VERIFY_USER_1 = 'You are almost done!';
   public static MSG_VERIFY_USER_2 = 'We need to verify your mobile number before you can start using the system.';
@@ -189,9 +189,9 @@ export class Messages {
   public static MSG_ALREADY_ADDED_ALL_WORKITEMS: string = 'Already added all Work Items.';
   public static MSG_SUCCESS_DELETE_WORKITEM: string = 'Your Work Item deleted successfully.';
   public static MSG_SUCCESS_UPDATE_THUMBRULE_RATE_COSTHEAD: string = 'Thumbrule rate for Cost Head updated successfully.';
-  public static MSG_SUCCESS_UPDATE_DIRECT_QUANTITY_OF_WORKITEM : string = 'Quantity for Work Item updated successfully.';
-  public static MSG_SUCCESS_UPDATE_DIRECT_RATE_OF_WORKITEM : string = 'Rate for Work Item updated successfully.';
-  public static MSG_SUCCESS_UPDATE_QUANTITY_NAME_WORKITEM : string = 'Title for Work Item updated successfully.';
+  public static MSG_SUCCESS_UPDATE_DIRECT_QUANTITY_OF_WORKITEM: string = 'Quantity for Work Item updated successfully.';
+  public static MSG_SUCCESS_UPDATE_DIRECT_RATE_OF_WORKITEM: string = 'Rate for Work Item updated successfully.';
+  public static MSG_SUCCESS_UPDATE_QUANTITY_NAME_WORKITEM: string = 'Title for Work Item updated successfully.';
 
   //Quantity view required fields
   public static MSG_ERROR_VALIDATION_QUANTITY_ITEM_REQUIRED = 'Enter item';
@@ -318,7 +318,7 @@ export class API {
   public static WORKITEMLIST = 'workitemlist';
   public static WORKITEM_ALL = 'workitem/all';
   public static QUANTITY = 'quantity';
-  public static QUANTITY_ITEM_DETAILS= 'quantityItemDetails';
+  public static QUANTITY_ITEM_DETAILS = 'quantityItemDetails';
   public static ITEM = 'item';
   public static DIRECT = 'direct';
   public static DIRECT_QUANTITY = 'directQuantity';
@@ -327,24 +327,24 @@ export class API {
   public static DELETE_FILE = 'deleteFile';
   public static SYNC_RATE_ANALYSIS = 'syncWithRateAnalysis';
 
-  public static THUMBRULE_RULE_RATE='report/thumbRuleRate';
-  public static RATE='rate';
-  public static RATES='rates';
-  public static RATE_ITEM='rateItem';
-  public static SQFT='sqft';
-  public static SQM='sqmt';
+  public static THUMBRULE_RULE_RATE = 'report/thumbRuleRate';
+  public static RATE = 'rate';
+  public static RATES = 'rates';
+  public static RATE_ITEM = 'rateItem';
+  public static SQFT = 'sqft';
+  public static SQM = 'sqmt';
   public static RS_PER_SQFT = 'Rs/Sqft';
   public static RS_PER_SQMT = 'Rs/Sqmt';
-  public static AREA='area';
-  public static SLAB_AREA='slabArea';
-  public static SALEABLE_AREA='saleableArea';
-  public static CARPET_AREA='carpetArea';
-  public static BUDGETED_COST ='budgetedCost';
+  public static AREA = 'area';
+  public static SLAB_AREA = 'slabArea';
+  public static SALEABLE_AREA = 'saleableArea';
+  public static CARPET_AREA = 'carpetArea';
+  public static BUDGETED_COST = 'budgetedCost';
 
   //Material Take Off
 
-  public static REPORT_MATERIAL_TAKE_OFF ='report/materialtakeoff';
-  public static MATERIAL_FILTERS_LIST ='material/filters/list';
+  public static REPORT_MATERIAL_TAKE_OFF = 'report/materialtakeoff';
+  public static MATERIAL_FILTERS_LIST = 'material/filters/list';
 }
 
 export class ImagePath {
@@ -375,9 +375,9 @@ export class ImagePath {
 export class ProjectAsset {
   static _year: Date = new Date();
   static currentYear = ProjectAsset._year.getFullYear();
+  public static UNDER_LICENECE = '© ' + ProjectAsset.currentYear + ' www.buildinfo.com';
   public static APP_NAME = 'Cost Control';
   public static TAG_LINE = 'Help you to decide cost';
-  public static UNDER_LICENECE = '© ' + ProjectAsset.currentYear + ' www.buildinfo.com';
 }
 
 export class Headings {
@@ -390,28 +390,41 @@ export class Headings {
   public static EDIT_BUILDING: string = 'Edit Building';
   public static LIST_BUILDING: string = 'Building List';
   public static ADD_NEW_BUILDING: string = 'Add Building to a Project';
-  public static COMMON_DEVELOPMENT : string = 'Common Development and Amenities';
-  public static ELECTRIC_INFRASTRUCTURE : string = 'Electric Infrastructure ';
-  public static CONSTRUCTION_COST : string = 'Construction Cost (Material + Labour)';
-  public static QUANTITY : string = 'Quantity';
-  public static COLON : string = ':';
-  public static ITEM : string = 'Item';
-  }
+  public static COMMON_DEVELOPMENT: string = 'Common Development and Amenities';
+  public static ELECTRIC_INFRASTRUCTURE: string = 'Electric Infrastructure ';
+  public static CONSTRUCTION_COST: string = 'Construction Cost (Material + Labour)';
+  public static QUANTITY: string = 'Quantity';
+  public static COLON: string = ':';
+  public static ITEM: string = 'Item';
+}
 
 export class TableHeadings {
-  public static ITEM : string = 'Item';
-  public static QUANTITY : string = 'Qty.';
-  public static NUMBERS : string = 'Nos.';
-  public static LENGTH : string = 'Length';
-  public static BREADTH : string = 'Breadth';
-  public static HEIGHT : string = 'Height';
+  public static ITEM: string = 'Item';
+  public static QUANTITY: string = 'Qty.';
+  public static NUMBERS: string = 'Nos.';
+  public static LENGTH: string = 'Length';
+  public static BREADTH: string = 'Breadth';
+  public static HEIGHT: string = 'Height';
   public static UNIT: string = 'Unit';
-  public static RATEANALYSIS : string = 'Rate Analysis/Unit';
-  public static AMOUNT : string = 'Amount';
-  public static COST : string = 'Cost';
+  public static RATEANALYSIS: string = 'Rate Analysis/Unit';
+  public static AMOUNT: string = 'Amount';
+  public static COST: string = 'Cost';
   public static TOTAL: string = 'Total';
+  public static WEIGHT_IN_KG: string = 'Weight in kg';
+
   public static DESCRIPTION: string = 'Description';
   public static RATE_PER_UNIT: string = 'Rate/Unit';
+  public static DIAMETER: string = 'Diameter';
+  public static MM_UNIT: string = 'mm';
+  public static MTR_UNIT: string = 'mtr';
+  public static SIX_MM: string = '6mm';
+  public static EIGHT_MM: string = '8mm';
+  public static TEN_MM: string = '10mm';
+  public static TWELVE_MM: string = '12mm';
+  public static SIXTEEN_MM: string = '16mm';
+  public static TWENTY_MM: string = '20mm';
+  public static TWENTYFIVE_MM: string ='25mm';
+  public static THIRTY_MM: string = '30mm';
 }
 
 export class Label {
@@ -437,29 +450,29 @@ export class Label {
   public static GET_STARTED: string = 'Get Started';
 
   //project form
-  public static PROJECT_NAME : string = 'Project Name';
+  public static PROJECT_NAME: string = 'Project Name';
   public static PROJECT_ADDRESS: string = 'Project Address';
   public static PLOT_AREA: string = 'Plot Area';
-  public static PLOT_PERIPHERY_LENGTH : string = 'Plot Periphery length';
-  public static PODIUM_AREA : string = 'Podium Area';
-  public static OPEN_SPACE : string = 'Open Space';
-  public static SLAB_AREA_OF_CLUB_HOUSE : string = 'Slab Area of club house';
-  public static SWIMMING_POOL_CAPACITY : string = 'Swimming pool capacity';
-  public static PROJECT_DURATION : string = 'Project Duration';
-  public static NUM_OF_BUILDINGS : string = 'Total No. of buildings';
-  public static UNIT_IN_LITERS : string = '(In ltrs)';
-  public static DURATION_IN_MONTHS : string = '(In months)';
-  public static AREA_UNIT_IN_RFT : string = '(In rft)';
+  public static PLOT_PERIPHERY_LENGTH: string = 'Plot Periphery length';
+  public static PODIUM_AREA: string = 'Podium Area';
+  public static OPEN_SPACE: string = 'Open Space';
+  public static SLAB_AREA_OF_CLUB_HOUSE: string = 'Slab Area of club house';
+  public static SWIMMING_POOL_CAPACITY: string = 'Swimming pool capacity';
+  public static PROJECT_DURATION: string = 'Project Duration';
+  public static NUM_OF_BUILDINGS: string = 'Total No. of buildings';
+  public static UNIT_IN_LITERS: string = '(In ltrs)';
+  public static DURATION_IN_MONTHS: string = '(In months)';
+  public static AREA_UNIT_IN_RFT: string = '(In rft)';
 
   //Building form
-  public static BUILDING_NAME : string = 'Building Name';
+  public static BUILDING_NAME: string = 'Building Name';
   public static SLAB_AREA: string = 'Slab Area ';
   public static CARPET_AREA: string = 'Carpet area including Balconies/attached terraces ';
   public static SALEABLE_AREA: string = 'Saleable Area ';
-  public static PLINTH_AREA : string = 'Plinth Area ';
-  public static NUM_OF_FLOORS : string = 'No. of floors ';
-  public static NUM_OF_PARKING_FLOORS : string = 'No. of parking floors';
-  public static CARPET_AREA_OF_PARKING : string = 'Carpet area of parking ';
+  public static PLINTH_AREA: string = 'Plinth Area ';
+  public static NUM_OF_FLOORS: string = 'No. of floors ';
+  public static NUM_OF_PARKING_FLOORS: string = 'No. of parking floors';
+  public static CARPET_AREA_OF_PARKING: string = 'Carpet area of parking ';
   public static APARTMENT_CONFIGURATION: string = 'Apartment Configuration';
   public static CLONE_BUILDING_MESSAGE: string = 'Also copy following details from building ';
   public static NUM_OF_ONE_BHK: string = 'No. of 1 BHKs';
@@ -472,35 +485,36 @@ export class Label {
   public static EXCLUDING_PARKING_FLOORS: string = '(Excluding parking floors)';
 
   //COST-SUMMARY REPORT LABELS
-  public static COSTING_BY_UNIT : string = 'Costing in ';
-  public static COSTING_PER_AREA : string = 'Costing per ';
-  public static TOTAL : string = 'Total ';
-  public static TOTAL_A : string = 'Total(A)';
-  public static TOTAL_A_B : string = 'Total(A+B)';
-  public static TOTAL_A_B_C : string = 'Total(A+B+C)';
-  public static NOTES : string = 'Notes ';
-  public static BUDGETED_COST : string = 'Budgeted Cost ';
-  public static ESTIMATED_COST : string = 'Estimated Cost ';
-  public static COST_HEAD : string = 'Cost Head';
-  public static AMENITY_COST_HEAD : string = 'Amenity Cost Head';
-  public static REPORT_BY_THUMBRULE : string = 'By Thumbrule';
-  public static ESTIMATED : string = 'Estimated ';
-  public static AS_PER_PROJECT : string = '(as per project quantities & rates)';
-  public static GRAND_TOTAL : string = 'Grand Total ';
-  public static TOTAL_PROJECT : string = 'Total Project';
-  public static WORKITEMS : string = 'WorkItems';
-  public static GET_RATE : string = 'getRate';
-  public static GET_SYSTEM_RATE : string = 'getSystemRate';
-  public static GET_RATE_BY_QUANTITY : string = 'getRateByQuantity';
-  public static WORKITEM_RATE_TAB : string = 'rate';
-  public static WORKITEM_RATE_BY_QUANTITY_TAB : string = 'cost';
-  public static WORKITEM_SYSTEM_RATE_TAB : string = 'systemRA';
-  public static WORKITEM_QUANTITY_TAB : string = 'quantity';
-  public static GET_QUANTITY : string = 'Get Qty.';
-  public static QUANTITY_VIEW : string = 'default';
-  public static WORKITEM_DETAILED_QUANTITY_TAB : string = 'detailedQuantity';
-  public static ATTACH_FILE : string = 'Attach File';
-  public static DIRECT_QUANTITY : string = 'directQty';
+  public static COSTING_BY_UNIT: string = 'Costing in ';
+  public static COSTING_PER_AREA: string = 'Costing per ';
+  public static TOTAL: string = 'Total ';
+  public static TOTAL_A: string = 'Total(A)';
+  public static TOTAL_A_B: string = 'Total(A+B)';
+  public static TOTAL_A_B_C: string = 'Total(A+B+C)';
+  public static NOTES: string = 'Notes ';
+  public static BUDGETED_COST: string = 'Budgeted Cost ';
+  public static ESTIMATED_COST: string = 'Estimated Cost ';
+  public static COST_HEAD: string = 'Cost Head';
+  public static AMENITY_COST_HEAD: string = 'Amenity Cost Head';
+  public static REPORT_BY_THUMBRULE: string = 'By Thumbrule';
+  public static ESTIMATED: string = 'Estimated ';
+  public static AS_PER_PROJECT: string = '(as per project quantities & rates)';
+  public static GRAND_TOTAL: string = 'Grand Total ';
+  public static TOTAL_PROJECT: string = 'Total Project';
+  public static WORKITEMS: string = 'WorkItems';
+  public static GET_RATE: string = 'getRate';
+  public static GET_SYSTEM_RATE: string = 'getSystemRate';
+  public static GET_RATE_BY_QUANTITY: string = 'getRateByQuantity';
+  public static WORKITEM_RATE_TAB: string = 'rate';
+  public static WORKITEM_RATE_BY_QUANTITY_TAB: string = 'cost';
+  public static WORKITEM_SYSTEM_RATE_TAB: string = 'systemRA';
+  public static WORKITEM_QUANTITY_TAB: string = 'quantity';
+  public static WORKITEM_STEEL_QUANTITY_TAB: string = 'steel';
+  public static GET_QUANTITY: string = 'Get Qty.';
+  public static QUANTITY_VIEW: string = 'default';
+  public static WORKITEM_DETAILED_QUANTITY_TAB: string = 'detailedQuantity';
+  public static ATTACH_FILE: string = 'Attach File';
+  public static DIRECT_QUANTITY: string = 'directQty';
 
   //Quantity View
   public static DEFAULT_VIEW = 'default';
@@ -618,9 +632,12 @@ export class Menus {
 
 export class ValueConstant {
 //array of actions for copy building
-  public static CLONE_ITEMS:string[]=['Cost Head','Category','Work Item','Quantity','Rate Analysis'];
+  public static CLONE_ITEMS: string[] = ['Cost Head', 'Category', 'Work Item', 'Quantity', 'Rate Analysis'];
+  public static STEEL_DIAMETER_VALUES: Number[] = [6,8,10,12,16,20,25,30];
+  public static STEEL_DIAMETER_STRING_VALUES: string[] = ['6mm Steel','8mm Steel','10mm Steel','12mm Steel','16mm Steel','20mm Steel','25mm Steel','30mm Steel'];
+  public static TOTAL_STEEL_DIAMETER_STRING_VALUES: string[] = ['totalWeightOf6mm','totalWeightOf8mm','totalWeightOf10mm','totalWeightOf12mm','totalWeightOf16mm','totalWeightOf20mm','totalWeightOf25mm','totalWeightOf30mm'];
   public static NUMBER_OF_FRACTION_DIGIT = 2;
-  public static  FILE_SIZE = 5000000;
+  public static FILE_SIZE = 5000000;
 }
 
 export class FileAttachment {
@@ -656,9 +673,7 @@ export class Animations {
   public static getListItemAnimationStyle(index : number, delayFactor : number) {
     return {
       'transition-delay': index * delayFactor + 's',
-      'opacity': 1,
-      // 'margin-top': '5px',
-      'transform': 'scale(1)'
+      'opacity': 1
     };
   }
 }

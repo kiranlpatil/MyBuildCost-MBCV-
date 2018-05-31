@@ -219,8 +219,10 @@
 
   tr > td,
   tr > th {
+    float: left;
+
     &:nth-child(1) {
-      width: 295px;
+      width: 288px;
     }
 
     &:nth-child(2) {
@@ -249,7 +251,7 @@
     }
 
     &:nth-child(7) {
-      min-width: 100px;
+      min-width: 95px;
       text-align: right;
     }
 
@@ -287,7 +289,7 @@
     border-bottom: 1px solid $body-text;
     cursor: pointer;
     display: inline-block;
-    padding: 2px;
+    padding: 8px 5px 5px;
   }
 
   .edit-rate-null,
@@ -421,7 +423,12 @@
       float: right;
       margin-right: 5px;
       padding: 0;
-      width: calc(100% - 356px);
+      width: calc(100% - 350px);
+    }
+
+    .steel-quantity-embedded-table {
+      margin: 10px 0 !important;
+      width: 100% !important;
     }
   }
 }
@@ -438,15 +445,15 @@
     white-space: inherit;
   }
 }
-//.display-body {
-//  display: block !important;
-//  height: auto !important;
-//}
-//
-//.hide-body {
-//  display: none !important;
-//  height: 0 !important;
-//}
+.display-body {
+  display: block !important;
+  height: auto !important;
+}
+
+.hide-body {
+  display: none !important;
+  height: 0 !important;
+}
 .cost-head-panel-wrapper {
   box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.05);
   display: none;
