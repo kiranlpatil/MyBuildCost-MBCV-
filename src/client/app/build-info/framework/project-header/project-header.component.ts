@@ -16,19 +16,22 @@ export class ProjectHeaderComponent implements OnInit {
   @Input() isClassVisible: boolean;
   @Output() toggleClassView = new EventEmitter<boolean>();
   @Input () isActiveAddBuildingButton?:boolean;
+  numberOfRemainingBuildings : number;
+  subscriptionValidityMessage : string;
 
   constructor(private _router: Router, private costSummaryService : CostSummaryService) {
   }
 
   ngOnInit() {
     this.getCurrentProjectId();
+    this.getProjectSubscriptionDetails();
   }
 
   getCurrentProjectId() {
     return SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT_ID);
   }
 
-  goToCreateBuilding() {
+  getProjectSubscriptionDetails () {
     let userId = SessionStorageService.getSessionValue(SessionStorage.USER_ID);
     let projectId = SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT_ID);
     this.costSummaryService.checkLimitationOfBuilding(userId, projectId).subscribe(
@@ -37,13 +40,21 @@ export class ProjectHeaderComponent implements OnInit {
     );
   }
 
-  checkLimitationOfBuildingSuccess(status:any) {
-    if(status.numOfBuildingsRemaining > 0) {
+  goToCreateBuilding() {
+    if(this.numberOfRemainingBuildings > 0) {
       this._router.navigate([NavigationRoutes.APP_CREATE_BUILDING]);
     } else {
-      //change package name with addOn packages
       let packageName = 'Premium';
       this._router.navigate([NavigationRoutes.APP_PACKAGE_SUMMARY, packageName]);
+    }
+  }
+
+  checkLimitationOfBuildingSuccess(status:any) {
+    this.numberOfRemainingBuildings = status.numOfBuildingsRemaining;
+    if(status.expiryMessage) {
+      this.subscriptionValidityMessage = status.expiryMessage;
+    } else if(status.warningMessage) {
+      this.subscriptionValidityMessage = status.warningMessage;
     }
   }
 

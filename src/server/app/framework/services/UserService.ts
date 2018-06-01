@@ -768,7 +768,7 @@ class UserService {
     let date1_ms = date1.getTime();
     let date2_ms = date2.getTime();
     let difference_ms = (date1_ms - date2_ms);
-    return (difference_ms/ONEDAY);
+    return Math.round(difference_ms/ONEDAY);
   }
 
   getProjectSubscription(user: User, projectId: string, callback:(error : any, result :any)=>void) {
@@ -804,7 +804,7 @@ class UserService {
 
             if(projectSubscription.numOfDaysToExpire < 30 && projectSubscription.numOfDaysToExpire >=0) {
               projectSubscription.warningMessage =
-                'Expiring in ' +  Math.round(projectSubscription.numOfDaysToExpire) + ' days,' ;
+                'Expiring in ' +  Math.round(projectSubscription.numOfDaysToExpire) + ' days.' ;
             } else if(projectSubscription.numOfDaysToExpire < 0) {
               projectSubscription.expiryMessage = 'Project expired,';
             }
