@@ -1,0 +1,68 @@
+import { Component, OnInit } from '@angular/core';
+import { Messages, SessionStorage, SessionStorageService } from '../../../shared/index';
+import { Button, Label, NavigationRoutes } from '../../../shared/constants';
+import { Router } from '@angular/router';
+import { ProjectService } from '../../../build-info/framework/project/project.service';
+import { ProjectSubscriptionDetails } from '../../../build-info/framework/model/projectSubscriptionDetails';
+
+@Component({
+  moduleId: module.id,
+  selector: 'billing-details',
+  templateUrl: 'billing-details.component.html',
+  styleUrls: ['billing-details.component.css'],
+})
+
+ export class BillingDetailsComponent implements OnInit {
+
+  projectDetails : Array<ProjectSubscriptionDetails>;
+  isAbleToCreateNewProject: boolean = false;
+  constructor(private _router: Router, private  projectService: ProjectService) {
+
+  }
+  ngOnInit() {
+    SessionStorageService.setSessionValue(SessionStorage.CURRENT_VIEW,'billingDetails');
+    this.getDetailsOfProjectPlan();
+  }
+
+  getDetailsOfProjectPlan() {
+    this.projectService.getAllProjects().subscribe(
+      projects => this.onDetailsOfProjectPlanSuccess(projects),
+      error => this.onDetailsOfProjectPlanFailure(error)
+    );
+  }
+
+  onDetailsOfProjectPlanSuccess(projects : any) {
+    this.projectDetails = projects.data;
+    this.isAbleToCreateNewProject = projects.isSubscriptionAvailable;
+  }
+
+  onDetailsOfProjectPlanFailure(error:any) {
+    console.log(error);
+  }
+
+    getLabel() {
+    return Label;
+  }
+
+  getButton() {
+    return Button;
+  }
+  getMessage() {
+    return Messages;
+  }
+
+  goBack() {
+    sessionStorage.removeItem(SessionStorage.CURRENT_VIEW);
+    window.history.go(-1);
+    return false;
+  }
+
+   createProject() {
+      if(this.isAbleToCreateNewProject === true) {
+        this._router.navigate([NavigationRoutes.APP_CREATE_PROJECT]);
+      } else {
+        let packageName = 'Premium';
+        this._router.navigate([NavigationRoutes.APP_PACKAGE_SUMMARY,packageName]);
+      }
+    }
+}

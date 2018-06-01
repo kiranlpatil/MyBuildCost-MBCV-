@@ -1,0 +1,30 @@
+ <div>
+   <label>{{getLabel().BILLING_INFO}}</label>
+      <table>
+        <thead>
+            <th> {{getLabel().PROJECT_NAME}}</th>
+            <th> {{getLabel().VALID_TILL}}</th>
+            <th> {{getLabel().NO_OF_BUILDINGS}}</th>
+        </thead>
+        <tbody>
+        <tr *ngFor="let project of projectDetails; let projectIndex =index ">
+            <td>
+                {{project.projectName}}
+                <p *ngIf="project.expiryMessage !== null"> {{project.expiryMessage}}</p>
+                <p *ngIf="project.warningMessage !== null"> {{project.warningMessage}}</p>
+              <a *ngIf="(project.warningMessage !== null || project.expiryMessage !== null)"> {{getButton().RENEW_NOW}}</a>
+            </td>
+            <td>
+                {{project.expiryDate | date:'dd/MMMM/yyyy'}}
+            </td>
+            <td>
+               {{project.numOfBuildingsAllocated}}
+              <p *ngIf="project.numOfBuildingsRemaining !== 0">{{getMessage().MSG_FOR_REMAINING_BUILDINGS}}
+                {{project.numOfBuildingsRemaining}}{{getMessage().MSG_FOR_REMAINING_BUILDINGS_ADD}}</p>
+            </td>
+        </tr>
+        </tbody>
+      </table>
+   <input action="action" (click)="goBack()" type="button" value="go Back" />
+  <button (click)="createProject()">{{ getButton().ADD_PROJECT }}</button>
+ </div>

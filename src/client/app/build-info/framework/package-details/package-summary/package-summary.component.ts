@@ -1,7 +1,7 @@
 import { Component,OnInit } from '@angular/core';
 import { Headings, Button, Label,Messages } from '../../../../shared/constants';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Message, MessageService } from '../../../../shared/index';
+import { Message, MessageService, SessionStorage } from '../../../../shared/index';
 import { PackageDetailsService } from './../package-details.service';
 import { NavigationRoutes } from '../../../../shared/index';
 
@@ -37,13 +37,15 @@ export class PackageSummaryComponent implements OnInit {
   onGetSubscriptionPackageByNameSuccess(packageDetails:any) {
     this.premiumPackageDetails=packageDetails[0];
   }
-  onGetSubscriptionPackageByNameFailure(error:any){
+  onGetSubscriptionPackageByNameFailure(error:any) {
     console.log(error);
  }
   onCancelClick() {
+    sessionStorage.removeItem(SessionStorage.CURRENT_VIEW);
     this._router.navigate([NavigationRoutes.APP_DASHBOARD]);
    }
   onPay() {
+    sessionStorage.removeItem(SessionStorage.CURRENT_VIEW);
     this._router.navigate([NavigationRoutes.APP_PACKAGE_DETAILS, NavigationRoutes.PAYMENT, NavigationRoutes.SUCCESS]);
    }
  getHeadings() {

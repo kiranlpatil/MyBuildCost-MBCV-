@@ -736,10 +736,10 @@ class UserService {
               projectSubscription.numOfDaysToExpire = this.daysdifference(projectSubscription.expiryDate, current_date);
 
               if(projectSubscription.numOfDaysToExpire < 30 && projectSubscription.numOfDaysToExpire >=0) {
-                projectSubscription.warningMessage = projectSubscription.numOfDaysToExpire +
-                  ' days are remaining to expire. Please renew Project';
+                projectSubscription.warningMessage =
+                  'Expiring in ' +  Math.round(projectSubscription.numOfDaysToExpire) + ' days,' ;
               } else if(projectSubscription.numOfDaysToExpire < 0) {
-                projectSubscription.expiryMessage = 'Please renew project. project is expired';
+                projectSubscription.expiryMessage =  'Project expired,';
               }
 
               projectSubscriptionArray.push(projectSubscription);
@@ -803,10 +803,10 @@ class UserService {
             projectSubscription.numOfDaysToExpire = this.daysdifference(projectSubscription.expiryDate, current_date);
 
             if(projectSubscription.numOfDaysToExpire < 30 && projectSubscription.numOfDaysToExpire >=0) {
-              projectSubscription.warningMessage = projectSubscription.numOfDaysToExpire +
-                ' days are remaining to expire. Please renew Project';
+              projectSubscription.warningMessage =
+                'Expiring in ' +  Math.round(projectSubscription.numOfDaysToExpire) + ' days,' ;
             } else if(projectSubscription.numOfDaysToExpire < 0) {
-              projectSubscription.expiryMessage = 'Please renew project. project is expired';
+              projectSubscription.expiryMessage = 'Project expired,';
             }
             callback(null, projectSubscription);
           }

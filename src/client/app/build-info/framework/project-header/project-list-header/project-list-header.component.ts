@@ -6,6 +6,7 @@ import { ProjectService } from '../../project/project.service';
 import { SessionStorage,SessionStorageService } from '../../../../shared/index';
 import { Project } from './../../model/project';
 import { ProjectNameChangeService } from '../../../../shared/services/project-name-change.service';
+import { ProjectSubscriptionDetails } from '../../model/projectSubscriptionDetails';
 
 @Component({
   moduleId: module.id,
@@ -16,7 +17,7 @@ import { ProjectNameChangeService } from '../../../../shared/services/project-na
 
 export class ProjectListHeaderComponent implements OnInit {
 
-  projects : Array<Project>;
+  projects : Array<ProjectSubscriptionDetails>;
   selectedProjectName : string;
   currentView : string;
   projectNameSubscription : Subscription;
@@ -49,13 +50,15 @@ export class ProjectListHeaderComponent implements OnInit {
 
   onGetAllProjectsSuccess(projects : any) {
     this.projects = projects.data;
-    if((this.currentView === 'costSummary'|| this.currentView === 'materialTakeOff' || this.currentView === 'projectDetails') && SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT_NAME) === null ){
-      let projectList : Array<Project>;
+    if((this.currentView === 'costSummary'|| this.currentView === 'materialTakeOff' || this.currentView === 'projectDetails')
+      && SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT_NAME) === null ) {
+      let projectList : Array<ProjectSubscriptionDetails>;
       projectList = this.projects.filter(
-        function( project: Project){
-          return project._id.toString() == SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT_ID).toString();
+        function( projectDetails: ProjectSubscriptionDetails){
+          return projectDetails.projectId.toString() ===
+            SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT_ID).toString();
         });
-      SessionStorageService.setSessionValue(SessionStorage.CURRENT_PROJECT_NAME,  projectList[0].name);
+      SessionStorageService.setSessionValue(SessionStorage.CURRENT_PROJECT_NAME,  projectList[0].projectName);
     }
   }
 
@@ -65,13 +68,13 @@ export class ProjectListHeaderComponent implements OnInit {
 
   selectedProject(projectName:string) {
      SessionStorageService.setSessionValue(SessionStorage.CURRENT_PROJECT_NAME, projectName);
-      let projectList : Array<Project>;
-      projectList = this.projects.filter(
-        function( project: Project){
-          return project.name === projectName;
+    let projectList : Array<ProjectSubscriptionDetails>;
+    projectList = this.projects.filter(
+      function( projectDetails: ProjectSubscriptionDetails){
+          return projectDetails.projectName === projectName;
         });
-      SessionStorageService.setSessionValue(SessionStorage.CURRENT_PROJECT_ID, projectList[0]._id);
-      this._router.navigate([NavigationRoutes.APP_PROJECT, projectList[0]._id, NavigationRoutes.APP_COST_SUMMARY]);
+      SessionStorageService.setSessionValue(SessionStorage.CURRENT_PROJECT_ID, projectList[0].projectId);
+      this._router.navigate([NavigationRoutes.APP_PROJECT, projectList[0].projectId, NavigationRoutes.APP_COST_SUMMARY]);
   }
 
   getMenus() {

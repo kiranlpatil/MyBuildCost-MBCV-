@@ -9,6 +9,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRequestOptions, LoaderService, MessageService } from './shared/index';
 import { DashboardComponent } from './framework/dashboard/dashboard.component';
 import { AboutComponent } from './framework/dashboard/about/about.component';
+import { BillingDetailsComponent } from './framework/dashboard/billing-details/billing-details.component';
 import { ContactComponent } from './framework/dashboard/contact/contact.component';
 import { DashboardHomeComponent } from './framework/dashboard/dashboard-home/dashboard-home.component';
 import { HeaderComponent } from './framework/shared/header/header.component';
@@ -122,6 +123,7 @@ import { PaymentSuccessfulComponent } from './build-info/framework/payment/payme
     HeaderComponent,
     NotificationComponent,
     SocialIconComponent,
+    BillingDetailsComponent,
 
     //Application COMPONENT
     DashboardHeaderComponent,

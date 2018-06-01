@@ -1,7 +1,7 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { NavigationRoutes } from '../../../../shared/constants';
-import { SessionStorage, SessionStorageService } from '../../../../shared/index';
+import { Button, NavigationRoutes } from '../../../../shared/constants';
+import { Messages, SessionStorage, SessionStorageService } from '../../../../shared/index';
 import { Project } from '../../model/project';
 
 @Component({
@@ -11,11 +11,20 @@ import { Project } from '../../model/project';
   styleUrls: ['project-item.component.css']
 })
 
-export class ProjectItemComponent {
+export class ProjectItemComponent implements OnInit {
 
   @Input() project :  Project;
 
   constructor(private _router: Router) {
+  }
+  ngOnInit() {
+   sessionStorage.removeItem(SessionStorage.CURRENT_VIEW);
+  }
+  getMessage() {
+    return Messages;
+  }
+  getButton() {
+    return Button;
   }
 
   navigateToSelectedProject(projectId:string,projectName:string, numberOfDaysToExpire : number) {

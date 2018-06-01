@@ -213,6 +213,10 @@ export class Messages {
   public static  MSG_ERROR_VALIDATION_OF_FILE_UPLOADED_SUCCESSFUL = 'File uploaded successfully';
   public static  MSG_ERROR_VALIDATION_OF_FILE_DELETED_SUCCESSFUL = 'File deleted successfully';
   public static ADD_MORE_DETAILS_TITLE: string = 'Add Flat/Floor/Parking Details';
+
+  //Payment Messages
+  public static MSG_FOR_REMAINING_BUILDINGS: string = '(You can add';
+  public static MSG_FOR_REMAINING_BUILDINGS_ADD: string = ' more buildings to this project)';
 }
 
 export class NavigationRoutes {
@@ -470,6 +474,9 @@ export class Label {
   public static NOT_FOUND_ERROR: string = '404';
   public static REMENBER_ME: string = 'Remember me';
   public static GET_STARTED: string = 'Get Started';
+  public static BILLING_INFO: string = 'Here is a billing summary of your projects';
+  public static VALID_TILL: string = 'Valid Till';
+  public static NO_OF_BUILDINGS: string = 'Number of Buildings';
 
   //project form
   public static PROJECT_NAME: string = 'Project Name';
@@ -578,6 +585,8 @@ export class Button {
   public static COSTHEAD: string = 'Cost Head';
   public static ATTACH_FILE: string = 'Attach File';
   public static STANDARD_NOTE: string = 'Standard Note / Disclaimer';
+  public static ADD_PROJECT: string = 'Add Project';
+  public static RENEW_NOW: string = 'Renew now';
 
   //Package details
   public static MSG_VIEW_PACKAGE_DETAILS: string = 'Your trial period is for 15 days,<br /> to view our package details';
@@ -666,6 +675,7 @@ export class Menus {
   public static ADD_BUILDING_TO_PROJECT = 'Add Building to Project';
   public static COPY_BUILDING = 'Copy Building';
   public static CREATE_NEW_PROJECT: string = 'Create New Project';
+  public static BILLING_DETAILS: string = 'Billing Details';
 }
 
 export class ValueConstant {
@@ -687,6 +697,7 @@ export class CurrentView {
   public static COST_SUMMARY = 'costSummary';
   public static MATERIAL_TAKE_OFF = 'materialTakeOff';
   public static PROJECT_DETAILS = 'projectDetails';
+  public static BILLING_DETAILS = 'billingDetails';
 }
 
 export class ScrollView {
