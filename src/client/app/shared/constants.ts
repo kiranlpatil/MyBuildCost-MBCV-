@@ -560,10 +560,10 @@ export class Label {
   public static PROJECTS: string = 'Projects';
   public static BUILDING: string = 'Building';
   public static BUILDINGS: string = 'Buildings';
-  public static NO_OF_PROJECTS: string = 'No.of Projects:';
-  public static NO_OF_BUILDING: string = 'No.of Buildings:';
-  public static DURATION: string = 'Duration:';
-  public static TOTAL_BILLED: string = 'Total Billed:';
+  public static NO_OF_PROJECTS: string = 'No.of Projects';
+  public static NO_OF_BUILDING: string = 'No.of Buildings';
+  public static DURATION: string = 'Duration';
+  public static TOTAL_BILLED: string = 'Total Billed';
   public static NO_OF_BUILDINGS_TO_ADD: string = 'Number of building(s) to add';
   public static INR: string = 'INR';
 

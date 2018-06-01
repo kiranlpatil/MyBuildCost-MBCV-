@@ -1,22 +1,43 @@
-<div *ngIf="packageName && packageName=='Premium'">
+<div class="confirm-your-package-section" *ngIf="packageName && packageName=='Premium'">
   <h1>{{getHeadings().CONFIRM_PACKAGE_HEADING}}</h1>
 
   <div *ngIf="premiumPackageDetails">
-    <span>{{getLabels().NO_OF_PROJECTS}}{{premiumPackageDetails.basePackage.numOfProjects}}</span><br>
-    <span>{{getLabels().NO_OF_BUILDING}}{{premiumPackageDetails.basePackage.numOfBuildings}}</span><br>
-  <span>{{getLabels().DURATION}}{{premiumPackageDetails.basePackage.validity/365|number:'1.0-0'}}years</span><br>
- <h1>
-   {{getLabels().TOTAL_BILLED}}{{premiumPackageDetails.basePackage.cost}}
- </h1>
-  <div>
-    <button name="cancel" (click)="onCancelClick()">{{getButton().CANCEL_BUTTON}}</button>
-    <button name="pay" (click)="onPay()">{{getButton().PAY_BUTTON}}</button>
+    <div class="col-xs-12">
+      <ul>
+        <li>
+          <div>
+            <span>{{getLabels().NO_OF_PROJECTS}}</span>
+            <span class="pull-right">{{premiumPackageDetails.basePackage.numOfProjects}}</span>
+          </div>
+        </li>
+        <li>
+          <div>
+            <span>{{getLabels().NO_OF_BUILDING}}</span>
+            <span class="pull-right">{{premiumPackageDetails.basePackage.numOfBuildings}}</span>
+          </div>
+        </li>
+        <li>
+          <div>
+            <span>{{getLabels().DURATION}}</span>
+            <span class="pull-right">{{premiumPackageDetails.basePackage.validity/365|number:'1.0-0'}} years </span>
+          </div>
+        </li>
+        <li>
+          <div class="font-bold">
+            <span>{{getLabels().TOTAL_BILLED}}</span>
+            <span class="pull-right"> {{premiumPackageDetails.basePackage.cost}} <sup>INR</sup> </span>
+          </div>
+        </li>
+      </ul>
+
+      <div>
+        <button class="btn btn-default" name="cancel" (click)="onCancelClick()">{{getButton().CANCEL_BUTTON}}</button>
+        <button class="btn btn-primary" name="pay" (click)="onPay()">{{getButton().PAY_BUTTON}}</button>
+      </div>
+    </div>
   </div>
-
-
-  </div>
-
 </div>
+
 <div *ngIf="packageName && packageName=='Add_building'">
   <h3 [innerHtml]="getMessages().MSG_ADD_BUILDING_PAYMENT"></h3>
   <div class="form-group">

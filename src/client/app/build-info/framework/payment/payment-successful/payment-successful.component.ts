@@ -6,7 +6,8 @@ import { NavigationRoutes } from '../../../../shared/index';
 @Component({
   moduleId: module.id,
   selector: 'bi-payment-success',
-  templateUrl: 'payment-successful.component.html'
+  templateUrl: 'payment-successful.component.html',
+  styleUrls: ['payment-successful.component.css']
 })
 
 export class PaymentSuccessfulComponent {
