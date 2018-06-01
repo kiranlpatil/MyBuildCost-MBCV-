@@ -90,7 +90,14 @@ class UserRoutes {
       //Retrive list of project
       router.get('/subscription/project/:projectId', authInterceptor.requiresAuth, controller.getProjectSubscription);
       router.get('/all/project', authInterceptor.requiresAuth, controller.getProjects);
-        return router;
+
+      //assign subscription package
+/*
+      router.put('/:userId/assign/package', logger.logDetail, authInterceptor.requiresAuth,
+        authInterceptor.secureApiCheck, controller.changePassword);
+*/
+
+      return router;
     }
 }
 

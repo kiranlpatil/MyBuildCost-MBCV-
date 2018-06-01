@@ -88,25 +88,24 @@
           "cost": 0,
           "validity": 15,
           "validityDescription": "15 Days",
-          "description": "Tral",
+          "description": "Trial",
           "name": "Free"
         }
       },
       "CostPerPackage": {
         "basePackage": {
-          "iterativeDiscount": 0,
+          "iterativeDiscount": 1000,
           "numOfBuildings": 5,
           "numOfProjects": 1,
           "cost": 3000,
           "validity": 1080,
           "validityDescription": "3 Years",
-          "description": "Tral",
-          "name": "Free"
+          "description": "Premium",
+          "name": "Premium"
         }
       }
     }
   },
-
 
   "thumbRuleRate": {
     "slabArea": {
