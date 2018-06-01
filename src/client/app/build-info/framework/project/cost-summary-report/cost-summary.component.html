@@ -25,6 +25,7 @@
         </ul>
       </div>
     </div>
+
     <div class="col-sm-9 col-xs-12 padding-right30 left-content">
       <div class="panel-group" id="cost-summary-panel">
         <div class="panel panel-default" *ngFor="let building of buildingsReport; let i = index">
@@ -165,6 +166,7 @@
                   </tr>-->
                 </tbody>
               </table>
+                <cost-distribution-chart id="CostDistributionChart{{i}}" [chartId]="i" [buildingReport]="buildingsReport[i]"></cost-distribution-chart>
             </div>
           </div>
           <table class="table table-row-spacing table-dashboard total-table">
@@ -202,6 +204,9 @@
               </tr>
             </tbody>
           </table>
+
+
+
         </div>
         <!--Common Amenity-->
         <bi-common-amenities
@@ -212,6 +217,7 @@
           [costingByArea]="defaultCostingByArea"
           (getReportDetails)="getCostSummaryReport($event)">
         </bi-common-amenities>
+
       </div>
 
 
