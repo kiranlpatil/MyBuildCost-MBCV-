@@ -12,7 +12,7 @@
                 {{project.projectName}}
                 <p *ngIf="project.expiryMessage !== null"> {{project.expiryMessage}}</p>
                 <p *ngIf="project.warningMessage !== null"> {{project.warningMessage}}</p>
-              <a *ngIf="(project.warningMessage !== null || project.expiryMessage !== null)"> {{getButton().RENEW_NOW}}</a>
+              <a *ngIf="(project.warningMessage !== null || project.expiryMessage !== null)" (click)="goToRenew(project.projectId, project.projectName, project.numOfDaysToExpire)"> {{getButton().RENEW_NOW}}</a>
             </td>
             <td>
                 {{project.expiryDate | date:'dd/MMMM/yyyy'}}

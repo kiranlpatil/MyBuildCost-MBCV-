@@ -45,8 +45,13 @@ class SubscriptionService {
     });
   }
 
-  getSubscriptionPackageByName(basePackageName : string, callback:(error: any, result: any) => void) {
-    let query = { 'basePackage.name': basePackageName};
+  getSubscriptionPackageByName(packageName : string, packageType:string, callback:(error: any, result: any) => void) {
+    let query : any;
+    if(packageType === 'BasePackage') {
+      query = { 'basePackage.name': packageName};
+    } else {
+      query = { 'addonPackage.name': packageName};
+    }
     this.subscriptionRepository.retrieve(query, callback);
   }
 }

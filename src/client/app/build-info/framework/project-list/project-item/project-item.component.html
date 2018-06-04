@@ -9,4 +9,4 @@
 <h4 (click)="navigateToSelectedProject(project.projectId, project.projectName, project.numOfDaysToExpire)">{{project.projectName}}</h4>
 <p *ngIf="project.expiryMessage !== null"> {{project.expiryMessage}}</p>
 <p *ngIf="project.warningMessage !== null"> {{project.warningMessage}}</p>
-<a *ngIf="(project.warningMessage !== null || project.expiryMessage !== null)"> {{getButton().RENEW_NOW}}</a>
+<a (click)="goToRenew(project.projectId, project.projectName, project.numOfDaysToExpire)"> {{getButton().RENEW_NOW}}</a>

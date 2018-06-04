@@ -29,13 +29,18 @@ export class PackageSummaryComponent implements OnInit {
       this.premiumPackageExist = params['premiumPackageExist'];
       this.premiumPackageAvailable = this.premiumPackageExist!=='false'?true:false;
       if(this.packageName==='Premium') {
-        this.getSubscriptionPackageByName(this.packageName);
+        if (this.packageName === 'Premium') {
+          let body = {
+            basePackageName: 'Premium'
+          };
+          this.getSubscriptionPackageByName(this.packageName, body);
+        }
       }
     });
     }
 
-    getSubscriptionPackageByName(packageName : string) {
-    this.packageDetailsService.getSubscriptionPackageByName(packageName).subscribe(
+    getSubscriptionPackageByName(packageName : string, body : any) {
+    this.packageDetailsService.getSubscriptionPackageByName(body).subscribe(
       packageDetails=>this.onGetSubscriptionPackageByNameSuccess(packageDetails),
       error=>this.onGetSubscriptionPackageByNameFailure(error)
     );

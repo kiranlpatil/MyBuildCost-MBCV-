@@ -251,6 +251,7 @@ export class NavigationRoutes {
   //PAYMENT
   public static APP_PACKAGE_DETAILS: string = '/package-details';
   public static APP_PACKAGE_SUMMARY: string = '/package-details/premium-package/';
+  public static APP_RENEW_PACKAGE: string = '/package-details/renew-package';
 
 
 }
@@ -570,6 +571,15 @@ export class Label {
 
 
 
+  //Renew project
+  public static YOUR_PROJECT: string = 'Your project';
+  public static IS_ABOUT_TO_EXPIRE_IN: string = ', is about to expire in';
+  public static DAYS: string = 'days';
+  public static PLEASE_RENEW_TO_CONTINUE: string = 'Please renew to continue using features of BuildInfo.';
+  public static START_DATE: string = 'Start Date';
+  public static END_DATE: string = 'End Date';
+  public static RENEW_PROJECT_BY: string = 'Renew Project by';
+
 }
 
 export class Button {
@@ -610,6 +620,9 @@ export class Button {
   public static CONTINUE_USING_TRIAL: string = 'Continue using trial';
   public static SWITCH_TO_PREMIUM: string = 'Switch to premium';
   public static PAY_BUTTON: string = 'Pay';
+
+  //Renew project
+  public static PROCEED_TO_PAY: string = 'Proceed to Pay';
 
 }
 

@@ -34,4 +34,8 @@ export class ProjectItemComponent implements OnInit {
       this._router.navigate([NavigationRoutes.APP_PROJECT, projectId, NavigationRoutes.APP_COST_SUMMARY]);
     //}
   }
+
+  goToRenew(projectId:string, projectName:string, numOfDaysToExpire : number) {
+    this._router.navigate([NavigationRoutes.APP_RENEW_PACKAGE, projectId, projectName, numOfDaysToExpire]);
+  }
 }

@@ -65,4 +65,8 @@ import { ProjectSubscriptionDetails } from '../../../build-info/framework/model/
         this._router.navigate([NavigationRoutes.APP_PACKAGE_SUMMARY,packageName]);
       }
     }
+
+  goToRenew(projectId:string, projectName:string, numOfDaysToExpire : number) {
+    this._router.navigate([NavigationRoutes.APP_RENEW_PACKAGE, projectId, projectName, numOfDaysToExpire]);
+  }
 }

@@ -62,7 +62,7 @@ class UserService {
           } else {
             item.password = hash;
             let subScriptionService = new SubscriptionService();
-            subScriptionService.getSubscriptionPackageByName('Free', (err: any,
+            subScriptionService.getSubscriptionPackageByName('Free','BasePackage', (err: any,
                                                                       freeSubscription: Array<SubscriptionPackage>) => {
               if (freeSubscription.length > 0) {
                 this.assignFreeSubscriptionAndCreateUser(item, freeSubscription[0], callback);

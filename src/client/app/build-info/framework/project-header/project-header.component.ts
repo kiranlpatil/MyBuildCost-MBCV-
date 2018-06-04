@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import { SessionStorage, SessionStorageService } from '../../../shared/index';
-import { Menus, NavigationRoutes, CurrentView } from '../../../shared/constants';
+import { Menus, NavigationRoutes, CurrentView, Button } from '../../../shared/constants';
 import { CostSummaryService } from '../project/cost-summary-report/cost-summary.service';
 
 @Component({
@@ -86,6 +86,14 @@ export class ProjectHeaderComponent implements OnInit {
 
   closeMenu() {
     this.toggleClassView.emit(false);
+  }
+
+  getButton() {
+    return Button;
+  }
+
+  goToRenew() {
+    this._router.navigate([NavigationRoutes.APP_RENEW_PACKAGE]);
   }
 
 }

@@ -52,9 +52,17 @@ class SubscriptionController {
   getSubscriptionPackageByName(req: express.Request, res: express.Response, next: any): void {
     try {
       logger.info('Subscription  Controller, getSubscriptionPackageByName has been hit');
-      let basePackageName: any = req.body.basePackageName;
+      let packageName: any;
+      let packageType : any;
+      if(req.body.basePackageName !== undefined) {
+        packageName = req.body.basePackageName;
+        packageType = 'BasePackage';
+      } else {
+        packageName = req.body.addOnPackageName;
+        packageType = 'AddOnPackage';
+      }
       let subscriptionService: SubscriptionService = new SubscriptionService();
-      subscriptionService.getSubscriptionPackageByName( basePackageName,(error, result) => {
+      subscriptionService.getSubscriptionPackageByName( packageName, packageType, (error, result) => {
         if(error) {
           next(error);
         } else {

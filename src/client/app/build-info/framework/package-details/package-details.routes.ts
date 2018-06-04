@@ -1,6 +1,7 @@
 import { Route } from '@angular/router';
 import { PackageDetailsComponent } from './package-details.component';
 import { PackageSummaryComponent } from './package-summary/package-summary.component';
+import { RenewPackageComponent } from './renew-package/renew-package.component';
 import { PackageDefaultComponent } from './packageDefault.component';
 import { PaymentSuccessfulComponent } from '../payment/payment-successful/payment-successful.component';
 
@@ -11,6 +12,7 @@ export const PackageDetailsRoutes: Route[] = [
     children:[
       {path: '', component: PackageDetailsComponent},
       {path: 'premium-package/:packageName/:premiumPackageExist', component: PackageSummaryComponent},
+      {path: 'renew-package/:projectId/:projectName/:numOfDaysToExpire', component: RenewPackageComponent},
       {path: 'payment/success', component: PaymentSuccessfulComponent}]
   }
 ];

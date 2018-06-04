@@ -15,8 +15,7 @@ export class PackageDetailsService extends BaseService {
     return this.httpDelegateService.getAPI(url);
   }
 
-  getSubscriptionPackageByName(packageName:string) {
-    var body = {basePackageName:packageName}
+  getSubscriptionPackageByName(body : any) {
     var url = API.SUBSCRIPTION + '/'+ API.BY_NAME ;
     return this.httpDelegateService.postAPI(url,body);
 
