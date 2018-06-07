@@ -94,6 +94,8 @@ import { DisclaimerComponent } from './shared/disclaimer-component/disclaimer-co
 import {
   SortByCategoryAmountPipe} from './build-info/framework/project/cost-summary-report/cost-head/sort-by-category-amount.pipe';
 import { GetSteelQuantityComponent} from './build-info/framework/project/cost-summary-report/cost-head/get-quantity-steel/get-quantity-steel.component';
+import { AdvertisingBannerComponent } from './build-info/framework/project/advertising-banner/advertising-banner.component';
+import {AdvertisingBannerService} from "./build-info/framework/project/advertising-banner/advertising-banner.service";
 
 @NgModule({
   imports: [
@@ -167,7 +169,8 @@ import { GetSteelQuantityComponent} from './build-info/framework/project/cost-su
     CommonAmenitiesComponent,
     CostSummaryReportComponent,
     AttachmentComponent,
-    CommonAmenitiesReportComponent
+    CommonAmenitiesReportComponent,
+    AdvertisingBannerComponent
   ],
 
   providers: [
@@ -202,7 +205,8 @@ import { GetSteelQuantityComponent} from './build-info/framework/project/cost-su
     BuildingService,
     CostSummaryService,
     MaterialTakeOffService,
-    ProjectNameChangeService
+    ProjectNameChangeService,
+    AdvertisingBannerService
   ],
   bootstrap: [AppComponent]
 })
