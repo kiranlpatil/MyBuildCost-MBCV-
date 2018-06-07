@@ -50,15 +50,27 @@ export class CostDistributionChartComponent implements AfterViewInit, OnChanges 
         plotBackgroundColor: '#f7f7f7',
         plotBorderWidth: 0,
         plotShadow: false,
-        colorCount: 50
+        colorCount: 50,
+        backgroundColor: '#f7f7f7',
+        marginTop: 0,
+        marginBottom: 0,
+        marginLeft: 0,
+        marginRight: 0,
       },
       title: {
         text: this.buildingReport.name + ',<br>Construction Cost:<br>' + '(Material+Labour)',
         align: 'center',
-        verticalAlign: 'middle'
+        verticalAlign: 'middle',
+        y: -70,
+        style: {
+          fontSize: '1em'
+        }
       },
       tooltip: {
         pointFormat: '<b>{point.percentage:.1f}%</b>'
+      },
+      credits: {
+        enabled: false
       },
       plotOptions: {
         pie: {
@@ -73,17 +85,22 @@ export class CostDistributionChartComponent implements AfterViewInit, OnChanges 
           showInLegend: true,
           startAngle: 0,
           endAngle: 360,
-          center: ['50%', '75%']
+          center: ['50%', '36%']
         }
       },
       series: [{
         type: 'pie',
         name: 'Cost Distribution',
-        innerSize: '50%',
+        innerSize: '60%',
         data: data,
       }],
       legend: {
-        layout: 'vertical'
+        layout: 'vertical',
+        itemWidth: 150,
+        maxHeight: 110,
+        margin: 0,
+        padding: 0,
+        y: 0
       },
       colors: ['#434348', '#3bc698', '#315967', '#6b9bab', '#ff9a9e', '#0097ca', '#ed4731',
         '#37c2c3', '#f26424', '#a1c4fd', '#9ec000', '#e7bc00']
