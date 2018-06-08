@@ -28,7 +28,7 @@ export class PackageSummaryComponent implements OnInit {
       this.packageName = params['packageName'];
       this.premiumPackageExist = params['premiumPackageExist'];
       this.premiumPackageAvailable = this.premiumPackageExist !== 'false' ? true : false;
-      if (this.packageName === 'Premium') {
+      if (this.packageName === 'Premium' || this.packageName === 'Retain') {
           let body = {
             basePackageName: 'Premium'
           };
@@ -67,7 +67,7 @@ export class PackageSummaryComponent implements OnInit {
    }
   onPay() {
     sessionStorage.removeItem(SessionStorage.CURRENT_VIEW);
-    this._router.navigate([NavigationRoutes.APP_PACKAGE_DETAILS, NavigationRoutes.PAYMENT, NavigationRoutes.SUCCESS]);
+    this._router.navigate([NavigationRoutes.APP_PACKAGE_DETAILS, NavigationRoutes.PAYMENT,this.packageName,NavigationRoutes.SUCCESS]);
   }
 
   getHeadings() {

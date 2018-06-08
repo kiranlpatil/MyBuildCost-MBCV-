@@ -32,6 +32,7 @@ export class RetainProjectComponent implements OnInit{
 
     }
   onContinueWithExixtingProject() {
+    this._router.navigate([NavigationRoutes.APP_PACKAGE_SUMMARY,'Retain',false]);
 
   }
 
