@@ -96,22 +96,21 @@ class UserService {
         logger.error('Failed to Creating user subscription package');
         callback(new Error(Messages.MSG_ERROR_REGISTRATION_MOBILE_NUMBER), null);
       } else {
-        logger.debug('created user succesfully.');
-        callback(null, res);
-      }
-        /*let auth = new AuthInterceptor();
+        logger.debug('created user succesfully.'+JSON.stringify(res));
+        let auth = new AuthInterceptor();
         let token = auth.issueTokenWithUid(res);
         let host = config.get('application.mail.host');
         let link = host + 'signin?access_token=' + token + '&_id=' + res._id;
         let htmlTemplate = 'welcome-aboard.html';
         let data:Map<string,string>= new Map([['$applicationLink$',config.get('application.mail.host')],
           ['$first_name$',res.first_name],['$link$',link],['$app_name$',this.APP_NAME]]);
-        let attachment=MailAttachments.WelcomeAboardAttachmentArray;
+        let attachment = MailAttachments.WelcomeAboardAttachmentArray;
+        logger.debug('sending mail to new user.'+JSON.stringify(attachment));
         sendMailService.send( user.email, Messages.EMAIL_SUBJECT_CANDIDATE_REGISTRATION, htmlTemplate, data,attachment,
           (err: any, result: any) => {
             callback(err, result);
           });
-        }*/
+        }
     });
   }
 
