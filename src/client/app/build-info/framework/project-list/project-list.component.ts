@@ -3,7 +3,8 @@ import { Router } from '@angular/router';
 import { NavigationRoutes, Button, Animations } from '../../../shared/constants';
 import { ProjectService } from '../project/project.service';
 import { Project } from './../model/project';
-import {PackageDetailsService} from "../package-details/package-details.service";
+import { PackageDetailsService } from '../package-details/package-details.service';
+import { SessionStorage, SessionStorageService } from '../../../shared/index';
 declare var $: any;
 
 @Component({
@@ -39,9 +40,9 @@ export class ProjectListComponent implements OnInit, AfterViewInit {
     }else if(trialProjectExist && !isSubscriptionAvailable) {
       $('#createProjectConfirmation').modal();
     }
-      /* let packageName = 'Premium';
-      this._router.navigate([NavigationRoutes.APP_PACKAGE_SUMMARY, packageName, premiumPackageExist]);*/
-  }
+     /*  let packageName = 'Premium';
+      this._router.navigate([NavigationRoutes.APP_PACKAGE_SUMMARY, packageName, premiumPackageExist]);
+  */}
 
 
 
@@ -53,6 +54,8 @@ export class ProjectListComponent implements OnInit, AfterViewInit {
   }
 
   onGetAllProjectSuccess(projects : any) {
+    if(this.projects)
+    SessionStorageService.setSessionValue(SessionStorage.CURRENT_PROJECT_NAME,this.projects[0].projectName);
     this.projects = projects.data;
     if(this.projects && this.projects.length >1) {
       this.premiumPackageAvailable=true;

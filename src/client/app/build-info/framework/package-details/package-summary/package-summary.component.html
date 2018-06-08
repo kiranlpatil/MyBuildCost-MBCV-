@@ -22,16 +22,19 @@
             <span class="pull-right">{{premiumPackageDetails.basePackage.validity/365|number:'1.0-0'}} years </span>
           </div>
         </li>
-        <li>
+        <!--<li>
           <div class="font-bold">
             <span>{{getLabels().TOTAL_BILLED}}</span>
-            <span class="pull-right"> {{premiumPackageDetails.basePackage.cost}} <sup>INR</sup> </span>
+
           </div>
-        </li>
+        </li>-->
         <li *ngIf="premiumPackageAvailable">
           <div class="font-bold">
             <span>{{getLabels().TOTAL_BILLED}}</span>
-            <span class="pull-right"> {{premiumPackageDetails.basePackage.cost-premiumPackageDetails.basePackage.iterativeDiscount}} <sup>INR</sup> </span>
+            <div class="totalBillAmount pull-right">
+              <span class="col-xs-12 pull-right no-padding text-right lineThrough"> <sup>INR</sup> {{premiumPackageDetails.basePackage.cost}} </span>
+              <span class="col-xs-12 pull-right no-padding text-right font-18"> <sup>INR</sup> {{premiumPackageDetails.basePackage.cost-premiumPackageDetails.basePackage.iterativeDiscount}} </span>
+            </div>
           </div>
         </li>
       </ul>
@@ -73,11 +76,9 @@
         </div>
       </div>
     </li>
-    <li>
-    <div>
-        <button class="btn btn-default" name="cancel" (click)="onCancel()">{{getButton().CANCEL_BUTTON}}</button>
-        <button class="btn btn-primary" name="pay" (click)="onPay()">{{getButton().PROCEED_TO_PAY_BUTTON}}</button>
-    </div>
-    </li>
   </uL>
+  <div>
+    <button class="btn btn-default" name="cancel" (click)="onCancel()">{{getButton().CANCEL_BUTTON}}</button>
+    <button class="btn btn-primary" name="pay" (click)="onPay()">{{getButton().PROCEED_TO_PAY_BUTTON}}</button>
+  </div>
 </div>

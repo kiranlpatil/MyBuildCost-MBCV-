@@ -51,6 +51,16 @@
   sup {
     font-weight: 400;
   }
+  .totalBillAmount {
+    width: 120px;
+    float: right;
+  }
+  .lineThrough {
+    text-decoration: line-through;
+  }
+  .font-18 {
+    font-size: 18px;
+  }
 }
 
 .addmore-package-section {
@@ -106,6 +116,19 @@
       padding: 4px 0 0;
       font-weight: normal;
     }
+  }
+  .btn-primary {
+    height: 44px;
+    line-height: 20px;
+    margin: 0;
+    padding: 10px 25px;
+    width: 140px;
+  }
+
+  .btn-default {
+    margin-right: 10px;
+    padding: 10px 25px;
+    width: 100px;
   }
 }
 
