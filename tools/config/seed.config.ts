@@ -665,7 +665,7 @@ export class SeedConfig {
         defaultExtension: 'js'
       },
       highcharts: {
-        main: 'dist/highcharts.js',
+        main: 'highcharts.js',
         defaultExtension: 'js'
       },
       jspdf: {
