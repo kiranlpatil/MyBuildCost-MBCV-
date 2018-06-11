@@ -189,6 +189,20 @@ class ProjectService {
     });
   }
 
+  updateProjectStatus(projectId: string, user: User,activeStatus:string, callback: (error: any, result: any) => void) {
+    let query = {'_id': projectId};
+    let status = JSON.parse(activeStatus);
+    let newData = {$set: {'activeStatus': activeStatus}};
+    this.projectRepository.findOneAndUpdate(query, newData, {new: true}, (err, response) => {
+      logger.info('Project service, findOneAndUpdate has been hit');
+      if (err) {
+        callback(err, null);
+      } else {
+        callback(null, {data:'success', access_token: this.authInterceptor.issueTokenWithUid(user)});
+      }
+    });
+  }
+
   createBuilding(projectId: string, buildingDetails: Building, user: User, callback: (error: any, result: any) => void) {
 
     logger.info('Report Service, getMaterialFilters has been hit');

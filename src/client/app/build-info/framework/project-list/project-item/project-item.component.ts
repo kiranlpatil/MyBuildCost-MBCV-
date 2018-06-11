@@ -14,11 +14,12 @@ import { Project } from '../../model/project';
 export class ProjectItemComponent implements OnInit {
 
   @Input() project :  Project;
-
+  activeStatus:boolean;
   constructor(private _router: Router) {
   }
   ngOnInit() {
    sessionStorage.removeItem(SessionStorage.CURRENT_VIEW);
+   this.activeStatus = this.project.activeStatus;
   }
   getMessage() {
     return Messages;
@@ -28,11 +29,11 @@ export class ProjectItemComponent implements OnInit {
   }
 
   navigateToSelectedProject(projectId:string,projectName:string, numberOfDaysToExpire : number) {
-    //if(numberOfDaysToExpire > 0) {
+    if(this.activeStatus) {
       SessionStorageService.setSessionValue(SessionStorage.CURRENT_PROJECT_ID, projectId);
       SessionStorageService.setSessionValue(SessionStorage.CURRENT_PROJECT_NAME, projectName);
-      this._router.navigate([NavigationRoutes.APP_PROJECT, projectId, NavigationRoutes.APP_COST_SUMMARY]);
-    //}
+      this._router.navigate([NavigationRoutes.APP_PROJECT, projectId, NavigationRoutes.APP_COST_SUMMARY])
+    }
   }
 
   goToRenew(projectId:string, projectName:string, numOfDaysToExpire : number) {

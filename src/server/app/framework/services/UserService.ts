@@ -704,7 +704,7 @@ class UserService {
   getProjects(user: User, callback:(error : any, result :any)=>void) {
 
     let query = {_id: user._id };
-    let populate = {path: 'project', select: ['name','buildings']};
+    let populate = {path: 'project', select: ['name','buildings','activeStatus']};
     this.userRepository.findAndPopulate(query, populate, (error, result) => {
       if (error) {
         callback(error, null);
@@ -723,6 +723,7 @@ class UserService {
               let projectSubscription = new ProjectSubscriptionDetails();
               projectSubscription.projectName = project.name;
               projectSubscription.projectId = project._id;
+              projectSubscription.activeStatus = project.activeStatus;
               projectSubscription.numOfBuildingsRemaining = (subscription.numOfBuildings - project.buildings.length);
               projectSubscription.numOfBuildingsAllocated = project.buildings.length;
               projectSubscription.packageName = this.checkCurrentPackage(subscription);
@@ -806,6 +807,7 @@ class UserService {
             let projectSubscription = new ProjectSubscriptionDetails();
             projectSubscription.projectName = resp[0].name;
             projectSubscription.projectId = resp[0]._id;
+            projectSubscription.activeStatus = resp[0].activeStatus;
             projectSubscription.numOfBuildingsAllocated = resp[0].buildings.length;
             projectSubscription.numOfBuildingsRemaining = (result[0].subscription.numOfBuildings - resp[0].buildings.length);
             let activation_date = new Date(result[0].subscription.activationDate);

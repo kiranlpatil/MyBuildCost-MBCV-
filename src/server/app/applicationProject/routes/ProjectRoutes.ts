@@ -35,6 +35,11 @@ class ProjectRoutes {
     //Create new project
     router.post('/',this.authInterceptor.requiresAuth, this._requestInterceptor.intercept, validator.createProject,
     controller.createProject, this._responseInterceptor.exit);
+
+    //update projectStatus
+    router.put('/:projectId/activeStatus/:activeStatus', this.authInterceptor.requiresAuth, this._requestInterceptor.intercept,
+      validator.updateProjectStatus, controller.updateProjectStatus, this._responseInterceptor.exit);
+
     //Retrive details of project
     router.get('/:projectId', this.authInterceptor.requiresAuth, this._requestInterceptor.intercept,
         validator.getProjectById, controller.getProjectById, this._responseInterceptor.exit);

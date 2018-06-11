@@ -45,6 +45,7 @@ export class ProjectFormComponent implements OnInit{
   submitForm() {
     if(this.projectForm.valid) {
     this.projectModel = this.projectForm.value;
+    this.projectModel.activeStatus = true;
       this.onSubmitEvent.emit(this.projectModel);
     } else {
       this.isShowErrorMessage = true;

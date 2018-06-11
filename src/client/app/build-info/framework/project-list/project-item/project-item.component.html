@@ -2,7 +2,7 @@
   <div class="building-image">
     <img src="assets/build-info/create-new-project/create-new-project.png" />
     <div class="project-actions">
-      <button class="btn btn-view" (click)="navigateToSelectedProject(project.projectId, project.projectName, project.numOfDaysToExpire)">View</button>
+      <button [disabled]="!activeStatus" class="btn btn-view" (click)="navigateToSelectedProject(project.projectId, project.projectName, project.numOfDaysToExpire)">View</button>
     </div>
   </div>
 </div>

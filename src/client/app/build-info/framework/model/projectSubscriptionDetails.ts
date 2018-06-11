@@ -8,5 +8,6 @@ export class ProjectSubscriptionDetails {
   numOfBuildingsAllocated : number;
   numOfBuildingsRemaining : number;
   packageName:string;
+  activeStatus:boolean;
 }
 

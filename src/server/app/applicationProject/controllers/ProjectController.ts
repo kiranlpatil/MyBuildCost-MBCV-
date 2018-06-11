@@ -82,6 +82,26 @@ class ProjectController {
     }
   }
 
+  updateProjectStatus(req:express.Request, res: express.Response, next:any){
+    try {
+      logger.info('Project controller Update Project status has been hit');
+      let user = req.user;
+      let projectId =  req.params.projectId;
+      var activeStatus = req.params.activeStatus;
+      let projectService = new ProjectService();
+      projectService.updateProjectStatus(projectId, user,activeStatus, (error, result) => {
+        if(error) {
+          next(error);
+        } else {
+          logger.debug('Getting project Project ID : '+projectId);
+          next(new Response(200,result));
+        }
+      });
+    } catch(e) {
+      next(new CostControllException(e.message,e.stack));
+    }
+  }
+
   getInActiveProjectCostHeads(req:express.Request, res: express.Response, next: any): void {
     try {
       logger.info('Project controller, getInActiveCostHead has been hit');
