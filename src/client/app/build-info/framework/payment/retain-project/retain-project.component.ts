@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import { Headings, Button, Label,Messages } from '../../../../shared/constants';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NavigationRoutes } from '../../../../shared/index';
@@ -14,6 +14,10 @@ import { ProjectService } from '../../project/project.service';
 
 export class RetainProjectComponent implements OnInit {
  projectName:string;
+  @Input() isSubscriptionAvailable:boolean;
+  @Input() packageName:string;
+  @Input() premiumPackageAvailable:boolean;
+
   constructor(private activatedRoute:ActivatedRoute, private _router: Router, private projectService: ProjectService) {
   }
 
@@ -40,7 +44,12 @@ export class RetainProjectComponent implements OnInit {
     }
 
   onUpdateProjectStatusSuccess(success : any) {
-    this._router.navigate([NavigationRoutes.APP_CREATE_PROJECT]);
+    if(this.isSubscriptionAvailable) {
+      this._router.navigate([NavigationRoutes.APP_CREATE_PROJECT]);
+    }else if(!this.isSubscriptionAvailable) {
+      this._router.navigate([NavigationRoutes.APP_PACKAGE_SUMMARY,this.packageName,this.premiumPackageAvailable]);
+
+    }
     console.log(success);
   }
 
@@ -51,17 +60,5 @@ export class RetainProjectComponent implements OnInit {
   onContinueWithExixtingProject() {
     this._router.navigate([NavigationRoutes.APP_PACKAGE_SUMMARY,'Retain',false]);
 
-  }
-  onCreateProjectClick() {
-  /*  if(this.isSubscriptionAvailable) {
-      this._router.navigate([NavigationRoutes.APP_CREATE_PROJECT]);
-    }else if(!this.isSubscriptionAvailable) {
-      this._router.navigate([NavigationRoutes.APP_PACKAGE_SUMMARY,this.packageName,this.premiumPackageAvailable]);
-
-    }*/
-  }
-
-  goToDashboard() {
-    this._router.navigate([NavigationRoutes.APP_DASHBOARD]);
   }
 }

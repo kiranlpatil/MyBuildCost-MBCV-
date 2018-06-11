@@ -6,6 +6,8 @@ import { Message, MessageService, SessionStorage, SessionStorageService } from '
 import { Project } from '../../model/project';
 import { ProjectService } from '../../project/project.service';
 import { ProjectNameChangeService } from '../../../../shared/services/project-name-change.service';
+import {ProjectSubscriptionDetails} from "../../model/projectSubscriptionDetails";
+import {PackageDetailsService} from "../../package-details/package-details.service";
 
 @Component({
   moduleId: module.id,
@@ -18,11 +20,12 @@ export class PaymentSuccessfulComponent implements OnInit{
 
   projectId: string;
   packageName: string;
+  projects:any;
   projectModel:  Project = new Project();
   public isShowErrorMessage: boolean = true;
   public errorMessage: boolean = false;
   constructor(private activatedRoute:ActivatedRoute, private _router: Router, private projectService: ProjectService,
-              private projectNameChangeService : ProjectNameChangeService, private messageService : MessageService) {
+              private projectNameChangeService : ProjectNameChangeService, private packageDetails : PackageDetailsService) {
   }
 
   ngOnInit() {
@@ -57,11 +60,29 @@ export class PaymentSuccessfulComponent implements OnInit{
         user => this.onUpdateProjectSuccess(user),
         error => this.onUpdateProjectFailure(error));
   }
+  onRetainProject() {
+    let body = { basePackageName :'Premium'};
+    this.packageDetails.getRetainProject(this.projectId,body)
+      .subscribe(project=>this.onRetainProjectSuccess(project),
+        error => this.onRetainProjectFailure(error));
+  }
 
+
+  onRetainProjectSuccess(project:any) {
+    this.projects=project.data;
+   this.updateProject(this.projectModel);
+   this._router.navigate([NavigationRoutes.APP_DASHBOARD]);
+
+  }
+  onRetainProjectFailure(error:any) {
+
+  }
   onUpdateProjectSuccess(result: any) {
     if (result !== null) {
       this.projectNameChangeService.change(result.data.name);
       SessionStorageService.setSessionValue(SessionStorage.CURRENT_PROJECT_NAME, result.data.name);
+      //SessionStorageService.setSessionValue(SessionStorage.CURRENT_PROJECT_ID,this.projects[0].projectId);
+
     }
     this._router.navigate([NavigationRoutes.APP_DASHBOARD]);
   }
@@ -70,10 +91,13 @@ export class PaymentSuccessfulComponent implements OnInit{
     console.log(error);
   }
 
-  goToNext() {
-  if(this.packageName ==='Retain') {
-    this.updateProject(this.projectModel);
-  }
-   // this._router.navigate([NavigationRoutes.APP_DASHBOARD]);
+  onContinue() {
+    if (this.packageName === 'Retain') {
+      this.onRetainProject();
+    } else if (this.packageName !== 'Retain') {
+      this._router.navigate([NavigationRoutes.APP_DASHBOARD]);
+    }else if (this.packageName === 'Add_building') {
+      this._router.navigate([NavigationRoutes.APP_CREATE_BUILDING]);
+    }
   }
 }

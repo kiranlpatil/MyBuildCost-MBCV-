@@ -16,6 +16,7 @@ export class CreateProjectConfirmationModalComponent implements OnInit {
   @Input() isSubscriptionAvailable:boolean;
   @Input() premiumPackageAvailable:boolean;
   @Input() packageName:string;
+  retainProjectScreen:boolean;
 
   projectname:string;
 
@@ -41,6 +42,7 @@ export class CreateProjectConfirmationModalComponent implements OnInit {
 
   onContinue() {
       let projectName = SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT_NAME);
+      this.retainProjectScreen=true;
       this._router.navigate([NavigationRoutes.APP_RETAIN_PROJECT,projectName]);
   }
   onProjectModalClick() {

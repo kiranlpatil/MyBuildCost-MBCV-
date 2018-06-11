@@ -92,7 +92,7 @@ class UserRoutes {
       router.get('/all/project', authInterceptor.requiresAuth, controller.getProjects);
 
       // update subscription package
-      router.put('/project/:projectId/updateSubscription/:packageName', authInterceptor.requiresAuth, controller.updateSubscription);
+      router.put('/project/:projectId/updateSubscription', authInterceptor.requiresAuth, controller.updateSubscription);
 
 
       //assign subscription package

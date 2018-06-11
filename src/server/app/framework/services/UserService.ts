@@ -831,7 +831,7 @@ class UserService {
     });
   }
 
-  updateSubscription(user : User, projectId: number, packageName: string, callback:(error: any, result: any)=> void) {
+  updateSubscription(user : User, projectId: string, packageName: string, callback:(error: any, result: any)=> void) {
     let query = [
       {$match: {'_id':ObjectId(user._id)}},
       { $project : {'subscription':1}},
@@ -843,7 +843,7 @@ class UserService {
        callback(error, null);
      } else {
        let subscription = result[0].subscription;
-       this.updatePackage(user, subscription, packageName,(error, result) => {
+       this.updatePackage(user, subscription, packageName,projectId,(error, result) => {
          if (error) {
            callback(error, null);
          } else {
@@ -854,7 +854,7 @@ class UserService {
    });
   }
 
-  updatePackage(user: User, subscription: any, packageName: string,  callback:(error: any, result: any)=> void) {
+  updatePackage(user: User, subscription: any, packageName: string, projectId:string, callback:(error: any, result: any)=> void) {
     let subScriptionService = new SubscriptionService();
     switch (packageName) {
       case 'Premium':
@@ -870,7 +870,7 @@ class UserService {
               let noOfDaysToExpiry = this.calculateValidity(subscription);
               subscription.validity = noOfDaysToExpiry + result.basePackage.validity;
               subscription.purchased.push(result.basePackage);
-              this.updateSubscriptionPackage(user._id, subscription, (error, result) => {
+              this.updateSubscriptionPackage(user._id, projectId,subscription, (error, result) => {
                 if (error) {
                   callback(error, null);
                 } else {
@@ -893,7 +893,7 @@ class UserService {
               let noOfDaysToExpiry = this.calculateValidity(subscription);
               subscription.validity = noOfDaysToExpiry + result.addOnPackage.validity;
               subscription.purchased.push(result.addOnPackage);
-              this.updateSubscriptionPackage(user._id, subscription, (error, result) => {
+              this.updateSubscriptionPackage(user._id,projectId, subscription, (error, result) => {
                 if (error) {
                   callback(error, null);
                 } else {
@@ -915,7 +915,7 @@ class UserService {
               let result = subscriptionPackage[0];
               subscription.numOfBuildings = subscription.numOfBuildings + result.addOnPackage.numOfBuildings;
               subscription.purchased.push(result.addOnPackage);
-              this.updateSubscriptionPackage(user._id, subscription, (error, result) => {
+              this.updateSubscriptionPackage(user._id, projectId,subscription, (error, result) => {
                 if (error) {
                   callback(error, null);
                 } else {
@@ -929,9 +929,10 @@ class UserService {
     }
   }
 
-  updateSubscriptionPackage( userId: any, subscription: any, callback:(error: any, result: any)=> void) {
+  updateSubscriptionPackage( userId: any, projectId:string,subscription: any, callback:(error: any, result: any)=> void) {
     let query = {_id: userId};
-    let updateQuery = {$set:{'subscription':subscription}};
+    //TODO for more objects in subscription .
+    let updateQuery = {$set:{'subscription.$[]':subscription}};
     this.userRepository.findOneAndUpdate(query, updateQuery, {new: true}, (error, result) => {
       if (error) {
         callback(error, null);

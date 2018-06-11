@@ -20,6 +20,12 @@ export class PackageDetailsService extends BaseService {
     return this.httpDelegateService.postAPI(url,body);
 
   }
+
+  getRetainProject(projectId:string,body : any) {
+    var url = API.USER + '/' + API.PROJECT + '/' + projectId +'/'+ API.UPDATE_SUBSCRIPTION;
+    return this.httpDelegateService.putAPI(url,body);
+  }
+
 }
 
 

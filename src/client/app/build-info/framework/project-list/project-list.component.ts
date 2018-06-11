@@ -55,18 +55,15 @@ export class ProjectListComponent implements OnInit, AfterViewInit {
   }
 
   onGetAllProjectSuccess(projects : any) {
-    if(this.projects)
-    SessionStorageService.setSessionValue(SessionStorage.CURRENT_PROJECT_NAME,this.projects[0].projectName);
-    this.projects = projects.data;
-    if(this.projects && this.projects.length >1) {
-      this.premiumPackageAvailable=true;
-      //this.getSubscriptionPackageByName('Premium');
-
-    }else if(this.projects.length === 1 && this.projects[0].packageName==='Free') {
+   this.projects = projects.data;
+   if(this.projects) {
+     SessionStorageService.setSessionValue(SessionStorage.CURRENT_PROJECT_NAME, this.projects[0].projectName);
+     }
+  if(this.projects.length === 1 && this.projects[0].packageName==='Free') {
        this.premiumPackageAvailable=false;
        this.packageName='Free';
        this.isRetainModalActive=true;
-      }else if(this.projects.length === 1 && this.projects[0].packageName==='Premium') {
+      }else if(this.projects.length >= 1 && this.projects[0].packageName==='Premium') {
       this.packageName='Premium';
       this.premiumPackageAvailable=true;
       this.isProjectModalActive=true;
