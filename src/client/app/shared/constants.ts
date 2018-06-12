@@ -21,6 +21,7 @@ export class AppSettings {
 export class Messages {
   public static FROM_REGISTRATION = 'registration';
   public static FROM_ACCOUNT_DETAIL = 'accountdetail';
+  public static MSG_ERROR_UNCAUGHT_EXCEPTION='The server was unable to complete your request. Please try again.';
 
   //Registraion Success messages
   public static MSG_SUCCESS_CHANGE_MOBILE_NUMBER: string = 'Mobile number updated successfully.';

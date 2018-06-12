@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { NavigationRoutes, Button, Animations } from '../../../shared/constants';
 import { ProjectService } from '../project/project.service';
 import { Project } from './../model/project';
+import { ErrorService } from '../../../shared/services/error.service';
 
 @Component({
   moduleId: module.id,
@@ -16,7 +17,8 @@ export class ProjectListComponent implements OnInit, AfterViewInit {
   animateView: boolean = false;
   projects : Array<Project>;
 
-  constructor(private projectService: ProjectService, private _router: Router) {
+  constructor(private projectService: ProjectService, private _router: Router ,
+              private errorService:ErrorService) {
   }
 
   ngOnInit() {
@@ -40,6 +42,9 @@ export class ProjectListComponent implements OnInit, AfterViewInit {
   }
 
   onGetAllProjectFailure(error : any) {
+    if(error.err_code === 404 || error.err_code === 0 || error.err_code===500) {
+      this.errorService.onError(error);
+    }
     console.log(error);
   }
 

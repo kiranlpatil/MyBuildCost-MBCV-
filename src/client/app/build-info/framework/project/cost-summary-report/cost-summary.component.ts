@@ -5,17 +5,18 @@ import {
   ValueConstant, CurrentView, ScrollView, Animations
 } from '../../../../shared/constants';
 import { SessionStorage, SessionStorageService,  Message, Messages, MessageService } from '../../../../shared/index';
-import { CostSummaryService } from './cost-summary.service';
-import { Building } from '../../model/building';
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { ValidationService } from '../../../../shared/customvalidations/validation.service';
-import { BuildingService } from '../building/building.service';
-import { CostHead } from '../../model/costhead';
-import { EstimateReport } from '../../model/estimate-report';
-import { BuildingReport } from '../../model/building-report';
+import {CostSummaryService} from './cost-summary.service';
+import {Building} from '../../model/building';
+import {FormBuilder, FormGroup} from '@angular/forms';
+import {ValidationService} from '../../../../shared/customvalidations/validation.service';
+import {BuildingService} from '../building/building.service';
+import {CostHead} from '../../model/costhead';
+import {EstimateReport} from '../../model/estimate-report';
+import {BuildingReport} from '../../model/building-report';
 import ProjectReport = require('../../model/project-report');
-import { LoaderService } from '../../../../shared/loader/loaders.service';
-import { AddCostHeadButton } from '../../model/showHideCostHeadButton';
+import {LoaderService} from '../../../../shared/loader/loaders.service';
+import {AddCostHeadButton} from '../../model/showHideCostHeadButton';
+import { ErrorService } from '../../../../shared/services/error.service';
 
 declare let $: any;
 
@@ -81,7 +82,8 @@ export class CostSummaryComponent implements OnInit, AfterViewInit {
 
   constructor(private costSummaryService : CostSummaryService, private activatedRoute : ActivatedRoute,
               private formBuilder: FormBuilder, private _router : Router, private messageService : MessageService,
-              private buildingService: BuildingService, private loaderService : LoaderService) {
+              private buildingService: BuildingService, private loaderService : LoaderService,
+              private errorService:ErrorService) {
 
     this.cloneBuildingForm = this.formBuilder.group({
       name : ['', ValidationService.requiredBuildingName],
@@ -144,6 +146,9 @@ export class CostSummaryComponent implements OnInit, AfterViewInit {
   }
 
   onGetAllInActiveCostHeadsFailure(error : any) {
+    if(error.err_code === 404 || error.err_code === 0 || error.err_code===500) {
+      this.errorService.onError(error);
+    }
     console.log(error);
   }
 
@@ -189,6 +194,9 @@ export class CostSummaryComponent implements OnInit, AfterViewInit {
   }
 
   onGetCostSummaryReportFailure(error : any) {
+    if(error.err_code === 404 || error.err_code === 0 || error.err_code===500) {
+      this.errorService.onError(error);
+    }
     console.log('onGetCostInFail()'+error);
   }
 
@@ -224,6 +232,9 @@ export class CostSummaryComponent implements OnInit, AfterViewInit {
   }
 
   onInActiveCostHeadFailure(error: any) {
+    if(error.err_code === 404 || error.err_code === 0 || error.err_code===500) {
+      this.errorService.onError(error);
+    }
     console.log(error);
     this.loaderService.stop();
   }
@@ -247,6 +258,9 @@ export class CostSummaryComponent implements OnInit, AfterViewInit {
   }
 
   onActiveCostHeadFailure(error : any) {
+    if(error.err_code === 404 || error.err_code === 0 || error.err_code===500) {
+      this.errorService.onError(error);
+    }
     console.log('onActiveCostHeadFailure()'+error);
     this.loaderService.stop();
   }
@@ -270,6 +284,9 @@ export class CostSummaryComponent implements OnInit, AfterViewInit {
   }
 
   onUpdateRateOfThumbRuleFailure(error : any) {
+    if(error.err_code === 404 || error.err_code === 0 || error.err_code===500) {
+      this.errorService.onError(error);
+    }
     console.log('onAddCostheadSuccess : '+error);
   }
 
@@ -296,6 +313,9 @@ export class CostSummaryComponent implements OnInit, AfterViewInit {
   }
 
   onDeleteBuildingFailure(error : any) {
+    if(error.err_code === 404 || error.err_code === 0 || error.err_code===500) {
+      this.errorService.onError(error);
+    }
     console.log(error);
   }
 
@@ -315,6 +335,9 @@ export class CostSummaryComponent implements OnInit, AfterViewInit {
   }
 
   onGetBuildingDetailsForCloneFailure(error: any) {
+    if(error.err_code === 404 || error.err_code === 0 || error.err_code===500) {
+      this.errorService.onError(error);
+    }
     console.log(error);
   }
 
@@ -339,6 +362,9 @@ export class CostSummaryComponent implements OnInit, AfterViewInit {
   }
 
   onCreateBuildingFailure(error: any) {
+    if(error.err_code === 404 || error.err_code === 0 || error.err_code===500) {
+      this.errorService.onError(error);
+    }
     console.log(error);
   }
 
@@ -359,6 +385,9 @@ export class CostSummaryComponent implements OnInit, AfterViewInit {
   }
 
   onCloneBuildingCostHeadsFailure(error: any) {
+    if(error.err_code === 404 || error.err_code === 0 || error.err_code===500) {
+      this.errorService.onError(error);
+    }
     console.log(error);
   }
 
