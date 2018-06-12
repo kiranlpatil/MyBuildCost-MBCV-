@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Button, NavigationRoutes } from '../../../../shared/constants';
 import { Messages, SessionStorage, SessionStorageService } from '../../../../shared/index';
-import { Project } from '../../model/project';
+import { ProjectSubscriptionDetails } from '../../model/projectSubscriptionDetails';
 
 @Component({
   moduleId: module.id,
@@ -13,7 +13,7 @@ import { Project } from '../../model/project';
 
 export class ProjectItemComponent implements OnInit {
 
-  @Input() project :  Project;
+  @Input() project :  ProjectSubscriptionDetails;
   activeStatus:boolean;
   constructor(private _router: Router) {
   }
@@ -29,10 +29,10 @@ export class ProjectItemComponent implements OnInit {
   }
 
   navigateToSelectedProject(projectId:string,projectName:string, numberOfDaysToExpire : number) {
-    if(this.activeStatus) {
+    if(this.activeStatus && this.project.expiryMessage === null) {
       SessionStorageService.setSessionValue(SessionStorage.CURRENT_PROJECT_ID, projectId);
       SessionStorageService.setSessionValue(SessionStorage.CURRENT_PROJECT_NAME, projectName);
-      this._router.navigate([NavigationRoutes.APP_PROJECT, projectId, NavigationRoutes.APP_COST_SUMMARY])
+      this._router.navigate([NavigationRoutes.APP_PROJECT, projectId, NavigationRoutes.APP_COST_SUMMARY]);
     }
   }
 
