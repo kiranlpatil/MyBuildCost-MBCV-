@@ -94,10 +94,10 @@ export class PaymentSuccessfulComponent implements OnInit{
   onContinue() {
     if (this.packageName === 'Retain') {
       this.onRetainProject();
-    } else if (this.packageName !== 'Retain') {
-      this._router.navigate([NavigationRoutes.APP_DASHBOARD]);
-    }else if (this.packageName === 'Add_building') {
+    } else if (this.packageName === 'Add_building') {
       this._router.navigate([NavigationRoutes.APP_CREATE_BUILDING]);
-    }
+      }else {
+      this._router.navigate([NavigationRoutes.APP_DASHBOARD]);
+      }
   }
 }

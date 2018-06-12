@@ -5,11 +5,13 @@
         <span aria-hidden="true">&times;</span>
       </button>
       <h5 class="modal-title">{{getHeadings().CREATE_PROJECT_MODAL_HEADING}}</h5>
-      <h5 class="modal-title" *ngIf="isProjectModalActive">{{getMessage().MSG_CONFIRMATION_CREATE_PROJECT}} </h5>
     </div>
     <div class="modal-body create-project-confirmation">
-      <div class="inner-paragraph" *ngIf="isRetainModalActive">
-        <p [innerHtml]="getMessage().MSG_CREATE_PROJECT_CONFIRMATION"></p>
+      <div class="inner-paragraph">
+        <p *ngIf="isRetainModalActive" [innerHtml]="getMessage().MSG_CREATE_PROJECT_CONFIRMATION"></p>
+        <p *ngIf="isProjectModalActive">
+          {{getMessage().MSG_CONFIRMATION_CREATE_PROJECT}}
+        </p>
       </div>
       <button class="btn btn-primary bi-btn" type="button" (click)="onCancel()" data-dismiss="modal">Cancel</button>
       <button *ngIf="isRetainModalActive" type="button" class="btn btn-default" (click)="onContinue()" data-dismiss="modal">Continue</button>
