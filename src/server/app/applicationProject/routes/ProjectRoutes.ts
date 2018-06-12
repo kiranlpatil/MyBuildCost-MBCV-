@@ -46,6 +46,11 @@ class ProjectRoutes {
     //Update project details
     router.put('/:projectId', this.authInterceptor.requiresAuth, this._requestInterceptor.intercept,
       validator.updateProjectById, controller.updateProjectById, this._responseInterceptor.exit);
+
+    //Update project Name
+    router.put('/:projectId/projectName', this.authInterceptor.requiresAuth, this._requestInterceptor.intercept,
+      validator.updateProjectNameById, controller.updateProjectNameById, this._responseInterceptor.exit);
+
     //Fetch rateItem names having same original name
     router.put('/:projectId/rates/rateItem', this.authInterceptor.requiresAuth, this._requestInterceptor.intercept,
       validator.getProjectRateItemsByOriginalName, controller.getProjectRateItemsByOriginalName, this._responseInterceptor.exit);

@@ -63,11 +63,12 @@ export class PaymentSuccessfulComponent implements OnInit{
     console.log(error);
   }
 
-  updateProject(projectModel : Project) {
-    this.projectService.updateProject(this.projectId, projectModel)
+  updateProjectNameById() {
+    let body = { name :  this.projectModel.name};
+    this.projectService.updateProjectNameById(this.projectId,body)
       .subscribe(
-        user => this.onUpdateProjectSuccess(user),
-        error => this.onUpdateProjectFailure(error));
+        user => this.onUpdateProjectNameByIdSuccess(user),
+        error => this.onUpdateProjectNameByIdFailure(error));
   }
   onRetainOrRenewProject(packageName : string) {
     let body = { packageName : packageName};
@@ -80,7 +81,7 @@ export class PaymentSuccessfulComponent implements OnInit{
   onRetainOrRenewProjectSuccess(success:any) {
     if(this.removeTrialProjectPrefix) {
       this.removeTrialProjectPrefix = false;
-      this.updateProject(this.projectModel);
+      this.updateProjectNameById();
     }
     sessionStorage.removeItem(SessionStorage.NUMBER_OF_DAYS_TO_EXPIRE);
     var message = new Message();
@@ -99,7 +100,7 @@ export class PaymentSuccessfulComponent implements OnInit{
     this.messageService.message(message);
     this._router.navigate([NavigationRoutes.APP_DASHBOARD]);
   }
-  onUpdateProjectSuccess(result: any) {
+  onUpdateProjectNameByIdSuccess(result: any) {
     if (result !== null) {
       this.projectNameChangeService.change(result.data.name);
       SessionStorageService.setSessionValue(SessionStorage.CURRENT_PROJECT_NAME, result.data.name);
@@ -109,7 +110,7 @@ export class PaymentSuccessfulComponent implements OnInit{
     this._router.navigate([NavigationRoutes.APP_DASHBOARD]);
   }
 
-  onUpdateProjectFailure(error: any) {
+  onUpdateProjectNameByIdFailure(error: any) {
     console.log(error);
   }
 

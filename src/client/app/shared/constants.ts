@@ -337,6 +337,7 @@ export class API {
   //Project
   public static USER_ALL_PROJECTS = 'user/all/project';
   public static PROJECT = 'project';
+  public static PROJECT_NAME = 'projectName';
   public static CHECK_FOR_LIMITATION_OF_BUILDING = 'checkForLimitationOfBuilding';
 
   public static BUILDING = 'building';

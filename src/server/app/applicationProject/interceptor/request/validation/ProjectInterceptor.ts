@@ -142,6 +142,34 @@ class ProjectInterceptor {
       }
     });
   }
+  updateProjectNameById(req: any, res: any, next: any) {
+    var projectId = req.params.projectId;
+    var name = req.body.name;
+    ProjectInterceptor.validateProjectId(projectId, (error, result) => {
+      if (error) {
+        next(error);
+      } else {
+        if (result === false) {
+          next({
+            reason: Messages.MSG_ERROR_EMPTY_FIELD,
+            message: Messages.MSG_ERROR_EMPTY_FIELD,
+            stackTrace: new Error(),
+            code: 400
+          });
+        } else {
+          if ((name === undefined) || (name === '')) {
+            next({
+              reason: Messages.MSG_ERROR_EMPTY_FIELD,
+              message: Messages.MSG_ERROR_EMPTY_FIELD,
+              stackTrace: new Error(),
+              code: 400
+            });
+          }
+        }
+        next();
+      }
+    });
+  }
   updateProjectStatus(req: any, res: any, next: any) {
     var projectId = req.params.projectId;
     var activeStatus = req.params.activeStatus;
