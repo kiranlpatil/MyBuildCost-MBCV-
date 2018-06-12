@@ -1,7 +1,8 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnChanges, OnInit} from '@angular/core';
 import {Headings, Messages, SessionStorage} from "../constants";
-import {NavigationRoutes, SessionStorageService} from "../index";
+import {CommonService, NavigationRoutes, SessionStorageService} from "../index";
 import {ActivatedRoute, Router} from "@angular/router";
+import {RetainProjectDetails} from "../../build-info/framework/model/retain-project-details";
 
 @Component({
   moduleId: module.id,
@@ -17,16 +18,19 @@ export class CreateProjectConfirmationModalComponent implements OnInit {
   @Input() premiumPackageAvailable:boolean;
   @Input() packageName:string;
   retainProjectScreen:boolean;
-
+  values = new RetainProjectDetails('',false,false);
   projectname:string;
 
-  constructor(private _router: Router,private activatedRoute:ActivatedRoute) {
+  constructor(private _router: Router,private activatedRoute:ActivatedRoute,private commonService:CommonService) {
 
   }
 
   ngOnInit() {
+    SessionStorageService.setSessionValue(SessionStorage.PACKAGE_NAME,this.packageName);
+    SessionStorageService.setSessionValue(SessionStorage.IS_SUBSCRIPTION_AVAILABLE,this.isSubscriptionAvailable);
+    SessionStorageService.setSessionValue(SessionStorage.PREMIUM_PACKAGE_AVAILABLE,this.premiumPackageAvailable);
+    }
 
-  }
 
   getMessage() {
     return Messages;
@@ -41,7 +45,7 @@ export class CreateProjectConfirmationModalComponent implements OnInit {
     }
 
   onContinue() {
-      let projectName = SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT_NAME);
+    let projectName = SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT_NAME);
       this.retainProjectScreen=true;
       this._router.navigate([NavigationRoutes.APP_RETAIN_PROJECT,projectName]);
   }

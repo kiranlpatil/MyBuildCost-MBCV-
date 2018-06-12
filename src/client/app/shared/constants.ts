@@ -291,6 +291,10 @@ export class SessionStorage {
   public static CURRENT_WORKITEM_ID = 'current_workitem_id';
   public static COMPANY_NAME = 'company_name';
   public static CREATED_AT = 'createdAt';
+  public static PACKAGE_NAME = 'package_name';
+  public static IS_SUBSCRIPTION_AVAILABLE = 'is_subscription_available';
+  public static PREMIUM_PACKAGE_AVAILABLE = 'premium_package_available';
+
 }
 
 export class LocalStorage {

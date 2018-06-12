@@ -1,9 +1,12 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnChanges, OnInit} from '@angular/core';
 import { Headings, Button, Label,Messages } from '../../../../shared/constants';
 import { ActivatedRoute, Router } from '@angular/router';
-import { NavigationRoutes } from '../../../../shared/index';
+import {CommonService, NavigationRoutes} from '../../../../shared/index';
 import { SessionStorage, SessionStorageService } from '../../../../shared/index';
 import { ProjectService } from '../../project/project.service';
+import {Subscribable} from "rxjs/Observable";
+import {Subscription} from "rxjs/Subscription";
+import {RetainProjectDetails} from "../../model/retain-project-details";
 
 @Component({
   moduleId: module.id,
@@ -13,21 +16,27 @@ import { ProjectService } from '../../project/project.service';
 })
 
 export class RetainProjectComponent implements OnInit {
- projectName:string;
-  @Input() isSubscriptionAvailable:boolean;
-  @Input() packageName:string;
-  @Input() premiumPackageAvailable:boolean;
+  projectName:string;
+  isSubscriptionAvailable:boolean;
+  packageName:string;
+  premiumPackageAvailable:boolean;
+ //values:RetainProjectDetails;
+  retainDetails:Subscription;
 
-  constructor(private activatedRoute:ActivatedRoute, private _router: Router, private projectService: ProjectService) {
-  }
+  constructor(private activatedRoute:ActivatedRoute, private _router: Router,
+              private projectService: ProjectService,private commonService:CommonService) {
+
+    }
 
   ngOnInit() {
     this.activatedRoute.params.subscribe(params => {
       this.projectName = params['projectName'];
     });
-  }
-
-   getMessage() {
+    this.packageName=SessionStorageService.getSessionValue(SessionStorage.PACKAGE_NAME);
+    this.premiumPackageAvailable=SessionStorageService.getSessionValue(SessionStorage.PREMIUM_PACKAGE_AVAILABLE)!== 'false' ? true : false;
+    this.isSubscriptionAvailable=SessionStorageService.getSessionValue(SessionStorage.IS_SUBSCRIPTION_AVAILABLE)!== 'false' ? true : false;
+    }
+  getMessage() {
     return Messages;
     }
 
@@ -41,13 +50,13 @@ export class RetainProjectComponent implements OnInit {
         success => this.onUpdateProjectStatusSuccess(success),
         error => this.onUpdateProjectStatusFailure(error)
       );
-    }
+      }
 
   onUpdateProjectStatusSuccess(success : any) {
     if(this.isSubscriptionAvailable) {
       this._router.navigate([NavigationRoutes.APP_CREATE_PROJECT]);
     }else if(!this.isSubscriptionAvailable) {
-      this._router.navigate([NavigationRoutes.APP_PACKAGE_SUMMARY,this.packageName,this.premiumPackageAvailable]);
+      this._router.navigate([NavigationRoutes.APP_PACKAGE_SUMMARY,'Premium',this.premiumPackageAvailable]);
 
     }
     console.log(success);

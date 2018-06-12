@@ -11,12 +11,9 @@
       <button *ngIf="isProjectModalActive" type="button" class="btn btn-default" (click)="onProjectModalClick()" data-dismiss="modal">Yes I'm sure</button>
     </div>
   </div>
-
 </div>
 <div *ngIf="retainProjectScreen">
-  <bi-retain-project [isSubscriptionAvailable]="isSubscriptionAvailable"
-                     [packageName]="packageName" [premiumPackageAvailable]="premiumPackageAvailable">
-
+  <bi-retain-project>
   </bi-retain-project>
 </div>
 
