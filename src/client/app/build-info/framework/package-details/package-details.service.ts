@@ -26,6 +26,11 @@ export class PackageDetailsService extends BaseService {
     return this.httpDelegateService.putAPI(url,body);
   }
 
+  assignPremiumPackage(userId:string) {
+    var url=API.USER +'/'+ userId + '/assignPremium';
+    let body = { };
+    return this.httpDelegateService.putAPI(url,body);
+  }
 }
 
 

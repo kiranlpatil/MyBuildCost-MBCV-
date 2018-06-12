@@ -95,6 +95,8 @@ class UserRoutes {
       // update subscription package
       router.put('/project/:projectId/updateSubscription', authInterceptor.requiresAuth, controller.updateSubscription);
 
+      //assign premium package to user
+      router.put('/:userId/assignPremium',authInterceptor.requiresAuth, controller.assignPremiumPackage);
 
       //assign subscription package
 /*

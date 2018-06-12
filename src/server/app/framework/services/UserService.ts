@@ -703,6 +703,44 @@ class UserService {
     }
   }
 
+  assignPremiumPackage(user:User,userId:string,callback: (error: any, result: any) => void) {
+    let projection = {subscription: 1};
+    this.userRepository.findByIdWithProjection(userId,projection,(error,result)=> {
+      if(error) {
+        callback(error,null);
+      }else {
+        let subScriptionArray = result.subscription;
+        let subScriptionService = new SubscriptionService();
+        subScriptionService.getSubscriptionPackageByName('Premium','BasePackage',
+          (error: any, subscriptionPackage: Array<SubscriptionPackage>) => {
+            if(error) {
+              callback(error,null);
+            } else {
+              let premiumPackage = subscriptionPackage[0];
+              let subscription = new UserSubscription();
+              subscription.activationDate = new Date();
+              subscription.numOfBuildings = premiumPackage.basePackage.numOfBuildings;
+              subscription.numOfProjects = premiumPackage.basePackage.numOfProjects;
+              subscription.validity = premiumPackage.basePackage.validity;
+              subscription.projectId = new Array<string>();
+              subscription.purchased = new Array<BaseSubscriptionPackage>();
+              subscription.purchased.push(premiumPackage.basePackage);
+              subScriptionArray.push(subscription);
+              let query = {'_id': userId};
+              let newData = {$set: {'subscription': subScriptionArray}};
+              this.userRepository.findOneAndUpdate(query, newData, {new: true}, (err, response) => {
+                if (err) {
+                  callback(err, null);
+                } else {
+                  callback(null, {data:'success'});
+                }
+              });
+            }
+        });
+      }
+    });
+  }
+
   getProjects(user: User, callback:(error : any, result :any)=>void) {
 
     let query = {_id: user._id };

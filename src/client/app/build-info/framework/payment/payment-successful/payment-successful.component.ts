@@ -117,11 +117,32 @@ export class PaymentSuccessfulComponent implements OnInit{
     return Label;
   }
 
+  assignPremiumPackage() {
+    let userId = SessionStorageService.getSessionValue(SessionStorage.USER_ID);
+    this.packageDetails.assignPremiumPackage(userId)
+      .subscribe(success => this.onAssignPremiumPackageSuccess(success),
+        error=>this.onAssignPremiumPackageFailure(error));
+  }
+  onAssignPremiumPackageSuccess(success: any) {
+    this._router.navigate([NavigationRoutes.APP_DASHBOARD]);
+  }
+
+  onAssignPremiumPackageFailure(error:any) {
+    var message = new Message();
+    message.isError = true;
+    message.custom_message = error.err_msg;
+    message.error_msg = error.err_msg;
+    this.messageService.message(message);
+  }
+
+
   onContinue() {
     if (this.packageName === this.getLabels().PACKAGE_REATAIN_PROJECT || this.packageName === this.getLabels().PACKAGE_RENEW_PROJECT) {
       this.onRetainOrRenewProject(this.packageName);
     }else if (this.packageName === 'Add_building') {
       this._router.navigate([NavigationRoutes.APP_CREATE_BUILDING]);
+    }else if(this.packageName === 'Premium') {
+      this.assignPremiumPackage();
     }else {
       this._router.navigate([NavigationRoutes.APP_DASHBOARD]);
     }
