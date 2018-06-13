@@ -16,23 +16,25 @@ import {PackageDetailsService} from "../../package-details/package-details.servi
   styleUrls: ['payment-successful.component.css']
 })
 
-export class PaymentSuccessfulComponent implements OnInit{
+export class PaymentSuccessfulComponent implements OnInit {
 
   projectId: string;
   packageName: string;
-  projects:any;
-  projectModel:  Project = new Project();
-  removeTrialProjectPrefix:  boolean = false;
+  projects: any;
+  projectModel: Project = new Project();
+  removeTrialProjectPrefix: boolean = false;
   public isShowErrorMessage: boolean = true;
   public errorMessage: boolean = false;
-  constructor(private activatedRoute:ActivatedRoute, private _router: Router, private projectService: ProjectService,
-              private projectNameChangeService : ProjectNameChangeService, private packageDetails : PackageDetailsService,
-              private messageService : MessageService) {
+
+  constructor(private activatedRoute: ActivatedRoute, private _router: Router, private projectService: ProjectService,
+              private projectNameChangeService: ProjectNameChangeService, private packageDetails: PackageDetailsService,
+              private messageService: MessageService) {
   }
 
   ngOnInit() {
     this.activatedRoute.params.subscribe(params => {
       this.packageName = params['packageName'];
+      this.projectId = SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT_ID);
       if (this.packageName === this.getLabels().PACKAGE_REATAIN_PROJECT || this.packageName === this.getLabels().PACKAGE_RENEW_PROJECT) {
         this.getProject();
       }
@@ -40,16 +42,15 @@ export class PaymentSuccessfulComponent implements OnInit{
   }
 
   getProject() {
-    this.projectId=SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT_ID);
     this.projectService.getProject(this.projectId).subscribe(
       project => this.onGetProjectSuccess(project),
       error => this.onGetProjectFailure(error)
     );
   }
 
-  onGetProjectSuccess(project : any) {
+  onGetProjectSuccess(project: any) {
     this.projectModel = project.data[0];
-    if(project.data[0].name.includes(this.getLabels().PREFIX_TRIAL_PROJECT)) {
+    if (project.data[0].name.includes(this.getLabels().PREFIX_TRIAL_PROJECT)) {
       this.projectModel.name = project.data[0].name.substring(14);
       this.removeTrialProjectPrefix = true;
     } else {
@@ -59,39 +60,39 @@ export class PaymentSuccessfulComponent implements OnInit{
 
   }
 
-  onGetProjectFailure(error : any) {
+  onGetProjectFailure(error: any) {
     console.log(error);
   }
 
   updateProjectNameById() {
-    let body = { name :  this.projectModel.name};
-    this.projectService.updateProjectNameById(this.projectId,body)
+    let body = {name: this.projectModel.name};
+    this.projectService.updateProjectNameById(this.projectId, body)
       .subscribe(
         user => this.onUpdateProjectNameByIdSuccess(user),
         error => this.onUpdateProjectNameByIdFailure(error));
   }
-  onRetainOrRenewProject(packageName : string) {
-    let body = { packageName : packageName};
-    this.packageDetails.getRetainOrRenewProject(this.projectId,body)
-      .subscribe(success=>this.onRetainOrRenewProjectSuccess(success),
+
+  onRetainOrRenewProject(packageName: string) {
+    let body = {packageName: packageName};
+    this.packageDetails.getRetainOrRenewProject(this.projectId, body)
+      .subscribe(success => this.onRetainOrRenewProjectSuccess(success),
         error => this.onRetainOrRenewProjectFailure(error));
   }
 
+  onRetainOrRenewProjectSuccess(success: any) {
+    if (this.removeTrialProjectPrefix) {
+        this.removeTrialProjectPrefix = false;
+        this.updateProjectNameById();
+      }
+      sessionStorage.removeItem(SessionStorage.NUMBER_OF_DAYS_TO_EXPIRE);
+      var message = new Message();
+      message.isError = false;
+      message.custom_message = success.data;
+      this.messageService.message(message);
+      this._router.navigate([NavigationRoutes.APP_DASHBOARD]);
+      }
 
-  onRetainOrRenewProjectSuccess(success:any) {
-    if(this.removeTrialProjectPrefix) {
-      this.removeTrialProjectPrefix = false;
-      this.updateProjectNameById();
-    }
-    sessionStorage.removeItem(SessionStorage.NUMBER_OF_DAYS_TO_EXPIRE);
-    var message = new Message();
-    message.isError = false;
-    message.custom_message = success.data;
-    this.messageService.message(message);
-   this._router.navigate([NavigationRoutes.APP_DASHBOARD]);
-
-  }
-  onRetainOrRenewProjectFailure(error:any) {
+    onRetainOrRenewProjectFailure(error:any) {
     console.log(error);
     var message = new Message();
     message.isError = true;
@@ -138,14 +139,17 @@ export class PaymentSuccessfulComponent implements OnInit{
 
 
   onContinue() {
-    if (this.packageName === this.getLabels().PACKAGE_REATAIN_PROJECT || this.packageName === this.getLabels().PACKAGE_RENEW_PROJECT) {
+    if (this.packageName === this.getLabels().PACKAGE_REATAIN_PROJECT) {
+      this.onRetainOrRenewProject('Premium');
+    } else if (this.packageName === this.getLabels().PACKAGE_RENEW_PROJECT) {
       this.onRetainOrRenewProject(this.packageName);
-    }else if (this.packageName === 'Add_building') {
-      this._router.navigate([NavigationRoutes.APP_CREATE_BUILDING]);
     }else if(this.packageName === 'Premium') {
       this.assignPremiumPackage();
     }else {
       this._router.navigate([NavigationRoutes.APP_DASHBOARD]);
     }
+    /*else if (this.packageName === 'Add_building') {
+      this.onRetainOrRenewProject(this.packageName);
+    }*/
   }
 }
