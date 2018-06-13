@@ -23,16 +23,16 @@
       {{getLabels().RENEW_PROJECT_BY}}
     </div>
     <div class="col-md-6">
-        {{premiumPackageDetails.validityDescription}}
+      {{premiumPackageDetails.validity/365|number:'1.0-0'}} years
     </div>
 
     <div class="col-md-6">
       {{getLabels().TOTAL_BILLED}}
     </div>
     <div class="col-md-6">
-        {{premiumPackageDetails.cost}}
+       <span> {{premiumPackageDetails.cost}}</span>
           <br>
-        {{premiumPackageDetails.cost - premiumPackageDetails.iterativeDiscount}}
+       <span *ngIf="discountValid">{{premiumPackageDetails.cost - premiumPackageDetails.iterativeDiscount}}</span>
     </div>
 
   </div>

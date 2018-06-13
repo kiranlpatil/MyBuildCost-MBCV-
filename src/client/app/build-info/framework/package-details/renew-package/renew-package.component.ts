@@ -13,8 +13,9 @@ export class RenewPackageComponent implements OnInit {
 
   projectId : string;
   projectName : string;
-  numOfDaysToExpire : number;
-
+  numOfDaysToExpire : string;
+  body:any;
+  discountValid:boolean=false;
   public currentDate: Date = new Date();
   public expiryDate: Date;
 
@@ -31,19 +32,27 @@ export class RenewPackageComponent implements OnInit {
   }
 
   getSubscriptionPackageByName() {
-      let body = {
-        addOnPackageName : 'RenewProject'
-      };
-
-    this.packageDetailsService.getSubscriptionPackageByName(body).subscribe(
-      packageDetails=>this.onGetSubscriptionPackageByNameSuccess(packageDetails),
+    if (this.projectName.includes(this.getLabels().PREFIX_TRIAL_PROJECT)) {
+       this.body = { basePackageName: 'Premium'};
+    } else {
+       this.body = { addOnPackageName: 'RenewProject'};
+       this.discountValid = true;
+    }
+    this.packageDetailsService.getSubscriptionPackageByName(this.body).subscribe(
+      packageDetails=>this.onGetSubscriptionPackageByNameSuccess(packageDetails,this.body),
       error=>this.onGetSubscriptionPackageByNameFailure(error)
     );
   }
-  onGetSubscriptionPackageByNameSuccess(packageDetails:any) {
-    this.premiumPackageDetails=packageDetails[0].addOnPackage;
-    this.expiryDate = new Date();
-    this.expiryDate.setDate( this.currentDate.getDate() + this.numOfDaysToExpire + this.premiumPackageDetails.validity);
+  onGetSubscriptionPackageByNameSuccess(packageDetails:any, body: any) {
+    if(body.basePackageName) {
+      this.premiumPackageDetails=packageDetails[0].basePackage;
+    }else {
+      this.premiumPackageDetails=packageDetails[0].addOnPackage;
+    }
+    let newExpiryDate = new Date();
+    let validityOfPackage = this.premiumPackageDetails.validity + parseInt(this.numOfDaysToExpire);
+    this.expiryDate = new Date(newExpiryDate.setDate( this.currentDate.getDate() + validityOfPackage));
+    this.expiryDate.setDate(this.expiryDate.getDate() + parseInt(this.numOfDaysToExpire));
   }
   onGetSubscriptionPackageByNameFailure(error:any) {
     console.log(error);
@@ -71,7 +80,11 @@ export class RenewPackageComponent implements OnInit {
   }
 
   proceedToPay() {
-    this._router.navigate([NavigationRoutes.APP_PACKAGE_DETAILS, NavigationRoutes.PAYMENT,this.getLabels().PACKAGE_RENEW_PROJECT,NavigationRoutes.SUCCESS]);
+    if(this.body.basePackageName) {
+    this._router.navigate([NavigationRoutes.APP_PACKAGE_DETAILS, NavigationRoutes.PAYMENT,this.getLabels().PACKAGE_REATAIN_PROJECT,NavigationRoutes.SUCCESS]);
+  }else {
+      this._router.navigate([NavigationRoutes.APP_PACKAGE_DETAILS, NavigationRoutes.PAYMENT,this.getLabels().PACKAGE_RENEW_PROJECT,NavigationRoutes.SUCCESS]);
+    }
   }
 
 }

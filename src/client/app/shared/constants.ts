@@ -597,6 +597,7 @@ export class Label {
   public static RENEW_PROJECT_BY: string = 'Renew Project by';
   public static PACKAGE_RENEW_PROJECT: string = 'RenewProject';
   public static PACKAGE_REATAIN_PROJECT: string = 'Retain';
+  public static PACKAGE_PREMIUM: string = 'Premium';
   public static PREFIX_TRIAL_PROJECT: string = 'Trial Project';
   public static INITIAL_NUMBER_OF_DAYS_TO_EXPIRE: number = 15;
 

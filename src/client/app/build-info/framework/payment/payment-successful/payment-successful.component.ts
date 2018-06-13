@@ -143,7 +143,7 @@ export class PaymentSuccessfulComponent implements OnInit {
       this.onRetainOrRenewProject('Premium');
     } else if (this.packageName === this.getLabels().PACKAGE_RENEW_PROJECT) {
       this.onRetainOrRenewProject(this.packageName);
-    }else if(this.packageName === 'Premium') {
+    }else if(this.packageName === this.getLabels().PACKAGE_PREMIUM ) {
       this.assignPremiumPackage();
     }else {
       this._router.navigate([NavigationRoutes.APP_DASHBOARD]);
