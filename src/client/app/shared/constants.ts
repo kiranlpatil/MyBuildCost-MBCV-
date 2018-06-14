@@ -294,6 +294,8 @@ export class SessionStorage {
   public static COMPANY_NAME = 'company_name';
   public static CREATED_AT = 'createdAt';
   public static PACKAGE_NAME = 'package_name';
+  public static NO_OF_BUILDINGS_PURCHASED = 'no_of_buildings_purchased';
+  public static TOTAL_BILLED = 'total_billed';
   public static IS_SUBSCRIPTION_AVAILABLE = 'is_subscription_available';
   public static PREMIUM_PACKAGE_AVAILABLE = 'premium_package_available';
 
@@ -740,7 +742,7 @@ export class ValueConstant {
   public static TOTAL_STEEL_DIAMETER_STRING_VALUES: string[] = ['totalWeightOf6mm','totalWeightOf8mm','totalWeightOf10mm','totalWeightOf12mm','totalWeightOf16mm','totalWeightOf20mm','totalWeightOf25mm','totalWeightOf30mm'];
   public static NUMBER_OF_FRACTION_DIGIT = 2;
   public static FILE_SIZE = 5000000;
-  public static NO_OF_BUILDINGS_VALUES :Number[]= [1,2,3,4,5];
+  public static NO_OF_BUILDINGS_VALUES :Number[]= [2,3,4,5];
 
 }
 
