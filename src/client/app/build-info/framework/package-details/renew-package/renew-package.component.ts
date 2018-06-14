@@ -7,6 +7,7 @@ import { Message, MessageService } from '../../../../shared/index';
   moduleId: module.id,
   selector: 'bi-renew-package',
   templateUrl: 'renew-package.component.html',
+  styleUrls: ['renew-package.component.css']
 })
 export class RenewPackageComponent implements OnInit {
   premiumPackageDetails:any;
