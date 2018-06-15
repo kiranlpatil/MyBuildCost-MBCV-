@@ -57,7 +57,7 @@ import { ProjectSubscriptionDetails } from '../../../build-info/framework/model/
 
   goBack() {
     sessionStorage.removeItem(SessionStorage.CURRENT_VIEW);
-    window.history.go(-1);
+    window.history.back();
     return false;
   }
 
