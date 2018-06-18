@@ -299,6 +299,7 @@ export class SessionStorage {
   public static CREATED_AT = 'createdAt';
   public static PACKAGE_NAME = 'package_name';
   public static NO_OF_BUILDINGS_PURCHASED = 'no_of_buildings_purchased';
+  public static CREATE_NEW_PROJECT = 'create_new_project';
   public static TOTAL_BILLED = 'total_billed';
   public static IS_SUBSCRIPTION_AVAILABLE = 'is_subscription_available';
   public static PREMIUM_PACKAGE_AVAILABLE = 'premium_package_available';
