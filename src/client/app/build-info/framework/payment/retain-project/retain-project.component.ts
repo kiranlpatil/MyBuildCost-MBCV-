@@ -55,8 +55,7 @@ export class RetainProjectComponent implements OnInit {
       this._router.navigate([NavigationRoutes.APP_CREATE_PROJECT]);
     }else if(!this.isSubscriptionAvailable) {
       this._router.navigate([NavigationRoutes.APP_PACKAGE_SUMMARY,'Premium',this.premiumPackageAvailable]);
-
-    }
+      }
     console.log(success);
   }
 

@@ -830,7 +830,7 @@ class UserService {
      let expiryDateOuter = new Date(subscription.activationDate);
      let current_date = new Date();
      for(let purchasePackage of subscription.purchased) {
-       expiryDateOuter = new Date(expiryDate.setDate(activation_date.getDate() + purchasePackage.validity));
+       expiryDateOuter = new Date(expiryDateOuter.setDate(activation_date.getDate() + purchasePackage.validity));
        for (let purchasePackage of subscription.purchased) {
          //expiry date for each package.
          expiryDate = new Date(expiryDate.setDate(activation_date.getDate() + purchasePackage.validity));
@@ -838,7 +838,11 @@ class UserService {
            return purchasePackage.name;
            }
        }
-      return purchasePackage.name='Free';
+       if(purchasePackage.name ==='Free') {
+         return purchasePackage.name='Free';
+       }else {
+         return purchasePackage.name='Premium';
+       }
      }
     }
 

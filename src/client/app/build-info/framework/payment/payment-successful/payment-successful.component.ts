@@ -90,7 +90,7 @@ export class PaymentSuccessfulComponent implements OnInit {
   }
 
   onRetainOrRenewProjectSuccess(success: any) {
-    if (this.packageName === 'Retain' || this.packageName === 'Premium') {
+    if (this.packageName === 'Retain' || this.packageName === 'Premium' || this.packageName === 'RenewProject') {
       if (this.removeTrialProjectPrefix) {
         this.removeTrialProjectPrefix = false;
         this.updateProjectNameById();
