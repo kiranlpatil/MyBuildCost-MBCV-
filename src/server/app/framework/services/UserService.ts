@@ -797,7 +797,7 @@ class UserService {
                     'Expiring in ' +  Math.round(projectSubscription.numOfDaysToExpire) + ' days,' ;
                 } else if(projectSubscription.numOfDaysToExpire < 0 &&  noOfDays > 0) {
                   projectSubscription.expiryMessage =  'Project expired,';
-                }else {
+                }else if(noOfDays < 0) {
                   projectSubscription.activeStatus = false;
                 }
 
@@ -903,7 +903,7 @@ class UserService {
                 'Expiring in ' +  Math.round(projectSubscription.numOfDaysToExpire) + ' days.' ;
             } else if(projectSubscription.numOfDaysToExpire < 0 && noOfDays > 0) {
               projectSubscription.expiryMessage = 'Project expired,';
-            }else {
+            }else if(noOfDays < 0) {
               projectSubscription.activeStatus = false;
             }
             callback(null, projectSubscription);

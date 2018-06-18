@@ -226,6 +226,7 @@ export class Messages {
   public static MSG_ON_RETAIN_PROJECT2: string = ' or create a new project';
   public static WARNING_MESSAGE_ON_RETAIN_PROJECT: string = 'Creating new project will delete your existing project data';
   public static PAYMENT_CANCEL_MESSAGE: string = 'Your payment has been cancelled';
+  public static PROJECT_EXPIRED: string = 'Project Expired';
 
 }
 
