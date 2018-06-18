@@ -595,8 +595,9 @@ export class Label {
 
   //Renew project
   public static YOUR_PROJECT: string = 'Your project';
-  public static IS_ABOUT_TO_EXPIRE_IN: string = ', is about to expire in';
-  public static DAYS: string = 'days';
+  public static IS_ABOUT_TO_EXPIRE_IN: string = ' is about to expire in ';
+  public static IS_ABOUT_TO_EXPIRED: string = ' is expired.';
+  public static DAYS: string = 'days.';
   public static PLEASE_RENEW_TO_CONTINUE: string = 'Please renew to continue using features of BuildInfo.';
   public static START_DATE: string = 'Start Date';
   public static END_DATE: string = 'End Date';
