@@ -32,6 +32,12 @@ class SubscriptionRoutes {
     //Add Subscription Package
     router.post('/',  controller.addSubscriptionPackage, this._responseInterceptor.exit);
 
+    router.post('/generateHash',  controller.generateHash, this._responseInterceptor.exit);
+
+    router.post('/payment/sucess',  controller.successPayment, this._responseInterceptor.exit);
+
+    router.post('/payment/failure',  controller.failurePayment, this._responseInterceptor.exit);
+
     router.get('/basepackageslist', this.authInterceptor.requiresAuth, this._requestInterceptor.intercept,
       controller.getBaseSubscriptionPackageList, this._responseInterceptor.exit);
 

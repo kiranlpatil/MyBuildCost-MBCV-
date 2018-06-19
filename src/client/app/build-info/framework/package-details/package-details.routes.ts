@@ -16,7 +16,7 @@ export const PackageDetailsRoutes: Route[] = [
       {path: 'premium-package/:packageName/:premiumPackageExist', component: PackageSummaryComponent},
       {path: 'renew-package/:projectId/:projectName/:numOfDaysToExpire', component: RenewPackageComponent},
       {path: 'payment/:packageName/success', component: PaymentSuccessfulComponent},
-      //{ path :'payment/failure',component :PaymentFailureComponent },
+      { path :'payment/failure',component :PaymentFailureComponent },
       { path: 'retain-project/:projectName',component :RetainProjectComponent}]
   }
 ];

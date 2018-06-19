@@ -389,6 +389,7 @@ export class API {
 
   //
   public static SUBSCRIPTION = 'subscription';
+  public static GENERATE_HASH = 'generateHash';
   public static BASE_PACKAGES_LIST = 'basepackageslist';
   public static BY_NAME = 'by/name';
   public static UPDATE_SUBSCRIPTION = 'updateSubscription';

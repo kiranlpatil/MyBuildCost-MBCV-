@@ -111,4 +111,8 @@ export class ProjectListComponent implements OnInit, AfterViewInit {
       this.animateView = true;
     },150);
   }
+
+  navigateToPayment() {
+    this._router.navigate(['project', NavigationRoutes.PAYMENT]);
+  }
 }
