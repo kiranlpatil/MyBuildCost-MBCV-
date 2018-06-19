@@ -4,8 +4,8 @@ import { PackageSummaryComponent } from './package-summary/package-summary.compo
 import { RenewPackageComponent } from './renew-package/renew-package.component';
 import { PackageDefaultComponent } from './packageDefault.component';
 import { PaymentSuccessfulComponent } from '../payment/payment-successful/payment-successful.component';
-import { RetainProjectComponent } from "../payment/retain-project/retain-project.component";
-import {PaymentFailureComponent} from "../payment/payment-failure/payment-failure.component";
+import { RetainProjectComponent } from '../payment/retain-project/retain-project.component';
+import { PaymentFailureComponent } from '../payment/payment-failure/payment-failure.component';
 
 export const PackageDetailsRoutes: Route[] = [
   {
