@@ -987,7 +987,7 @@ class UserService {
                 if (error) {
                   callback(error, null);
                 } else {
-                  callback(null, {data: 'success'});
+                  callback(null, {data: 'Project Renewed successfully'});
                 }
               });
             }
