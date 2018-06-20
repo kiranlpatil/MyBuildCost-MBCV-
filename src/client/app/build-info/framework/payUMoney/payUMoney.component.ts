@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { FormGroup, FormBuilder } from '@angular/forms';
 import { PayUMoneyModel } from '../model/PayUMoneyModel';
 import { PayUMoneyService } from './payUMoney.service';
 import { NavigationRoutes } from '../../../shared/constants';
 import { CommonService } from '../../../shared/services/common.service';
+import { ValidationService } from '../../../shared/customvalidations/validation.service';
 
 @Component ({
   moduleId:module.id,
@@ -14,9 +16,21 @@ import { CommonService } from '../../../shared/services/common.service';
 export class PayUMoneyComponent implements OnInit {
 
   payUMoney : PayUMoneyModel = new PayUMoneyModel();
+  payUMoneyForm: FormGroup;
   subscription : any;
+  public isShowErrorMessage: boolean = false;
 
-  constructor(private payUMoneyService : PayUMoneyService,  private _router : Router, private commonService : CommonService) {
+  constructor(private payUMoneyService : PayUMoneyService,  private _router : Router, private commonService : CommonService,
+              private formBuilder : FormBuilder) {
+
+    this.payUMoneyForm = this.formBuilder.group({
+      firstname: ['', ValidationService.requireFirstNameValidator],
+      lastname: ['', ValidationService.requireLastNameValidator],
+      email: ['', ValidationService.requireEmailValidator],
+      phone: ['', ValidationService.requireMobileNumberValidator],
+      productinfo: [''],
+      amount: ['']
+    });
   }
 
   ngOnInit() {
@@ -32,15 +46,32 @@ export class PayUMoneyComponent implements OnInit {
 
 
   submitPaymentForm() {
-    this.callToPayUMoney();
+    if(this.checkValidations(this.payUMoney)) {
+      this.payUMoneyService.goToPayment(this.payUMoney).subscribe(
+        PayUMoneyModel => this.onGetHashSuccess(PayUMoneyModel),
+        error => this.onGetHashFailure(error)
+      );
+    }
   }
 
-  callToPayUMoney() {
-    console.log('payUMoney : '+JSON.stringify(this.payUMoney));
-    this.payUMoneyService.goToPayment(this.payUMoney).subscribe(
-      PayUMoneyModel => this.onGetHashSuccess(PayUMoneyModel),
-      error => this.onGetHashFailure(error)
-    );
+  checkValidations(payUMoneyModel : PayUMoneyModel) {
+    if(payUMoneyModel.firstname === null || payUMoneyModel.firstname === undefined) {
+      return false;
+    } else if(payUMoneyModel.firstname === null || payUMoneyModel.firstname === undefined) {
+      return false;
+    } else if(payUMoneyModel.lastname === null || payUMoneyModel.lastname === undefined) {
+      return false;
+    } else if(payUMoneyModel.email === null || payUMoneyModel.email === undefined) {
+      return false;
+    } else if(payUMoneyModel.phone === null || payUMoneyModel.phone === undefined) {
+      return false;
+    } else if(payUMoneyModel.productinfo === null || payUMoneyModel.productinfo === undefined) {
+      return false;
+    } else if(payUMoneyModel.amount === null || payUMoneyModel.amount === undefined) {
+      return false;
+    } else {
+      return true;
+    }
   }
 
   onGetHashSuccess(PayUMoneyModel : any) {

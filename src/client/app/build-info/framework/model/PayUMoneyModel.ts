@@ -7,6 +7,7 @@ export class PayUMoneyModel {
   slabArea:number;
   productinfo: string = '';
   firstname: string = '';
+  lastname: string = '';
   email: string = '';
   surl : string = '';
   furl : string = '';
