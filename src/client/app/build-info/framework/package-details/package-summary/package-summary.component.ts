@@ -85,6 +85,9 @@ export class PackageSummaryComponent implements OnInit {
     if(this.premiumPackageAvailable) {
       subscribedPackage.amount = (this.premiumPackageDetails.basePackage.cost - this.premiumPackageDetails.basePackage.iterativeDiscount);
       subscribedPackage.name = this.premiumPackageDetails.basePackage.name;
+    } else {
+      subscribedPackage.amount = this.premiumPackageDetails.basePackage.cost;
+      subscribedPackage.name = this.premiumPackageDetails.basePackage.name;
     }
     this.commonService.updatePurchasepackageInfo(subscribedPackage);
   }
@@ -119,9 +122,17 @@ export class PackageSummaryComponent implements OnInit {
 
   onProceedToPay() {
     if(this.packageName === 'Add_building') {
-      let body = { packageName: 'Add_building',
+      let body = {
+        packageName: 'Add_building',
         numOfPurchasedBuildings:this.selectedBuildingValue,
-        totalBilled :this.totalBilled };
+        totalBilled :this.totalBilled
+      };
+
+      let subscribedPackage = new SubscribedPackage();
+      subscribedPackage.name = body.packageName;
+      subscribedPackage.amount = body.totalBilled;
+      this.commonService.updatePurchasepackageInfo(subscribedPackage);
+
       this.updateSubscription(body);
     }
   }
