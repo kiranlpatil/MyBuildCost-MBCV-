@@ -1,34 +1,44 @@
-<div>
-  <h1>PayUMoney Payment Request Form </h1>
+<div class="col-md-4"></div>
+
+<div class="col-md-4">
+  <h1>Please enter your details</h1>
 
   <form (submit)="submitPaymentForm()">
     <table>
         <tr>
-          <td><b>Mandatory Parameters</b></td>
-        </tr>
-        <tr>
-          <td>First Name: </td>
+          <td>First Name : </td>
           <td><input name="firstname" id="firstname" [(ngModel)]="payUMoney.firstname"/></td>
-          <td>Amount: </td>
-          <td>{{payUMoney.amount}}
-            <input name="amount" id="amount" [(ngModel)]="payUMoney.amount"/>
-          </td>
         </tr>
-        <tr>
-          <td>Email: </td>
-          <td><input name="email" id="email" [(ngModel)]="payUMoney.email"/></td>
-          <td>Phone: </td>
-          <td><input name="phone" type="number" [(ngModel)]="payUMoney.phone"/></td>
-        </tr>
-        <tr>
-          <td>Product Info: </td>
-          <td colspan="3">
-            <textarea name="productinfo" [(ngModel)]="payUMoney.productinfo"></textarea>
-          </td>
-        </tr>
-      <tr><td>
-        <button type="submit">Submit</button>
-      </td></tr>
+      <tr>
+        <td>Last Name : </td>
+        <td><input name="lastname" id="lastname" [(ngModel)]="payUMoney.lastname"/></td>
+      </tr>
+      <tr>
+        <td>Email : </td>
+        <td><input name="email" id="email" [(ngModel)]="payUMoney.email"/></td>
+      </tr>
+      <tr>
+        <td>Phone : </td>
+        <td><input name="phone" type="number" [(ngModel)]="payUMoney.phone"/></td>
+      </tr>
+      <tr>
+        <td>Package Info : </td>
+        <td colspan="3">
+          <input name="productinfo" [(ngModel)]="payUMoney.productinfo"/>
+        </td>
+      </tr>
+      <tr>
+        <td>Amount : </td>
+        <td>
+          <input name="amount" id="amount" [(ngModel)]="payUMoney.amount"/>
+        </td>
+      </tr>
+      <tr>
+        <td> <button (click)="goToDashboard()">Cancel</button></td>
+        <td>
+          <button type="submit">Proceed to Pay</button>
+        </td>
+      </tr>
 
       </table>
   </form>

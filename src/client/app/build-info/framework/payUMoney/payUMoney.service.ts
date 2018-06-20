@@ -13,41 +13,11 @@ export class PayUMoneyService extends BaseService {
     super();
   }
 
-  getHash(payUMoney : PayUMoneyModel) {
-    let url = API.SUBSCRIPTION + '/' + API.GENERATE_HASH;
+  goToPayment(payUMoney : PayUMoneyModel) {
+    let url = API.SUBSCRIPTION + '/' + API.PAY_U_MONEY;
     let body = payUMoney;
     let headers = new Headers({'Content-Type': 'application/json'});
     let options = new RequestOptions({headers: headers});
     return this.httpDelegateService.postAPI(url,body);
-
-    /*return this.http.post(url, JSON.stringify(body), options)
-      .subscribe(data => {
-        console.log('data' +JSON.stringify(data));
-      }, error => {
-        console.log('error : '+JSON.stringify(error));
-      });*/
-
-  }
-
-  payUMoneyPayment(payUMoney : PayUMoneyModel) {
-    let url = 'https://test.payu.in/_payment';
-    let body = payUMoney;
-    return this.httpDelegateService.postAPI(url,body);
-  }
-
-  getData(payUMoney : PayUMoneyModel) {
-    let body = payUMoney;
-    let url = 'https://test.payu.in/_payment';
-    let headers = new Headers({'Content-Type': 'application/x-www-form-urlencoded'});
-    headers.set('Access-Control-Allow-Origin','*');
-    headers.set('Access-Control-Allow-Methods', 'POST');
-    let options = new RequestOptions({headers: headers});
-    //return this.httpDelegateService.postAPI(url,body);
-    return this.http.post('https://test.payu.in/_payment', JSON.stringify(body), options)
-      .subscribe(data => {
-        console.log('data' +JSON.stringify(data));
-      }, error => {
-        console.log('error : '+JSON.stringify(error));
-      });
   }
 }

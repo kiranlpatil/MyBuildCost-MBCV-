@@ -4,8 +4,6 @@ import * as express from "express";
 let config = require('config');
 var hashKey = require('js-sha512');
 let payumoney = require('payumoney-node');
-payumoney.setKeys('sa9GClLw', '8LfwUPzxya', 'WY4YNJEYPrAbCEUyoCoNDEcJxSvk/8glz7QaUsFqzRQ=');
-payumoney.isProdMode(false);
 var log4js = require('log4js');
 var logger=log4js.getLogger('Subscription Controller');
 import CostControllException = require('../exception/CostControllException');
@@ -80,39 +78,16 @@ class SubscriptionController {
     }
   }
 
-  generateHash(req: express.Request, res: express.Response, next: any): void {
+  generatePayUMoneyTransacction(req: express.Request, res: express.Response, next: any): void {
     try {
-
-      let paymentData = {
-        productinfo: 'Hi',
-        txnid: 'oT6SGlPBuL5iQXxcrrCwPef5QWpr6v',
-        amount: 1,
-        email: 'swapnil.nakhate1010@gmail.com',
-        phone: 7588676542,
-        lastname: 'Nakhate',
-        firstname: 'Swapnil',
-        surl: 'http://localhost:8080/api/subscription/payment/success',
-        furl: 'http://localhost:8080/api/subscription/payment/failure'
-      };
-
-
-      /*
-      surl: 'http://localhost:5555/package-details/payment/success',
-      furl: 'http://localhost:5555/package-details/payment/failure'
-
-      surl: 'http://localhost:8080/api/subscription/payment/success',
-      furl: 'http://localhost:8080/api/subscription/payment/failure'
-      */
-
-      payumoney.makePayment(paymentData, function(error:any, response:any) {
-        if (error) {
-          // Some error
-          console.log(response);
-          res.send(error);
+      let paymentBody = req.body;
+      let subscriptionService: SubscriptionService = new SubscriptionService();
+      subscriptionService.makePayUMoneyPayment(paymentBody,(error, result) => {
+        if(error) {
+          next(error);
         } else {
-          // Payment redirection link
-          console.log(response);
-          res.send({ data : response });
+          logger.info('Get Subscription success');
+          next(new Response(200,result));
         }
       });
     } catch(e) {
@@ -122,9 +97,10 @@ class SubscriptionController {
 
   successPayment(req: express.Request, res: express.Response, next: any): void {
     try {
-      let body = req.body;
-      console.log('payment success : '+ JSON.stringify(body));
-      res.redirect('http://localhost:5555/package-details/payment/success');
+      console.log('payment success : '+ JSON.stringify(req.body));
+      let pkgName = req.body.productinfo;
+      let redirectUrl = 'http://localhost:5555/package-details/payment/'+pkgName+'/success';
+      res.redirect(redirectUrl);
     } catch(e) {
       next(new CostControllException(e.message,e.stack));
     }

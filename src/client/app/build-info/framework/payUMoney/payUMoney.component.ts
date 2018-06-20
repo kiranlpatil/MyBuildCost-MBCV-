@@ -1,7 +1,9 @@
-import { Component , OnInit } from '@angular/core';
-import { Router , ActivatedRoute } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { PayUMoneyModel } from '../model/PayUMoneyModel';
 import { PayUMoneyService } from './payUMoney.service';
+import { NavigationRoutes } from '../../../shared/constants';
+import { CommonService } from '../../../shared/services/common.service';
 
 @Component ({
   moduleId:module.id,
@@ -9,12 +11,25 @@ import { PayUMoneyService } from './payUMoney.service';
   templateUrl:'payUMoney.component.html'
 })
 
-export class PayUMoneyComponent {
+export class PayUMoneyComponent implements OnInit {
 
   payUMoney : PayUMoneyModel = new PayUMoneyModel();
+  subscription : any;
 
-  constructor(private payUMoneyService : PayUMoneyService,  private _router : Router) {
+  constructor(private payUMoneyService : PayUMoneyService,  private _router : Router, private commonService : CommonService) {
   }
+
+  ngOnInit() {
+    this.subscription = this.commonService.updatepackageInfo$
+      .subscribe(item => {
+        if(item !== undefined || item !== null) {
+          this.payUMoney.amount = item.amount;
+          this.payUMoney.productinfo = item.name;
+        }
+      }
+    );
+  }
+
 
   submitPaymentForm() {
     this.callToPayUMoney();
@@ -22,7 +37,7 @@ export class PayUMoneyComponent {
 
   callToPayUMoney() {
     console.log('payUMoney : '+JSON.stringify(this.payUMoney));
-    this.payUMoneyService.getHash(this.payUMoney).subscribe(
+    this.payUMoneyService.goToPayment(this.payUMoney).subscribe(
       PayUMoneyModel => this.onGetHashSuccess(PayUMoneyModel),
       error => this.onGetHashFailure(error)
     );
@@ -31,18 +46,13 @@ export class PayUMoneyComponent {
   onGetHashSuccess(PayUMoneyModel : any) {
     console.log('calling payment : '+JSON.stringify(PayUMoneyModel.data));
     window.location.href = PayUMoneyModel.data;
-    //this._router.navigate([PayUMoneyModel.data]);
-  }
-
-  onPaymentSuccess(payUMoneyRes : any) {
-    console.log('onPaymentSuccess  : '+JSON.stringify(payUMoneyRes));
-  }
-
-  onPaymentFailure(error : Error) {
-    console.log('onPaymentFailure : '+JSON.stringify(error));
   }
 
   onGetHashFailure(error : Error) {
     console.log('PayUMoneyModel error : ' + JSON.stringify(error));
+  }
+
+  goToDashboard()  {
+    this._router.navigate([NavigationRoutes.APP_DASHBOARD]);
   }
 }
