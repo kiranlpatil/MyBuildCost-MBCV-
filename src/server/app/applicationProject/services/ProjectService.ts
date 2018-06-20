@@ -1986,8 +1986,9 @@ class ProjectService {
 
         let arrayOfRateItems = workItem.rate.rateItems;
         let totalOfAllRateItems = alasql('VALUE OF SELECT SUM(totalAmount) FROM ?', [arrayOfRateItems]);
+        let totalByUnit = totalOfAllRateItems / workItem.rate.quantity;
         if (!workItem.isDirectRate) {
-          workItem.rate.total = totalOfAllRateItems / workItem.rate.quantity;
+          workItem.rate.total = this.totalRateByUnit(workItem, totalByUnit);
         }
         let quantityItems = workItem.quantity.quantityItemDetails;
 
@@ -2005,6 +2006,19 @@ class ProjectService {
       }
     }
     return workItemsListWithRates;
+  }
+
+  totalRateByUnit(workItem: WorkItem, totalByUnit: number) {
+    if (workItem.unit === 'Sqm') {
+      workItem.rate.total = totalByUnit * 10.764;
+    } else if (workItem.unit === 'Rm') {
+      workItem.rate.total = totalByUnit * 3.28;
+    } else if (workItem.unit === 'cum') {
+      workItem.rate.total = totalByUnit * 35.315;
+    } else {
+      workItem.rate.total = totalByUnit;
+    }
+    return workItem.rate.total;
   }
 
   getRatesFromCentralizedrates(rateItemsOfWorkItem: Array<RateItem>, centralizedRates: Array<any>) {
