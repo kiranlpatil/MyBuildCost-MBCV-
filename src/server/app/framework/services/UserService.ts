@@ -805,10 +805,10 @@ class UserService {
                 let noOfDays =  this.daysdifference(newExipryDate,  current_date);
                 projectSubscription.numOfDaysToExpire = this.daysdifference(projectSubscription.expiryDate, current_date);
 
-                if(projectSubscription.numOfDaysToExpire < 30 && projectSubscription.numOfDaysToExpire >=0) {
+                if(projectSubscription.numOfDaysToExpire < 30 && projectSubscription.numOfDaysToExpire >0) {
                   projectSubscription.warningMessage =
                     'Expiring in ' +  Math.round(projectSubscription.numOfDaysToExpire) + ' days,' ;
-                } else if(projectSubscription.numOfDaysToExpire < 0 &&  noOfDays > 0) {
+                } else if(projectSubscription.numOfDaysToExpire <= 0 &&  noOfDays >= 0) {
                   projectSubscription.expiryMessage =  'Project expired,';
                 }else if(noOfDays < 0) {
                   projectSubscription.activeStatus = false;
@@ -911,10 +911,10 @@ class UserService {
 
             projectSubscription.numOfDaysToExpire = this.daysdifference(projectSubscription.expiryDate, current_date);
 
-            if(projectSubscription.numOfDaysToExpire < 30 && projectSubscription.numOfDaysToExpire >=0) {
+            if(projectSubscription.numOfDaysToExpire < 30 && projectSubscription.numOfDaysToExpire >0) {
               projectSubscription.warningMessage =
                 'Expiring in ' +  Math.round(projectSubscription.numOfDaysToExpire) + ' days.' ;
-            } else if(projectSubscription.numOfDaysToExpire < 0 && noOfDays > 0) {
+            } else if(projectSubscription.numOfDaysToExpire <= 0 && noOfDays >= 0) {
               projectSubscription.expiryMessage = 'Project expired,';
             }else if(noOfDays < 0) {
               projectSubscription.activeStatus = false;
