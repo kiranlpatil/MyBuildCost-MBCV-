@@ -126,7 +126,7 @@ export class GetRateComponent implements OnChanges {
       this.totalByUnit = this.ratePerUnitAmount * 3.28;
       this.rate.total = this.totalByUnit;
     } else if (this.workItemUnit === 'cum') {
-      this.totalByUnit = this.ratePerUnitAmount * 35.315;
+      this.totalByUnit = this.ratePerUnitAmount * 35.28;
       this.rate.total = this.totalByUnit;
     } else {
       this.rate.total = this.ratePerUnitAmount;

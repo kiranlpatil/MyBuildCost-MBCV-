@@ -2014,7 +2014,7 @@ class ProjectService {
     } else if (workItem.unit === 'Rm') {
       workItem.rate.total = totalByUnit * 3.28;
     } else if (workItem.unit === 'cum') {
-      workItem.rate.total = totalByUnit * 35.315;
+      workItem.rate.total = totalByUnit * 35.28;
     } else {
       workItem.rate.total = totalByUnit;
     }
