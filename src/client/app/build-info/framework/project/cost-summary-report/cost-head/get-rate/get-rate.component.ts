@@ -1,7 +1,7 @@
 import { Component, Input, Output, EventEmitter, ViewChild, ElementRef, OnChanges } from '@angular/core';
 import {
   Messages, Button, TableHeadings, Label, Headings, ValueConstant,
-  StandardNotes
+  StandardNotes, ProjectElements
 } from '../../../../../../shared/constants';
 import {
   SessionStorage, SessionStorageService,
@@ -31,6 +31,8 @@ export class GetRateComponent implements OnChanges {
   @Input() categoryRateAnalysisId : number;
   @Input() workItemRateAnalysisId : number;
   @Input() workItemsList : Array<WorkItem>;
+  @Input() workItemUnit :any;
+  @Input() totalByUnit :number;
   @Input() ratePerUnitAmount : number;
   @Input() baseUrl : string;
   @Input() rateView: string;
@@ -57,6 +59,7 @@ export class GetRateComponent implements OnChanges {
   selectedRateItemKey : string;
   type : string;
   selectedItemName: string;
+  //totalByUnit :  number = 0;
 
   constructor(private costSummaryService: CostSummaryService,  private loaderService: LoaderService,
               private messageService: MessageService, private commonService: CommonService,
@@ -64,10 +67,12 @@ export class GetRateComponent implements OnChanges {
   }
 
   ngOnChanges() {
+    console.log(this.rate);
     this.calculateTotal();
   }
 
   calculateTotal(choice?:string) {
+    this.totalByUnit = 0;
     this.ratePerUnitAmount = 0;
     this.totalAmount = 0;
     this.totalAmountOfLabour = 0;
@@ -110,8 +115,25 @@ export class GetRateComponent implements OnChanges {
       this.totalAmount = this.totalAmountOfMaterial + this.totalAmountOfLabour +this.totalAmountOfMaterialAndLabour;
     }
     this.ratePerUnitAmount = this.totalAmount / this.rate.quantity;
-    this.rate.total= this.ratePerUnitAmount;
+    this.rate.total = this.rateTotalByUnit();
     }
+
+  rateTotalByUnit() {
+    if (this.workItemUnit === 'Sqm') {
+      this.totalByUnit = this.ratePerUnitAmount * 10.764;
+      this.rate.total = this.totalByUnit;
+    } else if (this.workItemUnit === 'Rm') {
+      this.totalByUnit = this.ratePerUnitAmount * 3.28;
+      this.rate.total = this.totalByUnit;
+    } else if (this.workItemUnit === 'cum') {
+      this.totalByUnit = this.ratePerUnitAmount * 35.28;
+      this.rate.total = this.totalByUnit;
+    } else {
+      this.rate.total = this.ratePerUnitAmount;
+    }
+    return this.rate.total;
+  }
+
   updateRate(rateItemsArray: Rate) {
     if (this.validateRateItem(rateItemsArray.rateItems)) {
       this.loaderService.start();
@@ -158,7 +180,7 @@ export class GetRateComponent implements OnChanges {
 
     for(let workItemData of this.workItemsList) {
       if(workItemData.rateAnalysisId === this.workItemRateAnalysisId) {
-        workItemData.rate.total = this.ratePerUnitAmount;
+        workItemData.rate.total = this.totalByUnit;
         if(workItemData.rate.total !== 0) {
           workItemData.rate.isEstimated = true;
           if(workItemData.quantity.isEstimated && workItemData.rate.isEstimated) {
@@ -307,5 +329,9 @@ export class GetRateComponent implements OnChanges {
 
   getStandardNotes() {
     return StandardNotes;
+  }
+
+  getProjectElements() {
+    return ProjectElements;
   }
 }
