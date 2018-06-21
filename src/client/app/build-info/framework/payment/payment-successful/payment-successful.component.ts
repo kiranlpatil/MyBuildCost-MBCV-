@@ -45,7 +45,7 @@ export class PaymentSuccessfulComponent implements OnInit {
         this.getProject();
       }
     });
-
+    this.updateSubscription();
     this.numOfPurchasedBuilding =parseInt( SessionStorageService.getSessionValue(SessionStorage.NO_OF_BUILDINGS_PURCHASED));
     this.totalBilled =parseInt( SessionStorageService.getSessionValue(SessionStorage.TOTAL_BILLED));
     this.createNewProject=SessionStorageService.getSessionValue(SessionStorage.CREATE_NEW_PROJECT)!== 'false' ? true : false;
@@ -67,9 +67,7 @@ export class PaymentSuccessfulComponent implements OnInit {
     } else {
       this.projectModel.name = project.data[0].name;
     }
-
-
-  }
+    }
 
   onGetProjectFailure(error: any) {
     console.log(error);
@@ -103,7 +101,7 @@ export class PaymentSuccessfulComponent implements OnInit {
       message.isError = false;
       message.custom_message = success.data;
       this.messageService.message(message);
-      this._router.navigate([NavigationRoutes.APP_DASHBOARD]);
+      //this._router.navigate([NavigationRoutes.APP_DASHBOARD]);
     }
     sessionStorage.removeItem(SessionStorage.TOTAL_BILLED);
   }
@@ -114,14 +112,14 @@ export class PaymentSuccessfulComponent implements OnInit {
    // message.custom_message = error.err_msg;
     message.error_msg = error.err_msg;
     this.messageService.message(message);
-    this._router.navigate([NavigationRoutes.APP_DASHBOARD]);
+   // this._router.navigate([NavigationRoutes.APP_DASHBOARD]);
   }
   onUpdateProjectNameByIdSuccess(result: any) {
     if (result !== null) {
       this.projectNameChangeService.change(result.data.name);
       SessionStorageService.setSessionValue(SessionStorage.CURRENT_PROJECT_NAME, result.data.name);
       }
-    this._router.navigate([NavigationRoutes.APP_DASHBOARD]);
+    //this._router.navigate([NavigationRoutes.APP_DASHBOARD]);
   }
 
   onUpdateProjectNameByIdFailure(error: any) {
@@ -146,13 +144,13 @@ export class PaymentSuccessfulComponent implements OnInit {
          error => this.onUpdateProjectStatusFailure(error)
        );
     } else {
-      this._router.navigate([NavigationRoutes.APP_CREATE_PROJECT]);
+     // this._router.navigate([NavigationRoutes.APP_CREATE_PROJECT]);
     }
 
   }
 
   onUpdateProjectStatusSuccess(success : any) {
-    this._router.navigate([NavigationRoutes.APP_CREATE_PROJECT]);
+    //this._router.navigate([NavigationRoutes.APP_CREATE_PROJECT]);
     console.log(success);
   }
 
@@ -171,7 +169,7 @@ export class PaymentSuccessfulComponent implements OnInit {
   }
 
 
-  onContinue() {
+  updateSubscription() {
     if (this.packageName === this.getLabels().PACKAGE_REATAIN_PROJECT) {
       this.onRetainOrRenewProject('Premium');
     } else if (this.packageName === this.getLabels().PACKAGE_RENEW_PROJECT) {
@@ -181,10 +179,26 @@ export class PaymentSuccessfulComponent implements OnInit {
     }else if(this.packageName === 'Free') {
       this.assignPremiumPackage();
     } else if(this.packageName === 'Add_building') {
-      this._router.navigate([NavigationRoutes.APP_CREATE_BUILDING]);
+     this.onRetainOrRenewProject(this.packageName);
       } else {
       this._router.navigate([NavigationRoutes.APP_DASHBOARD]);
     }
 
   }
+
+   onContinue() {
+     if (this.packageName === this.getLabels().PACKAGE_REATAIN_PROJECT || this.packageName === this.getLabels().PACKAGE_RENEW_PROJECT) {
+       this._router.navigate([NavigationRoutes.APP_DASHBOARD]);
+       }else if(this.packageName === this.getLabels().PACKAGE_PREMIUM || this.packageName === 'Free') {
+       this._router.navigate([NavigationRoutes.APP_CREATE_PROJECT]);
+       }else if(this.packageName === 'Add_building') {
+       this._router.navigate([NavigationRoutes.APP_CREATE_BUILDING]);
+       }else {
+       this._router.navigate([NavigationRoutes.APP_DASHBOARD]);
+
+     }
+   }
+
+
+
 }
