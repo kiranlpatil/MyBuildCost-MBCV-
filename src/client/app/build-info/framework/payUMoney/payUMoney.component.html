@@ -1,46 +1,43 @@
-<div class="col-md-4"></div>
-
-<div class="col-md-4">
+<div class="payumoney-inner-wrapper">
   <h1>Please enter your details</h1>
-
   <form (submit)="submitPaymentForm()">
-    <table>
-        <tr>
-          <td>First Name : </td>
-          <td><input name="firstname" id="firstname" [(ngModel)]="payUMoney.firstname"/></td>
-        </tr>
-      <tr>
-        <td>Last Name : </td>
-        <td><input name="lastname" id="lastname" [(ngModel)]="payUMoney.lastname"/></td>
-      </tr>
-      <tr>
-        <td>Email : </td>
-        <td><input name="email" id="email" [(ngModel)]="payUMoney.email"/></td>
-      </tr>
-      <tr>
-        <td>Phone : </td>
-        <td><input name="phone" type="number" [(ngModel)]="payUMoney.phone"/></td>
-      </tr>
-      <tr>
-        <td>Package Info : </td>
-        <td colspan="3">
-          <input name="productinfo" [(ngModel)]="payUMoney.productinfo" disabled/>
-        </td>
-      </tr>
-      <tr>
-        <td>Amount : </td>
-        <td>
-          <input name="amount" id="amount" [(ngModel)]="payUMoney.amount" disabled/>
-        </td>
-      </tr>
-      <tr>
-        <td> <button (click)="goToDashboard()">Cancel</button></td>
-        <td>
-          <button type="submit">Proceed to Pay</button>
-        </td>
-      </tr>
+    <div  class="form-group">
+      <label>First Name :</label>
+      <input name="firstname" id="firstname" [(ngModel)]="payUMoney.firstname"
+             class="form-control"/>
+    </div>
+    <div  class="form-group">
+      <label>Last Name :</label>
+      <input  name="lastname" id="lastname" [(ngModel)]="payUMoney.lastname"
+             class="form-control"/>
+    </div>
+    <div  class="form-group">
+      <label>Email :</label>
+      <input  name="email" id="email" [(ngModel)]="payUMoney.email"
+              class="form-control"/>
+    </div>
+    <div  class="form-group">
+      <label>Phone :</label>
+      <input  name="phone" type="number" [(ngModel)]="payUMoney.phone"
+              class="form-control"/>
+    </div>
+    <div  class="form-group disabled-values">
+      <label>Package Info :</label>
+      <input  name="productinfo" [(ngModel)]="payUMoney.productinfo" disabled
+              class="form-control"/>
+    </div>
+    <div  class="form-group disabled-values">
+      <label>Amount :</label>
+      <input  name="amount" id="amount" [(ngModel)]="payUMoney.amount" disabled
+              class="form-control"/>
+    </div>
 
-      </table>
+    <button type="submit" (click)="goToDashboard()" class="btn btn-default">
+      Cancel
+    </button>
+    <button type="submit" (click)="goToDashboard()" class="btn btn-primary">
+      Proceed to Pay
+    </button>
   </form>
 
   <!--<form class="col-xs-12 form-details" [formGroup]="payUMoneyForm" (submit)="submitPaymentForm()">
