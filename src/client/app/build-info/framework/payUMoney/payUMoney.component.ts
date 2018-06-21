@@ -13,7 +13,8 @@ import { MessageService } from '../../../shared/services/message.service';
 @Component ({
   moduleId:module.id,
   selector:'pay-u-money-integration',
-  templateUrl:'payUMoney.component.html'
+  templateUrl:'payUMoney.component.html',
+  styleUrls: ['payUMoney.component.css'],
 })
 
 export class PayUMoneyComponent implements OnInit {
