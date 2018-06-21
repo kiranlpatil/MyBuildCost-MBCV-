@@ -411,7 +411,7 @@ class UserService {
         let auth = new AuthInterceptor();
         let token = auth.issueTokenWithUid(result);
         let host = config.get('application.mail.host');
-        let link = host + 'signin?access_token=' + token + '&_id=' + result._id;
+        let link = host + 'activate-user?access_token=' + token + '&_id=' + result._id+'isEmailVerification';
         let sendMailService = new SendMailService();
         let data: Map<string, string> = new Map([['$applicationLink$',config.get('application.mail.host')],
           ['$link$', link]]);
