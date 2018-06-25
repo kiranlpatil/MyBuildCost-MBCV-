@@ -119,13 +119,13 @@ export class GetRateComponent implements OnChanges {
     }
 
   rateTotalByUnit() {
-    if (this.workItemUnit === 'Sqm') {
+    if (this.workItemUnit === 'Sqm' && this.rate.unit !== 'Sqm') {
       this.totalByUnit = this.ratePerUnitAmount * 10.764;
       this.rate.total = this.totalByUnit;
-    } else if (this.workItemUnit === 'Rm') {
+    } else if (this.workItemUnit === 'Rm' && this.rate.unit !== 'Rm') {
       this.totalByUnit = this.ratePerUnitAmount * 3.28;
       this.rate.total = this.totalByUnit;
-    } else if (this.workItemUnit === 'cum') {
+    } else if (this.workItemUnit === 'cum' && this.rate.unit !== 'cum') {
       this.totalByUnit = this.ratePerUnitAmount * 35.28;
       this.rate.total = this.totalByUnit;
     } else {

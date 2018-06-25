@@ -2009,11 +2009,11 @@ class ProjectService {
   }
 
   totalRateByUnit(workItem: WorkItem, totalByUnit: number) {
-    if (workItem.unit === 'Sqm') {
+    if (workItem.unit === 'Sqm' && workItem.rate.unit !== 'Sqm') {
       workItem.rate.total = totalByUnit * 10.764;
-    } else if (workItem.unit === 'Rm') {
+    } else if (workItem.unit === 'Rm' && workItem.rate.unit !== 'Rm') {
       workItem.rate.total = totalByUnit * 3.28;
-    } else if (workItem.unit === 'cum') {
+    } else if (workItem.unit === 'cum' && workItem.rate.unit !== 'cum') {
       workItem.rate.total = totalByUnit * 35.28;
     } else {
       workItem.rate.total = totalByUnit;
