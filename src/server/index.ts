@@ -65,8 +65,7 @@ export function init(port: number, mode: string, protocol: string, dist_runner: 
   syncAtEveryFifteenMinute.start();
 
 
-  let sendProjectExpiryWarningMail = new CronJob('00 32 11 * * *', function() {
-  //let sendProjectExpiryWarningMail = new CronJob('00 00 01 * * *', function() {
+  let sendProjectExpiryWarningMail = new CronJob('00 55 23 * * *', function() {
       logger.debug('sendProjectExpiryWarningMail in debug mode');
       let userService : UserService = new UserService();
       let _loggerService: LoggerService = new LoggerService('sendProjectExpiryWarningMail');
