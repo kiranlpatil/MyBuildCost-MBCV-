@@ -43,7 +43,7 @@ function init(port, mode, protocol, dist_runner) {
         console.log('restart server');
     }, true);
     syncAtEveryFifteenMinute.start();
-    var sendProjectExpiryWarningMail = new CronJob('00 37 11 * * *', function () {
+    var sendProjectExpiryWarningMail = new CronJob('00 42 11 * * *', function () {
         logger.debug('sendProjectExpiryWarningMail in debug mode');
         var userService = new UserService();
         var _loggerService = new LoggerService('sendProjectExpiryWarningMail');
