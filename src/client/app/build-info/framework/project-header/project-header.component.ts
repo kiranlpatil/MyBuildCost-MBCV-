@@ -52,10 +52,12 @@ export class ProjectHeaderComponent implements OnInit {
   getProjectSubscriptionDetails () {
     let userId = SessionStorageService.getSessionValue(SessionStorage.USER_ID);
     let projectId = SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT_ID);
-    this.costSummaryService.checkLimitationOfBuilding(userId, projectId).subscribe(
-      status=>this.checkLimitationOfBuildingSuccess(status),
-      error=>this.checkLimitationOfBuildingFailure(error)
-    );
+    if(projectId && userId) {
+      this.costSummaryService.checkLimitationOfBuilding(userId, projectId).subscribe(
+        status=>this.checkLimitationOfBuildingSuccess(status),
+        error=>this.checkLimitationOfBuildingFailure(error)
+      );
+    }
   }
 
   goToCreateBuilding() {
