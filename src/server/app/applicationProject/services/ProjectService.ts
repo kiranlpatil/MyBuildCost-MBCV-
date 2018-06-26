@@ -2970,7 +2970,7 @@ class ProjectService {
           /*budgetCostFormulae = config.get(Constants.BUDGETED_COST_FORMULAE + costHead.name).toString();
           calculateBudgtedCost = budgetCostFormulae.replace(Constants.SWIMMING_POOL_CAPACITY, projectDetails.poolCapacity);
           budgetedCostAmount = eval(calculateBudgtedCost);*/
-          budgetedCostAmount = 1;
+          budgetedCostAmount = 0;
           this.calculateThumbRuleReportForProjectCostHead(budgetedCostAmount, costHead, projectDetails, costHeads);
           break;
         }
@@ -3439,7 +3439,7 @@ class ProjectService {
 
   private calculateThumbRuleReportForCostHead(budgetedCostAmount: number, costHeadFromRateAnalysis: any,
                                               buildingData: any, costHeads: Array<CostHead>) {
-    if (budgetedCostAmount) {
+    if (budgetedCostAmount >= 0) {
       logger.info('Project service, calculateThumbRuleReportForCostHead has been hit');
 
       let costHead: CostHead = costHeadFromRateAnalysis;
@@ -3457,7 +3457,7 @@ class ProjectService {
 
   private calculateThumbRuleReportForProjectCostHead(budgetedCostAmount: number, costHeadFromRateAnalysis: any,
                                                      projectDetails: any, costHeads: Array<CostHead>) {
-    if (budgetedCostAmount) {
+    if (budgetedCostAmount >= 0) {
       logger.info('Project service, calculateThumbRuleReportForProjectCostHead has been hit');
 
       let calculateProjectData = 'SELECT ROUND(SUM(building.totalCarpetAreaOfUnit),2) AS totalCarpetArea, ' +

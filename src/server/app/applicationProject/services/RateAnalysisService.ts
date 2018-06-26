@@ -310,7 +310,9 @@ class RateAnalysisService {
         unitsRateAnalysis, notesRateAnalysis, buildingWorkItems, configWorkItems);
 
       category.workItems = buildingWorkItems;
-      buildingCategories.push(category);
+      if(category.workItems.length !== 0) {
+        buildingCategories.push(category);
+      }
     }
 
     if(configCategories.length > 0) {
@@ -321,7 +323,9 @@ class RateAnalysisService {
         if(categoryExistsArray.length === 0) {
           let configCat = new Category(configCategories[configCategoryIndex].name, configCategories[configCategoryIndex].rateAnalysisId);
           configCat.workItems = this.getWorkitemsForConfigCategory(configCategories[configCategoryIndex].workItems);
-          buildingCategories.push(configCat);
+          if (configCat.workItems.length !== 0) {
+            buildingCategories.push(configCat);
+          }
         }
       }
     }
