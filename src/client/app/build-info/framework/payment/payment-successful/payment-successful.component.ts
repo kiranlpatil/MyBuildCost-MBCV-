@@ -98,7 +98,11 @@ export class PaymentSuccessfulComponent implements OnInit {
         this.removeTrialProjectPrefix = false;
         this.updateProjectNameById();
       }else {
-        this.updateProjectNameById();
+        let projectId = SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT_ID);
+        this.projectService.updateProjectActiveStatus(projectId).subscribe(
+          success => this.onUpdateProjectStatusSuccess(success),
+          error => this.onUpdateProjectStatusFailure(error)
+        );
       }
       sessionStorage.removeItem(SessionStorage.NUMBER_OF_DAYS_TO_EXPIRE);
      /* var message = new Message();

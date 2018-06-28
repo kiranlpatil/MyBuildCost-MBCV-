@@ -203,7 +203,7 @@ class ProjectService {
   }
   updateProjectNameById(projectId: string, name:string, user: User, callback: (error: any, result: any) => void) {
     let query = {'_id': projectId};
-    let newData = {$set: {'name': name, 'activeStatus': 'true'}};
+    let newData = {$set: {'name': name}};
     this.projectRepository.findOneAndUpdate(query, newData, {new: true}, (err, response) => {
       logger.info('Project service, findOneAndUpdate has been hit');
       if (err) {
