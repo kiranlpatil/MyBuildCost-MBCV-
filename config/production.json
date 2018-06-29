@@ -69,7 +69,7 @@
     "merchentKey" : "DjKdAIlf",
     "saltKey" : "ATWDvTAT3O",
     "authHeader" : "ecjhMbRj/VlJ0nOQEaKoN18NWy18qHDCvJ48P9IAetM=",
-    "isProdMode" : true
+    "isProdMode" : false
   },
 
   "logger" : {
