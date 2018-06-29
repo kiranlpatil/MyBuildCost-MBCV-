@@ -30,6 +30,7 @@
       "MAIL_SENDER": "bigslicetechnologies@gmail.com",
       "MAIL_SENDER_PASSWORD": "BuildInfo@25341",
       "ADMIN_MAIL": "buildinfo@techprimelab.com",
+      "BUILDINFO_ADMIN_MAIL": "bigslicetechnologies@gmail.com",
       "TPLGROUP_MAIL":"",
       "MAIL_SERVICE": "Gmail",
       "MAILCHIMP_CANDIDATE_SIGN_IN_SUCCESS_LISTID": "222f48cf9a",
@@ -387,7 +388,7 @@
               "name" : "Carrying out dewatering of the excavated pit ",
               "rateAnalysisId" : 100475,
               "isMeasurementSheet" : false,
-              "measurementUnit" : null,
+              "measurementUnit" : "Hr",
               "isRateAnalysis" : false,
               "rateAnalysisPerUnit" : null,
               "rateAnalysisUnit" : null,
@@ -514,7 +515,7 @@
               "rateAnalysisUnit" : "cum",
               "directRate" : null,
               "directRatePerUnit" : null,
-              "isItemBreakdownRequired" : false,
+              "isItemBreakdownRequired" : true,
               "length" : true,
               "breadthOrWidth" : true,
               "height" : true
@@ -528,7 +529,7 @@
               "rateAnalysisUnit" : "cum",
               "directRate" : null,
               "directRatePerUnit" : null,
-              "isItemBreakdownRequired" : false,
+              "isItemBreakdownRequired" : true,
               "length" : true,
               "breadthOrWidth" : true,
               "height" : true
@@ -542,7 +543,7 @@
               "rateAnalysisUnit" : "cum",
               "directRate" : null,
               "directRatePerUnit" : null,
-              "isItemBreakdownRequired" : false,
+              "isItemBreakdownRequired" : true,
               "length" : true,
               "breadthOrWidth" : true,
               "height" : true
