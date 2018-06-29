@@ -30,6 +30,7 @@
       "MAIL_SENDER": "bigslicetechnologies@gmail.com",
       "MAIL_SENDER_PASSWORD": "BuildInfo@25341",
       "ADMIN_MAIL": "buildinfo@techprimelab.com",
+      "BUILDINFO_ADMIN_MAIL": "bigslicetechnologies@gmail.com",
       "TPLGROUP_MAIL":"",
       "MAIL_SERVICE": "Gmail",
       "MAILCHIMP_CANDIDATE_SIGN_IN_SUCCESS_LISTID": "222f48cf9a",
