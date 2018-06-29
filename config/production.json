@@ -387,7 +387,7 @@
               "name" : "Carrying out dewatering of the excavated pit ",
               "rateAnalysisId" : 100475,
               "isMeasurementSheet" : false,
-              "measurementUnit" : null,
+              "measurementUnit" : "Hr",
               "isRateAnalysis" : false,
               "rateAnalysisPerUnit" : null,
               "rateAnalysisUnit" : null,
@@ -514,7 +514,7 @@
               "rateAnalysisUnit" : "cum",
               "directRate" : null,
               "directRatePerUnit" : null,
-              "isItemBreakdownRequired" : false,
+              "isItemBreakdownRequired" : true,
               "length" : true,
               "breadthOrWidth" : true,
               "height" : true
@@ -528,7 +528,7 @@
               "rateAnalysisUnit" : "cum",
               "directRate" : null,
               "directRatePerUnit" : null,
-              "isItemBreakdownRequired" : false,
+              "isItemBreakdownRequired" : true,
               "length" : true,
               "breadthOrWidth" : true,
               "height" : true
@@ -542,7 +542,7 @@
               "rateAnalysisUnit" : "cum",
               "directRate" : null,
               "directRatePerUnit" : null,
-              "isItemBreakdownRequired" : false,
+              "isItemBreakdownRequired" : true,
               "length" : true,
               "breadthOrWidth" : true,
               "height" : true
