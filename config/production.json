@@ -70,12 +70,12 @@
     "merchentKey" : "DjKdAIlf",
     "saltKey" : "ATWDvTAT3O",
     "authHeader" : "ecjhMbRj/VlJ0nOQEaKoN18NWy18qHDCvJ48P9IAetM=",
-    "isProdMode" : false
+    "isProdMode" : true
   },
 
   "logger" : {
     "levels": {
-      "[all]":"DEBUG"
+      "[all]":"ERROR"
     },
     "appenders": [
       {
