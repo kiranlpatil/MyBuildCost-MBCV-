@@ -1187,6 +1187,7 @@ class UserService {
 
       let data:Map<string,string>= new Map([
         ['$applicationLink$',config.get('application.mail.host')], ['$first_name$',user.first_name],
+        ['$project_name$',user.projectName],
         ['$expiry_date$',user.projectExpiryDate], ['$subscription_link$',config.get('application.mail.host')+ 'signin'],
         ['$app_name$','BuildInfo - Cost Control']]);
 
@@ -1212,7 +1213,8 @@ class UserService {
     let activationDate = new Date(subscription.activationDate);
     let expiryDate = new Date(subscription.activationDate);
     let projectExpiryDate = new Date(expiryDate.setDate(activationDate.getDate() + subscription.validity));
-    return projectExpiryDate;
+    let readabledate = projectExpiryDate.toDateString();
+    return readabledate;
   }
 }
 
