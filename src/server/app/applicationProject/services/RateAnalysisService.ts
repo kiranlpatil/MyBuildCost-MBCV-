@@ -638,15 +638,15 @@ class RateAnalysisService {
 
   saveRateAnalysis(rateAnalysis: RateAnalysis, region : any) {
     logger.info('saveRateAnalysis is been hit');
-    let query = { 'region' : region.RegionCode };
-    rateAnalysis.region = region.RegionCode;
-    logger.info('Updating RateAnalysis for '+region.RegionCode);
-    this.rateAnalysisRepository.retrieve({ 'region' : region.RegionCode }, (error:any, rateAnalysisArray: Array<RateAnalysis>) => {
+    let query = { 'region' : region.Region };
+    rateAnalysis.region = region.Region;
+    logger.info('Updating RateAnalysis for '+region.Region);
+    this.rateAnalysisRepository.retrieve({ 'region' : region.Region }, (error:any, rateAnalysisArray: Array<RateAnalysis>) => {
       if(error) {
         logger.error('Unable to retrive synced RateAnalysis');
       } else {
         if(rateAnalysisArray.length >0) {
-          query = { 'region' : region.RegionCode };
+          query = { 'region' : region.Region };
           let update = {$set: {
             'projectCostHeads': rateAnalysis.projectCostHeads,
             'projectRates': rateAnalysis.projectRates,

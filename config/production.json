@@ -161,6 +161,8 @@
     ]
   },
 
+  "costControlRegionCode" : "Maharashtra Pune Circle",
+
   "SqureMeter":0.0929,
 
   "budgetedCostFormulae" : {
