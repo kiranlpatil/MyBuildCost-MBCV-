@@ -393,11 +393,12 @@ class ProjectService {
               let rateAnalysisData;
               if (oldBuildingDetails.cloneItems && oldBuildingDetails.cloneItems.indexOf(Constants.RATE_ANALYSIS_CLONE) === -1) {
                 let rateAnalysisService: RateAnalysisService = new RateAnalysisService();
+                let costControlRegion = config.get('costControlRegionCode');
                 let query = [
                   {
-                    $project:{
-                      'buildingCostHeads.categories.workItems':1
-                    }
+                    $match: { 'region': costControlRegion }
+                  },{
+                    $project: { 'buildingCostHeads.categories.workItems':1 }
                   },
                   {$unwind: '$buildingCostHeads'},
                   {$unwind: '$buildingCostHeads.categories'},
@@ -410,7 +411,10 @@ class ProjectService {
                   if (error) {
                     callback(error, null);
                   } else {
-                    rateAnalysisService.getCostControlRateAnalysis({},{'buildingRates':1}, (err: any, data:any)=>{
+                    let regionName = config.get('costControlRegionCode');
+                    let aggregateQuery = { 'region' : regionName };
+                    rateAnalysisService.getCostControlRateAnalysis(aggregateQuery,
+                      {'buildingRates':1}, (err: any, data:any) => {
                       if(err) {
                         callback(error, null);
                       }else {
@@ -424,18 +428,13 @@ class ProjectService {
                 this.getRatesAndCostHeads(projectId,oldBuildingDetails, building, costHeads,null, user,
                   null, callback);
               }
-
             }
           });
-
-
         } else {
           let error = new Error();
           error.message = messages.MSG_ERROR_BUILDING_NAME_ALREADY_EXIST;
           callback(error, null);
         }
-
-
       }
     });
 
