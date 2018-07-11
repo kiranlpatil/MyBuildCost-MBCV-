@@ -120,11 +120,11 @@ class RateAnalysisController {
 
   }
 
-  getAllDataforDropdown(req: express.Request, res: express.Response, next: any): void {
+  getAllDataForDropdown(req: express.Request, res: express.Response, next: any): void {
     try {
       let region = req.params.regionName;
       let rateAnalysisService = new RateAnalysisService();
-      rateAnalysisService.getAllDataforDropdown(region,(error, result) => {
+      rateAnalysisService.getAllDataForDropdown(region,(error, result) => {
         if (error) {
           next(error);
         } else {

@@ -41,7 +41,7 @@ class RateAnalysisRoutes {
 
     router.get('/regions', controller.getAllRegionNames, this._responseInterceptor.exit);
 
-    router.get('/allData/:regionName', controller.getAllDataforDropdown, this._responseInterceptor.exit);
+    router.get('/allData/:regionName', controller.getAllDataForDropdown, this._responseInterceptor.exit);
 
     router.get('/sync', controller.SyncRateAnalysis);
     return router;
