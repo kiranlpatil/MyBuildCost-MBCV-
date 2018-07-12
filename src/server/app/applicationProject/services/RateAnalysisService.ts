@@ -790,6 +790,7 @@ class RateAnalysisService {
         workItem.name = workItemsData[workItemIndex].name;
         workItem.rateAnalysisId = workItemsData[workItemIndex].rateAnalysisId;
         workItem.rate = workItemsData[workItemIndex].rate;
+        workItem.unit = workItemsData[workItemIndex].unit;
         if(workItem.rate.rateItems.length > 0) {
           buildingWorkItems.push(workItem);
         }
