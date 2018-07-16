@@ -641,7 +641,7 @@ class RateAnalysisService {
   }
 
   saveRateAnalysis(rateAnalysis: RateAnalysis, region: any) {
-    logger.info('saveRateAnalysis is been hit');
+    logger.info('saveRateAnalysis is been hit : ' + region.Region);
     let query = {'region': region.Region};
     rateAnalysis.region = region.Region;
     logger.info('Updating RateAnalysis for ' + region.Region);
