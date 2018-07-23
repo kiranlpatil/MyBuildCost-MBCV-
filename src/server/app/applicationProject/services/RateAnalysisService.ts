@@ -715,10 +715,15 @@ class RateAnalysisService {
         logger.error(JSON.stringify(error));
         callback(error, null);
       } else if (!error && response) {
-        let resp = JSON.parse(body);
-        regionListFromRateAnalysis = resp['Regions'];
-        console.log('regionListFromRateAnalysis : ' + JSON.stringify(regionListFromRateAnalysis));
-        callback(null, regionListFromRateAnalysis);
+        if(response.statusCode===200) {
+          let resp = JSON.parse(body);
+          regionListFromRateAnalysis = resp['Regions'];
+          console.log('regionListFromRateAnalysis : ' + JSON.stringify(regionListFromRateAnalysis));
+          callback(null, regionListFromRateAnalysis);
+        }else {
+          console.log('regionListFromRateAnalysis : NOT FOUND. Internal server error!');
+          callback('regionListFromRateAnalysis : NOT FOUND. Internal server error!',null);
+        }
       }
     });
   }
