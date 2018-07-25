@@ -231,6 +231,7 @@
                                 <div class="modal fade default-modal" id="updateDirectQuantity{{workItemIndex}}" role="dialog">
                                   <bi-update-confirmation-modal
                                     [elementType]="updateConfirmationForDirectQuantity"
+                                    [currentQuantity]="currentQuantityType"
                                     [categoryId]="categoryId"
                                     [workitem]="workItem"
                                     [total]="total"
@@ -241,7 +242,8 @@
 
                                 <div class="modal fade default-modal" id="updateMeasurementQuantity{{workItemIndex}}" role="dialog">
                                   <bi-update-confirmation-modal
-                                    [elementType]="updateConfirmationForDirectQuantity"
+                                    [elementType]="updateConfirmationForMeasurementSheet"
+                                    [currentQuantity]="currentQuantityType"
                                     [categoryId]="categoryId"
                                     [workitem]="workItem"
                                     [workItemIndex] = "workItemIndex"
@@ -252,7 +254,8 @@
 
                                 <div class="modal fade default-modal" id="addFloorwiseQuantity{{workItemIndex}}" role="dialog">
                                   <bi-update-confirmation-modal
-                                    [elementType]="updateConfirmationForDirectQuantity"
+                                    [elementType]="updateConfirmationForFloorwiseQuantity"
+                                    [currentQuantity]="currentQuantityType"
                                     [categoryId]="categoryId"
                                     [workitem]="workItem"
                                     [workItemIndex] = "workItemIndex"

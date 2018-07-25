@@ -17,7 +17,7 @@ import { AttachmentComponent } from './attachment/attachment.component';
 import { AttachmentDetailsModel } from '../../../model/attachment-details';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 import Any = jasmine.Any;
-import {SteelQuantityItems} from "../../../model/SteelQuantityItems";
+import { SteelQuantityItems } from '../../../model/SteelQuantityItems';
 import { ErrorService } from '../../../../../shared/services/error.service';
 
 declare var $: any;
@@ -98,6 +98,9 @@ export class CostHeadComponent implements OnInit, OnChanges, AfterViewInit {
   deleteConfirmationForQuantityDetails = ProjectElements.QUANTITY_DETAILS;
   deleteConfirmationForAttachment = ProjectElements.ATTACHMENT;
   updateConfirmationForDirectQuantity = ProjectElements.DIRECT_QUANTITY;
+  updateConfirmationForMeasurementSheet = ProjectElements.MEASUREMENT_SHEET;
+  updateConfirmationForFloorwiseQuantity = ProjectElements.FLOORWISE_QUANTITY;
+  currentQuantityType: string;
   public showQuantityDetails:boolean=false;
   public state = 'inactive';
 
@@ -207,6 +210,8 @@ export class CostHeadComponent implements OnInit, OnChanges, AfterViewInit {
   }
 
   updateMeasurementSheet(categoryId: number, workItem : WorkItem, categoryIndex : number, workItemIndex : number,flag:string) {
+
+    this.currentQuantityType = this.checkCurrentQuanitityType(workItem);
     if(workItem.quantity.isDirectQuantity ||
       (workItem.quantity.quantityItemDetails.length > 0 && workItem.quantity.quantityItemDetails[0].name !== 'default')) {
       $('#updateMeasurementQuantity'+workItemIndex).modal();
@@ -265,6 +270,8 @@ export class CostHeadComponent implements OnInit, OnChanges, AfterViewInit {
   //Add blank detailed quantity at last
   addNewDetailedQuantity(categoryId: number, workItem: WorkItem, categoryIndex: number, workItemIndex:number) {
     this.showWorkItemTab = Label.WORKITEM_DETAILED_QUANTITY_TAB;
+    this.currentQuantityType = this.checkCurrentQuanitityType(workItem);
+
     this.toggleWorkItemPanel(workItemIndex, workItem);
     var element = document.getElementById('collapseDetails'+workItemIndex);
     if(element.classList.contains('hide-body')) {
@@ -557,13 +564,29 @@ export class CostHeadComponent implements OnInit, OnChanges, AfterViewInit {
   setQuantityTotal(total: number) {
     this.total = total;
   }
+
   showUpdateDirectQuantityModal(workItem : WorkItem, categoryId : number, workItemIndex : number) {
     this.currentWorkItemIndex = workItemIndex;
+    this.currentQuantityType = this.checkCurrentQuanitityType(workItem);
+
     if(workItem.quantity.quantityItemDetails.length !== 0) {
       $('#updateDirectQuantity'+workItemIndex).modal();
     } else {
       this.changeDirectQuantity(categoryId, workItem.rateAnalysisId, workItem.quantity.total);
     }
+  }
+
+  checkCurrentQuanitityType(workItem : WorkItem) {
+    if(workItem.quantity.isDirectQuantity) {
+      return ProjectElements.DIRECT_QUANTITY;
+    } else if(workItem.quantity.quantityItemDetails.length !== 0) {
+      if(workItem.quantity.quantityItemDetails.length > 0 && workItem.quantity.quantityItemDetails[0].name === 'default') {
+        return ProjectElements.MEASUREMENT_SHEET;
+      } else {
+        return ProjectElements.FLOORWISE_QUANTITY;
+      }
+    }
+    return null;
   }
 
   changeDirectQuantity(categoryId : number, workItemId: number, directQuantity : number) {

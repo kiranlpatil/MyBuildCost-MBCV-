@@ -681,7 +681,9 @@ export class ProjectElements {
   public static WORK_ITEM = ' a WorkItem';
   public static BUILDING = 'Building';
   public static QUANTITY_ITEM = 'Quantity Item';
-  public static DIRECT_QUANTITY = 'Direct Quantity';
+  public static DIRECT_QUANTITY = 'Direct quantity';
+  public static MEASUREMENT_SHEET = 'Measurement sheet';
+  public static FLOORWISE_QUANTITY = 'Floorwise quantity';
   public static QUANTITY_DETAILS = ' a Quantity Details';
   public static QUANTITY = 'Quantity';
   public static ATTACHMENT = ' an Attachment';
