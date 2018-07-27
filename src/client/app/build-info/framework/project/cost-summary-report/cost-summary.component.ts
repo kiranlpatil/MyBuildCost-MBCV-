@@ -520,6 +520,10 @@ export class CostSummaryComponent implements OnInit, AfterViewInit {
     return Button;
   }
 
+  getMessage() {
+    return Messages;
+  }
+
   getHeadings() {
     return Headings;
   }
