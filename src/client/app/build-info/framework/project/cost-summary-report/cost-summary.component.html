@@ -13,13 +13,13 @@
         <ul class="col-sm-7 dropdown-menu padding-top-7" role="menu" aria-labelledby="dropdownMenuFilter">
           <li (click)="showDropdown($event)">
             <label>{{ getLabel().COSTING_BY_UNIT }}</label>
-            <select class="select-costing" (change)="onChangeCostingByUnit($event.target.value)">
+            <select class="select-costing" [(ngModel)]="defaultCostingByUnit" (change)="onChangeCostingByUnit($event.target.value)">
               <option *ngFor="let cIn of costIn" [value]="cIn.costInId">{{ cIn.costInId }}</option>
             </select>
           </li>
           <li (click)="showDropdown($event)">
             <label>{{ getLabel().COSTING_PER_AREA }}</label>
-            <select class="select-costing no-margin" (change)="onChangeCostingByArea($event.target.value)">
+            <select class="select-costing no-margin" [(ngModel)]= "defaultCostingByArea" (change)="onChangeCostingByArea($event.target.value)">
               <option *ngFor="let cPer of costPer" [value]="cPer.costPerId">{{(cPer.costPerId === getProjectElements().SLAB_AREA) ? getProjectElements().SLAB_AREA : ((cPer.costPerId === getProjectElements().SALEABLE_AREA) ? getProjectElements().SALEABLE_AREA : getProjectElements().CARPET_AREA)}}</option>
             </select>
           </li>

@@ -17,8 +17,8 @@ import { CostHead } from '../../model/costhead';
 import { EstimateReport } from '../../model/estimate-report';
 import { BuildingReport } from '../../model/building-report';
 import ProjectReport = require('../../model/project-report');
-import {LoaderService} from '../../../../shared/loader/loaders.service';
-import {AddCostHeadButton} from '../../model/showHideCostHeadButton';
+import { LoaderService } from '../../../../shared/loader/loaders.service';
+import { AddCostHeadButton } from '../../model/showHideCostHeadButton';
 import { ErrorService } from '../../../../shared/services/error.service';
 
 declare let $: any;
@@ -119,6 +119,12 @@ export class CostSummaryComponent implements OnInit, AfterViewInit {
       this.onBuildingChange(params);
       this.projectId = params['projectId'];
       if(this.projectId) {
+        this.defaultCostingByArea = SessionStorageService.getSessionValue(SessionStorage.SELECTED_AREA);
+        this.defaultCostingByUnit = SessionStorageService.getSessionValue(SessionStorage.SELECTED_UNIT);
+        if(this.defaultCostingByArea === 'null' || this.defaultCostingByUnit === 'null') {
+          this.defaultCostingByArea  =  ProjectElements.SLAB_AREA;
+          this.defaultCostingByUnit = ProjectElements.RS_PER_SQFT;
+        }
         this.onChangeCostingByUnit(this.defaultCostingByUnit);
       }
     });
@@ -215,12 +221,12 @@ export class CostSummaryComponent implements OnInit, AfterViewInit {
     this.defaultCostingByUnit=costingByUnit;
     this.loaderService.start();
     this.costSummaryService.getCostSummaryReport( this.projectId, this.defaultCostingByUnit, this.defaultCostingByArea).subscribe(
-      projectCostIn => this.onGetCostSummaryReportSuccess(projectCostIn),
+      projectCostIn => this.onGetCostSummaryReportSuccess(projectCostIn, this.defaultCostingByArea, costingByUnit),
       error => this.onGetCostSummaryReportFailure(error)
     );
   }
 
-  onGetCostSummaryReportSuccess(projects : any) {
+  onGetCostSummaryReportSuccess(projects : any, costingByArea :  any, costingByUnit: any) {
     this.userId=SessionStorageService.getSessionValue(SessionStorage.USER_ID);
     this.projectReport = new ProjectReport( projects.data.buildings, projects.data.commonAmenities[0]) ;
     this.buildingsReport = this.projectReport.buildings;
@@ -240,6 +246,8 @@ export class CostSummaryComponent implements OnInit, AfterViewInit {
         this.projectReport.buildings[this.projectReport.buildings.length - 1]._id);
             this.costSummaryService.moveRecentBuildingAtTop( this.projectReport.buildings.length - 1);
     }
+    SessionStorageService.setSessionValue(SessionStorage.SELECTED_AREA, costingByArea);
+    SessionStorageService.setSessionValue(SessionStorage.SELECTED_UNIT, costingByUnit);
      this.commonService.change(projects);
      this.loaderService.stop();
   }
@@ -257,7 +265,7 @@ export class CostSummaryComponent implements OnInit, AfterViewInit {
     this.defaultCostingByArea=costingByArea;
     this.loaderService.start();
     this.costSummaryService.getCostSummaryReport( this.projectId, this.defaultCostingByUnit, this.defaultCostingByArea).subscribe(
-      projectCostPer => this.onGetCostSummaryReportSuccess(projectCostPer),
+      projectCostPer => this.onGetCostSummaryReportSuccess(projectCostPer, costingByArea, this.defaultCostingByUnit),
       error => this.onGetCostSummaryReportFailure(error)
     );
   }

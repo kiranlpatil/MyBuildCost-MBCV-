@@ -313,6 +313,8 @@ export class SessionStorage {
   public static IS_SUBSCRIPTION_AVAILABLE = 'is_subscription_available';
   public static PREMIUM_PACKAGE_AVAILABLE = 'premium_package_available';
   public static STATUS = 'project_status';
+  public static SELECTED_AREA = 'selectedArea';
+  public static SELECTED_UNIT = 'selectedUnit';
 
 }
 
