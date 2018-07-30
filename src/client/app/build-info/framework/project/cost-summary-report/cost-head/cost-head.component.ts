@@ -696,10 +696,24 @@ export class CostHeadComponent implements OnInit, OnChanges, AfterViewInit {
 
   toggleWorkItemView() {
     if($('#collapse'+this.categoryRateAnalysisId).hasClass('display-body')) {
+
+      if($('#collapse'+this.categoryRateAnalysisId).prev().find('a').hasClass('collapsed')) {
+        $('#collapse'+this.categoryRateAnalysisId).prev().find('a').removeClass('collapsed');
+      } else {
+        $('#collapse'+this.categoryRateAnalysisId).prev().find('a').addClass('collapsed');
+      }
+
       $('#collapse'+this.categoryRateAnalysisId).removeClass('display-body');
       $('#collapse'+this.categoryRateAnalysisId).addClass('hide-body');
     } else {
-      $('#collapse' + this.categoryRateAnalysisId).removeClass('hide-body');
+
+      if($('#collapse'+this.categoryRateAnalysisId).prev().find('a').hasClass('collapsed')) {
+        $('#collapse'+this.categoryRateAnalysisId).prev().find('a').removeClass('collapsed');
+      } else {
+        $('#collapse'+this.categoryRateAnalysisId).prev().find('a').addClass('collapsed');
+      }
+
+      $('#collapse'+ this.categoryRateAnalysisId).removeClass('hide-body');
       $('#collapse'+this.categoryRateAnalysisId).addClass('display-body');
     }
   }
