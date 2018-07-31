@@ -26,6 +26,7 @@ export class GetQuantityComponent implements OnInit {
   @Input() categoryDetails :  Array<Category>;
   @Input() categoryRateAnalysisId : number;
   @Input() workItemRateAnalysisId : number;
+  @Input() ccWorkItemId : number;
   @Input() workItemsList : Array<WorkItem>;
   @Input() baseUrl : string;
   @Input() workItemUnit : string;
@@ -107,7 +108,7 @@ export class GetQuantityComponent implements OnInit {
       this.loaderService.start();
       let costHeadId = parseFloat(SessionStorageService.getSessionValue(SessionStorage.CURRENT_COST_HEAD_ID));
       this.costSummaryService.updateQuantityItems(this.baseUrl, costHeadId, this.categoryRateAnalysisId,
-        this.workItemId, quantityObj).subscribe(
+        this.workItemId, this.ccWorkItemId, quantityObj).subscribe(
         success => this.onUpdateQuantityItemsSuccess(success),
         error => this.onUpdateQuantityItemsFailure(error)
       );

@@ -1470,8 +1470,9 @@ class ProjectService {
   }
 
 
-  updateQuantityOfBuildingCostHeads(projectId: string, buildingId: string, costHeadId: number, categoryId: number, workItemId: number,
-                                    quantityDetail: QuantityDetails, user: User, callback: (error: any, result: any) => void) {
+  updateQuantityOfBuildingCostHeads(projectId: string, buildingId: string, costHeadId: number, categoryId: number,
+                                    workItemId: number, ccWorkItemId : number,  quantityDetail: QuantityDetails,
+                                    user: User, callback: (error: any, result: any) => void) {
     logger.info('Project service, updateQuantityOfBuildingCostHeads has been hit');
   /*  let query = {_id: buildingId};
     let projection = {costHeads:{
@@ -1529,7 +1530,8 @@ class ProjectService {
       {$match: {'costHeads.categories.rateAnalysisId': categoryId}},
       {$project: {'costHeads.categories.workItems': 1}},
       {$unwind: '$costHeads.categories.workItems'},
-      {$match: {'costHeads.categories.workItems.rateAnalysisId': workItemId}},
+      {$match: {'costHeads.categories.workItems.rateAnalysisId': workItemId,
+                'costHeads.categories.workItems.workItemId': ccWorkItemId}},
       {$project: {'costHeads.categories.workItems.quantity': 1}},
     ];
 
@@ -1548,9 +1550,9 @@ class ProjectService {
           let query = {_id: buildingId};
           let updateQuery = {$set:{'costHeads.$[costHead].categories.$[category].workItems.$[workItem].quantity':quantity}};
           let arrayFilter = [
-            {'costHead.rateAnalysisId':costHeadId},
+            {'costHead.rateAnalysisId': costHeadId},
             {'category.rateAnalysisId': categoryId},
-            {'workItem.rateAnalysisId':workItemId}
+            {'workItem.rateAnalysisId': workItemId, 'workItem.workItemId': ccWorkItemId }
           ];
           this.buildingRepository.findOneAndUpdate(query, updateQuery, {arrayFilters:arrayFilter, new: true}, (error, building) => {
             logger.info('Project service, findOneAndUpdate has been hit');

@@ -86,6 +86,7 @@ export class CostHeadComponent implements OnInit, OnChanges, AfterViewInit {
   workItem: WorkItem;
   categoryRateAnalysisId:number;
   compareWorkItemRateAnalysisId:number;
+  compareCCWorkItemId:number;
   quantity:number=0;
   rateFromRateAnalysis:number=0;
   unit:string='';
@@ -235,7 +236,7 @@ export class CostHeadComponent implements OnInit, OnChanges, AfterViewInit {
 
   //Get detailed quantity
   getDetailedQuantity(categoryId: number, workItem: WorkItem, categoryIndex: number, workItemIndex:number) {
-    this.setItemId(categoryId, workItem.rateAnalysisId);
+    this.setItemId(categoryId, workItem.rateAnalysisId, workItem.workItemId);
     this.workItemId = workItem.rateAnalysisId;
       SessionStorageService.setSessionValue(SessionStorage.CURRENT_WORKITEM_ID, this.workItemId);
 
@@ -303,7 +304,7 @@ export class CostHeadComponent implements OnInit, OnChanges, AfterViewInit {
       this.compareWorkItemId !== workItem.rateAnalysisId)) {
       if((this.showWorkItemTab !== Label.WORKITEM_STEEL_QUANTITY_TAB || this.compareCategoryId !== categoryId ||
           this.compareWorkItemId !== workItem.rateAnalysisId)) {
-        this.setItemId(categoryId, workItem.rateAnalysisId);
+        this.setItemId(categoryId, workItem.rateAnalysisId, workItem.workItemId);
         this.workItemId = workItem.rateAnalysisId;
         SessionStorageService.setSessionValue(SessionStorage.CURRENT_WORKITEM_ID, this.workItemId);
         this.workItem = workItem;
@@ -361,7 +362,7 @@ export class CostHeadComponent implements OnInit, OnChanges, AfterViewInit {
     if(this.showWorkItemTab !== Label.WORKITEM_RATE_TAB || this.displayRateView !== displayRateView ||
       this.compareCategoryId !== categoryId || this.compareWorkItemId !== workItemId) {
       //this.toggleState();
-      this.setItemId(categoryId, workItemId);
+      this.setItemId(categoryId, workItemId, workItem.workItemId);
       this.setWorkItemDataForRateView(workItem.rateAnalysisId, workItem.rate);
       this.currentCategoryIndex = categoryIndex;
       this.currentWorkItemIndex = workItemIndex;
@@ -380,7 +381,7 @@ export class CostHeadComponent implements OnInit, OnChanges, AfterViewInit {
     if(this.showWorkItemTab !== Label.WORKITEM_RATE_TAB || this.displayRateView !== displayRateView ||
       this.compareCategoryId !== categoryId || this.compareWorkItemId !== workItemId) {
 
-      this.setItemId(categoryId, workItemId);
+      this.setItemId(categoryId, workItemId, workItem.workItemId);
       this.setWorkItemDataForRateView(workItem.rateAnalysisId, workItem.rate);
       this.calculateQuantity(workItem);
       this.setRateFlags(displayRateView, disableRateField);
@@ -400,7 +401,7 @@ export class CostHeadComponent implements OnInit, OnChanges, AfterViewInit {
     if(this.showWorkItemTab !== Label.WORKITEM_RATE_TAB || this.displayRateView !== displayRateView ||
       this.compareCategoryId !== categoryId || this.compareWorkItemId !== workItemId) {
       //this.toggleState();
-      this.setItemId(categoryId, workItemId);
+      this.setItemId(categoryId, workItemId, workItem.workItemId);
       this.setWorkItemDataForRateView(workItem.rateAnalysisId, workItem.systemRate);
       this.rateView = Label.WORKITEM_SYSTEM_RATE_TAB;
       this.currentCategoryIndex = categoryIndex;
@@ -413,9 +414,10 @@ export class CostHeadComponent implements OnInit, OnChanges, AfterViewInit {
     }
   }
 
-  setItemId(categoryId:number, workItemId:number) {
+  setItemId(categoryId:number, workItemId:number, ccWOrkItemId:number) {
     this.compareCategoryId = categoryId;
     this.compareWorkItemId = workItemId;
+    this.compareCCWorkItemId = ccWOrkItemId;
   }
 
   closeDetailedQuantityTab() {

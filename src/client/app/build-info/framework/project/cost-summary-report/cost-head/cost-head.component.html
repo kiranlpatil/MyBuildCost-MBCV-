@@ -190,7 +190,7 @@
                                     </div>
 
                                   <div *ngIf="showWorkItemTab == getLabel().WORKITEM_QUANTITY_TAB">
-                                    <div *ngIf="compareWorkItemId == workItem.rateAnalysisId && compareCategoryId === category.rateAnalysisId">
+                                    <div *ngIf="compareWorkItemId == workItem.rateAnalysisId && compareCategoryId === category.rateAnalysisId && compareCCWorkItemId === workItem.workItemId">
                                       <!-- <span class="glyphicon glyphicon-remove" (click)="closeQuantityTab()"></span>-->
                                     <bi-get-quantity [quantityItems]="quantityItemsArray"
                                                        [categoryDetails] ="categoryDetails"
@@ -202,6 +202,7 @@
                                                        (closeQuantityView) = "closeQuantityView($event)"
                                                        [categoryRateAnalysisId]="category.rateAnalysisId"
                                                        [workItemRateAnalysisId]="workItem.rateAnalysisId"
+                                                       [ccWorkItemId]="workItem.workItemId"
                                                        [keyQuantity]="keyQuantity"
                                                        [quantityId]="quantityId"
                                                        [baseUrl] = "baseUrl">
