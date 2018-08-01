@@ -623,10 +623,11 @@ export class CostHeadComponent implements OnInit, OnChanges, AfterViewInit {
     this.loaderService.stop();
   }
 
-  changeDirectRate(categoryId : number, workItemId: number, directRate : number) {
+  changeDirectRate(categoryId : number, workItemId: number, ccWorkItemId:number, directRate : number) {
     if(directRate !== null || directRate !== 0) {
       this.loaderService.start();
-      this.costSummaryService.updateDirectRate(this.baseUrl, this.costHeadId, categoryId, workItemId, directRate).subscribe(
+      this.costSummaryService.updateDirectRate(this.baseUrl, this.costHeadId,
+        categoryId, workItemId, ccWorkItemId, directRate).subscribe(
         success => this.onUpdateDirectRateSuccess(success),
         error => this.onUpdateDirectRateFailure(error)
       );

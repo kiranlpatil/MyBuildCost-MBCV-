@@ -281,7 +281,7 @@ this.authInterceptor.requiresAuth, this._requestInterceptor.intercept, controlle
       controller.updateRateOfBuildingCostHeads, this._responseInterceptor.exit);
 
     //Update DirectRate  of workItem
-    router.put('/:projectId/building/:buildingId/costhead/:costHeadId/category/:categoryId/workitem/:workItemId/direct/rate',
+    router.put('/:projectId/building/:buildingId/costhead/:costHeadId/category/:categoryId/workitem/:workItemId/:ccWorkItemId/direct/rate',
       this.authInterceptor.requiresAuth, this._requestInterceptor.intercept, validator.updateDirectRateOfBuildingWorkItems,
       controller.updateDirectRateOfBuildingWorkItems, this._responseInterceptor.exit);
 
