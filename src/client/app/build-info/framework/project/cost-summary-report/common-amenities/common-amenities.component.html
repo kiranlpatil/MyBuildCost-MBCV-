@@ -133,7 +133,7 @@
                 </button>
               </td>
             </tr>
-            <tr class="total" *ngIf="amenitiesReport.thumbRule && amenitiesReport.estimate && !showGrandTotalPanelTable">
+            <!--<tr class="total" *ngIf="amenitiesReport.thumbRule && amenitiesReport.estimate && !showGrandTotalPanelTable">
               <td class="border-left">{{getLabel().TOTAL}}</td>
               <td class="visible-xs"><p>{{ getLabel().REPORT_BY_THUMBRULE }}</p></td>
               <td class="border-left">
@@ -163,13 +163,13 @@
                     {{amenitiesReport.estimate.totalEstimatedCost|number: '1.0-0'}}
                 </span>
               </td>
-            </tr>
+            </tr>-->
           </tbody>
         </table>
       </div>
     </div>
 
-    <table class="table table-row-spacing table-dashboard total-table" *ngIf="showGrandTotalPanelTable">
+    <table class="table table-row-spacing table-dashboard total-table">
       <tbody>
         <tr class="total" *ngIf="amenitiesReport.thumbRule && amenitiesReport.estimate">
           <td class="border-left">{{getLabel().TOTAL}}</td>
