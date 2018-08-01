@@ -3129,7 +3129,7 @@ class ProjectService {
   }
 
   addAttachmentToWorkItem(projectId: string, buildingId: string, costHeadId: number, categoryId: number,
-                          workItemId: number,fileData: any, callback: (error: any, result: any) => void) {
+                          workItemId: number, ccWorkItemId:number, fileData: any, callback: (error: any, result: any) => void) {
 
       this.addAttachment(fileData, (error: any, attachmentObject: AttachmentDetailsModel) => {
       if (error) {
@@ -3141,7 +3141,7 @@ class ProjectService {
             callback(error, null);
           } else {
             let costHeadList = building.costHeads;
-            let costHeads = this.uploadFile(costHeadList, costHeadId, categoryId, workItemId, attachmentObject);
+            let costHeads = this.uploadFile(costHeadList, costHeadId, categoryId, workItemId, ccWorkItemId, attachmentObject);
             let query = {_id: buildingId};
             let updateData = {$set: {'costHeads': costHeads}};
             this.buildingRepository.findOneAndUpdate(query, updateData, {new: true}, (error, response) => {
@@ -3178,13 +3178,13 @@ class ProjectService {
   }
 
   uploadFile(costHeadList: Array<CostHead>, costHeadId: number, categoryId: number, workItemId: number,
-             attachmentObject: AttachmentDetailsModel) {
+             ccWorkItemId:number, attachmentObject: AttachmentDetailsModel) {
     let costHead = costHeadList.filter(function(currentCostHead: CostHead){ return currentCostHead.rateAnalysisId === costHeadId; });
     let categories = costHead[0].categories;
     let category = categories.filter(function (currentCategory: Category) { return currentCategory.rateAnalysisId === categoryId; });
     let workItems = category[0].workItems;
     let workItem = workItems.filter(function (currentWorkItem: WorkItem) {
-       if(currentWorkItem.rateAnalysisId === workItemId) {
+       if(currentWorkItem.rateAnalysisId === workItemId && currentWorkItem.workItemId === ccWorkItemId) {
         currentWorkItem.attachmentDetails.push(attachmentObject);
        }
        return;
@@ -3193,7 +3193,7 @@ class ProjectService {
   }
 
   getPresentFilesForBuildingWorkItem(projectId: string, buildingId: string, costHeadId: number, categoryId: number,
-                                     workItemId: number, callback: (error: any, result: any) => void) {
+                                     workItemId: number, ccWorkItemId: number, callback: (error: any, result: any) => void) {
     logger.info('Project service, getPresentFilesForBuildingWorkItem has been hit');
     let projection = { costHeads : 1 };
     this.buildingRepository.findByIdWithProjection(buildingId, projection, (error, building) => {
@@ -3201,20 +3201,22 @@ class ProjectService {
         callback(error, null);
       } else {
         let costHeadList = building.costHeads;
-       let attachmentList = this.getPresentFiles(costHeadList, costHeadId, categoryId, workItemId);
+       let attachmentList = this.getPresentFiles(costHeadList, costHeadId, categoryId, workItemId, ccWorkItemId);
         callback(null,{data:attachmentList});
         }
     });
   }
 
-  getPresentFiles(costHeadList: Array<CostHead>, costHeadId: number, categoryId: number, workItemId: number) {
+  getPresentFiles(costHeadList: Array<CostHead>, costHeadId: number, categoryId: number, workItemId: number, ccWorkItemId: number) {
 
     let attachmentList = new Array<AttachmentDetailsModel>();
     let costHead = costHeadList.filter(function(currentCostHead: CostHead){ return currentCostHead.rateAnalysisId === costHeadId; });
     let categories = costHead[0].categories;
     let category = categories.filter(function (currentCategory: Category) { return currentCategory.rateAnalysisId === categoryId; });
     let workItems = category[0].workItems;
-    let workItem = workItems.filter(function (currentWorkItem: WorkItem) { return currentWorkItem.rateAnalysisId === workItemId; });
+    let workItem = workItems.filter(function (currentWorkItem: WorkItem) {
+      return (currentWorkItem.rateAnalysisId === workItemId && currentWorkItem.workItemId === ccWorkItemId);
+    });
     attachmentList = workItem[0].attachmentDetails;
     return attachmentList;
   }
@@ -3298,8 +3300,8 @@ class ProjectService {
      });
   }
 
-  getPresentFilesForProjectWorkItem(projectId: string,costHeadId: number, categoryId: number,
-                                    workItemId: number,callback: (error: any, result: any) => void) {
+  getPresentFilesForProjectWorkItem(projectId: string,costHeadId: number, categoryId: number, workItemId: number,
+                                    ccWorkItemId: number, callback: (error: any, result: any) => void) {
     logger.info('Project service, getPresentFilesForProjectWorkItem has been hit');
     let projection = { projectCostHeads : 1 };
     this.projectRepository.findByIdWithProjection(projectId, projection, (error, project) => {
@@ -3307,7 +3309,7 @@ class ProjectService {
         callback(error, null);
       } else {
         let costHeadList = project.projectCostHeads;
-        let attachmentList = this.getPresentFiles(costHeadList, costHeadId, categoryId, workItemId);
+        let attachmentList = this.getPresentFiles(costHeadList, costHeadId, categoryId, workItemId, ccWorkItemId);
         callback(null,{data:attachmentList});
       }
     });
@@ -3399,7 +3401,7 @@ class ProjectService {
   private clonedWorkitemWithRateAnalysis(workItem:WorkItem, workItemAggregateData: any) {
 
     for(let aggregateData of workItemAggregateData) {
-      if(workItem.rateAnalysisId === aggregateData.workItem.rateAnalysisId){
+      if(workItem.rateAnalysisId === aggregateData.workItem.rateAnalysisId) {
         workItem.rate = aggregateData.workItem.rate;
         break;
       }

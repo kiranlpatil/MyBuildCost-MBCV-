@@ -809,27 +809,32 @@ export class CostHeadComponent implements OnInit, OnChanges, AfterViewInit {
   workItemRefresh() {
     this.getCategories( this.projectId, this.costHeadId);
   }
-  setVariable(categoryId: number, workItemId:number, categoryIndex: number, workItemIndex:number) {
+
+  setVariable(categoryId: number, workItemId:number, ccWorkItemId:number, categoryIndex: number, workItemIndex:number) {
     if(this.showAttachmentView !== Label.ATTACH_FILE || this.compareCategoryId !== categoryId || this.compareWorkItemId !== workItemId) {
       this.showAttachmentView = Button.ATTACH_FILE;
       this.currentCategoryIndex = categoryIndex;
       this.currentWorkItemIndex = workItemIndex;
-      this.getPresentFilesForWorkItem(workItemId);
+      this.getPresentFilesForWorkItem(workItemId, ccWorkItemId);
     } else {
       this.showAttachmentView = null;
     }
   }
 
-  getPresentFilesForWorkItem(workItemId:number) {
+  getPresentFilesForWorkItem(workItemId:number, ccWorkItemId:number) {
     this.loaderService.start();
-    this.costSummaryService.getPresentFilesForWorkItem(this.baseUrl,this.costHeadId,this.categoryId,workItemId).subscribe(
+    this.costSummaryService.getPresentFilesForWorkItem(this.baseUrl,
+      this.costHeadId, this.categoryId, workItemId, ccWorkItemId).subscribe(
       fileNamesList => this.onGetPresentFilesForWorkItemSuccess(fileNamesList),
       error => this.onGetPresentFilesForWorkItemFailure(error)
     );
   }
+
   onGetPresentFilesForWorkItemSuccess(fileNamesList : any) {
+    this.loaderService.stop();
      this.fileNamesList = fileNamesList.response.data;
   }
+
   onGetPresentFilesForWorkItemFailure(error: any) {
     let message = new Message();
     if (error.err_code === 404 || error.err_code === 0 || error.err_code===500) {

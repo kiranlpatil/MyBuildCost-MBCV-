@@ -1137,8 +1137,10 @@ class ProjectController {
       let costHeadId = parseInt(req.params.costHeadId);
       let categoryId = parseInt(req.params.categoryId);
       let workItemId = parseInt(req.params.workItemId);
+      let ccWorkItemId = parseInt(req.params.ccWorkItemId);
       let fileData = req;
-      projectService.addAttachmentToWorkItem( projectId, buildingId ,costHeadId, categoryId, workItemId,fileData ,(error, response) => {
+      projectService.addAttachmentToWorkItem( projectId, buildingId ,costHeadId, categoryId, workItemId,
+        ccWorkItemId, fileData ,(error, response) => {
         if (error) {
           next(error);
         } else {
@@ -1163,7 +1165,9 @@ class ProjectController {
       let costHeadId = parseInt(req.params.costHeadId);
       let categoryId = parseInt(req.params.categoryId);
       let workItemId = parseInt(req.params.workItemId);
-      projectService.getPresentFilesForBuildingWorkItem(projectId, buildingId, costHeadId, categoryId, workItemId, (error, response) => {
+      let ccWorkItemId = parseInt(req.params.ccWorkItemId);
+      projectService.getPresentFilesForBuildingWorkItem(projectId, buildingId, costHeadId, categoryId,
+        workItemId, ccWorkItemId,(error, response) => {
         if (error) {
           next(error);
         } else {
@@ -1213,6 +1217,7 @@ class ProjectController {
       let costHeadId = parseInt(req.params.costHeadId);
       let categoryId = parseInt(req.params.categoryId);
       let workItemId = parseInt(req.params.workItemId);
+      let ccWorkItemId = parseInt(req.params.ccWorkItemId);
       let fileData = req;
       projectService.addAttachmentToProjectWorkItem( projectId, costHeadId, categoryId, workItemId,fileData ,(error, response) => {
         if (error) {
@@ -1237,7 +1242,9 @@ class ProjectController {
       let costHeadId = parseInt(req.params.costHeadId);
       let categoryId = parseInt(req.params.categoryId);
       let workItemId = parseInt(req.params.workItemId);
-      projectService.getPresentFilesForProjectWorkItem(projectId, costHeadId, categoryId, workItemId, (error, response) => {
+      let ccWorkItemId = parseInt(req.params.ccWorkItemId);
+      projectService.getPresentFilesForProjectWorkItem(projectId, costHeadId, categoryId,
+        workItemId, ccWorkItemId, (error, response) => {
         if (error) {
           next(error);
         } else {

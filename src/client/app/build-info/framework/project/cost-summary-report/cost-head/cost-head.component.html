@@ -143,10 +143,10 @@
 
                                 <td>
                                     <div class="file-attachment" [class.attachment-menu-open]="(showAttachmentView == getLabel().ATTACH_FILE && workItemIndex===currentWorkItemIndex && currentCategoryIndex === categoryIndex)">
-                                      <span  *ngIf="workItem.attachmentDetails.length == 0"(click)="setVariable(category.rateAnalysisId, workItem.rateAnalysisId, categoryIndex, workItemIndex)">
+                                      <span  *ngIf="workItem.attachmentDetails.length == 0"(click)="setVariable(category.rateAnalysisId, workItem.rateAnalysisId, workItem.workItemId, categoryIndex, workItemIndex)">
                                         <img src="assets/build-info/dashboard/attach-file.png" alt="Attach Support Files" title="Attach Support Files" />
                                       </span>
-                                      <span class="file-attached" *ngIf="workItem.attachmentDetails.length != 0" (click)="setVariable(category.rateAnalysisId, workItem.rateAnalysisId, categoryIndex, workItemIndex)">
+                                      <span class="file-attached" *ngIf="workItem.attachmentDetails.length != 0" (click)="setVariable(category.rateAnalysisId, workItem.rateAnalysisId, workItem.workItemId, categoryIndex, workItemIndex)">
                                         <img src="assets/build-info/dashboard/file-attached.png" alt="Attach Support Files" title="Attach Support Files" />
                                       </span>
                                       <div class="attachment-menu" *ngIf="(showAttachmentView == getLabel().ATTACH_FILE && workItemIndex===currentWorkItemIndex && currentCategoryIndex === categoryIndex)">

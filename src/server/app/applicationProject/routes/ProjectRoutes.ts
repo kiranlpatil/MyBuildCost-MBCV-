@@ -131,7 +131,7 @@ class ProjectRoutes {
       controller.addAttachmentToProjectWorkItem, this._responseInterceptor.exit);
 
     //Retrive all present files from workItem
-    router.get('/:projectId/costhead/:costHeadId/category/:categoryId/workitem/:workItemId/fileNameList',
+    router.get('/:projectId/costhead/:costHeadId/category/:categoryId/workitem/:workItemId/:ccWorkItemId/fileNameList',
       this.authInterceptor.requiresAuth, this._requestInterceptor.intercept, validator.checkPresentFilesForProjectWorkItem,
       controller.getPresentFilesForProjectWorkItem, this._responseInterceptor.exit);
 
@@ -295,12 +295,12 @@ this.authInterceptor.requiresAuth, this._requestInterceptor.intercept, controlle
     /* Attachment Routes */
 
     //update file in workItem
-    router.put('/:projectId/building/:buildingId/costhead/:costHeadId/category/:categoryId/workitem/:workItemId/uploadFile',
+    router.put('/:projectId/building/:buildingId/costhead/:costHeadId/category/:categoryId/workitem/:workItemId/:ccWorkItemId/uploadFile',
       this.authInterceptor.requiresAuth, this._requestInterceptor.intercept, validator.addAttachmentToBuildingWorkItem,
       controller.addAttachmentToBuildingWorkItem, this._responseInterceptor.exit);
 
     //Retrive all present files from workItem
-    router.get('/:projectId/building/:buildingId/costhead/:costHeadId/category/:categoryId/workitem/:workItemId/fileNameList',
+    router.get('/:projectId/building/:buildingId/costhead/:costHeadId/category/:categoryId/workitem/:workItemId/:ccWorkItemId/fileNameList',
       this.authInterceptor.requiresAuth, this._requestInterceptor.intercept, validator.checkPresentFilesForBuildingWorkItem,
       controller.getPresentFilesForBuildingWorkItem, this._responseInterceptor.exit);
 
