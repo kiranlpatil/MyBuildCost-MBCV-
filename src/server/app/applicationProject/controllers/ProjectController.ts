@@ -503,11 +503,12 @@ class ProjectController {
     let costHeadId = parseInt(req.params.costHeadId);
     let categoryId = parseInt(req.params.categoryId);
     let workItemId = parseInt(req.params.workItemId);
+    let ccWorkItemId = parseInt(req.params.ccWorkItemId);
     let itemName = req.body.item.name;
 
     let projectservice = new ProjectService();
     projectservice.deleteQuantityOfBuildingCostHeadsByName( projectId, buildingId, costHeadId,
-      categoryId, workItemId, itemName, user, (error, result) => {
+      categoryId, workItemId, ccWorkItemId, itemName, user, (error, result) => {
       if (error) {
         next(error);
       } else {

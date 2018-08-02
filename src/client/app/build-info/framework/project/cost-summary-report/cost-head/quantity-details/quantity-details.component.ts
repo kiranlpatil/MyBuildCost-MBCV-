@@ -39,6 +39,7 @@ export class QuantityDetailsComponent implements OnInit {
   @Output() refreshWorkItemList = new EventEmitter();
   @Output() quantityName = new EventEmitter<String>();
   @Output() workItemRateId = new EventEmitter<number>();
+  @Output() ccWorkItemRateId = new EventEmitter<number>();
 
   workItemId : number;
   quantityId : number;
@@ -324,16 +325,17 @@ export class QuantityDetailsComponent implements OnInit {
 
   setQuantityNameForDelete(quantityName: string) {
     this.quantityName.emit(quantityName);
+    this.ccWorkItemRateId.emit(this.ccWorkItemId);
     this.workItemRateId.emit(this.workItemRateAnalysisId);
   }
 
-  deleteQuantityDetailsByName(quantityName: string, workItemRateID:number) {
+  deleteQuantityDetailsByName(quantityName: string, workItemRateID:number, ccWorkItemID:number) {
     if(quantityName !== null && quantityName !== undefined && quantityName !== '') {
       this.currentQuantityName = quantityName;
       this.loaderService.start();
       let costHeadId = parseInt(SessionStorageService.getSessionValue(SessionStorage.CURRENT_COST_HEAD_ID));
       this.costSummaryService.deleteQuantityDetailsByName(this.baseUrl, costHeadId, this.categoryRateAnalysisId,
-        workItemRateID, quantityName).subscribe(
+        workItemRateID, ccWorkItemID, quantityName).subscribe(
         success => this.onDeleteQuantityDetailsByNameSuccess(success),
         error => this.onDeleteQuantityDetailsByNameFailure(error)
       );

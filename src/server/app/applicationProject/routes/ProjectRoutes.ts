@@ -266,7 +266,7 @@ this.authInterceptor.requiresAuth, this._requestInterceptor.intercept, controlle
 
 
     //Delete quantityitem from  quantity
-    router.put('/:projectId/building/:buildingId/costhead/:costHeadId/category/:categoryId/workitem/:workItemId/quantity/item',
+    router.put('/:projectId/building/:buildingId/costhead/:costHeadId/category/:categoryId/workitem/:workItemId/:ccWorkItemId/quantity/item',
       this.authInterceptor.requiresAuth, this._requestInterceptor.intercept, validator.deleteQuantityOfBuildingCostHeadsByName,
       controller.deleteQuantityOfBuildingCostHeadsByName, this._responseInterceptor.exit);
 

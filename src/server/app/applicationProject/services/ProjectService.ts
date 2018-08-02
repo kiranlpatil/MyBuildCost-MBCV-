@@ -931,13 +931,13 @@ class ProjectService {
   }
 
   deleteQuantityOfBuildingCostHeadsByName(projectId: string, buildingId: string, costHeadId: number, categoryId: number,
-                                          workItemId: number, itemName: string, user: User, callback: (error: any, result: any) => void) {
+                                          workItemId: number, ccWorkItemId: number, itemName: string, user: User, callback: (error: any, result: any) => void) {
     logger.info('Project service, deleteQuantity has been hit');
     let query = {_id: buildingId};
     let projection = {costHeads:{
         $elemMatch :{rateAnalysisId : costHeadId, categories: {
             $elemMatch:{rateAnalysisId: categoryId,workItems: {
-                $elemMatch: {rateAnalysisId:workItemId}}}}}}}
+                $elemMatch: {rateAnalysisId:workItemId, workItemId: ccWorkItemId }}}}}}};
     this.buildingRepository.retrieveWithProjection(query, projection,(error, building:Building) => {
       if (error) {
         callback(error, null);
@@ -949,7 +949,7 @@ class ProjectService {
             for (let category of costHead.categories) {
               if (category.rateAnalysisId === categoryId) {
                 for (let workItem of category.workItems) {
-                  if (workItem.rateAnalysisId === workItemId) {
+                  if (workItem.rateAnalysisId === workItemId && workItem.workItemId === ccWorkItemId) {
                     quantityItems = workItem.quantity.quantityItemDetails;
                     for (let quantityIndex = 0; quantityIndex < quantityItems.length; quantityIndex++) {
                       if (quantityItems[quantityIndex].name === itemName) {
@@ -972,7 +972,7 @@ class ProjectService {
         let arrayFilter = [
           {'costHead.rateAnalysisId':costHeadId},
           {'category.rateAnalysisId': categoryId},
-          {'workItem.rateAnalysisId':workItemId}
+          {'workItem.rateAnalysisId':workItemId, 'workItem.workItemId': ccWorkItemId }
         ];
         this.buildingRepository.findOneAndUpdate(query, updateQuery,{arrayFilters:arrayFilter, new: true}, (error, building) => {
           logger.info('Project service, findOneAndUpdate has been hit');
@@ -994,7 +994,7 @@ class ProjectService {
     let projection = {projectCostHeads:{
         $elemMatch :{rateAnalysisId : costHeadId, categories: {
             $elemMatch:{rateAnalysisId: categoryId,workItems: {
-                $elemMatch: {rateAnalysisId:workItemId}}}}}}}
+                $elemMatch: {rateAnalysisId:workItemId}}}}}}};
     this.projectRepository.retrieveWithProjection(query, projection, (error, project:Project) => {
       if (error) {
         callback(error, null);

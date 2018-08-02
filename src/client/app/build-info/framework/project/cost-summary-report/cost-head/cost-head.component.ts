@@ -727,13 +727,18 @@ export class CostHeadComponent implements OnInit, OnChanges, AfterViewInit {
   setQuantityName(qtyName : string) {
     this.quantityName = qtyName;
   }
+
   setWorkItemId(workItemId:number) {
     this.workItemId = workItemId;
   }
 
+  setccWorkItemRateId(workItemRateId: number) {
+    this.ccWorkItemID = workItemRateId;
+  }
+
   deleteElement(elementType : string) {
     if(elementType === ProjectElements.QUANTITY_DETAILS) {
-      this.child.deleteQuantityDetailsByName(this.quantityName,this.workItemId);
+      this.child.deleteQuantityDetailsByName(this.quantityName,this.workItemId, this.ccWorkItemID);
     }
     if(elementType === ProjectElements.WORK_ITEM) {
       this.deactivateWorkItem();
