@@ -29,12 +29,15 @@ export class ProjectItemComponent implements OnInit {
   }
 
   navigateToSelectedProject(projectId:string,projectName:string, numberOfDaysToExpire : number) {
-    if(this.activeStatus && this.project.expiryMessage === null) {
+    if(this.activeStatus && this.project.expiryMessage === null && this.project.numOfBuildingsAllocated !== 0) {
       SessionStorageService.setSessionValue(SessionStorage.CURRENT_PROJECT_ID, projectId);
       SessionStorageService.setSessionValue(SessionStorage.CURRENT_PROJECT_NAME, projectName);
       SessionStorageService.setSessionValue(SessionStorage.NUMBER_OF_DAYS_TO_EXPIRE, numberOfDaysToExpire);
       SessionStorageService.setSessionValue(SessionStorage.STATUS, this.activeStatus);
       this._router.navigate([NavigationRoutes.APP_PROJECT, projectId, NavigationRoutes.APP_COST_SUMMARY]);
+    } else {
+      SessionStorageService.setSessionValue(SessionStorage.STATUS,this.project.activeStatus);
+      this._router.navigate([NavigationRoutes.APP_CREATE_BUILDING]);
     }
   }
 
