@@ -637,6 +637,7 @@ class ProjectController {
     logger.info('Project controller, Update WorkItem Status Of Project Cost Heads has been hit');
     try {
       let user = req.user;
+      let body = req.body;
       let projectId = req.params.projectId;
       let costHeadId = parseInt(req.params.costHeadId);
       let categoryId = parseInt(req.params.categoryId);
@@ -645,7 +646,7 @@ class ProjectController {
       let workItemActiveStatus = JSON.parse(req.params.activeStatus);
       let projectService: ProjectService = new ProjectService();
       projectService.updateWorkItemStatusOfProjectCostHeads( projectId, costHeadId, categoryId, workItemId,
-        ccWorkItemId, workItemActiveStatus, user,(error, result) => {
+        ccWorkItemId, workItemActiveStatus, body, user,(error, result) => {
         if(error) {
           next(error);
         } else {
