@@ -3349,8 +3349,8 @@ class ProjectService {
     });
   }
 
-  addAttachmentToProjectWorkItem(projectId: string, costHeadId: number, categoryId: number,
-                                 workItemId: number,fileData: any, callback: (error: any, result: any) => void) {
+  addAttachmentToProjectWorkItem(projectId: string, costHeadId: number, categoryId: number, workItemId: number,
+                                 ccWorkItemId : number, fileData: any, callback: (error: any, result: any) => void) {
     this.addAttachment(fileData, (error: any, attachmentObject: AttachmentDetailsModel) => {
       if (error) {
         callback(error, null);
@@ -3361,7 +3361,7 @@ class ProjectService {
             callback(error, null);
           } else {
             let costHeadList = project.projectCostHeads;
-            let projectCostHeads = this.uploadFile(costHeadList, costHeadId, categoryId, workItemId, attachmentObject);
+            let projectCostHeads = this.uploadFile(costHeadList, costHeadId, categoryId, workItemId, ccWorkItemId, attachmentObject);
             let query = {_id: projectId};
             let updateData = {$set : {'projectCostHeads' : projectCostHeads}};
             this.projectRepository.findOneAndUpdate(query, updateData, {new: true}, (error, response) => {
@@ -3392,8 +3392,8 @@ class ProjectService {
     });
   }
 
-  removeAttachmentOfProjectWorkItem(projectId: string, costHeadId: number, categoryId: number,
-                                    workItemId: number, assignedFileName: any, callback: (error: any, result: any) => void) {
+  removeAttachmentOfProjectWorkItem(projectId: string, costHeadId: number, categoryId: number, workItemId: number,
+                                    ccWorkItemId:number, assignedFileName: any, callback: (error: any, result: any) => void) {
     logger.info('Project service, removeAttachmentOfProjectWorkItem has been hit');
     let projection = { projectCostHeads : 1 };
     this.projectRepository.findByIdWithProjection(projectId, projection, (error, project) => {
@@ -3401,7 +3401,7 @@ class ProjectService {
         callback(error, null);
       } else {
         let costHeadList = project.projectCostHeads;
-        this.deleteFile(costHeadList, costHeadId, categoryId, workItemId, assignedFileName);
+        this.deleteFile(costHeadList, costHeadId, categoryId, workItemId, ccWorkItemId, assignedFileName);
 
         let query = { _id : projectId };
         let data = { $set : {'projectCostHeads' : project.projectCostHeads }};

@@ -1229,7 +1229,8 @@ class ProjectController {
       let workItemId = parseInt(req.params.workItemId);
       let ccWorkItemId = parseInt(req.params.ccWorkItemId);
       let fileData = req;
-      projectService.addAttachmentToProjectWorkItem( projectId, costHeadId, categoryId, workItemId,fileData ,(error, response) => {
+      projectService.addAttachmentToProjectWorkItem( projectId, costHeadId, categoryId,
+        workItemId, ccWorkItemId, fileData ,(error, response) => {
         if (error) {
           next(error);
         } else {
@@ -1277,8 +1278,10 @@ class ProjectController {
       let costHeadId = parseInt(req.params.costHeadId);
       let categoryId = parseInt(req.params.categoryId);
       let workItemId = parseInt(req.params.workItemId);
+      let ccWorkItemId = parseInt(req.params.ccWorkItemId);
       let assignedFileName = req.body.assignedFileName;
-      projectService.removeAttachmentOfProjectWorkItem(projectId,costHeadId, categoryId, workItemId,assignedFileName,(error, response) => {
+      projectService.removeAttachmentOfProjectWorkItem(projectId,costHeadId, categoryId,
+        workItemId, ccWorkItemId, assignedFileName,(error, response) => {
         if (error) {
           next(error);
         } else {

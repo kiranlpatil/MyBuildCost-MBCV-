@@ -126,7 +126,7 @@ class ProjectRoutes {
     /* Attachment Routes */
 
     //update file in workItem
-    router.put('/:projectId/costhead/:costHeadId/category/:categoryId/workitem/:workItemId/uploadFile',
+    router.put('/:projectId/costhead/:costHeadId/category/:categoryId/workitem/:workItemId/:ccWorkItemId/uploadFile',
       this.authInterceptor.requiresAuth, this._requestInterceptor.intercept, validator.addAttachmentToProjectWorkItem,
       controller.addAttachmentToProjectWorkItem, this._responseInterceptor.exit);
 
@@ -136,7 +136,7 @@ class ProjectRoutes {
       controller.getPresentFilesForProjectWorkItem, this._responseInterceptor.exit);
 
     //remove attached file from workItem
-    router.put('/:projectId/costhead/:costHeadId/category/:categoryId/workitem/:workItemId/deleteFile',
+    router.put('/:projectId/costhead/:costHeadId/category/:categoryId/workitem/:workItemId/:ccWorkItemId/deleteFile',
       this.authInterceptor.requiresAuth, validator.checkPresentFilesForProjectWorkItem,
       controller.removeAttachmentOfProjectWorkItem, this._responseInterceptor.exit);
 
