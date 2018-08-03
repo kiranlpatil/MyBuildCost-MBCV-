@@ -444,7 +444,8 @@ export class CostHeadComponent implements OnInit, OnChanges, AfterViewInit {
 
   calculateQuantity(workItem : WorkItem) {
     this.previousRateQuantity = lodsh.cloneDeep(workItem.rate.quantity);
-    this.rateItemsArray.quantity = lodsh.cloneDeep(workItem.quantity.total);
+    let quantity = lodsh.cloneDeep(workItem.quantity.total);
+    this.rateItemsArray.quantity = parseFloat(this.changeQuantityByWorkItemUnit(quantity, workItem.unit, this.rateItemsArray.unit).toFixed(2));
     this.quantityIncrement = this.rateItemsArray.quantity / this.previousRateQuantity;
     for (let rateItemsIndex = 0; rateItemsIndex < this.rateItemsArray.rateItems.length; rateItemsIndex++) {
       this.rateItemsArray.rateItems[rateItemsIndex].quantity = parseFloat((
@@ -458,6 +459,20 @@ export class CostHeadComponent implements OnInit, OnChanges, AfterViewInit {
     this.workItemId =  parseInt(workItemId);
     this.ccWorkItemID = ccWorkItemId;
     this.compareWorkItemId = workItemIndex;
+  }
+
+  changeQuantityByWorkItemUnit(quantity: number, workItemUnit: string, rateUnit: string) {
+    let quantityTotal: number = 0;
+    if (workItemUnit === 'Sqm' && rateUnit !== 'Sqm') {
+      quantityTotal = quantity * 10.764;
+    } else if (workItemUnit === 'Rm' && rateUnit !== 'Rm') {
+      quantityTotal = quantity * 3.28;
+    } else if (workItemUnit === 'cum' && rateUnit !== 'cum') {
+      quantityTotal = quantity * 35.28;
+    } else {
+      quantityTotal = quantity;
+    }
+    return quantityTotal;
   }
 
   deactivateWorkItem() {
@@ -625,7 +640,14 @@ export class CostHeadComponent implements OnInit, OnChanges, AfterViewInit {
   }
 
   changeDirectRate(categoryId : number, workItemId: number, ccWorkItemId:number, directRate : number) {
-    if(directRate !== null || directRate !== 0) {
+    if(directRate && !directRate.toString().match(/^\d{1,7}(\.\d{1,2})?$/)) {
+      var message = new Message();
+      message.isError = true;
+      message.error_msg = this.getMessages().AMOUNT_VALIDATION_MESSAGE;
+      this.messageService.message(message);
+      return;
+    }
+    if(directRate !== null && directRate !== 0 ) {
       this.loaderService.start();
       this.costSummaryService.updateDirectRate(this.baseUrl, this.costHeadId,
         categoryId, workItemId, ccWorkItemId, directRate).subscribe(
@@ -702,10 +724,24 @@ export class CostHeadComponent implements OnInit, OnChanges, AfterViewInit {
 
   toggleWorkItemView() {
     if($('#collapse'+this.categoryRateAnalysisId).hasClass('display-body')) {
+
+      if($('#collapse'+this.categoryRateAnalysisId).prev().find('a').hasClass('collapsed')) {
+        $('#collapse'+this.categoryRateAnalysisId).prev().find('a').removeClass('collapsed');
+      } else {
+        $('#collapse'+this.categoryRateAnalysisId).prev().find('a').addClass('collapsed');
+      }
+
       $('#collapse'+this.categoryRateAnalysisId).removeClass('display-body');
       $('#collapse'+this.categoryRateAnalysisId).addClass('hide-body');
     } else {
-      $('#collapse' + this.categoryRateAnalysisId).removeClass('hide-body');
+
+      if($('#collapse'+this.categoryRateAnalysisId).prev().find('a').hasClass('collapsed')) {
+        $('#collapse'+this.categoryRateAnalysisId).prev().find('a').removeClass('collapsed');
+      } else {
+        $('#collapse'+this.categoryRateAnalysisId).prev().find('a').addClass('collapsed');
+      }
+
+      $('#collapse'+ this.categoryRateAnalysisId).removeClass('hide-body');
       $('#collapse'+this.categoryRateAnalysisId).addClass('display-body');
     }
   }
@@ -840,6 +876,7 @@ export class CostHeadComponent implements OnInit, OnChanges, AfterViewInit {
   onGetPresentFilesForWorkItemSuccess(fileNamesList : any) {
     this.loaderService.stop();
      this.fileNamesList = fileNamesList.response.data;
+     this.loaderService.stop();
   }
 
   onGetPresentFilesForWorkItemFailure(error: any) {

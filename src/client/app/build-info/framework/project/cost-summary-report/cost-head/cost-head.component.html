@@ -53,7 +53,7 @@
                                   <div class="panel-heading">
                                     <div class="panel-title clearfix" >
                                       <a data-toggle="collapse" href="#collapseDetails{{workItemIndex}}"
-                                         class="work-item-panel-row collapsed" data-parent="#category-panel" (click)="toggleWorkItemPanel(workItemIndex, workItem)">
+                                         class="work-item-panel-row" data-parent="#category-panel" (click)="toggleWorkItemPanel(workItemIndex, workItem)" aria-expanded="true">
                                       <span class="caret"
                                             *ngIf="workItem.quantity.quantityItemDetails.length > 0 && workItem.quantity.quantityItemDetails[0].name !== 'default'"></span>
                                         {{ workItem.name }}
@@ -69,8 +69,10 @@
                                 </td>-->
                                 <td>
                                   <span class="mobile-headings">{{getTableHeadings().QUANTITY}}</span>
-                                  <div class="edit-field" [class.disabled]="workItem.isDetailedQuantity" [class.active-quantity]="(showWorkItemTab == getLabel().WORKITEM_QUANTITY_TAB) && (workItemIndex===currentWorkItemIndex && currentCategoryIndex === categoryIndex)" >
-                                    <input type="number" [(ngModel)]="workItem.quantity.total" (focus)="setQuantityTotal(workItem.quantity.total)"
+                                  <div class="edit-field"
+                                       [class.disabled]="workItem.isDetailedQuantity" [class.active-quantity]="(showWorkItemTab == getLabel().WORKITEM_QUANTITY_TAB) && (workItemIndex===currentWorkItemIndex && currentCategoryIndex === categoryIndex)" >
+                                    <input type="number" amountValidate="true"
+                                           [(ngModel)]="workItem.quantity.total" (focus)="setQuantityTotal(workItem.quantity.total)"
                                            (change)="showUpdateDirectQuantityModal(workItem, category.rateAnalysisId, workItemIndex)"
                                             id="directQuantity" size="10" class="form-control clear" title="Add Quantity">
                                     <span class="calculator"
@@ -94,7 +96,11 @@
                                 <td>
                                   <span class="mobile-headings">{{getTableHeadings().RATE_PER_UNIT}}</span>
                                   <div class="edit-field" [class.active-rate]="(showWorkItemTab == getLabel().WORKITEM_RATE_TAB) && (workItemIndex===currentWorkItemIndex && currentCategoryIndex === categoryIndex)" >
-                                    <input title="Workitem Rate" *ngIf="workItem.isDirectRate" type = "number" [(ngModel)]="workItem.rate.total" (change)="changeDirectRate(category.rateAnalysisId,workItem.rateAnalysisId, workItem.workItemId, workItem.rate.total)" id="directRate1" size="10" class="form-control clear">
+                                    <input amountValidate="true" title="Workitem Rate" *ngIf="workItem.isDirectRate" type = "number"
+                                           [class.validate-amount] = 'workItem?.rate?.total?.toString().split(".")[0].length>7 ||
+                                           workItem?.rate?.total?.toString().split(".")[1]?.length>2 ||workItem?.rate?.total?.toString().split(".").length>2 '
+                                           [(ngModel)]="workItem.rate.total"
+                                           (change)="changeDirectRate(category.rateAnalysisId,workItem.rateAnalysisId, workItem.workItemId, workItem.rate.total)" id="directRate1" size="10" class="form-control clear">
                                     <div class="edit-rate" *ngIf="!workItem.isDirectRate && workItem.rate.isEstimated">
                                       {{workItem.rate.total|number : '1.2-2'}}
                                     </div>
