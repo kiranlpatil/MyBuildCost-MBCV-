@@ -83,4 +83,9 @@ export class BuildingFormComponent {
   onCancel() {
     window.history.back();
   }
+  validateBuildingName(event:any) {
+    if(event.keyCode===34||event.keyCode===39) {
+      event.preventDefault();
+    }
+  }
 }
