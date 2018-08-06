@@ -111,6 +111,11 @@ class ProjectRoutes {
       this.authInterceptor.requiresAuth, this._requestInterceptor.intercept, validator.updateQuantityOfProjectCostHeads,
       controller.updateQuantityDetailsOfProject, this._responseInterceptor.exit);
 
+    //update workitem name of project costhead
+    router.put('/:projectId/costhead/:costHeadId/category/:categoryId/workitem/:workItemId/:ccWorkItemId/workItemName',
+      this.authInterceptor.requiresAuth, this._requestInterceptor.intercept,
+      controller.updateQuantityDetailsOfProject, this._responseInterceptor.exit);
+
     /*Project- Routes: Rate*/
 
     //Update rate of workitem

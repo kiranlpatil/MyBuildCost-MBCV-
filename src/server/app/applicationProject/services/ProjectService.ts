@@ -1519,6 +1519,25 @@ class ProjectService {
     });
   }
 
+  updateWorkitemNameOfProjectCostHeads(projectId: string, costHeadId: number, categoryId: number,
+                                 workItemId: number, ccWorkItemId: number, workItemName: string,
+                                 user: User, callback: (error: any, result: any) => void) {
+    let query = { _id: projectId };
+    let updateQuery = {$set:{'projectCostHeads.$[costHead].categories.$[category].workItems.$[workItem].name':workItemName}};
+    let arrayFilter = [
+      { 'costHead.rateAnalysisId': costHeadId },
+      { 'category.rateAnalysisId': categoryId },
+      { 'workItem.rateAnalysisId': workItemId,'workItem.workItemId': ccWorkItemId }
+    ];
+    this.projectRepository.findOneAndUpdate(query, updateQuery, {arrayFilters:arrayFilter, new: true}, (error, building) => {
+      logger.info('Project service, findOneAndUpdate has been hit');
+      if (error) {
+        callback(error, null);
+      } else {
+        callback(null, {data :'success', access_token: this.authInterceptor.issueTokenWithUid(user)});
+      }
+    });
+  }
 
   updateQuantityDetailsOfBuilding(projectId: string, buildingId: string, costHeadId: number, categoryId: number,
                                   workItemId: number, ccWorkItemId: number, quantityDetailsObj: QuantityDetails,
