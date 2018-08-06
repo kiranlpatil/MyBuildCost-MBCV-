@@ -6,5 +6,4 @@ sudo npm -v
 sudo node -v
 npm -v
 node -v
-npm install
 node app.server.prod.js --NODE_ENV=staging &> /dev/null 2> /dev/null < /dev/null &
