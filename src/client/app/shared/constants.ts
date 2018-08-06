@@ -19,6 +19,7 @@ export class AppSettings {
 }
 
 
+
 export class Messages {
   public static FROM_REGISTRATION = 'registration';
   public static FROM_ACCOUNT_DETAIL = 'accountdetail';
