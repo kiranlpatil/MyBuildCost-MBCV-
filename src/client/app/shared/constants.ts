@@ -1,9 +1,9 @@
 export class AppSettings {
   public static IP = 'http://localhost:8080';
-  //public static IP = 'http://52.66.120.228'; // build info staging
+  //public static IP = 'http://13.232.139.161:8080'; // build info staging
   public static HOST_NAME = 'localhost:8080';
 
-  //public static HOST_NAME = '52.66.120.228';
+  //public static HOST_NAME = '13.232.139.161:8080';
   public static INITIAL_THEM = 'container-fluid dark-theme';
   public static LIGHT_THEM = 'container-fluid light-theme';
   public static IS_SOCIAL_LOGIN_YES = 'YES';
@@ -11,7 +11,7 @@ export class AppSettings {
   public static HTTP_CLIENT = 'http://';
   public static PUBLIC = '/server/public';
   public static ATTACHMENT_FILES = '/attachment-files/';
-  public static SAMPLE_PROJECT_ID = '5b63e2eaa99b9925448f7ab8';
+  public static SAMPLE_PROJECT_ID = '5b6144028c094b1db0f05cf7';
 
   public static get API_ENDPOINT(): string {
     return this.IP + '/api/';
