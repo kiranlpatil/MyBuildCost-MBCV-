@@ -227,7 +227,7 @@
                                       [workItemsList] ="workItemsList"
                                       [categoryDetails] ="categoryDetails"
                                       [workItem]="workItem"
-                                      [ccWorkItemId]="workItem.workItemId"
+                                      [ccWorkItemId]="workItem?.workItemId"
                                       [workItemUnit] = "workItem.unit"
                                       (categoriesTotalAmount)="setCategoriesTotal($event)"
                                       (refreshWorkItemList)="refreshWorkItemList($event)"
