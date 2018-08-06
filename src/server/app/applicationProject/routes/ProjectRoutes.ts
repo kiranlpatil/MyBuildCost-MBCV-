@@ -223,6 +223,9 @@ this._requestInterceptor.intercept, validator.setCostHeadStatus, controller.setC
     router.put('/:projectId/building/:buildingId/costhead/:costHeadId/category/:categoryId/workitem/:workItemRAId/:workItemId/activeStatus/:activeStatus', this.authInterceptor.requiresAuth,
       this._requestInterceptor.intercept, validator.updateWorkItemStatusOfBuildingCostHeads, controller.updateWorkItemStatusOfBuildingCostHeads, this._responseInterceptor.exit);
 
+    router.put('/:projectId/building/:buildingId/costhead/:costHeadId/category/:categoryId/workitem/:workItemId/:ccWorkItemId/workitemName',
+    this.authInterceptor.requiresAuth, this._requestInterceptor.intercept, controller.updateWorkItemNameOfBuildingCostHeads, this._responseInterceptor.exit);
+
     //Retrieve list of inactive workitems
     router.get('/:projectId/building/:buildingId/costhead/:costHeadId/category/:categoryId/workitem',
       this.authInterceptor.requiresAuth, this._requestInterceptor.intercept, validator.getInActiveWorkItemsOfBuildingCostHeads,

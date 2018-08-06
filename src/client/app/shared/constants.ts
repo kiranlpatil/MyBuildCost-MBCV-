@@ -196,6 +196,7 @@ export class Messages {
   public static MSG_SUCCESS_UPDATE_DIRECT_QUANTITY_OF_WORKITEM: string = 'Quantity for Work Item updated successfully.';
   public static MSG_SUCCESS_UPDATE_DIRECT_RATE_OF_WORKITEM: string = 'Rate for Work Item updated successfully.';
   public static MSG_SUCCESS_UPDATE_QUANTITY_NAME_WORKITEM: string = 'Title for Work Item updated successfully.';
+  public static MSG_SUCCESS_UPDATE_WORKITEM_NAME: string = 'Workitem name updated successfully';
 
   //Quantity view required fields
   public static MSG_ERROR_VALIDATION_QUANTITY_ITEM_REQUIRED = 'Enter item';
@@ -381,6 +382,7 @@ export class API {
   public static QUANTITY_ITEM_DETAILS = 'quantityItemDetails';
   public static ITEM = 'item';
   public static DIRECT = 'direct';
+  public static WORKITEM_NAME = 'workitemName';
   public static DIRECT_QUANTITY = 'directQuantity';
   public static FILE = 'uploadFile';
   public static FILE_LIST = 'fileNameList';
