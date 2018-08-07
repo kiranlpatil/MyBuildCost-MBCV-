@@ -547,12 +547,14 @@ class RateAnalysisService {
   }
 
   syncAllRegions() {
+
     let regionObj = {
       'RegionId' : 1,
       'RegionCode' : 'MH',
       'Region' : 'Maharashtra Pune Circle'
     };
     this.SyncRateAnalysis(regionObj);
+
     /*this.getAllregionsFromRateAnalysis((error, response) => {
       if (error) {
         console.log('error : ' + JSON.stringify(error));
@@ -567,30 +569,26 @@ class RateAnalysisService {
 
   SyncRateAnalysis(region: any) {
     let rateAnalysisService = new RateAnalysisService();
-    this.convertCostHeadsFromRateAnalysisToCostControl(Constants.BUILDING, region, (error: any, buildingData: any) => {
+    this.convertCostHeadsFromRateAnalysisToCostControl(Constants.BUILDING, region, (error: any, costHeadsData: any) => {
       if (error) {
         logger.error('RateAnalysis Sync Failed.');
       } else {
-        this.convertCostHeadsFromRateAnalysisToCostControl(Constants.BUILDING, region, (error: any, projectData: any) => {
-          if (error) {
-            logger.error('RateAnalysis Sync Failed.');
-          } else {
-            let buildingCostHeads = JSON.parse(JSON.stringify(buildingData.buildingCostHeads));
-            let projectCostHeads = JSON.parse(JSON.stringify(projectData.buildingCostHeads));
-            let configCostHeads = config.get('configCostHeads');
-            let configProjectCostHeads = config.get('configProjectCostHeads');
-            let fixedCostConfigProjectCostHeads = config.get('fixedCostConfigProjectCostHeads');
-            this.convertConfigCostHeads(configCostHeads, buildingCostHeads);
-            this.convertConfigCostHeads(configProjectCostHeads, projectCostHeads);
-            this.convertConfigCostHeads(fixedCostConfigProjectCostHeads, projectCostHeads);
-            buildingCostHeads = alasql('SELECT * FROM ? ORDER BY priorityId', [buildingCostHeads]);
-            projectCostHeads = alasql('SELECT * FROM ? ORDER BY priorityId', [projectCostHeads]);
-            let buildingRates = this.getRates(buildingData, buildingCostHeads);
-            let projectRates = this.getRates(projectData, projectCostHeads);
-            let rateAnalysis = new RateAnalysis(buildingCostHeads, buildingRates, projectCostHeads, projectRates);
-            this.saveRateAnalysis(rateAnalysis, region);
-          }
-        });
+        if(costHeadsData) {
+          let buildingCostHeads = JSON.parse(JSON.stringify(costHeadsData.buildingCostHeads));
+          let projectCostHeads = JSON.parse(JSON.stringify(costHeadsData.buildingCostHeads));
+          let configCostHeads = config.get('configCostHeads');
+          let configProjectCostHeads = config.get('configProjectCostHeads');
+          let fixedCostConfigProjectCostHeads = config.get('fixedCostConfigProjectCostHeads');
+          this.convertConfigCostHeads(configCostHeads, buildingCostHeads);
+          this.convertConfigCostHeads(configProjectCostHeads, projectCostHeads);
+          this.convertConfigCostHeads(fixedCostConfigProjectCostHeads, projectCostHeads);
+          buildingCostHeads = alasql('SELECT * FROM ? ORDER BY priorityId', [buildingCostHeads]);
+          projectCostHeads = alasql('SELECT * FROM ? ORDER BY priorityId', [projectCostHeads]);
+          let buildingRates = this.getRates(costHeadsData, buildingCostHeads);
+          let projectRates = this.getRates(costHeadsData, projectCostHeads);
+          let rateAnalysis = new RateAnalysis(buildingCostHeads, buildingRates, projectCostHeads, projectRates);
+          this.saveRateAnalysis(rateAnalysis, region);
+        }
       }
     });
   }
