@@ -1,0 +1,19 @@
+.default-upload-img {
+  border: 1px solid #ccc;
+  display: table-cell;
+  height: 150px;
+  text-align: center;
+  vertical-align: middle;
+  width: 150px;
+}
+
+.file {
+  position: absolute;
+  overflow: hidden;
+  right: 28px;
+  bottom: 8px;
+}
+.file input {
+  position: absolute;
+  opacity: 0;
+}
