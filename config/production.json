@@ -93,6 +93,11 @@
 
   "cronJobMailNotificationValidityDays" : [ 15, 8 , 1],
 
+  "sampleProject" : {
+    "userId" : "5b1273d829f09b36c7e30f74",
+    "projectId" : "5b3385de4f9c82656d217e7c"
+  },
+
   "subscription":{
     "package":{
       "Free": {
