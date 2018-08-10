@@ -1231,8 +1231,8 @@ class ProjectController {
       form.parse(req, (err: Error, fields: any, files: any) => {
         if (err) {
           next({
-            reason: 'error oooo',
-            message:'error oooo',
+            reason: 'Error in project ImageParsing',
+            message:'Error in project ImageParsing',
             stackTrace: new Error(),
             actualError: err,
             code: 403

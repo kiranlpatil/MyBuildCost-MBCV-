@@ -11,6 +11,7 @@
       <img src="assets/build-info/dashboard/camera.png" width="35" />
       <input  id="file-upload" type="file" (change)="uploadProjectImage($event)" placeholder="Upload Image">
     </div>
+    <button  *ngIf="image_path && !isLoading" type="button" (click)="removeProjectImage()" placeholder="Remove Image">Remove</button>
   </div>
     <!--<input  id="file-upload" type="file" (change)="uploadProjectImage($event)" placeholder="Upload Image">
   <button  *ngIf="image_path && !isLoading" type="button" (click)="removeProjectImage()" placeholder="Remove Image">Remove</button>-->
