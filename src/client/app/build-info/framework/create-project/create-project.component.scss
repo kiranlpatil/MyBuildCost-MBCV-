@@ -6,10 +6,13 @@
 
   .inner-content {
     padding: 30px 0;
+    display: block;
+    height: auto;
+    vertical-align: initial;
 
-    /*.content {
-      margin-top: 25px;
-    }*/
+    .content {
+      width: inherit;
+    }
 
     .content > h4 {
       margin-bottom: 30px;
