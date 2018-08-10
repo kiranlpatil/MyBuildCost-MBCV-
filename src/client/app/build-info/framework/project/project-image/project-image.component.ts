@@ -32,13 +32,13 @@ export class ProjectImageComponent implements OnChanges {
   }
 
   uploadProjectImage(fileInput: any) {
-    this.image_path = undefined;
-    this.isLoading = true;
-    this.image_path = undefined;
     this.filesToUpload = <Array<File>> fileInput.target.files;
     if (this.filesToUpload === undefined || this.filesToUpload[0] === undefined || this.filesToUpload.length === 0) {
       return;
     }
+    this.image_path = undefined;
+    this.isLoading = true;
+    this.image_path = undefined;
     if (this.filesToUpload[0].type === 'image/jpeg' || this.filesToUpload[0].type === 'image/png'
       || this.filesToUpload[0].type === 'image/jpg' || this.filesToUpload[0].type === 'image/gif') {
       if (this.filesToUpload[0].size <= 5242880) {
@@ -67,10 +67,10 @@ export class ProjectImageComponent implements OnChanges {
 
   uploadProjectImageSuccess(result: any) {
     this.onProjectImageUpload.emit(result.tempath);
+    this.image_path = AppSettings.IP + result.tempath;
     setTimeout(() => {
       this.isLoading = false;
-      this.image_path = AppSettings.IP + result.tempath;
-    }, 300);
+    }, 2000);
   }
 
   removeProjectImage() {
