@@ -156,7 +156,8 @@
           font-size: 12px;
           height: 40px;
           margin: 0;
-          padding: 3px 36px 3px 3px;
+          overflow: hidden;
+          padding: 3px 24px 3px 3px;
           resize: none;
           text-align: left;
           transition: opacity 0.5s ease-in-out;
@@ -202,12 +203,12 @@
 
       td > .edit-field {
         textarea {
-          background: url('../../../assets/build-info/dashboard/edit.png') no-repeat 91% 20%;
+          background: url('../../../assets/build-info/dashboard/edit.png') no-repeat 98% 10%;
           border: 1px solid $gray;
         }
 
         textarea[readonly] {
-          background: url('../../../assets/build-info/dashboard/edit-bg.png') no-repeat 91% 20%;
+          background: url('../../../assets/build-info/dashboard/edit-bg.png') no-repeat 98% 10%;
           border: 1px solid transparent;
         }
 
