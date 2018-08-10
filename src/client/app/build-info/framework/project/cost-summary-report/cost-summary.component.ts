@@ -17,9 +17,10 @@ import { CostHead } from '../../model/costhead';
 import { EstimateReport } from '../../model/estimate-report';
 import { BuildingReport } from '../../model/building-report';
 import ProjectReport = require('../../model/project-report');
-import {LoaderService} from '../../../../shared/loader/loaders.service';
-import {AddCostHeadButton} from '../../model/showHideCostHeadButton';
+import { LoaderService } from '../../../../shared/loader/loaders.service';
+import { AddCostHeadButton } from '../../model/showHideCostHeadButton';
 import { ErrorService } from '../../../../shared/services/error.service';
+import { AppSettings } from '../../../../shared/index';
 
 declare let $: any;
 
@@ -119,22 +120,33 @@ export class CostSummaryComponent implements OnInit, AfterViewInit {
       this.onBuildingChange(params);
       this.projectId = params['projectId'];
       if(this.projectId) {
+        this.defaultCostingByArea = SessionStorageService.getSessionValue(SessionStorage.SELECTED_AREA);
+        this.defaultCostingByUnit = SessionStorageService.getSessionValue(SessionStorage.SELECTED_UNIT);
+        if(this.defaultCostingByArea === 'null' || this.defaultCostingByUnit === 'null') {
+          this.defaultCostingByArea  =  ProjectElements.SLAB_AREA;
+          this.defaultCostingByUnit = ProjectElements.RS_PER_SQFT;
+        }
         this.onChangeCostingByUnit(this.defaultCostingByUnit);
       }
     });
-    this.getProjectSubscriptionDetails();
-    this.subscription = this.commonService.deleteEvent$
-      .subscribe(item =>this.getProjectSubscriptionDetails()
-      );
+    if(this.projectId !== AppSettings.SAMPLE_PROJECT_ID) {
+      this.getProjectSubscriptionDetails();
+    }
+
+      this.subscription = this.commonService.deleteEvent$
+        .subscribe(item => this.getProjectSubscriptionDetails()
+        );
   }
 
   getProjectSubscriptionDetails () {
     let userId = SessionStorageService.getSessionValue(SessionStorage.USER_ID);
     let projectId = SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT_ID);
-    this.costSummaryService.checkLimitationOfBuilding(userId, projectId).subscribe(
-      status=>this.checkLimitationOfBuildingSuccess(status),
-      error=>this.checkLimitationOfBuildingFailure(error)
-    );
+    if(projectId !== AppSettings.SAMPLE_PROJECT_ID) {
+      this.costSummaryService.checkLimitationOfBuilding(userId, projectId).subscribe(
+        status => this.checkLimitationOfBuildingSuccess(status),
+        error => this.checkLimitationOfBuildingFailure(error)
+      );
+    }
   }
 
 
@@ -213,13 +225,14 @@ export class CostSummaryComponent implements OnInit, AfterViewInit {
 
   onChangeCostingByUnit(costingByUnit:any) {
     this.defaultCostingByUnit=costingByUnit;
+    this.loaderService.start();
     this.costSummaryService.getCostSummaryReport( this.projectId, this.defaultCostingByUnit, this.defaultCostingByArea).subscribe(
-      projectCostIn => this.onGetCostSummaryReportSuccess(projectCostIn),
+      projectCostIn => this.onGetCostSummaryReportSuccess(projectCostIn, this.defaultCostingByArea, costingByUnit),
       error => this.onGetCostSummaryReportFailure(error)
     );
   }
 
-  onGetCostSummaryReportSuccess(projects : any) {
+  onGetCostSummaryReportSuccess(projects : any, costingByArea :  any, costingByUnit: any) {
     this.userId=SessionStorageService.getSessionValue(SessionStorage.USER_ID);
     this.projectReport = new ProjectReport( projects.data.buildings, projects.data.commonAmenities[0]) ;
     this.buildingsReport = this.projectReport.buildings;
@@ -239,10 +252,14 @@ export class CostSummaryComponent implements OnInit, AfterViewInit {
         this.projectReport.buildings[this.projectReport.buildings.length - 1]._id);
             this.costSummaryService.moveRecentBuildingAtTop( this.projectReport.buildings.length - 1);
     }
+    SessionStorageService.setSessionValue(SessionStorage.SELECTED_AREA, costingByArea);
+    SessionStorageService.setSessionValue(SessionStorage.SELECTED_UNIT, costingByUnit);
      this.commonService.change(projects);
+     this.loaderService.stop();
   }
 
   onGetCostSummaryReportFailure(error : any) {
+    this.loaderService.stop();
     if(error.err_code === 404 || error.err_code === 0 || error.err_code===500) {
       this.errorService.onError(error);
     }
@@ -252,8 +269,9 @@ export class CostSummaryComponent implements OnInit, AfterViewInit {
   //TODO : Check if can merge
   onChangeCostingByArea(costingByArea:any) {
     this.defaultCostingByArea=costingByArea;
+    this.loaderService.start();
     this.costSummaryService.getCostSummaryReport( this.projectId, this.defaultCostingByUnit, this.defaultCostingByArea).subscribe(
-      projectCostPer => this.onGetCostSummaryReportSuccess(projectCostPer),
+      projectCostPer => this.onGetCostSummaryReportSuccess(projectCostPer, costingByArea, this.defaultCostingByUnit),
       error => this.onGetCostSummaryReportFailure(error)
     );
   }
@@ -315,8 +333,16 @@ export class CostSummaryComponent implements OnInit, AfterViewInit {
   }
 
   changeBudgetedCostAmountOfBuildingCostHead(buildingId: string, costHead: string, amount: number) {
+    if(amount !== null && amount && amount.toString().match(/^\d{1,9}(\.\d{1,2})?$/)===null ) {
+      var message = new Message();
+      message.isError = true;
+      message.error_msg = this.getMessage().AMOUNT_VALIDATION_MESSAGE_BUDGETED;
+      this.messageService.message(message);
+      return;
+    }
     if (amount !== null) {
       let projectId=SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT_ID);
+      this.loaderService.start();
       this.costSummaryService.changeBudgetedCostAmountOfBuildingCostHead( projectId, buildingId, costHead, amount).subscribe(
         buildingDetails => this.onUpdateRateOfThumbRuleSuccess(buildingDetails),
         error => this.onUpdateRateOfThumbRuleFailure(error)
@@ -326,6 +352,7 @@ export class CostSummaryComponent implements OnInit, AfterViewInit {
 
   onUpdateRateOfThumbRuleSuccess(buildingDetails : any) {
     var message = new Message();
+    this.loaderService.stop();
     message.isError = false;
     message.custom_message = Messages.MSG_SUCCESS_UPDATE_THUMBRULE_RATE_COSTHEAD;
     this.messageService.message(message);
@@ -333,18 +360,25 @@ export class CostSummaryComponent implements OnInit, AfterViewInit {
   }
 
   onUpdateRateOfThumbRuleFailure(error : any) {
+    this.loaderService.stop();
     if(error.err_code === 404 || error.err_code === 0 || error.err_code===500) {
       this.errorService.onError(error);
     }
     console.log('onAddCostheadSuccess : '+error);
   }
 
-  setIdForDeleteBuilding(buildingId : string) {
+  setIdForDeleteBuilding(buildingId : string, estimatedCost: number) {
     this.buildingId = buildingId;
+    if(estimatedCost === 0) {
+      $('#deleteBuilding').modal();
+    } else {
+      $('#restriction').modal();
+    }
   }
 
   deleteBuilding() {
     let projectId=SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT_ID);
+    this.loaderService.start();
     this.buildingService.deleteBuilding( projectId, this.buildingId).subscribe(
       project => this.onDeleteBuildingSuccess(project),
       error => this.onDeleteBuildingFailure(error)
@@ -352,6 +386,7 @@ export class CostSummaryComponent implements OnInit, AfterViewInit {
   }
 
   onDeleteBuildingSuccess(result : any) {
+    this.loaderService.stop();
     if (result !== null) {
       var message = new Message();
       message.isError = false;
@@ -362,6 +397,7 @@ export class CostSummaryComponent implements OnInit, AfterViewInit {
   }
 
   onDeleteBuildingFailure(error : any) {
+    this.loaderService.stop();
     if(error.err_code === 404 || error.err_code === 0 || error.err_code===500) {
       this.errorService.onError(error);
     }
@@ -503,6 +539,10 @@ export class CostSummaryComponent implements OnInit, AfterViewInit {
 
   getButton() {
     return Button;
+  }
+
+  getMessage() {
+    return Messages;
   }
 
   getHeadings() {

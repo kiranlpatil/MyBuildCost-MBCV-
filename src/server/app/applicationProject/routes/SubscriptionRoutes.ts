@@ -44,6 +44,9 @@ class SubscriptionRoutes {
     router.post('/by/name', this.authInterceptor.requiresAuth, this._requestInterceptor.intercept,
       this.reportRequestValidator.getSubscriptionPackageByName, controller.getSubscriptionPackageByName, this._responseInterceptor.exit);
 
+    // Rate App test API
+    router.post('/pay/success',  controller.successPayuMoney, this._responseInterceptor.exit);
+
     return router;
   }
 }

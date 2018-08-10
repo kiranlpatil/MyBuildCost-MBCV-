@@ -21,9 +21,9 @@
     "exportFilePathServer": "/server/prod/public/exported-files/",
     "downloadFilePathClient": "/public/exported-files/",
     "publicPath":"/src/server/app/framework/public/",
-    "profilePath":"/src/server/public/profileImage",
+    "profilePath": "/src/server/public/project-image",
+    "profilePathForClient": "/public/project-image/",
     "attachmentPath":"/src/server/public/attachment-files",
-    "profilePathForClient":"/public/profileImage/",
     "limitForQuery" : 10,
     "mail": {
       "host":"http://costcontrol.buildinfo.co.in/",
@@ -162,6 +162,8 @@
       }
     ]
   },
+
+  "costControlRegionCode" : "Maharashtra Pune Circle",
 
   "SqureMeter":0.0929,
 
@@ -2378,131 +2380,131 @@
     {
       "name": "Water proofing",
       "priorityId": 11,
-      "categories" : [
+      "categories": [
         {
-          "name" : "Brickbat waterproofing",
-          "workItems" : [
+          "name": "Brickbat waterproofing",
+          "workItems": [
             {
-              "name" : "Brick bat waterproofing up to 150 mm thk for bathroom / toilets with 200 mm sunk",
-              "isMeasurementSheet" : true,
-              "measurementUnit" : "Sqm",
-              "isRateAnalysis" : true,
-              "rateAnalysisPerUnit" : 100,
-              "rateAnalysisUnit" : "sft",
-              "isDirectRate" : false,
-              "directRate" : null,
-              "directRatePerUnit" : null,
-              "isItemBreakdownRequired" : true,
-              "length" : true,
-              "breadthOrWidth" : true,
-              "height" : false
+              "name": "Brick bat waterproofing up to 150 mm thk for bathroom / toilets with 200 mm sunk",
+              "isMeasurementSheet": true,
+              "measurementUnit": "Sqm",
+              "isRateAnalysis": true,
+              "rateAnalysisPerUnit": 100,
+              "rateAnalysisUnit": "sft",
+              "isDirectRate": false,
+              "directRate": null,
+              "directRatePerUnit": null,
+              "isItemBreakdownRequired": true,
+              "length": true,
+              "breadthOrWidth": true,
+              "height": false
             },
             {
-              "name" : "Brick bat waterproofing upto 150 mm thk for top terraces",
-              "isMeasurementSheet" : true,
-              "measurementUnit" : "Sqm",
-              "isRateAnalysis" : true,
-              "rateAnalysisPerUnit" : 100,
-              "rateAnalysisUnit" : "sft",
-              "isDirectRate" : false,
-              "directRate" : null,
-              "directRatePerUnit" : null,
-              "isItemBreakdownRequired" : true,
-              "length" : true,
-              "breadthOrWidth" : true,
-              "height" : false
+              "name": "Brick bat waterproofing upto 150 mm thk for top terraces",
+              "isMeasurementSheet": true,
+              "measurementUnit": "Sqm",
+              "isRateAnalysis": true,
+              "rateAnalysisPerUnit": 100,
+              "rateAnalysisUnit": "sft",
+              "isDirectRate": false,
+              "directRate": null,
+              "directRatePerUnit": null,
+              "isItemBreakdownRequired": true,
+              "length": true,
+              "breadthOrWidth": true,
+              "height": false
             },
             {
-              "name" : "Brick Bat waterproofing upto 150 mm thk for attached terraces with 200 mm sunk",
-              "isMeasurementSheet" : true,
-              "measurementUnit" : "Sqm",
-              "isRateAnalysis" : true,
-              "rateAnalysisPerUnit" : 100,
-              "rateAnalysisUnit" : "sft",
-              "isDirectRate" : false,
-              "directRate" : null,
-              "directRatePerUnit" : null,
-              "isItemBreakdownRequired" : true,
-              "length" : true,
-              "breadthOrWidth" : true,
-              "height" : false
+              "name": "Brick Bat waterproofing upto 150 mm thk for attached terraces with 200 mm sunk",
+              "isMeasurementSheet": true,
+              "measurementUnit": "Sqm",
+              "isRateAnalysis": true,
+              "rateAnalysisPerUnit": 100,
+              "rateAnalysisUnit": "sft",
+              "isDirectRate": false,
+              "directRate": null,
+              "directRatePerUnit": null,
+              "isItemBreakdownRequired": true,
+              "length": true,
+              "breadthOrWidth": true,
+              "height": false
             }
           ]
         },
         {
-          "name" : "Shahbad stone waterproofing",
-          "workItems" : [
+          "name": "Shahbad stone waterproofing",
+          "workItems": [
             {
-              "name" : "Shahbad stone water proofing (Box waterproofing) for vertical surfaces without screeding",
-              "isMeasurementSheet" : true,
-              "measurementUnit" : "Sqm",
-              "isRateAnalysis" : true,
-              "rateAnalysisPerUnit" : 100,
-              "rateAnalysisUnit" : "sft",
-              "isDirectRate" : false,
-              "directRate" : null,
-              "directRatePerUnit" : null,
-              "isItemBreakdownRequired" : false,
-              "length" : true,
-              "breadthOrWidth" : true,
-              "height" : false
+              "name": "Shahbad stone water proofing (Box waterproofing) for vertical surfaces without screeding",
+              "isMeasurementSheet": true,
+              "measurementUnit": "Sqm",
+              "isRateAnalysis": true,
+              "rateAnalysisPerUnit": 100,
+              "rateAnalysisUnit": "sft",
+              "isDirectRate": false,
+              "directRate": null,
+              "directRatePerUnit": null,
+              "isItemBreakdownRequired": false,
+              "length": true,
+              "breadthOrWidth": true,
+              "height": false
             }
           ]
         },
         {
-          "name" : "IPS ghotai/ Khadi mal waterproofing",
-          "workItems" : [
+          "name": "IPS ghotai/ Khadi mal waterproofing",
+          "workItems": [
             {
-              "name" : "IPS Ghotai (Khadi maal) waterproofing 50mm thick for UGWT / Smimming pools",
-              "isMeasurementSheet" : true,
-              "measurementUnit" : "Sqm",
-              "isRateAnalysis" : true,
-              "rateAnalysisPerUnit" : 100,
-              "rateAnalysisUnit" : "sft",
-              "directRate" : null,
-              "directRatePerUnit" : null,
-              "isItemBreakdownRequired" : false,
-              "length" : true,
-              "breadthOrWidth" : true,
-              "height" : false
+              "name": "IPS Ghotai (Khadi maal) waterproofing 50mm thick for UGWT / Smimming pools",
+              "isMeasurementSheet": true,
+              "measurementUnit": "Sqm",
+              "isRateAnalysis": true,
+              "rateAnalysisPerUnit": 100,
+              "rateAnalysisUnit": "sft",
+              "directRate": null,
+              "directRatePerUnit": null,
+              "isItemBreakdownRequired": false,
+              "length": true,
+              "breadthOrWidth": true,
+              "height": false
             }
           ]
         },
         {
-          "name" : "Ghotai plaster waterproofing",
-          "workItems" : [
+          "name": "Ghotai plaster waterproofing",
+          "workItems": [
             {
-              "name" : "Ghotai plaster for UGWT / Swimming pools",
-              "isMeasurementSheet" : true,
-              "measurementUnit" : "Sqm",
-              "isRateAnalysis" : true,
-              "rateAnalysisPerUnit" : 100,
-              "rateAnalysisUnit" : "sft",
-              "directRate" : null,
-              "directRatePerUnit" : null,
-              "isItemBreakdownRequired" : false,
-              "length" : true,
-              "breadthOrWidth" : true,
-              "height" : false
+              "name": "Ghotai plaster for UGWT / Swimming pools",
+              "isMeasurementSheet": true,
+              "measurementUnit": "Sqm",
+              "isRateAnalysis": true,
+              "rateAnalysisPerUnit": 100,
+              "rateAnalysisUnit": "sft",
+              "directRate": null,
+              "directRatePerUnit": null,
+              "isItemBreakdownRequired": false,
+              "length": true,
+              "breadthOrWidth": true,
+              "height": false
             }
           ]
         },
         {
-          "name" : "Chemical waterproofing",
-          "workItems" : [
+          "name": "Chemical waterproofing",
+          "workItems": [
             {
-              "name" : "Chemical water proofing with screeding for bathrooms / toilets of typical size 8' X 5' with 50mm sunk (For toilets with suspended plumbing)",
-              "isMeasurementSheet" : true,
-              "measurementUnit" : "Sqm",
-              "isRateAnalysis" : true,
-              "rateAnalysisPerUnit" : 100,
-              "rateAnalysisUnit" : "sft",
-              "directRate" : null,
-              "directRatePerUnit" : null,
-              "isItemBreakdownRequired" : true,
-              "length" : true,
-              "breadthOrWidth" : true,
-              "height" : false
+              "name": "Chemical water proofing with screeding for bathrooms / toilets of typical size 8' X 5' with 50mm sunk (For toilets with suspended plumbing)",
+              "isMeasurementSheet": true,
+              "measurementUnit": "Sqm",
+              "isRateAnalysis": true,
+              "rateAnalysisPerUnit": 100,
+              "rateAnalysisUnit": "sft",
+              "directRate": null,
+              "directRatePerUnit": null,
+              "isItemBreakdownRequired": true,
+              "length": true,
+              "breadthOrWidth": true,
+              "height": false
             },
             {
               "name": "Providing and applying Crystaline chemical waterproofing",
@@ -4971,15 +4973,12 @@
     {
       "name": "Staircase Treads and Risers",
       "priorityId": 15,
-      "rateAnalysisId": 100347,
       "categories": [
         {
           "name": "3'  Wide staircase",
-          "rateAnalysisId": 100365,
           "workItems": [
             {
               "name": "3'0\" X 1'0\" polished kota tread for staircase",
-              "rateAnalysisId": 100391,
               "isMeasurementSheet": false,
               "measurementUnit": "No.",
               "isRateAnalysis": true,
@@ -4994,7 +4993,6 @@
             },
             {
               "name": "3'0\" X 1'0\" polished tandoor tread for staircase",
-              "rateAnalysisId": 100392,
               "isMeasurementSheet": false,
               "measurementUnit": "No.",
               "isRateAnalysis": true,
@@ -5009,7 +5007,6 @@
             },
             {
               "name": "3'0\" X 1'0\" polished granite tread for staircase",
-              "rateAnalysisId": 100393,
               "isMeasurementSheet": false,
               "measurementUnit": "No.",
               "isRateAnalysis": true,
@@ -5024,7 +5021,6 @@
             },
             {
               "name": "3'0\" X 1'0\" polished marble tread for staircase",
-              "rateAnalysisId": 100394,
               "isMeasurementSheet": false,
               "measurementUnit": "No.",
               "isRateAnalysis": true,
@@ -5039,7 +5035,6 @@
             },
             {
               "name": "3'0\" X 1'0\" Imported marble (Black Marquina) tread for staircase",
-              "rateAnalysisId": 100395,
               "isMeasurementSheet": false,
               "measurementUnit": "No.",
               "isRateAnalysis": true,
@@ -5054,7 +5049,6 @@
             },
             {
               "name": "3'0\" X 1'0\" Imported marble ( Dyna ) tread for staircase",
-              "rateAnalysisId": 100396,
               "isMeasurementSheet": false,
               "measurementUnit": "No.",
               "isRateAnalysis": true,
@@ -5069,7 +5063,6 @@
             },
             {
               "name": "3'0\" X 1'0\" Imported marble (Crema) tread for staircase",
-              "rateAnalysisId": 100397,
               "isMeasurementSheet": false,
               "measurementUnit": "No.",
               "isRateAnalysis": true,
@@ -5084,7 +5077,6 @@
             },
             {
               "name": "3'0\" X 6\"  tread for staircase with selected stone and edge finish",
-              "rateAnalysisId": 102133,
               "isMeasurementSheet": false,
               "measurementUnit": "No.",
               "isRateAnalysis": true,
@@ -5099,7 +5091,6 @@
             },
             {
               "name": "3'0\" X 6\" polished kota riser for staircase",
-              "rateAnalysisId": 100366,
               "isMeasurementSheet": false,
               "measurementUnit": "No.",
               "isRateAnalysis": true,
@@ -5114,7 +5105,6 @@
             },
             {
               "name": "3'0\" X 6\" polished tandoor riser for staircase",
-              "rateAnalysisId": 100367,
               "isMeasurementSheet": false,
               "measurementUnit": "No.",
               "isRateAnalysis": true,
@@ -5129,7 +5119,6 @@
             },
             {
               "name": "3'0\" X 6\" polished granite riser for staircase",
-              "rateAnalysisId": 100368,
               "isMeasurementSheet": false,
               "measurementUnit": "No.",
               "isRateAnalysis": true,
@@ -5144,7 +5133,6 @@
             },
             {
               "name": "3'0\" X 6\" polished marble riser for staircase",
-              "rateAnalysisId": 100369,
               "isMeasurementSheet": false,
               "measurementUnit": "No.",
               "isRateAnalysis": true,
@@ -5159,7 +5147,6 @@
             },
             {
               "name": "3'0\" X 6\" Imported marble (Black Marquina) riser for staircase",
-              "rateAnalysisId": 100370,
               "isMeasurementSheet": false,
               "measurementUnit": "No.",
               "isRateAnalysis": true,
@@ -5174,7 +5161,6 @@
             },
             {
               "name": "3'0\" X 6\" Imported marble ( Dyna ) riser for staircase",
-              "rateAnalysisId": 100371,
               "isMeasurementSheet": false,
               "measurementUnit": "No.",
               "isRateAnalysis": true,
@@ -5189,7 +5175,6 @@
             },
             {
               "name": "3'0\" X 6\" Imported marble (Crema) riser for staircase",
-              "rateAnalysisId": 100372,
               "isMeasurementSheet": false,
               "measurementUnit": "No.",
               "isRateAnalysis": true,
@@ -5204,7 +5189,6 @@
             },
             {
               "name": "3'0\" X 6\"  riser for staircase with selected stone",
-              "rateAnalysisId": 102112,
               "isMeasurementSheet": false,
               "measurementUnit": "No.",
               "isRateAnalysis": true,
@@ -5221,11 +5205,9 @@
         },
         {
           "name": "4'  Wide staircase",
-          "rateAnalysisId": 100348,
           "workItems": [
             {
               "name": "4'0\" X 1'0\" polished kota tread for staircase",
-              "rateAnalysisId": 100374,
               "isMeasurementSheet": false,
               "measurementUnit": "No.",
               "isRateAnalysis": true,
@@ -5240,7 +5222,6 @@
             },
             {
               "name": "4'0\" X 1'0\" polished tandoor tread for staircase",
-              "rateAnalysisId": 100375,
               "isMeasurementSheet": false,
               "measurementUnit": "No.",
               "isRateAnalysis": true,
@@ -5255,7 +5236,6 @@
             },
             {
               "name": "4'0\" X 1'0\" readymade cement tile tread for staircase",
-              "rateAnalysisId": 100376,
               "isMeasurementSheet": false,
               "measurementUnit": "No.",
               "isRateAnalysis": true,
@@ -5270,7 +5250,6 @@
             },
             {
               "name": "4'0\" X 1'0\" polished granite tread for staircase",
-              "rateAnalysisId": 100377,
               "isMeasurementSheet": false,
               "measurementUnit": "No.",
               "isRateAnalysis": true,
@@ -5285,7 +5264,6 @@
             },
             {
               "name": "4'0\" X 1'0\" polished marble tread for staircase",
-              "rateAnalysisId": 100378,
               "isMeasurementSheet": false,
               "measurementUnit": "No.",
               "isRateAnalysis": true,
@@ -5300,7 +5278,6 @@
             },
             {
               "name": "4'0\" X 1'0\" Imported marble (Black Marquina) tread for staircase",
-              "rateAnalysisId": 100379,
               "isMeasurementSheet": false,
               "measurementUnit": "No.",
               "isRateAnalysis": true,
@@ -5315,7 +5292,6 @@
             },
             {
               "name": "4'0\" X 1'0\" Imported marble ( Dyna ) tread for staircase",
-              "rateAnalysisId": 100380,
               "isMeasurementSheet": false,
               "measurementUnit": "No.",
               "isRateAnalysis": true,
@@ -5330,7 +5306,6 @@
             },
             {
               "name": "4'0\" X 1'0\" Imported marble (Crema) tread for staircase",
-              "rateAnalysisId": 100381,
               "isMeasurementSheet": false,
               "measurementUnit": "No.",
               "isRateAnalysis": true,
@@ -5345,7 +5320,6 @@
             },
             {
               "name": "4'0\" X 6\"  tread for staircase with selected stone and edge finish",
-              "rateAnalysisId": 102114,
               "isMeasurementSheet": false,
               "measurementUnit": "No.",
               "isRateAnalysis": true,
@@ -5359,8 +5333,7 @@
               "height": false
             },
             {
-              "name": "4'0\" X 6\" polished kota riser for staircase",
-              "rateAnalysisId": 100349,
+              "name": "4'0\" X 6\" polished kota riser for staircase",
               "isMeasurementSheet": false,
               "measurementUnit": "No.",
               "isRateAnalysis": true,
@@ -5375,7 +5348,6 @@
             },
             {
               "name": "4'0\" X 6\" polished tandoor riser for staircase",
-              "rateAnalysisId": 100350,
               "isMeasurementSheet": false,
               "measurementUnit": "No.",
               "isRateAnalysis": true,
@@ -5390,7 +5362,6 @@
             },
             {
               "name": "4'0\" X 6\" ceramic tile riser for staircase",
-              "rateAnalysisId": 100351,
               "isMeasurementSheet": false,
               "measurementUnit": "No.",
               "isRateAnalysis": true,
@@ -5405,7 +5376,6 @@
             },
             {
               "name": "4'0\" X 6\" polished granite riser for staircase",
-              "rateAnalysisId": 100352,
               "isMeasurementSheet": false,
               "measurementUnit": "No.",
               "isRateAnalysis": true,
@@ -5420,7 +5390,6 @@
             },
             {
               "name": "4'0\" X 6\" polished marble riser for staircase",
-              "rateAnalysisId": 100353,
               "isMeasurementSheet": false,
               "measurementUnit": "No.",
               "isRateAnalysis": true,
@@ -5435,7 +5404,6 @@
             },
             {
               "name": "4'0\" X 6\" Imported marble (Black Marquina) riser for staircase",
-              "rateAnalysisId": 100354,
               "isMeasurementSheet": false,
               "measurementUnit": "No.",
               "isRateAnalysis": true,
@@ -5450,7 +5418,6 @@
             },
             {
               "name": "4'0\" X 6\" Imported marble ( Dyna ) riser for staircase",
-              "rateAnalysisId": 100355,
               "isMeasurementSheet": false,
               "measurementUnit": "No.",
               "isRateAnalysis": true,
@@ -5465,7 +5432,6 @@
             },
             {
               "name": "4'0\" X 6\" Imported marble (Crema) riser for staircase",
-              "rateAnalysisId": 100356,
               "isMeasurementSheet": false,
               "measurementUnit": "No.",
               "isRateAnalysis": true,
@@ -5480,7 +5446,6 @@
             },
             {
               "name": "4'0\" X 6\"  riser for staircase with selected stone",
-              "rateAnalysisId": 102116,
               "isMeasurementSheet": false,
               "measurementUnit": "No.",
               "isRateAnalysis": true,
@@ -5497,11 +5462,9 @@
         },
         {
           "name": "5'  Wide staircase",
-          "rateAnalysisId": 100357,
           "workItems": [
             {
               "name": "5'0\" X 1'0\" polished kota tread for staircase",
-              "rateAnalysisId": 100383,
               "isMeasurementSheet": false,
               "measurementUnit": "No.",
               "isRateAnalysis": true,
@@ -5516,7 +5479,6 @@
             },
             {
               "name": "5'0\" X 1'0\" polished tandoor tread for staircase",
-              "rateAnalysisId": 100384,
               "isMeasurementSheet": false,
               "measurementUnit": "No.",
               "isRateAnalysis": true,
@@ -5531,7 +5493,6 @@
             },
             {
               "name": "5'0\" X 1'0\" polished granite tread for staircase",
-              "rateAnalysisId": 100385,
               "isMeasurementSheet": false,
               "measurementUnit": "No.",
               "isRateAnalysis": true,
@@ -5546,7 +5507,6 @@
             },
             {
               "name": "5'0\" X 1'0\" polished marble tread for staircase",
-              "rateAnalysisId": 100386,
               "isMeasurementSheet": false,
               "measurementUnit": "No.",
               "isRateAnalysis": true,
@@ -5561,7 +5521,6 @@
             },
             {
               "name": "5'0\" X 1'0\" Imported marble (Black Marquina) tread for staircase",
-              "rateAnalysisId": 100387,
               "isMeasurementSheet": false,
               "measurementUnit": "No.",
               "isRateAnalysis": true,
@@ -5576,7 +5535,6 @@
             },
             {
               "name": "5'0\" X 1'0\" Imported marble ( Dyna ) tread for staircase",
-              "rateAnalysisId": 100388,
               "isMeasurementSheet": false,
               "measurementUnit": "No.",
               "isRateAnalysis": true,
@@ -5591,7 +5549,6 @@
             },
             {
               "name": "5'0\" X 1'0\" Imported marble (Crema) tread for staircase",
-              "rateAnalysisId": 100389,
               "isMeasurementSheet": false,
               "measurementUnit": "No.",
               "isRateAnalysis": true,
@@ -5606,7 +5563,6 @@
             },
             {
               "name": "5'0\" X 6\"  tread for staircase with selected stone and edge finish",
-              "rateAnalysisId": 102120,
               "isMeasurementSheet": false,
               "measurementUnit": "No.",
               "isRateAnalysis": true,
@@ -5621,7 +5577,6 @@
             },
             {
               "name": "5'0\" X 6\" polished kota riser for staircase",
-              "rateAnalysisId": 100358,
               "isMeasurementSheet": false,
               "measurementUnit": "No.",
               "isRateAnalysis": true,
@@ -5636,7 +5591,6 @@
             },
             {
               "name": "5'0\" X 6\" polished tandoor riser for staircase",
-              "rateAnalysisId": 100359,
               "isMeasurementSheet": false,
               "measurementUnit": "No.",
               "isRateAnalysis": true,
@@ -5651,7 +5605,6 @@
             },
             {
               "name": "5'0\" X 6\" polished granite riser for staircase",
-              "rateAnalysisId": 100360,
               "isMeasurementSheet": false,
               "measurementUnit": "No.",
               "isRateAnalysis": true,
@@ -5666,7 +5619,6 @@
             },
             {
               "name": "5'0\" X 6\" polished marble riser for staircase",
-              "rateAnalysisId": 100361,
               "isMeasurementSheet": false,
               "measurementUnit": "No.",
               "isRateAnalysis": true,
@@ -5681,7 +5633,6 @@
             },
             {
               "name": "5'0\" X 6\" Imported marble (Black Marquina) riser for staircase",
-              "rateAnalysisId": 100362,
               "isMeasurementSheet": false,
               "measurementUnit": "No.",
               "isRateAnalysis": true,
@@ -5696,7 +5647,6 @@
             },
             {
               "name": "5'0\" X 6\" Imported marble ( Dyna ) riser for staircase",
-              "rateAnalysisId": 100363,
               "isMeasurementSheet": false,
               "measurementUnit": "No.",
               "isRateAnalysis": true,
@@ -5711,7 +5661,6 @@
             },
             {
               "name": "5'0\" X 6\" Imported marble (Crema) riser for staircase",
-              "rateAnalysisId": 100364,
               "isMeasurementSheet": false,
               "measurementUnit": "No.",
               "isRateAnalysis": true,
@@ -5726,7 +5675,6 @@
             },
             {
               "name": "5'0\" X 6\"  riser for staircase with selected stone",
-              "rateAnalysisId": 102118,
               "isMeasurementSheet": false,
               "measurementUnit": "No.",
               "isRateAnalysis": true,

@@ -77,8 +77,8 @@ class SubscriptionService {
     payUMoneyModel.productinfo = paymentBody.productinfo;
     payUMoneyModel.amount = paymentBody.amount;
     payUMoneyModel.txnid = this.generateTransactionId(30);
-    payUMoneyModel.furl = config.get('application.mail.host')+'api/subscription/payment/failure';
-    payUMoneyModel.surl = config.get('application.mail.host')+'api/subscription/payment/success';
+    payUMoneyModel.surl = config.get('application.mail.host') + 'api/subscription/payment/success';
+    payUMoneyModel.furl = config.get('application.mail.host') + 'api/subscription/payment/failure';
 
 
     payumoney.makePayment(payUMoneyModel, function(error:any, response:any) {
