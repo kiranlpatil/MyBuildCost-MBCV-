@@ -712,9 +712,10 @@ export class CostHeadComponent implements OnInit, OnChanges, AfterViewInit {
   }
 
   onUpdateWorkItemNameFailure(error : any) {
-    if(error.err_code === 404 || error.err_code === 0 || error.err_code===500) {
-      this.errorService.onError(error);
-    }
+    var message = new Message();
+    message.isError = true;
+    message.error_msg = error.err_msg;
+    this.messageService.message(message);
     this.loaderService.stop();
   }
 
@@ -776,6 +777,14 @@ export class CostHeadComponent implements OnInit, OnChanges, AfterViewInit {
       $('#collapse'+ this.categoryRateAnalysisId).removeClass('hide-body');
       $('#collapse'+this.categoryRateAnalysisId).addClass('display-body');
     }
+    setTimeout(() => {
+      let taObjects = document.getElementsByTagName('textarea');
+      for(let i=0;i<taObjects.length;i++) {
+        taObjects[i].style.height = taObjects[i].scrollHeight + 'px';
+        console.log('\n');
+        console.log(taObjects[i].value);
+      }
+    },50);
   }
 
   // calculation of Quantity * Rate
@@ -935,16 +944,5 @@ export class CostHeadComponent implements OnInit, OnChanges, AfterViewInit {
     setTimeout(() => {
       this.animateView = true;
     },150);
-
-    // let textareaInput = document.querySelector('.workItemNameTextarea');
-    //
-    // textareaInput.addEventListener('keydown', (e:any) => {
-    //   setTimeout(function() {
-    //     e.target.style.cssText = 'height:auto; padding:0';
-    //     // for box-sizing other than "content-box" use:
-    //     // e.target.style.cssText = '-moz-box-sizing:content-box';
-    //     e.target.style.cssText = 'height:' + e.target.scrollHeight + 'px';
-    //   }.bind(this),0);
-    // });
   }
 }
