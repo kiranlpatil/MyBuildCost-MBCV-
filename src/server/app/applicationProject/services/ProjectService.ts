@@ -160,7 +160,6 @@ class ProjectService {
     logger.info('Project service, updateProjectDetails has been hit');
     let query = {_id: projectDetails._id};
     let buildingId = '';
-
     this.getProjectAndBuildingDetails(projectDetails._id, (error, projectAndBuildingDetails) => {
       if (error) {
         logger.error('Project service, getProjectAndBuildingDetails failed');
@@ -171,10 +170,25 @@ class ProjectService {
         let projectData = projectAndBuildingDetails.data[0];
         let buildings = projectAndBuildingDetails.data[0].buildings;
         let buildingData: Building;
+        let isBudgetCostCalculationRequired:boolean=true;
         delete projectDetails._id;
         projectDetails.projectCostHeads = projectData.projectCostHeads;
         projectDetails.buildings = projectData.buildings;
-        projectDetails.projectCostHeads = this.calculateBudgetCostForCommonAmmenities(projectData.projectCostHeads, projectDetails);
+
+
+          if(projectDetails.openSpace ===projectData.openSpace &&
+            projectDetails.plotArea === projectData.plotArea &&
+            projectDetails.plotPeriphery ===projectData.plotPeriphery &&
+            projectDetails.podiumArea === projectData.podiumArea &&
+            projectDetails.poolCapacity === projectData.poolCapacity &&
+            projectDetails.projectDuration ===projectData.projectDuration &&
+            projectDetails.slabArea === projectData.slabArea &&
+            projectDetails.totalNumOfBuildings === projectData.totalNumOfBuildings) {
+            isBudgetCostCalculationRequired=false;
+          }
+          if(isBudgetCostCalculationRequired) {
+            projectDetails.projectCostHeads = this.calculateBudgetCostForCommonAmmenities(projectData.projectCostHeads, projectDetails);
+          }
 
         this.projectRepository.findOneAndUpdate(query, projectDetails, {new: true}, (error, result) => {
           logger.info('Project service, findOneAndUpdate has been hit');
@@ -279,13 +293,35 @@ class ProjectService {
             let projectData = projectAndBuildingDetails.data[0];
             let buildings: Array<Building> = projectAndBuildingDetails.data[0].buildings;
             let isBuildingNameExits: boolean = false;
+            let isCostHeadCalculationRequired: boolean = true;
             for(let building of buildings) {
               if ((building.name === buildingDetails.name) && (building._id.toString() !== buildingId)) {
                 isBuildingNameExits = true;
               }
+              if(building._id.toString() === buildingId) {
+                if(building.numOfOneBHK ===buildingDetails.numOfOneBHK &&
+                  building.numOfTwoBHK === buildingDetails.numOfTwoBHK &&
+                  building.numOfThreeBHK ===buildingDetails.numOfThreeBHK &&
+                  building.numOfFourBHK === buildingDetails.numOfFourBHK &&
+                  building.numOfFiveBHK === buildingDetails.numOfFiveBHK &&
+                  building.totalCarpetAreaOfUnit ===buildingDetails.totalCarpetAreaOfUnit &&
+                  building.numOfParkingFloors === buildingDetails.numOfParkingFloors &&
+                  building.totalNumOfFloors === buildingDetails.totalNumOfFloors &&
+                  building.plinthArea === buildingDetails.plinthArea &&
+                  building.totalSaleableAreaOfUnit === buildingDetails.totalSaleableAreaOfUnit &&
+                  building.totalSlabArea === buildingDetails.totalSlabArea&&
+                  building.numOfLifts === buildingDetails.numOfLifts &&
+                  building.carpetAreaOfParking === buildingDetails.carpetAreaOfParking) {
+                  isCostHeadCalculationRequired=false;
+                }
+              }
             }
             if(!isBuildingNameExits) {
-             buildingDetails.costHeads = this.calculateBudgetCostForBuilding(result.costHeads, buildingDetails, projectData);
+              if(isCostHeadCalculationRequired) {
+                buildingDetails.costHeads = this.calculateBudgetCostForBuilding(result.costHeads, buildingDetails, projectData);
+              } else {
+                buildingDetails.costHeads=result.costHeads;
+              }
              this.buildingRepository.findOneAndUpdate(query, buildingDetails, {new: true}, (error, result) => {
                  logger.info('Project service, findOneAndUpdate has been hit');
                  if (error) {
