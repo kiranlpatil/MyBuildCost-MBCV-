@@ -401,11 +401,13 @@
   .work-item-panel-row {
     display: block;
     font-weight: 400 !important;
+    height: 25px;
     overflow: hidden;
     padding: 0 0 0 30px !important;
     position: relative;
     text-overflow: clip;
     white-space: inherit;
+    width: 6px;
   }
 
   .panel-heading {
@@ -734,5 +736,5 @@
 .fixed-plus-btn {
   position: absolute !important;
   right: 0;
-  top: 16px !important;
+  top: 10px !important;
 }
