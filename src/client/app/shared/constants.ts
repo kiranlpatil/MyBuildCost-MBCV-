@@ -1,7 +1,7 @@
 export class AppSettings {
- // public static IP = 'http://localhost:8080';
+  //public static IP = 'http://localhost:8080';
   public static IP = 'http://13.232.139.161:8080'; // build info staging
- // public static HOST_NAME = 'localhost:8080';
+  //public static HOST_NAME = 'localhost:8080';
   public static HOST_NAME = '13.232.139.161:8080';
 
   public static INITIAL_THEM = 'container-fluid dark-theme';
@@ -11,21 +11,23 @@ export class AppSettings {
   public static HTTP_CLIENT = 'http://';
   public static PUBLIC = '/server/public';
   public static ATTACHMENT_FILES = '/attachment-files/';
-  public static SAMPLE_PROJECT_ID = '5b4c8f44b3a2d31c208b39bd';
-  public static SAMPLE_PROJECT_USER_ID = '5b4c8f2db3a2d31c208b39bc';
-
 
   /*
-    // Localhost Project and User Id
+  public static SAMPLE_PROJECT_ID = '5b67f5b93ee1a527f40efc22';
+  public static SAMPLE_PROJECT_USER_ID = '5b67f5923ee1a527f40efc21';
+  */
+
+  /*
+    // Localhost Project and User Id new
     public static SAMPLE_PROJECT_ID = '5b644d4993310206e4f0d94e';
     public static SAMPLE_PROJECT_USER_ID = '5b643c9d8e94d52c74075f50';
   */
 
-/*
+
   // Staging Project and User Id
   public static SAMPLE_PROJECT_ID = '5b67f5b93ee1a527f40efc22';
   public static SAMPLE_PROJECT_USER_ID = '5b67f5923ee1a527f40efc21';
-*/
+
 
 /*
   // Production Project and User Id

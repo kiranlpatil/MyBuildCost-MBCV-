@@ -21,13 +21,13 @@
     },
     "exportFilePathServer": "/server/prod/public/exported-files/",
     "downloadFilePathClient": "/public/exported-files/",
-    "publicPath": "/src/server/app/framework/public/",
-    "profilePath": "/src/server/public/project-image",
+    "publicPath": "/server/prod/app/framework/public/",
+    "profilePath": "/server/prod/public/project-image",
     "profilePathForClient": "/public/project-image/",
-    "attachmentPath": "/src/server/public/attachment-files",
+    "attachmentPath": "/server/public/attachment-files",
     "limitForQuery": 10,
     "mail": {
-      "host": "http://52.66.120.228:8080/",
+      "host": "http://13.232.139.161:8080/",
       "MAIL_SENDER": "redminestatus@techprimelab.com",
       "MAIL_SENDER_PASSWORD": "Contactu$@tpl",
       "ADMIN_MAIL": "buildinfo@techprimelab.com",
@@ -56,7 +56,7 @@
       "routerNumber": "4"
     },
     "browser": {
-      "IP": "http://52.66.120.228:8080/"
+      "IP": "http://13.232.139.161:8080/"
     },
     "filePathForMasterDataExcel": "/server/prod/app/framework/public/config/NewIndustryDataExcel.xlsx",
     "filePathForProfileImage": "/server/prod/app/framework/public/profileimage"
@@ -92,6 +92,11 @@
     8,
     1
   ],
+
+  "sampleProject" : {
+    "userId" : "5b681678bde73d08d907d637",
+    "projectId" : "5b6816dabde73d08d907d638"
+  },
 
   "subscription": {
     "package": {

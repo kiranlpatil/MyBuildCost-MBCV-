@@ -80,7 +80,7 @@ class UserService {
                 logger.debug('freeSubscription length  > 0');
                 this.assignFreeSubscriptionAndCreateUser(item, freeSubscription[0], callback);
               } else {
-                logger.debug('freeSubscription length !==0');
+              logger.debug('freeSubscription length !==0');
                 subScriptionService.addSubscriptionPackage(config.get('subscription.package.Free'),
                   (err: any, freeSubscription)=> {
                     logger.debug('assigning free subscription by creating new user');
