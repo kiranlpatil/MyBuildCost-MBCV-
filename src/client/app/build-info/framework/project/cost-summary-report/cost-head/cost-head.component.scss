@@ -233,7 +233,7 @@
     float: left;
 
     &:nth-child(1) {
-      width: 288px;
+      width: 310px;
     }
 
     &:nth-child(2) {
@@ -262,7 +262,7 @@
     }
 
     &:nth-child(7) {
-      min-width: 95px;
+      min-width: 68px;
       text-align: right;
     }
 
@@ -401,11 +401,13 @@
   .work-item-panel-row {
     display: block;
     font-weight: 400 !important;
+    height: 25px;
     overflow: hidden;
     padding: 0 0 0 30px !important;
     position: relative;
     text-overflow: clip;
     white-space: inherit;
+    width: 6px;
   }
 
   .panel-heading {
@@ -654,6 +656,7 @@
 
     td > .edit-field {
       margin: 2px 0;
+      padding: 0 5px;
       text-align: left;
         input {
           text-align: left;
@@ -694,7 +697,7 @@
       font-weight: 600 !important;
       .caret {
         left: 0;
-        top: 5px;
+        top: 10px;
       }
     }
 
@@ -725,4 +728,14 @@
 .validate-amount {
   border: 1px solid red !important;
 
+}
+
+.relative-position {
+  position: relative;
+}
+
+.fixed-plus-btn {
+  position: absolute !important;
+  right: 0;
+  top: 10px !important;
 }

@@ -106,6 +106,8 @@ export class CostHeadComponent implements OnInit, OnChanges, AfterViewInit {
   public showQuantityDetails:boolean=false;
   public state = 'inactive';
 
+  public workItemNameFocus:boolean = false;
+
   private showWorkItemList:boolean=false;
   private showWorkItemTab : string = null;
   private showQuantityTab : string = null;
@@ -142,7 +144,14 @@ export class CostHeadComponent implements OnInit, OnChanges, AfterViewInit {
   /*toggleState() {
     this.state = this.state === 'active' ? 'inactive' : 'active';
   }*/
-
+  public toggleInput() {
+    this.workItemNameFocus = true;
+    setTimeout(() => {
+      if(this.workItemNameFocus) {
+        document.getElementById('workItemName').focus();
+      }
+    },100);
+  }
   ngOnInit() {
     this.status = SessionStorageService.getSessionValue(SessionStorage.STATUS);
     this.activatedRoute.params.subscribe(params => {
@@ -259,6 +268,7 @@ export class CostHeadComponent implements OnInit, OnChanges, AfterViewInit {
   showAddFloorwiseQuantityModal(workItem : WorkItem, workItemIndex : number, categoryId: number, categoryIndex : number) {
     if(workItem.quantity.isDirectQuantity ||
       (workItem.quantity.quantityItemDetails.length > 0 && workItem.quantity.quantityItemDetails[0].name === 'default')) {
+      this.currentQuantityType = this.checkCurrentQuanitityType(workItem);
       $('#addFloorwiseQuantity'+workItemIndex).modal();
     } else if(workItem.quantity.quantityItemDetails ||
       (workItem.quantity.quantityItemDetails.length > 0 && workItem.quantity.quantityItemDetails[0].name !== 'default')) {
@@ -274,6 +284,7 @@ export class CostHeadComponent implements OnInit, OnChanges, AfterViewInit {
   //Add blank detailed quantity at last
   addNewDetailedQuantity(categoryId: number, workItem: WorkItem, categoryIndex: number, workItemIndex:number) {
     this.showWorkItemTab = Label.WORKITEM_DETAILED_QUANTITY_TAB;
+    workItem.quantity.isDirectQuantity = false;
     this.currentQuantityType = this.checkCurrentQuanitityType(workItem);
 
     this.toggleWorkItemPanel(workItemIndex, workItem);
@@ -701,9 +712,10 @@ export class CostHeadComponent implements OnInit, OnChanges, AfterViewInit {
   }
 
   onUpdateWorkItemNameFailure(error : any) {
-    if(error.err_code === 404 || error.err_code === 0 || error.err_code===500) {
-      this.errorService.onError(error);
-    }
+    var message = new Message();
+    message.isError = true;
+    message.error_msg = error.err_msg;
+    this.messageService.message(message);
     this.loaderService.stop();
   }
 
@@ -765,6 +777,14 @@ export class CostHeadComponent implements OnInit, OnChanges, AfterViewInit {
       $('#collapse'+ this.categoryRateAnalysisId).removeClass('hide-body');
       $('#collapse'+this.categoryRateAnalysisId).addClass('display-body');
     }
+    setTimeout(() => {
+      let taObjects = document.getElementsByTagName('textarea');
+      for(let i=0;i<taObjects.length;i++) {
+        taObjects[i].style.height = taObjects[i].scrollHeight + 'px';
+        console.log('\n');
+        console.log(taObjects[i].value);
+      }
+    },50);
   }
 
   // calculation of Quantity * Rate

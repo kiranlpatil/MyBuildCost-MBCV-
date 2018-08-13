@@ -6,4 +6,4 @@ sudo npm -v
 sudo node -v
 npm -v
 node -v
-node app.server.prod.js --NODE_ENV=staging &> /dev/null 2> /dev/null < /dev/null &
+node app.server.prod2.js --NODE_ENV=staging &> /dev/null 2> /dev/null < /dev/null &
