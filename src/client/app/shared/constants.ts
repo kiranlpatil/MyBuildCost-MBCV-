@@ -25,8 +25,8 @@ export class AppSettings {
 
 
   // Staging Project and User Id
-  public static SAMPLE_PROJECT_ID = '5b6816dabde73d08d907d638';
-  public static SAMPLE_PROJECT_USER_ID = '5b681678bde73d08d907d637';
+  public static SAMPLE_PROJECT_ID = '5b67f5b93ee1a527f40efc22';
+  public static SAMPLE_PROJECT_USER_ID = '5b67f5923ee1a527f40efc21';
 
 
 /*

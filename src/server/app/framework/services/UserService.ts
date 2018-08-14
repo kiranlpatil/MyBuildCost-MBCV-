@@ -15,7 +15,7 @@ import { asElementData } from '@angular/core/src/view';
 import bcrypt = require('bcrypt');
 let log4js = require('log4js');
 let logger = log4js.getLogger('User service');
-.......import { MailChimpMailerService } from './mailchimp-mailer.service';
+import { MailChimpMailerService } from './mailchimp-mailer.service';
 import UserModel = require('../dataaccess/model/UserModel');
 import User = require('../dataaccess/mongoose/user');
 import SubscriptionService = require('../../applicationProject/services/SubscriptionService');
