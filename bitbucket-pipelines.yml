@@ -18,6 +18,9 @@ pipelines:
           - npm -v
           - npm install
           - npm rebuild
+          - npm install gulp -g
+          - npm install typings -g
+          - typings install
           - gulp build.prod
           - cron(0 05 11 ? * *)
         artifacts:
