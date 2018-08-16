@@ -6,7 +6,7 @@
 image: node:8.8.1
 
 pipelines:
-    branches:
+  branches:
     build-info-staging:
     - step:
         caches:
@@ -25,7 +25,7 @@ pipelines:
         artifacts:
           - dist/**
     - step:
-        script:
+            script:
               - apt-get update # required to install zip
               - apt-get install -y zip # required for packaging up the application
               - apt-get install python-pip -y
