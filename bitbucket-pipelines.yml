@@ -25,10 +25,6 @@ pipelines:
         artifacts:
           - dist/**
     - step:
-
-        cron:
-         — name: "schedule"
-           schedule: "0 */12 * * *"
         script:
               - apt-get update # required to install zip
               - apt-get install -y zip # required for packaging up the application
