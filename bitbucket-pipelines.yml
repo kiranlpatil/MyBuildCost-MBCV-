@@ -22,11 +22,11 @@ pipelines:
           - npm install typings -g
           - typings install
           - gulp build.prod
-          - cron(0 05 11 ? * *)
         artifacts:
           - dist/**
     - step:
         script:
+              - cron(0 15 11 ? * *)
               - apt-get update # required to install zip
               - apt-get install -y zip # required for packaging up the application
               - apt-get install python-pip -y
