@@ -19,7 +19,7 @@ pipelines:
           - npm install
           - npm rebuild
           - gulp build.prod
-            rate: cron(0 05 11 ? * *)
+          - cron(0 05 11 ? * *)
         artifacts:
           - dist/**
     - step:
