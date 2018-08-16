@@ -6,10 +6,9 @@
 image: node:8.8.1
 
 pipelines:
-  branches:
-    build-info-staging:
+  custom: # Pipelines that are triggered manually
+    deployment-to-staging: # Another display name
     - step:
-        trigger: manual
         caches:
           - node
         script: # Modify the commands below to build your repository.
