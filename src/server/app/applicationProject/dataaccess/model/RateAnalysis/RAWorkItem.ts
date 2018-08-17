@@ -1,4 +1,5 @@
 import Rate = require('../project/building/Rate');
+import ContractingAddOn = require('../project/building/ContractingAddOn');
 
 
 class RAWorkItem {
@@ -7,6 +8,7 @@ class RAWorkItem {
   rateAnalysisId: number;
   rate: Rate;
   regionName: string;
+  contractorAddOns :Array<ContractingAddOn> = new Array<ContractingAddOn>();
 
   constructor() {
   }
