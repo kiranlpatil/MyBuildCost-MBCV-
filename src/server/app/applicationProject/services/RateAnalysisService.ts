@@ -19,7 +19,7 @@ import RACategory = require('../dataaccess/model/RateAnalysis/RACategory');
 import RAWorkItem = require('../dataaccess/model/RateAnalysis/RAWorkItem');
 import RACostHead = require('../dataaccess/model/RateAnalysis/RACostHead');
 import SavedRateRepository = require('../dataaccess/repository/SavedRateRepository');
-import RASavedRate = require("../dataaccess/model/RateAnalysis/RASavedRate");
+import RASavedRate = require('../dataaccess/model/RateAnalysis/RASavedRate');
 let request = require('request');
 let config = require('config');
 var log4js = require('log4js');
@@ -885,7 +885,7 @@ class RateAnalysisService {
     }
   }
 
-  saveRateForWorkItem(userId: string, workItemName: string, workItemId: number, regionName: string, rate:any,
+  saveRateForWorkItem(userId: string, workItemName: string, workItemId: number, regionName: string, rate:any, contractorAddOns: any,
                       callback:(error: any, result: Array<any>) => void) {
     let query = {'userId': userId};
     this.savedRateRepository.retrieve(query, (error: any, savedRateArray: Array<RASavedRate>) => {
@@ -900,6 +900,7 @@ class RateAnalysisService {
               for (let workItem of workItemListOfUser) {
                 if (workItem.rateAnalysisId === workItemId && workItem.regionName === regionName) {
                   workItem.rate = rate;
+                  workItem.contractorAddOns = contractorAddOns;
                 }
               }
             } else {
@@ -908,6 +909,7 @@ class RateAnalysisService {
               raWorkItem.rateAnalysisId = workItemId;
               raWorkItem.regionName = regionName;
               raWorkItem.rate = rate;
+              raWorkItem.contractorAddOns = contractorAddOns;
               workItemListOfUser.push(raWorkItem);
             }
           let query =  {'userId': userId};
@@ -929,6 +931,7 @@ class RateAnalysisService {
           raWorkItem.rateAnalysisId = workItemId;
           raWorkItem.regionName = regionName;
           raWorkItem.rate = rate;
+          raWorkItem.contractorAddOns = contractorAddOns;
           raSavedRate.workItemList.push(raWorkItem);
           this.savedRateRepository.create(raSavedRate, (error: any, result: Array<RASavedRate>) => {
             if (error) {
@@ -944,7 +947,7 @@ class RateAnalysisService {
     });
   }
 
-  getSavedRateForWorkItem(userId:string, regionName: string, workItemId: number, callback: (error: any, result: Array<Rate>) => void) {
+  getSavedRateForWorkItem(userId:string, regionName: string, workItemId: number, callback: (error: any, result: RAWorkItem) => void) {
     let query = [
       {$match: {'userId': userId}},
       {$project: {'workItemList': 1}},
@@ -952,13 +955,15 @@ class RateAnalysisService {
       {$match: {'workItemList.rateAnalysisId': workItemId, 'workItemList.regionName': regionName}},
       {$project: {'workItemList': 1, '_id': 0}}
     ];
-    this.savedRateRepository.aggregate(query, (error, result) => {
+    this.savedRateRepository.aggregate(query, (error, result: any) => {
       if (error) {
         callback(error, null);
       } else {
         if(result.length > 0) {
-          let rate = result[0].workItemList.rate;
-          callback(null, rate);
+          let workItem = new RAWorkItem();
+          workItem.rate = result[0].workItemList.rate;
+          workItem.contractorAddOns = result[0].workItemList.contractorAddOns;
+          callback(null, workItem);
         } else {
           callback(null, null);
         }
