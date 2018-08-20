@@ -129,6 +129,11 @@
         opacity: 0.4!important;
         pointer-events: none;
       }
+      &:hover {
+        input {
+          border: 1px solid $gray;
+        }
+      }
 
     }
 
@@ -264,6 +269,16 @@
   }
 }
 
+#category-panel {
+  .edit-field {
+    &:hover {
+      input {
+        background: url('../../../assets/build-info/dashboard/edit.png') no-repeat 98% 46%;
+        border: 1px solid $gray;
+      }
+    }
+  }
+}
 
 .total-table {
   margin-top: -4px;
