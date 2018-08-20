@@ -32,7 +32,7 @@ let config = require('config');
 let log4js = require('log4js');
 import * as mongoose from 'mongoose';
 import RateAnalysis = require('../dataaccess/model/RateAnalysis/RateAnalysis');
-import SteelQuantityItems = require("../dataaccess/model/project/building/SteelQuantityItems");
+import SteelQuantityItems = require('../dataaccess/model/project/building/SteelQuantityItems');
 
 //import RateItemsAnalysisData = require("../dataaccess/model/project/building/RateItemsAnalysisData");
 
@@ -160,7 +160,6 @@ class ProjectService {
     logger.info('Project service, updateProjectDetails has been hit');
     let query = {_id: projectDetails._id};
     let buildingId = '';
-
     this.getProjectAndBuildingDetails(projectDetails._id, (error, projectAndBuildingDetails) => {
       if (error) {
         logger.error('Project service, getProjectAndBuildingDetails failed');
@@ -171,10 +170,25 @@ class ProjectService {
         let projectData = projectAndBuildingDetails.data[0];
         let buildings = projectAndBuildingDetails.data[0].buildings;
         let buildingData: Building;
+        let isBudgetCostCalculationRequired:boolean=true;
         delete projectDetails._id;
         projectDetails.projectCostHeads = projectData.projectCostHeads;
         projectDetails.buildings = projectData.buildings;
-        projectDetails.projectCostHeads = this.calculateBudgetCostForCommonAmmenities(projectData.projectCostHeads, projectDetails);
+
+
+          if(projectDetails.openSpace ===projectData.openSpace &&
+            projectDetails.plotArea === projectData.plotArea &&
+            projectDetails.plotPeriphery ===projectData.plotPeriphery &&
+            projectDetails.podiumArea === projectData.podiumArea &&
+            projectDetails.poolCapacity === projectData.poolCapacity &&
+            projectDetails.projectDuration ===projectData.projectDuration &&
+            projectDetails.slabArea === projectData.slabArea &&
+            projectDetails.totalNumOfBuildings === projectData.totalNumOfBuildings) {
+            isBudgetCostCalculationRequired=false;
+          }
+          if(isBudgetCostCalculationRequired) {
+            projectDetails.projectCostHeads = this.calculateBudgetCostForCommonAmmenities(projectData.projectCostHeads, projectDetails);
+          }
 
         this.projectRepository.findOneAndUpdate(query, projectDetails, {new: true}, (error, result) => {
           logger.info('Project service, findOneAndUpdate has been hit');
@@ -279,13 +293,35 @@ class ProjectService {
             let projectData = projectAndBuildingDetails.data[0];
             let buildings: Array<Building> = projectAndBuildingDetails.data[0].buildings;
             let isBuildingNameExits: boolean = false;
+            let isCostHeadCalculationRequired: boolean = true;
             for(let building of buildings) {
               if ((building.name === buildingDetails.name) && (building._id.toString() !== buildingId)) {
                 isBuildingNameExits = true;
               }
+              if(building._id.toString() === buildingId) {
+                if(building.numOfOneBHK ===buildingDetails.numOfOneBHK &&
+                  building.numOfTwoBHK === buildingDetails.numOfTwoBHK &&
+                  building.numOfThreeBHK ===buildingDetails.numOfThreeBHK &&
+                  building.numOfFourBHK === buildingDetails.numOfFourBHK &&
+                  building.numOfFiveBHK === buildingDetails.numOfFiveBHK &&
+                  building.totalCarpetAreaOfUnit ===buildingDetails.totalCarpetAreaOfUnit &&
+                  building.numOfParkingFloors === buildingDetails.numOfParkingFloors &&
+                  building.totalNumOfFloors === buildingDetails.totalNumOfFloors &&
+                  building.plinthArea === buildingDetails.plinthArea &&
+                  building.totalSaleableAreaOfUnit === buildingDetails.totalSaleableAreaOfUnit &&
+                  building.totalSlabArea === buildingDetails.totalSlabArea&&
+                  building.numOfLifts === buildingDetails.numOfLifts &&
+                  building.carpetAreaOfParking === buildingDetails.carpetAreaOfParking) {
+                  isCostHeadCalculationRequired=false;
+                }
+              }
             }
             if(!isBuildingNameExits) {
-             buildingDetails.costHeads = this.calculateBudgetCostForBuilding(result.costHeads, buildingDetails, projectData);
+              if(isCostHeadCalculationRequired) {
+                buildingDetails.costHeads = this.calculateBudgetCostForBuilding(result.costHeads, buildingDetails, projectData);
+              } else {
+                buildingDetails.costHeads=result.costHeads;
+              }
              this.buildingRepository.findOneAndUpdate(query, buildingDetails, {new: true}, (error, result) => {
                  logger.info('Project service, findOneAndUpdate has been hit');
                  if (error) {
@@ -1122,6 +1158,7 @@ class ProjectService {
           let updateQuery;
           if(response.active) {
             newWorkItem.workItemId = response.workItemId +1;
+            newWorkItem.name = newWorkItem.workItemId + '-'+ newWorkItem.name;
             newWorkItem.active = true;
             updateQuery = {$push : {'costHeads.$[costHead].categories.$[category].workItems': newWorkItem }};
             arrayFilter = [
@@ -1223,6 +1260,7 @@ class ProjectService {
         } else {
           if(response.active) {
             newWorkItem.workItemId = response.workItemId +1;
+            newWorkItem.name = newWorkItem.workItemId + '-'+ newWorkItem.name;
             newWorkItem.active = true;
             updateQuery = {$push : {'projectCostHeads.$[costHead].categories.$[category].workItems': newWorkItem }};
             arrayFilter = [
@@ -1310,16 +1348,49 @@ class ProjectService {
       {'category.rateAnalysisId': categoryId},
       {'workItem.rateAnalysisId': workItemId, 'workItem.workItemId' : ccWorkItemId}
     ];
-
-    this.buildingRepository.findOneAndUpdate(query, updateQuery, {arrayFilters:arrayFilter, new: true}, (error, response) => {
-      logger.info('Project service, findOneAndUpdate has been hit');
-      if (error) {
+    let checkDuplicateName = this.checkIfBuildingWorkItemNameAlreadyExists(buildingId, costHeadId, workItemId,
+      body.workItemName, (error, result) => {
+      if(error) {
         callback(error, null);
       } else {
-        callback(null, {data: 'success', access_token: this.authInterceptor.issueTokenWithUid(user)});
+        if(result.length === 0) {
+          this.buildingRepository.findOneAndUpdate(query, updateQuery, {arrayFilters:arrayFilter, new: true}, (error, response) => {
+            logger.info('Project service, findOneAndUpdate has been hit');
+            if (error) {
+              callback(error, null);
+            } else {
+              callback(null, {data: 'success', access_token: this.authInterceptor.issueTokenWithUid(user)});
+            }
+          });
+        } else {
+          let msg = Constants.MSG_ERROR_DUPLICATE_ITEM + body.workItemName;
+          callback(new CostControllException(msg, null), null);
+        }
       }
     });
+  }
 
+  checkIfBuildingWorkItemNameAlreadyExists(buildingId : string, costHeadId : number, workItemRAId : number,
+                           workItemName :string, callback:(error: any, result : any) => void) {
+    let query = [
+      {$match: {'_id': ObjectId(buildingId), 'costHeads.rateAnalysisId': costHeadId}},
+      {$unwind: '$costHeads'},
+      {$unwind: '$costHeads.categories'},
+      {$unwind: '$costHeads.categories.workItems'},
+      {$match: {'costHeads.categories.workItems.rateAnalysisId': workItemRAId,
+                'costHeads.categories.workItems.name' : workItemName}},
+      {$project: {'costHeads.categories.workItems' : 1}}
+    ];
+
+    this.buildingRepository.aggregate(query, (error, result) => {
+      if (error) {
+        console.log('error : '+JSON.stringify(error));
+        callback(error, null);
+      } else {
+        console.log('Data : '+JSON.stringify(result));
+         callback(null, result);
+      }
+    });
   }
 
   updateBudgetedCostForCostHead(buildingId: string, costHeadBudgetedAmount: any, user: User,
@@ -1523,18 +1594,54 @@ class ProjectService {
                                  workItemId: number, ccWorkItemId: number, workItemName: string,
                                  user: User, callback: (error: any, result: any) => void) {
     let query = { _id: projectId };
-    let updateQuery = {$set:{'projectCostHeads.$[costHead].categories.$[category].workItems.$[workItem].name':workItemName}};
-    let arrayFilter = [
-      { 'costHead.rateAnalysisId': costHeadId },
-      { 'category.rateAnalysisId': categoryId },
-      { 'workItem.rateAnalysisId': workItemId,'workItem.workItemId': ccWorkItemId }
-    ];
-    this.projectRepository.findOneAndUpdate(query, updateQuery, {arrayFilters:arrayFilter, new: true}, (error, building) => {
-      logger.info('Project service, findOneAndUpdate has been hit');
-      if (error) {
+
+    this.checkIfProjectWorkItemNameAlreadyExists(projectId, costHeadId, workItemId,
+      workItemName, (error, result)=> {
+      if(error) {
         callback(error, null);
       } else {
-        callback(null, {data :'success', access_token: this.authInterceptor.issueTokenWithUid(user)});
+        if(result.length === 0) {
+          let updateQuery = {$set:{'projectCostHeads.$[costHead].categories.$[category].workItems.$[workItem].name':workItemName}};
+          let arrayFilter = [
+            { 'costHead.rateAnalysisId': costHeadId },
+            { 'category.rateAnalysisId': categoryId },
+            { 'workItem.rateAnalysisId': workItemId,'workItem.workItemId': ccWorkItemId }
+          ];
+          this.projectRepository.findOneAndUpdate(query, updateQuery, {arrayFilters:arrayFilter, new: true}, (error, building) => {
+            logger.info('Project service, findOneAndUpdate has been hit');
+            if (error) {
+              callback(error, null);
+            } else {
+              callback(null, {data :'success', access_token: this.authInterceptor.issueTokenWithUid(user)});
+            }
+          });
+        } else {
+          let msg = Constants.MSG_ERROR_DUPLICATE_ITEM + workItemName;
+          callback(new CostControllException(msg, null), null);
+        }
+      }
+      });
+  }
+
+  checkIfProjectWorkItemNameAlreadyExists(projectId : string, costHeadId : number, workItemRAId : number,
+                                          workItemName :string, callback:(error: any, result : any) => void) {
+    let query = [
+      {$match: {'_id': ObjectId(projectId), 'projectCostHeads.rateAnalysisId': costHeadId}},
+      {$unwind: '$projectCostHeads'},
+      {$unwind: '$projectCostHeads.categories'},
+      {$unwind: '$projectCostHeads.categories.workItems'},
+      {$match: {'projectCostHeads.categories.workItems.rateAnalysisId': workItemRAId,
+        'projectCostHeads.categories.workItems.name' : workItemName}},
+      {$project: {'projectCostHeads.categories.workItems' : 1}}
+    ];
+
+    this.projectRepository.aggregate(query, (error, result) => {
+      if (error) {
+        console.log('error : '+JSON.stringify(error));
+        callback(error, null);
+      } else {
+        console.log('Data : '+JSON.stringify(result));
+        callback(null, result);
       }
     });
   }
@@ -1872,6 +1979,9 @@ class ProjectService {
         workItem.rate.rateItems = this.getRatesFromCentralizedrates(rateItemsOfWorkItem, centralizedRates);
 
         let arrayOfRateItems = workItem.rate.rateItems;
+        for(let rateItemIndex = 0; rateItemIndex < arrayOfRateItems.length; rateItemIndex++) {
+          arrayOfRateItems[rateItemIndex].totalAmount = arrayOfRateItems[rateItemIndex].quantity * arrayOfRateItems[rateItemIndex].rate;
+        }
         let totalOfAllRateItems = alasql('VALUE OF SELECT SUM(totalAmount) FROM ?', [arrayOfRateItems]);
         let totalByUnit = totalOfAllRateItems / workItem.rate.quantity;
         if (!workItem.isDirectRate) {
@@ -3466,8 +3576,28 @@ class ProjectService {
       }
     });
   }
-
-
+  removeImageOfProject(projectId: string ,imageName:string,callback: (error: any, result: any) => void) {
+    let query = {'_id': projectId};
+    let updateData = {$unset: {projectImage:''}};
+    this.projectRepository.findOneAndUpdate(query, updateData, {}, (error, response) => {
+      if (error) {
+        callback(error, null);
+      } else {
+        fs.unlink('.'+ config.get('application.profilePath')+'/'+ imageName, (err:Error) => {
+          if (err) {
+            logger.error(err);
+          }
+        });
+        callback(null, true);
+      }
+    });
+  }
+  UploadImage(tempPath: any, fileName: any, cb: any) {
+    let targetpath = fileName;
+    fs.rename(tempPath, targetpath, function (err:any) {
+      cb(null, tempPath);
+    });
+  }
   private calculateThumbRuleReportForCostHead(budgetedCostAmount: number, costHeadFromRateAnalysis: any,
                                               buildingData: any, costHeads: Array<CostHead>) {
     if (budgetedCostAmount >= 0) {
