@@ -601,7 +601,9 @@ export class CostHeadComponent implements OnInit, OnChanges, AfterViewInit {
     this.currentWorkItemIndex = workItemIndex;
     this.currentQuantityType = this.checkCurrentQuanitityType(workItem);
 
-    if(workItem.quantity.quantityItemDetails.length !== 0) {
+    if(workItem.quantity.quantityItemDetails.length !== 0 &&
+      ((workItem.quantity.quantityItemDetails[0].quantityItems && workItem.quantity.quantityItemDetails[0].quantityItems.length!== 0) ||
+      (workItem.quantity.quantityItemDetails[0].steelQuantityItems && workItem.quantity.quantityItemDetails[0].steelQuantityItems.steelQuantityItem.length!== 0))) {
       $('#updateDirectQuantity'+workItemIndex).modal();
     } else {
       this.changeDirectQuantity(categoryId, workItem.rateAnalysisId, workItem.workItemId, workItem.quantity.total);
