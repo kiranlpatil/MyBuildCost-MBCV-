@@ -40,7 +40,11 @@ export class ProjectImageComponent implements OnChanges {
     this.isLoading = true;
     this.image_path = undefined;
     if (this.projectModel) {
-      var id = this.projectModel._id;
+      if(this.projectModel._id) {
+        var id = this.projectModel._id;
+      }else {
+        id='newUser';
+      }
       if (this.projectModel.projectImage) {
         var imageName = this.projectModel.projectImage.split('/');
         imageName = imageName[imageName.length - 1];
