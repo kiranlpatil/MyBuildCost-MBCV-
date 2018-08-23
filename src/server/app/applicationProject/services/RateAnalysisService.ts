@@ -607,7 +607,7 @@ class RateAnalysisService {
     let regionObj = {
       'RegionId' : 1,
       'RegionCode' : 'MH',
-      'Region' : 'Maharashtra Pune Circle'
+      'Region' : 'Maharashtra Pune'
     };
     this.SyncRateAnalysis(regionObj);
 
@@ -970,6 +970,282 @@ class RateAnalysisService {
       }
     });
   }
+
+  syncAllRateAnalysisRegions() {
+    let promiseArray: Array<any> = new Array<any>();
+    this.getAllregionsFromRateAnalysis((error, response) => {
+      if (error) {
+        console.log('error : ' + JSON.stringify(error));
+      } else {
+        console.log('response : ' + JSON.stringify(response));
+        for (let region of response) {
+          let promise = this.createPromiseTosynchRegionFromRateAnalysis(region);
+          promiseArray.push(promise);
+        }
+        CCPromise.all(promiseArray).then(function (data: Array<any>) {
+          console.log('datae : '+data);
+        }).catch(function (e: any) {
+          logger.error(' Promise failed for convertCostHeadsFromRateAnalysisToCostControl ! :' + JSON.stringify(e.message));
+          CCPromise.reject(e.message);
+        });
+      }
+    });
+  }
+
+  createPromiseTosynchRegionFromRateAnalysis(region: any) {
+    return new CCPromise(function (resolve: any, reject: any) {
+      let rateAnalysisService = new RateAnalysisService();
+      rateAnalysisService.synchRegionForRateAnalysis(region, (error:any, result:any) => {
+        if(error) {
+          CCPromise.reject(error);
+        } else if(result) {
+          let rateAnalysis = new RateAnalysis(result, null, null, null);
+          rateAnalysisService.saveRateAnalysis(rateAnalysis, region);
+          CCPromise.resolve();
+        }
+      });
+      //CCPromise.resolve();
+    }).catch(function (e: any) {
+      CCPromise.reject(e.message);
+    });
+  }
+
+  synchRegionForRateAnalysis(region: any, callback : (error:any, result:any) => void) {
+    let entity = Constants.BUILDING;
+    let costHeadURL = config.get(Constants.RATE_ANALYSIS_API + entity + Constants.RATE_ANALYSIS_COSTHEADS)
+      + region.RegionId + config.get(Constants.RATE_ANALYSIS_API + Constants.RATE_ANALYSIS_API_ENDPOINT);
+    let costHeadRateAnalysisPromise = this.createPromise(costHeadURL);
+    logger.info('costHeadRateAnalysisPromise for has been hit');
+
+    let categoryURL = config.get(Constants.RATE_ANALYSIS_API + entity + Constants.RATE_ANALYSIS_CATEGORIES)
+      + region.RegionId + config.get(Constants.RATE_ANALYSIS_API + Constants.RATE_ANALYSIS_API_ENDPOINT);
+    let categoryRateAnalysisPromise = this.createPromise(categoryURL);
+    logger.info('categoryRateAnalysisPromise for has been hit');
+
+    let workItemURL = config.get(Constants.RATE_ANALYSIS_API + entity + Constants.RATE_ANALYSIS_WORKITEMS)
+      + region.RegionId + config.get(Constants.RATE_ANALYSIS_API + Constants.RATE_ANALYSIS_API_ENDPOINT);
+    let workItemRateAnalysisPromise = this.createPromise(workItemURL);
+    logger.info('workItemRateAnalysisPromise for has been hit');
+
+    let rateItemURL = config.get(Constants.RATE_ANALYSIS_API + entity + Constants.RATE_ANALYSIS_RATE)
+      + region.RegionId + config.get(Constants.RATE_ANALYSIS_API + Constants.RATE_ANALYSIS_API_ENDPOINT);
+    let rateItemRateAnalysisPromise = this.createPromise(rateItemURL);
+    logger.info('rateItemRateAnalysisPromise for has been hit');
+
+    let rateAnalysisNotesURL = config.get(Constants.RATE_ANALYSIS_API + entity + Constants.RATE_ANALYSIS_NOTES)
+      + region.RegionId + config.get(Constants.RATE_ANALYSIS_API + Constants.RATE_ANALYSIS_API_ENDPOINT);
+    let notesRateAnalysisPromise = this.createPromise(rateAnalysisNotesURL);
+    logger.info('notesRateAnalysisPromise for has been hit');
+
+    let allUnitsFromRateAnalysisURL = config.get(Constants.RATE_ANALYSIS_API + entity + Constants.RATE_ANALYSIS_UNIT)
+      + region.RegionId + config.get(Constants.RATE_ANALYSIS_API + Constants.RATE_ANALYSIS_API_ENDPOINT);
+    let unitsRateAnalysisPromise = this.createPromise(allUnitsFromRateAnalysisURL);
+    logger.info('unitsRateAnalysisPromise for has been hit');
+
+    let contractorAddOnsFromRateAnalysisURL = config.get(Constants.RATE_ANALYSIS_API + Constants.START_POINT)
+      + config.get(Constants.RATE_ANALYSIS_API + Constants.RATE_ANALYSIS_CONTRACTOR_ADD_ONS)
+      + config.get(Constants.RATE_ANALYSIS_API + Constants.RA_CONTRACTOR_API_ENDPOINT);
+    let contractorAddOnsFromRateAnalysisPromise = this.createPromise(contractorAddOnsFromRateAnalysisURL);
+    logger.info('contractorAddOnsFromRateAnalysisPromise for has been hit');
+
+    let rateAnalysisRegionResultFromRateAnalysisURL = config.get(Constants.RATE_ANALYSIS_API + Constants.START_POINT)
+      + config.get(Constants.RATE_ANALYSIS_API + Constants.RA_REGION_RESULT)
+      + region.RegionId + config.get(Constants.RATE_ANALYSIS_API + Constants.RATE_ANALYSIS_API_ENDPOINT);
+    let rateAnalysisRegionFromRateAnalysisPromise = this.createPromise(rateAnalysisRegionResultFromRateAnalysisURL);
+    logger.info('contractorAddOnsFromRateAnalysisPromise for has been hit');
+
+    let contractorAddOnResultURL = 'http://mobileapiv4.buildinfo.co.in/RAContractorAddons/RAContractorAddonsResult?' +
+      'DeviceId=2fc85276aee45b7a&mobilenumber=8928520179&regionID='+ region.RegionId +'&NeedFullData=y&AppCode=RA';
+    let contractorAddOnResultPromise = this.createPromise(contractorAddOnResultURL);
+
+    logger.info('calling Promise.all');
+    CCPromise.all([
+      costHeadRateAnalysisPromise,
+      categoryRateAnalysisPromise,
+      workItemRateAnalysisPromise,
+      rateItemRateAnalysisPromise,
+      notesRateAnalysisPromise,
+      unitsRateAnalysisPromise,
+      contractorAddOnsFromRateAnalysisPromise,
+      contractorAddOnResultPromise
+    ]).then(function (data: Array<any>) {
+      logger.info(' Promise.all API is success.');
+
+      if(data[0][Constants.RATE_ANALYSIS_ITEM_TYPE] && data[1][Constants.RATE_ANALYSIS_SUBITEM_TYPE] &&
+        data[2][Constants.RATE_ANALYSIS_ITEMS] && data[3][Constants.RATE_ANALYSIS_DATA] &&
+        data[4][Constants.RATE_ANALYSIS_DATA] && data[5][Constants.RATE_ANALYSIS_UOM] &&
+        data[6][Constants.CONTRACTING_ADD_ONS] && data[7][Constants.RATEANALYSIS_ADD_ON_DATA]) {
+
+        let costHeadsRateAnalysis = data[0][Constants.RATE_ANALYSIS_ITEM_TYPE];
+        let categoriesRateAnalysis = data[1][Constants.RATE_ANALYSIS_SUBITEM_TYPE];
+        let workItemsRateAnalysis = data[2][Constants.RATE_ANALYSIS_ITEMS];
+        let rateItemsRateAnalysis = data[3][Constants.RATE_ANALYSIS_DATA];
+        let notesRateAnalysis = data[4][Constants.RATE_ANALYSIS_DATA];
+        let unitsRateAnalysis = data[5][Constants.RATE_ANALYSIS_UOM];
+        let contractingAddOns = data[6][Constants.CONTRACTING_ADD_ONS];
+        let contractorAddOnResult = data[7][Constants.RATEANALYSIS_ADD_ON_DATA];
+
+        let rateAnalysisCostHeads: Array<CostHead> = [];
+        let rateAnalysisService = new RateAnalysisService();
+
+        rateAnalysisService.convertCostHeadsForRateAnalysis(costHeadsRateAnalysis, categoriesRateAnalysis, workItemsRateAnalysis,
+          rateItemsRateAnalysis, unitsRateAnalysis, notesRateAnalysis, contractingAddOns, contractorAddOnResult, rateAnalysisCostHeads);
+        logger.info('success in  convertCostHeadsFromRateAnalysisToCostControl.');
+
+        console.log('Suceessfully feteched data for : '+region.Region);
+        callback(null, rateAnalysisCostHeads);
+        //CCPromise.resolve('Success');
+      }
+    }).catch(function (e: any) {
+      logger.error(' Promise failed for ! :' + JSON.stringify(e.message));
+      CCPromise.reject(e.message);
+    });
+  }
+
+  convertCostHeadsForRateAnalysis(costHeadsRateAnalysis:any, categoriesRateAnalysis:any, workItemsRateAnalysis:any,
+                                  rateItemsRateAnalysis:any, unitsRateAnalysis:any, notesRateAnalysis:any,
+                                  contractingAddOns:any, contractorAddOnResult:any, buildingCostHeads:any) {
+    console.log('Rate analysis for conversion');
+    for (let costHeadIndex = 0; costHeadIndex < costHeadsRateAnalysis.length; costHeadIndex++) {
+
+        let costHead = new CostHead();
+        costHead.name = costHeadsRateAnalysis[costHeadIndex].C2;
+
+        costHead.rateAnalysisId = costHeadsRateAnalysis[costHeadIndex].C1;
+
+        let categoriesRateAnalysisSQL = 'SELECT Category.C1 AS rateAnalysisId, Category.C2 AS name' +
+          ' FROM ? AS Category where Category.C3 = ' + costHead.rateAnalysisId;
+
+        let categoriesByCostHead = alasql(categoriesRateAnalysisSQL, [categoriesRateAnalysis]);
+        let buildingCategories: Array<Category> = new Array<Category>();
+
+        if (categoriesByCostHead.length === 0) {
+          this.getWorkItemsWithoutCategoryForRateAnalysis(costHead.rateAnalysisId, workItemsRateAnalysis,
+            rateItemsRateAnalysis, unitsRateAnalysis, notesRateAnalysis,
+            contractingAddOns, contractorAddOnResult, buildingCategories);
+        } else {
+          this.getCategoriesForRateAnalysis(categoriesByCostHead, workItemsRateAnalysis,
+            rateItemsRateAnalysis, unitsRateAnalysis, notesRateAnalysis,
+            contractingAddOns, contractorAddOnResult, buildingCategories);
+        }
+
+        costHead.categories = buildingCategories;
+        buildingCostHeads.push(costHead);
+    }
+  }
+
+  getWorkItemsWithoutCategoryForRateAnalysis(costHeadRateAnalysisId: number, workItemsRateAnalysis : any,
+        rateItemsRateAnalysis: any, unitsRateAnalysis: any, notesRateAnalysis: any,
+        contractingAddOns: any, contractorAddOnResult: any, buildingCategories: Array<Category>) {
+    logger.info('getWorkItemsWithoutCategoryForRateAnalysis has been hit.');
+
+    let workItemsWithoutCategoriesRateAnalysisSQL = 'SELECT workItem.C2 AS rateAnalysisId, workItem.C3 AS name' +
+      ' FROM ? AS workItem where NOT workItem.C4 AND workItem.C1 = ' + costHeadRateAnalysisId;
+    let workItemsWithoutCategories = alasql(workItemsWithoutCategoriesRateAnalysisSQL, [workItemsRateAnalysis]);
+
+    let buildingWorkItems: Array<WorkItem> = new Array<WorkItem>();
+    let category = new Category('Work Items', 0);
+
+    this.getWorkItemsForRateAnalysis(workItemsWithoutCategories, rateItemsRateAnalysis,
+      unitsRateAnalysis, notesRateAnalysis, contractingAddOns, contractorAddOnResult,
+      buildingWorkItems, workItemsRateAnalysis);
+
+    category.workItems = buildingWorkItems;
+    buildingCategories.push(category);
+  }
+
+  getWorkItemsForRateAnalysis(workItemsByCategory: any, rateItemsRateAnalysis: any,
+                               unitsRateAnalysis: any, notesRateAnalysis: any, contractingAddOns: any, contractorAddOnResult: any,
+                               buildingWorkItems: Array<WorkItem>, workItemsRateAnalysis: any) {
+
+    logger.info('getWorkItemsFromRateAnalysis has been hit.');
+    for (let categoryWorkitem of workItemsByCategory) {
+      let workItem = this.getRatesForRateAnalysis(categoryWorkitem, rateItemsRateAnalysis,
+        unitsRateAnalysis, notesRateAnalysis, contractingAddOns, contractorAddOnResult, workItemsRateAnalysis);
+      if (workItem) {
+        buildingWorkItems.push(workItem);
+      }
+    }
+  }
+
+  getRatesForRateAnalysis(categoryWorkitem: WorkItem, rateItemsRateAnalysis: any,
+                  unitsRateAnalysis: any, notesRateAnalysis: any, contractingAddOns: any,
+                  contractorAddOnResult: any, workItemsRateAnalysis: any) {
+
+    if (categoryWorkitem.name && categoryWorkitem.rateAnalysisId) {
+
+      let workItem = new WorkItem(categoryWorkitem.name, categoryWorkitem.rateAnalysisId);
+
+      if (categoryWorkitem.active !== undefined && categoryWorkitem.active !== null) {
+        workItem = categoryWorkitem;
+      }
+
+      workItem.contractingAddOns = this.getContractingAddOns(categoryWorkitem.rateAnalysisId,
+        rateItemsRateAnalysis, contractingAddOns, contractorAddOnResult);
+
+      let rateItemsRateAnalysisSQL = 'SELECT rateItem.C2 AS itemName, rateItem.C2 AS originalItemName,' +
+        'rateItem.C12 AS rateAnalysisId, rateItem.C6 AS type,' +
+        'ROUND(rateItem.C7,2) AS quantity, ROUND(rateItem.C3,2) AS rate, unit.C2 AS unit,' +
+        'ROUND(rateItem.C3 * rateItem.C7,2) AS totalAmount, rateItem.C5 AS totalQuantity, rateItem.C13 AS notesRateAnalysisId  ' +
+        'FROM ? AS rateItem JOIN ? AS unit ON unit.C1 = rateItem.C9 where rateItem.C1 = '
+        + categoryWorkitem.rateAnalysisId;
+      let rateItemsByWorkItem = alasql(rateItemsRateAnalysisSQL, [rateItemsRateAnalysis, unitsRateAnalysis]);
+      let notes = '';
+      let imageURL = '';
+      workItem.rate.rateItems = rateItemsByWorkItem;
+      //workItem.rate.unit = rateItemsByWorkItem[0].rateAnalysisUnit;
+
+      if (rateItemsByWorkItem && rateItemsByWorkItem.length > 0) {
+        let notesRateAnalysisSQL = 'SELECT notes.C2 AS notes, notes.C3 AS imageURL FROM ? AS notes where notes.C1 = ' +
+          rateItemsByWorkItem[0].notesRateAnalysisId;
+        let notesList = alasql(notesRateAnalysisSQL, [notesRateAnalysis]);
+        notes = notesList[0].notes;
+        imageURL = notesList[0].imageURL;
+
+        workItem.rate.quantity = rateItemsByWorkItem[0].totalQuantity;
+        workItem.systemRate.quantity = rateItemsByWorkItem[0].totalQuantity;
+      } else {
+        workItem.rate.quantity = 1;
+        workItem.systemRate.quantity = 1;
+      }
+      workItem.rate.isEstimated = true;
+      workItem.rate.notes = notes;
+      workItem.rate.imageURL = imageURL;
+
+      return workItem;
+    }
+    return null;
+  }
+
+  getCategoriesForRateAnalysis(categoriesByCostHead: any, workItemsRateAnalysis: any,
+                                rateItemsRateAnalysis: any, unitsRateAnalysis: any,
+                                notesRateAnalysis: any, contractingAddOns: any, contractorAddOnResult: any,
+                                buildingCategories: Array<Category>) {
+
+    logger.info('getCategoriesFromRateAnalysis has been hit.');
+
+    for (let categoryIndex = 0; categoryIndex < categoriesByCostHead.length; categoryIndex++) {
+
+      let category = new Category(categoriesByCostHead[categoryIndex].name, categoriesByCostHead[categoryIndex].rateAnalysisId);
+
+      let workItemsRateAnalysisSQL = 'SELECT workItem.C2 AS rateAnalysisId, TRIM(workItem.C3) AS name' +
+        ' FROM ? AS workItem where workItem.C4 = ' + categoriesByCostHead[categoryIndex].rateAnalysisId;
+
+      let workItemsByCategory = alasql(workItemsRateAnalysisSQL, [workItemsRateAnalysis]);
+      let buildingWorkItems: Array<WorkItem> = new Array<WorkItem>();
+
+      this.getWorkItemsForRateAnalysis(workItemsByCategory, rateItemsRateAnalysis,
+        unitsRateAnalysis, notesRateAnalysis, contractingAddOns,
+        contractorAddOnResult, buildingWorkItems, workItemsRateAnalysis);
+
+      category.workItems = buildingWorkItems;
+      if (category.workItems.length !== 0) {
+        buildingCategories.push(category);
+      }
+    }
+
+  }
+
 }
 
 Object.seal(RateAnalysisService);

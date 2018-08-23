@@ -155,8 +155,8 @@
   },
 
   "sampleProject" : {
-    "userId" : " ",
-    "projectId" : "5b0ce4148083de2051ba221b"
+    "userId": "5b7c17ea906e7a41dccf6318",
+    "projectId": "5b581491b6fa625ce7391345"
   },
 
   "rate": {
@@ -188,7 +188,7 @@
     ]
   },
 
-  "costControlRegionCode" : "Maharashtra Pune Circle",
+  "costControlRegionCode" : "Maharashtra Pune",
 
   "SqureMeter": 0.0929,
 

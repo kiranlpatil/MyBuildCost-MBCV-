@@ -106,6 +106,17 @@ class RateAnalysisController {
     }
   }
 
+  syncAllRateAnalysisRegions(req: express.Request, res: express.Response, next: any): void {
+    try {
+      let rateAnalysisService = new RateAnalysisService();
+
+      rateAnalysisService.syncAllRateAnalysisRegions();
+      /*next(new Response(200,'done'));*/
+    } catch(e) {
+      next(new CostControllException(e.message,e.stack));
+    }
+  }
+
   getAllRegionNames(req: express.Request, res: express.Response, next: any): void {
     try {
       let rateAnalysisService = new RateAnalysisService();
