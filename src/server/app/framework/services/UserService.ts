@@ -25,6 +25,7 @@ import ProjectSubscriptionDetails = require('../../applicationProject/dataaccess
 import messages  = require('../../applicationProject/shared/messages');
 import constants  = require('../../applicationProject/shared/constants');
 import ProjectSubcription = require('../../applicationProject/dataaccess/model/company/ProjectSubcription');
+import UserSubscriptionForRA = require('../../applicationProject/dataaccess/model/project/Subscription/UserSubscriptionForRA');
 let CCPromise = require('promise/lib/es6-extensions');
 let log4js = require('log4js');
 let logger = log4js.getLogger('User service');
@@ -68,8 +69,9 @@ class UserService {
           } else {
             item.password = hash;
             let subScriptionService = new SubscriptionService();
-            subScriptionService.getSubscriptionPackageByName('Free','BasePackage', (err: any,
-                                                                      freeSubscription: Array<SubscriptionPackage>) => {
+            if(item.typeOfApp !== 'RAapp') {
+            subScriptionService.getSubscriptionPackageByName('Free', 'BasePackage', (err: any,
+                                                                                     freeSubscription: Array<SubscriptionPackage>) => {
               if (freeSubscription.length > 0) {
                 this.assignFreeSubscriptionAndCreateUser(item, freeSubscription[0], callback);
               } else {
@@ -78,13 +80,24 @@ class UserService {
                     this.assignFreeSubscriptionAndCreateUser(item, freeSubscription, callback);
                 });
               }
-
             });
+          } else {
+              subScriptionService.getSubscriptionPackageByName('Trial', 'BasePackage', (err: any,
+                                                                                        trialSubscription: Array<SubscriptionPackage>) => {
 
+                if (trialSubscription.length > 0) {
+                  this.assignFreeSubscriptionAndCreateUser(item, trialSubscription[0], callback);
+                } else {
+                  subScriptionService.addSubscriptionPackage(config.get('subscription.package.Trial'),
+                    (error: any, trialSubscription) => {
+                      this.assignFreeSubscriptionAndCreateUser(item, trialSubscription[0], callback);
+                    });
+                }
+              });
+            }
           }
         });
       }
-
     });
   }
 
@@ -115,7 +128,11 @@ class UserService {
    assignFreeSubscriptionAndCreateUser(item: any, freeSubscription: SubscriptionPackage, callback: (error: any, result: any) => void) {
     let user: UserModel = item;
     let sendMailService = new SendMailService();
-    this.assignFreeSubscriptionPackage(user, freeSubscription);
+    if(item.typeOfApp !== 'RAapp') {
+      this.assignFreeSubscriptionPackage(user, freeSubscription);
+    } else {
+      this.assignTrialSubscriptionPackage(user, freeSubscription);
+    }
     this.userRepository.create(user, (err:Error, res:any) => {
       if (err) {
         callback(new Error(Messages.MSG_ERROR_REGISTRATION_MOBILE_NUMBER), null);
@@ -193,7 +210,17 @@ class UserService {
     user.subscription.push(subscription);
   }
 
-  login(data: any, callback:(error: any, result: any) => void) {
+  assignTrialSubscriptionPackage(user: UserModel, freeSubscription: SubscriptionPackage) {
+   let subscription = new UserSubscriptionForRA();
+    subscription.activationDate = new Date();
+    subscription.validity = freeSubscription.basePackage.validity;
+    subscription.name = freeSubscription.basePackage.name;
+    subscription.description= freeSubscription.basePackage.description;
+    subscription.cost = freeSubscription.basePackage.cost;
+    user.subscriptionForRA = subscription;
+  }
+
+  login(data: any, typeOfApp: any, callback:(error: any, result: any) => void) {
     this.retrieve({'email': data.email}, (error, result) => {
       if (error) {
         callback(error, null);
@@ -212,7 +239,7 @@ class UserService {
             if (isSame) {
               let auth = new AuthInterceptor();
               let token = auth.issueTokenWithUid(result[0]);
-              var data: any = {
+              var resData: any = {
                 'status': Messages.STATUS_SUCCESS,
                 'data': {
                   'first_name': result[0].first_name,
@@ -227,7 +254,17 @@ class UserService {
                 },
                 access_token: token
               };
-              callback(null, data);
+              if(typeOfApp === 'RAapp') {
+                this.getUserSubscriptionDetails(result[0]._id, (error, result)=> {
+                  if(error) {
+                    callback(error,null);
+                  }else {
+                    callback(null, {data: resData, subscriptionDetails: result});
+                   }
+                });
+              }else {
+                callback(null, resData);
+              }
             } else {
               callback({
                 reason: Messages.MSG_ERROR_RSN_INVALID_CREDENTIALS,
@@ -710,6 +747,44 @@ class UserService {
         code: 400
       }, null);
     }
+  }
+
+  getUserSubscriptionDetails(userId: string,callback: (error: any, result: any) => void) {
+    let projection = {subscriptionForRA: 1};
+    this.userRepository.findByIdWithProjection(userId,projection,(error,result)=> {
+      if (error) {
+      callback(error, null);
+      } else {
+        let subscriptionData = result.subscriptionForRA;
+        let subscriptionDetails = this.getSubscriptionData(subscriptionData);
+        callback(null, subscriptionDetails);
+       }
+     });
+  }
+
+  getSubscriptionData(subscriptionData: UserSubscriptionForRA) {
+    let subscriptionDetails = new UserSubscriptionForRA();
+    subscriptionDetails.name = subscriptionData.name;
+    let activation_date = new Date(subscriptionData.activationDate);
+    let expiryDate = new Date(subscriptionData.activationDate);
+    subscriptionDetails.expiryDate = new Date(expiryDate.setDate(activation_date.getDate() + subscriptionData.validity));
+    let current_date = new Date();
+    subscriptionDetails.noOfDaysToExpiry = this.daysdifference(subscriptionDetails.expiryDate, current_date);
+    if (subscriptionDetails.noOfDaysToExpiry <= 5 && subscriptionDetails.noOfDaysToExpiry > 0) {
+      if (subscriptionData.name === 'Trial') {
+        subscriptionDetails.warningMsgForPackage = 'Trial period will expire in ' + Math.round(subscriptionDetails.noOfDaysToExpiry) + ' days';
+      } else {
+        subscriptionDetails.warningMsgForPackage = 'Paid version will expire in ' + Math.round(subscriptionDetails.noOfDaysToExpiry) + ' days';
+      }
+    } else if (subscriptionDetails.noOfDaysToExpiry <= 0) {
+      if (subscriptionData.name === 'Trial') {
+        subscriptionDetails.expiryMsgForPackage = 'Trial period has expired';
+      } else {
+        subscriptionDetails.expiryMsgForPackage = 'Paid version has expired';
+      }
+      subscriptionDetails.isPackageExpired = true;
+    }
+    return subscriptionDetails;
   }
 
   assignPremiumPackage(user:User,userId:string, cost: number,callback: (error: any, result: any) => void) {
