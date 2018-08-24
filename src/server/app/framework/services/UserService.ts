@@ -302,7 +302,9 @@ class UserService {
   generateOtp(generateOtpObject: any, callback: (error: any, result: any) => void) {
     let query = {'_id': generateOtpObject._id};
     let otp = Math.floor((Math.random() * 99999) + 100000);
-    let updateData = {'mobile_number': generateOtpObject.new_mobile_number, 'otp': otp};
+    // TODO decide whether to update 'mobile_number' with 'new_mobile_number'
+    // let updateData = {'mobile_number': generateOtpObject.new_mobile_number, 'otp': otp};
+    let updateData = {'otp': otp};
     // find user by _id and update user with new mobile number and new otp
     this.userRepository.findOneAndUpdate(query, updateData, {new: true}, (error, result) => {
       if (error) {
