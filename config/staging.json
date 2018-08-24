@@ -24,7 +24,7 @@
     "publicPath": "/server/prod/app/framework/public/",
     "profilePath": "/server/prod/public/project-image",
     "profilePathForClient": "/public/project-image/",
-    "attachmentPath": "/server/public/attachment-files",
+    "attachmentPath": "/server/prod/public/attachment-files",
     "limitForQuery": 10,
     "mail": {
       "host": "http://13.232.139.161:8080/",
