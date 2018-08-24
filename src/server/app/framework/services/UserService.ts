@@ -260,7 +260,6 @@ class UserService {
   sendOtp(params: any, user: any, callback: (error: any, result: any) => void) {
     let generateOtpObject = {
       new_mobile_number: params.mobile_number,
-      old_mobile_number: user.mobile_number,
       _id: user._id
     };
     this.generateOtp(generateOtpObject, (error, result) => {
