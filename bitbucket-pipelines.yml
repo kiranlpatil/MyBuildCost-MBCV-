@@ -6,12 +6,13 @@
 image: node:8.8.1
 
 pipelines:
-  branches:
+  branches: # Pipelines that are triggered manually
+  #custom:
     build-info-staging:
     - step:
         caches:
           - node
-        script: # Modify the commands below to build your repository.
+        script: # Modify the commands below to build your repository..
           - echo $APPLICATION_NAME
           - echo $APPLICATION_NAME
           - node -v

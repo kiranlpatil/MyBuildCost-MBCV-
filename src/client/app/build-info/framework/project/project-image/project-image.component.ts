@@ -1,9 +1,9 @@
-import { Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
-import { Message } from '../../../../shared/models/message';
+import {Component, ElementRef, EventEmitter, Input, OnChanges, Output, ViewChild} from '@angular/core';
+import {Message} from '../../../../shared/models/message';
 import {AppSettings, Messages} from '../../../../shared/constants';
-import { MessageService } from '../../../../shared/services/message.service';
-import { ProjectImageService } from './project-image.service';
-import { ProjectService } from '../project.service';
+import {MessageService} from '../../../../shared/services/message.service';
+import {ProjectImageService} from './project-image.service';
+import {ProjectService} from '../project.service';
 
 @Component({
   moduleId: module.id,
@@ -15,6 +15,8 @@ import { ProjectService } from '../project.service';
 export class ProjectImageComponent implements OnChanges {
   @Output() onProjectImageUpload = new EventEmitter();
   @Input() projectModel: any;
+  @ViewChild('fileInput')
+  fileInputVariable: ElementRef;
   private filesToUpload: Array<File>;
   private image_path: string;
   private isLoading: boolean = false;
@@ -39,11 +41,28 @@ export class ProjectImageComponent implements OnChanges {
     this.image_path = undefined;
     this.isLoading = true;
     this.image_path = undefined;
+    if (this.projectModel) {
+      if(this.projectModel._id) {
+        var id = this.projectModel._id;
+      }else {
+        id='newUser';
+      }
+      if (this.projectModel.projectImage) {
+        var imageName = this.projectModel.projectImage.split('/');
+        imageName = imageName[imageName.length - 1];
+      } else {
+        imageName = 'newUser';
+      }
+    } else {
+      imageName = 'newUser';
+      id = 'newUser';
+    }
     if (this.filesToUpload[0].type === 'image/jpeg' || this.filesToUpload[0].type === 'image/png'
       || this.filesToUpload[0].type === 'image/jpg' || this.filesToUpload[0].type === 'image/gif') {
       if (this.filesToUpload[0].size <= 5242880) {
-        this.projectImageService.projectImageUpload(this.filesToUpload).then((result: any) => {
+        this.projectImageService.projectImageUpload(id,imageName,this.filesToUpload).then((result: any) => {
           if (result !== null) {
+            this.fileInputVariable.nativeElement.value = '';
             this.uploadProjectImageSuccess(result);
           }
         }, (error: any) => {
@@ -70,6 +89,12 @@ export class ProjectImageComponent implements OnChanges {
     this.image_path = AppSettings.IP + result.tempath;
     setTimeout(() => {
       this.isLoading = false;
+      if(this.projectModel && this.projectModel._id) {
+        var message = new Message();
+        message.isError = false;
+        message.custom_message = Messages.MSG_IMAGE_UPDATE;
+        this.messageService.message(message);
+      }
     }, 2000);
   }
 

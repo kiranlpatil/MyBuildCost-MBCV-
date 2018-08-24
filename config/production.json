@@ -26,7 +26,7 @@
     "attachmentPath":"/src/server/public/attachment-files",
     "limitForQuery" : 10,
     "mail": {
-      "host":"http://costcontrol.buildinfo.co.in/",
+      "host":"http://mybuildcost.buildinfo.co.in/",
       /*"MAIL_SENDER": "redminestatus@techprimelab.com",
       "MAIL_SENDER_PASSWORD": "Contactu$@tpl",*/
       "MAIL_SENDER": "bigslicetechnologies@gmail.com",
@@ -59,7 +59,7 @@
       "routerNumber": "4"
     },
      "browser" : {
-      "IP" : "http://costcontrol.buildinfo.co.in/"
+      "IP" : "http://mybuildcost.buildinfo.co.in/"
     },
     "filePathForMasterDataExcel" : "/server/prod/app/framework/public/config/NewIndustryDataExcel.xlsx",
     "filePathForProfileImage" : "/server/prod/app/framework/public/profileimage"
@@ -522,7 +522,7 @@
               "measurementUnit": "cum",
               "isRateAnalysis": true,
               "rateAnalysisPerUnit": 1,
-              "rateAnalysisUnit": "cum",
+              "rateAnalysisUnit": "cft",
               "directRate": null,
               "directRatePerUnit": null,
               "isItemBreakdownRequired": true,
@@ -536,7 +536,7 @@
               "measurementUnit": "cum",
               "isRateAnalysis": true,
               "rateAnalysisPerUnit": 1,
-              "rateAnalysisUnit": "cum",
+              "rateAnalysisUnit": "cft",
               "directRate": null,
               "directRatePerUnit": null,
               "isItemBreakdownRequired": true,
@@ -550,7 +550,7 @@
               "measurementUnit": "cum",
               "isRateAnalysis": true,
               "rateAnalysisPerUnit": 1,
-              "rateAnalysisUnit": "cum",
+              "rateAnalysisUnit": "cft",
               "directRate": null,
               "directRatePerUnit": null,
               "isItemBreakdownRequired": true,
@@ -2501,10 +2501,10 @@
             {
               "name": "Chemical water proofing with screeding for bathrooms / toilets of typical size 8' X 5' with 50mm sunk (For toilets with suspended plumbing)",
               "isMeasurementSheet": true,
-              "measurementUnit": "Sqm",
+              "measurementUnit": "No",
               "isRateAnalysis": true,
               "rateAnalysisPerUnit": 100,
-              "rateAnalysisUnit": "sft",
+              "rateAnalysisUnit": "No",
               "directRate": null,
               "directRatePerUnit": null,
               "isItemBreakdownRequired": true,
@@ -6091,1183 +6091,1139 @@
         }
       ]
     },*/
-    {
-      "name" : "Electrification",
-      "priorityId": 16,
-      "rateAnalysisId" : 100558,
-      "categories" : [
         {
-          "name" : "Inside unit/apartment- Point wise",
-          "rateAnalysisId" : 100559,
-          "workItems" : [
+          "name": "Electrification",
+          "priorityId": 16,
+          "rateAnalysisId": 100558,
+          "categories": [
             {
-              "name" : "Providing electrical points inside apartment with wiring considered from switch board to points- Point wise",
-              "rateAnalysisId" : 100560,
-              "isMeasurementSheet" : false,
-              "measurementUnit" : "Job",
-              "isRateAnalysis" : true,
-              "rateAnalysisPerUnit" : 0,
-              "rateAnalysisUnit" : "Per Job",
-              "isDirectRate" : false,
-              "directRate" : null,
-              "directRatePerUnit" : null,
-              "isItemBreakdownRequired" : true,
-              "length" : false,
-              "breadthOrWidth" : false,
-              "height" : false
+              "name": "Inside unit/apartment- Point wise",
+              "rateAnalysisId": 100559,
+              "workItems": [
+                {
+                  "name": "Providing electrical points inside apartment with wiring considered from switch board to points- Point wise",
+                  "rateAnalysisId": 100560,
+                  "isMeasurementSheet": false,
+                  "measurementUnit": "Job",
+                  "isRateAnalysis": true,
+                  "rateAnalysisPerUnit": 0,
+                  "rateAnalysisUnit": "Per Job",
+                  "isDirectRate": false,
+                  "directRate": null,
+                  "directRatePerUnit": null,
+                  "isItemBreakdownRequired": true,
+                  "length": false,
+                  "breadthOrWidth": false,
+                  "height": false
+                }
+              ]
+            },
+            {
+              "name": "Inside unit/apartment- Material wise",
+              "rateAnalysisId": 100561,
+              "workItems": [
+                {
+                  "name": "Providing electrical points inside apartment with wiring considered from switch board to points- Material wise",
+                  "rateAnalysisId": 100562,
+                  "isMeasurementSheet": false,
+                  "measurementUnit": "Job",
+                  "isRateAnalysis": true,
+                  "rateAnalysisPerUnit": 0,
+                  "rateAnalysisUnit": "Per Job",
+                  "isDirectRate": false,
+                  "directRate": null,
+                  "directRatePerUnit": null,
+                  "isItemBreakdownRequired": true,
+                  "length": false,
+                  "breadthOrWidth": false,
+                  "height": false
+                }
+              ]
+            },
+            {
+              "name": "Wiring",
+              "rateAnalysisId": 100563,
+              "workItems": [
+                {
+                  "name": "Providing wiring from DB to switch boards",
+                  "rateAnalysisId": 100564,
+                  "isMeasurementSheet": true,
+                  "measurementUnit": "Rm",
+                  "isRateAnalysis": true,
+                  "rateAnalysisPerUnit": 0,
+                  "rateAnalysisUnit": "Per Job",
+                  "directRate": null,
+                  "directRatePerUnit": null,
+                  "isItemBreakdownRequired": true,
+                  "length": true,
+                  "breadthOrWidth": false,
+                  "height": false
+                },
+                {
+                  "name": "Providing wiring from DB to meter for each unit",
+                  "rateAnalysisId": 100565,
+                  "isMeasurementSheet": true,
+                  "measurementUnit": "Rm",
+                  "isRateAnalysis": true,
+                  "rateAnalysisPerUnit": 0,
+                  "rateAnalysisUnit": "Per Job",
+                  "directRate": null,
+                  "directRatePerUnit": null,
+                  "isItemBreakdownRequired": false,
+                  "length": true,
+                  "breadthOrWidth": false,
+                  "height": false
+                }
+              ]
+            },
+            {
+              "name": "Meter board/room",
+              "rateAnalysisId": 100570,
+              "workItems": [
+                {
+                  "name": "Providing meters for each unit with main switch, MCB's, Fuse, Common bus bar etc.",
+                  "rateAnalysisId": 100571,
+                  "isMeasurementSheet": false,
+                  "measurementUnit": "Job",
+                  "isRateAnalysis": true,
+                  "rateAnalysisPerUnit": 0,
+                  "rateAnalysisUnit": "Per Job",
+                  "isDirectRate": false,
+                  "directRate": null,
+                  "directRatePerUnit": null,
+                  "isItemBreakdownRequired": false,
+                  "length": false,
+                  "breadthOrWidth": false,
+                  "height": false
+                }
+              ]
             }
           ]
         },
         {
-          "name" : "Inside unit/apartment- Material wise",
-          "rateAnalysisId" : 100561,
-          "workItems" : [
+          "name": "Internal plumbing with vertical lines",
+          "priorityId": 17,
+          "rateAnalysisId": 100572,
+          "categories": [
             {
-              "name" : "Providing electrical points inside apartment with wiring considered from switch board to points- Material wise",
-              "rateAnalysisId" : 100562,
-              "isMeasurementSheet" : false,
-              "measurementUnit" : "Job",
-              "isRateAnalysis" : true,
-              "rateAnalysisPerUnit" : 0,
-              "rateAnalysisUnit" : "Per Job",
-              "isDirectRate" : false,
-              "directRate" : null,
-              "directRatePerUnit" : null,
-              "isItemBreakdownRequired" : true,
-              "length" : false,
-              "breadthOrWidth" : false,
-              "height" : false
+              "name": "Inside toilets/Bathrooms",
+              "rateAnalysisId": 100573,
+              "workItems": [
+                {
+                  "name": "Providing and executing internal plumbing along with CP/sanitary fittings inside toilet as per design and specifications",
+                  "rateAnalysisId": 100574,
+                  "isMeasurementSheet": false,
+                  "measurementUnit": "Job",
+                  "isRateAnalysis": false,
+                  "rateAnalysisPerUnit": null,
+                  "rateAnalysisUnit": null,
+                  "directRate": 50000,
+                  "directRatePerUnit": "Per Job",
+                  "isItemBreakdownRequired": true,
+                  "length": false,
+                  "breadthOrWidth": false,
+                  "height": false
+                },
+                {
+                  "name": "Providing and executing internal plumbing along with CP/sanitary fittings inside bathroom as per design and specifications",
+                  "rateAnalysisId": 100575,
+                  "isMeasurementSheet": false,
+                  "measurementUnit": "Job",
+                  "isRateAnalysis": false,
+                  "rateAnalysisPerUnit": null,
+                  "rateAnalysisUnit": null,
+                  "directRate": 42000,
+                  "directRatePerUnit": "Per Job",
+                  "isItemBreakdownRequired": true,
+                  "length": false,
+                  "breadthOrWidth": false,
+                  "height": false
+                },
+                {
+                  "name": "Providing and executing internal plumbing along with CP/sanitary fittings inside WC as per design and specifications",
+                  "rateAnalysisId": 100576,
+                  "isMeasurementSheet": false,
+                  "measurementUnit": "Job",
+                  "isRateAnalysis": false,
+                  "rateAnalysisPerUnit": null,
+                  "rateAnalysisUnit": null,
+                  "directRate": 35000,
+                  "directRatePerUnit": "Per Job",
+                  "isItemBreakdownRequired": true,
+                  "length": false,
+                  "breadthOrWidth": false,
+                  "height": false
+                }
+              ]
+            },
+            {
+              "name": "Vertical lines in ducts",
+              "rateAnalysisId": 100577,
+              "workItems": [
+                {
+                  "name": "Providing and executing vertical downtake lines for a particular duct as per design and specifications",
+                  "rateAnalysisId": 100578,
+                  "isMeasurementSheet": false,
+                  "measurementUnit": "Job",
+                  "isRateAnalysis": false,
+                  "rateAnalysisPerUnit": null,
+                  "rateAnalysisUnit": null,
+                  "directRate": null,
+                  "directRatePerUnit": null,
+                  "isItemBreakdownRequired": false,
+                  "length": false,
+                  "breadthOrWidth": false,
+                  "height": false
+                }
+              ]
             }
           ]
         },
         {
-          "name" : "Wiring",
-          "rateAnalysisId" : 100563,
-          "workItems" : [
+          "name": "Shower Enclosures",
+          "priorityId": 18,
+          "rateAnalysisId": 100540,
+          "categories": [
             {
-              "name" : "Providing wiring from DB to switch boards",
-              "rateAnalysisId" : 100564,
-              "isMeasurementSheet" : true,
-              "measurementUnit" : "Rm",
-              "isRateAnalysis" : true,
-              "rateAnalysisPerUnit" : 0,
-              "rateAnalysisUnit" : "Per Job",
-              "directRate" : null,
-              "directRatePerUnit" : null,
-              "isItemBreakdownRequired" : true,
-              "length" : true,
-              "breadthOrWidth" : false,
-              "height" : false
-            },
-            {
-              "name" : "Providing wiring from DB to meter for each unit",
-              "rateAnalysisId" : 100565,
-              "isMeasurementSheet" : true,
-              "measurementUnit" : "Rm",
-              "isRateAnalysis" : true,
-              "rateAnalysisPerUnit" : 0,
-              "rateAnalysisUnit" : "Per Job",
-              "directRate" : null,
-              "directRatePerUnit" : null,
-              "isItemBreakdownRequired" : false,
-              "length" : true,
-              "breadthOrWidth" : false,
-              "height" : false
+              "name": "Work Items",
+              "rateAnalysisId": 100541,
+              "workItems": [
+                {
+                  "name": "Providing and installing sliding type shower partition as per required specifications",
+                  "rateAnalysisId": 100542,
+                  "isMeasurementSheet": false,
+                  "measurementUnit": "No.",
+                  "isRateAnalysis": false,
+                  "rateAnalysisPerUnit": null,
+                  "rateAnalysisUnit": null,
+                  "directRate": 12000,
+                  "directRatePerUnit": "No.",
+                  "isItemBreakdownRequired": false,
+                  "length": false,
+                  "breadthOrWidth": false,
+                  "height": false
+                },
+                {
+                  "name": "Providing and installing partly fixed glass plus partly openable glass door type shower partition as per required specifications",
+                  "rateAnalysisId": 100543,
+                  "isMeasurementSheet": false,
+                  "measurementUnit": "No.",
+                  "isRateAnalysis": false,
+                  "rateAnalysisPerUnit": null,
+                  "rateAnalysisUnit": null,
+                  "directRate": 14000,
+                  "directRatePerUnit": "No.",
+                  "isItemBreakdownRequired": false,
+                  "length": false,
+                  "breadthOrWidth": false,
+                  "height": false
+                },
+                {
+                  "name": "Providing and installing partly fixed glass type shower partition as per required specifications",
+                  "rateAnalysisId": 100544,
+                  "isMeasurementSheet": false,
+                  "measurementUnit": "No.",
+                  "isRateAnalysis": false,
+                  "rateAnalysisPerUnit": null,
+                  "rateAnalysisUnit": null,
+                  "directRate": 8000,
+                  "directRatePerUnit": "No.",
+                  "isItemBreakdownRequired": false,
+                  "length": false,
+                  "breadthOrWidth": false,
+                  "height": false
+                }
+              ]
             }
           ]
         },
         {
-          "name" : "Inside unit/apartment- Point wise",
-          "rateAnalysisId" : 100566,
-          "workItems" : [
+          "name": "Doors with frames",
+          "priorityId": 19,
+          "rateAnalysisId": 100398,
+          "categories": [
             {
-              "name" : "Providing electrical points in common areas with wiring considered from switch board to points- Point wise",
-              "rateAnalysisId" : 100567,
-              "isMeasurementSheet" : false,
-              "measurementUnit" : "Job",
-              "isRateAnalysis" : true,
-              "rateAnalysisPerUnit" : 0,
-              "rateAnalysisUnit" : "Per Job",
-              "isDirectRate" : false,
-              "directRate" : null,
-              "directRatePerUnit" : null,
-              "isItemBreakdownRequired" : false,
-              "length" : false,
-              "breadthOrWidth" : false,
-              "height" : false
+              "name": "Flush doors",
+              "rateAnalysisId": 100399,
+              "workItems": [
+                {
+                  "name": "Door shutter 30 mm thick for door opening size 3'0\" W x 7'0\" H with both side high gloss/textured laminate",
+                  "rateAnalysisId": 100400,
+                  "isMeasurementSheet": false,
+                  "measurementUnit": "No.",
+                  "isRateAnalysis": true,
+                  "rateAnalysisPerUnit": 0,
+                  "rateAnalysisUnit": "per No",
+                  "directRate": null,
+                  "directRatePerUnit": null,
+                  "isItemBreakdownRequired": true,
+                  "length": false,
+                  "breadthOrWidth": false,
+                  "height": false
+                },
+                {
+                  "name": "Door shutter 30 mm thick for door opening size 3'0\" W x 7'0\" H with both side painted",
+                  "rateAnalysisId": 100401,
+                  "isMeasurementSheet": false,
+                  "measurementUnit": "No.",
+                  "isRateAnalysis": true,
+                  "rateAnalysisPerUnit": 0,
+                  "rateAnalysisUnit": "per No",
+                  "directRate": null,
+                  "directRatePerUnit": null,
+                  "isItemBreakdownRequired": true,
+                  "length": false,
+                  "breadthOrWidth": false,
+                  "height": false
+                },
+                {
+                  "name": "Door shutter 30 mm thick for door opening size 3'0\" W x 7'0\" H with one side door skin & one side plain laminate",
+                  "rateAnalysisId": 100402,
+                  "isMeasurementSheet": false,
+                  "measurementUnit": "No.",
+                  "isRateAnalysis": true,
+                  "rateAnalysisPerUnit": 0,
+                  "rateAnalysisUnit": "per No",
+                  "directRate": null,
+                  "directRatePerUnit": null,
+                  "isItemBreakdownRequired": true,
+                  "length": false,
+                  "breadthOrWidth": false,
+                  "height": false
+                },
+                {
+                  "name": "Door shutter 30 mm thick for door opening size 2'6\" W x 7'0\" H with both side plain laminate",
+                  "rateAnalysisId": 140400,
+                  "isMeasurementSheet": false,
+                  "measurementUnit": "No.",
+                  "isRateAnalysis": true,
+                  "rateAnalysisPerUnit": 0,
+                  "rateAnalysisUnit": "per No",
+                  "directRate": null,
+                  "directRatePerUnit": null,
+                  "isItemBreakdownRequired": true,
+                  "length": false,
+                  "breadthOrWidth": false,
+                  "height": false
+                },
+                {
+                  "name": "Door shutter 30 mm thick for door opening size 3'0\" W x 7'0\" H with both side plain laminate",
+                  "rateAnalysisId": 140401,
+                  "isMeasurementSheet": false,
+                  "measurementUnit": "No.",
+                  "isRateAnalysis": true,
+                  "rateAnalysisPerUnit": 0,
+                  "rateAnalysisUnit": "per No",
+                  "directRate": null,
+                  "directRatePerUnit": null,
+                  "isItemBreakdownRequired": true,
+                  "length": false,
+                  "breadthOrWidth": false,
+                  "height": false
+                },
+                {
+                  "name": "Door shutter 30 mm thick for door opening size 3'0\" W x 7'0\" H with both side Veneer finish",
+                  "rateAnalysisId": 140402,
+                  "isMeasurementSheet": false,
+                  "measurementUnit": "No.",
+                  "isRateAnalysis": true,
+                  "rateAnalysisPerUnit": 0,
+                  "rateAnalysisUnit": "per No",
+                  "directRate": null,
+                  "directRatePerUnit": null,
+                  "isItemBreakdownRequired": true,
+                  "length": false,
+                  "breadthOrWidth": false,
+                  "height": false
+                },
+                {
+                  "name": "Door shutter 30 mm thick for door opening size 2'6\" W x 7'0\" H with both side oil painted",
+                  "rateAnalysisId": 140403,
+                  "isMeasurementSheet": false,
+                  "measurementUnit": "No.",
+                  "isRateAnalysis": true,
+                  "rateAnalysisPerUnit": 0,
+                  "rateAnalysisUnit": "per No",
+                  "directRate": null,
+                  "directRatePerUnit": null,
+                  "isItemBreakdownRequired": true,
+                  "length": false,
+                  "breadthOrWidth": false,
+                  "height": false
+                }
+              ]
+            },
+            {
+              "name": "Moulded doors",
+              "rateAnalysisId": 100403,
+              "workItems": [
+                {
+                  "name": "Moulded door shutter 30 mm thick with HDF door skin for door opening size 3'0\" W X 7'0\" H",
+                  "rateAnalysisId": 100404,
+                  "isMeasurementSheet": false,
+                  "measurementUnit": "No.",
+                  "isRateAnalysis": true,
+                  "rateAnalysisPerUnit": 0,
+                  "rateAnalysisUnit": "per No",
+                  "directRate": null,
+                  "directRatePerUnit": null,
+                  "isItemBreakdownRequired": true,
+                  "length": false,
+                  "breadthOrWidth": false,
+                  "height": false
+                },
+                {
+                  "name": "Moulded door shutter of opening size 3'0\" W X 7'0\" H with PVC door skin",
+                  "rateAnalysisId": 100405,
+                  "isMeasurementSheet": false,
+                  "measurementUnit": "No.",
+                  "isRateAnalysis": true,
+                  "rateAnalysisPerUnit": 0,
+                  "rateAnalysisUnit": "per No",
+                  "directRate": null,
+                  "directRatePerUnit": null,
+                  "isItemBreakdownRequired": true,
+                  "length": false,
+                  "breadthOrWidth": false,
+                  "height": false
+                },
+                {
+                  "name": "Moulded shutter for opening size 3'0\" W X 7'0\" H with veneer",
+                  "rateAnalysisId": 100406,
+                  "isMeasurementSheet": false,
+                  "measurementUnit": "No.",
+                  "isRateAnalysis": true,
+                  "rateAnalysisPerUnit": 0,
+                  "rateAnalysisUnit": "per No",
+                  "directRate": null,
+                  "directRatePerUnit": null,
+                  "isItemBreakdownRequired": true,
+                  "length": false,
+                  "breadthOrWidth": false,
+                  "height": false
+                }
+              ]
+            },
+            {
+              "name": "PVC / FRP doors",
+              "rateAnalysisId": 100407,
+              "workItems": [
+                {
+                  "name": "Ready made PVC door shutter of size 2'6\" W x 7'0\" H( commonly used for toilets)",
+                  "rateAnalysisId": 100408,
+                  "isMeasurementSheet": false,
+                  "measurementUnit": "No.",
+                  "isRateAnalysis": true,
+                  "rateAnalysisPerUnit": 0,
+                  "rateAnalysisUnit": "per No",
+                  "directRate": null,
+                  "directRatePerUnit": null,
+                  "isItemBreakdownRequired": true,
+                  "length": false,
+                  "breadthOrWidth": false,
+                  "height": false
+                }
+              ]
+            },
+            {
+              "name": "Concrete door frames",
+              "rateAnalysisId": 100409,
+              "workItems": [
+                {
+                  "name": "Concrete door frame for door size 3'0\"x 7'0\".",
+                  "isMeasurementSheet": false,
+                  "measurementUnit": "No.",
+                  "isRateAnalysis": true,
+                  "rateAnalysisPerUnit": 0,
+                  "rateAnalysisUnit": "per No",
+                  "directRate": null,
+                  "directRatePerUnit": null,
+                  "isItemBreakdownRequired": true,
+                  "length": false,
+                  "breadthOrWidth": false,
+                  "height": false
+                }
+              ]
+            },
+            {
+              "name": "Granite / Marble door frames",
+              "rateAnalysisId": 100411,
+              "workItems": [
+                {
+                  "name": "Black granite door frame for door size 2'6\" X 7'0\" with chamfer & edge polish.",
+                  "rateAnalysisId": 100412,
+                  "isMeasurementSheet": false,
+                  "measurementUnit": "No.",
+                  "isRateAnalysis": true,
+                  "rateAnalysisPerUnit": 0,
+                  "rateAnalysisUnit": "per No",
+                  "directRate": null,
+                  "directRatePerUnit": null,
+                  "isItemBreakdownRequired": true,
+                  "length": false,
+                  "breadthOrWidth": false,
+                  "height": false
+                },
+                {
+                  "name": "Black granite door frame for door size 3'0\" x 7'0\" with chamfer & edge polish.",
+                  "rateAnalysisId": 100413,
+                  "isMeasurementSheet": false,
+                  "measurementUnit": "No.",
+                  "isRateAnalysis": true,
+                  "rateAnalysisPerUnit": 0,
+                  "rateAnalysisUnit": "per No",
+                  "directRate": null,
+                  "directRatePerUnit": null,
+                  "isItemBreakdownRequired": true,
+                  "length": false,
+                  "breadthOrWidth": false,
+                  "height": false
+                },
+                {
+                  "name": "Green marble door frame for door size 2'6\" X 7'0\" with chamfer and edge polish.",
+                  "rateAnalysisId": 100414,
+                  "isMeasurementSheet": false,
+                  "measurementUnit": "No.",
+                  "isRateAnalysis": true,
+                  "rateAnalysisPerUnit": 0,
+                  "rateAnalysisUnit": "per No",
+                  "directRate": null,
+                  "directRatePerUnit": null,
+                  "isItemBreakdownRequired": true,
+                  "length": false,
+                  "breadthOrWidth": false,
+                  "height": false
+                },
+                {
+                  "name": "Green marble door frame for door size 3'0\" X 7'0\" with chamfer and edge polish.",
+                  "rateAnalysisId": 100415,
+                  "isMeasurementSheet": false,
+                  "measurementUnit": "No.",
+                  "isRateAnalysis": true,
+                  "rateAnalysisPerUnit": 0,
+                  "rateAnalysisUnit": "per No",
+                  "directRate": null,
+                  "directRatePerUnit": null,
+                  "isItemBreakdownRequired": true,
+                  "length": false,
+                  "breadthOrWidth": false,
+                  "height": false
+                }
+              ]
+            },
+            {
+              "name": "Ply door frames",
+              "rateAnalysisId": 100416,
+              "workItems": [
+                {
+                  "name": "Ply door frame for door size 3'0\" x 7'0\" with laminate",
+                  "rateAnalysisId": 100417,
+                  "isMeasurementSheet": false,
+                  "measurementUnit": "No.",
+                  "isRateAnalysis": true,
+                  "rateAnalysisPerUnit": 0,
+                  "rateAnalysisUnit": "per No",
+                  "directRate": null,
+                  "directRatePerUnit": null,
+                  "isItemBreakdownRequired": true,
+                  "length": false,
+                  "breadthOrWidth": false,
+                  "height": false
+                },
+                {
+                  "name": "Ply door frame for door size 3'0\" x 7'0\" with oil paint",
+                  "rateAnalysisId": 100418,
+                  "isMeasurementSheet": false,
+                  "measurementUnit": "No.",
+                  "isRateAnalysis": true,
+                  "rateAnalysisPerUnit": 0,
+                  "rateAnalysisUnit": "per No",
+                  "directRate": null,
+                  "directRatePerUnit": null,
+                  "isItemBreakdownRequired": true,
+                  "length": false,
+                  "breadthOrWidth": false,
+                  "height": false
+                },
+                {
+                  "name": "Ply door frame for door size 3'0\" x 7'0\" with veneer",
+                  "rateAnalysisId": 100419,
+                  "isMeasurementSheet": false,
+                  "measurementUnit": "No.",
+                  "isRateAnalysis": true,
+                  "rateAnalysisPerUnit": 0,
+                  "rateAnalysisUnit": "per No",
+                  "directRate": null,
+                  "directRatePerUnit": null,
+                  "isItemBreakdownRequired": true,
+                  "length": false,
+                  "breadthOrWidth": false,
+                  "height": false
+                }
+              ]
+            },
+            {
+              "name": "Solid wood door frames",
+              "rateAnalysisId": 100420,
+              "workItems": [
+                {
+                  "name": "Red meranti door frame of section 8\" x 2\" for door size 3'0\" x 7'0\"",
+                  "rateAnalysisId": 100421,
+                  "isMeasurementSheet": false,
+                  "measurementUnit": "No.",
+                  "isRateAnalysis": true,
+                  "rateAnalysisPerUnit": 0,
+                  "rateAnalysisUnit": "per No",
+                  "directRate": null,
+                  "directRatePerUnit": null,
+                  "isItemBreakdownRequired": true,
+                  "length": false,
+                  "breadthOrWidth": false,
+                  "height": false
+                },
+                {
+                  "name": "Red meranti door frame of section 5\" x 2-1/2\" for door size 3'0\" x 7'0\"",
+                  "rateAnalysisId": 100422,
+                  "isMeasurementSheet": false,
+                  "measurementUnit": "No.",
+                  "isRateAnalysis": true,
+                  "rateAnalysisPerUnit": 0,
+                  "rateAnalysisUnit": "per No",
+                  "directRate": null,
+                  "directRatePerUnit": null,
+                  "isItemBreakdownRequired": true,
+                  "length": false,
+                  "breadthOrWidth": false,
+                  "height": false
+                },
+                {
+                  "name": "Red meranti door frame of section 5\" x 2-1/2\" for door size 2'6\" x 7'0\"",
+                  "rateAnalysisId": 100423,
+                  "isMeasurementSheet": false,
+                  "measurementUnit": "No.",
+                  "isRateAnalysis": true,
+                  "rateAnalysisPerUnit": 0,
+                  "rateAnalysisUnit": "per No",
+                  "directRate": null,
+                  "directRatePerUnit": null,
+                  "isItemBreakdownRequired": true,
+                  "length": false,
+                  "breadthOrWidth": false,
+                  "height": false
+                },
+                {
+                  "name": "Saal wood door frame of section 5\" x 2-1/2\" for door size 3'0\" x 7'0\"",
+                  "rateAnalysisId": 100424,
+                  "isMeasurementSheet": false,
+                  "measurementUnit": "No.",
+                  "isRateAnalysis": true,
+                  "rateAnalysisPerUnit": 0,
+                  "rateAnalysisUnit": "per No",
+                  "directRate": null,
+                  "directRatePerUnit": null,
+                  "isItemBreakdownRequired": true,
+                  "length": false,
+                  "breadthOrWidth": false,
+                  "height": false
+                },
+                {
+                  "name": "Saal wood door frame of section 5\" x 2-1/2\" for door size 2'6\" x 7'0\"",
+                  "rateAnalysisId": 100425,
+                  "isMeasurementSheet": false,
+                  "measurementUnit": "No.",
+                  "isRateAnalysis": true,
+                  "rateAnalysisPerUnit": 0,
+                  "rateAnalysisUnit": "per No",
+                  "directRate": null,
+                  "directRatePerUnit": null,
+                  "isItemBreakdownRequired": true,
+                  "length": false,
+                  "breadthOrWidth": false,
+                  "height": false
+                }
+              ]
+            },
+            {
+              "name": "MS doors with frames",
+              "rateAnalysisId": 100426,
+              "workItems": [
+                {
+                  "name": "Providing and installing MS Openable french door with frame as per specifications",
+                  "rateAnalysisId": 100427,
+                  "isMeasurementSheet": false,
+                  "measurementUnit": "No.",
+                  "isRateAnalysis": false,
+                  "rateAnalysisPerUnit": 0,
+                  "rateAnalysisUnit": "per No",
+                  "directRate": null,
+                  "directRatePerUnit": null,
+                  "isItemBreakdownRequired": false,
+                  "length": false,
+                  "breadthOrWidth": false,
+                  "height": false
+                },
+                {
+                  "name": "Providing and installing MS safety door of size 3'0\" X 7'0\" with frame ( As per attached drawing)",
+                  "rateAnalysisId": 100428,
+                  "isMeasurementSheet": false,
+                  "measurementUnit": "No.",
+                  "isRateAnalysis": true,
+                  "rateAnalysisPerUnit": 0,
+                  "rateAnalysisUnit": "per No",
+                  "directRate": null,
+                  "directRatePerUnit": null,
+                  "isItemBreakdownRequired": false,
+                  "length": false,
+                  "breadthOrWidth": false,
+                  "height": false
+                },
+                {
+                  "name": "Providing and installing MS safety door with frame as per project specifications and drawings",
+                  "rateAnalysisId": 100429,
+                  "isMeasurementSheet": false,
+                  "measurementUnit": "No.",
+                  "isRateAnalysis": false,
+                  "rateAnalysisPerUnit": null,
+                  "rateAnalysisUnit": null,
+                  "directRate": 0,
+                  "directRatePerUnit": null,
+                  "isItemBreakdownRequired": false,
+                  "length": false,
+                  "breadthOrWidth": false,
+                  "height": false
+                }
+              ]
             }
           ]
         },
         {
-          "name" : "Inside unit/apartment- Material wise",
-          "rateAnalysisId" : 100568,
-          "workItems" : [
+          "name": "Windows/Sliding doors",
+          "priorityId": 20,
+          "rateAnalysisId": 100485,
+          "categories": [
             {
-              "name" : "Providing electrical points in common areas with wiring considered from switch board to points- Material wise",
-              "rateAnalysisId" : 100569,
-              "isMeasurementSheet" : false,
-              "measurementUnit" : "Job",
-              "isRateAnalysis" : true,
-              "rateAnalysisPerUnit" : 0,
-              "rateAnalysisUnit" : "Per Job",
-              "isDirectRate" : false,
-              "directRate" : null,
-              "directRatePerUnit" : null,
-              "isItemBreakdownRequired" : false,
-              "length" : false,
-              "breadthOrWidth" : false,
-              "height" : false
+              "name": "Aluminium sections",
+              "rateAnalysisId": 100486,
+              "workItems": [
+                {
+                  "name": "Providing and installing aluminium sliding windows as per project specifications",
+                  "rateAnalysisId": 100487,
+                  "isMeasurementSheet": true,
+                  "measurementUnit": "Sqm",
+                  "isRateAnalysis": false,
+                  "rateAnalysisPerUnit": null,
+                  "rateAnalysisUnit": null,
+                  "directRate": 250,
+                  "directRatePerUnit": "Per Sft",
+                  "isItemBreakdownRequired": true,
+                  "length": true,
+                  "breadthOrWidth": false,
+                  "height": true
+                },
+                {
+                  "name": "Providing and installing aluminium sliding doors as per  project specifications",
+                  "rateAnalysisId": 100488,
+                  "isMeasurementSheet": true,
+                  "measurementUnit": "Sqm",
+                  "isRateAnalysis": false,
+                  "rateAnalysisPerUnit": null,
+                  "rateAnalysisUnit": null,
+                  "directRate": 220,
+                  "directRatePerUnit": "Per Sft",
+                  "isItemBreakdownRequired": true,
+                  "length": true,
+                  "breadthOrWidth": false,
+                  "height": true
+                },
+                {
+                  "name": "Providing and installing aluminium lovoured windows as per  project specifications",
+                  "rateAnalysisId": 100489,
+                  "isMeasurementSheet": true,
+                  "measurementUnit": "Sqm",
+                  "isRateAnalysis": false,
+                  "rateAnalysisPerUnit": null,
+                  "rateAnalysisUnit": null,
+                  "directRate": 280,
+                  "directRatePerUnit": "Per Sft",
+                  "isItemBreakdownRequired": true,
+                  "length": true,
+                  "breadthOrWidth": false,
+                  "height": true
+                }
+              ]
+            },
+            {
+              "name": "UPVC sections",
+              "rateAnalysisId": 100490,
+              "workItems": [
+                {
+                  "name": "Providing and installing UPVC sliding windows as per  project specifications",
+                  "rateAnalysisId": 100491,
+                  "isMeasurementSheet": true,
+                  "measurementUnit": "Sqm",
+                  "isRateAnalysis": false,
+                  "rateAnalysisPerUnit": null,
+                  "rateAnalysisUnit": null,
+                  "directRate": 550,
+                  "directRatePerUnit": "Per Sft",
+                  "isItemBreakdownRequired": true,
+                  "length": true,
+                  "breadthOrWidth": false,
+                  "height": true
+                },
+                {
+                  "name": "Providing and installing UPVC sliding doors as per  project specifications",
+                  "rateAnalysisId": 100492,
+                  "isMeasurementSheet": true,
+                  "measurementUnit": "Sqm",
+                  "isRateAnalysis": false,
+                  "rateAnalysisPerUnit": null,
+                  "rateAnalysisUnit": null,
+                  "directRate": 500,
+                  "directRatePerUnit": "Per Sft",
+                  "isItemBreakdownRequired": true,
+                  "length": true,
+                  "breadthOrWidth": false,
+                  "height": true
+                },
+                {
+                  "name": "Providing and installing UPVC lovoured windows as per  project specifications",
+                  "rateAnalysisId": 100493,
+                  "isMeasurementSheet": true,
+                  "measurementUnit": "Sqm",
+                  "isRateAnalysis": false,
+                  "rateAnalysisPerUnit": null,
+                  "rateAnalysisUnit": null,
+                  "directRate": 600,
+                  "directRatePerUnit": "Per Sft",
+                  "isItemBreakdownRequired": true,
+                  "length": true,
+                  "breadthOrWidth": false,
+                  "height": true
+                }
+              ]
+            },
+            {
+              "name": "MS sections",
+              "rateAnalysisId": 100494,
+              "workItems": [
+                {
+                  "name": "Providing and installing MS Openable windows as per project specifications",
+                  "rateAnalysisId": 100495,
+                  "isMeasurementSheet": true,
+                  "measurementUnit": "Sqm",
+                  "isRateAnalysis": false,
+                  "rateAnalysisPerUnit": null,
+                  "rateAnalysisUnit": null,
+                  "directRate": 200,
+                  "directRatePerUnit": "Per Sft",
+                  "isItemBreakdownRequired": true,
+                  "length": true,
+                  "breadthOrWidth": false,
+                  "height": true
+                }
+              ]
             }
           ]
         },
         {
-          "name" : "Meter board/room",
-          "rateAnalysisId" : 100570,
-          "workItems" : [
+          "name": "Fabrication",
+          "priorityId": 21,
+          "categories": [
             {
-              "name" : "Providing meters for each unit with main switch, MCB's, Fuse, Common bus bar etc.",
-              "rateAnalysisId" : 100571,
-              "isMeasurementSheet" : false,
-              "measurementUnit" : "Job",
-              "isRateAnalysis" : true,
-              "rateAnalysisPerUnit" : 0,
-              "rateAnalysisUnit" : "Per Job",
-              "isDirectRate" : false,
-              "directRate" : null,
-              "directRatePerUnit" : null,
-              "isItemBreakdownRequired" : false,
-              "length" : false,
-              "breadthOrWidth" : false,
-              "height" : false
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "name" : "Internal plumbing with vertical lines",
-      "priorityId": 17,
-      "rateAnalysisId" : 100572,
-      "categories" : [
-        {
-          "name" : "Inside toilets/Bathrooms",
-          "rateAnalysisId" : 100573,
-          "workItems" : [
-            {
-              "name" : "Providing and executing internal plumbing along with CP/sanitary fittings inside toilet as per design and specifications",
-              "rateAnalysisId" : 100574,
-              "isMeasurementSheet" : false,
-              "measurementUnit" : "Job",
-              "isRateAnalysis" : false,
-              "rateAnalysisPerUnit" : null,
-              "rateAnalysisUnit" : null,
-              "directRate" : 50000,
-              "directRatePerUnit" : "Per Job",
-              "isItemBreakdownRequired" : true,
-              "length" : false,
-              "breadthOrWidth" : false,
-              "height" : false
+              "name": "Window grills ( On plastered jambs )",
+              "workItems": [
+                {
+                  "name": "MS window grill for window as per attached design to be nailed on plastered jamb",
+                  "isMeasurementSheet": true,
+                  "measurementUnit": "Sqm",
+                  "isRateAnalysis": false,
+                  "rateAnalysisPerUnit": null,
+                  "rateAnalysisUnit": null,
+                  "directRate": 80,
+                  "directRatePerUnit": "Sft",
+                  "isItemBreakdownRequired": true,
+                  "length": true,
+                  "breadthOrWidth": false,
+                  "height": true
+                },
+                {
+                  "name": "MS window grill using 25 x 25mm MS pipes & 10 x 10mm solid square bars for window of size 1.8 X 1.8 M to be nailed on plastered jamb",
+                  "isMeasurementSheet": false,
+                  "measurementUnit": "No.",
+                  "isRateAnalysis": true,
+                  "rateAnalysisPerUnit": 0,
+                  "rateAnalysisUnit": "No.",
+                  "directRate": null,
+                  "directRatePerUnit": null,
+                  "isItemBreakdownRequired": true,
+                  "length": false,
+                  "breadthOrWidth": false,
+                  "height": false
+                },
+                {
+                  "name": "MS window grill using 25 x 25mm MS pipes & 10 x 10mm solid square bars for window of size 1.2 X 1.8 M to be nailed on plastered jamb",
+                  "isMeasurementSheet": false,
+                  "measurementUnit": "No.",
+                  "isRateAnalysis": true,
+                  "rateAnalysisPerUnit": 0,
+                  "rateAnalysisUnit": "No.",
+                  "directRate": null,
+                  "directRatePerUnit": null,
+                  "isItemBreakdownRequired": true,
+                  "length": false,
+                  "breadthOrWidth": false,
+                  "height": false
+                },
+                {
+                  "name": "MS window grill using 25 x 25mm MS pipes & 10 x 10mm solid square bars for window of size 0.9 X 1.8 M to be nailed on plastred jamb",
+                  "isMeasurementSheet": false,
+                  "measurementUnit": "No.",
+                  "isRateAnalysis": true,
+                  "rateAnalysisPerUnit": 0,
+                  "rateAnalysisUnit": "No.",
+                  "directRate": null,
+                  "directRatePerUnit": null,
+                  "isItemBreakdownRequired": true,
+                  "length": false,
+                  "breadthOrWidth": false,
+                  "height": false
+                }
+              ]
             },
             {
-              "name" : "Providing and executing internal plumbing along with CP/sanitary fittings inside bathroom as per design and specifications",
-              "rateAnalysisId" : 100575,
-              "isMeasurementSheet" : false,
-              "measurementUnit" : "Job",
-              "isRateAnalysis" : false,
-              "rateAnalysisPerUnit" : null,
-              "rateAnalysisUnit" : null,
-              "directRate" : 42000,
-              "directRatePerUnit" : "Per Job",
-              "isItemBreakdownRequired" : true,
-              "length" : false,
-              "breadthOrWidth" : false,
-              "height" : false
-            },
-            {
-              "name" : "Providing and executing internal plumbing along with CP/sanitary fittings inside WC as per design and specifications",
-              "rateAnalysisId" : 100576,
-              "isMeasurementSheet" : false,
-              "measurementUnit" : "Job",
-              "isRateAnalysis" : false,
-              "rateAnalysisPerUnit" : null,
-              "rateAnalysisUnit" : null,
-              "directRate" : 35000,
-              "directRatePerUnit" : "Per Job",
-              "isItemBreakdownRequired" : true,
-              "length" : false,
-              "breadthOrWidth" : false,
-              "height" : false
-            }
-          ]
-        },
-        {
-          "name" : "Vertical lines in ducts",
-          "rateAnalysisId" : 100577,
-          "workItems" : [
-            {
-              "name" : "Providing and executing vertical downtake lines for a particular duct as per design and specifications",
-              "rateAnalysisId" : 100578,
-              "isMeasurementSheet" : false,
-              "measurementUnit" : "Job",
-              "isRateAnalysis" : false,
-              "rateAnalysisPerUnit" : null,
-              "rateAnalysisUnit" : null,
-              "directRate" : null,
-              "directRatePerUnit" : null,
-              "isItemBreakdownRequired" : false,
-              "length" : false,
-              "breadthOrWidth" : false,
-              "height" : false
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "name" : "Shower Enclosures",
-      "priorityId": 18,
-      "rateAnalysisId" : 100540,
-      "categories" : [
-        {
-          "name" : "Work Items",
-          "rateAnalysisId" : 100541,
-          "workItems" : [
-            {
-              "name" : "Providing and installing sliding type shower partition as per required specifications",
-              "rateAnalysisId" : 100542,
-              "isMeasurementSheet" : false,
-              "measurementUnit" : "No.",
-              "isRateAnalysis" : false,
-              "rateAnalysisPerUnit" : null,
-              "rateAnalysisUnit" : null,
-              "directRate" : 12000,
-              "directRatePerUnit" : "No.",
-              "isItemBreakdownRequired" : false,
-              "length" : false,
-              "breadthOrWidth" : false,
-              "height" : false
-            },
-            {
-              "name" : "Providing and installing partly fixed glass plus partly openable glass door type shower partition as per required specifications",
-              "rateAnalysisId" : 100543,
-              "isMeasurementSheet" : false,
-              "measurementUnit" : "No.",
-              "isRateAnalysis" : false,
-              "rateAnalysisPerUnit" : null,
-              "rateAnalysisUnit" : null,
-              "directRate" : 14000,
-              "directRatePerUnit" : "No.",
-              "isItemBreakdownRequired" : false,
-              "length" : false,
-              "breadthOrWidth" : false,
-              "height" : false
-            },
-            {
-              "name" : "Providing and installing partly fixed glass type shower partition as per required specifications",
-              "rateAnalysisId" : 100544,
-              "isMeasurementSheet" : false,
-              "measurementUnit" : "No.",
-              "isRateAnalysis" : false,
-              "rateAnalysisPerUnit" : null,
-              "rateAnalysisUnit" : null,
-              "directRate" : 8000,
-              "directRatePerUnit" : "No.",
-              "isItemBreakdownRequired" : false,
-              "length" : false,
-              "breadthOrWidth" : false,
-              "height" : false
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "name" : "Doors with frames",
-      "priorityId": 19,
-      "rateAnalysisId" : 100398,
-      "categories" : [
-        {
-          "name" : "Flush doors",
-          "rateAnalysisId" : 100399,
-          "workItems" : [
-            {
-              "name" : "Door shutter 30 mm thick for door opening size 3'0\" W x 7'0\" H with both side high gloss/textured laminate",
-              "rateAnalysisId" : 100400,
-              "isMeasurementSheet" : false,
-              "measurementUnit" : "No.",
-              "isRateAnalysis" : true,
-              "rateAnalysisPerUnit" : 0,
-              "rateAnalysisUnit" : "per No",
-              "directRate" : null,
-              "directRatePerUnit" : null,
-              "isItemBreakdownRequired" : true,
-              "length" : false,
-              "breadthOrWidth" : false,
-              "height" : false
-            },
-            {
-              "name" : "Door shutter 30 mm thick for door opening size 3'0\" W x 7'0\" H with both side painted",
-              "rateAnalysisId" : 100401,
-              "isMeasurementSheet" : false,
-              "measurementUnit" : "No.",
-              "isRateAnalysis" : true,
-              "rateAnalysisPerUnit" : 0,
-              "rateAnalysisUnit" : "per No",
-              "directRate" : null,
-              "directRatePerUnit" : null,
-              "isItemBreakdownRequired" : true,
-              "length" : false,
-              "breadthOrWidth" : false,
-              "height" : false
-            },
-            {
-              "name" : "Door shutter 30 mm thick for door opening size 3'0\" W x 7'0\" H with one side door skin & one side plain laminate",
-              "rateAnalysisId" : 100402,
-              "isMeasurementSheet" : false,
-              "measurementUnit" : "No.",
-              "isRateAnalysis" : true,
-              "rateAnalysisPerUnit" : 0,
-              "rateAnalysisUnit" : "per No",
-              "directRate" : null,
-              "directRatePerUnit" : null,
-              "isItemBreakdownRequired" : true,
-              "length" : false,
-              "breadthOrWidth" : false,
-              "height" : false
-            },
-          {
-        "name": "Door shutter 30 mm thick for door opening size 2'6\" W x 7'0\" H with both side plain laminate",
-              "rateAnalysisId": 140400,
-              "isMeasurementSheet": false,
-              "measurementUnit": "No.",
-              "isRateAnalysis": true,
-              "rateAnalysisPerUnit": 0,
-              "rateAnalysisUnit": "per No",
-              "directRate": null,
-              "directRatePerUnit": null,
-              "isItemBreakdownRequired": true,
-              "length": false,
-              "breadthOrWidth": false,
-              "height": false
-            },
-            {
-              "name": "Door shutter 30 mm thick for door opening size 3'0\" W x 7'0\" H with both side plain laminate",
-              "rateAnalysisId": 140401,
-              "isMeasurementSheet": false,
-              "measurementUnit": "No.",
-              "isRateAnalysis": true,
-              "rateAnalysisPerUnit": 0,
-              "rateAnalysisUnit": "per No",
-              "directRate": null,
-              "directRatePerUnit": null,
-              "isItemBreakdownRequired": true,
-              "length": false,
-              "breadthOrWidth": false,
-              "height": false
-            },
-            {
-              "name": "Door shutter 30 mm thick for door opening size 3'0\" W x 7'0\" H with both side Veneer finish",
-              "rateAnalysisId": 140402,
-              "isMeasurementSheet": false,
-              "measurementUnit": "No.",
-              "isRateAnalysis": true,
-              "rateAnalysisPerUnit": 0,
-              "rateAnalysisUnit": "per No",
-              "directRate": null,
-              "directRatePerUnit": null,
-              "isItemBreakdownRequired": true,
-              "length": false,
-              "breadthOrWidth": false,
-              "height": false
-            },
-            {
-              "name": "Door shutter 30 mm thick for door opening size 2'6\" W x 7'0\" H with both side oil painted",
-              "rateAnalysisId": 140403,
-              "isMeasurementSheet": false,
-              "measurementUnit": "No.",
-              "isRateAnalysis": true,
-              "rateAnalysisPerUnit": 0,
-              "rateAnalysisUnit": "per No",
-              "directRate": null,
-              "directRatePerUnit": null,
-              "isItemBreakdownRequired": true,
-              "length": false,
-              "breadthOrWidth": false,
-              "height": false
-            }
-          ]},
-        {
-          "name" : "Moulded doors",
-          "rateAnalysisId" : 100403,
-          "workItems" : [
-            {
-              "name" : "Moulded door shutter 30 mm thick with HDF door skin for door opening size 3'0\" W X 7'0\" H",
-              "rateAnalysisId" : 100404,
-              "isMeasurementSheet" : false,
-              "measurementUnit" : "No.",
-              "isRateAnalysis" : true,
-              "rateAnalysisPerUnit" : 0,
-              "rateAnalysisUnit" : "per No",
-              "directRate" : null,
-              "directRatePerUnit" : null,
-              "isItemBreakdownRequired" : true,
-              "length" : false,
-              "breadthOrWidth" : false,
-              "height" : false
-            },
-            {
-              "name" : "Moulded door shutter of opening size 3'0\" W X 7'0\" H with PVC door skin",
-              "rateAnalysisId" : 100405,
-              "isMeasurementSheet" : false,
-              "measurementUnit" : "No.",
-              "isRateAnalysis" : true,
-              "rateAnalysisPerUnit" : 0,
-              "rateAnalysisUnit" : "per No",
-              "directRate" : null,
-              "directRatePerUnit" : null,
-              "isItemBreakdownRequired" : true,
-              "length" : false,
-              "breadthOrWidth" : false,
-              "height" : false
-            },
-            {
-              "name" : "Moulded shutter for opening size 3'0\" W X 7'0\" H with veneer",
-              "rateAnalysisId" : 100406,
-              "isMeasurementSheet" : false,
-              "measurementUnit" : "No.",
-              "isRateAnalysis" : true,
-              "rateAnalysisPerUnit" : 0,
-              "rateAnalysisUnit" : "per No",
-              "directRate" : null,
-              "directRatePerUnit" : null,
-              "isItemBreakdownRequired" : true,
-              "length" : false,
-              "breadthOrWidth" : false,
-              "height" : false
+              "name": "Window grills ( On masonry jambs )",
+              "workItems": [
+                {
+                  "name": "MS window grill using 25 x 25mm MS pipes & 10 x 10mm solid square bars for window of size 2.4 X 1.8 M to be nailed on masonry.",
+                  "isMeasurementSheet": false,
+                  "measurementUnit": "No.",
+                  "isRateAnalysis": true,
+                  "rateAnalysisPerUnit": 0,
+                  "rateAnalysisUnit": "No.",
+                  "directRate": null,
+                  "directRatePerUnit": null,
+                  "isItemBreakdownRequired": true,
+                  "length": false,
+                  "breadthOrWidth": false,
+                  "height": false
+                },
+                {
+                  "name": "MS window grill using 25 x 25mm MS pipes & 10 x 10mm solid square bars for window of size 1.8 X 1.8 M to be nailed on masonry.",
+                  "isMeasurementSheet": false,
+                  "measurementUnit": "No.",
+                  "isRateAnalysis": true,
+                  "rateAnalysisPerUnit": 0,
+                  "rateAnalysisUnit": "No.",
+                  "directRate": null,
+                  "directRatePerUnit": null,
+                  "isItemBreakdownRequired": true,
+                  "length": false,
+                  "breadthOrWidth": false,
+                  "height": false
+                },
+                {
+                  "name": "MS window grill using 25 x 25mm MS pipes & 10 x 10mm solid square bars for window of size 1.2 X 1.8 M to be nailed on masonry.",
+                  "isMeasurementSheet": false,
+                  "measurementUnit": "No.",
+                  "isRateAnalysis": true,
+                  "rateAnalysisPerUnit": 0,
+                  "rateAnalysisUnit": "No.",
+                  "directRate": null,
+                  "directRatePerUnit": null,
+                  "isItemBreakdownRequired": true,
+                  "length": false,
+                  "breadthOrWidth": false,
+                  "height": false
+                },
+                {
+                  "name": "MS window grill using 25 x 25mm MS pipes & 10 x 10mm solid square bars for window of size 0.9 X 1.8 M to be nailed on masonry.",
+                  "isMeasurementSheet": false,
+                  "measurementUnit": "No.",
+                  "isRateAnalysis": true,
+                  "rateAnalysisPerUnit": 0,
+                  "rateAnalysisUnit": "No.",
+                  "directRate": null,
+                  "directRatePerUnit": null,
+                  "isItemBreakdownRequired": true,
+                  "length": false,
+                  "breadthOrWidth": false,
+                  "height": false
+                }
+              ]
             }
           ]
         },
         {
-          "name" : "PVC / FRP doors",
-          "rateAnalysisId" : 100407,
-          "workItems" : [
+          "name": "Painting",
+          "priorityId": 22,
+          "rateAnalysisId": 100442,
+          "categories": [
             {
-              "name" : "Ready made PVC door shutter of size 2'6\" W x 7'0\" H( commonly used for toilets)",
-              "rateAnalysisId" : 100408,
-              "isMeasurementSheet" : false,
-              "measurementUnit" : "No.",
-              "isRateAnalysis" : true,
-              "rateAnalysisPerUnit" : 0,
-              "rateAnalysisUnit" : "per No",
-              "directRate" : null,
-              "directRatePerUnit" : null,
-              "isItemBreakdownRequired" : true,
-              "length" : false,
-              "breadthOrWidth" : false,
-              "height" : false
+              "name": "Internal painting",
+              "rateAnalysisId": 100443,
+              "workItems": [
+                {
+                  "name": "Solvent based lustre paint with 1 coat primer, 1 coat cement putty, 1 coats acrylic putty,1 coat primer base coat and 2 coats lustre paint",
+                  "rateAnalysisId": 100444,
+                  "isMeasurementSheet": true,
+                  "measurementUnit": "Sqm",
+                  "isRateAnalysis": true,
+                  "rateAnalysisPerUnit": 100,
+                  "rateAnalysisUnit": "sft",
+                  "directRate": null,
+                  "directRatePerUnit": null,
+                  "isItemBreakdownRequired": true,
+                  "length": true,
+                  "breadthOrWidth": false,
+                  "height": true
+                },
+                {
+                  "name": "Water based lustre paint including 1 coat of primer, 2 coats of Acrylic putty, 1 coat of primer and 2 coats of lustre paint",
+                  "rateAnalysisId": 100445,
+                  "isMeasurementSheet": true,
+                  "measurementUnit": "Sqm",
+                  "isRateAnalysis": true,
+                  "rateAnalysisPerUnit": 100,
+                  "rateAnalysisUnit": "sft",
+                  "directRate": null,
+                  "directRatePerUnit": null,
+                  "isItemBreakdownRequired": true,
+                  "length": true,
+                  "breadthOrWidth": false,
+                  "height": true
+                },
+                {
+                  "name": "Solvent based lustre paint including 1 coat of primer, 2 coats of Acrylic putty, 1 coat of primer base coat and 2 coats of lustre paint",
+                  "rateAnalysisId": 100446,
+                  "isMeasurementSheet": true,
+                  "measurementUnit": "Sqm",
+                  "isRateAnalysis": true,
+                  "rateAnalysisPerUnit": 100,
+                  "rateAnalysisUnit": "sft",
+                  "directRate": null,
+                  "directRatePerUnit": null,
+                  "isItemBreakdownRequired": true,
+                  "length": true,
+                  "breadthOrWidth": false,
+                  "height": true
+                },
+                {
+                  "name": "Oil Bound Destemper paint including 2 coats of Acrylic putty and 2 coats of paint",
+                  "rateAnalysisId": 100447,
+                  "isMeasurementSheet": true,
+                  "measurementUnit": "Sqm",
+                  "isRateAnalysis": true,
+                  "rateAnalysisPerUnit": 100,
+                  "rateAnalysisUnit": "sft",
+                  "directRate": null,
+                  "directRatePerUnit": null,
+                  "isItemBreakdownRequired": true,
+                  "length": true,
+                  "breadthOrWidth": false,
+                  "height": true
+                },
+                {
+                  "name": "Plastic emulsion paint including 2 coats of Acrylic putty and 2 coats of paint",
+                  "rateAnalysisId": 100448,
+                  "isMeasurementSheet": true,
+                  "measurementUnit": "Sqm",
+                  "isRateAnalysis": true,
+                  "rateAnalysisPerUnit": 100,
+                  "rateAnalysisUnit": "sft",
+                  "directRate": null,
+                  "directRatePerUnit": null,
+                  "isItemBreakdownRequired": true,
+                  "length": true,
+                  "breadthOrWidth": false,
+                  "height": true
+                }
+              ]
+            },
+            {
+              "name": "External painting",
+              "rateAnalysisId": 100449,
+              "workItems": [
+                {
+                  "name": "Texture paint including 1 coat of texture, 1 coat of primer, 2 coats of 100% external acrylic paint",
+                  "rateAnalysisId": 100450,
+                  "isMeasurementSheet": true,
+                  "measurementUnit": "Sqm",
+                  "isRateAnalysis": true,
+                  "rateAnalysisPerUnit": 100,
+                  "rateAnalysisUnit": "sft",
+                  "directRate": null,
+                  "directRatePerUnit": null,
+                  "isItemBreakdownRequired": false,
+                  "length": true,
+                  "breadthOrWidth": false,
+                  "height": true
+                },
+                {
+                  "name": "Texture paint including 1 coat of texture, 1 coat of primer, 2 coats of external Semi acrylic paint",
+                  "rateAnalysisId": 100451,
+                  "isMeasurementSheet": true,
+                  "measurementUnit": "Sqm",
+                  "isRateAnalysis": true,
+                  "rateAnalysisPerUnit": 100,
+                  "rateAnalysisUnit": "sft",
+                  "directRate": null,
+                  "directRatePerUnit": null,
+                  "isItemBreakdownRequired": false,
+                  "length": true,
+                  "breadthOrWidth": false,
+                  "height": true
+                },
+                {
+                  "name": "External 100% Acrylic paint with 1 coat of Primer and 2 coats of paint",
+                  "rateAnalysisId": 100452,
+                  "isMeasurementSheet": true,
+                  "measurementUnit": "Sqm",
+                  "isRateAnalysis": true,
+                  "rateAnalysisPerUnit": 100,
+                  "rateAnalysisUnit": "sft",
+                  "directRate": null,
+                  "directRatePerUnit": null,
+                  "isItemBreakdownRequired": false,
+                  "length": true,
+                  "breadthOrWidth": false,
+                  "height": true
+                },
+                {
+                  "name": "External Semi Acrylic paint with 1 coat of Primer and 2 coats of paint",
+                  "rateAnalysisId": 100453,
+                  "isMeasurementSheet": true,
+                  "measurementUnit": "Sqm",
+                  "isRateAnalysis": true,
+                  "rateAnalysisPerUnit": 100,
+                  "rateAnalysisUnit": "sft",
+                  "directRate": null,
+                  "directRatePerUnit": null,
+                  "isItemBreakdownRequired": false,
+                  "length": true,
+                  "breadthOrWidth": false,
+                  "height": true
+                },
+                {
+                  "name": "External Cement paint with 1 coat of Primer and 2 coats of paint",
+                  "rateAnalysisId": 100454,
+                  "isMeasurementSheet": true,
+                  "measurementUnit": "Sqm",
+                  "isRateAnalysis": true,
+                  "rateAnalysisPerUnit": 100,
+                  "rateAnalysisUnit": "sft",
+                  "directRate": null,
+                  "directRatePerUnit": null,
+                  "isItemBreakdownRequired": false,
+                  "length": true,
+                  "breadthOrWidth": false,
+                  "height": true
+                }
+              ]
             }
           ]
         },
-        {
-          "name" : "Concrete door frames",
-          "rateAnalysisId" : 100409,
-          "workItems" : [
-            {
-              "name" : "Concrete door frame for door size 3'0\"x 7'0\".",
-              "isMeasurementSheet" : false,
-              "measurementUnit" : "No.",
-              "isRateAnalysis" : true,
-              "rateAnalysisPerUnit" : 0,
-              "rateAnalysisUnit" : "per No",
-              "directRate" : null,
-              "directRatePerUnit" : null,
-              "isItemBreakdownRequired" : true,
-              "length" : false,
-              "breadthOrWidth" : false,
-              "height" : false
-            }
-          ]
-        },
-        {
-          "name" : "Granite / Marble door frames",
-          "rateAnalysisId" : 100411,
-          "workItems" : [
-            {
-              "name" : "Black granite door frame for door size 2'6\" X 7'0\" with chamfer & edge polish.",
-              "rateAnalysisId" : 100412,
-              "isMeasurementSheet" : false,
-              "measurementUnit" : "No.",
-              "isRateAnalysis" : true,
-              "rateAnalysisPerUnit" : 0,
-              "rateAnalysisUnit" : "per No",
-              "directRate" : null,
-              "directRatePerUnit" : null,
-              "isItemBreakdownRequired" : true,
-              "length" : false,
-              "breadthOrWidth" : false,
-              "height" : false
-            },
-            {
-              "name" : "Black granite door frame for door size 3'0\" x 7'0\" with chamfer & edge polish.",
-              "rateAnalysisId" : 100413,
-              "isMeasurementSheet" : false,
-              "measurementUnit" : "No.",
-              "isRateAnalysis" : true,
-              "rateAnalysisPerUnit" : 0,
-              "rateAnalysisUnit" : "per No",
-              "directRate" : null,
-              "directRatePerUnit" : null,
-              "isItemBreakdownRequired" : true,
-              "length" : false,
-              "breadthOrWidth" : false,
-              "height" : false
-            },
-            {
-              "name" : "Green marble door frame for door size 2'6\" X 7'0\" with chamfer and edge polish.",
-              "rateAnalysisId" : 100414,
-              "isMeasurementSheet" : false,
-              "measurementUnit" : "No.",
-              "isRateAnalysis" : true,
-              "rateAnalysisPerUnit" : 0,
-              "rateAnalysisUnit" : "per No",
-              "directRate" : null,
-              "directRatePerUnit" : null,
-              "isItemBreakdownRequired" : true,
-              "length" : false,
-              "breadthOrWidth" : false,
-              "height" : false
-            },
-            {
-              "name" : "Green marble door frame for door size 3'0\" X 7'0\" with chamfer and edge polish.",
-              "rateAnalysisId" : 100415,
-              "isMeasurementSheet" : false,
-              "measurementUnit" : "No.",
-              "isRateAnalysis" : true,
-              "rateAnalysisPerUnit" : 0,
-              "rateAnalysisUnit" : "per No",
-              "directRate" : null,
-              "directRatePerUnit" : null,
-              "isItemBreakdownRequired" : true,
-              "length" : false,
-              "breadthOrWidth" : false,
-              "height" : false
-            }
-          ]
-        },
-        {
-          "name" : "Ply door frames",
-          "rateAnalysisId" : 100416,
-          "workItems" : [
-            {
-              "name" : "Ply door frame for door size 3'0\" x 7'0\" with laminate",
-              "rateAnalysisId" : 100417,
-              "isMeasurementSheet" : false,
-              "measurementUnit" : "No.",
-              "isRateAnalysis" : true,
-              "rateAnalysisPerUnit" : 0,
-              "rateAnalysisUnit" : "per No",
-              "directRate" : null,
-              "directRatePerUnit" : null,
-              "isItemBreakdownRequired" : true,
-              "length" : false,
-              "breadthOrWidth" : false,
-              "height" : false
-            },
-            {
-              "name" : "Ply door frame for door size 3'0\" x 7'0\" with oil paint",
-              "rateAnalysisId" : 100418,
-              "isMeasurementSheet" : false,
-              "measurementUnit" : "No.",
-              "isRateAnalysis" : true,
-              "rateAnalysisPerUnit" : 0,
-              "rateAnalysisUnit" : "per No",
-              "directRate" : null,
-              "directRatePerUnit" : null,
-              "isItemBreakdownRequired" : true,
-              "length" : false,
-              "breadthOrWidth" : false,
-              "height" : false
-            },
-            {
-              "name" : "Ply door frame for door size 3'0\" x 7'0\" with veneer",
-              "rateAnalysisId" : 100419,
-              "isMeasurementSheet" : false,
-              "measurementUnit" : "No.",
-              "isRateAnalysis" : true,
-              "rateAnalysisPerUnit" : 0,
-              "rateAnalysisUnit" : "per No",
-              "directRate" : null,
-              "directRatePerUnit" : null,
-              "isItemBreakdownRequired" : true,
-              "length" : false,
-              "breadthOrWidth" : false,
-              "height" : false
-            }
-          ]
-        },
-        {
-          "name" : "Solid wood door frames",
-          "rateAnalysisId" : 100420,
-          "workItems" : [
-            {
-              "name" : "Red meranti door frame of section 8\" x 2\" for door size 3'0\" x 7'0\"",
-              "rateAnalysisId" : 100421,
-              "isMeasurementSheet" : false,
-              "measurementUnit" : "No.",
-              "isRateAnalysis" : true,
-              "rateAnalysisPerUnit" : 0,
-              "rateAnalysisUnit" : "per No",
-              "directRate" : null,
-              "directRatePerUnit" : null,
-              "isItemBreakdownRequired" : true,
-              "length" : false,
-              "breadthOrWidth" : false,
-              "height" : false
-            },
-            {
-              "name" : "Red meranti door frame of section 5\" x 2-1/2\" for door size 3'0\" x 7'0\"",
-              "rateAnalysisId" : 100422,
-              "isMeasurementSheet" : false,
-              "measurementUnit" : "No.",
-              "isRateAnalysis" : true,
-              "rateAnalysisPerUnit" : 0,
-              "rateAnalysisUnit" : "per No",
-              "directRate" : null,
-              "directRatePerUnit" : null,
-              "isItemBreakdownRequired" : true,
-              "length" : false,
-              "breadthOrWidth" : false,
-              "height" : false
-            },
-            {
-              "name" : "Red meranti door frame of section 5\" x 2-1/2\" for door size 2'6\" x 7'0\"",
-              "rateAnalysisId" : 100423,
-              "isMeasurementSheet" : false,
-              "measurementUnit" : "No.",
-              "isRateAnalysis" : true,
-              "rateAnalysisPerUnit" : 0,
-              "rateAnalysisUnit" : "per No",
-              "directRate" : null,
-              "directRatePerUnit" : null,
-              "isItemBreakdownRequired" : true,
-              "length" : false,
-              "breadthOrWidth" : false,
-              "height" : false
-            },
-            {
-              "name" : "Saal wood door frame of section 5\" x 2-1/2\" for door size 3'0\" x 7'0\"",
-              "rateAnalysisId" : 100424,
-              "isMeasurementSheet" : false,
-              "measurementUnit" : "No.",
-              "isRateAnalysis" : true,
-              "rateAnalysisPerUnit" : 0,
-              "rateAnalysisUnit" : "per No",
-              "directRate" : null,
-              "directRatePerUnit" : null,
-              "isItemBreakdownRequired" : true,
-              "length" : false,
-              "breadthOrWidth" : false,
-              "height" : false
-            },
-            {
-              "name" : "Saal wood door frame of section 5\" x 2-1/2\" for door size 2'6\" x 7'0\"",
-              "rateAnalysisId" : 100425,
-              "isMeasurementSheet" : false,
-              "measurementUnit" : "No.",
-              "isRateAnalysis" : true,
-              "rateAnalysisPerUnit" : 0,
-              "rateAnalysisUnit" : "per No",
-              "directRate" : null,
-              "directRatePerUnit" : null,
-              "isItemBreakdownRequired" : true,
-              "length" : false,
-              "breadthOrWidth" : false,
-              "height" : false
-            }
-          ]
-        },
-        {
-          "name" : "MS doors with frames",
-          "rateAnalysisId" : 100426,
-          "workItems" : [
-            {
-              "name" : "Providing and installing MS Openable french door with frame as per specifications",
-              "rateAnalysisId" : 100427,
-              "isMeasurementSheet" : false,
-              "measurementUnit" : "No.",
-              "isRateAnalysis" : false,
-              "rateAnalysisPerUnit" : 0,
-              "rateAnalysisUnit" : "per No",
-              "directRate" : null,
-              "directRatePerUnit" : null,
-              "isItemBreakdownRequired" : false,
-              "length" : false,
-              "breadthOrWidth" : false,
-              "height" : false
-            },
-            {
-              "name" : "Providing and installing MS safety door of size 3'0\" X 7'0\" with frame ( As per attached drawing)",
-              "rateAnalysisId" : 100428,
-              "isMeasurementSheet" : false,
-              "measurementUnit" : "No.",
-              "isRateAnalysis" : true,
-              "rateAnalysisPerUnit" : 0,
-              "rateAnalysisUnit" : "per No",
-              "directRate" : null,
-              "directRatePerUnit" : null,
-              "isItemBreakdownRequired" : false,
-              "length" : false,
-              "breadthOrWidth" : false,
-              "height" : false
-            },
-            {
-              "name" : "Providing and installing MS safety door with frame as per project specifications and drawings",
-              "rateAnalysisId" : 100429,
-              "isMeasurementSheet" : false,
-              "measurementUnit" : "No.",
-              "isRateAnalysis" : false,
-              "rateAnalysisPerUnit" : null,
-              "rateAnalysisUnit" : null,
-              "directRate" : 0,
-              "directRatePerUnit" : null,
-              "isItemBreakdownRequired" : false,
-              "length" : false,
-              "breadthOrWidth" : false,
-              "height" : false
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "name" : "Windows/Sliding doors",
-      "priorityId": 20,
-      "rateAnalysisId" : 100485,
-      "categories" : [
-        {
-          "name" : "Aluminium sections",
-          "rateAnalysisId" : 100486,
-          "workItems" : [
-            {
-              "name" : "Providing and installing aluminium sliding windows as per project specifications",
-              "rateAnalysisId" : 100487,
-              "isMeasurementSheet" : true,
-              "measurementUnit" : "Sqm",
-              "isRateAnalysis" : false,
-              "rateAnalysisPerUnit" : null,
-              "rateAnalysisUnit" : null,
-              "directRate" : 250,
-              "directRatePerUnit" : "Per Sft",
-              "isItemBreakdownRequired" : true,
-              "length" : true,
-              "breadthOrWidth" : false,
-              "height" : true
-            },
-            {
-              "name" : "Providing and installing aluminium sliding doors as per  project specifications",
-              "rateAnalysisId" : 100488,
-              "isMeasurementSheet" : true,
-              "measurementUnit" : "Sqm",
-              "isRateAnalysis" : false,
-              "rateAnalysisPerUnit" : null,
-              "rateAnalysisUnit" : null,
-              "directRate" : 220,
-              "directRatePerUnit" : "Per Sft",
-              "isItemBreakdownRequired" : true,
-              "length" : true,
-              "breadthOrWidth" : false,
-              "height" : true
-            },
-            {
-              "name" : "Providing and installing aluminium lovoured windows as per  project specifications",
-              "rateAnalysisId" : 100489,
-              "isMeasurementSheet" : true,
-              "measurementUnit" : "Sqm",
-              "isRateAnalysis" : false,
-              "rateAnalysisPerUnit" : null,
-              "rateAnalysisUnit" : null,
-              "directRate" : 280,
-              "directRatePerUnit" : "Per Sft",
-              "isItemBreakdownRequired" : true,
-              "length" : true,
-              "breadthOrWidth" : false,
-              "height" : true
-            }
-          ]
-        },
-        {
-          "name" : "UPVC sections",
-          "rateAnalysisId" : 100490,
-          "workItems" : [
-            {
-              "name" : "Providing and installing UPVC sliding windows as per  project specifications",
-              "rateAnalysisId" : 100491,
-              "isMeasurementSheet" : true,
-              "measurementUnit" : "Sqm",
-              "isRateAnalysis" : false,
-              "rateAnalysisPerUnit" : null,
-              "rateAnalysisUnit" : null,
-              "directRate" : 550,
-              "directRatePerUnit" : "Per Sft",
-              "isItemBreakdownRequired" : true,
-              "length" : true,
-              "breadthOrWidth" : false,
-              "height" : true
-            },
-            {
-              "name" : "Providing and installing UPVC sliding doors as per  project specifications",
-              "rateAnalysisId" : 100492,
-              "isMeasurementSheet" : true,
-              "measurementUnit" : "Sqm",
-              "isRateAnalysis" : false,
-              "rateAnalysisPerUnit" : null,
-              "rateAnalysisUnit" : null,
-              "directRate" : 500,
-              "directRatePerUnit" : "Per Sft",
-              "isItemBreakdownRequired" : true,
-              "length" : true,
-              "breadthOrWidth" : false,
-              "height" : true
-            },
-            {
-              "name" : "Providing and installing UPVC lovoured windows as per  project specifications",
-              "rateAnalysisId" : 100493,
-              "isMeasurementSheet" : true,
-              "measurementUnit" : "Sqm",
-              "isRateAnalysis" : false,
-              "rateAnalysisPerUnit" : null,
-              "rateAnalysisUnit" : null,
-              "directRate" : 600,
-              "directRatePerUnit" : "Per Sft",
-              "isItemBreakdownRequired" : true,
-              "length" : true,
-              "breadthOrWidth" : false,
-              "height" : true
-            }
-          ]
-        },
-        {
-          "name" : "MS sections",
-          "rateAnalysisId" : 100494,
-          "workItems" : [
-            {
-              "name" : "Providing and installing MS Openable windows as per project specifications",
-              "rateAnalysisId" : 100495,
-              "isMeasurementSheet" : true,
-              "measurementUnit" : "Sqm",
-              "isRateAnalysis" : false,
-              "rateAnalysisPerUnit" : null,
-              "rateAnalysisUnit" : null,
-              "directRate" : 200,
-              "directRatePerUnit" : "Per Sft",
-              "isItemBreakdownRequired" : true,
-              "length" : true,
-              "breadthOrWidth" : false,
-              "height" : true
-
-          }
-        ]
-      }
-    ]
-},
-    {
-      "name" : "Fabrication",
-      "priorityId": 21,
-      "categories" : [
-        {
-          "name" : "Window grills ( On plastered jambs )",
-          "workItems" : [
-            {
-              "name" : "MS window grill for window as per attached design to be nailed on plastered jamb",
-              "isMeasurementSheet" : true,
-              "measurementUnit" : "Sqm",
-              "isRateAnalysis" : false,
-              "rateAnalysisPerUnit" : null,
-              "rateAnalysisUnit" : null,
-              "directRate" : 80,
-              "directRatePerUnit" : "Sft",
-              "isItemBreakdownRequired" : true,
-              "length" : true,
-              "breadthOrWidth" : false,
-              "height" : true
-            },
-            {
-              "name" : "MS window grill using 25 x 25mm MS pipes & 10 x 10mm solid square bars for window of size 1.8 X 1.8 M to be nailed on plastered jamb",
-              "isMeasurementSheet" : false,
-              "measurementUnit" : "No.",
-              "isRateAnalysis" : true,
-              "rateAnalysisPerUnit" : 0,
-              "rateAnalysisUnit" : "No.",
-              "directRate" : null,
-              "directRatePerUnit" : null,
-              "isItemBreakdownRequired" : true,
-              "length" : false,
-              "breadthOrWidth" : false,
-              "height" : false
-            },
-            {
-              "name" : "MS window grill using 25 x 25mm MS pipes & 10 x 10mm solid square bars for window of size 1.2 X 1.8 M to be nailed on plastered jamb",
-              "isMeasurementSheet" : false,
-              "measurementUnit" : "No.",
-              "isRateAnalysis" : true,
-              "rateAnalysisPerUnit" : 0,
-              "rateAnalysisUnit" : "No.",
-              "directRate" : null,
-              "directRatePerUnit" : null,
-              "isItemBreakdownRequired" : true,
-              "length" : false,
-              "breadthOrWidth" : false,
-              "height" : false
-            },
-            {
-              "name" : "MS window grill using 25 x 25mm MS pipes & 10 x 10mm solid square bars for window of size 0.9 X 1.8 M to be nailed on plastred jamb",
-              "isMeasurementSheet" : false,
-              "measurementUnit" : "No.",
-              "isRateAnalysis" : true,
-              "rateAnalysisPerUnit" : 0,
-              "rateAnalysisUnit" : "No.",
-              "directRate" : null,
-              "directRatePerUnit" : null,
-              "isItemBreakdownRequired" : true,
-              "length" : false,
-              "breadthOrWidth" : false,
-              "height" : false
-            }
-          ]
-        },
-        {
-          "name" : "Window grills ( On masonry jambs )",
-          "workItems" : [
-            {
-              "name" : "MS window grill using 25 x 25mm MS pipes & 10 x 10mm solid square bars for window of size 2.4 X 1.8 M to be nailed on masonry.",
-              "isMeasurementSheet" : false,
-              "measurementUnit" : "No.",
-              "isRateAnalysis" : true,
-              "rateAnalysisPerUnit" : 0,
-              "rateAnalysisUnit" : "No.",
-              "directRate" : null,
-              "directRatePerUnit" : null,
-              "isItemBreakdownRequired" : true,
-              "length" : false,
-              "breadthOrWidth" : false,
-              "height" : false
-            },
-            {
-              "name" : "MS window grill using 25 x 25mm MS pipes & 10 x 10mm solid square bars for window of size 1.8 X 1.8 M to be nailed on masonry.",
-              "isMeasurementSheet" : false,
-              "measurementUnit" : "No.",
-              "isRateAnalysis" : true,
-              "rateAnalysisPerUnit" : 0,
-              "rateAnalysisUnit" : "No.",
-              "directRate" : null,
-              "directRatePerUnit" : null,
-              "isItemBreakdownRequired" : true,
-              "length" : false,
-              "breadthOrWidth" : false,
-              "height" : false
-            },
-            {
-              "name" : "MS window grill using 25 x 25mm MS pipes & 10 x 10mm solid square bars for window of size 1.2 X 1.8 M to be nailed on masonry.",
-              "isMeasurementSheet" : false,
-              "measurementUnit" : "No.",
-              "isRateAnalysis" : true,
-              "rateAnalysisPerUnit" : 0,
-              "rateAnalysisUnit" : "No.",
-              "directRate" : null,
-              "directRatePerUnit" : null,
-              "isItemBreakdownRequired" : true,
-              "length" : false,
-              "breadthOrWidth" : false,
-              "height" : false
-            },
-            {
-              "name" : "MS window grill using 25 x 25mm MS pipes & 10 x 10mm solid square bars for window of size 0.9 X 1.8 M to be nailed on masonry.",
-              "isMeasurementSheet" : false,
-              "measurementUnit" : "No.",
-              "isRateAnalysis" : true,
-              "rateAnalysisPerUnit" : 0,
-              "rateAnalysisUnit" : "No.",
-              "directRate" : null,
-              "directRatePerUnit" : null,
-              "isItemBreakdownRequired" : true,
-              "length" : false,
-              "breadthOrWidth" : false,
-              "height" : false
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "name" : "Painting",
-      "priorityId": 22,
-      "rateAnalysisId" : 100442,
-      "categories" : [
-        {
-          "name" : "Internal painting",
-          "rateAnalysisId" : 100443,
-          "workItems" : [
-            {
-              "name" : "Solvent based lustre paint with 1 coat primer, 1 coat cement putty, 1 coats acrylic putty,1 coat primer base coat and 2 coats lustre paint",
-              "rateAnalysisId" : 100444,
-              "isMeasurementSheet" : true,
-              "measurementUnit" : "Sqm",
-              "isRateAnalysis" : true,
-              "rateAnalysisPerUnit" : 100,
-              "rateAnalysisUnit" : "sft",
-              "directRate" : null,
-              "directRatePerUnit" : null,
-              "isItemBreakdownRequired" : true,
-              "length" : true,
-              "breadthOrWidth" : false,
-              "height" : true
-            },
-            {
-              "name" : "Water based lustre paint including 1 coat of primer, 2 coats of Acrylic putty, 1 coat of primer and 2 coats of lustre paint",
-              "rateAnalysisId" : 100445,
-              "isMeasurementSheet" : true,
-              "measurementUnit" : "Sqm",
-              "isRateAnalysis" : true,
-              "rateAnalysisPerUnit" : 100,
-              "rateAnalysisUnit" : "sft",
-              "directRate" : null,
-              "directRatePerUnit" : null,
-              "isItemBreakdownRequired" : true,
-              "length" : true,
-              "breadthOrWidth" : false,
-              "height" : true
-            },
-            {
-              "name" : "Solvent based lustre paint including 1 coat of primer, 2 coats of Acrylic putty, 1 coat of primer base coat and 2 coats of lustre paint",
-              "rateAnalysisId" : 100446,
-              "isMeasurementSheet" : true,
-              "measurementUnit" : "Sqm",
-              "isRateAnalysis" : true,
-              "rateAnalysisPerUnit" : 100,
-              "rateAnalysisUnit" : "sft",
-              "directRate" : null,
-              "directRatePerUnit" : null,
-              "isItemBreakdownRequired" : true,
-              "length" : true,
-              "breadthOrWidth" : false,
-              "height" : true
-            },
-            {
-              "name" : "Oil Bound Destemper paint including 2 coats of Acrylic putty and 2 coats of paint",
-              "rateAnalysisId" : 100447,
-              "isMeasurementSheet" : true,
-              "measurementUnit" : "Sqm",
-              "isRateAnalysis" : true,
-              "rateAnalysisPerUnit" : 100,
-              "rateAnalysisUnit" : "sft",
-              "directRate" : null,
-              "directRatePerUnit" : null,
-              "isItemBreakdownRequired" : true,
-              "length" : true,
-              "breadthOrWidth" : false,
-              "height" : true
-            },
-            {
-              "name" : "Plastic emulsion paint including 2 coats of Acrylic putty and 2 coats of paint",
-              "rateAnalysisId" : 100448,
-              "isMeasurementSheet" : true,
-              "measurementUnit" : "Sqm",
-              "isRateAnalysis" : true,
-              "rateAnalysisPerUnit" : 100,
-              "rateAnalysisUnit" : "sft",
-              "directRate" : null,
-              "directRatePerUnit" : null,
-              "isItemBreakdownRequired" : true,
-              "length" : true,
-              "breadthOrWidth" : false,
-              "height" : true
-            }
-          ]
-        },
-        {
-          "name" : "External painting",
-          "rateAnalysisId" : 100449,
-          "workItems" : [
-            {
-              "name" : "Texture paint including 1 coat of texture, 1 coat of primer, 2 coats of 100% external acrylic paint",
-              "rateAnalysisId" : 100450,
-              "isMeasurementSheet" : true,
-              "measurementUnit" : "Sqm",
-              "isRateAnalysis" : true,
-              "rateAnalysisPerUnit" : 100,
-              "rateAnalysisUnit" : "sft",
-              "directRate" : null,
-              "directRatePerUnit" : null,
-              "isItemBreakdownRequired" : false,
-              "length" : true,
-              "breadthOrWidth" : false,
-              "height" : true
-            },
-            {
-              "name" : "Texture paint including 1 coat of texture, 1 coat of primer, 2 coats of external Semi acrylic paint",
-              "rateAnalysisId" : 100451,
-              "isMeasurementSheet" : true,
-              "measurementUnit" : "Sqm",
-              "isRateAnalysis" : true,
-              "rateAnalysisPerUnit" : 100,
-              "rateAnalysisUnit" : "sft",
-              "directRate" : null,
-              "directRatePerUnit" : null,
-              "isItemBreakdownRequired" : false,
-              "length" : true,
-              "breadthOrWidth" : false,
-              "height" : true
-            },
-            {
-              "name" : "External 100% Acrylic paint with 1 coat of Primer and 2 coats of paint",
-              "rateAnalysisId" : 100452,
-              "isMeasurementSheet" : true,
-              "measurementUnit" : "Sqm",
-              "isRateAnalysis" : true,
-              "rateAnalysisPerUnit" : 100,
-              "rateAnalysisUnit" : "sft",
-              "directRate" : null,
-              "directRatePerUnit" : null,
-              "isItemBreakdownRequired" : false,
-              "length" : true,
-              "breadthOrWidth" : false,
-              "height" : true
-            },
-            {
-              "name" : "External Semi Acrylic paint with 1 coat of Primer and 2 coats of paint",
-              "rateAnalysisId" : 100453,
-              "isMeasurementSheet" : true,
-              "measurementUnit" : "Sqm",
-              "isRateAnalysis" : true,
-              "rateAnalysisPerUnit" : 100,
-              "rateAnalysisUnit" : "sft",
-              "directRate" : null,
-              "directRatePerUnit" : null,
-              "isItemBreakdownRequired" : false,
-              "length" : true,
-              "breadthOrWidth" : false,
-              "height" : true
-            },
-            {
-              "name" : "External Cement paint with 1 coat of Primer and 2 coats of paint",
-              "rateAnalysisId" : 100454,
-              "isMeasurementSheet" : true,
-              "measurementUnit" : "Sqm",
-              "isRateAnalysis" : true,
-              "rateAnalysisPerUnit" : 100,
-              "rateAnalysisUnit" : "sft",
-              "directRate" : null,
-              "directRatePerUnit" : null,
-              "isItemBreakdownRequired" : false,
-              "length" : true,
-              "breadthOrWidth" : false,
-              "height" : true
-            }
-          ]
-        }
-      ]
-    },
-    /*{
+        /*{
       "name" : "Roofing",
       "priorityId": 23,
       "rateAnalysisId" : 100455,
@@ -9641,7 +9597,7 @@
               "rateAnalysisPerUnit": null,
               "rateAnalysisUnit": null,
               "isDirectRate": true,
-              "directRate": 200,
+              "directRate": 2000,
               "directRatePerUnit": "Sqft",
               "isItemBreakdownRequired": false,
               "length": null,
@@ -9652,7 +9608,7 @@
               "name": "Providing and executing suitable flooring in gym area",
               "rateAnalysisId": 200026,
               "isMeasurementSheet": true,
-              "measurementUnit": null,
+              "measurementUnit": "Sqm",
               "isRateAnalysis": false,
               "rateAnalysisPerUnit": null,
               "rateAnalysisUnit": null,
