@@ -1342,10 +1342,12 @@ class UserService {
       } else {
           var item= {mobile_number:mobileNumber,isActivated: false };
           let subScriptionService = new SubscriptionService();
-          subScriptionService.getSubscriptionPackageByName('Free','BasePackage', (err: any,
-                                                                                  freeSubscription: Array<SubscriptionPackage>) => {
-            if (freeSubscription.length > 0) {
-              this.assignFreeSubscriptionAndCreateUser(item, freeSubscription[0], (err: any, model:any) => {
+
+          subScriptionService.getSubscriptionPackageByName('Trial', 'BasePackage', (err: any,
+                                                                                    trialSubscription: Array<SubscriptionPackage>) => {
+
+            if (trialSubscription.length > 0) {
+              this.assignFreeSubscriptionAndCreateUser(item, trialSubscription[0], (err: any, model:any) => {
                 if(err) {
                   callback(err,null);
                   return;
@@ -1355,14 +1357,14 @@ class UserService {
                     callback(err,null);
                     return;
                   }*/
-                  callback(null,{data:{isRegistered:false,id:model._id}});
+                callback(null,{data:{isRegistered:false,id:model._id}});
 
-               // });
+                // });
               });
             } else {
-              subScriptionService.addSubscriptionPackage(config.get('subscription.package.Free'),
-                (err: any, freeSubscription)=> {
-                  this.assignFreeSubscriptionAndCreateUser(item, freeSubscription, (err: any, model:any) => {
+              subScriptionService.addSubscriptionPackage(config.get('subscription.package.Trial'),
+                (error: any, trialSubscription) => {
+                  this.assignFreeSubscriptionAndCreateUser(item, trialSubscription[0], (err: any, model:any) => {
                     if(err) {
                       callback(err,null);
                       return;
@@ -1372,13 +1374,12 @@ class UserService {
                         callback(err,null);
                         return;
                       }*/
-                      callback(null,{data:{isRegistered:false,id:model._id}});
+                    callback(null,{data:{isRegistered:false,id:model._id}});
 
-                   // });
+                    // });
                   });
                 });
             }
-
           });
         }
       });
