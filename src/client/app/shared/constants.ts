@@ -1,10 +1,10 @@
 export class AppSettings {
   //public static IP = 'http://localhost:8080';
   //  public static IP = 'http://13.232.139.161:8080'; // build info staging // build info staging
-  public static IP = 'http://costcontrol.buildinfo.co.in'; // build info production
+  public static IP = 'http://mybuildcost.buildinfo.co.in'; // build info production
   //public static HOST_NAME = 'localhost:8080';
   //public static HOST_NAME = '104.211.102.201';
-  public static HOST_NAME = 'costcontrol.buildinfo.co.in';
+  public static HOST_NAME = 'mybuildcost.buildinfo.co.in';
 
   public static INITIAL_THEM = 'container-fluid dark-theme';
   public static LIGHT_THEM = 'container-fluid light-theme';
