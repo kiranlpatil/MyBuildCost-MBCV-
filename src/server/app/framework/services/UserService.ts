@@ -1340,7 +1340,7 @@ class UserService {
 
           //});
       } else {
-          var item= {mobile_number:mobileNumber,isActivated: false };
+          var item= {mobile_number:mobileNumber,isActivated: false ,typeOfApp: 'RAapp'};
           let subScriptionService = new SubscriptionService();
 
           subScriptionService.getSubscriptionPackageByName('Trial', 'BasePackage', (err: any,
