@@ -258,12 +258,12 @@ class UserService {
   }
 
   sendOtp(params: any, user: any, callback: (error: any, result: any) => void) {
-    let Data = {
+    let generateOtpObject = {
       new_mobile_number: params.mobile_number,
       old_mobile_number: user.mobile_number,
-      _id: user._id
+      userId: user._id
     };
-    this.generateOtp(Data, (error, result) => {
+    this.generateOtp(generateOtpObject, (error, result) => {
       if (error) {
         if (error === Messages.MSG_ERROR_CHECK_MOBILE_PRESENT) {
           callback({
@@ -275,7 +275,7 @@ class UserService {
         } else {
           callback(error, null);
         }
-      } else if (result.length > 0) {
+      } else if (result && result._doc) {
         callback({
           'status': Messages.STATUS_SUCCESS,
           'data': {
@@ -300,43 +300,37 @@ class UserService {
     });
   }
 
-  generateOtp(field: any, callback: (error: any, result: any) => void) {
-    this.userRepository.retrieve({'mobile_number': field.new_mobile_number, 'isActivated': true}, (err, res) => {
-
+  generateOtp(generateOtpObject: any, callback: (error: any, result: any) => void) {
+    let queryToGetUser = {'_id': generateOtpObject.userId};
+    this.userRepository.retrieve(queryToGetUser, (err, res) => {
       if (err) {
-      } else if (res.length > 0 && (res[0]._id) !== field._id) {
-        callback(new Error(Messages.MSG_ERROR_REGISTRATION_MOBILE_NUMBER), null);
-      } else if (res.length === 0) {
-
-        let query = {'_id': field._id};
+        callback(err, null);
+      } else if (res && res.length > 0) {
+        let query = {'_id': generateOtpObject.userId};
         let otp = Math.floor((Math.random() * 99999) + 100000);
-        let updateData = {'mobile_number': field.new_mobile_number, 'otp': otp};
+        let updateData = {'mobile_number': generateOtpObject.new_mobile_number, 'otp': otp};
         this.userRepository.findOneAndUpdate(query, updateData, {new: true}, (error, result) => {
           if (error) {
             callback(new Error(Messages.MSG_ERROR_REGISTRATION_MOBILE_NUMBER), null);
           } else {
-            let Data = {
-              mobileNo: field.new_mobile_number,
-              otp: otp
-            };
-            // let sendMessageService = new SendMessageService();
-            // sendMessageService.sendMessageDirect(Data, callback);
             let messaging = config.get('application.messaging');
             let messageForEndUser = 'The One Time Password(OTP) for' + ' ' + messaging.appName + ' ' + 'account is' + ' ' + otp
               + ' ' + '. Use this OTP to verify your account.';
-            let url = messaging.url + '?user=' + messaging.user +'&password=' + messaging.password + '&msisdn=91' + field.new_mobile_number
+            console.log('msg sent to user :', messageForEndUser);
+            let url = messaging.url + '?user=' + messaging.user + '&password=' + messaging.password + '&msisdn=91' + generateOtpObject.new_mobile_number
               + '&sid=' + messaging.sid + '&msg=' + messageForEndUser + '&fl=' + messaging.fl + '&gwid=' + messaging.gwid;
 
             // call post api of Orca info solutions to send OTP
-            request.post({url: url, json: ''}, (error: any, response: any, body: any) => {
+            /*request.post({url: url, json: ''}, (error: any, response: any, body: any) => {
               if (error) {
                 callback(error, null);
               } else if (!error && response) {
                 let res = body;
                 callback(null, res);
               }
-            });
+            });*/
             // end of post api
+            callback(null, result);
           }
         });
       } else {
