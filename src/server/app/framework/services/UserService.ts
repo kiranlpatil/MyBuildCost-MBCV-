@@ -375,7 +375,7 @@ class UserService {
     // let query = {'_id': user._id, 'isActivated': false};
     let query = {'_id': user._id};
     let updateData = {'isActivated': true, 'activation_date': new Date()};
-    if (user.otp === params.otp) {
+    if (user.otp === parseInt(params.otp)) {
       // find user by _id and update user for otp verification
       this.findOneAndUpdate(query, updateData, {new: true}, (error, result) => {
         if (error) {
