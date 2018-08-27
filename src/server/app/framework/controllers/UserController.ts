@@ -756,7 +756,10 @@ class UserController {
         if(error) {
           next(error);
         } else {
-          res.status(200).send(result);
+          let auth: AuthInterceptor = new AuthInterceptor();
+          let token = auth.issueTokenWithUid(result.data.user);
+          result.data.user = 'success';
+          res.status(200).send({access_token: token, data: result});
         }
       });
     } catch (e) {

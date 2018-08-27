@@ -1327,17 +1327,35 @@ class UserService {
           callback(error, null);
         } else if (result.length > 0 && result[0].isActivated === true) {
           if (!result[0].password || result[0].password === undefined) {
-            callback(null, {data:{isPasswordSet:false,id:result[0]._id}});
+            callback(null,{
+              data: {
+                isPasswordSet: false,
+                id: result[0]._id,
+                user: result[0]
+              }
+            });
+          } else {
+            callback(null,{
+              data: {
+                isRegistered: true,
+                id: result[0]._id,
+                user: result[0]
+              }
+            });
           }
-          callback(null, {data:{isRegistered:true,id:result[0]._id}});
         } else if (result.length > 0 && result[0].isActivated === false) {
           /*this.sendOtp( {mobile_number:mobileNumber},{_id:result[0]._id},(err:any,res:any)=> {
             if(err) {
               callback(err,null);
               return;
             }*/
-            callback(null,{data:{isActivated:false,id:result[0]._id}});
-
+          callback(null,{
+            data: {
+              isActivated: false,
+              id: result[0]._id,
+              user: result[0]
+            }
+          });
           //});
       } else {
           var item= {mobile_number:mobileNumber,isActivated: false ,typeOfApp: 'RAapp'};
@@ -1357,8 +1375,13 @@ class UserService {
                     callback(err,null);
                     return;
                   }*/
-                callback(null,{data:{isRegistered:false,id:model._id}});
-
+                callback(null,{
+                  data: {
+                    isRegistered: false,
+                    id: model._id,
+                    user: model
+                  }
+                });
                 // });
               });
             } else {
@@ -1374,8 +1397,13 @@ class UserService {
                         callback(err,null);
                         return;
                       }*/
-                    callback(null,{data:{isRegistered:false,id:model._id}});
-
+                    callback(null,{
+                      data: {
+                        isRegistered: false,
+                        id: model._id,
+                        user: model
+                      }
+                    });
                     // });
                   });
                 });
