@@ -760,9 +760,13 @@ class UserController {
           next(error);
         } else {
           let auth: AuthInterceptor = new AuthInterceptor();
-          let token = auth.issueTokenWithUid(result.data.user);
-          delete result.data.user;
-          res.status(200).send({access_token: token, data: result});
+          let token = auth.issueTokenWithUid(result.user);
+          delete result.user;
+          res.status(200).send({
+            status: Messages.STATUS_SUCCESS,
+            access_token: token,
+            data: result
+          });
         }
       });
     } catch (e) {
@@ -790,7 +794,9 @@ class UserController {
               }, null);
             } else {
               if (isSame) {
-                res.status(200).send({data: 'success'});
+                res.status(200).send({
+                  status: Messages.STATUS_SUCCESS
+                });
               } else {
                 next({
                   reason: Messages.MSG_ERROR_RSN_INVALID_CREDENTIALS,
@@ -830,7 +836,9 @@ class UserController {
             if (error) {
               next(error);
             } else {
-              res.status(200).send({data: 'success'});
+              res.status(200).send({
+                status: Messages.STATUS_SUCCESS
+              });
             }
           });
 

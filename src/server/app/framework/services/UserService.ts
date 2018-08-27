@@ -1328,21 +1328,17 @@ class UserService {
       } else if (result.length > 0 && result[0].isActivated === true) {
         if (!result[0].password || result[0].password === undefined) {
           callback(null, {
-            data: {
-              isActivated: true,
-              isPasswordSet: false,
-              id: result[0]._id,
-              user: result[0]
-            }
+              'isActivated': true,
+              'isPasswordSet': false,
+              'id': result[0]._id,
+              'user': result[0]
           });
         } else {
           callback(null, {
-            data: {
-              isActivated: true,
-              isPasswordSet: true,
-              id: result[0]._id,
-              user: result[0]
-            }
+              'isActivated': true,
+              'isPasswordSet': true,
+              'id': result[0]._id,
+              'user': result[0]
           });
         }
       } else if (result.length > 0 && result[0].isActivated === false) {
@@ -1351,12 +1347,10 @@ class UserService {
             callback(err, null);
           } else {
             callback(null, {
-              data: {
-                isActivated: false,
-                isPasswordSet: false,
-                id: result[0]._id,
-                user: result[0]
-              }
+                'isActivated': false,
+                'isPasswordSet': false,
+                'id': result[0]._id,
+                'user': result[0]
             });
           }
         });
@@ -1378,12 +1372,10 @@ class UserService {
                   callback(err, null);
                 } else {
                   callback(null, {
-                    data: {
-                      isActivated: false,
-                      isPasswordSet: false,
-                      id: model._id,
-                      user: model
-                    }
+                      'isActivated': false,
+                      'isPasswordSet': false,
+                      'id': model._id,
+                      'user': model
                   });
                 }
               });
@@ -1401,12 +1393,10 @@ class UserService {
                       callback(err, null);
                     } else {
                       callback(null, {
-                        data: {
-                          isActivated: false,
-                          isPasswordSet: false,
-                          id: model._id,
-                          user: model
-                        }
+                          'isActivated': false,
+                          'isPasswordSet': false,
+                          'id': model._id,
+                          'user': model
                       });
                     }
                   });

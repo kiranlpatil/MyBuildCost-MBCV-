@@ -32,6 +32,8 @@ class Messages {
   public static MSG_SUCCESS_OTP: string = 'OTP has been sent on your verified mobile number.';
   public static MSG_SUCCESS_OTP_CHANGE_MOBILE_NUMBER: string = 'OTP has been sent on your new mobile number';
   public static MSG_SUCCESS_INDUSTRY_DATA_INSERTION: string = 'Data inserted Successfully in Industry';
+  public static MSG_SUCCESS_SET_PASSWORD: string = 'Password has been set successfully.';
+  public static MSG_SUCCESS_VERIFY_PASSWORD: string = 'Password has been verified successfully.';
 
   public static MSG_NO_RECORDS_FOUND: string = 'No records found';
 
