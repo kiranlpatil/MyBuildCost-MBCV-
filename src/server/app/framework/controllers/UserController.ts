@@ -1,6 +1,6 @@
 import * as express from 'express';
 import * as multiparty from 'multiparty';
-import { MailChimpMailerService } from '../services/mailchimp-mailer.service';
+import {MailChimpMailerService} from '../services/mailchimp-mailer.service';
 import AuthInterceptor = require('../interceptor/auth.interceptor');
 import SendMailService = require('../services/mailer.service');
 import UserModel = require('../dataaccess/model/UserModel');
@@ -14,10 +14,10 @@ let path = require('path');
 let bcrypt = require('bcrypt');
 
 class UserController {
-  private _authInterceptor : AuthInterceptor;
-  private _sendMailService : SendMailService;
-  private _userService : UserService;
-  private _responseService : ResponseService;
+  private _authInterceptor: AuthInterceptor;
+  private _sendMailService: SendMailService;
+  private _userService: UserService;
+  private _responseService: ResponseService;
 
   constructor() {
     this._authInterceptor = new AuthInterceptor();
@@ -33,7 +33,7 @@ class UserController {
       let userService = new UserService();
       let auth: AuthInterceptor = new AuthInterceptor();
       userService.createUser(data, (error, result) => {
-        if(error) {
+        if (error) {
           next({
             reason: Messages.MSG_ERROR_REGISTRATION,
             message: Messages.MSG_ERROR_REGISTRATION,
@@ -49,7 +49,7 @@ class UserController {
           });
         }
       });
-    } catch (e)  {
+    } catch (e) {
       console.log(e);
       res.send({'error': 'error in your request'});
     }
@@ -61,8 +61,8 @@ class UserController {
       let params = req.body;
       let typeOfApp = req.body.typeOfApp;
       delete params.access_token;
-      userService.login(params, typeOfApp, (error, result)=> {
-        if(error) {
+      userService.login(params, typeOfApp, (error, result) => {
+        if (error) {
           next(error);
         } else {
           res.status(200).send(result);
@@ -78,8 +78,8 @@ class UserController {
       let userService = new UserService();
       let user = req.user;
       let params = req.body;  // mobile_number (new mobile number)
-      userService.sendOtp(params, user, (error, result)=> {
-        if(error) {
+      userService.sendOtp(params, user, (error, result) => {
+        if (error) {
           res.send(error);
         } else {
           res.status(200).send(result);
@@ -101,8 +101,8 @@ class UserController {
       let user = req.user;
       let params = req.body;
       let userService = new UserService();
-      userService.verifyOtp(params, user, (error, result)=> {
-        if(error) {
+      userService.verifyOtp(params, user, (error, result) => {
+        if (error) {
           next(error);
         } else {
           res.send(result);
@@ -165,7 +165,7 @@ class UserController {
       delete params.access_token;
       let userService = new UserService();
       userService.resetPassword(params, user, (err: any, result: any) => {
-        if(err) {
+        if (err) {
           next(err, null);
         } else {
           res.send(result);
@@ -216,8 +216,8 @@ class UserController {
       delete params.access_token;
 
       let userService = new UserService();
-      userService.updateDetails(newUserData, user, (error, result)=> {
-        if(error) {
+      userService.updateDetails(newUserData, user, (error, result) => {
+        if (error) {
           next(error);
         } else {
           res.send(result);
@@ -240,8 +240,8 @@ class UserController {
       delete params.access_token;
       let user = req.user;
       //var userServices = new UserService();
-      userService.getUserById(user, (err, result)=> {
-        if(err) {
+      userService.getUserById(user, (err, result) => {
+        if (err) {
           res.send(err);
         } else {
           res.send(result);
@@ -271,7 +271,7 @@ class UserController {
       let userService = new UserService();
 
       userService.changeEmailId(data, user, (error, result) => {
-        if(error) {
+        if (error) {
           next(error);
         } else {
           res.send(result);
@@ -294,8 +294,8 @@ class UserController {
       delete params.access_token;
       let userService = new UserService();
 
-      userService.verifyChangedEmailId(user, (error, result)=> {
-        if(error) {
+      userService.verifyChangedEmailId(user, (error, result) => {
+        if (error) {
           next(error);
         } else {
           res.send(result);
@@ -311,23 +311,23 @@ class UserController {
     }
   }
 
-  checkForLimitationOfBuilding(req:express.Request,res:express.Response,next:any) {
+  checkForLimitationOfBuilding(req: express.Request, res: express.Response, next: any) {
     try {
       let user = req.user;
       let projectId = req.params.projectId;
-      let userId =req.params.userId;
+      let userId = req.params.userId;
       let projectService = new UserService();
-      projectService.getUserForCheckingBuilding(userId,projectId,user,(error:any,result:any) => {
-        if(error) {
+      projectService.getUserForCheckingBuilding(userId, projectId, user, (error: any, result: any) => {
+        if (error) {
           next(error);
-        }else {
+        } else {
           res.send(result);
-          }
+        }
       });
     } catch (e) {
       next({
-        reason:e.message,
-        message:e.message,
+        reason: e.message,
+        message: e.message,
         stackTrace: new Error()
       });
     }
@@ -394,8 +394,8 @@ class UserController {
       let user = req.user;
       let params = req.body;
       let userService = new UserService();
-      userService.verifyMobileNumber(params, user, (error, result)=> {
-        if(error) {
+      userService.verifyMobileNumber(params, user, (error, result) => {
+        if (error) {
           next(error);
         } else {
           res.send(result);
@@ -576,18 +576,18 @@ class UserController {
     });
   }
 
-  getProjects(req: express.Request, res: express.Response, next: any): void{
+  getProjects(req: express.Request, res: express.Response, next: any): void {
     try {
       let user = req.user;
-      let userService  = new UserService();
-      userService.getProjects(user, (error, result)=>{
-        if(error) {
+      let userService = new UserService();
+      userService.getProjects(user, (error, result) => {
+        if (error) {
           next(error);
         } else {
           res.send(result);
         }
       });
-    } catch(e) {
+    } catch (e) {
       next({
         reason: e.message,
         message: e.message,
@@ -600,16 +600,16 @@ class UserController {
   getProjectSubscription(req: express.Request, res: express.Response, next: any): void {
     try {
       let user = req.user;
-      let projectId =  req.params.projectId;
-      let userService  = new UserService();
-      userService.getProjectSubscription(user, projectId,(error, result)=> {
-        if(error) {
+      let projectId = req.params.projectId;
+      let userService = new UserService();
+      userService.getProjectSubscription(user, projectId, (error, result) => {
+        if (error) {
           next(error);
         } else {
           res.send(result);
         }
       });
-    } catch(e) {
+    } catch (e) {
       next({
         reason: e.message,
         message: e.message,
@@ -624,85 +624,19 @@ class UserController {
       let user = req.user;
       let projectId = req.params.projectId;
       let packageName = req.body.packageName;
-      let costForBuildingPurchased =req.body.totalBilled;
+      let costForBuildingPurchased = req.body.totalBilled;
       let numberOfBuildingsPurchased = req.body.numOfPurchasedBuildings;
 
       let userService = new UserService();
-      userService.updateSubscription(user,projectId, packageName,costForBuildingPurchased,numberOfBuildingsPurchased,(error, result)=> {
-        if(error) {
-          next(error);
-        }else {
-          res.send(result);
-        }
-      });
-    }catch(e) {
-      next({
-        reason: e.message,
-        message: e.message,
-        stackTrace: new  Error(),
-        code: 403
-      });
-    }
-  }
-  assignPremiumPackage(req: express.Request, res: express.Response, next: any): void {
-    try {
-      let user = req.user;
-      let userId =req.params.userId;
-      let cost =req.body.totalBilled;
-      let userService = new UserService();
-      userService.assignPremiumPackage(user,userId,cost,(error, result)=> {
-        if(error) {
-          next(error);
-        }else {
-          res.send(result);
-        }
-      });
-    }catch(e) {
-      next({
-        reason: e.message,
-        message: e.message,
-        stackTrace: new  Error(),
-        code: 403
-      });
-    }
-  }
-
-  getUserSubscriptionDetails(req: express.Request, res: express.Response, next: any): void {
-      try {
-        let user = req.user;
-        let userId =req.params.userId;
-        let userService = new UserService();
-        userService.getUserSubscriptionDetails(userId,(error, result)=> {
-          if(error) {
+      userService.updateSubscription(user, projectId, packageName, costForBuildingPurchased, numberOfBuildingsPurchased,
+        (error, result) => {
+          if (error) {
             next(error);
-          }else {
-          res.send(result);
-        }
-      });
-    }catch(e) {
-      next({
-        reason: e.message,
-        message: e.message,
-        stackTrace: new  Error(),
-        code: 403
-      });
-    }
-}
-
-/*
-  assignUserSubscriptionPackage(req: express.Request, res: express.Response, next: any): void {
-    try {
-      let user = req.user;
-      let projectId =  req.params.projectId;
-      let userService  = new UserService();
-      userService.getProjectSubscription(user, projectId,(error, result)=> {
-        if(error) {
-          next(error);
-        } else {
-          res.send(result);
-        }
-      });
-    } catch(e) {
+          } else {
+            res.send(result);
+          }
+        });
+    } catch (e) {
       next({
         reason: e.message,
         message: e.message,
@@ -711,7 +645,75 @@ class UserController {
       });
     }
   }
-*/
+
+  assignPremiumPackage(req: express.Request, res: express.Response, next: any): void {
+    try {
+      let user = req.user;
+      let userId = req.params.userId;
+      let cost = req.body.totalBilled;
+      let userService = new UserService();
+      userService.assignPremiumPackage(user, userId, cost, (error, result) => {
+        if (error) {
+          next(error);
+        } else {
+          res.send(result);
+        }
+      });
+    } catch (e) {
+      next({
+        reason: e.message,
+        message: e.message,
+        stackTrace: new Error(),
+        code: 403
+      });
+    }
+  }
+
+  getUserSubscriptionDetails(req: express.Request, res: express.Response, next: any): void {
+    try {
+      let user = req.user;
+      let userId = req.params.userId;
+      let userService = new UserService();
+      userService.getUserSubscriptionDetails(userId, (error, result) => {
+        if (error) {
+          next(error);
+        } else {
+          res.send(result);
+        }
+      });
+    } catch (e) {
+      next({
+        reason: e.message,
+        message: e.message,
+        stackTrace: new Error(),
+        code: 403
+      });
+    }
+  }
+
+  /*
+    assignUserSubscriptionPackage(req: express.Request, res: express.Response, next: any): void {
+      try {
+        let user = req.user;
+        let projectId =  req.params.projectId;
+        let userService  = new UserService();
+        userService.getProjectSubscription(user, projectId,(error, result)=> {
+          if(error) {
+            next(error);
+          } else {
+            res.send(result);
+          }
+        });
+      } catch(e) {
+        next({
+          reason: e.message,
+          message: e.message,
+          stackTrace: new Error(),
+          code: 403
+        });
+      }
+    }
+  */
 
 
   getAdvertisingBanner(req: express.Request, res: express.Response, next: express.NextFunction) {
@@ -731,14 +733,14 @@ class UserController {
 
   sendProjectExpiryMails(req: express.Request, res: express.Response, next: express.NextFunction) {
     try {
-      let userService  = new UserService();
-      userService.sendProjectExpiryWarningMails((error, result)=> {
-        if(error) {
+      let userService = new UserService();
+      userService.sendProjectExpiryWarningMails((error, result) => {
+        if (error) {
           next(error);
         } else {
           res.send(result);
         }
-    });
+      });
     } catch (e) {
       next({
         reason: e.message,
@@ -748,17 +750,18 @@ class UserController {
       });
     }
   }
+
   getUserExistenceStatus(req: express.Request, res: express.Response, next: any) {
     try {
       let userService = new UserService();
-      let mobile_number =req.body.mobile_number;
-      userService.userExistenceStatus(mobile_number,(error, result)=> {
-        if(error) {
+      let mobile_number = req.body.mobile_number;
+      userService.getUserExistenceStatus(mobile_number, (error, result) => {
+        if (error) {
           next(error);
         } else {
           let auth: AuthInterceptor = new AuthInterceptor();
           let token = auth.issueTokenWithUid(result.data.user);
-          result.data.user = 'success';
+          delete result.data.user;
           res.status(200).send({access_token: token, data: result});
         }
       });
@@ -766,49 +769,50 @@ class UserController {
       res.send(e);
     }
   }
+
   verifyPassword(req: express.Request, res: express.Response, next: any) {
     try {
       let userService = new UserService();
-      let password =req.body.password;
-      let id =req.body.id;
-          userService.findById(id,(error, result) => {
-            if (error) {
-              next(error);
+      let password = req.body.password;
+      let id = req.body.id;
+      userService.findById(id, (error, result) => {
+        if (error) {
+          next(error);
+        } else {
+          bcrypt.compare(password, result.password, (err: any, isSame: any) => {
+            if (err) {
+              next({
+                reason: Messages.MSG_ERROR_RSN_INVALID_REGISTRATION_STATUS,
+                message: Messages.MSG_ERROR_VERIFY_CANDIDATE_ACCOUNT,
+                stackTrace: new Error(),
+                actualError: err,
+                code: 500
+              }, null);
             } else {
-              console.log(result);
-              bcrypt.compare(password, result.password, (err: any, isSame: any) => {
-                if (err) {
-                  next({
-                    reason: Messages.MSG_ERROR_RSN_INVALID_REGISTRATION_STATUS,
-                    message: Messages.MSG_ERROR_VERIFY_CANDIDATE_ACCOUNT,
-                    stackTrace: new Error(),
-                    actualError: err,
-                    code: 500
-                  }, null);
-                } else {
-                  if (isSame) {
-                    res.status(200).send(result);
-                  } else {
-                    next({
-                      reason: Messages.MSG_ERROR_RSN_INVALID_CREDENTIALS,
-                      message: Messages.MSG_ERROR_WRONG_PASSWORD,
-                      stackTrace: new Error(),
-                      code: 400
-                    }, null);
-                  }
-                }
-              });
+              if (isSame) {
+                res.status(200).send({data: 'success'});
+              } else {
+                next({
+                  reason: Messages.MSG_ERROR_RSN_INVALID_CREDENTIALS,
+                  message: Messages.MSG_ERROR_WRONG_PASSWORD,
+                  stackTrace: new Error(),
+                  code: 400
+                }, null);
+              }
             }
           });
+        }
+      });
     } catch (e) {
       res.send(e);
     }
   }
+
   setUserPassword(req: express.Request, res: express.Response, next: any) {
     try {
       let userService = new UserService();
-      let password =req.body.password;
-      let id =req.body.id;
+      let password = req.body.password;
+      let id = req.body.id;
       const saltRounds = 10;
       bcrypt.hash(password, saltRounds, (err: any, hash: any) => {
         if (err) {
@@ -826,7 +830,7 @@ class UserController {
             if (error) {
               next(error);
             } else {
-              res.send({ data:'success'});
+              res.status(200).send({data: 'success'});
             }
           });
 
@@ -837,4 +841,5 @@ class UserController {
     }
   }
 }
-export  = UserController;
+
+export = UserController;

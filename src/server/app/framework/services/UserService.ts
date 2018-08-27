@@ -1320,7 +1320,7 @@ class UserService {
     return readabledate;
   }
 
-  userExistenceStatus(mobileNumber: any, callback: (error: any, result: any) => void) {
+  getUserExistenceStatus(mobileNumber: any, callback: (error: any, result: any) => void) {
     let query = {'mobile_number': mobileNumber};
     this.userRepository.retrieve(query, (error, result) => {
       if (error) {
@@ -1329,6 +1329,7 @@ class UserService {
         if (!result[0].password || result[0].password === undefined) {
           callback(null, {
             data: {
+              isActivated: true,
               isPasswordSet: false,
               id: result[0]._id,
               user: result[0]
@@ -1337,7 +1338,8 @@ class UserService {
         } else {
           callback(null, {
             data: {
-              isRegistered: true,
+              isActivated: true,
+              isPasswordSet: true,
               id: result[0]._id,
               user: result[0]
             }
@@ -1351,6 +1353,7 @@ class UserService {
             callback(null, {
               data: {
                 isActivated: false,
+                isPasswordSet: false,
                 id: result[0]._id,
                 user: result[0]
               }
@@ -1376,7 +1379,8 @@ class UserService {
                 } else {
                   callback(null, {
                     data: {
-                      isRegistered: false,
+                      isActivated: false,
+                      isPasswordSet: false,
                       id: model._id,
                       user: model
                     }
@@ -1398,7 +1402,8 @@ class UserService {
                     } else {
                       callback(null, {
                         data: {
-                          isRegistered: false,
+                          isActivated: false,
+                          isPasswordSet: false,
                           id: model._id,
                           user: model
                         }
