@@ -1,7 +1,8 @@
 import DataAccess = require('../dataaccess');
 import User = require('../mongoose/user');
 import Project = require('../../../applicationProject/dataaccess/model/project/Project');
-import { Schema } from 'mongoose';
+import {Schema} from 'mongoose';
+
 let mongoose = DataAccess.mongooseInstance;
 let mongooseConnection = DataAccess.mongooseConnection;
 
@@ -9,13 +10,12 @@ let mongooseConnection = DataAccess.mongooseConnection;
 class UserSchema {
   static get schema() {
     let schema = new Schema({
-
-     /* location: {
-        city: String,
-        state: String,
-        country: String,
-        pin: String
-      },*/
+      /* location: {
+         city: String,
+         state: String,
+         country: String,
+         pin: String
+       },*/
       first_name: {
         type: String
       },
@@ -32,7 +32,9 @@ class UserSchema {
         type: String
       },
       email: {
-        type: String
+        type: String,
+        required: false,
+        unique: true
       },
       mobile_number: {
         type: Number,
@@ -57,34 +59,14 @@ class UserSchema {
         type: Number,
         default: 0
       },
-
       picture: {
         type: String,
         required: false
-      },
-      isCandidate: {
-        type: Boolean
-      },
-      isAdmin: {
-        type: Boolean,
-        default: false
       },
       social_profile_picture: {
         type: String,
         required: false
       },
-      current_theme: {
-        type: String,
-        required: false
-      },
-      notifications: [{
-        image: String,
-        title: String,
-        description: String,
-        is_read: Boolean,
-        notification_time: Date
-      }],
-      guide_tour: [{type: String}],
       activation_date: {
         type: Date,
       },
@@ -92,7 +74,7 @@ class UserSchema {
         type: Date,
         default: new Date()
       },
-      project : [{type: Schema.Types.ObjectId, ref: 'Project'}],
+      project: [{type: Schema.Types.ObjectId, ref: 'Project'}],
       subscription: {
         type: Object
       },
@@ -106,5 +88,6 @@ class UserSchema {
     return schema;
   }
 }
+
 let schema = mongooseConnection.model<User>('User', UserSchema.schema);
 export = schema;
