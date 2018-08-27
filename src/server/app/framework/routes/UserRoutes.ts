@@ -104,7 +104,7 @@ class UserRoutes {
             authInterceptor.secureApiCheck, controller.changePassword);
     */
     // RA Pro getUserSubscriptionDetails
-    router.get('/:userId/subscriptionDetails', authInterceptor.requiresAuth, controller.getUserSubscriptionDetails);
+    router.get('/:userId/subscriptionDetails', controller.getUserSubscriptionDetails);
 
     //  Rate Analysis user Routes
     router.put('/check/exists', controller.getUserExistenceStatus);

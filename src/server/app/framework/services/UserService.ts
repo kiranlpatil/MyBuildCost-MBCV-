@@ -138,22 +138,24 @@ class UserService {
         callback(new Error(Messages.MSG_ERROR_REGISTRATION_MOBILE_NUMBER), null);
       } else {
         callback(err, res);
-        let auth = new AuthInterceptor();
-        let token = auth.issueTokenWithUid(res);
-        let host = config.get('application.mail.host');
-        let link = host + 'signin?access_token=' + token + '&_id=' + res._id;
-        let htmlTemplate = 'welcome-aboard.html';
-        let data: Map<string, string> = new Map([['$applicationLink$', config.get('application.mail.host')],
-          ['$first_name$', res.first_name], ['$link$', link], ['$app_name$', this.APP_NAME]]);
-        let attachment = MailAttachments.WelcomeAboardAttachmentArray;
-        sendMailService.send(user.email, Messages.EMAIL_SUBJECT_CANDIDATE_REGISTRATION, htmlTemplate, data, attachment,
-          (err: any, result: any) => {
-            if (err) {
-              logger.error(JSON.stringify(err));
-            }
-            logger.debug('Sending Mail : ' + JSON.stringify(result));
-            //callback(err, result);
-          }, config.get('application.mail.BUILDINFO_ADMIN_MAIL'));
+        if(user && user.email) {
+          let auth = new AuthInterceptor();
+          let token = auth.issueTokenWithUid(res);
+          let host = config.get('application.mail.host');
+          let link = host + 'signin?access_token=' + token + '&_id=' + res._id;
+          let htmlTemplate = 'welcome-aboard.html';
+          let data: Map<string, string> = new Map([['$applicationLink$', config.get('application.mail.host')],
+            ['$first_name$', res.first_name], ['$link$', link], ['$app_name$', this.APP_NAME]]);
+          let attachment = MailAttachments.WelcomeAboardAttachmentArray;
+          sendMailService.send(user.email, Messages.EMAIL_SUBJECT_CANDIDATE_REGISTRATION, htmlTemplate, data, attachment,
+            (err: any, result: any) => {
+              if (err) {
+                logger.error(JSON.stringify(err));
+              }
+              logger.debug('Sending Mail : ' + JSON.stringify(result));
+              //callback(err, result);
+            }, config.get('application.mail.BUILDINFO_ADMIN_MAIL'));
+        }
       }
     });
   }
