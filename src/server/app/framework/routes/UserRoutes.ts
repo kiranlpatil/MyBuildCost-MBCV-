@@ -107,7 +107,7 @@ class UserRoutes {
     router.get('/:userId/subscriptionDetails', controller.getUserSubscriptionDetails);
 
     //  Rate Analysis user Routes
-    router.put('/check/exists', controller.getUserExistenceStatus);
+    router.put('/check/exists/:appType', controller.getUserExistenceStatus);
     router.put('/set/password', authInterceptor.requiresAuth, controller.setUserPassword);
     router.put('/verify/password', authInterceptor.requiresAuth, controller.verifyPassword);
 

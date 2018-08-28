@@ -1342,12 +1342,26 @@ class UserService {
     return readabledate;
   }
 
-  getUserExistenceStatus(mobileNumber: any, callback: (error: any, result: any) => void) {
+  getUserExistenceStatus(mobileNumber: number, appType: string, callback: (error: any, result: any) => void) {
     let query = {'mobile_number': mobileNumber};
     this.userRepository.retrieve(query, (error, result) => {
       if (error) {
         callback(error, null);
-      } else if (result.length > 0 && result[0].isActivated === true) {
+      } else if (appType === 'mobile-app' && result.length > 0 && result[0].isActivated === true) {
+        this.sendOtp({mobile_number: mobileNumber}, {_id: result[0]._id}, (err: any, res: any) => {
+          if (err) {
+            callback(err, null);
+          } else {
+            callback(null, {
+              'isActivated': false,
+              'isPasswordSet': false,
+              'id': result[0]._id,
+              'mobileNumber': res.data.newMobileNumber,
+              'user': result[0]
+            });
+          }
+        });
+      } else if (appType === 'web-app' && result.length > 0 && result[0].isActivated === true) {
         if (!result[0].password || result[0].password === undefined) {
           callback(null, {
               'isActivated': true,

@@ -755,7 +755,8 @@ class UserController {
     try {
       let userService = new UserService();
       let mobile_number = req.body.mobile_number;
-      userService.getUserExistenceStatus(mobile_number, (error, result) => {
+      let appType = req.params.appType;
+      userService.getUserExistenceStatus(mobile_number, appType, (error, result) => {
         if (error) {
           next(error);
         } else {
