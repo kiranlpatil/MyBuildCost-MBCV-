@@ -45,7 +45,14 @@ class UserService {
   }
 
   createUser(item: any, callback: (error: any, result: any) => void) {
-    this.userRepository.retrieve({'email': item.email}, (err, res) => {
+
+    let query;
+    if(item.typeOfApp === 'RAapp') {
+      query = {'mobile_number': item.mobile_number};
+    } else {
+      query = {'email': item.email};
+    }
+    this.userRepository.retrieve(query, (err, res) => {
       if (err) {
         callback(new Error(err), null);
       } else if (res.length > 0) {
@@ -223,7 +230,15 @@ class UserService {
   }
 
   login(data: any, typeOfApp: any, callback: (error: any, result: any) => void) {
-    this.retrieve({'email': data.email}, (error, result) => {
+
+    let query;
+    if(typeOfApp === 'RAapp') {
+      query = {'mobile_number': data.mobile_number};
+    } else {
+      query = {'email': data.email};
+    }
+
+    this.retrieve(query, (error, result) => {
       if (error) {
         callback(error, null);
       } else if (result.length > 0 && result[0].isActivated === true) {

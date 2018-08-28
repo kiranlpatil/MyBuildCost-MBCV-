@@ -32,14 +32,10 @@ class UserSchema {
         type: String
       },
       email: {
-        type: String,
-        required: false,
-        unique: true
+        type: String
       },
       mobile_number: {
-        type: Number,
-        required: false,
-        unique: true
+        type: Number
       },
       temp_mobile: {
         type: Number,
