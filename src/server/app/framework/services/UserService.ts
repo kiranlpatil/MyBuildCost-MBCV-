@@ -316,14 +316,16 @@ class UserService {
         callback(null, {
           'status': Messages.STATUS_SUCCESS,
           'data': {
-            'message': Messages.MSG_SUCCESS_OTP
+            'message': Messages.MSG_SUCCESS_OTP,
+            'newMobileNumber': result._doc.new_mobile_number
           }
         });
       } else if (result.ErrorCode === '000') {
         callback(null, {
           'status': Messages.STATUS_SUCCESS,
           'data': {
-            'message': Messages.MSG_SUCCESS_OTP
+            'message': Messages.MSG_SUCCESS_OTP,
+            'newMobileNumber': result.new_mobile_number
           }
         });
       } else {
@@ -362,10 +364,13 @@ class UserService {
             callback(error, null);
           } else if (!error && response) {
             let res = JSON.parse(response.body);
+            // TODO check new_mobile_number against orca info response
+            res.new_mobile_number = generateOtpObject.new_mobile_number;
             callback(null, res);
           }
         });*/
         // end of post api
+        result._doc.new_mobile_number = generateOtpObject.new_mobile_number;
         callback(null, result);
       }
     });
@@ -1352,6 +1357,7 @@ class UserService {
                 'isActivated': false,
                 'isPasswordSet': false,
                 'id': result[0]._id,
+                'mobileNumber': res.data.newMobileNumber,
                 'user': result[0]
             });
           }
@@ -1377,6 +1383,7 @@ class UserService {
                       'isActivated': false,
                       'isPasswordSet': false,
                       'id': model._id,
+                      'mobileNumber': res.data.newMobileNumber,
                       'user': model
                   });
                 }
@@ -1398,6 +1405,7 @@ class UserService {
                           'isActivated': false,
                           'isPasswordSet': false,
                           'id': model._id,
+                          'mobileNumber': res.data.newMobileNumber,
                           'user': model
                       });
                     }
