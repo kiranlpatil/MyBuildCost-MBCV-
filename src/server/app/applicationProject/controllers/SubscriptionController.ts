@@ -139,12 +139,17 @@ class SubscriptionController {
   successRateAnalysisPayment(req: express.Request, res: express.Response, next: any): void {
     try {
       let userId = req.params.userId;
+      let deviceType = req.params.deviceType;
       let userService = new UserService();
       userService.updateSubscriptionDetails(userId,(error, result)=> {
         if(error) {
           next(error);
         } else {
-          res.redirect(config.get('application.browser.rateAnalysisIP') +'payment/success');
+          if(deviceType === 'mobile') {
+            console.log('Success Done');
+          } else {
+            res.redirect(config.get('application.browser.rateAnalysisIP') +'payment/success');
+          }
         }
       });
     } catch(e) {
@@ -156,12 +161,17 @@ class SubscriptionController {
     try {
       let body = req.body;
       let userId = req.params.userId;
+      let deviceType = req.params.deviceType;
       let userService = new UserService();
       userService.updatePaymentStatus(userId,(error, result)=> {
         if(error) {
           next(error);
         } else {
-          res.redirect(config.get('application.browser.rateAnalysisIP') +'payment/failure');
+          if(deviceType === 'mobile') {
+            console.log('Failure Done');
+          } else {
+            res.redirect(config.get('application.browser.rateAnalysisIP') + 'payment/failure');
+          }
         }
       });
     } catch(e) {

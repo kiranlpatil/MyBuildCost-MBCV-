@@ -11,4 +11,5 @@ export class PayUMoneyModel {
   surl : string = '';
   furl : string = '';
   userId : string;
+  deviceType: string;
 }

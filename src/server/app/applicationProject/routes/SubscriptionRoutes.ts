@@ -47,9 +47,9 @@ class SubscriptionRoutes {
     // Rate Analysis App payment API
     router.post('/makePayment',  controller.makePayUMoneyPayment, this._responseInterceptor.exit);
 
-    router.post('/rapayment/user/:userId/success',  controller.successRateAnalysisPayment, this._responseInterceptor.exit);
+    router.post('/rapayment/user/:userId/success/:deviceType',  controller.successRateAnalysisPayment, this._responseInterceptor.exit);
 
-    router.post('/rapayment/user/:userId/failure',  controller.failureRateAnalysisPayment, this._responseInterceptor.exit);
+    router.post('/rapayment/user/:userId/failure/:deviceType',  controller.failureRateAnalysisPayment, this._responseInterceptor.exit);
 
     return router;
   }
