@@ -355,7 +355,7 @@ class UserService {
 
   generateOtp(generateOtpObject: any, callback: (error: any, result: any) => void) {
     let query = {'_id': generateOtpObject._id};
-    let otp = Math.floor((Math.random() * 99999) + 100000);
+    let otp = Math.floor((Math.random() * 999) + 1000);
     // TODO decide whether to update 'mobile_number' with 'new_mobile_number'
     // let updateData = {'mobile_number': generateOtpObject.new_mobile_number, 'otp': otp};
     let updateData = {'otp': otp};
@@ -366,7 +366,7 @@ class UserService {
       } else {
         let messaging = config.get('application.messaging');
         let messageForEndUser = 'The One Time Password(OTP) for' + ' ' + messaging.appName + ' ' + 'account is' + ' ' + otp
-          + ' ' + '. Use this OTP to verify your account.';
+          + '' + '. Use this OTP to verify your account.';
         console.log('message sent to user:', messageForEndUser);
         let url = messaging.url + '?user=' + messaging.user + '&password=' + messaging.password + '&msisdn=91'
           + generateOtpObject.new_mobile_number + '&sid=' + messaging.sid + '&msg=' + messageForEndUser + '&fl='
