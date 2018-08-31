@@ -1173,13 +1173,23 @@ class ProjectService {
             ];
           } else {
             updateQuery = {$set:{'costHeads.$[costHead].categories.$[category].workItems.$[workItem].active':workItemActiveStatus}};
-            arrayFilter = [
-              {'costHead.rateAnalysisId': costHeadId},
-              {'category.rateAnalysisId': categoryId},
-              {'workItem.rateAnalysisId': workItemRAId,
-                'workItem.workItemId': workItemId
-              }
-            ];
+            if(!response.active && response.workItemId > 1) {
+              arrayFilter = [
+                {'costHead.rateAnalysisId': costHeadId},
+                {'category.rateAnalysisId': categoryId},
+                {'workItem.rateAnalysisId': workItemRAId,
+                  'workItem.workItemId': response.workItemId
+                }
+              ];
+            } else {
+              arrayFilter = [
+                {'costHead.rateAnalysisId': costHeadId},
+                {'category.rateAnalysisId': categoryId},
+                {'workItem.rateAnalysisId': workItemRAId,
+                  'workItem.workItemId': workItemId
+                }
+              ];
+            }
           }
 
           this.buildingRepository.findOneAndUpdate(query, updateQuery, {arrayFilters:arrayFilter, new: true}, (error, response) => {
@@ -1256,7 +1266,7 @@ class ProjectService {
     logger.info('Project service, Update WorkItem Status Of Project Cost Heads has been hit');
     let query = {_id: projectId};
     let newWorkItem = workItem;
-    let updateQuery;
+    let updateQuery: any;
     let arrayFilter;
     if(workItemActiveStatus) {
       this.checkDuplicatesOfProjectWorkItem(projectId, costHeadId, categoryId, workItemId, ccWorkItemId,(error, response)=> {
@@ -1268,6 +1278,7 @@ class ProjectService {
             newWorkItem.workItemId = response.workItemId +1;
             let quantityObj = new Quantity();
             newWorkItem.quantity = quantityObj;
+            newWorkItem.amount = 0;
             newWorkItem.name = newWorkItem.workItemId + '-'+ newWorkItem.name;
             newWorkItem.active = true;
             updateQuery = {$push : {'projectCostHeads.$[costHead].categories.$[category].workItems': newWorkItem }};
@@ -1277,12 +1288,23 @@ class ProjectService {
             ];
           } else {
             updateQuery = {$set:{'projectCostHeads.$[costHead].categories.$[category].workItems.$[workItem].active':workItemActiveStatus}};
-            arrayFilter = [
-              {'costHead.rateAnalysisId': costHeadId},
-              {'category.rateAnalysisId': categoryId},
-              {'workItem.rateAnalysisId': workItemId, 'workItem.workItemId' : ccWorkItemId}
-            ];
+            if(!response.active && response.workItemId > 1) {
+              arrayFilter = [
+                {'costHead.rateAnalysisId': costHeadId},
+                {'category.rateAnalysisId': categoryId},
+                {'workItem.rateAnalysisId': workItemId,
+                  'workItem.workItemId': response.workItemId
+                }
+              ];
+            } else {
+              arrayFilter = [
+                {'costHead.rateAnalysisId': costHeadId},
+                {'category.rateAnalysisId': categoryId},
+                {'workItem.rateAnalysisId': workItemId, 'workItem.workItemId' : ccWorkItemId}
+              ];
+            }
           }
+
           this.projectRepository.findOneAndUpdate(query, updateQuery, {arrayFilters:arrayFilter, new: true}, (error, response) => {
             logger.info('Project service, Update WorkItem Status Of Project Cost Heads ,findOneAndUpdate has been hit');
             if (error) {
