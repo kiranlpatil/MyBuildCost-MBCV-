@@ -238,7 +238,7 @@ class UserService {
 
     let query;
     if (typeOfApp === 'RAapp') {
-      query = {'mobile_number': data.mobile_number};
+      query = {'mobile_number': data.mobile_number, 'typeOfApp': 'RAapp'};
     } else {
       query = {'email': data.email};
     }
