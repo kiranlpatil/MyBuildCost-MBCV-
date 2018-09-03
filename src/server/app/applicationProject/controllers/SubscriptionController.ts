@@ -162,8 +162,9 @@ class SubscriptionController {
       let body = req.body;
       let userId = req.params.userId;
       let deviceType = req.params.deviceType;
+      let paymentStatus = 'failure';
       let userService = new UserService();
-      userService.updatePaymentStatus(userId,(error, result)=> {
+      userService.updatePaymentStatus(userId, paymentStatus,(error, result)=> {
         if(error) {
           next(error);
         } else {
@@ -172,6 +173,24 @@ class SubscriptionController {
           } else {
             res.redirect(config.get('application.browser.rateAnalysisIP') + 'payment/failure');
           }
+        }
+      });
+    } catch(e) {
+      next(new CostControllException(e.message,e.stack));
+    }
+  }
+
+  resetPaymentStatus(req: express.Request, res: express.Response, next: any): void {
+    try {
+      let body = req.body;
+      let userId = req.params.userId;
+      let userService = new UserService();
+      let paymentStatus = '';
+      userService.updatePaymentStatus(userId, paymentStatus, (error, result)=> {
+        if(error) {
+          next(error);
+        } else {
+          next(new Response(200,result));
         }
       });
     } catch(e) {

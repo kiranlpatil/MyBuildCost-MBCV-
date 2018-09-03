@@ -1522,7 +1522,7 @@ class UserService {
           subscription.description = result.basePackage.description;
           subscription.cost = result.basePackage.cost;
           let query = {'_id': userId};
-          let updateData = {'subscriptionForRA': subscription, 'paymentStatus' : 'RAPremiumSuccess'};
+          let updateData = {'subscriptionForRA': subscription, 'paymentStatus' : 'success'};
           this.userRepository.findOneAndUpdate(query, updateData, {new: true}, (error, result) => {
             if (error) {
               callback(error, null);
@@ -1542,15 +1542,15 @@ class UserService {
     });
   }
 
-  updatePaymentStatus(userId: string, callback: (error: any, result: any) => void) {
+  updatePaymentStatus(userId: string, paymentStatus: string, callback: (error: any, result: any) => void) {
 
     let query = {'_id': userId};
-    let updateData = {'paymentStatus' : 'RAPremiumFailure'};
+    let updateData = {'paymentStatus' : paymentStatus};
     this.userRepository.findOneAndUpdate(query, updateData, {new: true}, (error, result) => {
       if (error) {
         callback(error, null);
       } else {
-        logger.error('Payement success failure : '+ JSON.stringify(result));
+        logger.error('Payment success failure : '+ JSON.stringify(result));
         callback(null, result);
       }
     });

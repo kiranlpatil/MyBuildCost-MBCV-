@@ -51,6 +51,8 @@ class SubscriptionRoutes {
 
     router.post('/rapayment/user/:userId/failure/:deviceType',  controller.failureRateAnalysisPayment, this._responseInterceptor.exit);
 
+    router.put('/user/:userId/paymentStatus/reset', this.authInterceptor.requiresAuth, controller.resetPaymentStatus);
+
     return router;
   }
 }
