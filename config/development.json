@@ -52,12 +52,23 @@
       "clientSecretId": "-EHuNLqtYrRuwS_ZZ48PGHJC"
     },
     "messaging": {
+      // Orca info solutions credentials
+      "appName": "Rate Analysis",
+      "url": "http://user.orcainfosolutions.com/vendorsms/pushsms.aspx",
+      "user": "mycivilcalc",
+      "password": "mycivilcalc123",
+      "sid": "RATEAN",
+      "fl": "0",
+      "gwid": "2",
+
+      // msg91 credentials
       "authKey": "152516A0pwPFRp59198cd9",
       "senderId": "JOBMOS",
       "routerNumber": "4"
     },
     "browser": {
-      "IP": "http://localhost:5555/"
+      "IP": "http://localhost:5555/",
+      "rateAnalysisIP": "http://localhost:4200/"
       // "IP": "http://localhost:5555/"  //CORDOVA APP
     },
     "filePathForProfileImage": "/src/server/app/framework/public/profileimage",
