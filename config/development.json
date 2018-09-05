@@ -72,7 +72,9 @@
       // "IP": "http://localhost:5555/"  //CORDOVA APP
     },
     "filePathForProfileImage": "/src/server/app/framework/public/profileimage",
-    "filePathForAttachment": "/src/server/app/framework/public/attachment-files"
+    "filePathForAttachment": "/src/server/app/framework/public/attachment-files",
+    "backendAPI" : "http://localhost:8080/"
+    /*"backendAPI" : "http://0a0b7046.ngrok.io/"*/
   },
 
   "payUMoney": {

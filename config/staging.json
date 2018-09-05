@@ -27,7 +27,7 @@
     "attachmentPath": "/src/server/public/attachment-files",
     "limitForQuery": 10,
     "mail": {
-      "host": "http://52.66.120.228:8080/",
+      "host": "http://13.232.139.161:8080/",
       "MAIL_SENDER": "redminestatus@techprimelab.com",
       "MAIL_SENDER_PASSWORD": "Contactu$@tpl",
       "ADMIN_MAIL": "buildinfo@techprimelab.com",
@@ -69,7 +69,8 @@
       "IP": "http://52.66.120.228:8080/"
     },
     "filePathForMasterDataExcel": "/server/prod/app/framework/public/config/NewIndustryDataExcel.xlsx",
-    "filePathForProfileImage": "/server/prod/app/framework/public/profileimage"
+    "filePathForProfileImage": "/server/prod/app/framework/public/profileimage",
+    "backendAPI" : "http://13.232.139.161:8080/"
   },
 
   "payUMoney": {

@@ -72,8 +72,8 @@
       "IP" : "http://mybuildcost.buildinfo.co.in/"
     },
     "filePathForMasterDataExcel" : "/server/prod/app/framework/public/config/NewIndustryDataExcel.xlsx",
-    "filePathForProfileImage" : "/server/prod/app/framework/public/profileimage"
-
+    "filePathForProfileImage" : "/server/prod/app/framework/public/profileimage",
+    "backendAPI" : "http://mybuildcost.buildinfo.co.in/"
   },
 
   "payUMoney" : {
