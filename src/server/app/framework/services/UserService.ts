@@ -404,7 +404,7 @@ class UserService {
           + messaging.fl + '&gwid=' + messaging.gwid;
 
         // call post api of Orca info solutions to send OTP
-        /*request.post({url: url, json: ''}, (error: any, response: any, body: any) => {
+        request.post({url: url, json: ''}, (error: any, response: any, body: any) => {
           if (error) {
             callback(error, null);
           } else if (!error && response) {
@@ -413,10 +413,10 @@ class UserService {
             res.new_mobile_number = generateOtpObject.new_mobile_number;
             callback(null, res);
           }
-        });*/
+        });
         // end of post api
-        result._doc.new_mobile_number = generateOtpObject.new_mobile_number;
-        callback(null, result);
+        // result._doc.new_mobile_number = generateOtpObject.new_mobile_number;
+        // callback(null, result);
       }
     });
   }
