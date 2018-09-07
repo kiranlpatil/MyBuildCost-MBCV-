@@ -110,7 +110,10 @@ class UserRoutes {
     router.put('/check/exists/:appType', controller.getUserExistenceStatus);
     router.put('/set/password',authInterceptor.requiresAuth, controller.setUserPassword);
     router.put('/verify/password', authInterceptor.requiresAuth, controller.verifyPassword);
-      router.put('/:userId/updateSubscription', controller.updateSubscriptionDetails);return router;
+      router.put('/:userId/updateSubscription', controller.updateSubscriptionDetails);
+    router.post('/userList', controller.getUserData);
+      return router;
+
     }
 }
 

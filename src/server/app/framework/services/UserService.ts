@@ -21,6 +21,8 @@ import messages  = require('../../applicationProject/shared/messages');
 import constants  = require('../../applicationProject/shared/constants');
 import ProjectSubcription = require('../../applicationProject/dataaccess/model/company/ProjectSubcription');
 import UserSubscriptionForRA = require('../../applicationProject/dataaccess/model/project/Subscription/UserSubscriptionForRA');
+import NewUser = require("../../applicationProject/dataaccess/model/Users/NewUser");
+import alasql = require('alasql');
 
 import Constants = require('../../applicationProject/shared/constants');
 import LoggerService = require('../shared/logger/LoggerService');
@@ -32,6 +34,7 @@ let ObjectId = mongoose.Types.ObjectId;
 let config = require('config');
 let path = require('path');
 let request = require('request');
+let xlsxj = require('xlsx-to-json');
 
 class UserService {
   APP_NAME: string;
@@ -1527,6 +1530,91 @@ class UserService {
         this.loggerService.logErrorObj(error);
       }
     });
+  }
+
+  updateUserData( callback: (err: any, result: any) => void) {
+    let rr = 'C:\\Users\\Nilesh\\Webstorm Projects\\costcontrol\\AllData.xlsx';
+    xlsxj({
+      input: rr,
+      output: null
+    }, (err: any, result: any) => {
+      if (err) {
+        callback(err, null);
+      } else {
+        for (let i = 0; i < result.length; i++) {
+        let totalCountOfMobileNo = alasql('SELECT COUNT(App_Cellnumber) AS totalCount  FROM ? where App_Cellnumber = ' +
+          '"' + result[i].App_Cellnumber + '"', [result]);
+
+        let getUserSQL = alasql('SELECT * FROM ? where IsActive = "1" AND App_Cellnumber = ' + '"' + result[i].App_Cellnumber + '"' , [result]);
+
+        let isDuplicateUser = 'SELECT EmailAddress, App_Cellnumber, AppCode, DATE(App_InstalledOn) as date ' +
+          'FROM ? ORDER BY DATE(App_InstalledOn) DESC LIMIT 1 ';
+        let highestDateUser = alasql(isDuplicateUser, [getUserSQL]);
+
+        if (totalCountOfMobileNo[0].totalCount <= 1) {
+          this.convertToUserSchema(getUserSQL[0], (error, result) => {
+            if (error) {
+              callback(error,null);
+            } else {
+              callback(null,result);
+            }
+          });
+        } else {
+          this.convertToUserSchema(highestDateUser[0],(error, result) => {
+            if (error) {
+              callback(error,null);
+            } else {
+              callback(null,result);
+            }
+          });
+        }
+      }
+        callback(null, result);
+      }
+    });
+}
+/*
+  findHighestExpiryDate(data: any,highestDate: any , callback: (error: any, result: any) => void) {
+    let getUserData = alasql('SELECT * FROM ? where App_InstalledOn = ' + '"' + highestDate + '"', [data]);
+    this.convertToUserSchema(getUserData[0], (error, result) => {
+      if (error) {
+        callback(error,null);
+      } else {
+        callback(null,result);
+      }
+    });
+  }*/
+
+  convertToUserSchema(data: any, callback: (error: any, result: any) => void) {
+    let user = new NewUser();
+    user.email = data.EmailAddress;
+    user.activation_date = data.date;
+    user.isCandidate =  true;
+    user.isActivated = true;
+    user.mobile_number = Number(data.App_Cellnumber);
+    user.typeOfApp = 'RAapp';
+   // user.subscriptionForRA = this.checkPackage(data.App_InstalledOn, data.AppCode);
+    this.userRepository.create(user, (err: Error, res: any) => {
+      if (err) {
+        callback(new Error(Messages.MSG_ERROR_REGISTRATION_MOBILE_NUMBER), null);
+      } else {
+        callback(res, null);
+      }
+    });
+  }
+
+  checkPackage(date: any, appType: any) {
+    switch(appType) {
+      case 'RA' :
+
+              break;
+      case 'RAP' :
+
+              break;
+      case 'MA' :
+
+              break;
+    }
   }
 }
 
