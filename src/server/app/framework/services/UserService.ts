@@ -461,6 +461,7 @@ class UserService {
 
   forgotPassword(field: any, callback: (error: any, result: SentMessageInfo) => void) {
 
+    // TODO check query for my-build-cost and ra-app
     let sendMailService = new SendMailService();
     let query = {'email': field.email};
 
@@ -491,6 +492,7 @@ class UserService {
 
 
   SendChangeMailVerification(field: any, callback: (error: any, result: SentMessageInfo) => void) {
+    // TODO check query for my-build-cost and ra-app
     let query = {'email': field.current_email, 'isActivated': true};
     let updateData = {$set: {'temp_email': field.new_email}};
     this.userRepository.findOneAndUpdate(query, updateData, {new: true}, (error: any, result: any) => {
@@ -705,6 +707,7 @@ class UserService {
 
   changeEmailId(data: any, user: User, callback: (error: any, result: any) => void) {
     let auth: AuthInterceptor = new AuthInterceptor();
+    // TODO check query for my-build-cost and ra-app
     let query = {'email': data.new_email};
 
     this.retrieve(query, (error, result) => {
@@ -1382,7 +1385,9 @@ class UserService {
   }
 
   getUserExistenceStatus(mobileNumber: number, appType: string, callback: (error: any, result: any) => void) {
-    let query = {'mobile_number': mobileNumber};
+    let typeOfApp = 'RAapp';
+    // TODO check query for my-build-cost and ra-app
+    let query = {'mobile_number': mobileNumber, 'typeOfApp': typeOfApp};
     this.userRepository.retrieve(query, (error, result) => {
       if (error) {
         callback(error, null);
