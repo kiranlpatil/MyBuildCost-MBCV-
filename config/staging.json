@@ -317,7 +317,7 @@
               "rateAnalysisId": 100465,
               "isMeasurementSheet": false,
               "measurementUnit": "Hr",
-              "isRateAnalysis":false,
+              "isRateAnalysis": false,
               "rateAnalysisPerUnit": null,
               "rateAnalysisUnit": null,
               "directRate": 750,
@@ -728,7 +728,7 @@
             },
             {
               "name": "Providing and placing in position TOR steel including strightening, cutting, bending, jointing etc as per design (M plus L)",
-              "rateAnalysisId": 501001,
+              /* "rateAnalysisId": 501001, */
               "isMeasurementSheet": true,
               "measurementUnit": "Kg",
               "isRateAnalysis": true,
@@ -1340,6 +1340,7 @@
 
           ]
         }
+
       ]
     },
     {
@@ -4669,7 +4670,7 @@
           "workItems": [
             {
               "name": "75 mm (3\") X 400 mm ceramic tile skirting",
-              "rateAnalysisId": 100285,
+              /*"rateAnalysisId": 100285,*/
               "isMeasurementSheet": true,
               "measurementUnit": "Rm",
               "isRateAnalysis": true,
@@ -4685,7 +4686,7 @@
             },
             {
               "name": "75 mm (3\") X 300 mm ceramic tile skirting",
-              "rateAnalysisId": 100286,
+              /*"rateAnalysisId": 100286,*/
               "isMeasurementSheet": true,
               "measurementUnit": "Rm",
               "isRateAnalysis": true,
@@ -4707,7 +4708,7 @@
           "workItems": [
             {
               "name": "75 mm (3\") X 600 mm kota tile skirting",
-              "rateAnalysisId": 100288,
+              /* "rateAnalysisId": 100288,*/
               "isMeasurementSheet": true,
               "measurementUnit": "Rm",
               "isRateAnalysis": true,
@@ -4723,7 +4724,7 @@
             },
             {
               "name": "75 mm (3\") X 1200 mm marble tile skirting",
-              "rateAnalysisId": 100289,
+              /*"rateAnalysisId": 100289,*/
               "isMeasurementSheet": true,
               "measurementUnit": "Rm",
               "isRateAnalysis": true,
@@ -4739,7 +4740,7 @@
             },
             {
               "name": "75 mm (3\") X 1200 mm granite tile skirting",
-              "rateAnalysisId": 100290,
+              /*"rateAnalysisId": 100290,*/
               "isMeasurementSheet": true,
               "measurementUnit": "Rm",
               "isRateAnalysis": true,
@@ -4755,7 +4756,7 @@
             },
             {
               "name": "75 mm (3\") imported marble (Dyna) skirting",
-              "rateAnalysisId": 100291,
+              /*"rateAnalysisId": 100291,*/
               "isMeasurementSheet": true,
               "measurementUnit": "Rm",
               "isRateAnalysis": true,
@@ -4777,7 +4778,7 @@
           "workItems": [
             {
               "name": "1\" x 1\" Glass mosaic tile dado (300mm x 300 mm tile size)",
-              "rateAnalysisId": 100294,
+              /*"rateAnalysisId": 100294,*/
               "isMeasurementSheet": true,
               "measurementUnit": "Sqm",
               "isRateAnalysis": true,
@@ -7492,7 +7493,7 @@
           "workItems" : [
             {
               "name" : "Door shutter 30 mm thick for door opening size 3'0\" W x 7'0\" H with both side high gloss/textured laminate",
-              "rateAnalysisId" : 100400,
+              /* "rateAnalysisId" : 100400,*/
               "isMeasurementSheet" : false,
               "measurementUnit" : "No.",
               "isRateAnalysis" : true,
@@ -7507,7 +7508,7 @@
             },
             {
               "name" : "Door shutter 30 mm thick for door opening size 3'0\" W x 7'0\" H with both side painted",
-              "rateAnalysisId" : 100401,
+              /* "rateAnalysisId" : 100401,*/
               "isMeasurementSheet" : false,
               "measurementUnit" : "No.",
               "isRateAnalysis" : true,
@@ -7522,7 +7523,7 @@
             },
             {
               "name" : "Door shutter 30 mm thick for door opening size 3'0\" W x 7'0\" H with one side door skin & one side plain laminate",
-              "rateAnalysisId" : 100402,
+              /* "rateAnalysisId" : 100402,*/
               "isMeasurementSheet" : false,
               "measurementUnit" : "No.",
               "isRateAnalysis" : true,
@@ -7537,7 +7538,7 @@
             },
             {
               "name": "Door shutter 30 mm thick for door opening size 2'6\" W x 7'0\" H with both side plain laminate",
-              "rateAnalysisId": 140400,
+              /* "rateAnalysisId": 140400,*/
               "isMeasurementSheet": false,
               "measurementUnit": "No.",
               "isRateAnalysis": true,
@@ -7552,7 +7553,7 @@
             },
             {
               "name": "Door shutter 30 mm thick for door opening size 3'0\" W x 7'0\" H with both side plain laminate",
-              "rateAnalysisId": 140401,
+              /*"rateAnalysisId": 140401,*/
               "isMeasurementSheet": false,
               "measurementUnit": "No.",
               "isRateAnalysis": true,
@@ -7567,7 +7568,7 @@
             },
             {
               "name": "Door shutter 30 mm thick for door opening size 3'0\" W x 7'0\" H with both side Veneer finish",
-              "rateAnalysisId": 140402,
+              /*"rateAnalysisId": 140402,*/
               "isMeasurementSheet": false,
               "measurementUnit": "No.",
               "isRateAnalysis": true,
@@ -7582,7 +7583,7 @@
             },
             {
               "name": "Door shutter 30 mm thick for door opening size 2'6\" W x 7'0\" H with both side oil painted",
-              "rateAnalysisId": 140403,
+              /*"rateAnalysisId": 140403,*/
               "isMeasurementSheet": false,
               "measurementUnit": "No.",
               "isRateAnalysis": true,
@@ -7602,7 +7603,7 @@
           "workItems" : [
             {
               "name" : "Moulded door shutter 30 mm thick with HDF door skin for door opening size 3'0\" W X 7'0\" H",
-              "rateAnalysisId" : 100404,
+              /*"rateAnalysisId" : 100404,*/
               "isMeasurementSheet" : false,
               "measurementUnit" : "No.",
               "isRateAnalysis" : true,
@@ -7617,7 +7618,7 @@
             },
             {
               "name" : "Moulded door shutter of opening size 3'0\" W X 7'0\" H with PVC door skin",
-              "rateAnalysisId" : 100405,
+              /*"rateAnalysisId" : 100405,*/
               "isMeasurementSheet" : false,
               "measurementUnit" : "No.",
               "isRateAnalysis" : true,
@@ -7632,7 +7633,7 @@
             },
             {
               "name" : "Moulded shutter for opening size 3'0\" W X 7'0\" H with veneer",
-              "rateAnalysisId" : 100406,
+              /*"rateAnalysisId" : 100406,*/
               "isMeasurementSheet" : false,
               "measurementUnit" : "No.",
               "isRateAnalysis" : true,
@@ -7653,7 +7654,7 @@
           "workItems" : [
             {
               "name" : "Ready made PVC door shutter of size 2'6\" W x 7'0\" H( commonly used for toilets)",
-              "rateAnalysisId" : 100408,
+              /*"rateAnalysisId" : 100408,*/
               "isMeasurementSheet" : false,
               "measurementUnit" : "No.",
               "isRateAnalysis" : true,
@@ -7674,7 +7675,7 @@
           "workItems" : [
             {
               "name" : "Plain/panelled wooden door shutter of required thickness with both side polish",
-              "rateAnalysisId" : 500408,
+              /* "rateAnalysisId" : 500408,*/
               "isMeasurementSheet" : false,
               "measurementUnit" : "No.",
               "isRateAnalysis" : true,
@@ -7689,7 +7690,7 @@
             },
             {
               "name" : "Designer engraved wooden door shutter of required thickness with both side polish",
-              "rateAnalysisId" : 500409,
+              /* "rateAnalysisId" : 500409,*/
               "isMeasurementSheet" : false,
               "measurementUnit" : "No.",
               "isRateAnalysis" : true,
@@ -7766,7 +7767,7 @@
           "workItems" : [
             {
               "name" : "Black granite door frame for door size 2'6\" X 7'0\" with chamfer & edge polish.",
-              "rateAnalysisId" : 100412,
+              /* "rateAnalysisId" : 100412,*/
               "isMeasurementSheet" : false,
               "measurementUnit" : "No.",
               "isRateAnalysis" : true,
@@ -7781,7 +7782,7 @@
             },
             {
               "name" : "Black granite door frame for door size 3'0\" x 7'0\" with chamfer & edge polish.",
-              "rateAnalysisId" : 100413,
+              /* "rateAnalysisId" : 100413,*/
               "isMeasurementSheet" : false,
               "measurementUnit" : "No.",
               "isRateAnalysis" : true,
@@ -7796,7 +7797,7 @@
             },
             {
               "name" : "Green marble door frame for door size 2'6\" X 7'0\" with chamfer and edge polish.",
-              "rateAnalysisId" : 100414,
+              /*"rateAnalysisId" : 100414,*/
               "isMeasurementSheet" : false,
               "measurementUnit" : "No.",
               "isRateAnalysis" : true,
@@ -7811,7 +7812,7 @@
             },
             {
               "name" : "Green marble door frame for door size 3'0\" X 7'0\" with chamfer and edge polish.",
-              "rateAnalysisId" : 100415,
+              /*"rateAnalysisId" : 100415,*/
               "isMeasurementSheet" : false,
               "measurementUnit" : "No.",
               "isRateAnalysis" : true,
@@ -7832,7 +7833,7 @@
           "workItems" : [
             {
               "name" : "Ply door frame for door size 3'0\" x 7'0\" with laminate",
-              "rateAnalysisId" : 100417,
+              /*"rateAnalysisId" : 100417,*/
               "isMeasurementSheet" : false,
               "measurementUnit" : "No.",
               "isRateAnalysis" : true,
@@ -7847,7 +7848,7 @@
             },
             {
               "name" : "Ply door frame for door size 3'0\" x 7'0\" with oil paint",
-              "rateAnalysisId" : 100418,
+              /*"rateAnalysisId" : 100418,*/
               "isMeasurementSheet" : false,
               "measurementUnit" : "No.",
               "isRateAnalysis" : true,
@@ -7862,7 +7863,7 @@
             },
             {
               "name" : "Ply door frame for door size 3'0\" x 7'0\" with veneer",
-              "rateAnalysisId" : 100419,
+              /*"rateAnalysisId" : 100419,*/
               "isMeasurementSheet" : false,
               "measurementUnit" : "No.",
               "isRateAnalysis" : true,
@@ -7883,7 +7884,7 @@
           "workItems" : [
             {
               "name" : "Red meranti door frame of section 8\" x 2\" for door size 3'0\" x 7'0\"",
-              "rateAnalysisId" : 100421,
+              /*"rateAnalysisId" : 100421,*/
               "isMeasurementSheet" : false,
               "measurementUnit" : "No.",
               "isRateAnalysis" : true,
@@ -7898,7 +7899,7 @@
             },
             {
               "name" : "Red meranti door frame of section 5\" x 2-1/2\" for door size 3'0\" x 7'0\"",
-              "rateAnalysisId" : 100422,
+              /*"rateAnalysisId" : 100422,*/
               "isMeasurementSheet" : false,
               "measurementUnit" : "No.",
               "isRateAnalysis" : true,
@@ -7913,7 +7914,7 @@
             },
             {
               "name" : "Red meranti door frame of section 5\" x 2-1/2\" for door size 2'6\" x 7'0\"",
-              "rateAnalysisId" : 100423,
+              /*"rateAnalysisId" : 100423,*/
               "isMeasurementSheet" : false,
               "measurementUnit" : "No.",
               "isRateAnalysis" : true,
@@ -7928,7 +7929,7 @@
             },
             {
               "name" : "Saal wood door frame of section 5\" x 2-1/2\" for door size 3'0\" x 7'0\"",
-              "rateAnalysisId" : 100424,
+              /*"rateAnalysisId" : 100424,*/
               "isMeasurementSheet" : false,
               "measurementUnit" : "No.",
               "isRateAnalysis" : true,
@@ -7943,7 +7944,7 @@
             },
             {
               "name" : "Saal wood door frame of section 5\" x 2-1/2\" for door size 2'6\" x 7'0\"",
-              "rateAnalysisId" : 100425,
+              /*"rateAnalysisId" : 100425,*/
               "isMeasurementSheet" : false,
               "measurementUnit" : "No.",
               "isRateAnalysis" : true,
@@ -8583,7 +8584,7 @@
           "workItems" : [
             {
               "name" : "Solvent based lustre paint with 1 coat primer, 1 coat cement putty, 1 coats acrylic putty,1 coat primer base coat and 2 coats lustre paint",
-              "rateAnalysisId" : 100444,
+              /*"rateAnalysisId" : 100444,*/
               "isMeasurementSheet" : true,
               "measurementUnit" : "Sqm",
               "isRateAnalysis" : true,
@@ -8598,7 +8599,7 @@
             },
             {
               "name" : "Water based lustre paint including 1 coat of primer, 2 coats of Acrylic putty, 1 coat of primer and 2 coats of lustre paint",
-              "rateAnalysisId" : 100445,
+              /*"rateAnalysisId" : 100445,*/
               "isMeasurementSheet" : true,
               "measurementUnit" : "Sqm",
               "isRateAnalysis" : true,
@@ -8613,7 +8614,7 @@
             },
             {
               "name" : "Solvent based lustre paint including 1 coat of primer, 2 coats of Acrylic putty, 1 coat of primer base coat and 2 coats of lustre paint",
-              "rateAnalysisId" : 100446,
+              /*"rateAnalysisId" : 100446,*/
               "isMeasurementSheet" : true,
               "measurementUnit" : "Sqm",
               "isRateAnalysis" : true,
@@ -8628,7 +8629,7 @@
             },
             {
               "name" : "Oil Bound Destemper paint including 2 coats of Acrylic putty and 2 coats of paint",
-              "rateAnalysisId" : 100447,
+              /*"rateAnalysisId" : 100447,*/
               "isMeasurementSheet" : true,
               "measurementUnit" : "Sqm",
               "isRateAnalysis" : true,
@@ -8643,7 +8644,7 @@
             },
             {
               "name" : "Plastic emulsion paint including 2 coats of Acrylic putty and 2 coats of paint",
-              "rateAnalysisId" : 100448,
+              /*"rateAnalysisId" : 100448,*/
               "isMeasurementSheet" : true,
               "measurementUnit" : "Sqm",
               "isRateAnalysis" : true,
@@ -8664,7 +8665,7 @@
           "workItems" : [
             {
               "name" : "Texture paint including 1 coat of texture, 1 coat of primer, 2 coats of 100% external acrylic paint",
-              "rateAnalysisId" : 100450,
+              /*"rateAnalysisId" : 100450,*/
               "isMeasurementSheet" : true,
               "measurementUnit" : "Sqm",
               "isRateAnalysis" : true,
@@ -8679,7 +8680,7 @@
             },
             {
               "name" : "Texture paint including 1 coat of texture, 1 coat of primer, 2 coats of external Semi acrylic paint",
-              "rateAnalysisId" : 100451,
+              /*"rateAnalysisId" : 100451,*/
               "isMeasurementSheet" : true,
               "measurementUnit" : "Sqm",
               "isRateAnalysis" : true,
@@ -8694,7 +8695,7 @@
             },
             {
               "name" : "External 100% Acrylic paint with 1 coat of Primer and 2 coats of paint",
-              "rateAnalysisId" : 100452,
+              /*"rateAnalysisId" : 100452,*/
               "isMeasurementSheet" : true,
               "measurementUnit" : "Sqm",
               "isRateAnalysis" : true,
@@ -8709,7 +8710,7 @@
             },
             {
               "name" : "External Semi Acrylic paint with 1 coat of Primer and 2 coats of paint",
-              "rateAnalysisId" : 100453,
+              /*"rateAnalysisId" : 100453,*/
               "isMeasurementSheet" : true,
               "measurementUnit" : "Sqm",
               "isRateAnalysis" : true,
@@ -8724,7 +8725,7 @@
             },
             {
               "name" : "External Cement paint with 1 coat of Primer and 2 coats of paint",
-              "rateAnalysisId" : 100454,
+              /*"rateAnalysisId" : 100454,*/
               "isMeasurementSheet" : true,
               "measurementUnit" : "Sqm",
               "isRateAnalysis" : true,
