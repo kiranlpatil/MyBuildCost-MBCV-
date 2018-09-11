@@ -21,9 +21,13 @@ import messages  = require('../../applicationProject/shared/messages');
 import constants  = require('../../applicationProject/shared/constants');
 import ProjectSubcription = require('../../applicationProject/dataaccess/model/company/ProjectSubcription');
 import UserSubscriptionForRA = require('../../applicationProject/dataaccess/model/project/Subscription/UserSubscriptionForRA');
+import NewUser = require("../../applicationProject/dataaccess/model/Users/NewUser");
+import alasql = require('alasql');
 
 import Constants = require('../../applicationProject/shared/constants');
 import LoggerService = require('../shared/logger/LoggerService');
+import Mobile = require("../../applicationProject/dataaccess/model/Users/Mobile");
+import MobileArray = require("../../applicationProject/dataaccess/model/Users/MobileArray");
 
 let CCPromise = require('promise/lib/es6-extensions');
 let log4js = require('log4js');
@@ -32,12 +36,14 @@ let ObjectId = mongoose.Types.ObjectId;
 let config = require('config');
 let path = require('path');
 let request = require('request');
+let xlsxj = require('xlsx-to-json');
 
 class UserService {
   APP_NAME: string;
   company_name: string;
   mid_content: any;
   isActiveAddBuildingButton: boolean = false;
+  highestDateUser: Array<NewUser>;
   private userRepository: UserRepository;
   private projectRepository: ProjectRepository;
   private loggerService: LoggerService;
@@ -1547,6 +1553,150 @@ class UserService {
     });
   }
 
+  updateUserData( callback: (err: any, result: any) => void) {
+   // let rr = 'C:\\Users\\Nilesh\\Webstorm Projects\\costcontrol\\AllData.xlsx';
+    let rr =  path.resolve() + config.get('application.userFile');
+    xlsxj({
+      input: rr,
+      output: null
+    }, (err: any, result: any) => {
+      if (err) {
+        callback(err, null);
+      } else {
+        let noArray = Array<Mobile>();
+        for (let i = 0; i < result.length; i++) {
+
+          let number = new Mobile();
+          number.mobile_number = result[i].App_Cellnumber;
+          number.app_Installed_Date = result[i].App_InstalledOn;
+          number.appCode = result[i].AppCode;
+          noArray.push(number);
+
+          let isMobileNoExits = alasql('SELECT COUNT(*) AS totalCount  FROM ? where  mobile_number = ' +
+            '"' + result[i].App_Cellnumber + '"', [noArray]);
+
+          if (isMobileNoExits[0].totalCount <= 1) {
+            let totalCountOfMobileNo = alasql('SELECT COUNT(App_Cellnumber) AS totalCount  FROM ? where App_Cellnumber = ' +
+              '"' + result[i].App_Cellnumber + '"', [result]);
+
+          let getUserSQL = alasql('SELECT EmailAddress, App_Cellnumber, AppCode, DATE(App_InstalledOn) as date FROM ? where App_Cellnumber = ' + '"' + result[i].App_Cellnumber + '"' , [result]);
+
+          let duplicateUser = alasql('SELECT * FROM ?  GROUP BY AppCode' , [getUserSQL]);
+
+          if(duplicateUser.length === 1) {
+              this.highestDateUser = duplicateUser;
+
+          }else if(duplicateUser.length === 2) {
+
+           let isDuplicateUser = 'SELECT * FROM ? ORDER BY App_InstalledOn DESC LIMIT 1 ';
+            this.highestDateUser = alasql(isDuplicateUser, [duplicateUser]);
+
+          }else if(duplicateUser.length === 3) {
+              let isDuplicateUser = 'SELECT * FROM ?  where AppCode = "RAP"  ';
+              this.highestDateUser = alasql(isDuplicateUser, [duplicateUser]);
+          }
+
+            if (totalCountOfMobileNo[0].totalCount <= 1) {
+              this.convertToUserSchema(getUserSQL[0], (error, result) => {
+                if (error) {
+                  callback(error, null);
+                } else {
+                  callback(null, result);
+                }
+              });
+            } else {
+              this.convertToUserSchema(this.highestDateUser[0], (error, result) => {
+                if (error) {
+                  callback(error, null);
+                } else {
+                  callback(null, result);
+                }
+              });
+            }
+          }
+        }
+        callback(null, result);
+      }
+    });
+}
+
+  convertToUserSchema(data: any, callback: (error: any, result: any) => void) {
+    let user = new NewUser();
+    user.email = data.EmailAddress;
+    user.activation_date = data.date;
+    user.isCandidate =  true;
+    user.isActivated = true;
+    user.mobile_number = Number(data.App_Cellnumber);
+    user.typeOfApp = 'RAapp';
+    this.checkPackage(user,data.date, data.AppCode,(error, result) => {
+      if (error) {
+        callback(error,null);
+      } else {
+        callback(null,result);
+      }
+    });
+  }
+
+  checkPackage(user: any,date: any, appType: any, callback: (error: any, result: any) => void) {
+    let subScriptionService = new SubscriptionService();
+    subScriptionService.getSubscriptionPackageByName('RAPremium', 'BasePackage',
+      (error: any, subscriptionPackage: Array<SubscriptionPackage>) => {
+        if (error) {
+          callback(error, null);
+        } else {
+          let result = subscriptionPackage[0];
+          let subscription = new UserSubscriptionForRA();
+          switch(appType) {
+           case 'RA' :
+                        subscription.activationDate = date;
+                        subscription.validity = result.basePackage.validity;
+                        subscription.name = result.basePackage.name;
+                        subscription.description = result.basePackage.description;
+                        subscription.cost = result.basePackage.cost;
+                        user.subscriptionForRA = subscription;
+                        this.userRepository.create(user, (err: Error, res: any) => {
+                          if (err) {
+                            callback(new Error(Messages.MSG_ERROR_REGISTRATION_MOBILE_NUMBER), null);
+                          } else {
+                            callback(res, null);
+                          }
+                        });
+                        break;
+             case 'RAP' : let newActivationDate = date;
+                         newActivationDate.setDate(date.getDate() + result.basePackage.validity);
+                         subscription.activationDate = newActivationDate;
+                         subscription.validity = result.basePackage.validity;
+                         subscription.name = result.basePackage.name;
+                         subscription.description = result.basePackage.description;
+                         subscription.cost = result.basePackage.cost;
+                         user.subscriptionForRA = subscription;
+                         this.userRepository.create(user, (err: Error, res: any) => {
+                           if (err) {
+                             callback(new Error(Messages.MSG_ERROR_REGISTRATION_MOBILE_NUMBER), null);
+                           } else {
+                             callback(res, null);
+                           }
+                         });
+                        break;
+           case 'MA' :
+                         subscription.activationDate = date;
+                         subscription.validity = 0;
+                         subscription.name = result.basePackage.name;
+                         subscription.description = result.basePackage.description;
+                         subscription.cost = result.basePackage.cost;
+                         user.subscriptionForRA = subscription;
+                         this.userRepository.create(user, (err: Error, res: any) => {
+                           if (err) {
+                             callback(new Error(Messages.MSG_ERROR_REGISTRATION_MOBILE_NUMBER), null);
+                           } else {
+                             callback(res, null);
+                           }
+                         });
+                       break;
+           }
+         }
+      });
+    }
   updatePaymentStatus(userId: string, paymentStatus: string, callback: (error: any, result: any) => void) {
 
     let query = {'_id': userId};
