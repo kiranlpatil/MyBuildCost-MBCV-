@@ -106,14 +106,14 @@ class UserRoutes {
       router.get('/:userId/subscriptionDetails',controller.getUserSubscriptionDetails);
 
       router.get('/:userId/checkPaymentStatus',authInterceptor.requiresAuth, controller.checkPaymentStatusOfUser);
-
-      //  Rate Analysis user Routes
-      router.put('/check/exists/:appType', controller.getUserExistenceStatus);
-      router.put('/set/password',authInterceptor.requiresAuth, controller.setUserPassword);
-      router.put('/verify/password', authInterceptor.requiresAuth, controller.verifyPassword);
+    //  Rate Analysis user Routes
+    router.put('/check/exists/:appType', controller.getUserExistenceStatus);
+    router.put('/set/password',authInterceptor.requiresAuth, controller.setUserPassword);
+    router.put('/verify/password', authInterceptor.requiresAuth, controller.verifyPassword);
       router.put('/:userId/updateSubscription', controller.updateSubscriptionDetails);
-
+    router.post('/userList', controller.getUserData);
       return router;
+
     }
 }
 
