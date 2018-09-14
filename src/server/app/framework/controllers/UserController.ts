@@ -7,11 +7,14 @@ import UserModel = require('../dataaccess/model/UserModel');
 import UserService = require('../services/UserService');
 import Messages = require('../shared/messages');
 import ResponseService = require('../shared/response.service');
+import * as csvToJson from 'convert-csv-to-json';
+import {getFile} from "ts-node/dist";
 
 
 let config = require('config');
 let path = require('path');
 let bcrypt = require('bcrypt');
+let fs =  require('fs');
 
 class UserController {
   private _authInterceptor : AuthInterceptor;
@@ -889,6 +892,27 @@ updateSubscriptionDetails(req: express.Request, res: express.Response, next: any
       res.send(e);
     }
   }
+
+  getUserData(req: express.Request, res: express.Response, next: express.NextFunction) {
+    try {
+      let userService = new UserService();
+      userService.updateUserData((error, result) => {
+        if (error) {
+          next(error);
+        } else {
+          res.send(result);
+        }
+      });
+    }catch (e) {
+      next({
+        reason: e.message,
+        message: e.message,
+        stackTrace: e,
+        code: 403
+      });
+    }
+  }
+
 }
 
 export = UserController;
