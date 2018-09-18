@@ -67,7 +67,7 @@ export class QuantityDetailsComponent implements OnInit {
   flagForFloorwiseQuantity : string = null;
 
   constructor(private costSummaryService: CostSummaryService, private messageService: MessageService,
-              private loaderService: LoaderService,private errorService:ErrorService) {
+              private loaderService: LoaderService,private errorService:ErrorService, private commonService:CommonService) {
   }
 
    ngOnInit() {
@@ -336,7 +336,7 @@ export class QuantityDetailsComponent implements OnInit {
 
   calculateQuantity(workItem : WorkItem, costQuantity : number) {
     this.previousRateQuantity = lodsh.cloneDeep(workItem.rate.quantity);
-    this.rateItemsArray.quantity = costQuantity;
+    this.rateItemsArray.quantity = parseFloat(this.commonService.changeQuantityByWorkItemUnit(costQuantity, workItem.unit, this.rateItemsArray.unit).toFixed(2));
     this.quantityIncrement = this.rateItemsArray.quantity / this.previousRateQuantity;
     for (let rateItemsIndex = 0; rateItemsIndex < this.rateItemsArray.rateItems.length; rateItemsIndex++) {
       this.rateItemsArray.rateItems[rateItemsIndex].quantity = parseFloat((

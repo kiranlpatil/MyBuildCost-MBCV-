@@ -1,7 +1,7 @@
 import {Component, OnInit, OnChanges, ViewChild, AfterViewInit} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Messages, ProjectElements, NavigationRoutes, TableHeadings, Button, Label, ValueConstant, Animations } from '../../../../../shared/constants';
-import { API,SessionStorage, SessionStorageService, Message, MessageService } from '../../../../../shared/index';
+import { Messages, ProjectElements, NavigationRoutes, TableHeadings, Button, Label, ValueConstant, Animations, AppSettings } from '../../../../../shared/constants';
+import { API,SessionStorage, SessionStorageService, Message, MessageService, ErrorInstance } from '../../../../../shared/index';
 import { Rate } from '../../../model/rate';
 import { CommonService } from '../../../../../shared/services/common.service';
 import { CostSummaryService } from '../cost-summary.service';
@@ -456,7 +456,7 @@ export class CostHeadComponent implements OnInit, OnChanges, AfterViewInit {
   calculateQuantity(workItem : WorkItem) {
     this.previousRateQuantity = lodsh.cloneDeep(workItem.rate.quantity);
     let quantity = lodsh.cloneDeep(workItem.quantity.total);
-    this.rateItemsArray.quantity = parseFloat(this.changeQuantityByWorkItemUnit(quantity, workItem.unit, this.rateItemsArray.unit).toFixed(2));
+    this.rateItemsArray.quantity = parseFloat(this.commonService.changeQuantityByWorkItemUnit(quantity, workItem.unit, this.rateItemsArray.unit).toFixed(2));
     this.quantityIncrement = this.rateItemsArray.quantity / this.previousRateQuantity;
     for (let rateItemsIndex = 0; rateItemsIndex < this.rateItemsArray.rateItems.length; rateItemsIndex++) {
       this.rateItemsArray.rateItems[rateItemsIndex].quantity = parseFloat((
@@ -472,21 +472,7 @@ export class CostHeadComponent implements OnInit, OnChanges, AfterViewInit {
     this.compareWorkItemId = workItemIndex;
   }
 
-  changeQuantityByWorkItemUnit(quantity: number, workItemUnit: string, rateUnit: string) {
-    let quantityTotal: number = 0;
-    if (workItemUnit === 'Sqm' && rateUnit !== 'Sqm') {
-      quantityTotal = quantity * 10.764;
-    } else if (workItemUnit === 'Rm' && rateUnit !== 'Rm') {
-      quantityTotal = quantity * 3.28;
-    } else if (workItemUnit === 'cum' && rateUnit !== 'cum') {
-      quantityTotal = quantity * 35.28;
-    } else {
-      quantityTotal = quantity;
-    }
-    return quantityTotal;
-  }
-
-  deactivateWorkItem() {
+   deactivateWorkItem() {
     this.loaderService.start();
     let costHeadId=parseInt(SessionStorageService.getSessionValue(SessionStorage.CURRENT_COST_HEAD_ID));
     this.costSummaryService.deactivateWorkItem( this.baseUrl, costHeadId, this.categoryId, this.workItemId , this.ccWorkItemID).subscribe(
