@@ -20,6 +20,8 @@ import RAWorkItem = require('../dataaccess/model/RateAnalysis/RAWorkItem');
 import RACostHead = require('../dataaccess/model/RateAnalysis/RACostHead');
 import SavedRateRepository = require('../dataaccess/repository/SavedRateRepository');
 import RASavedRate = require('../dataaccess/model/RateAnalysis/RASavedRate');
+import BuildingRepository = require('../dataaccess/repository/BuildingRepository');
+import UserRepository = require("../../framework/dataaccess/repository/UserRepository");
 let request = require('request');
 let config = require('config');
 var log4js = require('log4js');
@@ -33,7 +35,9 @@ class RateAnalysisService {
   private authInterceptor: AuthInterceptor;
   private userService: UserService;
   private rateAnalysisRepository: RateAnalysisRepository;
+  private buildingRepository: BuildingRepository;
   private savedRateRepository : SavedRateRepository;
+  private userRepository : UserRepository;
 
   constructor() {
     this.APP_NAME = ProjectAsset.APP_NAME;
@@ -41,6 +45,8 @@ class RateAnalysisService {
     this.userService = new UserService();
     this.rateAnalysisRepository = new RateAnalysisRepository();
     this.savedRateRepository = new SavedRateRepository();
+    this.buildingRepository = new BuildingRepository();
+    this.userRepository = new UserRepository();
   }
 
   getCostHeads(url: string, user: User, callback: (error: any, result: any) => void) {
@@ -1249,6 +1255,74 @@ class RateAnalysisService {
       }
     }
 
+  }
+
+  syncNewDataForAllUsers() {
+    this.getAllLatestCostHeadsFromRateAnalysis((error: any, success:any) => {
+      if(error) {
+        console.log('Failed for buildings');
+      } else if(success) {
+        console.log('Done for all buildings');
+      }
+    });
+  }
+
+  getAllLatestCostHeadsFromRateAnalysis(callback: (error:any, result:any) => void) {
+    let query = [
+      {$match:{appType:'MyBuildCost'}},
+      {$project:{'buildingCostHeads':1}}
+    ];
+    this.rateAnalysisRepository.aggregate(query, (error: any, costHeadsArray: any) => {
+      if (error) {
+        logger.error('Unable to retrive synced RateAnalysis');
+      } else {
+        if(costHeadsArray.length !== 0) {
+          let rateAnalysisData = costHeadsArray[0].buildingCostHeads;
+          let findAllUsers = {};
+          let populateQuery = {path: 'project'};
+
+          this.userRepository.findAndPopulate(findAllUsers, populateQuery, (error:any, projectList : any)=> {
+            if(error) {
+              logger.error('Error : ' + JSON.stringify(error));
+            } else {
+              logger.debug('Success : ' + JSON.stringify(projectList));
+            }
+          });
+          /*let findQuery = {};
+          this.buildingRepository.retrieve(findQuery, (error, result) => {
+            logger.info('Project service, findById has been hit');
+            if (error) {
+              callback(error, null);
+            } else {
+                for(let buildingIndex=0; buildingIndex < result.length; buildingIndex++) {
+                  console.log('Building name : '+result[buildingIndex].name);
+                  this.synchBuildingWithLatestRateAnalysis(result[buildingIndex], rateAnalysisData);
+                }
+              // callback(null, {data: result});
+            }
+          });*/
+        }
+      }
+    });
+  }
+
+  synchBuildingWithLatestRateAnalysis(building: any, rateAnalysisData: any) {
+    let costHeadsList = building.costHeads;
+    for(let costHead of costHeadsList) {
+      let costHeadExistSQL = 'SELECT * FROM ? AS rateAnalysisList WHERE rateAnalysisList.name = '+ costHead.name;
+      let costHeadExist = alasql(costHeadExistSQL, [rateAnalysisData]);
+      if(costHeadExist.length === 0) {
+        costHeadsList.push(costHeadExist[0]);
+      } else {
+        this.checkCategoryExist(costHead, costHead.categories);
+      }
+    }
+  }
+
+  checkCategoryExist(costHead: any, categories: any) {
+    for(let category of categories) {
+      console.log('Category : ' + JSON.stringify(category));
+    }
   }
 
 }

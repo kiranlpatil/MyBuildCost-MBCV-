@@ -51,6 +51,9 @@ class RateAnalysisRoutes {
 
     router.get('/user/:userId/region/:regionName/workItem/:workItemId/getSavedRate', controller.getSavedRateForWorkItem,
       this._responseInterceptor.exit);
+
+    router.get('/sync/all/user/data', controller.migrateDataOfAllUsers);
+
     return router;
   }
 }
