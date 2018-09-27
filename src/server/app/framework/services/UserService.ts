@@ -61,7 +61,7 @@ class UserService {
     if (item.typeOfApp === 'RAapp') {
       query = {'mobile_number': item.mobile_number};
     } else {
-      query = {'email': item.email};
+      query = {'email': item.email, 'typeOfApp':{ $exists: false }};
     }
     this.userRepository.retrieve(query, (err, res) => {
       if (err) {
@@ -246,7 +246,7 @@ class UserService {
     if (typeOfApp === 'RAapp') {
       query = {'mobile_number': data.mobile_number, 'typeOfApp': 'RAapp'};
     } else {
-      query = {'email': data.email};
+      query = {'email': data.email,'typeOfApp':{ $exists: false }};
     }
 
     this.retrieve(query, (error, result) => {
