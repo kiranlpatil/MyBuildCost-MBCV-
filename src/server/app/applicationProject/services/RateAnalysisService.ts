@@ -23,7 +23,8 @@ import RASavedRate = require('../dataaccess/model/RateAnalysis/RASavedRate');
 import BuildingRepository = require('../dataaccess/repository/BuildingRepository');
 import UserRepository = require('../../framework/dataaccess/repository/UserRepository');
 import ProjectRepository = require('../dataaccess/repository/ProjectRepository');
-import ProjectService = require('./ProjectService');
+import {ProjectService} from './ProjectService';
+//var ProjectService = require('./ProjectService');
 let request = require('request');
 let config = require('config');
 var log4js = require('log4js');
@@ -40,7 +41,8 @@ class RateAnalysisService {
   private buildingRepository: BuildingRepository;
   private savedRateRepository : SavedRateRepository;
   private userRepository : UserRepository;
-  private projectRepository : ProjectRepository;
+  private projectRepository :ProjectRepository;
+  private projectService : ProjectService;
 
   constructor() {
     this.APP_NAME = ProjectAsset.APP_NAME;
@@ -51,6 +53,7 @@ class RateAnalysisService {
     this.buildingRepository = new BuildingRepository();
     this.userRepository = new UserRepository();
     this.projectRepository = new ProjectRepository();
+    this.projectService = new ProjectService();
   }
 
   getCostHeads(url: string, user: User, callback: (error: any, result: any) => void) {
@@ -1306,8 +1309,9 @@ class RateAnalysisService {
                           let projectRates = projectData.rates;
 
                           let newProjectCostHeads = this.synchCostHedsWithLatestRateAnalysis(projectCostHeads, rateAnalysisProjectCostHeads);
+                          let projectCostHeadsWithBudgetedCost = this.projectService.calculateBudgetCostForCommonAmmenities(newProjectCostHeads, projectData);
                           let newRates = this.synchRatesWithLatestRateAnalysis(projectRates, rateAnalysisProjectRates);
-                          this.updateCostHeadsAndCentralizedRatesOfProject(projectId,newProjectCostHeads, newRates);
+                          this.updateCostHeadsAndCentralizedRatesOfProject(projectId,projectCostHeadsWithBudgetedCost, newRates);
 
                           if(buildingArray.length !==0) {
                             for(let buildingId of buildingArray) {
@@ -1318,10 +1322,9 @@ class RateAnalysisService {
                                   let costHeadList = buildingData.costHeads;
                                   let buildingRates = buildingData.rates;
                                   let newCostHeads = this.synchCostHedsWithLatestRateAnalysis(costHeadList, rateAnalysisCostHeads);
-                                 // let projectService : ProjectService = new ProjectService();
-                                // let newCostHeads = projectService.calculateBudgetCostForBuilding(newCostHead, buildingData, projectData);
+                                  let costHeadsWithBudgetedCost = this.projectService.calculateBudgetCostForBuilding(newCostHeads, buildingData, projectData);
                                   let newRates = this.synchRatesWithLatestRateAnalysis(buildingRates, rateAnalysisRates);
-                                  this.updateCostHeadsAndCentralizedRatesOfBuilding(buildingId,newCostHeads, newRates);
+                                  this.updateCostHeadsAndCentralizedRatesOfBuilding(buildingId,costHeadsWithBudgetedCost, newRates);
                                 }
                               });
                             }
@@ -1348,7 +1351,7 @@ class RateAnalysisService {
         this.checkCategoryExist(buildingCostHead[0].categories, rateAnalysisCostHead[0].categories);
       } else {
         costHeadsList.push(costHead);
-        console.log(costHead.name);
+        logger.info(costHead.name);
       }
     }
     return costHeadsList;
@@ -1368,7 +1371,7 @@ class RateAnalysisService {
             this.checkWorkItemExist(buildingCategory[0].workItems, rateAnalysisCategory[0].workItems);
           } else {
             buildingCategories.push(category);
-            console.log(category.name);
+            logger.info(category.name);
           }
         }
       }
@@ -1386,10 +1389,11 @@ class RateAnalysisService {
           let buildingWorkItem = this.getFilterData(workItem.name, buildingWorkItems);
           if (buildingWorkItem !== null) {
             let rateAnalysisWorkItem = this.getFilterData(workItem.name, rateAnalysisWorkItems);
+            buildingWorkItem[0].unit = rateAnalysisWorkItem[0].unit;
             this.checkRateItemExist(buildingWorkItem[0].rate, rateAnalysisWorkItem[0].rate);
           } else {
             buildingWorkItems.push(workItem);
-            console.log(workItem.name);
+            logger.info(workItem.name);
           }
         }
       }
@@ -1401,6 +1405,10 @@ class RateAnalysisService {
       if (buildingRate.rateItems.length === 0) {
         for (let rateItem of rateAnalysisRate.rateItems) {
           buildingRate.rateItems.push(rateItem);
+        }
+      }else {
+        if(buildingRate.unit !== rateAnalysisRate.unit) {
+            buildingRate.unit = rateAnalysisRate.unit;
         }
       }
     }
