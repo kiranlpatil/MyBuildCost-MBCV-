@@ -87,7 +87,7 @@
 
   "logger" : {
     "levels": {
-      "[all]":"ERROR"
+      "[all]":"DEBUG"
     },
     "appenders": [
       {

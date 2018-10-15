@@ -122,7 +122,9 @@ export function init(port: number, mode: string, protocol: string, dist_runner: 
    * @note Dev server will only give for you middleware.
    */
   if (mode === 'dev') {
+    logger.error('In dev mode');
     if (dist_runner === 'dist') {
+      logger.error('In dev dist mode');
       app.all('/*', function (req, res, next) {
         res.header('Access-Control-Allow-Origin', '*');
         res.header('Access-Control-Allow-Headers', 'X-Requested-With');
@@ -146,6 +148,7 @@ export function init(port: number, mode: string, protocol: string, dist_runner: 
        * Api Routes for `Development`.
        */
     } else {
+      logger.error('In dev without dist mode');
       app.all('/*', function (req, res, next) {
         res.header('Access-Control-Allow-Origin', '*');
         res.header('Access-Control-Allow-Headers', 'X-Requested-With');
@@ -172,12 +175,13 @@ export function init(port: number, mode: string, protocol: string, dist_runner: 
        */
     }
   } else {
+    logger.error('In prod mode');
     if(dist_runner === 'dist') {
       /**
        * Prod Mode.
        * @note Prod mod will give you static + middleware.
        */
-
+      logger.error('In prod dist mode');
       /**
        * Api Routes for `Production`.
        */
@@ -222,7 +226,7 @@ export function init(port: number, mode: string, protocol: string, dist_runner: 
        * Prod Mode.
        * @note Prod mod will give you static + middleware.
        */
-
+      logger.error('In prod without dist mode');
       /**
        * Api Routes for `Production`.
        */
@@ -230,8 +234,8 @@ export function init(port: number, mode: string, protocol: string, dist_runner: 
       /**
        * Client Dir
        */
-      _clientDir = './dist/client/prod';
-      _serverDir = '/dist/server/prod';
+      _clientDir = './client/prod';
+      _serverDir = '/server/prod';
 
       /**
        * Static.
@@ -248,7 +252,7 @@ export function init(port: number, mode: string, protocol: string, dist_runner: 
        * @param res {any}
        */
       var renderIndex = function (req: express.Request, res: express.Response) {
-        _clientDir = '/dist/client/prod';
+        _clientDir = '/client/prod';
         res.sendFile(path.resolve(__dirname + _clientDir + '/index.html'));
       };
 
