@@ -1300,16 +1300,18 @@ class RateAnalysisService {
                   if (user.project.length !== 0) {
                     for (let project of user.project) {
                       let projectId = project._id;
-                      this.projectRepository.findById(projectId, (error: any, projectData: any) => {
+                      let query = projectId;
+                      let populate = {path: 'buildings'};
+                      this.projectRepository.findAndPopulate(query, populate, (error, projectData) => {
                         if (error) {
                           logger.error('Error : ' + JSON.stringify(error));
                         } else {
-                          let buildingArray = projectData.buildings;
-                          let projectCostHeads = projectData.projectCostHeads;
-                          let projectRates = projectData.rates;
+                          let buildingArray = projectData[0].buildings;
+                          let projectCostHeads = projectData[0].projectCostHeads;
+                          let projectRates = projectData[0].rates;
 
                           let newProjectCostHeads = this.synchCostHedsWithLatestRateAnalysis(projectCostHeads, rateAnalysisProjectCostHeads);
-                          let projectCostHeadsWithBudgetedCost = this.projectService.calculateBudgetCostForCommonAmmenities(newProjectCostHeads, projectData);
+                          let projectCostHeadsWithBudgetedCost = this.projectService.calculateBudgetCostForCommonAmmenities(newProjectCostHeads, projectData[0]);
                           let newRates = this.synchRatesWithLatestRateAnalysis(projectRates, rateAnalysisProjectRates);
                           this.updateCostHeadsAndCentralizedRatesOfProject(projectId,projectCostHeadsWithBudgetedCost, newRates);
 
@@ -1322,7 +1324,7 @@ class RateAnalysisService {
                                   let costHeadList = buildingData.costHeads;
                                   let buildingRates = buildingData.rates;
                                   let newCostHeads = this.synchCostHedsWithLatestRateAnalysis(costHeadList, rateAnalysisCostHeads);
-                                  let costHeadsWithBudgetedCost = this.projectService.calculateBudgetCostForBuilding(newCostHeads, buildingData, projectData);
+                                  let costHeadsWithBudgetedCost = this.projectService.calculateBudgetCostForBuilding(newCostHeads, buildingData, projectData[0]);
                                   let newRates = this.synchRatesWithLatestRateAnalysis(buildingRates, rateAnalysisRates);
                                   this.updateCostHeadsAndCentralizedRatesOfBuilding(buildingId,costHeadsWithBudgetedCost, newRates);
                                 }
