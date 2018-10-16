@@ -51,6 +51,12 @@ class RateAnalysisRoutes {
 
     router.get('/user/:userId/region/:regionName/workItem/:workItemId/getSavedRate', controller.getSavedRateForWorkItem,
       this._responseInterceptor.exit);
+
+    //export configuration file
+    router.get('/export/radata', controller.exportRateAnalysisData);
+
+    router.get('/import/radata', controller.importRateAnalysisData);
+
     return router;
   }
 }

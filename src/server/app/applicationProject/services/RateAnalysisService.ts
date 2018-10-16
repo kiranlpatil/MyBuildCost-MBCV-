@@ -20,11 +20,15 @@ import RAWorkItem = require('../dataaccess/model/RateAnalysis/RAWorkItem');
 import RACostHead = require('../dataaccess/model/RateAnalysis/RACostHead');
 import SavedRateRepository = require('../dataaccess/repository/SavedRateRepository');
 import RASavedRate = require('../dataaccess/model/RateAnalysis/RASavedRate');
+import ConfigWorkItem = require('../dataaccess/model/project/building/ConfigWorkItem');
 let request = require('request');
 let config = require('config');
 var log4js = require('log4js');
 var logger = log4js.getLogger('Rate Analysis Service');
-
+const Json2csvParser = require('json2csv').Parser;
+var fs = require('fs');
+let path = require('path');
+let xlsxj = require('xlsx-to-json');
 let CCPromise = require('promise/lib/es6-extensions');
 
 class RateAnalysisService {
@@ -1251,6 +1255,161 @@ class RateAnalysisService {
 
   }
 
+  exportDataToCSV(callback : (error:any, res:any)=> void) {
+
+    const dataList = config.get('configCostHeads');
+    const fields = ['name', 'priorityId', 'rateAnalysisId', 'categories.name', 'categories.rateAnalysisId',
+      'categories.workItems.name','categories.workItems.rateAnalysisId','categories.workItems.isMeasurementSheet',
+      'categories.workItems.measurementUnit','categories.workItems.isRateAnalysis','categories.workItems.rateAnalysisPerUnit',
+      'categories.workItems.rateAnalysisUnit','categories.workItems.directRate','categories.workItems.directRatePerUnit',
+      'categories.workItems.isItemBreakdownRequired','categories.workItems.length','categories.workItems.breadthOrWidth',
+      'categories.workItems.height'];
+
+    const json2csvParser = new Json2csvParser({ fields , unwind: ['categories','categories.workItems']});
+    const csvData = json2csvParser.parse(dataList);
+    let fileName = path.resolve() + config.get('application.userFile');
+    fs.writeFile(fileName, csvData, 'utf-8', function (err: any, response: any) {
+      if (err) {
+        console.log('Error ');
+        callback(err, null);
+      } else {
+        console.log('Success ');
+        callback(null, { messge : 'Successfully created files' });
+      }
+    });
+  }
+
+  readFromExcel(callback : (error:any, res:any)=> void) {
+    let fileName = 'config_heads.xlsx';
+    // let fileName = path.resolve() + config.get('application.userFile');
+    xlsxj({
+      input: fileName,
+      output: null
+    }, (err: any, result: any) => {
+      if (err) {
+        // callback(err, null);
+        console.log('Error ');
+      } else {
+        // callback(null,result);
+        console.log('Success');
+        if(result.length > 0) {
+          this.convertJSON(result);
+        }
+      }
+    });
+  }
+
+  convertJSON(costHeadList: Array<any>) {
+    let costheadsList = new Array<any>();
+    let getAllDistinctCostHeads = 'select DISTINCT name from ?';
+    let distinctCostHeadList = alasql(getAllDistinctCostHeads, [costHeadList]);
+    console.log('distinctCostHeadList : '+JSON.stringify(distinctCostHeadList));
+
+    for(let costHead of distinctCostHeadList) {
+      if(costHead.name !== null && costHead.name !== '') {
+          let costHeadDetailsSQL = 'SELECT * FROM ? WHERE name = ?';
+          let costHeadArray = alasql(costHeadDetailsSQL, [costHeadList, costHead.name]);
+          console.log('costHeadList : ');
+          if(costHeadArray.length > 0) {
+            let costHead = costHeadArray[0];
+            let costheadObj = new CostHead();
+            costheadObj.name = costHead.name;
+            costheadObj.rateAnalysisId = parseInt(costHead.rateAnalysisId);
+            costheadObj.priorityId = parseInt(costHead.priorityId);
+            costheadObj.categories = this.getDistinctCategories(costHeadArray, costHead.name);
+            costheadsList.push(costheadObj);
+          }
+        }
+      }
+    console.log('costheadList : '+costheadsList);
+    this.saveConfigData(costheadsList, (error:any, result:any)=>{
+      if(error) {
+        console.log('Error : '+JSON.stringify(error));
+      } else {
+        console.log('Result : '+JSON.stringify(result));
+      }
+    });
+  }
+
+  getDistinctCategories(distinctCostHeadList: Array<any>, costheadName : string) {
+    let categoriesList = new Array<any>();
+    let getAllDistinctCategories = 'select DISTINCT categoryName from ?';
+    let distinctCategoriesList = alasql(getAllDistinctCategories, [distinctCostHeadList]);
+
+    console.log('distinctCategoriesList : '+JSON.stringify(distinctCategoriesList));
+
+    for(let category of distinctCategoriesList) {
+      if(category.name !== null && category.name !== '') {
+        let getCategoryObjectSQL = 'SELECT * from ? where categoryName = ?';
+        let categoryObjects = alasql(getCategoryObjectSQL,[distinctCostHeadList, category.categoryName]);
+
+        if(categoryObjects.length > 0) {
+          let categoryObj = categoryObjects[0];
+          let category = new Category(categoryObj.categoryName, parseInt(categoryObj.categoryRateAnalysisId));
+          category.workItems = this.getDistinctWorkItems(distinctCostHeadList, categoryObj.categoryName);
+          categoriesList.push(category);
+        }
+      }
+    }
+    return categoriesList;
+  }
+
+  getDistinctWorkItems(categoryList: Array<any>, categoryName: string) {
+    let workItemsList = new Array<any>();
+
+    let getWorkitemObjectSQL = 'SELECT * from ? where categoryName = ?';
+    let configWorkItemList = alasql(getWorkitemObjectSQL, [categoryList, categoryName]);
+
+    for(let configWorkItem of configWorkItemList) {
+      if(configWorkItem.workItemName !== null && configWorkItem.workItemName !== '') {
+        let workItemObj = new ConfigWorkItem(configWorkItem.workItemName, parseInt(configWorkItem.WorkItemRateAnalysisId));
+        workItemObj.isRateAnalysis = configWorkItem.isRateAnalysis;
+        workItemObj.directRate = parseInt(configWorkItem.directRate);
+        workItemObj.directRatePerUnit = configWorkItem.directRatePerUnit;
+        workItemObj.isMeasurementSheet = configWorkItem.isMeasurementSheet;
+        workItemObj.measurementUnit = configWorkItem.measurementUnit;
+        workItemObj.rateAnalysisPerUnit = parseInt(configWorkItem.rateAnalysisPerUnit);
+        workItemObj.rateAnalysisUnit = configWorkItem.rateAnalysisUnit;
+        workItemObj.isItemBreakdownRequired = configWorkItem.isItemBreakdownRequired;
+        workItemObj.length = configWorkItem.length;
+        workItemObj.breadthOrWidth = configWorkItem.breadthOrWidth;
+        workItemObj.height = configWorkItem.height;
+        workItemsList.push(workItemObj);
+      }
+    }
+    return workItemsList;
+  }
+
+  saveConfigData(costHeadList: Array<any>, callback :(error:any, result: any) => void) {
+    let query = {region: 'configCostHeads'};
+    this.rateAnalysisRepository.retrieve(query, (error, result) => {
+      if (error) {
+        callback(error, null);
+      } else {
+        if(result.length > 0) {
+          let query = { _id: result._id };
+          let updateData = { $set : { buildingCostHeads : costHeadList }};
+          this.rateAnalysisRepository.findOneAndUpdate(query, updateData, {},(error:any, result:any)=> {
+            if(error) {
+              callback(null, error);
+            } else {
+              callback(result, null);
+            }
+          });
+        } else {
+          let rateAnalysisModel = new RateAnalysis(costHeadList, null,  null, null);
+          rateAnalysisModel.appType = 'configCostHeads';
+          this.rateAnalysisRepository.create(rateAnalysisModel, (err: any, response:any)=> {
+            if(err) {
+              callback(err, null);
+            } else {
+              callback(null, response);
+            }
+          });
+        }
+      }
+    });
+  }
 }
 
 Object.seal(RateAnalysisService);
