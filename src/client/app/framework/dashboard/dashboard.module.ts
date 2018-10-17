@@ -64,21 +64,33 @@ import {ProjectRoutes} from '../../build-info/framework/project/project.routes';
 import {ChangeEmailComponent} from "../../user/settings/change-email/change-email.component";
 import {ChangeEmailRoutes} from "../../user/settings/change-email/change-email.routes";
 import {ChangeEmailService} from "../../user/settings/change-email/change-email.service";
+import {CloneBuildingComponent} from "../../build-info/framework/project/building/clone-building/clone-building.component";
+import {CloneBuildingRoutes} from "../../build-info/framework/project/building/clone-building/clone-building.routes";
 
 export const rout: Routes = [
 
   ...DashboardRoutes,
   ...ProjectRoutes,
   ...CreateNewProjectRoutes,
-  ...ChangeEmailRoutes
+  ...ChangeEmailRoutes,
+  ...CloneBuildingRoutes
 ];
 
 
 
 
 @NgModule({
-  imports: [UserModule,CommonModule,SharedModule,FormsModule,ReactiveFormsModule,RouterModule.forChild(rout)],
-  declarations: [DashboardComponent,
+  imports: [UserModule,
+    CommonModule,
+    SharedModule,
+    FormsModule,
+    ReactiveFormsModule,
+    RouterModule.forChild(rout)
+  ],
+  declarations: [
+    CloneBuildingComponent,
+
+    DashboardComponent,
     DashboardHomeComponent,DashboardProfileComponent,
     UserChangePasswordComponent,ContactComponent,
     BillingDetailsComponent,

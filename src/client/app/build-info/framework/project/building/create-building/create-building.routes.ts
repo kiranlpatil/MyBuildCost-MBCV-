@@ -7,7 +7,7 @@ import { CreateBuildingComponent } from './create-building.component';
 
 export const CreateBuildingRoutes: Route[] = [
   {
-    path: '',
+    path: 'create-building',
     component: CreateBuildingComponent
   }
 ];

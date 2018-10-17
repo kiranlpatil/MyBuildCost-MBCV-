@@ -13,7 +13,12 @@ import {SharedModule} from "../../../shared/shared.module";
 import {UserModule} from "../../../user/user.module";
 
 @NgModule({
-  imports: [CommonModule, UserModule,SharedModule,FormsModule, ReactiveFormsModule , RouterModule.forChild(CandidateSignUpRoutes)],
+  imports: [CommonModule,
+    UserModule,
+    SharedModule,
+    FormsModule,
+    ReactiveFormsModule ,
+    RouterModule.forChild(CandidateSignUpRoutes)],
   declarations: [CandidateSignUpComponent],
   exports: [CandidateSignUpComponent],
   providers: [CandidateSignUpService]

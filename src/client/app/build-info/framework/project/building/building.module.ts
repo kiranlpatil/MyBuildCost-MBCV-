@@ -12,12 +12,17 @@ import {CloneBuildingComponent} from "./clone-building/clone-building.component"
 import {DashboardModule} from "../../../../framework/dashboard/dashboard.module";
 
 @NgModule({
-  imports: [CommonModule,DashboardModule,UserModule,SharedModule,RouterModule.forChild(BuildingRoutes)],
+  imports: [CommonModule,
+    //DashboardModule,
+    UserModule,
+    SharedModule,
+     RouterModule.forChild(BuildingRoutes)
+  ],
   declarations: [BuildingComponent,
     //CreateBuildingComponent,
     BuildingListComponent,
     BuildingDetailsComponent,
-    CloneBuildingComponent
+    //CloneBuildingComponent
   ]
 })
 

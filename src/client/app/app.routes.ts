@@ -9,7 +9,7 @@ export const routes: Routes = [
   ...LandingPageRoutes,
   ...StartRoutes,
   ...ActivateUserRoutes,
-  {
+  /*{
     path:'dashboard',
     loadChildren: 'app/framework/dashboard/dashboard.module#DashboardModule'
   },{
@@ -31,11 +31,11 @@ export const routes: Routes = [
   {
     path:'create-new-project',
     loadChildren: 'app/framework/dashboard/dashboard.module#DashboardModule'
-  }/*,
+  }/!*,
   {
     path:'package-details',
     loadChildren: 'app/framework/dashboard/dashboard.module#DashboardModule'
-  }*/,
+  }*!/,
   {
     path:'reset-password',
     loadChildren: 'app/framework/login/forgot-password/reset-password/reset-password.module#ResetPasswordModule'
@@ -51,7 +51,7 @@ export const routes: Routes = [
   {
     path:'registration',
     loadChildren: 'app/framework/registration/candidate-sign-up/candidate-sign-up.module#CandidateSignUpModule'
-  },
+  },*/
   {
     path:'**',
     component: PageNotFoundComponent
