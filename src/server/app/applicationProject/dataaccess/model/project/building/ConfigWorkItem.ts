@@ -13,9 +13,11 @@ class ConfigWorkItem {
   breadthOrWidth : boolean;
   height : boolean;
 
-  constructor(name: string, rateAnalysisId: number) {
+  constructor(name: string, rateAnalysisId?: number) {
     this.name = name;
-    this.rateAnalysisId = rateAnalysisId;
+    if(rateAnalysisId) {
+      this.rateAnalysisId = rateAnalysisId;
+    }
   }
 }
 export = ConfigWorkItem;

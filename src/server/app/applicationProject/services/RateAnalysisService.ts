@@ -640,21 +640,29 @@ class RateAnalysisService {
         logger.error('RateAnalysis Sync Failed.');
       } else {
         if(costHeadsData) {
-          let buildingCostHeads = JSON.parse(JSON.stringify(costHeadsData.buildingCostHeads));
-          let projectCostHeads = JSON.parse(JSON.stringify(costHeadsData.buildingCostHeads));
-          let configCostHeads = config.get('configCostHeads');
-          let configProjectCostHeads = config.get('configProjectCostHeads');
-          let fixedCostConfigProjectCostHeads = config.get('fixedCostConfigProjectCostHeads');
-          this.convertConfigCostHeads(configCostHeads, buildingCostHeads);
-          this.convertConfigCostHeads(configProjectCostHeads, projectCostHeads);
-          this.convertConfigCostHeads(fixedCostConfigProjectCostHeads, projectCostHeads);
-          buildingCostHeads = alasql('SELECT * FROM ? ORDER BY priorityId', [buildingCostHeads]);
-          projectCostHeads = alasql('SELECT * FROM ? ORDER BY priorityId', [projectCostHeads]);
-          let buildingRates = this.getRates(costHeadsData, buildingCostHeads);
-          let projectRates = this.getRates(costHeadsData, projectCostHeads);
-          let rateAnalysis = new RateAnalysis(buildingCostHeads, buildingRates, projectCostHeads, projectRates);
-          rateAnalysis.appType = 'MyBuildCost';
-          this.saveRateAnalysis(rateAnalysis, region);
+          let query = {'appType': 'configCostHeads'};
+          this.rateAnalysisRepository.retrieve(query, (error: any, rateAnalysisArray: Array<RateAnalysis>) => {
+            if (error) {
+              logger.error('Unable to retrive synced RateAnalysis');
+            } else {
+              let configData = rateAnalysisArray[0];
+              let configCostHeads = configData.buildingCostHeads;
+              let configProjectCostHeads = configData.projectCostHeads;
+              let fixedCostConfigProjectCostHeads = configData.fixedAmountCostHeads;
+              let buildingCostHeads = JSON.parse(JSON.stringify(costHeadsData.buildingCostHeads));
+              let projectCostHeads = JSON.parse(JSON.stringify(costHeadsData.buildingCostHeads));
+              this.convertConfigCostHeads(configCostHeads, buildingCostHeads);
+              this.convertConfigCostHeads(configProjectCostHeads, projectCostHeads);
+              this.convertConfigCostHeads(fixedCostConfigProjectCostHeads, projectCostHeads);
+              buildingCostHeads = alasql('SELECT * FROM ? ORDER BY priorityId', [buildingCostHeads]);
+              projectCostHeads = alasql('SELECT * FROM ? ORDER BY priorityId', [projectCostHeads]);
+              let buildingRates = this.getRates(costHeadsData, buildingCostHeads);
+              let projectRates = this.getRates(costHeadsData, projectCostHeads);
+              let rateAnalysis = new RateAnalysis(buildingCostHeads, buildingRates, projectCostHeads, projectRates);
+              rateAnalysis.appType = 'MyBuildCost';
+              this.saveRateAnalysis(rateAnalysis, region);
+            }
+          });
         }
       }
     });
@@ -1405,13 +1413,11 @@ class RateAnalysisService {
     let costheadsList = new Array<any>();
     let getAllDistinctCostHeads = 'select DISTINCT name from ?';
     let distinctCostHeadList = alasql(getAllDistinctCostHeads, [costHeadList]);
-    console.log('distinctCostHeadList : '+JSON.stringify(distinctCostHeadList));
 
     for(let costHead of distinctCostHeadList) {
       if(costHead.name !== null && costHead.name !== '') {
           let costHeadDetailsSQL = 'SELECT * FROM ? WHERE name = ?';
           let costHeadArray = alasql(costHeadDetailsSQL, [costHeadList, costHead.name]);
-          console.log('costHeadList : ');
           if(costHeadArray.length > 0) {
             let costHead = costHeadArray[0];
             let costheadObj = new CostHead();
@@ -1425,7 +1431,6 @@ class RateAnalysisService {
           }
         }
       }
-    console.log('costheadList : '+costheadsList);
     return costheadsList;
   }
 
@@ -1434,22 +1439,20 @@ class RateAnalysisService {
     let getAllDistinctCategories = 'select DISTINCT categoryName from ?';
     let distinctCategoriesList = alasql(getAllDistinctCategories, [distinctCostHeadList]);
 
-    console.log('distinctCategoriesList : '+JSON.stringify(distinctCategoriesList));
-
     for(let category of distinctCategoriesList) {
-      if(category.name !== null && category.name !== '') {
+      if(category.categoryName !== null && category.categoryName !== '') {
         let getCategoryObjectSQL = 'SELECT * from ? where categoryName = ?';
         let categoryObjects = alasql(getCategoryObjectSQL,[distinctCostHeadList, category.categoryName]);
 
         if(categoryObjects.length > 0) {
           let categoryObj = categoryObjects[0];
+          let categoryId: number;
           if(parseInt(categoryObj.categoryRateAnalysisId)) {
-            let category = new Category(categoryObj.categoryName, parseInt(categoryObj.categoryRateAnalysisId));
-          } else {
-            let category = new Category(categoryObj.categoryName, null);
+            categoryId = parseInt(categoryObj.categoryRateAnalysisId);
           }
-          category.workItems = this.getDistinctWorkItems(distinctCostHeadList, categoryObj.categoryName);
-          categoriesList.push(category);
+          let categoryObject = new Category(categoryObj.categoryName, categoryId);
+          categoryObject.workItems = this.getDistinctWorkItems(distinctCostHeadList, categoryObj.categoryName);
+          categoriesList.push(categoryObject);
         }
       }
     }
@@ -1464,13 +1467,24 @@ class RateAnalysisService {
 
     for(let configWorkItem of configWorkItemList) {
       if(configWorkItem.workItemName !== null && configWorkItem.workItemName !== '') {
-        let workItemObj = new ConfigWorkItem(configWorkItem.workItemName, parseInt(configWorkItem.WorkItemRateAnalysisId));
+        let workItemId: number;
+        if(parseInt(configWorkItem.WorkItemRateAnalysisId)) {
+          workItemId = parseInt(configWorkItem.WorkItemRateAnalysisId);
+        }
+        let workItemObj = new ConfigWorkItem(configWorkItem.workItemName, workItemId);
         workItemObj.isRateAnalysis = configWorkItem.isRateAnalysis;
-        workItemObj.directRate = parseInt(configWorkItem.directRate);
+        if(configWorkItem.directRate) {
+          workItemObj.directRate = parseInt(configWorkItem.directRate);
+        } else {
+          workItemObj.directRate = 0;
+        }
         workItemObj.directRatePerUnit = configWorkItem.directRatePerUnit;
         workItemObj.isMeasurementSheet = configWorkItem.isMeasurementSheet;
         workItemObj.measurementUnit = configWorkItem.measurementUnit;
-        workItemObj.rateAnalysisPerUnit = parseInt(configWorkItem.rateAnalysisPerUnit);
+        let rateAnalysisPerUnit : number = 0;
+        if(configWorkItem.rateAnalysisPerUnit) {
+          workItemObj.rateAnalysisPerUnit = rateAnalysisPerUnit;
+        }
         workItemObj.rateAnalysisUnit = configWorkItem.rateAnalysisUnit;
         workItemObj.isItemBreakdownRequired = configWorkItem.isItemBreakdownRequired;
         workItemObj.length = configWorkItem.length;
@@ -1492,9 +1506,9 @@ class RateAnalysisService {
           let query = { _id: result[0]._id };
           this.rateAnalysisRepository.findOneAndUpdate(query, rateAnalysisModel, {},(error:any, result:any)=> {
             if(error) {
-              callback(null, error);
+              callback(error, null);
             } else {
-              callback(result, null);
+              callback(null, result);
             }
           });
         } else {
