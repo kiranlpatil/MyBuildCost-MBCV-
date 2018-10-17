@@ -8,7 +8,7 @@ import { CreateProjectComponent } from './create-project.component';
 
 export const CreateProjectRoutes: Route[] = [
   {
-    path: '',
+    path: 'create-project',
     component: CreateProjectComponent
   }
 ];

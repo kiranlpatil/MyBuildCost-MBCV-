@@ -10,7 +10,12 @@ import {LoginRoutes} from "./login.routes";
 
 
 @NgModule({
-  imports: [CommonModule, UserModule,SharedModule,FormsModule, ReactiveFormsModule , RouterModule.forChild(LoginRoutes)],
+  imports: [CommonModule,
+    UserModule,
+    SharedModule,
+    FormsModule,
+    ReactiveFormsModule ,
+    RouterModule.forChild(LoginRoutes)],
   declarations: [LoginComponent],
   exports: [LoginComponent],
   providers: [ValidationService]

@@ -8,7 +8,12 @@ import {UserModule} from "../../../user/user.module";
 import {FormsModule} from "@angular/forms";
 
 @NgModule({
-  imports: [CommonModule,UserModule,FormsModule,SharedModule, RouterModule.forChild(CreateProjectRoutes)/*TODO Abhijeet Ng2AutoCompleteModule,*/],
+  imports: [CommonModule,
+    UserModule,
+    FormsModule,
+    SharedModule,
+    RouterModule.forChild(CreateProjectRoutes)
+    ],
   declarations: [
     CreateProjectComponent
     ]

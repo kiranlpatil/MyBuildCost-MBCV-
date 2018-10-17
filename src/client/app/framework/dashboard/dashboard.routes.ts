@@ -9,7 +9,7 @@ import { BillingDetailsComponent } from './billing-details/index';
 
 export const DashboardRoutes: Route[] = [
   {
-    path: '',
+    path: 'dashboard',
     component: DashboardComponent,
     canActivate: [AuthGuardService],
     children: [

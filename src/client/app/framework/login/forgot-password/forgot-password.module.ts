@@ -9,7 +9,13 @@ import {SharedModule} from "../../../shared/shared.module";
 import {ForgotPasswordService} from "./forgot-password.service";
 
 @NgModule({
-  imports: [CommonModule, UserModule,SharedModule,FormsModule, ReactiveFormsModule , RouterModule.forChild(ForgotPasswordRoutes)],
+  imports: [CommonModule,
+    UserModule,
+    SharedModule,
+    FormsModule,
+    ReactiveFormsModule ,
+    RouterModule.forChild(ForgotPasswordRoutes)
+  ],
   declarations: [ForgotPasswordComponent],
   providers: [ForgotPasswordService]
 })

@@ -9,7 +9,12 @@ import {SharedModule} from "../../../../shared/shared.module";
 import {ResetPasswordService} from "./reset-password.service";
 
 @NgModule({
-  imports: [CommonModule, UserModule,SharedModule,FormsModule, ReactiveFormsModule , RouterModule.forChild(ResetPasswordRoutes)],
+  imports: [CommonModule,
+    UserModule,
+    SharedModule,
+    FormsModule, ReactiveFormsModule
+    //RouterModule.forChild(ResetPasswordRoutes)
+  ],
   declarations: [ResetPasswordComponent],
   providers: [ResetPasswordService]
 })

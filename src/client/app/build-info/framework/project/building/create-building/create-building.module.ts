@@ -8,7 +8,11 @@ import { CreateBuildingComponent } from './create-building.component';
 import { FormsModule } from '@angular/forms';
 
 @NgModule({
-  imports: [CommonModule,UserModule,FormsModule,SharedModule, RouterModule.forChild(CreateBuildingRoutes)],
+  imports: [CommonModule,
+    UserModule,
+    FormsModule,
+    SharedModule,
+    RouterModule.forChild(CreateBuildingRoutes)],
   declarations: [CreateBuildingComponent]
 
 })

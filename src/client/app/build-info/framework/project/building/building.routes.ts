@@ -7,7 +7,7 @@ import {CloneBuildingComponent} from "./clone-building/clone-building.component"
 
 export const BuildingRoutes: Route[] = [
   {
-    path: '',
+    path: 'building',
     component: BuildingComponent,
     children:[
       {path: '', component: BuildingComponent},
