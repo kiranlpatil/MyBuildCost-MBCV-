@@ -1393,6 +1393,7 @@ class RateAnalysisService {
             let rateAnalysisWorkItem = this.getFilterData(workItem.name, rateAnalysisWorkItems);
             buildingWorkItem[0].unit = rateAnalysisWorkItem[0].unit;
             this.checkRateItemExist(buildingWorkItem[0].rate, rateAnalysisWorkItem[0].rate);
+            this.checkRateItemExist(buildingWorkItem[0].systemRate, rateAnalysisWorkItem[0].systemRate);
           } else {
             buildingWorkItems.push(workItem);
             logger.info(workItem.name);
@@ -1419,7 +1420,7 @@ class RateAnalysisService {
   getFilterData(element: string, arrayOfElement: any) {
     const elementObject = arrayOfElement.filter(
       function (elementObj: any) {
-        if (elementObj.name === element) {
+        if ((elementObj.name).trim() === element) {
           return elementObj.name === element;
         } else {
           return null;
