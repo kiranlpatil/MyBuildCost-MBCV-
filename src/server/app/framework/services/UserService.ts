@@ -992,12 +992,13 @@ class UserService {
           }
         }
 
-        if (projectList.length === 0&& subscriptionList[0].purchased.length !== 0) {
+        if (projectList.length === 0 && subscriptionList[0].purchased.length !== 0) {
           isAbleToCreateNewProject = true;
         }
 
         let projectId = config.get('sampleProject.' + 'projectId');
         let projection = {'name': 1, 'activeStatus': 1, 'projectImage': 1};
+        let isAnySubscriptionAvailable =this.checkUserHaveActiveSubcription(subscriptionList,projectSubscriptionArray);
         this.projectRepository.findByIdWithProjection(projectId, projection, (error, project) => {
           if (error) {
             callback(error, null);
@@ -1015,12 +1016,63 @@ class UserService {
             data: projectSubscriptionArray,
             sampleProject: sampleProjectSubscriptionArray,
             isSubscriptionAvailable: isAbleToCreateNewProject,
+            isAnySubscriptionAvailable: isAnySubscriptionAvailable,
             access_token: authInterceptor.issueTokenWithUid(user)
           });
         });
       }
     });
   }
+checkUserHaveActiveSubcription (subscriptionList :any ,projectSubscriptionArray:any) {
+
+  let isAnySubscriptionAvailable: boolean = false;
+  if(subscriptionList && subscriptionList.length === 1) {
+    if (subscriptionList.length === projectSubscriptionArray.length) {
+      for (let project of projectSubscriptionArray) {
+        if (project.expiryMessage || !project.activeStatus) {
+          // if never go to else means all projects are expired.
+        } else {
+          isAnySubscriptionAvailable = true;
+        }
+      }
+    }else {
+      if(projectSubscriptionArray.length === 0) {
+        isAnySubscriptionAvailable = true;
+      }
+    }
+  }else if(subscriptionList && subscriptionList.length >1) {
+    if(subscriptionList &&subscriptionList[0] &&
+      subscriptionList[0].purchased && subscriptionList[0].purchased.length > 1) {
+      if (subscriptionList.length === projectSubscriptionArray.length) {
+        for (let project of projectSubscriptionArray) {
+          if (project.expiryMessage || !project.activeStatus) {
+            // if never go to else means all projects are expired.
+          } else {
+            isAnySubscriptionAvailable = true;
+          }
+        }
+      }else {
+        isAnySubscriptionAvailable = true;
+      }
+    } else {
+      if (subscriptionList.length-1 === projectSubscriptionArray.length-1) {
+        for (let project of projectSubscriptionArray) {
+          if (project.projectId === subscriptionList[0].projectId[0]) {
+            continue;
+          }
+          if (project.expiryMessage || !project.activeStatus) {
+            // if never go to else means all projects are expired.
+          } else {
+            isAnySubscriptionAvailable = true;
+          }
+        }
+      }else if (subscriptionList.length-1 > projectSubscriptionArray.length-1) {
+        isAnySubscriptionAvailable = true;
+      }
+    }
+  }
+   return isAnySubscriptionAvailable;
+}
 
   //To check which is current package occupied by user.
   checkCurrentPackage(subscription: any) {
