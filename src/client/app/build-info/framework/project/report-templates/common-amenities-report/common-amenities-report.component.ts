@@ -18,6 +18,7 @@ export class CommonAmenitiesReportComponent {
   @Input() amenitiesReport: any;
   @Input() costingByUnit: any;
   @Input() costingByArea: any;
+  @Input() grandTotalOfArea: number;
 
   isBudgeted: boolean = false;
   isEstimated: boolean = false;
