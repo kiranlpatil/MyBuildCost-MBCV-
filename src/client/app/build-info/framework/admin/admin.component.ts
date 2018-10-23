@@ -1,14 +1,62 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AdminService } from './admin.service';
+import { LoaderService } from '../../../shared/loader/loaders.service';
+import { API, AppSettings, ErrorInstance } from '../../../shared/index';
+import { Messages, SessionStorage } from '../../../shared/constants';
+import { ErrorService } from '../../../shared/services/error.service';
+import { SessionStorageService } from '../../../shared/services/session.service';
 
 @Component({
   moduleId: module.id,
   selector: 'mbc-admin',
   templateUrl: 'admin.component.html'
 })
-export class AdminComponent {
+export class AdminComponent implements OnInit{
 
-  constructor(private _router: Router) {
+  displayLinks: boolean = false;
+  usagePath: any;
+  myBuildUserPath: any;
+  raUserPath:any;
+  isAdmin: boolean = false;
+
+  constructor(private _router: Router, private adminService : AdminService, private loaderService: LoaderService,
+              private errorService: ErrorService) {
   }
 
+  ngOnInit() {
+    let userId =  SessionStorageService.getSessionValue(SessionStorage.USER_ID);
+    if( userId === AppSettings.SAMPLE_PROJECT_USER_ID) {
+      this.isAdmin = true;
+    }
+  }
+
+  createExcelFiles() {
+    this.loaderService.start();
+    this.adminService.createAllExcelFiles().subscribe(
+      success => this.createAllExcelFilesSuccess(success),
+      error => this.createAllExcelFilesFailure(error));
+  }
+
+  createAllExcelFilesSuccess(success: any) {
+    this.loaderService.stop();
+    if(success.status)
+    this.displayLinks = true;
+
+    this.usagePath = AppSettings.IP + AppSettings.PUBLIC + API.EXPORT_APP_USAGE_DETAILS;
+    this.myBuildUserPath = AppSettings.IP + AppSettings.PUBLIC + API.EXPORT_MY_BUILD_COST_USER ;
+    this.raUserPath = AppSettings.IP + AppSettings.PUBLIC + API.EXPORT_RATE_ANALYSIS_USER ;
+  }
+
+  createAllExcelFilesFailure(error: any) {
+    this.loaderService.stop();
+    var errorInstance = new ErrorInstance();
+    errorInstance.err_msg = Messages.EXPORT_FAILED;
+    errorInstance.err_code = 404;
+    this.errorService.onError(errorInstance);
+  }
+
+  goBack() {
+    window.history.back();
+  }
 }

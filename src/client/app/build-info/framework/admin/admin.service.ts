@@ -10,19 +10,10 @@ export class AdminService extends BaseService {
     super();
   }
 
-  getBaseSubscriptionPackageList() {
-    var url = API.SUBSCRIPTION + '/' + API.BASE_PACKAGES_LIST;
-    return this.httpDelegateService.getAPI(url);
-  }
-
-  getSubscriptionPackageByName(body : any) {
-    var url = API.SUBSCRIPTION + '/'+ API.BY_NAME ;
+  createAllExcelFiles() {
+    var url = API.USER + API.EXPORT_DATA;
+    var body = {};
     return this.httpDelegateService.postAPI(url,body);
-  }
-
-  getRetainOrRenewProject(projectId:string, body : any) {
-    var url = API.USER + '/' + API.PROJECT + '/' + projectId +'/'+ API.UPDATE_SUBSCRIPTION;
-    return this.httpDelegateService.putAPI(url,body);
   }
 }
 
