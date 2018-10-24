@@ -35,6 +35,7 @@ import {CandidateSignUpModule} from './framework/registration/candidate-sign-up/
 import {ForgotPasswordModule} from "./framework/login/forgot-password/forgot-password.module";
 import { AdminComponent } from './build-info/framework/admin/admin.component';
 import { AdminService } from './build-info/framework/admin/admin.service';
+import {ProjectHeaderVisibilityService} from "./shared/services/project-header-visibility.service";
 
 @NgModule({
   imports: [
@@ -87,7 +88,8 @@ import { AdminService } from './build-info/framework/admin/admin.service';
     MessageService,
     SharedService,
     ThemeChangeService, CommonService, BaseService, CustomHttp, ErrorService, SessionStorageService,
-    AdminService
+    AdminService,
+    ProjectHeaderVisibilityService
   ],
   bootstrap: [AppComponent]
 })
