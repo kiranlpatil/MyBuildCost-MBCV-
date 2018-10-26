@@ -16,7 +16,7 @@ pipelines:
           - echo $APPLICATION_NAME
           - node -v
           - npm -v
-          - npm install
+          - npm install --unsafe -perm
           - npm rebuild
           - npm install gulp -g
           - npm install typings -g
