@@ -874,12 +874,12 @@ class UserService {
     let current_date = new Date();
     subscriptionDetails.noOfDaysToExpiry = this.daysdifference(subscriptionDetails.expiryDate, current_date);
      if (subscriptionDetails.noOfDaysToExpiry <= Constants.PREMIUM_PERIOD && subscriptionDetails.noOfDaysToExpiry > 0 && subscriptionData.name === 'RAPremium') {
-      subscriptionDetails.warningMsgForPackage = 'Your package will expire in ' +
+      subscriptionDetails.warningMsgForPackage = 'Your subscription will expire in ' +
         Math.round(subscriptionDetails.noOfDaysToExpiry) + ' day(s).';
 
     } else if (subscriptionDetails.noOfDaysToExpiry <= 0) {
      if(subscriptionData.name === 'RAPremium') {
-        subscriptionDetails.expiryMsgForPackage = 'Your package has expired.';
+        subscriptionDetails.expiryMsgForPackage = 'Your subscription has expired.';
       }
       subscriptionDetails.isPackageExpired = true;
     }
