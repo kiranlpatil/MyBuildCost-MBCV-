@@ -504,6 +504,16 @@ class RateAnalysisService {
     }
   }
 
+  checkIfFreeVersion(workItem: any, liteWorkItemsList: Array<any>) {
+    let isWorkItemExistSQL = 'SELECT * FROM ? AS liteWorkitems WHERE liteWorkitems.ItemName= ?';
+    let workItemExistArray = alasql(isWorkItemExistSQL, [liteWorkItemsList, workItem.name]);
+    if(workItemExistArray.length > 0) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   convertConfigorkitem(configWorkItem: any) {
 
     let workItem = new WorkItem(configWorkItem.name, configWorkItem.rateAnalysisId);
@@ -908,6 +918,7 @@ class RateAnalysisService {
         let workItem = new RAWorkItem(workItemsData[workItemIndex].name, workItemsData[workItemIndex].rateAnalysisId);
         workItem.rate = workItemsData[workItemIndex].rate;
         workItem.unit = workItemsData[workItemIndex].unit;
+        workItem.isFree = workItemsData[workItemIndex].isFree;
         workItem.contractingAddOns = workItemsData[workItemIndex].contractingAddOns;
         if(workItem.rate.rateItems.length > 0) {
           buildingWorkItems.push(workItem);
@@ -1088,6 +1099,9 @@ class RateAnalysisService {
       'DeviceId=2fc85276aee45b7a&mobilenumber=8928520179&regionID='+ region.RegionId +'&NeedFullData=y&AppCode=RA';
     let contractorAddOnResultPromise = this.createPromise(contractorAddOnResultURL);
 
+    let liteVersionWorkItemsURL = config.get('rateAnalysisAPI.liteVersionItems');
+    let liteVersionWorkItemsPromise = this.createPromise(liteVersionWorkItemsURL);
+
     logger.info('calling Promise.all');
     CCPromise.all([
       costHeadRateAnalysisPromise,
@@ -1097,14 +1111,16 @@ class RateAnalysisService {
       notesRateAnalysisPromise,
       unitsRateAnalysisPromise,
       contractorAddOnsFromRateAnalysisPromise,
-      contractorAddOnResultPromise
+      contractorAddOnResultPromise,
+      liteVersionWorkItemsPromise
     ]).then(function (data: Array<any>) {
       logger.info(' Promise.all API is success.');
 
       if(data[0][Constants.RATE_ANALYSIS_ITEM_TYPE] && data[1][Constants.RATE_ANALYSIS_SUBITEM_TYPE] &&
         data[2][Constants.RATE_ANALYSIS_ITEMS] && data[3][Constants.RATE_ANALYSIS_DATA] &&
         data[4][Constants.RATE_ANALYSIS_DATA] && data[5][Constants.RATE_ANALYSIS_UOM] &&
-        data[6][Constants.CONTRACTING_ADD_ONS] && data[7][Constants.RATEANALYSIS_ADD_ON_DATA]) {
+        data[6][Constants.CONTRACTING_ADD_ONS] && data[7][Constants.RATEANALYSIS_ADD_ON_DATA] &&
+        data[8][Constants.RATE_ANALYSIS_ITEMS]) {
 
         let costHeadsRateAnalysis = data[0][Constants.RATE_ANALYSIS_ITEM_TYPE];
         let categoriesRateAnalysis = data[1][Constants.RATE_ANALYSIS_SUBITEM_TYPE];
@@ -1114,13 +1130,14 @@ class RateAnalysisService {
         let unitsRateAnalysis = data[5][Constants.RATE_ANALYSIS_UOM];
         let contractingAddOns = data[6][Constants.CONTRACTING_ADD_ONS];
         let contractorAddOnResult = data[7][Constants.RATEANALYSIS_ADD_ON_DATA];
+        let freeRAWorkitemsList = data[8][Constants.RATE_ANALYSIS_ITEMS];
 
         let rateAnalysisCostHeads: Array<CostHead> = [];
         let rateAnalysisService = new RateAnalysisService();
 
         rateAnalysisService.convertCostHeadsForRateAnalysis(costHeadsRateAnalysis, categoriesRateAnalysis, workItemsRateAnalysis,
           rateItemsRateAnalysis, unitsRateAnalysis, notesRateAnalysis,
-          contractingAddOns, contractorAddOnResult, rateAnalysisCostHeads, region);
+          contractingAddOns, contractorAddOnResult, rateAnalysisCostHeads, region, freeRAWorkitemsList);
         logger.info('success in  convertCostHeadsFromRateAnalysisToCostControl.');
 
         console.log('Suceessfully feteched data for : '+region.Region);
@@ -1135,7 +1152,8 @@ class RateAnalysisService {
 
   convertCostHeadsForRateAnalysis(costHeadsRateAnalysis:any, categoriesRateAnalysis:any, workItemsRateAnalysis:any,
                                   rateItemsRateAnalysis:any, unitsRateAnalysis:any, notesRateAnalysis:any,
-                                  contractingAddOns:any, contractorAddOnResult:any, buildingCostHeads:any, region:any) {
+                                  contractingAddOns:any, contractorAddOnResult:any, buildingCostHeads:any, region:any,
+                                  freeRAWorkitemsList: Array<any>) {
     console.log('Rate analysis for conversion');
     for (let costHeadIndex = 0; costHeadIndex < costHeadsRateAnalysis.length; costHeadIndex++) {
 
@@ -1153,11 +1171,11 @@ class RateAnalysisService {
         if (categoriesByCostHead.length === 0) {
           this.getWorkItemsWithoutCategoryForRateAnalysis(costHead.rateAnalysisId, workItemsRateAnalysis,
             rateItemsRateAnalysis, unitsRateAnalysis, notesRateAnalysis,
-            contractingAddOns, contractorAddOnResult, raCategories, region);
+            contractingAddOns, contractorAddOnResult, raCategories, region, freeRAWorkitemsList);
         } else {
           this.getCategoriesForRateAnalysis(categoriesByCostHead, workItemsRateAnalysis,
             rateItemsRateAnalysis, unitsRateAnalysis, notesRateAnalysis,
-            contractingAddOns, contractorAddOnResult, raCategories, region);
+            contractingAddOns, contractorAddOnResult, raCategories, region, freeRAWorkitemsList);
         }
 
         costHead.categories = raCategories;
@@ -1167,7 +1185,8 @@ class RateAnalysisService {
 
   getWorkItemsWithoutCategoryForRateAnalysis(costHeadRateAnalysisId: number, workItemsRateAnalysis : any,
         rateItemsRateAnalysis: any, unitsRateAnalysis: any, notesRateAnalysis: any,
-        contractingAddOns: any, contractorAddOnResult: any, buildingCategories: Array<RACategory>, region:any) {
+        contractingAddOns: any, contractorAddOnResult: any, buildingCategories: Array<RACategory>, region:any,
+                                             freeRAWorkitemsList: Array<any>) {
     logger.info('getWorkItemsWithoutCategoryForRateAnalysis has been hit.');
 
     let workItemsWithoutCategoriesRateAnalysisSQL = 'SELECT workItem.C2 AS rateAnalysisId, workItem.C3 AS name' +
@@ -1179,7 +1198,7 @@ class RateAnalysisService {
 
     this.getWorkItemsForRateAnalysis(workItemsWithoutCategories, rateItemsRateAnalysis,
       unitsRateAnalysis, notesRateAnalysis, contractingAddOns, contractorAddOnResult,
-      buildingWorkItems, workItemsRateAnalysis, region);
+      buildingWorkItems, workItemsRateAnalysis, region, freeRAWorkitemsList);
 
     category.workItems = buildingWorkItems;
     buildingCategories.push(category);
@@ -1187,12 +1206,13 @@ class RateAnalysisService {
 
   getWorkItemsForRateAnalysis(workItemsByCategory: any, rateItemsRateAnalysis: any,
                                unitsRateAnalysis: any, notesRateAnalysis: any, contractingAddOns: any, contractorAddOnResult: any,
-                               buildingWorkItems: Array<RAWorkItem>, workItemsRateAnalysis: any, region:any) {
+                               buildingWorkItems: Array<RAWorkItem>, workItemsRateAnalysis: any,
+                               region:any, freeRAWorkitemsList: Array<any>) {
 
     logger.info('getWorkItemsFromRateAnalysis has been hit.');
     for (let categoryWorkitem of workItemsByCategory) {
-      let workItem = this.getRatesForRateAnalysis(categoryWorkitem, rateItemsRateAnalysis,
-        unitsRateAnalysis, notesRateAnalysis, contractingAddOns, contractorAddOnResult, workItemsRateAnalysis, region);
+      let workItem = this.getRatesForRateAnalysis(categoryWorkitem, rateItemsRateAnalysis, unitsRateAnalysis,
+        notesRateAnalysis, contractingAddOns, contractorAddOnResult, workItemsRateAnalysis, region, freeRAWorkitemsList);
       if (workItem) {
         buildingWorkItems.push(workItem);
       }
@@ -1201,7 +1221,7 @@ class RateAnalysisService {
 
   getRatesForRateAnalysis(categoryWorkitem: RAWorkItem, rateItemsRateAnalysis: any,
                   unitsRateAnalysis: any, notesRateAnalysis: any, contractingAddOns: any,
-                  contractorAddOnResult: any, workItemsRateAnalysis: any, region:any) {
+                  contractorAddOnResult: any, workItemsRateAnalysis: any, region:any, freeRAWorkitemsList: Array<any>) {
 
     if (categoryWorkitem.name && categoryWorkitem.rateAnalysisId) {
 
@@ -1222,10 +1242,12 @@ class RateAnalysisService {
       let notes = '';
       let imageURL = '';
       workItem.rate.rateItems = rateItemsByWorkItem;
+      workItem.isFree = this.checkIfFreeVersion(workItem, freeRAWorkitemsList);
 
       if (rateItemsByWorkItem && rateItemsByWorkItem.length > 0) {
 
-        let getWorkItemUnitSQL = 'SELECT units.C2 AS rateQuantityUnit FROM ? AS units WHERE units.C1 = '+rateItemsByWorkItem[0].workItemUnitId;
+        let getWorkItemUnitSQL = 'SELECT units.C2 AS rateQuantityUnit FROM ? AS units WHERE units.C1 = '
+          +rateItemsByWorkItem[0].workItemUnitId;
         let workItemRateQuantityUnit = alasql(getWorkItemUnitSQL, [unitsRateAnalysis]);
         workItem.rate.unit = workItemRateQuantityUnit[0].rateQuantityUnit;
 
@@ -1251,7 +1273,7 @@ class RateAnalysisService {
   getCategoriesForRateAnalysis(categoriesByCostHead: any, workItemsRateAnalysis: any,
                                 rateItemsRateAnalysis: any, unitsRateAnalysis: any,
                                 notesRateAnalysis: any, contractingAddOns: any, contractorAddOnResult: any,
-                                buildingCategories: Array<RACategory>, region:any) {
+                                buildingCategories: Array<RACategory>, region:any, freeRAWorkitemsList: Array<any>) {
 
     logger.info('getCategoriesFromRateAnalysis has been hit.');
 
@@ -1267,7 +1289,8 @@ class RateAnalysisService {
 
       this.getWorkItemsForRateAnalysis(workItemsByCategory, rateItemsRateAnalysis,
         unitsRateAnalysis, notesRateAnalysis, contractingAddOns,
-        contractorAddOnResult, buildingWorkItems, workItemsRateAnalysis, region);
+        contractorAddOnResult, buildingWorkItems, workItemsRateAnalysis,
+        region, freeRAWorkitemsList);
 
       category.workItems = buildingWorkItems;
       if (category.workItems.length !== 0) {

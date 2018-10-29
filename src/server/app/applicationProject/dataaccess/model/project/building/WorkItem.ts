@@ -23,6 +23,7 @@ class WorkItem {
   rate: Rate;
   systemRate: Rate;
   isDirectRate: boolean;
+  isFree: boolean;
   amount: number;
   remarks: string;
   active: boolean;
@@ -41,6 +42,7 @@ class WorkItem {
     this.contractingAddOns = new Array<ContractingAddOn>();
     this.amount = 0;
     this.isDirectRate = false;
+    this.isFree = false;
     this.isSteelWorkItem = false;
     this.active=false;
     this.remarks = '';

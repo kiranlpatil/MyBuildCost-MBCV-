@@ -873,18 +873,12 @@ class UserService {
     subscriptionDetails.expiryDate = new Date(expiryDate.setDate(activation_date.getDate() + subscriptionData.validity));
     let current_date = new Date();
     subscriptionDetails.noOfDaysToExpiry = this.daysdifference(subscriptionDetails.expiryDate, current_date);
-    if (subscriptionDetails.noOfDaysToExpiry <= Constants.TRIAL_PERIOD && subscriptionDetails.noOfDaysToExpiry > 0 && subscriptionData.name === 'Trial') {
-      subscriptionDetails.warningMsgForPackage = 'Your trial period will expire in ' +
-        Math.round(subscriptionDetails.noOfDaysToExpiry) + ' day(s).';
-
-    } else if (subscriptionDetails.noOfDaysToExpiry <= Constants.PREMIUM_PERIOD && subscriptionDetails.noOfDaysToExpiry > 0 && subscriptionData.name === 'RAPremium') {
+     if (subscriptionDetails.noOfDaysToExpiry <= Constants.PREMIUM_PERIOD && subscriptionDetails.noOfDaysToExpiry > 0 && subscriptionData.name === 'RAPremium') {
       subscriptionDetails.warningMsgForPackage = 'Your package will expire in ' +
         Math.round(subscriptionDetails.noOfDaysToExpiry) + ' day(s).';
 
     } else if (subscriptionDetails.noOfDaysToExpiry <= 0) {
-      if (subscriptionData.name === 'Trial') {
-        subscriptionDetails.expiryMsgForPackage = 'Your trial period has expired.';
-      } else {
+     if(subscriptionData.name === 'RAPremium') {
         subscriptionDetails.expiryMsgForPackage = 'Your package has expired.';
       }
       subscriptionDetails.isPackageExpired = true;
@@ -1976,7 +1970,8 @@ if(duplicateUser.hasOwnProperty("RAP")){
                 {label: 'DeviceId', value: 'deviceId'}, {label: 'Platform', value: 'platform'},
                 {label: 'Device OS', value: 'deviceOS'}, {label: 'Used From Mobile', value: 'isMobile'},
                 {label: 'Used From Desktop', value: 'isDesktop'}, {label: 'Browser', value: 'browser'},
-                {label: 'Used On Time', value: 'createdAt'}];
+                {label: 'WorkItem', value: 'workItemName'}, {label: 'Region Name', value: 'regionName'},
+                {label: 'IsPaidWorkItem', value: 'isPaidWorkItem'}, {label: 'Used On Time', value: 'createdAt'}];
 
               var csv = json2csv({data: userData, fields: fields});
               var pathOfFile = path.resolve() + config.get('application.exportFilePathServer') + 'AppUsageDetails.csv';
