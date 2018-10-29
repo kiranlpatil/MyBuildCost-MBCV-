@@ -19,7 +19,7 @@ import { SharedService } from '../../shared/services/shared-service';
 import { RegistrationService } from '../../user/services/registration.service';
 import { LocalStorageService } from './../../shared/services/local-storage.service';
 import { LoaderService } from '../../shared/loader/loaders.service';
-import { DeviceUUID } from 'device_uuid';
+//import { DeviceUUID } from 'device_uuid';
 @Component({
   moduleId: module.id,
   selector: 'tpl-login',
@@ -29,7 +29,7 @@ import { DeviceUUID } from 'device_uuid';
 
 export class LoginComponent implements OnInit {
   @ViewChild('toaster') toaster: ElementRef;
-  deviceDetails = DeviceUUID().parse();
+  //deviceDetails = DeviceUUID().parse();
   userForm: FormGroup;
   error_msg: string;
   isShowErrorMessage: boolean = true;
@@ -149,10 +149,10 @@ export class LoginComponent implements OnInit {
       SessionStorageService.setSessionValue(SessionStorage.IS_SOCIAL_LOGIN, AppSettings.IS_SOCIAL_LOGIN_NO);
     }
     this.successRedirect(res);
-    this.userTrack(res);
+    // this.userTrack(res);
   }
 
-  userTrack(res: any) {
+/*  userTrack(res: any) {
     this.deviceDetails.deviceId = new DeviceUUID().get();
     this.deviceDetails.email = res.data.email;
     this.deviceDetails.mobileNumber = res.data.mobile_number;
@@ -162,7 +162,7 @@ export class LoginComponent implements OnInit {
       .subscribe(
         res => (this.onUserTrackSuccess(res)),
         error => (this.onUserTrackFailure(error)));
-  }
+  }*/
 
   onUserTrackSuccess(res:any) {
     console.log('success');
