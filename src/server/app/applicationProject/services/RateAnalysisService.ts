@@ -488,7 +488,7 @@ class RateAnalysisService {
   }
 
   checkIfFreeVersion(workItem: any, liteWorkItemsList: Array<any>) {
-    let isWorkItemExistSQL = 'SELECT * FROM ? AS liteWorkitems WHERE liteWorkitems.ItemName= ?';
+    let isWorkItemExistSQL = 'SELECT * FROM ? AS liteWorkitems WHERE TRIM(liteWorkitems.ItemName)= ?';
     let workItemExistArray = alasql(isWorkItemExistSQL, [liteWorkItemsList, workItem.name]);
     if(workItemExistArray.length > 0) {
       return true;
