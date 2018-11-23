@@ -270,7 +270,7 @@ class RateAnalysisService {
     });
   }
 
-  createPromise(url: string) {
+  createPromise(url: string, region ?: any) {
     return new CCPromise(function (resolve: any, reject: any) {
       logger.info('createPromise has been hit for : ' + url);
       let rateAnalysisService = new RateAnalysisService();
@@ -283,10 +283,11 @@ class RateAnalysisService {
           resolve(data);
         }
       });
-    }).catch(function (e: any) {
+    }).catch(() => this.sendEmailForSynchFailed(url, region));
+    /*catch(function (e: any) {
       logger.error('Promise failed for individual ! url:' + url + ':\n error :' + JSON.stringify(e.message));
       CCPromise.reject(e.message);
-    });
+    });*/
   }
 
   getCostHeadsFromRateAnalysis(costHeadsRateAnalysis: any, categoriesRateAnalysis: any,
@@ -1029,49 +1030,49 @@ class RateAnalysisService {
     let entity = Constants.BUILDING;
     let costHeadURL = config.get(Constants.RATE_ANALYSIS_API + entity + Constants.RATE_ANALYSIS_COSTHEADS)
       + region.RegionId + config.get(Constants.RATE_ANALYSIS_API + Constants.RATE_ANALYSIS_API_ENDPOINT);
-    let costHeadRateAnalysisPromise = this.createPromise(costHeadURL);
+    let costHeadRateAnalysisPromise = this.createPromise(costHeadURL, region);
     logger.info('costHeadRateAnalysisPromise for has been hit');
 
     let categoryURL = config.get(Constants.RATE_ANALYSIS_API + entity + Constants.RATE_ANALYSIS_CATEGORIES)
       + region.RegionId + config.get(Constants.RATE_ANALYSIS_API + Constants.RATE_ANALYSIS_API_ENDPOINT);
-    let categoryRateAnalysisPromise = this.createPromise(categoryURL);
+    let categoryRateAnalysisPromise = this.createPromise(categoryURL, region);
     logger.info('categoryRateAnalysisPromise for has been hit');
 
     let workItemURL = config.get(Constants.RATE_ANALYSIS_API + entity + Constants.RATE_ANALYSIS_WORKITEMS)
       + region.RegionId + config.get(Constants.RATE_ANALYSIS_API + Constants.RATE_ANALYSIS_API_ENDPOINT);
-    let workItemRateAnalysisPromise = this.createPromise(workItemURL);
+    let workItemRateAnalysisPromise = this.createPromise(workItemURL, region);
     logger.info('workItemRateAnalysisPromise for has been hit');
 
     let rateItemURL = config.get(Constants.RATE_ANALYSIS_API + entity + Constants.RATE_ANALYSIS_RATE)
       + region.RegionId + config.get(Constants.RATE_ANALYSIS_API + Constants.RATE_ANALYSIS_API_ENDPOINT);
-    let rateItemRateAnalysisPromise = this.createPromise(rateItemURL);
+    let rateItemRateAnalysisPromise = this.createPromise(rateItemURL, region);
     logger.info('rateItemRateAnalysisPromise for has been hit');
 
     let rateAnalysisNotesURL = config.get(Constants.RATE_ANALYSIS_API + entity + Constants.RATE_ANALYSIS_NOTES)
       + region.RegionId + config.get(Constants.RATE_ANALYSIS_API + Constants.RATE_ANALYSIS_API_ENDPOINT);
-    let notesRateAnalysisPromise = this.createPromise(rateAnalysisNotesURL);
+    let notesRateAnalysisPromise = this.createPromise(rateAnalysisNotesURL, region);
     logger.info('notesRateAnalysisPromise for has been hit');
 
     let allUnitsFromRateAnalysisURL = config.get(Constants.RATE_ANALYSIS_API + entity + Constants.RATE_ANALYSIS_UNIT)
       + region.RegionId + config.get(Constants.RATE_ANALYSIS_API + Constants.RATE_ANALYSIS_API_ENDPOINT);
-    let unitsRateAnalysisPromise = this.createPromise(allUnitsFromRateAnalysisURL);
+    let unitsRateAnalysisPromise = this.createPromise(allUnitsFromRateAnalysisURL, region);
     logger.info('unitsRateAnalysisPromise for has been hit');
 
     let contractorAddOnsFromRateAnalysisURL = config.get(Constants.RATE_ANALYSIS_API + Constants.START_POINT)
       + config.get(Constants.RATE_ANALYSIS_API + Constants.RATE_ANALYSIS_CONTRACTOR_ADD_ONS)
       + config.get(Constants.RATE_ANALYSIS_API + Constants.RA_CONTRACTOR_API_ENDPOINT);
-    let contractorAddOnsFromRateAnalysisPromise = this.createPromise(contractorAddOnsFromRateAnalysisURL);
+    let contractorAddOnsFromRateAnalysisPromise = this.createPromise(contractorAddOnsFromRateAnalysisURL, region);
     logger.info('contractorAddOnsFromRateAnalysisPromise for has been hit');
 
     let rateAnalysisRegionResultFromRateAnalysisURL = config.get(Constants.RATE_ANALYSIS_API + Constants.START_POINT)
       + config.get(Constants.RATE_ANALYSIS_API + Constants.RA_REGION_RESULT)
       + region.RegionId + config.get(Constants.RATE_ANALYSIS_API + Constants.RATE_ANALYSIS_API_ENDPOINT);
-    let rateAnalysisRegionFromRateAnalysisPromise = this.createPromise(rateAnalysisRegionResultFromRateAnalysisURL);
+    let rateAnalysisRegionFromRateAnalysisPromise = this.createPromise(rateAnalysisRegionResultFromRateAnalysisURL, region);
     logger.info('contractorAddOnsFromRateAnalysisPromise for has been hit');
 
     let contractorAddOnResultURL = 'http://mobileapiv4.buildinfo.co.in/RAContractorAddons/RAContractorAddonsResult?' +
       'DeviceId=2fc85276aee45b7a&mobilenumber=8928520179&regionID='+ region.RegionId +'&NeedFullData=y&AppCode=RA';
-    let contractorAddOnResultPromise = this.createPromise(contractorAddOnResultURL);
+    let contractorAddOnResultPromise = this.createPromise(contractorAddOnResultURL, region);
 
     let liteVersionWorkItemsURL = config.get('rateAnalysisAPI.liteVersionItems');
     let liteVersionWorkItemsPromise = this.createPromise(liteVersionWorkItemsURL);
@@ -1272,6 +1273,28 @@ class RateAnalysisService {
       }
     }
 
+  }
+
+  sendEmailForSynchFailed(url: any, region: any) {
+    if(region !== undefined) {
+        setTimeout(() => {
+          console.log('failed region call : '+ JSON.stringify(region));
+          console.log(' 5 minutes Timer fixed to synch failed region !!!');
+          this.createPromiseTosynchRegionFromRateAnalysis(region);
+          console.log(JSON.stringify(region.Region));
+        }, 300000);
+    }
+    let tempError: any = new Object();
+    tempError.reason = 'Unable to make a get request for url from BuildInfo Server';
+    tempError.code = 500;
+    tempError.message = 'syncAllRateAnalysisRegions is failed';
+    tempError.stack = 'syncAllRateAnalysisRegions is failed for url : '+ url;
+    let userService = new UserService();
+    userService.sendMailOnError(tempError, (error:any, result:any) => {
+      if (error) {
+        logger.error( messages.MSG_ERROR_WHILE_CONTACTING);
+      }
+    });
   }
 
 }
