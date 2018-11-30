@@ -1274,7 +1274,7 @@ class RateAnalysisService {
         setTimeout(() => {
           console.log('failed region call : '+ JSON.stringify(region));
           console.log(' 5 minutes Timer fixed to synch failed region !!!');
-          this.createPromiseTosynchRegionFromRateAnalysis(region);
+          this.syncAllRateAnalysisRegions();
           console.log(JSON.stringify(region.Region));
         }, 300000);
     }
