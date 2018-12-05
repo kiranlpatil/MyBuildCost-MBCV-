@@ -604,7 +604,7 @@
           ]
         },
         {
-          "name": "Concrete by volumetric method (Only material)",
+          "name": "Concrete in cum by volumetric method (Only material)",
           "workItems": [
             {
               "name": "Concrete M 15 in cum, by conventional volumetric method, using farma and mixer ( Only material analysis)",
@@ -637,7 +637,7 @@
           ]
         },
         {
-          "name": "Concrete by mix design (Only material)",
+          "name": "Concrete in cum by mix design (Only material)",
           "workItems": [
             {
               "name": "Concrete M 20 in cum, as per mix design, by conventional mixing using weigh batcher and mixer ( Only material analysis)",
