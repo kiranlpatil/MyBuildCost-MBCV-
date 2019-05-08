@@ -6,7 +6,7 @@ Costcontrol has both http and https configuration.In below context we discuss ab
 
 pre for Costcontrol Requirements:- 1. node version 8.9.0
                                    2. npm version 5.6.0
-                                   3. mongodb version 3.6.14 
+                                   3. mongodb version 3.6.12 
                                    4. ROBO 3T
                                    5. Studio 3T
                                    
