@@ -395,23 +395,17 @@ class ReportService {
       for (let content of Object.keys(table.content)) {
         if (Object.keys(table.content[content].subContent).length > 0) {
           table.content[content].columnTwo = 0;
-          table.content[content].columnFour = 0;
           let tableSubContent = table.content[content].subContent;
           for (let subContent of Object.keys(tableSubContent)) {   // Sub content
 
 
             if (Object.keys(tableSubContent[subContent].subContent).length > 0) {
               tableSubContent[subContent].columnTwo = 0;
-              tableSubContent[subContent].columnFour = 0;
               for (let innerSubContent of Object.keys(tableSubContent[subContent].subContent)) {
                 // inner Sub content
                 tableSubContent[subContent].columnTwo =
                   (parseFloat(tableSubContent[subContent].columnTwo) +
                     parseFloat(tableSubContent[subContent].subContent[innerSubContent].columnTwo)
-                  ).toFixed(Constants.NUMBER_OF_FRACTION_DIGIT);
-                tableSubContent[subContent].columnFour =
-                  (parseFloat(tableSubContent[subContent].columnFour) +
-                    parseFloat(tableSubContent[subContent].subContent[innerSubContent].columnFour)
                   ).toFixed(Constants.NUMBER_OF_FRACTION_DIGIT);
               }
             }
@@ -421,22 +415,16 @@ class ReportService {
               Math.ceil(tableSubContent[subContent].columnTwo);
             table.content[content].columnTwo = (parseFloat(table.content[content].columnTwo) +
               parseFloat(tableSubContent[subContent].columnTwo)).toFixed(Constants.NUMBER_OF_FRACTION_DIGIT);
-            tableSubContent[subContent].columnFour =
-              Math.ceil(tableSubContent[subContent].columnFour);
-            table.content[content].columnFour = (parseFloat(table.content[content].columnFour) +
-              parseFloat(tableSubContent[subContent].columnFour)).toFixed(Constants.NUMBER_OF_FRACTION_DIGIT);
           }
           table.content[content].columnTwo = Math.ceil(table.content[content].columnTwo);
           contentTotal = contentTotal + table.content[content].columnTwo;
 
-          table.content[content].columnFour = Math.ceil(table.content[content].columnFour);
-          rateTotal = rateTotal + table.content[content].columnFour;
         }
 
         //footer
         table.footer.columnTwo = contentTotal;
-        table.footer.columnFour = rateTotal;
-        secondaryViewMaterialData[secondaryViewData].title = contentTotal + ' ' + table.footer.columnThree+ ' ' + rateTotal ; // todo ask swapnil for showing total in title
+      //  table.footer.columnFour = rateTotal;
+        secondaryViewMaterialData[secondaryViewData].title = contentTotal + ' ' + table.footer.columnThree; // todo ask swapnil for showing total in title
       }
 
       reportTotal = reportTotal + contentTotal; //todo rate total for all buildings
@@ -492,29 +480,24 @@ class ReportService {
       }
 
       if(table.content[record.costHeadName] === undefined || table.content[record.costHeadName] === null) {
-        table.content[record.costHeadName] = new MaterialTakeOffTableViewContent(record.costHeadName, 0, record.unit,0, {}); // todo review
+        table.content[record.costHeadName] = new MaterialTakeOffTableViewContent(record.costHeadName, 0, record.unit,record.rate, {}); // todo review
       }
 
 
       if(table.content[record.costHeadName].subContent[record.rowValue] === undefined ||
         table.content[record.costHeadName].subContent[record.rowValue] === null) {
         table.content[record.costHeadName].subContent[record.rowValue] =
-          new MaterialTakeOffTableViewContent(record.rowValue, 0, record.unit,0, {}); // todo review
+          new MaterialTakeOffTableViewContent(record.rowValue, 0, record.unit,record.rate, {}); // todo review
       }
 
       let tableViewSubContent: MaterialTakeOffTableViewContent = table.content[record.costHeadName].subContent[record.rowValue];
-      tableViewSubContent.columnTwo = tableViewSubContent.columnTwo + record.Total;   // update total
-      tableViewSubContent.columnFour = tableViewSubContent.columnFour + record.rate;   // update total // todo review
+      tableViewSubContent.columnTwo = tableViewSubContent.columnTwo + record.Total;   // update total // update total // todo review
 
       let tableViewContent: MaterialTakeOffTableViewContent = table.content[record.costHeadName];
-      tableViewContent.columnTwo = tableViewContent.columnTwo + record.Total;   // update total
-      tableViewContent.columnFour = tableViewContent.columnFour + record.rate; // todo review
+      tableViewContent.columnTwo = tableViewContent.columnTwo + record.Total;   // update total // todo review
       if(materialTakeOffTableViewSubContent) {
         materialTakeOffTableViewSubContent.columnTwo = parseFloat(
-          materialTakeOffTableViewSubContent.columnTwo).toFixed(Constants.NUMBER_OF_FRACTION_DIGIT);
-
-        materialTakeOffTableViewSubContent.columnFour = parseFloat(
-          materialTakeOffTableViewSubContent.columnFour).toFixed(Constants.NUMBER_OF_FRACTION_DIGIT); // todo review
+          materialTakeOffTableViewSubContent.columnTwo).toFixed(Constants.NUMBER_OF_FRACTION_DIGIT);// todo review
         tableViewContent.subContent[record.rowValue].subContent[record.subValue] = materialTakeOffTableViewSubContent;
       }
 
@@ -543,7 +526,7 @@ class ReportService {
       let materialTakeOffTableViewFooter: MaterialTakeOffTableViewFooter = null;
       if(table.footer === undefined || table.footer === null) {
         table.footer =
-          new MaterialTakeOffTableViewFooter('Total', 0, record.unit,record.rate); // todo review
+          new MaterialTakeOffTableViewFooter('Total', 0, record.unit,null); // todo review
       }
     }
   }
