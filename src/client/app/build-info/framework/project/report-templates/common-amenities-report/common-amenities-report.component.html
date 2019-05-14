@@ -34,12 +34,12 @@
       </th>
     </tr>
     <tr style="page-break-inside: avoid">
-      <th style="text-align: center;padding: 10px 5px;width: 17.5%;">{{ costingByArea }} (
+      <th style="text-align: center;padding: 10px 5px;width: 17.5%;">Per {{ costingByArea }} (
         <span *ngIf="(costingByUnit === getProjectElements().RS_PER_SQFT)" [innerHTML]="getProjectElements().RS_SYMBOL_PER_SQFT"></span>
         <span *ngIf="(costingByUnit === getProjectElements().RS_PER_SQMT)" [innerHTML]="getProjectElements().RS_SYMBOL_PER_SQMT"></span>)
       </th>
       <th style="text-align: center;padding: 10px 5px;width: 17.5%;">Budgeted Cost ( <span [innerHTML]="getProjectElements().RS_SYMBOL"></span> )</th>
-      <th style="text-align: center;padding: 10px 5px;width: 17.5%;">{{ costingByArea }} (
+      <th style="text-align: center;padding: 10px 5px;width: 17.5%;">Per {{ costingByArea }} (
         <span *ngIf="(costingByUnit === getProjectElements().RS_PER_SQFT)" [innerHTML]="getProjectElements().RS_SYMBOL_PER_SQFT"></span>
         <span *ngIf="(costingByUnit === getProjectElements().RS_PER_SQMT)" [innerHTML]="getProjectElements().RS_SYMBOL_PER_SQMT"></span>)
       </th>
@@ -132,7 +132,7 @@
       </th>
     </tr>
     <tr style="page-break-inside: avoid">
-      <th style="text-align: center;padding: 10px 15px;width: 30%;">{{ costingByArea }} (
+      <th style="text-align: center;padding: 10px 15px;width: 30%;">Per {{ costingByArea }} (
         <span *ngIf="(costingByUnit === getProjectElements().RS_PER_SQFT)" [innerHTML]="getProjectElements().RS_SYMBOL_PER_SQFT"></span>
         <span *ngIf="(costingByUnit === getProjectElements().RS_PER_SQMT)" [innerHTML]="getProjectElements().RS_SYMBOL_PER_SQMT"></span>)
       </th>
@@ -200,7 +200,7 @@
         </th>
       </tr>
       <tr style="page-break-inside: avoid">
-        <th style="text-align: center;padding: 10px 15px;width: 30%;">{{ costingByArea }} (
+        <th style="text-align: center;padding: 10px 15px;width: 30%;">Per {{ costingByArea }} (
           <span *ngIf="(costingByUnit === getProjectElements().RS_PER_SQFT)" [innerHTML]="getProjectElements().RS_SYMBOL_PER_SQFT"></span>
           <span *ngIf="(costingByUnit === getProjectElements().RS_PER_SQMT)" [innerHTML]="getProjectElements().RS_SYMBOL_PER_SQMT"></span>)
         </th>
