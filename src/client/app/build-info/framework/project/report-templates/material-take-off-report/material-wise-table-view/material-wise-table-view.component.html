@@ -3,7 +3,8 @@
   <tr style="page-break-inside: avoid">
     <th width="60%" style="padding: 5px 10px;text-align: left">{{reportData.header.columnOne}}</th>
     <th width="20%" style="padding: 5px 10px;text-align: right">{{reportData.header.columnTwo}}</th>
-    <th width="20%" style="padding: 5px 10px;text-align: right">{{reportData.header.columnFour}}</th>
+    <th width="10%" style="padding: 5px 10px;text-align: right">{{reportData.header.columnFour}}</th>
+    <th width="10%" style="padding: 5px 10px;text-align: right">{{reportData.header.columnFive}}</th>
   </tr>
   </thead>
   <tbody>
@@ -18,8 +19,11 @@
           <td width="20%" align="right" style="padding: 5px 10px;border-right: 1px solid #ccc;font-weight: bold;">
             {{reportData.content[contentData].columnTwo | number}} {{reportData.content[contentData].columnThree}}
           </td>
-          <td width="20%" align="right" style="padding: 5px 10px;font-weight: bold;">
+          <td width="10%" align="right" style="padding: 5px 10px;font-weight: bold;border-right: 1px solid #ccc">
             ₹ {{reportData.content[contentData].columnFour }}
+          </td>
+          <td width="10%" align="right" style="padding: 5px 10px;font-weight: bold;">
+            ₹ {{reportData.content[contentData].columnFive }}
           </td>
         </tr>
 
@@ -34,8 +38,11 @@
                 <td width="20%" align="right" style="padding: 5px 10px;border-right: 1px solid #ccc; font-weight: 600;">
                   {{reportData.content[contentData].subContent[subContentData].columnTwo | number}} {{reportData.content[contentData].subContent[subContentData].columnThree}}
                 </td>
-                <td width="20%" align="right" style="padding: 5px 10px; font-weight: 600;">
+                <td width="10%" align="right" style="padding: 5px 10px; font-weight: 600;border-right: 1px solid #ccc">
                   ₹ {{reportData.content[contentData].subContent[subContentData].columnFour}}
+                </td>
+                <td width="10%" align="right" style="padding: 5px 10px; font-weight: 600;">
+                  ₹ {{reportData.content[contentData].subContent[subContentData].columnFive}}
                 </td>
               </tr>
               <!--subContent content-->
@@ -46,8 +53,11 @@
                 <td width="20%" align="right" style="padding: 5px 10px;border-right: 1px solid #ccc;">
                   {{reportData.content[contentData].subContent[subContentData].subContent[innerSubContentData].columnTwo | number}} {{reportData.content[contentData].subContent[subContentData].subContent[innerSubContentData].columnThree}}
                 </td>
-                <td width="20%" align="right" style="padding: 5px 10px;">
+                <td width="10%" align="right" style="padding: 5px 10px;border-right: 1px solid #ccc;">
                   ₹ {{reportData.content[contentData].subContent[subContentData].subContent[innerSubContentData].columnFour }}
+                </td>
+                <td width="10%" align="right" style="padding: 5px 10px;">
+                  ₹ {{reportData.content[contentData].subContent[subContentData].subContent[innerSubContentData].columnFive }}
                 </td>
               </tr>
             </table>
@@ -63,7 +73,8 @@
     <tr>
       <td width="60%" style="border: none;padding: 5px 10px;font-weight: bold;">{{reportData.footer.columnOne}}</td>
       <td width="20%" align="right" style="border: none;padding: 5px 10px;font-weight: bold;">{{reportData.footer.columnTwo | number}} {{reportData.footer.columnThree}}</td>
-      <td width="20%" align="right" style="border: none;padding: 5px 10px;font-weight: bold;"> ₹ {{reportData.footer.columnFour}} </td>
+      <td width="10%" align="right" style="border: none;padding: 5px 10px;font-weight: bold;">  {{reportData.footer.columnFour}} </td>
+      <td width="10%" align="right" style="border: none;padding: 5px 10px;font-weight: bold;"> ₹ {{reportData.footer.columnFive}} </td>
     </tr>
   </tbody>
 </table>

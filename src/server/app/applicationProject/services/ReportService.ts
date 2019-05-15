@@ -416,6 +416,7 @@ class ReportService {
             table.content[content].columnTwo = (parseFloat(table.content[content].columnTwo) +
               parseFloat(tableSubContent[subContent].columnTwo)).toFixed(Constants.NUMBER_OF_FRACTION_DIGIT);
             totalAmount = totalAmount + tableSubContent[subContent].columnTwo * tableSubContent[subContent].columnFour;
+            tableSubContent[subContent].columnFive = tableSubContent[subContent].columnTwo * tableSubContent[subContent].columnFour;
           }
           table.content[content].columnTwo = Math.ceil(table.content[content].columnTwo);
           contentTotal = contentTotal + table.content[content].columnTwo;
@@ -423,8 +424,8 @@ class ReportService {
 
         //footer
         table.footer.columnTwo = contentTotal;
-         table.footer.columnFour = totalAmount.toFixed(Constants.NUMBER_OF_FRACTION_DIGIT);
-        secondaryViewMaterialData[secondaryViewData].title = contentTotal + ' ' + table.footer.columnThree + ' ' + '₹'+' '+totalAmount.toFixed(Constants.NUMBER_OF_FRACTION_DIGIT); // todo ask swapnil for showing total in title
+         table.footer.columnFive = totalAmount.toFixed(Constants.NUMBER_OF_FRACTION_DIGIT);
+        secondaryViewMaterialData[secondaryViewData].title = contentTotal + ' ' + table.footer.columnThree; // todo ask swapnil for showing total in title
       }
 
       reportTotal = reportTotal + contentTotal; //todo rate total for all buildings
@@ -442,11 +443,12 @@ class ReportService {
   private populateMaterialTakeOffReportFromRowData(materialReportRowData: any, materialTakeOffReport: MaterialTakeOffReport,
                                                    elementWiseReport: string, building: string) {
     for (let record of materialReportRowData) {
+      let amount = 0;
       if (materialTakeOffReport.secondaryView[record.header] === undefined ||
         materialTakeOffReport.secondaryView[record.header] === null) {
         materialTakeOffReport.title = building;
         if(materialTakeOffReport.subTitle === null || materialTakeOffReport.subTitle === undefined) { // todo review
-          let materialTakeOffReportSubTitle: MaterialTakeOffView = new MaterialTakeOffView('', 0, '',0);
+          let materialTakeOffReportSubTitle: MaterialTakeOffView = new MaterialTakeOffView('', 0, '',0,0);
           materialTakeOffReport.subTitle = materialTakeOffReportSubTitle;
         }
 
@@ -467,27 +469,30 @@ class ReportService {
         let columnTwo: string = 'Quantity';
         let columnThree: string =  'Unit';
         let columnFour: string =  'Rate';
+        let columnFive: string =  'Amount';
         if(elementWiseReport === Constants.STR_COSTHEAD && building === Constants.STR_ALL_BUILDING) {
           columnOne = 'Building';
         }
-        table.header = new MaterialTakeOffTableViewHeaders(columnOne, columnTwo, columnThree,columnFour); // todo review
+        table.header = new MaterialTakeOffTableViewHeaders(columnOne, columnTwo, columnThree,columnFour,columnFive); // todo review
       }
 
       let materialTakeOffTableViewSubContent = null;
       if (record.subValue && record.subValue !== 'default' && record.subValue !== 'Direct') {
         materialTakeOffTableViewSubContent =
-          new MaterialTakeOffTableViewSubContent(record.subValue, record.Total, record.unit,record.rate); //todo lalita ask swapnil // todo review
+          new MaterialTakeOffTableViewSubContent(record.subValue, record.Total, record.unit,record.rate,(record.Total*record.rate).toFixed(Constants.NUMBER_OF_FRACTION_DIGIT)); //todo lalita ask swapnil // todo review
       }
 
       if(table.content[record.costHeadName] === undefined || table.content[record.costHeadName] === null) {
-        table.content[record.costHeadName] = new MaterialTakeOffTableViewContent(record.costHeadName, 0, record.unit,record.rate, {}); // todo review
+        amount = amount + (record.Total*record.rate);
+        table.content[record.costHeadName] = new MaterialTakeOffTableViewContent(record.costHeadName, 0, record.unit,
+          record.rate,(amount).toFixed(Constants.NUMBER_OF_FRACTION_DIGIT), {}); // todo review
       }
 
 
       if(table.content[record.costHeadName].subContent[record.rowValue] === undefined ||
         table.content[record.costHeadName].subContent[record.rowValue] === null) {
         table.content[record.costHeadName].subContent[record.rowValue] =
-          new MaterialTakeOffTableViewContent(record.rowValue, 0, record.unit,record.rate, {}); // todo review
+          new MaterialTakeOffTableViewContent(record.rowValue, 0, record.unit,record.rate,0, {}); // todo review
       }
 
       let tableViewSubContent: MaterialTakeOffTableViewContent = table.content[record.costHeadName].subContent[record.rowValue];
@@ -526,7 +531,7 @@ class ReportService {
       let materialTakeOffTableViewFooter: MaterialTakeOffTableViewFooter = null;
       if(table.footer === undefined || table.footer === null) {
         table.footer =
-          new MaterialTakeOffTableViewFooter('Total', 0, record.unit,null); // todo review
+          new MaterialTakeOffTableViewFooter('Total', 0, record.unit,null,0); // todo review
       }
     }
   }
