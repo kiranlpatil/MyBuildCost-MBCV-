@@ -416,7 +416,9 @@ class ReportService {
             table.content[content].columnTwo = (parseFloat(table.content[content].columnTwo) +
               parseFloat(tableSubContent[subContent].columnTwo)).toFixed(Constants.NUMBER_OF_FRACTION_DIGIT);
             totalAmount = totalAmount + tableSubContent[subContent].columnTwo * tableSubContent[subContent].columnFour;
-            tableSubContent[subContent].columnFive = tableSubContent[subContent].columnTwo * tableSubContent[subContent].columnFour;
+            tableSubContent[subContent].columnFive = Math.ceil(tableSubContent[subContent].columnTwo) * tableSubContent[subContent].columnFour;
+            table.content[content].columnFive = (parseFloat(table.content[content].columnFive) +
+              parseFloat(tableSubContent[subContent].columnFive)).toFixed(Constants.NUMBER_OF_FRACTION_DIGIT);
           }
           table.content[content].columnTwo = Math.ceil(table.content[content].columnTwo);
           contentTotal = contentTotal + table.content[content].columnTwo;
@@ -443,7 +445,6 @@ class ReportService {
   private populateMaterialTakeOffReportFromRowData(materialReportRowData: any, materialTakeOffReport: MaterialTakeOffReport,
                                                    elementWiseReport: string, building: string) {
     for (let record of materialReportRowData) {
-      let amount = 0;
       if (materialTakeOffReport.secondaryView[record.header] === undefined ||
         materialTakeOffReport.secondaryView[record.header] === null) {
         materialTakeOffReport.title = building;
@@ -479,13 +480,12 @@ class ReportService {
       let materialTakeOffTableViewSubContent = null;
       if (record.subValue && record.subValue !== 'default' && record.subValue !== 'Direct') {
         materialTakeOffTableViewSubContent =
-          new MaterialTakeOffTableViewSubContent(record.subValue, record.Total, record.unit,record.rate,(record.Total*record.rate).toFixed(Constants.NUMBER_OF_FRACTION_DIGIT)); //todo lalita ask swapnil // todo review
+          new MaterialTakeOffTableViewSubContent(record.subValue, record.Total, record.unit,record.rate,((Math.ceil(record.Total))*record.rate).toFixed(Constants.NUMBER_OF_FRACTION_DIGIT)); //todo lalita ask swapnil // todo review
       }
 
       if(table.content[record.costHeadName] === undefined || table.content[record.costHeadName] === null) {
-        amount = amount + (record.Total*record.rate);
         table.content[record.costHeadName] = new MaterialTakeOffTableViewContent(record.costHeadName, 0, record.unit,
-          record.rate,(amount).toFixed(Constants.NUMBER_OF_FRACTION_DIGIT), {}); // todo review
+          record.rate,0, {}); // todo review
       }
 
 
@@ -500,6 +500,7 @@ class ReportService {
 
       let tableViewContent: MaterialTakeOffTableViewContent = table.content[record.costHeadName];
       tableViewContent.columnTwo = tableViewContent.columnTwo + record.Total;   // update total // todo review
+   //   tableViewContent.columnFive = (tableViewContent.columnFive + (record.Total*record.rate)).toFixed(Constants.NUMBER_OF_FRACTION_DIGIT);   // update total // todo review
       if(materialTakeOffTableViewSubContent) {
         materialTakeOffTableViewSubContent.columnTwo = parseFloat(
           materialTakeOffTableViewSubContent.columnTwo).toFixed(Constants.NUMBER_OF_FRACTION_DIGIT);// todo review
