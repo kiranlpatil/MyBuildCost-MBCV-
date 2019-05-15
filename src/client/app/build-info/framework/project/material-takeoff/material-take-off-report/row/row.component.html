@@ -1,5 +1,5 @@
 <div class="row" ngClass="{{customClass}}" >
-  <div class="col-sm-6 col-xs-5 row-lists border-right item-description">
+  <div class="col-sm-5 col-xs-5 row-lists border-right item-description">
     {{rows.columnOne}}
   </div>
 
@@ -11,7 +11,7 @@
     {{rows.columnThree}}
   </div>
 
-  <div class="col-sm-1 col-xs-2 text-right row-lists border-right">
+  <div class="col-sm-2 col-xs-2 text-right row-lists border-right">
     <span *ngIf="rows.columnFour !== 'Rate' && rows.columnFour !== null"> ₹ </span> {{rows.columnFour}}
   </div>
 
