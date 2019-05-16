@@ -71,6 +71,7 @@ export class SharedService {
     document.getElementById('tpl-app').style.display = 'none';
     document.getElementById('close-report-btn').style.display = 'initial';
     window.document.body.appendChild(contentDiv);
+    console.log('*** contentDiv ***', contentDiv.innerHTML);
     window.document.close();
 
    /* window.addEventListener('beforeprint', function(event: any) {
@@ -102,7 +103,9 @@ export class SharedService {
       }
     }.bind(this));*/
 
-    window.print();
+   setTimeout(() => {
+     window.print();
+   }, 1000);
   }
 
   isMobile() {
