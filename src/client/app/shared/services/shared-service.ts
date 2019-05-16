@@ -69,8 +69,11 @@ export class SharedService {
     contentDiv.innerHTML = content;
     contentDiv.setAttribute('id', 'print-div');
     document.getElementById('tpl-app').style.display = 'none';
+    document.getElementById('close-report-btn').style.display = 'initial';
+    window.document.body.appendChild(contentDiv);
+    window.document.close();
 
-    window.addEventListener('beforeprint', function(event: any) {
+   /* window.addEventListener('beforeprint', function(event: any) {
       if (this.isMobile()) {
         setTimeout(() => {
           if (contentAddedCount === 0) {
@@ -97,7 +100,7 @@ export class SharedService {
           document.getElementById('tpl-app').style.display = 'initial';
         }
       }
-    }.bind(this));
+    }.bind(this));*/
 
     window.print();
   }
