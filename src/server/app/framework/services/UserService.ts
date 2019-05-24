@@ -267,56 +267,65 @@ class UserService {
       if (error) {
         callback(error, null);
       } else if (result.length > 0 && result[0].isActivated === true) {
-        bcrypt.compare(data.password, result[0].password, (err: any, isSame: any) => {
-          if (err) {
-            callback({
-              reason: Messages.MSG_ERROR_RSN_INVALID_REGISTRATION_STATUS,
-              message: Messages.MSG_ERROR_USER_NOT_PRESENT,
-              stackTrace: new Error(),
-              actualError: err,
-              code: 500
-            }, null);
-          } else {
-            /*console.log('got user');*/
-            if (isSame) {
-              let auth = new AuthInterceptor();
-              let token = auth.issueTokenWithUid(result[0]);
-              var resData: any = {
-                'status': Messages.STATUS_SUCCESS,
-                'data': {
-                  'first_name': result[0].first_name,
-                  'last_name': result[0].last_name,
-                  'company_name': result[0].company_name,
-                  'email': result[0].email,
-                  '_id': result[0]._id,
-                  'current_theme': result[0].current_theme,
-                  'picture': result[0].picture,
-                  'mobile_number': result[0].mobile_number,
-                  'access_token': token
-                },
-                access_token: token
-              };
-              if (typeOfApp === 'RAapp') {
-                this.getUserSubscriptionDetails(result[0]._id, (error, result) => {
-                  if (error) {
-                    callback(error, null);
-                  } else {
-                    callback(null, {data: resData, subscriptionDetails: result});
-                  }
-                });
-              } else {
-                callback(null, resData);
-              }
-            } else {
+        if (result[0].password) {
+          bcrypt.compare(data.password, result[0].password, (err: any, isSame: any) => {
+            if (err) {
               callback({
-                reason: Messages.MSG_ERROR_RSN_INVALID_CREDENTIALS,
-                message: Messages.MSG_ERROR_WRONG_PASSWORD,
+                reason: Messages.MSG_ERROR_RSN_INVALID_REGISTRATION_STATUS,
+                message: Messages.MSG_ERROR_USER_NOT_PRESENT,
                 stackTrace: new Error(),
-                code: 400
+                actualError: err,
+                code: 500
               }, null);
+            } else {
+              /*console.log('got user');*/
+              if (isSame) {
+                let auth = new AuthInterceptor();
+                let token = auth.issueTokenWithUid(result[0]);
+                var resData: any = {
+                  'status': Messages.STATUS_SUCCESS,
+                  'data': {
+                    'first_name': result[0].first_name,
+                    'last_name': result[0].last_name,
+                    'company_name': result[0].company_name,
+                    'email': result[0].email,
+                    '_id': result[0]._id,
+                    'current_theme': result[0].current_theme,
+                    'picture': result[0].picture,
+                    'mobile_number': result[0].mobile_number,
+                    'access_token': token
+                  },
+                  access_token: token
+                };
+                if (typeOfApp === 'RAapp') {
+                  this.getUserSubscriptionDetails(result[0]._id, (error, result) => {
+                    if (error) {
+                      callback(error, null);
+                    } else {
+                      callback(null, {data: resData, subscriptionDetails: result});
+                    }
+                  });
+                } else {
+                  callback(null, resData);
+                }
+              } else {
+                callback({
+                  reason: Messages.MSG_ERROR_RSN_INVALID_CREDENTIALS,
+                  message: Messages.MSG_ERROR_WRONG_PASSWORD,
+                  stackTrace: new Error(),
+                  code: 400
+                }, null);
+              }
             }
-          }
-        });
+          });
+      } else {
+          callback({
+            reason: Messages.MSG_ERROR_VERIFY_CANDIDATE_ACCOUNT_SET_PASSWORD,
+            message: Messages.MSG_ERROR_VERIFY_CANDIDATE_ACCOUNT_SET_PASSWORD,
+            stackTrace: new Error(),
+            code: 400
+          }, null);
+        }
       } else if (result.length > 0 && result[0].isActivated === false) {
         callback({
           reason: Messages.MSG_ERROR_RSN_INVALID_REGISTRATION_STATUS,
@@ -948,45 +957,47 @@ class UserService {
         let projectSubscriptionArray = Array<ProjectSubscriptionDetails>();
         let sampleProjectSubscriptionArray = Array<ProjectSubscriptionDetails>();
         let isAbleToCreateNewProject: boolean = false;
-        for (let project of projectList) {
-          for (let subscription of subscriptionList) {
-            if (subscription.projectId.length !== 0) {
-              if (subscription.projectId[0].equals(project._id)) {
-                let projectSubscription = new ProjectSubscriptionDetails();
-                projectSubscription.projectName = project.name;
-                projectSubscription.projectId = project._id;
-                projectSubscription.activeStatus = project.activeStatus;
-                projectSubscription.numOfBuildingsRemaining = (subscription.numOfBuildings - project.buildings.length);
-                projectSubscription.numOfBuildingsAllocated = project.buildings.length;
-                if (project && project.projectImage)
-                  projectSubscription.projectImage = project.projectImage;
-                projectSubscription.packageName = this.checkCurrentPackage(subscription);
-                //activation date for project subscription
-                let activation_date = new Date(subscription.activationDate);
-                let expiryDate = new Date(subscription.activationDate);
-                projectSubscription.expiryDate = new Date(expiryDate.setDate(activation_date.getDate() + subscription.validity));
+        if(projectList && projectList.length>0) {
+          for (let project of projectList) {
+            for (let subscription of subscriptionList) {
+              if (subscription.projectId.length !== 0) {
+                if (subscription.projectId[0].equals(project._id)) {
+                  let projectSubscription = new ProjectSubscriptionDetails();
+                  projectSubscription.projectName = project.name;
+                  projectSubscription.projectId = project._id;
+                  projectSubscription.activeStatus = project.activeStatus;
+                  projectSubscription.numOfBuildingsRemaining = (subscription.numOfBuildings - project.buildings.length);
+                  projectSubscription.numOfBuildingsAllocated = project.buildings.length;
+                  if (project && project.projectImage)
+                    projectSubscription.projectImage = project.projectImage;
+                  projectSubscription.packageName = this.checkCurrentPackage(subscription);
+                  //activation date for project subscription
+                  let activation_date = new Date(subscription.activationDate);
+                  let expiryDate = new Date(subscription.activationDate);
+                  projectSubscription.expiryDate = new Date(expiryDate.setDate(activation_date.getDate() + subscription.validity));
 
-                //expiry date for project subscription
-                let current_date = new Date();
-                var newExipryDate = new Date(projectSubscription.expiryDate);
-                newExipryDate.setDate(projectSubscription.expiryDate.getDate() + 30);
-                let noOfDays = this.daysdifference(newExipryDate, current_date);
-                projectSubscription.numOfDaysToExpire = this.daysdifference(projectSubscription.expiryDate, current_date);
+                  //expiry date for project subscription
+                  let current_date = new Date();
+                  var newExipryDate = new Date(projectSubscription.expiryDate);
+                  newExipryDate.setDate(projectSubscription.expiryDate.getDate() + 30);
+                  let noOfDays = this.daysdifference(newExipryDate, current_date);
+                  projectSubscription.numOfDaysToExpire = this.daysdifference(projectSubscription.expiryDate, current_date);
 
-                if (projectSubscription.numOfDaysToExpire < 30 && projectSubscription.numOfDaysToExpire > 0) {
-                  projectSubscription.warningMessage =
-                    'Expiring in ' + Math.round(projectSubscription.numOfDaysToExpire) + ' days,';
-                } else if (projectSubscription.numOfDaysToExpire <= 0 && noOfDays >= 0) {
-                  projectSubscription.expiryMessage = 'Project expired,';
-                } else if (noOfDays < 0) {
-                  projectSubscription.activeStatus = false;
+                  if (projectSubscription.numOfDaysToExpire < 30 && projectSubscription.numOfDaysToExpire > 0) {
+                    projectSubscription.warningMessage =
+                      'Expiring in ' + Math.round(projectSubscription.numOfDaysToExpire) + ' days,';
+                  } else if (projectSubscription.numOfDaysToExpire <= 0 && noOfDays >= 0) {
+                    projectSubscription.expiryMessage = 'Project expired,';
+                  } else if (noOfDays < 0) {
+                    projectSubscription.activeStatus = false;
+                  }
+
+                  projectSubscriptionArray.push(projectSubscription);
+
                 }
-
-                projectSubscriptionArray.push(projectSubscription);
-
+              } else {
+                isAbleToCreateNewProject = true;
               }
-            } else {
-              isAbleToCreateNewProject = true;
             }
           }
         }
@@ -1004,9 +1015,12 @@ class UserService {
           } else {
             let data = project;
             let sampleProjectSubscription = new ProjectSubscriptionDetails();
-            sampleProjectSubscription.projectName = project.name;
-            sampleProjectSubscription.projectId = project._id;
-            sampleProjectSubscription.activeStatus = project.activeStatus;
+           if(project) {
+             sampleProjectSubscription.projectName = project.name;
+             sampleProjectSubscription.projectId = project._id;
+             sampleProjectSubscription.activeStatus = project.activeStatus;
+           }
+
             if (project && project.projectImage)
               sampleProjectSubscription.projectImage = project.projectImage;
             sampleProjectSubscriptionArray.push(sampleProjectSubscription);
