@@ -1,4 +1,4 @@
-@import '../../../css/common';
+@import "../../../css/common";
 
 .home-page {
   h2 {
@@ -60,13 +60,13 @@
             padding: 0 0 0 30px;
 
             .call-btn {
-              background: transparent url('../../../assets/build-info/home-page/call-icon.svg') right center no-repeat;
+              background: transparent url("../../../assets/build-info/home-page/call-icon.svg") right center no-repeat;
               display: block;
               height: 17px;
               opacity: 0.5;
               padding: 0;
               width: 17px;
-    
+
               &:hover {
                 opacity: 1;
               }
@@ -131,7 +131,7 @@
       padding: 0;
       min-width: 330px;
       span.cricle {
-        background:$homepage-bright-yellow;
+        background: $homepage-bright-yellow;
         border-radius: 42px;
         float: left;
         height: 42px;
@@ -181,7 +181,7 @@
         padding-right: 30px;
       }
     }
-    
+
     h3 {
       color: $homepage-heading;
       font-size: 80px;
@@ -226,7 +226,12 @@
       font-weight: 700;
       margin-bottom: 30px;
       text-align: left;
-      span {
+      span.line {
+        margin: 0 0 20px 0;
+      }
+      .primary-part {
+        display: block;
+        line-height: 0.8;
         padding-left: 50px;
       }
       label {
@@ -234,9 +239,17 @@
         float: left;
         font-size: 40px;
         font-weight: 700;
-        padding-left: 50px;
+        margin: 20px 0 30px 0;
         width: 100%;
       }
+    }
+
+    .description {
+      color: $homepage-heading;
+      font-size: 20px;
+      line-height: 27px;
+      padding: 0 0 0 50px;
+      text-align: justify;
     }
     .line {
       margin: 0;
@@ -252,7 +265,7 @@
       content: "";
       transform: skewY(-8deg) translateY(-50px);
       position: absolute;
-      top: 175px;
+      top: 470px;
       right: 0;
       left: 0;
       bottom: 45px;
@@ -265,28 +278,53 @@
     width: 100%;
   }
   .pricing-card {
-    background-color: #FFFFFF;
+    background-color: #ffffff;
     border-radius: 4px;
     box-shadow: 0 8px 33px 0 rgba(0, 0, 0, 0.17);
     display: table;
     height: 506px;
-    margin: 20px auto;
-    padding: 30px 25px;
+    margin: 100px auto 90px;
+    padding: 55px 37px 45px;
     width: 466px;
     .card-list {
+      color: $homepage-heading;
       font-size: 20px;
-      padding: 10px 0;
+      padding: 10px 0 10px 50px;
+
+      label {
+        font-weight: 400;
+      }
+
+      span {
+        font-weight: 700;
+      }
     }
     .price {
-      font-size: 20px;
+      color: $homepage-heading;
+      font-size: 28px;
       font-weight: bold;
       margin: 30px 0;
     }
+    .package-details {
+      list-style: none;
+
+      li {
+        color: $homepage-heading;
+        font-size: 14px;
+        line-height: 1;
+        margin: 0 0 10px 0;
+      }
+    }
     .buy-now-btn {
-      margin: 30px auto 0;
-      max-width: 150px;
+      display: inline-block;
+      margin: 20px auto 0;
+
       .btn {
+        color: $homepage-heading;
+        font-size: 14px;
+        font-weight: 700;
         height: 42px;
+        padding: 0 15px;
         width: 100%;
       }
     }
@@ -297,7 +335,7 @@
     box-shadow: 0 8px 33px 0 rgba(0, 0, 0, 0.17);
     float: left;
     height: 498px;
-    margin: 86px 42px 42px 150px;
+    margin: 86px 42px 42px 115px;
     padding: 48px 37px;
     position: relative;
     width: 380px;
@@ -332,19 +370,23 @@
         border: 0;
         border-bottom: 1px solid #979797;
         font-size: 16px;
-        &::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+        &::-webkit-input-placeholder {
+          /* Chrome/Opera/Safari */
           color: $homepage-heading;
           font-size: 16px;
         }
-        &::-moz-placeholder { /* Firefox 19+ */
+        &::-moz-placeholder {
+          /* Firefox 19+ */
           color: $homepage-heading;
           font-size: 16px;
         }
-        &:-ms-input-placeholder { /* IE 10+ */
+        &:-ms-input-placeholder {
+          /* IE 10+ */
           color: $homepage-heading;
           font-size: 16px;
         }
-        &:-moz-placeholder { /* Firefox 18- */
+        &:-moz-placeholder {
+          /* Firefox 18- */
           color: $homepage-heading;
           font-size: 16px;
         }
@@ -365,28 +407,40 @@
   }
   .estimation-services {
     display: inline-block;
-    padding: 50px 0;
+    padding: 0 0 70px;
     position: relative;
     z-index: 111;
     h3 {
       color: $homepage-heading;
       float: left;
       font-size: 70px;
-      font-weight: 600;
-      margin-bottom: 30px;
+      font-weight: 700;
+      margin: 0;
       text-align: center;
       width: 100%;
       span.line {
         background: #fff;
+        margin: 0 auto 20px;
+      }
+      .primary-part {
+        display: block;
+        line-height: 0.8;
       }
       label {
         color: #fff;
         float: left;
         font-size: 40px;
         font-weight: 700;
-        padding-left: 50px;
+        margin: 20px 0 0 0;
         width: 100%;
       }
+    }
+
+    .service-info {
+      color: $homepage-heading;
+      font-size: 20px;
+      line-height: 27px;
+      margin: 40px 0 70px 0;
     }
   }
   .our-customers {
@@ -396,7 +450,7 @@
       color: $homepage-heading;
       float: left;
       font-size: 70px;
-      font-weight: 600;
+      font-weight: 700;
       margin-bottom: 30px;
       text-align: left;
       width: 100%;
@@ -463,7 +517,7 @@
             height: 100%;
             margin: 0;
             padding: 0;
-            
+
             img {
               width: 100%;
             }
@@ -494,20 +548,20 @@
 
           &::before,
           &::after {
-            content: '';
+            content: "";
             height: 48px;
             position: absolute;
             width: 55px;
           }
 
           &::before {
-            background: transparent url('../../../assets/build-info/home-page/double-quote.svg') no-repeat;
+            background: transparent url("../../../assets/build-info/home-page/double-quote.svg") no-repeat;
             left: -65px;
             top: -15px;
           }
 
           &::after {
-            background: transparent url('../../../assets/build-info/home-page/double-quote.svg') no-repeat;
+            background: transparent url("../../../assets/build-info/home-page/double-quote.svg") no-repeat;
             bottom: 10px;
             right: -65px;
             transform: rotateZ(180deg);
@@ -523,7 +577,7 @@
       color: $homepage-heading;
       float: left;
       font-size: 70px;
-      font-weight: 600;
+      font-weight: 700;
       margin-bottom: 30px;
       text-align: center;
       width: 100%;
@@ -532,7 +586,6 @@
         float: left;
         font-size: 40px;
         font-weight: 700;
-        padding-left: 50px;
         padding-top: 10px;
         width: 100%;
       }
@@ -547,31 +600,54 @@
       color: $homepage-heading;
       font-size: 14px;
       font-weight: normal;
-      line-height: 24px;
+      line-height: 19px;
     }
     .build-info-section {
       border-right: 1px solid #979797;
       float: left;
       margin-right: 15px;
-      padding: 30px 15px 30px 0;
-      width: calc(25% - 15px);
+      padding: 98px 45px 30px 0;
+      width: calc(25% - 30px);
     }
     .product-lists {
+      border-radius: 29px;
       float: left;
-      padding: 30px;
-      width: 25%;
+      margin: 0 15px;
+      padding: 30px 10px;
+      transition: all 0.5s ease;
+      width: calc(25% - 30px);
+
       &:hover {
         background-color: #f0f0f0;
-        border-radius: 29px;
+
         .app-links {
+          opacity: 1;
           visibility: visible;
         }
       }
+
+      .product-image {
+        height: 166px;
+      }
+
       .app-links {
         float: left;
         margin: 10px 0 0;
+        opacity: 0;
         visibility: hidden;
+        text-align: center;
+        transition: all 0.5s ease;
         width: 100%;
+
+        .store-image {
+          cursor: pointer;
+          display: inline-block;
+          margin: 0 20px;
+
+          img {
+            height: 25px;
+          }
+        }
       }
     }
   }
@@ -580,7 +656,7 @@
     h3 {
       color: $homepage-heading;
       font-size: 80px;
-      font-weight: 600;
+      font-weight: 700;
       margin-bottom: 30px;
       text-align: left;
       span {
@@ -619,7 +695,7 @@
 
     .r-btn {
       height: 37px;
-      border: 1px solid #D3D3D3;
+      border: 1px solid #d3d3d3;
       border-radius: 18.5px;
       background-color: rgba(216, 216, 216, 0.33);
       color: $homepage-heading;
@@ -745,7 +821,6 @@ footer ul.footerleft {
 }
 
 @media screen and (min-width: 320px) and (max-width: 359px) {
-
 }
 
 @media screen and (max-width: 767px) {
@@ -760,4 +835,3 @@ footer ul.footerleft {
     width: 100%;
   }
 }
-
