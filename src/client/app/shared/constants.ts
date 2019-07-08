@@ -33,7 +33,7 @@ export class AppSettings {
 
 
   // Production Project and User Id NEW
-  public static SAMPLE_PROJECT_ID = '5b3385de4f9c82656d217e7c';
+  public static SAMPLE_PROJECT_ID = '5d22d925bf61f9c02a87fd5b';
   public static SAMPLE_PROJECT_USER_ID = '5b1273d829f09b36c7e30f74';
 
 
