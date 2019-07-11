@@ -256,7 +256,6 @@
     }
   }
   .yellow-bg {
-    margin-bottom: 100px;
     padding-bottom: 200px;
     position: relative;
     width: 100%;
@@ -572,13 +571,14 @@
   }
 
   .other-products {
-    margin-top: 100px;
+    margin: 0 0 42px 0;
+
     h3 {
       color: $homepage-heading;
       float: left;
       font-size: 70px;
       font-weight: 700;
-      margin-bottom: 30px;
+      margin-bottom: 15px;
       text-align: center;
       width: 100%;
       label {
@@ -602,18 +602,29 @@
       font-weight: normal;
       line-height: 19px;
     }
+    .big-slice-logo {
+      img {
+        margin: 0 auto 64px;
+      }
+    }
     .build-info-section {
       border-right: 1px solid #979797;
       float: left;
-      margin: 30px 15px 0 0;
-      padding: 68px 45px 30px 0;
+      margin: 15px 30px 0 0;
+      min-width: 327px;
+      padding: 48px 45px 15px 0;
       width: calc(25% - 30px);
+
+      p {
+        margin: 0 auto;
+        max-width: 255px;
+      }
     }
     .product-lists {
       border-radius: 29px;
       float: left;
-      margin: 0 15px;
-      padding: 30px 10px;
+      margin: 0;
+      padding: 15px 10px 25px 10px;
       transition: all 0.5s ease;
       width: calc(25% - 30px);
 
@@ -759,7 +770,7 @@
 }
 
 footer {
-  margin: 40px 0 0;
+  margin: 90px 0 0;
   width: 100%;
   .navbar-right {
     margin: 0;
@@ -846,14 +857,99 @@ footer ul.footerleft {
 }
 
 @media screen and (max-width: 767px) {
-  .container {
-    background: none;
-    padding: 0 25px;
+  .home-page {
+    .navbar {
+      .navbar-header {
+        .navbar-toggle {
+          margin: 12px 0;
+        }
+
+        .navbar-brand {
+          margin: 10px 0;
+  
+          .logo-image {
+            height: auto;
+            width: 60px;
+          }
+        }
+      }
+
+      .navbar-nav {
+        margin: 0;
+      }
+    }
   }
 }
 
-@media screen and (max-width: 1170px) {
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+  .home-page {
+    .navbar {
+      .navbar-header {
+        .navbar-toggle {
+          margin: 21px 0;
+        }
+
+        .navbar-brand {
+          margin: 10px 0;
+
+          .logo-image {
+            height: auto;
+            width: 90px;
+          }
+        }
+      }
+
+      .navbar-nav {
+        margin: 0;
+      }
+    }
+  }
+}
+
+// Media Query for enabling hamburger menu on iPad
+@media (max-width: 1200px) {
   .container {
     width: 100%;
+  }
+
+  .navbar-header {
+    float: none;
+
+    .navbar-toggle {
+      display: block;
+    }
+  }
+  
+  .navbar-collapse {
+    border-top: 1px solid transparent;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
+
+    &.collapse {
+      display: none !important;
+    }
+
+    .navbar-nav {
+      float: none !important;
+      margin-top: 7.5px;
+
+      & > li {
+        display: block;
+        float: none;
+
+        & > a {
+          padding-top: 10px;
+          padding-bottom: 10px;
+        }
+      }
+
+      &.navbar-left,
+      &.navbar-right {
+        float: none !important;
+      }
+    }
+
+    &.collapse.in {
+      display: block !important;
+    }
   }
 }
