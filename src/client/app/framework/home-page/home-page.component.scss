@@ -1115,7 +1115,32 @@ footer ul.footerleft {
       }
 
       .description {
+        font-size: 16px;
         padding: 0 15px;
+      }
+
+      .service-info {
+        margin: 0;
+        padding: 0 10px;
+        text-align: justify;
+      }
+
+      h5 {
+        max-width: 245px;
+        margin: 0 auto;
+        padding: 0;
+      }
+    }
+
+    .our-customers {
+      .customer-tabs-container {
+        .nav-tabs {
+          li {
+            height: 45px;
+            margin: 0 25px;
+            width: 45px;
+          }
+        }
       }
     }
 
