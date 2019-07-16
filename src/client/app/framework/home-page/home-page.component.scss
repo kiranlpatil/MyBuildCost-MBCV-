@@ -1079,6 +1079,7 @@ footer ul.footerleft {
       }
     }
 
+    .product-features,
     .users-guide,
     .product-pricing,
     .estimation-services,
@@ -1100,7 +1101,7 @@ footer ul.footerleft {
         span {
           &.line {
             display: block;
-            margin-bottom: 10px;
+            margin: 0 auto 10px;
             padding: 0;
           }
         }
@@ -1268,17 +1269,30 @@ footer ul.footerleft {
 
 .product-features {
   h3 {
-    color: #E5B642;
-    font-size: 40px;
-    font-weight: bold;
-    line-height: 55px;
-    left: -85px;
-    position: relative;
-    top: -40px;
-  }
+    color: $homepage-heading;
+    font-size: 80px;
+    font-weight: 700;
+    margin-bottom: 30px;
+    text-align: left;
 
-  .line {
-    margin-left: -20px;
+    span.line {
+      margin: 0 0 20px 0;
+    }
+
+    .primary-part {
+      display: block;
+      line-height: 0.8;
+      padding-left: 50px;
+    }
+
+    label {
+      color: $homepage-heading-subtext;
+      float: left;
+      font-size: 40px;
+      font-weight: 700;
+      margin: 20px 0 30px 0;
+      width: 100%;
+    }
   }
 
   .gray-bg {
@@ -1299,6 +1313,8 @@ footer ul.footerleft {
     color: #3C3C3C;
     font-size: 18px;
     line-height: 29px;
+    padding-left: 50px;
+    text-align: left;
   }
 
   h4 {
@@ -1525,7 +1541,6 @@ footer ul.footerleft {
       margin-left: 20px;
     }
     h3 {
-      float: left;
       margin-left: 110px;
 
     }
@@ -1658,7 +1673,8 @@ footer ul.footerleft {
   }
   .costcontrol-header{
     h3 {
-      margin-left: 13px;
+      padding: 0;
+      text-align: center;
       &:before{
         right: 8px;
       }
