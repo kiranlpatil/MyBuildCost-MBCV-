@@ -13,6 +13,9 @@ declare let $: any;
 
 export class HomePageComponent implements OnInit {
 
+  constructor(private _router: Router) {
+  }
+
   scrollToSection($element: any) {
     $('#navbar').collapse('hide');
 
@@ -31,4 +34,13 @@ export class HomePageComponent implements OnInit {
       $('video').trigger('play');
     });
   }
+
+  addClick() {
+    this._router.navigate([NavigationRoutes.APP_LOGIN]);
+  }
+
+  onSignUp() {
+    this._router.navigate([NavigationRoutes.APP_REGISTRATION]);
+  }
+
 }

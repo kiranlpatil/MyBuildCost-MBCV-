@@ -15,9 +15,9 @@
               <a (click)="scrollToSection(contactUsSection)" class="call-btn"></a>
             </div>
           </div>
-          <div class="login-link-item"><a href="" class="login-link">login</a></div>
+          <div class="login-link-item"><a (click)="addClick();" class="login-link">login</a></div>
         </div>
-        <a class="navbar-brand" href="#">
+        <a class="navbar-brand">
           <img alt="My Build Cost Logo" class="logo-image" src="./assets/build-info/home-page/buildinfo-logo.png">
         </a>
       </div>
@@ -29,7 +29,7 @@
           <li><a (click)="scrollToSection(estimationServicesSection)">Estimation Services</a></li>
           <li><a (click)="scrollToSection(customersSection)">Customers</a></li>
           <li><a (click)="scrollToSection(otherProductsSection)">Other Products</a></li>
-          <li><a>About us</a></li>
+          <li><a (click)="scrollToSection(aboutusSection)">About us</a></li>
           <!--<li>
             <a href="../navbar/">
               <img alt="" class="logo-image" src="./assets/build-info/header/buildinfo-logo.png">
@@ -40,7 +40,7 @@
               <a (click)="scrollToSection(contactUsSection)" class="call-btn"></a>
             </div>
           </li>
-          <li class="hidden-xs hidden-sm login-link-item"><a href="" class="login-link">login</a></li>
+          <li class="hidden-xs hidden-sm login-link-item"><a (click)="addClick();" class="login-link">login</a></li>
         </ul>
       </div>
     </div>
@@ -74,7 +74,7 @@
         </div>
 
         <div class="start-trial-btn">
-          <button>Start 15 Days Trial</button>
+          <button (click)="onSignUp();">Start 15 Days Trial</button>
           <span> No obligation. No card details required. </span>
         </div>
       </div>
@@ -336,7 +336,7 @@
               <div class="row">
                 <div class="col-xs-12">
                   <div class="buy-now-btn">
-                    <button class="btn btn-primary">START YOUR FREE TRIAL</button>
+                    <button class="btn btn-primary" (click)="onSignUp();">START YOUR FREE TRIAL</button>
                   </div>
                 </div>
               </div>
@@ -750,10 +750,10 @@
             <a href="">Other products </a>
           </li> -->
           <li>
-            <a href="">Terms and conditions</a>
+            <a href="http://buildinfo.co.in/Web-Listings/Privacy-Policy" target="_blank">Terms and conditions</a>
           </li>
           <li>
-            <a href="">Privacy policy </a>
+            <a href="http://buildinfo.co.in/Web-Listings/Terms-and-Conditions" target="_blank">Privacy policy </a>
           </li>
         </ul>
       </div>
