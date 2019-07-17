@@ -192,6 +192,7 @@
   }
 
   .users-guide {
+    margin-top: 60px;
     .guide-blocks {
       & > div[class*="col-"] {
         padding-left: 20px;
@@ -241,7 +242,7 @@
 
   .product-pricing {
     position: relative;
-    padding-top: 100px;
+    padding-top: 60px;
     z-index: 111;
 
     h3 {
@@ -760,6 +761,7 @@
       margin: 10px 10px 10px 0;
       font-size: 14px;
       font-weight: normal;
+      transition: all 0.3s ease;
 
       span {
         float: right;

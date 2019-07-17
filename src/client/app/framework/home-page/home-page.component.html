@@ -23,7 +23,7 @@
       </div>
       <div id="navbar" class="navbar-collapse collapse">
         <ul class="nav navbar-nav navbar-right">
-          <li><a>Features</a></li>
+          <li><a (click)="scrollToSection(productFeaturesSection)">Features</a></li>
           <li><a (click)="scrollToSection(usersGuideSection)">User's guide</a></li>
           <li><a (click)="scrollToSection(pricingSection)">Pricing</a></li>
           <li><a (click)="scrollToSection(estimationServicesSection)">Estimation Services</a></li>
@@ -69,13 +69,13 @@
             <span class="cricle">
               <img height="19" src="./assets/build-info/home-page/landingpage-user.svg"/>
             </span>
-            <span class="btn-label"> Request for online demo </span>
+            <span class="btn-label" (click)="scrollToSection(contactUsSection)">Request for online demo</span>
           </button>
         </div>
 
         <div class="start-trial-btn">
-          <button (click)="onSignUp();">Start 15 Days Trial</button>
-          <span> No obligation. No card details required. </span>
+          <button (click)="onSignUp();">FREE TRIAL</button>
+          <span>No obligation. No card details required.</span>
         </div>
       </div>
 
@@ -86,7 +86,7 @@
     </div>
   </section>
 
-  <section class="product-features">
+  <section class="product-features" #productFeaturesSection>
     <div class="container">
       <div class="row">
         <div class="col-md-12">
