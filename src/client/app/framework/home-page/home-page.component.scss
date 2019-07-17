@@ -373,7 +373,6 @@
       color: $homepage-heading;
       font-size: 24px;
       line-height: 59px;
-      text-align: left;
 
       span {
         font-weight: bold;
@@ -672,6 +671,10 @@
       min-width: 327px;
       padding: 48px 45px 15px 0;
       width: calc(25% - 30px);
+
+      img {
+        margin: 0 auto;
+      }
 
       p {
         margin: 0 auto;
@@ -1107,7 +1110,8 @@ footer ul.footerleft {
     .product-pricing,
     .estimation-services,
     .our-customers,
-    .other-products {
+    .other-products,
+    .contact-us {
       h3 {
         display: inline-block;
         font-size: 40px;
@@ -1239,10 +1243,38 @@ footer ul.footerleft {
         min-width: initial;
         padding: 45px 15px;
         width: 50%;
+
+        h4 {
+          margin: 25px 0 10px;
+        }
       }
 
       .product-lists {
+        padding: 15px 40px 25px;
+        margin: 15px 0;
         width: 50%;
+
+        &:hover {
+          background-color: transparent;
+        }
+
+        .app-links {
+          opacity: 1;
+          visibility: visible;
+        }
+      }
+    }
+
+    .contact-us {
+      .form-left {
+        transform: translateY(15%);
+        margin: 0;
+        width: 325px;
+        padding: 30px 10px;
+      }
+
+      .form-right {
+        width: calc(100% - 275px);
       }
     }
   }
@@ -1257,6 +1289,11 @@ footer ul.footerleft {
   }
 
   .home-page {
+    .container {
+      padding-left: 15px;
+      padding-right: 15px;
+    }
+    
     .navbar {
       .navbar-header {
         .navbar-toggle {
@@ -1310,6 +1347,66 @@ footer ul.footerleft {
       }
     }
 
+    .other-products {
+      h3 {
+        margin: 20px 0;
+      }
+      .big-slice-logo {
+        img {
+          margin: 0 auto;
+        }
+      }
+
+      .build-info-section {
+        border: none;
+        float: left;
+        margin: 15px 0;
+        min-width: initial;
+        padding: 15px 0;
+        width: 100%;
+      }
+
+      .product-lists {
+        border-radius: 0;
+        border-top: 1px solid #dddddd;
+        margin: 0;
+        padding: 25px 10px;
+        width: 100%;
+
+        &:hover {
+          background-color: transparent;
+        }
+
+        .app-links {
+          opacity: 1;
+          visibility: visible;
+        }
+      }
+    }
+
+    .contact-us {
+      .form-left {
+        margin: 0 5px;
+        padding: 15px 5px;
+        width: calc(100% - 10px);
+
+        img {
+          height: 35px;
+          margin: 10px 0;
+        }
+
+        p {
+          font-size: 16px;
+          margin-bottom: 10px;
+          padding-top: 5px;
+        }
+      }
+
+      .form-right {
+        width: calc(100% - 10px);
+      }
+    }
+
     .pricing-card {
       .card-list {
         font-size: 14px;
@@ -1330,7 +1427,6 @@ footer ul.footerleft {
         font-size: 16px;
         line-height: 26px;
         margin: 0;
-        text-align: justify;
 
         span {
           font-size: 16px;
@@ -1723,7 +1819,6 @@ footer ul.footerleft {
         font-size: 16px;
         line-height: 26px;
         margin: 0;
-        text-align: justify;
 
         span {
           font-size: 16px;
