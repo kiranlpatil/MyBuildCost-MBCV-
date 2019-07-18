@@ -157,7 +157,7 @@
             </h3>
 
             <p class="description">
-              My Build Cost is FREE for 15 days trial period. If you wish to continue your subscription 
+              My Build Cost is FREE for 15 days trial period. If you wish to continue your subscription
               after free trial period, following paid package is available.
             </p>
           </div>
@@ -178,7 +178,7 @@
                   </div>
                 </div>
               </div>
-    
+
               <div class="row">
                 <div class="col-xs-12 card-list">
                   <div class="col-xs-7 text-left">
@@ -189,7 +189,7 @@
                   </div>
                 </div>
               </div>
-    
+
               <div class="row">
                 <div class="col-xs-12 card-list">
                   <div class="col-xs-7 text-left">
@@ -208,7 +208,7 @@
                   <li>No software upgradation cost</li>
                 </ul>
               </div>
-    
+
               <div class="row">
                 <div class="col-xs-12">
                   <div class="buy-now-btn">
@@ -251,7 +251,7 @@
             </div>
             <div class="form-right">
               <div class="col-md-8 col-md-offset-1">
-                <form>
+                <!--<form>
                   <div class="form-group">
                     <input type="text" id="name" class="form-control" placeholder="Name*"/>
                   </div>
@@ -281,7 +281,7 @@
 
                   <button class="btn btn-primary">SUBMIT</button>
 
-                </form>
+                </form>-->
               </div>
             </div>
           </div>
@@ -371,7 +371,7 @@
     </section>
   </section>
 
-  <section class="contact-us" #contactUsSection>
+  <section class="contact-us">
     <div class="container">
       <h3>
         <span class="line"></span>
@@ -407,27 +407,27 @@
             </div>
           </div>
           <div class="form-right">
-            <form>
+            <form class [formGroup]="contactUsForm" (submit)="onSubmit()">
             <div class="col-md-8 col-md-offset-1">
 
                 <div class="form-group">
-                  <input type="email" id="email1" class="form-control" placeholder="Email iD*"/>
+                    <input type="email" formControlName="emailId" [(ngModel)]="contactUs.emailId" id="email1" class="form-control" placeholder="Email iD*"/>
                 </div>
 
                 <div class="form-group">
-                  <input type="text" id="number1" class="form-control" placeholder="Contact Number*"/>
+                  <input type="text" formControlName="contactNumber" [(ngModel)]="contactUs.contactNumber" id="number1" class="form-control" placeholder="Contact Number*"/>
                 </div>
 
                 <div class="form-group">
-                  <input type="text" id="company-name1" class="form-control" placeholder="Company Name*"/>
+                  <input type="text" formControlName="companyName" [(ngModel)]="contactUs.companyName" id="company-name1" class="form-control" placeholder="Company Name*"/>
                 </div>
             </div>
               <div class="col-md-11 col-md-offset-1">
                 <div class="form-group pull-left col-xs-12 no-padding">
-                  <label class="col-xs-12 no-padding form-control"> Where do you want to send th is lead? </label>
+                  <label class="col-xs-12 no-padding form-control"> Where do you want to send this lead? </label>
                   <div class="toggleswitch">
                     <div class="radio-button">
-                      <input id="opt_a" name="option" type="radio" value="opt_a">
+                      <input id="opt_a" type="radio"  value="Support Team"  formControlName="type" [(ngModel)]="contactUs.type">
                       <label for="opt_a" class="r-btn">
                         <img alt="" height="19" src="./assets/build-info/home-page/contactform-support.svg">
                         <span> Support team </span>
@@ -435,7 +435,7 @@
                     </div>
 
                     <div class="radio-button">
-                      <input checked="checked" id="opt_b" name="option" type="radio" value="opt_b">
+                      <input checked="checked" id="opt_b" type="radio" value="Sales" formControlName="type" [(ngModel)]="contactUs.type">
                       <label for="opt_b" class="r-btn">
                         <img alt="" height="22" src="./assets/build-info/home-page/contactform-sales.svg">
                         <span> Sales </span>
@@ -443,7 +443,7 @@
                     </div>
 
                     <div class="radio-button">
-                      <input id="opt_c" name="option" type="radio" value="opt_c">
+                      <input id="opt_c" type="radio" value="Estimation Service" formControlName="type" [(ngModel)]="contactUs.type">
                       <label for="opt_c" class="r-btn">
                         <img alt="" height="19" src="./assets/build-info/home-page/contactform-estimate.svg">
                         <span> Estimation services </span>
@@ -454,7 +454,7 @@
               </div>
 
               <div class="col-xs-12 text-left col-md-offset-1">
-                <button class="btn btn-primary">SUBMIT</button>
+                <button class="btn btn-primary" type="submit">SUBMIT</button>
               </div>
 
               </form>
