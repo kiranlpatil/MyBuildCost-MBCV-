@@ -1973,13 +1973,15 @@ footer ul.footerleft {
     width: 324px;
     border-radius: 4px;
     background-color: #ECECEC;
-    float: right;
+    float: left;
     z-index: auto;
   }
 
-  /*.founder-image {
-    position: relative;
-  }*/
+  .founder-image {
+    display: inline-block;
+    text-align: center;
+    margin: 0 0 10px;
+  }
 
   .grey-yellow-box {
     height: 325px;
@@ -1990,7 +1992,7 @@ footer ul.footerleft {
     position: absolute;
     z-index: 1;
     top: 23px;
-    right: 39px;
+    left: 39px;
   }
 
   .decription {
@@ -2005,7 +2007,7 @@ footer ul.footerleft {
     text-align: left;
     font-weight: bold;
     line-height: 55px;
-    margin: 0;
+    margin: 15px 0 10px;
   }
 
   h5 {
@@ -2345,6 +2347,10 @@ footer ul.footerleft {
       padding-top: 10px;
     }
 
+    h3 {
+      margin-bottom: 0 !important;
+    }
+
     label {
       font-size: 30px;
     }
@@ -2531,6 +2537,21 @@ footer ul.footerleft {
     p {
       font-size: 14px;
 
+    }
+  }
+}
+
+@media screen and (min-width: 320px) and (max-width: 359px) {
+  .about-us {
+    .contact-grey-box {
+      height: 260px;
+      width: 260px;
+    }
+    .grey-yellow-box {
+      height: 264px;
+      top: 7px;
+      left: 25px;
+      width: 264px;
     }
   }
 }
