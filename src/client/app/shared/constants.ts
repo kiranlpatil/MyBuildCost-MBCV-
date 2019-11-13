@@ -222,6 +222,7 @@ export class Messages {
   public static MSG_SUCCESS_UPDATE_DIRECT_RATE_OF_WORKITEM: string = 'Rate for Work Item updated successfully.';
   public static MSG_SUCCESS_UPDATE_QUANTITY_NAME_WORKITEM: string = 'Title for Work Item updated successfully.';
   public static MSG_SUCCESS_UPDATE_WORKITEM_NAME: string = 'Workitem name updated successfully';
+  public static MSG_SUCCESS_UPDATE_GST_OF_WORKITEM: string = 'GST for Work Item updated successfully';
 
   //Quantity view required fields
   public static MSG_ERROR_VALIDATION_QUANTITY_ITEM_REQUIRED = 'Enter item';
@@ -426,6 +427,7 @@ export class API {
   public static FILE_LIST = 'fileNameList';
   public static DELETE_FILE = 'deleteFile';
   public static SYNC_RATE_ANALYSIS = 'syncWithRateAnalysis';
+  public static GST = 'gst';
 
   public static THUMBRULE_RULE_RATE = 'report/thumbRuleRate';
   public static RATE = 'rate';

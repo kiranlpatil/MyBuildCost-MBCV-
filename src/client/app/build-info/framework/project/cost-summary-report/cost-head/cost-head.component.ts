@@ -73,6 +73,7 @@ export class CostHeadComponent implements OnInit, OnChanges, AfterViewInit {
   viewTypeValue: string;
   quantityName: string;
   baseUrl:string;
+  gst:number;
   viewType:string;
   keyQuantity:string;
   costHeadName: string;
@@ -211,9 +212,6 @@ export class CostHeadComponent implements OnInit, OnChanges, AfterViewInit {
     this.loaderService.stop();
   }
 
-  getGSTVal(val:number){
-    console.log(val);
-  }
   calculateCategoriesTotal() {
 
     this.categoryDetailsTotalAmount = 0.0;
@@ -670,6 +668,35 @@ export class CostHeadComponent implements OnInit, OnChanges, AfterViewInit {
     console.log('error : '+JSON.stringify(error));
     this.loaderService.stop();
   }
+
+  changeGst(categoryId : number, workItem : WorkItem, gst:number) {
+    this.gst = gst;
+      this.loaderService.start();
+      this.costSummaryService.updateGstAmount(this.baseUrl, this.costHeadId, categoryId,
+        workItem.rateAnalysisId, workItem.workItemId, this.gst).subscribe(
+        workItemList => this.onChangeGstSuccess(workItemList),
+        error => this.onChangeGstFailure(error)
+      );
+  }
+
+  onChangeGstSuccess(success : any) {
+    console.log('success : '+JSON.stringify(success));
+    var message = new Message();
+    message.isError = false;
+    message.custom_message = Messages.MSG_SUCCESS_UPDATE_GST_OF_WORKITEM;
+    this.messageService.message(message);
+    this.refreshCategoryList();
+    this.loaderService.stop();
+  }
+
+  onChangeGstFailure(error : any) {
+    if(error.err_code === 404 || error.err_code === 401 ||error.err_code === 0 || error.err_code===500) {
+      this.errorService.onError(error);
+    }
+    console.log('error : '+JSON.stringify(error));
+    this.loaderService.stop();
+  }
+
 
   changeDirectRate(categoryId : number, workItemId: number, ccWorkItemId:number, directRate : number) {
     if(directRate && !directRate.toString().match(/^\d{1,7}(\.\d{1,2})?$/)) {
