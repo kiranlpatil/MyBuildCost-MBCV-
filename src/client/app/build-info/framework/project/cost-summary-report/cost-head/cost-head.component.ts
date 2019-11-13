@@ -68,6 +68,7 @@ export class CostHeadComponent implements OnInit, OnChanges, AfterViewInit {
   @ViewChild(AttachmentComponent) childVar: AttachmentComponent;
 
   animateView: boolean = false;
+  gstval=ValueConstant.GST_VALUES;
   projectId : string;
   viewTypeValue: string;
   quantityName: string;
@@ -210,6 +211,9 @@ export class CostHeadComponent implements OnInit, OnChanges, AfterViewInit {
     this.loaderService.stop();
   }
 
+  getGSTVal(val:number){
+    console.log(val);
+  }
   calculateCategoriesTotal() {
 
     this.categoryDetailsTotalAmount = 0.0;

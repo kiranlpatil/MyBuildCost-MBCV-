@@ -522,6 +522,8 @@ export class TableHeadings {
   public static BREADTH: string = 'Breadth';
   public static HEIGHT: string = 'Height';
   public static UNIT: string = 'Unit';
+  public static GST: string = 'GST';
+  public static GST_COMPONENT = 'GST Component';
   public static RATEANALYSIS: string = 'Rate Analysis';
   public static AMOUNT: string = 'Amount';
   public static COST: string = 'Cost';
@@ -531,6 +533,8 @@ export class TableHeadings {
   public static DESCRIPTION: string = 'Description';
   public static RATE_PER_UNIT: string = 'Rate/Unit';
   public static DIAMETER: string = 'Diameter';
+  public static TOTAL_RATE: string = 'Total Rate/Unit';
+  public static BASIC_RATE_PER_UNIT: string = 'Basic Rate/Unit';
   public static MM_UNIT: string = 'mm';
   public static MTR_UNIT: string = 'mtr';
   public static SIX_MM: string = '6mm';
@@ -812,6 +816,7 @@ export class ValueConstant {
   public static NUMBER_OF_FRACTION_DIGIT = 2;
   public static FILE_SIZE = 5000000;
   public static NO_OF_BUILDINGS_VALUES :Number[]= [2,3,4,5];
+  public static GST_VALUES :Number[]= [0,5,12,18,23];
 
 }
 
