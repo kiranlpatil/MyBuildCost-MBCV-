@@ -25,6 +25,8 @@ import UserRepository = require('../../framework/dataaccess/repository/UserRepos
 import ProjectRepository = require('../dataaccess/repository/ProjectRepository');
 import { ProjectService } from './ProjectService';
 import ConfigWorkItem = require('../dataaccess/model/project/building/ConfigWorkItem');
+import ItemGstRepository = require('../dataaccess/repository/ItemGstRepository');
+import RateItem = require('../dataaccess/model/project/building/RateItem');
 //var ProjectService = require('./ProjectService');
 let request = require('request');
 let config = require('config');
@@ -47,6 +49,7 @@ class RateAnalysisService {
   private userRepository : UserRepository;
   private projectRepository :ProjectRepository;
   private projectService : ProjectService;
+  private itemGstRepository : ItemGstRepository;
 
   constructor() {
     this.APP_NAME = ProjectAsset.APP_NAME;
@@ -58,6 +61,7 @@ class RateAnalysisService {
     this.userRepository = new UserRepository();
     this.projectRepository = new ProjectRepository();
     this.projectService = new ProjectService();
+    this.itemGstRepository = new ItemGstRepository();
   }
 
   getCostHeads(url: string, user: User, callback: (error: any, result: any) => void) {
@@ -814,7 +818,62 @@ class RateAnalysisService {
           logger.error('ContControl RateAnalysis not found.');
           callback('ContControl RateAnalysis not found.', null);
         } else {
-          callback(null, rateAnalysisArray[0]);
+          let rateAnalysisData =  rateAnalysisArray[0];
+          this.itemGstRepository.retrieve({}, (error: any, res: any) => {
+            if (error) {
+              logger.error('Unable to retrive  Saved Rate');
+            } else {
+              if (res.length > 0) {
+                let arrayOfItemGst = res;
+                for (let itemGst of arrayOfItemGst) {
+                  if (itemGst.type === 'workItem') {
+                    let getWorkItemSQL = 'SEARCH /buildingCostHeads/categories/workItems/ WHERE(name = "' + itemGst.itemName + '") FROM ?';
+                    let isWorkItemDetail = alasql(getWorkItemSQL, [rateAnalysisData]);
+                    if (isWorkItemDetail.length > 0) {
+                      isWorkItemDetail[0].gst = itemGst.value;
+                    } else {
+                      console.log('WorkItem is not present' + itemGst.itemName);
+                    }
+                    let getProjectWorkItemSQL = 'SEARCH /projectCostHeads/categories/workItems/ WHERE(name = "' + itemGst.itemName + '") FROM ?';
+                    let isProjectWorkItemDetail = alasql(getProjectWorkItemSQL, [rateAnalysisData]);
+                    if (isProjectWorkItemDetail.length > 0) {
+                      isProjectWorkItemDetail[0].gst = itemGst.value;
+                    } else {
+                      console.log('Project WorkItem is not present' + itemGst.itemName);
+                    }
+                  } else if (itemGst.type === 'costHead') {
+                    let getCostHeadSQL = 'SEARCH /projectCostHeads/ WHERE(name = "' + itemGst.itemName + '") FROM ?';
+                    let isCostHeadDetail = alasql(getCostHeadSQL, [rateAnalysisData]);
+                    if (isCostHeadDetail.length > 0) {
+                      isCostHeadDetail[0].gst = itemGst.value;
+                    } else {
+                      console.log('CostHead is not present' + itemGst.itemName);
+                    }
+                  } else if (itemGst.type === 'rateItem') {
+                    let getRateItemSQL = 'SEARCH /buildingCostHeads/categories/workItems//rateItems/ WHERE(itemName = "' + itemGst.itemName + '") FROM ?';
+                    let isRateItemDetail = alasql(getRateItemSQL, [rateAnalysisData]);
+                    if (isRateItemDetail.length > 0) {
+                      isRateItemDetail.forEach(function (rateItem: RateItem) {
+                        rateItem.gst = itemGst.value;
+                      });
+                    } else {
+                      console.log('RateItem is not present' + itemGst.itemName);
+                    }
+                    let getProjectRateItemSQL = 'SEARCH /projectCostHeads/categories/workItems//rateItems/ WHERE(itemName = "' + itemGst.itemName + '") FROM ?';
+                    let isProjectRateItemSQL = alasql(getProjectRateItemSQL, [rateAnalysisData]);
+                    if (isProjectRateItemSQL.length > 0) {
+                      isProjectRateItemSQL.forEach(function (rateItem: RateItem) {
+                        rateItem.gst = itemGst.value;
+                      });
+                    } else {
+                      console.log('ProjectRateItem is not present' + itemGst.itemName);
+                    }
+                  }
+                }
+              }
+            }
+            callback(null, rateAnalysisArray[0]);
+          });
         }
       }
     });
