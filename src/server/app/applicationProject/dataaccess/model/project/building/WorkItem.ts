@@ -29,7 +29,9 @@ class WorkItem {
   active: boolean;
   attachmentDetails:AttachmentDetailsModel[];
   contractingAddOns: Array<ContractingAddOn>;
-
+  gst: number;
+  gstComponent: number;
+  totalRate: number;
 
   constructor(name:string, rateAnalysisId:number) {
     this.name = name;
@@ -46,6 +48,7 @@ class WorkItem {
     this.isSteelWorkItem = false;
     this.active=false;
     this.remarks = '';
+    this.gstComponent = 0;
   }
 }
 export = WorkItem;
