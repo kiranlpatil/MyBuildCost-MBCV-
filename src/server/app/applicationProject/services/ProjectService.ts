@@ -2019,7 +2019,8 @@ export class ProjectService {
 
         let arrayOfRateItems = workItem.rate.rateItems;
         for(let rateItemIndex = 0; rateItemIndex < arrayOfRateItems.length; rateItemIndex++) {
-          arrayOfRateItems[rateItemIndex].totalAmount = arrayOfRateItems[rateItemIndex].quantity * arrayOfRateItems[rateItemIndex].rate;
+          arrayOfRateItems[rateItemIndex].totalRate = arrayOfRateItems[rateItemIndex].rate + (arrayOfRateItems[rateItemIndex].rate * arrayOfRateItems[rateItemIndex].gst) / 100;
+          arrayOfRateItems[rateItemIndex].totalAmount = (arrayOfRateItems[rateItemIndex].totalRate * arrayOfRateItems[rateItemIndex].quantity);
         }
         let totalOfAllRateItems = alasql('VALUE OF SELECT SUM(totalAmount) FROM ?', [arrayOfRateItems]);
         let totalByUnit = totalOfAllRateItems / workItem.rate.quantity;
@@ -2065,7 +2066,7 @@ export class ProjectService {
 
   getRatesFromCentralizedrates(rateItemsOfWorkItem: Array<RateItem>, centralizedRates: Array<any>) {
     let rateItemsSQL = 'SELECT rateItem.itemName, rateItem.originalItemName, rateItem.rateAnalysisId, rateItem.type,' +
-      'rateItem.quantity, centralizedRates.rate, rateItem.unit, rateItem.totalAmount, rateItem.totalQuantity ' +
+      'rateItem.quantity, rateItem.gst, centralizedRates.rate, rateItem.unit, rateItem.totalAmount, rateItem.totalQuantity ' +
       'FROM ? AS rateItem JOIN ? AS centralizedRates ON rateItem.itemName = centralizedRates.itemName';
     let rateItemsForWorkItem = alasql(rateItemsSQL, [rateItemsOfWorkItem, centralizedRates]);
     return rateItemsForWorkItem;
