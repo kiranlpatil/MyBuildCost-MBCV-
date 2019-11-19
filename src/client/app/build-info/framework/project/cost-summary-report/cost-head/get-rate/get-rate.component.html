@@ -38,8 +38,11 @@
                   <th>{{ getTableHeadings().DESCRIPTION }}</th>
                   <th>{{ getTableHeadings().QUANTITY }}</th>
                   <th class="hidden-xs">{{ getTableHeadings().UNIT }}</th>
-                  <th>{{ getTableHeadings().RATE_PER_UNIT }}</th>
+                  <th>{{ getTableHeadings().BASIC_RATE_PER_UNIT }}</th>
+                  <th>{{ getTableHeadings().GST }}</th>
+                  <th>{{ getTableHeadings().TOTAL_RATE }}</th>
                   <th>{{ getTableHeadings().COST }}</th>
+                  <th>{{ getTableHeadings().GST_COMPONENT }}</th>
                 </tr>
               </thead>
               <tbody>
@@ -80,15 +83,31 @@
                     [(ngModel)]="item.rate" id="itemRate" class="form-control text-right"
                            (change)="calculateTotal()" [disabled]="disableRateField"/>
                   </td>
+                  <td >
+                    <select  class="select-item" [(ngModel)]="item.gst" (change)="calculateTotal()">
+                      <option>{{rate.rateItems[i].gst}} %</option>
+                      <option *ngFor="let gst of gstval" [value]="gst">{{gst}} %</option>
+                    </select>
+                  </td>
+                  <td >
+                    <div class="total-rate">
+                     {{item.totalRate | number :'.1-2'}}
+                    </div>
+                  </td>
                   <td>
                     <!--<input type="number" [(ngModel)]="item.totalAmount" id="totalAmount get-total-amount text-right" class="form-control clear" readonly/>-->
                     <span *ngIf="anySubscriptionAvailable; else elseBlock"> {{item.totalAmount|number : '1.2-2'}}</span>
+                  </td>
+                  <td >
+                    <div class="Gst-Component">
+                      {{item.gstComponent}}
+                    </div>
                   </td>
                 </tr>
                </tbody>
               <tfoot>
               <tr>
-                <td colspan="3" class="total-amount">
+                <td colspan="5" class="total-amount">
                   <label class="visible-xs">{{ getLabel().TOTAL }}{{(rateItem.key === 'M') ? '(A):' : ((rateItem.key === "L") ? "(B):" : "(C):")}}</label>
                 </td>
                 <td class="hidden-xs total-amount">
@@ -98,6 +117,11 @@
                   <div *ngIf="(rateItem.key === 'M')">{{ totalAmountOfMaterial|number : '1.2-2'}} </div>
                   <div *ngIf="(rateItem.key === 'L')">{{ totalAmountOfLabour|number : '1.2-2'}} </div>
                   <div *ngIf="(rateItem.key === 'M + L')">{{ totalAmountOfMaterialAndLabour|number : '1.2-2'}} </div>
+                </td>
+                <td class="hidden-xs gst-component">
+                  <div *ngIf="(rateItem.key === 'M')">{{TotalGstOfMaterial}}</div>
+                  <div *ngIf="(rateItem.key === 'L')">{{TotalGstOfLabour}}</div>
+                  <div *ngIf="(rateItem.key === 'M + L')">{{TotalGstOfMaterialAndLabour}}</div>
                 </td>
                 <td *ngIf="!anySubscriptionAvailable">
                 <div>-</div>
@@ -121,6 +145,14 @@
             <label *ngIf="totalAmountOfMaterial && totalAmountOfLabour && totalAmountOfMaterialAndLabour ">{{ getLabel().TOTAL_A_B_C}}:</label>
             <label *ngIf="totalAmountOfMaterial && !totalAmountOfLabour && !totalAmountOfMaterialAndLabour ">{{ getLabel().TOTAL_A}}:</label>
             <span *ngIf="anySubscriptionAvailable; else elseBlock">{{ totalAmount|number: '1.2-2'}}</span>
+          </td>
+        </tr>
+        <tr>
+          <td class="grand-total-gst--amount" colspan="4">
+            <label *ngIf="TotalGstOfMaterial && TotalGstOfLabour && !TotalGstOfMaterialAndLabour">{{ getLabel().TOTAL_GST_A_B}}:</label>
+            <label *ngIf="TotalGstOfMaterial && TotalGstOfLabour && TotalGstOfMaterialAndLabour ">{{ getLabel().TOTAL_GST_A_B_C}}:</label>
+            <label *ngIf="TotalGstOfMaterial && !TotalGstOfLabour && !TotalGstOfMaterialAndLabour ">{{ getLabel().TOTAL_GST_A}}:</label>
+            <span *ngIf="anySubscriptionAvailable; else elseBlock">{{totalGstAmount|number: '1.2-2'}}</span>
           </td>
         </tr>
         <tr>

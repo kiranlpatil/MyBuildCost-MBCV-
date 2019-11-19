@@ -8,4 +8,7 @@ export class RateItem {
   rateAnalysisId: number;
   totalAmount: number;
   remarks: string;
+  gst: number;
+  totalRate: number;
+  gstComponent: number;
 }

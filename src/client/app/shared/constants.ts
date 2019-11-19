@@ -616,6 +616,9 @@ export class Label {
   public static TOTAL_A: string = 'Total(A)';
   public static TOTAL_A_B: string = 'Total(A+B)';
   public static TOTAL_A_B_C: string = 'Total(A+B+C)';
+  public static TOTAL_GST_A: string = 'Total GST Component(A)';
+  public static TOTAL_GST_A_B: string = 'Total GST Component(A+B)';
+  public static TOTAL_GST_A_B_C: string = 'Total GST Component(A+B+C)';
   public static NOTES: string = 'Notes ';
   public static BUDGETED_COST: string = 'Budgeted Cost ';
   public static ESTIMATED_COST: string = 'Estimated Cost ';
