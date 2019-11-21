@@ -835,14 +835,13 @@ class RateAnalysisService {
                   let rateAnalysisService = new RateAnalysisService();
                   switch (type) {
                     case 'projectCostHeads':
-                            rateAnalysisService.getCostHeadWithGst(arrayOfCostHeadItemGst,rateAnalysisData);
-                            rateAnalysisService.getWorkItemWithGst(arrayOfWorkItemGst, rateAnalysisData, 'projectCostHeads');
-                            rateAnalysisService.getRateItemWithGst(arrayOfRateItemGst, rateAnalysisData, 'projectCostHeads');
+                            let arrayOfProjectCostHeads = rateAnalysisData.projectCostHeads;
+                            rateAnalysisService.getCostHeadWithGst(arrayOfCostHeadItemGst,arrayOfProjectCostHeads);
+                            rateAnalysisService.getItemWithGst(arrayOfProjectCostHeads,arrayOfWorkItemGst,arrayOfRateItemGst);
                       break;
                     case 'buildingCostHeads':
                     case 'addBuilding':
-                            rateAnalysisService.getWorkItemWithGst(arrayOfWorkItemGst, rateAnalysisData, 'buildingCostHeads');
-                            rateAnalysisService.getRateItemWithGst(arrayOfRateItemGst, rateAnalysisData, 'buildingCostHeads');
+                            rateAnalysisService.getItemWithGst(rateAnalysisData.buildingCostHeads,arrayOfWorkItemGst,arrayOfRateItemGst);
                       break;
                   }
                 }
@@ -855,10 +854,20 @@ class RateAnalysisService {
     });
   }
 
-  getCostHeadWithGst(arrayOfCostHeadItemGst: Array<any>, rateAnalysisData: any) {
+  getItemWithGst(arrayOfCostHeads:Array<any>, arrayOfWorkItemGst:Array<any>, arrayOfRateItemGst: Array<any>) {
+      let rateAnalysisService = new RateAnalysisService();
+      let getWorkItemSQL = 'SEARCH /categories/workItems FROM ?';
+      let arrayOfWorkItem = alasql(getWorkItemSQL, [arrayOfCostHeads]);
+      rateAnalysisService.getWorkItemWithGst(arrayOfWorkItemGst, arrayOfWorkItem);
+      let getRateItemSQL = 'SEARCH ///rateItems FROM ?';
+      let arrayOfRateItem = alasql(getRateItemSQL,[arrayOfWorkItem]);
+      rateAnalysisService.getRateItemWithGst(arrayOfRateItemGst, arrayOfRateItem);
+  }
+
+  getCostHeadWithGst(arrayOfCostHeadItemGst: Array<any>, arrayOfProjectCostHeads: any) {
     for (let itemGst of arrayOfCostHeadItemGst) {
-      let getCostHeadSQL = 'SEARCH /projectCostHeads/ WHERE(name = "' + itemGst.itemName + '") FROM ?';
-      let isCostHeadDetail = alasql(getCostHeadSQL, [rateAnalysisData]);
+      let getCostHeadSQL = 'SEARCH / WHERE(name = "' + itemGst.itemName + '") FROM ?';
+      let isCostHeadDetail = alasql(getCostHeadSQL, [arrayOfProjectCostHeads]);
       if (isCostHeadDetail.length > 0) {
         isCostHeadDetail[0].gst = itemGst.value;
       } else {
@@ -867,15 +876,10 @@ class RateAnalysisService {
     }
   }
 
-  getWorkItemWithGst(arrayOfWorkItemGst: Array<any>,  rateAnalysisData: any, type: String) {
+  getWorkItemWithGst(arrayOfWorkItemGst: Array<any>,  arrayOfWorkItem: any) {
     for(let itemGst of arrayOfWorkItemGst) {
-      let getWorkItemSQL;
-      if(type === 'projectCostHeads') {
-         getWorkItemSQL = 'SEARCH /projectCostHeads/categories/workItems/ WHERE(name = "' + itemGst.itemName + '") FROM ?';
-      } else {
-         getWorkItemSQL = 'SEARCH /buildingCostHeads/categories/workItems/ WHERE(name = "' + itemGst.itemName + '") FROM ?';
-      }
-      let isProjectWorkItemDetail = alasql(getWorkItemSQL, [rateAnalysisData]);
+      let getWorkItemSQL = 'SEARCH // WHERE(name = "' + itemGst.itemName + '") FROM ?';
+      let isProjectWorkItemDetail = alasql(getWorkItemSQL, [arrayOfWorkItem]);
       if (isProjectWorkItemDetail.length > 0) {
         isProjectWorkItemDetail[0].gst = itemGst.value;
       } else {
@@ -884,15 +888,10 @@ class RateAnalysisService {
     }
   }
 
-  getRateItemWithGst(arrayOfRateItemGst: Array<any>,  rateAnalysisData: any, type: String) {
+  getRateItemWithGst(arrayOfRateItemGst: Array<any>,  arrayOfRateItem: any) {
     for(let itemGst of arrayOfRateItemGst) {
-      let getRateItemSQL;
-      if(type === 'projectCostHeads') {
-        getRateItemSQL = 'SEARCH /projectCostHeads/categories/workItems//rateItems/ WHERE(itemName = "' + itemGst.itemName + '") FROM ?';
-      } else {
-        getRateItemSQL  = 'SEARCH /buildingCostHeads/categories/workItems//rateItems/ WHERE(itemName = "' + itemGst.itemName + '") FROM ?';
-      }
-      let isRateItemDetail = alasql(getRateItemSQL, [rateAnalysisData]);
+      let getRateItemSQL = 'SEARCH // WHERE(itemName = "' + itemGst.itemName + '") FROM ?';
+      let isRateItemDetail = alasql(getRateItemSQL, [arrayOfRateItem]);
       if (isRateItemDetail.length > 0) {
         isRateItemDetail.forEach(function (rateItem: RateItem) {
           rateItem.gst = itemGst.value;
