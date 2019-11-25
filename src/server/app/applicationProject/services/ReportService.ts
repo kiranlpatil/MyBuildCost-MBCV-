@@ -197,6 +197,7 @@ class ReportService {
     let projectService : ProjectService = new ProjectService();
     let categoriesObj = projectService.getCategoriesListWithCentralizedRates(costHeadCategories, centralizedRates);
     estimateReport.total = categoriesObj.categoriesAmount;
+    estimateReport.gstComponent = categoriesObj.totalGstComponent;
     estimateReport.rate = estimateReport.total / area;
     return estimateReport;
   }

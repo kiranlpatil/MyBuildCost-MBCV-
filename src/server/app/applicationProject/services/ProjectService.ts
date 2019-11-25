@@ -2045,6 +2045,7 @@ export class ProjectService {
             workItem.gstComponent = workItem.amount - (workItem.rate.total * workItem.quantity.total);
           }
           workItemsListWithRates.workItemsAmount = workItemsListWithRates.workItemsAmount + workItem.amount;
+          workItemsListWithRates.gstComponent = workItemsListWithRates.gstComponent + workItem.gstComponent;
         }
         workItemsListWithRates.workItems.push(workItem);
       }else {
@@ -2248,13 +2249,16 @@ export class ProjectService {
   //Get category list with centralized rate
   getCategoriesListWithCentralizedRates(categoriesOfCostHead: Array<Category>, centralizedRates: Array<CentralizedRate>) {
     let categoriesTotalAmount = 0;
+    let totalgstComponent = 0;
 
     let categoriesListWithRates: CategoriesListWithRatesDTO = new CategoriesListWithRatesDTO;
 
     for (let categoryData of categoriesOfCostHead) {
       let workItems = this.getWorkItemListWithCentralizedRates(categoryData.workItems, centralizedRates, true);
+
       categoryData.amount = workItems.workItemsAmount;
       categoriesTotalAmount = categoriesTotalAmount + workItems.workItemsAmount;
+      totalgstComponent = totalgstComponent + workItems.gstComponent;
       //delete categoryData.workItems;
       categoriesListWithRates.categories.push(categoryData);
     }
@@ -2263,6 +2267,10 @@ export class ProjectService {
       categoriesListWithRates.categoriesAmount = categoriesTotalAmount;
     }
 
+    if (totalgstComponent !== 0)
+    {
+      categoriesListWithRates.totalGstComponent = totalgstComponent;
+    }
     return categoriesListWithRates;
   }
 

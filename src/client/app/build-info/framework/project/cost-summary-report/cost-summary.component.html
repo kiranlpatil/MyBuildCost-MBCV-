@@ -76,13 +76,14 @@
                   <div class="white-bg"></div>
                 </th>
                 <th colspan="2" class="border-left table-heading">
-                  {{ getLabel().ESTIMATED_COST }} <span class="sub-heading">{{ getLabel().AS_PER_PROJECT }}</span>
+                  {{ getLabel().ESTIMATED }} <span class="sub-heading">{{ getLabel().AS_PER_PROJECT }}</span>
                   <div class="white-bg"></div>
                 </th>
               </tr>
               <tr class="cost-summary-row-list">
                 <th class="text-center"><span class="sub-heading">{{ defaultCostingByUnit }}<br/>Per {{defaultCostingByArea }}</span></th>
                 <th class="border-left"><span class="sub-heading">{{ getLabel().BUDGETED_COST }} </span></th>
+                <th class="text-center"><span class="sub-heading">{{ getLabel().GST_COMPONENT}}</span></th>
                 <th><span class="sub-heading">{{ defaultCostingByUnit }}<br/>{{(defaultCostingByArea === getProjectElements().SLAB_AREA) ? 'Per Slab Area' : ((defaultCostingByArea === getProjectElements().SALEABLE_AREA) ? 'Per Saleable Area' : 'Per Carpet Area')}}</span></th>
                 <th><span class="sub-heading">{{ getLabel().ESTIMATED_COST }} </span></th>
               </tr>
@@ -118,6 +119,9 @@
                       </div>
                     </td>
                     <td class="visible-xs padding-top0"><p class="border-top">{{ getLabel().ESTIMATED }}</p></td>
+                    <td class="border-left" name = "gstComponent">
+                      {{building.estimate.estimatedCosts[i].gstComponent}}
+                    </td>
                     <td class="border-left">
                       <span class="mobile-headings">{{ defaultCostingByUnit }} </span>
                       <span *ngIf="building.estimate.estimatedCosts[i].rate === 0">-</span>

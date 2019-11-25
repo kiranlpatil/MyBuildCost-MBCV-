@@ -4,6 +4,7 @@ class EstimateReport {
   total : number;
   rateAnalysisId: number;
   disableCostHeadView ?: boolean;
+  gstComponent: number;
 
   constructor() {
     this.rate = 0;

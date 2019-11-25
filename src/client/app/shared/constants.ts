@@ -643,6 +643,7 @@ export class Label {
   public static WORKITEM_DETAILED_QUANTITY_TAB: string = 'detailedQuantity';
   public static ATTACH_FILE: string = 'Attach File';
   public static DIRECT_QUANTITY: string = 'directQty';
+  public static GST_COMPONENT = 'GST Component';
 
   //Quantity View
   public static DEFAULT_VIEW = 'default';
