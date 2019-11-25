@@ -48,6 +48,7 @@
           <th class="border-left"><span class="sub-heading">{{getLabel().BUDGETED_COST}}</span></th>
           <th class="border-left"><span class="sub-heading">{{getLabel().BASIC_ESTIMATED_COST}}</span></th>
           <th class="border-left"><span class="sub-heading">{{getLabel().GST_COMPONENT}}</span></th>
+          <th><span class="sub-heading">{{costingByUnit}}<br/>Per {{(costingByArea === getProjectElements().SLAB_AREA) ? getProjectElements().SLAB_AREA : ((costingByArea === getProjectElements().SALEABLE_AREA) ? getProjectElements().SALEABLE_AREA : getProjectElements().CARPET_AREA)}} without {{getLabel().GST_COMPONENT}}</span></th>
           <th><span class="sub-heading">{{costingByUnit}}<br/>Per {{(costingByArea === getProjectElements().SLAB_AREA) ? getProjectElements().SLAB_AREA : ((costingByArea === getProjectElements().SALEABLE_AREA) ? getProjectElements().SALEABLE_AREA : getProjectElements().CARPET_AREA)}}</span></th>
           <th><span class="sub-heading">{{getLabel().ESTIMATED_COST}}</span></th>
         </tr>
@@ -92,6 +93,12 @@
                 <span *ngIf="amenitiesReport.estimate.estimatedCosts[currentAmenitieIndex].gstComponent === 0">-</span>
                 <span *ngIf="amenitiesReport.estimate.estimatedCosts[currentAmenitieIndex].gstComponent !== 0">
                   {{amenitiesReport.estimate.estimatedCosts[currentAmenitieIndex].gstComponent}}
+                </span>
+              </td>
+              <td class="border-left" id="rateWithoutGst">
+                <span *ngIf="amenitiesReport.estimate.estimatedCosts[currentAmenitieIndex].rateWithoutGst === 0">-</span>
+                <span *ngIf="amenitiesReport.estimate.estimatedCosts[currentAmenitieIndex].rateWithoutGst !== 0">
+                  {{amenitiesReport.estimate.estimatedCosts[currentAmenitieIndex].rateWithoutGst | number: '1.2-2'}}
                 </span>
               </td>
               <td class="border-left">

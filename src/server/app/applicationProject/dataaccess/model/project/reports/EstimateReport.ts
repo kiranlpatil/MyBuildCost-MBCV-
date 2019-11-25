@@ -6,6 +6,7 @@ class EstimateReport {
   disableCostHeadView ?: boolean;
   gstComponent: number;
   basicEstimatedCost: number;
+  rateWithoutGst: number;
   constructor() {
     this.rate = 0;
     this.total = 0;
