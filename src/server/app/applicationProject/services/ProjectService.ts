@@ -2035,8 +2035,10 @@ export class ProjectService {
         }
 
         if (workItem.rate.isEstimated && workItem.quantity.isEstimated ) {
-          if(workItem.isRateAnalysis) {
-            workItem.gstComponent = alasql('VALUE OF SELECT ROUND(SUM(gstComponent),2) FROM ?', [workItem.rate.rateItems]);
+          if(!workItem.isDirectRate) {
+            let quantity = this.changeQuantityByWorkItemUnit(workItem.quantity.total, workItem.unit,workItem.rate.unit);
+            let gstComponentTotal =  alasql('VALUE OF SELECT ROUND(SUM(gstComponent),2) FROM ?', [workItem.rate.rateItems]);
+            workItem.gstComponent = (quantity * gstComponentTotal)/workItem.rate.quantity;
             workItem.totalRate =  alasql('VALUE OF SELECT ROUND(SUM(totalRate),2) FROM ?', [workItem.rate.rateItems]);
             workItem.amount = this.commonService.decimalConversion(workItem.rate.total * workItem.quantity.total);
           }else {
@@ -2066,6 +2068,20 @@ export class ProjectService {
       workItem.rate.total = totalByUnit;
     }
     return workItem.rate.total;
+  }
+
+  changeQuantityByWorkItemUnit(quantity: number, workItemUnit: string, rateUnit: string) {
+    let quantityTotal: number = 0;
+    if (workItemUnit === 'Sqm' && rateUnit !== 'Sqm') {
+      quantityTotal = quantity * 10.764;
+    } else if (workItemUnit === 'Rm' && rateUnit !== 'Rm') {
+      quantityTotal = quantity * 3.28;
+    } else if (workItemUnit === 'cum' && rateUnit !== 'cum') {
+      quantityTotal = quantity * 35.28;
+    } else {
+      quantityTotal = quantity;
+    }
+    return quantityTotal;
   }
 
   getRatesFromCentralizedrates(rateItemsOfWorkItem: Array<RateItem>, centralizedRates: Array<any>) {
