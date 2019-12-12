@@ -261,7 +261,7 @@ export class ProjectService {
                 if (error) {
                   callback(error, null);
                 } else {
-                  callback(null, {data: result, access_token: this.authInterceptor.issueTokenWithUid(user)});
+                  callback(null, {data: result});
                 }
               });
             }
@@ -754,7 +754,7 @@ export class ProjectService {
           if (error) {
             callback(error, null);
           } else {
-            callback(null, {data: status, access_token: this.authInterceptor.issueTokenWithUid(user)});
+            callback(null, {data: status});
           }
         });
       }
