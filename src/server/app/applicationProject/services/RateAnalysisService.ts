@@ -1618,15 +1618,15 @@ class RateAnalysisService {
         }
         workItemObj.rateAnalysisUnit = configWorkItem.rateAnalysisUnit;
         workItemObj.isItemBreakdownRequired = (configWorkItem.isItemBreakdownRequired.toUpperCase() === 'TRUE');
-        if(!workItemObj.isItemBreakdownRequired) {
+     /*   if(!workItemObj.isItemBreakdownRequired) {
           workItemObj.length = false;
           workItemObj.breadthOrWidth = false;
           workItemObj.height = false;
-        } else {
+        } else {*/
           workItemObj.length = (configWorkItem.length.toUpperCase() === 'TRUE');
           workItemObj.breadthOrWidth = (configWorkItem.breadthOrWidth.toUpperCase() === 'TRUE');
           workItemObj.height = (configWorkItem.height.toUpperCase() === 'TRUE');
-        }
+        //}
         if(configWorkItem.isSteelWorkItem) {
           workItemObj.isSteelWorkItem = (configWorkItem.isSteelWorkItem.toUpperCase() === 'TRUE');
         }

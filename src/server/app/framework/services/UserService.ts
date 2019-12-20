@@ -43,7 +43,7 @@ let path = require('path');
 let request = require('request');
 let xlsxj = require('xlsx-to-json');
 var async =  require('async');
-let json2csv = require('json2csv');
+const { Parser } = require('json2csv');
 
 class UserService {
   APP_NAME: string;
@@ -1887,7 +1887,8 @@ if(duplicateUser.hasOwnProperty("RAP")){
             {label: 'Subscription.ExpiryDate', value: 'subscriptionForRA.expiryDate'},
             {label: 'Subscription.IsExpired', value: 'subscriptionForRA.isPackageExpired'}];
 
-          var csv = json2csv({data: userList, fields: fields});
+          const parser = new Parser({ fields });
+          const csv = parser.parse(userList);
           var pathOfFile = path.resolve() + config.get('application.exportFilePathServer') + 'RateAnalysisUsers.csv';
           this.createCsvFile(pathOfFile, csv);
           resolve(userList);
@@ -1951,7 +1952,8 @@ if(duplicateUser.hasOwnProperty("RAP")){
                 {label: 'Subscription.ExpiryDate', value: 'Subscription_ExpiryDate'},
                 {label: 'Subscription.IsExpired', value: 'Subscription_IsExpired'}];
 
-              var csv = json2csv({data: csvData, fields: fields});
+              const parser = new Parser({ fields });
+              const csv = parser.parse(csvData);
               var pathOfFile = path.resolve() + config.get('application.exportFilePathServer') + 'MyBuildCostUser.csv';
               this.createCsvFile(pathOfFile, csv);
               resolve(userList);
@@ -1998,7 +2000,8 @@ if(duplicateUser.hasOwnProperty("RAP")){
                 {label: 'WorkItem', value: 'workItemName'}, {label: 'Region Name', value: 'regionName'},
                 {label: 'IsPaidWorkItem', value: 'isPaidWorkItem'}, {label: 'Used On Time', value: 'createdAt'}];
 
-              var csv = json2csv({data: userData, fields: fields});
+              const parser = new Parser({ fields });
+              const csv = parser.parse(userData);
               var pathOfFile = path.resolve() + config.get('application.exportFilePathServer') + 'AppUsageDetails.csv';
               this.createCsvFile(pathOfFile, csv);
               resolve(userData);
