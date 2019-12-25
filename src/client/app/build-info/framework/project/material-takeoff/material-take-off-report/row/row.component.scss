@@ -1,8 +1,12 @@
 @import '../../../../../../../css/common';
 
+.columnOne{
+  width: 20%!important;
+}
 .row-list {
   //color: #8290A8;
-  display: table;
+  //display: table;
+  display: flex;
   font-size: 12px;
   margin: 0;
   padding: 0;
@@ -11,6 +15,12 @@
   .row-lists {
     display: table-cell;
     float: none;
+    //padding-left: 15px;
+    font-weight: bold;
+    width: 12%;
+    font-size: 12px;
+    margin: 0;
+    padding: 5px;
   }
 
   .border-right {
@@ -55,23 +65,30 @@
 
 .item-header-row{
   padding: 13px 0 13px 15px;
+  display: flex;
   .border-right {
     border-right: 1px solid $row-border;
   }
   .row-lists {
     font-size: 12px;
     margin: 0;
+    width: 12%;
+    padding: 5px;
+
   }
 }
 
 .item-footer-row {
   padding: 13px 0 13px 15px;
+  display: flex;
   .border-right {
     border-right: 1px solid $row-border;
   }
   .row-lists {
     font-size: 12px;
     margin: 0;
+    padding: 0 5px;
+    width: 12%;
   }
 }
 
@@ -87,7 +104,7 @@
 
 .sub-items {
   .item-description {
-    padding-left: 30px;
+    padding-left: 15px;
   }
 }
 
@@ -142,6 +159,14 @@
     }
     .row-lists {
       padding: 5px;
+    }
+  }
+  .material-row{
+    width: 100vw;
+    overflow: scroll;
+    .columnOne,.column-mob{
+      width: 100%!important;
+      padding: 0 6px!important;
     }
   }
 }

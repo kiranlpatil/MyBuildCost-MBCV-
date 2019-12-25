@@ -93,7 +93,7 @@
                                 </td>-->
                                 <td>
                                   <span class="mobile-headings">{{getTableHeadings().QUANTITY}}</span>
-                                  <div class="edit-field"
+                                  <div class="edit-field edit-field-quantity"
                                        [class.disabled]="workItem.isDetailedQuantity" [class.active-quantity]="(showWorkItemTab == getLabel().WORKITEM_QUANTITY_TAB) && (workItemIndex===currentWorkItemIndex && currentCategoryIndex === categoryIndex)" >
                                     <input type="number" amountValidate="true"
                                            [(ngModel)]="workItem.quantity.total" (focus)="setQuantityTotal(workItem.quantity.total)"
@@ -151,9 +151,8 @@
                                 <!--GST-->
                                 <td  *ngIf=" workItem.isDirectRate">
                                   <span class="mobile-headings">{{getTableHeadings().GST}}</span>
-                                  <select  class="select-item gst-select-item" (change)="changeGst(category.rateAnalysisId, workItem,$event.target.value)">
-                                    <option>{{workItem.gst}} %</option>
-                                    <option *ngFor="let gst of gstval" [value]="gst">{{gst}} %</option>
+                                  <select  class="select-item gst-select-item" [(ngModel)]="workItem.gst" (change)="changeGst(category.rateAnalysisId, workItem,$event.target.value)">
+                                    <option *ngFor="let gst of gstval" [value]="gst" [selected]="gst">{{gst}} %</option>
                                   </select>
                                   <div class="gst-component-section">
                                  <!--   <span class="mobile-headings">{{getTableHeadings().GST_COMPONENT}}</span>-->
@@ -173,7 +172,7 @@
                                    -
                                   </div>
                                  <div class="totalrate total-rate-value" *ngIf="workItem.totalRate">
-                                   {{workItem.totalRate}}
+                                   {{workItem.totalRate| number:'.1-2'}}
                                  </div>
                               </td>
 
@@ -205,7 +204,7 @@
                                 </td>-->
 
                                 <!--RateAnalysis-->
-                                <td>
+                                <td class="rate-analysis-media">
                                   <span class="mobile-headings">{{getTableHeadings().RATEANALYSIS}}</span>
                                   <div  *ngIf=" workItem.isDirectRate === false">
                                    <button class="btn-get-amount"
@@ -219,7 +218,7 @@
                                   </div>
                                 </td>
 
-                                <td>
+                                <td class="file-attachment-media">
                                     <div class="file-attachment" [class.attachment-menu-open]="(showAttachmentView == getLabel().ATTACH_FILE && workItemIndex===currentWorkItemIndex && currentCategoryIndex === categoryIndex)">
                                       <span  *ngIf="workItem.attachmentDetails.length == 0"(click)="setVariable(category.rateAnalysisId, workItem.rateAnalysisId, workItem.workItemId, categoryIndex, workItemIndex)">
                                         <img src="assets/build-info/dashboard/attach-file.png" alt="Attach Support Files" title="Attach Support Files" />

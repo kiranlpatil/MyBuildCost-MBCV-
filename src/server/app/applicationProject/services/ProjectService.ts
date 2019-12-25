@@ -261,7 +261,7 @@ export class ProjectService {
                 if (error) {
                   callback(error, null);
                 } else {
-                  callback(null, {data: result, access_token: this.authInterceptor.issueTokenWithUid(user)});
+                  callback(null, {data: result});
                 }
               });
             }
@@ -754,7 +754,7 @@ export class ProjectService {
           if (error) {
             callback(error, null);
           } else {
-            callback(null, {data: status, access_token: this.authInterceptor.issueTokenWithUid(user)});
+            callback(null, {data: status});
           }
         });
       }
@@ -2035,7 +2035,7 @@ export class ProjectService {
           workItem.quantity.total = alasql('VALUE OF SELECT ROUND(SUM(total),2) FROM ?', [quantityItems]);
         }
 
-        if (workItem.rate.isEstimated && workItem.quantity.isEstimated ) {
+        if (workItem.rate.isEstimated || workItem.quantity.isEstimated ) {
           if(!workItem.isDirectRate) {
             let quantity = this.changeQuantityByWorkItemUnit(workItem.quantity.total, workItem.unit,workItem.rate.unit);
             let gstComponentTotal =  alasql('VALUE OF SELECT ROUND(SUM(gstComponent),2) FROM ?', [workItem.rate.rateItems]);
@@ -3564,9 +3564,10 @@ export class ProjectService {
             fs.unlink('.'+ config.get('application.attachmentPath')+'/'+ assignedFileName, (err:Error) => {
               if (err) {
                 callback(error, null);
+              } else {
+                callback(null, {data: 'success'});
               }
             });
-            callback(null, {data :'success'});
           }
         });
       }

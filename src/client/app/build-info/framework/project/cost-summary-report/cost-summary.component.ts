@@ -138,7 +138,7 @@ export class CostSummaryComponent implements OnInit, AfterViewInit {
         this.onChangeCostingByUnit(this.defaultCostingByUnit);
       }
     });
-    if(this.projectId !== AppSettings.SAMPLE_PROJECT_ID) {
+    if(this.projectId !== AppSettings.SAMPLE_PROJECT_ID || this.costSummaryService.validateUser()) {
       this.getProjectSubscriptionDetails();
     }
 
@@ -150,7 +150,7 @@ export class CostSummaryComponent implements OnInit, AfterViewInit {
   getProjectSubscriptionDetails () {
     let userId = SessionStorageService.getSessionValue(SessionStorage.USER_ID);
     let projectId = SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT_ID);
-    if(projectId !== AppSettings.SAMPLE_PROJECT_ID) {
+    if(projectId !== AppSettings.SAMPLE_PROJECT_ID || this.costSummaryService.validateUser()) {
       this.costSummaryService.checkLimitationOfBuilding(userId, projectId).subscribe(
         status => this.checkLimitationOfBuildingSuccess(status),
         error => this.checkLimitationOfBuildingFailure(error)
@@ -514,7 +514,6 @@ export class CostSummaryComponent implements OnInit, AfterViewInit {
       this.grandTotalOfArea = this.grandTotalOfArea + this.buildingsReport[buildindIndex].area;
       this.grandTotalOfBasicEstimatedCost = this.grandTotalOfBasicEstimatedCost + this.buildingsReport[buildindIndex].estimate.totalBasicEstimatedCost;
       this.grandTotalOfGstComponent = this.grandTotalOfGstComponent + this.buildingsReport[buildindIndex].estimate.totalGstComponent;
-      console.log("grandTotalOfGstComponent"+this.grandTotalOfGstComponent);
       this.grandTotalOfRateWithoutGst = this.grandTotalOfRateWithoutGst + this.buildingsReport[buildindIndex].estimate.totalRateWithoutGst;
 
 
@@ -534,9 +533,9 @@ export class CostSummaryComponent implements OnInit, AfterViewInit {
     this.grandTotalOfGstComponent = this.grandTotalOfGstComponent + this.amenitiesReport.estimate.totalGstComponent;
 
 
-    this.grandTotalOfRateWithoutGst = this.grandTotalOfRateWithoutGst + this.amenitiesReport.estimate.totalRateWithoutGst;
+    this.grandTotalOfRateWithoutGst = (this.grandTotalOfBasicEstimatedCost/ this.projectReport.totalAreaOfBuildings);
 
-    console.log("grandTotalOfRateWithoutGst"+this.grandTotalOfRateWithoutGst);
+
     this.grandTotalOfEstimatedRate = (this.grandTotalOfEstimatedCost / this.projectReport.totalAreaOfBuildings);
   }
 

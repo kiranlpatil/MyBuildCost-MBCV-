@@ -833,15 +833,21 @@ class RateAnalysisService {
                   let arrayOfWorkItemGst = arrayOfItemGst.filter(function(itemGst: ItemGst){ return itemGst.type === 'workItem'; });
                   let arrayOfRateItemGst = arrayOfItemGst.filter(function(itemGst: ItemGst){ return itemGst.type === 'rateItem'; });
                   let rateAnalysisService = new RateAnalysisService();
+                  let mapOfGstWorkItems = {};
+                  rateAnalysisService.getMap(arrayOfWorkItemGst, mapOfGstWorkItems );
+                  let mapOfGstRateItems = {};
+                  rateAnalysisService.getMap(arrayOfRateItemGst, mapOfGstRateItems );
                   switch (type) {
                     case 'projectCostHeads':
                             let arrayOfProjectCostHeads = rateAnalysisData.projectCostHeads;
-                            rateAnalysisService.getCostHeadWithGst(arrayOfCostHeadItemGst,arrayOfProjectCostHeads);
-                            rateAnalysisService.getItemWithGst(arrayOfProjectCostHeads,arrayOfWorkItemGst,arrayOfRateItemGst);
+                            let mapOfGstCostHeads = {};
+                            rateAnalysisService.getMap(arrayOfCostHeadItemGst, mapOfGstCostHeads);
+                            rateAnalysisService.getItemWithGst(mapOfGstCostHeads,arrayOfProjectCostHeads);
+                            rateAnalysisService.getWorkItemWithGst(arrayOfProjectCostHeads,mapOfGstWorkItems ,mapOfGstRateItems );
                       break;
                     case 'buildingCostHeads':
                     case 'addBuilding':
-                            rateAnalysisService.getItemWithGst(rateAnalysisData.buildingCostHeads,arrayOfWorkItemGst,arrayOfRateItemGst);
+                            rateAnalysisService.getWorkItemWithGst(rateAnalysisData.buildingCostHeads,mapOfGstWorkItems ,mapOfGstRateItems );
                       break;
                   }
                 }
@@ -854,43 +860,41 @@ class RateAnalysisService {
     });
   }
 
-  getItemWithGst(arrayOfCostHeads:Array<any>, arrayOfWorkItemGst:Array<any>, arrayOfRateItemGst: Array<any>) {
+  getMap(arrayOfGstItems:any, mapOfItems:any) {
+    for (let item of arrayOfGstItems) {
+      mapOfItems[item.itemName] = item.value;
+    }
+  }
+
+  getWorkItemWithGst(arrayOfCostHeads:Array<any>, arrayOfWorkItemGst:any, arrayOfRateItemGst: any) {
       let rateAnalysisService = new RateAnalysisService();
-      let getWorkItemSQL = 'SEARCH /categories/workItems FROM ?';
-      let arrayOfWorkItem = alasql(getWorkItemSQL, [arrayOfCostHeads]);
-      rateAnalysisService.getWorkItemWithGst(arrayOfWorkItemGst, arrayOfWorkItem);
-      let getRateItemSQL = 'SEARCH ///rateItems FROM ?';
-      let arrayOfRateItem = alasql(getRateItemSQL,[arrayOfWorkItem]);
-      rateAnalysisService.getRateItemWithGst(arrayOfRateItemGst, arrayOfRateItem);
+      let getDirectRateWorkItemSQL = 'SEARCH /categories/workItems/ WHERE(isDirectRate =true) FROM ?';
+      let arrayOfDirectRateWorkItem = alasql(getDirectRateWorkItemSQL, [arrayOfCostHeads]);
+      rateAnalysisService.getItemWithGst(arrayOfWorkItemGst, arrayOfDirectRateWorkItem);
+
+      let getRAWorkItemSQL = 'SEARCH /categories/workItems/ WHERE(isDirectRate = false) FROM ?';
+      let arrayOfRAWorkItem = alasql(getRAWorkItemSQL, [arrayOfCostHeads]);
+      let getRateItemSQL = 'SEARCH //rateItems FROM ?';
+      let arrayOfRateItem = alasql(getRateItemSQL,[arrayOfRAWorkItem]);
+      let allRateItems  = 'SEARCH // FROM ?';
+      let isRateItemDetail = alasql(allRateItems, [arrayOfRateItem]);
+      rateAnalysisService.getRateItemWithGst(arrayOfRateItemGst, isRateItemDetail);
   }
 
-  getCostHeadWithGst(arrayOfCostHeadItemGst: Array<any>, arrayOfProjectCostHeads: any) {
-    for (let itemGst of arrayOfCostHeadItemGst) {
-      let getCostHeadSQL = 'SEARCH / WHERE(name = "' + itemGst.itemName + '")  SET (gst = '+itemGst.value+')FROM ?';
-      let isCostHeadDetail = alasql(getCostHeadSQL, [arrayOfProjectCostHeads]);
-    }
-  }
-
-  getWorkItemWithGst(arrayOfWorkItemGst: Array<any>,  arrayOfWorkItem: any) {
-    for(let itemGst of arrayOfWorkItemGst) {
-      let getWorkItemSQL = 'SEARCH // WHERE(name = ?) SET (gst = '+itemGst.value+') FROM ?';
-      let isProjectWorkItemDetail = alasql(getWorkItemSQL, [itemGst.itemName,arrayOfWorkItem]);
-      if (isProjectWorkItemDetail.length > 0) {
-      } else {
-        console.log('Project WorkItem is not present' + itemGst.itemName);
+  getItemWithGst(arrayOfItemGst: any, arrayOfItems: any) {
+    arrayOfItems.filter(item => {
+      if(arrayOfItemGst.hasOwnProperty(item.name.trim())) {
+        item.gst = arrayOfItemGst[item.name.trim()];
       }
-    }
+    });
   }
 
-  getRateItemWithGst(arrayOfRateItemGst: Array<any>,  arrayOfRateItem: any) {
-    for(let itemGst of arrayOfRateItemGst) {
-      let getRateItemSQL = 'SEARCH // WHERE(itemName = ?) SET (gst = '+itemGst.value+')FROM ?';
-      let isRateItemDetail = alasql(getRateItemSQL, [itemGst.itemName,arrayOfRateItem]);
-      if (isRateItemDetail.length > 0) {
-      } else {
-        console.log('RateItem is not present' + itemGst.itemName);
+  getRateItemWithGst(arrayOfRateItemGst:any,  arrayOfRateItem: any) {
+    arrayOfRateItem.filter(rateItem => {
+      if (arrayOfRateItemGst.hasOwnProperty(rateItem.itemName.trim())) {
+        rateItem.gst = arrayOfRateItemGst[rateItem.itemName.trim()];
       }
-    }
+    });
   }
 
   getAggregateData(query: any, callback: (error: any, aggregateData: any) => void) {
@@ -1614,14 +1618,17 @@ class RateAnalysisService {
         }
         workItemObj.rateAnalysisUnit = configWorkItem.rateAnalysisUnit;
         workItemObj.isItemBreakdownRequired = (configWorkItem.isItemBreakdownRequired.toUpperCase() === 'TRUE');
-        if(!workItemObj.isItemBreakdownRequired) {
+     /*   if(!workItemObj.isItemBreakdownRequired) {
           workItemObj.length = false;
           workItemObj.breadthOrWidth = false;
           workItemObj.height = false;
-        } else {
+        } else {*/
           workItemObj.length = (configWorkItem.length.toUpperCase() === 'TRUE');
           workItemObj.breadthOrWidth = (configWorkItem.breadthOrWidth.toUpperCase() === 'TRUE');
           workItemObj.height = (configWorkItem.height.toUpperCase() === 'TRUE');
+        //}
+        if(configWorkItem.isSteelWorkItem) {
+          workItemObj.isSteelWorkItem = (configWorkItem.isSteelWorkItem.toUpperCase() === 'TRUE');
         }
         workItemsList.push(workItemObj);
       }
@@ -1868,6 +1875,92 @@ class RateAnalysisService {
     this.projectRepository.findOneAndUpdate(query, newData, {new: true}, (err, response) => {
     });
   }
+
+  updateDefaultGstToProjects(callback: (error: any, result: any) => void) {
+    let findAllProjects = {};
+    let i,j,chunk = 20;
+    let tempArray:Array<any>;
+    this.projectRepository.retrieve(findAllProjects, (error:any, projectList : any)=> {
+      if (error) {
+         logger.error('Error : ' + JSON.stringify(error));
+       } else {
+        let resultArr: Array<any> = new Array<any>();
+          for(let i=0,j=projectList.length; i<j; i+=chunk) {
+            tempArray = projectList.slice(i,i+chunk);
+            for(let project of tempArray){
+              let projectId = project._id;
+              let buildingArray = project.buildings;
+              if(project.projectCostHeads && project.projectCostHeads.length > 0) {
+                let projectCostHeads = project.projectCostHeads;
+                let defaultCostHeads = projectCostHeads.filter(function (arr: any) {
+                  return arr.categories.length == 0;
+                });
+                this.updateGstOfProjectCostHeads(defaultCostHeads);
+                this.updateGstOfWorkItemsOfExistingBuildingsAndProjects(projectCostHeads);
+                this.updateGstOfRateItemsOfExistingBuildingsAndProjects(projectCostHeads);
+                resultArr.push(projectCostHeads);
+                this.updateCostHeadsOfProject(projectId, projectCostHeads);
+              }
+              if(buildingArray.length != 0) {
+                for (let buildingId of buildingArray) {
+                  this.buildingRepository.findById(buildingId, (error: any, buildingData: any) => {
+                    if (error) {
+                      logger.error('Error : ' + JSON.stringify(error));
+                    }
+                    if( buildingData.costHeads && buildingData.costHeads.length > 0 ) {
+                      let buildingCostHeads = buildingData.costHeads;
+                      this.updateGstOfWorkItemsOfExistingBuildingsAndProjects(buildingCostHeads);
+                      this.updateGstOfRateItemsOfExistingBuildingsAndProjects(buildingCostHeads);
+                      resultArr.push(buildingCostHeads);
+                      this.updateCostHeadsOfBuilding(buildingId, buildingCostHeads);
+                    }
+                  });
+                }
+              }
+            }
+          }
+        callback(null,{data:resultArr});
+      }
+
+    });
+
+  }
+
+  updateGstOfWorkItemsOfExistingBuildingsAndProjects(CostHeads:Array<any>) {
+    let updateWorkItemGstSQL = 'SEARCH /categories/workItems/ WHERE(isDirectRate = true) FROM ? ';
+    let arrayOfWorkItem = alasql(updateWorkItemGstSQL, [CostHeads]);
+    this.updateGstOfProjectCostHeads(arrayOfWorkItem);
+  }
+  updateGstOfRateItemsOfExistingBuildingsAndProjects(CostHeads:Array<any>) {
+    let getRateItemsSQL = 'SEARCH /categories/workItems/ WHERE(isDirectRate = false) FROM ?';
+    let arrayOfRateItem = alasql(getRateItemsSQL, [CostHeads]);
+    let updateRateItemSQL = 'SEARCH //rateItems FROM ?';
+    let arrayOfupdatedRateItem = alasql(updateRateItemSQL,[arrayOfRateItem]);
+    let allRateItems  = 'SEARCH // FROM ?';
+    let isRateItemDetail = alasql(allRateItems, [arrayOfupdatedRateItem]);
+    this.updateGstOfProjectCostHeads(isRateItemDetail);
+  }
+
+  updateGstOfProjectCostHeads(defaultCostHeads:Array<any>) {
+    defaultCostHeads.filter(rateItem => {
+      rateItem.gst = 0;
+    });
+  }
+
+  updateCostHeadsOfProject(projectId: string, projectCostHeads:Array<CostHead>) {
+    let query = {'_id': projectId};
+    let newData = {$set: {'projectCostHeads': projectCostHeads}};
+    this.projectRepository.findOneAndUpdate(query, newData, {new: true}, (err, response) => {
+    });
+  }
+
+  updateCostHeadsOfBuilding(buildingId: string, costHeadList: Array<CostHead>) {
+    let query = {'_id': buildingId};
+    let newData = {$set: {'costHeads': costHeadList}};
+    this.buildingRepository.findOneAndUpdate(query, newData, {new: true}, (err, response) => {
+    });
+  }
+
 }
 
 Object.seal(RateAnalysisService);

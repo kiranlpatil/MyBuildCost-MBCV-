@@ -7,6 +7,7 @@ import UserModel = require('../dataaccess/model/UserModel');
 import UserService = require('../services/UserService');
 import Messages = require('../shared/messages');
 import ResponseService = require('../shared/response.service');
+import {logger} from "codelyzer/util/logger";
 
 
 let config = require('config');
@@ -941,6 +942,69 @@ updateSubscriptionDetails(req: express.Request, res: express.Response, next: any
     }
   }
 
+  updateUserSubscription(req: express.Request, res: express.Response, next: any):void {
+    try {
+      logger.info('into user controller');
+      let mobileNo = req.body.mobileno;
+      let activationDate = req.body.activationDate;
+      let validity = req.body.validity;
+      let userService = new UserService();
+      if (typeof validity === 'number') {
+        userService.updateUserSubscription(mobileNo, activationDate, validity, (error, result) => {
+          if (error) {
+            next(error);
+          } else {
+            res.send(result);
+          }
+        });
+      } else {
+        res.send('Validity should be in number');
+      }
+    } catch (e) {
+      res.send(e);
+    }
+  }
+
+  blockRAUser(req: express.Request, res: express.Response, next: any):void {
+    try {
+      logger.info('into user controller');
+      let mobileNo = req.body.mobileno;
+      let userService = new UserService();
+      userService.blockRAUser(mobileNo,(error, result) => {
+        if (error) {
+          next(error);
+        } else {
+          res.send(result);
+        }
+      });
+    } catch (e) {
+      res.send(e);
+    }
+  }
+
+  updateProjectExpiryOfUser(req: express.Request, res: express.Response, next: any): void {
+    try {
+      let email = req.body.email_id;
+      let projectName = req.body.project_name;
+      let activationDate =  req.body.activation_date;
+      let validity = req.body.validity;
+      let userService = new UserService();
+      if (typeof validity === 'number') {
+        userService.updateProjectExpiryOfUser(email, projectName, activationDate, validity,(error, result) => {
+          if(error) {
+            next(error);
+          } else {
+            res.send(result);
+          }
+        });
+      } else {
+        res.send('Validity should be in number');
+      }
+    }catch(e) {
+      res.send(e);
+    }
+
+  }
 }
 
 export = UserController;
