@@ -45,6 +45,16 @@
           <span class="value"  *ngIf="!workItemData.rate.isEstimated">-</span>
         </td>
 
+        <td *ngIf="workItem.isDirectRate">
+          <span class="mobile-headings" *ngIf="workItem.isDirectRate">{{getTableHeadings().GST}}</span>
+          <span class="value" *ngIf="workItem.isDirectRate">-</span>
+        </td>
+
+        <td *ngIf="workItem.isDirectRate">
+          <span class="mobile-headings" *ngIf="workItem.isDirectRate">{{getTableHeadings().TOTAL_RATE}}</span>
+          <span class="value" *ngIf="workItem.isDirectRate">-</span>
+        </td>
+
         <td>
           <span class="mobile-headings">{{getTableHeadings().COST}}</span>
           <div *ngIf="workItemData.isDirectRate === false && workItemData.rate.isEstimated === false">
