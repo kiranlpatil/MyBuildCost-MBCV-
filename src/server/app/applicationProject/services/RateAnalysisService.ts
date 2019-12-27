@@ -1890,55 +1890,91 @@ class RateAnalysisService {
     });
   }
 
-  updateDefaultGstToProjects(callback: (error: any, result: any) => void) {
-    let findAllProjects = {};
-    let i,j,chunk = 20;
-    let tempArray:Array<any>;
-    this.projectRepository.retrieve(findAllProjects, (error:any, projectList : any)=> {
-      if (error) {
-         logger.error('Error : ' + JSON.stringify(error));
-       } else {
-        let resultArr: Array<any> = new Array<any>();
-          for(let i=0,j=projectList.length; i<j; i+=chunk) {
-            tempArray = projectList.slice(i,i+chunk);
-            for(let project of tempArray){
-              let projectId = project._id;
-              let buildingArray = project.buildings;
-              if(project.projectCostHeads && project.projectCostHeads.length > 0) {
-                let projectCostHeads = project.projectCostHeads;
-                let defaultCostHeads = projectCostHeads.filter(function (arr: any) {
-                  return arr.categories.length == 0;
-                });
-                this.updateGstOfProjectCostHeads(defaultCostHeads);
-                this.updateGstOfWorkItemsOfExistingBuildingsAndProjects(projectCostHeads);
-                this.updateGstOfRateItemsOfExistingBuildingsAndProjects(projectCostHeads);
-                resultArr.push(projectCostHeads);
-                this.updateCostHeadsOfProject(projectId, projectCostHeads);
-              }
-              if(buildingArray.length != 0) {
-                for (let buildingId of buildingArray) {
-                  this.buildingRepository.findById(buildingId, (error: any, buildingData: any) => {
-                    if (error) {
-                      logger.error('Error : ' + JSON.stringify(error));
-                    }
-                    if( buildingData.costHeads && buildingData.costHeads.length > 0 ) {
-                      let buildingCostHeads = buildingData.costHeads;
-                      this.updateGstOfWorkItemsOfExistingBuildingsAndProjects(buildingCostHeads);
-                      this.updateGstOfRateItemsOfExistingBuildingsAndProjects(buildingCostHeads);
-                      resultArr.push(buildingCostHeads);
-                      this.updateCostHeadsOfBuilding(buildingId, buildingCostHeads);
-                    }
-                  });
-                }
-              }
-            }
+  updateGstOfProjects(callback: (error: any, result: any) => void) {
+      this.projectRepository.retrieve({}, (error:any, projectList : any)=> {
+        if (error) {
+          logger.error('Error : ' + JSON.stringify(error));
+        } else {
+       let result =   projectList.reduce((promiseArray:any, project:any) => {
+
+         return promiseArray.then(() =>  {
+           this.createPromiseToUpdateDefaultGst(project);
+            });
+          }, CCPromise.resolve());
+          result.then(e => {
+            CCPromise.resolve("Project Success");
+          });
+         }
+      });
+     }
+
+  createPromiseToUpdateDefaultGst(project: any) {
+    return new CCPromise(function (resolve: any, reject: any) {
+      let rateAnalysisService = new RateAnalysisService();
+      let projectId = project._id;
+      let projectList = project.rates;
+      if (project.projectCostHeads && project.projectCostHeads.length > 0) {
+        let projectCostHeads = project.projectCostHeads;
+        let defaultCostHeads = projectCostHeads.filter(function (arr: any) {
+          return arr.categories.length === 0;
+        });
+        rateAnalysisService.updateGstOfProjectCostHeads(defaultCostHeads);
+        rateAnalysisService.updateGstOfWorkItemsOfExistingBuildingsAndProjects(projectCostHeads);
+        rateAnalysisService.updateGstOfRateItemsOfExistingBuildingsAndProjects(projectCostHeads);
+        rateAnalysisService.updateCentralizedRatesOfBuildingAndProject(projectList);
+        rateAnalysisService.updateCostHeadsOfProject(projectId, projectCostHeads,projectList, (error: any, result: any) => {
+          if (error) {
+            reject(error);
+          } else if (result) {
+            resolve();
           }
-        callback(null,{data:resultArr});
+        });
       }
-
+    }).catch(function (e: any) {
+      CCPromise.reject(e.message);
     });
-
   }
+
+  updateGstOfBuildings(callback: (error: any, result: any) => void) {
+    this.buildingRepository.retrieve({}, (error:any, buildingList : any)=> {
+      if (error) {
+        logger.error('Error : ' + JSON.stringify(error));
+      } else {
+          let result =   buildingList.reduce((promiseArray:any, building:any) => {
+
+       return promiseArray.then(() =>  {
+         this.createPromiseToUpdateGstOfBuildings(building);
+          });
+        },CCPromise.resolve());
+        result.then(e => {
+          CCPromise.resolve("Building Success");
+        });
+       }
+    });
+  }
+
+  createPromiseToUpdateGstOfBuildings(building: any) {
+      return new CCPromise(function (resolve: any, reject: any) {
+        let rateAnalysisService = new RateAnalysisService();
+        let buildingId = building._id;
+        let buildingRates = building.rates;
+        if (building.costHeads && building.costHeads.length > 0) {
+          let buildingCostHeads = building.costHeads;
+          rateAnalysisService.updateGstOfWorkItemsOfExistingBuildingsAndProjects(buildingCostHeads);
+          rateAnalysisService.updateGstOfRateItemsOfExistingBuildingsAndProjects(buildingCostHeads);
+          rateAnalysisService.updateCentralizedRatesOfBuildingAndProject(buildingRates);
+          rateAnalysisService.updateCostHeadsOfBuilding(buildingId, buildingCostHeads, buildingRates,(error: any, result: any) => {
+            if (error) {
+              reject(error);
+            } else if (result) {
+              resolve();
+             }
+          });
+        }
+      }).catch(function (e: any) {
+        CCPromise.reject(e.message);
+      });
+    }
 
   updateGstOfWorkItemsOfExistingBuildingsAndProjects(CostHeads:Array<any>) {
     let updateWorkItemGstSQL = 'SEARCH /categories/workItems/ WHERE(isDirectRate = true) FROM ? ';
@@ -1948,11 +1984,17 @@ class RateAnalysisService {
   updateGstOfRateItemsOfExistingBuildingsAndProjects(CostHeads:Array<any>) {
     let getRateItemsSQL = 'SEARCH /categories/workItems/ WHERE(isDirectRate = false) FROM ?';
     let arrayOfRateItem = alasql(getRateItemsSQL, [CostHeads]);
-    let updateRateItemSQL = 'SEARCH //rateItems FROM ?';
+    let updateRateItemSQL = 'SEARCH /systemRate FROM ?';
     let arrayOfupdatedRateItem = alasql(updateRateItemSQL,[arrayOfRateItem]);
-    let allRateItems  = 'SEARCH // FROM ?';
+    let allRateItems  = 'SEARCH /rateItems/ FROM ?';
     let isRateItemDetail = alasql(allRateItems, [arrayOfupdatedRateItem]);
     this.updateGstOfProjectCostHeads(isRateItemDetail);
+  }
+
+  updateCentralizedRatesOfBuildingAndProject(buildingRate:Array<any>) {
+    let updateRateItemSQL = 'SEARCH / FROM ?';
+    let arrayOfupdatedRateItem = alasql(updateRateItemSQL,[buildingRate]);
+    this.updateGstOfProjectCostHeads(arrayOfupdatedRateItem);
   }
 
   updateGstOfProjectCostHeads(defaultCostHeads:Array<any>) {
@@ -1961,19 +2003,29 @@ class RateAnalysisService {
     });
   }
 
-  updateCostHeadsOfProject(projectId: string, projectCostHeads:Array<CostHead>) {
-    let query = {'_id': projectId};
-    let newData = {$set: {'projectCostHeads': projectCostHeads}};
-    this.projectRepository.findOneAndUpdate(query, newData, {new: true}, (err, response) => {
-    });
-  }
+  updateCostHeadsOfBuilding(buildingId: string, costHeadList: Array<CostHead>, ratesList: Array<Rate>,callback : (error:any, result:any) => void) {
+      let query = {'_id': buildingId};
+      let newData = {$set: {'costHeads': costHeadList, 'rates':ratesList}};
+      this.buildingRepository.findOneAndUpdate(query, newData, {new: true}, (err, response) => {
+        if(err) {
+          callback(err, null);
+        } else {
+          callback(null, response);
+        }
+      });
+    }
 
-  updateCostHeadsOfBuilding(buildingId: string, costHeadList: Array<CostHead>) {
-    let query = {'_id': buildingId};
-    let newData = {$set: {'costHeads': costHeadList}};
-    this.buildingRepository.findOneAndUpdate(query, newData, {new: true}, (err, response) => {
-    });
-  }
+  updateCostHeadsOfProject(projectId: string, projectCostHeads:Array<CostHead>,ratesList: Array<Rate>,callback : (Error:any, result:any) => void) {
+      let query = {'_id': projectId};
+      let newData = {$set: {'projectCostHeads': projectCostHeads,'rates':ratesList}};
+      this.projectRepository.findOneAndUpdate(query, newData, {new: true}, (err, response) => {
+        if(err) {
+          callback(err, null);
+        } else {
+          callback(null, response);
+        }
+      });
+    }
 
   verifyProjectData(callback: (error: any, result: any) => void) {
     //let query = {_id:{ $in: arrayOfIds}};
