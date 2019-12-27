@@ -57,7 +57,7 @@
     width: 9%;
     &:nth-child(1) {
       //width: 288px;
-      width: 24%;
+      width: 25%;
     }
 
     &:nth-child(2),
@@ -245,6 +245,16 @@
       margin-right: 0;
       padding: 0 9px;
       width: 100% !important;
+    }
+  }
+}
+.td-text-center{
+  text-align: center;
+}
+.quantity-details-table{
+  tr{
+    th,td{
+      width: 11%;
     }
   }
 }

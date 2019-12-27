@@ -232,7 +232,7 @@
   tr > th {
     float: left;
     width: 9%;
-    text-align: center;
+    //text-align: center;
     &:nth-child(1) {
       //width: 310px;
       width: 25%;
@@ -726,6 +726,7 @@
     table {
       #show-embedded-table-row {
         td {
+          min-height: 71px;
           padding: 6px 9px;
         }
       }
@@ -778,4 +779,14 @@
 }
 .container{
   width: 90%;
+}
+.unit-text-center,.td-text-center{
+  text-align: center;
+}
+.workitem-rate-table{
+  tr{
+    th,td{
+      width: 11%;
+    }
+  }
 }
