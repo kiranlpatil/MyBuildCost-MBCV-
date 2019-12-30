@@ -275,7 +275,11 @@
 }
 @media (min-width:1500px) and (max-width: 1920px) {
   .get-quantity-section::before,.get-quantity-section:after{
-    left: 19%;
+    left: 24%;
+  }
+  .get-quantity-section{
+    width: 42%;
+    left: 23%;
   }
 }
 .unit-text-center{

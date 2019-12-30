@@ -1,5 +1,5 @@
 <div *ngIf="workItemData" class="quantity-details-wrapper">
-  <table class="table table-dashboard table-categories">
+  <table class="table table-dashboard table-categories" [class.quantity-details-table]="!workItem.isDirectRate">
     <tbody>
       <tr class="delete-quantity-details-row" *ngFor="let quantity of quantityDetails; let quantityIndex = index;">
         <td>
@@ -39,10 +39,20 @@
           <span class="value" *ngIf="workItemData.unit">{{workItemData.unit}}</span>
         </td>
 
-        <td>
+        <td class="td-text-center">
           <span class="mobile-headings">{{getTableHeadings().RATE_PER_UNIT}}</span>
           <span class="value" *ngIf="workItemData.rate.isEstimated">{{workItemData.rate.total|number : '1.2-2' }}</span>
           <span class="value"  *ngIf="!workItemData.rate.isEstimated">-</span>
+        </td>
+
+        <td class="" *ngIf="workItem.isDirectRate">
+          <span class="mobile-headings" *ngIf="workItem.isDirectRate">{{getTableHeadings().GST}}</span>
+          <span class="value" *ngIf="workItem.isDirectRate">-</span>
+        </td>
+
+        <td *ngIf="workItem.isDirectRate">
+          <span class="mobile-headings" *ngIf="workItem.isDirectRate">{{getTableHeadings().TOTAL_RATE}}</span>
+          <span class="value" *ngIf="workItem.isDirectRate">-</span>
         </td>
 
         <td>
@@ -61,7 +71,7 @@
           </div>
         </td>
 
-        <td>
+        <td class="">
           <span class="mobile-headings">{{getTableHeadings().RATEANALYSIS}}</span>
           <span class="value">-</span>
         </td>
