@@ -332,7 +332,7 @@
   content: " ";
   height: 0;
   //left: 47%;
-  left:41%;
+  left:46%;
   position: absolute;
   pointer-events: none;
   width: 0;
@@ -360,11 +360,11 @@
 }
 
 .get-cost-section:after, .get-cost-section:before {
-  left: 52% !important;
+  left: 66% !important;
 }
 
 .get-systemRA-section:after, .get-systemRA-section:before {
-  left: 68% !important;
+  left: 80% !important;
 }
 
 input[disabled],
@@ -491,12 +491,27 @@ textarea[disabled] {
 }
 @media (min-width:1500px) and (max-width: 1920px) {
   .get-rate-section::before,.get-rate-section::after{
-    left: 45%;
+    left: 51%;
   }
   .get-cost-section::before,.get-cost-section:after{
-    left: 59%!important;
+    left: 72%!important;
   }
   .get-systemRA-section::before,.get-systemRA-section::after{
-    left: 73%!important;
+    left: 85%!important;
+  }
+}
+.get-cost-section,.get-systemRA-section{
+  .get-rate-table{
+    tr{
+      td{
+        color:#999 !important;
+        &:last-child{
+          color: #434c5e!important;
+        }
+      }
+      .gst-comp .select-item{
+        color:#999 !important;;
+      }
+    }
   }
 }

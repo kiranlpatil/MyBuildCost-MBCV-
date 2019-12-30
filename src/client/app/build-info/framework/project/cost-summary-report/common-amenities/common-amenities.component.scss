@@ -116,3 +116,16 @@
     }
   }
 }
+@media (min-width:1500px) and (max-width: 1920px) {
+  .total-table-common-amenities{
+    tbody{
+      tr{
+        td{
+          &:nth-child(1){
+            width: 18%!important;
+          }
+        }
+      }
+    }
+  }
+}
