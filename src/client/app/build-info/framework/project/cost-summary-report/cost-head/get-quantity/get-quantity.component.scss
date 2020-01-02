@@ -6,12 +6,19 @@
   border-radius: 6px;
   display: block;
   float: left;
-  left: 50%;
+  //left: 50%;
+  //left: 35%;
+  //left: 43%;
+  left: 27%;
   margin: 0 auto 15px;
   padding: 5px;
   position: relative;
   transform: translateX(-50%);
-  width: 100%;
+  //width: 100%;
+  width: 70%;
+  &.get-quantity{
+    left: 24.4%!important;
+  }
 
   .close {
     margin: 0 4px 15px 5px;
@@ -27,6 +34,7 @@
         font-size: 11px;
         text-align: center;
         padding: 3px 0;
+        //width: 14%;
 
         &:first-child {
           border-radius: 5px 0 0 0;
@@ -227,6 +235,8 @@
 @media only screen and (max-width: 767px) {
   .get-quantity-section {
     margin: 0 0 10px;
+    left: 50%!important;
+    width: 100%;
     table {
       pointer-events: none;
 
@@ -266,4 +276,16 @@
 .validate-amount {
   border: 1px solid red !important;
 
+}
+@media (min-width:1500px) and (max-width: 1920px) {
+  .get-quantity-section::before,.get-quantity-section:after{
+    left: 15%;
+  }
+  .get-quantity-section{
+    width: 42%;
+    left: 21%;
+  }
+}
+.unit-text-center{
+  text-align: center;
 }

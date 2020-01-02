@@ -29,16 +29,28 @@
           <div *ngIf="category.rateAnalysisId == categoryId" id="collapse{{category.rateAnalysisId}}" class="panel-collapse collapse">
             <div class="panel-body">
               <div class="bg-white"  *ngFor="let workItem of workItemsList; let workItemIndex = index">
-                <table class="table table-dashboard table-categories">
+                <table class="table table-dashboard table-categories" [class.workitem-rate-table]="!workItem.isDirectRate" id="mytable">
                   <thead *ngIf="workItemIndex === 0">
                   <tr>
                     <th>{{getTableHeadings().ITEM}}</th>
                     <!--<th>Details</th>-->
                     <th>{{getTableHeadings().QUANTITY}}</th>
                     <th>{{getTableHeadings().UNIT}}</th>
-                    <th>{{getTableHeadings().RATE_PER_UNIT}}</th>
-                    <th>{{getTableHeadings().COST}}</th>
-                    <th>{{getTableHeadings().RATEANALYSIS}}</th>
+                    <th>
+                      <div *ngIf=" workItem.isDirectRate">{{getTableHeadings().BASIC_RATE_PER_UNIT}}</div>
+                      <div *ngIf="!workItem.isDirectRate">{{getTableHeadings().EDITABLE_RATE_PER_UNIT}}<br>{{getTableHeadings().RATE_PER_UNIT}}</div>
+                    </th>
+                    <th *ngIf=" workItem.isDirectRate">{{getTableHeadings().GST}}</th>
+                    <th *ngIf=" workItem.isDirectRate">{{getTableHeadings().TOTAL_RATE}}</th>
+                    <th>
+                      <div *ngIf=" workItem.isDirectRate">{{getTableHeadings().COST}}</div>
+                      <div *ngIf="!workItem.isDirectRate">{{getTableHeadings().TOTAL_COST}}</div>
+                    </th>
+                    <!--<th *ngIf=" workItem.isDirectRate">{{getTableHeadings().GST_COMPONENT}}</th>-->
+                    <th>
+                      <div *ngIf=" workItem.isDirectRate">{{getTableHeadings().RATEANALYSIS}}</div>
+                      <div *ngIf="!workItem.isDirectRate">{{getTableHeadings().NON_EDITABLE_RATEANALYSIS}}<br>{{getTableHeadings().RATEANALYSIS}}</div>
+                    </th>
                     <!--<th></th>-->
                   </tr>
                   </thead>
@@ -87,7 +99,7 @@
                                 </td>-->
                                 <td>
                                   <span class="mobile-headings">{{getTableHeadings().QUANTITY}}</span>
-                                  <div class="edit-field"
+                                  <div class="edit-field edit-field-quantity"
                                        [class.disabled]="workItem.isDetailedQuantity" [class.active-quantity]="(showWorkItemTab == getLabel().WORKITEM_QUANTITY_TAB) && (workItemIndex===currentWorkItemIndex && currentCategoryIndex === categoryIndex)" >
                                     <input type="number" amountValidate="true"
                                            [(ngModel)]="workItem.quantity.total" (focus)="setQuantityTotal(workItem.quantity.total)"
@@ -110,13 +122,14 @@
 
                                   </div>
                                 </td>
-                                <td>
+                                <td class="unit-text-center">
                                   <span class="mobile-headings">{{getTableHeadings().UNIT}}</span>
                                   <span class="value" *ngIf="workItem.unit">{{ workItem.unit }}</span>
                                   <span class="value" *ngIf="!workItem.unit">-</span>
                                 </td>
                                 <td>
-                                  <span class="mobile-headings">{{getTableHeadings().RATE_PER_UNIT}}</span>
+                                  <span class="mobile-headings" *ngIf="workItem.isDirectRate">{{getTableHeadings().BASIC_RATE_PER_UNIT}}</span>
+                                  <span class="mobile-headings" *ngIf="!workItem.isDirectRate">{{getTableHeadings().RATE_PER_UNIT}}</span>
                                   <div class="edit-field" [class.active-rate]="(showWorkItemTab == getLabel().WORKITEM_RATE_TAB) && (workItemIndex===currentWorkItemIndex && currentCategoryIndex === categoryIndex)" >
                                     <input amountValidate="true" title="Workitem Rate" *ngIf="workItem.isDirectRate" type = "number"
                                            [class.validate-amount] = 'workItem?.rate?.total?.toString().split(".")[0].length>7 ||
@@ -129,7 +142,7 @@
                                     <div class="edit-rate-null" *ngIf="!workItem.isDirectRate && !workItem.rate.isEstimated && anySubscriptionAvailable">
                                       -
                                     </div>
-                                    <div class="edit-rate-null" *ngIf="!anySubscriptionAvailable">
+                                    <div class="edit-rate-null" *ngIf="!anySubscriptionAvailable && !workItem.isDirectRate">
                                       -
                                     </div>
                                      <span title="Get Rate" class="calculator"
@@ -141,9 +154,38 @@
                                   </div>
                                 </td>
 
+                                <!--GST-->
+                                <td  *ngIf=" workItem.isDirectRate">
+                                  <span class="mobile-headings">{{getTableHeadings().GST}}</span>
+                                  <select  class="select-item gst-select-item" [(ngModel)]="workItem.gst" (change)="changeGst(category.rateAnalysisId, workItem,$event.target.value)">
+                                    <option *ngFor="let gst of gstval" [value]="gst" [selected]="gst">{{gst}} %</option>
+                                  </select>
+                                  <div class="gst-component-section">
+                                 <!--   <span class="mobile-headings">{{getTableHeadings().GST_COMPONENT}}</span>-->
+                                    <div class="gst-component" *ngIf=" workItem.isDirectRate && !workItem.rateWithGst">
+                                      -
+                                    </div>
+                                    <div class="gst-component" *ngIf=" workItem.isDirectRate && workItem.rateWithGst">
+                                      {{workItem.rateWithGst| number :'.1-2'}}
+                                    </div>
+                                  </div>
+                                </td>
+
+                                 <!--Total Rate-->
+                               <td *ngIf=" workItem.isDirectRate">
+                                <span class="mobile-headings">{{getTableHeadings().TOTAL_RATE}}</span>
+                                  <div class="totalrate total-rate-value" *ngIf="!workItem.totalRate">
+                                   -
+                                  </div>
+                                 <div class="totalrate total-rate-value" *ngIf="workItem.totalRate">
+                                   {{workItem.totalRate| number:'.1-2'}}
+                                 </div>
+                              </td>
+
                                 <!--Cost-->
                                 <td>
-                                  <span class="mobile-headings">{{getTableHeadings().COST}}</span>
+                                  <span class="mobile-headings"  *ngIf="workItem.isDirectRate">{{getTableHeadings().COST}}</span>
+                                  <span class="mobile-headings" *ngIf="!workItem.isDirectRate">{{getTableHeadings().TOTAL_COST}}</span>
                                   <div class="edit-cost-null" *ngIf="workItem.amount == 0  && workItem.isDirectRate === false">
                                     -
                                   </div>
@@ -157,9 +199,21 @@
                                   </div>
                                 </td>
 
+                                <!--GST Component-->
+                                <!--<td>
+                                  <span class="mobile-headings">{{getTableHeadings().GST_COMPONENT}}</span>
+                                  <div class="gst-component" *ngIf=" workItem.isDirectRate && !workItem.gstComponent">
+                                    -
+                                  </div>
+                                  <div class="gst-component" *ngIf=" workItem.isDirectRate && workItem.gstComponent">
+                                    {{workItem.gstComponent}}
+                                  </div>
+                                </td>-->
+
                                 <!--RateAnalysis-->
-                                <td>
-                                  <span class="mobile-headings">{{getTableHeadings().RATEANALYSIS}}</span>
+                                <td class="rate-analysis-media">
+                                  <span class="mobile-headings" *ngIf="workItem.isDirectRate">{{getTableHeadings().RATEANALYSIS}}</span>
+                                  <span class="mobile-headings" *ngIf="!workItem.isDirectRate">{{getTableHeadings().NON_EDITABLE_RATEANALYSIS}}</span>
                                   <div  *ngIf=" workItem.isDirectRate === false">
                                    <button class="btn-get-amount"
                                            [class.active]="(rateView==='systemRA' && workItemIndex===currentWorkItemIndex && currentCategoryIndex === categoryIndex)"
@@ -172,7 +226,7 @@
                                   </div>
                                 </td>
 
-                                <td>
+                                <td class="file-attachment-media">
                                     <div class="file-attachment" [class.attachment-menu-open]="(showAttachmentView == getLabel().ATTACH_FILE && workItemIndex===currentWorkItemIndex && currentCategoryIndex === categoryIndex)">
                                       <span  *ngIf="workItem.attachmentDetails.length == 0"(click)="setVariable(category.rateAnalysisId, workItem.rateAnalysisId, workItem.workItemId, categoryIndex, workItemIndex)">
                                         <img src="assets/build-info/dashboard/attach-file.png" alt="Attach Support Files" title="Attach Support Files" />

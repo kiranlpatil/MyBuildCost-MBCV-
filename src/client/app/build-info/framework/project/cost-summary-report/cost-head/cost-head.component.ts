@@ -20,6 +20,7 @@ import Any = jasmine.Any;
 import { SteelQuantityItems } from '../../../model/SteelQuantityItems';
 import { ErrorService } from '../../../../../shared/services/error.service';
 import {UpdateSubscriptionStatusService} from "../../../../../shared/services/update-subscription-status.service";
+import {ProjectHeaderVisibilityService} from "../../../../../shared/services/project-header-visibility.service";
 
 declare var $: any;
 
@@ -67,6 +68,7 @@ export class CostHeadComponent implements OnInit, OnChanges, AfterViewInit {
   @ViewChild(AttachmentComponent) childVar: AttachmentComponent;
 
   animateView: boolean = false;
+  gstval=ValueConstant.GST_VALUES;
   projectId : string;
   viewTypeValue: string;
   quantityName: string;
@@ -143,7 +145,8 @@ export class CostHeadComponent implements OnInit, OnChanges, AfterViewInit {
   constructor(private costSummaryService : CostSummaryService, private activatedRoute : ActivatedRoute,
               private _router: Router, private messageService: MessageService, private commonService : CommonService,
               private loaderService: LoaderService, private errorService:ErrorService,
-              private updateSubscriptionStatusService:UpdateSubscriptionStatusService) {
+              private updateSubscriptionStatusService:UpdateSubscriptionStatusService,
+              private projectHeaderVisibilityService:ProjectHeaderVisibilityService) {
     this.subscription = this.updateSubscriptionStatusService.changeSubscriptionStatus$.subscribe(
       (isAnySubscriptionAvailable:boolean )=> {
         this.anySubscriptionAvailable= isAnySubscriptionAvailable;}
@@ -163,6 +166,7 @@ export class CostHeadComponent implements OnInit, OnChanges, AfterViewInit {
   }
   ngOnInit() {
     this.status = SessionStorageService.getSessionValue(SessionStorage.STATUS);
+    this.projectHeaderVisibilityService.change(false);
     this.activatedRoute.params.subscribe(params => {
 
       this.projectId = params['projectId'];
@@ -663,6 +667,34 @@ export class CostHeadComponent implements OnInit, OnChanges, AfterViewInit {
     console.log('error : '+JSON.stringify(error));
     this.loaderService.stop();
   }
+
+  changeGst(categoryId : number, workItem : WorkItem, gst:number) {
+      this.loaderService.start();
+      this.costSummaryService.updateGstAmount(this.baseUrl, this.costHeadId, categoryId,
+        workItem.rateAnalysisId, workItem.workItemId, gst).subscribe(
+        workItemList => this.onChangeGstSuccess(workItemList),
+        error => this.onChangeGstFailure(error)
+      );
+  }
+
+  onChangeGstSuccess(success : any) {
+    console.log('success : '+JSON.stringify(success));
+    var message = new Message();
+    message.isError = false;
+    message.custom_message = Messages.MSG_SUCCESS_UPDATE_GST_OF_WORKITEM;
+    this.messageService.message(message);
+    this.refreshCategoryList();
+    this.loaderService.stop();
+  }
+
+  onChangeGstFailure(error : any) {
+    if(error.err_code === 404 || error.err_code === 401 ||error.err_code === 0 || error.err_code===500) {
+      this.errorService.onError(error);
+    }
+    console.log('error : '+JSON.stringify(error));
+    this.loaderService.stop();
+  }
+
 
   changeDirectRate(categoryId : number, workItemId: number, ccWorkItemId:number, directRate : number) {
     if(directRate && !directRate.toString().match(/^\d{1,7}(\.\d{1,2})?$/)) {

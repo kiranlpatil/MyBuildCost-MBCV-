@@ -112,7 +112,16 @@ class UserRoutes {
     router.put('/verify/password', authInterceptor.requiresAuth, controller.verifyPassword);
       router.put('/:userId/updateSubscription', controller.updateSubscriptionDetails);
     router.post('/userList', controller.getUserData);
-      return router;
+
+    router.post('/exportData', controller.exportUserData);
+
+    // Admin routes for RA user
+    router.post('/updateUserSubscription',controller.updateUserSubscription);
+    router.post('/blockRAUser',controller.blockRAUser);
+
+    // Admin routes for MBC user
+     router.post('/updateProjectExpiryOfUser', controller.updateProjectExpiryOfUser);
+    return router;
 
     }
 }

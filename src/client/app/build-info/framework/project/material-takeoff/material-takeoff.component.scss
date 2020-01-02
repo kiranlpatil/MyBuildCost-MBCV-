@@ -29,8 +29,17 @@
 }
 
 @media only screen and (max-width: 767px) {
+  .container-material-takeoff{
+    padding: 0 10px!important;
+  }
+  .disclaimer-container-fluid{
+    padding: 0 10px!important;;
+  }
   .wrapper {
     min-height: calc(100vh - 50px);
+    .container-material-takeoff{
+      width: 100%;
+    }
   }
 
   .filter-dropdrown {
@@ -62,8 +71,12 @@
     }
   }
 }
-
-
+.container-material-takeoff{
+  padding: 0 30px 0 90px;
+}
+.disclaimer-container-fluid{
+  padding: 0 30px 0 90px;
+}
 
 
 

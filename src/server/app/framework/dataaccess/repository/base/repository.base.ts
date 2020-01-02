@@ -88,6 +88,16 @@ class RepositoryBase<T extends mongoose.Document> implements IRead<T>, IWrite<T>
     });
   }
 
+  find(searchField: any,  callback:(err: any, result: any)=>void) {
+    this._model.find(searchField).exec((error :Error, result: T) => {
+      if(error) {
+        callback(new CostControllException('find Failed. '+error.message, error, 500), null);
+      } else {
+        callback(null, result);
+      }
+    });
+  }
+
   findOneAndUpdate(query: any, newData: any, options: any, callback:(err: any, result: any)=>void) {
     this._model.findOneAndUpdate(query, newData, options, (error :Error, result: T) => {
       if(error) {

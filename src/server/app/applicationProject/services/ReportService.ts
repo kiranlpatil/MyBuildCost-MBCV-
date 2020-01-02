@@ -16,7 +16,7 @@ import RateAnalysisService = require('./RateAnalysisService');
 import Category = require('../dataaccess/model/project/building/Category');
 import alasql = require('alasql');
 import Constants = require('../shared/constants');
-import ProjectService = require('./ProjectService');
+//import ProjectService = require('./ProjectService');
 import CentralizedRate = require('../dataaccess/model/project/CentralizedRate');
 import WorkItem = require('../dataaccess/model/project/building/WorkItem');
 import MaterialTakeOffFlatDetailsDTO = require('../dataaccess/dto/Report/MaterialTakeOffFlatDetailsDTO');
@@ -31,6 +31,7 @@ import MaterialTakeOffTableViewFooter = require('../dataaccess/model/project/rep
 import CostControllException = require('../exception/CostControllException');
 import MaterialTakeOffView = require('../dataaccess/model/project/reports/MaterialTakeOffView');
 import { AddCostHeadButton } from '../dataaccess/model/project/reports/showHideCostHeadButton';
+import {ProjectService} from './ProjectService';
 
 let config = require('config');
 var log4js = require('log4js');
@@ -142,11 +143,15 @@ class ReportService {
       thumbRule.totalBudgetedCost = Math.round(totalRates[0].totalAmount);
       thumbRule.thumbRuleReports = thumbRuleReports;
 
-      let totalEstimatedRates = alasql('SELECT ROUND(SUM(total),2) AS totalAmount, ROUND(SUM(rate),2) AS totalRate FROM ?',
+      let totalEstimatedRates = alasql('SELECT ROUND(SUM(total),2) AS totalAmount, ROUND(SUM(rate),2) AS totalRate, ROUND(SUM(gstComponent),2) AS totalGstComponent, ' +
+        'ROUND(SUM(basicEstimatedCost),2) AS basicEstimatedCost, ROUND(SUM(rateWithoutGst),2) AS totalrateWithoutGst FROM ?',
         [estimatedReports]);
       estimate.totalRate = totalEstimatedRates[0].totalRate;
       estimate.totalEstimatedCost = totalEstimatedRates[0].totalAmount;
       estimate.estimatedCosts = estimatedReports;
+      estimate.totalBasicEstimatedCost =  totalEstimatedRates[0].basicEstimatedCost;
+      estimate.totalGstComponent = totalEstimatedRates[0].totalGstComponent;
+      estimate.totalRateWithoutGst = totalEstimatedRates[0].totalrateWithoutGst;
 
       buildingReport.thumbRule = thumbRule;
       buildingReport.estimate = estimate;
@@ -196,17 +201,23 @@ class ReportService {
     let projectService : ProjectService = new ProjectService();
     let categoriesObj = projectService.getCategoriesListWithCentralizedRates(costHeadCategories, centralizedRates);
     estimateReport.total = categoriesObj.categoriesAmount;
+    estimateReport.gstComponent = categoriesObj.totalGstComponent;
     estimateReport.rate = estimateReport.total / area;
+    estimateReport.basicEstimatedCost = estimateReport.total - estimateReport.gstComponent;
+    estimateReport.rateWithoutGst = estimateReport.basicEstimatedCost / area;
     return estimateReport;
   }
 
-  getEstimatedReportForNonCategories(thumbRuleReport: ThumbRuleReport) {
+  getEstimatedReportForNonCategories(thumbRuleReport: ThumbRuleReport,costHead:CostHead, totalArea:number) {
     let estimateReport = new EstimateReport();
     estimateReport.name = thumbRuleReport.name;
     estimateReport.rateAnalysisId = thumbRuleReport.rateAnalysisId;
-    estimateReport.total = thumbRuleReport.amount;
     estimateReport.disableCostHeadView = true;
-    estimateReport.rate = thumbRuleReport.rate;
+    estimateReport.gstComponent = (thumbRuleReport.amount* costHead.gst)/100;
+    estimateReport.total = thumbRuleReport.amount + estimateReport.gstComponent;
+    estimateReport.basicEstimatedCost = estimateReport.total - estimateReport.gstComponent;
+    estimateReport.rateWithoutGst = estimateReport.basicEstimatedCost/totalArea;
+    estimateReport.rate =  estimateReport.total/ totalArea ;
     return estimateReport;
   }
 
@@ -237,7 +248,15 @@ class ReportService {
       estimate.totalEstimatedCost = totalEstimatedRates[0].totalAmount;
       estimate.estimatedCosts = estimatedReports;
 
-      projectReport.thumbRule = thumbRule;
+      let totalGstBasicRateCost = alasql('SELECT ROUND(SUM(gstComponent),2) AS totalGstComponent, ROUND(SUM(basicEstimatedCost),2) AS totalBasicEstimatedCost ' +
+        ',ROUND(SUM(rateWithoutGst),2) AS totalRateWithoutGst FROM ?',
+        [estimatedReports]);
+
+      estimate.totalBasicEstimatedCost = totalGstBasicRateCost[0].totalBasicEstimatedCost;
+      estimate.totalRateWithoutGst = totalGstBasicRateCost[0].totalRateWithoutGst;
+      estimate.totalGstComponent = totalGstBasicRateCost[0].totalGstComponent;
+
+    projectReport.thumbRule = thumbRule;
       projectReport.estimate = estimate;
     commonAmenitiesReport.push(projectReport);
     console.log('SHow Hide List : '+JSON.stringify(this.costHeadsList));
@@ -267,7 +286,7 @@ class ReportService {
       if(costHead.categories.length > 0) {
         estimateReport = this.getEstimatedReport(projectRates, costHead, totalArea, rateUnit);
       } else {
-        estimateReport = this.getEstimatedReportForNonCategories(thumbRuleReport);
+        estimateReport = this.getEstimatedReportForNonCategories(thumbRuleReport, costHead ,totalArea);
       }
 
       estimatedReports.push(estimateReport);
@@ -391,11 +410,13 @@ class ReportService {
       let contentTotal = 0;
       let rateTotal = 0;
       let totalAmount = 0;
+      let totalGst = 0;
       let table = secondaryViewMaterialData[secondaryViewData].table;
 
       for (let content of Object.keys(table.content)) {
         if (Object.keys(table.content[content].subContent).length > 0) {
           table.content[content].columnTwo = 0;
+          table.content[content].columnEight = 0;
           let tableSubContent = table.content[content].subContent;
           for (let subContent of Object.keys(tableSubContent)) {   // Sub content
 
@@ -408,6 +429,11 @@ class ReportService {
                   (parseFloat(tableSubContent[subContent].columnTwo) +
                     parseFloat(tableSubContent[subContent].subContent[innerSubContent].columnTwo)
                   ).toFixed(Constants.NUMBER_OF_FRACTION_DIGIT);
+                tableSubContent[subContent].subContent[innerSubContent].columnSeven = tableSubContent[subContent].subContent[innerSubContent].columnSeven;
+                tableSubContent[subContent].subContent[innerSubContent].columnFive = (tableSubContent[subContent].subContent[innerSubContent].columnTwo *
+                  tableSubContent[subContent].subContent[innerSubContent].columnSeven).toFixed(Constants.NUMBER_OF_FRACTION_DIGIT);
+                tableSubContent[subContent].subContent[innerSubContent].columnEight = (tableSubContent[subContent].subContent[innerSubContent].columnFive
+                  -(tableSubContent[subContent].subContent[innerSubContent].columnFour * tableSubContent[subContent].subContent[innerSubContent].columnTwo)).toFixed(Constants.NUMBER_OF_FRACTION_DIGIT);
               }
             }
 
@@ -415,12 +441,17 @@ class ReportService {
               Math.ceil(tableSubContent[subContent].columnTwo);
             table.content[content].columnTwo = (parseFloat(table.content[content].columnTwo) +
               parseFloat(tableSubContent[subContent].columnTwo)).toFixed(Constants.NUMBER_OF_FRACTION_DIGIT);
-            totalAmount = totalAmount + tableSubContent[subContent].columnTwo * tableSubContent[subContent].columnFour;
+            totalAmount = totalAmount + tableSubContent[subContent].columnTwo * tableSubContent[subContent].columnSeven;
             tableSubContent[subContent].columnFive = (Math.ceil(tableSubContent[subContent].columnTwo) *
-              tableSubContent[subContent].columnFour).toFixed(Constants.NUMBER_OF_FRACTION_DIGIT);
+              tableSubContent[subContent].columnSeven).toFixed(Constants.NUMBER_OF_FRACTION_DIGIT);
 
             table.content[content].columnFive = (parseFloat(table.content[content].columnFive) +
               parseFloat(tableSubContent[subContent].columnFive)).toFixed(Constants.NUMBER_OF_FRACTION_DIGIT);
+
+            tableSubContent[subContent].columnEight = (tableSubContent[subContent].columnFive - (tableSubContent[subContent].columnFour * tableSubContent[subContent].columnTwo)).toFixed(Constants.NUMBER_OF_FRACTION_DIGIT);
+
+            table.content[content].columnEight = (parseFloat(table.content[content].columnEight) + parseFloat( tableSubContent[subContent].columnEight)).toFixed(Constants.NUMBER_OF_FRACTION_DIGIT);
+            totalGst = totalGst + (tableSubContent[subContent].columnFive - (tableSubContent[subContent].columnFour * tableSubContent[subContent].columnTwo));
           }
           table.content[content].columnTwo = Math.ceil(table.content[content].columnTwo);
           contentTotal = contentTotal + table.content[content].columnTwo;
@@ -429,6 +460,7 @@ class ReportService {
         //footer
         table.footer.columnTwo = contentTotal;
          table.footer.columnFive = totalAmount.toFixed(Constants.NUMBER_OF_FRACTION_DIGIT);
+         table.footer.columnEight = totalGst.toFixed(Constants.NUMBER_OF_FRACTION_DIGIT);
         secondaryViewMaterialData[secondaryViewData].title = contentTotal + ' ' + table.footer.columnThree; // todo ask swapnil for showing total in title
       }
 
@@ -451,7 +483,7 @@ class ReportService {
         materialTakeOffReport.secondaryView[record.header] === null) {
         materialTakeOffReport.title = building;
         if(materialTakeOffReport.subTitle === null || materialTakeOffReport.subTitle === undefined) { // todo review
-          let materialTakeOffReportSubTitle: MaterialTakeOffView = new MaterialTakeOffView('', 0, '',0,0);
+          let materialTakeOffReportSubTitle: MaterialTakeOffView = new MaterialTakeOffView('', 0, '',0,0, 0,0,0);
           materialTakeOffReport.subTitle = materialTakeOffReportSubTitle;
         }
 
@@ -471,30 +503,34 @@ class ReportService {
         let columnOne: string = 'Item';
         let columnTwo: string = 'Quantity';
         let columnThree: string =  'Unit';
-        let columnFour: string =  'Rate';
-        let columnFive: string =  'Amount';
+        let columnFour: string =  'Basic Rate/Unit (Rs)';
+        let columnFive: string =  'Total Cost including GST (Rs)';
+        let columnSix: string = 'GST';
+        let columnSeven: string = 'Rate/Unit including GST (Rs)';
+        let columnEight: string = 'GST Component (Rs)';
         if(elementWiseReport === Constants.STR_COSTHEAD && building === Constants.STR_ALL_BUILDING) {
           columnOne = 'Building';
         }
-        table.header = new MaterialTakeOffTableViewHeaders(columnOne, columnTwo, columnThree,columnFour,columnFive); // todo review
+        table.header = new MaterialTakeOffTableViewHeaders(columnOne, columnTwo, columnThree,columnFour,columnFive,columnSix,columnSeven,columnEight); // todo review
       }
-
+      let totalRate = (record.rate + (record.rate*(record.gst/100))).toFixed(4);
+      let gstComponent = (totalRate* record.Total)- (record.rate *record.Total) ;
       let materialTakeOffTableViewSubContent = null;
       if (record.subValue && record.subValue !== 'default' && record.subValue !== 'Direct') {
         materialTakeOffTableViewSubContent =
-          new MaterialTakeOffTableViewSubContent(record.subValue, record.Total, record.unit,record.rate,((Math.ceil(record.Total))*record.rate).toFixed(Constants.NUMBER_OF_FRACTION_DIGIT)); //todo lalita ask swapnil // todo review
+          new MaterialTakeOffTableViewSubContent(record.subValue, record.Total, record.unit,record.rate,((Math.ceil(record.Total))*record.rate).toFixed(4),record.gst,totalRate, gstComponent.toFixed(Constants.NUMBER_OF_FRACTION_DIGIT)); //todo lalita ask swapnil // todo review
       }
 
       if(table.content[record.costHeadName] === undefined || table.content[record.costHeadName] === null) {
         table.content[record.costHeadName] = new MaterialTakeOffTableViewContent(record.costHeadName, 0, record.unit,
-          record.rate,0, {}); // todo review
+          record.rate,0,record.gst,totalRate, gstComponent.toFixed(Constants.NUMBER_OF_FRACTION_DIGIT), {}); // todo review
       }
 
 
       if(table.content[record.costHeadName].subContent[record.rowValue] === undefined ||
         table.content[record.costHeadName].subContent[record.rowValue] === null) {
         table.content[record.costHeadName].subContent[record.rowValue] =
-          new MaterialTakeOffTableViewContent(record.rowValue, 0, record.unit,record.rate,0, {}); // todo review
+          new MaterialTakeOffTableViewContent(record.rowValue, 0, record.unit,record.rate,0,record.gst,totalRate, gstComponent.toFixed(Constants.NUMBER_OF_FRACTION_DIGIT), {}); // todo review
       }
 
       let tableViewSubContent: MaterialTakeOffTableViewContent = table.content[record.costHeadName].subContent[record.rowValue];
@@ -534,7 +570,7 @@ class ReportService {
       let materialTakeOffTableViewFooter: MaterialTakeOffTableViewFooter = null;
       if(table.footer === undefined || table.footer === null) {
         table.footer =
-          new MaterialTakeOffTableViewFooter('Total', 0, record.unit,null,0); // todo review
+          new MaterialTakeOffTableViewFooter('Total', 0, record.unit,null,0,null,null,null); // todo review
       }
     }
   }
@@ -677,18 +713,21 @@ class ReportService {
           if(categoryName === Constants.STEEL) {
               if(quantity && quantity.steelQuantityItems && quantity.steelQuantityItems.totalWeightOfDiameter) {
                 let materialRate = 0 ;
+                let materialGst = 0 ;
                 if(workItem.rate.isEstimated && workItem.rate.rateItems && workItem.rate.rateItems.length > 0) { // todo ask swapnil about rate property
-                  if((buildingDetails.rates.findIndex((item: any) => item.itemName == workItem.rate.rateItems[0].itemName)) > -1) {
-                    materialRate = buildingDetails.rates[buildingDetails.rates.findIndex((item: any) => item.itemName == workItem.rate.rateItems[0].itemName)].rate;
+                  if((buildingDetails.rates.findIndex((item: any) => item.itemName === workItem.rate.rateItems[0].itemName)) > -1) {
+                    materialRate = buildingDetails.rates[buildingDetails.rates.findIndex((item: any) => item.itemName === workItem.rate.rateItems[0].itemName)].rate;
+                    materialGst = buildingDetails.rates[buildingDetails.rates.findIndex((item: any) => item.itemName === workItem.rate.rateItems[0].itemName)].gst;
                   }
                 } else {
                   materialRate = workItem.rate.total;
+                  materialGst = workItem.gst;
                 }
 
                 for(let material of Object.keys(quantity.steelQuantityItems.totalWeightOfDiameter)) {
                   let materialTakeOffFlatDetailDTO = new MaterialTakeOffFlatDetailsDTO(buildingName, costHeadName, categoryName,
                     workItemName, material, quantity.name, quantity.steelQuantityItems.totalWeightOfDiameter[material],
-                    quantity.steelQuantityItems.unit,materialRate);
+                    quantity.steelQuantityItems.unit,materialGst,materialRate);
                   materialTakeOffFlatDetailsArray.push(materialTakeOffFlatDetailDTO);
                 }
               }
@@ -706,13 +745,16 @@ class ReportService {
       for (let rateItem of workItem.rate.rateItems) {
         let workItemQuantity = this.getQuanityForWorkItem(workItem.unit, workItem.rate.unit, (quantity / workItem.rate.quantity) * rateItem.quantity);
        let materialRate;
-       if((buildingDetails.rates.findIndex((item: any) => item.itemName == rateItem.itemName)) > -1) {
-         materialRate = buildingDetails.rates[buildingDetails.rates.findIndex((item: any) => item.itemName == rateItem.itemName)].rate;
+       let materialGst;
+       if((buildingDetails.rates.findIndex((item: any) => item.itemName === rateItem.itemName)) > -1) {
+         materialRate = buildingDetails.rates[buildingDetails.rates.findIndex((item: any) => item.itemName === rateItem.itemName)].rate;
+         materialGst = buildingDetails.rates[buildingDetails.rates.findIndex((item: any) => item.itemName === rateItem.itemName)].gst;
        } else {
          materialRate = rateItem.rate;
+         materialGst = rateItem.gst;
        }
         let materialTakeOffFlatDetailDTO = new MaterialTakeOffFlatDetailsDTO(buildingName, costHeadName, categoryName,
-          workItemName, rateItem.itemName, quantityName, workItemQuantity, rateItem.unit, materialRate); // todo review
+          workItemName, rateItem.itemName, quantityName, workItemQuantity, rateItem.unit, materialGst, materialRate); // todo review
         materialTakeOffFlatDetailsArray.push(materialTakeOffFlatDetailDTO);
       }
   }

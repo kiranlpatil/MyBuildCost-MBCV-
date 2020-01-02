@@ -51,6 +51,15 @@ class RateAnalysisRoutes {
 
     router.get('/user/:userId/region/:regionName/workItem/:workItemId/getSavedRate', controller.getSavedRateForWorkItem,
       this._responseInterceptor.exit);
+
+    //export configuration file
+    router.get('/export/radata', controller.exportRateAnalysisData, this._responseInterceptor.exit);
+
+    router.get('/import/radata', controller.importRateAnalysisData, this._responseInterceptor.exit);
+    router.get('/sync/all/user/data', controller.migrateDataOfAllUsers);
+    router.post('/updateGstOfProjects',controller.updateGstOfProjects,this._responseInterceptor.exit);
+    router.post('/updateGstOfBuildings',controller.updateGstOfBuildings,this._responseInterceptor.exit);
+    router.post('/verifyProjectData',controller.verifyProjectData, this._responseInterceptor.exit);
     return router;
   }
 }

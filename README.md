@@ -41,7 +41,9 @@ steps:
                  "projectId":"Project ID of project created by First user"
                }   
           5. Login using credentials of Second user, sample project will be display.              
-                                 
+                         
+                  
+                          
        5.For Staging Environment:
                             1. ~npm start
                             2. ~node app.server.dev.js --NODE_ENV=staging  //Default. for backend configuration (ubuntu) which is using http protocol. 

@@ -226,6 +226,7 @@ export class Messages {
   public static MSG_SUCCESS_UPDATE_DIRECT_RATE_OF_WORKITEM: string = 'Rate for Work Item updated successfully.';
   public static MSG_SUCCESS_UPDATE_QUANTITY_NAME_WORKITEM: string = 'Title for Work Item updated successfully.';
   public static MSG_SUCCESS_UPDATE_WORKITEM_NAME: string = 'Workitem name updated successfully';
+  public static MSG_SUCCESS_UPDATE_GST_OF_WORKITEM: string = 'GST for Work Item updated successfully';
 
   //Quantity view required fields
   public static MSG_ERROR_VALIDATION_QUANTITY_ITEM_REQUIRED = 'Enter item';
@@ -272,6 +273,9 @@ export class Messages {
 
   //Sample Project
   public static MSG_FOR_UPDATING_SAMPLE_PROJECT: string = 'Sample project helps you understand how the application works. Modified values will not be calculated or saved.';
+
+  //Admin Msg
+  public static EXPORT_FAILED: string = 'Failed to export files';
 }
 
 export class NavigationRoutes {
@@ -390,6 +394,10 @@ export class API {
   public static RESET_PASSWORD = 'user/resetpassword';
   public static GOOGLE_LOGIN = 'googlelogin';
   public static USER = 'User';
+  public static EXPORT_DATA = '/exportData';
+  public static EXPORT_APP_USAGE_DETAILS = '/exported-files/AppUsageDetails.csv';
+  public static EXPORT_MY_BUILD_COST_USER = '/exported-files/MyBuildCostUser.csv';
+  public static EXPORT_RATE_ANALYSIS_USER = '/exported-files/RateAnalysisUsers.csv';
 
 
   //Project
@@ -423,6 +431,7 @@ export class API {
   public static FILE_LIST = 'fileNameList';
   public static DELETE_FILE = 'deleteFile';
   public static SYNC_RATE_ANALYSIS = 'syncWithRateAnalysis';
+  public static GST = 'gst';
 
   public static THUMBRULE_RULE_RATE = 'report/thumbRuleRate';
   public static RATE = 'rate';
@@ -519,15 +528,22 @@ export class TableHeadings {
   public static BREADTH: string = 'Breadth';
   public static HEIGHT: string = 'Height';
   public static UNIT: string = 'Unit';
+  public static GST: string = 'GST';
+  public static GST_COMPONENT = 'GST Component';
   public static RATEANALYSIS: string = 'Rate Analysis';
+  public static NON_EDITABLE_RATEANALYSIS: string = 'Non editable';
   public static AMOUNT: string = 'Amount';
-  public static COST: string = 'Cost';
+  public static COST: string = ' Total Cost including GST';
   public static TOTAL: string = 'Total';
+  public static TOTAL_COST: string = 'Total Cost';
   public static WEIGHT_IN_KG: string = 'Weight in kg';
 
   public static DESCRIPTION: string = 'Description';
+  public static EDITABLE_RATE_PER_UNIT: string = 'Editable Rate Analysis';
   public static RATE_PER_UNIT: string = 'Rate/Unit';
   public static DIAMETER: string = 'Diameter';
+  public static TOTAL_RATE: string = 'Rate/Unit including GST';
+  public static BASIC_RATE_PER_UNIT: string = 'Basic Rate/Unit';
   public static MM_UNIT: string = 'mm';
   public static MTR_UNIT: string = 'mtr';
   public static SIX_MM: string = '6mm';
@@ -607,9 +623,14 @@ export class Label {
   public static TOTAL_A: string = 'Total(A)';
   public static TOTAL_A_B: string = 'Total(A+B)';
   public static TOTAL_A_B_C: string = 'Total(A+B+C)';
+  public static TOTAL_GST_A: string = 'Total GST Component(A)';
+  public static TOTAL_GST_A_B: string = 'Total GST Component(A+B)';
+  public static TOTAL_GST_A_B_C: string = 'Total GST Component(A+B+C)';
   public static NOTES: string = 'Notes ';
   public static BUDGETED_COST: string = 'Budgeted Cost ';
   public static ESTIMATED_COST: string = 'Estimated Cost ';
+  public static BASIC_ESTIMATED_COST: string = 'Basic Estimated Cost ';
+  public static TOTAL_ESTIMATED_COST: string = 'Total Estimated Cost ';
   public static COST_HEAD: string = 'Cost Head';
   public static AMENITY_COST_HEAD: string = 'Amenity Cost Head';
   public static REPORT_BY_THUMBRULE: string = 'By Thumbrule';
@@ -631,6 +652,10 @@ export class Label {
   public static WORKITEM_DETAILED_QUANTITY_TAB: string = 'detailedQuantity';
   public static ATTACH_FILE: string = 'Attach File';
   public static DIRECT_QUANTITY: string = 'directQty';
+  public static GST_COMPONENT = 'GST Component';
+  public static TOTAL_GST_B = 'Total GST Component(B)';
+  public static TOTAL_GST_C = 'Total GST Component(C)';
+  public static TOTAL_GST_COMPONENT = 'Total GST Component';
 
   //Quantity View
   public static DEFAULT_VIEW = 'default';
@@ -771,6 +796,8 @@ export class MaterialTakeOffElements {
   public static SORT = 'sort';
   public static CHECK_SUB_CONTENT_PRESENT = 'checkSubContentPresent';
   public static MATERIAL_TAKE_OFF_REPORT_HEADING = 'Material Take Off Report';
+  public static COST_HEAD_WISE_REPORT_HEADING = '(Cost Head Wise)';
+  public static MATERIAL_WISE_REPORT_HEADING = '(Material Wise)';
   public static REPORT_EMPTY_MESSAGE = 'There is no estimate entered against any cost head. Kindly enter estimate to generate material take off report.';
 }
 
@@ -809,6 +836,7 @@ export class ValueConstant {
   public static NUMBER_OF_FRACTION_DIGIT = 2;
   public static FILE_SIZE = 5000000;
   public static NO_OF_BUILDINGS_VALUES :Number[]= [2,3,4,5];
+  public static GST_VALUES :Number[]= [0,5,12,18,28];
 
 }
 

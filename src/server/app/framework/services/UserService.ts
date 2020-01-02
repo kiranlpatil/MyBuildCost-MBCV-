@@ -32,7 +32,6 @@ import alasql = require('alasql');
 import Constants = require('../../applicationProject/shared/constants');
 import LoggerService = require('../shared/logger/LoggerService');
 import Mobile = require("../../applicationProject/dataaccess/model/Users/Mobile");
-import json2csv = require("json2csv");
 import UsageTrackingRepository = require("../../applicationProject/dataaccess/repository/UsageTrackingRepository");
 
 let CCPromise = require('promise/lib/es6-extensions');
@@ -44,6 +43,7 @@ let path = require('path');
 let request = require('request');
 let xlsxj = require('xlsx-to-json');
 var async =  require('async');
+const { Parser } = require('json2csv');
 
 class UserService {
   APP_NAME: string;
@@ -1820,6 +1820,7 @@ if(duplicateUser.hasOwnProperty("RAP")){
       }
     });
   }
+
   updatePaymentStatus(userId: string, paymentStatus: string, callback: (error: any, result: any) => void) {
 
     let query = {'_id': userId};
@@ -1886,7 +1887,8 @@ if(duplicateUser.hasOwnProperty("RAP")){
             {label: 'Subscription.ExpiryDate', value: 'subscriptionForRA.expiryDate'},
             {label: 'Subscription.IsExpired', value: 'subscriptionForRA.isPackageExpired'}];
 
-          var csv = json2csv({data: userList, fields: fields});
+          const parser = new Parser({ fields });
+          const csv = parser.parse(userList);
           var pathOfFile = path.resolve() + config.get('application.exportFilePathServer') + 'RateAnalysisUsers.csv';
           this.createCsvFile(pathOfFile, csv);
           resolve(userList);
@@ -1950,7 +1952,8 @@ if(duplicateUser.hasOwnProperty("RAP")){
                 {label: 'Subscription.ExpiryDate', value: 'Subscription_ExpiryDate'},
                 {label: 'Subscription.IsExpired', value: 'Subscription_IsExpired'}];
 
-              var csv = json2csv({data: csvData, fields: fields});
+              const parser = new Parser({ fields });
+              const csv = parser.parse(csvData);
               var pathOfFile = path.resolve() + config.get('application.exportFilePathServer') + 'MyBuildCostUser.csv';
               this.createCsvFile(pathOfFile, csv);
               resolve(userList);
@@ -1997,7 +2000,8 @@ if(duplicateUser.hasOwnProperty("RAP")){
                 {label: 'WorkItem', value: 'workItemName'}, {label: 'Region Name', value: 'regionName'},
                 {label: 'IsPaidWorkItem', value: 'isPaidWorkItem'}, {label: 'Used On Time', value: 'createdAt'}];
 
-              var csv = json2csv({data: userData, fields: fields});
+              const parser = new Parser({ fields });
+              const csv = parser.parse(userData);
               var pathOfFile = path.resolve() + config.get('application.exportFilePathServer') + 'AppUsageDetails.csv';
               this.createCsvFile(pathOfFile, csv);
               resolve(userData);
@@ -2093,6 +2097,148 @@ if(duplicateUser.hasOwnProperty("RAP")){
           console.log('Mail sent successfully to Big slice on RA user registration');
         }
       });
+  }
+  updateUserSubscription(mobileno:number,activationDate:string,validity:number,callback:(error:any,result:any)=>void) {
+    logger.info('User service, updateUserSubscription has been hit');
+    let query:any;
+    query = {'mobile_number':mobileno,'typeOfApp':'RAapp'};
+    this.userRepository.retrieve(query,(error,res)=> {
+      if (error) {
+        callback(error, null);
+      } else if(res.length !== 0) {
+        let updateQuery:any;
+        if(activationDate === undefined || activationDate === '') {
+          updateQuery = {$set: {'subscriptionForRA.validity': validity,
+              'subscriptionForRA.name': 'RAPremium'}};
+        } else {
+          let activeDate = new Date(activationDate).toISOString();
+          updateQuery = {$set: {'subscriptionForRA.validity': validity,
+              'subscriptionForRA.activationDate':activeDate,
+              'subscriptionForRA.name': 'RAPremium'}};
+        }
+          this.userRepository.findOneAndUpdate(query, updateQuery, {new: true}, (error, res) => {
+            logger.info('User service, findOneAndUpdate has been hit');
+            let sendMailService = new SendMailService();
+            if (error) {
+              callback(error, null);
+            } else {
+              callback(null, res);
+              let htmlTemplate = 'changed_user_subscription_mail.html';
+              let data: Map<string, string> = new Map([['$applicationLink$', config.get('application.mail.host')],
+                ['$activationDate$', res.subscriptionForRA.activationDate], ['$validity$', validity], ['$link$', 'http://mybuildcost.co.in/'], ['$mobile$',mobileno]]);
+              let attachment = MailAttachments.WelcomeAboardAttachmentArray;
+              sendMailService.send(config.get('application.mail.TPLGROUP_MAIL'), Messages.CHANGED_USER_SUBSCRIPTION, htmlTemplate, data, attachment,
+                (err: any, result: any) => {
+                  if (err) {
+                    logger.error(JSON.stringify(err));
+                  }
+                  logger.debug('Sending Mail : ' + JSON.stringify(result));
+                });
+              console.log(JSON.stringify(res));
+            }
+          });
+        } else {
+        callback(null, 'User not found');
+      }
+    });
+  }
+
+  blockRAUser(mobileNo: number,callback:(error:any, result:any)=>void) {
+    let query:any;
+    query = {'mobile_number':mobileNo,'typeOfApp':'RAapp'};
+    this.userRepository.retrieve(query,(error,res)=> {
+      if (error) {
+        callback(error, null);
+      } else if (res.length !== 0) {
+        let updateQuery = {$set:{'subscriptionForRA.validity':0}};
+        this.userRepository.findOneAndUpdate(query,updateQuery,{new: true},(error,res) => {
+          logger.info('User service, findOneAndUpdate has been hit');
+          let sendMailService = new SendMailService();
+          if (error) {
+            callback(error, null);
+          } else {
+            callback(null,res);
+            let htmlTemplate = 'ra-user-blocked-mail.html';
+            let data: Map<string, string> = new Map([['$applicationLink$', config.get('application.mail.host')],['$link$', 'http://mybuildcost.co.in/'], ['$mobile$',mobileNo]]);
+            let attachment = MailAttachments.WelcomeAboardAttachmentArray;
+            sendMailService.send(config.get('application.mail.TPLGROUP_MAIL'), Messages.ACCESS_BLOCKED, htmlTemplate, data, attachment,
+              (err: any, result: any) => {
+                if (err) {
+                  logger.error(JSON.stringify(err));
+                }
+                logger.debug('Sending Mail : ' + JSON.stringify(result));
+              });
+            console.log(JSON.stringify(res));
+          }
+        });
+      } else {
+        callback(null,'User not found');
+      }
+    });
+  }
+
+  updateProjectExpiryOfUser(email: string, projectName:string, activationDate:string, validity:number,
+                            callback:(error:any, result:any) => void) {
+    let query = {'email': email, 'typeOfApp':{ $exists: false }};
+    let projection = {path: 'project', select: ['name','activeStatus']};
+    this.userRepository.findAndPopulate(query,projection, (error, result) => {
+      if (error) {
+        callback(error, null);
+      } else if(result.length !== 0) {
+        let subscriptionList = result[0].subscription;
+        let projectDetails = result[0].project;
+        let isProjectPresent = false;
+        let newActivationDate = new Date();
+        if(projectDetails && projectDetails.length>0) {
+          for (let project of projectDetails) {
+            if ((project.name) === projectName) {
+              for (let subscription of subscriptionList) {
+                if (subscription.projectId.length !== 0 && (subscription.projectId[0].equals(project._id))) {
+                  if(activationDate !== undefined && activationDate !== '') {
+                    subscription.activationDate = new Date(activationDate);
+                  }
+                  subscription.validity = validity;
+                  newActivationDate = (subscription.activationDate).toISOString();
+                  isProjectPresent = true;
+                }
+              }
+            }
+          }
+        }
+        if(isProjectPresent) {
+          this.updateSubscriptionByEmail(email, subscriptionList, callback);
+          let sendMailService = new SendMailService();
+          let htmlTemplate = 'project-expire-email.html';
+          let data: Map<string, string> = new Map([['$applicationLink$', config.get('application.mail.host')],['$project$',projectName],
+            ['$activationDate$', newActivationDate], ['$validity$', validity], ['$link$', 'http://mybuildcost.co.in/'], ['$email$',email]]);
+          let attachment = MailAttachments.WelcomeAboardAttachmentArray;
+          sendMailService.send(config.get('application.mail.TPLGROUP_MAIL'), Messages.CHANGED_USER_SUBSCRIPTION_FOR_PROJECT,
+            htmlTemplate, data, attachment,
+            (err: any, result: any) => {
+              if (err) {
+                logger.error(JSON.stringify(err));
+              }
+              logger.debug('Sending Mail : ' + JSON.stringify(result));
+            });
+        } else {
+          callback(null, 'Project Not present');
+        }
+      } else {
+        callback(null, 'User not found');
+      }
+    });
+  }
+
+  private updateSubscriptionByEmail(email: string, subscriptionList:any, callback: (error: any, result: any) => void) {
+    let query = {'email': email, 'typeOfApp': {$exists: false}};
+    let newData = {$set: {'subscription': subscriptionList}};
+    this.userRepository.findOneAndUpdate(query, newData, {new: true}, (err, response) => {
+      if (err) {
+        callback(err, null);
+      } else {
+        callback(null, {data: 'success'});
+      }
+    });
   }
 }
 

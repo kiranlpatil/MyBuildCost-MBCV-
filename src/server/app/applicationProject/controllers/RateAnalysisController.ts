@@ -190,6 +190,91 @@ class RateAnalysisController {
 
   }
 
+  exportRateAnalysisData(req: express.Request, res: express.Response, next: any): void {
+    try {
+      let rateAnalysisService = new RateAnalysisService();
+      rateAnalysisService.exportDataToCSV((error, result) => {
+        if (error) {
+          next(error);
+        } else {
+          next(new Response(200, result));
+        }
+      });
+    } catch(e) {
+      next(new CostControllException(e.message,e.stack));
+    }
+  }
+
+  importRateAnalysisData(req: express.Request, res: express.Response, next: any): void {
+    try {
+      let rateAnalysisService = new RateAnalysisService();
+      rateAnalysisService.readFromExcel((error, result) => {
+        if (error) {
+          next(error);
+        } else {
+          next(new Response(200, result));
+        }
+      });
+    } catch(e) {
+      next(new CostControllException(e.message,e.stack));
+    }
+  }
+  migrateDataOfAllUsers(req: express.Request, res: express.Response, next: any): void {
+    try {
+      let rateAnalysisService = new RateAnalysisService();
+      rateAnalysisService.syncNewDataForAllUsers();
+    } catch(e) {
+      next(new CostControllException(e.message,e.stack));
+    }
+  }
+  updateGstOfProjects(req: express.Request, res: express.Response, next: any): void{
+    try {
+      logger.info('Rate Analysis Controller, getAllProjectData has been hit');
+      let rateAnalysisService = new RateAnalysisService();
+      rateAnalysisService.updateGstOfProjects((error: any, resp:any) =>{
+        if (error) {
+          next(error);
+        } else {
+          next(new Response(200, resp));
+        }
+      });
+    }catch(e) {
+      next(new CostControllException(e.message,e.stack));
+    }
+  }
+
+  updateGstOfBuildings(req: express.Request, res: express.Response, next: any): void{
+    try {
+      logger.info('Rate Analysis Controller, getAllBuildingData has been hit');
+      let rateAnalysisService = new RateAnalysisService();
+      rateAnalysisService.updateGstOfBuildings((error: any, resp:any) =>{
+        if (error) {
+          next(error);
+        } else {
+          next(new Response(200, resp));
+        }
+      });
+    }catch(e) {
+      next(new CostControllException(e.message,e.stack));
+    }
+  }
+
+  verifyProjectData(req: express.Request, res: express.Response, next: any): void {
+    try {
+      logger.info('Rate Analysis Controller, verifyProjectData has been hit');
+      //let arrayOfIds = req.body.ids;
+      let rateAnalysisService = new RateAnalysisService();
+      rateAnalysisService.verifyProjectData((error: any, resp:any) => {
+        if (error) {
+          next(error);
+        } else {
+          next(new Response(200, resp));
+        }
+      });
+    }catch(e) {
+      next(new CostControllException(e.message,e.stack));
+    }
+  }
 }
 
 export  = RateAnalysisController;

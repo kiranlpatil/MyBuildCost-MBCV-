@@ -3,6 +3,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {AppSettings, CommonService, SessionStorage, SessionStorageService} from '../../../shared/index';
 import { Menus, NavigationRoutes, CurrentView, Button } from '../../../shared/constants';
 import { CostSummaryService } from '../project/cost-summary-report/cost-summary.service';
+import {ProjectHeaderVisibilityService} from "../../../shared/services/project-header-visibility.service";
 
 @Component({
   moduleId: module.id,
@@ -28,18 +29,26 @@ export class ProjectHeaderComponent implements OnInit {
   item :any;
   status : string ;
   view : string ;
-  projectHeaderviews = ['accountSummary','paymentForm'] ;
-
+  projectHeaderViews = ['accountSummary','paymentForm'] ;
+  isShowHeader :boolean = true;
 
 
   constructor(private _router: Router,private activatedRoute:ActivatedRoute,
-              private costSummaryService : CostSummaryService,private commonService:CommonService) {
+              private costSummaryService : CostSummaryService,private commonService:CommonService,
+              private projectHeaderVisibilityService:ProjectHeaderVisibilityService) {
+    this.subscription = this.projectHeaderVisibilityService.changeProjectHeaderVisibilityStatus$.subscribe(
+      (isShowHeader:boolean )=> {
+        this.isShowHeader= isShowHeader;
+        this.status = SessionStorageService.getSessionValue(SessionStorage.STATUS);
+        this.view =SessionStorageService.getSessionValue(SessionStorage.CURRENT_VIEW);
+      }
+    );
+
+
   }
 
   ngOnInit() {
     this.view =SessionStorageService.getSessionValue(SessionStorage.CURRENT_VIEW);
-    console.log(this.view);
-    console.log(this.projectHeaderviews.indexOf(this.view)<0);
     this.activatedRoute.params.subscribe(params=> {
       this.premiumPackageExist=params['premiumPackageExist'];
       this.premiumPackageAvailable = this.premiumPackageExist!=='false'?true:false;
@@ -48,9 +57,12 @@ export class ProjectHeaderComponent implements OnInit {
     if(this.getCurrentProjectId() && this.getCurrentProjectId()!== AppSettings.SAMPLE_PROJECT_ID ) {
       this.getProjectSubscriptionDetails();
       this.status = SessionStorageService.getSessionValue(SessionStorage.STATUS);
-    } else if(this.getCurrentProjectId()=== AppSettings.SAMPLE_PROJECT_ID ) {
+    } else if((this.getCurrentProjectId()=== AppSettings.SAMPLE_PROJECT_ID) &&
+        (SessionStorageService.getSessionValue(SessionStorage.USER_ID) !== AppSettings.SAMPLE_PROJECT_USER_ID)) {
       this.buttonDisableForSampleProject = true;
       this.status = SessionStorageService.getSessionValue(SessionStorage.STATUS);
+    }if(this.costSummaryService.validateUser()) {
+      this.getProjectSubscriptionDetails();
     }
    /* this.subscription = this.commonService.deleteEvent$
       .subscribe(item =>this.getProjectSubscriptionDetails()
@@ -64,12 +76,10 @@ export class ProjectHeaderComponent implements OnInit {
   getProjectSubscriptionDetails () {
     let userId = SessionStorageService.getSessionValue(SessionStorage.USER_ID);
     let projectId = SessionStorageService.getSessionValue(SessionStorage.CURRENT_PROJECT_ID);
-    if(projectId && userId && (projectId !== AppSettings.SAMPLE_PROJECT_ID)) {
       this.costSummaryService.checkLimitationOfBuilding(userId, projectId).subscribe(
         status=>this.checkLimitationOfBuildingSuccess(status),
         error=>this.checkLimitationOfBuildingFailure(error)
       );
-    }
   }
 
   goToCreateBuilding() {
@@ -84,13 +94,17 @@ export class ProjectHeaderComponent implements OnInit {
 
 
   checkLimitationOfBuildingSuccess(status:any) {
-    this.numberOfRemainingBuildings = status.numOfBuildingsRemaining;
-    this.activeStatus = status.activeStatus;
-    this.addBuildingButtonDisable =status.addBuildingDisable;
-    if(status.expiryMessage) {
-      this.subscriptionValidityMessage = status.expiryMessage;
-    } else if(status.warningMessage) {
-      this.subscriptionValidityMessage = status.warningMessage;
+    if(this.costSummaryService.validateUser()) {
+      this.numberOfRemainingBuildings = status.numOfBuildingsRemaining;
+    } else {
+      this.numberOfRemainingBuildings = status.numOfBuildingsRemaining;
+      this.activeStatus = status.activeStatus;
+      this.addBuildingButtonDisable =status.addBuildingDisable;
+      if(status.expiryMessage) {
+        this.subscriptionValidityMessage = status.expiryMessage;
+      } else if(status.warningMessage) {
+        this.subscriptionValidityMessage = status.warningMessage;
+      }
     }
   }
 

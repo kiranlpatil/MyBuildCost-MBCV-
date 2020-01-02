@@ -12,6 +12,8 @@
   max-width: 100%;
   padding: 5px;
   position: relative;
+  //right: 7%;
+  right: 11%;
 
   .close {
     width: 10px;
@@ -27,11 +29,11 @@
         font-size: 11px;
         padding: 10px 10px 2px;
         text-align: center;
-        width: 15%;
+        //width: 15%;
 
         &:first-child {
           padding: 10px 10px 2px 0;
-          width: 40%;
+          //width: 40%;
         }
 
         &:last-child {
@@ -43,8 +45,8 @@
       background: transparent;
       border: 1px solid transparent;
       td {
-        padding: 0;
-        width: 17.5%;
+        padding: 0 7px;
+        //width: 17.5%;
 
         .form-control {
           border: 1px solid $white;
@@ -75,7 +77,7 @@
         }
 
         &:first-child {
-          width: 30%;
+         //width: 30%;
           padding: 0;
         }
 
@@ -143,6 +145,7 @@
     border-top: 1px solid $gray-light;
     display: block;
     float: left;
+    width: 100%;
 
     .rate-item {
       padding: 0 !important;
@@ -328,7 +331,8 @@
   border: solid transparent;
   content: " ";
   height: 0;
-  left: 47%;
+  //left: 47%;
+  left:48%;
   position: absolute;
   pointer-events: none;
   width: 0;
@@ -356,11 +360,11 @@
 }
 
 .get-cost-section:after, .get-cost-section:before {
-  left: 63% !important;
+  left: 65% !important;
 }
 
 .get-systemRA-section:after, .get-systemRA-section:before {
-  left: 79% !important;
+  left: 85% !important;
 }
 
 input[disabled],
@@ -374,6 +378,9 @@ textarea[disabled] {
   .get-rate-section,
   .get-cost-section,
   .get-systemRA-section {
+    right: 0;
+    max-width: 340px;
+    overflow-x: scroll;
     margin: 0 0 10px;
     .quantity-count,
     .get-rate-table {
@@ -382,6 +389,7 @@ textarea[disabled] {
     table {
       tr {
         td {
+          width: 20%;
           &:first-child {
             width: 30%;
           }
@@ -394,6 +402,7 @@ textarea[disabled] {
           &:nth-child(4) {
             width: 17.5%;
           }
+
 
         }
       }
@@ -441,6 +450,11 @@ textarea[disabled] {
   .get-systemRA-section:after, .get-systemRA-section:before {
     display: none;
   }
+  .gst-mobile-view{
+    .gst-comp{
+      width: 75px;
+    }
+  }
 }
 .validate-amount {
   border: 1px solid red !important;
@@ -449,4 +463,55 @@ textarea[disabled] {
 
 .notes-col {
   width: 100% !important;
+}
+
+.gst-comp{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  .select-item{
+    width: 55%;
+  }
+}
+.get-rate-table{
+  tr{
+    td{
+      width: 8%;
+      &:nth-child(1){
+        width: 12%;
+      }
+      &:nth-child(3){
+        width: 5%;
+      }
+    }
+  }
+}
+.table-rate-item{
+  width: 100%;
+}
+@media (min-width:1500px) and (max-width: 1920px) {
+  .get-rate-section::before,.get-rate-section::after{
+    left: 52%;
+  }
+  .get-cost-section::before,.get-cost-section:after{
+    left: 70%!important;
+  }
+  .get-systemRA-section::before,.get-systemRA-section::after{
+    left: 86%!important;
+  }
+}
+.get-cost-section,.get-systemRA-section{
+  .get-rate-table{
+    tr{
+      td{
+        color:#999 !important;
+        &:last-child{
+          color: #434c5e!important;
+        }
+      }
+      .gst-comp .select-item{
+        color:#999 !important;;
+      }
+    }
+  }
 }
