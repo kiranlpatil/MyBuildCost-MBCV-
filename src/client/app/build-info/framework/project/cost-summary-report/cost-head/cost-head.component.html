@@ -84,6 +84,7 @@
                                     <textarea [(ngModel)]="workItem.name"
                                               id="workItemName"
                                               (change)="updateWorkItemName(category.rateAnalysisId, workItem)"
+                                              (focus)="setWorkItemName(workItem.name)"
                                               class="form-control clear workItemNameTextarea"
                                               title="Change item name"></textarea>
                                     <!--<span [hidden]="workItemNameFocus" (click)="toggleInput()">{{ workItem.name }}</span>-->
