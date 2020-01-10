@@ -4049,8 +4049,9 @@ export class ProjectService {
                 } else if (buildingData.length > 0) {
                   let arrayOfBuildingDetails = new Array();
                   let arrayOfNewBuldingId = new Array();
+                  let newBuildingName = "";
                   for (let building of buildingData) {
-                    let buildingDetails = this.createCopyOfBuilding(building);
+                    let buildingDetails = this.createCopyOfBuilding(building, newBuildingName);
                     arrayOfBuildingDetails.push(buildingDetails);
                   }
                   this.buildingRepository.insertMany(arrayOfBuildingDetails, (error, result) => {
@@ -4077,18 +4078,18 @@ export class ProjectService {
                     if (error) {
                       callback(error, null);
                     } else {
-                      callback(null, "Project copied successfully");
+                      callback(null, Constants.PROJECT_COPIED_SUCCESSFULLY);
                     }
                   });
                 }
               });
             } else {
-              callback(null, "Project not found");
+              callback(null, Constants.PROJECT_NOT_FOUND);
             }
           }
         });
       } else {
-        callback(null, "User not found");
+        callback(null, Constants.USER_NOT_FOUND);
       }
     });
   }
@@ -4115,9 +4116,9 @@ export class ProjectService {
                 callback(err, null);
               } else {
                 if (response !== null) {
-                  callback(null, "Project copied successfully");
+                  callback(null,Constants.PROJECT_COPIED_SUCCESSFULLY);
                 } else {
-                  callback(null, "Destination user not found");
+                  callback(null,Constants.DEST_USER_NOT_FOUND);
                 }
               }
             });
@@ -4127,9 +4128,13 @@ export class ProjectService {
     });
   }
 
-  createCopyOfBuilding(building: any) {
+  createCopyOfBuilding(building: any, newBuildingName: any) {
     let buildings = new BuildingModel();
-    buildings.name = building.name;
+    if (newBuildingName.trim() !== "") {
+      buildings.name = newBuildingName;
+    } else {
+      buildings.name = building.name;
+    }
     buildings.totalSlabArea = building.totalSlabArea;
     buildings.totalCarpetAreaOfUnit = building.totalCarpetAreaOfUnit;
     buildings.totalSaleableAreaOfUnit = building.totalSaleableAreaOfUnit;
@@ -4195,6 +4200,107 @@ export class ProjectService {
     let projects = 'SEARCH // FROM ?';
     let arrayOfProjectId = alasql(projects, [arrayOfProject]);
     return arrayOfProjectId;
+  }
+
+  copyBuilding(sourceEmail: string, destEmail: string, sourceProjectName: string, destProjectName: string, oldBuildingName: string, newBuildingName: string, callback: (error: any, result: any) => void) {
+    this.getProject(sourceEmail,(error:any,projects:any) => {
+    if(error){
+      callback(error,null);
+    }else {
+      if (projects == Constants.USER_NOT_FOUND) {
+        callback(null, Constants.USER_NOT_FOUND);
+      } else if (projects.length > 0) {
+        let sourceProject = projects.filter(function (project: any) {
+          if (project.name == sourceProjectName) {
+            return project;
+          }
+        });
+        if (sourceProject.length > 0) {
+          let buildings = sourceProject[0].buildings;
+          let query = {_id: {$in: buildings}};
+          this.buildingRepository.find(query, (error, buildingData) => {
+            if (error) {
+              callback(error, null);
+            } else if (buildingData.length > 0) {
+              let building = buildingData.filter(function (building: any) {
+                if (building.name == oldBuildingName) {
+                  return building;
+                }
+              });
+              if (building.length > 0) {
+                this.getProject(destEmail, (error, projects) => {
+                  if (error) {
+                    callback(error, null);
+                  } else if (projects == Constants.USER_NOT_FOUND) {
+                    callback(null, Constants.USER_NOT_FOUND);
+                  } else if (projects.length > 0) {
+                    let destProject = projects.filter(function (project: any) {
+                      if (project.name == destProjectName) {
+                        return project;
+                      }
+                    });
+                    if (destProject.length > 0) {
+                      let copyOfBuilding: any = this.createCopyOfBuilding(building[0], newBuildingName);
+                      this.buildingRepository.create(copyOfBuilding, (error, result) => {
+                        if (error) {
+                          callback(error, null);
+                        } else {
+                          let count = destProject[0].buildings.length;
+                          if (count < 5) {
+                            let query = {'_id': destProject[0]._id};
+                            let newData = {$push: {buildings: result._id}};
+                            this.projectRepository.findOneAndUpdate(query, newData, {new: true}, (error, result) => {
+                              if (error) {
+                                callback(error, null);
+                              } else {
+                                callback(null, Constants.BUILDING_COPIED_SUCCESSFULLY)
+                              }
+                            });
+                          } else {
+                            callback(null, Constants.GET_SUBSCRIPTION_FOR_BUILDING);
+                          }
+                        }
+                      });
+                    } else {
+                      callback(null, Constants.DEST_PROJECT_NOT_FOUND);
+                    }
+                  }
+                });
+              } else {
+                callback(null, Constants.SOURCE_BUILDING_NOT_FOUND);
+              }
+            }
+          });
+        } else {
+          callback(null, Constants.SOURCE_PROJECT_NOT_FOUND);
+        }
+      }else {
+        callback(null, Constants.PROJECT_NOT_FOUND);
+      }
+    }
+        });
+  }
+
+  getProject(email: any, callback: (error: any, result: any) => void) {
+    let query = {'email': email};
+    this.userRepository.retrieve(query, (error, users) => {
+      logger.info('RateAnalysis service, find User has been hit');
+      if (error) {
+        callback(error, null);
+      }else if (users.length > 0) {
+        let arrayOfProjectId = this.getArrayOfProjectId(users);
+        let query = {_id: {$in: arrayOfProjectId}};
+        this.projectRepository.find(query, (error, projects) => {
+          if (error) {
+            callback(error, null);
+          }else{
+            callback(null,projects);
+          }
+        });
+      }else{
+        return callback(null,Constants.USER_NOT_FOUND);
+      }
+    });
   }
 }
 

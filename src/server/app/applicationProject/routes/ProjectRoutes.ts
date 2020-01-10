@@ -347,6 +347,7 @@ this.authInterceptor.requiresAuth, this._requestInterceptor.intercept, controlle
     /* GST Routes */
     router.get('/import/gstData', controller.importGstData, this._responseInterceptor.exit);
     router.post('/copyProject',controller.copyProject, this._responseInterceptor.exit);
+    router.post('/copyBuilding',controller.copyBuilding, this._responseInterceptor.exit);
     return router;
   }
 }
