@@ -4089,7 +4089,7 @@ export class ProjectService {
           }
         });
       } else {
-        callback(null, Constants.USER_NOT_FOUND);
+        callback(null, Constants.SOURCE_USER_NOT_FOUND);
       }
     });
   }
@@ -4208,7 +4208,7 @@ export class ProjectService {
       callback(error,null);
     }else {
       if (projects == Constants.USER_NOT_FOUND) {
-        callback(null, Constants.USER_NOT_FOUND);
+        callback(null, Constants.SOURCE_USER_NOT_FOUND);
       } else if (projects.length > 0) {
         let sourceProject = projects.filter(function (project: any) {
           if (project.name == sourceProjectName) {
@@ -4232,7 +4232,7 @@ export class ProjectService {
                   if (error) {
                     callback(error, null);
                   } else if (projects == Constants.USER_NOT_FOUND) {
-                    callback(null, Constants.USER_NOT_FOUND);
+                    callback(null, Constants.DEST_USER_NOT_FOUND);
                   } else if (projects.length > 0) {
                     let destProject = projects.filter(function (project: any) {
                       if (project.name == destProjectName) {
