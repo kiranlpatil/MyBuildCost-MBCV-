@@ -4164,7 +4164,7 @@ export class ProjectService {
     let data: Map<string, string> = new Map([['$applicationLink$', config.get('application.mail.host')],
       ['$link$', 'http://mybuildcost.co.in/'], ['$source$',sourceEmail], ['$dest$',destEmail], ['$name$',name]]);
     let attachment = MailAttachments.WelcomeAboardAttachmentArray;
-    sendMailService.send('saurabh.joshi@techprimelab.com', msg, htmlTemplate, data, attachment,
+    sendMailService.send(config.get('application.mail.TPLGROUP_MAIL'), msg, htmlTemplate, data, attachment,
       (err: any, result: any) => {
         if (err) {
           logger.error(JSON.stringify(err));
